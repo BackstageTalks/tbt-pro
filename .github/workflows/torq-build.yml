@@ -1,0 +1,66 @@
+name: Build Torq Pages
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Daily Tennis Predictions"]
+    types: [completed]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: build-torq-pages
+  cancel-in-progress: false
+
+jobs:
+  build-torq:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    env:
+      RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+      TENNISAPI_RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+      USE_ODDS_API_FALLBACK: "false"
+      RECENT_FORM_DAYS: "150"
+      TORQ_TOP_MIN_ODDS: "1.50"
+      TORQ_TOP_MAX_ODDS: "3.50"
+      TORQ_MIN_PROBABILITY: "0.60"
+      TORQ_MIN_AI_MATCH: "70"
+      B_HAND_MIN_SELECTED_ODDS: "1.75"
+      B_HAND_MAX_SELECTED_ODDS: "2.50"
+      B_HAND_MAX_MARKET_GAP_PP: "12"
+      B_HAND_MIN_EDGE_PP: "4"
+      B_HAND_MIN_AI_MATCH: "65"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Compile Torq files
+        run: |
+          python -m py_compile src/elo/torq_fusion.py
+          python -m py_compile src/marq_ai/torq_market.py
+          python -m py_compile torq_build.py
+          python -m py_compile telegram_torq_feed.py
+      - name: Build Torq pages and RSS
+        run: python torq_build.py
+      - name: Commit Torq generated files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public src/elo/torq_fusion.py src/marq_ai/torq_market.py torq_build.py telegram_torq_feed.py .github/workflows/telegram-torq-feed.yml .github/workflows/torq-build.yml || true
+          if git diff --cached --quiet; then
+            echo "No Torq changes to commit."
+            exit 0
+          fi
+          git commit -m "Build Torq AI pages"
+          git pull --rebase --autostash
+          git push
