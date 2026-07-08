@@ -28,6 +28,7 @@ TORQ_MIN_PROBABILITY = env_float("TORQ_MIN_PROBABILITY", 0.60)
 TORQ_MIN_AI_MATCH = env_float("TORQ_MIN_AI_MATCH", 70.0)
 TORQ_TOP_MIN_ODDS = env_float("TORQ_TOP_MIN_ODDS", 1.50)
 TORQ_TOP_MAX_ODDS = env_float("TORQ_TOP_MAX_ODDS", 3.50)
+
 B_HAND_MIN_SELECTED_ODDS = env_float("B_HAND_MIN_SELECTED_ODDS", 1.75)
 B_HAND_MAX_SELECTED_ODDS = env_float("B_HAND_MAX_SELECTED_ODDS", 2.50)
 B_HAND_MAX_MARKET_GAP_PP = env_float("B_HAND_MAX_MARKET_GAP_PP", 12.0)
@@ -35,7 +36,24 @@ B_HAND_MIN_EDGE_PP = env_float("B_HAND_MIN_EDGE_PP", 4.0)
 B_HAND_MIN_AI_MATCH = env_float("B_HAND_MIN_AI_MATCH", 65.0)
 
 
-def ai_match_from_probabilities(long_probability: Optional[float], short_probability: Optional[float]) -> Tuple[Optional[float], Optional[float], str]:
+def is_doubles_name(value: Any) -> bool:
+    text = str(value or "")
+    return " / " in text or "/" in text
+
+
+def is_doubles_match(item: Dict[str, Any]) -> bool:
+    return (
+        bool(item.get("is_doubles"))
+        or is_doubles_name(item.get("player1"))
+        or is_doubles_name(item.get("player2"))
+        or is_doubles_name(item.get("match"))
+    )
+
+
+def ai_match_from_probabilities(
+    long_probability: Optional[float],
+    short_probability: Optional[float],
+) -> Tuple[Optional[float], Optional[float], str]:
     if long_probability is None or short_probability is None:
         return None, None, "NO_SHORT_DATA"
     gap = abs(long_probability - short_probability)
@@ -58,7 +76,10 @@ def implied_probability(odds: Any) -> Optional[float]:
     return 1.0 / decimal
 
 
-def no_vig_market_probability(odds_a: Any, odds_b: Any) -> Tuple[Optional[float], Optional[float], Optional[float]]:
+def no_vig_market_probability(
+    odds_a: Any,
+    odds_b: Any,
+) -> Tuple[Optional[float], Optional[float], Optional[float]]:
     raw_a = implied_probability(odds_a)
     raw_b = implied_probability(odds_b)
     if raw_a is None or raw_b is None:
@@ -72,26 +93,33 @@ def no_vig_market_probability(odds_a: Any, odds_b: Any) -> Tuple[Optional[float]
 
 
 def build_torq_prediction(item: Dict[str, Any]) -> Dict[str, Any]:
+    is_doubles = is_doubles_match(item)
+
     corq = safe_float(item.get("corq_ai_probability"))
     if corq is None:
         corq = safe_float(item.get("base_probability"))
     if corq is None:
         corq = safe_float(item.get("probability"), 0.5)
+
     bst = safe_float(item.get("bst_ai_probability"))
     form_adj = clamp(safe_float(item.get("form_adjustment"), 0.0) or 0.0, -0.05, 0.05)
     form_component = clamp(0.5 + form_adj, 0.35, 0.65)
+
     if bst is not None:
         torq = 0.55 * corq + 0.30 * bst + 0.10 * form_component + 0.05 * 0.5
     else:
         torq = 0.80 * corq + 0.15 * form_component + 0.05 * 0.5
     torq = clamp(torq, 0.15, 0.85)
+
     ai_match, ai_gap, alignment = ai_match_from_probabilities(corq, bst)
     existing_ai_match = safe_float(item.get("ai_match"))
     if existing_ai_match is not None:
         ai_match = existing_ai_match * 100.0 if existing_ai_match <= 1.0 else existing_ai_match
         ai_match = round(clamp(ai_match, 0.0, 100.0), 1)
+
     odds = safe_float(item.get("odds"))
     odds_quality = 1.0 if odds is not None and TORQ_TOP_MIN_ODDS <= odds <= TORQ_TOP_MAX_ODDS else 0.0
+
     data_points = sum([
         corq is not None,
         bst is not None,
@@ -101,10 +129,24 @@ def build_torq_prediction(item: Dict[str, Any]) -> Dict[str, Any]:
     ])
     data_quality_score = data_points / 5.0
     data_quality = "GOOD" if data_quality_score >= 0.80 else "OK" if data_quality_score >= 0.60 else "THIN"
+
     market = str(item.get("torq_market_status") or item.get("marq_ai_signal") or "NO_DATA").upper()
     market_bonus = 0.06 if market in {"ALIGN", "CONFIRM", "CONFIRMED", "CONSENSUS"} else -0.08 if market in {"DISAGREE", "AGAINST"} else -0.14 if market in {"THIN", "OUTLIER"} else 0.0
-    confidence = clamp(torq * 0.45 + ((ai_match or 50.0) / 100.0) * 0.20 + data_quality_score * 0.15 + odds_quality * 0.10 + 0.10 + market_bonus, 0.0, 1.0)
+
+    confidence = clamp(
+        torq * 0.45
+        + ((ai_match or 50.0) / 100.0) * 0.20
+        + data_quality_score * 0.15
+        + odds_quality * 0.10
+        + 0.10
+        + market_bonus,
+        0.0,
+        1.0,
+    )
+
     reasons = []
+    if is_doubles:
+        reasons.append("DOUBLES_INFO_ONLY")
     if bst is None:
         reasons.append("NO_SHORT_XML_ELO")
     if alignment in {"STRONG_ALIGN", "ALIGN"}:
@@ -113,9 +155,13 @@ def build_torq_prediction(item: Dict[str, Any]) -> Dict[str, Any]:
         reasons.append("LONG_SHORT_DISAGREE")
     if odds is None:
         reasons.append("NO_ODDS")
+
     out = dict(item)
     out.update({
         "model": "Torq AI",
+        "is_doubles": is_doubles,
+        "torq_eligible_top5": not is_doubles,
+        "torq_eligible_b_hand": not is_doubles,
         "torq_probability": round(torq, 3),
         "probability": round(torq, 3),
         "torq_confidence": round(confidence, 3),
@@ -132,6 +178,8 @@ def build_torq_prediction(item: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def is_torq_top_candidate(item: Dict[str, Any]) -> bool:
+    if is_doubles_match(item):
+        return False
     probability = safe_float(item.get("torq_probability") or item.get("probability"))
     confidence = safe_float(item.get("torq_confidence") or item.get("confidence_score"), 0.0) or 0.0
     ai_match = safe_float(item.get("torq_ai_match") or item.get("ai_match"), 0.0) or 0.0
@@ -151,33 +199,49 @@ def is_torq_top_candidate(item: Dict[str, Any]) -> bool:
 
 
 def build_b_hand_candidate(item: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    if is_doubles_match(item):
+        return None
+
     odds1 = safe_float(item.get("odds_player1"))
     odds2 = safe_float(item.get("odds_player2"))
     if odds1 is None or odds2 is None:
         return None
+
     market_p1, market_p2, market_gap_pp = no_vig_market_probability(odds1, odds2)
-    if market_p1 is None or market_p2 is None or market_gap_pp is None or market_gap_pp > B_HAND_MAX_MARKET_GAP_PP:
+    if market_p1 is None or market_p2 is None or market_gap_pp is None:
         return None
-    pick, p1, p2 = str(item.get("pick") or ""), str(item.get("player1") or ""), str(item.get("player2") or "")
+    if market_gap_pp > B_HAND_MAX_MARKET_GAP_PP:
+        return None
+
+    pick = str(item.get("pick") or "")
+    p1 = str(item.get("player1") or "")
+    p2 = str(item.get("player2") or "")
     selected_probability = safe_float(item.get("torq_probability") or item.get("probability"))
     if selected_probability is None:
         return None
+
     if pick == p1:
         torq_p1, torq_p2 = selected_probability, 1.0 - selected_probability
     elif pick == p2:
         torq_p2, torq_p1 = selected_probability, 1.0 - selected_probability
     else:
         return None
-    edge1, edge2 = torq_p1 - market_p1, torq_p2 - market_p2
+
+    edge1 = torq_p1 - market_p1
+    edge2 = torq_p2 - market_p2
     if edge1 >= edge2:
         selected, selected_odds, selected_torq, selected_market, selected_edge = p1, odds1, torq_p1, market_p1, edge1
     else:
         selected, selected_odds, selected_torq, selected_market, selected_edge = p2, odds2, torq_p2, market_p2, edge2
+
     ai_match = safe_float(item.get("torq_ai_match") or item.get("ai_match"), 0.0) or 0.0
     if not (B_HAND_MIN_SELECTED_ODDS <= selected_odds <= B_HAND_MAX_SELECTED_ODDS):
         return None
-    if selected_edge * 100.0 < B_HAND_MIN_EDGE_PP or ai_match < B_HAND_MIN_AI_MATCH:
+    if selected_edge * 100.0 < B_HAND_MIN_EDGE_PP:
         return None
+    if ai_match < B_HAND_MIN_AI_MATCH:
+        return None
+
     out = dict(item)
     out.update({
         "model": "Torq B-Hand",
