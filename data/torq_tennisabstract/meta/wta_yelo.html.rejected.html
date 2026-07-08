@@ -1,0 +1,79 @@
+<html><head>
+<title>Tennis Abstract: WTA Season yElo Ratings</title>
+<link rel="stylesheet" href="https://www.tennisabstract.com/blue/style.css" type="text/css">
+<script type="text/javascript" src="https://www.tennisabstract.com/jquery-1.7.1-min.js"></script>
+<script type="text/javascript" src="https://www.tennisabstract.com/jquery.ui.core.js"></script>
+<script type="text/javascript" src="https://www.tennisabstract.com/jquery.ui.position.js"></script>
+<script type="text/javascript" src="https://www.tennisabstract.com/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="https://www.tennisabstract.com/jquery.ui.autocomplete.js"></script>
+<script type="text/javascript" src="https://www.tennisabstract.com/jsplayers/mwplayerlist.js"></script>
+
+<script type="text/javascript" src="https://www.tennisabstract.com/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="https://www.tennisabstract.com/navbar.js"></script>
+<script language="JavaScript">
+$(document).ready(function() {
+
+    if (typeof navbar !== 'undefined') {
+        $("#navbar").html(navbar);
+        }
+        
+    $("#reportable").attr('class', 'tablesorter');
+    $("#reportable").attr('border', 0).attr('cellspacing', 0).attr('cellpadding', 4);
+    $("#reportable").tablesorter( 
+                                {headers: {99: {sorter:false}},
+                                sortList: [[4,1]],
+                                }
+                               );
+
+    $('#playersearch').append($('<input>').attr('id', 'tags'));
+    var searchbox = "Player Search";        
+    $("#tags").val(searchbox);
+    $("#tags").focus(function() {
+        if ($(this).val() == searchbox) {$(this).val("");}
+        $( "#tags" ).autocomplete({
+                source: playerlist,
+                minLength: 2,
+                select: function(e, ui) {
+                    var playerselect = ui.item.value;
+                    var player = playerselect.slice(4);
+                    var mw = playerselect.slice(1,2);
+                    if (mw == 'M') {
+                        var playerurl = 'https://www.tennisabstract.com/cgi-bin/player.cgi?p=' + player.replace(/ /g, '');
+                        }
+                    else {
+                        var playerurl = 'https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p=' + player.replace(/ /g, '');
+                        }                        
+                    window.open(playerurl, "_self");
+                    }
+            });
+        });
+    });
+</script>
+</head>
+<body>
+
+<div id="header">
+
+<div id="navbar">
+</div>
+
+<table width="600px"><tr><td><p><b>Current yElo ratings for the WTA tour</b>. This list includes only those
+players who have won five or more tour-level, tour-level qualiyfing, men's challenger, 
+or ITF $50K+ matches in the current calendar year.
+
+<p>yElo only considers <i>current year</i> results for each player, as if we had no previous information to draw upon.
+It's like the official "Race" rankings, but with the Elo magic of
+properly adjusting for strength of opponent and taking into account the increased certainty that comes with larger samples. 
+
+<p>Learn more about Elo
+<a href="https://www.tennisabstract.com/blog/2019/12/03/an-introduction-to-tennis-elo/">here</a>, and
+read about the yElo concept
+<a href="https://www.tennisabstract.com/blog/2021/03/16/repurposing-elo-for-streaks-seasons-and-garbine-muguruza/">here</a>.
+
+<p>All Elo leaderboards, updated weekly:
+<br/><b>Men:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b> <a href="https://tennisabstract.com/reports/atp_elo_ratings.html">Elo</a> |
+<a href="https://tennisabstract.com/reports/atp_season_yelo_ratings.html">yElo</a>
+<br/><b>Women:</b> <a href="https://tennisabstract.com/reports/wta_elo_ratings.html">Elo</a> |
+<a href="https://tennisabstract.com/reports/wta_season_yelo_ratings.html">yElo</a>
+<p><i>Updated weekly(ish).  Last update: 2026-06-29</i><p>
+</td></tr></table><table width="600px"><tr><td><table id="reportable" class="tablesorter"><thead><tr><th align="right">Rank</th><th align="left">Player</th><th align="right">Wins</th><th align="right">Losses</th><th align="right">yElo</th></tr></thead></tbody><tr><td align="right">1</td><td align="left"><a href="https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p=MartaKostyuk">Marta&nbsp;Kostyuk</a></td><td align="right">23</td><td align="right">5</td><td align="right">2159.7</td></tr><tr><td align="right">2</td><td align="left"><a href="https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p=ArynaSabalenka">Aryna&nbsp;Sabalenka</a></td><td align="right">33</td><td align="right">5</td><td align="right">2144.1</td></tr><tr><td align="right">3</td><td align="left"><a href="https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p=ElinaSvitolina">Elina&nbsp;Svitolina</a></td><td align="right">36</td><td align="right">9</td><td align="right">2119.4</td></tr><tr><td align="right">4</td><td align="left"><a href="https://w
