@@ -115,6 +115,8 @@ class ThinqService:
         recent_form = build_recent_form_context(analysis_pick, analysis_opponent, surface_bucket)
 
         edges = {
+            "overall_elo_edge": float(elo.get("overall_elo_edge") or 0.0),
+            "surface_elo_edge": float(elo.get("surface_elo_edge") or 0.0),
             "elo_edge": float(elo.get("elo_edge") or 0.0),
             "h2h_edge": float(h2h.get("edge") or 0.0),
             "recent_form_edge": float(recent_form.get("recent_form_edge") or 0.0),
@@ -172,6 +174,8 @@ class ThinqService:
             "thinq_elo_opponent": elo.get("opponent_elo"),
             "thinq_yelo_pick": elo.get("pick_yelo"),
             "thinq_yelo_opponent": elo.get("opponent_yelo"),
+            "thinq_overall_elo_edge": edges["overall_elo_edge"],
+            "thinq_surface_elo_edge": edges["surface_elo_edge"],
             "thinq_elo_edge": edges["elo_edge"],
             "thinq_h2h_status": h2h.get("status"),
             "thinq_h2h_source": h2h.get("source"),
