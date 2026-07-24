@@ -1,149 +1,123 @@
-"""Clean CORQ engine.
+"""CORQ daily runtime.
 
-Flow:
-fetch_matches -> normalize -> odds -> candidate expansion -> THINQ -> CORQ -> ranking -> web
+Current MVP:
+1. Load match candidates from local JSON.
+2. Enrich missing THINQ data if thinq.service.ThinqService exists.
+3. Build CORQ score, edge and adjusted score.
+4. Write ALL and TOP7 JSON outputs.
+
+Next step after this MVP:
+- connect RapidAPI PRO fixture/odds loader inside corq.candidates or thinq.loaders
 """
+
 from __future__ import annotations
 
-from typing import Any, Dict, Iterable, List
-import importlib
+import argparse
+from datetime import date, datetime, timezone
+from typing import Any, Dict, List, Optional
 
-from match_normalizer import normalize_match
-from .odds import enrich_odds
-from .candidates import build_pick_candidates
-from .model import CorqModel
-from .ranking import rank_predictions, top_n_from_ranked, select_one_prediction_per_match
-from .outputs import publish_outputs
-
-
-def _extract_match_list(data: Any) -> List[Dict[str, Any]] | None:
-    if isinstance(data, list):
-        return data
-    if isinstance(data, dict):
-        for key in ["matches", "events", "data", "fixtures", "items"]:
-            value = data.get(key)
-            if isinstance(value, list):
-                return value
-    return None
+from corq.candidates import load_candidates
+from corq.model import build_corq_prediction
+from corq.outputs import save_all, save_run_manifest, save_top7
+from corq.ranking import make_all_match_view, rank_corq, top7_from_ranking
 
 
-def load_raw_matches() -> List[Dict[str, Any]]:
-    fetch = importlib.import_module("fetch_matches")
-
-    for name in ["get_today_matches", "fetch_matches", "get_matches", "load_matches", "main"]:
-        func = getattr(fetch, name, None)
-        if callable(func):
-            data = func()
-            matches = _extract_match_list(data)
-            if matches is not None:
-                return matches
-
-    get_for_date = getattr(fetch, "get_matches_for_date", None)
-    if callable(get_for_date):
-        target_date = None
-        betting_day = getattr(fetch, "betting_day", None)
-        if callable(betting_day):
-            try:
-                target_date = betting_day()
-            except Exception:
-                target_date = None
-        if target_date is not None:
-            data = get_for_date(target_date)
-            matches = _extract_match_list(data)
-            if matches is not None:
-                return matches
-
-    available = [
-        name for name in ["get_today_matches", "fetch_matches", "get_matches", "load_matches", "main", "get_matches_for_date"]
-        if callable(getattr(fetch, name, None))
-    ]
-    raise RuntimeError(
-        "fetch_matches.py does not expose a supported match loading function returning matches. "
-        f"Callable candidates found: {available}"
-    )
-
-
-def build_thinq(match: Dict[str, Any]) -> Dict[str, Any]:
+def _load_thinq_service():
     try:
-        from thinq.service import ThinqService
-        return ThinqService().analyse_match(match)
+        from thinq.service import ThinqService  # type: ignore
+        return ThinqService()
+    except Exception:
+        try:
+            from thinq.thinq_service import ThinqService  # type: ignore
+            return ThinqService()
+        except Exception:
+            return None
+
+
+def _enrich_with_thinq(record: Dict[str, Any], thinq_service: Any) -> Dict[str, Any]:
+    if record.get("thinq") or thinq_service is None:
+        return record
+
+    player1 = record.get("player1")
+    player2 = record.get("player2")
+    if not player1 or not player2:
+        return record
+
+    try:
+        thinq = thinq_service.build_match_features(
+            player1=str(player1),
+            player2=str(player2),
+            surface=record.get("surface"),
+            level=record.get("level"),
+            tournament_url=record.get("tournament_url"),
+            tour_type=record.get("tour_type"),
+            as_of_date=record.get("date") or date.today().isoformat(),
+            event_id=record.get("event_id") or record.get("eventId"),
+            player1_id=record.get("player1_id"),
+            player2_id=record.get("player2_id"),
+            tournament_id=record.get("tournament_id"),
+            best_of=int(record.get("best_of") or 3),
+            save_snapshot=False,
+        )
+        enriched = dict(record)
+        enriched["thinq"] = thinq
+        enriched["thinq_confidence"] = thinq.get("confidence")
+        return enriched
     except Exception as exc:
-        return {
-            "available": False,
-            "error": str(exc),
-            "confidence": 0.0,
-            "surface": {
-                "surface": match.get("surface") or "Unknown",
-                "surface_raw": match.get("surface_raw") or match.get("surface"),
-                "surface_source": "thinq_runtime_error_fallback",
-                "surface_model_bucket": "Overall",
-                "thinq_selected_elo_type": "overall_elo",
-            },
-            "edges": {},
-            "h2h": {
-                "status": "ERROR_NON_BLOCKING",
-                "edge": 0.0,
-                "confidence": 0.0,
-                "reason": str(exc),
-                "flags": ["H2H_SKIPPED_THINQ_RUNTIME_ERROR"],
-            },
-            "flags": ["THINQ_RUNTIME_ERROR"],
-        }
+        enriched = dict(record)
+        enriched["thinq_available"] = False
+        enriched["thinq_error"] = str(exc)
+        return enriched
 
 
-def _flatten_thinq(candidate: Dict[str, Any], thinq: Dict[str, Any]) -> None:
-    surface = thinq.get("surface") or {}
-    candidate["surface"] = surface.get("surface") or candidate.get("surface") or "Unknown"
-    candidate["surface_raw"] = surface.get("surface_raw")
-    candidate["surface_source"] = surface.get("surface_source")
-    candidate["surface_model_bucket"] = surface.get("surface_model_bucket")
-    candidate["thinq_selected_elo_type"] = surface.get("thinq_selected_elo_type")
-    candidate["thinq_available"] = bool(thinq.get("available"))
-    candidate["thinq_error"] = thinq.get("error")
-    candidate["thinq_confidence"] = thinq.get("confidence")
-    candidate["thinq_edges"] = thinq.get("edges") or {}
-    h2h = thinq.get("h2h") or {}
-    candidate["thinq_h2h_status"] = h2h.get("status")
-    candidate["thinq_h2h_edge"] = h2h.get("edge")
-    candidate["thinq_h2h_source"] = h2h.get("source")
-    candidate["thinq_h2h_confidence"] = h2h.get("confidence")
+def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", run_date: Optional[str] = None) -> Dict[str, Any]:
+    started_at = datetime.now(timezone.utc).isoformat()
+    candidates = load_candidates(input_path)
+    thinq_service = _load_thinq_service()
 
+    scored: List[Dict[str, Any]] = []
+    for candidate in candidates:
+        enriched = _enrich_with_thinq(candidate, thinq_service)
+        scored.append(build_corq_prediction(enriched))
 
-def build_predictions(raw_matches: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    model = CorqModel()
-    predictions: List[Dict[str, Any]] = []
-    for raw in raw_matches:
-        base_match = normalize_match(raw)
-        base_match = enrich_odds(base_match)
-        candidates = build_pick_candidates(base_match)
-        for candidate in candidates:
-            thinq = build_thinq(candidate)
-            candidate["thinq"] = thinq
-            _flatten_thinq(candidate, thinq)
-            predictions.append(model.score(candidate, thinq))
-    return predictions
+    all_view = make_all_match_view(scored)
+    ranking = rank_corq(scored)
+    top7 = top7_from_ranking(ranking, top_n=7)
+
+    all_paths = save_all(all_view, run_date=run_date, output_root=output_root)
+    top7_paths = save_top7(top7, run_date=run_date, output_root=output_root)
+
+    manifest = {
+        "runtime": "corq_daily_mvp",
+        "started_at_utc": started_at,
+        "finished_at_utc": datetime.now(timezone.utc).isoformat(),
+        "run_date": run_date or date.today().isoformat(),
+        "input_path": input_path,
+        "candidate_count": len(candidates),
+        "scored_count": len(scored),
+        "all_count": len(all_view),
+        "ranked_count": len(ranking),
+        "top7_count": len(top7),
+        "thinq_service_available": thinq_service is not None,
+        "outputs": {"all": all_paths, "top7": top7_paths},
+    }
+    manifest_paths = save_run_manifest(manifest, run_date=run_date, output_root=output_root)
+    manifest["outputs"]["manifest"] = manifest_paths
+    return manifest
 
 
 def main() -> None:
-    raw_matches = load_raw_matches()
-    candidate_predictions = build_predictions(raw_matches)
+    parser = argparse.ArgumentParser(description="Run CORQ daily MVP runtime")
+    parser.add_argument("--input", dest="input_path", default=None, help="Optional path to candidates/matches JSON")
+    parser.add_argument("--output-root", default="outputs", help="Output root directory")
+    parser.add_argument("--date", dest="run_date", default=None, help="Run date YYYY-MM-DD")
+    args = parser.parse_args()
 
-    # ALL is now match-level: one selected CORQ side per real match, with side audit kept in JSON.
-    all_predictions = select_one_prediction_per_match(candidate_predictions)
-
-    ranked = rank_predictions(candidate_predictions)
-    top7 = top_n_from_ranked(ranked, 7)
-    publish_outputs(all_predictions, ranked, top7)
-    try:
-        from web.render import render_all_pages
-        render_all_pages(all_predictions=all_predictions, corq_predictions=ranked, top7=top7)
-    except Exception as exc:
-        print(f"WEB_RENDER_NON_BLOCKING_ERROR: {exc}")
-    print(
-        "CORQ CLEAN RUNTIME OK: "
-        f"matches={len(raw_matches)} candidates={len(candidate_predictions)} "
-        f"all_matches={len(all_predictions)} ranked={len(ranked)} top7={len(top7)}"
-    )
+    manifest = run_daily(input_path=args.input_path, output_root=args.output_root, run_date=args.run_date)
+    print("CORQ runtime finished")
+    print(f"Candidates: {manifest['candidate_count']}")
+    print(f"ALL: {manifest['all_count']}")
+    print(f"TOP7: {manifest['top7_count']}")
 
 
 if __name__ == "__main__":

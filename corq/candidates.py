@@ -1,58 +1,88 @@
-"""Candidate builder for CORQ.
+"""Candidate loader for the clean CORQ runtime.
 
-CORQ must choose a side. It must not blindly use player1 as the pick.
-This module expands one normalized match into one or two pick candidates.
+MVP behavior:
+- reads local JSON if provided, so the runtime can be tested immediately
+- accepts either a list of matches or {"matches": [...]}
+- creates two side candidates for every singles match
+
+RapidAPI PRO match loading will be connected here after we inspect the old
+fixture loader/endpoints.
 """
+
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
+import json
+from pathlib import Path
+from typing import Any, Dict, Iterable, List, Optional
 
 
-def to_float(value: Any) -> Optional[float]:
+def as_float(value: Any, default=None):
     try:
-        if value in (None, ""):
-            return None
+        if value is None or value == "":
+            return default
         return float(value)
     except Exception:
-        return None
+        return default
 
 
-def build_pick_candidates(match: Dict[str, Any]) -> List[Dict[str, Any]]:
-    player1 = match.get("player1")
-    player2 = match.get("player2")
-    p1_odds = to_float(match.get("odds_player1") or match.get("p1_odds") or match.get("home_odds"))
-    p2_odds = to_float(match.get("odds_player2") or match.get("p2_odds") or match.get("away_odds"))
+def load_json_candidates(path: Optional[str] = None) -> List[Dict[str, Any]]:
+    candidates = []
+    search_paths = []
+    if path:
+        search_paths.append(Path(path))
+    search_paths.extend([
+        Path("data/candidates.json"),
+        Path("data/matches.json"),
+        Path("outputs/input/candidates.json"),
+        Path("outputs/input/matches.json"),
+    ])
 
-    candidates: List[Dict[str, Any]] = []
+    source = None
+    for candidate_path in search_paths:
+        if candidate_path.exists():
+            source = candidate_path
+            break
 
-    if player1 and player2 and (p1_odds is not None or p2_odds is not None):
-        c1 = dict(match)
-        c1.update({
-            "pick": player1,
-            "opponent": player2,
-            "pick_side": "player1",
-            "pick_odds": p1_odds,
-            "opponent_odds": p2_odds,
-            "odds": p1_odds,
-        })
-        candidates.append(c1)
+    if source is None:
+        return []
 
-        c2 = dict(match)
-        c2.update({
-            "pick": player2,
-            "opponent": player1,
-            "pick_side": "player2",
-            "pick_odds": p2_odds,
-            "opponent_odds": p1_odds,
-            "odds": p2_odds,
-        })
-        candidates.append(c2)
-        return candidates
+    payload = json.loads(source.read_text(encoding="utf-8"))
+    if isinstance(payload, dict):
+        raw_matches = payload.get("matches") or payload.get("events") or payload.get("data") or []
+    else:
+        raw_matches = payload
 
-    # Fallback if odds are still missing: keep current orientation, but this will be rejected from CORQ ranking.
-    fallback = dict(match)
-    fallback.setdefault("pick", player1)
-    fallback.setdefault("opponent", player2)
-    fallback.setdefault("pick_side", "player1")
-    candidates.append(fallback)
+    if not isinstance(raw_matches, list):
+        return []
+
+    for item in raw_matches:
+        if isinstance(item, dict):
+            row = dict(item)
+            row.setdefault("source", str(source))
+            candidates.append(row)
     return candidates
+
+
+def expand_match_sides(matches: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    rows: List[Dict[str, Any]] = []
+    for match in matches:
+        player1 = match.get("player1") or match.get("home") or match.get("home_team") or match.get("player_a")
+        player2 = match.get("player2") or match.get("away") or match.get("away_team") or match.get("player_b")
+        if not player1 or not player2:
+            continue
+
+        p1_odds = as_float(match.get("player1_odds") or match.get("odds_player1") or match.get("home_odds") or match.get("p1_odds") or match.get("odds1"))
+        p2_odds = as_float(match.get("player2_odds") or match.get("odds_player2") or match.get("away_odds") or match.get("p2_odds") or match.get("odds2"))
+
+        common = dict(match)
+        common["player1"] = str(player1)
+        common["player2"] = str(player2)
+
+        rows.append({**common, "pick": str(player1), "opponent": str(player2), "odds": p1_odds, "pick_odds": p1_odds, "opponent_odds": p2_odds})
+        rows.append({**common, "pick": str(player2), "opponent": str(player1), "odds": p2_odds, "pick_odds": p2_odds, "opponent_odds": p1_odds})
+    return rows
+
+
+def load_candidates(path: Optional[str] = None) -> List[Dict[str, Any]]:
+    matches = load_json_candidates(path)
+    return expand_match_sides(matches)
