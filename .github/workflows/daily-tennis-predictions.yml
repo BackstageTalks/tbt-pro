@@ -2,9 +2,8 @@ name: Daily Tennis Predictions
 
 on:
   schedule:
-    # 06:10 UTC = 08:10 Europe/Bratislava during summer time.
-    # GitHub cron uses UTC.
-    - cron: "10 6 * * *"
+    # 06:45 UTC = 08:45 Europe/Bratislava during summer time.
+    - cron: "45 6 * * *"
   workflow_dispatch:
 
 permissions:
@@ -19,18 +18,13 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     env:
       RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
       TGBOT: ${{ secrets.TGBOT }}
       TGCHID: ${{ secrets.TGCHID }}
-      CORQ_ALLOW_LOCAL_FALLBACK: "0"
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -43,15 +37,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Run CORQ daily runtime
-        run: |
-          python engine.py
-
-      - name: Inspect outputs
-        run: |
-          echo "Generated files:"
-          find outputs -maxdepth 5 -type f | sort || true
-          echo "Manifest:"
-          cat outputs/latest_manifest.json || true
+        run: python engine.py
 
       - name: Commit outputs
         run: |
