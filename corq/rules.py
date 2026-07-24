@@ -16,7 +16,7 @@ def as_float(value: Any, default=None):
 
 
 MIN_TOP_ODDS = 1.40
-MIN_THINQ_CONFIDENCE = 0.15
+MIN_THINQ_CONFIDENCE = 0.50
 MAX_ODDS_GAP_PCT = 2.50
 MAX_UNCONFIRMED_ODDS_GAP_PCT = 1.50
 MIN_MINUTES_BEFORE_START = 10
@@ -66,12 +66,31 @@ def _status_code(record: Dict[str, Any]) -> Optional[int]:
 
 def _odds_orientation_unconfirmed(record: Dict[str, Any]) -> bool:
     direction = str(record.get("odds_matching_direction") or "").strip().upper()
-    confirmed_directions = {"DIRECT_TO_MATCH_PLAYERS", "REVERSED_TO_MATCH_PLAYERS", "CONFIRMED_BY_LABELS"}
+    confirmed_directions = {
+        "DIRECT_TO_MATCH_PLAYERS",
+        "REVERSED_TO_MATCH_PLAYERS",
+        "CONFIRMED_BY_LABELS",
+        "DIRECT_BY_NUMERIC_OUTCOME",
+        "REVERSED_BY_NUMERIC_OUTCOME",
+    }
     if direction in confirmed_directions:
         return False
     if record.get("odds_labels_confirmed") is True:
         return False
     return True
+
+
+def _all_flags(record: Dict[str, Any]) -> List[str]:
+    flags = []
+    for key in ("thinq_flags", "corq_risk_flags"):
+        value = record.get(key)
+        if isinstance(value, list):
+            flags.extend(str(item) for item in value)
+    thinq = record.get("thinq") if isinstance(record.get("thinq"), dict) else {}
+    value = thinq.get("flags")
+    if isinstance(value, list):
+        flags.extend(str(item) for item in value)
+    return sorted(set(flags))
 
 
 def apply_risk_adjustments(record: Dict[str, Any]) -> Dict[str, Any]:
@@ -94,8 +113,14 @@ def apply_risk_adjustments(record: Dict[str, Any]) -> Dict[str, Any]:
 
     odds_gap_pct = as_float(out.get("odds_gap_pct"))
     if odds_gap_pct is not None and odds_gap_pct >= MAX_UNCONFIRMED_ODDS_GAP_PCT and _odds_orientation_unconfirmed(out):
-        # Risk flag only here. Hard reject is handled in evaluate_eligibility.
         flags.append("ODDS_ORIENTATION_UNCONFIRMED_EXTREME")
+
+    all_flags = _all_flags(out)
+    if "MISSING_ELO" in all_flags:
+        flags.append("MISSING_ELO")
+
+    if abs(score - 0.5) < 0.0001 and edge > 0.10:
+        flags.append("DEFAULT_SCORE_VALUE_TRAP")
 
     adjusted = score + edge_bonus - penalty
     out["corq_edge_bonus"] = round(edge_bonus, 4)
@@ -159,6 +184,15 @@ def evaluate_eligibility(record: Dict[str, Any]) -> Dict[str, Any]:
     thinq_conf = as_float(out.get("thinq_confidence"), 0.0) or 0.0
     if thinq_conf < MIN_THINQ_CONFIDENCE:
         reasons.append("REJECT_LOW_THINQ_CONFIDENCE")
+
+    all_flags = _all_flags(out)
+    if "MISSING_ELO" in all_flags:
+        reasons.append("REJECT_MISSING_ELO")
+
+    score = as_float(out.get("corq_score"), 0.0) or 0.0
+    edge = as_float(out.get("corq_edge"), 0.0) or 0.0
+    if abs(score - 0.5) < 0.0001 and edge > 0.10:
+        reasons.append("REJECT_DEFAULT_SCORE_VALUE_TRAP")
 
     out["eligible_for_corq"] = len(reasons) == 0
     out["corq_reject_reasons"] = sorted(set(reasons))
