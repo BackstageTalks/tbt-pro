@@ -1,12 +1,8 @@
-"""THINQ Match Dynamics layer.
+"""THINQ Match Dynamics / Sets-Games layer.
 
-Builds lightweight, explainable Sets/Games projections for a tennis match.
-The layer is intentionally deterministic and uses only already available
-runtime intelligence: ELO edge, H2H edge, recent-form edge, surface and best_of.
-
-All edges are oriented from pick -> opponent:
-- positive edge = match dynamics slightly support pick
-- negative edge = match dynamics slightly support opponent
+This module produces ready intelligence output for match shape, projected
+sets/games and conservative Sets/Games edges. It does not create final CORQ
+probability and does not require adapter logic.
 """
 
 from __future__ import annotations
@@ -46,6 +42,7 @@ def build_match_dynamics_context(
     elo: Optional[Dict[str, Any]] = None,
     h2h: Optional[Dict[str, Any]] = None,
     recent_form: Optional[Dict[str, Any]] = None,
+    edges: Optional[Dict[str, Any]] = None,
     odds_player1: Any = None,
     odds_player2: Any = None,
     pick_odds: Any = None,
@@ -54,6 +51,7 @@ def build_match_dynamics_context(
     elo = elo if isinstance(elo, dict) else {}
     h2h = h2h if isinstance(h2h, dict) else {}
     recent_form = recent_form if isinstance(recent_form, dict) else {}
+    edges = edges if isinstance(edges, dict) else {}
 
     try:
         best_of_int = int(best_of or 3)
@@ -64,13 +62,26 @@ def build_match_dynamics_context(
 
     surface_name = surface_bucket(surface)
 
-    elo_edge = as_float(elo.get("elo_edge")) or 0.0
-    h2h_edge = as_float(h2h.get("edge")) or 0.0
-    recent_edge = as_float(recent_form.get("recent_form_edge")) or 0.0
-    surface_form_edge = as_float(recent_form.get("surface_recent_form_edge")) or 0.0
+    elo_edge = as_float(elo.get("elo_edge"))
+    if elo_edge is None:
+        elo_edge = as_float(edges.get("elo_edge")) or 0.0
 
-    # A small composite edge describes match dominance from pick -> opponent.
-    # This layer should explain likely match shape, not overwrite CORQ probability.
+    h2h_edge = as_float(h2h.get("edge"))
+    if h2h_edge is None:
+        h2h_edge = as_float(h2h.get("h2h_edge"))
+    if h2h_edge is None:
+        h2h_edge = as_float(edges.get("h2h_edge")) or 0.0
+
+    recent_edge = as_float(recent_form.get("recent_form_edge"))
+    if recent_edge is None:
+        recent_edge = as_float(edges.get("recent_form_edge")) or 0.0
+
+    surface_form_edge = as_float(recent_form.get("surface_recent_form_edge"))
+    if surface_form_edge is None:
+        surface_form_edge = as_float(edges.get("surface_form_edge"))
+    if surface_form_edge is None:
+        surface_form_edge = as_float(edges.get("surface_recent_form_edge")) or 0.0
+
     composite_edge = (
         0.55 * elo_edge
         + 0.20 * h2h_edge
@@ -115,12 +126,12 @@ def build_match_dynamics_context(
 
     tiebreak_probability = clamp(tiebreak_base + 0.18 * closeness, 0.12, 0.58)
 
-    # Edges are intentionally conservative. A likely straight-set match slightly
-    # rewards a stronger pick; a close match stays neutral.
     dominance = clamp(abs(composite_edge) / 0.12, 0.0, 1.0)
     direction = 1.0 if composite_edge >= 0 else -1.0
     sets_edge = direction * clamp((straight_sets_probability - 0.50) * dominance * 0.08, -0.025, 0.025)
     games_edge = direction * clamp((1.0 - closeness) * dominance * 0.025, 0.0, 0.025)
+    tiebreak_edge = direction * clamp((tiebreak_probability - tiebreak_base) * dominance * 0.05, -0.015, 0.015)
+    decider_edge = direction * clamp((decider_probability - 0.40) * dominance * 0.05, -0.015, 0.015)
 
     if closeness >= 0.70:
         match_shape = "CLOSE_DECIDER_LEAN"
@@ -130,11 +141,11 @@ def build_match_dynamics_context(
         match_shape = "BALANCED_STANDARD"
 
     confidence = 0.25
-    if elo.get("status") == "OK":
+    if elo.get("status") == "OK" or edges.get("elo_edge") is not None:
         confidence += 0.30
-    if h2h.get("status") == "OK":
+    if h2h.get("status") == "OK" or edges.get("h2h_edge") is not None:
         confidence += 0.12
-    if recent_form.get("status") == "OK":
+    if recent_form.get("status") == "OK" or edges.get("recent_form_edge") is not None:
         confidence += 0.10
     if surface_name != "Unknown":
         confidence += 0.08
@@ -143,9 +154,9 @@ def build_match_dynamics_context(
     confidence = clamp(confidence, 0.0, 0.78)
 
     flags = []
-    if h2h.get("status") != "OK":
+    if not (h2h.get("status") == "OK" or edges.get("h2h_edge") is not None):
         flags.append("MATCH_DYNAMICS_H2H_NEUTRAL")
-    if recent_form.get("status") != "OK":
+    if not (recent_form.get("status") == "OK" or edges.get("recent_form_edge") is not None):
         flags.append("MATCH_DYNAMICS_RECENT_FORM_NEUTRAL")
     if surface_name == "Unknown":
         flags.append("MATCH_DYNAMICS_SURFACE_UNKNOWN")
@@ -167,7 +178,26 @@ def build_match_dynamics_context(
         "straight_sets_probability": round(straight_sets_probability, 4),
         "sets_edge": round(sets_edge, 4),
         "games_edge": round(games_edge, 4),
+        "tiebreak_edge": round(tiebreak_edge, 4),
+        "decider_edge": round(decider_edge, 4),
         "confidence": round(confidence, 4),
         "odds_gap_pct": round(odds_gap_pct, 4) if odds_gap_pct is not None else None,
         "flags": flags,
     }
+
+
+# Compatibility wrapper for older THINQ service imports that expect
+# build_match_dynamics(raw, edges, surface, best_of).
+def build_match_dynamics(raw: Dict[str, Any], edges: Dict[str, Any], surface: Optional[str] = None, best_of: int = 3) -> Dict[str, Any]:
+    raw = raw if isinstance(raw, dict) else {}
+    p1 = raw.get("player1") if isinstance(raw.get("player1"), dict) else {}
+    p2 = raw.get("player2") if isinstance(raw.get("player2"), dict) else {}
+    pick = raw.get("pick") or p1.get("name") or raw.get("player1_name") or "player1"
+    opponent = raw.get("opponent") or p2.get("name") or raw.get("player2_name") or "player2"
+    return build_match_dynamics_context(
+        pick=pick,
+        opponent=opponent,
+        surface=surface or raw.get("surface"),
+        best_of=best_of,
+        edges=edges,
+    )
