@@ -1,16 +1,32 @@
-"""THINQ service.
+"""THINQ service with side-orientation audit.
 
-Broad runtime version focused on ELO + H2H.
-THINQ remains an intelligence layer. It returns edges, confidence and flags.
-CORQ remains responsible for final ranking and TOP outputs.
+THINQ is always calculated for pick/opponent.
+player1 and player2 are kept as canonical HOME/AWAY input fields only.
 """
 
 from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from thinq.loaders.elo_loader import build_elo_context
-from thinq.loaders.h2h_loader import build_h2h_context
+from corq.sides import build_side_audit
+
+try:
+    from thinq.loaders.elo_loader import build_elo_context
+except Exception:
+    def build_elo_context(pick: str, opponent: str, surface: Optional[str] = None) -> Dict[str, Any]:
+        return {"status": "NO_DATA", "selected_elo_type": None, "elo_edge": 0.0, "flags": ["MISSING_ELO"]}
+
+try:
+    from thinq.loaders.h2h_loader import build_h2h_context
+except Exception:
+    def build_h2h_context(*args: Any, **kwargs: Any) -> Dict[str, Any]:
+        return {"status": "NO_DATA", "source": "none", "total_matches": 0, "pick_wins": 0, "opponent_wins": 0, "edge": 0.0, "confidence": 0.0, "reason": "H2H loader unavailable"}
+
+try:
+    from thinq.features.recent_form import build_recent_form_context
+except Exception:
+    def build_recent_form_context(*args: Any, **kwargs: Any) -> Dict[str, Any]:
+        return {"status": "NO_DATA", "flags": ["RECENT_FORM_NO_DATA"], "recent_form_edge": 0.0, "short_form_edge": 0.0, "surface_recent_form_edge": 0.0, "opponent_quality_edge": 0.0, "form_confidence": 0.0}
 
 
 def normalize_surface(surface: Optional[str]) -> Dict[str, Any]:
@@ -67,41 +83,73 @@ class ThinqService:
         save_snapshot: bool = False,
         pick: Optional[str] = None,
         opponent: Optional[str] = None,
+        pick_side: Optional[str] = None,
+        opponent_side: Optional[str] = None,
+        side_audit: Optional[Dict[str, Any]] = None,
         **kwargs: Any,
     ) -> Dict[str, Any]:
         analysis_pick = pick or player1
         analysis_opponent = opponent or (player2 if analysis_pick == player1 else player1)
+        thinq_side = side_audit or build_side_audit(
+            {
+                "player1": player1,
+                "player2": player2,
+                "pick": analysis_pick,
+                "opponent": analysis_opponent,
+                "pick_side": pick_side,
+                "opponent_side": opponent_side,
+            }
+        )
+
         surface_ctx = normalize_surface(surface)
-        elo = build_elo_context(analysis_pick, analysis_opponent, surface_ctx.get("surface") or surface)
+        surface_bucket = surface_ctx.get("surface") or surface
+        elo = build_elo_context(analysis_pick, analysis_opponent, surface_bucket)
         h2h = build_h2h_context(
             event_id=event_id,
             pick=analysis_pick,
             opponent=analysis_opponent,
-            surface=surface_ctx.get("surface") or surface,
+            surface=surface_bucket,
             player1_id=player1_id,
             player2_id=player2_id,
         )
+        recent_form = build_recent_form_context(analysis_pick, analysis_opponent, surface_bucket)
+
         edges = {
             "elo_edge": float(elo.get("elo_edge") or 0.0),
             "h2h_edge": float(h2h.get("edge") or 0.0),
+            "recent_form_edge": float(recent_form.get("recent_form_edge") or 0.0),
+            "short_form_edge": float(recent_form.get("short_form_edge") or 0.0),
+            "surface_recent_form_edge": float(recent_form.get("surface_recent_form_edge") or 0.0),
+            "opponent_quality_edge": float(recent_form.get("opponent_quality_edge") or 0.0),
         }
+
         flags: List[str] = []
         flags.extend(surface_ctx.get("flags") or [])
         flags.extend(elo.get("flags") or [])
+        flags.extend(recent_form.get("flags") or [])
         if h2h.get("status") != "OK":
             flags.append("NO_H2H_DATA")
-        data_score = 0.25
+        if recent_form.get("status") != "OK":
+            flags.append("RECENT_FORM_NO_DATA")
+        if not thinq_side.get("side_valid"):
+            flags.append("THINQ_SIDE_ORIENTATION_INVALID")
+
+        confidence = 0.20
         if elo.get("status") == "OK":
-            data_score += 0.45
+            confidence += 0.35
         if h2h.get("status") == "OK":
-            data_score += 0.15
+            confidence += 0.10
+        if recent_form.get("status") == "OK":
+            confidence += min(float(recent_form.get("form_confidence") or 0.0) * 0.25, 0.18)
         if surface_ctx.get("surface") != "Unknown":
-            data_score += 0.05
-        confidence = round(max(min(data_score, 0.85), 0.0), 4)
+            confidence += 0.05
+        confidence = round(max(min(confidence, 0.88), 0.0), 4)
+
         return {
             "available": True,
             "error": None,
             "confidence": confidence,
+            "thinq_side": thinq_side,
             "surface": surface_ctx,
             "elo": elo,
             "h2h": {
@@ -114,6 +162,7 @@ class ThinqService:
                 "confidence": h2h.get("confidence", 0.0),
                 "reason": h2h.get("reason"),
             },
+            "recent_form": recent_form,
             "edges": edges,
             "flags": sorted(set(flags)),
             "thinq_available": True,
@@ -129,10 +178,14 @@ class ThinqService:
             "thinq_h2h_total_matches": h2h.get("total_matches", 0),
             "thinq_h2h_edge": edges["h2h_edge"],
             "thinq_h2h_confidence": h2h.get("confidence", 0.0),
+            "thinq_recent_form_edge": edges["recent_form_edge"],
+            "thinq_short_form_edge": edges["short_form_edge"],
+            "thinq_surface_recent_form_edge": edges["surface_recent_form_edge"],
+            "thinq_opponent_quality_edge": edges["opponent_quality_edge"],
+            "thinq_form_confidence": recent_form.get("form_confidence", 0.0),
             "thinq_flags": sorted(set(flags)),
         }
 
 
-# Compatibility alias for old imports.
 def build_match_features(*args: Any, **kwargs: Any) -> Dict[str, Any]:
     return ThinqService().build_match_features(*args, **kwargs)
