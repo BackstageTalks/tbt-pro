@@ -139,14 +139,16 @@ def fetch_h2h_from_api(
 
     # TennisApi PRO H2H history. RapidAPI docs/examples use the event customId
     # for this endpoint, e.g. /api/tennis/event/QCtsXrI/h2h.
+    # If customId is available, keep H2H lightweight and do not fan out to
+    # numeric/player/team fallbacks. Those extra calls produced mostly 404/429.
     if custom_id:
         attempts.extend([
             (f"/api/tennis/event/{custom_id}/h2h", None),
             (f"/api/tennis/event/{custom_id}/head-to-head", None),
         ])
 
-    # Numeric event id fallbacks. Some endpoints accept numeric match id.
-    if event_id_int:
+    # Numeric event id fallbacks only when customId is not available.
+    if event_id_int and not custom_id:
         attempts.extend([
             (f"/api/tennis/event/{event_id_int}/h2h", None),
             (f"/api/tennis/event/{event_id_int}/head-to-head", None),
@@ -157,7 +159,7 @@ def fetch_h2h_from_api(
 
     p1 = as_int(player1_id)
     p2 = as_int(player2_id)
-    if p1 and p2:
+    if p1 and p2 and not custom_id:
         attempts.extend([
             (f"/api/tennis/head-to-head/{p1}/{p2}", None),
             (f"/api/tennis/team/{p1}/versus/{p2}/matches", None),
