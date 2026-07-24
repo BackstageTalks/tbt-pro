@@ -1,0 +1,465 @@
+"""RapidAPI PRO client for the clean TBT/CORQ runtime.
+
+Purpose:
+- Load daily tennis events from RapidAPI PRO.
+- Normalize event/player/tournament/surface fields for THINQ + CORQ.
+- Fetch match winner odds per event from RapidAPI PRO.
+
+Configuration through GitHub Actions secrets/env:
+- RAPIDAPI_KEY                 required
+- TENNISAPI_RAPIDAPI_HOST      optional, default tennisapi1.p.rapidapi.com
+- TENNISAPI_CATEGORY_IDS       optional fallback, default 3,6,871
+- TENNISAPI_PROVIDER_ID        optional odds provider, default 1
+- TENNISAPI_MIN_MINUTES_BEFORE_START optional, default 0
+"""
+
+from __future__ import annotations
+
+import os
+import re
+import time
+import unicodedata
+from dataclasses import dataclass
+from datetime import datetime, timedelta, timezone
+from typing import Any, Dict, Iterable, List, Optional, Tuple
+from zoneinfo import ZoneInfo
+
+try:
+    import requests
+except Exception:  # pragma: no cover
+    requests = None
+
+LOCAL_TZ = ZoneInfo("Europe/Bratislava")
+
+
+class RapidApiError(RuntimeError):
+    pass
+
+
+def _env_int(name: str, default: int) -> int:
+    try:
+        return int(os.getenv(name, str(default)))
+    except Exception:
+        return default
+
+
+def _as_list(value: Any) -> List[Any]:
+    if isinstance(value, list):
+        return value
+    if isinstance(value, dict):
+        for key in ("events", "data", "items", "categories", "results"):
+            nested = value.get(key)
+            if isinstance(nested, list):
+                return nested
+    return []
+
+
+def _team_name(value: Any) -> Optional[str]:
+    if value is None:
+        return None
+    if isinstance(value, dict):
+        for key in ("name", "fullName", "full_name", "displayName", "display_name", "shortName", "short_name", "slug"):
+            if value.get(key):
+                return str(value.get(key)).strip()
+        return None
+    text = str(value).strip()
+    return text or None
+
+
+def normalize_text(value: Any) -> str:
+    text = unicodedata.normalize("NFKD", str(value or "").strip().lower())
+    text = "".join(ch for ch in text if not unicodedata.combining(ch))
+    text = re.sub(r"[^a-z0-9]+", " ", text)
+    return " ".join(text.split())
+
+
+def names_match(a: Any, b: Any) -> bool:
+    a_norm = normalize_text(a)
+    b_norm = normalize_text(b)
+    if not a_norm or not b_norm:
+        return False
+    if a_norm == b_norm:
+        return True
+    a_parts = a_norm.split()
+    b_parts = b_norm.split()
+    if a_parts and b_parts and a_parts[-1] == b_parts[-1]:
+        return True
+    return a_norm in b_norm or b_norm in a_norm
+
+
+def parse_category_ids() -> List[int]:
+    raw = os.getenv("TENNISAPI_CATEGORY_IDS", "3,6,871")
+    ids: List[int] = []
+    for part in raw.split(","):
+        part = part.strip()
+        if not part:
+            continue
+        try:
+            ids.append(int(part))
+        except Exception:
+            pass
+    return ids
+
+
+def target_betting_day(now: Optional[datetime] = None) -> datetime:
+    current = now or datetime.now(LOCAL_TZ)
+    if current.tzinfo is None:
+        current = current.replace(tzinfo=LOCAL_TZ)
+    current = current.astimezone(LOCAL_TZ)
+    if current.hour < 6:
+        current = current - timedelta(days=1)
+    return current
+
+
+def unix_to_iso(timestamp: Any) -> Optional[str]:
+    if timestamp in (None, ""):
+        return None
+    try:
+        value = int(timestamp)
+        return datetime.fromtimestamp(value, tz=timezone.utc).isoformat()
+    except Exception:
+        return None
+
+
+def normalize_surface(value: Any) -> Tuple[str, Optional[str]]:
+    raw = str(value or "").strip()
+    text = raw.lower()
+    if "clay" in text:
+        return "Clay", raw or None
+    if "grass" in text:
+        return "Grass", raw or None
+    if "carpet" in text:
+        return "Hard", raw or None
+    if "hard" in text:
+        return "Hard", raw or None
+    if "indoor" in text:
+        return "Hard", raw or None
+    return "Unknown", raw or None
+
+
+def deep_find_first(obj: Any, keys: Iterable[str]) -> Any:
+    wanted = set(keys)
+    if isinstance(obj, dict):
+        for key, value in obj.items():
+            if str(key) in wanted and value not in (None, ""):
+                return value
+        for value in obj.values():
+            found = deep_find_first(value, wanted)
+            if found not in (None, ""):
+                return found
+    elif isinstance(obj, list):
+        for item in obj:
+            found = deep_find_first(item, wanted)
+            if found not in (None, ""):
+                return found
+    return None
+
+
+@dataclass
+class RapidApiClient:
+    api_key: Optional[str] = None
+    host: Optional[str] = None
+    timeout: int = 30
+    sleep_seconds: float = 0.15
+
+    def __post_init__(self) -> None:
+        self.api_key = self.api_key or os.getenv("RAPIDAPI_KEY")
+        self.host = self.host or os.getenv("TENNISAPI_RAPIDAPI_HOST") or os.getenv("RAPIDAPI_HOST") or "tennisapi1.p.rapidapi.com"
+        if requests is None:
+            raise RapidApiError("requests package is not installed")
+        if not self.api_key:
+            raise RapidApiError("RAPIDAPI_KEY is missing")
+
+    @property
+    def headers(self) -> Dict[str, str]:
+        return {
+            "x-rapidapi-key": str(self.api_key),
+            "x-rapidapi-host": str(self.host),
+        }
+
+    def get(self, path: str, params: Optional[Dict[str, Any]] = None) -> Optional[Any]:
+        url = f"https://{self.host}{path}"
+        try:
+            response = requests.get(url, headers=self.headers, params=params or {}, timeout=self.timeout)
+            if response.status_code in (204, 404):
+                return None
+            response.raise_for_status()
+            if not response.text:
+                return None
+            return response.json()
+        except Exception:
+            return None
+        finally:
+            if self.sleep_seconds > 0:
+                time.sleep(self.sleep_seconds)
+
+    def discover_categories(self, target_date: datetime) -> List[int]:
+        day = target_date.day
+        month = target_date.month
+        year = target_date.year
+        paths = [
+            f"/api/tennis/calendar/{day}/{month}/{year}/categories",
+            f"/api/tennis/categories/{day}/{month}/{year}",
+        ]
+        found: List[int] = []
+        for path in paths:
+            payload = self.get(path)
+            for item in _as_list(payload):
+                if not isinstance(item, dict):
+                    continue
+                value = item.get("id") or item.get("categoryId") or item.get("category_id")
+                try:
+                    found.append(int(value))
+                except Exception:
+                    pass
+            if found:
+                break
+        return sorted(set(found)) or parse_category_ids()
+
+    def get_events_for_category(self, category_id: int, target_date: datetime) -> List[Dict[str, Any]]:
+        day = target_date.day
+        month = target_date.month
+        year = target_date.year
+        paths = [
+            f"/api/tennis/category/{category_id}/events/{day}/{month}/{year}",
+            f"/api/tennis/categories/{category_id}/events/{day}/{month}/{year}",
+        ]
+        for path in paths:
+            payload = self.get(path)
+            events = [item for item in _as_list(payload) if isinstance(item, dict)]
+            if events:
+                return events
+        return []
+
+    def get_events_for_date(self, target_date: Optional[datetime] = None) -> List[Dict[str, Any]]:
+        day = target_betting_day(target_date)
+        categories = self.discover_categories(day)
+        events: List[Dict[str, Any]] = []
+        for category_id in categories:
+            events.extend(self.get_events_for_category(category_id, day))
+        return dedupe_events(events)
+
+    def get_event_odds(self, event_id: Any) -> Optional[Dict[str, Any]]:
+        if event_id in (None, ""):
+            return None
+        provider = _env_int("TENNISAPI_PROVIDER_ID", 1)
+        event_id_text = str(event_id)
+        attempts = [
+            (f"/api/tennis/event/{event_id_text}/odds", None),
+            (f"/api/tennis/event/{event_id_text}/winning-odds", None),
+            (f"/api/tennis/event/{event_id_text}/provider/{provider}/winning-odds", None),
+            (f"/api/tennis/event/{event_id_text}/provider/{provider}/odds", None),
+            (f"/api/tennis/event/{event_id_text}/odds/{provider}", None),
+            ("/api/tennis/getMatchWinningOdds", {"matchId": event_id_text, "providerId": provider}),
+            ("/api/tennis/getMatchBettingOdds", {"matchId": event_id_text, "providerId": provider}),
+            ("/api/tennis/getAllOddsForEvent", {"eventId": event_id_text}),
+            ("/api/tennis/getMatchFeaturedOdds", {"matchId": event_id_text}),
+        ]
+        for path, params in attempts:
+            payload = self.get(path, params=params)
+            normalized = normalize_winner_odds_payload(payload)
+            if normalized:
+                normalized["odds_endpoint"] = path
+                return normalized
+        return None
+
+
+def dedupe_events(events: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    seen = set()
+    output: List[Dict[str, Any]] = []
+    for event in events:
+        event_id = event.get("id") or event.get("event_id") or event.get("match_id")
+        home, away = event_players(event)
+        key = event_id or f"{normalize_text(home)}::{normalize_text(away)}::{event.get('startTimestamp') or event.get('start_time')}"
+        if key in seen:
+            continue
+        seen.add(key)
+        output.append(event)
+    return output
+
+
+def event_players(event: Dict[str, Any]) -> Tuple[Optional[str], Optional[str]]:
+    home = event.get("homeTeam") or event.get("home_team") or event.get("home") or event.get("player1") or event.get("participant1")
+    away = event.get("awayTeam") or event.get("away_team") or event.get("away") or event.get("player2") or event.get("participant2")
+    return _team_name(home), _team_name(away)
+
+
+def is_doubles_name(name: Any) -> bool:
+    text = str(name or "")
+    return "/" in text or " & " in text or " + " in text
+
+
+def normalize_event_for_corq(event: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    player1, player2 = event_players(event)
+    if not player1 or not player2:
+        return None
+    event_id = event.get("id") or event.get("event_id") or event.get("match_id")
+    start_ts = event.get("startTimestamp") or event.get("start_timestamp") or deep_find_first(event, {"startTimestamp", "start_time"})
+    raw_surface = event.get("surfaceType") or event.get("surface") or deep_find_first(event, {"surfaceType", "surface", "courtSurface", "groundType"})
+    surface, surface_raw = normalize_surface(raw_surface)
+    tournament_obj = event.get("tournament") or event.get("uniqueTournament") or event.get("competition") or event.get("league") or {}
+    category_obj = event.get("category") or {}
+    tournament = _team_name(tournament_obj) or str(tournament_obj.get("name") if isinstance(tournament_obj, dict) else "") or None
+    category = _team_name(category_obj) or str(category_obj.get("name") if isinstance(category_obj, dict) else "") or None
+    start_iso = unix_to_iso(start_ts) or event.get("start_time") or event.get("match_start")
+    return {
+        "match_id": event_id,
+        "event_id": event_id,
+        "id": event_id,
+        "player1": player1,
+        "player2": player2,
+        "surface": surface,
+        "surface_raw": surface_raw,
+        "tournament": tournament,
+        "category": category,
+        "level": category,
+        "gender": category,
+        "best_of": 5 if "grand slam" in normalize_text(tournament) else 3,
+        "match_start": start_iso,
+        "start_time": start_iso,
+        "is_doubles": is_doubles_name(player1) or is_doubles_name(player2),
+        "source": "RapidAPI PRO",
+        "raw": event,
+    }
+
+
+def _to_float(value: Any) -> Optional[float]:
+    try:
+        if value in (None, ""):
+            return None
+        return float(value)
+    except Exception:
+        return None
+
+
+def fractional_to_decimal(value: Any) -> Optional[float]:
+    if not isinstance(value, str) or "/" not in value:
+        return _to_float(value)
+    try:
+        a, b = value.split("/", 1)
+        return round((float(a) / float(b)) + 1.0, 4)
+    except Exception:
+        return None
+
+
+def extract_markets(payload: Any) -> List[Dict[str, Any]]:
+    if isinstance(payload, list):
+        return [item for item in payload if isinstance(item, dict)]
+    if not isinstance(payload, dict):
+        return []
+    markets: List[Dict[str, Any]] = []
+    for key in ("markets", "odds", "eventOdds", "winningOdds", "data", "items"):
+        value = payload.get(key)
+        if isinstance(value, list):
+            markets.extend([item for item in value if isinstance(item, dict)])
+        elif isinstance(value, dict):
+            nested = extract_markets(value)
+            if nested:
+                markets.extend(nested)
+    if not markets and any(k in payload for k in ("choices", "outcomes", "participants")):
+        markets.append(payload)
+    return markets
+
+
+def market_choices(market: Dict[str, Any]) -> List[Dict[str, Any]]:
+    for key in ("choices", "outcomes", "participants", "selections"):
+        value = market.get(key)
+        if isinstance(value, list):
+            return [item for item in value if isinstance(item, dict)]
+    return []
+
+
+def choice_name(choice: Dict[str, Any]) -> str:
+    for key in ("name", "label", "choiceName", "participantName", "sourceName", "marketName"):
+        if choice.get(key):
+            return str(choice.get(key))
+    return ""
+
+
+def choice_price(choice: Dict[str, Any]) -> Optional[float]:
+    for key in ("decimalValue", "decimal", "decimalOdds", "price", "odds", "value", "fractionalValue"):
+        value = choice.get(key)
+        converted = fractional_to_decimal(value)
+        if converted is not None:
+            return converted
+    return None
+
+
+def normalize_winner_odds_payload(payload: Any) -> Optional[Dict[str, Any]]:
+    markets = extract_markets(payload)
+    for market in markets:
+        market_name = normalize_text(" ".join(str(market.get(k) or "") for k in ("name", "marketName", "market_name", "label", "type")))
+        choices = market_choices(market)
+        if len(choices) < 2:
+            continue
+        if market_name and not any(token in market_name for token in ("winner", "match", "to win", "full time", "moneyline")):
+            # If there are many markets, avoid set/game markets when name is explicit.
+            continue
+        prices = [(choice_name(choice), choice_price(choice)) for choice in choices]
+        prices = [(name, price) for name, price in prices if price is not None]
+        if len(prices) >= 2:
+            return {
+                "player1_label": prices[0][0],
+                "player2_label": prices[1][0],
+                "odds_player1": prices[0][1],
+                "odds_player2": prices[1][1],
+                "p1_odds": prices[0][1],
+                "p2_odds": prices[1][1],
+                "home_odds": prices[0][1],
+                "away_odds": prices[1][1],
+                "odds1": prices[0][1],
+                "odds2": prices[1][1],
+                "bookmaker": None,
+                "odds_source": "RapidAPI PRO event odds",
+                "raw": payload,
+            }
+    return None
+
+
+def fetch_daily_matches_with_odds(target_date: Optional[datetime] = None) -> List[Dict[str, Any]]:
+    client = RapidApiClient()
+    raw_events = client.get_events_for_date(target_date)
+    normalized = [normalize_event_for_corq(event) for event in raw_events]
+    matches = [item for item in normalized if isinstance(item, dict)]
+
+    output: List[Dict[str, Any]] = []
+    for match in matches:
+        odds = client.get_event_odds(match.get("event_id"))
+        row = dict(match)
+        if odds:
+            p1 = odds.get("odds_player1")
+            p2 = odds.get("odds_player2")
+            label1 = odds.get("player1_label")
+            label2 = odds.get("player2_label")
+            if label1 and label2:
+                direct = names_match(match.get("player1"), label1) and names_match(match.get("player2"), label2)
+                reverse = names_match(match.get("player1"), label2) and names_match(match.get("player2"), label1)
+                if reverse and not direct:
+                    p1, p2 = p2, p1
+                    row["odds_matching_direction"] = "REVERSED_TO_MATCH_PLAYERS"
+                else:
+                    row["odds_matching_direction"] = "DIRECT_OR_LABEL_UNKNOWN"
+            row.update({
+                "odds_player1": p1,
+                "odds_player2": p2,
+                "p1_odds": p1,
+                "p2_odds": p2,
+                "home_odds": p1,
+                "away_odds": p2,
+                "odds1": p1,
+                "odds2": p2,
+                "price1": p1,
+                "price2": p2,
+                "odds_source": odds.get("odds_source"),
+                "odds_endpoint": odds.get("odds_endpoint"),
+                "odds_pair_available": p1 is not None and p2 is not None,
+            })
+            if p1 is not None and p2 is not None:
+                gap = abs(float(p1) - float(p2))
+                row["odds_gap_abs"] = round(gap, 4)
+                row["odds_gap_pct"] = round(gap / max(min(float(p1), float(p2)), 0.0001), 4)
+        else:
+            row["odds_pair_available"] = False
+            row["no_odds_reason"] = "NO_RAPIDAPI_PRO_ODDS"
+        output.append(row)
+    return output
