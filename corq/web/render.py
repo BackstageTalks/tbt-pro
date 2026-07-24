@@ -97,6 +97,54 @@ def web_publish_blockers(row: Dict[str, Any]) -> List[str]:
     return sorted(set(blockers))
 
 
+
+
+def public_candidate_score(row: Dict[str, Any]) -> float:
+    """Display-only score for choosing web-safe public candidates.
+
+    Does not change CORQ model output. Used only by the web renderer.
+    """
+    try:
+        adjusted = float(row.get("corq_adjusted_score") or row.get("corq_score") or 0.0)
+    except Exception:
+        adjusted = 0.0
+    try:
+        edge = float(row.get("corq_edge") or 0.0)
+    except Exception:
+        edge = 0.0
+    try:
+        thinq_conf = float(row.get("thinq_confidence") or 0.0)
+    except Exception:
+        thinq_conf = 0.0
+    try:
+        odds = float(row.get("odds") or row.get("pick_odds") or 0.0)
+    except Exception:
+        odds = 0.0
+
+    row_flags = set(flags(row))
+    blockers = web_publish_blockers(row)
+    score = adjusted + max(min(edge, 0.20), -0.05) * 0.35 + max(min(thinq_conf, 1.0), 0.0) * 0.08
+    if 1.40 <= odds <= 3.50:
+        score += 0.025
+    elif odds > 5.00:
+        score -= 0.08
+    elif 0 < odds < 1.40:
+        score -= 0.12
+    penalties = {
+        "DEFAULT_SCORE_VALUE_TRAP": 0.20,
+        "WARN_DEFAULT_SCORE_VALUE_TRAP": 0.20,
+        "MISSING_ELO": 0.05,
+        "RECENT_FORM_NO_DATA": 0.04,
+        "NO_H2H_DATA": 0.015,
+        "LOW_THINQ_CONFIDENCE": 0.04,
+        "WARN_LOW_THINQ_CONFIDENCE": 0.04,
+    }
+    for flag, penalty in penalties.items():
+        if flag in row_flags:
+            score -= penalty
+    score -= len(blockers) * 0.25
+    return round(max(min(score, 1.0), 0.0), 4)
+
 def edge_label(value: Any) -> str:
     try:
         number = float(value)
@@ -153,7 +201,7 @@ def row_card(row: Dict[str, Any], rank: int, audit: bool = False) -> str:
     blocker_html = ""
     if audit and blockers:
         blocker_html = "<div class='blockers'>" + "".join(f"<span>{esc(b)}</span>" for b in blockers) + "</div>"
-    return f"<article class='match-card'><div class='rank'>#{rank}</div>{pick_block(row)}<div class='score-box'><div class='score-label'>CORQ</div><div class='score-main'>{esc(pct(score))}</div><div class='score-sub'>Edge {esc(pct(row.get('corq_edge'), signed=True))}</div><div class='score-sub'>Odds {esc(money(row.get('odds') or row.get('pick_odds')))}</div></div><div class='intel-grid'>{thinq_block(row)}{sets_games_block()}{marq_block(row)}</div>{blocker_html}</article>"
+    return f"<article class='match-card'><div class='rank'>#{rank}</div>{pick_block(row)}<div class='score-box'><div class='score-label'>CORQ</div><div class='score-main'>{esc(pct(score))}</div><div class='score-sub'>Edge {esc(pct(row.get('corq_edge'), signed=True))}</div><div class='score-sub'>Odds {esc(money(row.get('odds') or row.get('pick_odds')))}</div><div class='score-sub'>Public {esc(pct(row.get('public_candidate_score')))}</div></div><div class='intel-grid'>{thinq_block(row)}{sets_games_block()}{marq_block(row)}</div>{blocker_html}</article>"
 
 
 def nav(active: str) -> str:
@@ -179,12 +227,44 @@ def write_page(path_key: str, content: str) -> None:
     target.write_text(content, encoding="utf-8")
 
 
+def _identity(row: Dict[str, Any]) -> str:
+    event_id = row.get("event_id") or row.get("match_id") or row.get("id") or "no_event"
+    side = row.get("pick_side") or row.get("pick") or "no_side"
+    return f"{event_id}::{side}"
+
+
+def _sort_key(row: Dict[str, Any]):
+    rank = row.get("corq_rank")
+    try:
+        rank_value = int(rank)
+    except Exception:
+        rank_value = 999999
+    return (rank_value, -public_candidate_score(row))
+
+
+def build_public_candidate_pool(top7_rows: List[Dict[str, Any]], all_rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Keep raw TOP7 priority, then search ALL for publish-safe fallback rows."""
+    seen = set()
+    pool: List[Dict[str, Any]] = []
+    combined = list(top7_rows or []) + sorted(list(all_rows or []), key=_sort_key)
+    for row in combined:
+        if not isinstance(row, dict):
+            continue
+        key = _identity(row)
+        if key in seen:
+            continue
+        seen.add(key)
+        pool.append(row)
+    return pool
+
+
 def publish_safe_top7(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     safe = []
-    for row in rows:
+    for row in sorted(list(rows or []), key=_sort_key):
         blockers = web_publish_blockers(row)
         copy = dict(row)
         copy["web_publish_blockers"] = blockers
+        copy["public_candidate_score"] = public_candidate_score(copy)
         if not blockers:
             safe.append(copy)
     return safe[:7]
@@ -210,14 +290,15 @@ def render() -> Dict[str, Any]:
         all_raw = []
     if not isinstance(manifest, dict):
         manifest = {}
-    safe_top7 = publish_safe_top7(top7_raw)
-    blocked = [dict(row, web_publish_blockers=web_publish_blockers(row)) for row in top7_raw if web_publish_blockers(row)]
-    summary = {"candidate_count": manifest.get("candidate_count", "—"), "all_count": manifest.get("all_count", len(all_raw)), "ranked_count": manifest.get("ranked_count", len(top7_raw)), "top7_count": len(safe_top7), "updated": manifest.get("finished_at_utc") or datetime.now(timezone.utc).isoformat()}
-    top_body = ("<div class='match-list'>" + "".join(row_card(row, idx + 1) for idx, row in enumerate(safe_top7)) + "</div>") if safe_top7 else "<div class='notice'>No publication-safe TOP7 picks after web guard. ALL audit still contains all runtime rows.</div>"
+    public_pool = build_public_candidate_pool(top7_raw, all_raw)
+    safe_top7 = publish_safe_top7(public_pool)
+    blocked = [dict(row, web_publish_blockers=web_publish_blockers(row), public_candidate_score=public_candidate_score(row)) for row in top7_raw if web_publish_blockers(row)]
+    summary = {"candidate_count": manifest.get("candidate_count", "—"), "all_count": manifest.get("all_count", len(all_raw)), "ranked_count": len(public_pool), "top7_count": len(safe_top7), "updated": manifest.get("finished_at_utc") or datetime.now(timezone.utc).isoformat()}
+    top_body = ("<div class='match-list'>" + "".join(row_card(row, idx + 1) for idx, row in enumerate(safe_top7)) + "</div>") if safe_top7 else "<div class='notice'>No publication-safe TOP7 picks after web guard and ALL fallback. ALL audit still contains all runtime rows.</div>"
     if blocked:
         top_body += "<h2>Blocked from Corq page</h2><div class='match-list'>" + "".join(row_card(row, idx + 1, audit=True) for idx, row in enumerate(blocked[:10])) + "</div>"
     all_rows = all_raw if all_raw else top7_raw
-    all_body = ("<div class='match-list'>" + "".join(row_card(dict(row, web_publish_blockers=web_publish_blockers(row)), idx + 1, audit=True) for idx, row in enumerate(all_rows)) + "</div>") if all_rows else "<div class='empty'>No ALL rows available.</div>"
+    all_body = ("<div class='match-list'>" + "".join(row_card(dict(row, web_publish_blockers=web_publish_blockers(row), public_candidate_score=public_candidate_score(row)), idx + 1, audit=True) for idx, row in enumerate(all_rows)) + "</div>") if all_rows else "<div class='empty'>No ALL rows available.</div>"
     write_page(CORQ_PATH, html_page("corq", "TBT PRO · Corq", "TOP7 publication-safe view", top_body, summary))
     write_page(ALL_PATH, html_page("all", "TBT PRO · All", "Broad audit view with side, THINQ and market warnings", all_body, summary))
     write_page(CLOQ_PATH, html_page("cloq", "TBT PRO · Cloq", "Close-odds specialist planned", "<div class='empty'>CLOQ page planned.</div>", summary))
