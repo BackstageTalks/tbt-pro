@@ -1,9 +1,11 @@
-"""RapidAPI PRO client for CORQ runtime with simple robust odds pairing.
+"""RapidAPI PRO client for CORQ runtime.
 
-This version keeps the clean runtime while improving odds orientation:
-- confirms DIRECT_TO_MATCH_PLAYERS when odds labels match player1/player2
-- confirms REVERSED_TO_MATCH_PLAYERS when odds labels are reversed
-- keeps DIRECT_OR_LABEL_UNKNOWN only when label matching is not possible
+This patch keeps the simple robust name matcher, but adds a pragmatic rule for
+RapidAPI odds payloads where outcome labels are numeric:
+- label "1" means home/player1
+- label "2" means away/player2
+
+Therefore those odds are considered confirmed as DIRECT_BY_NUMERIC_OUTCOME.
 """
 
 from __future__ import annotations
@@ -23,8 +25,8 @@ except Exception:  # pragma: no cover
     requests = None
 
 try:
-    from corq.name_match import name_match_score, names_match, normalize_name
-except Exception:  # fallback if package import is unavailable
+    from corq.name_match import name_match_score, normalize_name
+except Exception:
     from difflib import SequenceMatcher
     def normalize_name(value: Any) -> str:
         text = unicodedata.normalize("NFKD", str(value or "").strip().lower())
@@ -43,8 +45,6 @@ except Exception:  # fallback if package import is unavailable
         if a_parts and b_parts and a_parts[-1] == b_parts[-1]:
             return 0.82
         return SequenceMatcher(None, a_norm, b_norm).ratio()
-    def names_match(a: Any, b: Any, threshold: float = 0.78) -> bool:
-        return name_match_score(a, b) >= threshold
 
 LOCAL_TZ = ZoneInfo("Europe/Bratislava")
 
@@ -466,6 +466,16 @@ def normalize_winner_odds_payload(payload: Any) -> Optional[Dict[str, Any]]:
     return None
 
 
+def _numeric_outcome_direction(label1: Any, label2: Any) -> Optional[str]:
+    l1 = normalize_name(label1)
+    l2 = normalize_name(label2)
+    if l1 in {"1", "home", "home team", "player 1", "player1"} and l2 in {"2", "away", "away team", "player 2", "player2"}:
+        return "DIRECT_BY_NUMERIC_OUTCOME"
+    if l1 in {"2", "away", "away team", "player 2", "player2"} and l2 in {"1", "home", "home team", "player 1", "player1"}:
+        return "REVERSED_BY_NUMERIC_OUTCOME"
+    return None
+
+
 def orient_odds_to_match(match: Dict[str, Any], odds: Dict[str, Any]) -> Tuple[Any, Any, str, float, float]:
     p1 = odds.get("odds_player1")
     p2 = odds.get("odds_player2")
@@ -473,6 +483,12 @@ def orient_odds_to_match(match: Dict[str, Any], odds: Dict[str, Any]) -> Tuple[A
     label2 = odds.get("player2_label")
     player1 = match.get("player1")
     player2 = match.get("player2")
+
+    numeric_direction = _numeric_outcome_direction(label1, label2)
+    if numeric_direction == "DIRECT_BY_NUMERIC_OUTCOME":
+        return p1, p2, numeric_direction, 1.0, 0.0
+    if numeric_direction == "REVERSED_BY_NUMERIC_OUTCOME":
+        return p2, p1, numeric_direction, 0.0, 1.0
 
     direct_score = min(name_match_score(player1, label1), name_match_score(player2, label2)) if label1 and label2 else 0.0
     reverse_score = min(name_match_score(player1, label2), name_match_score(player2, label1)) if label1 and label2 else 0.0
@@ -516,7 +532,12 @@ def fetch_daily_matches_with_odds(target_date: Optional[datetime] = None) -> Lis
                 "odds_source": odds.get("odds_source"),
                 "odds_endpoint": odds.get("odds_endpoint"),
                 "odds_pair_available": p1 is not None and p2 is not None,
-                "odds_labels_confirmed": direction in {"DIRECT_TO_MATCH_PLAYERS", "REVERSED_TO_MATCH_PLAYERS"},
+                "odds_labels_confirmed": direction in {
+                    "DIRECT_TO_MATCH_PLAYERS",
+                    "REVERSED_TO_MATCH_PLAYERS",
+                    "DIRECT_BY_NUMERIC_OUTCOME",
+                    "REVERSED_BY_NUMERIC_OUTCOME",
+                },
             })
             if p1 is not None and p2 is not None:
                 gap = abs(float(p1) - float(p2))
