@@ -1,0 +1,52 @@
+name: Daily Tennis Predictions
+
+on:
+  schedule:
+    # 06:45 UTC = 08:45 Europe/Bratislava during summer time.
+    - cron: "45 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: daily-tennis-predictions
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+      TGBOT: ${{ secrets.TGBOT }}
+      TGCHID: ${{ secrets.TGCHID }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Run CORQ daily runtime
+        run: python engine.py
+
+      - name: Commit outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add outputs || true
+          if git diff --cached --quiet; then
+            echo "No output changes to commit"
+          else
+            git commit -m "Update CORQ daily outputs"
+            git push
+          fi
