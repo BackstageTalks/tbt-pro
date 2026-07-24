@@ -181,23 +181,19 @@ def event_status_code(event: Dict[str, Any]) -> Optional[int]:
 
 
 def is_event_notstarted_future(event: Dict[str, Any], now: Optional[datetime] = None) -> Tuple[bool, Optional[str]]:
-    current = now or datetime.now(timezone.utc)
-    if current.tzinfo is None:
-        current = current.replace(tzinfo=timezone.utc)
-    current = current.astimezone(timezone.utc)
+    """Loose loader-level gate.
+
+    This function is retained for compatibility, but the main normalizer no
+    longer calls it. It rejects only obviously closed/cancelled statuses if
+    called elsewhere.
+    """
     status_type = event_status_type(event)
     status_code = event_status_code(event)
-    if status_type not in {"notstarted", "not started", "scheduled", "unknown"}:
+    closed_types = {"finished", "ended", "inprogress", "in progress", "live", "cancelled", "canceled", "postponed", "interrupted", "retired", "walkover"}
+    if status_type in closed_types:
         return False, f"status_type={status_type}"
-    if status_code not in (None, 0):
-        return False, f"status_code={status_code}"
-    start_raw = event.get("startTimestamp") or event.get("start_timestamp") or deep_find_first(event, {"startTimestamp", "start_time"})
-    start_dt = parse_datetime(start_raw)
-    if start_dt is None:
-        return False, "missing_start_time"
-    min_minutes = _env_int("TENNISAPI_MIN_MINUTES_BEFORE_START", 10)
-    if start_dt <= current + timedelta(minutes=max(min_minutes, 0)):
-        return False, f"start_time_too_close_or_past={start_dt.isoformat()}"
+    if status_code == 100:
+        return False, "status_code=100"
     return True, None
 
 
@@ -268,10 +264,16 @@ class RapidApiClient:
 
     def get_events_for_date(self, target_date: Optional[datetime] = None) -> List[Dict[str, Any]]:
         day = target_betting_day(target_date)
+        categories = self.discover_categories(day)
         events: List[Dict[str, Any]] = []
-        for category_id in self.discover_categories(day):
-            events.extend(self.get_events_for_category(category_id, day))
-        return dedupe_events(events)
+        print(f"RAPIDAPI EVENTS DATE: {day.strftime('%Y-%m-%d')} categories={categories}")
+        for category_id in categories:
+            category_events = self.get_events_for_category(category_id, day)
+            print(f"RAPIDAPI CATEGORY {category_id} EVENTS: {len(category_events)}")
+            events.extend(category_events)
+        deduped = dedupe_events(events)
+        print(f"RAPIDAPI RAW EVENTS: {len(events)} DEDUPED: {len(deduped)}")
+        return deduped
 
     def get_event_odds(self, event_id: Any) -> Optional[Dict[str, Any]]:
         if event_id in (None, ""):
@@ -336,9 +338,9 @@ def _category_name(event: Dict[str, Any]) -> Optional[str]:
 
 
 def normalize_event_for_corq(event: Dict[str, Any]) -> Optional[Dict[str, Any]]:
-    ok, _reason = is_event_notstarted_future(event)
-    if not ok:
-        return None
+    # IMPORTANT: do not apply strict status/time filtering in the loader.
+    # The loader should keep events visible for ALL audit. Status/time eligibility
+    # is handled later in corq.rules, where rejected events get explicit flags.
     player1, player2 = event_players(event)
     if not player1 or not player2:
         return None
@@ -504,6 +506,7 @@ def fetch_daily_matches_with_odds(target_date: Optional[datetime] = None) -> Lis
     client = RapidApiClient()
     raw_events = client.get_events_for_date(target_date)
     matches = [item for item in (normalize_event_for_corq(event) for event in raw_events) if isinstance(item, dict)]
+    print(f"RAPIDAPI NORMALIZED MATCHES BEFORE ODDS: {len(matches)}")
     output: List[Dict[str, Any]] = []
 
     for match in matches:
@@ -551,4 +554,5 @@ def fetch_daily_matches_with_odds(target_date: Optional[datetime] = None) -> Lis
                 "no_odds_reason": "NO_RAPIDAPI_PRO_ODDS",
             })
         output.append(row)
+    print(f"RAPIDAPI MATCHES WITH ODDS ROWS: {len(output)}")
     return output
