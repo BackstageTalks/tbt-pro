@@ -1,8 +1,8 @@
 """CORQ scoring model.
 
 CORQ consumes THINQ intelligence signals and turns them into a ranked score.
-THINQ remains the intelligence layer. CORQ does not expose corq_probability
-and AI Match is intentionally skipped until MARQ is introduced.
+THINQ remains intelligence. CORQ does not expose corq_probability and AI Match
+is intentionally skipped until MARQ is introduced.
 """
 
 from __future__ import annotations
@@ -36,8 +36,11 @@ def extract_edges(record: Dict[str, Any]) -> Dict[str, Optional[float]]:
     keys = [
         "elo_edge",
         "h2h_edge",
-        "surface_form_edge",
         "recent_form_edge",
+        "short_form_edge",
+        "surface_recent_form_edge",
+        "opponent_quality_edge",
+        "surface_form_edge",
         "level_form_edge",
         "ta_edge",
         "fatigue_edge",
@@ -53,19 +56,16 @@ def extract_edges(record: Dict[str, Any]) -> Dict[str, Optional[float]]:
 
 
 def build_corq_score(edges: Dict[str, Optional[float]], thinq_confidence: float = 0.0) -> float:
-    """Return CORQ score in 0.05..0.95 range.
-
-    The score is a ranking strength score, not a standalone probability label.
-    Confidence gently scales context/noisy edges while ELO, H2H and core form
-    edges remain the main drivers.
-    """
     confidence = clamp(thinq_confidence, 0.0, 1.0)
 
     core = (
         _edge(edges, "elo_edge")
         + _edge(edges, "h2h_edge")
-        + _edge(edges, "surface_form_edge")
         + _edge(edges, "recent_form_edge")
+        + _edge(edges, "short_form_edge")
+        + _edge(edges, "surface_recent_form_edge")
+        + _edge(edges, "opponent_quality_edge")
+        + _edge(edges, "surface_form_edge")
         + _edge(edges, "level_form_edge")
         + _edge(edges, "ta_edge")
     )
