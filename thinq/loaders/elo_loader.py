@@ -100,7 +100,27 @@ def load_json(path: Path) -> List[Dict[str, Any]]:
             value = payload.get(key)
             if isinstance(value, list):
                 return [item for item in value if isinstance(item, dict)]
-        return [{"player": name, **value} for name, value in payload.items() if isinstance(value, dict)]
+            if isinstance(value, dict):
+                rows: List[Dict[str, Any]] = []
+                for name, record in value.items():
+                    if not isinstance(record, dict):
+                        continue
+                    merged = dict(record)
+                    if not merged.get("player"):
+                        merged["player"] = name
+                    if not merged.get("normalized_name"):
+                        merged["normalized_name"] = normalize_name(merged.get("player") or name)
+                    rows.append(merged)
+                return rows
+        rows: List[Dict[str, Any]] = []
+        for name, value in payload.items():
+            if not isinstance(value, dict):
+                continue
+            merged = dict(value)
+            if not merged.get("player"):
+                merged["player"] = name
+            rows.append(merged)
+        return rows
     return []
 
 

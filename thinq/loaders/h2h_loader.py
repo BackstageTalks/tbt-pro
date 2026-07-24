@@ -74,37 +74,87 @@ def load_cache(path: Path) -> Optional[Any]:
     return None
 
 
-def api_get(path: str, params: Optional[Dict[str, Any]] = None) -> Optional[Any]:
+def api_get_with_audit(path: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    audit: Dict[str, Any] = {
+        "endpoint": path,
+        "params": params or {},
+        "url_path": path,
+        "ok": False,
+        "status_code": None,
+        "error": None,
+        "payload": None,
+    }
     if requests is None:
-        return None
+        audit["error"] = "requests_unavailable"
+        return audit
     headers = rapidapi_headers()
     if not headers:
-        return None
+        audit["error"] = "missing_rapidapi_key"
+        return audit
     url = f"https://{rapidapi_host()}{path}"
     try:
         resp = requests.get(url, headers=headers, params=params or {}, timeout=25)
+        audit["status_code"] = resp.status_code
         if resp.status_code in (204, 404):
-            return None
+            audit["error"] = f"empty_status_{resp.status_code}"
+            return audit
         resp.raise_for_status()
         if not resp.text:
-            return None
-        return resp.json()
-    except Exception:
-        return None
+            audit["error"] = "empty_response_text"
+            return audit
+        audit["payload"] = resp.json()
+        audit["ok"] = True
+        return audit
+    except Exception as exc:
+        audit["error"] = str(exc)
+        return audit
     finally:
         time.sleep(0.10)
 
 
-def fetch_h2h_from_api(event_id: Any, player1_id: Any = None, player2_id: Any = None) -> Optional[Any]:
+def api_get(path: str, params: Optional[Dict[str, Any]] = None) -> Optional[Any]:
+    audit = api_get_with_audit(path, params=params)
+    return audit.get("payload") if audit.get("ok") else None
+
+
+def string_id(value: Any) -> Optional[str]:
+    if value in (None, ""):
+        return None
+    text = str(value).strip()
+    return text or None
+
+
+def fetch_h2h_from_api(
+    event_id: Any,
+    player1_id: Any = None,
+    player2_id: Any = None,
+    event_custom_id: Any = None,
+) -> Optional[Any]:
     event_id_int = as_int(event_id)
-    attempts = []
+    custom_id = string_id(event_custom_id)
+    event_id_text = string_id(event_id)
+    if not custom_id and event_id_text and not event_id_text.isdigit():
+        custom_id = event_id_text
+    attempts: List[Any] = []
+
+    # TennisApi PRO H2H history. RapidAPI docs/examples use the event customId
+    # for this endpoint, e.g. /api/tennis/event/QCtsXrI/h2h.
+    if custom_id:
+        attempts.extend([
+            (f"/api/tennis/event/{custom_id}/h2h", None),
+            (f"/api/tennis/event/{custom_id}/head-to-head", None),
+        ])
+
+    # Numeric event id fallbacks. Some endpoints accept numeric match id.
     if event_id_int:
         attempts.extend([
             (f"/api/tennis/event/{event_id_int}/h2h", None),
             (f"/api/tennis/event/{event_id_int}/head-to-head", None),
+            (f"/api/tennis/event/{event_id_int}/h2h/summary", None),
             ("/api/tennis/getHeadToHeadHistory", {"eventId": event_id_int}),
             ("/api/tennis/getHeadToHeadSummary", {"eventId": event_id_int}),
         ])
+
     p1 = as_int(player1_id)
     p2 = as_int(player2_id)
     if p1 and p2:
@@ -117,10 +167,36 @@ def fetch_h2h_from_api(event_id: Any, player1_id: Any = None, player2_id: Any = 
             ("/api/tennis/getHeadToHeadHistory", {"homeTeamId": p1, "awayTeamId": p2}),
             ("/api/tennis/getHeadToHeadSummary", {"homeTeamId": p1, "awayTeamId": p2}),
         ])
+
+    endpoint_attempts: List[Dict[str, Any]] = []
     for path, params in attempts:
-        payload = api_get(path, params=params)
+        audit = api_get_with_audit(path, params=params)
+        endpoint_attempts.append({
+            "endpoint": audit.get("endpoint"),
+            "params": audit.get("params"),
+            "status_code": audit.get("status_code"),
+            "ok": audit.get("ok"),
+            "error": audit.get("error"),
+        })
+        payload = audit.get("payload")
         if payload:
-            return {"endpoint": path, "params": params, "payload": payload}
+            return {
+                "endpoint": path,
+                "params": params,
+                "payload": payload,
+                "endpoint_attempts": endpoint_attempts,
+                "api_status_code": audit.get("status_code"),
+                "api_error": audit.get("error"),
+            }
+    if endpoint_attempts:
+        return {
+            "endpoint": None,
+            "params": None,
+            "payload": None,
+            "endpoint_attempts": endpoint_attempts,
+            "api_status_code": endpoint_attempts[-1].get("status_code"),
+            "api_error": endpoint_attempts[-1].get("error"),
+        }
     return None
 
 
@@ -223,12 +299,14 @@ def build_h2h_context(
     surface: Optional[str] = None,
     player1_id: Any = None,
     player2_id: Any = None,
+    event_custom_id: Any = None,
 ) -> Dict[str, Any]:
-    path = cache_path(event_id, pick, opponent)
+    cache_key = event_custom_id or event_id
+    path = cache_path(cache_key, pick, opponent)
     payload = load_cache(path)
     source = "cache"
     if payload is None:
-        payload = fetch_h2h_from_api(event_id, player1_id=player1_id, player2_id=player2_id)
+        payload = fetch_h2h_from_api(event_id, player1_id=player1_id, player2_id=player2_id, event_custom_id=event_custom_id)
         source = "rapidapi_pro"
         if payload is not None:
             save_cache(path, payload)
@@ -236,7 +314,14 @@ def build_h2h_context(
     if isinstance(payload, dict):
         summary["endpoint"] = payload.get("endpoint")
         summary["params"] = payload.get("params")
+        summary["endpoint_attempts"] = payload.get("endpoint_attempts") or []
+        summary["api_status_code"] = payload.get("api_status_code")
+        summary["api_error"] = payload.get("api_error")
+        if payload.get("payload") is None and summary.get("status") != "OK":
+            summary["reason"] = payload.get("api_error") or summary.get("reason")
     summary["cache_path"] = str(path)
+    summary["requested_event_id"] = as_int(event_id) or event_id
+    summary["requested_event_custom_id"] = string_id(event_custom_id)
     summary["requested_player1_id"] = as_int(player1_id)
     summary["requested_player2_id"] = as_int(player2_id)
     if summary.get("status") == "OK":
