@@ -1,36 +1,51 @@
-name: Corq Smoke Tests
+name* CORQ Smoke Tests
 
 on:
-  workflow_dispatch:
+  workflow_*ispatch:
   push:
-    paths:
-      - "engine.py"
-      - "match_normalizer.py"
-      - "corq/**"
-      - "thinq/**"
-      - "web/**"
-      - ".github/workflows/corq-smoke-tests.yml"
+    branches:
+   *  - main
+
+permissions:
+  contents:*read
 
 jobs:
   smoke:
-    runs-on: ubuntu-latest
+    runs-on: *buntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - n*me: Checkout
+        uses: actions*checkout@v4
+
+      - name: Setup P*thon
+        uses: actions/setup-p*thon@v5
         with:
-          python-version: "3.11"
-      - name: Install dependencies
+          py*hon-version: "3.11"
+
+      - name:*Install dependencies
+        run: *
+          python -m pip install -*upgrade pip
+          if [ -f requ*rements.txt ]; then pip install -r*requirements.txt; fi
+
+      - name* Compile
         run: |
-          python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; else pip install requests; fi
-      - name: Compile
+          *ython -m py_compile \
+            *ngine.py \
+            corq/*.py \*            corq/site/*.py \
+     *      corq/web/*.py \
+            *hinq/*.py \
+            runtime/*.*y
+
+      - name: Runtime import sm*ke
         run: |
-          python -m py_compile engine.py match_normalizer.py corq/*.py thinq/service.py thinq/loaders/*.py web/*.py
-      - name: Runtime import smoke
-        run: |
-          python - <<'PY'
-          from web.render import render_page
-          html = render_page([{"pick":"A","opponent":"B","corq_probability":0.61,"corq_adjusted_score":0.6,"thinq":{"confidence":0.5,"edges":{"elo_edge":0.02},"h2h":{"status":"NO_DATA"}}}], "Smoke")
-          assert "THINQ" in html and "ELO PICK" in html
-          print("CORQ_SMOKE_OK")
+          python*- <<'PY'
+          from corq.engin* import run_daily
+          from c*rq.model import build_corq_predict*on
+          from corq.ranking imp*rt rank_corq, make_all_match_view,*top7_from_ranking
+
+          print*"CORQ imports OK")
           PY
+
+ *    - name: Runtime sample smoke
+ *      run: |
+          python engi*e.py --input data/candidates.sample.json --output-root smoke_outputs
