@@ -26,7 +26,7 @@ NAV_ITEMS = [
 ]
 
 def base_url() -> str:
-    value = os.getenv("TBTPRO_BASE_URL", "https://backstagetalks.github.io/tennis-backstage-talks/").strip()
+    value = os.getenv("TBTPRO_BASE_URL", "https://backstagetalks.github.io/tbt-pro/").strip()
     if value and not value.endswith("/"):
         value += "/"
     return value

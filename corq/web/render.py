@@ -381,6 +381,13 @@ def write_page(path_key: str, content: str) -> None:
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(content, encoding="utf-8")
 
+def write_root_index() -> None:
+    SITE_ROOT.mkdir(parents=True, exist_ok=True)
+    top7_href = f"{TOP7_PATH}/"
+    rss_href = TG_RSS_PATH
+    content = f"""<!doctype html><html lang='en'><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width, initial-scale=1'/><meta http-equiv='refresh' content='0; url={top7_href}'/><title>TBT PRO</title><style>{CSS}</style></head><body><div class='page'><header><div class='brand'><h1>TBT PRO</h1><p>BackstageTalks Statistical Engine</p></div></header><div class='notice'>Redirecting to TOP7. If redirect does not start, open <a href='{top7_href}'>TOP7</a>. Telegram RSS: <a href='{rss_href}'>{rss_href}</a>.</div></div></body></html>"""
+    (SITE_ROOT / "index.html").write_text(content, encoding="utf-8")
+
 
 def table_page(rows: List[Dict[str, Any]], title: str) -> str:
     if not rows:
@@ -534,6 +541,7 @@ def render() -> Dict[str, Any]:
     write_page(CORQ_RSS_PATH, rss)
     write_page(THINQ_RSS_PATH, rss_feed(top7_raw, "TBT PRO THINQ RSS"))
     write_page(CLOQ_RSS_PATH, rss_feed(cloq_rows, "TBT PRO CLOQ RSS"))
+    write_root_index()
 
     return {"top7_count": len(safe_top7), "all_count": len(all_rows), "results_count": len(results), "site_root": str(SITE_ROOT)}
 
