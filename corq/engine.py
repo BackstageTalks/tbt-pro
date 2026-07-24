@@ -51,6 +51,17 @@ def _call_build_match_features(thinq_service: Any, payload: Dict[str, Any]) -> D
         )
 
 
+
+
+def _raw_team_id(record: Dict[str, Any], side: str) -> Any:
+    raw = record.get("raw") if isinstance(record.get("raw"), dict) else {}
+    key = "homeTeam" if side == "HOME" else "awayTeam"
+    team = raw.get(key) if isinstance(raw.get(key), dict) else {}
+    if team.get("id") not in (None, ""):
+        return team.get("id")
+    info = team.get("playerTeamInfo") if isinstance(team.get("playerTeamInfo"), dict) else {}
+    return info.get("id")
+
 def _enrich_with_thinq(record: Dict[str, Any], thinq_service: Any) -> Dict[str, Any]:
     safe_record = repair_candidate_side(record)
     safe_record["side_audit"] = build_side_audit(safe_record)
@@ -76,8 +87,8 @@ def _enrich_with_thinq(record: Dict[str, Any], thinq_service: Any) -> Dict[str, 
             "tour_type": safe_record.get("tour_type"),
             "as_of_date": safe_record.get("date") or date.today().isoformat(),
             "event_id": safe_record.get("event_id") or safe_record.get("eventId"),
-            "player1_id": safe_record.get("player1_id"),
-            "player2_id": safe_record.get("player2_id"),
+            "player1_id": safe_record.get("player1_id") or _raw_team_id(safe_record, "HOME"),
+            "player2_id": safe_record.get("player2_id") or _raw_team_id(safe_record, "AWAY"),
             "tournament_id": safe_record.get("tournament_id"),
             "best_of": int(safe_record.get("best_of") or 3),
             "save_snapshot": False,
