@@ -1,111 +1,234 @@
-"""THINQ H2H Loader.
+"""THINQ H2H loader.
 
-H2H belongs to THINQ. This loader never raises during daily build.
-It returns AVAILABLE, NO_DATA, or ERROR_NON_BLOCKING statuses.
+Broad implementation for runtime building:
+- RapidAPI PRO first, if event_id is available
+- local cache fallback
+- never blocks CORQ if no H2H data exists
 """
+
 from __future__ import annotations
-from typing import Any, Dict, Optional
+
+import json
 import os
-import re
-import unicodedata
+import time
+from datetime import date
+from pathlib import Path
+from typing import Any, Dict, List, Optional
 
 try:
     import requests
 except Exception:  # pragma: no cover
     requests = None
 
-HOST = os.getenv("TENNISAPI_PRO_HOST", "tennisapi1.p.rapidapi.com")
-BASE_URL = os.getenv("TENNISAPI_PRO_BASE_URL", "https://tennisapi1.p.rapidapi.com")
+try:
+    from corq.name_match import names_match, normalize_name
+except Exception:
+    def normalize_name(value: Any) -> str:
+        return str(value or "").strip().lower()
+    def names_match(a: Any, b: Any, threshold: float = 0.78) -> bool:
+        return normalize_name(a) == normalize_name(b)
+
+CACHE_DIR = Path("data/h2h_cache")
 
 
-def norm_name(value: Any) -> str:
-    text = unicodedata.normalize("NFKD", str(value or "").strip().lower())
-    text = "".join(ch for ch in text if not unicodedata.combining(ch))
-    text = re.sub(r"[^a-z0-9]+", " ", text)
-    return " ".join(text.split())
+def as_int(value: Any) -> Optional[int]:
+    try:
+        if value in (None, ""):
+            return None
+        return int(value)
+    except Exception:
+        return None
 
 
-def empty_h2h(reason: str = "No usable H2H events", status: str = "NO_DATA") -> Dict[str, Any]:
-    return {
-        "status": status,
-        "source": "none",
-        "total_matches": 0,
-        "player1_wins": 0,
-        "player2_wins": 0,
-        "pick_wins": 0,
-        "opponent_wins": 0,
-        "edge": 0.0,
-        "confidence": 0.0,
-        "reason": reason,
-        "flags": [status],
-    }
+def rapidapi_host() -> str:
+    return os.getenv("TENNISAPI_RAPIDAPI_HOST") or os.getenv("RAPIDAPI_HOST") or "tennisapi1.p.rapidapi.com"
 
 
-def _api_headers() -> Optional[Dict[str, str]]:
-    key = os.getenv("RAPIDAPI_KEY") or os.getenv("X_RAPIDAPI_KEY")
+def rapidapi_headers() -> Optional[Dict[str, str]]:
+    key = os.getenv("RAPIDAPI_KEY")
     if not key:
         return None
-    return {"x-rapidapi-key": key, "x-rapidapi-host": HOST, "Content-Type": "application/json"}
+    return {"x-rapidapi-key": key, "x-rapidapi-host": rapidapi_host()}
 
 
-def _try_event_api(event_id: Any) -> Optional[Dict[str, Any]]:
-    if not event_id or requests is None:
+def cache_path(event_id: Any, player1: str, player2: str) -> Path:
+    year = str(date.today().year)
+    key = str(event_id or f"{normalize_name(player1)}__{normalize_name(player2)}").replace("/", "_")
+    return CACHE_DIR / year / f"h2h_{key}.json"
+
+
+def save_cache(path: Path, payload: Any) -> None:
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception:
+        pass
+
+
+def load_cache(path: Path) -> Optional[Any]:
+    try:
+        if path.exists():
+            return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
         return None
-    headers = _api_headers()
-    if not headers:
-        return None
-    paths = [
-        f"/api/tennis/event/{event_id}/h2h/events",
-        f"/api/tennis/event/{event_id}/h2h/history",
-        f"/api/tennis/event/{event_id}/head-to-head/history",
-        f"/api/tennis/event/{event_id}/head-to-head",
-        f"/api/tennis/event/{event_id}/h2h",
-    ]
-    for path in paths:
-        try:
-            url = f"{BASE_URL.rstrip('/')}{path}"
-            response = requests.get(url, headers=headers, timeout=20)
-            if response.status_code >= 400:
-                continue
-            payload = response.json()
-            # Keep parsing conservative. If unknown shape, expose source but no edge.
-            events = payload.get("events") or payload.get("data") or payload.get("matches")
-            if isinstance(events, list) and events:
-                return {"payload": payload, "endpoint": path, "events": events}
-        except Exception:
-            continue
     return None
 
 
-def build_h2h_context(player1: str, player2: str, pick: Optional[str] = None, opponent: Optional[str] = None, surface: Optional[str] = None, event_id: Any = None, **kwargs) -> Dict[str, Any]:
+def api_get(path: str, params: Optional[Dict[str, Any]] = None) -> Optional[Any]:
+    if requests is None:
+        return None
+    headers = rapidapi_headers()
+    if not headers:
+        return None
+    url = f"https://{rapidapi_host()}{path}"
     try:
-        api = _try_event_api(event_id)
-        if not api:
-            return empty_h2h("No API H2H events returned")
-        # We have events but do not assume complex winner schema yet.
-        total = len(api.get("events") or [])
-        if total <= 0:
-            return empty_h2h("API H2H returned empty list")
+        resp = requests.get(url, headers=headers, params=params or {}, timeout=25)
+        if resp.status_code in (204, 404):
+            return None
+        resp.raise_for_status()
+        if not resp.text:
+            return None
+        return resp.json()
+    except Exception:
+        return None
+    finally:
+        time.sleep(0.10)
+
+
+def fetch_h2h_from_api(event_id: Any, player1_id: Any = None, player2_id: Any = None) -> Optional[Any]:
+    event_id_int = as_int(event_id)
+    attempts = []
+    if event_id_int:
+        attempts.extend([
+            (f"/api/tennis/event/{event_id_int}/h2h", None),
+            (f"/api/tennis/event/{event_id_int}/head-to-head", None),
+            ("/api/tennis/getHeadToHeadHistory", {"eventId": event_id_int}),
+            ("/api/tennis/getHeadToHeadSummary", {"eventId": event_id_int}),
+        ])
+    p1 = as_int(player1_id)
+    p2 = as_int(player2_id)
+    if p1 and p2:
+        attempts.extend([
+            (f"/api/tennis/head-to-head/{p1}/{p2}", None),
+            ("/api/tennis/getHeadToHeadHistory", {"player1Id": p1, "player2Id": p2}),
+            ("/api/tennis/getHeadToHeadSummary", {"player1Id": p1, "player2Id": p2}),
+        ])
+    for path, params in attempts:
+        payload = api_get(path, params=params)
+        if payload:
+            return {"endpoint": path, "params": params, "payload": payload}
+    return None
+
+
+def extract_events(payload: Any) -> List[Dict[str, Any]]:
+    if isinstance(payload, dict) and "payload" in payload:
+        payload = payload.get("payload")
+    if isinstance(payload, list):
+        return [item for item in payload if isinstance(item, dict)]
+    if isinstance(payload, dict):
+        for key in ("events", "h2h", "matches", "data", "items", "results"):
+            value = payload.get(key)
+            if isinstance(value, list):
+                return [item for item in value if isinstance(item, dict)]
+        nested = payload.get("data")
+        if isinstance(nested, dict):
+            return extract_events(nested)
+    return []
+
+
+def player_name_from_event_side(value: Any) -> str:
+    if isinstance(value, dict):
+        for key in ("name", "fullName", "displayName", "shortName", "slug"):
+            if value.get(key):
+                return str(value.get(key))
+    return str(value or "")
+
+
+def winner_from_event(event: Dict[str, Any]) -> Optional[str]:
+    winner = event.get("winner") or event.get("winnerTeam") or event.get("winner_team")
+    if winner:
+        return player_name_from_event_side(winner)
+    code = event.get("winnerCode")
+    home = player_name_from_event_side(event.get("homeTeam") or event.get("home") or event.get("player1"))
+    away = player_name_from_event_side(event.get("awayTeam") or event.get("away") or event.get("player2"))
+    try:
+        code_int = int(code)
+        if code_int == 1:
+            return home
+        if code_int == 2:
+            return away
+    except Exception:
+        return None
+    return None
+
+
+def summarize_h2h(payload: Any, pick: str, opponent: str, surface: Optional[str] = None) -> Dict[str, Any]:
+    events = extract_events(payload)
+    total = 0
+    pick_wins = 0
+    opponent_wins = 0
+    same_surface_total = 0
+    same_surface_pick_wins = 0
+    for event in events:
+        winner = winner_from_event(event)
+        if not winner:
+            continue
+        total += 1
+        if names_match(winner, pick):
+            pick_wins += 1
+        elif names_match(winner, opponent):
+            opponent_wins += 1
+        raw_surface = str(event.get("surface") or event.get("groundType") or event.get("surfaceType") or "").lower()
+        if surface and str(surface).lower() in raw_surface:
+            same_surface_total += 1
+            if names_match(winner, pick):
+                same_surface_pick_wins += 1
+    if total == 0:
         return {
-            "status": "AVAILABLE",
-            "source": "api_pro",
-            "endpoint": api.get("endpoint"),
-            "total_matches": total,
-            "player1_wins": 0,
-            "player2_wins": 0,
+            "status": "NO_DATA",
+            "source": "none",
+            "total_matches": 0,
             "pick_wins": 0,
             "opponent_wins": 0,
             "edge": 0.0,
-            "confidence": min(0.25 + total * 0.08, 0.65),
-            "reason": "API H2H events available; winner parsing conservative",
-            "flags": ["H2H_API_EVENTS_AVAILABLE"],
+            "confidence": 0.0,
+            "reason": "No API H2H events returned",
         }
-    except Exception as exc:
-        out = empty_h2h(str(exc), status="ERROR_NON_BLOCKING")
-        out["flags"] = ["H2H_ERROR_NON_BLOCKING"]
-        return out
+    win_pct = pick_wins / total
+    edge = max(min((win_pct - 0.5) * 0.08, 0.04), -0.04)
+    confidence = min(0.15 + total * 0.08, 0.55)
+    return {
+        "status": "OK",
+        "source": "rapidapi_pro_or_cache",
+        "total_matches": total,
+        "pick_wins": pick_wins,
+        "opponent_wins": opponent_wins,
+        "pick_win_pct": round(win_pct, 4),
+        "same_surface_matches": same_surface_total,
+        "same_surface_pick_wins": same_surface_pick_wins,
+        "edge": round(edge, 4),
+        "confidence": round(confidence, 4),
+        "reason": None,
+    }
 
 
-class H2HLoader:
-    def load_h2h(self, player1: str, player2: str, **kwargs) -> Dict[str, Any]:
-        return build_h2h_context(player1=player1, player2=player2, **kwargs)
+def build_h2h_context(
+    event_id: Any,
+    pick: str,
+    opponent: str,
+    surface: Optional[str] = None,
+    player1_id: Any = None,
+    player2_id: Any = None,
+) -> Dict[str, Any]:
+    path = cache_path(event_id, pick, opponent)
+    payload = load_cache(path)
+    source = "cache"
+    if payload is None:
+        payload = fetch_h2h_from_api(event_id, player1_id=player1_id, player2_id=player2_id)
+        source = "rapidapi_pro"
+        if payload is not None:
+            save_cache(path, payload)
+    summary = summarize_h2h(payload, pick, opponent, surface=surface) if payload is not None else summarize_h2h(None, pick, opponent, surface=surface)
+    if summary.get("status") == "OK":
+        summary["source"] = source
+    return summary

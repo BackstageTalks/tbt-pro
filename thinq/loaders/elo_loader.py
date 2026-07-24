@@ -1,576 +1,277 @@
-"""
-THINQ / ELO Loader
+"""THINQ ELO loader.
 
-Role in project:
-- ELO is a THINQ intelligence layer.
-- ELO does not create the final match probability.
-- CORQ remains the CORE output model.
+Broad, audit-friendly ELO layer for the clean runtime.
 
-Primary source:
-- Tennis Abstract Elo and yElo report pages.
-- Automatic HTML fetch and parse, no manual CSV upload.
-
-Refresh policy:
-- Recommended automatic GitHub workflow refresh: Monday night.
-- Manual workflow_dispatch is supported as a safe refresh button.
-- If refresh fails, loader keeps using the last local cache and returns stale flags.
-
-Sources:
-- ATP Elo:  https://tennisabstract.com/reports/atp_elo_ratings.html
-- ATP yElo: https://tennisabstract.com/reports/atp_season_yelo_ratings.html
-- WTA Elo:  https://tennisabstract.com/reports/wta_elo_ratings.html
-- WTA yElo: https://tennisabstract.com/reports/wta_season_yelo_ratings.html
-
-Recommended location:
-- thinq/loaders/elo_loader.py
-
-Main cache:
-- thinq/data/elo/elo_cache.json
-
-Last refresh metadata:
-- thinq/data/elo/elo_last_refresh.json
+Design goals:
+- no hard dependency on one exact CSV filename
+- scan common project data folders
+- support JSON and CSV records with common Tennis Abstract style columns
+- never crash the runtime if ELO is unavailable
+- return explicit status/flags for ALL audit
 """
 
 from __future__ import annotations
 
-import argparse
-import html
+import csv
 import json
 import re
 import unicodedata
-from dataclasses import asdict, dataclass
-from datetime import datetime, timezone
-from html.parser import HTMLParser
+from dataclasses import dataclass
+from functools import lru_cache
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
-from urllib.request import Request, urlopen
+from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 
-ATP_ELO_URL = "https://tennisabstract.com/reports/atp_elo_ratings.html"
-ATP_YELO_URL = "https://tennisabstract.com/reports/atp_season_yelo_ratings.html"
-WTA_ELO_URL = "https://tennisabstract.com/reports/wta_elo_ratings.html"
-WTA_YELO_URL = "https://tennisabstract.com/reports/wta_season_yelo_ratings.html"
+SEARCH_DIRS = [
+    Path("thinq/data"),
+    Path("data/thinq"),
+    Path("data/elo"),
+    Path("data"),
+]
 
-DEFAULT_CACHE_FILE = "thinq/data/elo/elo_cache.json"
-DEFAULT_REFRESH_FILE = "thinq/data/elo/elo_last_refresh.json"
+ELO_FILE_HINTS = ("elo", "tennisabstract", "ta")
 
-CACHE_STALE_DAYS = 10
-
-
-# -----------------------------------------------------------------------------
-# Parsing helpers
-# -----------------------------------------------------------------------------
-
-
-class TableHTMLParser(HTMLParser):
-    """Small dependency-free table parser for Tennis Abstract report pages."""
-
-    def __init__(self) -> None:
-        super().__init__()
-        self.tables: List[List[List[str]]] = []
-        self._in_table = False
-        self._in_row = False
-        self._in_cell = False
-        self._current_table: List[List[str]] = []
-        self._current_row: List[str] = []
-        self._current_cell: List[str] = []
-
-    def handle_starttag(self, tag: str, attrs: List[Tuple[str, Optional[str]]]) -> None:
-        tag = tag.lower()
-        if tag == "table":
-            self._in_table = True
-            self._current_table = []
-        elif self._in_table and tag == "tr":
-            self._in_row = True
-            self._current_row = []
-        elif self._in_row and tag in ["td", "th"]:
-            self._in_cell = True
-            self._current_cell = []
-
-    def handle_endtag(self, tag: str) -> None:
-        tag = tag.lower()
-        if self._in_cell and tag in ["td", "th"]:
-            cell = clean_text("".join(self._current_cell))
-            self._current_row.append(cell)
-            self._in_cell = False
-        elif self._in_row and tag == "tr":
-            if any(cell for cell in self._current_row):
-                self._current_table.append(self._current_row)
-            self._in_row = False
-        elif self._in_table and tag == "table":
-            if self._current_table:
-                self.tables.append(self._current_table)
-            self._in_table = False
-
-    def handle_data(self, data: str) -> None:
-        if self._in_cell:
-            self._current_cell.append(data)
+_TRANSLATE = str.maketrans(
+    {
+        "ł": "l", "Ł": "L",
+        "đ": "d", "Đ": "D",
+        "ð": "d", "Ð": "D",
+        "þ": "th", "Þ": "Th",
+        "ß": "ss",
+        "ø": "o", "Ø": "O",
+        "æ": "ae", "Æ": "Ae",
+        "œ": "oe", "Œ": "Oe",
+    }
+)
 
 
-def clean_text(value: Any) -> str:
-    text = html.unescape(str(value or ""))
-    text = text.replace("\xa0", " ")
-    text = re.sub(r"\s+", " ", text)
-    return text.strip()
-
-
-def normalize_name(name: Any) -> str:
-    text = clean_text(name).lower()
+def normalize_name(value: Any) -> str:
+    text = str(value or "").strip().translate(_TRANSLATE).lower()
     text = unicodedata.normalize("NFKD", text)
     text = "".join(ch for ch in text if not unicodedata.combining(ch))
-    text = re.sub(r"[^a-z0-9 ]+", " ", text)
-    text = re.sub(r"\s+", " ", text)
-    return text.strip()
+    text = text.replace(".", " ").replace("-", " ").replace("_", " ").replace(",", " ")
+    text = re.sub(r"[^a-z0-9]+", " ", text)
+    return " ".join(text.split())
 
 
-def normalize_header(name: Any) -> str:
-    text = clean_text(name).lower()
-    text = text.replace(" ", "_")
-    text = re.sub(r"[^a-z0-9_]+", "_", text)
-    text = re.sub(r"_+", "_", text)
-    return text.strip("_")
+def compact_name(value: Any) -> str:
+    return re.sub(r"[^a-z0-9]+", "", normalize_name(value))
 
 
-def parse_float(value: Any) -> Optional[float]:
-    text = clean_text(value)
-    if not text or text in ["-", "--", "nan"]:
-        return None
-    text = text.replace(",", "")
+def as_float(value: Any) -> Optional[float]:
     try:
-        return float(text)
+        if value in (None, ""):
+            return None
+        return float(value)
     except Exception:
         return None
 
 
-def parse_int(value: Any) -> Optional[int]:
-    parsed = parse_float(value)
-    if parsed is None:
-        return None
-    return int(parsed)
-
-
-def utc_now_iso() -> str:
-    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
-
-
-def fetch_text(url: str, timeout: int = 40) -> str:
-    request = Request(
-        url,
-        headers={
-            "User-Agent": "Mozilla/5.0 THINQ-ELO-Loader/1.0 (+https://github.com/BackstageTalks/tennis-backstage-talks)",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        },
-    )
-    with urlopen(request, timeout=timeout) as response:
-        return response.read().decode("utf-8", errors="replace")
-
-
-def extract_last_update(text: str) -> Optional[str]:
-    cleaned = clean_text(re.sub(r"<[^>]+>", " ", text))
-    match = re.search(r"Last update:\s*([0-9]{4}-[0-9]{2}-[0-9]{2})", cleaned, re.IGNORECASE)
-    if match:
-        return match.group(1)
+def first_present(row: Dict[str, Any], keys: Iterable[str]) -> Any:
+    lowered = {str(k).lower(): v for k, v in row.items()}
+    for key in keys:
+        if key in row and row[key] not in (None, ""):
+            return row[key]
+        low = key.lower()
+        if low in lowered and lowered[low] not in (None, ""):
+            return lowered[low]
     return None
 
 
-def extract_report_table(text: str, required_headers: List[str]) -> List[List[str]]:
-    parser = TableHTMLParser()
-    parser.feed(text)
-    normalized_required = {normalize_header(h) for h in required_headers}
+def surface_elo_key(surface: Optional[str]) -> str:
+    text = str(surface or "").strip().lower()
+    if "clay" in text:
+        return "clay_elo"
+    if "grass" in text:
+        return "grass_elo"
+    if "carpet" in text:
+        # Project rule: use hard ELO fallback for Carpet until separate carpet ELO exists.
+        return "hard_elo"
+    if "hard" in text or "indoor" in text:
+        return "hard_elo"
+    return "elo"
 
-    for table in parser.tables:
-        for row in table[:5]:
-            normalized_row = {normalize_header(cell) for cell in row}
-            if normalized_required.issubset(normalized_row):
-                return table
 
-    # Fallback: first table with Player column.
-    for table in parser.tables:
-        for row in table[:5]:
-            if "player" in {normalize_header(cell) for cell in row}:
-                return table
+def discover_elo_files() -> List[Path]:
+    files: List[Path] = []
+    for folder in SEARCH_DIRS:
+        if not folder.exists():
+            continue
+        for path in folder.rglob("*"):
+            if not path.is_file():
+                continue
+            suffix = path.suffix.lower()
+            name = path.name.lower()
+            if suffix not in {".csv", ".json"}:
+                continue
+            if any(hint in name for hint in ELO_FILE_HINTS):
+                files.append(path)
+    return sorted(files)
 
+
+def load_csv(path: Path) -> List[Dict[str, Any]]:
+    try:
+        with path.open("r", encoding="utf-8-sig", newline="") as fh:
+            return [dict(row) for row in csv.DictReader(fh)]
+    except Exception:
+        return []
+
+
+def load_json(path: Path) -> List[Dict[str, Any]]:
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+    if isinstance(payload, list):
+        return [item for item in payload if isinstance(item, dict)]
+    if isinstance(payload, dict):
+        for key in ("players", "data", "items", "elo"):
+            value = payload.get(key)
+            if isinstance(value, list):
+                return [item for item in value if isinstance(item, dict)]
+        # Mapping name -> values
+        rows = []
+        for name, value in payload.items():
+            if isinstance(value, dict):
+                row = {"player": name, **value}
+                rows.append(row)
+        return rows
     return []
 
 
-def rows_to_dicts(table: List[List[str]], required_header: str = "Player") -> List[Dict[str, str]]:
-    if not table:
-        return []
+def row_player_name(row: Dict[str, Any]) -> Optional[str]:
+    value = first_present(row, ("player", "name", "player_name", "Player", "Name", "full_name", "fullname"))
+    if value:
+        return str(value).strip()
+    first = first_present(row, ("first_name", "firstname"))
+    last = first_present(row, ("last_name", "lastname", "surname"))
+    if first and last:
+        return f"{first} {last}".strip()
+    return None
 
-    header_idx = None
-    for idx, row in enumerate(table[:10]):
-        normalized = [normalize_header(cell) for cell in row]
-        if normalize_header(required_header) in normalized:
-            header_idx = idx
-            break
 
-    if header_idx is None:
-        return []
-
-    headers = [normalize_header(cell) for cell in table[header_idx]]
-    output = []
-    for row in table[header_idx + 1:]:
-        if len(row) < 2:
-            continue
-        item: Dict[str, str] = {}
-        for index, header in enumerate(headers):
-            if not header:
-                continue
-            item[header] = row[index] if index < len(row) else ""
-        if item.get("player"):
-            output.append(item)
+def row_to_elo(row: Dict[str, Any], source: str) -> Optional[Dict[str, Any]]:
+    name = row_player_name(row)
+    if not name:
+        return None
+    output = {
+        "player": name,
+        "name_key": normalize_name(name),
+        "compact_key": compact_name(name),
+        "source": source,
+        "elo": as_float(first_present(row, ("elo", "overall_elo", "Elo", "overall", "all_elo"))),
+        "hard_elo": as_float(first_present(row, ("hard_elo", "hElo", "hard", "HardElo", "hardcourt_elo"))),
+        "clay_elo": as_float(first_present(row, ("clay_elo", "cElo", "clay", "ClayElo"))),
+        "grass_elo": as_float(first_present(row, ("grass_elo", "gElo", "grass", "GrassElo"))),
+        "indoor_elo": as_float(first_present(row, ("indoor_elo", "iElo", "indoor", "IndoorElo"))),
+        "yelo": as_float(first_present(row, ("yelo", "yElo", "overall_yelo"))),
+        "hard_yelo": as_float(first_present(row, ("hard_yelo", "hardYelo", "hYelo"))),
+        "clay_yelo": as_float(first_present(row, ("clay_yelo", "clayYelo", "cYelo"))),
+        "grass_yelo": as_float(first_present(row, ("grass_yelo", "grassYelo", "gYelo"))),
+    }
     return output
 
 
-# -----------------------------------------------------------------------------
-# Schema
-# -----------------------------------------------------------------------------
+@lru_cache(maxsize=1)
+def load_elo_index() -> Dict[str, Dict[str, Any]]:
+    index: Dict[str, Dict[str, Any]] = {}
+    for path in discover_elo_files():
+        rows = load_csv(path) if path.suffix.lower() == ".csv" else load_json(path)
+        for row in rows:
+            parsed = row_to_elo(row, str(path))
+            if not parsed:
+                continue
+            for key in {parsed["name_key"], parsed["compact_key"]}:
+                if key and key not in index:
+                    index[key] = parsed
+    return index
 
 
-@dataclass
-class EloPlayerData:
-    player: str
-    canonical_name: str
-    normalized_name: str
-    tour: Optional[str] = None
-
-    elo_rank: Optional[int] = None
-    elo: Optional[float] = None
-    hard_elo_rank: Optional[int] = None
-    hard_elo: Optional[float] = None
-    clay_elo_rank: Optional[int] = None
-    clay_elo: Optional[float] = None
-    grass_elo_rank: Optional[int] = None
-    grass_elo: Optional[float] = None
-    indoor_elo: Optional[float] = None
-
-    peak_elo: Optional[float] = None
-    peak_month: Optional[str] = None
-    official_rank: Optional[int] = None
-    log_diff: Optional[float] = None
-
-    season_yelo_rank: Optional[int] = None
-    season_yelo: Optional[float] = None
-    season_wins: Optional[int] = None
-    season_losses: Optional[int] = None
-    season_win_pct: Optional[float] = None
-
-    source: str = "tennisabstract"
-    last_refresh: Optional[str] = None
-    ta_last_update_elo: Optional[str] = None
-    ta_last_update_yelo: Optional[str] = None
-    missing: bool = False
-    cache_used: bool = True
-    cache_stale: bool = False
-    flags: Optional[List[str]] = None
-
-    def to_dict(self) -> Dict[str, Any]:
-        return asdict(self)
+def find_player(name: Any) -> Optional[Dict[str, Any]]:
+    index = load_elo_index()
+    norm = normalize_name(name)
+    compact = compact_name(name)
+    if norm in index:
+        return index[norm]
+    if compact in index:
+        return index[compact]
+    # surname/contains fallback kept broad for runtime building
+    parts = norm.split()
+    surname = parts[-1] if parts else ""
+    if surname:
+        candidates = [row for key, row in index.items() if key.endswith(surname) or surname in key.split()]
+        if len(candidates) == 1:
+            return candidates[0]
+    return None
 
 
-# -----------------------------------------------------------------------------
-# Loader
-# -----------------------------------------------------------------------------
+def selected_elo_value(player: Dict[str, Any], surface: Optional[str]) -> Tuple[Optional[float], str, List[str]]:
+    flags: List[str] = []
+    key = surface_elo_key(surface)
+    value = as_float(player.get(key))
+    if value is not None:
+        return value, key, flags
+    if key == "hard_elo" and str(surface or "").lower().find("carpet") >= 0:
+        flags.append("CARPET_AS_HARD_FALLBACK")
+    value = as_float(player.get("elo"))
+    if value is not None:
+        flags.append("SURFACE_ELO_FALLBACK_OVERALL")
+        return value, "elo", flags
+    return None, key, flags
 
 
-class EloLoader:
-    """
-    Automatic Tennis Abstract Elo/yElo loader for THINQ.
-
-    Public methods:
-    - refresh_all()
-    - load_player(player_name, tour=None)
-    - load_cache()
-    """
-
-    def __init__(
-        self,
-        cache_file: Optional[str] = None,
-        refresh_file: Optional[str] = None,
-        auto_refresh_if_missing: bool = False,
-    ) -> None:
-        self.cache_file = Path(cache_file or DEFAULT_CACHE_FILE)
-        self.refresh_file = Path(refresh_file or DEFAULT_REFRESH_FILE)
-        self.cache_file.parent.mkdir(parents=True, exist_ok=True)
-        self.refresh_file.parent.mkdir(parents=True, exist_ok=True)
-        self.auto_refresh_if_missing = auto_refresh_if_missing
-        self._cache: Optional[Dict[str, Any]] = None
-
-    def load_player(self, player_name: str, tour: Optional[str] = None) -> Dict[str, Any]:
-        cache = self.load_cache()
-        normalized = normalize_name(player_name)
-        tour_normalized = str(tour).lower().strip() if tour else None
-
-        player = None
-        if tour_normalized in ["atp", "wta"]:
-            player = cache.get("players_by_tour", {}).get(tour_normalized, {}).get(normalized)
-        if not player:
-            player = cache.get("players", {}).get(normalized)
-
-        if player:
-            result = dict(player)
-            result["cache_used"] = True
-            result["cache_stale"] = self.cache_is_stale(cache)
-            flags = list(result.get("flags") or [])
-            if result["cache_stale"] and "ELO_CACHE_STALE" not in flags:
-                flags.append("ELO_CACHE_STALE")
-            result["flags"] = flags
-            return result
-
-        return self._missing_player(player_name, tour=tour_normalized, cache=cache)
-
-    def load_cache(self) -> Dict[str, Any]:
-        if self._cache is not None:
-            return self._cache
-
-        if not self.cache_file.exists() and self.auto_refresh_if_missing:
-            self.refresh_all()
-
-        if not self.cache_file.exists():
-            self._cache = self.empty_cache(error="ELO cache does not exist")
-            return self._cache
-
-        try:
-            self._cache = json.loads(self.cache_file.read_text(encoding="utf-8"))
-            if not isinstance(self._cache, dict):
-                self._cache = self.empty_cache(error="ELO cache is not a JSON object")
-        except Exception as exc:
-            self._cache = self.empty_cache(error=f"ELO cache read error: {exc}")
-        return self._cache
-
-    def refresh_all(self) -> Dict[str, Any]:
-        generated_at = utc_now_iso()
-        sources = {
-            "atp_elo": self._fetch_and_parse_elo(ATP_ELO_URL, tour="atp"),
-            "atp_yelo": self._fetch_and_parse_yelo(ATP_YELO_URL, tour="atp"),
-            "wta_elo": self._fetch_and_parse_elo(WTA_ELO_URL, tour="wta"),
-            "wta_yelo": self._fetch_and_parse_yelo(WTA_YELO_URL, tour="wta"),
-        }
-
-        players_by_tour: Dict[str, Dict[str, Any]] = {"atp": {}, "wta": {}}
-
-        for source_key in ["atp_elo", "wta_elo"]:
-            source = sources[source_key]
-            for normalized, player in source.get("players", {}).items():
-                tour = player.get("tour")
-                players_by_tour.setdefault(tour, {})[normalized] = player
-
-        for source_key in ["atp_yelo", "wta_yelo"]:
-            source = sources[source_key]
-            tour = source.get("tour")
-            for normalized, yelo in source.get("players", {}).items():
-                base = players_by_tour.setdefault(tour, {}).get(normalized)
-                if not base:
-                    base = {
-                        "player": yelo.get("player"),
-                        "canonical_name": yelo.get("canonical_name"),
-                        "normalized_name": normalized,
-                        "tour": tour,
-                        "source": "tennisabstract",
-                        "flags": [],
-                    }
-                    players_by_tour[tour][normalized] = base
-                base.update({
-                    "season_yelo_rank": yelo.get("season_yelo_rank"),
-                    "season_yelo": yelo.get("season_yelo"),
-                    "season_wins": yelo.get("season_wins"),
-                    "season_losses": yelo.get("season_losses"),
-                    "season_win_pct": yelo.get("season_win_pct"),
-                    "ta_last_update_yelo": source.get("last_update"),
-                })
-
-        players: Dict[str, Any] = {}
-        for tour, tour_players in players_by_tour.items():
-            for normalized, data in tour_players.items():
-                data["last_refresh"] = generated_at
-                data["cache_used"] = True
-                data["missing"] = False
-                data["cache_stale"] = False
-                data.setdefault("flags", [])
-                # Global lookup prefers exact normalized name. If same normalized exists in both tours,
-                # keep the first but tour-specific lookup remains authoritative.
-                players.setdefault(normalized, data)
-
-        cache = {
-            "generated_at": generated_at,
-            "source": "tennisabstract",
-            "refresh_policy": "weekly_monday_night_plus_manual_workflow_dispatch",
-            "sources": {
-                key: {
-                    "url": value.get("url"),
-                    "tour": value.get("tour"),
-                    "last_update": value.get("last_update"),
-                    "row_count": value.get("row_count"),
-                    "error": value.get("error"),
-                }
-                for key, value in sources.items()
-            },
-            "players": players,
-            "players_by_tour": players_by_tour,
-        }
-
-        self.cache_file.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
-        self.refresh_file.write_text(json.dumps({
-            "generated_at": generated_at,
-            "status": "ok",
-            "cache_file": str(self.cache_file),
-            "player_count": len(players),
-            "sources": cache["sources"],
-        }, ensure_ascii=False, indent=2), encoding="utf-8")
-        self._cache = cache
-        return cache
-
-    def _fetch_and_parse_elo(self, url: str, tour: str) -> Dict[str, Any]:
-        result = {"url": url, "tour": tour, "last_update": None, "row_count": 0, "players": {}, "error": None}
-        try:
-            text = fetch_text(url)
-            result["last_update"] = extract_last_update(text)
-            table = extract_report_table(text, required_headers=["Player", "Elo"])
-            rows = rows_to_dicts(table)
-            for row in rows:
-                player = clean_text(row.get("player"))
-                if not player:
-                    continue
-                normalized = normalize_name(player)
-                official_rank_key = "atp_rank" if tour == "atp" else "wta_rank"
-                data = EloPlayerData(
-                    player=player,
-                    canonical_name=player,
-                    normalized_name=normalized,
-                    tour=tour,
-                    elo_rank=parse_int(row.get("elo_rank") or row.get("rank")),
-                    elo=parse_float(row.get("elo")),
-                    hard_elo_rank=parse_int(row.get("helo_rank")),
-                    hard_elo=parse_float(row.get("helo")),
-                    clay_elo_rank=parse_int(row.get("celo_rank")),
-                    clay_elo=parse_float(row.get("celo")),
-                    grass_elo_rank=parse_int(row.get("gelo_rank")),
-                    grass_elo=parse_float(row.get("gelo")),
-                    indoor_elo=None,
-                    peak_elo=parse_float(row.get("peak_elo")),
-                    peak_month=clean_text(row.get("peak_month")) or None,
-                    official_rank=parse_int(row.get(official_rank_key)),
-                    log_diff=parse_float(row.get("log_diff")),
-                    source="tennisabstract",
-                    ta_last_update_elo=result["last_update"],
-                    flags=[],
-                ).to_dict()
-                result["players"][normalized] = data
-            result["row_count"] = len(result["players"])
-        except Exception as exc:
-            result["error"] = str(exc)
-        return result
-
-    def _fetch_and_parse_yelo(self, url: str, tour: str) -> Dict[str, Any]:
-        result = {"url": url, "tour": tour, "last_update": None, "row_count": 0, "players": {}, "error": None}
-        try:
-            text = fetch_text(url)
-            result["last_update"] = extract_last_update(text)
-            table = extract_report_table(text, required_headers=["Player", "yElo"])
-            rows = rows_to_dicts(table)
-            for row in rows:
-                player = clean_text(row.get("player"))
-                if not player:
-                    continue
-                normalized = normalize_name(player)
-                wins = parse_int(row.get("wins"))
-                losses = parse_int(row.get("losses"))
-                total = (wins or 0) + (losses or 0)
-                win_pct = round((wins or 0) / total, 4) if total else None
-                result["players"][normalized] = {
-                    "player": player,
-                    "canonical_name": player,
-                    "normalized_name": normalized,
-                    "tour": tour,
-                    "season_yelo_rank": parse_int(row.get("rank")),
-                    "season_yelo": parse_float(row.get("yelo")),
-                    "season_wins": wins,
-                    "season_losses": losses,
-                    "season_win_pct": win_pct,
-                }
-            result["row_count"] = len(result["players"])
-        except Exception as exc:
-            result["error"] = str(exc)
-        return result
-
-    @staticmethod
-    def empty_cache(error: Optional[str] = None) -> Dict[str, Any]:
+def build_elo_context(pick: str, opponent: str, surface: Optional[str] = None) -> Dict[str, Any]:
+    pick_row = find_player(pick)
+    opponent_row = find_player(opponent)
+    flags: List[str] = []
+    if not pick_row or not opponent_row:
+        if not pick_row:
+            flags.append("MISSING_ELO_PICK")
+        if not opponent_row:
+            flags.append("MISSING_ELO_OPPONENT")
         return {
-            "generated_at": None,
-            "source": "tennisabstract",
-            "error": error,
-            "sources": {},
-            "players": {},
-            "players_by_tour": {"atp": {}, "wta": {}},
+            "status": "NO_DATA",
+            "selected_elo_type": surface_elo_key(surface),
+            "pick_elo": None,
+            "opponent_elo": None,
+            "pick_yelo": None,
+            "opponent_yelo": None,
+            "elo_diff": None,
+            "elo_edge": 0.0,
+            "source": None,
+            "flags": flags + ["MISSING_ELO"],
         }
 
-    @staticmethod
-    def cache_is_stale(cache: Dict[str, Any]) -> bool:
-        generated_at = cache.get("generated_at")
-        if not generated_at:
-            return True
-        try:
-            dt = datetime.fromisoformat(str(generated_at).replace("Z", "+00:00"))
-            age_seconds = (datetime.now(timezone.utc) - dt).total_seconds()
-            return age_seconds > CACHE_STALE_DAYS * 86400
-        except Exception:
-            return True
+    pick_elo, selected_key, pick_flags = selected_elo_value(pick_row, surface)
+    opponent_elo, _, opponent_flags = selected_elo_value(opponent_row, surface)
+    flags.extend(pick_flags)
+    flags.extend(opponent_flags)
+    if pick_elo is None or opponent_elo is None:
+        return {
+            "status": "NO_DATA",
+            "selected_elo_type": selected_key,
+            "pick_elo": pick_elo,
+            "opponent_elo": opponent_elo,
+            "pick_yelo": pick_row.get("yelo"),
+            "opponent_yelo": opponent_row.get("yelo"),
+            "elo_diff": None,
+            "elo_edge": 0.0,
+            "source": pick_row.get("source") or opponent_row.get("source"),
+            "flags": flags + ["MISSING_ELO"],
+        }
 
-    def _missing_player(self, player_name: str, tour: Optional[str], cache: Dict[str, Any]) -> Dict[str, Any]:
-        flags = ["MISSING_ELO"]
-        if self.cache_is_stale(cache):
-            flags.append("ELO_CACHE_STALE")
-        return EloPlayerData(
-            player=player_name,
-            canonical_name=player_name,
-            normalized_name=normalize_name(player_name),
-            tour=tour,
-            source="tennisabstract",
-            last_refresh=cache.get("generated_at"),
-            missing=True,
-            cache_used=True,
-            cache_stale=self.cache_is_stale(cache),
-            flags=flags,
-        ).to_dict()
-
-
-# -----------------------------------------------------------------------------
-# CLI
-# -----------------------------------------------------------------------------
-
-
-def main() -> None:
-    parser = argparse.ArgumentParser(description="Refresh or read THINQ Tennis Abstract ELO cache")
-    parser.add_argument("--refresh", action="store_true", help="Fetch Tennis Abstract Elo/yElo pages and rebuild cache")
-    parser.add_argument("--player", default=None, help="Player name to print from cache")
-    parser.add_argument("--tour", default=None, choices=["atp", "wta"], help="Optional tour for lookup")
-    parser.add_argument("--cache-file", default=DEFAULT_CACHE_FILE)
-    parser.add_argument("--refresh-file", default=DEFAULT_REFRESH_FILE)
-    args = parser.parse_args()
-
-    loader = EloLoader(cache_file=args.cache_file, refresh_file=args.refresh_file)
-
-    if args.refresh:
-        cache = loader.refresh_all()
-        print(json.dumps({
-            "status": "ok",
-            "generated_at": cache.get("generated_at"),
-            "player_count": len(cache.get("players", {})),
-            "sources": cache.get("sources", {}),
-        }, ensure_ascii=False, indent=2))
-        return
-
-    if args.player:
-        print(json.dumps(loader.load_player(args.player, tour=args.tour), ensure_ascii=False, indent=2))
-        return
-
-    cache = loader.load_cache()
-    print(json.dumps({
-        "generated_at": cache.get("generated_at"),
-        "player_count": len(cache.get("players", {})),
-        "cache_stale": loader.cache_is_stale(cache),
-    }, ensure_ascii=False, indent=2))
-
-
-if __name__ == "__main__":
-    main()
+    diff = round(pick_elo - opponent_elo, 1)
+    # Broad cap for now. Final calibration later.
+    edge = max(min(diff / 1200.0, 0.09), -0.09)
+    return {
+        "status": "OK",
+        "selected_elo_type": selected_key,
+        "pick_elo": round(pick_elo, 1),
+        "opponent_elo": round(opponent_elo, 1),
+        "pick_yelo": pick_row.get("yelo"),
+        "opponent_yelo": opponent_row.get("yelo"),
+        "elo_diff": diff,
+        "elo_edge": round(edge, 4),
+        "source": pick_row.get("source") or opponent_row.get("source"),
+        "flags": sorted(set(flags)),
+    }
