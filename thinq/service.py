@@ -76,6 +76,7 @@ class ThinqService:
         tour_type: Optional[str] = None,
         as_of_date: Optional[str] = None,
         event_id: Optional[Any] = None,
+        event_custom_id: Optional[Any] = None,
         player1_id: Optional[Any] = None,
         player2_id: Optional[Any] = None,
         tournament_id: Optional[Any] = None,
@@ -101,6 +102,12 @@ class ThinqService:
             }
         )
 
+        raw_payload = kwargs.get("raw") or kwargs.get("match_raw") or kwargs.get("raw_event") or {}
+        if not event_custom_id:
+            event_custom_id = kwargs.get("event_custom_id") or kwargs.get("custom_id") or kwargs.get("customId")
+        if not event_custom_id and isinstance(raw_payload, dict):
+            event_custom_id = raw_payload.get("customId") or raw_payload.get("custom_id")
+
         surface_ctx = normalize_surface(surface)
         surface_bucket = surface_ctx.get("surface") or surface
         elo = build_elo_context(analysis_pick, analysis_opponent, surface_bucket)
@@ -111,6 +118,7 @@ class ThinqService:
             surface=surface_bucket,
             player1_id=player1_id,
             player2_id=player2_id,
+            event_custom_id=event_custom_id,
         )
         recent_form = build_recent_form_context(analysis_pick, analysis_opponent, surface_bucket)
 
@@ -160,9 +168,22 @@ class ThinqService:
                 "total_matches": h2h.get("total_matches", 0),
                 "pick_wins": h2h.get("pick_wins", 0),
                 "opponent_wins": h2h.get("opponent_wins", 0),
+                "pick_win_pct": h2h.get("pick_win_pct"),
+                "same_surface_matches": h2h.get("same_surface_matches"),
+                "same_surface_pick_wins": h2h.get("same_surface_pick_wins"),
                 "edge": h2h.get("edge", 0.0),
                 "confidence": h2h.get("confidence", 0.0),
                 "reason": h2h.get("reason"),
+                "endpoint": h2h.get("endpoint"),
+                "params": h2h.get("params"),
+                "endpoint_attempts": h2h.get("endpoint_attempts") or [],
+                "api_status_code": h2h.get("api_status_code"),
+                "api_error": h2h.get("api_error"),
+                "cache_path": h2h.get("cache_path"),
+                "requested_event_id": h2h.get("requested_event_id"),
+                "requested_event_custom_id": h2h.get("requested_event_custom_id"),
+                "requested_player1_id": h2h.get("requested_player1_id"),
+                "requested_player2_id": h2h.get("requested_player2_id"),
             },
             "recent_form": recent_form,
             "edges": edges,
@@ -182,6 +203,14 @@ class ThinqService:
             "thinq_h2h_total_matches": h2h.get("total_matches", 0),
             "thinq_h2h_edge": edges["h2h_edge"],
             "thinq_h2h_confidence": h2h.get("confidence", 0.0),
+            "thinq_h2h_endpoint": h2h.get("endpoint"),
+            "thinq_h2h_params": h2h.get("params"),
+            "thinq_h2h_endpoint_attempts": h2h.get("endpoint_attempts") or [],
+            "thinq_h2h_api_status_code": h2h.get("api_status_code"),
+            "thinq_h2h_api_error": h2h.get("api_error"),
+            "thinq_h2h_cache_path": h2h.get("cache_path"),
+            "thinq_h2h_requested_event_id": h2h.get("requested_event_id"),
+            "thinq_h2h_requested_event_custom_id": h2h.get("requested_event_custom_id"),
             "thinq_recent_form_edge": edges["recent_form_edge"],
             "thinq_short_form_edge": edges["short_form_edge"],
             "thinq_surface_recent_form_edge": edges["surface_recent_form_edge"],
