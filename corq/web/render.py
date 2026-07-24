@@ -201,7 +201,7 @@ def row_card(row: Dict[str, Any], rank: int, audit: bool = False) -> str:
     blocker_html = ""
     if audit and blockers:
         blocker_html = "<div class='blockers'>" + "".join(f"<span>{esc(b)}</span>" for b in blockers) + "</div>"
-    return f"<article class='match-card'><div class='rank'>#{rank}</div>{pick_block(row)}<div class='score-box'><div class='score-label'>CORQ</div><div class='score-main'>{esc(pct(score))}</div><div class='score-sub'>Edge {esc(pct(row.get('corq_edge'), signed=True))}</div><div class='score-sub'>Odds {esc(money(row.get('odds') or row.get('pick_odds')))}</div><div class='score-sub'>Public {esc(pct(row.get('public_candidate_score')))}</div></div><div class='intel-grid'>{thinq_block(row)}{sets_games_block()}{marq_block(row)}</div>{blocker_html}</article>"
+    return f"<article class='match-card'><div class='rank'>#{rank}</div>{pick_block(row)}<div class='score-box'><div class='score-label'>Estimated Win</div><div class='score-main'>{esc(pct(row.get('corq_estimated_win_probability') or score))}</div><div class='score-sub'>Edge {esc(pct(row.get('corq_edge'), signed=True))}</div><div class='score-sub'>Odds {esc(money(row.get('odds') or row.get('pick_odds')))}</div><div class='score-sub'>Public {esc(pct(row.get('public_candidate_score')))}</div></div><div class='intel-grid'>{thinq_block(row)}{sets_games_block()}{marq_block(row)}</div>{blocker_html}</article>"
 
 
 def nav(active: str) -> str:
