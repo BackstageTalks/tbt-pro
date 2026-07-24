@@ -1,18 +1,14 @@
 """CORQ daily runtime.
 
-Current MVP:
-1. Load match candidates from local JSON.
-2. Enrich missing THINQ data if thinq.service.ThinqService exists.
-3. Build CORQ score, edge and adjusted score.
-4. Write ALL and TOP7 JSON outputs.
-
-Next step after this MVP:
-- connect RapidAPI PRO fixture/odds loader inside corq.candidates or thinq.loaders
+Broad runtime version. The key update here is THINQ orientation:
+when a candidate side has pick/opponent, THINQ receives that side so ELO/H2H
+edges are calculated for the candidate pick, not only for player1/home.
 """
 
 from __future__ import annotations
 
 import argparse
+import inspect
 from datetime import date, datetime, timezone
 from typing import Any, Dict, List, Optional
 
@@ -34,34 +30,54 @@ def _load_thinq_service():
             return None
 
 
+def _call_build_match_features(thinq_service: Any, payload: Dict[str, Any]) -> Dict[str, Any]:
+    method = thinq_service.build_match_features
+    try:
+        signature = inspect.signature(method)
+        accepted = set(signature.parameters.keys())
+        filtered = {key: value for key, value in payload.items() if key in accepted}
+        return method(**filtered)
+    except Exception:
+        # Fallback for old fixed signatures.
+        return method(
+            player1=payload.get("player1"),
+            player2=payload.get("player2"),
+            surface=payload.get("surface"),
+            level=payload.get("level"),
+            event_id=payload.get("event_id"),
+            best_of=payload.get("best_of") or 3,
+        )
+
+
 def _enrich_with_thinq(record: Dict[str, Any], thinq_service: Any) -> Dict[str, Any]:
     if record.get("thinq") or thinq_service is None:
         return record
-
     player1 = record.get("player1")
     player2 = record.get("player2")
     if not player1 or not player2:
         return record
-
     try:
-        thinq = thinq_service.build_match_features(
-            player1=str(player1),
-            player2=str(player2),
-            surface=record.get("surface"),
-            level=record.get("level"),
-            tournament_url=record.get("tournament_url"),
-            tour_type=record.get("tour_type"),
-            as_of_date=record.get("date") or date.today().isoformat(),
-            event_id=record.get("event_id") or record.get("eventId"),
-            player1_id=record.get("player1_id"),
-            player2_id=record.get("player2_id"),
-            tournament_id=record.get("tournament_id"),
-            best_of=int(record.get("best_of") or 3),
-            save_snapshot=False,
-        )
+        payload = {
+            "player1": str(player1),
+            "player2": str(player2),
+            "pick": record.get("pick"),
+            "opponent": record.get("opponent"),
+            "surface": record.get("surface"),
+            "level": record.get("level"),
+            "tournament_url": record.get("tournament_url"),
+            "tour_type": record.get("tour_type"),
+            "as_of_date": record.get("date") or date.today().isoformat(),
+            "event_id": record.get("event_id") or record.get("eventId"),
+            "player1_id": record.get("player1_id"),
+            "player2_id": record.get("player2_id"),
+            "tournament_id": record.get("tournament_id"),
+            "best_of": int(record.get("best_of") or 3),
+            "save_snapshot": False,
+        }
+        thinq = _call_build_match_features(thinq_service, payload)
         enriched = dict(record)
         enriched["thinq"] = thinq
-        enriched["thinq_confidence"] = thinq.get("confidence")
+        enriched["thinq_confidence"] = thinq.get("confidence") or thinq.get("thinq_confidence")
         return enriched
     except Exception as exc:
         enriched = dict(record)
@@ -74,21 +90,17 @@ def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", ru
     started_at = datetime.now(timezone.utc).isoformat()
     candidates = load_candidates(input_path)
     thinq_service = _load_thinq_service()
-
     scored: List[Dict[str, Any]] = []
     for candidate in candidates:
         enriched = _enrich_with_thinq(candidate, thinq_service)
         scored.append(build_corq_prediction(enriched))
-
     all_view = make_all_match_view(scored)
     ranking = rank_corq(scored)
     top7 = top7_from_ranking(ranking, top_n=7)
-
     all_paths = save_all(all_view, run_date=run_date, output_root=output_root)
     top7_paths = save_top7(top7, run_date=run_date, output_root=output_root)
-
     manifest = {
-        "runtime": "corq_daily_mvp",
+        "runtime": "corq_daily_thinq_elo_h2h",
         "started_at_utc": started_at,
         "finished_at_utc": datetime.now(timezone.utc).isoformat(),
         "run_date": run_date or date.today().isoformat(),
@@ -107,12 +119,11 @@ def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", ru
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run CORQ daily MVP runtime")
+    parser = argparse.ArgumentParser(description="Run CORQ daily runtime")
     parser.add_argument("--input", dest="input_path", default=None, help="Optional path to candidates/matches JSON")
     parser.add_argument("--output-root", default="outputs", help="Output root directory")
     parser.add_argument("--date", dest="run_date", default=None, help="Run date YYYY-MM-DD")
     args = parser.parse_args()
-
     manifest = run_daily(input_path=args.input_path, output_root=args.output_root, run_date=args.run_date)
     print("CORQ runtime finished")
     print(f"Candidates: {manifest['candidate_count']}")
