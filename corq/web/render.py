@@ -260,11 +260,15 @@ def web_publish_blockers(row: Dict[str, Any]) -> List[str]:
 
 
 def pick_block(row: Dict[str, Any]) -> str:
-    chip_html = "".join(f"<span class='chip'>{esc(flag)}</span>" for flag in flags(row)[:6])
+    visible_flags = []
+    for flag in flags(row)[:6]:
+        # Keep audit flags visible but less dominant on TOP7 cards.
+        visible_flags.append(flag)
+    chip_html = "".join(f"<span class='chip subtle-chip'>{esc(flag)}</span>" for flag in visible_flags)
     return (
         f"<div class='pick-block'><div class='pick-name'>{esc(row.get('pick'))}</div>"
         f"<div class='pick-odds'>Pick @ {esc(money(row.get('odds') or row.get('pick_odds')))}</div>"
-        f"<div class='pick-action'>to win vs</div><div class='opponent-name'>{esc(row.get('opponent'))}</div>"
+        f"<div class='pick-action'>to beat</div><div class='opponent-name'>{esc(row.get('opponent'))}</div>"
         f"<div class='opponent-odds'>Opp @ {esc(money(row.get('opponent_odds')))}</div>"
         f"<div class='match-meta'>{esc(meta(row))}</div>"
         f"<div class='status-line'>Status: {esc(row.get('status_type') or 'unknown')} · Side: {esc(row.get('side_orientation') or '—')}</div>"
@@ -286,14 +290,15 @@ def score_block(row: Dict[str, Any]) -> str:
     )
 
 
-def ai_block(row: Dict[str, Any]) -> str:
+def corq_block(row: Dict[str, Any]) -> str:
+    edge = row.get("corq_edge")
     return (
-        "<div class='intel-card'><div class='intel-title'>AI SUMMARY</div>"
+        "<div class='intel-card corq-card'><div class='intel-title'>CORQ</div>"
+        f"<div class='kv'><span>Probability</span><strong>{esc(pct(win_probability(row)))}</strong></div>"
         f"<div class='kv'><span>Corq AI</span><strong>{esc(pct(probability_value(row, 'corq')))}</strong></div>"
-        f"<div class='kv'><span>Thinq AI</span><strong>{esc(pct(probability_value(row, 'thinq')))}</strong></div>"
-        f"<div class='kv'><span>Cloq AI</span><strong>{esc(pct(probability_value(row, 'cloq')))}</strong></div>"
-        f"<div class='kv'><span>AI Match</span><strong>{esc(ai_match(row))}</strong></div>"
-        f"<div class='kv'><span>AI Difference</span><strong>{esc(ai_difference(row))}</strong></div>"
+        f"<div class='kv'><span>Edge</span><strong class='{value_class(edge)}'>{esc(edge_label(edge))}</strong></div>"
+        f"<div class='kv'><span>Odds</span><strong>{esc(money(row.get('odds') or row.get('pick_odds')))}</strong></div>"
+        f"<div class='kv'><span>Source rank</span><strong>{esc(row.get('corq_source_rank') or row.get('corq_rank') or '—')}</strong></div>"
         "</div>"
     )
 
@@ -307,9 +312,9 @@ def thinq_block(row: Dict[str, Any]) -> str:
         "<div class='intel-card'><div class='intel-title'>THINQ</div>"
         f"<div class='kv'><span>ELO</span><strong>{esc(edge_label(first_present(e.get('elo_edge'), row.get('thinq_elo_edge'))))}</strong></div>"
         f"<div class='kv'><span>Surface ELO</span><strong>{esc(edge_label(first_present(e.get('surface_elo_edge'), row.get('thinq_surface_elo_edge'))))}</strong></div>"
-        f"<div class='kv'><span>H2H</span><strong>{esc(hh.get('status') or row.get('thinq_h2h_status') or 'NO_DATA')}</strong></div>"
+        f"<div class='kv'><span>H2H Status</span><strong>{esc(hh.get('status') or row.get('thinq_h2h_status') or 'NO_DATA')}</strong></div>"
         f"<div class='kv'><span>H2H Edge</span><strong>{esc(edge_label(first_present(hh.get('edge'), row.get('thinq_h2h_edge'))))}</strong></div>"
-        f"<div class='kv'><span>Form</span><strong>{esc(recent.get('status') or 'NO_DATA')}</strong></div>"
+        f"<div class='kv'><span>Recent Form</span><strong>{esc(recent.get('status') or 'NO_DATA')}</strong></div>"
         f"<div class='kv'><span>Confidence</span><strong>{esc(pct(row.get('thinq_confidence') or t.get('confidence')))}</strong></div>"
         "</div>"
     )
@@ -350,7 +355,7 @@ def row_card(row: Dict[str, Any], rank: int, audit: bool = False) -> str:
     if blockers:
         blocker_html = "<div class='blockers'>" + "".join(f"<span>{esc(b)}</span>" for b in blockers) + "</div>"
     cls = "match-card audit" if audit else "match-card"
-    return f"<article class='{cls}'><div class='rank'>#{rank}</div>{pick_block(row)}{score_block(row)}<div class='intel-grid'>{ai_block(row)}{thinq_block(row)}{sets_games_block(row)}{marq_block(row)}</div>{blocker_html}</article>"
+    return f"<article class='{cls}'><div class='rank'>#{rank}</div>{pick_block(row)}{score_block(row)}<div class='intel-grid'>{corq_block(row)}{thinq_block(row)}{sets_games_block(row)}{marq_block(row)}</div>{blocker_html}</article>"
 
 
 def nav(active: str) -> str:
@@ -439,6 +444,10 @@ def results_body(results: List[Dict[str, Any]]) -> str:
 
 def rss_description(row: Dict[str, Any]) -> str:
     md = match_dynamics(row)
+    e = elo(row)
+    hh = h2h(row)
+    t = thinq(row)
+    recent = t.get("recent_form") if isinstance(t.get("recent_form"), dict) else {}
     parts = [
         f"Time: {short_time(row)}",
         f"Pick: {row.get('pick') or '—'}",
@@ -448,24 +457,27 @@ def rss_description(row: Dict[str, Any]) -> str:
         f"Best of: {row.get('best_of') or '—'}",
         f"Win probability: {pct(win_probability(row))}",
         f"Odds: {money(row.get('odds') or row.get('pick_odds'))}",
-        f"Corq AI: {pct(probability_value(row, 'corq'))}",
-        f"Thinq AI: {pct(probability_value(row, 'thinq'))}",
-        f"Cloq AI: {pct(probability_value(row, 'cloq'))}",
-        f"AI Match: {ai_match(row)}",
-        f"AI Difference: {ai_difference(row)}",
-        f"MARQ Pick Marq: {pct(probability_value(row, 'marq_pick'))}",
-        f"MARQ Opp Marq: {pct(probability_value(row, 'marq_opponent'))}",
-        f"MARQ Move: {first_present(row.get('marq_move'), row.get('marq_market_move'), row.get('market_move'), '—')}",
+        f"CorQ: {pct(probability_value(row, 'corq'))}",
+        "ThinQ summary:",
+        f"ELO: {edge_label(first_present(e.get('elo_edge'), row.get('thinq_elo_edge')))}",
+        f"Surface ELO: {edge_label(first_present(e.get('surface_elo_edge'), row.get('thinq_surface_elo_edge')))}",
+        f"H2H: {hh.get('status') or row.get('thinq_h2h_status') or 'NO_DATA'}",
+        f"H2H Edge: {edge_label(first_present(hh.get('edge'), row.get('thinq_h2h_edge')))}",
+        f"Form: {recent.get('status') or 'NO_DATA'}",
+        f"Confidence: {pct(row.get('thinq_confidence') or t.get('confidence'))}",
         f"Expected sets: {first_present(md.get('projected_sets'), row.get('thinq_projected_sets'), '—')}",
         f"3 Sets: {pct(first_present(md.get('decider_probability'), row.get('thinq_decider_probability')))}",
         f"Most likely score: {most_likely_score(row)}",
         f"Games line: {games_line(row)}",
         f"Games over probability: {pct(games_over_probability(row))}",
         f"Tie-break probability: {pct(first_present(md.get('tiebreak_probability'), row.get('thinq_tiebreak_probability')))}",
+        f"MARQ Pick Marq: {pct(probability_value(row, 'marq_pick'))}",
+        f"MARQ Opp Marq: {pct(probability_value(row, 'marq_opponent'))}",
+        f"MARQ Move: {first_present(row.get('marq_move'), row.get('marq_market_move'), row.get('market_move'), '—')}",
         "This data is provided for informational and analytical purposes only",
         "Powered by BackstageTalks Statistical Engine",
     ]
-    return " ".join(parts)
+    return " ".join(str(p) for p in parts)
 
 
 def full_link() -> str:
@@ -476,7 +488,7 @@ def rss_feed(rows: List[Dict[str, Any]], title: str = "TBT PRO TOP7 Telegram RSS
     now = pubdate()
     items = []
     for row in rows[:20]:
-        title_text = f"{short_time(row)} | {row.get('pick') or '—'} to win vs {row.get('opponent') or '—'}"
+        title_text = f"{short_time(row)} | {row.get('pick') or '—'} to beat {row.get('opponent') or '—'}"
         desc = rss_description(row)
         link = full_link()
         guid = str(first_present(row.get('event_id'), row.get('match_id'), row.get('id'), title_text))
