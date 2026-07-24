@@ -321,7 +321,7 @@
     "thinq": {
       "available": true,
       "error": null,
-      "confidence": 0.7,
+      "confidence": 0.76,
       "thinq_side": {
         "player1_home": "Maria Timofeeva",
         "player2_away": "Sara Bejlek",
@@ -414,6 +414,122 @@
         "opponent_quality_edge": 0.0,
         "form_confidence": 0.0
       },
+      "match_dynamics": {
+        "status": "OK",
+        "source": "thinq_match_dynamics_v1",
+        "pick": "Sara Bejlek",
+        "opponent": "Maria Timofeeva",
+        "surface": "Hard",
+        "best_of": 3,
+        "composite_edge": 0.052,
+        "closeness_index": 0.5667,
+        "match_shape": "BALANCED_STANDARD",
+        "projected_sets": 2.42,
+        "projected_games": 24.9,
+        "tiebreak_probability": 0.382,
+        "decider_probability": 0.424,
+        "straight_sets_probability": 0.576,
+        "sets_edge": 0.0026,
+        "games_edge": 0.0047,
+        "tiebreak_edge": 0.0022,
+        "decider_edge": 0.0005,
+        "confidence": 0.75,
+        "odds_gap_pct": null,
+        "flags": [
+          "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL"
+        ]
+      },
+      "contexts": {
+        "match_dynamics": {
+          "status": "OK",
+          "source": "thinq_match_dynamics_v1",
+          "pick": "Sara Bejlek",
+          "opponent": "Maria Timofeeva",
+          "surface": "Hard",
+          "best_of": 3,
+          "composite_edge": 0.052,
+          "closeness_index": 0.5667,
+          "match_shape": "BALANCED_STANDARD",
+          "projected_sets": 2.42,
+          "projected_games": 24.9,
+          "tiebreak_probability": 0.382,
+          "decider_probability": 0.424,
+          "straight_sets_probability": 0.576,
+          "sets_edge": 0.0026,
+          "games_edge": 0.0047,
+          "tiebreak_edge": 0.0022,
+          "decider_edge": 0.0005,
+          "confidence": 0.75,
+          "odds_gap_pct": null,
+          "flags": [
+            "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL"
+          ]
+        },
+        "h2h": {
+          "status": "OK",
+          "source": "cache",
+          "total_matches": 1,
+          "pick_wins": 1,
+          "opponent_wins": 0,
+          "pick_win_pct": 1.0,
+          "same_surface_matches": 1,
+          "same_surface_pick_wins": 1,
+          "edge": 0.04,
+          "confidence": 0.23,
+          "reason": null,
+          "endpoint": "/api/tennis/event/rCrcsJdUc/h2h",
+          "params": null,
+          "endpoint_attempts": [
+            {
+              "endpoint": "/api/tennis/event/rCrcsJdUc/h2h",
+              "params": {},
+              "status_code": 200,
+              "ok": true,
+              "error": null
+            }
+          ],
+          "api_status_code": 200,
+          "api_error": null,
+          "cache_path": "data/h2h_cache/2026/h2h_rCrcsJdUc.json",
+          "requested_event_id": 16516183,
+          "requested_event_custom_id": "rCrcsJdUc",
+          "requested_player1_id": 293867,
+          "requested_player2_id": 360184
+        },
+        "recent_form": {
+          "status": "NO_DATA",
+          "source": null,
+          "reason": "No local history files found",
+          "flags": [
+            "RECENT_FORM_NO_DATA"
+          ],
+          "recent_form_edge": 0.0,
+          "short_form_edge": 0.0,
+          "surface_recent_form_edge": 0.0,
+          "opponent_quality_edge": 0.0,
+          "form_confidence": 0.0
+        },
+        "elo": {
+          "status": "OK",
+          "selected_elo_type": "hard_elo",
+          "overall_pick_elo": 1768.0,
+          "overall_opponent_elo": 1716.1,
+          "surface_pick_elo": 1747.2,
+          "surface_opponent_elo": 1612.1,
+          "pick_elo": 1747.2,
+          "opponent_elo": 1612.1,
+          "overall_elo_diff": 51.9,
+          "surface_elo_diff": 135.1,
+          "elo_diff": 135.1,
+          "overall_elo_edge": 0.0432,
+          "surface_elo_edge": 0.08,
+          "elo_edge": 0.08,
+          "pick_yelo": null,
+          "opponent_yelo": null,
+          "source": "thinq/data/elo/elo_cache.json",
+          "flags": []
+        }
+      },
       "edges": {
         "overall_elo_edge": 0.0432,
         "surface_elo_edge": 0.08,
@@ -422,13 +538,16 @@
         "recent_form_edge": 0.0,
         "short_form_edge": 0.0,
         "surface_recent_form_edge": 0.0,
-        "opponent_quality_edge": 0.0
+        "opponent_quality_edge": 0.0,
+        "sets_edge": 0.0026,
+        "games_edge": 0.0047
       },
       "flags": [
+        "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
         "RECENT_FORM_NO_DATA"
       ],
       "thinq_available": true,
-      "thinq_confidence": 0.7,
+      "thinq_confidence": 0.76,
       "thinq_selected_elo_type": "hard_elo",
       "thinq_elo_pick": 1747.2,
       "thinq_elo_opponent": 1612.1,
@@ -462,14 +581,24 @@
       "thinq_short_form_edge": 0.0,
       "thinq_surface_recent_form_edge": 0.0,
       "thinq_opponent_quality_edge": 0.0,
+      "thinq_sets_edge": 0.0026,
+      "thinq_games_edge": 0.0047,
+      "thinq_projected_sets": 2.42,
+      "thinq_projected_games": 24.9,
+      "thinq_tiebreak_probability": 0.382,
+      "thinq_decider_probability": 0.424,
+      "thinq_straight_sets_probability": 0.576,
+      "thinq_match_shape": "BALANCED_STANDARD",
+      "thinq_match_dynamics_confidence": 0.75,
       "thinq_form_confidence": 0.0,
       "thinq_flags": [
+        "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
         "RECENT_FORM_NO_DATA"
       ]
     },
     "thinq_available": true,
     "thinq_error": null,
-    "thinq_confidence": 0.7,
+    "thinq_confidence": 0.76,
     "thinq_edges": {
       "overall_elo_edge": 0.0432,
       "surface_elo_edge": 0.08,
@@ -480,9 +609,12 @@
       "surface_recent_form_edge": 0.0,
       "opponent_quality_edge": 0.0,
       "ranking_context_edge": 0.02,
-      "market_sanity_edge": 0.0
+      "market_sanity_edge": 0.0,
+      "sets_edge": 0.0026,
+      "games_edge": 0.0047
     },
     "thinq_flags": [
+      "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
       "RECENT_FORM_NO_DATA"
     ],
     "thinq_side": {
@@ -536,6 +668,15 @@
     "thinq_short_form_edge": 0.0,
     "thinq_surface_recent_form_edge": 0.0,
     "thinq_opponent_quality_edge": 0.0,
+    "thinq_sets_edge": 0.0026,
+    "thinq_games_edge": 0.0047,
+    "thinq_projected_sets": 2.42,
+    "thinq_projected_games": 24.9,
+    "thinq_tiebreak_probability": 0.382,
+    "thinq_decider_probability": 0.424,
+    "thinq_straight_sets_probability": 0.576,
+    "thinq_match_shape": "BALANCED_STANDARD",
+    "thinq_match_dynamics_confidence": 0.75,
     "thinq_form_confidence": 0.0,
     "implied_probability": 0.6173,
     "corq_model_version": "CORQ_V1_EXPLAINABLE_EDGE_CONFIDENCE",
@@ -548,14 +689,14 @@
       "h2h_component": 0.04,
       "ranking_context_component": 0.02,
       "market_sanity_component": 0.0,
-      "context_component": 0.0
+      "context_component": 0.0073
     },
-    "corq_raw_model_edge": 0.1832,
-    "corq_confidence_factor": 0.735,
-    "corq_estimated_win_probability": 0.6347,
-    "estimated_win_pct": 63.47,
-    "corq_score": 0.6347,
-    "corq_edge": 0.0174,
+    "corq_raw_model_edge": 0.1905,
+    "corq_confidence_factor": 0.774,
+    "corq_estimated_win_probability": 0.6474,
+    "estimated_win_pct": 64.74,
+    "corq_score": 0.6474,
+    "corq_edge": 0.0301,
     "corq_risk_flags": [
       "ELO_PICK_EDGE",
       "H2H_PICK_EDGE",
@@ -563,9 +704,9 @@
       "RECENT_FORM_NO_DATA",
       "SURFACE_FORM_NEUTRAL"
     ],
-    "corq_edge_bonus": 0.0043,
+    "corq_edge_bonus": 0.0075,
     "corq_risk_penalty": 0.0,
-    "corq_adjusted_score": 0.6391,
+    "corq_adjusted_score": 0.6549,
     "eligible_for_corq": true,
     "corq_reject_reasons": [],
     "corq_warning_flags": [
@@ -575,6 +716,716 @@
       "WARN_STATUS_NOT_OPEN"
     ],
     "corq_rank": 1
+  },
+  {
+    "match_id": 16515725,
+    "event_id": 16515725,
+    "id": 16515725,
+    "player1": "Jaime Faria",
+    "player2": "Luciano Darderi",
+    "surface": "Clay",
+    "surface_raw": "Red clay",
+    "tournament": "Estoril, Portugal",
+    "category": "ATP",
+    "level": "ATP",
+    "gender": "M",
+    "best_of": 3,
+    "match_start": "2026-07-24T18:35:00+00:00",
+    "start_time": "2026-07-24T18:35:00+00:00",
+    "status_type": "inprogress",
+    "status_code": 8,
+    "is_doubles": false,
+    "source": "RapidAPI PRO",
+    "raw": {
+      "firstToServe": 2,
+      "awayTeamSeed": "2",
+      "tournament": {
+        "name": "Estoril, Portugal",
+        "slug": "estoril-portugal",
+        "category": {
+          "name": "ATP",
+          "slug": "atp",
+          "sport": {
+            "name": "Tennis",
+            "slug": "tennis",
+            "id": 5
+          },
+          "priority": 8,
+          "country": {},
+          "id": 3,
+          "flag": "atp",
+          "fieldTranslations": {
+            "nameTranslation": {
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ar": "رابطة محترفي التنس",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          }
+        },
+        "uniqueTournament": {
+          "name": "Estoril",
+          "slug": "estoril",
+          "category": {
+            "name": "ATP",
+            "slug": "atp",
+            "sport": {
+              "name": "Tennis",
+              "slug": "tennis",
+              "id": 5
+            },
+            "priority": 8,
+            "country": {},
+            "id": 3,
+            "flag": "atp",
+            "fieldTranslations": {
+              "nameTranslation": {
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ar": "رابطة محترفي التنس",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            }
+          },
+          "userCount": 2401,
+          "groundType": "Red clay",
+          "tennisPoints": 250,
+          "hasPerformanceGraphFeature": false,
+          "country": {},
+          "id": 2541,
+          "hasEventPlayerStatistics": false,
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "استوريل",
+              "hi": "एस्टोरिल",
+              "bn": "এস্টোরিল",
+              "ru": "Эшторил"
+            },
+            "shortNameTranslation": {}
+          }
+        },
+        "priority": 0,
+        "isGroup": false,
+        "id": 191829,
+        "endTimestamp": 1785024000,
+        "startTimestamp": 1784505600
+      },
+      "season": {
+        "name": "ATP Estoril, Portugal Men Singles 2026",
+        "year": "2026",
+        "editor": false,
+        "id": 82381
+      },
+      "roundInfo": {
+        "round": 27,
+        "name": "Quarterfinals",
+        "slug": "quarterfinals",
+        "cupRoundType": 4
+      },
+      "customId": "JlycstLLc",
+      "status": {
+        "code": 8,
+        "description": "1st set",
+        "type": "inprogress"
+      },
+      "homeTeam": {
+        "name": "Jaime Faria",
+        "slug": "faria-jaime",
+        "shortName": "J. Faria",
+        "gender": "M",
+        "sport": {
+          "name": "Tennis",
+          "slug": "tennis",
+          "id": 5
+        },
+        "userCount": 7625,
+        "playerTeamInfo": {
+          "id": 5418
+        },
+        "nameCode": "FAR",
+        "ranking": 88,
+        "disabled": false,
+        "national": false,
+        "type": 1,
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "id": 341818,
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "خايمي فاريا",
+            "ru": "Хайме Фария"
+          },
+          "shortNameTranslation": {
+            "ar": "خ. فاريا",
+            "ru": "Х. Фария"
+          }
+        }
+      },
+      "awayTeam": {
+        "name": "Luciano Darderi",
+        "slug": "darderi-luciano",
+        "shortName": "L. Darderi",
+        "gender": "M",
+        "sport": {
+          "name": "Tennis",
+          "slug": "tennis",
+          "id": 5
+        },
+        "userCount": 19581,
+        "playerTeamInfo": {
+          "id": 4475
+        },
+        "nameCode": "DAR",
+        "ranking": 21,
+        "disabled": false,
+        "national": false,
+        "type": 1,
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "id": 308084,
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوتشيانو دارديري",
+            "bn": "লুসিয়ানো দারদেরি",
+            "hi": "लूसियानो डर्डेरी",
+            "ru": "Лучиано Дардери"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. دارديري",
+            "ru": "Л. Дардери"
+          }
+        }
+      },
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 1,
+        "point": "30"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1784918851
+      },
+      "changes": {
+        "changes": [
+          "awayScore.point"
+        ],
+        "changeTimestamp": 1784920883
+      },
+      "hasGlobalHighlights": false,
+      "crowdsourcingDataDisplayEnabled": false,
+      "id": 16515725,
+      "slug": "jaime-faria-luciano-darderi",
+      "startTimestamp": 1784918100,
+      "periods": {
+        "point": "Game",
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set"
+      },
+      "lastPeriod": "period1",
+      "finalResultOnly": false,
+      "feedLocked": false,
+      "groundType": "Red clay",
+      "isEditor": false,
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p250"
+        ],
+        "gender": [
+          "M"
+        ]
+      }
+    },
+    "odds_matching_direction": "DIRECT_BY_NUMERIC_OUTCOME",
+    "odds_label_1": "1",
+    "odds_label_2": "2",
+    "odds_direct_match_score": 1.0,
+    "odds_reverse_match_score": 0.0,
+    "odds_player1": 1.7273,
+    "odds_player2": 2.1,
+    "p1_odds": 1.7273,
+    "p2_odds": 2.1,
+    "home_odds": 1.7273,
+    "away_odds": 2.1,
+    "odds1": 1.7273,
+    "odds2": 2.1,
+    "price1": 1.7273,
+    "price2": 2.1,
+    "odds_source": "RapidAPI PRO event odds",
+    "odds_endpoint": "/api/tennis/event/16515725/odds",
+    "odds_pair_available": true,
+    "odds_labels_confirmed": true,
+    "odds_gap_abs": 0.3727,
+    "odds_gap_pct": 0.2158,
+    "home_player": "Jaime Faria",
+    "away_player": "Luciano Darderi",
+    "pick_side": "AWAY",
+    "opponent_side": "HOME",
+    "pick": "Luciano Darderi",
+    "opponent": "Jaime Faria",
+    "odds": 2.1,
+    "pick_odds": 2.1,
+    "opponent_odds": 1.7273,
+    "pick_is_player1": false,
+    "pick_is_player2": true,
+    "pick_is_home": false,
+    "pick_is_away": true,
+    "side_orientation": "PICK_IS_PLAYER2_AWAY",
+    "side_locked": true,
+    "side_audit": {
+      "player1_home": "Jaime Faria",
+      "player2_away": "Luciano Darderi",
+      "pick": "Luciano Darderi",
+      "opponent": "Jaime Faria",
+      "pick_side": "AWAY",
+      "opponent_side": "HOME",
+      "pick_is_player1": false,
+      "pick_is_player2": true,
+      "pick_is_home": false,
+      "pick_is_away": true,
+      "orientation": "PICK_IS_PLAYER2_AWAY",
+      "expected_pick_from_side": "Luciano Darderi",
+      "expected_opponent_from_side": "Jaime Faria",
+      "pick_matches_expected_side": true,
+      "opponent_matches_expected_side": true,
+      "side_valid": true
+    },
+    "thinq": {
+      "available": true,
+      "error": null,
+      "confidence": 0.76,
+      "thinq_side": {
+        "player1_home": "Jaime Faria",
+        "player2_away": "Luciano Darderi",
+        "pick": "Luciano Darderi",
+        "opponent": "Jaime Faria",
+        "pick_side": "AWAY",
+        "opponent_side": "HOME",
+        "pick_is_player1": false,
+        "pick_is_player2": true,
+        "pick_is_home": false,
+        "pick_is_away": true,
+        "orientation": "PICK_IS_PLAYER2_AWAY",
+        "expected_pick_from_side": "Luciano Darderi",
+        "expected_opponent_from_side": "Jaime Faria",
+        "pick_matches_expected_side": true,
+        "opponent_matches_expected_side": true,
+        "side_valid": true
+      },
+      "surface": {
+        "surface": "Clay",
+        "surface_raw": "Clay",
+        "surface_environment": null,
+        "surface_model_bucket": "Clay",
+        "surface_source": "match_payload",
+        "surface_confidence": "MEDIUM",
+        "selected_elo_type": "clay_elo",
+        "flags": []
+      },
+      "elo": {
+        "status": "OK",
+        "selected_elo_type": "clay_elo",
+        "overall_pick_elo": 1839.4,
+        "overall_opponent_elo": 1764.3,
+        "surface_pick_elo": 1843.0,
+        "surface_opponent_elo": 1723.6,
+        "pick_elo": 1843.0,
+        "opponent_elo": 1723.6,
+        "overall_elo_diff": 75.1,
+        "surface_elo_diff": 119.4,
+        "elo_diff": 119.4,
+        "overall_elo_edge": 0.0626,
+        "surface_elo_edge": 0.08,
+        "elo_edge": 0.08,
+        "pick_yelo": null,
+        "opponent_yelo": null,
+        "source": "thinq/data/elo/elo_cache.json",
+        "flags": []
+      },
+      "h2h": {
+        "status": "OK",
+        "source": "cache",
+        "total_matches": 2,
+        "pick_wins": 1,
+        "opponent_wins": 1,
+        "pick_win_pct": 0.5,
+        "same_surface_matches": 1,
+        "same_surface_pick_wins": 0,
+        "edge": 0.0,
+        "confidence": 0.31,
+        "reason": null,
+        "endpoint": "/api/tennis/event/JlycstLLc/h2h",
+        "params": null,
+        "endpoint_attempts": [
+          {
+            "endpoint": "/api/tennis/event/JlycstLLc/h2h",
+            "params": {},
+            "status_code": 200,
+            "ok": true,
+            "error": null
+          }
+        ],
+        "api_status_code": 200,
+        "api_error": null,
+        "cache_path": "data/h2h_cache/2026/h2h_JlycstLLc.json",
+        "requested_event_id": 16515725,
+        "requested_event_custom_id": "JlycstLLc",
+        "requested_player1_id": 341818,
+        "requested_player2_id": 308084
+      },
+      "recent_form": {
+        "status": "NO_DATA",
+        "source": null,
+        "reason": "No local history files found",
+        "flags": [
+          "RECENT_FORM_NO_DATA"
+        ],
+        "recent_form_edge": 0.0,
+        "short_form_edge": 0.0,
+        "surface_recent_form_edge": 0.0,
+        "opponent_quality_edge": 0.0,
+        "form_confidence": 0.0
+      },
+      "match_dynamics": {
+        "status": "OK",
+        "source": "thinq_match_dynamics_v1",
+        "pick": "Luciano Darderi",
+        "opponent": "Jaime Faria",
+        "surface": "Clay",
+        "best_of": 3,
+        "composite_edge": 0.044,
+        "closeness_index": 0.6333,
+        "match_shape": "BALANCED_STANDARD",
+        "projected_sets": 2.45,
+        "projected_games": 24.3,
+        "tiebreak_probability": 0.314,
+        "decider_probability": 0.448,
+        "straight_sets_probability": 0.552,
+        "sets_edge": 0.0015,
+        "games_edge": 0.0034,
+        "tiebreak_edge": 0.0021,
+        "decider_edge": 0.0009,
+        "confidence": 0.75,
+        "odds_gap_pct": null,
+        "flags": [
+          "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL"
+        ]
+      },
+      "contexts": {
+        "match_dynamics": {
+          "status": "OK",
+          "source": "thinq_match_dynamics_v1",
+          "pick": "Luciano Darderi",
+          "opponent": "Jaime Faria",
+          "surface": "Clay",
+          "best_of": 3,
+          "composite_edge": 0.044,
+          "closeness_index": 0.6333,
+          "match_shape": "BALANCED_STANDARD",
+          "projected_sets": 2.45,
+          "projected_games": 24.3,
+          "tiebreak_probability": 0.314,
+          "decider_probability": 0.448,
+          "straight_sets_probability": 0.552,
+          "sets_edge": 0.0015,
+          "games_edge": 0.0034,
+          "tiebreak_edge": 0.0021,
+          "decider_edge": 0.0009,
+          "confidence": 0.75,
+          "odds_gap_pct": null,
+          "flags": [
+            "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL"
+          ]
+        },
+        "h2h": {
+          "status": "OK",
+          "source": "cache",
+          "total_matches": 2,
+          "pick_wins": 1,
+          "opponent_wins": 1,
+          "pick_win_pct": 0.5,
+          "same_surface_matches": 1,
+          "same_surface_pick_wins": 0,
+          "edge": 0.0,
+          "confidence": 0.31,
+          "reason": null,
+          "endpoint": "/api/tennis/event/JlycstLLc/h2h",
+          "params": null,
+          "endpoint_attempts": [
+            {
+              "endpoint": "/api/tennis/event/JlycstLLc/h2h",
+              "params": {},
+              "status_code": 200,
+              "ok": true,
+              "error": null
+            }
+          ],
+          "api_status_code": 200,
+          "api_error": null,
+          "cache_path": "data/h2h_cache/2026/h2h_JlycstLLc.json",
+          "requested_event_id": 16515725,
+          "requested_event_custom_id": "JlycstLLc",
+          "requested_player1_id": 341818,
+          "requested_player2_id": 308084
+        },
+        "recent_form": {
+          "status": "NO_DATA",
+          "source": null,
+          "reason": "No local history files found",
+          "flags": [
+            "RECENT_FORM_NO_DATA"
+          ],
+          "recent_form_edge": 0.0,
+          "short_form_edge": 0.0,
+          "surface_recent_form_edge": 0.0,
+          "opponent_quality_edge": 0.0,
+          "form_confidence": 0.0
+        },
+        "elo": {
+          "status": "OK",
+          "selected_elo_type": "clay_elo",
+          "overall_pick_elo": 1839.4,
+          "overall_opponent_elo": 1764.3,
+          "surface_pick_elo": 1843.0,
+          "surface_opponent_elo": 1723.6,
+          "pick_elo": 1843.0,
+          "opponent_elo": 1723.6,
+          "overall_elo_diff": 75.1,
+          "surface_elo_diff": 119.4,
+          "elo_diff": 119.4,
+          "overall_elo_edge": 0.0626,
+          "surface_elo_edge": 0.08,
+          "elo_edge": 0.08,
+          "pick_yelo": null,
+          "opponent_yelo": null,
+          "source": "thinq/data/elo/elo_cache.json",
+          "flags": []
+        }
+      },
+      "edges": {
+        "overall_elo_edge": 0.0626,
+        "surface_elo_edge": 0.08,
+        "elo_edge": 0.08,
+        "h2h_edge": 0.0,
+        "recent_form_edge": 0.0,
+        "short_form_edge": 0.0,
+        "surface_recent_form_edge": 0.0,
+        "opponent_quality_edge": 0.0,
+        "sets_edge": 0.0015,
+        "games_edge": 0.0034
+      },
+      "flags": [
+        "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
+        "RECENT_FORM_NO_DATA"
+      ],
+      "thinq_available": true,
+      "thinq_confidence": 0.76,
+      "thinq_selected_elo_type": "clay_elo",
+      "thinq_elo_pick": 1843.0,
+      "thinq_elo_opponent": 1723.6,
+      "thinq_yelo_pick": null,
+      "thinq_yelo_opponent": null,
+      "thinq_overall_elo_edge": 0.0626,
+      "thinq_surface_elo_edge": 0.08,
+      "thinq_elo_edge": 0.08,
+      "thinq_h2h_status": "OK",
+      "thinq_h2h_source": "cache",
+      "thinq_h2h_total_matches": 2,
+      "thinq_h2h_edge": 0.0,
+      "thinq_h2h_confidence": 0.31,
+      "thinq_h2h_endpoint": "/api/tennis/event/JlycstLLc/h2h",
+      "thinq_h2h_params": null,
+      "thinq_h2h_endpoint_attempts": [
+        {
+          "endpoint": "/api/tennis/event/JlycstLLc/h2h",
+          "params": {},
+          "status_code": 200,
+          "ok": true,
+          "error": null
+        }
+      ],
+      "thinq_h2h_api_status_code": 200,
+      "thinq_h2h_api_error": null,
+      "thinq_h2h_cache_path": "data/h2h_cache/2026/h2h_JlycstLLc.json",
+      "thinq_h2h_requested_event_id": 16515725,
+      "thinq_h2h_requested_event_custom_id": "JlycstLLc",
+      "thinq_recent_form_edge": 0.0,
+      "thinq_short_form_edge": 0.0,
+      "thinq_surface_recent_form_edge": 0.0,
+      "thinq_opponent_quality_edge": 0.0,
+      "thinq_sets_edge": 0.0015,
+      "thinq_games_edge": 0.0034,
+      "thinq_projected_sets": 2.45,
+      "thinq_projected_games": 24.3,
+      "thinq_tiebreak_probability": 0.314,
+      "thinq_decider_probability": 0.448,
+      "thinq_straight_sets_probability": 0.552,
+      "thinq_match_shape": "BALANCED_STANDARD",
+      "thinq_match_dynamics_confidence": 0.75,
+      "thinq_form_confidence": 0.0,
+      "thinq_flags": [
+        "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
+        "RECENT_FORM_NO_DATA"
+      ]
+    },
+    "thinq_available": true,
+    "thinq_error": null,
+    "thinq_confidence": 0.76,
+    "thinq_edges": {
+      "overall_elo_edge": 0.0626,
+      "surface_elo_edge": 0.08,
+      "elo_edge": 0.08,
+      "h2h_edge": 0.0,
+      "recent_form_edge": 0.0,
+      "short_form_edge": 0.0,
+      "surface_recent_form_edge": 0.0,
+      "opponent_quality_edge": 0.0,
+      "ranking_context_edge": 0.02,
+      "market_sanity_edge": 0.0,
+      "sets_edge": 0.0015,
+      "games_edge": 0.0034
+    },
+    "thinq_flags": [
+      "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
+      "RECENT_FORM_NO_DATA"
+    ],
+    "thinq_side": {
+      "player1_home": "Jaime Faria",
+      "player2_away": "Luciano Darderi",
+      "pick": "Luciano Darderi",
+      "opponent": "Jaime Faria",
+      "pick_side": "AWAY",
+      "opponent_side": "HOME",
+      "pick_is_player1": false,
+      "pick_is_player2": true,
+      "pick_is_home": false,
+      "pick_is_away": true,
+      "orientation": "PICK_IS_PLAYER2_AWAY",
+      "expected_pick_from_side": "Luciano Darderi",
+      "expected_opponent_from_side": "Jaime Faria",
+      "pick_matches_expected_side": true,
+      "opponent_matches_expected_side": true,
+      "side_valid": true
+    },
+    "thinq_selected_elo_type": "clay_elo",
+    "thinq_elo_pick": 1843.0,
+    "thinq_elo_opponent": 1723.6,
+    "thinq_yelo_pick": null,
+    "thinq_yelo_opponent": null,
+    "thinq_overall_elo_edge": 0.0626,
+    "thinq_surface_elo_edge": 0.08,
+    "thinq_elo_edge": 0.08,
+    "thinq_h2h_status": "OK",
+    "thinq_h2h_source": "cache",
+    "thinq_h2h_total_matches": 2,
+    "thinq_h2h_edge": 0.0,
+    "thinq_h2h_confidence": 0.31,
+    "thinq_h2h_endpoint": "/api/tennis/event/JlycstLLc/h2h",
+    "thinq_h2h_params": null,
+    "thinq_h2h_endpoint_attempts": [
+      {
+        "endpoint": "/api/tennis/event/JlycstLLc/h2h",
+        "params": {},
+        "status_code": 200,
+        "ok": true,
+        "error": null
+      }
+    ],
+    "thinq_h2h_api_status_code": 200,
+    "thinq_h2h_api_error": null,
+    "thinq_h2h_cache_path": "data/h2h_cache/2026/h2h_JlycstLLc.json",
+    "thinq_h2h_requested_event_id": 16515725,
+    "thinq_h2h_requested_event_custom_id": "JlycstLLc",
+    "thinq_recent_form_edge": 0.0,
+    "thinq_short_form_edge": 0.0,
+    "thinq_surface_recent_form_edge": 0.0,
+    "thinq_opponent_quality_edge": 0.0,
+    "thinq_sets_edge": 0.0015,
+    "thinq_games_edge": 0.0034,
+    "thinq_projected_sets": 2.45,
+    "thinq_projected_games": 24.3,
+    "thinq_tiebreak_probability": 0.314,
+    "thinq_decider_probability": 0.448,
+    "thinq_straight_sets_probability": 0.552,
+    "thinq_match_shape": "BALANCED_STANDARD",
+    "thinq_match_dynamics_confidence": 0.75,
+    "thinq_form_confidence": 0.0,
+    "implied_probability": 0.4762,
+    "corq_model_version": "CORQ_V1_EXPLAINABLE_EDGE_CONFIDENCE",
+    "corq_components": {
+      "overall_elo_component": 0.0626,
+      "surface_elo_component": 0.08,
+      "recent_form_component": 0.0,
+      "surface_recent_form_component": 0.0,
+      "opponent_quality_component": 0.0,
+      "h2h_component": 0.0,
+      "ranking_context_component": 0.02,
+      "market_sanity_component": 0.0,
+      "context_component": 0.0049
+    },
+    "corq_raw_model_edge": 0.1675,
+    "corq_confidence_factor": 0.774,
+    "corq_estimated_win_probability": 0.6296,
+    "estimated_win_pct": 62.96,
+    "corq_score": 0.6296,
+    "corq_edge": 0.1534,
+    "corq_risk_flags": [
+      "ELO_PICK_EDGE",
+      "H2H_NEUTRAL",
+      "RECENT_FORM_NEUTRAL",
+      "RECENT_FORM_NO_DATA",
+      "SURFACE_FORM_NEUTRAL"
+    ],
+    "corq_edge_bonus": 0.02,
+    "corq_risk_penalty": 0.0,
+    "corq_adjusted_score": 0.6496,
+    "eligible_for_corq": true,
+    "corq_reject_reasons": [],
+    "corq_warning_flags": [
+      "WARN_NOT_NOTSTARTED",
+      "WARN_RECENT_FORM_NO_DATA",
+      "WARN_STARTED_OR_TOO_CLOSE",
+      "WARN_STATUS_NOT_OPEN"
+    ],
+    "corq_rank": 2
   },
   {
     "match_id": 16515717,
@@ -896,7 +1747,7 @@
     "thinq": {
       "available": true,
       "error": null,
-      "confidence": 0.7,
+      "confidence": 0.76,
       "thinq_side": {
         "player1_home": "Roman Andres Burruchaga",
         "player2_away": "Alexander Blockx",
@@ -989,6 +1840,122 @@
         "opponent_quality_edge": 0.0,
         "form_confidence": 0.0
       },
+      "match_dynamics": {
+        "status": "OK",
+        "source": "thinq_match_dynamics_v1",
+        "pick": "Alexander Blockx",
+        "opponent": "Roman Andres Burruchaga",
+        "surface": "Clay",
+        "best_of": 3,
+        "composite_edge": 0.0413,
+        "closeness_index": 0.6555,
+        "match_shape": "BALANCED_STANDARD",
+        "projected_sets": 2.46,
+        "projected_games": 24.4,
+        "tiebreak_probability": 0.318,
+        "decider_probability": 0.456,
+        "straight_sets_probability": 0.544,
+        "sets_edge": 0.0012,
+        "games_edge": 0.003,
+        "tiebreak_edge": 0.002,
+        "decider_edge": 0.001,
+        "confidence": 0.75,
+        "odds_gap_pct": null,
+        "flags": [
+          "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL"
+        ]
+      },
+      "contexts": {
+        "match_dynamics": {
+          "status": "OK",
+          "source": "thinq_match_dynamics_v1",
+          "pick": "Alexander Blockx",
+          "opponent": "Roman Andres Burruchaga",
+          "surface": "Clay",
+          "best_of": 3,
+          "composite_edge": 0.0413,
+          "closeness_index": 0.6555,
+          "match_shape": "BALANCED_STANDARD",
+          "projected_sets": 2.46,
+          "projected_games": 24.4,
+          "tiebreak_probability": 0.318,
+          "decider_probability": 0.456,
+          "straight_sets_probability": 0.544,
+          "sets_edge": 0.0012,
+          "games_edge": 0.003,
+          "tiebreak_edge": 0.002,
+          "decider_edge": 0.001,
+          "confidence": 0.75,
+          "odds_gap_pct": null,
+          "flags": [
+            "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL"
+          ]
+        },
+        "h2h": {
+          "status": "OK",
+          "source": "cache",
+          "total_matches": 3,
+          "pick_wins": 1,
+          "opponent_wins": 2,
+          "pick_win_pct": 0.3333,
+          "same_surface_matches": 2,
+          "same_surface_pick_wins": 1,
+          "edge": -0.0133,
+          "confidence": 0.39,
+          "reason": null,
+          "endpoint": "/api/tennis/event/GTocsoegd/h2h",
+          "params": null,
+          "endpoint_attempts": [
+            {
+              "endpoint": "/api/tennis/event/GTocsoegd/h2h",
+              "params": {},
+              "status_code": 200,
+              "ok": true,
+              "error": null
+            }
+          ],
+          "api_status_code": 200,
+          "api_error": null,
+          "cache_path": "data/h2h_cache/2026/h2h_GTocsoegd.json",
+          "requested_event_id": 16515717,
+          "requested_event_custom_id": "GTocsoegd",
+          "requested_player1_id": 287181,
+          "requested_player2_id": 390214
+        },
+        "recent_form": {
+          "status": "NO_DATA",
+          "source": null,
+          "reason": "No local history files found",
+          "flags": [
+            "RECENT_FORM_NO_DATA"
+          ],
+          "recent_form_edge": 0.0,
+          "short_form_edge": 0.0,
+          "surface_recent_form_edge": 0.0,
+          "opponent_quality_edge": 0.0,
+          "form_confidence": 0.0
+        },
+        "elo": {
+          "status": "OK",
+          "selected_elo_type": "clay_elo",
+          "overall_pick_elo": 1874.8,
+          "overall_opponent_elo": 1720.6,
+          "surface_pick_elo": 1832.0,
+          "surface_opponent_elo": 1703.6,
+          "pick_elo": 1832.0,
+          "opponent_elo": 1703.6,
+          "overall_elo_diff": 154.2,
+          "surface_elo_diff": 128.4,
+          "elo_diff": 128.4,
+          "overall_elo_edge": 0.07,
+          "surface_elo_edge": 0.08,
+          "elo_edge": 0.08,
+          "pick_yelo": null,
+          "opponent_yelo": null,
+          "source": "thinq/data/elo/elo_cache.json",
+          "flags": []
+        }
+      },
       "edges": {
         "overall_elo_edge": 0.07,
         "surface_elo_edge": 0.08,
@@ -997,13 +1964,16 @@
         "recent_form_edge": 0.0,
         "short_form_edge": 0.0,
         "surface_recent_form_edge": 0.0,
-        "opponent_quality_edge": 0.0
+        "opponent_quality_edge": 0.0,
+        "sets_edge": 0.0012,
+        "games_edge": 0.003
       },
       "flags": [
+        "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
         "RECENT_FORM_NO_DATA"
       ],
       "thinq_available": true,
-      "thinq_confidence": 0.7,
+      "thinq_confidence": 0.76,
       "thinq_selected_elo_type": "clay_elo",
       "thinq_elo_pick": 1832.0,
       "thinq_elo_opponent": 1703.6,
@@ -1037,14 +2007,24 @@
       "thinq_short_form_edge": 0.0,
       "thinq_surface_recent_form_edge": 0.0,
       "thinq_opponent_quality_edge": 0.0,
+      "thinq_sets_edge": 0.0012,
+      "thinq_games_edge": 0.003,
+      "thinq_projected_sets": 2.46,
+      "thinq_projected_games": 24.4,
+      "thinq_tiebreak_probability": 0.318,
+      "thinq_decider_probability": 0.456,
+      "thinq_straight_sets_probability": 0.544,
+      "thinq_match_shape": "BALANCED_STANDARD",
+      "thinq_match_dynamics_confidence": 0.75,
       "thinq_form_confidence": 0.0,
       "thinq_flags": [
+        "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
         "RECENT_FORM_NO_DATA"
       ]
     },
     "thinq_available": true,
     "thinq_error": null,
-    "thinq_confidence": 0.7,
+    "thinq_confidence": 0.76,
     "thinq_edges": {
       "overall_elo_edge": 0.07,
       "surface_elo_edge": 0.08,
@@ -1055,9 +2035,12 @@
       "surface_recent_form_edge": 0.0,
       "opponent_quality_edge": 0.0,
       "ranking_context_edge": 0.02,
-      "market_sanity_edge": 0.0
+      "market_sanity_edge": 0.0,
+      "sets_edge": 0.0012,
+      "games_edge": 0.003
     },
     "thinq_flags": [
+      "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
       "RECENT_FORM_NO_DATA"
     ],
     "thinq_side": {
@@ -1111,6 +2094,15 @@
     "thinq_short_form_edge": 0.0,
     "thinq_surface_recent_form_edge": 0.0,
     "thinq_opponent_quality_edge": 0.0,
+    "thinq_sets_edge": 0.0012,
+    "thinq_games_edge": 0.003,
+    "thinq_projected_sets": 2.46,
+    "thinq_projected_games": 24.4,
+    "thinq_tiebreak_probability": 0.318,
+    "thinq_decider_probability": 0.456,
+    "thinq_straight_sets_probability": 0.544,
+    "thinq_match_shape": "BALANCED_STANDARD",
+    "thinq_match_dynamics_confidence": 0.75,
     "thinq_form_confidence": 0.0,
     "implied_probability": 0.5236,
     "corq_model_version": "CORQ_V1_EXPLAINABLE_EDGE_CONFIDENCE",
@@ -1123,14 +2115,14 @@
       "h2h_component": -0.0133,
       "ranking_context_component": 0.02,
       "market_sanity_component": 0.0,
-      "context_component": 0.0
+      "context_component": 0.0042
     },
-    "corq_raw_model_edge": 0.1567,
-    "corq_confidence_factor": 0.735,
-    "corq_estimated_win_probability": 0.6152,
-    "estimated_win_pct": 61.52,
-    "corq_score": 0.6152,
-    "corq_edge": 0.0916,
+    "corq_raw_model_edge": 0.1609,
+    "corq_confidence_factor": 0.774,
+    "corq_estimated_win_probability": 0.6245,
+    "estimated_win_pct": 62.45,
+    "corq_score": 0.6245,
+    "corq_edge": 0.1009,
     "corq_risk_flags": [
       "ELO_PICK_EDGE",
       "H2H_OPP_EDGE",
@@ -1140,7 +2132,7 @@
     ],
     "corq_edge_bonus": 0.02,
     "corq_risk_penalty": 0.0,
-    "corq_adjusted_score": 0.6352,
+    "corq_adjusted_score": 0.6445,
     "eligible_for_corq": true,
     "corq_reject_reasons": [],
     "corq_warning_flags": [
@@ -1149,7 +2141,7 @@
       "WARN_STARTED_OR_TOO_CLOSE",
       "WARN_STATUS_NOT_OPEN"
     ],
-    "corq_rank": 2
+    "corq_rank": 3
   },
   {
     "match_id": 16515765,
@@ -1475,7 +2467,7 @@
     "thinq": {
       "available": true,
       "error": null,
-      "confidence": 0.7,
+      "confidence": 0.76,
       "thinq_side": {
         "player1_home": "Alexander Bublik",
         "player2_away": "Tomas Martin Etcheverry",
@@ -1568,6 +2560,122 @@
         "opponent_quality_edge": 0.0,
         "form_confidence": 0.0
       },
+      "match_dynamics": {
+        "status": "OK",
+        "source": "thinq_match_dynamics_v1",
+        "pick": "Alexander Bublik",
+        "opponent": "Tomas Martin Etcheverry",
+        "surface": "Clay",
+        "best_of": 3,
+        "composite_edge": 0.037,
+        "closeness_index": 0.6913,
+        "match_shape": "BALANCED_STANDARD",
+        "projected_sets": 2.47,
+        "projected_games": 24.5,
+        "tiebreak_probability": 0.3244,
+        "decider_probability": 0.4689,
+        "straight_sets_probability": 0.5311,
+        "sets_edge": 0.0008,
+        "games_edge": 0.0024,
+        "tiebreak_edge": 0.0019,
+        "decider_edge": 0.0011,
+        "confidence": 0.75,
+        "odds_gap_pct": null,
+        "flags": [
+          "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL"
+        ]
+      },
+      "contexts": {
+        "match_dynamics": {
+          "status": "OK",
+          "source": "thinq_match_dynamics_v1",
+          "pick": "Alexander Bublik",
+          "opponent": "Tomas Martin Etcheverry",
+          "surface": "Clay",
+          "best_of": 3,
+          "composite_edge": 0.037,
+          "closeness_index": 0.6913,
+          "match_shape": "BALANCED_STANDARD",
+          "projected_sets": 2.47,
+          "projected_games": 24.5,
+          "tiebreak_probability": 0.3244,
+          "decider_probability": 0.4689,
+          "straight_sets_probability": 0.5311,
+          "sets_edge": 0.0008,
+          "games_edge": 0.0024,
+          "tiebreak_edge": 0.0019,
+          "decider_edge": 0.0011,
+          "confidence": 0.75,
+          "odds_gap_pct": null,
+          "flags": [
+            "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL"
+          ]
+        },
+        "h2h": {
+          "status": "OK",
+          "source": "rapidapi_pro",
+          "total_matches": 3,
+          "pick_wins": 3,
+          "opponent_wins": 0,
+          "pick_win_pct": 1.0,
+          "same_surface_matches": 2,
+          "same_surface_pick_wins": 2,
+          "edge": 0.04,
+          "confidence": 0.39,
+          "reason": null,
+          "endpoint": "/api/tennis/event/FupbsWOrb/h2h",
+          "params": null,
+          "endpoint_attempts": [
+            {
+              "endpoint": "/api/tennis/event/FupbsWOrb/h2h",
+              "params": {},
+              "status_code": 200,
+              "ok": true,
+              "error": null
+            }
+          ],
+          "api_status_code": 200,
+          "api_error": null,
+          "cache_path": "data/h2h_cache/2026/h2h_FupbsWOrb.json",
+          "requested_event_id": 16515765,
+          "requested_event_custom_id": "FupbsWOrb",
+          "requested_player1_id": 163480,
+          "requested_player2_id": 169496
+        },
+        "recent_form": {
+          "status": "NO_DATA",
+          "source": null,
+          "reason": "No local history files found",
+          "flags": [
+            "RECENT_FORM_NO_DATA"
+          ],
+          "recent_form_edge": 0.0,
+          "short_form_edge": 0.0,
+          "surface_recent_form_edge": 0.0,
+          "opponent_quality_edge": 0.0,
+          "form_confidence": 0.0
+        },
+        "elo": {
+          "status": "OK",
+          "selected_elo_type": "clay_elo",
+          "overall_pick_elo": 1888.7,
+          "overall_opponent_elo": 1786.0,
+          "surface_pick_elo": 1810.2,
+          "surface_opponent_elo": 1746.8,
+          "pick_elo": 1810.2,
+          "opponent_elo": 1746.8,
+          "overall_elo_diff": 102.7,
+          "surface_elo_diff": 63.4,
+          "elo_diff": 63.4,
+          "overall_elo_edge": 0.07,
+          "surface_elo_edge": 0.0528,
+          "elo_edge": 0.0528,
+          "pick_yelo": null,
+          "opponent_yelo": null,
+          "source": "thinq/data/elo/elo_cache.json",
+          "flags": []
+        }
+      },
       "edges": {
         "overall_elo_edge": 0.07,
         "surface_elo_edge": 0.0528,
@@ -1576,13 +2684,16 @@
         "recent_form_edge": 0.0,
         "short_form_edge": 0.0,
         "surface_recent_form_edge": 0.0,
-        "opponent_quality_edge": 0.0
+        "opponent_quality_edge": 0.0,
+        "sets_edge": 0.0008,
+        "games_edge": 0.0024
       },
       "flags": [
+        "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
         "RECENT_FORM_NO_DATA"
       ],
       "thinq_available": true,
-      "thinq_confidence": 0.7,
+      "thinq_confidence": 0.76,
       "thinq_selected_elo_type": "clay_elo",
       "thinq_elo_pick": 1810.2,
       "thinq_elo_opponent": 1746.8,
@@ -1616,14 +2727,24 @@
       "thinq_short_form_edge": 0.0,
       "thinq_surface_recent_form_edge": 0.0,
       "thinq_opponent_quality_edge": 0.0,
+      "thinq_sets_edge": 0.0008,
+      "thinq_games_edge": 0.0024,
+      "thinq_projected_sets": 2.47,
+      "thinq_projected_games": 24.5,
+      "thinq_tiebreak_probability": 0.3244,
+      "thinq_decider_probability": 0.4689,
+      "thinq_straight_sets_probability": 0.5311,
+      "thinq_match_shape": "BALANCED_STANDARD",
+      "thinq_match_dynamics_confidence": 0.75,
       "thinq_form_confidence": 0.0,
       "thinq_flags": [
+        "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
         "RECENT_FORM_NO_DATA"
       ]
     },
     "thinq_available": true,
     "thinq_error": null,
-    "thinq_confidence": 0.7,
+    "thinq_confidence": 0.76,
     "thinq_edges": {
       "overall_elo_edge": 0.07,
       "surface_elo_edge": 0.0528,
@@ -1634,9 +2755,12 @@
       "surface_recent_form_edge": 0.0,
       "opponent_quality_edge": 0.0,
       "ranking_context_edge": 0.02,
-      "market_sanity_edge": 0.0
+      "market_sanity_edge": 0.0,
+      "sets_edge": 0.0008,
+      "games_edge": 0.0024
     },
     "thinq_flags": [
+      "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
       "RECENT_FORM_NO_DATA"
     ],
     "thinq_side": {
@@ -1690,6 +2814,15 @@
     "thinq_short_form_edge": 0.0,
     "thinq_surface_recent_form_edge": 0.0,
     "thinq_opponent_quality_edge": 0.0,
+    "thinq_sets_edge": 0.0008,
+    "thinq_games_edge": 0.0024,
+    "thinq_projected_sets": 2.47,
+    "thinq_projected_games": 24.5,
+    "thinq_tiebreak_probability": 0.3244,
+    "thinq_decider_probability": 0.4689,
+    "thinq_straight_sets_probability": 0.5311,
+    "thinq_match_shape": "BALANCED_STANDARD",
+    "thinq_match_dynamics_confidence": 0.75,
     "thinq_form_confidence": 0.0,
     "implied_probability": 0.6536,
     "corq_model_version": "CORQ_V1_EXPLAINABLE_EDGE_CONFIDENCE",
@@ -1702,14 +2835,14 @@
       "h2h_component": 0.04,
       "ranking_context_component": 0.02,
       "market_sanity_component": 0.0,
-      "context_component": 0.0
+      "context_component": 0.0032
     },
-    "corq_raw_model_edge": 0.1828,
-    "corq_confidence_factor": 0.735,
-    "corq_estimated_win_probability": 0.6344,
-    "estimated_win_pct": 63.44,
-    "corq_score": 0.6344,
-    "corq_edge": -0.0192,
+    "corq_raw_model_edge": 0.186,
+    "corq_confidence_factor": 0.774,
+    "corq_estimated_win_probability": 0.644,
+    "estimated_win_pct": 64.4,
+    "corq_score": 0.644,
+    "corq_edge": -0.0096,
     "corq_risk_flags": [
       "ELO_PICK_EDGE",
       "H2H_PICK_EDGE",
@@ -1717,9 +2850,9 @@
       "RECENT_FORM_NO_DATA",
       "SURFACE_FORM_NEUTRAL"
     ],
-    "corq_edge_bonus": -0.0048,
+    "corq_edge_bonus": -0.0024,
     "corq_risk_penalty": 0.0,
-    "corq_adjusted_score": 0.6296,
+    "corq_adjusted_score": 0.6416,
     "eligible_for_corq": true,
     "corq_reject_reasons": [],
     "corq_warning_flags": [
@@ -1728,7 +2861,7 @@
       "WARN_STARTED_OR_TOO_CLOSE",
       "WARN_STATUS_NOT_OPEN"
     ],
-    "corq_rank": 3
+    "corq_rank": 4
   },
   {
     "match_id": 16516131,
@@ -2054,7 +3187,7 @@
     "thinq": {
       "available": true,
       "error": null,
-      "confidence": 0.7,
+      "confidence": 0.76,
       "thinq_side": {
         "player1_home": "Elina Avanesyan",
         "player2_away": "Yulia Putintseva",
@@ -2147,6 +3280,122 @@
         "opponent_quality_edge": 0.0,
         "form_confidence": 0.0
       },
+      "match_dynamics": {
+        "status": "OK",
+        "source": "thinq_match_dynamics_v1",
+        "pick": "Yulia Putintseva",
+        "opponent": "Elina Avanesyan",
+        "surface": "Clay",
+        "best_of": 3,
+        "composite_edge": 0.0467,
+        "closeness_index": 0.6112,
+        "match_shape": "BALANCED_STANDARD",
+        "projected_sets": 2.44,
+        "projected_games": 24.3,
+        "tiebreak_probability": 0.31,
+        "decider_probability": 0.44,
+        "straight_sets_probability": 0.56,
+        "sets_edge": 0.0019,
+        "games_edge": 0.0038,
+        "tiebreak_edge": 0.0021,
+        "decider_edge": 0.0008,
+        "confidence": 0.75,
+        "odds_gap_pct": null,
+        "flags": [
+          "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL"
+        ]
+      },
+      "contexts": {
+        "match_dynamics": {
+          "status": "OK",
+          "source": "thinq_match_dynamics_v1",
+          "pick": "Yulia Putintseva",
+          "opponent": "Elina Avanesyan",
+          "surface": "Clay",
+          "best_of": 3,
+          "composite_edge": 0.0467,
+          "closeness_index": 0.6112,
+          "match_shape": "BALANCED_STANDARD",
+          "projected_sets": 2.44,
+          "projected_games": 24.3,
+          "tiebreak_probability": 0.31,
+          "decider_probability": 0.44,
+          "straight_sets_probability": 0.56,
+          "sets_edge": 0.0019,
+          "games_edge": 0.0038,
+          "tiebreak_edge": 0.0021,
+          "decider_edge": 0.0008,
+          "confidence": 0.75,
+          "odds_gap_pct": null,
+          "flags": [
+            "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL"
+          ]
+        },
+        "h2h": {
+          "status": "OK",
+          "source": "cache",
+          "total_matches": 3,
+          "pick_wins": 2,
+          "opponent_wins": 1,
+          "pick_win_pct": 0.6667,
+          "same_surface_matches": 1,
+          "same_surface_pick_wins": 0,
+          "edge": 0.0133,
+          "confidence": 0.39,
+          "reason": null,
+          "endpoint": "/api/tennis/event/VktsUbfc/h2h",
+          "params": null,
+          "endpoint_attempts": [
+            {
+              "endpoint": "/api/tennis/event/VktsUbfc/h2h",
+              "params": {},
+              "status_code": 200,
+              "ok": true,
+              "error": null
+            }
+          ],
+          "api_status_code": 200,
+          "api_error": null,
+          "cache_path": "data/h2h_cache/2026/h2h_VktsUbfc.json",
+          "requested_event_id": 16516131,
+          "requested_event_custom_id": "VktsUbfc",
+          "requested_player1_id": 262594,
+          "requested_player2_id": 45545
+        },
+        "recent_form": {
+          "status": "NO_DATA",
+          "source": null,
+          "reason": "No local history files found",
+          "flags": [
+            "RECENT_FORM_NO_DATA"
+          ],
+          "recent_form_edge": 0.0,
+          "short_form_edge": 0.0,
+          "surface_recent_form_edge": 0.0,
+          "opponent_quality_edge": 0.0,
+          "form_confidence": 0.0
+        },
+        "elo": {
+          "status": "OK",
+          "selected_elo_type": "clay_elo",
+          "overall_pick_elo": 1799.2,
+          "overall_opponent_elo": 1674.3,
+          "surface_pick_elo": 1745.9,
+          "surface_opponent_elo": 1644.7,
+          "pick_elo": 1745.9,
+          "opponent_elo": 1644.7,
+          "overall_elo_diff": 124.9,
+          "surface_elo_diff": 101.2,
+          "elo_diff": 101.2,
+          "overall_elo_edge": 0.07,
+          "surface_elo_edge": 0.08,
+          "elo_edge": 0.08,
+          "pick_yelo": null,
+          "opponent_yelo": null,
+          "source": "thinq/data/elo/elo_cache.json",
+          "flags": []
+        }
+      },
       "edges": {
         "overall_elo_edge": 0.07,
         "surface_elo_edge": 0.08,
@@ -2155,13 +3404,16 @@
         "recent_form_edge": 0.0,
         "short_form_edge": 0.0,
         "surface_recent_form_edge": 0.0,
-        "opponent_quality_edge": 0.0
+        "opponent_quality_edge": 0.0,
+        "sets_edge": 0.0019,
+        "games_edge": 0.0038
       },
       "flags": [
+        "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
         "RECENT_FORM_NO_DATA"
       ],
       "thinq_available": true,
-      "thinq_confidence": 0.7,
+      "thinq_confidence": 0.76,
       "thinq_selected_elo_type": "clay_elo",
       "thinq_elo_pick": 1745.9,
       "thinq_elo_opponent": 1644.7,
@@ -2195,14 +3447,24 @@
       "thinq_short_form_edge": 0.0,
       "thinq_surface_recent_form_edge": 0.0,
       "thinq_opponent_quality_edge": 0.0,
+      "thinq_sets_edge": 0.0019,
+      "thinq_games_edge": 0.0038,
+      "thinq_projected_sets": 2.44,
+      "thinq_projected_games": 24.3,
+      "thinq_tiebreak_probability": 0.31,
+      "thinq_decider_probability": 0.44,
+      "thinq_straight_sets_probability": 0.56,
+      "thinq_match_shape": "BALANCED_STANDARD",
+      "thinq_match_dynamics_confidence": 0.75,
       "thinq_form_confidence": 0.0,
       "thinq_flags": [
+        "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
         "RECENT_FORM_NO_DATA"
       ]
     },
     "thinq_available": true,
     "thinq_error": null,
-    "thinq_confidence": 0.7,
+    "thinq_confidence": 0.76,
     "thinq_edges": {
       "overall_elo_edge": 0.07,
       "surface_elo_edge": 0.08,
@@ -2213,9 +3475,12 @@
       "surface_recent_form_edge": 0.0,
       "opponent_quality_edge": 0.0,
       "ranking_context_edge": 0.02,
-      "market_sanity_edge": 0.0
+      "market_sanity_edge": 0.0,
+      "sets_edge": 0.0019,
+      "games_edge": 0.0038
     },
     "thinq_flags": [
+      "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
       "RECENT_FORM_NO_DATA"
     ],
     "thinq_side": {
@@ -2269,6 +3534,15 @@
     "thinq_short_form_edge": 0.0,
     "thinq_surface_recent_form_edge": 0.0,
     "thinq_opponent_quality_edge": 0.0,
+    "thinq_sets_edge": 0.0019,
+    "thinq_games_edge": 0.0038,
+    "thinq_projected_sets": 2.44,
+    "thinq_projected_games": 24.3,
+    "thinq_tiebreak_probability": 0.31,
+    "thinq_decider_probability": 0.44,
+    "thinq_straight_sets_probability": 0.56,
+    "thinq_match_shape": "BALANCED_STANDARD",
+    "thinq_match_dynamics_confidence": 0.75,
     "thinq_form_confidence": 0.0,
     "implied_probability": 0.6667,
     "corq_model_version": "CORQ_V1_EXPLAINABLE_EDGE_CONFIDENCE",
@@ -2281,14 +3555,14 @@
       "h2h_component": 0.0133,
       "ranking_context_component": 0.02,
       "market_sanity_component": 0.0,
-      "context_component": 0.0
+      "context_component": 0.0057
     },
-    "corq_raw_model_edge": 0.1833,
-    "corq_confidence_factor": 0.735,
-    "corq_estimated_win_probability": 0.6347,
-    "estimated_win_pct": 63.47,
-    "corq_score": 0.6347,
-    "corq_edge": -0.032,
+    "corq_raw_model_edge": 0.189,
+    "corq_confidence_factor": 0.774,
+    "corq_estimated_win_probability": 0.6463,
+    "estimated_win_pct": 64.63,
+    "corq_score": 0.6463,
+    "corq_edge": -0.0204,
     "corq_risk_flags": [
       "ELO_PICK_EDGE",
       "H2H_PICK_EDGE",
@@ -2296,9 +3570,9 @@
       "RECENT_FORM_NO_DATA",
       "SURFACE_FORM_NEUTRAL"
     ],
-    "corq_edge_bonus": -0.008,
+    "corq_edge_bonus": -0.0051,
     "corq_risk_penalty": 0.0,
-    "corq_adjusted_score": 0.6267,
+    "corq_adjusted_score": 0.6412,
     "eligible_for_corq": true,
     "corq_reject_reasons": [],
     "corq_warning_flags": [
@@ -2307,7 +3581,7 @@
       "WARN_STARTED_OR_TOO_CLOSE",
       "WARN_STATUS_NOT_OPEN"
     ],
-    "corq_rank": 4
+    "corq_rank": 5
   },
   {
     "match_id": 16516127,
@@ -2631,7 +3905,7 @@
     "thinq": {
       "available": true,
       "error": null,
-      "confidence": 0.7,
+      "confidence": 0.76,
       "thinq_side": {
         "player1_home": "Paula Badosa",
         "player2_away": "Panna Udvardy",
@@ -2724,6 +3998,122 @@
         "opponent_quality_edge": 0.0,
         "form_confidence": 0.0
       },
+      "match_dynamics": {
+        "status": "OK",
+        "source": "thinq_match_dynamics_v1",
+        "pick": "Paula Badosa",
+        "opponent": "Panna Udvardy",
+        "surface": "Clay",
+        "best_of": 3,
+        "composite_edge": 0.052,
+        "closeness_index": 0.5667,
+        "match_shape": "BALANCED_STANDARD",
+        "projected_sets": 2.42,
+        "projected_games": 24.1,
+        "tiebreak_probability": 0.302,
+        "decider_probability": 0.424,
+        "straight_sets_probability": 0.576,
+        "sets_edge": 0.0026,
+        "games_edge": 0.0047,
+        "tiebreak_edge": 0.0022,
+        "decider_edge": 0.0005,
+        "confidence": 0.75,
+        "odds_gap_pct": null,
+        "flags": [
+          "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL"
+        ]
+      },
+      "contexts": {
+        "match_dynamics": {
+          "status": "OK",
+          "source": "thinq_match_dynamics_v1",
+          "pick": "Paula Badosa",
+          "opponent": "Panna Udvardy",
+          "surface": "Clay",
+          "best_of": 3,
+          "composite_edge": 0.052,
+          "closeness_index": 0.5667,
+          "match_shape": "BALANCED_STANDARD",
+          "projected_sets": 2.42,
+          "projected_games": 24.1,
+          "tiebreak_probability": 0.302,
+          "decider_probability": 0.424,
+          "straight_sets_probability": 0.576,
+          "sets_edge": 0.0026,
+          "games_edge": 0.0047,
+          "tiebreak_edge": 0.0022,
+          "decider_edge": 0.0005,
+          "confidence": 0.75,
+          "odds_gap_pct": null,
+          "flags": [
+            "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL"
+          ]
+        },
+        "h2h": {
+          "status": "OK",
+          "source": "rapidapi_pro",
+          "total_matches": 2,
+          "pick_wins": 2,
+          "opponent_wins": 0,
+          "pick_win_pct": 1.0,
+          "same_surface_matches": 2,
+          "same_surface_pick_wins": 2,
+          "edge": 0.04,
+          "confidence": 0.31,
+          "reason": null,
+          "endpoint": "/api/tennis/event/aGCsXqMb/h2h",
+          "params": null,
+          "endpoint_attempts": [
+            {
+              "endpoint": "/api/tennis/event/aGCsXqMb/h2h",
+              "params": {},
+              "status_code": 200,
+              "ok": true,
+              "error": null
+            }
+          ],
+          "api_status_code": 200,
+          "api_error": null,
+          "cache_path": "data/h2h_cache/2026/h2h_aGCsXqMb.json",
+          "requested_event_id": 16516127,
+          "requested_event_custom_id": "aGCsXqMb",
+          "requested_player1_id": 69050,
+          "requested_player2_id": 218347
+        },
+        "recent_form": {
+          "status": "NO_DATA",
+          "source": null,
+          "reason": "No local history files found",
+          "flags": [
+            "RECENT_FORM_NO_DATA"
+          ],
+          "recent_form_edge": 0.0,
+          "short_form_edge": 0.0,
+          "surface_recent_form_edge": 0.0,
+          "opponent_quality_edge": 0.0,
+          "form_confidence": 0.0
+        },
+        "elo": {
+          "status": "OK",
+          "selected_elo_type": "clay_elo",
+          "overall_pick_elo": 1824.4,
+          "overall_opponent_elo": 1687.9,
+          "surface_pick_elo": 1767.1,
+          "surface_opponent_elo": 1642.1,
+          "pick_elo": 1767.1,
+          "opponent_elo": 1642.1,
+          "overall_elo_diff": 136.5,
+          "surface_elo_diff": 125.0,
+          "elo_diff": 125.0,
+          "overall_elo_edge": 0.07,
+          "surface_elo_edge": 0.08,
+          "elo_edge": 0.08,
+          "pick_yelo": null,
+          "opponent_yelo": null,
+          "source": "thinq/data/elo/elo_cache.json",
+          "flags": []
+        }
+      },
       "edges": {
         "overall_elo_edge": 0.07,
         "surface_elo_edge": 0.08,
@@ -2732,13 +4122,16 @@
         "recent_form_edge": 0.0,
         "short_form_edge": 0.0,
         "surface_recent_form_edge": 0.0,
-        "opponent_quality_edge": 0.0
+        "opponent_quality_edge": 0.0,
+        "sets_edge": 0.0026,
+        "games_edge": 0.0047
       },
       "flags": [
+        "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
         "RECENT_FORM_NO_DATA"
       ],
       "thinq_available": true,
-      "thinq_confidence": 0.7,
+      "thinq_confidence": 0.76,
       "thinq_selected_elo_type": "clay_elo",
       "thinq_elo_pick": 1767.1,
       "thinq_elo_opponent": 1642.1,
@@ -2772,14 +4165,24 @@
       "thinq_short_form_edge": 0.0,
       "thinq_surface_recent_form_edge": 0.0,
       "thinq_opponent_quality_edge": 0.0,
+      "thinq_sets_edge": 0.0026,
+      "thinq_games_edge": 0.0047,
+      "thinq_projected_sets": 2.42,
+      "thinq_projected_games": 24.1,
+      "thinq_tiebreak_probability": 0.302,
+      "thinq_decider_probability": 0.424,
+      "thinq_straight_sets_probability": 0.576,
+      "thinq_match_shape": "BALANCED_STANDARD",
+      "thinq_match_dynamics_confidence": 0.75,
       "thinq_form_confidence": 0.0,
       "thinq_flags": [
+        "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
         "RECENT_FORM_NO_DATA"
       ]
     },
     "thinq_available": true,
     "thinq_error": null,
-    "thinq_confidence": 0.7,
+    "thinq_confidence": 0.76,
     "thinq_edges": {
       "overall_elo_edge": 0.07,
       "surface_elo_edge": 0.08,
@@ -2790,9 +4193,12 @@
       "surface_recent_form_edge": 0.0,
       "opponent_quality_edge": 0.0,
       "ranking_context_edge": -0.02,
-      "market_sanity_edge": 0.0
+      "market_sanity_edge": 0.0,
+      "sets_edge": 0.0026,
+      "games_edge": 0.0047
     },
     "thinq_flags": [
+      "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
       "RECENT_FORM_NO_DATA"
     ],
     "thinq_side": {
@@ -2846,6 +4252,15 @@
     "thinq_short_form_edge": 0.0,
     "thinq_surface_recent_form_edge": 0.0,
     "thinq_opponent_quality_edge": 0.0,
+    "thinq_sets_edge": 0.0026,
+    "thinq_games_edge": 0.0047,
+    "thinq_projected_sets": 2.42,
+    "thinq_projected_games": 24.1,
+    "thinq_tiebreak_probability": 0.302,
+    "thinq_decider_probability": 0.424,
+    "thinq_straight_sets_probability": 0.576,
+    "thinq_match_shape": "BALANCED_STANDARD",
+    "thinq_match_dynamics_confidence": 0.75,
     "thinq_form_confidence": 0.0,
     "implied_probability": 0.6369,
     "corq_model_version": "CORQ_V1_EXPLAINABLE_EDGE_CONFIDENCE",
@@ -2858,14 +4273,14 @@
       "h2h_component": 0.04,
       "ranking_context_component": -0.02,
       "market_sanity_component": 0.0,
-      "context_component": 0.0
+      "context_component": 0.0073
     },
-    "corq_raw_model_edge": 0.17,
-    "corq_confidence_factor": 0.735,
-    "corq_estimated_win_probability": 0.625,
-    "estimated_win_pct": 62.5,
-    "corq_score": 0.625,
-    "corq_edge": -0.0119,
+    "corq_raw_model_edge": 0.1773,
+    "corq_confidence_factor": 0.774,
+    "corq_estimated_win_probability": 0.6372,
+    "estimated_win_pct": 63.72,
+    "corq_score": 0.6372,
+    "corq_edge": 0.0003,
     "corq_risk_flags": [
       "ELO_PICK_EDGE",
       "H2H_PICK_EDGE",
@@ -2873,576 +4288,9 @@
       "RECENT_FORM_NO_DATA",
       "SURFACE_FORM_NEUTRAL"
     ],
-    "corq_edge_bonus": -0.003,
+    "corq_edge_bonus": 0.0001,
     "corq_risk_penalty": 0.0,
-    "corq_adjusted_score": 0.622,
-    "eligible_for_corq": true,
-    "corq_reject_reasons": [],
-    "corq_warning_flags": [
-      "WARN_NOT_NOTSTARTED",
-      "WARN_RECENT_FORM_NO_DATA",
-      "WARN_STARTED_OR_TOO_CLOSE",
-      "WARN_STATUS_NOT_OPEN"
-    ],
-    "corq_rank": 5
-  },
-  {
-    "match_id": 16516222,
-    "event_id": 16516222,
-    "id": 16516222,
-    "player1": "Alevtina Ibragimova",
-    "player2": "Clara Burel",
-    "surface": "Clay",
-    "surface_raw": "Red clay",
-    "tournament": "Palermo, Italy",
-    "category": "WTA 125",
-    "level": "WTA 125",
-    "gender": "F",
-    "best_of": 3,
-    "match_start": "2026-07-24T17:00:00+00:00",
-    "start_time": "2026-07-24T17:00:00+00:00",
-    "status_type": "inprogress",
-    "status_code": 10,
-    "is_doubles": false,
-    "source": "RapidAPI PRO",
-    "raw": {
-      "firstToServe": 1,
-      "tournament": {
-        "name": "Palermo, Italy",
-        "slug": "palermo-italy",
-        "category": {
-          "name": "WTA 125",
-          "slug": "wta-125",
-          "sport": {
-            "name": "Tennis",
-            "slug": "tennis",
-            "id": 5
-          },
-          "priority": 5,
-          "country": {},
-          "id": 871,
-          "flag": "wta-125",
-          "fieldTranslations": {
-            "nameTranslation": {
-              "ar": "رابطة محترفات التنس 125",
-              "ru": "WTA 125"
-            },
-            "shortNameTranslation": {}
-          }
-        },
-        "uniqueTournament": {
-          "name": "Palermo, Italy",
-          "slug": "wta-125k-palermo-italy-women-singles",
-          "category": {
-            "name": "WTA 125",
-            "slug": "wta-125",
-            "sport": {
-              "name": "Tennis",
-              "slug": "tennis",
-              "id": 5
-            },
-            "priority": 5,
-            "country": {},
-            "id": 871,
-            "flag": "wta-125",
-            "fieldTranslations": {
-              "nameTranslation": {
-                "ar": "رابطة محترفات التنس 125",
-                "ru": "WTA 125"
-              },
-              "shortNameTranslation": {}
-            }
-          },
-          "userCount": 162,
-          "groundType": "Red clay",
-          "tennisPoints": 125,
-          "hasPerformanceGraphFeature": false,
-          "country": {},
-          "id": 27983,
-          "hasEventPlayerStatistics": false,
-          "displayInverseHomeAwayTeams": false,
-          "fieldTranslations": {
-            "nameTranslation": {
-              "ar": "بطولة WTA 125K باليرمو، إيطاليا فردي السيدات",
-              "ru": "WTA 125K Палермо, Италия среди женщин, одиночный разряд"
-            },
-            "shortNameTranslation": {}
-          }
-        },
-        "priority": 0,
-        "isGroup": false,
-        "id": 191857,
-        "endTimestamp": 1785024000,
-        "startTimestamp": 1784505600
-      },
-      "season": {
-        "name": "WTA 125K Palermo, Italy Women Singles 2026",
-        "year": "2026",
-        "editor": false,
-        "id": 94039
-      },
-      "roundInfo": {
-        "round": 27,
-        "name": "Quarterfinals",
-        "slug": "quarterfinals",
-        "cupRoundType": 4
-      },
-      "customId": "tGHbsaUqd",
-      "status": {
-        "code": 10,
-        "description": "3rd set",
-        "type": "inprogress"
-      },
-      "homeTeam": {
-        "name": "Alevtina Ibragimova",
-        "slug": "ibragimova-alevtina",
-        "shortName": "A. Ibragimova",
-        "gender": "F",
-        "sport": {
-          "name": "Tennis",
-          "slug": "tennis",
-          "id": 5
-        },
-        "userCount": 792,
-        "playerTeamInfo": {
-          "id": 12457
-        },
-        "nameCode": "IBR",
-        "ranking": 236,
-        "national": false,
-        "type": 1,
-        "country": {
-          "alpha2": "RU",
-          "alpha3": "RUS",
-          "name": "Russia",
-          "slug": "russia"
-        },
-        "id": 417200,
-        "subTeams": [],
-        "teamColors": {
-          "primary": "#374df5",
-          "secondary": "#374df5",
-          "text": "#ffffff"
-        },
-        "fieldTranslations": {
-          "nameTranslation": {
-            "ar": "أليفتينا إبراغيموفا",
-            "ru": "Алевтина Ибрагимова"
-          },
-          "shortNameTranslation": {
-            "ar": "أ. إبراغيموفا",
-            "ru": "А. Ибрагимова"
-          }
-        }
-      },
-      "awayTeam": {
-        "name": "Clara Burel",
-        "slug": "burel-clara",
-        "shortName": "C. Burel",
-        "gender": "F",
-        "sport": {
-          "name": "Tennis",
-          "slug": "tennis",
-          "id": 5
-        },
-        "userCount": 2257,
-        "playerTeamInfo": {
-          "id": 3385
-        },
-        "nameCode": "BUR",
-        "ranking": 461,
-        "national": false,
-        "type": 1,
-        "country": {
-          "alpha2": "FR",
-          "alpha3": "FRA",
-          "name": "France",
-          "slug": "france"
-        },
-        "id": 206568,
-        "subTeams": [],
-        "teamColors": {
-          "primary": "#374df5",
-          "secondary": "#374df5",
-          "text": "#ffffff"
-        },
-        "fieldTranslations": {
-          "nameTranslation": {
-            "ar": "كلارا بورييل",
-            "bn": "ক্লারা বুরেল",
-            "hi": "क्लारा बुरेल",
-            "ru": "Бурель, Клара"
-          },
-          "shortNameTranslation": {
-            "ar": "ك. بورييل"
-          }
-        }
-      },
-      "homeScore": {
-        "current": 1,
-        "display": 1,
-        "period1": 3,
-        "period2": 7,
-        "period3": 0,
-        "period2TieBreak": 7,
-        "point": "0"
-      },
-      "awayScore": {
-        "current": 1,
-        "display": 1,
-        "period1": 6,
-        "period2": 6,
-        "period3": 0,
-        "period2TieBreak": 5,
-        "point": "0"
-      },
-      "time": {
-        "period1": 2532,
-        "period2": 4340,
-        "currentPeriodStartTimestamp": 1784919568
-      },
-      "changes": {
-        "changes": [
-          "time.period2"
-        ],
-        "changeTimestamp": 1784919629
-      },
-      "hasGlobalHighlights": false,
-      "crowdsourcingDataDisplayEnabled": false,
-      "id": 16516222,
-      "slug": "alevtina-ibragimova-clara-burel",
-      "startTimestamp": 1784912400,
-      "periods": {
-        "point": "Game",
-        "current": "Match",
-        "period1": "1st set",
-        "period2": "2nd set",
-        "period3": "3rd set",
-        "period4": "4th set",
-        "period5": "5th set"
-      },
-      "lastPeriod": "period3",
-      "finalResultOnly": false,
-      "feedLocked": false,
-      "groundType": "Red clay",
-      "isEditor": false,
-      "eventFilters": {
-        "category": [
-          "singles"
-        ],
-        "level": [
-          "pro"
-        ],
-        "tournament": [
-          "lower"
-        ],
-        "gender": [
-          "F"
-        ]
-      }
-    },
-    "odds_matching_direction": "DIRECT_BY_NUMERIC_OUTCOME",
-    "odds_label_1": "1",
-    "odds_label_2": "2",
-    "odds_direct_match_score": 1.0,
-    "odds_reverse_match_score": 0.0,
-    "odds_player1": 2.375,
-    "odds_player2": 1.5333,
-    "p1_odds": 2.375,
-    "p2_odds": 1.5333,
-    "home_odds": 2.375,
-    "away_odds": 1.5333,
-    "odds1": 2.375,
-    "odds2": 1.5333,
-    "price1": 2.375,
-    "price2": 1.5333,
-    "odds_source": "RapidAPI PRO event odds",
-    "odds_endpoint": "/api/tennis/event/16516222/odds",
-    "odds_pair_available": true,
-    "odds_labels_confirmed": true,
-    "odds_gap_abs": 0.8417,
-    "odds_gap_pct": 0.5489,
-    "home_player": "Alevtina Ibragimova",
-    "away_player": "Clara Burel",
-    "pick_side": "AWAY",
-    "opponent_side": "HOME",
-    "pick": "Clara Burel",
-    "opponent": "Alevtina Ibragimova",
-    "odds": 1.5333,
-    "pick_odds": 1.5333,
-    "opponent_odds": 2.375,
-    "pick_is_player1": false,
-    "pick_is_player2": true,
-    "pick_is_home": false,
-    "pick_is_away": true,
-    "side_orientation": "PICK_IS_PLAYER2_AWAY",
-    "side_locked": true,
-    "side_audit": {
-      "player1_home": "Alevtina Ibragimova",
-      "player2_away": "Clara Burel",
-      "pick": "Clara Burel",
-      "opponent": "Alevtina Ibragimova",
-      "pick_side": "AWAY",
-      "opponent_side": "HOME",
-      "pick_is_player1": false,
-      "pick_is_player2": true,
-      "pick_is_home": false,
-      "pick_is_away": true,
-      "orientation": "PICK_IS_PLAYER2_AWAY",
-      "expected_pick_from_side": "Clara Burel",
-      "expected_opponent_from_side": "Alevtina Ibragimova",
-      "pick_matches_expected_side": true,
-      "opponent_matches_expected_side": true,
-      "side_valid": true
-    },
-    "thinq": {
-      "available": true,
-      "error": null,
-      "confidence": 0.7,
-      "thinq_side": {
-        "player1_home": "Alevtina Ibragimova",
-        "player2_away": "Clara Burel",
-        "pick": "Clara Burel",
-        "opponent": "Alevtina Ibragimova",
-        "pick_side": "AWAY",
-        "opponent_side": "HOME",
-        "pick_is_player1": false,
-        "pick_is_player2": true,
-        "pick_is_home": false,
-        "pick_is_away": true,
-        "orientation": "PICK_IS_PLAYER2_AWAY",
-        "expected_pick_from_side": "Clara Burel",
-        "expected_opponent_from_side": "Alevtina Ibragimova",
-        "pick_matches_expected_side": true,
-        "opponent_matches_expected_side": true,
-        "side_valid": true
-      },
-      "surface": {
-        "surface": "Clay",
-        "surface_raw": "Clay",
-        "surface_environment": null,
-        "surface_model_bucket": "Clay",
-        "surface_source": "match_payload",
-        "surface_confidence": "MEDIUM",
-        "selected_elo_type": "clay_elo",
-        "flags": []
-      },
-      "elo": {
-        "status": "OK",
-        "selected_elo_type": "clay_elo",
-        "overall_pick_elo": 1637.5,
-        "overall_opponent_elo": 1551.7,
-        "surface_pick_elo": 1595.6,
-        "surface_opponent_elo": 1518.0,
-        "pick_elo": 1595.6,
-        "opponent_elo": 1518.0,
-        "overall_elo_diff": 85.8,
-        "surface_elo_diff": 77.6,
-        "elo_diff": 77.6,
-        "overall_elo_edge": 0.07,
-        "surface_elo_edge": 0.0647,
-        "elo_edge": 0.0647,
-        "pick_yelo": null,
-        "opponent_yelo": null,
-        "source": "thinq/data/elo/elo_cache.json",
-        "flags": []
-      },
-      "h2h": {
-        "status": "OK",
-        "source": "cache",
-        "total_matches": 1,
-        "pick_wins": 1,
-        "opponent_wins": 0,
-        "pick_win_pct": 1.0,
-        "same_surface_matches": 1,
-        "same_surface_pick_wins": 1,
-        "edge": 0.04,
-        "confidence": 0.23,
-        "reason": null,
-        "endpoint": "/api/tennis/event/tGHbsaUqd/h2h",
-        "params": null,
-        "endpoint_attempts": [
-          {
-            "endpoint": "/api/tennis/event/tGHbsaUqd/h2h",
-            "params": {},
-            "status_code": 200,
-            "ok": true,
-            "error": null
-          }
-        ],
-        "api_status_code": 200,
-        "api_error": null,
-        "cache_path": "data/h2h_cache/2026/h2h_tGHbsaUqd.json",
-        "requested_event_id": 16516222,
-        "requested_event_custom_id": "tGHbsaUqd",
-        "requested_player1_id": 417200,
-        "requested_player2_id": 206568
-      },
-      "recent_form": {
-        "status": "NO_DATA",
-        "source": null,
-        "reason": "No local history files found",
-        "flags": [
-          "RECENT_FORM_NO_DATA"
-        ],
-        "recent_form_edge": 0.0,
-        "short_form_edge": 0.0,
-        "surface_recent_form_edge": 0.0,
-        "opponent_quality_edge": 0.0,
-        "form_confidence": 0.0
-      },
-      "edges": {
-        "overall_elo_edge": 0.07,
-        "surface_elo_edge": 0.0647,
-        "elo_edge": 0.0647,
-        "h2h_edge": 0.04,
-        "recent_form_edge": 0.0,
-        "short_form_edge": 0.0,
-        "surface_recent_form_edge": 0.0,
-        "opponent_quality_edge": 0.0
-      },
-      "flags": [
-        "RECENT_FORM_NO_DATA"
-      ],
-      "thinq_available": true,
-      "thinq_confidence": 0.7,
-      "thinq_selected_elo_type": "clay_elo",
-      "thinq_elo_pick": 1595.6,
-      "thinq_elo_opponent": 1518.0,
-      "thinq_yelo_pick": null,
-      "thinq_yelo_opponent": null,
-      "thinq_overall_elo_edge": 0.07,
-      "thinq_surface_elo_edge": 0.0647,
-      "thinq_elo_edge": 0.0647,
-      "thinq_h2h_status": "OK",
-      "thinq_h2h_source": "cache",
-      "thinq_h2h_total_matches": 1,
-      "thinq_h2h_edge": 0.04,
-      "thinq_h2h_confidence": 0.23,
-      "thinq_h2h_endpoint": "/api/tennis/event/tGHbsaUqd/h2h",
-      "thinq_h2h_params": null,
-      "thinq_h2h_endpoint_attempts": [
-        {
-          "endpoint": "/api/tennis/event/tGHbsaUqd/h2h",
-          "params": {},
-          "status_code": 200,
-          "ok": true,
-          "error": null
-        }
-      ],
-      "thinq_h2h_api_status_code": 200,
-      "thinq_h2h_api_error": null,
-      "thinq_h2h_cache_path": "data/h2h_cache/2026/h2h_tGHbsaUqd.json",
-      "thinq_h2h_requested_event_id": 16516222,
-      "thinq_h2h_requested_event_custom_id": "tGHbsaUqd",
-      "thinq_recent_form_edge": 0.0,
-      "thinq_short_form_edge": 0.0,
-      "thinq_surface_recent_form_edge": 0.0,
-      "thinq_opponent_quality_edge": 0.0,
-      "thinq_form_confidence": 0.0,
-      "thinq_flags": [
-        "RECENT_FORM_NO_DATA"
-      ]
-    },
-    "thinq_available": true,
-    "thinq_error": null,
-    "thinq_confidence": 0.7,
-    "thinq_edges": {
-      "overall_elo_edge": 0.07,
-      "surface_elo_edge": 0.0647,
-      "elo_edge": 0.0647,
-      "h2h_edge": 0.04,
-      "recent_form_edge": 0.0,
-      "short_form_edge": 0.0,
-      "surface_recent_form_edge": 0.0,
-      "opponent_quality_edge": 0.0,
-      "ranking_context_edge": -0.02,
-      "market_sanity_edge": 0.0
-    },
-    "thinq_flags": [
-      "RECENT_FORM_NO_DATA"
-    ],
-    "thinq_side": {
-      "player1_home": "Alevtina Ibragimova",
-      "player2_away": "Clara Burel",
-      "pick": "Clara Burel",
-      "opponent": "Alevtina Ibragimova",
-      "pick_side": "AWAY",
-      "opponent_side": "HOME",
-      "pick_is_player1": false,
-      "pick_is_player2": true,
-      "pick_is_home": false,
-      "pick_is_away": true,
-      "orientation": "PICK_IS_PLAYER2_AWAY",
-      "expected_pick_from_side": "Clara Burel",
-      "expected_opponent_from_side": "Alevtina Ibragimova",
-      "pick_matches_expected_side": true,
-      "opponent_matches_expected_side": true,
-      "side_valid": true
-    },
-    "thinq_selected_elo_type": "clay_elo",
-    "thinq_elo_pick": 1595.6,
-    "thinq_elo_opponent": 1518.0,
-    "thinq_yelo_pick": null,
-    "thinq_yelo_opponent": null,
-    "thinq_overall_elo_edge": 0.07,
-    "thinq_surface_elo_edge": 0.0647,
-    "thinq_elo_edge": 0.0647,
-    "thinq_h2h_status": "OK",
-    "thinq_h2h_source": "cache",
-    "thinq_h2h_total_matches": 1,
-    "thinq_h2h_edge": 0.04,
-    "thinq_h2h_confidence": 0.23,
-    "thinq_h2h_endpoint": "/api/tennis/event/tGHbsaUqd/h2h",
-    "thinq_h2h_params": null,
-    "thinq_h2h_endpoint_attempts": [
-      {
-        "endpoint": "/api/tennis/event/tGHbsaUqd/h2h",
-        "params": {},
-        "status_code": 200,
-        "ok": true,
-        "error": null
-      }
-    ],
-    "thinq_h2h_api_status_code": 200,
-    "thinq_h2h_api_error": null,
-    "thinq_h2h_cache_path": "data/h2h_cache/2026/h2h_tGHbsaUqd.json",
-    "thinq_h2h_requested_event_id": 16516222,
-    "thinq_h2h_requested_event_custom_id": "tGHbsaUqd",
-    "thinq_recent_form_edge": 0.0,
-    "thinq_short_form_edge": 0.0,
-    "thinq_surface_recent_form_edge": 0.0,
-    "thinq_opponent_quality_edge": 0.0,
-    "thinq_form_confidence": 0.0,
-    "implied_probability": 0.6522,
-    "corq_model_version": "CORQ_V1_EXPLAINABLE_EDGE_CONFIDENCE",
-    "corq_components": {
-      "overall_elo_component": 0.07,
-      "surface_elo_component": 0.0647,
-      "recent_form_component": 0.0,
-      "surface_recent_form_component": 0.0,
-      "opponent_quality_component": 0.0,
-      "h2h_component": 0.04,
-      "ranking_context_component": -0.02,
-      "market_sanity_component": 0.0,
-      "context_component": 0.0
-    },
-    "corq_raw_model_edge": 0.1547,
-    "corq_confidence_factor": 0.735,
-    "corq_estimated_win_probability": 0.6137,
-    "estimated_win_pct": 61.37,
-    "corq_score": 0.6137,
-    "corq_edge": -0.0385,
-    "corq_risk_flags": [
-      "ELO_PICK_EDGE",
-      "H2H_PICK_EDGE",
-      "RECENT_FORM_NEUTRAL",
-      "RECENT_FORM_NO_DATA",
-      "SURFACE_FORM_NEUTRAL"
-    ],
-    "corq_edge_bonus": -0.0096,
-    "corq_risk_penalty": 0.0,
-    "corq_adjusted_score": 0.6041,
+    "corq_adjusted_score": 0.6373,
     "eligible_for_corq": true,
     "corq_reject_reasons": [],
     "corq_warning_flags": [
@@ -3776,7 +4624,7 @@
     "thinq": {
       "available": true,
       "error": null,
-      "confidence": 0.7,
+      "confidence": 0.76,
       "thinq_side": {
         "player1_home": "Alexander Bublik",
         "player2_away": "Alex Molčan",
@@ -3869,6 +4717,122 @@
         "opponent_quality_edge": 0.0,
         "form_confidence": 0.0
       },
+      "match_dynamics": {
+        "status": "OK",
+        "source": "thinq_match_dynamics_v1",
+        "pick": "Alexander Bublik",
+        "opponent": "Alex Molčan",
+        "surface": "Clay",
+        "best_of": 3,
+        "composite_edge": 0.0326,
+        "closeness_index": 0.7287,
+        "match_shape": "CLOSE_DECIDER_LEAN",
+        "projected_sets": 2.48,
+        "projected_games": 24.7,
+        "tiebreak_probability": 0.3312,
+        "decider_probability": 0.4823,
+        "straight_sets_probability": 0.5177,
+        "sets_edge": 0.0004,
+        "games_edge": 0.0018,
+        "tiebreak_edge": 0.0018,
+        "decider_edge": 0.0011,
+        "confidence": 0.75,
+        "odds_gap_pct": null,
+        "flags": [
+          "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL"
+        ]
+      },
+      "contexts": {
+        "match_dynamics": {
+          "status": "OK",
+          "source": "thinq_match_dynamics_v1",
+          "pick": "Alexander Bublik",
+          "opponent": "Alex Molčan",
+          "surface": "Clay",
+          "best_of": 3,
+          "composite_edge": 0.0326,
+          "closeness_index": 0.7287,
+          "match_shape": "CLOSE_DECIDER_LEAN",
+          "projected_sets": 2.48,
+          "projected_games": 24.7,
+          "tiebreak_probability": 0.3312,
+          "decider_probability": 0.4823,
+          "straight_sets_probability": 0.5177,
+          "sets_edge": 0.0004,
+          "games_edge": 0.0018,
+          "tiebreak_edge": 0.0018,
+          "decider_edge": 0.0011,
+          "confidence": 0.75,
+          "odds_gap_pct": null,
+          "flags": [
+            "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL"
+          ]
+        },
+        "h2h": {
+          "status": "OK",
+          "source": "rapidapi_pro",
+          "total_matches": 2,
+          "pick_wins": 1,
+          "opponent_wins": 1,
+          "pick_win_pct": 0.5,
+          "same_surface_matches": 2,
+          "same_surface_pick_wins": 1,
+          "edge": 0.0,
+          "confidence": 0.31,
+          "reason": null,
+          "endpoint": "/api/tennis/event/FcibsFupb/h2h",
+          "params": null,
+          "endpoint_attempts": [
+            {
+              "endpoint": "/api/tennis/event/FcibsFupb/h2h",
+              "params": {},
+              "status_code": 200,
+              "ok": true,
+              "error": null
+            }
+          ],
+          "api_status_code": 200,
+          "api_error": null,
+          "cache_path": "data/h2h_cache/2026/h2h_FcibsFupb.json",
+          "requested_event_id": 16515775,
+          "requested_event_custom_id": "FcibsFupb",
+          "requested_player1_id": 163480,
+          "requested_player2_id": 145130
+        },
+        "recent_form": {
+          "status": "NO_DATA",
+          "source": null,
+          "reason": "No local history files found",
+          "flags": [
+            "RECENT_FORM_NO_DATA"
+          ],
+          "recent_form_edge": 0.0,
+          "short_form_edge": 0.0,
+          "surface_recent_form_edge": 0.0,
+          "opponent_quality_edge": 0.0,
+          "form_confidence": 0.0
+        },
+        "elo": {
+          "status": "OK",
+          "selected_elo_type": "clay_elo",
+          "overall_pick_elo": 1888.7,
+          "overall_opponent_elo": 1771.6,
+          "surface_pick_elo": 1810.2,
+          "surface_opponent_elo": 1739.1,
+          "pick_elo": 1810.2,
+          "opponent_elo": 1739.1,
+          "overall_elo_diff": 117.1,
+          "surface_elo_diff": 71.1,
+          "elo_diff": 71.1,
+          "overall_elo_edge": 0.07,
+          "surface_elo_edge": 0.0592,
+          "elo_edge": 0.0592,
+          "pick_yelo": null,
+          "opponent_yelo": null,
+          "source": "thinq/data/elo/elo_cache.json",
+          "flags": []
+        }
+      },
       "edges": {
         "overall_elo_edge": 0.07,
         "surface_elo_edge": 0.0592,
@@ -3877,13 +4841,16 @@
         "recent_form_edge": 0.0,
         "short_form_edge": 0.0,
         "surface_recent_form_edge": 0.0,
-        "opponent_quality_edge": 0.0
+        "opponent_quality_edge": 0.0,
+        "sets_edge": 0.0004,
+        "games_edge": 0.0018
       },
       "flags": [
+        "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
         "RECENT_FORM_NO_DATA"
       ],
       "thinq_available": true,
-      "thinq_confidence": 0.7,
+      "thinq_confidence": 0.76,
       "thinq_selected_elo_type": "clay_elo",
       "thinq_elo_pick": 1810.2,
       "thinq_elo_opponent": 1739.1,
@@ -3917,14 +4884,24 @@
       "thinq_short_form_edge": 0.0,
       "thinq_surface_recent_form_edge": 0.0,
       "thinq_opponent_quality_edge": 0.0,
+      "thinq_sets_edge": 0.0004,
+      "thinq_games_edge": 0.0018,
+      "thinq_projected_sets": 2.48,
+      "thinq_projected_games": 24.7,
+      "thinq_tiebreak_probability": 0.3312,
+      "thinq_decider_probability": 0.4823,
+      "thinq_straight_sets_probability": 0.5177,
+      "thinq_match_shape": "CLOSE_DECIDER_LEAN",
+      "thinq_match_dynamics_confidence": 0.75,
       "thinq_form_confidence": 0.0,
       "thinq_flags": [
+        "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
         "RECENT_FORM_NO_DATA"
       ]
     },
     "thinq_available": true,
     "thinq_error": null,
-    "thinq_confidence": 0.7,
+    "thinq_confidence": 0.76,
     "thinq_edges": {
       "overall_elo_edge": 0.07,
       "surface_elo_edge": 0.0592,
@@ -3935,9 +4912,12 @@
       "surface_recent_form_edge": 0.0,
       "opponent_quality_edge": 0.0,
       "ranking_context_edge": 0.02,
-      "market_sanity_edge": 0.0
+      "market_sanity_edge": 0.0,
+      "sets_edge": 0.0004,
+      "games_edge": 0.0018
     },
     "thinq_flags": [
+      "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
       "RECENT_FORM_NO_DATA"
     ],
     "thinq_side": {
@@ -3991,6 +4971,15 @@
     "thinq_short_form_edge": 0.0,
     "thinq_surface_recent_form_edge": 0.0,
     "thinq_opponent_quality_edge": 0.0,
+    "thinq_sets_edge": 0.0004,
+    "thinq_games_edge": 0.0018,
+    "thinq_projected_sets": 2.48,
+    "thinq_projected_games": 24.7,
+    "thinq_tiebreak_probability": 0.3312,
+    "thinq_decider_probability": 0.4823,
+    "thinq_straight_sets_probability": 0.5177,
+    "thinq_match_shape": "CLOSE_DECIDER_LEAN",
+    "thinq_match_dynamics_confidence": 0.75,
     "thinq_form_confidence": 0.0,
     "implied_probability": 0.6369,
     "corq_model_version": "CORQ_V1_EXPLAINABLE_EDGE_CONFIDENCE",
@@ -4003,14 +4992,14 @@
       "h2h_component": 0.0,
       "ranking_context_component": 0.02,
       "market_sanity_component": 0.0,
-      "context_component": 0.0
+      "context_component": 0.0022
     },
-    "corq_raw_model_edge": 0.1492,
-    "corq_confidence_factor": 0.735,
-    "corq_estimated_win_probability": 0.6097,
-    "estimated_win_pct": 60.97,
-    "corq_score": 0.6097,
-    "corq_edge": -0.0272,
+    "corq_raw_model_edge": 0.1514,
+    "corq_confidence_factor": 0.774,
+    "corq_estimated_win_probability": 0.6172,
+    "estimated_win_pct": 61.72,
+    "corq_score": 0.6172,
+    "corq_edge": -0.0197,
     "corq_risk_flags": [
       "ELO_PICK_EDGE",
       "H2H_NEUTRAL",
@@ -4018,9 +5007,9 @@
       "RECENT_FORM_NO_DATA",
       "SURFACE_FORM_NEUTRAL"
     ],
-    "corq_edge_bonus": -0.0068,
+    "corq_edge_bonus": -0.0049,
     "corq_risk_penalty": 0.0,
-    "corq_adjusted_score": 0.6029,
+    "corq_adjusted_score": 0.6123,
     "eligible_for_corq": true,
     "corq_reject_reasons": [],
     "corq_warning_flags": [
