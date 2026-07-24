@@ -1,16 +1,16 @@
 """RapidAPI PRO client for the clean TBT/CORQ runtime.
 
-Purpose:
-- Load daily tennis events from RapidAPI PRO.
-- Normalize event/player/tournament/surface fields for THINQ + CORQ.
-- Fetch match winner odds per event from RapidAPI PRO.
+Patch focus:
+- Production candidate feed must exclude finished, live, postponed/cancelled and already-started events.
+- Only future not-started singles events should reach CORQ candidate expansion.
+- Odds parsing remains conservative and stores odds_matching_direction for CORQ guards.
 
-Configuration through GitHub Actions secrets/env:
-- RAPIDAPI_KEY                 required
-- TENNISAPI_RAPIDAPI_HOST      optional, default tennisapi1.p.rapidapi.com
-- TENNISAPI_CATEGORY_IDS       optional fallback, default 3,6,871
-- TENNISAPI_PROVIDER_ID        optional odds provider, default 1
-- TENNISAPI_MIN_MINUTES_BEFORE_START optional, default 0
+Configuration:
+- RAPIDAPI_KEY required
+- TENNISAPI_RAPIDAPI_HOST optional, default tennisapi1.p.rapidapi.com
+- TENNISAPI_CATEGORY_IDS optional fallback, default 3,6,871
+- TENNISAPI_PROVIDER_ID optional odds provider, default 1
+- TENNISAPI_MIN_MINUTES_BEFORE_START optional, default 10
 """
 
 from __future__ import annotations
@@ -111,14 +111,35 @@ def target_betting_day(now: Optional[datetime] = None) -> datetime:
     return current
 
 
-def unix_to_iso(timestamp: Any) -> Optional[str]:
+def unix_to_datetime(timestamp: Any) -> Optional[datetime]:
     if timestamp in (None, ""):
         return None
     try:
-        value = int(timestamp)
-        return datetime.fromtimestamp(value, tz=timezone.utc).isoformat()
+        return datetime.fromtimestamp(int(timestamp), tz=timezone.utc)
     except Exception:
         return None
+
+
+def unix_to_iso(timestamp: Any) -> Optional[str]:
+    dt = unix_to_datetime(timestamp)
+    return dt.isoformat() if dt else None
+
+
+def parse_datetime(value: Any) -> Optional[datetime]:
+    if value in (None, ""):
+        return None
+    if isinstance(value, (int, float)):
+        return unix_to_datetime(value)
+    if isinstance(value, str):
+        try:
+            text = value.replace("Z", "+00:00")
+            dt = datetime.fromisoformat(text)
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            return dt.astimezone(timezone.utc)
+        except Exception:
+            return None
+    return None
 
 
 def normalize_surface(value: Any) -> Tuple[str, Optional[str]]:
@@ -155,6 +176,45 @@ def deep_find_first(obj: Any, keys: Iterable[str]) -> Any:
     return None
 
 
+def event_status_type(event: Dict[str, Any]) -> str:
+    status = event.get("status") if isinstance(event.get("status"), dict) else {}
+    return str(status.get("type") or status.get("description") or "unknown").strip().lower()
+
+
+def event_status_code(event: Dict[str, Any]) -> Optional[int]:
+    status = event.get("status") if isinstance(event.get("status"), dict) else {}
+    try:
+        return int(status.get("code"))
+    except Exception:
+        return None
+
+
+def is_event_notstarted_future(event: Dict[str, Any], now: Optional[datetime] = None) -> Tuple[bool, Optional[str]]:
+    current = now or datetime.now(timezone.utc)
+    if current.tzinfo is None:
+        current = current.replace(tzinfo=timezone.utc)
+    current = current.astimezone(timezone.utc)
+
+    status_type = event_status_type(event)
+    status_code = event_status_code(event)
+    if status_type not in {"notstarted", "not started", "scheduled", "unknown"}:
+        return False, f"status_type={status_type}"
+    if status_code not in (None, 0):
+        return False, f"status_code={status_code}"
+
+    start_raw = event.get("startTimestamp") or event.get("start_timestamp") or deep_find_first(event, {"startTimestamp", "start_time"})
+    start_dt = parse_datetime(start_raw)
+    if start_dt is None:
+        return False, "missing_start_time"
+
+    min_minutes = _env_int("TENNISAPI_MIN_MINUTES_BEFORE_START", 10)
+    cutoff = current + timedelta(minutes=max(min_minutes, 0))
+    if start_dt <= cutoff:
+        return False, f"start_time_too_close_or_past={start_dt.isoformat()}"
+
+    return True, None
+
+
 @dataclass
 class RapidApiClient:
     api_key: Optional[str] = None
@@ -172,10 +232,7 @@ class RapidApiClient:
 
     @property
     def headers(self) -> Dict[str, str]:
-        return {
-            "x-rapidapi-key": str(self.api_key),
-            "x-rapidapi-host": str(self.host),
-        }
+        return {"x-rapidapi-key": str(self.api_key), "x-rapidapi-host": str(self.host)}
 
     def get(self, path: str, params: Optional[Dict[str, Any]] = None) -> Optional[Any]:
         url = f"https://{self.host}{path}"
@@ -289,18 +346,44 @@ def is_doubles_name(name: Any) -> bool:
     return "/" in text or " & " in text or " + " in text
 
 
+def _category_name(event: Dict[str, Any]) -> Optional[str]:
+    category = event.get("category")
+    if isinstance(category, dict) and category.get("name"):
+        return str(category.get("name"))
+    tournament = event.get("tournament") if isinstance(event.get("tournament"), dict) else {}
+    category = tournament.get("category") if isinstance(tournament.get("category"), dict) else {}
+    if category.get("name"):
+        return str(category.get("name"))
+    unique = tournament.get("uniqueTournament") if isinstance(tournament.get("uniqueTournament"), dict) else {}
+    unique_category = unique.get("category") if isinstance(unique.get("category"), dict) else {}
+    if unique_category.get("name"):
+        return str(unique_category.get("name"))
+    event_filters = event.get("eventFilters") if isinstance(event.get("eventFilters"), dict) else {}
+    gender_values = event_filters.get("gender")
+    if isinstance(gender_values, list) and gender_values:
+        return str(gender_values[0])
+    return None
+
+
 def normalize_event_for_corq(event: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    ok, reason = is_event_notstarted_future(event)
+    if not ok:
+        return None
+
     player1, player2 = event_players(event)
     if not player1 or not player2:
         return None
     event_id = event.get("id") or event.get("event_id") or event.get("match_id")
     start_ts = event.get("startTimestamp") or event.get("start_timestamp") or deep_find_first(event, {"startTimestamp", "start_time"})
-    raw_surface = event.get("surfaceType") or event.get("surface") or deep_find_first(event, {"surfaceType", "surface", "courtSurface", "groundType"})
+    raw_surface = event.get("surfaceType") or event.get("surface") or event.get("groundType") or deep_find_first(event, {"surfaceType", "surface", "courtSurface", "groundType"})
     surface, surface_raw = normalize_surface(raw_surface)
-    tournament_obj = event.get("tournament") or event.get("uniqueTournament") or event.get("competition") or event.get("league") or {}
-    category_obj = event.get("category") or {}
-    tournament = _team_name(tournament_obj) or str(tournament_obj.get("name") if isinstance(tournament_obj, dict) else "") or None
-    category = _team_name(category_obj) or str(category_obj.get("name") if isinstance(category_obj, dict) else "") or None
+    tournament_obj = event.get("tournament") if isinstance(event.get("tournament"), dict) else {}
+    unique = tournament_obj.get("uniqueTournament") if isinstance(tournament_obj.get("uniqueTournament"), dict) else {}
+    tournament = _team_name(tournament_obj) or _team_name(unique)
+    category_name = _category_name(event)
+    event_filters = event.get("eventFilters") if isinstance(event.get("eventFilters"), dict) else {}
+    gender_values = event_filters.get("gender")
+    gender = gender_values[0] if isinstance(gender_values, list) and gender_values else category_name
     start_iso = unix_to_iso(start_ts) or event.get("start_time") or event.get("match_start")
     return {
         "match_id": event_id,
@@ -311,12 +394,14 @@ def normalize_event_for_corq(event: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         "surface": surface,
         "surface_raw": surface_raw,
         "tournament": tournament,
-        "category": category,
-        "level": category,
-        "gender": category,
+        "category": category_name,
+        "level": category_name,
+        "gender": gender,
         "best_of": 5 if "grand slam" in normalize_text(tournament) else 3,
         "match_start": start_iso,
         "start_time": start_iso,
+        "status_type": event_status_type(event),
+        "status_code": event_status_code(event),
         "is_doubles": is_doubles_name(player1) or is_doubles_name(player2),
         "source": "RapidAPI PRO",
         "raw": event,
@@ -356,7 +441,7 @@ def extract_markets(payload: Any) -> List[Dict[str, Any]]:
             nested = extract_markets(value)
             if nested:
                 markets.extend(nested)
-    if not markets and any(k in payload for k in ("choices", "outcomes", "participants")):
+    if not markets and any(k in payload for k in ("choices", "outcomes", "participants", "selections")):
         markets.append(payload)
     return markets
 
@@ -393,11 +478,11 @@ def normalize_winner_odds_payload(payload: Any) -> Optional[Dict[str, Any]]:
         if len(choices) < 2:
             continue
         if market_name and not any(token in market_name for token in ("winner", "match", "to win", "full time", "moneyline")):
-            # If there are many markets, avoid set/game markets when name is explicit.
             continue
         prices = [(choice_name(choice), choice_price(choice)) for choice in choices]
         prices = [(name, price) for name, price in prices if price is not None]
         if len(prices) >= 2:
+            labels_confirmed = bool(prices[0][0] and prices[1][0])
             return {
                 "player1_label": prices[0][0],
                 "player2_label": prices[1][0],
@@ -411,6 +496,7 @@ def normalize_winner_odds_payload(payload: Any) -> Optional[Dict[str, Any]]:
                 "odds2": prices[1][1],
                 "bookmaker": None,
                 "odds_source": "RapidAPI PRO event odds",
+                "odds_labels_confirmed": labels_confirmed,
                 "raw": payload,
             }
     return None
@@ -424,6 +510,8 @@ def fetch_daily_matches_with_odds(target_date: Optional[datetime] = None) -> Lis
 
     output: List[Dict[str, Any]] = []
     for match in matches:
+        if match.get("is_doubles"):
+            continue
         odds = client.get_event_odds(match.get("event_id"))
         row = dict(match)
         if odds:
@@ -431,14 +519,19 @@ def fetch_daily_matches_with_odds(target_date: Optional[datetime] = None) -> Lis
             p2 = odds.get("odds_player2")
             label1 = odds.get("player1_label")
             label2 = odds.get("player2_label")
+            direct = reverse = False
             if label1 and label2:
                 direct = names_match(match.get("player1"), label1) and names_match(match.get("player2"), label2)
                 reverse = names_match(match.get("player1"), label2) and names_match(match.get("player2"), label1)
                 if reverse and not direct:
                     p1, p2 = p2, p1
                     row["odds_matching_direction"] = "REVERSED_TO_MATCH_PLAYERS"
+                elif direct:
+                    row["odds_matching_direction"] = "DIRECT_TO_MATCH_PLAYERS"
                 else:
                     row["odds_matching_direction"] = "DIRECT_OR_LABEL_UNKNOWN"
+            else:
+                row["odds_matching_direction"] = "DIRECT_OR_LABEL_UNKNOWN"
             row.update({
                 "odds_player1": p1,
                 "odds_player2": p2,
@@ -453,6 +546,7 @@ def fetch_daily_matches_with_odds(target_date: Optional[datetime] = None) -> Lis
                 "odds_source": odds.get("odds_source"),
                 "odds_endpoint": odds.get("odds_endpoint"),
                 "odds_pair_available": p1 is not None and p2 is not None,
+                "odds_labels_confirmed": bool(direct or reverse),
             })
             if p1 is not None and p2 is not None:
                 gap = abs(float(p1) - float(p2))
@@ -460,6 +554,8 @@ def fetch_daily_matches_with_odds(target_date: Optional[datetime] = None) -> Lis
                 row["odds_gap_pct"] = round(gap / max(min(float(p1), float(p2)), 0.0001), 4)
         else:
             row["odds_pair_available"] = False
+            row["odds_labels_confirmed"] = False
+            row["odds_matching_direction"] = "NO_ODDS"
             row["no_odds_reason"] = "NO_RAPIDAPI_PRO_ODDS"
         output.append(row)
     return output
