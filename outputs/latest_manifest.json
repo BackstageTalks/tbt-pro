@@ -1,15 +1,20 @@
 {
-  "runtime": "corq_daily_thinq_elo_h2h",
-  "started_at_utc": "2026-07-24T11:03:20.156273+00:00",
-  "finished_at_utc": "2026-07-24T11:03:20.371463+00:00",
+  "runtime": "corq_daily_side_safe",
+  "started_at_utc": "2026-07-24T11:35:53.510321+00:00",
+  "finished_at_utc": "2026-07-24T11:37:38.900756+00:00",
   "run_date": "2026-07-24",
   "input_path": null,
-  "candidate_count": 0,
-  "scored_count": 0,
-  "all_count": 0,
+  "candidate_count": 64,
+  "scored_count": 64,
+  "all_count": 32,
   "ranked_count": 0,
   "top7_count": 0,
   "thinq_service_available": true,
+  "side_safety": {
+    "player1_definition": "HOME_API_FIRST_SIDE",
+    "player2_definition": "AWAY_API_SECOND_SIDE",
+    "pick_definition": "DERIVED_FROM_PICK_SIDE"
+  },
   "outputs": {
     "all": {
       "dated": "outputs/2026/all/all_2026-07-24.json",
