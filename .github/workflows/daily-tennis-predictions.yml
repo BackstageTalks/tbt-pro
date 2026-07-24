@@ -24,6 +24,7 @@ jobs:
       RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
       TGBOT: ${{ secrets.TGBOT }}
       TGCHID: ${{ secrets.TGCHID }}
+      CORQ_ALLOW_LOCAL_FALLBACK: "0"
 
     steps:
       - name: Checkout
@@ -43,16 +44,14 @@ jobs:
 
       - name: Run CORQ daily runtime
         run: |
-          if [ -f data/candidates.sample.json ]; then
-            python engine.py --input data/candidates.sample.json
-          else
-            python engine.py
-          fi
+          python engine.py
 
       - name: Inspect outputs
         run: |
           echo "Generated files:"
           find outputs -maxdepth 5 -type f | sort || true
+          echo "Manifest:"
+          cat outputs/latest_manifest.json || true
 
       - name: Commit outputs
         run: |
