@@ -28,6 +28,24 @@ except Exception:
     def build_recent_form_context(*args: Any, **kwargs: Any) -> Dict[str, Any]:
         return {"status": "NO_DATA", "flags": ["RECENT_FORM_NO_DATA"], "recent_form_edge": 0.0, "short_form_edge": 0.0, "surface_recent_form_edge": 0.0, "opponent_quality_edge": 0.0, "form_confidence": 0.0}
 
+try:
+    from thinq.features.match_dynamics import build_match_dynamics_context
+except Exception:
+    def build_match_dynamics_context(*args: Any, **kwargs: Any) -> Dict[str, Any]:
+        return {
+            "status": "NO_DATA",
+            "source": None,
+            "projected_sets": None,
+            "projected_games": None,
+            "tiebreak_probability": None,
+            "decider_probability": None,
+            "straight_sets_probability": None,
+            "sets_edge": 0.0,
+            "games_edge": 0.0,
+            "confidence": 0.0,
+            "flags": ["MATCH_DYNAMICS_UNAVAILABLE"],
+        }
+
 
 def normalize_surface(surface: Optional[str]) -> Dict[str, Any]:
     raw = str(surface or "").strip()
@@ -121,6 +139,19 @@ class ThinqService:
             event_custom_id=event_custom_id,
         )
         recent_form = build_recent_form_context(analysis_pick, analysis_opponent, surface_bucket)
+        match_dynamics = build_match_dynamics_context(
+            pick=analysis_pick,
+            opponent=analysis_opponent,
+            surface=surface_bucket,
+            best_of=best_of,
+            elo=elo,
+            h2h=h2h,
+            recent_form=recent_form,
+            odds_player1=kwargs.get("odds_player1") or kwargs.get("p1_odds") or kwargs.get("odds1"),
+            odds_player2=kwargs.get("odds_player2") or kwargs.get("p2_odds") or kwargs.get("odds2"),
+            pick_odds=kwargs.get("pick_odds") or kwargs.get("odds"),
+            opponent_odds=kwargs.get("opponent_odds"),
+        )
 
         edges = {
             "overall_elo_edge": float(elo.get("overall_elo_edge") or 0.0),
@@ -131,12 +162,15 @@ class ThinqService:
             "short_form_edge": float(recent_form.get("short_form_edge") or 0.0),
             "surface_recent_form_edge": float(recent_form.get("surface_recent_form_edge") or 0.0),
             "opponent_quality_edge": float(recent_form.get("opponent_quality_edge") or 0.0),
+            "sets_edge": float(match_dynamics.get("sets_edge") or 0.0),
+            "games_edge": float(match_dynamics.get("games_edge") or 0.0),
         }
 
         flags: List[str] = []
         flags.extend(surface_ctx.get("flags") or [])
         flags.extend(elo.get("flags") or [])
         flags.extend(recent_form.get("flags") or [])
+        flags.extend(match_dynamics.get("flags") or [])
         if h2h.get("status") != "OK":
             flags.append("NO_H2H_DATA")
         if recent_form.get("status") != "OK":
@@ -151,6 +185,8 @@ class ThinqService:
             confidence += 0.10
         if recent_form.get("status") == "OK":
             confidence += min(float(recent_form.get("form_confidence") or 0.0) * 0.25, 0.18)
+        if match_dynamics.get("status") == "OK":
+            confidence += min(float(match_dynamics.get("confidence") or 0.0) * 0.08, 0.06)
         if surface_ctx.get("surface") != "Unknown":
             confidence += 0.05
         confidence = round(max(min(confidence, 0.88), 0.0), 4)
@@ -186,6 +222,13 @@ class ThinqService:
                 "requested_player2_id": h2h.get("requested_player2_id"),
             },
             "recent_form": recent_form,
+            "match_dynamics": match_dynamics,
+            "contexts": {
+                "match_dynamics": match_dynamics,
+                "h2h": h2h,
+                "recent_form": recent_form,
+                "elo": elo,
+            },
             "edges": edges,
             "flags": sorted(set(flags)),
             "thinq_available": True,
@@ -215,6 +258,15 @@ class ThinqService:
             "thinq_short_form_edge": edges["short_form_edge"],
             "thinq_surface_recent_form_edge": edges["surface_recent_form_edge"],
             "thinq_opponent_quality_edge": edges["opponent_quality_edge"],
+            "thinq_sets_edge": edges["sets_edge"],
+            "thinq_games_edge": edges["games_edge"],
+            "thinq_projected_sets": match_dynamics.get("projected_sets"),
+            "thinq_projected_games": match_dynamics.get("projected_games"),
+            "thinq_tiebreak_probability": match_dynamics.get("tiebreak_probability"),
+            "thinq_decider_probability": match_dynamics.get("decider_probability"),
+            "thinq_straight_sets_probability": match_dynamics.get("straight_sets_probability"),
+            "thinq_match_shape": match_dynamics.get("match_shape"),
+            "thinq_match_dynamics_confidence": match_dynamics.get("confidence", 0.0),
             "thinq_form_confidence": recent_form.get("form_confidence", 0.0),
             "thinq_flags": sorted(set(flags)),
         }

@@ -1,9 +1,9 @@
 """
-THINQ Intelligence Layer
+THINQ Intelligence Layer.
 
 THINQ is the brain/intelligence layer for CORQ.
 THINQ does not create final match probability.
-THINQ returns feature, edge, flag and confidence signals.
+THINQ returns ready feature, edge, context, flag and confidence signals.
 CORQ remains the CORE model for final probability, ranking and TOP outputs.
 """
 
@@ -27,7 +27,6 @@ try:
         build_data_quality,
         build_fatigue_context,
         build_level_context,
-        build_match_dynamics,
         build_status_risk,
         build_surface_transition_context,
     )
@@ -37,45 +36,61 @@ except Exception:
             build_data_quality,
             build_fatigue_context,
             build_level_context,
-            build_match_dynamics,
             build_status_risk,
             build_surface_transition_context,
         )
     except Exception as exc:
         FEATURE_IMPORT_ERROR = str(exc)
 
-        def build_data_quality(raw, edges):
+        def build_data_quality(raw: Dict[str, Any], edges: Dict[str, Any]) -> Dict[str, Any]:
             return {"data_quality_score": 0.0, "flags": ["FEATURE_IMPORT_FAILED", "DATA_QUALITY_UNAVAILABLE"], "reason": FEATURE_IMPORT_ERROR}
 
-        def build_fatigue_context(raw, as_of_date=None):
+        def build_fatigue_context(raw: Dict[str, Any], as_of_date: Optional[str] = None) -> Dict[str, Any]:
             return {"fatigue_edge": None, "flags": ["FATIGUE_UNAVAILABLE"]}
 
-        def build_level_context(raw, level=None):
+        def build_level_context(raw: Dict[str, Any], level: Optional[str] = None) -> Dict[str, Any]:
             return {"level_context_edge": None, "flags": ["LEVEL_CONTEXT_UNAVAILABLE"]}
 
-        def build_match_dynamics(raw, edges, surface=None, best_of=3):
-            return {"confidence": 0.0, "sets_edge": None, "games_edge": None, "tiebreak_edge": None, "decider_edge": None, "flags": ["MATCH_DYNAMICS_UNAVAILABLE"]}
-
-        def build_status_risk(raw):
+        def build_status_risk(raw: Dict[str, Any]) -> Dict[str, Any]:
             return {"status_risk_edge": None, "flags": ["STATUS_RISK_UNAVAILABLE"]}
 
-        def build_surface_transition_context(raw, surface=None):
+        def build_surface_transition_context(raw: Dict[str, Any], surface: Optional[str] = None) -> Dict[str, Any]:
             return {"surface_transition_edge": None, "flags": ["SURFACE_TRANSITION_UNAVAILABLE"]}
 
+try:
+    from .features.match_dynamics import build_match_dynamics_context
+except Exception:
+    try:
+        from thinq.features.match_dynamics import build_match_dynamics_context
+    except Exception:
+        def build_match_dynamics_context(*args: Any, **kwargs: Any) -> Dict[str, Any]:
+            return {
+                "status": "NO_DATA",
+                "source": None,
+                "projected_sets": None,
+                "projected_games": None,
+                "tiebreak_probability": None,
+                "decider_probability": None,
+                "straight_sets_probability": None,
+                "sets_edge": None,
+                "games_edge": None,
+                "tiebreak_edge": None,
+                "decider_edge": None,
+                "confidence": 0.0,
+                "flags": ["MATCH_DYNAMICS_UNAVAILABLE"],
+            }
 
 
 class ThinqService:
-    """
-    Public THINQ entry point for CORQ.
+    """Public THINQ entry point for CORQ."""
 
-    Recommended CORQ usage:
-        thinq = ThinqService()
-        features = thinq.build_match_features(...)
-        corq consumes features["edges"], features["contexts"], confidence and flags.
-    """
-
-    def __init__(self, loader: Optional[ThinqLoader] = None, output_dir: Optional[str] = None) -> None:
-        self.loader = loader or ThinqLoader()
+    def __init__(self, loader: Optional[Any] = None, output_dir: Optional[str] = None) -> None:
+        if loader is not None:
+            self.loader = loader
+        elif ThinqLoader is not None:
+            self.loader = ThinqLoader()
+        else:
+            raise RuntimeError(globals().get("THINQ_LOADER_IMPORT_ERROR", "ThinqLoader unavailable"))
         self.output_dir = Path(output_dir) if output_dir else Path("thinq/outputs")
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -100,11 +115,17 @@ class ThinqService:
         tour_type: Optional[str] = None,
         as_of_date: Optional[str] = None,
         event_id: Optional[Any] = None,
+        event_custom_id: Optional[Any] = None,
         player1_id: Optional[Any] = None,
         player2_id: Optional[Any] = None,
         tournament_id: Optional[Any] = None,
         best_of: int = 3,
         save_snapshot: bool = False,
+        pick: Optional[str] = None,
+        opponent: Optional[str] = None,
+        pick_odds: Optional[Any] = None,
+        opponent_odds: Optional[Any] = None,
+        **kwargs: Any,
     ) -> Dict[str, Any]:
         raw = self.loader.load_match(
             player1=player1,
@@ -119,14 +140,31 @@ class ThinqService:
             player2_id=player2_id,
             tournament_id=tournament_id,
         )
+        if not isinstance(raw, dict):
+            raw = {}
+
+        raw["event_id"] = event_id or raw.get("event_id")
+        raw["event_custom_id"] = event_custom_id or kwargs.get("custom_id") or kwargs.get("customId") or raw.get("event_custom_id")
+        raw["pick"] = pick or raw.get("pick") or player1
+        raw["opponent"] = opponent or raw.get("opponent") or player2
+        raw["surface"] = surface or raw.get("surface")
+        raw["best_of"] = best_of
 
         edges = self._calculate_base_edges(raw)
-
         fatigue = build_fatigue_context(raw, as_of_date=as_of_date)
         transition = build_surface_transition_context(raw, surface=surface)
         level_ctx = build_level_context(raw, level=level)
         status = build_status_risk(raw)
-        match_dynamics = build_match_dynamics(raw, edges, surface=surface, best_of=best_of)
+
+        match_dynamics = build_match_dynamics_context(
+            pick=raw.get("pick") or player1,
+            opponent=raw.get("opponent") or player2,
+            surface=surface or raw.get("surface"),
+            best_of=best_of,
+            edges=edges,
+            pick_odds=pick_odds,
+            opponent_odds=opponent_odds,
+        )
 
         edges.update({
             "fatigue_edge": fatigue.get("fatigue_edge"),
@@ -142,12 +180,8 @@ class ThinqService:
         data_quality = build_data_quality(raw, edges)
         confidence = self._calculate_total_confidence(raw, edges, data_quality, match_dynamics)
         flags = self._build_flags(raw, edges, confidence)
-        flags.extend(data_quality.get("flags", []))
-        flags.extend(fatigue.get("flags", []))
-        flags.extend(transition.get("flags", []))
-        flags.extend(level_ctx.get("flags", []))
-        flags.extend(status.get("flags", []))
-        flags.extend(match_dynamics.get("flags", []))
+        for context in [data_quality, fatigue, transition, level_ctx, status, match_dynamics]:
+            flags.extend(context.get("flags", []))
         flags = sorted(set(flags))
 
         output = {
@@ -157,7 +191,7 @@ class ThinqService:
             "level": level,
             "best_of": best_of,
             "thinq_role": "intelligence_layer",
-            "thinq_version": "full_integration_v1",
+            "thinq_version": "full_integration_v1_match_dynamics",
             "edges": edges,
             "confidence": confidence,
             "data_quality": data_quality,
@@ -168,10 +202,21 @@ class ThinqService:
                 "status_risk": status,
                 "match_dynamics": match_dynamics,
             },
+            "match_dynamics": match_dynamics,
+            "thinq_sets_edge": match_dynamics.get("sets_edge"),
+            "thinq_games_edge": match_dynamics.get("games_edge"),
+            "thinq_tiebreak_edge": match_dynamics.get("tiebreak_edge"),
+            "thinq_decider_edge": match_dynamics.get("decider_edge"),
+            "thinq_projected_sets": match_dynamics.get("projected_sets"),
+            "thinq_projected_games": match_dynamics.get("projected_games"),
+            "thinq_tiebreak_probability": match_dynamics.get("tiebreak_probability"),
+            "thinq_decider_probability": match_dynamics.get("decider_probability"),
+            "thinq_straight_sets_probability": match_dynamics.get("straight_sets_probability"),
+            "thinq_match_shape": match_dynamics.get("match_shape"),
+            "thinq_match_dynamics_confidence": match_dynamics.get("confidence", 0.0),
             "flags": flags,
             "raw": raw,
         }
-
         if save_snapshot:
             self.save_match_snapshot(output)
         return output
@@ -187,14 +232,13 @@ class ThinqService:
     def _calculate_base_edges(self, raw: Dict[str, Any]) -> Dict[str, Optional[float]]:
         p1 = raw.get("player1", {}) if isinstance(raw.get("player1"), dict) else {}
         p2 = raw.get("player2", {}) if isinstance(raw.get("player2"), dict) else {}
-        p1_history = p1.get("history", {})
-        p2_history = p2.get("history", {})
-        p1_elo = p1.get("elo", {})
-        p2_elo = p2.get("elo", {})
-        p1_ta = p1.get("ta", {})
-        p2_ta = p2.get("ta", {})
+        p1_history = p1.get("history", {}) if isinstance(p1.get("history"), dict) else {}
+        p2_history = p2.get("history", {}) if isinstance(p2.get("history"), dict) else {}
+        p1_elo = p1.get("elo", {}) if isinstance(p1.get("elo"), dict) else {}
+        p2_elo = p2.get("elo", {}) if isinstance(p2.get("elo"), dict) else {}
+        p1_ta = p1.get("ta", {}) if isinstance(p1.get("ta"), dict) else {}
+        p2_ta = p2.get("ta", {}) if isinstance(p2.get("ta"), dict) else {}
         h2h = raw.get("h2h", {}) if isinstance(raw.get("h2h"), dict) else {}
-
         return {
             "surface_form_edge": self._edge_from_percent_diff(p1_history.get("surface_win_pct_52w"), p2_history.get("surface_win_pct_52w"), cap=0.12),
             "recent_form_edge": self._edge_from_percent_diff(p1_history.get("last10_win_pct"), p2_history.get("last10_win_pct"), cap=0.10),
@@ -202,7 +246,7 @@ class ThinqService:
             "elo_edge": self._edge_from_elo(p1_elo, p2_elo, raw.get("surface")),
             "opponent_quality_edge": None,
             "ta_edge": self._edge_from_ta(p1_ta, p2_ta),
-            "h2h_edge": self._to_float_or_none(h2h.get("h2h_edge")),
+            "h2h_edge": self._to_float_or_none(h2h.get("h2h_edge") or h2h.get("edge")),
         }
 
     @staticmethod
@@ -247,7 +291,7 @@ class ThinqService:
         match_dynamics: Dict[str, Any],
     ) -> float:
         h2h = raw.get("h2h", {}) if isinstance(raw.get("h2h"), dict) else {}
-        h2h_conf = self._to_float_or_none(h2h.get("h2h_confidence")) or 0.0
+        h2h_conf = self._to_float_or_none(h2h.get("h2h_confidence") or h2h.get("confidence")) or 0.0
         quality_score = self._to_float_or_none(data_quality.get("data_quality_score")) or 0.0
         dynamics_conf = self._to_float_or_none(match_dynamics.get("confidence")) or 0.0
         edge_coverage = self._edge_coverage(edges)
@@ -271,7 +315,6 @@ class ThinqService:
                 flags.append(p1_flag)
             elif value <= -threshold:
                 flags.append(p2_flag)
-
         if confidence < 0.35:
             flags.append("THINQ_LOW_CONFIDENCE")
         return flags
