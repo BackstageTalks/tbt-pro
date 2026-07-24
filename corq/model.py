@@ -135,12 +135,29 @@ def confidence_factor(thinq_confidence: float, flags: list[str]) -> float:
 
 
 def is_default_value_trap(record: Dict[str, Any], components: Dict[str, float]) -> bool:
+    """Detect no-intelligence outsider value traps.
+
+    Ranking context alone is not intelligence. A row with no ELO, no recent form
+    and no H2H must not create a big value edge simply because odds are high.
+    """
     odds = as_float(record.get("odds") or record.get("pick_odds"))
-    no_components = sum(abs(v) for v in components.values()) < 0.0001
     thinq_conf = as_float(record.get("thinq_confidence"), 0.0) or 0.0
     flags = set(record.get("thinq_flags") or [])
-    weak_data = thinq_conf < 0.50 or {"MISSING_ELO", "RECENT_FORM_NO_DATA"}.issubset(flags)
-    return bool(no_components and weak_data and odds is not None and odds >= 3.0)
+
+    intelligence_keys = [
+        "overall_elo_component",
+        "surface_elo_component",
+        "recent_form_component",
+        "surface_recent_form_component",
+        "opponent_quality_component",
+        "h2h_component",
+    ]
+    intelligence_strength = sum(abs(float(components.get(key) or 0.0)) for key in intelligence_keys)
+    no_intelligence = intelligence_strength < 0.0001
+    no_core_data = {"MISSING_ELO", "RECENT_FORM_NO_DATA"}.issubset(flags)
+    very_weak_thinq = thinq_conf < 0.50
+    high_odds = odds is not None and odds >= 3.0
+    return bool(no_intelligence and high_odds and (no_core_data or very_weak_thinq))
 
 
 def build_corq_prediction(record: Dict[str, Any]) -> Dict[str, Any]:
@@ -166,7 +183,8 @@ def build_corq_prediction(record: Dict[str, Any]) -> Dict[str, Any]:
     risk_flags = list(out.get("corq_risk_flags") or [])
     if trap:
         risk_flags.append("DEFAULT_SCORE_VALUE_TRAP")
-        # Do not create fake value edge from a neutral no-data estimate.
+        risk_flags.append("NO_INTELLIGENCE_OUTSIDER_VALUE_TRAP")
+        # Do not create fake value edge from a neutral/no-intelligence estimate.
         corq_edge = 0.0
 
     out.update(
