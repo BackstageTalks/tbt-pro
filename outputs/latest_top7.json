@@ -1006,8 +1006,8 @@
     "level": "WTA",
     "gender": "F",
     "best_of": 3,
-    "match_start": "2026-07-24T14:10:00+00:00",
-    "start_time": "2026-07-24T14:10:00+00:00",
+    "match_start": "2026-07-24T14:40:00+00:00",
+    "start_time": "2026-07-24T14:40:00+00:00",
     "status_type": "notstarted",
     "status_code": 0,
     "is_doubles": false,
@@ -1203,7 +1203,7 @@
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16516188,
       "slug": "dominika-salkova-barbora-krejcikova",
-      "startTimestamp": 1784902200,
+      "startTimestamp": 1784904000,
       "periods": {
         "point": "Game",
         "current": "Match",
@@ -2456,11 +2456,12 @@
     "best_of": 3,
     "match_start": "2026-07-24T13:00:00+00:00",
     "start_time": "2026-07-24T13:00:00+00:00",
-    "status_type": "notstarted",
-    "status_code": 0,
+    "status_type": "inprogress",
+    "status_code": 8,
     "is_doubles": false,
     "source": "RapidAPI PRO",
     "raw": {
+      "firstToServe": 2,
       "homeTeamSeed": "1",
       "tournament": {
         "name": "Estoril, Portugal",
@@ -2550,9 +2551,9 @@
       },
       "customId": "fKRsccJc",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 8,
+        "description": "1st set",
+        "type": "inprogress"
       },
       "homeTeam": {
         "name": "Andrey Rublev",
@@ -2643,11 +2644,26 @@
           }
         }
       },
-      "homeScore": {},
-      "awayScore": {},
-      "time": {},
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 1,
+        "point": "40"
+      },
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 0,
+        "point": "40"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1784898515
+      },
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "awayScore.point"
+        ],
+        "changeTimestamp": 1784899037
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
@@ -2663,6 +2679,7 @@
         "period4": "4th set",
         "period5": "5th set"
       },
+      "lastPeriod": "period1",
       "finalResultOnly": false,
       "feedLocked": false,
       "groundType": "Red clay",
@@ -2687,22 +2704,22 @@
     "odds_label_2": "2",
     "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
-    "odds_player1": 1.17,
+    "odds_player1": 1.1667,
     "odds_player2": 5.0,
-    "p1_odds": 1.17,
+    "p1_odds": 1.1667,
     "p2_odds": 5.0,
-    "home_odds": 1.17,
+    "home_odds": 1.1667,
     "away_odds": 5.0,
-    "odds1": 1.17,
+    "odds1": 1.1667,
     "odds2": 5.0,
-    "price1": 1.17,
+    "price1": 1.1667,
     "price2": 5.0,
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16515722/odds",
     "odds_pair_available": true,
     "odds_labels_confirmed": true,
-    "odds_gap_abs": 3.83,
-    "odds_gap_pct": 3.2735,
+    "odds_gap_abs": 3.8333,
+    "odds_gap_pct": 3.2856,
     "home_player": "Andrey Rublev",
     "away_player": "Luca Van Assche",
     "pick_side": "AWAY",
@@ -2711,7 +2728,7 @@
     "opponent": "Andrey Rublev",
     "odds": 5.0,
     "pick_odds": 5.0,
-    "opponent_odds": 1.17,
+    "opponent_odds": 1.1667,
     "pick_is_player1": false,
     "pick_is_player2": true,
     "pick_is_home": false,
@@ -2906,9 +2923,11 @@
       "WARN_DEFAULT_SCORE_VALUE_TRAP",
       "WARN_LOW_THINQ_CONFIDENCE",
       "WARN_MISSING_ELO",
+      "WARN_NOT_NOTSTARTED",
       "WARN_NO_H2H_DATA",
       "WARN_RECENT_FORM_NO_DATA",
-      "WARN_STARTED_OR_TOO_CLOSE"
+      "WARN_STARTED_OR_TOO_CLOSE",
+      "WARN_STATUS_NOT_OPEN"
     ],
     "corq_rank": 6
   },
