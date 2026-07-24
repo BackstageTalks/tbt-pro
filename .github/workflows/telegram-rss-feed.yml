@@ -1,0 +1,54 @@
+name: Telegram RSS Feed
+
+on:
+  workflow_dispatch:
+    inputs:
+      feed:
+        description: "Feed to send: all, corq, thinq, cloq"
+        required: false
+        default: "corq"
+        type: choice
+        options:
+          - all
+          - corq
+          - thinq
+          - cloq
+      limit:
+        description: "How many picks per feed"
+        required: false
+        default: "7"
+  workflow_run:
+    workflows: ["Render and Deploy TBT PRO Site"]
+    types:
+      - completed
+
+permissions:
+  contents: read
+
+concurrency:
+  group: telegram-rss-feed
+  cancel-in-progress: false
+
+jobs:
+  send-telegram-feed:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Send Telegram RSS feed
+        env:
+          TGBOT: ${{ secrets.TGBOT }}
+          TGCHID: ${{ secrets.TGCHID }}
+          TG_BOT_BTLKR: ${{ secrets.TG_BOT_BTLKR }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+          TBTPRO_BASE_URL: https://backstagetalks.github.io/tbt-pro/
+          TG_FEED: ${{ github.event.inputs.feed || 'corq' }}
+          TG_PICK_LIMIT: ${{ github.event.inputs.limit || '7' }}
+        run: python telegram_rss_feed.py
