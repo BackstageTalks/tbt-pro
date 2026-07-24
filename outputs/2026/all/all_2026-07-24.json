@@ -240,10 +240,10 @@
         ]
       }
     },
-    "odds_matching_direction": "DIRECT_OR_LABEL_UNKNOWN",
+    "odds_matching_direction": "DIRECT_BY_NUMERIC_OUTCOME",
     "odds_label_1": "1",
     "odds_label_2": "2",
-    "odds_direct_match_score": 0.0,
+    "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
     "odds_player1": 1.14,
     "odds_player2": 5.5,
@@ -258,7 +258,7 @@
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16515722/odds",
     "odds_pair_available": true,
-    "odds_labels_confirmed": false,
+    "odds_labels_confirmed": true,
     "odds_gap_abs": 4.36,
     "odds_gap_pct": 3.8246,
     "pick": "Luca Van Assche",
@@ -339,14 +339,11 @@
     "corq_edge": 0.4082,
     "corq_edge_bonus": 0.02,
     "corq_risk_penalty": 0.0,
-    "corq_risk_flags": [
-      "ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
-    ],
+    "corq_risk_flags": [],
     "corq_adjusted_score": 0.61,
     "eligible_for_corq": false,
     "corq_reject_reasons": [
-      "REJECT_EXTREME_ODDS_GAP",
-      "REJECT_ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
+      "REJECT_EXTREME_ODDS_GAP"
     ],
     "corq_match_identity": "16515722",
     "corq_candidate_selected": true,
@@ -361,8 +358,7 @@
         "eligible_for_corq": false,
         "corq_reject_reasons": [
           "REJECT_EXTREME_ODDS_GAP",
-          "REJECT_LOW_ODDS",
-          "REJECT_ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
+          "REJECT_LOW_ODDS"
         ]
       },
       {
@@ -374,8 +370,7 @@
         "corq_adjusted_score": 0.61,
         "eligible_for_corq": false,
         "corq_reject_reasons": [
-          "REJECT_EXTREME_ODDS_GAP",
-          "REJECT_ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
+          "REJECT_EXTREME_ODDS_GAP"
         ]
       }
     ]
@@ -611,10 +606,10 @@
         ]
       }
     },
-    "odds_matching_direction": "DIRECT_OR_LABEL_UNKNOWN",
+    "odds_matching_direction": "DIRECT_BY_NUMERIC_OUTCOME",
     "odds_label_1": "1",
     "odds_label_2": "2",
-    "odds_direct_match_score": 0.0,
+    "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
     "odds_player1": 1.2,
     "odds_player2": 4.3333,
@@ -629,7 +624,7 @@
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16516219/odds",
     "odds_pair_available": true,
-    "odds_labels_confirmed": false,
+    "odds_labels_confirmed": true,
     "odds_gap_abs": 3.1333,
     "odds_gap_pct": 2.6111,
     "pick": "Jennifer Ruggeri",
@@ -710,14 +705,11 @@
     "corq_edge": 0.3592,
     "corq_edge_bonus": 0.02,
     "corq_risk_penalty": 0.0,
-    "corq_risk_flags": [
-      "ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
-    ],
+    "corq_risk_flags": [],
     "corq_adjusted_score": 0.61,
     "eligible_for_corq": false,
     "corq_reject_reasons": [
-      "REJECT_EXTREME_ODDS_GAP",
-      "REJECT_ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
+      "REJECT_EXTREME_ODDS_GAP"
     ],
     "corq_match_identity": "16516219",
     "corq_candidate_selected": true,
@@ -732,8 +724,7 @@
         "eligible_for_corq": false,
         "corq_reject_reasons": [
           "REJECT_EXTREME_ODDS_GAP",
-          "REJECT_LOW_ODDS",
-          "REJECT_ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
+          "REJECT_LOW_ODDS"
         ]
       },
       {
@@ -745,8 +736,7 @@
         "corq_adjusted_score": 0.61,
         "eligible_for_corq": false,
         "corq_reject_reasons": [
-          "REJECT_EXTREME_ODDS_GAP",
-          "REJECT_ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
+          "REJECT_EXTREME_ODDS_GAP"
         ]
       }
     ]
@@ -982,10 +972,10 @@
         ]
       }
     },
-    "odds_matching_direction": "DIRECT_OR_LABEL_UNKNOWN",
+    "odds_matching_direction": "DIRECT_BY_NUMERIC_OUTCOME",
     "odds_label_1": "1",
     "odds_label_2": "2",
-    "odds_direct_match_score": 0.0,
+    "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
     "odds_player1": 1.2222,
     "odds_player2": 4.0,
@@ -1000,7 +990,7 @@
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16516224/odds",
     "odds_pair_available": true,
-    "odds_labels_confirmed": false,
+    "odds_labels_confirmed": true,
     "odds_gap_abs": 2.7778,
     "odds_gap_pct": 2.2728,
     "pick": "Mina Hodzic",
@@ -1081,14 +1071,10 @@
     "corq_edge": 0.34,
     "corq_edge_bonus": 0.02,
     "corq_risk_penalty": 0.0,
-    "corq_risk_flags": [
-      "ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
-    ],
+    "corq_risk_flags": [],
     "corq_adjusted_score": 0.61,
-    "eligible_for_corq": false,
-    "corq_reject_reasons": [
-      "REJECT_ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
-    ],
+    "eligible_for_corq": true,
+    "corq_reject_reasons": [],
     "corq_match_identity": "16516224",
     "corq_candidate_selected": true,
     "corq_side_candidates": [
@@ -1101,8 +1087,7 @@
         "corq_adjusted_score": 0.57,
         "eligible_for_corq": false,
         "corq_reject_reasons": [
-          "REJECT_LOW_ODDS",
-          "REJECT_ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
+          "REJECT_LOW_ODDS"
         ]
       },
       {
@@ -1112,10 +1097,8 @@
         "corq_score": 0.59,
         "corq_edge": 0.34,
         "corq_adjusted_score": 0.61,
-        "eligible_for_corq": false,
-        "corq_reject_reasons": [
-          "REJECT_ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
-        ]
+        "eligible_for_corq": true,
+        "corq_reject_reasons": []
       }
     ]
   },
@@ -1362,10 +1345,10 @@
         ]
       }
     },
-    "odds_matching_direction": "DIRECT_OR_LABEL_UNKNOWN",
+    "odds_matching_direction": "DIRECT_BY_NUMERIC_OUTCOME",
     "odds_label_1": "1",
     "odds_label_2": "2",
-    "odds_direct_match_score": 0.0,
+    "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
     "odds_player1": 1.5,
     "odds_player2": 2.63,
@@ -1380,7 +1363,7 @@
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16515765/odds",
     "odds_pair_available": true,
-    "odds_labels_confirmed": false,
+    "odds_labels_confirmed": true,
     "odds_gap_abs": 1.13,
     "odds_gap_pct": 0.7533,
     "pick": "Tomas Martin Etcheverry",
@@ -1727,10 +1710,10 @@
         ]
       }
     },
-    "odds_matching_direction": "DIRECT_OR_LABEL_UNKNOWN",
+    "odds_matching_direction": "DIRECT_BY_NUMERIC_OUTCOME",
     "odds_label_1": "1",
     "odds_label_2": "2",
-    "odds_direct_match_score": 0.0,
+    "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
     "odds_player1": 1.8,
     "odds_player2": 2.0,
@@ -1745,7 +1728,7 @@
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16516123/odds",
     "odds_pair_available": true,
-    "odds_labels_confirmed": false,
+    "odds_labels_confirmed": true,
     "odds_gap_abs": 0.2,
     "odds_gap_pct": 0.1111,
     "pick": "Elina Avanesyan",
@@ -2096,10 +2079,10 @@
         ]
       }
     },
-    "odds_matching_direction": "DIRECT_OR_LABEL_UNKNOWN",
+    "odds_matching_direction": "DIRECT_BY_NUMERIC_OUTCOME",
     "odds_label_1": "1",
     "odds_label_2": "2",
-    "odds_direct_match_score": 0.0,
+    "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
     "odds_player1": 1.62,
     "odds_player2": 2.3,
@@ -2114,7 +2097,7 @@
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16515770/odds",
     "odds_pair_available": true,
-    "odds_labels_confirmed": false,
+    "odds_labels_confirmed": true,
     "odds_gap_abs": 0.68,
     "odds_gap_pct": 0.4198,
     "pick": "Quentin Halys",
@@ -2464,10 +2447,10 @@
         ]
       }
     },
-    "odds_matching_direction": "DIRECT_OR_LABEL_UNKNOWN",
+    "odds_matching_direction": "DIRECT_BY_NUMERIC_OUTCOME",
     "odds_label_1": "1",
     "odds_label_2": "2",
-    "odds_direct_match_score": 0.0,
+    "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
     "odds_player1": 1.53,
     "odds_player2": 2.5,
@@ -2482,7 +2465,7 @@
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16516192/odds",
     "odds_pair_available": true,
-    "odds_labels_confirmed": false,
+    "odds_labels_confirmed": true,
     "odds_gap_abs": 0.97,
     "odds_gap_pct": 0.634,
     "pick": "Tereza Valentová",
@@ -2831,10 +2814,10 @@
         ]
       }
     },
-    "odds_matching_direction": "DIRECT_OR_LABEL_UNKNOWN",
+    "odds_matching_direction": "DIRECT_BY_NUMERIC_OUTCOME",
     "odds_label_1": "1",
     "odds_label_2": "2",
-    "odds_direct_match_score": 0.0,
+    "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
     "odds_player1": 2.38,
     "odds_player2": 1.57,
@@ -2849,7 +2832,7 @@
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16516122/odds",
     "odds_pair_available": true,
-    "odds_labels_confirmed": false,
+    "odds_labels_confirmed": true,
     "odds_gap_abs": 0.81,
     "odds_gap_pct": 0.5159,
     "pick": "Mayar Sherif",
@@ -3197,10 +3180,10 @@
         ]
       }
     },
-    "odds_matching_direction": "DIRECT_OR_LABEL_UNKNOWN",
+    "odds_matching_direction": "DIRECT_BY_NUMERIC_OUTCOME",
     "odds_label_1": "1",
     "odds_label_2": "2",
-    "odds_direct_match_score": 0.0,
+    "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
     "odds_player1": 3.0,
     "odds_player2": 1.4,
@@ -3215,7 +3198,7 @@
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16515721/odds",
     "odds_pair_available": true,
-    "odds_labels_confirmed": false,
+    "odds_labels_confirmed": true,
     "odds_gap_abs": 1.6,
     "odds_gap_pct": 1.1429,
     "pick": "Tiago Torres",
@@ -3293,10 +3276,17 @@
     "corq_edge": 0.1667,
     "corq_edge_bonus": 0.02,
     "corq_risk_penalty": 0.0,
-    "corq_risk_flags": [],
+    "corq_risk_flags": [
+      "DEFAULT_SCORE_VALUE_TRAP",
+      "MISSING_ELO"
+    ],
     "corq_adjusted_score": 0.52,
-    "eligible_for_corq": true,
-    "corq_reject_reasons": [],
+    "eligible_for_corq": false,
+    "corq_reject_reasons": [
+      "REJECT_DEFAULT_SCORE_VALUE_TRAP",
+      "REJECT_LOW_THINQ_CONFIDENCE",
+      "REJECT_MISSING_ELO"
+    ],
     "corq_match_identity": "16515721",
     "corq_candidate_selected": true,
     "corq_side_candidates": [
@@ -3307,8 +3297,12 @@
         "corq_score": 0.5,
         "corq_edge": 0.1667,
         "corq_adjusted_score": 0.52,
-        "eligible_for_corq": true,
-        "corq_reject_reasons": []
+        "eligible_for_corq": false,
+        "corq_reject_reasons": [
+          "REJECT_DEFAULT_SCORE_VALUE_TRAP",
+          "REJECT_LOW_THINQ_CONFIDENCE",
+          "REJECT_MISSING_ELO"
+        ]
       },
       {
         "pick": "Hugo Gaston",
@@ -3317,8 +3311,11 @@
         "corq_score": 0.5,
         "corq_edge": -0.2143,
         "corq_adjusted_score": 0.48,
-        "eligible_for_corq": true,
-        "corq_reject_reasons": []
+        "eligible_for_corq": false,
+        "corq_reject_reasons": [
+          "REJECT_LOW_THINQ_CONFIDENCE",
+          "REJECT_MISSING_ELO"
+        ]
       }
     ]
   },
@@ -3552,10 +3549,10 @@
         ]
       }
     },
-    "odds_matching_direction": "DIRECT_OR_LABEL_UNKNOWN",
+    "odds_matching_direction": "DIRECT_BY_NUMERIC_OUTCOME",
     "odds_label_1": "1",
     "odds_label_2": "2",
-    "odds_direct_match_score": 0.0,
+    "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
     "odds_player1": 2.5,
     "odds_player2": 1.5,
@@ -3570,7 +3567,7 @@
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16516222/odds",
     "odds_pair_available": true,
-    "odds_labels_confirmed": false,
+    "odds_labels_confirmed": true,
     "odds_gap_abs": 1.0,
     "odds_gap_pct": 0.6667,
     "pick": "Alevtina Ibragimova",
@@ -3919,10 +3916,10 @@
         ]
       }
     },
-    "odds_matching_direction": "DIRECT_OR_LABEL_UNKNOWN",
+    "odds_matching_direction": "DIRECT_BY_NUMERIC_OUTCOME",
     "odds_label_1": "1",
     "odds_label_2": "2",
-    "odds_direct_match_score": 0.0,
+    "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
     "odds_player1": 2.63,
     "odds_player2": 1.5,
@@ -3937,7 +3934,7 @@
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16516187/odds",
     "odds_pair_available": true,
-    "odds_labels_confirmed": false,
+    "odds_labels_confirmed": true,
     "odds_gap_abs": 1.13,
     "odds_gap_pct": 0.7533,
     "pick": "Lilli Tagger",
@@ -4287,10 +4284,10 @@
         ]
       }
     },
-    "odds_matching_direction": "DIRECT_OR_LABEL_UNKNOWN",
+    "odds_matching_direction": "DIRECT_BY_NUMERIC_OUTCOME",
     "odds_label_1": "1",
     "odds_label_2": "2",
-    "odds_direct_match_score": 0.0,
+    "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
     "odds_player1": 3.5,
     "odds_player2": 1.3,
@@ -4305,7 +4302,7 @@
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16516126/odds",
     "odds_pair_available": true,
-    "odds_labels_confirmed": false,
+    "odds_labels_confirmed": true,
     "odds_gap_abs": 2.2,
     "odds_gap_pct": 1.6923,
     "pick": "Tamara Korpatsch",
@@ -4386,14 +4383,10 @@
     "corq_edge": 0.1243,
     "corq_edge_bonus": 0.02,
     "corq_risk_penalty": 0.0,
-    "corq_risk_flags": [
-      "ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
-    ],
+    "corq_risk_flags": [],
     "corq_adjusted_score": 0.43,
-    "eligible_for_corq": false,
-    "corq_reject_reasons": [
-      "REJECT_ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
-    ],
+    "eligible_for_corq": true,
+    "corq_reject_reasons": [],
     "corq_match_identity": "16516126",
     "corq_candidate_selected": true,
     "corq_side_candidates": [
@@ -4404,10 +4397,8 @@
         "corq_score": 0.41,
         "corq_edge": 0.1243,
         "corq_adjusted_score": 0.43,
-        "eligible_for_corq": false,
-        "corq_reject_reasons": [
-          "REJECT_ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
-        ]
+        "eligible_for_corq": true,
+        "corq_reject_reasons": []
       },
       {
         "pick": "Anhelina Kalinina",
@@ -4418,8 +4409,7 @@
         "corq_adjusted_score": 0.39,
         "eligible_for_corq": false,
         "corq_reject_reasons": [
-          "REJECT_LOW_ODDS",
-          "REJECT_ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
+          "REJECT_LOW_ODDS"
         ]
       }
     ]
@@ -4663,10 +4653,10 @@
         ]
       }
     },
-    "odds_matching_direction": "DIRECT_OR_LABEL_UNKNOWN",
+    "odds_matching_direction": "DIRECT_BY_NUMERIC_OUTCOME",
     "odds_label_1": "1",
     "odds_label_2": "2",
-    "odds_direct_match_score": 0.0,
+    "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
     "odds_player1": 7.0,
     "odds_player2": 1.1,
@@ -4681,7 +4671,7 @@
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16516188/odds",
     "odds_pair_available": true,
-    "odds_labels_confirmed": false,
+    "odds_labels_confirmed": true,
     "odds_gap_abs": 5.9,
     "odds_gap_pct": 5.3636,
     "pick": "Dominika Salkova",
@@ -4762,14 +4752,11 @@
     "corq_edge": 0.2671,
     "corq_edge_bonus": 0.02,
     "corq_risk_penalty": 0.0,
-    "corq_risk_flags": [
-      "ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
-    ],
+    "corq_risk_flags": [],
     "corq_adjusted_score": 0.43,
     "eligible_for_corq": false,
     "corq_reject_reasons": [
-      "REJECT_EXTREME_ODDS_GAP",
-      "REJECT_ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
+      "REJECT_EXTREME_ODDS_GAP"
     ],
     "corq_match_identity": "16516188",
     "corq_candidate_selected": true,
@@ -4783,8 +4770,7 @@
         "corq_adjusted_score": 0.43,
         "eligible_for_corq": false,
         "corq_reject_reasons": [
-          "REJECT_EXTREME_ODDS_GAP",
-          "REJECT_ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
+          "REJECT_EXTREME_ODDS_GAP"
         ]
       },
       {
@@ -4797,8 +4783,7 @@
         "eligible_for_corq": false,
         "corq_reject_reasons": [
           "REJECT_EXTREME_ODDS_GAP",
-          "REJECT_LOW_ODDS",
-          "REJECT_ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
+          "REJECT_LOW_ODDS"
         ]
       }
     ]
@@ -5035,10 +5020,10 @@
         ]
       }
     },
-    "odds_matching_direction": "DIRECT_OR_LABEL_UNKNOWN",
+    "odds_matching_direction": "DIRECT_BY_NUMERIC_OUTCOME",
     "odds_label_1": "1",
     "odds_label_2": "2",
-    "odds_direct_match_score": 0.0,
+    "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
     "odds_player1": 3.5,
     "odds_player2": 1.2857,
@@ -5053,7 +5038,7 @@
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16516215/odds",
     "odds_pair_available": true,
-    "odds_labels_confirmed": false,
+    "odds_labels_confirmed": true,
     "odds_gap_abs": 2.2143,
     "odds_gap_pct": 1.7223,
     "pick": "Yasmine Kabbaj",
@@ -5134,14 +5119,10 @@
     "corq_edge": 0.1243,
     "corq_edge_bonus": 0.02,
     "corq_risk_penalty": 0.0,
-    "corq_risk_flags": [
-      "ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
-    ],
+    "corq_risk_flags": [],
     "corq_adjusted_score": 0.43,
-    "eligible_for_corq": false,
-    "corq_reject_reasons": [
-      "REJECT_ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
-    ],
+    "eligible_for_corq": true,
+    "corq_reject_reasons": [],
     "corq_match_identity": "16516215",
     "corq_candidate_selected": true,
     "corq_side_candidates": [
@@ -5152,10 +5133,8 @@
         "corq_score": 0.41,
         "corq_edge": 0.1243,
         "corq_adjusted_score": 0.43,
-        "eligible_for_corq": false,
-        "corq_reject_reasons": [
-          "REJECT_ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
-        ]
+        "eligible_for_corq": true,
+        "corq_reject_reasons": []
       },
       {
         "pick": "Lucia Bronzetti",
@@ -5166,8 +5145,7 @@
         "corq_adjusted_score": 0.39,
         "eligible_for_corq": false,
         "corq_reject_reasons": [
-          "REJECT_LOW_ODDS",
-          "REJECT_ODDS_ORIENTATION_UNCONFIRMED_EXTREME"
+          "REJECT_LOW_ODDS"
         ]
       }
     ]
@@ -5412,10 +5390,10 @@
         ]
       }
     },
-    "odds_matching_direction": "DIRECT_OR_LABEL_UNKNOWN",
+    "odds_matching_direction": "DIRECT_BY_NUMERIC_OUTCOME",
     "odds_label_1": "1",
     "odds_label_2": "2",
-    "odds_direct_match_score": 0.0,
+    "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
     "odds_player1": 2.75,
     "odds_player2": 1.44,
@@ -5430,7 +5408,7 @@
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16515725/odds",
     "odds_pair_available": true,
-    "odds_labels_confirmed": false,
+    "odds_labels_confirmed": true,
     "odds_gap_abs": 1.31,
     "odds_gap_pct": 0.9097,
     "pick": "Jaime Faria",
@@ -5776,10 +5754,10 @@
         ]
       }
     },
-    "odds_matching_direction": "DIRECT_OR_LABEL_UNKNOWN",
+    "odds_matching_direction": "DIRECT_BY_NUMERIC_OUTCOME",
     "odds_label_1": "1",
     "odds_label_2": "2",
-    "odds_direct_match_score": 0.0,
+    "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
     "odds_player1": 2.0,
     "odds_player2": 1.8,
@@ -5794,7 +5772,7 @@
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16515717/odds",
     "odds_pair_available": true,
-    "odds_labels_confirmed": false,
+    "odds_labels_confirmed": true,
     "odds_gap_abs": 0.2,
     "odds_gap_pct": 0.1111,
     "pick": "Roman Andres Burruchaga",
