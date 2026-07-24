@@ -1,48 +1,24 @@
+
 """THINQ ELO loader.
 
-Broad, audit-friendly ELO layer for the clean runtime.
-
-Design goals:
-- no hard dependency on one exact CSV filename
-- scan common project data folders
-- support JSON and CSV records with common Tennis Abstract style columns
-- never crash the runtime if ELO is unavailable
-- return explicit status/flags for ALL audit
+Provides separate overall ELO and surface ELO signals.
+All returned edges are oriented from pick -> opponent:
+- positive edge = advantage pick
+- negative edge = advantage opponent
 """
-
 from __future__ import annotations
 
 import csv
 import json
 import re
 import unicodedata
-from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
-
-SEARCH_DIRS = [
-    Path("thinq/data"),
-    Path("data/thinq"),
-    Path("data/elo"),
-    Path("data"),
-]
-
-ELO_FILE_HINTS = ("elo", "tennisabstract", "ta")
-
-_TRANSLATE = str.maketrans(
-    {
-        "ł": "l", "Ł": "L",
-        "đ": "d", "Đ": "D",
-        "ð": "d", "Ð": "D",
-        "þ": "th", "Þ": "Th",
-        "ß": "ss",
-        "ø": "o", "Ø": "O",
-        "æ": "ae", "Æ": "Ae",
-        "œ": "oe", "Œ": "Oe",
-    }
-)
+SEARCH_DIRS = [Path("thinq/data"), Path("data/thinq"), Path("data/elo"), Path("data/history"), Path("data")]
+ELO_FILE_HINTS = ("elo", "rating", "tennisabstract", "ta")
+_TRANSLATE = str.maketrans({"ł":"l","Ł":"L","đ":"d","Đ":"D","ð":"d","Ð":"D","þ":"th","Þ":"Th","ß":"ss","ø":"o","Ø":"O","æ":"ae","Æ":"Ae","œ":"oe","Œ":"Oe"})
 
 
 def normalize_name(value: Any) -> str:
@@ -85,7 +61,6 @@ def surface_elo_key(surface: Optional[str]) -> str:
     if "grass" in text:
         return "grass_elo"
     if "carpet" in text:
-        # Project rule: use hard ELO fallback for Carpet until separate carpet ELO exists.
         return "hard_elo"
     if "hard" in text or "indoor" in text:
         return "hard_elo"
@@ -98,13 +73,9 @@ def discover_elo_files() -> List[Path]:
         if not folder.exists():
             continue
         for path in folder.rglob("*"):
-            if not path.is_file():
+            if not path.is_file() or path.suffix.lower() not in {".csv", ".json"}:
                 continue
-            suffix = path.suffix.lower()
-            name = path.name.lower()
-            if suffix not in {".csv", ".json"}:
-                continue
-            if any(hint in name for hint in ELO_FILE_HINTS):
+            if any(hint in path.name.lower() for hint in ELO_FILE_HINTS):
                 files.append(path)
     return sorted(files)
 
@@ -125,17 +96,11 @@ def load_json(path: Path) -> List[Dict[str, Any]]:
     if isinstance(payload, list):
         return [item for item in payload if isinstance(item, dict)]
     if isinstance(payload, dict):
-        for key in ("players", "data", "items", "elo"):
+        for key in ("players", "data", "items", "elo", "ratings"):
             value = payload.get(key)
             if isinstance(value, list):
                 return [item for item in value if isinstance(item, dict)]
-        # Mapping name -> values
-        rows = []
-        for name, value in payload.items():
-            if isinstance(value, dict):
-                row = {"player": name, **value}
-                rows.append(row)
-        return rows
+        return [{"player": name, **value} for name, value in payload.items() if isinstance(value, dict)]
     return []
 
 
@@ -154,12 +119,12 @@ def row_to_elo(row: Dict[str, Any], source: str) -> Optional[Dict[str, Any]]:
     name = row_player_name(row)
     if not name:
         return None
-    output = {
+    return {
         "player": name,
         "name_key": normalize_name(name),
         "compact_key": compact_name(name),
         "source": source,
-        "elo": as_float(first_present(row, ("elo", "overall_elo", "Elo", "overall", "all_elo"))),
+        "elo": as_float(first_present(row, ("elo", "overall_elo", "Elo", "overall", "all_elo", "rating"))),
         "hard_elo": as_float(first_present(row, ("hard_elo", "hElo", "hard", "HardElo", "hardcourt_elo"))),
         "clay_elo": as_float(first_present(row, ("clay_elo", "cElo", "clay", "ClayElo"))),
         "grass_elo": as_float(first_present(row, ("grass_elo", "gElo", "grass", "GrassElo"))),
@@ -169,7 +134,6 @@ def row_to_elo(row: Dict[str, Any], source: str) -> Optional[Dict[str, Any]]:
         "clay_yelo": as_float(first_present(row, ("clay_yelo", "clayYelo", "cYelo"))),
         "grass_yelo": as_float(first_present(row, ("grass_yelo", "grassYelo", "gYelo"))),
     }
-    return output
 
 
 @lru_cache(maxsize=1)
@@ -195,9 +159,7 @@ def find_player(name: Any) -> Optional[Dict[str, Any]]:
         return index[norm]
     if compact in index:
         return index[compact]
-    # surname/contains fallback kept broad for runtime building
-    parts = norm.split()
-    surname = parts[-1] if parts else ""
+    surname = norm.split()[-1] if norm.split() else ""
     if surname:
         candidates = [row for key, row in index.items() if key.endswith(surname) or surname in key.split()]
         if len(candidates) == 1:
@@ -205,24 +167,39 @@ def find_player(name: Any) -> Optional[Dict[str, Any]]:
     return None
 
 
-def selected_elo_value(player: Dict[str, Any], surface: Optional[str]) -> Tuple[Optional[float], str, List[str]]:
+def edge_from_diff(diff: Optional[float], cap: float) -> float:
+    if diff is None:
+        return 0.0
+    # 1200 ELO points roughly maps to a 100 percentage-point swing in this edge space.
+    return round(max(min(diff / 1200.0, cap), -cap), 4)
+
+
+def value_for_key(row: Dict[str, Any], key: str) -> Optional[float]:
+    value = as_float(row.get(key))
+    if value is not None:
+        return value
+    return None
+
+
+def selected_surface_value(row: Dict[str, Any], surface: Optional[str]) -> Tuple[Optional[float], str, List[str]]:
     flags: List[str] = []
     key = surface_elo_key(surface)
-    value = as_float(player.get(key))
+    value = value_for_key(row, key)
     if value is not None:
         return value, key, flags
-    if key == "hard_elo" and str(surface or "").lower().find("carpet") >= 0:
+    if key == "hard_elo" and "carpet" in str(surface or "").lower():
         flags.append("CARPET_AS_HARD_FALLBACK")
-    value = as_float(player.get("elo"))
-    if value is not None:
+    fallback = value_for_key(row, "elo")
+    if fallback is not None:
         flags.append("SURFACE_ELO_FALLBACK_OVERALL")
-        return value, "elo", flags
+        return fallback, "elo", flags
     return None, key, flags
 
 
 def build_elo_context(pick: str, opponent: str, surface: Optional[str] = None) -> Dict[str, Any]:
     pick_row = find_player(pick)
     opponent_row = find_player(opponent)
+    selected_key = surface_elo_key(surface)
     flags: List[str] = []
     if not pick_row or not opponent_row:
         if not pick_row:
@@ -231,47 +208,55 @@ def build_elo_context(pick: str, opponent: str, surface: Optional[str] = None) -
             flags.append("MISSING_ELO_OPPONENT")
         return {
             "status": "NO_DATA",
-            "selected_elo_type": surface_elo_key(surface),
+            "selected_elo_type": selected_key,
+            "overall_pick_elo": None,
+            "overall_opponent_elo": None,
+            "surface_pick_elo": None,
+            "surface_opponent_elo": None,
             "pick_elo": None,
             "opponent_elo": None,
+            "overall_elo_diff": None,
+            "surface_elo_diff": None,
+            "overall_elo_edge": 0.0,
+            "surface_elo_edge": 0.0,
+            "elo_edge": 0.0,
             "pick_yelo": None,
             "opponent_yelo": None,
-            "elo_diff": None,
-            "elo_edge": 0.0,
             "source": None,
             "flags": flags + ["MISSING_ELO"],
         }
 
-    pick_elo, selected_key, pick_flags = selected_elo_value(pick_row, surface)
-    opponent_elo, _, opponent_flags = selected_elo_value(opponent_row, surface)
+    overall_pick = value_for_key(pick_row, "elo")
+    overall_opp = value_for_key(opponent_row, "elo")
+    surface_pick, selected_key, pick_flags = selected_surface_value(pick_row, surface)
+    surface_opp, _, opp_flags = selected_surface_value(opponent_row, surface)
     flags.extend(pick_flags)
-    flags.extend(opponent_flags)
-    if pick_elo is None or opponent_elo is None:
-        return {
-            "status": "NO_DATA",
-            "selected_elo_type": selected_key,
-            "pick_elo": pick_elo,
-            "opponent_elo": opponent_elo,
-            "pick_yelo": pick_row.get("yelo"),
-            "opponent_yelo": opponent_row.get("yelo"),
-            "elo_diff": None,
-            "elo_edge": 0.0,
-            "source": pick_row.get("source") or opponent_row.get("source"),
-            "flags": flags + ["MISSING_ELO"],
-        }
+    flags.extend(opp_flags)
 
-    diff = round(pick_elo - opponent_elo, 1)
-    # Broad cap for now. Final calibration later.
-    edge = max(min(diff / 1200.0, 0.09), -0.09)
+    overall_diff = round(overall_pick - overall_opp, 1) if overall_pick is not None and overall_opp is not None else None
+    surface_diff = round(surface_pick - surface_opp, 1) if surface_pick is not None and surface_opp is not None else None
+    overall_edge = edge_from_diff(overall_diff, 0.07)
+    surface_edge = edge_from_diff(surface_diff, 0.08)
+    status = "OK" if surface_diff is not None or overall_diff is not None else "NO_DATA"
+    if status != "OK":
+        flags.append("MISSING_ELO")
     return {
-        "status": "OK",
+        "status": status,
         "selected_elo_type": selected_key,
-        "pick_elo": round(pick_elo, 1),
-        "opponent_elo": round(opponent_elo, 1),
+        "overall_pick_elo": round(overall_pick, 1) if overall_pick is not None else None,
+        "overall_opponent_elo": round(overall_opp, 1) if overall_opp is not None else None,
+        "surface_pick_elo": round(surface_pick, 1) if surface_pick is not None else None,
+        "surface_opponent_elo": round(surface_opp, 1) if surface_opp is not None else None,
+        "pick_elo": round(surface_pick, 1) if surface_pick is not None else None,
+        "opponent_elo": round(surface_opp, 1) if surface_opp is not None else None,
+        "overall_elo_diff": overall_diff,
+        "surface_elo_diff": surface_diff,
+        "elo_diff": surface_diff,
+        "overall_elo_edge": overall_edge,
+        "surface_elo_edge": surface_edge,
+        "elo_edge": surface_edge if surface_diff is not None else overall_edge,
         "pick_yelo": pick_row.get("yelo"),
         "opponent_yelo": opponent_row.get("yelo"),
-        "elo_diff": diff,
-        "elo_edge": round(edge, 4),
         "source": pick_row.get("source") or opponent_row.get("source"),
         "flags": sorted(set(flags)),
     }
