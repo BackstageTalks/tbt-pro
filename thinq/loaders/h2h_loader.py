@@ -110,8 +110,12 @@ def fetch_h2h_from_api(event_id: Any, player1_id: Any = None, player2_id: Any = 
     if p1 and p2:
         attempts.extend([
             (f"/api/tennis/head-to-head/{p1}/{p2}", None),
+            (f"/api/tennis/team/{p1}/versus/{p2}/matches", None),
+            (f"/api/tennis/player/{p1}/versus/{p2}/matches", None),
             ("/api/tennis/getHeadToHeadHistory", {"player1Id": p1, "player2Id": p2}),
             ("/api/tennis/getHeadToHeadSummary", {"player1Id": p1, "player2Id": p2}),
+            ("/api/tennis/getHeadToHeadHistory", {"homeTeamId": p1, "awayTeamId": p2}),
+            ("/api/tennis/getHeadToHeadSummary", {"homeTeamId": p1, "awayTeamId": p2}),
         ])
     for path, params in attempts:
         payload = api_get(path, params=params)
@@ -229,6 +233,12 @@ def build_h2h_context(
         if payload is not None:
             save_cache(path, payload)
     summary = summarize_h2h(payload, pick, opponent, surface=surface) if payload is not None else summarize_h2h(None, pick, opponent, surface=surface)
+    if isinstance(payload, dict):
+        summary["endpoint"] = payload.get("endpoint")
+        summary["params"] = payload.get("params")
+    summary["cache_path"] = str(path)
+    summary["requested_player1_id"] = as_int(player1_id)
+    summary["requested_player2_id"] = as_int(player2_id)
     if summary.get("status") == "OK":
         summary["source"] = source
     return summary
