@@ -4,10 +4,15 @@ import html
 import json
 import math
 import os
-from datetime import datetime, timezone
+import shutil
+from datetime import datetime, timezone, timedelta
 from email.utils import format_datetime
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
+try:
+    from zoneinfo import ZoneInfo
+except Exception:
+    ZoneInfo = None
 
 from corq.web.paths import (
     ALL_PATH,
@@ -27,11 +32,16 @@ from corq.web.paths import (
 
 OUTPUT_ROOT = Path("outputs")
 SITE_ROOT = Path("corq/site")
+ASSET_ROOT = Path("corq/web/assets")
+SITE_ASSET_ROOT = SITE_ROOT / "assets"
+LOGO_FILE = "tbt_ai_goat_icon.png"
 RESULTS_DISPLAY_TIME_OFFSET_HOURS = int(os.getenv("RESULTS_DISPLAY_TIME_OFFSET_HOURS", "2"))
 DEFAULT_GAMES_LINE = 22.5
 
 CSS = """
 :root{--bg:#070b12;--panel:#0d1422;--panel2:#111b2d;--line:#22314a;--text:#f8fafc;--muted:#94a3b8;--blue:#38bdf8;--green:#22c55e;--red:#fb7185;--yellow:#facc15;--orange:#fb923c}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 12% 0,#172542 0,#070b12 38%,#05070d 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}.page{max-width:1500px;margin:0 auto;padding:28px}header{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:20px}.brand h1{margin:0;font-size:32px;letter-spacing:-.045em}.brand p{margin:7px 0 0;color:var(--muted)}nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}nav a{color:#cbd5e1;text-decoration:none;border:1px solid var(--line);padding:9px 12px;border-radius:999px;font-size:12px;background:rgba(13,20,34,.72)}nav a.active{color:#07110b;background:var(--green);border-color:var(--green);font-weight:900}.cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:18px 0 22px}.summary{background:linear-gradient(180deg,rgba(17,27,45,.96),rgba(13,20,34,.96));border:1px solid var(--line);border-radius:18px;padding:16px}.summary .label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.summary .value{font-size:26px;font-weight:900;margin-top:4px}.notice{border:1px solid #92400e;background:rgba(120,53,15,.25);color:#fed7aa;padding:14px 16px;border-radius:16px;margin:16px 0}.match-list{display:flex;flex-direction:column;gap:14px}.match-card{display:grid;grid-template-columns:52px minmax(260px,1.25fr) 130px minmax(650px,2.45fr);gap:14px;align-items:stretch;background:rgba(13,20,34,.9);border:1px solid var(--line);border-radius:22px;padding:14px}.match-card.audit{grid-template-columns:52px minmax(260px,1.2fr) 130px minmax(760px,2.7fr)}.rank{font-size:18px;font-weight:900;color:var(--blue)}.pick-name{font-size:16px;font-weight:900}.pick-odds{margin-top:3px;color:var(--yellow);font-size:12px;font-weight:900}.pick-action{margin-top:5px;color:var(--green);font-size:11px;font-weight:900;text-transform:lowercase;letter-spacing:.05em}.opponent-name{margin-top:2px;color:#cbd5e1;font-size:13px;font-weight:700}.opponent-odds{color:var(--muted);font-size:11px;margin-top:1px}.match-meta{color:var(--blue);font-size:11px;margin-top:6px}.status-line{color:var(--muted);font-size:10px;margin-top:6px}.chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}.chip{font-size:9px;border:1px solid var(--line);color:#cbd5e1;border-radius:999px;padding:3px 6px;background:#08101d}.score-box{border-radius:18px;border:1px solid var(--line);background:rgba(8,16,29,.95);padding:13px}.score-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}.score-main{font-size:28px;margin-top:5px;font-weight:950}.score-sub{font-size:11px;color:#cbd5e1;margin-top:4px}.positive{color:var(--green)}.negative{color:var(--red)}.neutral{color:var(--muted)}.intel-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.intel-card{background:rgba(8,16,29,.86);border:1px solid var(--line);border-radius:18px;padding:12px}.intel-title{font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}.kv{display:flex;justify-content:space-between;gap:8px;font-size:11px;border-top:1px solid rgba(34,49,74,.55);padding-top:6px;margin-top:6px}.kv span{color:#94a3b8}.kv strong{text-align:right;color:#f8fafc}.mini-audit{margin-top:8px;color:#64748b;font-size:10px}.blockers{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}.blockers span{font-size:10px;border:1px solid #7f1d1d;color:#fecaca;border-radius:999px;padding:3px 7px;background:rgba(127,29,29,.35)}table{width:100%;border-collapse:collapse;background:rgba(13,20,34,.82);border:1px solid var(--line);border-radius:18px;overflow:hidden}th,td{text-align:left;padding:10px;border-bottom:1px solid rgba(34,49,74,.65);font-size:12px}th{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em;background:rgba(8,16,29,.9)}td{color:#e2e8f0}.section-title{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin:26px 0 12px}.section-title h2{margin:0}.rss-box{background:rgba(8,16,29,.88);border:1px solid var(--line);border-radius:18px;padding:14px;margin:16px 0;color:#cbd5e1;font-size:12px}footer{color:#64748b;font-size:11px;margin-top:28px}
+.logo-brand{display:flex;align-items:center;gap:14px}.logo-brand img{width:58px;height:58px;border-radius:50%;object-fit:cover;border:1px solid rgba(56,189,248,.55);box-shadow:0 0 20px rgba(56,189,248,.18)}.brand-kicker{color:#38bdf8;font-size:12px;text-transform:uppercase;letter-spacing:.16em;font-weight:800}.brand h1.compact-title{font-size:24px;margin-top:2px}.brand p.compact-subtitle{font-size:12px;margin-top:2px}.hero-compact{align-items:center}.cards.compact-cards{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:8px}.summary:first-child.hide-candidate{display:none}.rss-box a{color:#f8fafc;text-decoration:none}.rss-pill{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;padding:5px 9px;background:#08101d;margin-left:8px}.subtle-chip{opacity:.58}.corq-card{border-color:rgba(56,189,248,.38)}
+
 """
 
 
@@ -83,15 +93,36 @@ def money(value: Any) -> str:
     return f"{val:.2f}".rstrip("0").rstrip(".")
 
 
+def bratislava_tz():
+    if ZoneInfo is not None:
+        return ZoneInfo("Europe/Bratislava")
+    return timezone(timedelta(hours=RESULTS_DISPLAY_TIME_OFFSET_HOURS))
+
+
+def local_datetime(value: Any) -> Optional[datetime]:
+    if not value:
+        return None
+    try:
+        dt = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt.astimezone(bratislava_tz())
+    except Exception:
+        return None
+
+
 def short_time(row: Dict[str, Any]) -> str:
     raw = first_present(row.get("match_start"), row.get("start_time"), row.get("time"))
+    dt = local_datetime(raw)
+    if dt is not None:
+        return dt.strftime("%H:%M")
     if not raw:
         return "—"
-    try:
-        dt = datetime.fromisoformat(str(raw).replace("Z", "+00:00"))
-        return dt.strftime("%H:%M")
-    except Exception:
-        return str(raw)[:5]
+    return str(raw)[:5]
+
+
+def local_today() -> str:
+    return datetime.now(timezone.utc).astimezone(bratislava_tz()).strftime("%d.%m.%Y")
 
 
 def pubdate(row: Optional[Dict[str, Any]] = None) -> str:
@@ -171,6 +202,18 @@ def win_probability(row: Dict[str, Any]) -> Optional[float]:
         return None
     return f / 100.0 if f > 1 else f
 
+
+
+
+def display_probability(row: Dict[str, Any]) -> float:
+    val = probability_value(row, "corq")
+    if val is None:
+        val = win_probability(row)
+    return as_float(val, 0.0) or 0.0
+
+
+def sort_by_probability(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    return sorted(rows, key=display_probability, reverse=True)
 
 def ai_match(row: Dict[str, Any]) -> str:
     existing = first_present(row.get("ai_match"), row.get("ai_match_pct"), row.get("agreement_score"))
@@ -371,20 +414,34 @@ def nav(active: str) -> str:
 def html_page(active: str, title: str, subtitle: str, body: str, summary: Dict[str, Any]) -> str:
     updated = str(summary.get("updated") or datetime.now(timezone.utc).isoformat())
     cards = [
-        ("Candidates", summary.get("candidate_count", "—")),
         ("ALL", summary.get("all_count", "—")),
         ("Ranked", summary.get("ranked_count", "—")),
         ("TOP7", summary.get("top7_count", "—")),
         ("Updated", updated[:16].replace("T", " ")),
     ]
     cards_html = "".join(f"<div class='summary'><div class='label'>{esc(label)}</div><div class='value'>{esc(value)}</div></div>" for label, value in cards)
-    return f"<!doctype html><html lang='en'><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width, initial-scale=1'/><title>{esc(title)}</title><style>{CSS}</style></head><body><div class='page'><header><div class='brand'><h1>{esc(title)}</h1><p>{esc(subtitle)}</p></div>{nav(active)}</header><section class='cards'>{cards_html}</section>{body}<footer>This data is provided for informational and analytical purposes only · Powered by BackstageTalks Statistical Engine</footer></div></body></html>"
+    logo_src = "../assets/" + LOGO_FILE
+    header_title = title.replace("TBT PRO ", "")
+    header = (
+        "<header class='hero-compact'><div class='brand logo-brand'>"
+        f"<img src='{esc(logo_src)}' alt='TBT PRO logo'/>"
+        "<div><div class='brand-kicker'>BackstageTalks Statistical Engine</div>"
+        f"<h1 class='compact-title'>{esc(header_title)}</h1>"
+        f"<p class='compact-subtitle'>{esc(subtitle)}</p></div></div>{nav(active)}</header>"
+    )
+    return f"<!doctype html><html lang='en'><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width, initial-scale=1'/><title>{esc(title)}</title><style>{CSS}</style></head><body><div class='page'>{header}<section class='cards compact-cards'>{cards_html}</section>{body}<footer>This data is provided for informational and analytical purposes only · Powered by BackstageTalks Statistical Engine</footer></div></body></html>"
 
 
 def write_page(path_key: str, content: str) -> None:
     target = SITE_ROOT / page_file(path_key)
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(content, encoding="utf-8")
+
+def write_assets() -> None:
+    SITE_ASSET_ROOT.mkdir(parents=True, exist_ok=True)
+    source = ASSET_ROOT / LOGO_FILE
+    if source.exists():
+        shutil.copyfile(source, SITE_ASSET_ROOT / LOGO_FILE)
 
 def write_root_index() -> None:
     SITE_ROOT.mkdir(parents=True, exist_ok=True)
@@ -487,7 +544,7 @@ def full_link() -> str:
 def rss_feed(rows: List[Dict[str, Any]], title: str = "TBT PRO TOP7 Telegram RSS") -> str:
     now = pubdate()
     items = []
-    for row in rows[:20]:
+    for row in sort_by_probability(rows)[:20]:
         title_text = f"{short_time(row)} | {row.get('pick') or '—'} to beat {row.get('opponent') or '—'}"
         desc = rss_description(row)
         link = full_link()
@@ -516,7 +573,7 @@ def render() -> Dict[str, Any]:
         manifest = {}
 
     results = load_results()
-    safe_top7 = [row for row in top7_raw if not web_publish_blockers(row)]
+    safe_top7 = sort_by_probability([row for row in top7_raw if not web_publish_blockers(row)])
     blocked_top7 = [dict(row, web_publish_blockers=web_publish_blockers(row)) for row in top7_raw if web_publish_blockers(row)]
     all_rows = all_raw if all_raw else top7_raw
 
@@ -529,7 +586,7 @@ def render() -> Dict[str, Any]:
     }
 
     rss_url = page_url(TG_RSS_PATH) or f"../{TG_RSS_PATH}"
-    top_body = "<div class='rss-box'>Telegram RSS feed: <strong>" + esc(rss_url) + "</strong></div>"
+    top_body = "<div class='rss-box'>Telegram RSS feed <a class='rss-pill' href='" + esc(rss_url) + "'>Open RSS</a></div>"
     top_body += ("<div class='match-list'>" + "".join(row_card(row, idx + 1) for idx, row in enumerate(safe_top7)) + "</div>") if safe_top7 else "<div class='notice'>No publication-safe TOP7 picks.</div>"
     if blocked_top7:
         top_body += "<div class='section-title'><h2>Blocked TOP7 audit</h2></div><div class='match-list'>" + "".join(row_card(row, idx + 1, audit=True) for idx, row in enumerate(blocked_top7[:20])) + "</div>"
@@ -553,6 +610,7 @@ def render() -> Dict[str, Any]:
     write_page(CORQ_RSS_PATH, rss)
     write_page(THINQ_RSS_PATH, rss_feed(top7_raw, "TBT PRO THINQ RSS"))
     write_page(CLOQ_RSS_PATH, rss_feed(cloq_rows, "TBT PRO CLOQ RSS"))
+    write_assets()
     write_root_index()
 
     return {"top7_count": len(safe_top7), "all_count": len(all_rows), "results_count": len(results), "site_root": str(SITE_ROOT)}
