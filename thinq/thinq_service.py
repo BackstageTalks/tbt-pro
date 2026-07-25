@@ -1,109 +1,112 @@
-"""
-THINQ Intelligence Layer.
+"""THINQ service with side-orientation audit.
 
-THINQ is the brain/intelligence layer for CORQ.
-THINQ does not create final match probability.
-THINQ returns ready feature, edge, context, flag and confidence signals.
-CORQ remains the CORE model for final probability, ranking and TOP outputs.
+THINQ is always calculated for pick/opponent.
+player1 and player2 are kept as canonical HOME/AWAY input fields only.
 """
 
 from __future__ import annotations
 
-import json
-from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-try:
-    from .loaders.thinq_loader import ThinqLoader
-except Exception:
-    try:
-        from thinq.loaders.thinq_loader import ThinqLoader
-    except Exception as exc:
-        ThinqLoader = None
-        THINQ_LOADER_IMPORT_ERROR = str(exc)
+from corq.sides import build_side_audit
 
 try:
-    from .features import (
-        build_data_quality,
-        build_fatigue_context,
-        build_level_context,
-        build_status_risk,
-        build_surface_transition_context,
-    )
+    from thinq.loaders.elo_loader import build_elo_context
 except Exception:
-    try:
-        from thinq.features import (
-            build_data_quality,
-            build_fatigue_context,
-            build_level_context,
-            build_status_risk,
-            build_surface_transition_context,
-        )
-    except Exception as exc:
-        FEATURE_IMPORT_ERROR = str(exc)
-
-        def build_data_quality(raw: Dict[str, Any], edges: Dict[str, Any]) -> Dict[str, Any]:
-            return {"data_quality_score": 0.0, "flags": ["FEATURE_IMPORT_FAILED", "DATA_QUALITY_UNAVAILABLE"], "reason": FEATURE_IMPORT_ERROR}
-
-        def build_fatigue_context(raw: Dict[str, Any], as_of_date: Optional[str] = None) -> Dict[str, Any]:
-            return {"fatigue_edge": None, "flags": ["FATIGUE_UNAVAILABLE"]}
-
-        def build_level_context(raw: Dict[str, Any], level: Optional[str] = None) -> Dict[str, Any]:
-            return {"level_context_edge": None, "flags": ["LEVEL_CONTEXT_UNAVAILABLE"]}
-
-        def build_status_risk(raw: Dict[str, Any]) -> Dict[str, Any]:
-            return {"status_risk_edge": None, "flags": ["STATUS_RISK_UNAVAILABLE"]}
-
-        def build_surface_transition_context(raw: Dict[str, Any], surface: Optional[str] = None) -> Dict[str, Any]:
-            return {"surface_transition_edge": None, "flags": ["SURFACE_TRANSITION_UNAVAILABLE"]}
+    def build_elo_context(pick: str, opponent: str, surface: Optional[str] = None) -> Dict[str, Any]:
+        return {"status": "NO_DATA", "selected_elo_type": None, "elo_edge": 0.0, "flags": ["MISSING_ELO"]}
 
 try:
-    from .features.match_dynamics import build_match_dynamics_context
+    from thinq.loaders.h2h_loader import build_h2h_context
 except Exception:
-    try:
-        from thinq.features.match_dynamics import build_match_dynamics_context
-    except Exception:
-        def build_match_dynamics_context(*args: Any, **kwargs: Any) -> Dict[str, Any]:
-            return {
-                "status": "NO_DATA",
-                "source": None,
-                "projected_sets": None,
-                "projected_games": None,
-                "tiebreak_probability": None,
-                "decider_probability": None,
-                "straight_sets_probability": None,
-                "sets_edge": None,
-                "games_edge": None,
-                "tiebreak_edge": None,
-                "decider_edge": None,
-                "confidence": 0.0,
-                "flags": ["MATCH_DYNAMICS_UNAVAILABLE"],
-            }
+    def build_h2h_context(*args: Any, **kwargs: Any) -> Dict[str, Any]:
+        return {"status": "NO_DATA", "source": "none", "total_matches": 0, "pick_wins": 0, "opponent_wins": 0, "edge": 0.0, "confidence": 0.0, "reason": "H2H loader unavailable"}
+
+try:
+    from thinq.features.recent_form import build_recent_form_context
+except Exception:
+    def build_recent_form_context(*args: Any, **kwargs: Any) -> Dict[str, Any]:
+        return {"status": "NO_DATA", "flags": ["RECENT_FORM_NO_DATA"], "recent_form_edge": 0.0, "short_form_edge": 0.0, "surface_recent_form_edge": 0.0, "opponent_quality_edge": 0.0, "form_confidence": 0.0}
+
+try:
+    from thinq.features.match_dynamics import build_match_dynamics_context
+except Exception:
+    def build_match_dynamics_context(*args: Any, **kwargs: Any) -> Dict[str, Any]:
+        return {
+            "status": "NO_DATA",
+            "source": None,
+            "projected_sets": None,
+            "projected_games": None,
+            "tiebreak_probability": None,
+            "decider_probability": None,
+            "straight_sets_probability": None,
+            "sets_edge": 0.0,
+            "games_edge": 0.0,
+            "confidence": 0.0,
+            "flags": ["MATCH_DYNAMICS_UNAVAILABLE"],
+        }
+
+try:
+    from thinq.features.probability_layer import build_thinq_probability_layer
+except Exception:
+    def build_thinq_probability_layer(*args: Any, **kwargs: Any) -> Dict[str, Any]:
+        pick = kwargs.get("pick") or ""
+        opponent = kwargs.get("opponent") or ""
+        return {
+            "status": "NO_DATA",
+            "model_version": "THINQ_PROBABILITY_UNAVAILABLE",
+            "pick": pick,
+            "opponent": opponent,
+            "pick_probability": 0.50,
+            "pick_probability_pct": 50.0,
+            "opponent_probability": 0.50,
+            "opponent_probability_pct": 50.0,
+            "winner": pick,
+            "winner_probability": 0.50,
+            "winner_probability_pct": 50.0,
+            "edge": 0.0,
+            "confidence": 0.0,
+            "components": {},
+            "flags": ["THINQ_PROBABILITY_UNAVAILABLE"],
+        }
+
+
+def normalize_surface(surface: Optional[str]) -> Dict[str, Any]:
+    raw = str(surface or "").strip()
+    text = raw.lower()
+    flags: List[str] = []
+    if "clay" in text:
+        bucket = "Clay"
+        elo_type = "clay_elo"
+    elif "grass" in text:
+        bucket = "Grass"
+        elo_type = "grass_elo"
+    elif "carpet" in text:
+        bucket = "Hard"
+        elo_type = "hard_elo"
+        flags.append("CARPET_AS_HARD_FALLBACK")
+    elif "hard" in text or "indoor" in text:
+        bucket = "Hard"
+        elo_type = "hard_elo"
+    else:
+        bucket = "Unknown"
+        elo_type = "elo"
+        flags.append("SURFACE_UNKNOWN")
+    return {
+        "surface": bucket,
+        "surface_raw": raw or None,
+        "surface_environment": None,
+        "surface_model_bucket": bucket,
+        "surface_source": "match_payload" if raw else "unknown",
+        "surface_confidence": "MEDIUM" if raw else "LOW",
+        "selected_elo_type": elo_type,
+        "flags": flags,
+    }
 
 
 class ThinqService:
-    """Public THINQ entry point for CORQ."""
-
-    def __init__(self, loader: Optional[Any] = None, output_dir: Optional[str] = None) -> None:
-        if loader is not None:
-            self.loader = loader
-        elif ThinqLoader is not None:
-            self.loader = ThinqLoader()
-        else:
-            raise RuntimeError(globals().get("THINQ_LOADER_IMPORT_ERROR", "ThinqLoader unavailable"))
-        self.output_dir = Path(output_dir) if output_dir else Path("thinq/outputs")
-        self.output_dir.mkdir(parents=True, exist_ok=True)
-
-    def get_player_data(
-        self,
-        player_name: str,
-        surface: Optional[str] = None,
-        level: Optional[str] = None,
-        tournament_url: Optional[str] = None,
-        as_of_date: Optional[str] = None,
-        tour_type: Optional[str] = None,
-    ) -> Dict[str, Any]:
-        return self.loader.load_player(player_name, surface, level, tournament_url, as_of_date, tour_type)
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        pass
 
     def build_match_features(
         self,
@@ -123,90 +126,192 @@ class ThinqService:
         save_snapshot: bool = False,
         pick: Optional[str] = None,
         opponent: Optional[str] = None,
-        pick_odds: Optional[Any] = None,
-        opponent_odds: Optional[Any] = None,
+        pick_side: Optional[str] = None,
+        opponent_side: Optional[str] = None,
+        side_audit: Optional[Dict[str, Any]] = None,
         **kwargs: Any,
     ) -> Dict[str, Any]:
-        raw = self.loader.load_match(
-            player1=player1,
-            player2=player2,
-            surface=surface,
-            level=level,
-            tournament_url=tournament_url,
-            tour_type=tour_type,
-            as_of_date=as_of_date,
+        analysis_pick = pick or player1
+        analysis_opponent = opponent or (player2 if analysis_pick == player1 else player1)
+        thinq_side = side_audit or build_side_audit(
+            {
+                "player1": player1,
+                "player2": player2,
+                "pick": analysis_pick,
+                "opponent": analysis_opponent,
+                "pick_side": pick_side,
+                "opponent_side": opponent_side,
+            }
+        )
+
+        raw_payload = kwargs.get("raw") or kwargs.get("match_raw") or kwargs.get("raw_event") or {}
+        if not event_custom_id:
+            event_custom_id = kwargs.get("event_custom_id") or kwargs.get("custom_id") or kwargs.get("customId")
+        if not event_custom_id and isinstance(raw_payload, dict):
+            event_custom_id = raw_payload.get("customId") or raw_payload.get("custom_id")
+
+        surface_ctx = normalize_surface(surface)
+        surface_bucket = surface_ctx.get("surface") or surface
+        elo = build_elo_context(analysis_pick, analysis_opponent, surface_bucket)
+        h2h = build_h2h_context(
             event_id=event_id,
+            pick=analysis_pick,
+            opponent=analysis_opponent,
+            surface=surface_bucket,
             player1_id=player1_id,
             player2_id=player2_id,
-            tournament_id=tournament_id,
+            event_custom_id=event_custom_id,
         )
-        if not isinstance(raw, dict):
-            raw = {}
-
-        raw["event_id"] = event_id or raw.get("event_id")
-        raw["event_custom_id"] = event_custom_id or kwargs.get("custom_id") or kwargs.get("customId") or raw.get("event_custom_id")
-        raw["pick"] = pick or raw.get("pick") or player1
-        raw["opponent"] = opponent or raw.get("opponent") or player2
-        raw["surface"] = surface or raw.get("surface")
-        raw["best_of"] = best_of
-
-        edges = self._calculate_base_edges(raw)
-        fatigue = build_fatigue_context(raw, as_of_date=as_of_date)
-        transition = build_surface_transition_context(raw, surface=surface)
-        level_ctx = build_level_context(raw, level=level)
-        status = build_status_risk(raw)
-
+        recent_form = build_recent_form_context(analysis_pick, analysis_opponent, surface_bucket)
         match_dynamics = build_match_dynamics_context(
-            pick=raw.get("pick") or player1,
-            opponent=raw.get("opponent") or player2,
-            surface=surface or raw.get("surface"),
+            pick=analysis_pick,
+            opponent=analysis_opponent,
+            surface=surface_bucket,
             best_of=best_of,
-            edges=edges,
-            pick_odds=pick_odds,
-            opponent_odds=opponent_odds,
+            elo=elo,
+            h2h=h2h,
+            recent_form=recent_form,
+            odds_player1=kwargs.get("odds_player1") or kwargs.get("p1_odds") or kwargs.get("odds1"),
+            odds_player2=kwargs.get("odds_player2") or kwargs.get("p2_odds") or kwargs.get("odds2"),
+            pick_odds=kwargs.get("pick_odds") or kwargs.get("odds"),
+            opponent_odds=kwargs.get("opponent_odds"),
         )
 
-        edges.update({
-            "fatigue_edge": fatigue.get("fatigue_edge"),
-            "surface_transition_edge": transition.get("surface_transition_edge"),
-            "level_context_edge": level_ctx.get("level_context_edge"),
-            "status_risk_edge": status.get("status_risk_edge"),
-            "sets_edge": match_dynamics.get("sets_edge"),
-            "games_edge": match_dynamics.get("games_edge"),
-            "tiebreak_edge": match_dynamics.get("tiebreak_edge"),
-            "decider_edge": match_dynamics.get("decider_edge"),
-        })
+        edges = {
+            "overall_elo_edge": float(elo.get("overall_elo_edge") or 0.0),
+            "surface_elo_edge": float(elo.get("surface_elo_edge") or 0.0),
+            "elo_edge": float(elo.get("elo_edge") or 0.0),
+            "h2h_edge": float(h2h.get("edge") or 0.0),
+            "recent_form_edge": float(recent_form.get("recent_form_edge") or 0.0),
+            "short_form_edge": float(recent_form.get("short_form_edge") or 0.0),
+            "surface_recent_form_edge": float(recent_form.get("surface_recent_form_edge") or 0.0),
+            "opponent_quality_edge": float(recent_form.get("opponent_quality_edge") or 0.0),
+            "sets_edge": float(match_dynamics.get("sets_edge") or 0.0),
+            "games_edge": float(match_dynamics.get("games_edge") or 0.0),
+        }
 
-        data_quality = build_data_quality(raw, edges)
-        confidence = self._calculate_total_confidence(raw, edges, data_quality, match_dynamics)
-        flags = self._build_flags(raw, edges, confidence)
-        for context in [data_quality, fatigue, transition, level_ctx, status, match_dynamics]:
-            flags.extend(context.get("flags", []))
-        flags = sorted(set(flags))
+        flags: List[str] = []
+        flags.extend(surface_ctx.get("flags") or [])
+        flags.extend(elo.get("flags") or [])
+        flags.extend(recent_form.get("flags") or [])
+        flags.extend(match_dynamics.get("flags") or [])
+        if h2h.get("status") != "OK":
+            flags.append("NO_H2H_DATA")
+        if recent_form.get("status") != "OK":
+            flags.append("RECENT_FORM_NO_DATA")
+        if not thinq_side.get("side_valid"):
+            flags.append("THINQ_SIDE_ORIENTATION_INVALID")
 
-        output = {
-            "player1": player1,
-            "player2": player2,
-            "surface": surface,
-            "level": level,
-            "best_of": best_of,
-            "thinq_role": "intelligence_layer",
-            "thinq_version": "full_integration_v1_match_dynamics",
-            "edges": edges,
+        confidence = 0.20
+        if elo.get("status") == "OK":
+            confidence += 0.35
+        if h2h.get("status") == "OK":
+            confidence += 0.10
+        if recent_form.get("status") == "OK":
+            confidence += min(float(recent_form.get("form_confidence") or 0.0) * 0.25, 0.18)
+        if match_dynamics.get("status") == "OK":
+            confidence += min(float(match_dynamics.get("confidence") or 0.0) * 0.08, 0.06)
+        if surface_ctx.get("surface") != "Unknown":
+            confidence += 0.05
+        confidence = round(max(min(confidence, 0.88), 0.0), 4)
+
+        thinq_probability_layer = build_thinq_probability_layer(
+            pick=analysis_pick,
+            opponent=analysis_opponent,
+            pick_side=pick_side,
+            opponent_side=opponent_side,
+            edges=edges,
+            confidence=confidence,
+            elo=elo,
+            h2h=h2h,
+            recent_form=recent_form,
+            match_dynamics=match_dynamics,
+            flags=flags,
+        )
+
+        return {
+            "available": True,
+            "error": None,
             "confidence": confidence,
-            "data_quality": data_quality,
-            "contexts": {
-                "fatigue": fatigue,
-                "surface_transition": transition,
-                "level_context": level_ctx,
-                "status_risk": status,
-                "match_dynamics": match_dynamics,
+            "thinq_side": thinq_side,
+            "surface": surface_ctx,
+            "elo": elo,
+            "h2h": {
+                "status": h2h.get("status"),
+                "source": h2h.get("source"),
+                "total_matches": h2h.get("total_matches", 0),
+                "pick_wins": h2h.get("pick_wins", 0),
+                "opponent_wins": h2h.get("opponent_wins", 0),
+                "pick_win_pct": h2h.get("pick_win_pct"),
+                "same_surface_matches": h2h.get("same_surface_matches"),
+                "same_surface_pick_wins": h2h.get("same_surface_pick_wins"),
+                "edge": h2h.get("edge", 0.0),
+                "confidence": h2h.get("confidence", 0.0),
+                "reason": h2h.get("reason"),
+                "endpoint": h2h.get("endpoint"),
+                "params": h2h.get("params"),
+                "endpoint_attempts": h2h.get("endpoint_attempts") or [],
+                "api_status_code": h2h.get("api_status_code"),
+                "api_error": h2h.get("api_error"),
+                "cache_path": h2h.get("cache_path"),
+                "requested_event_id": h2h.get("requested_event_id"),
+                "requested_event_custom_id": h2h.get("requested_event_custom_id"),
+                "requested_player1_id": h2h.get("requested_player1_id"),
+                "requested_player2_id": h2h.get("requested_player2_id"),
             },
+            "recent_form": recent_form,
             "match_dynamics": match_dynamics,
-            "thinq_sets_edge": match_dynamics.get("sets_edge"),
-            "thinq_games_edge": match_dynamics.get("games_edge"),
-            "thinq_tiebreak_edge": match_dynamics.get("tiebreak_edge"),
-            "thinq_decider_edge": match_dynamics.get("decider_edge"),
+            "thinq_probability_layer": thinq_probability_layer,
+            "probability_layer": thinq_probability_layer,
+            "contexts": {
+                "match_dynamics": match_dynamics,
+                "h2h": h2h,
+                "recent_form": recent_form,
+                "elo": elo,
+                "thinq_probability_layer": thinq_probability_layer,
+            },
+            "edges": edges,
+            "flags": sorted(set(flags)),
+            "thinq_available": True,
+            "thinq_probability_status": thinq_probability_layer.get("status"),
+            "thinq_model_version": thinq_probability_layer.get("model_version"),
+            "thinq_probability": thinq_probability_layer.get("pick_probability"),
+            "thinq_probability_pct": thinq_probability_layer.get("pick_probability_pct"),
+            "thinq_winner": thinq_probability_layer.get("winner"),
+            "thinq_winner_side": thinq_probability_layer.get("winner_side"),
+            "thinq_winner_probability": thinq_probability_layer.get("winner_probability"),
+            "thinq_winner_probability_pct": thinq_probability_layer.get("winner_probability_pct"),
+            "thinq_edge": thinq_probability_layer.get("edge"),
+            "thinq_probability_confidence": thinq_probability_layer.get("confidence"),
+            "thinq_probability_components": thinq_probability_layer.get("components"),
+            "thinq_confidence": confidence,
+            "thinq_selected_elo_type": elo.get("selected_elo_type"),
+            "thinq_elo_pick": elo.get("pick_elo"),
+            "thinq_elo_opponent": elo.get("opponent_elo"),
+            "thinq_yelo_pick": elo.get("pick_yelo"),
+            "thinq_yelo_opponent": elo.get("opponent_yelo"),
+            "thinq_overall_elo_edge": edges["overall_elo_edge"],
+            "thinq_surface_elo_edge": edges["surface_elo_edge"],
+            "thinq_elo_edge": edges["elo_edge"],
+            "thinq_h2h_status": h2h.get("status"),
+            "thinq_h2h_source": h2h.get("source"),
+            "thinq_h2h_total_matches": h2h.get("total_matches", 0),
+            "thinq_h2h_edge": edges["h2h_edge"],
+            "thinq_h2h_confidence": h2h.get("confidence", 0.0),
+            "thinq_h2h_endpoint": h2h.get("endpoint"),
+            "thinq_h2h_params": h2h.get("params"),
+            "thinq_h2h_endpoint_attempts": h2h.get("endpoint_attempts") or [],
+            "thinq_h2h_api_status_code": h2h.get("api_status_code"),
+            "thinq_h2h_api_error": h2h.get("api_error"),
+            "thinq_h2h_cache_path": h2h.get("cache_path"),
+            "thinq_h2h_requested_event_id": h2h.get("requested_event_id"),
+            "thinq_h2h_requested_event_custom_id": h2h.get("requested_event_custom_id"),
+            "thinq_recent_form_edge": edges["recent_form_edge"],
+            "thinq_short_form_edge": edges["short_form_edge"],
+            "thinq_surface_recent_form_edge": edges["surface_recent_form_edge"],
+            "thinq_opponent_quality_edge": edges["opponent_quality_edge"],
+            "thinq_sets_edge": edges["sets_edge"],
+            "thinq_games_edge": edges["games_edge"],
             "thinq_projected_sets": match_dynamics.get("projected_sets"),
             "thinq_projected_games": match_dynamics.get("projected_games"),
             "thinq_tiebreak_probability": match_dynamics.get("tiebreak_probability"),
@@ -214,150 +319,10 @@ class ThinqService:
             "thinq_straight_sets_probability": match_dynamics.get("straight_sets_probability"),
             "thinq_match_shape": match_dynamics.get("match_shape"),
             "thinq_match_dynamics_confidence": match_dynamics.get("confidence", 0.0),
-            "flags": flags,
-            "raw": raw,
-        }
-        if save_snapshot:
-            self.save_match_snapshot(output)
-        return output
-
-    def save_match_snapshot(self, output: Dict[str, Any]) -> Path:
-        player1 = self._safe_name(output.get("player1"))
-        player2 = self._safe_name(output.get("player2"))
-        surface = self._safe_name(output.get("surface") or "all")
-        path = self.output_dir / f"thinq_{player1}_vs_{player2}_{surface}.json"
-        path.write_text(json.dumps(output, ensure_ascii=False, indent=2), encoding="utf-8")
-        return path
-
-    def _calculate_base_edges(self, raw: Dict[str, Any]) -> Dict[str, Optional[float]]:
-        p1 = raw.get("player1", {}) if isinstance(raw.get("player1"), dict) else {}
-        p2 = raw.get("player2", {}) if isinstance(raw.get("player2"), dict) else {}
-        p1_history = p1.get("history", {}) if isinstance(p1.get("history"), dict) else {}
-        p2_history = p2.get("history", {}) if isinstance(p2.get("history"), dict) else {}
-        p1_elo = p1.get("elo", {}) if isinstance(p1.get("elo"), dict) else {}
-        p2_elo = p2.get("elo", {}) if isinstance(p2.get("elo"), dict) else {}
-        p1_ta = p1.get("ta", {}) if isinstance(p1.get("ta"), dict) else {}
-        p2_ta = p2.get("ta", {}) if isinstance(p2.get("ta"), dict) else {}
-        h2h = raw.get("h2h", {}) if isinstance(raw.get("h2h"), dict) else {}
-        return {
-            "surface_form_edge": self._edge_from_percent_diff(p1_history.get("surface_win_pct_52w"), p2_history.get("surface_win_pct_52w"), cap=0.12),
-            "recent_form_edge": self._edge_from_percent_diff(p1_history.get("last10_win_pct"), p2_history.get("last10_win_pct"), cap=0.10),
-            "level_form_edge": self._edge_from_percent_diff(p1_history.get("level_win_pct"), p2_history.get("level_win_pct"), cap=0.08),
-            "elo_edge": self._edge_from_elo(p1_elo, p2_elo, raw.get("surface")),
-            "opponent_quality_edge": None,
-            "ta_edge": self._edge_from_ta(p1_ta, p2_ta),
-            "h2h_edge": self._to_float_or_none(h2h.get("h2h_edge") or h2h.get("edge")),
+            "thinq_form_confidence": recent_form.get("form_confidence", 0.0),
+            "thinq_flags": sorted(set(flags)),
         }
 
-    @staticmethod
-    def _edge_from_percent_diff(p1_value: Any, p2_value: Any, cap: float) -> Optional[float]:
-        p1_float = ThinqService._to_float_or_none(p1_value)
-        p2_float = ThinqService._to_float_or_none(p2_value)
-        if p1_float is None or p2_float is None:
-            return None
-        return round(max(min(p1_float - p2_float, cap), -cap), 4)
 
-    @staticmethod
-    def _edge_from_elo(p1_elo: Dict[str, Any], p2_elo: Dict[str, Any], surface: Optional[str]) -> Optional[float]:
-        surface_key = ThinqService._surface_elo_key(surface)
-        p1_value = p2_value = None
-        if surface_key:
-            p1_value = ThinqService._to_float_or_none(p1_elo.get(surface_key))
-            p2_value = ThinqService._to_float_or_none(p2_elo.get(surface_key))
-        if p1_value is None or p2_value is None:
-            p1_value = ThinqService._to_float_or_none(p1_elo.get("elo"))
-            p2_value = ThinqService._to_float_or_none(p2_elo.get("elo"))
-        if p1_value is None or p2_value is None:
-            return None
-        return round(max(min((p1_value - p2_value) / 2000, 0.10), -0.10), 4)
-
-    @staticmethod
-    def _edge_from_ta(p1_ta: Dict[str, Any], p2_ta: Dict[str, Any]) -> Optional[float]:
-        p1_forecast = ThinqService._to_float_or_none(p1_ta.get("ta_forecast"))
-        p2_forecast = ThinqService._to_float_or_none(p2_ta.get("ta_forecast"))
-        if p1_forecast is None or p2_forecast is None:
-            return None
-        if p1_forecast > 1:
-            p1_forecast /= 100
-        if p2_forecast > 1:
-            p2_forecast /= 100
-        return round(max(min(p1_forecast - p2_forecast, 0.08), -0.08), 4)
-
-    def _calculate_total_confidence(
-        self,
-        raw: Dict[str, Any],
-        edges: Dict[str, Optional[float]],
-        data_quality: Dict[str, Any],
-        match_dynamics: Dict[str, Any],
-    ) -> float:
-        h2h = raw.get("h2h", {}) if isinstance(raw.get("h2h"), dict) else {}
-        h2h_conf = self._to_float_or_none(h2h.get("h2h_confidence") or h2h.get("confidence")) or 0.0
-        quality_score = self._to_float_or_none(data_quality.get("data_quality_score")) or 0.0
-        dynamics_conf = self._to_float_or_none(match_dynamics.get("confidence")) or 0.0
-        edge_coverage = self._edge_coverage(edges)
-        confidence = (0.45 * quality_score) + (0.15 * h2h_conf) + (0.25 * edge_coverage) + (0.15 * dynamics_conf)
-        return round(max(min(confidence, 1.0), 0.0), 4)
-
-    @staticmethod
-    def _build_flags(raw: Dict[str, Any], edges: Dict[str, Optional[float]], confidence: float) -> List[str]:
-        flags: List[str] = []
-        edge_flag_rules = [
-            ("h2h_edge", 0.04, "H2H_STRONG_PLAYER1", "H2H_STRONG_PLAYER2"),
-            ("surface_form_edge", 0.08, "SURFACE_FORM_STRONG_PLAYER1", "SURFACE_FORM_STRONG_PLAYER2"),
-            ("recent_form_edge", 0.07, "RECENT_FORM_STRONG_PLAYER1", "RECENT_FORM_STRONG_PLAYER2"),
-            ("elo_edge", 0.06, "ELO_STRONG_PLAYER1", "ELO_STRONG_PLAYER2"),
-        ]
-        for key, threshold, p1_flag, p2_flag in edge_flag_rules:
-            value = edges.get(key)
-            if value is None:
-                continue
-            if value >= threshold:
-                flags.append(p1_flag)
-            elif value <= -threshold:
-                flags.append(p2_flag)
-        if confidence < 0.35:
-            flags.append("THINQ_LOW_CONFIDENCE")
-        return flags
-
-    @staticmethod
-    def _to_float_or_none(value: Any) -> Optional[float]:
-        if value is None or value == "":
-            return None
-        try:
-            return float(value)
-        except Exception:
-            return None
-
-    @staticmethod
-    def _edge_coverage(edges: Dict[str, Optional[float]]) -> float:
-        if not edges:
-            return 0.0
-        return round(sum(1 for value in edges.values() if value is not None) / len(edges), 4)
-
-    @staticmethod
-    def _surface_elo_key(surface: Optional[str]) -> Optional[str]:
-        if not surface:
-            return None
-        mapping = {
-            "hard": "hard_elo",
-            "clay": "clay_elo",
-            "grass": "grass_elo",
-            "indoor": "indoor_elo",
-            "indoor hard": "indoor_elo",
-            "i.hard": "indoor_elo",
-        }
-        return mapping.get(str(surface).strip().lower())
-
-    @staticmethod
-    def _safe_name(value: Any) -> str:
-        text = str(value or "unknown").strip().lower()
-        keep = []
-        for char in text:
-            if char.isalnum():
-                keep.append(char)
-            elif char in [" ", "-", "_"]:
-                keep.append("_")
-        text = "".join(keep)
-        while "__" in text:
-            text = text.replace("__", "_")
-        return text.strip("_") or "unknown"
+def build_match_features(*args: Any, **kwargs: Any) -> Dict[str, Any]:
+    return ThinqService().build_match_features(*args, **kwargs)

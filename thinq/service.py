@@ -46,6 +46,30 @@ except Exception:
             "flags": ["MATCH_DYNAMICS_UNAVAILABLE"],
         }
 
+try:
+    from thinq.features.probability_layer import build_thinq_probability_layer
+except Exception:
+    def build_thinq_probability_layer(*args: Any, **kwargs: Any) -> Dict[str, Any]:
+        pick = kwargs.get("pick") or ""
+        opponent = kwargs.get("opponent") or ""
+        return {
+            "status": "NO_DATA",
+            "model_version": "THINQ_PROBABILITY_UNAVAILABLE",
+            "pick": pick,
+            "opponent": opponent,
+            "pick_probability": 0.50,
+            "pick_probability_pct": 50.0,
+            "opponent_probability": 0.50,
+            "opponent_probability_pct": 50.0,
+            "winner": pick,
+            "winner_probability": 0.50,
+            "winner_probability_pct": 50.0,
+            "edge": 0.0,
+            "confidence": 0.0,
+            "components": {},
+            "flags": ["THINQ_PROBABILITY_UNAVAILABLE"],
+        }
+
 
 def normalize_surface(surface: Optional[str]) -> Dict[str, Any]:
     raw = str(surface or "").strip()
@@ -191,6 +215,20 @@ class ThinqService:
             confidence += 0.05
         confidence = round(max(min(confidence, 0.88), 0.0), 4)
 
+        thinq_probability_layer = build_thinq_probability_layer(
+            pick=analysis_pick,
+            opponent=analysis_opponent,
+            pick_side=pick_side,
+            opponent_side=opponent_side,
+            edges=edges,
+            confidence=confidence,
+            elo=elo,
+            h2h=h2h,
+            recent_form=recent_form,
+            match_dynamics=match_dynamics,
+            flags=flags,
+        )
+
         return {
             "available": True,
             "error": None,
@@ -223,15 +261,29 @@ class ThinqService:
             },
             "recent_form": recent_form,
             "match_dynamics": match_dynamics,
+            "thinq_probability_layer": thinq_probability_layer,
+            "probability_layer": thinq_probability_layer,
             "contexts": {
                 "match_dynamics": match_dynamics,
                 "h2h": h2h,
                 "recent_form": recent_form,
                 "elo": elo,
+                "thinq_probability_layer": thinq_probability_layer,
             },
             "edges": edges,
             "flags": sorted(set(flags)),
             "thinq_available": True,
+            "thinq_probability_status": thinq_probability_layer.get("status"),
+            "thinq_model_version": thinq_probability_layer.get("model_version"),
+            "thinq_probability": thinq_probability_layer.get("pick_probability"),
+            "thinq_probability_pct": thinq_probability_layer.get("pick_probability_pct"),
+            "thinq_winner": thinq_probability_layer.get("winner"),
+            "thinq_winner_side": thinq_probability_layer.get("winner_side"),
+            "thinq_winner_probability": thinq_probability_layer.get("winner_probability"),
+            "thinq_winner_probability_pct": thinq_probability_layer.get("winner_probability_pct"),
+            "thinq_edge": thinq_probability_layer.get("edge"),
+            "thinq_probability_confidence": thinq_probability_layer.get("confidence"),
+            "thinq_probability_components": thinq_probability_layer.get("components"),
             "thinq_confidence": confidence,
             "thinq_selected_elo_type": elo.get("selected_elo_type"),
             "thinq_elo_pick": elo.get("pick_elo"),
