@@ -35,7 +35,6 @@ try:
     from corq.messages import public_flag_labels
 except Exception:
     def public_flag_labels(flags, max_items=4):
-        # Safe fallback: hide raw technical flags from public cards if registry is unavailable.
         return []
 
 OUTPUT_ROOT = Path("outputs")
@@ -47,8 +46,8 @@ RESULTS_DISPLAY_TIME_OFFSET_HOURS = int(os.getenv("RESULTS_DISPLAY_TIME_OFFSET_H
 DEFAULT_GAMES_LINE = 22.5
 
 CSS = """
-:root{--bg:#070b12;--panel:#0d1422;--panel2:#111b2d;--line:#22314a;--text:#f8fafc;--muted:#94a3b8;--blue:#38bdf8;--green:#22c55e;--red:#fb7185;--yellow:#facc15;--orange:#fb923c}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 12% 0,#172542 0,#070b12 38%,#05070d 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}.page{max-width:1500px;margin:0 auto;padding:28px}header{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:20px}.brand h1{margin:0;font-size:32px;letter-spacing:-.045em}.brand p{margin:7px 0 0;color:var(--muted)}nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}nav a{color:#cbd5e1;text-decoration:none;border:1px solid var(--line);padding:9px 12px;border-radius:999px;font-size:12px;background:rgba(13,20,34,.72)}nav a.active{color:#07110b;background:var(--green);border-color:var(--green);font-weight:900}.cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:18px 0 22px}.summary{background:linear-gradient(180deg,rgba(17,27,45,.96),rgba(13,20,34,.96));border:1px solid var(--line);border-radius:18px;padding:16px}.summary .label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.summary .value{font-size:26px;font-weight:900;margin-top:4px}.notice{border:1px solid #92400e;background:rgba(120,53,15,.25);color:#fed7aa;padding:14px 16px;border-radius:16px;margin:16px 0}.match-list{display:flex;flex-direction:column;gap:14px}.match-card{display:grid;grid-template-columns:52px minmax(260px,1.25fr) 130px minmax(650px,2.45fr);gap:14px;align-items:stretch;background:rgba(13,20,34,.9);border:1px solid var(--line);border-radius:22px;padding:14px}.match-card.audit{grid-template-columns:52px minmax(260px,1.2fr) 130px minmax(760px,2.7fr)}.rank{font-size:18px;font-weight:900;color:var(--blue)}.pick-name{font-size:16px;font-weight:900}.pick-odds{margin-top:3px;color:var(--yellow);font-size:12px;font-weight:900}.pick-action{margin-top:5px;color:var(--green);font-size:11px;font-weight:900;text-transform:lowercase;letter-spacing:.05em}.opponent-name{margin-top:2px;color:#cbd5e1;font-size:13px;font-weight:700}.opponent-odds{color:var(--muted);font-size:11px;margin-top:1px}.match-meta{color:var(--blue);font-size:11px;margin-top:6px}.status-line{color:var(--muted);font-size:10px;margin-top:6px}.chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}.chip{font-size:9px;border:1px solid var(--line);color:#cbd5e1;border-radius:999px;padding:3px 6px;background:#08101d}.score-box{border-radius:18px;border:1px solid var(--line);background:rgba(8,16,29,.95);padding:13px}.score-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}.score-main{font-size:28px;margin-top:5px;font-weight:950}.score-sub{font-size:11px;color:#cbd5e1;margin-top:4px}.positive{color:var(--green)}.negative{color:var(--red)}.neutral{color:var(--muted)}.intel-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.intel-card{background:rgba(8,16,29,.86);border:1px solid var(--line);border-radius:18px;padding:12px}.intel-title{font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}.kv{display:flex;justify-content:space-between;gap:8px;font-size:11px;border-top:1px solid rgba(34,49,74,.55);padding-top:6px;margin-top:6px}.kv span{color:#94a3b8}.kv strong{text-align:right;color:#f8fafc}.mini-audit{margin-top:8px;color:#64748b;font-size:10px}.blockers{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}.blockers span{font-size:10px;border:1px solid #7f1d1d;color:#fecaca;border-radius:999px;padding:3px 7px;background:rgba(127,29,29,.35)}table{width:100%;border-collapse:collapse;background:rgba(13,20,34,.82);border:1px solid var(--line);border-radius:18px;overflow:hidden}th,td{text-align:left;padding:10px;border-bottom:1px solid rgba(34,49,74,.65);font-size:12px}th{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em;background:rgba(8,16,29,.9)}td{color:#e2e8f0}.section-title{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin:26px 0 12px}.section-title h2{margin:0}.rss-box{background:rgba(8,16,29,.88);border:1px solid var(--line);border-radius:18px;padding:14px;margin:16px 0;color:#cbd5e1;font-size:12px}footer{color:#64748b;font-size:11px;margin-top:28px}
-.logo-brand{display:flex;align-items:center;gap:14px}.logo-brand img{width:58px;height:58px;border-radius:50%;object-fit:cover;border:1px solid rgba(56,189,248,.55);box-shadow:0 0 20px rgba(56,189,248,.18)}.brand-kicker{color:#38bdf8;font-size:12px;text-transform:uppercase;letter-spacing:.16em;font-weight:800}.brand h1.compact-title{font-size:24px;margin-top:2px}.brand p.compact-subtitle{font-size:12px;margin-top:2px}.hero-compact{align-items:center}.cards.compact-cards{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:8px}.summary:first-child.hide-candidate{display:none}.rss-box a{color:#f8fafc;text-decoration:none}.rss-pill{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;padding:5px 9px;background:#08101d;margin-left:8px}.subtle-chip{opacity:.58}.corq-card{border-color:rgba(56,189,248,.38)}.intel-title-row{display:flex;justify-content:space-between;align-items:center;gap:10px}.thin-prob{font-size:18px;font-weight:950;color:var(--green)}.log-link{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border:1px solid var(--line);border-radius:999px;color:#38bdf8;text-decoration:none;background:#08101d;margin-left:8px;font-size:13px}.log-link:hover{border-color:#38bdf8}.json-pre{white-space:pre-wrap;background:#08101d;border:1px solid var(--line);border-radius:18px;padding:16px;color:#cbd5e1;font-size:12px;line-height:1.45;overflow:auto} .log-actions{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.log-actions a{color:#f8fafc;text-decoration:none;border:1px solid var(--line);padding:7px 10px;border-radius:999px;background:#08101d}
+:root{--bg:#070b12;--panel:#0d1422;--panel2:#111b2d;--line:#22314a;--text:#f8fafc;--muted:#94a3b8;--blue:#38bdf8;--green:#22c55e;--red:#fb7185;--yellow:#facc15;--orange:#fb923c}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 12% 0,#172542 0,#070b12 38%,#05070d 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}.page{max-width:1500px;margin:0 auto;padding:28px}header{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:20px}.brand h1{margin:0;font-size:32px;letter-spacing:-.045em}.brand p{margin:7px 0 0;color:var(--muted)}nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}nav a{color:#cbd5e1;text-decoration:none;border:1px solid var(--line);padding:9px 12px;border-radius:999px;font-size:12px;background:rgba(13,20,34,.72)}nav a.active{color:#07110b;background:var(--green);border-color:var(--green);font-weight:900}.cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:18px 0 22px}.summary{background:linear-gradient(180deg,rgba(17,27,45,.96),rgba(13,20,34,.96));border:1px solid var(--line);border-radius:18px;padding:16px}.summary .label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.summary .value{font-size:26px;font-weight:900;margin-top:4px}.notice{border:1px solid #92400e;background:rgba(120,53,15,.25);color:#fed7aa;padding:14px 16px;border-radius:16px;margin:16px 0}.match-list{display:flex;flex-direction:column;gap:14px}.match-card{display:grid;grid-template-columns:52px minmax(260px,1.20fr) 130px 130px minmax(760px,2.80fr);gap:14px;align-items:stretch;background:rgba(13,20,34,.9);border:1px solid var(--line);border-radius:22px;padding:14px}.match-card.audit{grid-template-columns:52px minmax(260px,1.15fr) 130px 130px minmax(860px,3fr)}.rank{font-size:18px;font-weight:900;color:var(--blue)}.pick-name{font-size:16px;font-weight:900}.pick-odds{margin-top:3px;color:var(--yellow);font-size:12px;font-weight:900}.pick-action{margin-top:5px;color:var(--green);font-size:11px;font-weight:900;text-transform:lowercase;letter-spacing:.05em}.opponent-name{margin-top:2px;color:#cbd5e1;font-size:13px;font-weight:700}.opponent-odds{color:var(--muted);font-size:11px;margin-top:1px}.match-meta{color:var(--blue);font-size:11px;margin-top:6px}.status-line{color:var(--muted);font-size:10px;margin-top:6px}.chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}.chip{font-size:9px;border:1px solid var(--line);color:#cbd5e1;border-radius:999px;padding:3px 6px;background:#08101d}.score-box{border-radius:18px;border:1px solid var(--line);background:rgba(8,16,29,.95);padding:13px}.score-box.thinq-score{border-color:rgba(34,197,94,.45)}.score-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}.score-main{font-size:28px;margin-top:5px;font-weight:950}.score-sub{font-size:11px;color:#cbd5e1;margin-top:4px}.positive{color:var(--green)}.negative{color:var(--red)}.neutral{color:var(--muted)}.intel-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.intel-card{background:rgba(8,16,29,.86);border:1px solid var(--line);border-radius:18px;padding:12px}.intel-title{font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}.kv{display:flex;justify-content:space-between;gap:8px;font-size:11px;border-top:1px solid rgba(34,49,74,.55);padding-top:6px;margin-top:6px}.kv span{color:#94a3b8}.kv strong{text-align:right;color:#f8fafc}.mini-audit{margin-top:8px;color:#64748b;font-size:10px}.blockers{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}.blockers span{font-size:10px;border:1px solid #7f1d1d;color:#fecaca;border-radius:999px;padding:3px 7px;background:rgba(127,29,29,.35)}table{width:100%;border-collapse:collapse;background:rgba(13,20,34,.82);border:1px solid var(--line);border-radius:18px;overflow:hidden}th,td{text-align:left;padding:10px;border-bottom:1px solid rgba(34,49,74,.65);font-size:12px}th{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em;background:rgba(8,16,29,.9)}td{color:#e2e8f0}.section-title{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin:26px 0 12px}.section-title h2{margin:0}.rss-box{background:rgba(8,16,29,.88);border:1px solid var(--line);border-radius:18px;padding:14px;margin:16px 0;color:#cbd5e1;font-size:12px}footer{color:#64748b;font-size:11px;margin-top:28px}
+.logo-brand{display:flex;align-items:center;gap:14px}.logo-brand img{width:58px;height:58px;border-radius:50%;object-fit:cover;border:1px solid rgba(56,189,248,.55);box-shadow:0 0 20px rgba(56,189,248,.18)}.brand-kicker{color:#38bdf8;font-size:12px;text-transform:uppercase;letter-spacing:.16em;font-weight:800}.brand h1.compact-title{font-size:24px;margin-top:2px}.brand p.compact-subtitle{font-size:12px;margin-top:2px}.hero-compact{align-items:center}.cards.compact-cards{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:8px}.summary:first-child.hide-candidate{display:none}.rss-box a{color:#f8fafc;text-decoration:none}.rss-pill{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;padding:5px 9px;background:#08101d;margin-left:8px}.subtle-chip{opacity:.58}.corq-card{border-color:rgba(56,189,248,.38)}.log-link{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border:1px solid var(--line);border-radius:999px;color:#38bdf8;text-decoration:none;background:#08101d;margin-left:8px;font-size:13px}.log-link:hover{border-color:#38bdf8}.json-pre{white-space:pre-wrap;background:#08101d;border:1px solid var(--line);border-radius:18px;padding:16px;color:#cbd5e1;font-size:12px;line-height:1.45;overflow:auto}.log-actions{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.log-actions a{color:#f8fafc;text-decoration:none;border:1px solid var(--line);padding:7px 10px;border-radius:999px;background:#08101d}
 
 """
 
@@ -77,14 +76,10 @@ def safe_slug(value: Any, fallback: str = "match") -> str:
 
 def match_key(row: Dict[str, Any], idx: int = 0) -> str:
     raw = row.get("raw") if isinstance(row.get("raw"), dict) else {}
-    key = first_present(
-        row.get("event_custom_id"), row.get("customId"), row.get("custom_id"), raw.get("customId"), raw.get("custom_id"),
-        row.get("event_id"), row.get("match_id"), row.get("id"),
-    )
+    key = first_present(row.get("event_custom_id"), row.get("customId"), row.get("custom_id"), raw.get("customId"), raw.get("custom_id"), row.get("event_id"), row.get("match_id"), row.get("id"))
     if key:
         return safe_slug(key, f"match-{idx}")
-    pair = f"{row.get('pick') or 'pick'}-{row.get('opponent') or 'opponent'}-{idx}"
-    return safe_slug(pair, f"match-{idx}")
+    return safe_slug(f"{row.get('pick') or 'pick'}-{row.get('opponent') or 'opponent'}-{idx}", f"match-{idx}")
 
 
 def match_log_href(row: Dict[str, Any]) -> str:
@@ -94,10 +89,11 @@ def match_log_href(row: Dict[str, Any]) -> str:
 def thinq_log_payload(row: Dict[str, Any]) -> Dict[str, Any]:
     t = thinq(row)
     flat = {k: v for k, v in row.items() if str(k).startswith("thinq_")}
+    raw = row.get("raw") if isinstance(row.get("raw"), dict) else {}
     return {
         "match": {
             "event_id": row.get("event_id"),
-            "event_custom_id": first_present(row.get("event_custom_id"), row.get("customId"), row.get("custom_id"), (row.get("raw") or {}).get("customId") if isinstance(row.get("raw"), dict) else None),
+            "event_custom_id": first_present(row.get("event_custom_id"), row.get("customId"), row.get("custom_id"), raw.get("customId"), raw.get("custom_id")),
             "pick": row.get("pick"),
             "opponent": row.get("opponent"),
             "player1": row.get("player1"),
@@ -113,7 +109,7 @@ def thinq_log_payload(row: Dict[str, Any]) -> Dict[str, Any]:
         "corq_components": row.get("corq_components"),
         "corq_probability_source": row.get("corq_probability_source"),
         "corq_estimated_win_probability": row.get("corq_estimated_win_probability"),
-        "raw": row.get("raw"),
+        "raw": raw,
     }
 
 
@@ -198,21 +194,6 @@ def pubdate(row: Optional[Dict[str, Any]] = None) -> str:
 def thinq(row: Dict[str, Any]) -> Dict[str, Any]:
     return row.get("thinq") if isinstance(row.get("thinq"), dict) else {}
 
-def thinq_probability_layer(row: Dict[str, Any]) -> Dict[str, Any]:
-    t = thinq(row)
-    layer = t.get("thinq_probability_layer") or t.get("probability_layer")
-    if isinstance(layer, dict):
-        return layer
-    layer = row.get("thinq_probability_layer") or row.get("probability_layer")
-    return layer if isinstance(layer, dict) else {}
-
-def thinq_pick_probability(row: Dict[str, Any]) -> Optional[float]:
-    layer = thinq_probability_layer(row)
-    val = as_float(first_present(layer.get("pick_probability"), layer.get("probability"), row.get("thinq_probability")))
-    if val is None:
-        return None
-    return val / 100.0 if val > 1 else val
-
 
 def match_dynamics(row: Dict[str, Any]) -> Dict[str, Any]:
     t = thinq(row)
@@ -247,14 +228,65 @@ def value_class(value: Any) -> str:
     return "positive" if val > 0 else "negative"
 
 
+def side_edge_label(value: Any, pick_label: str = "Pick", opp_label: str = "Opp") -> str:
+    val = as_float(value)
+    if val is None:
+        return "—"
+    if abs(val) < 0.00001:
+        return "Neutral 0.0%"
+    side = pick_label if val > 0 else opp_label
+    return f"{side} +{abs(val) * 100:.1f}%"
+
+
+def edge_pair(value: Any) -> tuple[str, str]:
+    val = as_float(value, 0.0) or 0.0
+    return edge_label(val), edge_label(-val)
+
+
+def h2h_readable(row: Dict[str, Any]) -> str:
+    hh = h2h(row)
+    total = int(as_float(hh.get("total_matches"), 0) or 0)
+    if total <= 0:
+        return "No previous matches"
+    pick_w = int(as_float(hh.get("pick_wins"), 0) or 0)
+    opp_w = int(as_float(hh.get("opponent_wins"), 0) or 0)
+    edge = as_float(first_present(hh.get("edge"), row.get("thinq_h2h_edge")), 0.0) or 0.0
+    if abs(edge) < 0.00001:
+        return f"{pick_w}-{opp_w} · 0.0%"
+    if edge > 0:
+        return f"Pick {pick_w}-{opp_w} · +{abs(edge) * 100:.1f}%"
+    return f"Opp {opp_w}-{pick_w} · +{abs(edge) * 100:.1f}%"
+
+
+def record_value(value: Any) -> str:
+    return str(value) if value not in (None, "") else "—"
+
+
+def thinq_probability_layer(row: Dict[str, Any]) -> Dict[str, Any]:
+    t = thinq(row)
+    layer = t.get("thinq_probability_layer") or t.get("probability_layer")
+    if isinstance(layer, dict):
+        return layer
+    layer = row.get("thinq_probability_layer") or row.get("probability_layer")
+    return layer if isinstance(layer, dict) else {}
+
+
+def thinq_probability_value(row: Dict[str, Any]) -> Optional[float]:
+    layer = thinq_probability_layer(row)
+    value = first_present(layer.get("pick_probability"), layer.get("probability"), row.get("thinq_probability"), probability_value(row, "thinq"))
+    val = as_float(value)
+    if val is None:
+        return None
+    return val / 100.0 if val > 1 else val
+
+
 def probability_value(row: Dict[str, Any], prefix: str) -> Optional[float]:
     candidates = []
     if prefix == "corq":
         candidates = [row.get("corq_probability"), row.get("corq_estimated_win_probability"), row.get("corq_score"), row.get("estimated_win_pct")]
     elif prefix == "thinq":
         t = thinq(row)
-        layer = thinq_probability_layer(row)
-        candidates = [row.get("thinq_probability"), layer.get("pick_probability"), layer.get("probability"), row.get("thinq_ai_probability"), t.get("win_probability"), t.get("probability"), t.get("score")]
+        candidates = [row.get("thinq_probability"), row.get("thinq_ai_probability"), t.get("win_probability"), t.get("probability"), t.get("score")]
     elif prefix == "cloq":
         candidates = [row.get("cloq_probability"), row.get("cloq_ai_probability"), row.get("cloq_score")]
     elif prefix == "marq_pick":
@@ -399,10 +431,23 @@ def score_block(row: Dict[str, Any]) -> str:
     )
 
 
+def thinq_score_block(row: Dict[str, Any]) -> str:
+    value = thinq_probability_value(row)
+    layer = thinq_probability_layer(row)
+    subtitle = layer.get("winner") or row.get("pick") or ""
+    return (
+        "<div class='score-box thinq-score'>"
+        "<div class='score-label'>ThinQ</div>"
+        f"<div class='score-main'>{esc(pct(value))}</div>"
+        f"<div class='score-sub'>{esc(subtitle)}</div>"
+        "</div>"
+    )
+
+
 def corq_block(row: Dict[str, Any]) -> str:
     edge = row.get("corq_edge")
     return (
-        "<div class='intel-card corq-card'><div class='intel-title'>CorQ</div>"
+        "<div class='intel-card corq-card'><div class='intel-title'>CORQ</div>"
         f"<div class='kv'><span>Probability</span><strong>{esc(pct(win_probability(row)))}</strong></div>"
         f"<div class='kv'><span>Corq AI</span><strong>{esc(pct(probability_value(row, 'corq')))}</strong></div>"
         f"<div class='kv'><span>Edge</span><strong class='{value_class(edge)}'>{esc(edge_label(edge))}</strong></div>"
@@ -412,47 +457,34 @@ def corq_block(row: Dict[str, Any]) -> str:
     )
 
 
-def h2h_display(row: Dict[str, Any]) -> str:
-    hh = h2h(row)
-    status = str(hh.get("status") or row.get("thinq_h2h_status") or "").upper()
-    total = int(as_float(hh.get("total_matches"), 0) or 0)
-    pick_wins = int(as_float(hh.get("pick_wins"), 0) or 0)
-    opp_wins = int(as_float(hh.get("opponent_wins"), 0) or 0)
-    edge = edge_label(first_present(hh.get("edge"), row.get("thinq_h2h_edge")))
-    if total <= 0:
-        return "No previous matches"
-    if status == "OK":
-        return f"OK · {pick_wins}-{opp_wins} · {edge}"
-    return f"{status or 'NO DATA'} · {edge}"
-
-def record_pair(value_a: Any, value_b: Any) -> str:
-    a = str(value_a) if value_a not in (None, "") else "—"
-    b = str(value_b) if value_b not in (None, "") else "—"
-    return f"{a} vs {b}"
-
 def thinq_block(row: Dict[str, Any]) -> str:
     e = elo(row)
     t = thinq(row)
     recent = t.get("recent_form") if isinstance(t.get("recent_form"), dict) else {}
+
+    pick_elo_edge = first_present(e.get("overall_elo_edge"), row.get("thinq_overall_elo_edge"), e.get("elo_edge"), row.get("thinq_elo_edge"))
+    pick_selo_edge = first_present(e.get("surface_elo_edge"), row.get("thinq_surface_elo_edge"))
+    pick_elo, opp_elo = edge_pair(pick_elo_edge)
+    pick_selo, opp_selo = edge_pair(pick_selo_edge)
+
+    pick_form = record_value(recent.get("pick_last10_record"))
+    pick_sform = record_value(recent.get("pick_surface_record"))
+    opp_form = record_value(recent.get("opponent_last10_record"))
+    opp_sform = record_value(recent.get("opponent_surface_record"))
+    quality = side_edge_label(first_present(recent.get("opponent_quality_edge"), row.get("thinq_opponent_quality_edge")))
+
     layer = thinq_probability_layer(row)
-    thin_prob = first_present(layer.get("pick_probability"), row.get("thinq_probability"), thinq_pick_probability(row))
-    elo_combo = f"{edge_label(first_present(e.get('overall_elo_edge'), row.get('thinq_overall_elo_edge'), e.get('elo_edge'), row.get('thinq_elo_edge')))} / {edge_label(first_present(e.get('surface_elo_edge'), row.get('thinq_surface_elo_edge')))}"
-    form_text = "Pending"
-    if recent.get("status") == "OK":
-        form_text = record_pair(recent.get("pick_last10_record"), recent.get("opponent_last10_record"))
-    surface_form_text = "Pending"
-    if recent.get("status") == "OK":
-        surface_form_text = record_pair(recent.get("pick_surface_record"), recent.get("opponent_surface_record"))
-    opp_quality = edge_label(first_present(recent.get("opponent_quality_edge"), row.get("thinq_opponent_quality_edge")))
+    conf = first_present(layer.get("confidence"), row.get("thinq_confidence"), t.get("confidence"))
+
     return (
-        "<div class='intel-card'><div class='intel-title-row'><div class='intel-title'>ThinQ</div>"
-        f"<div class='thin-prob'>{esc(pct(thin_prob))}</div></div>"
-        f"<div class='kv'><span>ELO / S-ELO</span><strong>{esc(elo_combo)}</strong></div>"
-        f"<div class='kv'><span>H2H</span><strong>{esc(h2h_display(row))}</strong></div>"
-        f"<div class='kv'><span>Form</span><strong>{esc(form_text)}</strong></div>"
-        f"<div class='kv'><span>Surface Form</span><strong>{esc(surface_form_text)}</strong></div>"
-        f"<div class='kv'><span>Opp Quality</span><strong>{esc(opp_quality)}</strong></div>"
-        f"<div class='kv'><span>Confidence</span><strong>{esc(pct(first_present(layer.get('confidence'), row.get('thinq_confidence'), t.get('confidence'))))}</strong></div>"
+        "<div class='intel-card'><div class='intel-title'>ThinQ details</div>"
+        f"<div class='kv'><span>Pick ELO / S-ELO</span><strong>{esc(pick_elo)} / {esc(pick_selo)}</strong></div>"
+        f"<div class='kv'><span>Opp ELO / S-ELO</span><strong>{esc(opp_elo)} / {esc(opp_selo)}</strong></div>"
+        f"<div class='kv'><span>H2H</span><strong>{esc(h2h_readable(row))}</strong></div>"
+        f"<div class='kv'><span>Pick Form / S-Form</span><strong>{esc(pick_form)} / {esc(pick_sform)}</strong></div>"
+        f"<div class='kv'><span>Opp Form / S-Form</span><strong>{esc(opp_form)} / {esc(opp_sform)}</strong></div>"
+        f"<div class='kv'><span>Form Quality</span><strong>{esc(quality)}</strong></div>"
+        f"<div class='kv'><span>Confidence</span><strong>{esc(pct(conf))}</strong></div>"
         "</div>"
     )
 
@@ -491,7 +523,7 @@ def row_card(row: Dict[str, Any], rank: int, audit: bool = False) -> str:
     if blockers:
         blocker_html = "<div class='blockers'>" + "".join(f"<span>{esc(b)}</span>" for b in blockers) + "</div>"
     cls = "match-card audit" if audit else "match-card"
-    return f"<article class='{cls}'><div class='rank'>#{rank}</div>{pick_block(row)}{score_block(row)}<div class='intel-grid'>{thinq_block(row)}{sets_games_block(row)}{marq_block(row)}</div>{blocker_html}</article>"
+    return f"<article class='{cls}'><div class='rank'>#{rank}</div>{pick_block(row)}{score_block(row)}{thinq_score_block(row)}<div class='intel-grid'>{thinq_block(row)}{sets_games_block(row)}{marq_block(row)}</div>{blocker_html}</article>"
 
 
 def nav(active: str) -> str:
@@ -718,8 +750,8 @@ def render() -> Dict[str, Any]:
     cloq_body = table_page(cloq_rows, "CloQ close-odds candidates")
     results_page_body = results_body(results)
 
-    write_page(TOP7_PATH, html_page("top7", "TBT PRO TOP7", "Production picks with CorQ, ThinQ, MARQ, Sets/Games and Telegram RSS fields.", top_body, summary))
-    write_page(ALL_PATH, html_page("all", "TBT PRO ALL", "Broad audit view with full intelligence display.", all_body, summary))
+    write_page(TOP7_PATH, html_page("top7", "TBT PRO TOP7", "Production picks with CORQ, THINQ, MARQ, Sets/Games and Telegram RSS fields.", top_body, summary))
+    write_page(ALL_PATH, html_page("all", "TBT PRO ALL", "Broad audit view with reject flags and full intelligence display.", all_body, summary))
     write_page(RESULTS_PATH, html_page("results", "TBT PRO Results", f"Results page. Display offset: UTC{RESULTS_DISPLAY_TIME_OFFSET_HOURS:+d}.", results_page_body, summary))
     write_page(THINQ_PATH, html_page("thinq", "TBT PRO ThinQ", "ThinQ intelligence output read-only display.", thinq_body, summary))
     write_page(CLOQ_PATH, html_page("cloq", "TBT PRO CloQ", "Close-odds candidate view.", cloq_body, summary))
