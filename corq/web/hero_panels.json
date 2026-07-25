@@ -1,0 +1,30 @@
+{
+  "description": "Editable three-panel hero content. Use tokens: {page_label}, {updated}, {top7_count}, {all_count}, {ranked_count}, {safe_top7_count}.",
+  "panels": [
+    {
+      "key": "snapshot",
+      "title": "Snapshot",
+      "lines": [
+        "{page_label} · Updated {updated}",
+        "TOP7 {top7_count} · ALL {all_count} · Ranked {ranked_count}"
+      ]
+    },
+    {
+      "key": "promo",
+      "title": "Promo / Partner",
+      "lines": [
+        "Editable content slot.",
+        "Use this panel for promo, partner message or project note."
+      ]
+    },
+    {
+      "key": "legal",
+      "title": "Notice",
+      "align": "right",
+      "lines": [
+        "This data is provided for informational and analytical purposes only.",
+        "Powered by BackstageTalks Statistical Engine"
+      ]
+    }
+  ]
+}

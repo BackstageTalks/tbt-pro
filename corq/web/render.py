@@ -58,6 +58,7 @@ OUTPUTS = ROOT / "outputs"
 SITE_ROOT = ROOT / "corq" / "site"
 LOGS_ROOT = SITE_ROOT / "logs"
 WEB_ASSETS_ROOT = ROOT / "corq" / "web" / "assets"
+HERO_PANELS_PATH = ROOT / "corq" / "web" / "hero_panels.json"
 SITE_ASSETS_ROOT = SITE_ROOT / "assets"
 BRATISLAVA_TZ = "Europe/Bratislava"
 
@@ -560,6 +561,69 @@ def sort_by_probability(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
 
 
+
+def load_hero_config() -> Dict[str, Any]:
+    default = {
+        "panels": [
+            {"key": "snapshot", "title": "Snapshot", "lines": ["{page_label} · Updated {updated}", "TOP7 {top7_count} · ALL {all_count} · Ranked {ranked_count}"]},
+            {"key": "promo", "title": "Promo / Partner", "lines": ["Editable content slot.", "Change this text in corq/web/hero_panels.json."]},
+            {"key": "legal", "title": "Notice", "align": "right", "lines": ["This data is provided for informational and analytical purposes only.", "Powered by BackstageTalks Statistical Engine"]},
+        ]
+    }
+    try:
+        if HERO_PANELS_PATH.exists():
+            data = json.loads(HERO_PANELS_PATH.read_text(encoding="utf-8"))
+            if isinstance(data, dict) and isinstance(data.get("panels"), list):
+                return data
+    except Exception:
+        pass
+    return default
+
+
+def hero_tokens(manifest: Dict[str, Any], page_label: str = "CorQ") -> Dict[str, str]:
+    updated = manifest.get("updated") or manifest.get("run_started_at") or manifest.get("run_date") or "—"
+    updated_text = str(updated)[:16].replace("T", " ") if updated else "—"
+    return {
+        "page_label": page_label,
+        "updated": updated_text,
+        "all_count": str(manifest.get("all_count", "—")),
+        "ranked_count": str(manifest.get("ranked_count", "—")),
+        "top7_count": str(manifest.get("top7_count", manifest.get("top7", "—"))),
+        "safe_top7_count": str(manifest.get("safe_top7_count", "—")),
+    }
+
+
+def apply_hero_tokens(text_value: Any, tokens: Dict[str, str]) -> str:
+    value = "" if text_value is None else str(text_value)
+    for key, replacement in tokens.items():
+        value = value.replace("{" + key + "}", replacement)
+    return value
+
+
+def hero_panels_html(manifest: Dict[str, Any], page_label: str = "CorQ") -> str:
+    config = load_hero_config()
+    tokens = hero_tokens(manifest, page_label=page_label)
+    panels = []
+    for panel in config.get("panels", [])[:3]:
+        if not isinstance(panel, dict):
+            continue
+        title = apply_hero_tokens(panel.get("title", ""), tokens)
+        lines = panel.get("lines") or []
+        if not isinstance(lines, list):
+            lines = [str(lines)]
+        body_parts = []
+        for line in lines:
+            rendered = apply_hero_tokens(line, tokens)
+            if rendered:
+                body_parts.append(f'<p>{esc(rendered)}</p>')
+        body = "".join(body_parts)
+        key = re.sub(r"[^a-z0-9_-]+", "-", str(panel.get("key", "panel")).lower()).strip("-") or "panel"
+        align = " right" if str(panel.get("align", "")).lower() == "right" else ""
+        panels.append(f'<section class="hero-panel hero-{esc(key)}{align}"><h3>{esc(title)}</h3>{body}</section>')
+    while len(panels) < 3:
+        panels.append('<section class="hero-panel"><h3>Editable</h3><p>Update corq/web/hero_panels.json.</p></section>')
+    return '<div class="hero-grid">' + ''.join(panels[:3]) + '</div>'
+
 def brand_html() -> str:
     logo = site_url("assets/tbt_ai_goat_icon.png")
     return (
@@ -586,10 +650,9 @@ def nav_html(active: str = "top7") -> str:
 
 
 def hero_copy(subtitle: str = "") -> str:
-    # Compact legal/powered notice shown on every public page.
-    # Page title and old subtitle are intentionally not rendered here;
-    # navigation and active tab already communicate the page context.
+    lead = subtitle or "AI Betting by BackstageTalks"
     return (
+        f'<p class="hero-lead">{esc(lead)}</p>'
         '<p class="hero-note">This data is provided for informational and analytical purposes only.</p>'
         '<p class="hero-powered">Powered by BackstageTalks Statistical Engine</p>'
     )
@@ -622,9 +685,7 @@ def page(title: str, rows: List[Dict[str, Any]], manifest: Dict[str, Any], subti
       {brand_html()}
       {nav_html(active)}
     </header>
-    <section class="hero hero-legal">
-      <div>{hero_copy(subtitle)}</div>
-    </section>
+    {hero_panels_html(manifest, page_label=title)}
     <section class="summary">
       <div><span>ALL</span><strong>{esc(manifest.get('all_count', '—'))}</strong></div>
       <div><span>Ranked</span><strong>{esc(manifest.get('ranked_count', '—'))}</strong></div>
@@ -656,7 +717,7 @@ def rss_xml(rows: List[Dict[str, Any]]) -> str:
 
 
 def placeholder(title: str, body: str, active: str = "results") -> str:
-    return f"""<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{esc(title)}</title><style>{CSS + tooltip_css()}</style></head><body><div class="shell"><header class="topbar">{brand_html()}{nav_html(active)}</header><section class="hero hero-legal"><div>{hero_copy(body)}</div></section></div></body></html>"""
+    return f"""<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{esc(title)}</title><style>{CSS + tooltip_css()}</style></head><body><div class="shell"><header class="topbar">{brand_html()}{nav_html(active)}</header>{hero_panels_html({}, page_label=title)}</div></body></html>"""
 
 
 def write(path: Path, content: str):
@@ -670,7 +731,7 @@ def render():
     prepare_assets()
     ordered_top7 = sort_by_probability(top7)[:7]
     write(SITE_ROOT / "index.html", f"<meta http-equiv='refresh' content='0; url={CORQ_PATH}/'>")
-    write(SITE_ROOT / CORQ_PATH / "index.html", page("CorQ TOP7", ordered_top7, manifest, "", active="top7"))
+    write(SITE_ROOT / CORQ_PATH / "index.html", page("CorQ TOP7", ordered_top7, manifest, "AI Betting by BackstageTalks", active="top7"))
     write(SITE_ROOT / ALL_PATH / "index.html", all_page(all_rows or top7, manifest))
     write(SITE_ROOT / RESULTS_PATH / "index.html", placeholder("Results", "Results runtime will evaluate saved snapshots and show Today, Last 7 days, Current month and All time.", active="results"))
     write(SITE_ROOT / CLOQ_PATH / "index.html", placeholder("CloQ", "CloQ will be enabled after ThinQ probability is stable for close-odds selection.", active="cloq"))
@@ -683,7 +744,7 @@ def render():
 
 CSS = r'''
 :root{--bg:#06111f;--panel:#0b1b2b;--panel2:#081827;--line:#16324c;--text:#e5f0ff;--muted:#89a3be;--green:#25f59a;--cyan:#28d7ff;--orange:#ffb35c;--red:#ff6b6b;}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,#0b2540 0,#06111f 38%,#030914 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}.shell{max-width:1800px;margin:0 auto;padding:22px}.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.brand{display:flex;gap:12px;align-items:center}.brand-logo{width:54px;height:54px;border-radius:999px;object-fit:cover;object-position:center;border:1px solid rgba(125,211,252,.9);box-shadow:0 0 0 3px rgba(40,215,255,.10),0 0 18px rgba(40,215,255,.16),0 10px 24px rgba(0,0,0,.32);background:transparent;display:block}.hero-note,.hero-powered{margin:0;color:var(--muted);font-size:12px;line-height:1.45}.hero-powered{margin-top:4px;color:#9bdfff}.hero-legal{min-height:auto;justify-content:flex-start}nav a.active{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(40,215,255,.55),0 0 18px rgba(40,215,255,.12);color:#fff;background:rgba(8,31,51,.95)}.brand-title{font-size:17px;font-weight:800}.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.09em;text-transform:uppercase}nav{display:flex;gap:8px;flex-wrap:wrap}nav a{color:#dff8ff;text-decoration:none;border:1px solid var(--line);background:#071827;border-radius:999px;padding:8px 13px;font-size:12px}nav a:hover{border-color:var(--cyan)}.hero{display:flex;justify-content:flex-start;align-items:center;background:rgba(8,24,39,.58);border:1px solid rgba(22,50,76,.9);border-radius:18px;padding:12px 18px;margin-bottom:14px}.hero p{margin:0;color:var(--muted)}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.summary div{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:12px}.summary span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.summary strong{font-size:20px}.cards{display:grid;gap:14px}.match-card{display:grid;grid-template-columns:250px minmax(0,1fr);gap:12px;background:rgba(6,17,31,.78);border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 10px 25px rgba(0,0,0,.22)}.pick-block{position:relative;background:var(--panel2);border:1px solid var(--line);border-radius:18px;padding:14px;min-height:220px}.rank{color:var(--cyan);font-weight:900;font-size:13px;margin-bottom:10px}.brain{position:absolute;right:12px;top:12px;text-decoration:none;color:#d2f7ff}.pick-name{font-weight:900;font-size:17px;line-height:1.2}.pick-odds{margin-top:6px;color:#ffe98d;font-weight:800;font-size:12px}.pick-action{text-transform:lowercase;color:var(--green);font-size:11px;letter-spacing:.06em;font-weight:900;margin-top:8px}.opp-name{margin-top:3px;color:#c9d7e8;font-weight:700}.opp-odds{margin-top:2px;color:var(--muted);font-size:12px}.meta{margin-top:12px;color:#6ee7ff;font-size:12px;line-height:1.35}.metrics-grid{display:grid;grid-template-columns:repeat(4,minmax(230px,1fr));gap:10px}.metric-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:12px;min-height:220px}.metric-card header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:9px;color:#9ddcff;text-transform:uppercase;letter-spacing:.10em;font-size:11px}.metric-card header strong{font-size:16px;color:var(--green);letter-spacing:0;text-transform:none}.metric-row{display:grid;grid-template-columns:1.1fr 1fr;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(22,50,76,.37)}.metric-row:last-child{border-bottom:0}.metric-row span{color:var(--muted);font-size:12px}.metric-row strong{font-size:12px;text-align:right;color:#f5fbff}.metric-row strong.support{color:#f5fbff}.metric-row strong.against{color:var(--orange)}.metric-row strong.neutral{color:#d5e5f6}.depth-row strong{text-align:right}.depth-wrap{display:flex;align-items:center;justify-content:flex-end;gap:8px}.depth-num{font-size:12px;color:#e5f9ff}.depth-bar{display:inline-block;width:96px;height:16px;border:1px solid #7febff;border-radius:999px;background:#10263f;overflow:hidden;vertical-align:middle;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}.depth-fill{display:block;height:100%;background:repeating-linear-gradient(135deg,#20c7d8 0 9px,#7af7ff 9px 13px);border-radius:999px}.badges{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;margin-top:-4px}.badges span{font-size:11px;color:#ffd89b;background:rgba(255,179,92,.12);border:1px solid rgba(255,179,92,.35);border-radius:999px;padding:4px 8px}.empty{padding:40px;text-align:center;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:18px}@media(max-width:1300px){.match-card{grid-template-columns:1fr}.metrics-grid{grid-template-columns:repeat(2,minmax(240px,1fr))}}@media(max-width:720px){.summary{grid-template-columns:repeat(2,1fr)}.metrics-grid{grid-template-columns:1fr}.hero,.topbar{align-items:flex-start;flex-direction:column;gap:12px}}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,#0b2540 0,#06111f 38%,#030914 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}.shell{max-width:1800px;margin:0 auto;padding:22px}.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.brand{display:flex;gap:12px;align-items:center}.brand-logo{width:54px;height:54px;border-radius:999px;object-fit:cover;object-position:center;border:1px solid rgba(125,211,252,.9);box-shadow:0 0 0 3px rgba(40,215,255,.10),0 0 18px rgba(40,215,255,.16),0 10px 24px rgba(0,0,0,.32);background:transparent;display:block}.hero-lead{margin:6px 0 0;color:#6ee7ff;font-size:14px}.hero-note,.hero-powered{margin:4px 0 0;color:var(--muted);font-size:12px}.hero-powered{color:#9bdfff}nav a.active{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(40,215,255,.55),0 0 18px rgba(40,215,255,.12);color:#fff;background:rgba(8,31,51,.95)}.brand-title{font-size:17px;font-weight:800}.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.09em;text-transform:uppercase}nav{display:flex;gap:8px;flex-wrap:wrap}nav a{color:#dff8ff;text-decoration:none;border:1px solid var(--line);background:#071827;border-radius:999px;padding:8px 13px;font-size:12px}nav a:hover{border-color:var(--cyan)}.hero-grid{display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:12px;margin-bottom:14px}.hero-panel{background:rgba(8,24,39,.58);border:1px solid rgba(22,50,76,.9);border-radius:18px;padding:13px 16px;min-height:74px}.hero-panel h3{margin:0 0 6px;color:#9ddcff;font-size:11px;text-transform:uppercase;letter-spacing:.10em}.hero-panel p{margin:3px 0;color:var(--muted);font-size:12px;line-height:1.45}.hero-panel.right{text-align:right}.hero-legal p:last-child{color:#9bdfff}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.summary div{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:12px}.summary span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.summary strong{font-size:20px}.cards{display:grid;gap:14px}.match-card{display:grid;grid-template-columns:250px minmax(0,1fr);gap:12px;background:rgba(6,17,31,.78);border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 10px 25px rgba(0,0,0,.22)}.pick-block{position:relative;background:var(--panel2);border:1px solid var(--line);border-radius:18px;padding:14px;min-height:220px}.rank{color:var(--cyan);font-weight:900;font-size:13px;margin-bottom:10px}.brain{position:absolute;right:12px;top:12px;text-decoration:none;color:#d2f7ff}.pick-name{font-weight:900;font-size:17px;line-height:1.2}.pick-odds{margin-top:6px;color:#ffe98d;font-weight:800;font-size:12px}.pick-action{text-transform:lowercase;color:var(--green);font-size:11px;letter-spacing:.06em;font-weight:900;margin-top:8px}.opp-name{margin-top:3px;color:#c9d7e8;font-weight:700}.opp-odds{margin-top:2px;color:var(--muted);font-size:12px}.meta{margin-top:12px;color:#6ee7ff;font-size:12px;line-height:1.35}.metrics-grid{display:grid;grid-template-columns:repeat(4,minmax(230px,1fr));gap:10px}.metric-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:12px;min-height:220px}.metric-card header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:9px;color:#9ddcff;text-transform:uppercase;letter-spacing:.10em;font-size:11px}.metric-card header strong{font-size:16px;color:var(--green);letter-spacing:0;text-transform:none}.metric-row{display:grid;grid-template-columns:1.1fr 1fr;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(22,50,76,.37)}.metric-row:last-child{border-bottom:0}.metric-row span{color:var(--muted);font-size:12px}.metric-row strong{font-size:12px;text-align:right;color:#f5fbff}.metric-row strong.support{color:#f5fbff}.metric-row strong.against{color:var(--orange)}.metric-row strong.neutral{color:#d5e5f6}.depth-row strong{text-align:right}.depth-wrap{display:flex;align-items:center;justify-content:flex-end;gap:8px}.depth-num{font-size:12px;color:#e5f9ff}.depth-bar{display:inline-block;width:96px;height:16px;border:1px solid #7febff;border-radius:999px;background:#10263f;overflow:hidden;vertical-align:middle;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}.depth-fill{display:block;height:100%;background:repeating-linear-gradient(135deg,#20c7d8 0 9px,#7af7ff 9px 13px);border-radius:999px}.badges{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;margin-top:-4px}.badges span{font-size:11px;color:#ffd89b;background:rgba(255,179,92,.12);border:1px solid rgba(255,179,92,.35);border-radius:999px;padding:4px 8px}.empty{padding:40px;text-align:center;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:18px}@media(max-width:1300px){.match-card{grid-template-columns:1fr}.metrics-grid{grid-template-columns:repeat(2,minmax(240px,1fr))}}@media(max-width:720px){.summary{grid-template-columns:repeat(2,1fr)}.metrics-grid{grid-template-columns:1fr}.topbar{align-items:flex-start;flex-direction:column;gap:12px}.hero-grid{grid-template-columns:1fr}.hero-panel.right{text-align:left}}
 '''
 
 if __name__ == "__main__":
