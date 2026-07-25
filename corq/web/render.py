@@ -31,6 +31,13 @@ from corq.web.paths import (
     page_url,
 )
 
+try:
+    from corq.messages import public_flag_labels
+except Exception:
+    def public_flag_labels(flags, max_items=4):
+        # Safe fallback: hide raw technical flags from public cards if registry is unavailable.
+        return []
+
 OUTPUT_ROOT = Path("outputs")
 SITE_ROOT = Path("corq/site")
 ASSET_ROOT = Path("corq/web/assets")
