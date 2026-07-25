@@ -1,0 +1,38 @@
+name: Build CloQ Preview
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Daily Tennis Predictions"]
+    types: [completed]
+
+permissions:
+  contents: write
+
+jobs:
+  build-cloq:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Build CloQ from ALL
+        run: python -m cloq.builder --input outputs/latest_all.json --output-root outputs --print-summary
+
+      - name: Commit CloQ outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add outputs/latest_cloq.json outputs/cloq || true
+          if git diff --cached --quiet; then
+            echo "No CloQ output changes."
+          else
+            git commit -m "Update CloQ preview output"
+            git push
+          fi
