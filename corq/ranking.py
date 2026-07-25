@@ -13,7 +13,13 @@ and older field names and writes explicit audit fields back to each row.
 from __future__ import annotations
 
 from copy import deepcopy
+from datetime import datetime, timezone
+import os
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
+try:
+    from zoneinfo import ZoneInfo
+except Exception:  # pragma: no cover
+    ZoneInfo = None
 
 TOP_N_DEFAULT = 7
 TOP7_FILTER_MODE = "PUBLISHABLE_CORQ_THINQ_GUARD_V1"
@@ -24,6 +30,9 @@ MIN_PICK_DATA_DEPTH = 0.40
 MIN_ELO_DEPTH_IF_MISSING = 0.50
 MIN_THINQ_CONFIDENCE = 0.50
 EXTREME_UNKNOWN_ODDS_GAP_PCT = 1.50
+MIN_PICK_ODDS = 1.40
+MIN_FORM_DATA_DEPTH = 0.40
+BRATISLAVA_TZ = "Europe/Bratislava"
 
 OPEN_STATUS_TYPES = {
     "notstarted",
@@ -123,6 +132,72 @@ def _first(row: Dict[str, Any], keys: Sequence[str], default: Any = None) -> Any
             return row.get(key)
     return default
 
+
+
+
+def _local_today() -> str:
+    explicit = os.getenv("CORQ_RUN_DATE") or os.getenv("RUN_DATE") or os.getenv("GITHUB_RUN_DATE")
+    if explicit:
+        return str(explicit)[:10]
+    now = datetime.now(timezone.utc)
+    if ZoneInfo is not None:
+        now = now.astimezone(ZoneInfo(BRATISLAVA_TZ))
+    return now.date().isoformat()
+
+
+def _parse_match_datetime(value: Any) -> Optional[datetime]:
+    if value in (None, ""):
+        return None
+    if isinstance(value, (int, float)):
+        try:
+            return datetime.fromtimestamp(float(value), tz=timezone.utc)
+        except Exception:
+            return None
+    text = str(value).strip()
+    if not text:
+        return None
+    if text.endswith("Z"):
+        text = text[:-1] + "+00:00"
+    try:
+        dt = datetime.fromisoformat(text)
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt.astimezone(timezone.utc)
+    except Exception:
+        return None
+
+
+def _match_date_local(row: Dict[str, Any]) -> Optional[str]:
+    raw = row.get("raw") if isinstance(row.get("raw"), dict) else {}
+    candidates = [
+        row.get("match_start"),
+        row.get("start_time"),
+        row.get("startTimestamp"),
+        row.get("start_timestamp"),
+        row.get("date"),
+        raw.get("startTimestamp"),
+        raw.get("start_time"),
+    ]
+    for value in candidates:
+        dt = _parse_match_datetime(value)
+        if dt is None:
+            # Some rows can already carry YYYY-MM-DD date strings.
+            txt = str(value or "").strip()
+            if len(txt) >= 10 and txt[4:5] == "-":
+                return txt[:10]
+            continue
+        if ZoneInfo is not None:
+            dt = dt.astimezone(ZoneInfo(BRATISLAVA_TZ))
+        return dt.date().isoformat()
+    return None
+
+
+def is_today_match(row: Dict[str, Any]) -> bool:
+    match_day = _match_date_local(row)
+    if match_day is None:
+        # Keep undated rows in ALL, but TOP7 will still be protected by status/odds/data guards.
+        return True
+    return match_day == _local_today()
 
 def _flags(row: Dict[str, Any]) -> List[str]:
     out: List[str] = []
@@ -264,6 +339,33 @@ def pick_data_depth(row: Dict[str, Any]) -> float:
     return computed_pick_data_depth(row)
 
 
+
+
+def form_data_depth(row: Dict[str, Any]) -> float:
+    """Return form-layer data depth as 0..1.
+
+    This is separate from overall ThinQ confidence.  A match can have strong
+    ELO/H2H support but weak form depth.  For TOP7 we require at least a basic
+    form data floor, because public picks should not be built on empty recent form.
+    """
+    for key in ("form_data_depth", "form_confidence", "thinq_form_confidence"):
+        value = row.get(key)
+        x = _prob(value, -1.0)
+        if x >= 0:
+            return max(0.0, min(x, 1.0))
+    rf = _get_nested(row, "thinq", "recent_form")
+    if isinstance(rf, dict):
+        for key in ("form_data_depth", "form_confidence"):
+            x = _prob(rf.get(key), -1.0)
+            if x >= 0:
+                return max(0.0, min(x, 1.0))
+    return 0.0
+
+
+def pick_odds_value(row: Dict[str, Any]) -> Optional[float]:
+    value = _first(row, ["pick_odds", "odds", "odds_player1", "home_odds", "p1_odds", "price1"], None)
+    return _as_float(value, None)
+
 def odds_available(row: Dict[str, Any]) -> bool:
     if row.get("odds_pair_available") is True:
         return True
@@ -326,8 +428,13 @@ def top7_reject_reasons(row: Dict[str, Any]) -> List[str]:
     edge = pick_thinq_edge(row)
     depth = pick_data_depth(row)
 
+    if not is_today_match(row):
+        reasons.append("REJECT_TOP7_NOT_TODAY_MATCH")
     if not is_notstarted(row):
         reasons.append("REJECT_TOP7_STATUS_NOT_NOTSTARTED")
+    odds_value = pick_odds_value(row)
+    if odds_value is not None and odds_value < MIN_PICK_ODDS:
+        reasons.append("REJECT_TOP7_LOW_ODDS_UNDER_1_40")
     if cp < MIN_CORQ_PROBABILITY:
         reasons.append("REJECT_TOP7_CORQ_BELOW_50")
     if edge < MIN_PICK_THINQ_EDGE:
@@ -336,6 +443,8 @@ def top7_reject_reasons(row: Dict[str, Any]) -> List[str]:
         reasons.append("REJECT_TOP7_LOW_PICK_DATA_DEPTH")
     if thinq_confidence(row) < MIN_THINQ_CONFIDENCE:
         reasons.append("REJECT_TOP7_LOW_THINQ_CONFIDENCE")
+    if form_data_depth(row) < MIN_FORM_DATA_DEPTH:
+        reasons.append("REJECT_TOP7_LOW_FORM_DATA_DEPTH")
     if not odds_available(row):
         reasons.append("REJECT_TOP7_MISSING_ODDS")
     if is_doubles(row):
@@ -385,6 +494,9 @@ def annotate_top7_quality(row: Dict[str, Any]) -> Dict[str, Any]:
     row["top7_thinq_confidence"] = round(conf, 6)
     row["pick_data_depth"] = round(depth, 6)
     row["stat_data_depth"] = round(depth, 6)
+    row["form_data_depth"] = round(form_data_depth(row), 6)
+    row["top7_pick_odds"] = pick_odds_value(row)
+    row["top7_match_date_local"] = _match_date_local(row)
     row["top7_quality_score"] = top7_quality_score(row) if not reasons else 0.0
     return row
 
@@ -484,12 +596,13 @@ def _ranking_score(row: Dict[str, Any]) -> float:
 
 
 def make_all_match_view(predictions: Iterable[Dict[str, Any]], *args: Any, **kwargs: Any) -> List[Dict[str, Any]]:
-    """Return broad ALL audit view with TOP7 quality annotations.
+    """Return today's broad ALL audit view with TOP7 quality annotations.
 
-    Legacy engine imports this name directly.  ALL must stay broad, so this
-    function annotates rows but does not remove rejected/non-publishable rows.
+    ALL stays broad for today's slate only. Yesterday and older matches belong
+    to Results, not to the current ALL/TOP7 page.
     """
-    return annotate_rows(list(predictions or []))
+    rows = [r for r in list(predictions or []) if isinstance(r, dict) and is_today_match(r)]
+    return annotate_rows(rows)
 
 
 def rank_corq(predictions: Iterable[Dict[str, Any]], *args: Any, **kwargs: Any) -> List[Dict[str, Any]]:
