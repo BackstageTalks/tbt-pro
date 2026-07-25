@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-25T05:47:41.764607+00:00",
+  "generated_at": "2026-07-25T06:23:10.104649+00:00",
   "root": "data/history",
   "years": [
     2024,
@@ -10,8 +10,13 @@
     "atp",
     "wta"
   ],
-  "ok": 9,
-  "fail": 6,
+  "ok": 15,
+  "fail": 0,
+  "providers": [
+    "tennismylife",
+    "sackmann_archive",
+    "sackmann_upstream"
+  ],
   "results": [
     {
       "url": "https://stats.tennismylife.org/data/2024.csv",
@@ -86,56 +91,56 @@
       "name": "atp_quali/2026_atp_quali.csv"
     },
     {
-      "url": "https://raw.githubusercontent.com/JeffSackmann/tennis_atp/master/atp_matches_2024.csv",
-      "path": "data/history/sackmann/atp/2024/atp_matches_2024.csv",
-      "status": "ERROR",
-      "error": "HTTP Error 404: Not Found",
-      "provider": "sackmann",
+      "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/main/atp/atp_matches_2024.csv",
+      "path": "data/history/sackmann_archive/atp/2024/atp_matches_2024.csv",
+      "status": "OK",
+      "bytes": 650136,
+      "provider": "sackmann_archive",
       "tour": "atp",
       "year": 2024
     },
     {
-      "url": "https://raw.githubusercontent.com/JeffSackmann/tennis_atp/master/atp_matches_2025.csv",
-      "path": "data/history/sackmann/atp/2025/atp_matches_2025.csv",
-      "status": "ERROR",
-      "error": "HTTP Error 404: Not Found",
-      "provider": "sackmann",
+      "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/main/atp/atp_matches_2025.csv",
+      "path": "data/history/sackmann_archive/atp/2025/atp_matches_2025.csv",
+      "status": "OK",
+      "bytes": 617154,
+      "provider": "sackmann_archive",
       "tour": "atp",
       "year": 2025
     },
     {
-      "url": "https://raw.githubusercontent.com/JeffSackmann/tennis_atp/master/atp_matches_2026.csv",
-      "path": "data/history/sackmann/atp/2026/atp_matches_2026.csv",
-      "status": "ERROR",
-      "error": "HTTP Error 404: Not Found",
-      "provider": "sackmann",
+      "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/main/atp/atp_matches_2026.csv",
+      "path": "data/history/sackmann_archive/atp/2026/atp_matches_2026.csv",
+      "status": "OK",
+      "bytes": 300795,
+      "provider": "sackmann_archive",
       "tour": "atp",
       "year": 2026
     },
     {
-      "url": "https://raw.githubusercontent.com/JeffSackmann/tennis_wta/master/wta_matches_2024.csv",
-      "path": "data/history/sackmann/wta/2024/wta_matches_2024.csv",
-      "status": "ERROR",
-      "error": "HTTP Error 404: Not Found",
-      "provider": "sackmann",
+      "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/main/wta/wta_matches_2024.csv",
+      "path": "data/history/sackmann_archive/wta/2024/wta_matches_2024.csv",
+      "status": "OK",
+      "bytes": 542425,
+      "provider": "sackmann_archive",
       "tour": "wta",
       "year": 2024
     },
     {
-      "url": "https://raw.githubusercontent.com/JeffSackmann/tennis_wta/master/wta_matches_2025.csv",
-      "path": "data/history/sackmann/wta/2025/wta_matches_2025.csv",
-      "status": "ERROR",
-      "error": "HTTP Error 404: Not Found",
-      "provider": "sackmann",
+      "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/main/wta/wta_matches_2025.csv",
+      "path": "data/history/sackmann_archive/wta/2025/wta_matches_2025.csv",
+      "status": "OK",
+      "bytes": 565244,
+      "provider": "sackmann_archive",
       "tour": "wta",
       "year": 2025
     },
     {
-      "url": "https://raw.githubusercontent.com/JeffSackmann/tennis_wta/master/wta_matches_2026.csv",
-      "path": "data/history/sackmann/wta/2026/wta_matches_2026.csv",
-      "status": "ERROR",
-      "error": "HTTP Error 404: Not Found",
-      "provider": "sackmann",
+      "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/main/wta/wta_matches_2026.csv",
+      "path": "data/history/sackmann_archive/wta/2026/wta_matches_2026.csv",
+      "status": "OK",
+      "bytes": 255577,
+      "provider": "sackmann_archive",
       "tour": "wta",
       "year": 2026
     }
