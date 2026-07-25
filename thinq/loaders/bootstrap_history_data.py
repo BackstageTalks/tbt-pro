@@ -2,25 +2,28 @@ from __future__ import annotations
 
 import json
 import os
-import re
 import time
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 DEFAULT_YEARS = [2024, 2025, 2026]
 DEFAULT_TOURS = ["atp", "wta"]
 ROOT = Path(os.environ.get("THINQ_HISTORY_ROOT", "data/history"))
 
-# Primary fallback for live 2026-friendly CSVs. The endpoint returns file names and download URLs.
 TML_FILES_API = "https://stats.tennismylife.org/api/data-files"
 
-# Historical Sackmann repos may not expose yearly match files through the expected raw URLs in this environment.
-# Keep these as optional attempts only, never as the only data source.
-SACKMANN_URLS = {
-    "atp": "https://raw.githubusercontent.com/JeffSackmann/tennis_atp/master/atp_matches_{year}.csv",
-    "wta": "https://raw.githubusercontent.com/JeffSackmann/tennis_wta/master/wta_matches_{year}.csv",
+# Public mirrors / upstreams. The archive mirror keeps ATP and WTA yearly files through 2026.
+ARCHIVE_URLS = {
+    "atp": [
+        "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/main/atp/atp_matches_{year}.csv",
+        "https://raw.githubusercontent.com/JeffSackmann/tennis_atp/master/atp_matches_{year}.csv",
+    ],
+    "wta": [
+        "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/main/wta/wta_matches_{year}.csv",
+        "https://raw.githubusercontent.com/JeffSackmann/tennis_wta/master/wta_matches_{year}.csv",
+    ],
 }
 
 
@@ -28,7 +31,7 @@ def _env_list(name: str, default: List[str]) -> List[str]:
     value = os.environ.get(name, "").strip()
     if not value:
         return default
-    return [x.strip() for x in value.split(",") if x.strip()]
+    return [x.strip().lower() for x in value.split(",") if x.strip()]
 
 
 def _download(url: str, dest: Path, timeout: int = 45) -> Dict[str, Any]:
@@ -57,67 +60,60 @@ def _fetch_tml_files() -> List[Dict[str, Any]]:
         return []
 
 
-def _select_tml_files(files: List[Dict[str, Any]], years: List[int], tours: List[str]) -> List[Dict[str, Any]]:
-    selected: List[Dict[str, Any]] = []
-    year_set = {str(y) for y in years}
-    want_atp = "atp" in tours
-    want_wta = "wta" in tours
-
-    for f in files:
-        name = str(f.get("name") or f.get("path") or "")
-        url = f.get("url")
-        if not url:
-            continue
-        low = name.lower()
-        # Keep only yearly/current history-ish files, not huge all-database unless no better source.
-        if not any(y in low for y in year_set):
-            continue
-        if want_atp and (
-            re.fullmatch(r"\d{4}\.csv", Path(low).name or "")
-            or "challenger" in low
-            or "_ch" in low
-            or "atp_quali" in low
-        ):
-            selected.append(f)
-            continue
-        if want_wta and ("wta" in low or "women" in low or "wta_" in low):
-            selected.append(f)
-            continue
-    return selected
-
-
 def bootstrap_from_tml(years: List[int], tours: List[str]) -> List[Dict[str, Any]]:
     files = _fetch_tml_files()
-    selected = _select_tml_files(files, years, tours)
+    selected: List[Dict[str, Any]] = []
+    year_tokens = {str(y) for y in years}
+    for f in files:
+        name = str(f.get("name") or f.get("path") or "").lower()
+        url = str(f.get("url") or "")
+        if not url or not any(y in name for y in year_tokens):
+            continue
+        if "atp" in tours and (
+            name.endswith(".csv") and (
+                name.split("/")[-1] in {f"{y}.csv" for y in year_tokens}
+                or "challenger" in name
+                or "_ch" in name
+                or "atp_quali" in name
+            )
+        ):
+            selected.append(f)
+        if "wta" in tours and ("wta" in name or "women" in name):
+            selected.append(f)
+
     results: List[Dict[str, Any]] = []
     print(f"TML files listed: {len(files)} selected: {len(selected)}")
     for f in selected:
         name = str(f.get("name") or Path(str(f.get("url"))).name)
-        safe = name.replace("\\", "/").strip("/")
-        # Put everything into data/history/tml while preserving subfolders like atp_quali/...
-        dest = ROOT / "tml" / safe
+        dest = ROOT / "tml" / name.replace("\\", "/").strip("/")
         res = _download(str(f.get("url")), dest)
         res.update({"provider": "tennismylife", "name": name})
         results.append(res)
-        print(f"TML {res.get('status')}: {name} -> {dest}")
+        print(f"TML {res.get('status')}: {name}")
         time.sleep(0.15)
     return results
 
 
-def bootstrap_from_sackmann(years: List[int], tours: List[str]) -> List[Dict[str, Any]]:
+def bootstrap_from_archives(years: List[int], tours: List[str]) -> List[Dict[str, Any]]:
     results: List[Dict[str, Any]] = []
     for tour in tours:
-        template = SACKMANN_URLS.get(tour)
-        if not template:
-            continue
+        templates = ARCHIVE_URLS.get(tour, [])
         for year in years:
-            url = template.format(year=year)
-            dest = ROOT / "sackmann" / tour / str(year) / f"{tour}_matches_{year}.csv"
-            res = _download(url, dest)
-            res.update({"provider": "sackmann", "tour": tour, "year": year})
-            results.append(res)
-            print(f"Sackmann {res.get('status')}: {tour} {year}")
-            time.sleep(0.15)
+            got_year = False
+            for template in templates:
+                url = template.format(year=year)
+                provider = "sackmann_archive" if "Aneeshers" in url else "sackmann_upstream"
+                dest = ROOT / provider / tour / str(year) / f"{tour}_matches_{year}.csv"
+                res = _download(url, dest)
+                res.update({"provider": provider, "tour": tour, "year": year})
+                results.append(res)
+                print(f"{provider} {res.get('status')}: {tour} {year}")
+                time.sleep(0.15)
+                if res.get("status") == "OK":
+                    got_year = True
+                    break
+            if not got_year:
+                print(f"No archive source succeeded for {tour} {year}")
     return results
 
 
@@ -127,10 +123,8 @@ def main() -> int:
     ROOT.mkdir(parents=True, exist_ok=True)
 
     results: List[Dict[str, Any]] = []
-    # Try the live 2026-friendly source first.
     results.extend(bootstrap_from_tml(years, tours))
-    # Then optional Sackmann raw fallback.
-    results.extend(bootstrap_from_sackmann(years, tours))
+    results.extend(bootstrap_from_archives(years, tours))
 
     ok = sum(1 for r in results if r.get("status") == "OK")
     fail = sum(1 for r in results if r.get("status") != "OK")
@@ -141,14 +135,12 @@ def main() -> int:
         "tours": tours,
         "ok": ok,
         "fail": fail,
+        "providers": ["tennismylife", "sackmann_archive", "sackmann_upstream"],
         "results": results,
     }
     (ROOT / "bootstrap_manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"THINQ history bootstrap finished: ok={ok} fail={fail} root={ROOT}")
-
-    # Important: do not fail the workflow if a provider is temporarily unavailable.
-    # Daily runtime must continue. A no-data manifest is enough for diagnostics.
-    return 0
+    return 0 if ok > 0 else 1
 
 
 if __name__ == "__main__":
