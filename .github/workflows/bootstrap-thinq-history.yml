@@ -31,6 +31,18 @@ jobs:
           THINQ_HISTORY_TOURS: ${{ github.event.inputs.tours }}
         run: |
           python thinq/loaders/bootstrap_history_data.py
+      - name: Show history manifest
+        run: |
+          if [ -f data/history/bootstrap_manifest.json ]; then
+            python - <<'PY'
+          import json
+          p='data/history/bootstrap_manifest.json'
+          m=json.load(open(p, encoding='utf-8'))
+          print('ok=', m.get('ok'), 'fail=', m.get('fail'))
+          for r in m.get('results', [])[:30]:
+              print(r.get('status'), r.get('provider'), r.get('tour'), r.get('year'), r.get('path'))
+          PY
+          fi
       - name: Commit history data
         run: |
           git config user.name "github-actions[bot]"
