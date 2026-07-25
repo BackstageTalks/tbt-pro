@@ -1,77 +1,62 @@
 {
   "corq_box": {
     "title": "CorQ",
-    "text": "CorQ is the final win probability for the displayed pick. It can use ThinQ data now and may later include MarQ market input.",
-    "short": "Final win probability for the displayed pick."
+    "text": "CorQ is the final win probability for the displayed pick. Positive values support the pick, negative values go against it."
   },
   "thinq_box": {
     "title": "ThinQ",
-    "text": "ThinQ shows the overall data quality behind the match analysis. It is not win probability. Higher values mean stronger data coverage and more reliable inputs.",
-    "short": "Overall data quality behind the match analysis."
+    "text": "ThinQ shows the overall data quality behind the match analysis. It is not win probability."
   },
   "pick_data_depth": {
     "title": "Pick Data Depth",
-    "text": "Pick Data Depth shows how strongly the available ThinQ data supports the displayed pick. It combines data quality with the strength and direction of the ThinQ edge.",
-    "short": "How strongly ThinQ data supports this pick."
+    "text": "Pick Data Depth shows how strongly the available ThinQ data supports the displayed pick."
   },
   "form_data_depth": {
     "title": "Form Data Depth",
-    "text": "Form Data Depth shows how reliable the Recent Form, Surface Form and Opponent Quality data are.",
-    "short": "Reliability of form-related data."
+    "text": "Form Data Depth shows the reliability of Recent Form, Surface Form and Opponent Quality data."
   },
   "elo_selo": {
     "title": "ELO / S-ELO",
-    "text": "ELO shows overall player strength. S-ELO shows strength on the current surface. Positive values support the pick. Negative values go against the pick.",
-    "short": "Overall ELO and surface ELO edge for the pick."
+    "text": "ELO is overall player strength. S-ELO is strength on the current surface. Positive values support the pick, negative values go against the pick."
   },
   "h2h": {
     "title": "H2H",
-    "text": "H2H means head-to-head history between the pick and the opponent. Example: 1W-0L means the pick won 1 previous match and lost 0 against this opponent.",
-    "short": "Head-to-head history between the two players."
+    "text": "Head-to-head history between the two players. Example: 1W-0L means the pick won one previous match and lost none against this opponent."
   },
   "s_h2h": {
     "title": "S-H2H",
-    "text": "S-H2H means head-to-head history between the two players only on the current surface. If no surface match exists, it is shown as No data.",
-    "short": "Head-to-head history on the current surface."
+    "text": "Surface head-to-head. This includes only previous meetings on the current surface."
   },
   "thinq_edge": {
     "title": "ThinQ Edge",
-    "text": "ThinQ Edge is the combined data edge from ThinQ layers. Positive values support the displayed pick. Negative values go against the displayed pick.",
-    "short": "Combined ThinQ data edge for the pick."
+    "text": "Combined ThinQ data edge from ELO, H2H, form, surface form, opponent quality and match dynamics."
   },
   "pick_form_sform": {
     "title": "Pick Form / S-Form",
-    "text": "Pick Form is the pick's recent overall win-loss record. S-Form is the pick's recent win-loss record on the current surface. Example: 7W-3L / 6W-4L.",
-    "short": "Pick recent form and surface form."
+    "text": "Pick Form is the pick's recent overall win-loss record. S-Form is the pick's recent record on the current surface."
   },
   "opp_form_sform": {
     "title": "Opp Form / S-Form",
-    "text": "Opp Form is the opponent's recent overall win-loss record. S-Form is the opponent's recent win-loss record on the current surface.",
-    "short": "Opponent recent form and surface form."
+    "text": "Opponent overall recent form and opponent recent form on the current surface."
   },
   "recent_edge": {
     "title": "Pick R-Edge",
-    "text": "Pick R-Edge is the recent form edge from the pick's perspective. Positive values support the pick. Negative values go against the pick.",
-    "short": "Recent form edge for the pick."
+    "text": "Recent form edge from the pick perspective. Positive supports the pick, negative goes against it."
   },
   "surface_edge": {
     "title": "Pick S-Edge",
-    "text": "Pick S-Edge is the surface recent form edge from the pick's perspective. Positive values support the pick. Negative values go against the pick.",
-    "short": "Surface form edge for the pick."
+    "text": "Surface form edge from the pick perspective. Positive supports the pick, negative goes against it."
   },
   "form_quality": {
     "title": "Pick Form Qty",
-    "text": "Pick Form Qty estimates whether the pick's recent form was built against stronger or weaker opponents. Positive values support the pick. Negative values go against the pick.",
-    "short": "Opponent quality adjustment for recent form."
+    "text": "Opponent-quality adjustment for recent form. Positive supports the pick, negative goes against it."
   },
   "sets_games": {
     "title": "Sets / Games",
-    "text": "Sets / Games are ThinQ match dynamics estimates. They show projected sets, projected games, three-set probability, likely score and tie-break probability.",
-    "short": "ThinQ match dynamics estimates."
+    "text": "ThinQ match dynamics estimates: projected sets, projected games, three-set probability, score tendency and tie-break probability."
   },
   "marq_box": {
     "title": "MarQ",
-    "text": "MarQ is the market view layer. It is planned as a market-quality and market-movement layer and is not fully active yet.",
-    "short": "Market view layer, planned for later."
+    "text": "MarQ is the planned market view layer. It is not fully active yet."
   }
 }

@@ -39,3 +39,12 @@ def page_url(path: str) -> str:
     if not root:
         return ""
     return urljoin(root, page_file(path))
+
+
+def site_url(path: str = "") -> str:
+    """Return absolute public URL for a site path."""
+    if not path:
+        return base_url()
+    if str(path).endswith("/"):
+        return urljoin(base_url(), str(path).lstrip("/"))
+    return page_url(path)
