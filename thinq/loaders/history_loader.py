@@ -7,7 +7,7 @@ import unicodedata
 from dataclasses import dataclass, asdict
 from functools import lru_cache
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 HISTORY_SEARCH_DIRS = [
     Path("data/history"),
@@ -17,24 +17,8 @@ HISTORY_SEARCH_DIRS = [
     Path("data/results_history"),
     Path("outputs/results"),
 ]
-
-HISTORY_FILE_PATTERNS = (
-    "*.csv",
-    "*.json",
-    "*.jsonl",
-)
-
-_SURFACE_MAP = {
-    "hard": "Hard",
-    "outdoor hard": "Hard",
-    "indoor hard": "Hard",
-    "clay": "Clay",
-    "red clay": "Clay",
-    "green clay": "Clay",
-    "grass": "Grass",
-    "carpet": "Carpet",
-    "carpet indoor": "Carpet",
-}
+HISTORY_FILE_PATTERNS = ("*.csv", "*.json", "*.jsonl")
+_SURFACE_MAP = {"hard":"Hard","outdoor hard":"Hard","indoor hard":"Hard","clay":"Clay","red clay":"Clay","green clay":"Clay","grass":"Grass","carpet":"Carpet","carpet indoor":"Carpet"}
 
 
 def normalize_name(value: Any) -> str:
@@ -42,8 +26,7 @@ def normalize_name(value: Any) -> str:
     text = unicodedata.normalize("NFKD", text)
     text = "".join(ch for ch in text if not unicodedata.combining(ch))
     text = re.sub(r"[^a-z0-9 ]+", " ", text)
-    text = re.sub(r"\s+", " ", text).strip()
-    return text
+    return re.sub(r"\s+", " ", text).strip()
 
 
 def normalize_surface(value: Any) -> str:
@@ -57,28 +40,43 @@ def normalize_surface(value: Any) -> str:
     return raw.title() if raw else "Unknown"
 
 
-def _parse_date(value: Any) -> str:
-    if value is None:
-        return ""
-    text = str(value).strip()
-    if not text:
-        return ""
-    # Sackmann tourney_date format is YYYYMMDD.
-    if re.fullmatch(r"\d{8}", text):
-        return f"{text[0:4]}-{text[4:6]}-{text[6:8]}"
-    # Already ISO-ish.
-    if len(text) >= 10 and text[4:5] == "-":
-        return text[:10]
-    return text
+def _clean_key(k: Any) -> str:
+    return re.sub(r"[^a-z0-9]+", "", str(k or "").lower())
+
+
+def _norm_row(row: Dict[str, Any]) -> Dict[str, Any]:
+    out = dict(row)
+    for k, v in row.items():
+        out[_clean_key(k)] = v
+    return out
+
+
+def _first(row: Dict[str, Any], names: List[str]) -> Any:
+    for n in names:
+        if n in row and row.get(n) not in (None, ""):
+            return row.get(n)
+        ck = _clean_key(n)
+        if ck in row and row.get(ck) not in (None, ""):
+            return row.get(ck)
+    return None
 
 
 def _to_int(value: Any) -> Optional[int]:
-    if value is None or value == "":
-        return None
     try:
+        if value in (None, ""):
+            return None
         return int(float(value))
     except Exception:
         return None
+
+
+def _parse_date(value: Any) -> str:
+    text = str(value or "").strip()
+    if re.fullmatch(r"\d{8}", text):
+        return f"{text[:4]}-{text[4:6]}-{text[6:8]}"
+    if len(text) >= 10 and text[4:5] == "-":
+        return text[:10]
+    return text
 
 
 @dataclass
@@ -96,28 +94,23 @@ class HistoryMatch:
     @property
     def winner_key(self) -> str:
         return normalize_name(self.winner)
-
     @property
     def loser_key(self) -> str:
         return normalize_name(self.loser)
-
     def involves(self, player_key: str) -> bool:
         return player_key in {self.winner_key, self.loser_key}
-
     def player_won(self, player_key: str) -> Optional[bool]:
         if self.winner_key == player_key:
             return True
         if self.loser_key == player_key:
             return False
         return None
-
     def opponent_rank_for(self, player_key: str) -> Optional[int]:
         if self.winner_key == player_key:
             return self.loser_rank
         if self.loser_key == player_key:
             return self.winner_rank
         return None
-
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
@@ -125,27 +118,40 @@ class HistoryMatch:
 def _candidate_files() -> List[Path]:
     files: List[Path] = []
     for root in HISTORY_SEARCH_DIRS:
-        if not root.exists():
-            continue
-        for pattern in HISTORY_FILE_PATTERNS:
-            files.extend(root.rglob(pattern))
+        if root.exists():
+            for pattern in HISTORY_FILE_PATTERNS:
+                files.extend(root.rglob(pattern))
     return sorted(set(files))
 
 
-def _match_from_sackmann_row(row: Dict[str, Any], source: Path) -> Optional[HistoryMatch]:
-    winner = row.get("winner_name") or row.get("winner") or row.get("winnerName")
-    loser = row.get("loser_name") or row.get("loser") or row.get("loserName")
+def _match_from_row(raw_row: Dict[str, Any], source: Path) -> Optional[HistoryMatch]:
+    row = _norm_row(raw_row)
+    winner = _first(row, ["winner_name","winner","winnerName","match_winner","matchWinner","player_won","winner_player","winnerplayer"])
+    loser = _first(row, ["loser_name","loser","loserName","match_loser","matchLoser","loser_player","loserplayer"])
+
+    # Generic player1/player2 + winner variant.
+    p1 = _first(row, ["player1","player_1","home","home_player","homeTeam","home_name","p1","Player 1"])
+    p2 = _first(row, ["player2","player_2","away","away_player","awayTeam","away_name","p2","Player 2"])
+    if (not winner or not loser) and p1 and p2 and winner:
+        wkey = normalize_name(winner)
+        p1key = normalize_name(p1)
+        p2key = normalize_name(p2)
+        if wkey == p1key:
+            loser = p2
+        elif wkey == p2key:
+            loser = p1
     if not winner or not loser:
         return None
+
     return HistoryMatch(
-        date=_parse_date(row.get("tourney_date") or row.get("date") or row.get("match_date") or row.get("startDate")),
+        date=_parse_date(_first(row, ["tourney_date","date","match_date","startDate","start_time","time","Date"])),
         winner=str(winner),
         loser=str(loser),
-        surface=normalize_surface(row.get("surface") or row.get("surfaceType") or row.get("court")),
-        level=str(row.get("tourney_level") or row.get("level") or row.get("category") or ""),
-        tournament=str(row.get("tourney_name") or row.get("tournament") or row.get("event") or ""),
-        winner_rank=_to_int(row.get("winner_rank") or row.get("winnerRank")),
-        loser_rank=_to_int(row.get("loser_rank") or row.get("loserRank")),
+        surface=normalize_surface(_first(row, ["surface","surfaceType","court","court_surface","Surface"])),
+        level=str(_first(row, ["tourney_level","level","category","tour","competition","Level"]) or ""),
+        tournament=str(_first(row, ["tourney_name","tournament","event","competition_name","Tournament"]) or ""),
+        winner_rank=_to_int(_first(row, ["winner_rank","winnerRank","winner_ranking","wrank"])),
+        loser_rank=_to_int(_first(row, ["loser_rank","loserRank","loser_ranking","lrank"])),
         source_file=str(source),
     )
 
@@ -155,17 +161,17 @@ def _matches_from_json_payload(payload: Any, source: Path) -> List[HistoryMatch]
     if isinstance(payload, list):
         records = [x for x in payload if isinstance(x, dict)]
     elif isinstance(payload, dict):
-        for key in ("matches", "results", "items", "data", "events"):
+        for key in ("matches","results","items","data","events","rows"):
             value = payload.get(key)
             if isinstance(value, list):
                 records = [x for x in value if isinstance(x, dict)]
                 break
-        if not records and "winner" in payload and "loser" in payload:
+        if not records:
             records = [payload]
     out: List[HistoryMatch] = []
-    for row in records:
-        m = _match_from_sackmann_row(row, source)
-        if m:
+    for r in records:
+        m = _match_from_row(r, source)
+        if m and m.date:
             out.append(m)
     return out
 
@@ -174,31 +180,27 @@ def _matches_from_json_payload(payload: Any, source: Path) -> List[HistoryMatch]
 def load_history_matches() -> Tuple[HistoryMatch, ...]:
     out: List[HistoryMatch] = []
     for path in _candidate_files():
+        if path.name == "bootstrap_manifest.json":
+            continue
         try:
             if path.suffix.lower() == ".csv":
                 with path.open("r", encoding="utf-8-sig", newline="") as f:
-                    reader = csv.DictReader(f)
-                    for row in reader:
-                        m = _match_from_sackmann_row(row, path)
+                    for row in csv.DictReader(f):
+                        m = _match_from_row(row, path)
                         if m and m.date:
                             out.append(m)
             elif path.suffix.lower() == ".jsonl":
                 with path.open("r", encoding="utf-8") as f:
                     for line in f:
-                        line = line.strip()
-                        if not line:
-                            continue
-                        row = json.loads(line)
-                        m = _match_from_sackmann_row(row, path)
-                        if m and m.date:
-                            out.append(m)
+                        line=line.strip()
+                        if line:
+                            m = _match_from_row(json.loads(line), path)
+                            if m and m.date:
+                                out.append(m)
             elif path.suffix.lower() == ".json":
-                payload = json.loads(path.read_text(encoding="utf-8"))
-                out.extend(m for m in _matches_from_json_payload(payload, path) if m.date)
+                out.extend(_matches_from_json_payload(json.loads(path.read_text(encoding="utf-8")), path))
         except Exception:
-            # History data should never break production runtime.
             continue
-    # newest first
     out.sort(key=lambda m: m.date or "", reverse=True)
     return tuple(out)
 
@@ -210,12 +212,6 @@ def get_player_matches(player: str, limit: Optional[int] = None) -> List[History
 
 
 def history_data_status() -> Dict[str, Any]:
-    matches = load_history_matches()
     files = _candidate_files()
-    return {
-        "status": "OK" if matches else "NO_DATA",
-        "match_count": len(matches),
-        "file_count": len(files),
-        "search_dirs": [str(p) for p in HISTORY_SEARCH_DIRS],
-        "sample_files": [str(p) for p in files[:8]],
-    }
+    matches = load_history_matches()
+    return {"status":"OK" if matches else "NO_DATA", "match_count":len(matches), "file_count":len(files), "search_dirs":[str(p) for p in HISTORY_SEARCH_DIRS], "sample_files":[str(p) for p in files[:10]]}
