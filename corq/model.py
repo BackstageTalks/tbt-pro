@@ -160,6 +160,23 @@ def is_default_value_trap(record: Dict[str, Any], components: Dict[str, float]) 
     return bool(no_intelligence and high_odds and (no_core_data or very_weak_thinq))
 
 
+
+def thinq_probability_layer(record: Dict[str, Any]) -> Dict[str, Any]:
+    thinq = record.get("thinq") if isinstance(record.get("thinq"), dict) else {}
+    layer = thinq.get("thinq_probability_layer") or thinq.get("probability_layer")
+    if isinstance(layer, dict):
+        return layer
+    layer = record.get("thinq_probability_layer") or record.get("probability_layer")
+    return layer if isinstance(layer, dict) else {}
+
+def thinq_pick_probability(record: Dict[str, Any]) -> Optional[float]:
+    layer = thinq_probability_layer(record)
+    value = layer.get("pick_probability") or layer.get("probability") or record.get("thinq_probability")
+    val = as_float(value)
+    if val is None:
+        return None
+    return val / 100.0 if val > 1 else val
+
 def build_corq_prediction(record: Dict[str, Any]) -> Dict[str, Any]:
     out = dict(record)
     thinq = out.get("thinq") if isinstance(out.get("thinq"), dict) else {}
@@ -176,7 +193,17 @@ def build_corq_prediction(record: Dict[str, Any]) -> Dict[str, Any]:
     components = model_components(edges)
     raw_model_edge = round(sum(components.values()), 4)
     conf_factor = confidence_factor(float(thinq_confidence or 0.0), flags)
-    estimated_probability = round(clamp(0.50 + raw_model_edge * conf_factor, 0.05, 0.95), 4)
+
+    thinq_layer = thinq_probability_layer(out)
+    thinq_probability = thinq_pick_probability(out)
+    if thinq_probability is not None:
+        # Current CorQ probability is primarily the clean ThinQ probability.
+        # Later MARQ can add a capped market adjustment, but no adapter logic is used here.
+        estimated_probability = round(clamp(thinq_probability, 0.05, 0.95), 4)
+        raw_model_edge = round(estimated_probability - 0.50, 4)
+        conf_factor = as_float(thinq_layer.get("confidence"), conf_factor) or conf_factor
+    else:
+        estimated_probability = round(clamp(0.50 + raw_model_edge * conf_factor, 0.05, 0.95), 4)
 
     trap = is_default_value_trap(out, components)
     corq_edge = round(estimated_probability - implied, 4) if implied is not None else 0.0
@@ -197,7 +224,9 @@ def build_corq_prediction(record: Dict[str, Any]) -> Dict[str, Any]:
             "thinq_available": bool(thinq) or bool(edges),
             "thinq_edges": edges,
             "thinq_flags": flags,
-            "corq_model_version": "CORQ_V1_EXPLAINABLE_EDGE_CONFIDENCE",
+            "corq_model_version": "CORQ_V1_THINQ_PRIMARY_PROBABILITY",
+            "corq_probability_source": "ThinQ" if thinq_probability is not None else "CorQ fallback",
+            "corq_thinq_probability": thinq_probability,
             "corq_components": components,
             "corq_raw_model_edge": raw_model_edge,
             "corq_confidence_factor": conf_factor,
