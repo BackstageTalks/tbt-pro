@@ -88,6 +88,20 @@ def owner(v):
     if abs(x)<0.00005: return "0.0%"
     return f"Pick {pct(abs(x))}" if x>0 else f"Opp {pct(abs(x))}"
 
+
+def data_depth(row):
+    conf = fnum(thinq_conf(row), 0) or 0
+    if conf <= 1.5:
+        conf *= 100
+    signal = abs((fnum(thinq_prob(row), 0.5) or 0.5) - 0.5)
+    if signal <= 1.5:
+        signal *= 100
+    if conf < 40 or signal < 1.5:
+        return "Low"
+    if conf >= 75 and signal >= 6:
+        return "Strong"
+    return "Medium"
+
 def h2h_display(row):
     h2h=first(row,"thinq.h2h","h2h",default={}) or {}
     total=fnum(h2h.get('total_matches'),0) or 0
@@ -107,7 +121,7 @@ def thinq_core(row):
     ]
     winner=first(row,"thinq_probability_layer.winner","thinq_winner",default=None)
     if winner: rows.append(pair("ThinQ Pick", winner))
-    rows.append(pair("Confidence", pctp(thinq_conf(row))))
+    rows.append(pair("Data Depth", data_depth(row)))
     return f'<section class="metric-card thinq-card"><div class="metric-title"><span>ThinQ</span><strong>{esc(pctp(thinq_prob(row)))}</strong></div><div class="metric-table">{"".join(rows)}</div></section>'
 
 def thinq_form(row):
@@ -117,9 +131,9 @@ def thinq_form(row):
         pair("Recent Edge", owner(recent_edge(row))),
         pair("Surface Edge", owner(surface_edge(row))),
         pair("Form Quality", owner(quality_edge(row))),
-        pair("Source", str(first(row,"thinq.recent_form.source","recent_form.source",default="Local history")).replace('_',' ').title()),
+        pair("Form Conf.", pctp(form_conf(row))),
     ]
-    return f'<section class="metric-card thinq-card"><div class="metric-title"><span>ThinQ Form Conf.</span><strong>{esc(pctp(form_conf(row)))}</strong></div><div class="metric-table">{"".join(rows)}</div></section>'
+    return f'<section class="metric-card thinq-card"><div class="metric-title"><span>ThinQ Overall Conf.</span><strong>{esc(pctp(thinq_conf(row)))}</strong></div><div class="metric-table">{"".join(rows)}</div></section>'
 
 def sets_box(row):
     md=first(row,"thinq.match_dynamics","match_dynamics",default={}) or {}
