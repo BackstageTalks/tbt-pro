@@ -463,3 +463,77 @@ def evaluate_eligibility(row: Dict[str, Any]) -> Dict[str, Any]:
 def is_publishable(row: Dict[str, Any]) -> bool:
     return publishable_for_top7(row)
 
+# ---------------------------------------------------------------------------
+# Backward-compatible API expected by corq.engine
+# ---------------------------------------------------------------------------
+
+def _ranking_score(row: Dict[str, Any]) -> float:
+    """Broad CORQ ranking score for ALL/ranked views.
+
+    This keeps legacy engine calls working.  It does *not* decide publication
+    eligibility.  TOP7 publication is handled by top7_from_ranking().
+    """
+    adjusted = _first(row, ["corq_adjusted_score", "adjusted_score", "corq_score"], None)
+    if adjusted is not None:
+        value = _prob(adjusted, 0.0)
+        return value
+    return corq_probability(row)
+
+
+def make_all_match_view(predictions: Iterable[Dict[str, Any]], *args: Any, **kwargs: Any) -> List[Dict[str, Any]]:
+    """Return broad ALL audit view with TOP7 quality annotations.
+
+    Legacy engine imports this name directly.  ALL must stay broad, so this
+    function annotates rows but does not remove rejected/non-publishable rows.
+    """
+    return annotate_rows(list(predictions or []))
+
+
+def rank_corq(predictions: Iterable[Dict[str, Any]], *args: Any, **kwargs: Any) -> List[Dict[str, Any]]:
+    """Return broad CORQ-ranked rows.
+
+    Sorting is intentionally broader than TOP7 filtering.  Filtering is only
+    applied inside top7_from_ranking().
+    """
+    rows = annotate_rows(list(predictions or []))
+    ranked = sorted(
+        rows,
+        key=lambda r: (
+            _ranking_score(r),
+            corq_probability(r),
+            pick_data_depth(r),
+            max(pick_thinq_edge(r), 0.0),
+            thinq_confidence(r),
+        ),
+        reverse=True,
+    )
+    for idx, row in enumerate(ranked, start=1):
+        row["corq_source_rank"] = idx
+        row.setdefault("corq_rank", idx)
+    return ranked
+
+
+def top7_from_ranking(ranked: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT, *args: Any, **kwargs: Any) -> List[Dict[str, Any]]:
+    """Return publishable TOP7 rows from an already ranked list."""
+    rows = annotate_rows(list(ranked or []))
+    publishable = sort_publishable(rows)
+    selected: List[Dict[str, Any]] = []
+    seen_matches = set()
+    for row in publishable:
+        key = (
+            row.get("match_key")
+            or row.get("event_id")
+            or row.get("id")
+            or "|".join(sorted([str(row.get("player1") or row.get("home") or ""), str(row.get("player2") or row.get("away") or "")]))
+        )
+        if key in seen_matches:
+            continue
+        seen_matches.add(key)
+        selected.append(row)
+        if len(selected) >= top_n:
+            break
+    for idx, row in enumerate(selected, start=1):
+        row["top7_rank"] = idx
+        row["corq_rank"] = idx
+    return selected
+
