@@ -1,9 +1,5 @@
-"""Public message registry for technical flags.
-
-Raw runtime flags stay in JSON. Public cards show short messages or hide internal flags.
-"""
+"""Public message registry for technical flags."""
 from __future__ import annotations
-
 from typing import Iterable, List
 
 FLAG_MESSAGES = {
@@ -21,16 +17,12 @@ FLAG_MESSAGES = {
     "REVERSED_BY_NUMERIC_OUTCOME": {"label": "", "show_public": False},
 }
 
-
 def flag_label(flag: str) -> str | None:
     item = FLAG_MESSAGES.get(str(flag))
-    if item is None:
-        return None
-    if not item.get("show_public", False):
+    if item is None or not item.get("show_public", False):
         return None
     label = str(item.get("label") or "").strip()
     return label or None
-
 
 def public_flag_labels(flags: Iterable[str], max_items: int = 4) -> List[str]:
     out: List[str] = []
