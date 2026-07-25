@@ -17,13 +17,13 @@ except Exception:
 
 from corq.web.paths import (
     ALL_PATH,
-    CloQ_PATH,
-    CloQ_RSS_PATH,
-    CorQ_RSS_PATH,
+    CLOQ_PATH,
+    CLOQ_RSS_PATH,
+    CORQ_RSS_PATH,
     RESULTS_PATH,
     TG_RSS_PATH,
-    ThinQ_PATH,
-    ThinQ_RSS_PATH,
+    THINQ_PATH,
+    THINQ_RSS_PATH,
     TOP7_PATH,
     NAV_ITEMS,
     base_url,
@@ -714,14 +714,14 @@ def render() -> Dict[str, Any]:
     write_page(TOP7_PATH, html_page("top7", "TBT PRO TOP7", "Production picks with CorQ, ThinQ, MARQ, Sets/Games and Telegram RSS fields.", top_body, summary))
     write_page(ALL_PATH, html_page("all", "TBT PRO ALL", "Broad audit view with full intelligence display.", all_body, summary))
     write_page(RESULTS_PATH, html_page("results", "TBT PRO Results", f"Results page. Display offset: UTC{RESULTS_DISPLAY_TIME_OFFSET_HOURS:+d}.", results_page_body, summary))
-    write_page(ThinQ_PATH, html_page("thinq", "TBT PRO ThinQ", "ThinQ intelligence output read-only display.", thinq_body, summary))
-    write_page(CloQ_PATH, html_page("cloq", "TBT PRO CloQ", "Close-odds candidate view.", cloq_body, summary))
+    write_page(THINQ_PATH, html_page("thinq", "TBT PRO ThinQ", "ThinQ intelligence output read-only display.", thinq_body, summary))
+    write_page(CLOQ_PATH, html_page("cloq", "TBT PRO CloQ", "Close-odds candidate view.", cloq_body, summary))
 
     rss = rss_feed(safe_top7)
     write_page(TG_RSS_PATH, rss)
-    write_page(CorQ_RSS_PATH, rss)
-    write_page(ThinQ_RSS_PATH, rss_feed(top7_raw, "TBT PRO ThinQ RSS"))
-    write_page(CloQ_RSS_PATH, rss_feed(cloq_rows, "TBT PRO CloQ RSS"))
+    write_page(CORQ_RSS_PATH, rss)
+    write_page(THINQ_RSS_PATH, rss_feed(top7_raw, "TBT PRO ThinQ RSS"))
+    write_page(CLOQ_RSS_PATH, rss_feed(cloq_rows, "TBT PRO CloQ RSS"))
     write_assets()
     write_root_index()
 
