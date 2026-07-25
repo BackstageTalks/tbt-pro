@@ -21,14 +21,6 @@ except Exception:  # pragma: no cover
         return []
 
 try:
-    from corq.web.tooltips import tooltip_icon, tooltip_css
-except Exception:  # pragma: no cover
-    def tooltip_icon(key: str, css_class: str = 'info-dot') -> str:
-        return ''
-    def tooltip_css() -> str:
-        return ''
-
-try:
     from corq.web.paths import (
         CORQ_PATH,
         CLOQ_PATH,
@@ -57,8 +49,6 @@ ROOT = Path(".")
 OUTPUTS = ROOT / "outputs"
 SITE_ROOT = ROOT / "corq" / "site"
 LOGS_ROOT = SITE_ROOT / "logs"
-WEB_ASSETS_ROOT = ROOT / "corq" / "web" / "assets"
-SITE_ASSETS_ROOT = SITE_ROOT / "assets"
 BRATISLAVA_TZ = "Europe/Bratislava"
 
 
@@ -205,6 +195,24 @@ def record_value(row: Dict[str, Any], *names: str) -> str:
             return str(v)
     return "—"
 
+
+
+def wl_record(value: Any) -> str:
+    """Format a win-loss record as 7W-3L.
+
+    Accepts values like "7-3", "7W-3L", "7/3" or missing values.
+    """
+    if value in (None, "", "—"):
+        return "—"
+    text = str(value).strip()
+    if not text or text == "—":
+        return "—"
+    if "W" in text.upper() and "L" in text.upper():
+        return text
+    m = re.search(r"(\d+)\s*[-/]\s*(\d+)", text)
+    if m:
+        return f"{int(m.group(1))}W-{int(m.group(2))}L"
+    return text
 
 def confidence_value(row: Dict[str, Any]) -> Optional[float]:
     for key in ("thinq_probability_confidence", "thinq_confidence", "confidence"):
@@ -428,13 +436,13 @@ def corq_box(row: Dict[str, Any]) -> str:
     sh2h = surface_h2h_summary(row)
     return f"""
     <section class="metric-card corq-card">
-      <header><span>CorQ {tooltip_icon('corq_box')}</span><strong>{esc(probability)}</strong></header>
+      <header><span>CorQ</span><strong>{esc(probability)}</strong></header>
       {row_html('Pick ELO / S-ELO', signed_pair(overall, surf), side_class_for_pick((overall or 0) + (surf or 0)))}
       {row_html('Opp ELO / S-ELO', signed_pair(overall, surf, invert=True), side_class_for_pick(-((overall or 0) + (surf or 0))))}
-      {row_html('H2H ' + tooltip_icon('h2h'), esc(h2h), side_class_from_text(h2h))}
-      {row_html('S-H2H ' + tooltip_icon('s_h2h'), esc(sh2h), side_class_from_text(sh2h))}
+      {row_html('H2H', esc(h2h), side_class_from_text(h2h))}
+      {row_html('S-H2H', esc(sh2h), side_class_from_text(sh2h))}
       {row_html('ThinQ Edge', esc(edge_direction(thinq_e)), side_class_for_pick(thinq_e))}
-      <div class="metric-row depth-row"><span>Data Depth {tooltip_icon('pick_data_depth')}</span><strong>{depth_bar(depth)}</strong></div>
+      <div class="metric-row depth-row"><span>Data Depth</span><strong>{depth_bar(depth)}</strong></div>
     </section>
     """
 
@@ -442,10 +450,10 @@ def corq_box(row: Dict[str, Any]) -> str:
 def thinq_form_box(row: Dict[str, Any]) -> str:
     conf = confidence_value(row)
     form_conf = form_conf_value(row)
-    pick_form = record_value(row, "pick_last10_record", "pick_form_record")
-    pick_sform = record_value(row, "pick_surface_record", "pick_surface_last10_record")
-    opp_form = record_value(row, "opponent_last10_record", "opp_last10_record", "opponent_form_record")
-    opp_sform = record_value(row, "opponent_surface_record", "opp_surface_record", "opponent_surface_last10_record")
+    pick_form = wl_record(record_value(row, "pick_last10_record", "pick_form_record"))
+    pick_sform = wl_record(record_value(row, "pick_surface_record", "pick_surface_last10_record"))
+    opp_form = wl_record(record_value(row, "opponent_last10_record", "opp_last10_record", "opponent_form_record"))
+    opp_sform = wl_record(record_value(row, "opponent_surface_record", "opp_surface_record", "opponent_surface_last10_record"))
     recent = edge(row, "recent_form_edge", "short_form_edge")
     surface = edge(row, "surface_recent_form_edge")
     quality = edge(row, "opponent_quality_edge")
@@ -454,10 +462,10 @@ def thinq_form_box(row: Dict[str, Any]) -> str:
       <header><span>ThinQ {tooltip_icon('thinq_box')}</span><strong>{esc(pct_plain(conf))}</strong></header>
       {row_html('Pick Form / S-Form ' + tooltip_icon('pick_form_sform'), esc(f'{pick_form} / {pick_sform}'))}
       {row_html('Opp Form / S-Form ' + tooltip_icon('opp_form_sform'), esc(f'{opp_form} / {opp_sform}'))}
-      {row_html('Recent Edge ' + tooltip_icon('recent_edge'), esc(edge_direction(recent)), side_class_for_pick(recent))}
-      {row_html('Surface Edge ' + tooltip_icon('surface_edge'), esc(edge_direction(surface)), side_class_for_pick(surface))}
-      {row_html('Form Quality ' + tooltip_icon('form_quality'), esc(edge_direction(quality)), side_class_for_pick(quality))}
-      {row_html('Form Conf.', esc(pct_plain(form_conf)))}
+      {row_html('Pick R-Edge ' + tooltip_icon('recent_edge'), esc(pct(recent, signed=True)), side_class_for_pick(recent))}
+      {row_html('Pick S-Edge ' + tooltip_icon('surface_edge'), esc(pct(surface, signed=True)), side_class_for_pick(surface))}
+      {row_html('Pick Form Qty ' + tooltip_icon('form_quality'), esc(pct(quality, signed=True)), side_class_for_pick(quality))}
+      <div class="metric-row depth-row"><span>Form Data Depth {tooltip_icon('form_data_depth')}</span><strong>{depth_bar(form_conf)}</strong></div>
     </section>
     """
 
@@ -482,7 +490,7 @@ def sets_games_box(row: Dict[str, Any]) -> str:
     over_text = f"Over {num(line, 22.5):.2f} · {pct_plain(over)}" if over is not None else f"Over {num(line,22.5):.2f} · —"
     return f"""
     <section class="metric-card sets-card">
-      <header><span>Sets / Games {tooltip_icon('sets_games')}</span></header>
+      <header><span>Sets / Games</span></header>
       {row_html('Sets', esc('—' if sets is None else f'{num(sets):.2f}'))}
       {row_html('Games', esc('—' if games is None else f'{num(games):.1f}'))}
       {row_html('O/U', esc(over_text))}
@@ -502,7 +510,7 @@ def marq_box(row: Dict[str, Any]) -> str:
         direction = "Pending"
     return f"""
     <section class="metric-card marq-card">
-      <header><span>MarQ {tooltip_icon('marq_box')}</span></header>
+      <header><span>MarQ</span></header>
       {row_html('Pick MarQ', '—')}
       {row_html('Opp MarQ', '—')}
       {row_html('Move', '—')}
@@ -544,52 +552,7 @@ def sort_by_probability(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return sorted(rows, key=lambda r: (prob_value(r) is not None, prob_value(r) or 0), reverse=True)
 
 
-
-def brand_html() -> str:
-    logo = site_url("assets/tbt_ai_goat_icon.png")
-    return (
-        '<div class="brand">'
-        f'<img class="brand-logo" src="{esc(logo)}" alt="BackstageTalks AI logo">'
-        '<div><div class="brand-title">BackstageTalks</div>'
-        '<div class="brand-sub">Statistical Engine</div></div></div>'
-    )
-
-
-def nav_html(active: str = "top7") -> str:
-    items = [
-        ("top7", "CorQ", site_url(CORQ_PATH + "/")),
-        ("all", "All", site_url(ALL_PATH + "/")),
-        ("results", "Results", site_url(RESULTS_PATH + "/")),
-        ("cloq", "CloQ", site_url(CLOQ_PATH + "/")),
-        ("rss", "TG RSS", site_url(CORQ_RSS_PATH)),
-    ]
-    links = []
-    for key, label, href in items:
-        cls = "active" if key == active else ""
-        links.append(f'<a class="{cls}" href="{esc(href)}">{esc(label)}</a>')
-    return "<nav>" + "".join(links) + "</nav>"
-
-
-def hero_copy(subtitle: str = "") -> str:
-    lead = subtitle or "AI Betting by BackstageTalks"
-    return (
-        f'<p class="hero-lead">{esc(lead)}</p>'
-        '<p class="hero-note">This data is provided for informational and analytical purposes only.</p>'
-        '<p class="hero-powered">Powered by BackstageTalks Statistical Engine</p>'
-    )
-
-
-def prepare_assets() -> None:
-    SITE_ASSETS_ROOT.mkdir(parents=True, exist_ok=True)
-    src = WEB_ASSETS_ROOT / "tbt_ai_goat_icon.png"
-    if src.exists():
-        try:
-            import shutil
-            shutil.copyfile(src, SITE_ASSETS_ROOT / "tbt_ai_goat_icon.png")
-        except Exception:
-            pass
-
-def page(title: str, rows: List[Dict[str, Any]], manifest: Dict[str, Any], subtitle: str = "", active: str = "top7") -> str:
+def page(title: str, rows: List[Dict[str, Any]], manifest: Dict[str, Any], subtitle: str = "") -> str:
     cards = "\n".join(card(row, i) for i, row in enumerate(rows, start=1)) or '<div class="empty">No rows available.</div>'
     updated = manifest.get("updated") or manifest.get("run_started_at") or manifest.get("run_date") or datetime.now(timezone.utc).isoformat()
     rss_url = site_url(CORQ_RSS_PATH)
@@ -599,16 +562,22 @@ def page(title: str, rows: List[Dict[str, Any]], manifest: Dict[str, Any], subti
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)}</title>
-<style>{CSS + tooltip_css()}</style>
+<style>{CSS}</style>
 </head>
 <body>
   <div class="shell">
     <header class="topbar">
-      {brand_html()}
-      {nav_html(active)}
+      <div class="brand"><div class="logo">AI</div><div><div class="brand-title">BackstageTalks</div><div class="brand-sub">Statistical Engine</div></div></div>
+      <nav>
+        <a href="{esc(site_url(CORQ_PATH + '/'))}">CorQ</a>
+        <a href="{esc(site_url(ALL_PATH + '/'))}">All</a>
+        <a href="{esc(site_url(RESULTS_PATH + '/'))}">Results</a>
+        <a href="{esc(site_url(CLOQ_PATH + '/'))}">CloQ</a>
+        <a href="{esc(site_url(CORQ_RSS_PATH))}">TG RSS</a>
+      </nav>
     </header>
     <section class="hero">
-      <div><h1>{esc(title)}</h1>{hero_copy(subtitle)}</div>
+      <div><h1>{esc(title)}</h1><p>{esc(subtitle)}</p></div>
       <a class="rss-pill" href="{esc(rss_url)}">Open RSS</a>
     </section>
     <section class="summary">
@@ -624,7 +593,7 @@ def page(title: str, rows: List[Dict[str, Any]], manifest: Dict[str, Any], subti
 
 def all_page(rows: List[Dict[str, Any]], manifest: Dict[str, Any]) -> str:
     rows = sort_by_probability(rows)
-    return page("All audit", rows, manifest, "Broad audit view. Filters and raw data stay visible in JSON/logs.", active="all")
+    return page("All audit", rows, manifest, "Broad audit view. Filters and raw data stay visible in JSON/logs.")
 
 
 def rss_xml(rows: List[Dict[str, Any]]) -> str:
@@ -641,8 +610,8 @@ def rss_xml(rows: List[Dict[str, Any]]) -> str:
     return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\"><channel><title>AI Betting by BackstageTalks</title><link>" + esc(site_url(CORQ_PATH + '/')) + "</link><description>CorQ TOP7</description>" + "".join(items) + "</channel></rss>"
 
 
-def placeholder(title: str, body: str, active: str = "results") -> str:
-    return f"""<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{esc(title)}</title><style>{CSS + tooltip_css()}</style></head><body><div class="shell"><header class="topbar">{brand_html()}{nav_html(active)}</header><section class="hero"><div><h1>{esc(title)}</h1>{hero_copy(body)}</div></section></div></body></html>"""
+def placeholder(title: str, body: str) -> str:
+    return f"""<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{esc(title)}</title><style>{CSS}</style></head><body><div class="shell"><header class="topbar"><div class="brand"><div class="logo">AI</div><div><div class="brand-title">BackstageTalks</div><div class="brand-sub">Statistical Engine</div></div></div><nav><a href="{esc(site_url(CORQ_PATH + '/'))}">CorQ</a><a href="{esc(site_url(ALL_PATH + '/'))}">All</a><a href="{esc(site_url(RESULTS_PATH + '/'))}">Results</a></nav></header><section class="hero"><div><h1>{esc(title)}</h1><p>{esc(body)}</p></div></section></div></body></html>"""
 
 
 def write(path: Path, content: str):
@@ -653,14 +622,13 @@ def write(path: Path, content: str):
 def render():
     top7, all_rows, manifest, results = latest_data()
     SITE_ROOT.mkdir(parents=True, exist_ok=True)
-    prepare_assets()
     ordered_top7 = sort_by_probability(top7)[:7]
     write(SITE_ROOT / "index.html", f"<meta http-equiv='refresh' content='0; url={CORQ_PATH}/'>")
-    write(SITE_ROOT / CORQ_PATH / "index.html", page("CorQ TOP7", ordered_top7, manifest, "AI Betting by BackstageTalks", active="top7"))
+    write(SITE_ROOT / CORQ_PATH / "index.html", page("CorQ TOP7", ordered_top7, manifest, "AI Betting by BackstageTalks"))
     write(SITE_ROOT / ALL_PATH / "index.html", all_page(all_rows or top7, manifest))
-    write(SITE_ROOT / RESULTS_PATH / "index.html", placeholder("Results", "Results runtime will evaluate saved snapshots and show Today, Last 7 days, Current month and All time.", active="results"))
-    write(SITE_ROOT / CLOQ_PATH / "index.html", placeholder("CloQ", "CloQ will be enabled after ThinQ probability is stable for close-odds selection.", active="cloq"))
-    write(SITE_ROOT / THINQ_PATH / "index.html", placeholder("ThinQ", "ThinQ is an intelligence layer displayed inside CorQ cards.", active="top7"))
+    write(SITE_ROOT / RESULTS_PATH / "index.html", placeholder("Results", "Results runtime will evaluate saved snapshots and show Today, Last 7 days, Current month and All time."))
+    write(SITE_ROOT / CLOQ_PATH / "index.html", placeholder("CloQ", "CloQ will be enabled after ThinQ probability is stable for close-odds selection."))
+    write(SITE_ROOT / THINQ_PATH / "index.html", placeholder("ThinQ", "ThinQ is an intelligence layer displayed inside CorQ cards."))
     write(SITE_ROOT / CORQ_RSS_PATH, rss_xml(ordered_top7))
     write(SITE_ROOT / CLOQ_RSS_PATH, rss_xml([]))
     write(SITE_ROOT / THINQ_RSS_PATH, rss_xml([]))
@@ -669,7 +637,7 @@ def render():
 
 CSS = r'''
 :root{--bg:#06111f;--panel:#0b1b2b;--panel2:#081827;--line:#16324c;--text:#e5f0ff;--muted:#89a3be;--green:#25f59a;--cyan:#28d7ff;--orange:#ffb35c;--red:#ff6b6b;}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,#0b2540 0,#06111f 38%,#030914 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}.shell{max-width:1800px;margin:0 auto;padding:22px}.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.brand{display:flex;gap:12px;align-items:center}.brand-logo{width:44px;height:44px;border-radius:999px;object-fit:cover;border:1px solid rgba(125,211,252,.85);box-shadow:0 0 0 3px rgba(40,215,255,.08),0 8px 22px rgba(0,0,0,.26);background:#071827}.hero-lead{margin:6px 0 0;color:#6ee7ff;font-size:14px}.hero-note,.hero-powered{margin:4px 0 0;color:var(--muted);font-size:12px}.hero-powered{color:#9bdfff}nav a.active{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(40,215,255,.55),0 0 18px rgba(40,215,255,.12);color:#fff;background:rgba(8,31,51,.95)}.brand-title{font-size:17px;font-weight:800}.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.09em;text-transform:uppercase}nav{display:flex;gap:8px;flex-wrap:wrap}nav a,.rss-pill{color:#dff8ff;text-decoration:none;border:1px solid var(--line);background:#071827;border-radius:999px;padding:8px 13px;font-size:12px}nav a:hover,.rss-pill:hover{border-color:var(--cyan)}.hero{display:flex;justify-content:space-between;align-items:center;background:rgba(8,24,39,.72);border:1px solid var(--line);border-radius:20px;padding:18px 20px;margin-bottom:14px}.hero h1{margin:0;font-size:28px}.hero p{margin:6px 0 0;color:var(--muted)}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.summary div{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:12px}.summary span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.summary strong{font-size:20px}.cards{display:grid;gap:14px}.match-card{display:grid;grid-template-columns:250px minmax(0,1fr);gap:12px;background:rgba(6,17,31,.78);border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 10px 25px rgba(0,0,0,.22)}.pick-block{position:relative;background:var(--panel2);border:1px solid var(--line);border-radius:18px;padding:14px;min-height:220px}.rank{color:var(--cyan);font-weight:900;font-size:13px;margin-bottom:10px}.brain{position:absolute;right:12px;top:12px;text-decoration:none;color:#d2f7ff}.pick-name{font-weight:900;font-size:17px;line-height:1.2}.pick-odds{margin-top:6px;color:#ffe98d;font-weight:800;font-size:12px}.pick-action{text-transform:lowercase;color:var(--green);font-size:11px;letter-spacing:.06em;font-weight:900;margin-top:8px}.opp-name{margin-top:3px;color:#c9d7e8;font-weight:700}.opp-odds{margin-top:2px;color:var(--muted);font-size:12px}.meta{margin-top:12px;color:#6ee7ff;font-size:12px;line-height:1.35}.metrics-grid{display:grid;grid-template-columns:repeat(4,minmax(230px,1fr));gap:10px}.metric-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:12px;min-height:220px}.metric-card header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:9px;color:#9ddcff;text-transform:uppercase;letter-spacing:.10em;font-size:11px}.metric-card header strong{font-size:16px;color:var(--green);letter-spacing:0;text-transform:none}.metric-row{display:grid;grid-template-columns:1.1fr 1fr;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(22,50,76,.37)}.metric-row:last-child{border-bottom:0}.metric-row span{color:var(--muted);font-size:12px}.metric-row strong{font-size:12px;text-align:right;color:#f5fbff}.metric-row strong.support{color:#f5fbff}.metric-row strong.against{color:var(--orange)}.metric-row strong.neutral{color:#d5e5f6}.depth-row strong{text-align:right}.depth-wrap{display:flex;align-items:center;justify-content:flex-end;gap:8px}.depth-num{font-size:12px;color:#e5f9ff}.depth-bar{display:inline-block;width:96px;height:16px;border:1px solid #7febff;border-radius:999px;background:#10263f;overflow:hidden;vertical-align:middle;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}.depth-fill{display:block;height:100%;background:repeating-linear-gradient(135deg,#20c7d8 0 9px,#7af7ff 9px 13px);border-radius:999px}.badges{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;margin-top:-4px}.badges span{font-size:11px;color:#ffd89b;background:rgba(255,179,92,.12);border:1px solid rgba(255,179,92,.35);border-radius:999px;padding:4px 8px}.empty{padding:40px;text-align:center;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:18px}@media(max-width:1300px){.match-card{grid-template-columns:1fr}.metrics-grid{grid-template-columns:repeat(2,minmax(240px,1fr))}}@media(max-width:720px){.summary{grid-template-columns:repeat(2,1fr)}.metrics-grid{grid-template-columns:1fr}.hero,.topbar{align-items:flex-start;flex-direction:column;gap:12px}}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,#0b2540 0,#06111f 38%,#030914 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}.shell{max-width:1800px;margin:0 auto;padding:22px}.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.brand{display:flex;gap:12px;align-items:center}.logo{width:44px;height:44px;border-radius:999px;background:linear-gradient(135deg,#102d4c,#1bbf89);display:grid;place-items:center;font-weight:900;color:white;border:1px solid #3dd6ff}.brand-title{font-size:17px;font-weight:800}.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.09em;text-transform:uppercase}nav{display:flex;gap:8px;flex-wrap:wrap}nav a,.rss-pill{color:#dff8ff;text-decoration:none;border:1px solid var(--line);background:#071827;border-radius:999px;padding:8px 13px;font-size:12px}nav a:hover,.rss-pill:hover{border-color:var(--cyan)}.hero{display:flex;justify-content:space-between;align-items:center;background:rgba(8,24,39,.72);border:1px solid var(--line);border-radius:20px;padding:18px 20px;margin-bottom:14px}.hero h1{margin:0;font-size:28px}.hero p{margin:6px 0 0;color:var(--muted)}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.summary div{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:12px}.summary span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.summary strong{font-size:20px}.cards{display:grid;gap:14px}.match-card{display:grid;grid-template-columns:250px minmax(0,1fr);gap:12px;background:rgba(6,17,31,.78);border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 10px 25px rgba(0,0,0,.22)}.pick-block{position:relative;background:var(--panel2);border:1px solid var(--line);border-radius:18px;padding:14px;min-height:220px}.rank{color:var(--cyan);font-weight:900;font-size:13px;margin-bottom:10px}.brain{position:absolute;right:12px;top:12px;text-decoration:none;color:#d2f7ff}.pick-name{font-weight:900;font-size:17px;line-height:1.2}.pick-odds{margin-top:6px;color:#ffe98d;font-weight:800;font-size:12px}.pick-action{text-transform:lowercase;color:var(--green);font-size:11px;letter-spacing:.06em;font-weight:900;margin-top:8px}.opp-name{margin-top:3px;color:#c9d7e8;font-weight:700}.opp-odds{margin-top:2px;color:var(--muted);font-size:12px}.meta{margin-top:12px;color:#6ee7ff;font-size:12px;line-height:1.35}.metrics-grid{display:grid;grid-template-columns:repeat(4,minmax(230px,1fr));gap:10px}.metric-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:12px;min-height:220px}.metric-card header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:9px;color:#9ddcff;text-transform:uppercase;letter-spacing:.10em;font-size:11px}.metric-card header strong{font-size:16px;color:var(--green);letter-spacing:0;text-transform:none}.metric-row{display:grid;grid-template-columns:1.1fr 1fr;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(22,50,76,.37)}.metric-row:last-child{border-bottom:0}.metric-row span{color:var(--muted);font-size:12px}.metric-row strong{font-size:12px;text-align:right;color:#f5fbff}.metric-row strong.support{color:#f5fbff}.metric-row strong.against{color:var(--orange)}.metric-row strong.neutral{color:#d5e5f6}.depth-row strong{text-align:right}.depth-wrap{display:flex;align-items:center;justify-content:flex-end;gap:8px}.depth-num{font-size:12px;color:#e5f9ff}.depth-bar{display:inline-block;width:96px;height:16px;border:1px solid #7febff;border-radius:999px;background:#10263f;overflow:hidden;vertical-align:middle;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}.depth-fill{display:block;height:100%;background:repeating-linear-gradient(135deg,#20c7d8 0 9px,#7af7ff 9px 13px);border-radius:999px}.badges{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;margin-top:-4px}.badges span{font-size:11px;color:#ffd89b;background:rgba(255,179,92,.12);border:1px solid rgba(255,179,92,.35);border-radius:999px;padding:4px 8px}.empty{padding:40px;text-align:center;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:18px}@media(max-width:1300px){.match-card{grid-template-columns:1fr}.metrics-grid{grid-template-columns:repeat(2,minmax(240px,1fr))}}@media(max-width:720px){.summary{grid-template-columns:repeat(2,1fr)}.metrics-grid{grid-template-columns:1fr}.hero,.topbar{align-items:flex-start;flex-direction:column;gap:12px}}
 '''
 
 if __name__ == "__main__":
