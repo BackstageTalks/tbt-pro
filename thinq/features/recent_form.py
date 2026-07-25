@@ -1,136 +1,182 @@
-"""THINQ Recent Form feature.
-
-This is a standalone THINQ item intended for display in the THINQ column and
-for use as a soft CORQ edge.
-"""
-
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Iterable, List, Optional, Tuple
 
-from thinq.loaders.history_loader import available_history_sources, player_matches, normalize_surface_label
+from thinq.loaders.history_loader import (
+    HistoryMatch,
+    get_player_matches,
+    history_data_status,
+    normalize_name,
+    normalize_surface,
+)
 
 
-def clamp(value: float, lo: float, hi: float) -> float:
-    return max(lo, min(hi, value))
+def clamp(value: float, low: float, high: float) -> float:
+    return max(low, min(high, value))
 
 
-def win_rate(matches: List[Dict[str, Any]], player: str) -> Optional[float]:
-    if not matches:
+def _fmt_record(wins: int, total: int) -> str:
+    if total <= 0:
+        return "0-0"
+    return f"{wins}-{total - wins}"
+
+
+def _win_pct(wins: int, total: int) -> Optional[float]:
+    if total <= 0:
         return None
-    from thinq.loaders.history_loader import normalize_name
+    return round(wins / total, 4)
+
+
+def _player_windows(player: str, surface: Optional[str], level: Optional[str] = None) -> Dict[str, Any]:
     key = normalize_name(player)
-    wins = sum(1 for match in matches if match.get("winner_key") == key)
-    return wins / len(matches)
+    matches = get_player_matches(player)
+    surface_norm = normalize_surface(surface)
+    level_norm = str(level or "").strip().lower()
+
+    def summarize(sample: List[HistoryMatch]) -> Dict[str, Any]:
+        wins = sum(1 for m in sample if m.player_won(key) is True)
+        total = len(sample)
+        opp_ranks = [m.opponent_rank_for(key) for m in sample if m.opponent_rank_for(key) is not None]
+        return {
+            "count": total,
+            "wins": wins,
+            "losses": max(total - wins, 0),
+            "record": _fmt_record(wins, total),
+            "win_pct": _win_pct(wins, total),
+            "avg_opponent_rank": round(sum(opp_ranks) / len(opp_ranks), 1) if opp_ranks else None,
+            "last_match_date": sample[0].date if sample else None,
+        }
+
+    last5 = matches[:5]
+    last10 = matches[:10]
+    surface_matches = [m for m in matches if normalize_surface(m.surface) == surface_norm][:10]
+    level_matches = [m for m in matches if level_norm and str(m.level or "").strip().lower() == level_norm][:10]
+
+    return {
+        "player": player,
+        "total_history_matches": len(matches),
+        "last5": summarize(last5),
+        "last10": summarize(last10),
+        "surface": surface_norm,
+        "surface_last10": summarize(surface_matches),
+        "level": level or None,
+        "level_last10": summarize(level_matches),
+    }
 
 
-def wins_count(matches: List[Dict[str, Any]], player: str) -> int:
-    from thinq.loaders.history_loader import normalize_name
-    key = normalize_name(player)
-    return sum(1 for match in matches if match.get("winner_key") == key)
-
-
-def avg_opponent_rank(matches: List[Dict[str, Any]], player: str) -> Optional[float]:
-    from thinq.loaders.history_loader import normalize_name
-    key = normalize_name(player)
-    ranks: List[int] = []
-    for match in matches:
-        if match.get("winner_key") == key and match.get("loser_rank"):
-            ranks.append(int(match.get("loser_rank")))
-        elif match.get("loser_key") == key and match.get("winner_rank"):
-            ranks.append(int(match.get("winner_rank")))
-    if not ranks:
-        return None
-    return sum(ranks) / len(ranks)
-
-
-def form_edge(pick_rate: Optional[float], opponent_rate: Optional[float], cap: float) -> float:
-    if pick_rate is None or opponent_rate is None:
+def _diff_pct(a: Optional[float], b: Optional[float]) -> float:
+    if a is None or b is None:
         return 0.0
-    return round(clamp((pick_rate - opponent_rate) * 0.12, -cap, cap), 4)
+    return float(a) - float(b)
 
 
-def ranking_quality_edge(pick_avg_rank: Optional[float], opponent_avg_rank: Optional[float]) -> float:
-    if pick_avg_rank is None or opponent_avg_rank is None:
+def _quality_edge(pick_stats: Dict[str, Any], opp_stats: Dict[str, Any]) -> float:
+    # Lower average opponent rank means stronger opposition. Conservative cap.
+    p_rank = pick_stats.get("last10", {}).get("avg_opponent_rank")
+    o_rank = opp_stats.get("last10", {}).get("avg_opponent_rank")
+    if p_rank is None or o_rank is None:
         return 0.0
-    # Better opponent quality means lower average rank number.
-    diff = opponent_avg_rank - pick_avg_rank
-    return round(clamp(diff / 1000.0, -0.03, 0.03), 4)
+    diff = float(o_rank) - float(p_rank)
+    # 100 ranking places roughly maps to 1.0 percentage point.
+    return round(clamp(diff / 10000.0, -0.03, 0.03), 4)
 
 
-def build_recent_form_context(pick: str, opponent: str, surface: Optional[str] = None) -> Dict[str, Any]:
-    sources = available_history_sources()
-    if not sources:
+def _confidence(pick_stats: Dict[str, Any], opp_stats: Dict[str, Any]) -> float:
+    p_total = pick_stats.get("last10", {}).get("count") or 0
+    o_total = opp_stats.get("last10", {}).get("count") or 0
+    p_surface = pick_stats.get("surface_last10", {}).get("count") or 0
+    o_surface = opp_stats.get("surface_last10", {}).get("count") or 0
+
+    base = min((p_total + o_total) / 20.0, 1.0) * 0.55
+    surface = min((p_surface + o_surface) / 12.0, 1.0) * 0.30
+    quality = 0.15 if (pick_stats.get("last10", {}).get("avg_opponent_rank") is not None and opp_stats.get("last10", {}).get("avg_opponent_rank") is not None) else 0.0
+    return round(clamp(base + surface + quality, 0.0, 0.95), 4)
+
+
+def build_recent_form_context(
+    pick: str,
+    opponent: str,
+    surface: Optional[str] = None,
+    level: Optional[str] = None,
+    *_args: Any,
+    **_kwargs: Any,
+) -> Dict[str, Any]:
+    status = history_data_status()
+    if not status.get("match_count"):
         return {
             "status": "NO_DATA",
             "source": None,
             "reason": "No local history files found",
-            "flags": ["RECENT_FORM_NO_DATA"],
             "recent_form_edge": 0.0,
             "short_form_edge": 0.0,
             "surface_recent_form_edge": 0.0,
             "opponent_quality_edge": 0.0,
             "form_confidence": 0.0,
+            "flags": ["RECENT_FORM_NO_DATA"],
+            "history_status": status,
         }
 
-    pick_last10 = player_matches(pick, limit=10)
-    opponent_last10 = player_matches(opponent, limit=10)
-    pick_last5 = pick_last10[:5]
-    opponent_last5 = opponent_last10[:5]
+    pick_stats = _player_windows(pick, surface, level)
+    opp_stats = _player_windows(opponent, surface, level)
 
-    surface_bucket = normalize_surface_label(surface) if surface else None
-    pick_surface10 = player_matches(pick, limit=10, surface=surface_bucket) if surface_bucket else []
-    opponent_surface10 = player_matches(opponent, limit=10, surface=surface_bucket) if surface_bucket else []
+    if pick_stats["last10"]["count"] == 0 and opp_stats["last10"]["count"] == 0:
+        return {
+            "status": "NO_DATA",
+            "source": "local_history",
+            "reason": "No completed historical matches found for either player",
+            "recent_form_edge": 0.0,
+            "short_form_edge": 0.0,
+            "surface_recent_form_edge": 0.0,
+            "opponent_quality_edge": 0.0,
+            "form_confidence": 0.0,
+            "flags": ["RECENT_FORM_NO_PLAYER_MATCHES"],
+            "pick": pick_stats,
+            "opponent": opp_stats,
+            "history_status": status,
+        }
 
-    pick_last10_rate = win_rate(pick_last10, pick)
-    opponent_last10_rate = win_rate(opponent_last10, opponent)
-    pick_last5_rate = win_rate(pick_last5, pick)
-    opponent_last5_rate = win_rate(opponent_last5, opponent)
-    pick_surface_rate = win_rate(pick_surface10, pick)
-    opponent_surface_rate = win_rate(opponent_surface10, opponent)
+    last10_diff = _diff_pct(pick_stats["last10"].get("win_pct"), opp_stats["last10"].get("win_pct"))
+    last5_diff = _diff_pct(pick_stats["last5"].get("win_pct"), opp_stats["last5"].get("win_pct"))
+    surface_diff = _diff_pct(pick_stats["surface_last10"].get("win_pct"), opp_stats["surface_last10"].get("win_pct"))
 
-    pick_avg_rank = avg_opponent_rank(pick_last10, pick)
-    opponent_avg_rank = avg_opponent_rank(opponent_last10, opponent)
-
-    recent_edge = form_edge(pick_last10_rate, opponent_last10_rate, cap=0.04)
-    short_edge = form_edge(pick_last5_rate, opponent_last5_rate, cap=0.03)
-    surface_edge = form_edge(pick_surface_rate, opponent_surface_rate, cap=0.04)
-    quality_edge = ranking_quality_edge(pick_avg_rank, opponent_avg_rank)
-
-    sample = len(pick_last10) + len(opponent_last10)
-    surface_sample = len(pick_surface10) + len(opponent_surface10)
-    confidence = min(0.15 + sample * 0.035 + surface_sample * 0.015, 0.75)
+    recent_form_edge = round(clamp(last10_diff * 0.08, -0.05, 0.05), 4)
+    short_form_edge = round(clamp(last5_diff * 0.05, -0.035, 0.035), 4)
+    surface_recent_form_edge = round(clamp(surface_diff * 0.07, -0.05, 0.05), 4)
+    opponent_quality_edge = _quality_edge(pick_stats, opp_stats)
+    form_confidence = _confidence(pick_stats, opp_stats)
 
     flags: List[str] = []
-    if len(pick_last10) < 3:
-        flags.append("RECENT_FORM_THIN_PICK")
-    if len(opponent_last10) < 3:
-        flags.append("RECENT_FORM_THIN_OPPONENT")
-    if surface_bucket and (len(pick_surface10) < 2 or len(opponent_surface10) < 2):
-        flags.append("SURFACE_RECENT_FORM_THIN")
+    if pick_stats["last10"]["count"] < 3 or opp_stats["last10"]["count"] < 3:
+        flags.append("RECENT_FORM_THIN_SAMPLE")
+    if pick_stats["surface_last10"]["count"] < 3 or opp_stats["surface_last10"]["count"] < 3:
+        flags.append("SURFACE_RECENT_FORM_THIN_SAMPLE")
+    if opponent_quality_edge == 0.0:
+        flags.append("OPPONENT_QUALITY_THIN_DATA")
+    if abs(recent_form_edge) < 0.005 and abs(surface_recent_form_edge) < 0.005:
+        flags.append("RECENT_FORM_NEUTRAL")
 
     return {
-        "status": "OK" if sample > 0 else "NO_DATA",
-        "source": sources[:5],
-        "surface": surface_bucket,
-        "pick_last5_wins": wins_count(pick_last5, pick),
-        "opponent_last5_wins": wins_count(opponent_last5, opponent),
-        "pick_last5_matches": len(pick_last5),
-        "opponent_last5_matches": len(opponent_last5),
-        "pick_last10_wins": wins_count(pick_last10, pick),
-        "opponent_last10_wins": wins_count(opponent_last10, opponent),
-        "pick_last10_matches": len(pick_last10),
-        "opponent_last10_matches": len(opponent_last10),
-        "pick_last10_win_pct": round(pick_last10_rate, 4) if pick_last10_rate is not None else None,
-        "opponent_last10_win_pct": round(opponent_last10_rate, 4) if opponent_last10_rate is not None else None,
-        "pick_surface_last10_win_pct": round(pick_surface_rate, 4) if pick_surface_rate is not None else None,
-        "opponent_surface_last10_win_pct": round(opponent_surface_rate, 4) if opponent_surface_rate is not None else None,
-        "pick_avg_opponent_rank_last10": round(pick_avg_rank, 1) if pick_avg_rank is not None else None,
-        "opponent_avg_opponent_rank_last10": round(opponent_avg_rank, 1) if opponent_avg_rank is not None else None,
-        "recent_form_edge": recent_edge,
-        "short_form_edge": short_edge,
-        "surface_recent_form_edge": surface_edge,
-        "opponent_quality_edge": quality_edge,
-        "form_confidence": round(confidence, 4),
-        "flags": sorted(set(flags)),
+        "status": "OK",
+        "source": "local_history",
+        "surface": normalize_surface(surface),
+        "level": level,
+        "pick": pick_stats,
+        "opponent": opp_stats,
+        "pick_last5_record": pick_stats["last5"]["record"],
+        "opponent_last5_record": opp_stats["last5"]["record"],
+        "pick_last10_record": pick_stats["last10"]["record"],
+        "opponent_last10_record": opp_stats["last10"]["record"],
+        "pick_last10_win_pct": pick_stats["last10"].get("win_pct"),
+        "opponent_last10_win_pct": opp_stats["last10"].get("win_pct"),
+        "pick_surface_record": pick_stats["surface_last10"]["record"],
+        "opponent_surface_record": opp_stats["surface_last10"]["record"],
+        "pick_surface_last10_win_pct": pick_stats["surface_last10"].get("win_pct"),
+        "opponent_surface_last10_win_pct": opp_stats["surface_last10"].get("win_pct"),
+        "recent_form_edge": recent_form_edge,
+        "short_form_edge": short_form_edge,
+        "surface_recent_form_edge": surface_recent_form_edge,
+        "opponent_quality_edge": opponent_quality_edge,
+        "form_confidence": form_confidence,
+        "flags": flags,
+        "history_status": status,
     }
