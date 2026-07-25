@@ -1,273 +1,465 @@
-# CORQ ranking - TOP7 is first 7 production-eligible rows from CORQ ranking
+"""CORQ ranking and TOP7 publication quality guard.
+
+Principles:
+- ALL stays broad and audit-friendly.
+- TOP7 contains only publishable bets.
+- Telegram/RSS should read TOP7 only.
+
+This module is intentionally defensive and dictionary-based because the runtime
+can contain rows from different stages of the pipeline.  It accepts both newer
+and older field names and writes explicit audit fields back to each row.
+"""
+
 from __future__ import annotations
-from typing import Any, Dict, Iterable, List
 
-MIN_TOP_ODDS = 1.40
-MAX_ODDS_GAP_PCT = 2.50
-MIN_THINQ_CONFIDENCE = 0.15
+from copy import deepcopy
+from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
-# ALL stays broad/audit. TOP7 is production-only.
-# These are the only match status values allowed into production TOP7.
-TOP7_ALLOWED_STATUS_TYPES = {
-    'notstarted',
-    'not_started',
-    'not started',
-    'scheduled',
-    'open',
-    'pre',
-    'prematch',
-    'pre_match',
-    'upcoming',
+TOP_N_DEFAULT = 7
+TOP7_FILTER_MODE = "PUBLISHABLE_CORQ_THINQ_GUARD_V1"
+
+MIN_CORQ_PROBABILITY = 0.50
+MIN_PICK_THINQ_EDGE = 0.0
+MIN_PICK_DATA_DEPTH = 0.40
+MIN_ELO_DEPTH_IF_MISSING = 0.50
+EXTREME_UNKNOWN_ODDS_GAP_PCT = 1.50
+
+OPEN_STATUS_TYPES = {
+    "notstarted",
+    "not_started",
+    "scheduled",
+    "open",
+    "prematch",
+    "pre-match",
+    "upcoming",
 }
-TOP7_BLOCKED_STATUS_TYPES = {
-    'inprogress',
-    'in_progress',
-    'live',
-    'started',
-    'running',
-    'finished',
-    'ended',
-    'closed',
-    'cancelled',
-    'canceled',
-    'postponed',
-    'interrupted',
-    'retired',
-    'walkover',
-    'abandoned',
+
+BLOCKED_STATUS_TYPES = {
+    "finished",
+    "ended",
+    "complete",
+    "completed",
+    "inprogress",
+    "in_progress",
+    "live",
+    "started",
+    "cancelled",
+    "canceled",
+    "postponed",
+    "retired",
+    "walkover",
+    "interrupted",
+    "suspended",
 }
-# If start time is very close, keep it out of TOP7 production output.
-# This stays conservative and still leaves ALL broad.
-TOP7_MIN_SECONDS_BEFORE_START = 0
+
+CONFIRMED_ODDS_DIRECTIONS = {
+    "DIRECT_BY_NUMERIC_OUTCOME",
+    "REVERSED_BY_NUMERIC_OUTCOME",
+    "DIRECT_TO_MATCH_PLAYERS",
+    "REVERSED_TO_MATCH_PLAYERS",
+}
+
+UNKNOWN_ODDS_DIRECTIONS = {
+    "DIRECT_OR_LABEL_UNKNOWN",
+    "UNKNOWN",
+    "UNCONFIRMED",
+    "",
+    None,
+}
 
 
-def _as_float(value, default=None):
-    try:
-        if value is None or value == '':
-            return default
+def _as_float(value: Any, default: Optional[float] = None) -> Optional[float]:
+    if value is None:
+        return default
+    if isinstance(value, bool):
         return float(value)
-    except Exception:
-        return default
-
-
-def _as_int(value, default=None):
-    try:
-        if value is None or value == '':
+    if isinstance(value, (int, float)):
+        try:
+            return float(value)
+        except Exception:
             return default
-        return int(value)
+    text = str(value).strip().replace("%", "")
+    if not text or text in {"—", "-", "None", "null"}:
+        return default
+    try:
+        return float(text)
     except Exception:
         return default
 
 
-def _norm_text(value: Any) -> str:
-    text = str(value or '').strip().lower()
-    return text.replace('-', '_').replace(' ', '_')
+def _prob(value: Any, default: float = 0.0) -> float:
+    """Return probability as 0..1 from either 0..1 or 0..100 input."""
+    x = _as_float(value, None)
+    if x is None:
+        return default
+    if x > 1.5:
+        return x / 100.0
+    return x
 
 
-def _status_type(rec: Dict[str, Any]) -> str:
-    for key in ('status_type', 'statusType', 'match_status_type'):
-        if rec.get(key):
-            return _norm_text(rec.get(key))
-    status = rec.get('status')
-    if isinstance(status, dict):
-        for key in ('type', 'description', 'status_type'):
-            if status.get(key):
-                return _norm_text(status.get(key))
-    raw = rec.get('raw')
-    if isinstance(raw, dict):
-        raw_status = raw.get('status')
-        if isinstance(raw_status, dict):
-            for key in ('type', 'description'):
-                if raw_status.get(key):
-                    return _norm_text(raw_status.get(key))
-    return ''
+def _percent(value: Any, default: float = 0.0) -> float:
+    """Return percentage points, e.g. 0.61 -> 61.0 and 61 -> 61."""
+    x = _as_float(value, None)
+    if x is None:
+        return default
+    if -1.5 <= x <= 1.5:
+        return x * 100.0
+    return x
 
 
-def _status_code(rec: Dict[str, Any]):
-    for key in ('status_code', 'statusCode'):
-        value = _as_int(rec.get(key))
-        if value is not None:
-            return value
-    status = rec.get('status')
-    if isinstance(status, dict):
-        value = _as_int(status.get('code'))
-        if value is not None:
-            return value
-    raw = rec.get('raw')
-    if isinstance(raw, dict):
-        raw_status = raw.get('status')
-        if isinstance(raw_status, dict):
-            value = _as_int(raw_status.get('code'))
-            if value is not None:
-                return value
-    return None
+def _get_nested(row: Dict[str, Any], *path: str) -> Any:
+    cur: Any = row
+    for key in path:
+        if not isinstance(cur, dict):
+            return None
+        cur = cur.get(key)
+    return cur
 
 
-def _is_status_top7_production_ready(rec: Dict[str, Any]) -> bool:
-    status_type = _status_type(rec)
-    status_code = _status_code(rec)
-
-    if status_type in TOP7_BLOCKED_STATUS_TYPES:
-        return False
-    if status_type in TOP7_ALLOWED_STATUS_TYPES:
-        return True
-
-    # RapidAPI/Sofa style common codes seen in current data:
-    # 100 = ended/finished, 8/10 = in progress periods.
-    if status_code in {100, 8, 9, 10, 11, 12, 13}:
-        return False
-
-    # Unknown status must not enter production TOP7.
-    return False
+def _first(row: Dict[str, Any], keys: Sequence[str], default: Any = None) -> Any:
+    for key in keys:
+        if key in row and row.get(key) is not None:
+            return row.get(key)
+    return default
 
 
-def _top7_status_reject_reason(rec: Dict[str, Any]) -> str:
-    status_type = _status_type(rec) or 'unknown'
-    status_code = _status_code(rec)
-    if status_type in {'finished', 'ended'} or status_code == 100:
-        return 'REJECT_TOP7_STATUS_FINISHED'
-    if status_type in {'inprogress', 'in_progress', 'live', 'started', 'running'} or status_code in {8, 9, 10, 11, 12, 13}:
-        return 'REJECT_TOP7_STATUS_INPROGRESS'
-    if status_type in {'cancelled', 'canceled'}:
-        return 'REJECT_TOP7_STATUS_CANCELLED'
-    if status_type in {'postponed', 'interrupted', 'retired', 'walkover', 'abandoned'}:
-        return 'REJECT_TOP7_STATUS_NOT_PLAYABLE'
-    return f'REJECT_TOP7_STATUS_{status_type.upper()}'
-
-
-def _match_key(rec: Dict[str, Any]) -> str:
-    for key in ('event_id', 'eventId', 'match_id', 'match_key'):
-        if rec.get(key):
-            return str(rec.get(key))
-    p1 = str(rec.get('player1') or rec.get('pick') or '').lower().strip()
-    p2 = str(rec.get('player2') or rec.get('opponent') or '').lower().strip()
-    names = sorted([p1, p2])
-    return '::'.join(names + [str(rec.get('tournament') or '').lower().strip()])
-
-
-def evaluate_eligibility(rec: Dict[str, Any]) -> Dict[str, Any]:
-    corq_reasons: List[str] = []
-    if rec.get('is_doubles'):
-        corq_reasons.append('REJECT_DOUBLES')
-    pick_odds = _as_float(rec.get('pick_odds') or rec.get('odds'))
-    opponent_odds = _as_float(rec.get('opponent_odds'))
-    if pick_odds is None:
-        corq_reasons.append('REJECT_MISSING_ODDS')
-    elif pick_odds < MIN_TOP_ODDS:
-        corq_reasons.append('REJECT_LOW_ODDS')
-    if opponent_odds is None:
-        corq_reasons.append('REJECT_MISSING_OPPONENT_ODDS')
-    gap = _as_float(rec.get('odds_gap_pct'))
-    if gap is None and pick_odds and opponent_odds:
-        gap = abs(pick_odds - opponent_odds) / max(min(pick_odds, opponent_odds), 0.0001)
-    if gap is not None and gap > MAX_ODDS_GAP_PCT:
-        corq_reasons.append('REJECT_EXTREME_ODDS_GAP')
-    surface = str(rec.get('surface') or '').strip().lower()
-    if not surface or surface == 'unknown':
-        corq_reasons.append('REJECT_SURFACE_UNKNOWN')
-    if not rec.get('thinq_available', True):
-        corq_reasons.append('REJECT_NO_THINQ')
-    thinq_conf = _as_float(rec.get('thinq_confidence'), 0.0) or 0.0
-    if thinq_conf < MIN_THINQ_CONFIDENCE:
-        corq_reasons.append('REJECT_LOW_THINQ_CONFIDENCE')
-
-    out = dict(rec)
-    prior_corq = list(out.get('corq_reject_reasons') or [])
-    out['corq_reject_reasons'] = sorted(set(prior_corq + corq_reasons))
-    out['eligible_for_corq'] = len(out['corq_reject_reasons']) == 0
-
-    top7_reasons = list(out['corq_reject_reasons'])
-    if not _is_status_top7_production_ready(out):
-        top7_reasons.append(_top7_status_reject_reason(out))
-
-    out['top7_reject_reasons'] = sorted(set(top7_reasons))
-    out['eligible_for_top7'] = len(out['top7_reject_reasons']) == 0
-    out['top7_status_type_normalized'] = _status_type(out) or None
-    out['top7_status_code'] = _status_code(out)
-    out['top7_filter_mode'] = 'PRODUCTION_NOT_STARTED_ONLY'
+def _flags(row: Dict[str, Any]) -> List[str]:
+    out: List[str] = []
+    for key in (
+        "flags",
+        "risk_flags",
+        "corq_risk_flags",
+        "thinq_flags",
+        "corq_warning_flags",
+        "reject_reasons",
+        "corq_reject_reasons",
+        "top7_reject_reasons",
+    ):
+        value = row.get(key)
+        if isinstance(value, list):
+            out.extend(str(x) for x in value if x is not None)
+        elif value:
+            out.append(str(value))
+    thinq = row.get("thinq")
+    if isinstance(thinq, dict):
+        value = thinq.get("flags")
+        if isinstance(value, list):
+            out.extend(str(x) for x in value if x is not None)
     return out
 
 
-def dedupe_by_match(records: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    best: Dict[str, Dict[str, Any]] = {}
-    for rec in records:
-        key = _match_key(rec)
-        current = best.get(key)
-        score = _as_float(rec.get('corq_adjusted_score'), 0.0) or 0.0
-        cur_score = _as_float(current.get('corq_adjusted_score'), -1.0) if current else -1.0
-        if current is None or score > cur_score:
-            best[key] = dict(rec)
-    return list(best.values())
+def status_type(row: Dict[str, Any]) -> str:
+    raw = _first(row, ["status_type", "match_status_type", "status"], "")
+    if not raw:
+        raw = _get_nested(row, "raw", "status", "type")
+    return str(raw or "").strip().lower().replace(" ", "_")
 
 
-def rank_corq(records: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    evaluated = [evaluate_eligibility(r) for r in records]
-    eligible = [r for r in evaluated if r.get('eligible_for_corq')]
-    eligible = dedupe_by_match(eligible)
-    ranked = sorted(
-        eligible,
+def status_code(row: Dict[str, Any]) -> Any:
+    value = _first(row, ["status_code", "match_status_code"], None)
+    if value is None:
+        value = _get_nested(row, "raw", "status", "code")
+    return value
+
+
+def is_notstarted(row: Dict[str, Any]) -> bool:
+    st = status_type(row)
+    code = status_code(row)
+    if st in BLOCKED_STATUS_TYPES:
+        return False
+    if st in OPEN_STATUS_TYPES:
+        return True
+    # TennisApi commonly uses status.code 0 for not-started/pre-match.
+    if str(code) == "0" and st not in BLOCKED_STATUS_TYPES:
+        return True
+    return False
+
+
+def corq_probability(row: Dict[str, Any]) -> float:
+    value = _first(
+        row,
+        [
+            "corq_estimated_win_probability",
+            "corq_probability",
+            "win_probability",
+            "corq_win_probability",
+            "corq_score",
+        ],
+        None,
+    )
+    if value is None:
+        value = _get_nested(row, "corq", "probability")
+    if value is None:
+        pct = _first(row, ["estimated_win_pct", "win_pct", "probability_pct"], None)
+        return _prob(pct, 0.0)
+    return _prob(value, 0.0)
+
+
+def thinq_confidence(row: Dict[str, Any]) -> float:
+    value = _first(
+        row,
+        [
+            "thinq_probability_confidence",
+            "thinq_confidence",
+            "thinQ_confidence",
+            "thinq_data_confidence",
+        ],
+        None,
+    )
+    if value is None:
+        value = _get_nested(row, "thinq_probability_layer", "confidence")
+    if value is None:
+        value = _get_nested(row, "thinq", "confidence")
+    return _prob(value, 0.0)
+
+
+def pick_thinq_edge(row: Dict[str, Any]) -> float:
+    """Return ThinQ edge from pick perspective as 0..1.
+
+    Positive supports the displayed pick. Negative goes against it.
+    """
+    value = _first(
+        row,
+        [
+            "pick_thinq_edge",
+            "thinq_edge",
+            "thinq_total_edge",
+            "thinq_probability_edge",
+        ],
+        None,
+    )
+    if value is None:
+        value = _get_nested(row, "thinq_probability_layer", "edge")
+    if value is None:
+        p = _first(row, ["thinq_probability", "thinq_winner_probability"], None)
+        if p is None:
+            p = _get_nested(row, "thinq_probability_layer", "probability")
+        if p is not None:
+            return _prob(p, 0.50) - 0.50
+        # Fallback to CORQ edge around 50 if no ThinQ probability exists.
+        cp = corq_probability(row)
+        return cp - 0.50 if cp else 0.0
+    return _percent(value, 0.0) / 100.0
+
+
+def computed_pick_data_depth(row: Dict[str, Any]) -> float:
+    """Compute statistical support for the displayed pick as 0..1.
+
+    This is not the same as ThinQ confidence.  It combines global ThinQ data
+    confidence with signal strength in favor of the displayed pick.
+    """
+    edge = pick_thinq_edge(row)
+    conf = thinq_confidence(row)
+    if edge <= 0 or conf <= 0:
+        return 0.0
+    # Full depth once ThinQ edge reaches +10 percentage points.
+    strength = min(edge / 0.10, 1.0)
+    return max(0.0, min(conf * strength, 1.0))
+
+
+def pick_data_depth(row: Dict[str, Any]) -> float:
+    # Always recompute to avoid the older duplicate behavior where this field
+    # simply copied ThinQ confidence.
+    return computed_pick_data_depth(row)
+
+
+def odds_available(row: Dict[str, Any]) -> bool:
+    if row.get("odds_pair_available") is True:
+        return True
+    p1 = _first(row, ["odds_player1", "home_odds", "p1_odds", "odds1", "price1", "pick_odds", "odds"], None)
+    p2 = _first(row, ["odds_player2", "away_odds", "p2_odds", "odds2", "price2", "opponent_odds", "opp_odds"], None)
+    if _as_float(p1, None) is not None and _as_float(p2, None) is not None:
+        return True
+    # For already expanded side candidate, at least pick odds must exist.
+    return _as_float(p1, None) is not None
+
+
+def is_doubles(row: Dict[str, Any]) -> bool:
+    if row.get("is_doubles") is True:
+        return True
+    value = _first(row, ["match_type", "type", "event_type"], "")
+    return "double" in str(value).lower()
+
+
+def side_valid(row: Dict[str, Any]) -> bool:
+    audit = row.get("side_audit")
+    if isinstance(audit, dict) and "side_valid" in audit:
+        return bool(audit.get("side_valid"))
+    if "side_valid" in row:
+        return bool(row.get("side_valid"))
+    # If no side audit exists, do not silently fail closed for legacy rows that
+    # predate side_audit.  Missing audit is still marked for ALL notes elsewhere.
+    return True
+
+
+def odds_orientation_extreme_risk(row: Dict[str, Any]) -> bool:
+    direction = row.get("odds_matching_direction")
+    confirmed = row.get("odds_labels_confirmed")
+    gap = _as_float(row.get("odds_gap_pct"), 0.0) or 0.0
+    if direction in CONFIRMED_ODDS_DIRECTIONS or confirmed is True:
+        return False
+    unknown = direction in UNKNOWN_ODDS_DIRECTIONS or confirmed is False
+    return bool(unknown and gap >= EXTREME_UNKNOWN_ODDS_GAP_PCT)
+
+
+def elo_unavailable(row: Dict[str, Any]) -> bool:
+    flags = set(_flags(row))
+    if flags.intersection({"MISSING_ELO", "MISSING_ELO_PICK", "MISSING_ELO_OPPONENT", "ELO_UNAVAILABLE"}):
+        return True
+    elo_status = _get_nested(row, "thinq", "elo", "status") or row.get("thinq_elo_status")
+    if elo_status and str(elo_status).upper() in {"NO_DATA", "MISSING", "UNAVAILABLE", "ERROR"}:
+        return True
+    p_edge = _first(row, ["thinq_overall_elo_edge", "overall_elo_edge", "elo_edge"], None)
+    s_edge = _first(row, ["thinq_surface_elo_edge", "surface_elo_edge"], None)
+    # Do not treat true 0.0 as missing if the explicit status is OK.
+    if str(elo_status).upper() == "OK":
+        return False
+    if p_edge is None and s_edge is None:
+        return True
+    return False
+
+
+def top7_reject_reasons(row: Dict[str, Any]) -> List[str]:
+    reasons: List[str] = []
+    cp = corq_probability(row)
+    edge = pick_thinq_edge(row)
+    depth = pick_data_depth(row)
+
+    if not is_notstarted(row):
+        reasons.append("REJECT_TOP7_STATUS_NOT_NOTSTARTED")
+    if cp < MIN_CORQ_PROBABILITY:
+        reasons.append("REJECT_TOP7_CORQ_BELOW_50")
+    if edge < MIN_PICK_THINQ_EDGE:
+        reasons.append("REJECT_TOP7_THINQ_EDGE_AGAINST_PICK")
+    if depth < MIN_PICK_DATA_DEPTH:
+        reasons.append("REJECT_TOP7_LOW_PICK_DATA_DEPTH")
+    if not odds_available(row):
+        reasons.append("REJECT_TOP7_MISSING_ODDS")
+    if is_doubles(row):
+        reasons.append("REJECT_TOP7_DOUBLES")
+    if not side_valid(row):
+        reasons.append("REJECT_TOP7_INVALID_SIDE_ORIENTATION")
+    if odds_orientation_extreme_risk(row):
+        reasons.append("REJECT_TOP7_ODDS_ORIENTATION_UNCONFIRMED_EXTREME")
+    if elo_unavailable(row) and depth < MIN_ELO_DEPTH_IF_MISSING:
+        reasons.append("REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH")
+    return reasons
+
+
+def publishable_for_top7(row: Dict[str, Any]) -> bool:
+    return not top7_reject_reasons(row)
+
+
+def top7_quality_score(row: Dict[str, Any]) -> float:
+    """Score among already publishable candidates.
+
+    Odds are deliberately *not* a primary driver.  The score favors high final
+    CorQ probability, actual pick support, ThinQ edge and data quality.
+    """
+    cp = corq_probability(row) * 100.0
+    depth = pick_data_depth(row) * 100.0
+    edge = max(pick_thinq_edge(row), 0.0) * 100.0
+    conf = thinq_confidence(row) * 100.0
+    return round(cp + 0.25 * depth + 0.20 * edge + 0.10 * conf, 4)
+
+
+def annotate_top7_quality(row: Dict[str, Any]) -> Dict[str, Any]:
+    reasons = top7_reject_reasons(row)
+    cp = corq_probability(row)
+    edge = pick_thinq_edge(row)
+    conf = thinq_confidence(row)
+    depth = pick_data_depth(row)
+
+    row["top7_filter_mode"] = TOP7_FILTER_MODE
+    row["top7_publishable"] = not reasons
+    row["eligible_for_top7"] = not reasons
+    row["top7_quality_reject_reasons"] = reasons
+    row["top7_reject_reasons"] = reasons
+    row["top7_status_type_normalized"] = status_type(row)
+    row["top7_status_code"] = status_code(row)
+    row["top7_corq_probability"] = round(cp, 6)
+    row["top7_pick_thinq_edge"] = round(edge, 6)
+    row["top7_thinq_confidence"] = round(conf, 6)
+    row["pick_data_depth"] = round(depth, 6)
+    row["stat_data_depth"] = round(depth, 6)
+    row["top7_quality_score"] = top7_quality_score(row) if not reasons else 0.0
+    return row
+
+
+def annotate_rows(rows: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    annotated: List[Dict[str, Any]] = []
+    for idx, row in enumerate(rows, start=1):
+        new_row = row if isinstance(row, dict) else {}
+        new_row.setdefault("corq_source_rank", idx)
+        annotate_top7_quality(new_row)
+        annotated.append(new_row)
+    return annotated
+
+
+def sort_publishable(rows: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    data = [r for r in rows if r.get("top7_publishable") is True]
+    return sorted(
+        data,
         key=lambda r: (
-            _as_float(r.get('corq_adjusted_score'), 0.0) or 0.0,
-            _as_float(r.get('corq_probability'), 0.0) or 0.0,
+            top7_quality_score(r),
+            corq_probability(r),
+            pick_data_depth(r),
+            max(pick_thinq_edge(r), 0.0),
+            thinq_confidence(r),
+            _as_float(_first(r, ["pick_odds", "odds", "odds_player1", "home_odds"], 0.0), 0.0) or 0.0,
         ),
         reverse=True,
     )
-    for idx, rec in enumerate(ranked, start=1):
-        rec['corq_rank'] = idx
-    return ranked
 
 
-def make_all_match_view(records: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    # ALL intentionally remains broad and includes TOP7 reject reasons for audit.
-    evaluated = [evaluate_eligibility(r) for r in records]
-    grouped: Dict[str, List[Dict[str, Any]]] = {}
-    for r in evaluated:
-        grouped.setdefault(_match_key(r), []).append(r)
-    result: List[Dict[str, Any]] = []
-    for key, items in grouped.items():
-        selected = sorted(
-            items,
-            key=lambda r: (
-                _as_float(r.get('corq_adjusted_score'), 0.0) or 0.0,
-                _as_float(r.get('corq_probability'), 0.0) or 0.0,
-            ),
-            reverse=True,
-        )[0]
-        selected = dict(selected)
-        selected['corq_match_identity'] = key
-        selected['corq_candidate_selected'] = True
-        selected['corq_side_candidates'] = [
-            {
-                'pick': i.get('pick'),
-                'opponent': i.get('opponent'),
-                'corq_probability': i.get('corq_probability'),
-                'corq_adjusted_score': i.get('corq_adjusted_score'),
-                'eligible_for_corq': i.get('eligible_for_corq'),
-                'eligible_for_top7': i.get('eligible_for_top7'),
-                'corq_reject_reasons': i.get('corq_reject_reasons'),
-                'top7_reject_reasons': i.get('top7_reject_reasons'),
-            } for i in items
-        ]
-        result.append(selected)
-    return sorted(result, key=lambda r: (_as_float(r.get('corq_adjusted_score'), 0.0) or 0.0), reverse=True)
+def select_top7(rows: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> List[Dict[str, Any]]:
+    annotated = annotate_rows(rows)
+    publishable = sort_publishable(annotated)
+    selected: List[Dict[str, Any]] = []
+    seen_matches = set()
+    for row in publishable:
+        key = (
+            row.get("match_key")
+            or row.get("event_id")
+            or row.get("id")
+            or "|".join(sorted([str(row.get("player1") or row.get("home") or ""), str(row.get("player2") or row.get("away") or "")]))
+        )
+        if key in seen_matches:
+            continue
+        seen_matches.add(key)
+        selected.append(row)
+        if len(selected) >= top_n:
+            break
+    for idx, row in enumerate(selected, start=1):
+        row["top7_rank"] = idx
+        row["corq_rank"] = idx
+    return selected
 
 
-def top7_from_ranking(ranked: List[Dict[str, Any]], top_n: int = 7) -> List[Dict[str, Any]]:
-    # TOP7 is production-only. It never relaxes or backfills with live/finished rows.
-    filtered = [r for r in ranked if evaluate_eligibility(r).get('eligible_for_top7')]
-    result: List[Dict[str, Any]] = []
-    for idx, rec in enumerate(filtered[:top_n], start=1):
-        out = dict(rec)
-        evaluated = evaluate_eligibility(out)
-        out.update({
-            'corq_source_rank': rec.get('corq_rank'),
-            'corq_rank': idx,
-            'top7_rank': idx,
-            'eligible_for_top7': evaluated.get('eligible_for_top7'),
-            'top7_reject_reasons': evaluated.get('top7_reject_reasons'),
-            'top7_status_type_normalized': evaluated.get('top7_status_type_normalized'),
-            'top7_status_code': evaluated.get('top7_status_code'),
-            'top7_filter_mode': 'PRODUCTION_NOT_STARTED_ONLY',
-        })
-        result.append(out)
-    return result
+def rank_predictions(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    """Return (ALL annotated rows, TOP7 publishable rows)."""
+    all_rows = annotate_rows(list(predictions or []))
+    top7 = select_top7(all_rows, top_n=top_n)
+    return all_rows, top7
+
+
+def build_all_and_top7(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    return rank_predictions(predictions, top_n=top_n)
+
+
+def build_rankings(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    return rank_predictions(predictions, top_n=top_n)
+
+
+def apply_ranking(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    return rank_predictions(predictions, top_n=top_n)
+
+
+def evaluate_eligibility(row: Dict[str, Any]) -> Dict[str, Any]:
+    """Backward-compatible eligibility evaluator used by older engine code."""
+    return annotate_top7_quality(row)
+
+
+def is_publishable(row: Dict[str, Any]) -> bool:
+    return publishable_for_top7(row)
+
