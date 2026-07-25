@@ -246,17 +246,26 @@ def form_conf_value(row: Dict[str, Any]) -> Optional[float]:
 
 
 def data_depth_pct(row: Dict[str, Any]) -> Optional[float]:
-    for key in ("thinq_selection_confidence", "selection_confidence", "data_depth_pct"):
+    # Real pick/stat data depth. This must not merely copy overall ThinQ confidence.
+    # Prefer runtime-computed fields first, then compute from Pick ThinQ Edge and ThinQ confidence.
+    for key in ("stat_data_depth", "pick_data_depth", "top7_pick_data_depth", "thinq_selection_confidence", "selection_confidence", "data_depth_pct"):
         v = num(row.get(key))
         if v is not None:
             return v / 100.0 if v > 1.5 else v
     layer = row.get("thinq_selection") or nested(row, "thinq", "selection") or {}
     if isinstance(layer, dict):
-        for key in ("selection_confidence", "data_depth_pct", "data_confidence"):
+        for key in ("pick_data_depth", "stat_data_depth", "selection_confidence", "data_depth_pct"):
             v = num(layer.get(key))
             if v is not None:
                 return v / 100.0 if v > 1.5 else v
-    return confidence_value(row)
+    e = edge(row, "pick_thinq_edge", "thinq_edge", "thinq_total_edge", "thinq_probability_edge")
+    if e is None:
+        tp = thinq_prob(row)
+        e = None if tp is None else tp - 0.5
+    conf = confidence_value(row)
+    if e is None or conf is None or e <= 0:
+        return 0.0
+    return max(0.0, min(conf * min(e / 0.10, 1.0), 1.0))
 
 
 def depth_label(v: Optional[float]) -> str:
@@ -280,13 +289,13 @@ def depth_bar(v: Optional[float]) -> str:
     )
 
 
-def edge_direction(value: Optional[float], zero: str = "0.0%") -> str:
+def edge_direction(value: Optional[float], zero: str = "0.0% / Neutral") -> str:
     if value is None:
         return "—"
     if abs(value) < 0.0005:
         return zero
-    label = "Pick" if value > 0 else "Opp"
-    return f"{label} {pct(abs(value), signed=True)}"
+    label = "Support" if value > 0 else "Against"
+    return f"{pct(value, signed=True)} / {label}"
 
 
 def signed_pair(a: Optional[float], b: Optional[float], invert: bool = False) -> str:
@@ -326,10 +335,8 @@ def h2h_summary(row: Dict[str, Any]) -> str:
     e = edge(row, "h2h_edge")
     if total <= 0 or status in {"NO_DATA", "NO_PREVIOUS_MATCHES"}:
         return "No previous matches"
-    if e is None or abs(e) < 0.0005:
-        return f"Pick {pick_w}-{opp_w} · 0.0%"
-    lead = "Pick" if e > 0 else "Opp"
-    return f"{lead} {pick_w}-{opp_w} · {pct(abs(e), signed=True)}"
+    edge_text = "0.0%" if e is None or abs(e) < 0.0005 else pct(e, signed=True)
+    return f"{pick_w}W-{opp_w}L · {edge_text}"
 
 
 def surface_h2h_summary(row: Dict[str, Any]) -> str:
@@ -339,11 +346,7 @@ def surface_h2h_summary(row: Dict[str, Any]) -> str:
     if matches <= 0:
         return "No data"
     opp_w = max(matches - pick_w, 0)
-    if pick_w > opp_w:
-        return f"Pick {pick_w}-{opp_w}"
-    if opp_w > pick_w:
-        return f"Opp {pick_w}-{opp_w}"
-    return f"{pick_w}-{opp_w}"
+    return f"{pick_w}W-{opp_w}L"
 
 
 def find_time(row: Dict[str, Any]) -> str:
@@ -447,10 +450,10 @@ def corq_box(row: Dict[str, Any]) -> str:
       <header><span>CorQ {tooltip_icon('corq_box')}</span><strong>{esc(probability)}</strong></header>
       {row_html('Pick ELO / S-ELO', signed_pair(overall, surf), side_class_for_pick((overall or 0) + (surf or 0)))}
       {row_html('Opp ELO / S-ELO', signed_pair(overall, surf, invert=True), side_class_for_pick(-((overall or 0) + (surf or 0))))}
-      {row_html('H2H ' + tooltip_icon('h2h'), esc(h2h), side_class_from_text(h2h))}
-      {row_html('S-H2H ' + tooltip_icon('s_h2h'), esc(sh2h), side_class_from_text(sh2h))}
-      {row_html('ThinQ Edge', esc(edge_direction(thinq_e)), side_class_for_pick(thinq_e))}
-      <div class="metric-row depth-row"><span>Data Depth {tooltip_icon('pick_data_depth')}</span><strong>{depth_bar(depth)}</strong></div>
+      {row_html('H2H P-O ' + tooltip_icon('h2h'), esc(h2h), side_class_from_text(h2h))}
+      {row_html('S-H2H P-O ' + tooltip_icon('s_h2h'), esc(sh2h), side_class_from_text(sh2h))}
+      {row_html('Pick ThinQ Edge', esc(edge_direction(thinq_e)), side_class_for_pick(thinq_e))}
+      <div class="metric-row depth-row"><span>Stat Data Depth {tooltip_icon('pick_data_depth')}</span><strong>{depth_bar(depth)}</strong></div>
     </section>
     """
 
