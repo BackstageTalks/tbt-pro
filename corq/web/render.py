@@ -1,775 +1,222 @@
 from __future__ import annotations
 
-import html
-import json
-import math
-import os
-import re
-import shutil
-from datetime import datetime, timezone, timedelta
-from email.utils import format_datetime
+import html, json, math, os, re
+from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional
-try:
-    from zoneinfo import ZoneInfo
-except Exception:
-    ZoneInfo = None
-
-from corq.web.paths import (
-    ALL_PATH,
-    CLOQ_PATH,
-    CLOQ_RSS_PATH,
-    CORQ_RSS_PATH,
-    RESULTS_PATH,
-    TG_RSS_PATH,
-    THINQ_PATH,
-    THINQ_RSS_PATH,
-    TOP7_PATH,
-    NAV_ITEMS,
-    base_url,
-    page_file,
-    page_url,
-)
 
 try:
-    from corq.messages import public_flag_labels
+    from corq.web.paths import ALL_PATH, CLOQ_PATH, CLOQ_RSS_PATH, CORQ_PATH, CORQ_RSS_PATH, RESULTS_PATH, THINQ_PATH, THINQ_RSS_PATH, get_base_url
 except Exception:
-    def public_flag_labels(flags, max_items=4):
-        return []
-
-OUTPUT_ROOT = Path("outputs")
-SITE_ROOT = Path("corq/site")
-ASSET_ROOT = Path("corq/web/assets")
-SITE_ASSET_ROOT = SITE_ROOT / "assets"
-LOGO_FILE = "tbt_ai_goat_icon.png"
-RESULTS_DISPLAY_TIME_OFFSET_HOURS = int(os.getenv("RESULTS_DISPLAY_TIME_OFFSET_HOURS", "2"))
-DEFAULT_GAMES_LINE = 22.5
-
-CSS = """
-:root{--bg:#070b12;--panel:#0d1422;--panel2:#111b2d;--line:#22314a;--text:#f8fafc;--muted:#94a3b8;--blue:#38bdf8;--green:#22c55e;--red:#fb7185;--yellow:#facc15;--orange:#fb923c}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 12% 0,#172542 0,#070b12 38%,#05070d 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}.page{max-width:1500px;margin:0 auto;padding:28px}header{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:20px}.brand h1{margin:0;font-size:32px;letter-spacing:-.045em}.brand p{margin:7px 0 0;color:var(--muted)}nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}nav a{color:#cbd5e1;text-decoration:none;border:1px solid var(--line);padding:9px 12px;border-radius:999px;font-size:12px;background:rgba(13,20,34,.72)}nav a.active{color:#07110b;background:var(--green);border-color:var(--green);font-weight:900}.cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:18px 0 22px}.summary{background:linear-gradient(180deg,rgba(17,27,45,.96),rgba(13,20,34,.96));border:1px solid var(--line);border-radius:18px;padding:16px}.summary .label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.summary .value{font-size:26px;font-weight:900;margin-top:4px}.notice{border:1px solid #92400e;background:rgba(120,53,15,.25);color:#fed7aa;padding:14px 16px;border-radius:16px;margin:16px 0}.match-list{display:flex;flex-direction:column;gap:14px}.match-card{display:grid;grid-template-columns:52px minmax(300px,1.15fr) minmax(1080px,4.1fr);gap:14px;align-items:stretch;background:rgba(13,20,34,.9);border:1px solid var(--line);border-radius:22px;padding:14px}.match-card.audit{grid-template-columns:52px minmax(300px,1.15fr) minmax(1180px,4.5fr)}.rank{font-size:18px;font-weight:900;color:var(--blue)}.pick-name{font-size:16px;font-weight:900}.pick-odds{margin-top:3px;color:var(--yellow);font-size:12px;font-weight:900}.pick-action{margin-top:5px;color:var(--green);font-size:11px;font-weight:900;text-transform:lowercase;letter-spacing:.05em}.opponent-name{margin-top:2px;color:#cbd5e1;font-size:13px;font-weight:700}.opponent-odds{color:var(--muted);font-size:11px;margin-top:1px}.match-meta{color:var(--blue);font-size:11px;margin-top:6px}.status-line{color:var(--muted);font-size:10px;margin-top:6px}.chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}.chip{font-size:9px;border:1px solid var(--line);color:#cbd5e1;border-radius:999px;padding:3px 6px;background:#08101d}.score-box{border-radius:18px;border:1px solid var(--line);background:rgba(8,16,29,.95);padding:13px}.score-box.inline-score{height:100%;min-height:150px}.score-box.thinq-score{border-color:rgba(34,197,94,.45)}.score-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}.score-main{font-size:28px;margin-top:5px;font-weight:950}.score-sub{font-size:11px;color:#cbd5e1;margin-top:4px}.positive{color:var(--green)}.negative{color:var(--red)}.neutral{color:var(--muted)}.intel-grid{display:grid;grid-template-columns:1.75fr 1.25fr 1.25fr;gap:10px}.intel-card{background:rgba(8,16,29,.86);border:1px solid var(--line);border-radius:18px;padding:12px}.intel-title{font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}.kv{display:flex;justify-content:space-between;gap:8px;font-size:11px;border-top:1px solid rgba(34,49,74,.55);padding-top:6px;margin-top:6px}.kv span{color:#94a3b8}.kv strong{text-align:right;color:#f8fafc}.mini-audit{margin-top:8px;color:#64748b;font-size:10px}.blockers{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}.blockers span{font-size:10px;border:1px solid #7f1d1d;color:#fecaca;border-radius:999px;padding:3px 7px;background:rgba(127,29,29,.35)}table{width:100%;border-collapse:collapse;background:rgba(13,20,34,.82);border:1px solid var(--line);border-radius:18px;overflow:hidden}th,td{text-align:left;padding:10px;border-bottom:1px solid rgba(34,49,74,.65);font-size:12px}th{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em;background:rgba(8,16,29,.9)}td{color:#e2e8f0}.section-title{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin:26px 0 12px}.section-title h2{margin:0}.rss-box{background:rgba(8,16,29,.88);border:1px solid var(--line);border-radius:18px;padding:14px;margin:16px 0;color:#cbd5e1;font-size:12px}footer{color:#64748b;font-size:11px;margin-top:28px}
-.logo-brand{display:flex;align-items:center;gap:14px}.logo-brand img{width:58px;height:58px;border-radius:50%;object-fit:cover;border:1px solid rgba(56,189,248,.55);box-shadow:0 0 20px rgba(56,189,248,.18)}.brand-kicker{color:#38bdf8;font-size:12px;text-transform:uppercase;letter-spacing:.16em;font-weight:800}.brand h1.compact-title{font-size:24px;margin-top:2px}.brand p.compact-subtitle{font-size:12px;margin-top:2px}.hero-compact{align-items:center}.cards.compact-cards{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:8px}.summary:first-child.hide-candidate{display:none}.rss-box a{color:#f8fafc;text-decoration:none}.rss-pill{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;padding:5px 9px;background:#08101d;margin-left:8px}.subtle-chip{opacity:.58}.corq-card{border-color:rgba(56,189,248,.38)}.log-link{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border:1px solid var(--line);border-radius:999px;color:#38bdf8;text-decoration:none;background:#08101d;margin-left:8px;font-size:13px}.log-link:hover{border-color:#38bdf8}.json-pre{white-space:pre-wrap;background:#08101d;border:1px solid var(--line);border-radius:18px;padding:16px;color:#cbd5e1;font-size:12px;line-height:1.45;overflow:auto}.log-actions{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.log-actions a{color:#f8fafc;text-decoration:none;border:1px solid var(--line);padding:7px 10px;border-radius:999px;background:#08101d}
-
-"""
-
-
-def esc(value: Any) -> str:
-    if value is None:
-        return "—"
-    return html.escape(str(value), quote=True)
-
-
-def load_json(path: Path, default: Any) -> Any:
-    try:
-        if path.exists():
-            return json.loads(path.read_text(encoding="utf-8"))
-    except Exception:
-        return default
-    return default
-
-
-def safe_slug(value: Any, fallback: str = "match") -> str:
-    text = str(value or fallback).strip().lower()
-    text = re.sub(r"[^a-z0-9]+", "-", text)
-    text = re.sub(r"-+", "-", text).strip("-")
-    return text or fallback
-
-
-def match_key(row: Dict[str, Any], idx: int = 0) -> str:
-    raw = row.get("raw") if isinstance(row.get("raw"), dict) else {}
-    key = first_present(row.get("event_custom_id"), row.get("customId"), row.get("custom_id"), raw.get("customId"), raw.get("custom_id"), row.get("event_id"), row.get("match_id"), row.get("id"))
-    if key:
-        return safe_slug(key, f"match-{idx}")
-    return safe_slug(f"{row.get('pick') or 'pick'}-{row.get('opponent') or 'opponent'}-{idx}", f"match-{idx}")
-
-
-def match_log_href(row: Dict[str, Any]) -> str:
-    return f"../logs/{match_key(row)}/"
-
-
-def thinq_log_payload(row: Dict[str, Any]) -> Dict[str, Any]:
-    t = thinq(row)
-    flat = {k: v for k, v in row.items() if str(k).startswith("thinq_")}
-    raw = row.get("raw") if isinstance(row.get("raw"), dict) else {}
-    return {
-        "match": {
-            "event_id": row.get("event_id"),
-            "event_custom_id": first_present(row.get("event_custom_id"), row.get("customId"), row.get("custom_id"), raw.get("customId"), raw.get("custom_id")),
-            "pick": row.get("pick"),
-            "opponent": row.get("opponent"),
-            "player1": row.get("player1"),
-            "player2": row.get("player2"),
-            "pick_side": row.get("pick_side"),
-            "opponent_side": row.get("opponent_side"),
-            "surface": row.get("surface"),
-            "tournament": row.get("tournament"),
-            "status_type": row.get("status_type"),
-        },
-        "thinq": t,
-        "thinq_flat_fields": flat,
-        "corq_components": row.get("corq_components"),
-        "corq_probability_source": row.get("corq_probability_source"),
-        "corq_estimated_win_probability": row.get("corq_estimated_win_probability"),
-        "raw": raw,
-    }
-
-
-def first_present(*values: Any) -> Any:
-    for value in values:
-        if value is not None and value != "":
-            return value
-    return None
-
-
-def as_float(value: Any, default: Optional[float] = None) -> Optional[float]:
-    try:
-        if value is None or value == "":
-            return default
-        return float(value)
-    except Exception:
-        return default
-
-
-def pct(value: Any, signed: bool = False, default: str = "—") -> str:
-    val = as_float(value)
-    if val is None:
-        return default
-    if abs(val) <= 1.0000001:
-        val = val * 100
-    prefix = "+" if signed and val > 0 else ""
-    return f"{prefix}{val:.1f}%"
-
-
-def money(value: Any) -> str:
-    val = as_float(value)
-    if val is None:
-        return "—"
-    return f"{val:.2f}"
-
-
-def bratislava_tz():
-    if ZoneInfo is not None:
-        return ZoneInfo("Europe/Bratislava")
-    return timezone(timedelta(hours=RESULTS_DISPLAY_TIME_OFFSET_HOURS))
-
-
-def local_datetime(value: Any) -> Optional[datetime]:
-    if not value:
-        return None
-    try:
-        dt = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
-        if dt.tzinfo is None:
-            dt = dt.replace(tzinfo=timezone.utc)
-        return dt.astimezone(bratislava_tz())
-    except Exception:
-        return None
-
-
-def short_time(row: Dict[str, Any]) -> str:
-    raw = first_present(row.get("match_start"), row.get("start_time"), row.get("time"))
-    dt = local_datetime(raw)
-    if dt is not None:
-        return dt.strftime("%H:%M")
-    if not raw:
-        return "—"
-    return str(raw)[:5]
-
-
-def local_today() -> str:
-    return datetime.now(timezone.utc).astimezone(bratislava_tz()).strftime("%d.%m.%Y")
-
-
-def pubdate(row: Optional[Dict[str, Any]] = None) -> str:
-    raw = None
-    if row:
-        raw = first_present(row.get("published_at"), row.get("created_at"), row.get("snapshot_time"), row.get("generated_at"))
-    try:
-        dt = datetime.fromisoformat(str(raw).replace("Z", "+00:00")) if raw else datetime.now(timezone.utc)
-        if dt.tzinfo is None:
-            dt = dt.replace(tzinfo=timezone.utc)
-        return format_datetime(dt.astimezone(timezone.utc), usegmt=True)
-    except Exception:
-        return format_datetime(datetime.now(timezone.utc), usegmt=True)
-
-
-def thinq(row: Dict[str, Any]) -> Dict[str, Any]:
-    return row.get("thinq") if isinstance(row.get("thinq"), dict) else {}
-
-
-def match_dynamics(row: Dict[str, Any]) -> Dict[str, Any]:
-    t = thinq(row)
-    if isinstance(t.get("match_dynamics"), dict):
-        return t["match_dynamics"]
-    if isinstance(t.get("contexts"), dict) and isinstance(t["contexts"].get("match_dynamics"), dict):
-        return t["contexts"]["match_dynamics"]
-    return {}
-
-
-def h2h(row: Dict[str, Any]) -> Dict[str, Any]:
-    t = thinq(row)
-    return t.get("h2h") if isinstance(t.get("h2h"), dict) else {}
-
-
-def elo(row: Dict[str, Any]) -> Dict[str, Any]:
-    t = thinq(row)
-    return t.get("elo") if isinstance(t.get("elo"), dict) else {}
-
-
-def edge_label(value: Any) -> str:
-    val = as_float(value)
-    if val is None:
-        return "—"
-    return pct(val, signed=True)
-
-
-def value_class(value: Any) -> str:
-    val = as_float(value)
-    if val is None or abs(val) < 0.00001:
-        return "neutral"
-    return "positive" if val > 0 else "negative"
-
-
-def side_edge_label(value: Any, pick_label: str = "Pick", opp_label: str = "Opp") -> str:
-    val = as_float(value)
-    if val is None:
-        return "—"
-    if abs(val) < 0.00001:
-        return "Neutral 0.0%"
-    side = pick_label if val > 0 else opp_label
-    return f"{side} +{abs(val) * 100:.1f}%"
-
-
-def edge_pair(value: Any) -> tuple[str, str]:
-    val = as_float(value, 0.0) or 0.0
-    return edge_label(val), edge_label(-val)
-
-
-def h2h_readable(row: Dict[str, Any]) -> str:
-    hh = h2h(row)
-    total = int(as_float(hh.get("total_matches"), 0) or 0)
-    if total <= 0:
-        return "No previous matches"
-    pick_w = int(as_float(hh.get("pick_wins"), 0) or 0)
-    opp_w = int(as_float(hh.get("opponent_wins"), 0) or 0)
-    edge = as_float(first_present(hh.get("edge"), row.get("thinq_h2h_edge")), 0.0) or 0.0
-    if abs(edge) < 0.00001:
-        return f"{pick_w}-{opp_w} · 0.0%"
-    if edge > 0:
-        return f"Pick {pick_w}-{opp_w} · +{abs(edge) * 100:.1f}%"
-    return f"Opp {opp_w}-{pick_w} · +{abs(edge) * 100:.1f}%"
-
-
-def record_value(value: Any) -> str:
-    return str(value) if value not in (None, "") else "—"
-
-
-def thinq_probability_layer(row: Dict[str, Any]) -> Dict[str, Any]:
-    t = thinq(row)
-    layer = t.get("thinq_probability_layer") or t.get("probability_layer")
-    if isinstance(layer, dict):
-        return layer
-    layer = row.get("thinq_probability_layer") or row.get("probability_layer")
-    return layer if isinstance(layer, dict) else {}
-
-
-def thinq_probability_value(row: Dict[str, Any]) -> Optional[float]:
-    layer = thinq_probability_layer(row)
-    value = first_present(layer.get("pick_probability"), layer.get("probability"), row.get("thinq_probability"), probability_value(row, "thinq"))
-    val = as_float(value)
-    if val is None:
-        return None
-    return val / 100.0 if val > 1 else val
-
-
-def probability_value(row: Dict[str, Any], prefix: str) -> Optional[float]:
-    candidates = []
-    if prefix == "corq":
-        candidates = [row.get("corq_probability"), row.get("corq_estimated_win_probability"), row.get("corq_score"), row.get("estimated_win_pct")]
-    elif prefix == "thinq":
-        t = thinq(row)
-        candidates = [row.get("thinq_probability"), row.get("thinq_ai_probability"), t.get("win_probability"), t.get("probability"), t.get("score")]
-    elif prefix == "cloq":
-        candidates = [row.get("cloq_probability"), row.get("cloq_ai_probability"), row.get("cloq_score")]
-    elif prefix == "marq_pick":
-        candidates = [row.get("marq_pick_probability"), row.get("marq_pick_marq"), row.get("marq_pick")]
-    elif prefix == "marq_opponent":
-        candidates = [row.get("marq_opponent_probability"), row.get("marq_opp_marq"), row.get("marq_opponent")]
-    for c in candidates:
-        val = as_float(c)
-        if val is not None:
-            return val / 100.0 if val > 1 else val
-    return None
-
-
-def win_probability(row: Dict[str, Any]) -> Optional[float]:
-    val = first_present(row.get("win_probability"), row.get("estimated_win_pct"), row.get("corq_estimated_win_probability"), row.get("corq_score"))
-    f = as_float(val)
-    if f is None:
-        return None
-    return f / 100.0 if f > 1 else f
-
-
-
-
-def display_probability(row: Dict[str, Any]) -> float:
-    val = probability_value(row, "corq")
-    if val is None:
-        val = win_probability(row)
-    return as_float(val, 0.0) or 0.0
-
-
-def sort_by_probability(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    return sorted(rows, key=display_probability, reverse=True)
-
-def ai_match(row: Dict[str, Any]) -> str:
-    existing = first_present(row.get("ai_match"), row.get("ai_match_pct"), row.get("agreement_score"))
-    if existing is not None:
-        return pct(existing)
-    c = probability_value(row, "corq")
-    t = probability_value(row, "thinq")
-    if c is None or t is None:
-        return "—"
-    return pct(max(0.0, 1.0 - abs(c - t)))
-
-
-def ai_difference(row: Dict[str, Any]) -> str:
-    existing = row.get("ai_difference")
-    if existing:
-        return str(existing)
-    c = probability_value(row, "corq")
-    t = probability_value(row, "thinq")
-    if c is None or t is None:
-        return "—"
-    diff = c - t
-    label = "Corq" if diff >= 0 else "Thinq"
-    return f"{label} {pct(abs(diff), signed=True)}"
-
-
-def games_line(row: Dict[str, Any]) -> float:
-    return as_float(first_present(row.get("games_line"), row.get("total_games_line"), row.get("market_games_line")), DEFAULT_GAMES_LINE) or DEFAULT_GAMES_LINE
-
-
-def games_over_probability(row: Dict[str, Any]) -> Optional[float]:
-    md = match_dynamics(row)
-    direct = first_present(row.get("games_over_probability"), row.get("over_games_probability"), md.get("games_over_probability"))
-    val = as_float(direct)
-    if val is not None:
-        return val / 100.0 if val > 1 else val
-    projected = as_float(first_present(md.get("projected_games"), row.get("thinq_projected_games")))
-    if projected is None:
-        return None
-    # Conservative display-only estimate around the line. This is not a model signal.
-    return max(0.05, min(0.95, 0.50 + (projected - games_line(row)) * 0.04))
-
-
-def most_likely_score(row: Dict[str, Any]) -> str:
-    existing = first_present(row.get("most_likely_score"), row.get("projected_score"))
-    if existing:
-        return str(existing)
-    md = match_dynamics(row)
-    decider = as_float(md.get("decider_probability"))
-    straight = as_float(md.get("straight_sets_probability"))
-    if decider is None and straight is None:
-        return "—"
-    if decider is not None and decider >= 0.50:
-        return "2-1"
-    if straight is not None and straight >= 0.50:
-        return "2-0"
-    return "2-1"
-
-
-def meta(row: Dict[str, Any]) -> str:
-    bits = [short_time(row), row.get("tournament"), row.get("surface"), f"BO{row.get('best_of') or '—'}"]
-    return " · ".join(str(x) for x in bits if x not in (None, "", "—"))
-
-
-def flags(row: Dict[str, Any]) -> List[str]:
-    out: List[str] = []
-    for key in ("corq_risk_flags", "top7_reject_reasons", "corq_reject_reasons", "thinq_flags"):
-        val = row.get(key)
-        if isinstance(val, list):
-            out.extend(str(v) for v in val)
-    t = thinq(row)
-    if isinstance(t.get("flags"), list):
-        out.extend(str(v) for v in t["flags"])
-    return sorted(set(out))
-
-
-def web_publish_blockers(row: Dict[str, Any]) -> List[str]:
-    blockers: List[str] = []
-    if str(row.get("status_type") or "").lower() not in {"notstarted", "not_started", "scheduled", "prematch", "open", "upcoming"}:
-        blockers.append("WEB_BLOCK_STATUS_NOT_PREMATCH")
-    if row.get("is_doubles"):
-        blockers.append("WEB_BLOCK_DOUBLES")
-    if not row.get("odds") and not row.get("pick_odds"):
-        blockers.append("WEB_BLOCK_MISSING_ODDS")
-    if not row.get("pick") or not row.get("opponent"):
-        blockers.append("WEB_BLOCK_MISSING_PLAYERS")
-    return blockers
-
-
-def pick_block(row: Dict[str, Any]) -> str:
-    visible_flags = public_flag_labels(flags(row), max_items=4)
-    chip_html = "".join(f"<span class='chip subtle-chip'>{esc(flag)}</span>" for flag in visible_flags)
-    return (
-        f"<div class='pick-block'><div class='pick-name'>{esc(row.get('pick'))}</div>"
-        f"<div class='pick-odds'>Pick @ {esc(money(row.get('odds') or row.get('pick_odds')))}</div>"
-        f"<div class='pick-action'>to beat</div><div class='opponent-name'>{esc(row.get('opponent'))}</div>"
-        f"<div class='opponent-odds'>Opp @ {esc(money(row.get('opponent_odds')))}</div>"
-        f"<div class='match-meta'>{esc(meta(row))} <a class='log-link' href='{esc(match_log_href(row))}' title='ThinQ calculation log'>🧠</a></div>"
-        f"<div class='status-line'>Status: {esc(row.get('status_type') or 'unknown')}</div>"
-        f"<div class='chips'>{chip_html}</div></div>"
-    )
-
-
-def score_block(row: Dict[str, Any]) -> str:
-    wp = win_probability(row)
-    return (
-        "<div class='score-box inline-score'>"
-        "<div class='score-label'>Win probability</div>"
-        f"<div class='score-main'>{esc(pct(wp))}</div>"
-        "</div>"
-    )
-
-
-def thinq_score_block(row: Dict[str, Any]) -> str:
-    value = thinq_probability_value(row)
-    layer = thinq_probability_layer(row)
-    subtitle = layer.get("winner") or row.get("pick") or ""
-    return (
-        "<div class='score-box inline-score thinq-score'>"
-        "<div class='score-label'>ThinQ</div>"
-        f"<div class='score-main'>{esc(pct(value))}</div>"
-        f"<div class='score-sub'>{esc(subtitle)}</div>"
-        "</div>"
-    )
-
-
-def corq_block(row: Dict[str, Any]) -> str:
-    edge = row.get("corq_edge")
-    return (
-        "<div class='intel-card corq-card'><div class='intel-title'>CORQ</div>"
-        f"<div class='kv'><span>Probability</span><strong>{esc(pct(win_probability(row)))}</strong></div>"
-        f"<div class='kv'><span>Corq AI</span><strong>{esc(pct(probability_value(row, 'corq')))}</strong></div>"
-        f"<div class='kv'><span>Edge</span><strong class='{value_class(edge)}'>{esc(edge_label(edge))}</strong></div>"
-        f"<div class='kv'><span>Odds</span><strong>{esc(money(row.get('odds') or row.get('pick_odds')))}</strong></div>"
-        f"<div class='kv'><span>Source rank</span><strong>{esc(row.get('corq_source_rank') or row.get('corq_rank') or '—')}</strong></div>"
-        "</div>"
-    )
-
-
-def thinq_block(row: Dict[str, Any]) -> str:
-    e = elo(row)
-    t = thinq(row)
-    recent = t.get("recent_form") if isinstance(t.get("recent_form"), dict) else {}
-
-    pick_elo_edge = first_present(e.get("overall_elo_edge"), row.get("thinq_overall_elo_edge"), e.get("elo_edge"), row.get("thinq_elo_edge"))
-    pick_selo_edge = first_present(e.get("surface_elo_edge"), row.get("thinq_surface_elo_edge"))
-    pick_elo, opp_elo = edge_pair(pick_elo_edge)
-    pick_selo, opp_selo = edge_pair(pick_selo_edge)
-
-    pick_form = record_value(recent.get("pick_last10_record"))
-    pick_sform = record_value(recent.get("pick_surface_record"))
-    opp_form = record_value(recent.get("opponent_last10_record"))
-    opp_sform = record_value(recent.get("opponent_surface_record"))
-    quality = side_edge_label(first_present(recent.get("opponent_quality_edge"), row.get("thinq_opponent_quality_edge")))
-
-    layer = thinq_probability_layer(row)
-    conf = first_present(layer.get("confidence"), row.get("thinq_confidence"), t.get("confidence"))
-    thinq_prob = thinq_probability_value(row)
-    corq_prob = win_probability(row)
-
-    return (
-        "<div class='intel-card'><div class='intel-title'>ThinQ details</div>"
-        f"<div class='kv'><span>CorQ / ThinQ</span><strong>{esc(pct(corq_prob))} / {esc(pct(thinq_prob))}</strong></div>"
-        f"<div class='kv'><span>Pick ELO / S-ELO</span><strong>{esc(pick_elo)} / {esc(pick_selo)}</strong></div>"
-        f"<div class='kv'><span>Opp ELO / S-ELO</span><strong>{esc(opp_elo)} / {esc(opp_selo)}</strong></div>"
-        f"<div class='kv'><span>H2H</span><strong>{esc(h2h_readable(row))}</strong></div>"
-        f"<div class='kv'><span>Pick Form / S-Form</span><strong>{esc(pick_form)} / {esc(pick_sform)}</strong></div>"
-        f"<div class='kv'><span>Opp Form / S-Form</span><strong>{esc(opp_form)} / {esc(opp_sform)}</strong></div>"
-        f"<div class='kv'><span>Form Quality</span><strong>{esc(quality)}</strong></div>"
-        f"<div class='kv'><span>Confidence</span><strong>{esc(pct(conf))}</strong></div>"
-        "</div>"
-    )
-
-def sets_games_block(row: Dict[str, Any]) -> str:
-    md = match_dynamics(row)
-    line = games_line(row)
-    over = games_over_probability(row)
-    ou_text = f"Over {line:.2f} · {pct(over)}" if over is not None else "—"
-    return (
-        "<div class='intel-card'><div class='intel-title'>Sets / Games</div>"
-        f"<div class='kv'><span>Sets</span><strong>{esc(first_present(md.get('projected_sets'), row.get('thinq_projected_sets')))}</strong></div>"
-        f"<div class='kv'><span>Games</span><strong>{esc(first_present(md.get('projected_games'), row.get('thinq_projected_games')))}</strong></div>"
-        f"<div class='kv'><span>O/U</span><strong>{esc(ou_text)}</strong></div>"
-        f"<div class='kv'><span>3 Sets</span><strong>{esc(pct(first_present(md.get('decider_probability'), row.get('thinq_decider_probability'))))}</strong></div>"
-        f"<div class='kv'><span>Score</span><strong>{esc(most_likely_score(row))}</strong></div>"
-        f"<div class='kv'><span>Tie-break</span><strong>{esc(pct(first_present(md.get('tiebreak_probability'), row.get('thinq_tiebreak_probability'))))}</strong></div>"
-        "</div>"
-    )
-
-def marq_block(row: Dict[str, Any]) -> str:
-    move = first_present(row.get("marq_move"), row.get("marq_market_move"), row.get("market_move"), "—")
-    raw_direction = str(row.get("odds_matching_direction") or "")
-    direction = "Confirmed" if raw_direction in {"DIRECT_BY_NUMERIC_OUTCOME", "REVERSED_BY_NUMERIC_OUTCOME"} else (raw_direction or "—")
-    return (
-        "<div class='intel-card'><div class='intel-title'>MarQ</div>"
-        f"<div class='kv'><span>Pick MarQ</span><strong>{esc(pct(probability_value(row, 'marq_pick')))}</strong></div>"
-        f"<div class='kv'><span>Opp MarQ</span><strong>{esc(pct(probability_value(row, 'marq_opponent')))}</strong></div>"
-        f"<div class='kv'><span>Move</span><strong>{esc(move)}</strong></div>"
-        f"<div class='kv'><span>Odds Source</span><strong>{esc(row.get('odds_source') or '—')}</strong></div>"
-        f"<div class='kv'><span>Direction</span><strong>{esc(direction)}</strong></div>"
-        "<div class='mini-audit'>Market view only</div></div>"
-    )
-
-def row_card(row: Dict[str, Any], rank: int, audit: bool = False) -> str:
-    blockers = row.get("web_publish_blockers") or (web_publish_blockers(row) if audit else [])
-    blocker_html = ""
-    if blockers:
-        blocker_html = "<div class='blockers'>" + "".join(f"<span>{esc(b)}</span>" for b in blockers) + "</div>"
-    cls = "match-card audit" if audit else "match-card"
-    return f"<article class='{cls}'><div class='rank'>#{rank}</div>{pick_block(row)}<div class='intel-grid'>{thinq_block(row)}{sets_games_block(row)}{marq_block(row)}</div>{blocker_html}</article>"
-
-
-def nav(active: str) -> str:
-    links = []
-    for item in NAV_ITEMS:
-        path = item["path"]
-        href = f"../{path}" if path.endswith(".xml") else f"../{path}/"
-        cls = "active" if item["key"] == active else ""
-        links.append(f"<a class='{cls}' href='{href}'>{esc(item['label'])}</a>")
-    return "<nav>" + "".join(links) + "</nav>"
-
-
-def html_page(active: str, title: str, subtitle: str, body: str, summary: Dict[str, Any]) -> str:
-    updated = str(summary.get("updated") or datetime.now(timezone.utc).isoformat())
-    cards = [
-        ("ALL", summary.get("all_count", "—")),
-        ("Ranked", summary.get("ranked_count", "—")),
-        ("TOP7", summary.get("top7_count", "—")),
-        ("Updated", updated[:16].replace("T", " ")),
-    ]
-    cards_html = "".join(f"<div class='summary'><div class='label'>{esc(label)}</div><div class='value'>{esc(value)}</div></div>" for label, value in cards)
-    logo_src = "../assets/" + LOGO_FILE
-    header_title = title.replace("TBT PRO ", "")
-    header = (
-        "<header class='hero-compact'><div class='brand logo-brand'>"
-        f"<img src='{esc(logo_src)}' alt='TBT PRO logo'/>"
-        "<div><div class='brand-kicker'>BackstageTalks Statistical Engine</div>"
-        f"<h1 class='compact-title'>{esc(header_title)}</h1>"
-        f"<p class='compact-subtitle'>{esc(subtitle)}</p></div></div>{nav(active)}</header>"
-    )
-    return f"<!doctype html><html lang='en'><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width, initial-scale=1'/><title>{esc(title)}</title><style>{CSS}</style></head><body><div class='page'>{header}<section class='cards compact-cards'>{cards_html}</section>{body}<footer>This data is provided for informational and analytical purposes only · Powered by BackstageTalks Statistical Engine</footer></div></body></html>"
-
-
-def write_page(path_key: str, content: str) -> None:
-    target = SITE_ROOT / page_file(path_key)
-    target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(content, encoding="utf-8")
-
-def write_assets() -> None:
-    SITE_ASSET_ROOT.mkdir(parents=True, exist_ok=True)
-    source = ASSET_ROOT / LOGO_FILE
-    if source.exists():
-        shutil.copyfile(source, SITE_ASSET_ROOT / LOGO_FILE)
-
-def write_root_index() -> None:
-    SITE_ROOT.mkdir(parents=True, exist_ok=True)
-    top7_href = f"{TOP7_PATH}/"
-    rss_href = TG_RSS_PATH
-    content = f"""<!doctype html><html lang='en'><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width, initial-scale=1'/><meta http-equiv='refresh' content='0; url={top7_href}'/><title>TBT PRO</title><style>{CSS}</style></head><body><div class='page'><header><div class='brand'><h1>TBT PRO</h1><p>BackstageTalks Statistical Engine</p></div></header><div class='notice'>Redirecting to TOP7. If redirect does not start, open <a href='{top7_href}'>TOP7</a>. Telegram RSS: <a href='{rss_href}'>{rss_href}</a>.</div></div></body></html>"""
-    (SITE_ROOT / "index.html").write_text(content, encoding="utf-8")
-
-
-def table_page(rows: List[Dict[str, Any]], title: str) -> str:
-    if not rows:
-        return "<div class='notice'>No rows available.</div>"
-    head = "<tr><th>#</th><th>Time</th><th>Pick</th><th>Opponent</th><th>Win %</th><th>Odds</th><th>AI Match</th><th>Projected Sets</th><th>Projected Games</th><th>Status</th><th>Reject Flags</th></tr>"
-    body = []
-    for idx, row in enumerate(rows, 1):
-        md = match_dynamics(row)
-        body.append(
-            "<tr>"
-            f"<td>{idx}</td><td>{esc(short_time(row))}</td><td>{esc(row.get('pick'))}</td><td>{esc(row.get('opponent'))}</td>"
-            f"<td>{esc(pct(win_probability(row)))}</td><td>{esc(money(row.get('odds') or row.get('pick_odds')))}</td><td>{esc(ai_match(row))}</td>"
-            f"<td>{esc(first_present(md.get('projected_sets'), row.get('thinq_projected_sets')))}</td><td>{esc(first_present(md.get('projected_games'), row.get('thinq_projected_games')))}</td>"
-            f"<td>{esc(row.get('status_type'))}</td><td>{esc(', '.join(flags(row)[:5]))}</td></tr>"
-        )
-    return f"<div class='section-title'><h2>{esc(title)}</h2><span>{len(rows)} rows</span></div><table>{head}{''.join(body)}</table>"
-
-
-def load_results() -> List[Dict[str, Any]]:
-    candidates = [
-        OUTPUT_ROOT / "latest_results.json",
-        OUTPUT_ROOT / "results_latest.json",
-        OUTPUT_ROOT / "results" / str(datetime.now(timezone.utc).year) / "results_latest.json",
-    ]
-    for path in candidates:
-        data = load_json(path, None)
-        if isinstance(data, list):
-            return data
-        if isinstance(data, dict) and isinstance(data.get("results"), list):
-            return data["results"]
+    CORQ_PATH="h4v34n1c3d4y180"; CLOQ_PATH="h4v34n1c3d4y181"; ALL_PATH="h4v34n1c3d4y182"; RESULTS_PATH="h4v34n1c3d4y183"
+    CORQ_RSS_PATH="h4v34n1c3d4y184.xml"; CLOQ_RSS_PATH="h4v34n1c3d4y185.xml"; THINQ_PATH="h4v34n1c3d4y186"; THINQ_RSS_PATH="h4v34n1c3d4y187.xml"
+    def get_base_url(): return os.getenv("TBTPRO_BASE_URL", "https://backstagetalks.github.io/tbt-pro/")
+
+try:
+    from corq.messages import public_flag_labels, flag_message
+except Exception:
+    def public_flag_labels(flags): return [str(x).replace('_',' ').title() for x in (flags or [])]
+    def flag_message(flag): return {"label": str(flag).replace('_',' ').title(), "show_public": True}
+
+ROOT=Path.cwd(); OUTPUTS=ROOT/"outputs"; SITE=ROOT/"corq"/"site"
+
+def esc(v): return html.escape("" if v is None else str(v), quote=True)
+def read_json(path, default):
+    try: return json.loads(path.read_text(encoding='utf-8')) if path.exists() else default
+    except Exception: return default
+
+def as_list(data):
+    if isinstance(data, list): return data
+    if isinstance(data, dict):
+        for k in ("items","rows","predictions","top7","all","results"):
+            if isinstance(data.get(k), list): return data[k]
     return []
 
+def deep_get(row,*paths,default=None):
+    for path in paths:
+        cur=row; ok=True
+        for part in str(path).split('.'):
+            if isinstance(cur,dict) and part in cur: cur=cur[part]
+            else: ok=False; break
+        if ok and cur is not None: return cur
+    return default
 
-def results_body(results: List[Dict[str, Any]]) -> str:
-    if not results:
-        return "<div class='notice'>Results file not found yet. This page is ready for the Results workflow and will auto-populate from outputs/latest_results.json or outputs/results/YYYY/results_latest.json.</div>"
-    head = "<tr><th>Time</th><th>Pick</th><th>Opponent</th><th>Status</th><th>Winner</th><th>Score</th><th>Projected Sets</th><th>Projected Games</th><th>Units</th></tr>"
-    body = []
-    for row in results:
-        body.append(
-            "<tr>"
-            f"<td>{esc(short_time(row))}</td><td>{esc(row.get('pick'))}</td><td>{esc(row.get('opponent'))}</td>"
-            f"<td>{esc(row.get('result_status') or row.get('status') or row.get('bet_status'))}</td><td>{esc(row.get('winner') or row.get('actual_winner'))}</td>"
-            f"<td>{esc(row.get('score') or row.get('actual_score'))}</td><td>{esc(row.get('projected_sets') or row.get('thinq_projected_sets'))}</td>"
-            f"<td>{esc(row.get('projected_games') or row.get('thinq_projected_games'))}</td><td>{esc(row.get('units'))}</td></tr>"
-        )
-    return f"<table>{head}{''.join(body)}</table>"
+def fnum(v, default=None):
+    try:
+        if v is None or v=="" or str(v).strip() in {"-","--","—"}: return default
+        return float(v)
+    except Exception: return default
 
+def pct(v,d=1,dash="—",signed=True):
+    x=fnum(v)
+    if x is None or math.isnan(x): return dash
+    if abs(x)<=1.5: x*=100
+    s="+" if signed and x>0 else ""
+    return f"{s}{x:.{d}f}%"
 
-def rss_description(row: Dict[str, Any]) -> str:
-    md = match_dynamics(row)
-    e = elo(row)
-    hh = h2h(row)
-    t = thinq(row)
-    recent = t.get("recent_form") if isinstance(t.get("recent_form"), dict) else {}
-    parts = [
-        f"Time: {short_time(row)}",
-        f"Pick: {row.get('pick') or '—'}",
-        f"Opponent: {row.get('opponent') or '—'}",
-        f"Tournament: {row.get('tournament') or '—'}",
-        f"Surface: {row.get('surface') or '—'}",
-        f"Best of: {row.get('best_of') or '—'}",
-        f"Win probability: {pct(win_probability(row))}",
-        f"Odds: {money(row.get('odds') or row.get('pick_odds'))}",
-        f"CorQ: {pct(probability_value(row, 'corq'))}",
-        "ThinQ summary:",
-        f"ELO: {edge_label(first_present(e.get('elo_edge'), row.get('thinq_elo_edge')))}",
-        f"Surface ELO: {edge_label(first_present(e.get('surface_elo_edge'), row.get('thinq_surface_elo_edge')))}",
-        f"H2H: {hh.get('status') or row.get('thinq_h2h_status') or 'NO_DATA'}",
-        f"H2H Edge: {edge_label(first_present(hh.get('edge'), row.get('thinq_h2h_edge')))}",
-        f"Form: {recent.get('status') or 'NO_DATA'}",
-        f"Confidence: {pct(row.get('thinq_confidence') or t.get('confidence'))}",
-        f"Expected sets: {first_present(md.get('projected_sets'), row.get('thinq_projected_sets'), '—')}",
-        f"3 Sets: {pct(first_present(md.get('decider_probability'), row.get('thinq_decider_probability')))}",
-        f"Most likely score: {most_likely_score(row)}",
-        f"Games line: {games_line(row)}",
-        f"Games over probability: {pct(games_over_probability(row))}",
-        f"Tie-break probability: {pct(first_present(md.get('tiebreak_probability'), row.get('thinq_tiebreak_probability')))}",
-        f"MARQ Pick Marq: {pct(probability_value(row, 'marq_pick'))}",
-        f"MARQ Opp Marq: {pct(probability_value(row, 'marq_opponent'))}",
-        f"MARQ Move: {first_present(row.get('marq_move'), row.get('marq_market_move'), row.get('market_move'), '—')}",
-        "This data is provided for informational and analytical purposes only",
-        "Powered by BackstageTalks Statistical Engine",
+def pctp(v,d=1): return pct(v,d,signed=False)
+def fmt(v,d=2,dash="—"):
+    x=fnum(v)
+    return dash if x is None or math.isnan(x) else f"{x:.{d}f}"
+def odds(v):
+    x=fnum(v)
+    return "—" if x is None else f"{x:.2f}"
+def first(row,*keys,default=None): return deep_get(row,*keys,default=default)
+
+def prob(row): return first(row,"corq_estimated_win_probability","estimated_win_probability","corq_probability","win_probability","probability",default=None)
+def thinq_prob(row): return first(row,"thinq_probability_layer.probability","thinq_probability","thinq_winner_probability","thinq.probability_layer.probability",default=prob(row))
+def thinq_conf(row): return first(row,"thinq_probability_layer.confidence","thinq_probability_confidence","thinq.confidence","thinq_confidence",default=None)
+def form_conf(row): return first(row,"thinq.recent_form.form_confidence","recent_form.form_confidence","form_confidence","thinq_form_confidence",default=None)
+
+def edge(row,*keys): return first(row,*keys,default=0.0)
+def pick_elo(row): return edge(row,"thinq.edges.overall_elo_edge","thinq_overall_elo_edge","overall_elo_edge","thinq.elo.overall_elo_edge","thinq.elo.edge")
+def pick_selo(row): return edge(row,"thinq.edges.surface_elo_edge","thinq_surface_elo_edge","surface_elo_edge","thinq.elo.surface_elo_edge")
+def h2h_edge(row): return edge(row,"thinq.h2h.edge","thinq_h2h_edge","h2h_edge","thinq.edges.h2h_edge")
+def recent_edge(row): return edge(row,"thinq.recent_form.recent_form_edge","recent_form_edge","thinq.edges.recent_form_edge")
+def surface_edge(row): return edge(row,"thinq.recent_form.surface_recent_form_edge","surface_recent_form_edge","thinq.edges.surface_recent_form_edge")
+def quality_edge(row): return edge(row,"thinq.recent_form.opponent_quality_edge","opponent_quality_edge","thinq.edges.opponent_quality_edge")
+
+def record(row,*keys,default="—"):
+    v=first(row,*keys,default=None)
+    return default if v in (None,"") else str(v)
+def pick_form(row): return record(row,"thinq.recent_form.pick_last10_record","recent_form.pick_last10_record","pick_last10_record")
+def opp_form(row): return record(row,"thinq.recent_form.opponent_last10_record","recent_form.opponent_last10_record","opponent_last10_record")
+def pick_sform(row): return record(row,"thinq.recent_form.pick_surface_record","recent_form.pick_surface_record","pick_surface_record")
+def opp_sform(row): return record(row,"thinq.recent_form.opponent_surface_record","recent_form.opponent_surface_record","opponent_surface_record")
+
+def owner(v):
+    x=fnum(v,0) or 0
+    if abs(x)<0.00005: return "0.0%"
+    return f"Pick {pct(abs(x))}" if x>0 else f"Opp {pct(abs(x))}"
+
+def h2h_display(row):
+    h2h=first(row,"thinq.h2h","h2h",default={}) or {}
+    total=fnum(h2h.get('total_matches'),0) or 0
+    status=str(h2h.get('status') or first(row,'thinq_h2h_status',default='')).upper()
+    if total<=0 or status in {"NO_DATA","NO_PREVIOUS_MATCHES"}: return "No previous matches"
+    pw=int(fnum(h2h.get('pick_wins'),0) or 0); ow=int(fnum(h2h.get('opponent_wins'),0) or 0)
+    return f"Pick {pw}-{ow} · {pct(h2h_edge(row))}"
+
+def pair(label,val): return f'<div class="metric-row"><span>{esc(label)}</span><strong>{esc(val)}</strong></div>'
+
+def thinq_core(row):
+    rows=[
+        pair("Pick ELO / S-ELO", f"{pct(pick_elo(row))} / {pct(pick_selo(row))}"),
+        pair("Opp ELO / S-ELO", f"{pct(-(fnum(pick_elo(row),0) or 0))} / {pct(-(fnum(pick_selo(row),0) or 0))}"),
+        pair("H2H", h2h_display(row)),
+        pair("ThinQ Edge", owner(first(row,"thinq_probability_layer.edge","thinq_edge",default=None) or ((fnum(thinq_prob(row),0.5) or 0.5)-0.5))),
     ]
-    return " ".join(str(p) for p in parts)
+    winner=first(row,"thinq_probability_layer.winner","thinq_winner",default=None)
+    if winner: rows.append(pair("ThinQ Pick", winner))
+    rows.append(pair("Confidence", pctp(thinq_conf(row))))
+    return f'<section class="metric-card thinq-card"><div class="metric-title"><span>ThinQ</span><strong>{esc(pctp(thinq_prob(row)))}</strong></div><div class="metric-table">{"".join(rows)}</div></section>'
 
+def thinq_form(row):
+    rows=[
+        pair("Pick Form / S-Form", f"{pick_form(row)} / {pick_sform(row)}"),
+        pair("Opp Form / S-Form", f"{opp_form(row)} / {opp_sform(row)}"),
+        pair("Recent Edge", owner(recent_edge(row))),
+        pair("Surface Edge", owner(surface_edge(row))),
+        pair("Form Quality", owner(quality_edge(row))),
+        pair("Source", str(first(row,"thinq.recent_form.source","recent_form.source",default="Local history")).replace('_',' ').title()),
+    ]
+    return f'<section class="metric-card thinq-card"><div class="metric-title"><span>ThinQ Form Conf.</span><strong>{esc(pctp(form_conf(row)))}</strong></div><div class="metric-table">{"".join(rows)}</div></section>'
 
-def full_link() -> str:
-    return base_url()
+def sets_box(row):
+    md=first(row,"thinq.match_dynamics","match_dynamics",default={}) or {}
+    ps=first(row,"thinq_projected_sets","thinq.match_dynamics.projected_sets","projected_sets",default=md.get('projected_sets'))
+    pg=first(row,"thinq_projected_games","thinq.match_dynamics.projected_games","projected_games",default=md.get('projected_games'))
+    three=first(row,"thinq_decider_probability","thinq.match_dynamics.decider_probability","decider_probability",default=md.get('decider_probability'))
+    tb=first(row,"thinq_tiebreak_probability","thinq.match_dynamics.tiebreak_probability","tiebreak_probability",default=md.get('tiebreak_probability'))
+    score=first(row,"thinq.match_dynamics.most_likely_score","most_likely_score","score_prediction",default=md.get('most_likely_score') or "—")
+    line=first(row,"games_line","thinq.match_dynamics.games_line",default=22.5)
+    over=first(row,"games_over_probability","thinq.match_dynamics.games_over_probability",default=md.get('games_over_probability'))
+    ou="—" if over is None else f"Over {fmt(line,2)} · {pctp(over)}"
+    rows=[pair("Sets",fmt(ps,2)),pair("Games",fmt(pg,1)),pair("O/U",ou),pair("3 Sets",pctp(three)),pair("Score",score),pair("Tie-break",pctp(tb))]
+    return f'<section class="metric-card"><div class="metric-title"><span>Sets / Games</span></div><div class="metric-table">{"".join(rows)}</div></section>'
 
+def direction(row):
+    raw=first(row,"odds_matching_direction",default="")
+    return "Confirmed" if raw in {"DIRECT_BY_NUMERIC_OUTCOME","REVERSED_BY_NUMERIC_OUTCOME"} else (flag_message(raw).get('label') if raw else "—")
 
-def write_match_logs(rows: List[Dict[str, Any]]) -> None:
-    logs_root = SITE_ROOT / "logs"
-    logs_root.mkdir(parents=True, exist_ok=True)
-    seen = set()
-    for idx, row in enumerate(rows, 1):
-        slug = match_key(row, idx)
-        if slug in seen:
-            slug = f"{slug}-{idx}"
-        seen.add(slug)
-        target_dir = logs_root / slug
-        target_dir.mkdir(parents=True, exist_ok=True)
-        payload = thinq_log_payload(row)
-        json_text = json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=True)
-        (target_dir / "thinq-log.json").write_text(json_text, encoding="utf-8")
-        title = f"ThinQ Log · {row.get('pick') or 'Pick'} vs {row.get('opponent') or 'Opponent'}"
-        body = (
-            "<div class='section-title'><h2>ThinQ calculation log</h2><span>Full intelligence payload</span></div>"
-            f"<div class='log-actions'><a href='thinq-log.json'>Open JSON</a><a href='../../{TOP7_PATH}/'>Back to TOP7</a></div>"
-            f"<pre class='json-pre'>{esc(json_text)}</pre>"
-        )
-        summary = {"all_count": "—", "ranked_count": "—", "top7_count": "—", "updated": datetime.now(timezone.utc).isoformat()}
-        (target_dir / "index.html").write_text(html_page("top7", title, "Per-match ThinQ intelligence output and audit payload.", body, summary), encoding="utf-8")
+def marq_box(row):
+    rows=[pair("Pick MarQ",first(row,"marq_pick","pick_marq",default="—")),pair("Opp MarQ",first(row,"marq_opp","opp_marq",default="—")),pair("Move",first(row,"marq_move",default="—")),pair("Odds Source",first(row,"odds_source",default="RapidAPI PRO event odds")),pair("Direction",direction(row)),pair("Status","Market view only")]
+    return f'<section class="metric-card"><div class="metric-title"><span>MarQ</span></div><div class="metric-table">{"".join(rows)}</div></section>'
 
+def mkey(row,idx):
+    key=first(row,"event_custom_id","customId","raw.customId","event_id","id",default=None)
+    if not key: key=f"{idx}-{first(row,'pick',default='pick')}-vs-{first(row,'opponent',default='opp')}"
+    return re.sub(r"[^A-Za-z0-9_-]+","-",str(key))
 
-def rss_feed(rows: List[Dict[str, Any]], title: str = "TBT PRO TOP7 Telegram RSS") -> str:
-    now = pubdate()
-    items = []
-    for row in sort_by_probability(rows)[:20]:
-        title_text = f"{short_time(row)} | {row.get('pick') or '—'} to beat {row.get('opponent') or '—'}"
-        desc = rss_description(row)
-        link = full_link()
-        guid = str(first_present(row.get('event_id'), row.get('match_id'), row.get('id'), title_text))
-        items.append(
-            "<item>"
-            f"<title>{esc(title_text)}</title>"
-            f"<link>{esc(link)}</link>"
-            f"<description>{esc(desc)}</description>"
-            f"<pubDate>{pubdate(row)}</pubDate>"
-            f"<guid isPermaLink='false'>{esc(guid)}</guid>"
-            "</item>"
-        )
-    return f"<?xml version='1.0' encoding='UTF-8'?><rss version='2.0'><channel><title>{esc(title)}</title><link>{esc(full_link())}</link><description>BackstageTalks Statistical Engine TOP7 feed for Telegram</description><lastBuildDate>{now}</lastBuildDate>{''.join(items)}</channel></rss>"
+def write_log(row,idx):
+    key=mkey(row,idx); folder=SITE/"logs"/key; folder.mkdir(parents=True,exist_ok=True)
+    log={"match":{"rank":idx,"pick":first(row,'pick',default=''),"opponent":first(row,'opponent',default=''),"event_id":first(row,'event_id','id',default=None),"customId":first(row,'event_custom_id','customId','raw.customId',default=None)},"thinq":first(row,'thinq',default={}),"thinq_probability_layer":first(row,'thinq_probability_layer','thinq.probability_layer',default={}),"thinq_flat":{k:v for k,v in row.items() if str(k).startswith('thinq_')},"corq_components":first(row,'corq_components',default={}),"raw":first(row,'raw',default={}),"row":row}
+    (folder/'thinq-log.json').write_text(json.dumps(log,ensure_ascii=False,indent=2),encoding='utf-8')
+    (folder/'index.html').write_text(f"<!doctype html><html><head><meta charset='utf-8'><title>ThinQ Log</title><style>body{{background:#05101f;color:#dbeafe;font-family:ui-monospace,Menlo,monospace;padding:24px}}pre{{white-space:pre-wrap;background:#0b1727;border:1px solid #1e3555;border-radius:14px;padding:18px}}</style></head><body><h1>ThinQ calculation log</h1><p>{esc(first(row,'pick',default=''))} vs {esc(first(row,'opponent',default=''))}</p><pre>{esc(json.dumps(log,ensure_ascii=False,indent=2))}</pre></body></html>",encoding='utf-8')
+    return f"logs/{key}/"
 
+def pick_block(row,idx):
+    pick=first(row,'pick',default='—'); opp=first(row,'opponent',default='—')
+    time=first(row,'match_time_display','start_time_display','time_display',default='')
+    tour=first(row,'tournament','event_name','raw.tournament.name',default=''); surface=first(row,'surface','surface_raw',default=''); best=first(row,'best_of','bestOf',default='3')
+    meta=' · '.join([str(x) for x in (time,tour,surface,f"BO{best}" if best else None) if x])
+    status=first(row,'status_type','status.type','raw.status.type',default='')
+    badges=''.join(f'<span class="badge">{esc(b)}</span>' for b in public_flag_labels(first(row,'corq_risk_flags','thinq.flags','flags',default=[]))[:2])
+    return f'<aside class="pick-block"><div class="rank">#{idx}</div><div><h2>{esc(pick)}</h2><div class="pick-odds">Pick @ {esc(odds(first(row,"odds","pick_odds",default=None)))}</div><div class="pick-action">to beat</div><div class="opponent-name">{esc(opp)}</div><div class="opp-odds">Opp @ {esc(odds(first(row,"opponent_odds","opp_odds",default=None)))}</div><div class="match-meta">{esc(meta)}</div><a class="log-dot" href="{esc(write_log(row,idx))}" title="Open ThinQ calculation log">🧠</a><div class="status-line">{("Status: "+esc(status)) if status else ""}</div><div class="badges">{badges}</div></div></aside>'
 
-def render() -> Dict[str, Any]:
-    top7_raw = load_json(OUTPUT_ROOT / "latest_top7.json", [])
-    all_raw = load_json(OUTPUT_ROOT / "latest_all.json", [])
-    manifest = load_json(OUTPUT_ROOT / "latest_manifest.json", {})
-    if not isinstance(top7_raw, list):
-        top7_raw = []
-    if not isinstance(all_raw, list):
-        all_raw = []
-    if not isinstance(manifest, dict):
-        manifest = {}
+def card(row,idx): return f'<article class="prediction-card">{pick_block(row,idx)}<div class="metrics-grid">{thinq_core(row)}{thinq_form(row)}{sets_box(row)}{marq_box(row)}</div></article>'
+def sort_rows(rows): return sorted(rows,key=lambda r:fnum(prob(r),-999),reverse=True)
+def nav(active='corq'):
+    base=get_base_url().rstrip('/')+'/'
+    data=[('CorQ',f'{base}{CORQ_PATH}/','corq'),('ALL',f'{base}{ALL_PATH}/','all'),('Results',f'{base}{RESULTS_PATH}/','results'),('CloQ',f'{base}{CLOQ_PATH}/','cloq'),('RSS',f'{base}{CORQ_RSS_PATH}','rss')]
+    return ''.join(f'<a class="nav-link {"active" if k==active else ""}" href="{h}">{l}</a>' for l,h,k in data)
 
-    results = load_results()
-    safe_top7 = sort_by_probability([row for row in top7_raw if not web_publish_blockers(row)])
-    blocked_top7 = [dict(row, web_publish_blockers=web_publish_blockers(row)) for row in top7_raw if web_publish_blockers(row)]
-    all_rows = all_raw if all_raw else top7_raw
+def page(title,body,active='corq'):
+    css = r'''
+:root{--bg:#030812;--line:#203553;--text:#e7f0ff;--muted:#86a2c4;--green:#22c55e;--yellow:#facc15}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,#0d1b33 0,#030812 42%,#02050b 100%);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif;font-size:14px}.container{max-width:1880px;margin:0 auto;padding:28px 22px 60px}.header{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:22px}.brand{display:flex;gap:12px;align-items:center}.logo{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#22d3ee,#22c55e)}.brand h1{margin:0;font-size:20px}.brand span{display:block;color:var(--muted);font-size:12px;margin-top:2px}.nav{display:flex;gap:8px;flex-wrap:wrap}.nav-link{text-decoration:none;color:#b7c8df;border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:#071225}.nav-link.active,.nav-link:hover{color:white;border-color:#22c55e;background:#092118}.summary{display:grid;grid-template-columns:repeat(4,minmax(160px,1fr));gap:14px;margin-bottom:22px}.summary-card{background:rgba(8,20,38,.82);border:1px solid var(--line);border-radius:18px;padding:16px 18px}.summary-card small{color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-size:11px}.summary-card strong{display:block;font-size:28px;margin-top:7px}.rss-bar{border:1px solid var(--line);border-radius:18px;background:#061225;padding:14px 16px;margin-bottom:18px;color:#cfe4ff}.rss-bar a{color:white;border:1px solid #385071;border-radius:999px;padding:6px 10px;margin-left:10px;text-decoration:none;font-size:12px}.prediction-card{display:grid;grid-template-columns:330px minmax(0,1fr);gap:18px;align-items:stretch;border:1px solid var(--line);border-radius:22px;background:rgba(8,20,38,.74);padding:18px;margin-bottom:16px;box-shadow:0 16px 42px rgba(0,0,0,.18)}.pick-block{position:relative;display:grid;grid-template-columns:52px 1fr;gap:14px;min-height:220px}.rank{color:#38bdf8;font-weight:900;font-size:22px}.pick-block h2{margin:0 0 5px;font-size:18px;line-height:1.15}.pick-odds{color:var(--yellow);font-weight:900;margin:2px 0}.pick-action{color:var(--green);font-size:13px;font-weight:900;text-transform:lowercase}.opponent-name{font-size:16px;font-weight:800;margin-top:2px}.opp-odds{color:#c7d6eb;font-size:13px;margin-top:2px}.match-meta{color:#38bdf8;font-size:13px;margin-top:14px;line-height:1.35}.status-line{color:#b9c7dc;font-size:12px;margin-top:15px}.log-dot{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;text-decoration:none;background:#101f35;border:1px solid #335071;margin-top:8px}.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.badge{font-size:11px;color:#cbd5e1;background:#0a1a2c;border:1px solid #29415f;border-radius:999px;padding:4px 8px}.metrics-grid{display:grid;grid-template-columns:minmax(270px,1fr) minmax(270px,1fr) minmax(250px,.9fr) minmax(245px,.88fr);gap:14px;align-items:stretch}.metric-card{border:1px solid var(--line);background:rgba(5,15,29,.72);border-radius:18px;padding:14px 15px;min-height:220px}.thinq-card{border-color:#1f6c57}.metric-title{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #18304e;padding-bottom:10px;margin-bottom:2px;color:#93aeca;text-transform:uppercase;letter-spacing:.14em;font-size:12px}.metric-title strong{font-size:18px;color:var(--green);letter-spacing:0;text-transform:none}.metric-table{display:flex;flex-direction:column}.metric-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;border-bottom:1px solid rgba(32,53,83,.75);padding:9px 0;align-items:center}.metric-row:last-child{border-bottom:0}.metric-row span{color:#9cb4d2;font-size:13px;line-height:1.25}.metric-row strong{font-size:13px;color:#f7fbff;text-align:right;line-height:1.25;white-space:nowrap}.empty{border:1px solid var(--line);border-radius:18px;padding:28px;background:#081426;color:#cbd5e1}@media(max-width:1500px){.prediction-card{grid-template-columns:300px 1fr}.metrics-grid{grid-template-columns:repeat(2,minmax(250px,1fr))}}@media(max-width:900px){.prediction-card{grid-template-columns:1fr}.metrics-grid{grid-template-columns:1fr}.summary{grid-template-columns:repeat(2,1fr)}}
+'''
+    return f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{esc(title)}</title><style>{css}</style></head><body><div class="container"><header class="header"><div class="brand"><div class="logo"></div><div><h1>AI Betting by BackstageTalks</h1><span>CorQ, ThinQ and CloQ analytics</span></div></div><nav class="nav">{nav(active)}</nav></header>{body}</div></body></html>'
 
-    summary = {
-        "candidate_count": manifest.get("candidate_count", "—"),
-        "all_count": manifest.get("all_count", len(all_rows)),
-        "ranked_count": manifest.get("ranked_count", len(top7_raw)),
-        "top7_count": len(safe_top7),
-        "updated": manifest.get("finished_at_utc") or datetime.now(timezone.utc).isoformat(),
-    }
+def summary(manifest,top,allr):
+    upd=first(manifest,'generated_at','updated_at','run_at',default=datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC'))
+    return f'<section class="summary"><div class="summary-card"><small>ALL</small><strong>{len(allr)}</strong></div><div class="summary-card"><small>TOP7</small><strong>{len(top)}</strong></div><div class="summary-card"><small>Ranked</small><strong>{first(manifest,"ranked_count",default=len(top))}</strong></div><div class="summary-card"><small>Updated</small><strong style="font-size:18px">{esc(upd)}</strong></div></section>'
 
-    write_match_logs(list(all_rows or []) + list(top7_raw or []))
+def render_corq(top,allr,manifest):
+    rows=sort_rows(top)[:7]; cards=''.join(card(r,i) for i,r in enumerate(rows,1)) or '<div class="empty">No Top7 rows available.</div>'
+    base=get_base_url().rstrip('/')+'/'; body=summary(manifest,rows,allr)+f'<div class="rss-bar">Telegram RSS feed <a href="{esc(base+CORQ_RSS_PATH)}">Open RSS</a></div>'+cards
+    return page('CorQ TOP7',body,'corq')
 
-    rss_url = page_url(TG_RSS_PATH) or f"../{TG_RSS_PATH}"
-    top_body = "<div class='rss-box'>Telegram RSS feed <a class='rss-pill' href='" + esc(rss_url) + "'>Open RSS</a></div>"
-    top_body += ("<div class='match-list'>" + "".join(row_card(row, idx + 1) for idx, row in enumerate(safe_top7)) + "</div>") if safe_top7 else "<div class='notice'>No publication-safe TOP7 picks.</div>"
-    if blocked_top7:
-        top_body += "<div class='section-title'><h2>Blocked TOP7 audit</h2></div><div class='match-list'>" + "".join(row_card(row, idx + 1, audit=True) for idx, row in enumerate(blocked_top7[:20])) + "</div>"
+def render_all(allr,manifest):
+    rows=sort_rows(allr)
+    return page('ALL audit',summary(manifest,rows[:7],allr)+(''.join(card(r,i) for i,r in enumerate(rows,1)) or '<div class="empty">No ALL rows available.</div>'),'all')
 
-    all_body = table_page(all_rows, "ALL audit view")
-    all_body += "<div class='match-list'>" + "".join(row_card(dict(row, web_publish_blockers=web_publish_blockers(row)), idx + 1, audit=True) for idx, row in enumerate(all_rows[:120])) + "</div>" if all_rows else ""
+def rss_items(rows):
+    base=get_base_url().rstrip('/')+'/'; now=datetime.now(timezone.utc).strftime('%a, %d %b %Y %H:%M:%S GMT'); out=[]
+    for r in sort_rows(rows)[:7]:
+        pick=first(r,'pick',default='Pick'); opp=first(r,'opponent',default='Opponent'); time=first(r,'match_time_display','start_time_display','time_display',default='')
+        title=f"{time} | {pick} to beat {opp}" if time else f"{pick} to beat {opp}"
+        desc=f"Pick: {pick} Opponent: {opp} Win probability: {pctp(prob(r))} ThinQ: {pctp(thinq_prob(r))} Odds: {odds(first(r,'odds','pick_odds',default=None))} Powered by BackstageTalks Statistical Engine"
+        out.append(f"<item><title>{esc(title)}</title><link>{esc(base)}</link><description>{esc(desc)}</description><pubDate>{now}</pubDate></item>")
+    return '\n'.join(out)
 
-    thinq_body = table_page(top7_raw, "ThinQ intelligence view")
-    cloq_rows = sorted(all_rows, key=lambda r: abs(as_float(r.get("odds_gap_pct"), 99.0) or 99.0))[:20]
-    cloq_body = table_page(cloq_rows, "CloQ close-odds candidates")
-    results_page_body = results_body(results)
+def write_rss(rows):
+    xml=f'<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>AI Betting by BackstageTalks</title><link>{esc(get_base_url())}</link><description>CorQ TOP7 feed</description>{rss_items(rows)}</channel></rss>'
+    for p in (CORQ_RSS_PATH, THINQ_RSS_PATH, CLOQ_RSS_PATH): (SITE/p).write_text(xml,encoding='utf-8')
 
-    write_page(TOP7_PATH, html_page("top7", "TBT PRO TOP7", "Production picks with CorQ, ThinQ, MARQ, Sets/Games and Telegram RSS fields.", top_body, summary))
-    write_page(ALL_PATH, html_page("all", "TBT PRO ALL", "Broad audit view with reject flags and full intelligence display.", all_body, summary))
-    write_page(RESULTS_PATH, html_page("results", "TBT PRO Results", f"Results page. Display offset: UTC{RESULTS_DISPLAY_TIME_OFFSET_HOURS:+d}.", results_page_body, summary))
-    write_page(THINQ_PATH, html_page("thinq", "TBT PRO ThinQ", "ThinQ intelligence output read-only display.", thinq_body, summary))
-    write_page(CLOQ_PATH, html_page("cloq", "TBT PRO CloQ", "Close-odds candidate view.", cloq_body, summary))
+def write_page(rel,content):
+    target=SITE/rel
+    if target.suffix: target.parent.mkdir(parents=True,exist_ok=True); target.write_text(content,encoding='utf-8')
+    else: target.mkdir(parents=True,exist_ok=True); (target/'index.html').write_text(content,encoding='utf-8')
 
-    rss = rss_feed(safe_top7)
-    write_page(TG_RSS_PATH, rss)
-    write_page(CORQ_RSS_PATH, rss)
-    write_page(THINQ_RSS_PATH, rss_feed(top7_raw, "TBT PRO ThinQ RSS"))
-    write_page(CLOQ_RSS_PATH, rss_feed(cloq_rows, "TBT PRO CloQ RSS"))
-    write_assets()
-    write_root_index()
+def render_site():
+    SITE.mkdir(parents=True,exist_ok=True)
+    top=as_list(read_json(OUTPUTS/'latest_top7.json',[])); allr=as_list(read_json(OUTPUTS/'latest_all.json',[])); manifest=read_json(OUTPUTS/'latest_manifest.json',{})
+    write_page('index.html',f'<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url={CORQ_PATH}/"><a href="{CORQ_PATH}/">Open CorQ</a>')
+    write_page(CORQ_PATH,render_corq(top,allr,manifest)); write_page(ALL_PATH,render_all(allr or top,manifest))
+    write_page(RESULTS_PATH,page('Results','<div class="empty"><h2>Results</h2><p>Results page is ready for the Results workflow output.</p></div>','results'))
+    write_page(CLOQ_PATH,page('CloQ','<div class="empty"><h2>CloQ</h2><p>CloQ selection will be enabled after ThinQ probability stabilizes.</p></div>','cloq'))
+    write_page(THINQ_PATH,page('ThinQ','<div class="empty"><h2>ThinQ</h2><p>ThinQ is displayed inside every CorQ card.</p></div>','corq'))
+    write_rss(top); print(f"TBT PRO site rendered: top7={len(top)} all={len(allr)} root={SITE}")
 
-    return {"top7_count": len(safe_top7), "all_count": len(all_rows), "results_count": len(results), "site_root": str(SITE_ROOT)}
-
-
-if __name__ == "__main__":
-    print(json.dumps(render(), indent=2))
+def main(): render_site()
+if __name__=='__main__': main()
