@@ -1,237 +1,221 @@
-"""THINQ History loader.
-
-Broad recent-form data layer.
-
-This loader intentionally supports multiple simple local formats so the runtime
-can work with existing data caches without forcing one final data schema yet.
-It never blocks CORQ. If no history source exists, it returns explicit NO_DATA.
-
-Supported folders:
-- thinq/data
-- data/thinq
-- data/history
-- data/sackmann
-- data
-
-Supported files:
-- CSV and JSON files whose names contain history, matches, tennisabstract, sackmann, results
-
-Supported row styles:
-- winner / loser
-- winner_name / loser_name
-- player1 / player2 + winner
-- homeTeam / awayTeam + winnerCode-like fields, if flattened
-"""
-
 from __future__ import annotations
 
 import csv
 import json
 import re
 import unicodedata
-from dataclasses import dataclass
-from datetime import datetime, date
+from dataclasses import dataclass, asdict
 from functools import lru_cache
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional
+from typing import Any, Dict, Iterable, List, Optional, Tuple
 
-SEARCH_DIRS = [
-    Path("thinq/data"),
-    Path("data/thinq"),
+HISTORY_SEARCH_DIRS = [
     Path("data/history"),
+    Path("thinq/data/history"),
     Path("data/sackmann"),
-    Path("data"),
+    Path("thinq/data/sackmann"),
+    Path("data/results_history"),
+    Path("outputs/results"),
 ]
 
-FILE_HINTS = ("history", "matches", "tennisabstract", "sackmann", "results")
-
-_TRANSLATE = str.maketrans(
-    {
-        "ł": "l", "Ł": "L",
-        "đ": "d", "Đ": "D",
-        "ð": "d", "Ð": "D",
-        "þ": "th", "Þ": "Th",
-        "ß": "ss",
-        "ø": "o", "Ø": "O",
-        "æ": "ae", "Æ": "Ae",
-        "œ": "oe", "Œ": "Oe",
-    }
+HISTORY_FILE_PATTERNS = (
+    "*.csv",
+    "*.json",
+    "*.jsonl",
 )
+
+_SURFACE_MAP = {
+    "hard": "Hard",
+    "outdoor hard": "Hard",
+    "indoor hard": "Hard",
+    "clay": "Clay",
+    "red clay": "Clay",
+    "green clay": "Clay",
+    "grass": "Grass",
+    "carpet": "Carpet",
+    "carpet indoor": "Carpet",
+}
 
 
 def normalize_name(value: Any) -> str:
-    text = str(value or "").strip().translate(_TRANSLATE).lower()
+    text = str(value or "").strip().lower()
     text = unicodedata.normalize("NFKD", text)
     text = "".join(ch for ch in text if not unicodedata.combining(ch))
-    text = text.replace(".", " ").replace("-", " ").replace("_", " ").replace(",", " ")
-    text = re.sub(r"[^a-z0-9]+", " ", text)
-    return " ".join(text.split())
+    text = re.sub(r"[^a-z0-9 ]+", " ", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
 
 
-def as_float(value: Any) -> Optional[float]:
-    try:
-        if value in (None, ""):
-            return None
-        return float(value)
-    except Exception:
+def normalize_surface(value: Any) -> str:
+    raw = str(value or "").strip()
+    key = raw.lower()
+    if key in _SURFACE_MAP:
+        return _SURFACE_MAP[key]
+    for marker, normalized in _SURFACE_MAP.items():
+        if marker in key:
+            return normalized
+    return raw.title() if raw else "Unknown"
+
+
+def _parse_date(value: Any) -> str:
+    if value is None:
+        return ""
+    text = str(value).strip()
+    if not text:
+        return ""
+    # Sackmann tourney_date format is YYYYMMDD.
+    if re.fullmatch(r"\d{8}", text):
+        return f"{text[0:4]}-{text[4:6]}-{text[6:8]}"
+    # Already ISO-ish.
+    if len(text) >= 10 and text[4:5] == "-":
+        return text[:10]
+    return text
+
+
+def _to_int(value: Any) -> Optional[int]:
+    if value is None or value == "":
         return None
-
-
-def as_int(value: Any) -> Optional[int]:
     try:
-        if value in (None, ""):
-            return None
         return int(float(value))
     except Exception:
         return None
 
 
-def first_present(row: Dict[str, Any], keys: Iterable[str]) -> Any:
-    lowered = {str(k).lower(): v for k, v in row.items()}
-    for key in keys:
-        if key in row and row[key] not in (None, ""):
-            return row[key]
-        low = key.lower()
-        if low in lowered and lowered[low] not in (None, ""):
-            return lowered[low]
-    return None
+@dataclass
+class HistoryMatch:
+    date: str
+    winner: str
+    loser: str
+    surface: str = "Unknown"
+    level: str = ""
+    tournament: str = ""
+    winner_rank: Optional[int] = None
+    loser_rank: Optional[int] = None
+    source_file: str = ""
 
+    @property
+    def winner_key(self) -> str:
+        return normalize_name(self.winner)
 
-def parse_date(value: Any) -> Optional[str]:
-    if value in (None, ""):
+    @property
+    def loser_key(self) -> str:
+        return normalize_name(self.loser)
+
+    def involves(self, player_key: str) -> bool:
+        return player_key in {self.winner_key, self.loser_key}
+
+    def player_won(self, player_key: str) -> Optional[bool]:
+        if self.winner_key == player_key:
+            return True
+        if self.loser_key == player_key:
+            return False
         return None
-    text = str(value).strip()
-    for fmt in ("%Y-%m-%d", "%Y%m%d", "%d.%m.%Y", "%m/%d/%Y", "%d/%m/%Y"):
-        try:
-            return datetime.strptime(text[:10], fmt).date().isoformat()
-        except Exception:
-            pass
-    try:
-        return datetime.fromisoformat(text.replace("Z", "+00:00")).date().isoformat()
-    except Exception:
-        return text[:10] if len(text) >= 10 else None
+
+    def opponent_rank_for(self, player_key: str) -> Optional[int]:
+        if self.winner_key == player_key:
+            return self.loser_rank
+        if self.loser_key == player_key:
+            return self.winner_rank
+        return None
+
+    def to_dict(self) -> Dict[str, Any]:
+        return asdict(self)
 
 
-def discover_history_files() -> List[Path]:
+def _candidate_files() -> List[Path]:
     files: List[Path] = []
-    for folder in SEARCH_DIRS:
-        if not folder.exists():
+    for root in HISTORY_SEARCH_DIRS:
+        if not root.exists():
             continue
-        for path in folder.rglob("*"):
-            if not path.is_file():
-                continue
-            suffix = path.suffix.lower()
-            if suffix not in {".csv", ".json"}:
-                continue
-            name = path.name.lower()
-            if any(hint in name for hint in FILE_HINTS):
-                files.append(path)
-    return sorted(files)
+        for pattern in HISTORY_FILE_PATTERNS:
+            files.extend(root.rglob(pattern))
+    return sorted(set(files))
 
 
-def load_csv(path: Path) -> List[Dict[str, Any]]:
-    try:
-        with path.open("r", encoding="utf-8-sig", newline="") as fh:
-            return [dict(row) for row in csv.DictReader(fh)]
-    except Exception:
-        return []
+def _match_from_sackmann_row(row: Dict[str, Any], source: Path) -> Optional[HistoryMatch]:
+    winner = row.get("winner_name") or row.get("winner") or row.get("winnerName")
+    loser = row.get("loser_name") or row.get("loser") or row.get("loserName")
+    if not winner or not loser:
+        return None
+    return HistoryMatch(
+        date=_parse_date(row.get("tourney_date") or row.get("date") or row.get("match_date") or row.get("startDate")),
+        winner=str(winner),
+        loser=str(loser),
+        surface=normalize_surface(row.get("surface") or row.get("surfaceType") or row.get("court")),
+        level=str(row.get("tourney_level") or row.get("level") or row.get("category") or ""),
+        tournament=str(row.get("tourney_name") or row.get("tournament") or row.get("event") or ""),
+        winner_rank=_to_int(row.get("winner_rank") or row.get("winnerRank")),
+        loser_rank=_to_int(row.get("loser_rank") or row.get("loserRank")),
+        source_file=str(source),
+    )
 
 
-def load_json(path: Path) -> List[Dict[str, Any]]:
-    try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    except Exception:
-        return []
+def _matches_from_json_payload(payload: Any, source: Path) -> List[HistoryMatch]:
+    records: List[Dict[str, Any]] = []
     if isinstance(payload, list):
-        return [item for item in payload if isinstance(item, dict)]
-    if isinstance(payload, dict):
-        for key in ("matches", "events", "results", "data", "items"):
+        records = [x for x in payload if isinstance(x, dict)]
+    elif isinstance(payload, dict):
+        for key in ("matches", "results", "items", "data", "events"):
             value = payload.get(key)
             if isinstance(value, list):
-                return [item for item in value if isinstance(item, dict)]
-    return []
-
-
-def normalize_surface_label(value: Any) -> str:
-    text = str(value or "").strip().lower()
-    if "clay" in text:
-        return "Clay"
-    if "grass" in text:
-        return "Grass"
-    if "hard" in text or "indoor" in text or "carpet" in text:
-        return "Hard"
-    return str(value or "Unknown").strip() or "Unknown"
-
-
-def normalize_match_row(row: Dict[str, Any], source: str) -> Optional[Dict[str, Any]]:
-    winner = first_present(row, ("winner", "winner_name", "Winner", "w_name", "wplayer", "winner_player"))
-    loser = first_present(row, ("loser", "loser_name", "Loser", "l_name", "lplayer", "loser_player"))
-
-    if not winner or not loser:
-        player1 = first_present(row, ("player1", "home", "homeTeam", "home_team", "p1", "Player1"))
-        player2 = first_present(row, ("player2", "away", "awayTeam", "away_team", "p2", "Player2"))
-        winner_name = first_present(row, ("winner", "winner_name", "winning_player"))
-        winner_code = first_present(row, ("winnerCode", "winner_code"))
-        if player1 and player2 and winner_name:
-            if normalize_name(winner_name) == normalize_name(player1):
-                winner, loser = player1, player2
-            elif normalize_name(winner_name) == normalize_name(player2):
-                winner, loser = player2, player1
-        elif player1 and player2 and str(winner_code) in {"1", "2"}:
-            winner, loser = (player1, player2) if str(winner_code) == "1" else (player2, player1)
-
-    if not winner or not loser:
-        return None
-
-    match_date = parse_date(first_present(row, ("date", "Date", "match_date", "start_date", "tourney_date")))
-    surface = normalize_surface_label(first_present(row, ("surface", "Surface", "surfaceType", "groundType", "court_surface")))
-    tournament = first_present(row, ("tournament", "Tournament", "tourney_name", "event", "competition"))
-    level = first_present(row, ("level", "Level", "tour", "category", "tourney_level"))
-    winner_rank = as_int(first_present(row, ("winner_rank", "wrank", "w_rank", "WinnerRank")))
-    loser_rank = as_int(first_present(row, ("loser_rank", "lrank", "l_rank", "LoserRank")))
-
-    return {
-        "date": match_date,
-        "winner": str(winner).strip(),
-        "loser": str(loser).strip(),
-        "winner_key": normalize_name(winner),
-        "loser_key": normalize_name(loser),
-        "surface": surface,
-        "tournament": str(tournament) if tournament is not None else None,
-        "level": str(level) if level is not None else None,
-        "winner_rank": winner_rank,
-        "loser_rank": loser_rank,
-        "source": source,
-    }
+                records = [x for x in value if isinstance(x, dict)]
+                break
+        if not records and "winner" in payload and "loser" in payload:
+            records = [payload]
+    out: List[HistoryMatch] = []
+    for row in records:
+        m = _match_from_sackmann_row(row, source)
+        if m:
+            out.append(m)
+    return out
 
 
 @lru_cache(maxsize=1)
-def load_history_matches() -> List[Dict[str, Any]]:
-    matches: List[Dict[str, Any]] = []
-    for path in discover_history_files():
-        rows = load_csv(path) if path.suffix.lower() == ".csv" else load_json(path)
-        for row in rows:
-            parsed = normalize_match_row(row, str(path))
-            if parsed:
-                matches.append(parsed)
-    matches.sort(key=lambda item: item.get("date") or "", reverse=True)
-    return matches
+def load_history_matches() -> Tuple[HistoryMatch, ...]:
+    out: List[HistoryMatch] = []
+    for path in _candidate_files():
+        try:
+            if path.suffix.lower() == ".csv":
+                with path.open("r", encoding="utf-8-sig", newline="") as f:
+                    reader = csv.DictReader(f)
+                    for row in reader:
+                        m = _match_from_sackmann_row(row, path)
+                        if m and m.date:
+                            out.append(m)
+            elif path.suffix.lower() == ".jsonl":
+                with path.open("r", encoding="utf-8") as f:
+                    for line in f:
+                        line = line.strip()
+                        if not line:
+                            continue
+                        row = json.loads(line)
+                        m = _match_from_sackmann_row(row, path)
+                        if m and m.date:
+                            out.append(m)
+            elif path.suffix.lower() == ".json":
+                payload = json.loads(path.read_text(encoding="utf-8"))
+                out.extend(m for m in _matches_from_json_payload(payload, path) if m.date)
+        except Exception:
+            # History data should never break production runtime.
+            continue
+    # newest first
+    out.sort(key=lambda m: m.date or "", reverse=True)
+    return tuple(out)
 
 
-def player_matches(player: str, limit: int = 50, surface: Optional[str] = None) -> List[Dict[str, Any]]:
+def get_player_matches(player: str, limit: Optional[int] = None) -> List[HistoryMatch]:
     key = normalize_name(player)
-    wanted_surface = normalize_surface_label(surface) if surface else None
-    output: List[Dict[str, Any]] = []
-    for match in load_history_matches():
-        if match.get("winner_key") != key and match.get("loser_key") != key:
-            continue
-        if wanted_surface and match.get("surface") != wanted_surface:
-            continue
-        output.append(match)
-        if len(output) >= limit:
-            break
-    return output
+    matches = [m for m in load_history_matches() if m.involves(key)]
+    return matches[:limit] if limit else matches
 
 
-def available_history_sources() -> List[str]:
-    return [str(path) for path in discover_history_files()]
+def history_data_status() -> Dict[str, Any]:
+    matches = load_history_matches()
+    files = _candidate_files()
+    return {
+        "status": "OK" if matches else "NO_DATA",
+        "match_count": len(matches),
+        "file_count": len(files),
+        "search_dirs": [str(p) for p in HISTORY_SEARCH_DIRS],
+        "sample_files": [str(p) for p in files[:8]],
+    }
