@@ -1,7 +1,6 @@
 """Public message registry for technical flags.
 
-Raw model/runtime flags stay in JSON for audit, but public web/TG output should
-show short human-readable messages, or hide internal-only flags.
+Raw runtime flags stay in JSON. Public cards show short messages or hide internal flags.
 """
 from __future__ import annotations
 
@@ -15,7 +14,7 @@ FLAG_MESSAGES = {
     "MISSING_ELO": {"label": "ELO unavailable", "show_public": True},
     "SURFACE_UNKNOWN": {"label": "Surface unknown", "show_public": True},
     "SURFACE_RECENT_FORM_THIN": {"label": "Surface form thin", "show_public": True},
-    "CARPET_AS_HARD_FALLBACK": {"label": "Carpet treated as hard", "show_public": False},
+    "CARPET_AS_HARD_FALLBACK": {"label": "", "show_public": False},
     "DEFAULT_SCORE_VALUE_TRAP": {"label": "Low data value risk", "show_public": True},
     "NO_INTELLIGENCE_OUTSIDER_VALUE_TRAP": {"label": "Low data outsider risk", "show_public": True},
     "DIRECT_BY_NUMERIC_OUTCOME": {"label": "", "show_public": False},
@@ -26,7 +25,6 @@ FLAG_MESSAGES = {
 def flag_label(flag: str) -> str | None:
     item = FLAG_MESSAGES.get(str(flag))
     if item is None:
-        # Unknown flags are hidden from public UI by default. They stay in JSON/ALL audit.
         return None
     if not item.get("show_public", False):
         return None
