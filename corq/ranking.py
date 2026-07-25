@@ -22,6 +22,7 @@ MIN_CORQ_PROBABILITY = 0.50
 MIN_PICK_THINQ_EDGE = 0.0
 MIN_PICK_DATA_DEPTH = 0.40
 MIN_ELO_DEPTH_IF_MISSING = 0.50
+MIN_THINQ_CONFIDENCE = 0.50
 EXTREME_UNKNOWN_ODDS_GAP_PCT = 1.50
 
 OPEN_STATUS_TYPES = {
@@ -333,6 +334,8 @@ def top7_reject_reasons(row: Dict[str, Any]) -> List[str]:
         reasons.append("REJECT_TOP7_THINQ_EDGE_AGAINST_PICK")
     if depth < MIN_PICK_DATA_DEPTH:
         reasons.append("REJECT_TOP7_LOW_PICK_DATA_DEPTH")
+    if thinq_confidence(row) < MIN_THINQ_CONFIDENCE:
+        reasons.append("REJECT_TOP7_LOW_THINQ_CONFIDENCE")
     if not odds_available(row):
         reasons.append("REJECT_TOP7_MISSING_ODDS")
     if is_doubles(row):
