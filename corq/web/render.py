@@ -630,10 +630,9 @@ def tag_summary_html(rows: List[Dict[str, Any]]) -> str:
 def odds_missing_reason_group(row: Dict[str, Any]) -> str:
     """Summarise missing-odds cause from odds_attempts for the ALL page.
 
-    The exact API attempts stay in JSON/logs. The public ALL page needs a compact
-    diagnostic bucket so we can quickly see whether missing odds are caused by
-    coverage, provider emptiness, no match-winner market, daily-feed pairing, or
-    event-id issues.
+    Important: this is a *terminal diagnosis*, not simply the first failed step.
+    Daily odds no match is useful, but if later event/provider endpoints were
+    tried and also failed, the more specific terminal reason should win.
     """
     if not has_missing_odds(row):
         return ""
@@ -653,19 +652,40 @@ def odds_missing_reason_group(row: Dict[str, Any]) -> str:
         return "Legacy no-odds path"
     if not attempts:
         return "No odds audit"
+
     if "missing_event_id" in joined or "event_id" in no_odds_reason:
         return "Event id missing/mismatch"
-    if "events_odds_by_date_match:no_match" in joined:
-        # Daily feed exists, but the current event was not matched inside it.
-        return "Daily odds no match"
-    if "no_winner_market" in joined or "no_match_winner" in joined:
-        return "No match-winner market"
-    if "no_payload" in joined:
-        return "Provider/API empty"
-    if "http_404" in joined or "404" in joined:
+    if "http_404" in joined or " 404" in joined or ":404" in joined:
         return "Event odds 404"
-    if "timeout" in joined or "request failed" in joined or "error" in joined:
+    if "timeout" in joined or "request failed" in joined or "api_request_error" in joined or "error" in joined:
         return "API request error"
+
+    winner_market_failed = "no_winner_market" in joined or "no_match_winner" in joined
+    payload_failed = "no_payload" in joined or "204" in joined or "empty" in joined
+    daily_no_match = "events_odds_by_date_match:no_match" in joined
+
+    provider_tried = "provider_winning_odds" in joined or "all_odds_for_event" in joined
+    featured_tried = "featured_odds" in joined or "api_match_featured_odds" in joined
+    event_endpoint_tried = "event_odds" in joined or "api_match_betting_odds" in joined or "api_match_winning_odds" in joined
+
+    # If event/provider endpoints were reached and returned payloads without a
+    # valid Full time / Home-Away / Match market, this is more important than the
+    # earlier daily-feed no-match.
+    if winner_market_failed:
+        return "No match-winner market"
+
+    # If later endpoint attempts were made and all came back empty, the issue is
+    # coverage/provider availability rather than only daily-feed matching.
+    if payload_failed and (provider_tried or featured_tried or event_endpoint_tried):
+        return "Provider/API empty"
+
+    # Only call it Daily odds no match if the daily feed was the only meaningful
+    # failure signal or no more specific terminal endpoint signal is present.
+    if daily_no_match:
+        return "Daily odds no match"
+
+    if payload_failed:
+        return "Provider/API empty"
     return "Unknown missing odds"
 
 
