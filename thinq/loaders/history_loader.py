@@ -16,15 +16,35 @@ HISTORY_SEARCH_DIRS = [
     Path("thinq/data/sackmann"),
     Path("data/results_history"),
     Path("outputs/results"),
+    Path("outputs/results/all"),
+    Path("outputs/results/corq"),
+    Path("outputs/snapshots/all"),
 ]
 HISTORY_FILE_PATTERNS = ("*.csv", "*.json", "*.jsonl")
 _SURFACE_MAP = {"hard":"Hard","outdoor hard":"Hard","indoor hard":"Hard","clay":"Clay","red clay":"Clay","green clay":"Clay","grass":"Grass","carpet":"Carpet","carpet indoor":"Carpet"}
+_TRANSLATE = str.maketrans({
+    "ł": "l", "Ł": "L", "đ": "d", "Đ": "D", "ð": "d", "Ð": "D",
+    "þ": "th", "Þ": "Th", "ß": "ss", "ø": "o", "Ø": "O",
+    "æ": "ae", "Æ": "Ae", "œ": "oe", "Œ": "Oe",
+})
+
+
+def _name_from_obj(value: Any) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, dict):
+        for key in ("name", "fullName", "full_name", "displayName", "display_name", "shortName", "short_name", "slug"):
+            if value.get(key):
+                return str(value.get(key))
+        return ""
+    return str(value)
 
 
 def normalize_name(value: Any) -> str:
-    text = str(value or "").strip().lower()
+    text = _name_from_obj(value).strip().lower().translate(_TRANSLATE)
     text = unicodedata.normalize("NFKD", text)
     text = "".join(ch for ch in text if not unicodedata.combining(ch))
+    text = text.replace(".", " ").replace("-", " ").replace("_", " ").replace(",", " ")
     text = re.sub(r"[^a-z0-9 ]+", " ", text)
     return re.sub(r"\s+", " ", text).strip()
 
@@ -71,9 +91,17 @@ def _to_int(value: Any) -> Optional[int]:
 
 
 def _parse_date(value: Any) -> str:
-    text = str(value or "").strip()
+    if value in (None, ""):
+        return ""
+    text = str(value).strip()
     if re.fullmatch(r"\d{8}", text):
         return f"{text[:4]}-{text[4:6]}-{text[6:8]}"
+    if re.fullmatch(r"\d{10}", text):
+        try:
+            from datetime import datetime, timezone
+            return datetime.fromtimestamp(int(text), tz=timezone.utc).date().isoformat()
+        except Exception:
+            pass
     if len(text) >= 10 and text[4:5] == "-":
         return text[:10]
     return text
@@ -124,29 +152,58 @@ def _candidate_files() -> List[Path]:
     return sorted(set(files))
 
 
+def _score_current(value: Any) -> Optional[int]:
+    if isinstance(value, dict):
+        return _to_int(value.get("current") or value.get("score") or value.get("sets"))
+    return _to_int(value)
+
+
 def _match_from_row(raw_row: Dict[str, Any], source: Path) -> Optional[HistoryMatch]:
     row = _norm_row(raw_row)
-    winner = _first(row, ["winner_name","winner","winnerName","match_winner","matchWinner","player_won","winner_player","winnerplayer"])
-    loser = _first(row, ["loser_name","loser","loserName","match_loser","matchLoser","loser_player","loserplayer"])
+    winner = _first(row, ["winner_name","winner","winnerName","match_winner","matchWinner","player_won","winner_player","winnerplayer","winnerTeam","winner_team"])
+    loser = _first(row, ["loser_name","loser","loserName","match_loser","matchLoser","loser_player","loserplayer","loserTeam","loser_team"])
 
-    # Generic player1/player2 + winner variant.
-    p1 = _first(row, ["player1","player_1","home","home_player","homeTeam","home_name","p1","Player 1"])
-    p2 = _first(row, ["player2","player_2","away","away_player","awayTeam","away_name","p2","Player 2"])
-    if (not winner or not loser) and p1 and p2 and winner:
+    p1 = _first(row, ["player1","player_1","home","home_player","homeTeam","home_name","home_name_full","p1","Player 1"])
+    p2 = _first(row, ["player2","player_2","away","away_player","awayTeam","away_name","away_name_full","p2","Player 2"])
+    p1_name = _name_from_obj(p1)
+    p2_name = _name_from_obj(p2)
+
+    # TennisApi/Sofa-style rows often have player objects plus winnerCode only.
+    winner_code = _to_int(_first(row, ["winnerCode", "winner_code", "winner" "code"]))
+    if (not winner or not loser) and p1_name and p2_name and winner_code in {1, 2}:
+        if winner_code == 1:
+            winner, loser = p1_name, p2_name
+        elif winner_code == 2:
+            winner, loser = p2_name, p1_name
+
+    # Generic player1/player2 + winner-name variant.
+    if (not loser) and p1_name and p2_name and winner:
         wkey = normalize_name(winner)
-        p1key = normalize_name(p1)
-        p2key = normalize_name(p2)
+        p1key = normalize_name(p1_name)
+        p2key = normalize_name(p2_name)
         if wkey == p1key:
-            loser = p2
+            loser = p2_name
         elif wkey == p2key:
-            loser = p1
+            loser = p1_name
+
+    # Last fallback for finished historical rows with only set totals.
+    if (not winner or not loser) and p1_name and p2_name:
+        home_score = _score_current(_first(row, ["homeScore", "home_score", "p1_score", "homeCurrent"]))
+        away_score = _score_current(_first(row, ["awayScore", "away_score", "p2_score", "awayCurrent"]))
+        if home_score is not None and away_score is not None and home_score != away_score:
+            if home_score > away_score:
+                winner, loser = p1_name, p2_name
+            else:
+                winner, loser = p2_name, p1_name
+
     if not winner or not loser:
         return None
 
+    date_value = _first(row, ["tourney_date","date","match_date","startDate","start_date","start_time","startTimestamp","start_timestamp","time","Date"])
     return HistoryMatch(
-        date=_parse_date(_first(row, ["tourney_date","date","match_date","startDate","start_time","time","Date"])),
-        winner=str(winner),
-        loser=str(loser),
+        date=_parse_date(date_value),
+        winner=_name_from_obj(winner),
+        loser=_name_from_obj(loser),
         surface=normalize_surface(_first(row, ["surface","surfaceType","court","court_surface","Surface"])),
         level=str(_first(row, ["tourney_level","level","category","tour","competition","Level"]) or ""),
         tournament=str(_first(row, ["tourney_name","tournament","event","competition_name","Tournament"]) or ""),
