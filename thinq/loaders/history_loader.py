@@ -19,13 +19,32 @@ HISTORY_SEARCH_DIRS = [
     Path("outputs/results/all"),
     Path("outputs/results/corq"),
     Path("outputs/snapshots/all"),
+    Path("outputs/snapshots"),
 ]
+
 HISTORY_FILE_PATTERNS = ("*.csv", "*.json", "*.jsonl")
-_SURFACE_MAP = {"hard":"Hard","outdoor hard":"Hard","indoor hard":"Hard","clay":"Clay","red clay":"Clay","green clay":"Clay","grass":"Grass","carpet":"Carpet","carpet indoor":"Carpet"}
+
+_SURFACE_MAP = {
+    "hard": "Hard",
+    "outdoor hard": "Hard",
+    "indoor hard": "Hard",
+    "clay": "Clay",
+    "red clay": "Clay",
+    "green clay": "Clay",
+    "grass": "Grass",
+    "carpet": "Carpet",
+    "carpet indoor": "Carpet",
+}
+
 _TRANSLATE = str.maketrans({
-    "ł": "l", "Ł": "L", "đ": "d", "Đ": "D", "ð": "d", "Ð": "D",
-    "þ": "th", "Þ": "Th", "ß": "ss", "ø": "o", "Ø": "O",
-    "æ": "ae", "Æ": "Ae", "œ": "oe", "Œ": "Oe",
+    "ł": "l", "Ł": "L",
+    "đ": "d", "Đ": "D",
+    "ð": "d", "Ð": "D",
+    "þ": "th", "Þ": "Th",
+    "ß": "ss",
+    "ø": "o", "Ø": "O",
+    "æ": "ae", "Æ": "Ae",
+    "œ": "oe", "Œ": "Oe",
 })
 
 
@@ -33,7 +52,10 @@ def _name_from_obj(value: Any) -> str:
     if value is None:
         return ""
     if isinstance(value, dict):
-        for key in ("name", "fullName", "full_name", "displayName", "display_name", "shortName", "short_name", "slug"):
+        for key in (
+            "name", "fullName", "full_name", "displayName", "display_name",
+            "shortName", "short_name", "slug",
+        ):
             if value.get(key):
                 return str(value.get(key))
         return ""
@@ -72,10 +94,10 @@ def _norm_row(row: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def _first(row: Dict[str, Any], names: List[str]) -> Any:
-    for n in names:
-        if n in row and row.get(n) not in (None, ""):
-            return row.get(n)
-        ck = _clean_key(n)
+    for name in names:
+        if name in row and row.get(name) not in (None, ""):
+            return row.get(name)
+        ck = _clean_key(name)
         if ck in row and row.get(ck) not in (None, ""):
             return row.get(ck)
     return None
@@ -107,7 +129,7 @@ def _parse_date(value: Any) -> str:
     return text
 
 
-@dataclass
+@dataclass(frozen=True)
 class HistoryMatch:
     date: str
     winner: str
@@ -122,23 +144,28 @@ class HistoryMatch:
     @property
     def winner_key(self) -> str:
         return normalize_name(self.winner)
+
     @property
     def loser_key(self) -> str:
         return normalize_name(self.loser)
+
     def involves(self, player_key: str) -> bool:
         return player_key in {self.winner_key, self.loser_key}
+
     def player_won(self, player_key: str) -> Optional[bool]:
         if self.winner_key == player_key:
             return True
         if self.loser_key == player_key:
             return False
         return None
+
     def opponent_rank_for(self, player_key: str) -> Optional[int]:
         if self.winner_key == player_key:
             return self.loser_rank
         if self.loser_key == player_key:
             return self.winner_rank
         return None
+
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
@@ -160,36 +187,38 @@ def _score_current(value: Any) -> Optional[int]:
 
 def _match_from_row(raw_row: Dict[str, Any], source: Path) -> Optional[HistoryMatch]:
     row = _norm_row(raw_row)
-    winner = _first(row, ["winner_name","winner","winnerName","match_winner","matchWinner","player_won","winner_player","winnerplayer","winnerTeam","winner_team"])
-    loser = _first(row, ["loser_name","loser","loserName","match_loser","matchLoser","loser_player","loserplayer","loserTeam","loser_team"])
 
-    p1 = _first(row, ["player1","player_1","home","home_player","homeTeam","home_name","home_name_full","p1","Player 1"])
-    p2 = _first(row, ["player2","player_2","away","away_player","awayTeam","away_name","away_name_full","p2","Player 2"])
+    winner = _first(row, [
+        "winner_name", "winner", "winnerName", "match_winner", "matchWinner",
+        "player_won", "winner_player", "winnerplayer", "winnerTeam", "winner_team",
+    ])
+    loser = _first(row, [
+        "loser_name", "loser", "loserName", "match_loser", "matchLoser",
+        "loser_player", "loserplayer", "loserTeam", "loser_team",
+    ])
+
+    p1 = _first(row, ["player1", "player_1", "home", "home_player", "homeTeam", "home_name", "home_name_full", "p1", "Player 1"])
+    p2 = _first(row, ["player2", "player_2", "away", "away_player", "awayTeam", "away_name", "away_name_full", "p2", "Player 2"])
     p1_name = _name_from_obj(p1)
     p2_name = _name_from_obj(p2)
 
-    # TennisApi/Sofa-style rows often have player objects plus winnerCode only.
-    winner_code = _to_int(_first(row, ["winnerCode", "winner_code", "winner" "code"]))
+    winner_code = _to_int(_first(row, ["winnerCode", "winner_code", "winnercode"]))
     if (not winner or not loser) and p1_name and p2_name and winner_code in {1, 2}:
         if winner_code == 1:
             winner, loser = p1_name, p2_name
-        elif winner_code == 2:
+        else:
             winner, loser = p2_name, p1_name
 
-    # Generic player1/player2 + winner-name variant.
     if (not loser) and p1_name and p2_name and winner:
         wkey = normalize_name(winner)
-        p1key = normalize_name(p1_name)
-        p2key = normalize_name(p2_name)
-        if wkey == p1key:
+        if wkey == normalize_name(p1_name):
             loser = p2_name
-        elif wkey == p2key:
+        elif wkey == normalize_name(p2_name):
             loser = p1_name
 
-    # Last fallback for finished historical rows with only set totals.
     if (not winner or not loser) and p1_name and p2_name:
-        home_score = _score_current(_first(row, ["homeScore", "home_score", "p1_score", "homeCurrent"]))
-        away_score = _score_current(_first(row, ["awayScore", "away_score", "p2_score", "awayCurrent"]))
+        home_score = _score_current(_first(row, ["homeScore", "home_score", "p1_score", "homeCurrent", "homescorecurrent"]))
+        away_score = _score_current(_first(row, ["awayScore", "away_score", "p2_score", "awayCurrent", "awayscorecurrent"]))
         if home_score is not None and away_score is not None and home_score != away_score:
             if home_score > away_score:
                 winner, loser = p1_name, p2_name
@@ -199,16 +228,20 @@ def _match_from_row(raw_row: Dict[str, Any], source: Path) -> Optional[HistoryMa
     if not winner or not loser:
         return None
 
-    date_value = _first(row, ["tourney_date","date","match_date","startDate","start_date","start_time","startTimestamp","start_timestamp","time","Date"])
+    date_value = _first(row, [
+        "tourney_date", "date", "match_date", "startDate", "start_date", "start_time",
+        "startTimestamp", "start_timestamp", "time", "Date",
+    ])
+
     return HistoryMatch(
         date=_parse_date(date_value),
         winner=_name_from_obj(winner),
         loser=_name_from_obj(loser),
-        surface=normalize_surface(_first(row, ["surface","surfaceType","court","court_surface","Surface"])),
-        level=str(_first(row, ["tourney_level","level","category","tour","competition","Level"]) or ""),
-        tournament=str(_first(row, ["tourney_name","tournament","event","competition_name","Tournament"]) or ""),
-        winner_rank=_to_int(_first(row, ["winner_rank","winnerRank","winner_ranking","wrank"])),
-        loser_rank=_to_int(_first(row, ["loser_rank","loserRank","loser_ranking","lrank"])),
+        surface=normalize_surface(_first(row, ["surface", "surfaceType", "court", "court_surface", "Surface"])),
+        level=str(_first(row, ["tourney_level", "level", "category", "tour", "competition", "Level"]) or ""),
+        tournament=str(_first(row, ["tourney_name", "tournament", "event", "competition_name", "Tournament"]) or ""),
+        winner_rank=_to_int(_first(row, ["winner_rank", "winnerRank", "winner_ranking", "wrank"])),
+        loser_rank=_to_int(_first(row, ["loser_rank", "loserRank", "loser_ranking", "lrank"])),
         source_file=str(source),
     )
 
@@ -218,18 +251,19 @@ def _matches_from_json_payload(payload: Any, source: Path) -> List[HistoryMatch]
     if isinstance(payload, list):
         records = [x for x in payload if isinstance(x, dict)]
     elif isinstance(payload, dict):
-        for key in ("matches","results","items","data","events","rows"):
+        for key in ("matches", "results", "items", "data", "events", "rows"):
             value = payload.get(key)
             if isinstance(value, list):
                 records = [x for x in value if isinstance(x, dict)]
                 break
         if not records:
             records = [payload]
+
     out: List[HistoryMatch] = []
-    for r in records:
-        m = _match_from_row(r, source)
-        if m and m.date:
-            out.append(m)
+    for record in records:
+        match = _match_from_row(record, source)
+        if match and match.date:
+            out.append(match)
     return out
 
 
@@ -241,23 +275,25 @@ def load_history_matches() -> Tuple[HistoryMatch, ...]:
             continue
         try:
             if path.suffix.lower() == ".csv":
-                with path.open("r", encoding="utf-8-sig", newline="") as f:
-                    for row in csv.DictReader(f):
-                        m = _match_from_row(row, path)
-                        if m and m.date:
-                            out.append(m)
+                with path.open("r", encoding="utf-8-sig", newline="") as handle:
+                    for row in csv.DictReader(handle):
+                        match = _match_from_row(row, path)
+                        if match and match.date:
+                            out.append(match)
             elif path.suffix.lower() == ".jsonl":
-                with path.open("r", encoding="utf-8") as f:
-                    for line in f:
-                        line=line.strip()
-                        if line:
-                            m = _match_from_row(json.loads(line), path)
-                            if m and m.date:
-                                out.append(m)
+                with path.open("r", encoding="utf-8") as handle:
+                    for line in handle:
+                        line = line.strip()
+                        if not line:
+                            continue
+                        match = _match_from_row(json.loads(line), path)
+                        if match and match.date:
+                            out.append(match)
             elif path.suffix.lower() == ".json":
                 out.extend(_matches_from_json_payload(json.loads(path.read_text(encoding="utf-8")), path))
         except Exception:
             continue
+
     out.sort(key=lambda m: m.date or "", reverse=True)
     return tuple(out)
 
@@ -271,4 +307,10 @@ def get_player_matches(player: str, limit: Optional[int] = None) -> List[History
 def history_data_status() -> Dict[str, Any]:
     files = _candidate_files()
     matches = load_history_matches()
-    return {"status":"OK" if matches else "NO_DATA", "match_count":len(matches), "file_count":len(files), "search_dirs":[str(p) for p in HISTORY_SEARCH_DIRS], "sample_files":[str(p) for p in files[:10]]}
+    return {
+        "status": "OK" if matches else "NO_DATA",
+        "match_count": len(matches),
+        "file_count": len(files),
+        "search_dirs": [str(p) for p in HISTORY_SEARCH_DIRS],
+        "sample_files": [str(p) for p in files[:10]],
+    }
