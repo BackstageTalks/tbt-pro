@@ -47,6 +47,7 @@ except Exception:
         return SequenceMatcher(None, a_norm, b_norm).ratio()
 
 LOCAL_TZ = ZoneInfo("Europe/Bratislava")
+_DAILY_ODDS_BY_DATE_CACHE: Dict[str, List[Dict[str, Any]]] = {}
 
 
 class RapidApiError(RuntimeError):
@@ -275,13 +276,78 @@ class RapidApiClient:
         print(f"RAPIDAPI RAW EVENTS: {len(events)} DEDUPED: {len(deduped)}")
         return deduped
 
-    def get_event_odds(self, event_id: Any, match: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
-        """Fetch match-winner odds using a robust TennisApi PRO fallback chain.
+    def _provider_ids_for_odds(self) -> List[int]:
+        raw = os.getenv("TENNISAPI_PROVIDER_IDS") or os.getenv("TENNISAPI_PROVIDER_ID", "1")
+        ids: List[int] = []
+        for part in str(raw).split(","):
+            try:
+                value = int(part.strip())
+                if value not in ids:
+                    ids.append(value)
+            except Exception:
+                pass
+        for value in (1, 2, 3, 4, 5):
+            if value not in ids:
+                ids.append(value)
+        return ids
 
-        The method returns a normalized odds pair when any endpoint works.
-        If all endpoints fail, it returns None and stores the audit in
-        self.last_odds_attempts for the caller to persist into ALL.
-        """
+    def _match_odds_date(self, match: Optional[Dict[str, Any]]) -> datetime:
+        if isinstance(match, dict):
+            for key in ("match_start", "start_time", "start_time_utc", "match_time_utc"):
+                parsed = parse_datetime(match.get(key))
+                if parsed:
+                    return parsed.astimezone(LOCAL_TZ)
+            ts = match.get("startTimestamp") or match.get("start_timestamp")
+            parsed = unix_to_datetime(ts)
+            if parsed:
+                return parsed.astimezone(LOCAL_TZ)
+        return target_betting_day()
+
+    def _daily_odds_items_for_date(self, target_date: datetime, attempts: List[str]) -> List[Dict[str, Any]]:
+        local_date = target_date.astimezone(LOCAL_TZ) if target_date.tzinfo else target_date.replace(tzinfo=LOCAL_TZ)
+        date_key = local_date.strftime("%Y-%m-%d")
+        if date_key in _DAILY_ODDS_BY_DATE_CACHE:
+            attempts.append(f"events_odds_by_date:CACHE:{len(_DAILY_ODDS_BY_DATE_CACHE[date_key])}")
+            return _DAILY_ODDS_BY_DATE_CACHE[date_key]
+        day, month, year = local_date.day, local_date.month, local_date.year
+        path = f"/api/tennis/events/odds/{day}/{month}/{year}"
+        payload = self.get(path)
+        if not payload:
+            attempts.append("events_odds_by_date:NO_PAYLOAD")
+            _DAILY_ODDS_BY_DATE_CACHE[date_key] = []
+            return []
+        items = [item for item in _as_list(payload) if isinstance(item, dict)]
+        # If the payload itself is an event-like odds object, keep it too.
+        if isinstance(payload, dict) and not items:
+            items = [payload]
+        _DAILY_ODDS_BY_DATE_CACHE[date_key] = items
+        attempts.append(f"events_odds_by_date:OK:{len(items)}")
+        return items
+
+    def _find_daily_odds_for_match(self, items: List[Dict[str, Any]], match: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        event_id = str(match.get("event_id") or match.get("match_id") or match.get("id") or "")
+        player1 = match.get("player1")
+        player2 = match.get("player2")
+        best_score = 0.0
+        best_item: Optional[Dict[str, Any]] = None
+        for item in items:
+            item_id = str(item.get("event_id") or item.get("match_id") or item.get("id") or "")
+            score = 0.0
+            if event_id and item_id and event_id == item_id:
+                score = 2.0
+            item_p1, item_p2 = event_players(item)
+            if player1 and player2 and item_p1 and item_p2:
+                direct = name_match_score(player1, item_p1) + name_match_score(player2, item_p2)
+                reverse = name_match_score(player1, item_p2) + name_match_score(player2, item_p1)
+                score = max(score, direct, reverse)
+            if score >= 1.4 and score > best_score:
+                normalized = normalize_winner_odds_payload(item)
+                if normalized:
+                    best_score = score
+                    best_item = normalized
+        return best_item
+
+    def get_event_odds(self, event_id: Any, match: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
         self.last_odds_attempts = []
         self.last_odds_status = "MISSING"
         self.last_odds_endpoint = None
@@ -290,24 +356,78 @@ class RapidApiClient:
             self.last_odds_attempts.append("missing_event_id:SKIPPED")
             return None
 
-        provider = _env_int("TENNISAPI_PROVIDER_ID", 1)
         event_id_text = str(event_id)
-        attempts = [
-            ("event_odds", f"/api/tennis/event/{event_id_text}/odds", None),
-            ("provider_winning_odds", f"/api/tennis/event/{event_id_text}/provider/{provider}/winning-odds", None),
-            ("all_odds_for_event", f"/api/tennis/event/{event_id_text}/odds/{provider}/all", None),
+
+        # 1) Direct event odds usually has the best coverage.
+        first_path = f"/api/tennis/event/{event_id_text}/odds"
+        payload = self.get(first_path)
+        if payload:
+            normalized = normalize_winner_odds_payload(payload)
+            if normalized:
+                normalized["odds_endpoint"] = first_path
+                normalized["odds_source"] = normalized.get("odds_source") or "RapidAPI PRO event odds"
+                normalized["odds_status"] = "OK"
+                normalized["odds_attempts"] = ["event_odds:OK"]
+                self.last_odds_attempts = normalized["odds_attempts"]
+                self.last_odds_status = "OK"
+                self.last_odds_endpoint = first_path
+                return normalized
+            self.last_odds_attempts.append("event_odds:NO_WINNER_MARKET")
+        else:
+            self.last_odds_attempts.append("event_odds:NO_PAYLOAD")
+
+        # 2) Date batch odds can contain WTA/WTA125/Q matches missed by event odds.
+        if isinstance(match, dict):
+            daily_items = self._daily_odds_items_for_date(self._match_odds_date(match), self.last_odds_attempts)
+            daily = self._find_daily_odds_for_match(daily_items, match)
+            if daily:
+                endpoint = "/api/tennis/events/odds/{day}/{month}/{year}"
+                daily["odds_endpoint"] = endpoint
+                daily["odds_source"] = daily.get("odds_source") or "RapidAPI PRO events odds by date"
+                daily["odds_status"] = "OK"
+                daily["odds_attempts"] = list(self.last_odds_attempts) + ["events_odds_by_date_match:OK"]
+                self.last_odds_attempts = daily["odds_attempts"]
+                self.last_odds_status = "OK"
+                self.last_odds_endpoint = endpoint
+                return daily
+            self.last_odds_attempts.append("events_odds_by_date_match:NO_MATCH")
+
+        # 3) Provider sweep. Some markets are empty for provider 1 but present elsewhere.
+        for provider in self._provider_ids_for_odds():
+            provider_attempts = [
+                ("provider_winning_odds", f"/api/tennis/event/{event_id_text}/provider/{provider}/winning-odds"),
+                ("all_odds_for_event", f"/api/tennis/event/{event_id_text}/odds/{provider}/all"),
+            ]
+            for name, path in provider_attempts:
+                payload = self.get(path)
+                label = f"{name}[{provider}]"
+                if not payload:
+                    self.last_odds_attempts.append(f"{label}:NO_PAYLOAD")
+                    continue
+                normalized = normalize_winner_odds_payload(payload)
+                if not normalized:
+                    self.last_odds_attempts.append(f"{label}:NO_WINNER_MARKET")
+                    continue
+                normalized["odds_endpoint"] = path
+                normalized["odds_source"] = normalized.get("odds_source") or f"RapidAPI PRO {label}"
+                normalized["odds_status"] = "OK"
+                normalized["odds_attempts"] = list(self.last_odds_attempts) + [f"{label}:OK"]
+                self.last_odds_attempts = normalized["odds_attempts"]
+                self.last_odds_status = "OK"
+                self.last_odds_endpoint = path
+                return normalized
+
+        # 4) Featured and operation-name endpoints as late fallbacks.
+        tail_attempts = [
             ("featured_odds_1", f"/api/tennis/event/{event_id_text}/odds/featured", None),
             ("featured_odds_2", f"/api/tennis/event/{event_id_text}/featured-odds", None),
             ("featured_odds_3", f"/api/tennis/event/{event_id_text}/odds/1/featured", None),
-            # Keep API-style endpoint aliases as late fallbacks because some RapidAPI
-            # products expose operation names as routes.
-            ("api_match_winning_odds", "/api/tennis/getMatchWinningOdds", {"matchId": event_id_text, "providerId": provider}),
-            ("api_match_betting_odds", "/api/tennis/getMatchBettingOdds", {"matchId": event_id_text, "providerId": provider}),
-            ("api_all_odds_for_event", "/api/tennis/getAllOddsForEvent", {"eventId": event_id_text, "providerId": provider}),
+            ("api_match_winning_odds", "/api/tennis/getMatchWinningOdds", {"matchId": event_id_text}),
+            ("api_match_betting_odds", "/api/tennis/getMatchBettingOdds", {"matchId": event_id_text}),
+            ("api_all_odds_for_event", "/api/tennis/getAllOddsForEvent", {"eventId": event_id_text}),
             ("api_match_featured_odds", "/api/tennis/getMatchFeaturedOdds", {"matchId": event_id_text}),
         ]
-
-        for name, path, params in attempts:
+        for name, path, params in tail_attempts:
             payload = self.get(path, params=params)
             if not payload:
                 self.last_odds_attempts.append(f"{name}:NO_PAYLOAD")
@@ -444,7 +564,7 @@ def extract_markets(payload: Any) -> List[Dict[str, Any]]:
 
 
 def market_choices(market: Dict[str, Any]) -> List[Dict[str, Any]]:
-    for key in ("choices", "outcomes", "participants", "selections"):
+    for key in ("choices", "outcomes", "participants", "selections", "selection", "competitors"):
         value = market.get(key)
         if isinstance(value, list):
             return [item for item in value if isinstance(item, dict)]
@@ -468,18 +588,15 @@ def choice_price(choice: Dict[str, Any]) -> Optional[float]:
 
 
 def normalize_winner_odds_payload(payload: Any) -> Optional[Dict[str, Any]]:
-    """Normalize match-winner odds from all TennisApi PRO odds payload shapes.
+    """Normalize match-winner odds from TennisApi PRO payloads.
 
-    Supported shapes:
-    - event odds markets with choices/outcomes/selections
-    - provider winning odds with home/away fractionalValue
-    - wrapped data/odds objects
+    Handles both market-style payloads and provider winning-odds payloads:
+    - {home: {fractionalValue: ...}, away: {fractionalValue: ...}}
+    - nested markets/odds/eventOdds/data/items with choices/outcomes/selections
     """
     if not payload:
         return None
 
-    # Provider winning odds shape:
-    # {"home": {"fractionalValue": "73/100"}, "away": {"fractionalValue": "11/10"}}
     direct = payload
     if isinstance(direct, dict) and isinstance(direct.get("odds"), dict):
         direct = direct.get("odds")
@@ -490,34 +607,33 @@ def normalize_winner_odds_payload(payload: Any) -> Optional[Dict[str, Any]]:
         home = direct.get("home") or direct.get("homeOdds") or direct.get("home_odds")
         away = direct.get("away") or direct.get("awayOdds") or direct.get("away_odds")
         if isinstance(home, dict) and isinstance(away, dict):
-            h = None
-            a = None
+            home_price = None
+            away_price = None
             for key in ("decimalValue", "decimal", "decimalOdds", "price", "odds", "value", "fractionalValue"):
-                h = fractional_to_decimal(home.get(key))
-                if h is not None:
+                home_price = fractional_to_decimal(home.get(key))
+                if home_price is not None:
                     break
             for key in ("decimalValue", "decimal", "decimalOdds", "price", "odds", "value", "fractionalValue"):
-                a = fractional_to_decimal(away.get(key))
-                if a is not None:
+                away_price = fractional_to_decimal(away.get(key))
+                if away_price is not None:
                     break
-            if h is not None and a is not None:
+            if home_price is not None and away_price is not None:
                 return {
                     "player1_label": "1",
                     "player2_label": "2",
-                    "odds_player1": h,
-                    "odds_player2": a,
-                    "p1_odds": h,
-                    "p2_odds": a,
-                    "home_odds": h,
-                    "away_odds": a,
-                    "odds1": h,
-                    "odds2": a,
+                    "odds_player1": home_price,
+                    "odds_player2": away_price,
+                    "p1_odds": home_price,
+                    "p2_odds": away_price,
+                    "home_odds": home_price,
+                    "away_odds": away_price,
+                    "odds1": home_price,
+                    "odds2": away_price,
                     "bookmaker": "TennisApi",
                     "odds_source": "RapidAPI PRO winning odds",
                     "raw": payload,
                 }
 
-    # Market-based shapes.
     for market in extract_markets(payload):
         market_name = normalize_name(" ".join(str(market.get(k) or "") for k in ("name", "marketName", "market_name", "label", "type", "marketType")))
         choices = market_choices(market)
