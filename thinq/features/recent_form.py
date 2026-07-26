@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict, Iterable, List, Optional, Tuple
+from typing import Any, Dict, List, Optional
 
 from thinq.loaders.history_loader import (
     HistoryMatch,
@@ -54,6 +54,7 @@ def _player_windows(player: str, surface: Optional[str], level: Optional[str] = 
 
     return {
         "player": player,
+        "normalized_player": key,
         "total_history_matches": len(matches),
         "last5": summarize(last5),
         "last10": summarize(last10),
@@ -71,13 +72,11 @@ def _diff_pct(a: Optional[float], b: Optional[float]) -> float:
 
 
 def _quality_edge(pick_stats: Dict[str, Any], opp_stats: Dict[str, Any]) -> float:
-    # Lower average opponent rank means stronger opposition. Conservative cap.
     p_rank = pick_stats.get("last10", {}).get("avg_opponent_rank")
     o_rank = opp_stats.get("last10", {}).get("avg_opponent_rank")
     if p_rank is None or o_rank is None:
         return 0.0
     diff = float(o_rank) - float(p_rank)
-    # 100 ranking places roughly maps to 1.0 percentage point.
     return round(clamp(diff / 10000.0, -0.03, 0.03), 4)
 
 
@@ -89,8 +88,24 @@ def _confidence(pick_stats: Dict[str, Any], opp_stats: Dict[str, Any]) -> float:
 
     base = min((p_total + o_total) / 20.0, 1.0) * 0.55
     surface = min((p_surface + o_surface) / 12.0, 1.0) * 0.30
-    quality = 0.15 if (pick_stats.get("last10", {}).get("avg_opponent_rank") is not None and opp_stats.get("last10", {}).get("avg_opponent_rank") is not None) else 0.0
+    quality = 0.15 if (
+        pick_stats.get("last10", {}).get("avg_opponent_rank") is not None
+        and opp_stats.get("last10", {}).get("avg_opponent_rank") is not None
+    ) else 0.0
     return round(clamp(base + surface + quality, 0.0, 0.95), 4)
+
+
+def _sample_audit(pick_stats: Dict[str, Any], opp_stats: Dict[str, Any], status: str, reason: str = "") -> Dict[str, Any]:
+    return {
+        "status": status,
+        "reason": reason,
+        "pick_last10_count": pick_stats.get("last10", {}).get("count", 0),
+        "opponent_last10_count": opp_stats.get("last10", {}).get("count", 0),
+        "pick_surface_count": pick_stats.get("surface_last10", {}).get("count", 0),
+        "opponent_surface_count": opp_stats.get("surface_last10", {}).get("count", 0),
+        "pick_total_history_matches": pick_stats.get("total_history_matches", 0),
+        "opponent_total_history_matches": opp_stats.get("total_history_matches", 0),
+    }
 
 
 def build_recent_form_context(
@@ -102,6 +117,8 @@ def build_recent_form_context(
     **_kwargs: Any,
 ) -> Dict[str, Any]:
     status = history_data_status()
+    empty_stats = {"last10": {"count": 0}, "surface_last10": {"count": 0}, "total_history_matches": 0}
+
     if not status.get("match_count"):
         return {
             "status": "NO_DATA",
@@ -112,6 +129,8 @@ def build_recent_form_context(
             "surface_recent_form_edge": 0.0,
             "opponent_quality_edge": 0.0,
             "form_confidence": 0.0,
+            "form_data_depth": 0.0,
+            "recent_form_sample_audit": _sample_audit(empty_stats, empty_stats, "NO_DATA", "No local history files found"),
             "flags": ["RECENT_FORM_NO_DATA"],
             "history_status": status,
         }
@@ -120,15 +139,18 @@ def build_recent_form_context(
     opp_stats = _player_windows(opponent, surface, level)
 
     if pick_stats["last10"]["count"] == 0 and opp_stats["last10"]["count"] == 0:
+        reason = "No completed historical matches found for either player"
         return {
             "status": "NO_DATA",
             "source": "local_history",
-            "reason": "No completed historical matches found for either player",
+            "reason": reason,
             "recent_form_edge": 0.0,
             "short_form_edge": 0.0,
             "surface_recent_form_edge": 0.0,
             "opponent_quality_edge": 0.0,
             "form_confidence": 0.0,
+            "form_data_depth": 0.0,
+            "recent_form_sample_audit": _sample_audit(pick_stats, opp_stats, "NO_DATA", reason),
             "flags": ["RECENT_FORM_NO_PLAYER_MATCHES"],
             "pick": pick_stats,
             "opponent": opp_stats,
@@ -155,6 +177,8 @@ def build_recent_form_context(
     if abs(recent_form_edge) < 0.005 and abs(surface_recent_form_edge) < 0.005:
         flags.append("RECENT_FORM_NEUTRAL")
 
+    sample_audit = _sample_audit(pick_stats, opp_stats, "OK")
+
     return {
         "status": "OK",
         "source": "local_history",
@@ -177,6 +201,8 @@ def build_recent_form_context(
         "surface_recent_form_edge": surface_recent_form_edge,
         "opponent_quality_edge": opponent_quality_edge,
         "form_confidence": form_confidence,
+        "form_data_depth": form_confidence,
+        "recent_form_sample_audit": sample_audit,
         "flags": flags,
         "history_status": status,
     }
