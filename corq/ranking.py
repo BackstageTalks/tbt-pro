@@ -461,146 +461,6 @@ def low_data_risk_audit(row: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-
-def _h2h_block(row: Dict[str, Any]) -> Dict[str, Any]:
-    h2h = _get_nested(row, "thinq", "h2h")
-    return h2h if isinstance(h2h, dict) else {}
-
-
-def h2h_pick_opp_counts(row: Dict[str, Any]) -> Tuple[int, int]:
-    h2h = _h2h_block(row)
-    pick_w = int(_as_float(h2h.get("pick_wins") or row.get("thinq_h2h_pick_wins"), 0.0) or 0)
-    opp_w = int(_as_float(h2h.get("opponent_wins") or row.get("thinq_h2h_opponent_wins"), 0.0) or 0)
-    return pick_w, opp_w
-
-
-def surface_h2h_pick_opp_counts(row: Dict[str, Any]) -> Tuple[int, int]:
-    h2h = _h2h_block(row)
-    matches = int(_as_float(h2h.get("same_surface_matches") or row.get("thinq_h2h_same_surface_matches"), 0.0) or 0)
-    pick_w = int(_as_float(h2h.get("same_surface_pick_wins") or row.get("thinq_h2h_same_surface_pick_wins"), 0.0) or 0)
-    opp_w = max(matches - pick_w, 0)
-    return pick_w, opp_w
-
-
-def h2h_edge(row: Dict[str, Any]) -> float:
-    value = _first(row, ["h2h_edge", "thinq_h2h_edge"], None)
-    if value is None:
-        value = _get_nested(row, "thinq", "h2h", "edge")
-    return _percent(value, 0.0) / 100.0
-
-
-def h2h_strong_against_pick(row: Dict[str, Any]) -> bool:
-    pick_w, opp_w = h2h_pick_opp_counts(row)
-    edge = h2h_edge(row)
-    return bool(edge <= -0.03 or (opp_w >= 3 and pick_w <= max(0, opp_w - 3)))
-
-
-def surface_h2h_against_pick(row: Dict[str, Any]) -> bool:
-    pick_w, opp_w = surface_h2h_pick_opp_counts(row)
-    return bool(opp_w >= 2 and pick_w < opp_w)
-
-
-def _record_from_text(text: Any) -> Tuple[Optional[int], Optional[int]]:
-    import re
-    s = str(text or "")
-    match = re.search(r"(\d+)\s*W\s*[-–]\s*(\d+)\s*L", s, flags=re.I)
-    if match:
-        return int(match.group(1)), int(match.group(2))
-    match = re.search(r"\b(\d+)\s*[-–]\s*(\d+)\b", s)
-    if match:
-        return int(match.group(1)), int(match.group(2))
-    return None, None
-
-
-def pick_form_wins_losses(row: Dict[str, Any]) -> Tuple[Optional[int], Optional[int]]:
-    rf = _get_nested(row, "thinq", "recent_form")
-    if isinstance(rf, dict):
-        pick = rf.get("pick") if isinstance(rf.get("pick"), dict) else {}
-        for base in (pick.get("last10"), pick.get("recent"), pick):
-            if isinstance(base, dict):
-                wins = _as_float(base.get("wins") or base.get("w"), None)
-                losses = _as_float(base.get("losses") or base.get("l"), None)
-                if wins is not None and losses is not None:
-                    return int(wins), int(losses)
-                record = base.get("record") or base.get("display")
-                parsed = _record_from_text(record)
-                if parsed[0] is not None:
-                    return parsed
-    for key in ("pick_form", "pick_form_record", "pick_recent_form", "thinq_pick_form_display", "pick_form_display"):
-        parsed = _record_from_text(row.get(key))
-        if parsed[0] is not None:
-            return parsed
-    return None, None
-
-
-def pick_surface_edge(row: Dict[str, Any]) -> float:
-    value = _first(row, ["pick_surface_edge", "surface_edge", "surface_recent_form_edge", "thinq_surface_recent_form_edge"], None)
-    if value is None:
-        value = _get_nested(row, "thinq", "recent_form", "surface_edge")
-    return _percent(value, 0.0) / 100.0
-
-
-def form_risk_model_support(row: Dict[str, Any]) -> bool:
-    wins, losses = pick_form_wins_losses(row)
-    if wins is None or losses is None:
-        return False
-    return bool(wins <= 2 and losses >= 8 and pick_surface_edge(row) < 0 and pick_thinq_edge(row) > 0 and corq_probability(row) >= 0.50)
-
-
-def opponent_odds_value(row: Dict[str, Any]) -> Optional[float]:
-    value = _first(row, ["opponent_odds", "opp_odds", "odds_player2", "away_odds", "p2_odds", "price2"], None)
-    return _as_float(value, None)
-
-
-def market_strong_against_pick(row: Dict[str, Any]) -> bool:
-    pick_o = pick_odds_value(row)
-    opp_o = opponent_odds_value(row)
-    if pick_o is None or opp_o is None:
-        return False
-    return bool(pick_o >= 2.80 and opp_o <= 1.45)
-
-
-def top7_risk_penalty_details(row: Dict[str, Any]) -> List[Dict[str, Any]]:
-    details: List[Dict[str, Any]] = []
-    if h2h_strong_against_pick(row):
-        details.append({"tag": "H2H_STRONG_AGAINST_PICK", "points": 6.0})
-        if pick_thinq_edge(row) > 0 and corq_probability(row) >= 0.50:
-            details.append({"tag": "MODEL_SUPPORT_H2H_DISAGREE", "points": 2.0})
-    if surface_h2h_against_pick(row):
-        details.append({"tag": "SURFACE_H2H_AGAINST_PICK", "points": 3.0})
-    if form_risk_model_support(row):
-        details.append({"tag": "FORM_RISK_MODEL_SUPPORT", "points": 2.0})
-    if market_strong_against_pick(row):
-        details.append({"tag": "MARKET_STRONG_AGAINST_PICK", "points": 3.0})
-        if corq_probability(row) >= 0.58 and pick_thinq_edge(row) > 0:
-            details.append({"tag": "MODEL_SUPPORT_MARKET_DISAGREE", "points": 1.5})
-    return details
-
-
-def top7_risk_penalty(row: Dict[str, Any]) -> float:
-    return round(sum(float(item.get("points") or 0.0) for item in top7_risk_penalty_details(row)), 4)
-
-
-def top7_risk_tags(row: Dict[str, Any]) -> List[str]:
-    return sorted({str(item.get("tag")) for item in top7_risk_penalty_details(row) if item.get("tag")})
-
-
-def _append_unique_list(row: Dict[str, Any], key: str, values: List[str]) -> None:
-    current = row.get(key)
-    if not isinstance(current, list):
-        current = [] if current in (None, "") else [current]
-    merged = []
-    seen = set()
-    for item in list(current) + list(values):
-        if item is None:
-            continue
-        text = str(item)
-        if text not in seen:
-            seen.add(text)
-            merged.append(text)
-    row[key] = merged
-
-
 def top7_reject_reasons(row: Dict[str, Any]) -> List[str]:
     reasons: List[str] = []
     cp = corq_probability(row)
@@ -641,19 +501,178 @@ def publishable_for_top7(row: Dict[str, Any]) -> bool:
     return not top7_reject_reasons(row)
 
 
+def h2h_pick_opp_counts(row: Dict[str, Any]) -> Tuple[int, int, int]:
+    h2h = _get_nested(row, "thinq", "h2h")
+    if not isinstance(h2h, dict):
+        h2h = {}
+    pick_w = int(_as_float(h2h.get("pick_wins") or row.get("thinq_h2h_pick_wins"), 0) or 0)
+    opp_w = int(_as_float(h2h.get("opponent_wins") or row.get("thinq_h2h_opponent_wins"), 0) or 0)
+    total = int(_as_float(h2h.get("total_matches") or row.get("thinq_h2h_total_matches"), pick_w + opp_w) or 0)
+    return pick_w, opp_w, total
+
+
+def surface_h2h_pick_opp_counts(row: Dict[str, Any]) -> Tuple[int, int, int]:
+    h2h = _get_nested(row, "thinq", "h2h")
+    if not isinstance(h2h, dict):
+        h2h = {}
+    matches = int(_as_float(h2h.get("same_surface_matches") or row.get("thinq_h2h_same_surface_matches"), 0) or 0)
+    pick_w = int(_as_float(h2h.get("same_surface_pick_wins") or row.get("thinq_h2h_same_surface_pick_wins"), 0) or 0)
+    opp_w = max(matches - pick_w, 0)
+    return pick_w, opp_w, matches
+
+
+def h2h_edge_value(row: Dict[str, Any]) -> float:
+    value = _first(row, ["h2h_edge", "thinq_h2h_edge"], None)
+    if value is None:
+        value = _get_nested(row, "thinq", "h2h", "edge")
+    return _percent(value, 0.0) / 100.0
+
+
+def recent_pick_form_counts(row: Dict[str, Any]) -> Tuple[int, int, int]:
+    rf = _get_nested(row, "thinq", "recent_form")
+    if not isinstance(rf, dict):
+        rf = row.get("recent_form") if isinstance(row.get("recent_form"), dict) else {}
+    pick = rf.get("pick") if isinstance(rf.get("pick"), dict) else {}
+    wins = int(_as_float(_get_nested(pick, "last10", "wins"), _as_float(row.get("pick_recent_wins"), 0)) or 0)
+    losses = int(_as_float(_get_nested(pick, "last10", "losses"), _as_float(row.get("pick_recent_losses"), 0)) or 0)
+    count = int(_as_float(_get_nested(pick, "last10", "count"), wins + losses) or 0)
+    return wins, losses, count
+
+
+def recent_surface_edge_value(row: Dict[str, Any]) -> float:
+    value = _first(row, ["surface_recent_form_edge", "pick_surface_edge", "surface_edge", "thinq_surface_recent_form_edge"], None)
+    if value is None:
+        value = _get_nested(row, "thinq", "recent_form", "surface_recent_form_edge")
+    return _percent(value, 0.0) / 100.0
+
+
+def opponent_odds_value(row: Dict[str, Any]) -> Optional[float]:
+    value = _first(row, ["opponent_odds", "opp_odds", "odds_player2", "away_odds", "p2_odds", "price2"], None)
+    return _as_float(value, None)
+
+
+def top7_risk_assessment(row: Dict[str, Any]) -> Dict[str, Any]:
+    """Return risk tags, public labels, penalty points and bonus points for TOP7 sorting.
+
+    These are ranking modifiers only. They do not hard-reject a pick. The goal is
+    to prefer cleaner publishable picks when enough alternatives exist, while
+    keeping risk situations available for ALL/Results audit.
+    """
+    tags: List[str] = []
+    labels: List[str] = []
+    details: List[Dict[str, Any]] = []
+    penalty = 0.0
+    bonus = 0.0
+
+    cp = corq_probability(row)
+    edge = pick_thinq_edge(row)
+    depth = pick_data_depth(row)
+    fdepth = form_data_depth(row)
+    conf = thinq_confidence(row)
+    pick_odds = pick_odds_value(row)
+    opp_odds = opponent_odds_value(row)
+
+    h2h_pick, h2h_opp, h2h_total = h2h_pick_opp_counts(row)
+    h2h_edge = h2h_edge_value(row)
+    h2h_against = (h2h_total >= 3 and h2h_opp - h2h_pick >= 3) or h2h_edge <= -0.03
+    if h2h_against:
+        tags.append("H2H_STRONG_AGAINST_PICK")
+        labels.append("H2H strongly against pick")
+        details.append({"tag": "H2H_STRONG_AGAINST_PICK", "penalty": 6.0, "h2h_pick_wins": h2h_pick, "h2h_opponent_wins": h2h_opp, "h2h_edge": round(h2h_edge, 6)})
+        penalty += 6.0
+        if cp >= 0.50 and edge > 0:
+            tags.append("MODEL_SUPPORT_H2H_DISAGREE")
+            labels.append("Model support, H2H disagrees")
+
+    sh2h_pick, sh2h_opp, sh2h_total = surface_h2h_pick_opp_counts(row)
+    surface_h2h_against = sh2h_total >= 2 and sh2h_opp > sh2h_pick
+    if surface_h2h_against:
+        tags.append("SURFACE_H2H_AGAINST_PICK")
+        labels.append("Surface H2H against pick")
+        details.append({"tag": "SURFACE_H2H_AGAINST_PICK", "penalty": 2.5, "surface_h2h_pick_wins": sh2h_pick, "surface_h2h_opponent_wins": sh2h_opp})
+        penalty += 2.5
+
+    form_w, form_l, form_count = recent_pick_form_counts(row)
+    surface_edge = recent_surface_edge_value(row)
+    form_risk = form_count >= 6 and form_w <= 2 and surface_edge < 0 and edge > 0 and cp >= 0.50
+    if form_risk:
+        tags.append("FORM_RISK_MODEL_SUPPORT")
+        labels.append("Form risk, model support")
+        details.append({"tag": "FORM_RISK_MODEL_SUPPORT", "penalty": 2.0, "pick_form_wins": form_w, "pick_form_losses": form_l, "surface_edge": round(surface_edge, 6)})
+        penalty += 2.0
+
+    market_against = pick_odds is not None and opp_odds is not None and pick_odds >= 2.80 and opp_odds <= 1.45
+    if market_against:
+        tags.append("MARKET_STRONG_AGAINST_PICK")
+        labels.append("Market strongly against pick")
+        details.append({"tag": "MARKET_STRONG_AGAINST_PICK", "penalty": 3.0, "pick_odds": pick_odds, "opponent_odds": opp_odds})
+        penalty += 3.0
+        if cp >= 0.58:
+            tags.append("MODEL_SUPPORT_MARKET_DISAGREE")
+            labels.append("Model support, market disagrees")
+
+    primary_risk_count = len({t for t in tags if t in {"H2H_STRONG_AGAINST_PICK", "SURFACE_H2H_AGAINST_PICK", "FORM_RISK_MODEL_SUPPORT", "MARKET_STRONG_AGAINST_PICK"}})
+    if primary_risk_count >= 2:
+        tags.append("MULTI_RISK_PICK")
+        labels.append("Multiple risk signals")
+        details.append({"tag": "MULTI_RISK_PICK", "penalty": 2.0, "risk_count": primary_risk_count})
+        penalty += 2.0
+
+    clean_pick = (
+        not tags
+        and cp >= 0.55
+        and edge >= 0.03
+        and depth >= 0.70
+        and fdepth >= 0.70
+        and conf >= 0.70
+        and pick_odds is not None
+        and 1.40 <= pick_odds <= 2.20
+    )
+    if clean_pick:
+        tags.append("CLEAN_MODEL_SUPPORT")
+        labels.append("Clean model support")
+        details.append({"tag": "CLEAN_MODEL_SUPPORT", "bonus": 3.0})
+        bonus += 3.0
+
+    # De-duplicate while preserving order.
+    seen_tags = set()
+    unique_tags: List[str] = []
+    for tag in tags:
+        if tag not in seen_tags:
+            seen_tags.add(tag)
+            unique_tags.append(tag)
+    seen_labels = set()
+    unique_labels: List[str] = []
+    for label in labels:
+        if label not in seen_labels:
+            seen_labels.add(label)
+            unique_labels.append(label)
+
+    return {
+        "tags": unique_tags,
+        "labels": unique_labels,
+        "details": details,
+        "penalty_points": round(penalty, 4),
+        "bonus_points": round(bonus, 4),
+        "net_points": round(bonus - penalty, 4),
+    }
+
+
 def top7_quality_score(row: Dict[str, Any]) -> float:
     """Score among already publishable candidates.
 
-    The score still favors high CorQ probability and genuine pick support, but
-    now it also subtracts explicit risk penalties.  Risk does not automatically
-    reject a pick; it moves risky candidates below cleaner alternatives.
+    Odds are deliberately *not* a primary driver.  The score favors high final
+    CorQ probability, actual pick support, ThinQ edge and data quality, then
+    applies soft risk penalties/bonuses. Risk penalties do not reject a pick;
+    they only push risk-heavy candidates lower if cleaner alternatives exist.
     """
     cp = corq_probability(row) * 100.0
     depth = pick_data_depth(row) * 100.0
     edge = max(pick_thinq_edge(row), 0.0) * 100.0
     conf = thinq_confidence(row) * 100.0
-    base = cp + 0.25 * depth + 0.20 * edge + 0.10 * conf
-    return round(base - top7_risk_penalty(row), 4)
+    risk = top7_risk_assessment(row)
+    raw = cp + 0.25 * depth + 0.20 * edge + 0.10 * conf
+    return round(raw - float(risk.get("penalty_points") or 0.0) + float(risk.get("bonus_points") or 0.0), 4)
 
 
 def annotate_top7_quality(row: Dict[str, Any]) -> Dict[str, Any]:
@@ -682,13 +701,22 @@ def annotate_top7_quality(row: Dict[str, Any]) -> Dict[str, Any]:
     row["recent_form_reason"] = recent_form_reason(row)
     row["recent_form_sample_audit"] = recent_form_sample_audit(row)
     row["low_data_risk_audit"] = low_data_risk_audit(row)
-    risk_details = top7_risk_penalty_details(row)
-    risk_tags = sorted({str(item.get("tag")) for item in risk_details if item.get("tag")})
-    row["top7_risk_penalty_details"] = risk_details
-    row["top7_risk_penalty_points"] = top7_risk_penalty(row)
-    row["top7_risk_tags"] = risk_tags
-    _append_unique_list(row, "corq_warning_flags", risk_tags)
+    risk = top7_risk_assessment(row)
+    row["top7_risk_tags"] = risk["tags"]
+    row["top7_risk_labels"] = risk["labels"]
+    row["top7_risk_penalty_details"] = risk["details"]
+    row["top7_risk_penalty_points"] = risk["penalty_points"]
+    row["top7_clean_bonus_points"] = risk["bonus_points"]
     row["top7_quality_score"] = top7_quality_score(row) if not reasons else 0.0
+    if risk["tags"]:
+        existing_flags = row.get("corq_warning_flags")
+        if not isinstance(existing_flags, list):
+            existing_flags = []
+        merged = list(existing_flags)
+        for tag in risk["tags"]:
+            if tag not in merged:
+                merged.append(tag)
+        row["corq_warning_flags"] = merged
     return row
 
 
