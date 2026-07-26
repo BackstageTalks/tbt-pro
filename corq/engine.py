@@ -34,6 +34,25 @@ def _load_thinq_service():
             return None
 
 
+def _load_ta_rankings() -> Dict[str, Any]:
+    try:
+        from thinq.loaders.ranking_loader import load_rankings  # type: ignore
+        data = load_rankings()
+        return data if isinstance(data, dict) else {"players": {}}
+    except Exception:
+        return {"players": {}}
+
+
+def _enrich_with_ta_rankings(record: Dict[str, Any], rankings: Dict[str, Any]) -> Dict[str, Any]:
+    try:
+        from thinq.loaders.ranking_loader import enrich_row_with_ta_ranks  # type: ignore
+        return enrich_row_with_ta_ranks(record, rankings=rankings)
+    except Exception:
+        record.setdefault("pick_ta_rank_display", "(X)")
+        record.setdefault("opponent_ta_rank_display", "(X)")
+        return record
+
+
 def _call_build_match_features(thinq_service: Any, payload: Dict[str, Any]) -> Dict[str, Any]:
     method = thinq_service.build_match_features
     try:
@@ -212,11 +231,14 @@ def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", ru
     raw_candidates = load_candidates(input_path)
     candidates = [repair_candidate_side(candidate) for candidate in raw_candidates]
     thinq_service = _load_thinq_service()
+    ta_rankings = _load_ta_rankings()
 
     scored: List[Dict[str, Any]] = []
     for candidate in candidates:
         enriched = _enrich_with_thinq(candidate, thinq_service)
-        scored.append(build_corq_prediction(enriched))
+        prediction = build_corq_prediction(enriched)
+        prediction = _enrich_with_ta_rankings(prediction, ta_rankings)
+        scored.append(prediction)
 
     all_view = make_all_match_view(scored)
     ranking = rank_corq(scored)
