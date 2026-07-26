@@ -648,6 +648,44 @@ def card(row: Dict[str, Any], idx: int, show_notes: bool = False) -> str:
     """
 
 
+
+def dedupe_all_display_rows(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Return one display card per match for the ALL page.
+
+    ALL JSON can still keep HOME/AWAY candidate rows for audit, but the web ALL
+    page should show each match once. The displayed side is the strongest current
+    candidate for the match, ranked by publishable status, CorQ probability,
+    Stat Data Depth, Pick ThinQ Edge, Form Data Depth and odds.
+    """
+    grouped: Dict[str, List[Dict[str, Any]]] = {}
+    order: List[str] = []
+    for row in rows:
+        key = str(row.get("match_id") or row.get("event_id") or row.get("id") or "")
+        if not key:
+            p1 = str(row.get("player1") or row.get("home_player") or "").strip().lower()
+            p2 = str(row.get("player2") or row.get("away_player") or "").strip().lower()
+            start = str(row.get("match_start") or row.get("start_time") or "")
+            key = "|".join(sorted([p1, p2]) + [start])
+        if key not in grouped:
+            grouped[key] = []
+            order.append(key)
+        grouped[key].append(row)
+
+    def score(row: Dict[str, Any]) -> tuple:
+        publishable = 1 if row.get("top7_publishable") or row.get("eligible_for_top7") else 0
+        corq = prob_value(row) or 0.0
+        stat_depth = num(row.get("stat_data_depth") or row.get("pick_data_depth"), 0) or 0.0
+        edge_value = num(row.get("top7_pick_thinq_edge") or row.get("thinq_edge"), 0) or 0.0
+        form_depth = num(row.get("form_data_depth") or row.get("thinq_form_confidence"), 0) or 0.0
+        odds_value = num(row.get("pick_odds") or row.get("odds"), 0) or 0.0
+        return (publishable, corq, stat_depth, edge_value, form_depth, odds_value)
+
+    output: List[Dict[str, Any]] = []
+    for key in order:
+        candidates = grouped[key]
+        output.append(max(candidates, key=score))
+    return output
+
 def sort_by_probability(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return sorted(rows, key=lambda r: (prob_value(r) is not None, prob_value(r) or 0), reverse=True)
 
@@ -793,8 +831,11 @@ def page(title: str, rows: List[Dict[str, Any]], manifest: Dict[str, Any], subti
 
 
 def all_page(rows: List[Dict[str, Any]], manifest: Dict[str, Any]) -> str:
+    rows = dedupe_all_display_rows(rows)
     rows = sort_by_probability(rows)
-    return page("All audit", rows, manifest, "Broad audit view. Filters and raw data stay visible in JSON/logs.", active="all")
+    display_manifest = dict(manifest)
+    display_manifest["all_display_count"] = len(rows)
+    return page("All audit", rows, display_manifest, "Broad audit view. One card per match; full HOME/AWAY candidate rows stay visible in JSON/logs.", active="all")
 
 
 def rss_xml(rows: List[Dict[str, Any]]) -> str:
