@@ -438,11 +438,8 @@ def write_log(row: Dict[str, Any], idx: int) -> str:
 def pick_block(row: Dict[str, Any], idx: int) -> str:
     pick = row.get("pick") or row.get("player") or row.get("player1") or "—"
     opponent = row.get("opponent") or row.get("player2") or "—"
-    # IMPORTANT: pick_odds/opponent_odds are side-safe values.
-    # The legacy field "odds" can be a generic/player1 value and must not override
-    # side-safe odds on ALL, otherwise the page can show the wrong price for a pick.
-    odds = row.get("pick_odds") or row.get("selected_odds") or row.get("odds")
-    opp_odds = row.get("opponent_odds") or row.get("opp_odds") or row.get("opponent_price")
+    odds = row.get("pick_odds") or row.get("odds")
+    opp_odds = row.get("opponent_odds") or row.get("opp_odds")
     tournament = row.get("tournament") or nested(row, "raw", "tournament", "name") or "—"
     surface = row.get("surface") or row.get("surface_raw") or "—"
     level = row.get("level") or row.get("category") or "—"
@@ -452,7 +449,7 @@ def pick_block(row: Dict[str, Any], idx: int) -> str:
     return f"""
     <div class="pick-block">
       <div class="rank">#{idx}</div>
-      <a class="brain" href="{esc(log_url)}" title="Open ThinQ calculation log">🧠</a>
+      <a class="brain" href="{esc(site_url(log_url))}" title="Open ThinQ calculation log" aria-label="Open calculation log">🧠</a>
       <div class="pick-name">{esc(pick)}</div>
       <div class="pick-odds">Pick @ {esc(odds_fmt(odds))}</div>
       <div class="pick-action">to beat</div>
@@ -593,6 +590,9 @@ def public_notes(row: Dict[str, Any]) -> List[str]:
         if isinstance(value, list):
             flags.extend(value)
     labels = list(public_flag_labels(flags))
+    risk_labels = row.get("top7_risk_labels")
+    if isinstance(risk_labels, list):
+        labels.extend(str(x) for x in risk_labels if x)
     if has_missing_odds(row) and "Missing odds" not in labels:
         labels.insert(0, "Missing odds")
     seen = set()
@@ -620,11 +620,11 @@ def tag_summary_html(rows: List[Dict[str, Any]]) -> str:
         return ""
     chips = []
     for label, count in list(counts.items())[:18]:
-        chips.append(f'<span class="tag-count"><b>{esc(count)}</b> {esc(label)}</span>')
+        chips.append(f'<button class="tag-count tag-filter" type="button" data-filter-tag="{esc(label)}"><b>{esc(count)}</b> {esc(label)}</button>')
     return (
         '<section class="notes-panel">'
         '<h3>Data notes summary</h3>'
-        '<p>Counts of public data notes in the current ALL view.</p>'
+        '<p>Counts of public data notes in the current ALL view. Click a tag to filter cards.</p>'
         '<div class="tag-counts">' + ''.join(chips) + '</div>'
         '</section>'
     )
@@ -717,6 +717,49 @@ def missing_odds_breakdown_html(rows: List[Dict[str, Any]]) -> str:
         '</section>'
     )
 
+
+def all_filter_controls_html(show_notes: bool) -> str:
+    if not show_notes:
+        return ""
+    return '<section class="filter-state" id="tag-filter-state" hidden>Active filter: <strong id="active-tag-name"></strong> <button type="button" id="clear-tag-filter">Clear filter</button></section>'
+
+
+def all_filter_script(show_notes: bool) -> str:
+    if not show_notes:
+        return ""
+    return """
+<script>
+(function(){
+  var active = null;
+  var state = document.getElementById('tag-filter-state');
+  var activeName = document.getElementById('active-tag-name');
+  var clearBtn = document.getElementById('clear-tag-filter');
+  function tagsFor(card){
+    return (card.getAttribute('data-tags') || '').split('||').filter(Boolean);
+  }
+  function setFilter(tag){
+    active = tag || null;
+    document.querySelectorAll('.match-card[data-tags]').forEach(function(card){
+      var visible = !active || tagsFor(card).indexOf(active) >= 0;
+      card.style.display = visible ? '' : 'none';
+    });
+    document.querySelectorAll('.tag-filter').forEach(function(btn){
+      btn.classList.toggle('active', active && btn.getAttribute('data-filter-tag') === active);
+    });
+    if(state){ state.hidden = !active; }
+    if(activeName){ activeName.textContent = active || ''; }
+  }
+  document.querySelectorAll('.tag-filter').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var tag = btn.getAttribute('data-filter-tag');
+      setFilter(active === tag ? null : tag);
+    });
+  });
+  if(clearBtn){ clearBtn.addEventListener('click', function(){ setFilter(null); }); }
+})();
+</script>
+"""
+
 def flag_badges(row: Dict[str, Any]) -> str:
     labels = public_notes(row)
     if not labels:
@@ -725,8 +768,12 @@ def flag_badges(row: Dict[str, Any]) -> str:
 
 def card(row: Dict[str, Any], idx: int, show_notes: bool = False) -> str:
     notes = flag_badges(row) if show_notes else ""
+    tag_attr = ""
+    if show_notes:
+        tag_value = "||".join(public_notes(row))
+        tag_attr = f' data-tags="{esc(tag_value)}"'
     return f"""
-    <article class="match-card">
+    <article class="match-card"{tag_attr}>
       {pick_block(row, idx)}
       <div class="metrics-grid">
         {corq_box(row)}
@@ -894,6 +941,8 @@ def page(title: str, rows: List[Dict[str, Any]], manifest: Dict[str, Any], subti
     cards = "\n".join(card(row, i, show_notes=show_notes) for i, row in enumerate(rows, start=1)) or '<div class="empty">No rows available.</div>'
     all_tag_summary = tag_summary_html(rows) if show_notes else ""
     all_missing_odds_breakdown = missing_odds_breakdown_html(rows) if show_notes else ""
+    all_filter_controls = all_filter_controls_html(show_notes)
+    filter_script = all_filter_script(show_notes)
     updated = manifest.get("updated") or manifest.get("run_started_at") or manifest.get("run_date") or datetime.now(timezone.utc).isoformat()
     return f"""<!doctype html>
 <html lang="en">
@@ -919,7 +968,9 @@ def page(title: str, rows: List[Dict[str, Any]], manifest: Dict[str, Any], subti
     <main class="cards">{cards}</main>
     {all_tag_summary}
     {all_missing_odds_breakdown}
+    {all_filter_controls}
   </div>
+  {filter_script}
 </body></html>"""
 
 
@@ -939,7 +990,7 @@ def rss_xml(rows: List[Dict[str, Any]]) -> str:
         opp = row.get("opponent") or "—"
         time = find_time(row)
         prob = pct_plain(prob_value(row))
-        odds = odds_fmt(row.get("pick_odds") or row.get("selected_odds") or row.get("odds"))
+        odds = odds_fmt(row.get("odds") or row.get("pick_odds"))
         desc = f"Time: {time} Pick: {pick} Opponent: {opp} Win probability: {prob} Odds: {odds} This data is provided for informational and analytical purposes only Powered by BackstageTalks Statistical Engine"
         items.append(f"<item><title>{esc(time)} | {esc(pick)} to beat {esc(opp)}</title><link>{esc(site_url(CORQ_PATH + '/'))}</link><description>{esc(desc)}</description><pubDate>{now}</pubDate></item>")
     return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\"><channel><title>AI Betting by BackstageTalks</title><link>" + esc(site_url(CORQ_PATH + '/')) + "</link><description>CorQ TOP7</description>" + "".join(items) + "</channel></rss>"
@@ -973,8 +1024,8 @@ def render():
 
 CSS = r'''
 :root{--bg:#06111f;--panel:#0b1b2b;--panel2:#081827;--line:#16324c;--text:#e5f0ff;--muted:#89a3be;--green:#25f59a;--cyan:#28d7ff;--orange:#ffb35c;--red:#ff6b6b;}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,#0b2540 0,#06111f 38%,#030914 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}.shell{max-width:1800px;margin:0 auto;padding:22px}.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.brand{display:flex;gap:12px;align-items:center}.brand-logo{width:54px;height:54px;border-radius:999px;object-fit:cover;object-position:center;border:1px solid rgba(125,211,252,.9);box-shadow:0 0 0 3px rgba(40,215,255,.10),0 0 18px rgba(40,215,255,.16),0 10px 24px rgba(0,0,0,.32);background:transparent;display:block}.hero-lead{margin:6px 0 0;color:#6ee7ff;font-size:14px}.hero-note,.hero-powered{margin:4px 0 0;color:var(--muted);font-size:12px}.hero-powered{color:#9bdfff}nav a.active{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(40,215,255,.55),0 0 18px rgba(40,215,255,.12);color:#fff;background:rgba(8,31,51,.95)}.brand-title{font-size:17px;font-weight:800}.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.09em;text-transform:uppercase}nav{display:flex;gap:8px;flex-wrap:wrap}nav a{color:#dff8ff;text-decoration:none;border:1px solid var(--line);background:#071827;border-radius:999px;padding:8px 13px;font-size:12px}nav a:hover{border-color:var(--cyan)}.hero-grid{display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:12px;margin-bottom:14px}.hero-panel{background:rgba(8,24,39,.58);border:1px solid rgba(22,50,76,.9);border-radius:18px;padding:13px 16px;min-height:74px}.hero-panel h3{margin:0 0 6px;color:#9ddcff;font-size:11px;text-transform:uppercase;letter-spacing:.10em}.hero-panel p{margin:3px 0;color:var(--muted);font-size:12px;line-height:1.45}.hero-panel.right{text-align:right}.hero-legal p:last-child{color:#9bdfff}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.summary div{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:12px}.summary span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.summary strong{font-size:20px}.cards{display:grid;gap:14px}.match-card{display:grid;grid-template-columns:250px minmax(0,1fr);gap:12px;background:rgba(6,17,31,.78);border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 10px 25px rgba(0,0,0,.22)}.pick-block{position:relative;background:var(--panel2);border:1px solid var(--line);border-radius:18px;padding:14px;min-height:220px}.rank{color:var(--cyan);font-weight:900;font-size:13px;margin-bottom:10px}.brain{position:absolute;right:12px;top:12px;text-decoration:none;color:#d2f7ff}.pick-name{font-weight:900;font-size:17px;line-height:1.2}.pick-odds{margin-top:6px;color:#ffe98d;font-weight:800;font-size:12px}.pick-action{text-transform:lowercase;color:var(--green);font-size:11px;letter-spacing:.06em;font-weight:900;margin-top:8px}.opp-name{margin-top:3px;color:#c9d7e8;font-weight:700}.opp-odds{margin-top:2px;color:var(--muted);font-size:12px}.meta{margin-top:12px;color:#6ee7ff;font-size:12px;line-height:1.35}.metrics-grid{display:grid;grid-template-columns:repeat(4,minmax(230px,1fr));gap:10px}.metric-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:12px;min-height:220px}.metric-card header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:9px;color:#9ddcff;text-transform:uppercase;letter-spacing:.10em;font-size:11px}.metric-card header strong{font-size:16px;color:var(--green);letter-spacing:0;text-transform:none}.metric-row{display:grid;grid-template-columns:1.1fr 1fr;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(22,50,76,.37)}.metric-row:last-child{border-bottom:0}.metric-row span{color:var(--muted);font-size:12px}.metric-row strong{font-size:12px;text-align:right;color:#f5fbff}.metric-row strong.support{color:#f5fbff}.metric-row strong.against{color:var(--orange)}.metric-row strong.neutral{color:#d5e5f6}.depth-row strong{text-align:right}.depth-wrap{display:flex;align-items:center;justify-content:flex-end;gap:8px}.depth-num{font-size:12px;color:#e5f9ff}.depth-bar{display:inline-block;width:96px;height:16px;border:1px solid #7febff;border-radius:999px;background:#10263f;overflow:hidden;vertical-align:middle;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}.depth-fill{display:block;height:100%;background:repeating-linear-gradient(135deg,#20c7d8 0 9px,#7af7ff 9px 13px);border-radius:999px}.badges{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;margin-top:-4px}.badges span{font-size:11px;color:#ffd89b;background:rgba(255,179,92,.12);border:1px solid rgba(255,179,92,.35);border-radius:999px;padding:4px 8px}.empty{padding:40px;text-align:center;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:18px}
-.notes-panel{margin-top:16px;background:rgba(8,24,39,.62);border:1px solid rgba(22,50,76,.92);border-radius:18px;padding:14px 16px}.notes-panel h3{margin:0 0 6px;color:#9ddcff;font-size:11px;text-transform:uppercase;letter-spacing:.10em}.notes-panel p{margin:0 0 10px;color:var(--muted);font-size:12px}.tag-counts{display:flex;gap:7px;flex-wrap:wrap}.tag-count{font-size:11px;color:#ffd89b;background:rgba(255,179,92,.12);border:1px solid rgba(255,179,92,.35);border-radius:999px;padding:5px 9px}.tag-count b{color:#fff;margin-right:4px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,#0b2540 0,#06111f 38%,#030914 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}.shell{max-width:1800px;margin:0 auto;padding:22px}.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.brand{display:flex;gap:12px;align-items:center}.brand-logo{width:54px;height:54px;border-radius:999px;object-fit:contain;object-position:center;padding:4px;border:1px solid rgba(125,211,252,.9);box-shadow:0 0 0 3px rgba(40,215,255,.10),0 0 18px rgba(40,215,255,.16),0 10px 24px rgba(0,0,0,.32);background:#06111f;display:block}.hero-lead{margin:6px 0 0;color:#6ee7ff;font-size:14px}.hero-note,.hero-powered{margin:4px 0 0;color:var(--muted);font-size:12px}.hero-powered{color:#9bdfff}nav a.active{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(40,215,255,.55),0 0 18px rgba(40,215,255,.12);color:#fff;background:rgba(8,31,51,.95)}.brand-title{font-size:17px;font-weight:800}.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.09em;text-transform:uppercase}nav{display:flex;gap:8px;flex-wrap:wrap}nav a{color:#dff8ff;text-decoration:none;border:1px solid var(--line);background:#071827;border-radius:999px;padding:8px 13px;font-size:12px}nav a:hover{border-color:var(--cyan)}.hero-grid{display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:12px;margin-bottom:14px}.hero-panel{background:rgba(8,24,39,.58);border:1px solid rgba(22,50,76,.9);border-radius:18px;padding:13px 16px;min-height:74px}.hero-panel h3{margin:0 0 6px;color:#9ddcff;font-size:11px;text-transform:uppercase;letter-spacing:.10em}.hero-panel p{margin:3px 0;color:var(--muted);font-size:12px;line-height:1.45}.hero-panel.right{text-align:right}.hero-legal p:last-child{color:#9bdfff}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.summary div{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:12px}.summary span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.summary strong{font-size:20px}.cards{display:grid;gap:14px}.match-card{display:grid;grid-template-columns:250px minmax(0,1fr);gap:12px;background:rgba(6,17,31,.78);border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 10px 25px rgba(0,0,0,.22)}.pick-block{position:relative;background:var(--panel2);border:1px solid var(--line);border-radius:18px;padding:14px;min-height:220px}.rank{color:var(--cyan);font-weight:900;font-size:13px;margin-bottom:10px}.brain{position:absolute;right:10px;top:10px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#d2f7ff;border:1px solid rgba(125,211,252,.20);border-radius:999px;background:rgba(8,24,39,.42);z-index:4}.brain:hover{border-color:var(--cyan);box-shadow:0 0 12px rgba(40,215,255,.22)}.pick-name{font-weight:900;font-size:17px;line-height:1.2}.pick-odds{margin-top:6px;color:#ffe98d;font-weight:800;font-size:12px}.pick-action{text-transform:lowercase;color:var(--green);font-size:11px;letter-spacing:.06em;font-weight:900;margin-top:8px}.opp-name{margin-top:3px;color:#c9d7e8;font-weight:700}.opp-odds{margin-top:2px;color:var(--muted);font-size:12px}.meta{margin-top:12px;color:#6ee7ff;font-size:12px;line-height:1.35}.metrics-grid{display:grid;grid-template-columns:repeat(4,minmax(230px,1fr));gap:10px}.metric-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:12px;min-height:220px}.metric-card header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:9px;color:#9ddcff;text-transform:uppercase;letter-spacing:.10em;font-size:11px}.metric-card header strong{font-size:16px;color:var(--green);letter-spacing:0;text-transform:none}.metric-row{display:grid;grid-template-columns:1.1fr 1fr;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(22,50,76,.37)}.metric-row:last-child{border-bottom:0}.metric-row span{color:var(--muted);font-size:12px}.metric-row strong{font-size:12px;text-align:right;color:#f5fbff}.metric-row strong.support{color:#f5fbff}.metric-row strong.against{color:var(--orange)}.metric-row strong.neutral{color:#d5e5f6}.depth-row strong{text-align:right}.depth-wrap{display:flex;align-items:center;justify-content:flex-end;gap:8px}.depth-num{font-size:12px;color:#e5f9ff}.depth-bar{display:inline-block;width:96px;height:16px;border:1px solid #7febff;border-radius:999px;background:#10263f;overflow:hidden;vertical-align:middle;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}.depth-fill{display:block;height:100%;background:repeating-linear-gradient(135deg,#20c7d8 0 9px,#7af7ff 9px 13px);border-radius:999px}.badges{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;margin-top:-4px}.badges span{font-size:11px;color:#ffd89b;background:rgba(255,179,92,.12);border:1px solid rgba(255,179,92,.35);border-radius:999px;padding:4px 8px}.empty{padding:40px;text-align:center;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:18px}
+.notes-panel{margin-top:16px;background:rgba(8,24,39,.62);border:1px solid rgba(22,50,76,.92);border-radius:18px;padding:14px 16px}.notes-panel h3{margin:0 0 6px;color:#9ddcff;font-size:11px;text-transform:uppercase;letter-spacing:.10em}.notes-panel p{margin:0 0 10px;color:var(--muted);font-size:12px}.tag-counts{display:flex;gap:7px;flex-wrap:wrap}.tag-count{font-size:11px;color:#ffd89b;background:rgba(255,179,92,.12);border:1px solid rgba(255,179,92,.35);border-radius:999px;padding:5px 9px}.tag-count b{color:#fff;margin-right:4px}button.tag-count{cursor:pointer;font-family:inherit}button.tag-count:hover,button.tag-count.active{border-color:var(--cyan);color:#dffcff;background:rgba(40,215,255,.14)}.filter-state{margin-top:12px;background:rgba(8,24,39,.62);border:1px solid rgba(40,215,255,.35);border-radius:14px;padding:10px 13px;color:var(--muted);font-size:12px}.filter-state strong{color:#fff}.filter-state button{margin-left:10px;border:1px solid rgba(125,211,252,.45);background:#071827;color:#dff8ff;border-radius:999px;padding:5px 10px;font-size:11px;cursor:pointer}
 @media(max-width:1300px){.match-card{grid-template-columns:1fr}.metrics-grid{grid-template-columns:repeat(2,minmax(240px,1fr))}}@media(max-width:720px){.summary{grid-template-columns:repeat(2,1fr)}.metrics-grid{grid-template-columns:1fr}.topbar{align-items:flex-start;flex-direction:column;gap:12px}.hero-grid{grid-template-columns:1fr}.hero-panel.right{text-align:left}}
 '''
 
