@@ -1,0 +1,46 @@
+name: Update TA Rankings
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Tuesday 00:05 UTC = approximately 02:05 Europe/Bratislava during summer time.
+    - cron: "5 0 * * 2"
+
+permissions:
+  contents: write
+
+jobs:
+  update-ta-rankings:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Update TA rankings cache
+        run: |
+          python -m thinq.loaders.ranking_loader --output thinq/data/rankings/ta_rankings.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('thinq/data/rankings/ta_rankings.json')
+          data = json.loads(p.read_text(encoding='utf-8'))
+          print('players:', data.get('player_count'))
+          print('source updates:', data.get('source_last_updates'))
+          PY
+
+      - name: Commit rankings cache
+        run: |
+          if [ -n "$(git status --porcelain thinq/data/rankings/ta_rankings.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add thinq/data/rankings/ta_rankings.json
+            git commit -m "Update TA rankings cache"
+            git push
+          else
+            echo "No TA rankings changes to commit."
+          fi
