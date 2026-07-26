@@ -547,19 +547,51 @@ def fractional_to_decimal(value: Any) -> Optional[float]:
 
 
 def extract_markets(payload: Any) -> List[Dict[str, Any]]:
+    """Extract market-like objects from TennisApi odds payloads.
+
+    TennisApi returns several different shapes:
+    - {home: {...}, away: {...}}                               handled earlier
+    - {markets: [{marketName: "Full time", choices: [...]}]}
+    - {featured: {default: {marketName: "Full time", choices: [...]}}}
+    - {odds: {"16515714": {marketName: "Full time", choices: [...]}}}
+
+    The last form is important for getTennisEventsWithOddsByDate, where the
+    odds object is a dict keyed by event/source id rather than a list.
+    """
+    markets: List[Dict[str, Any]] = []
+
     if isinstance(payload, list):
-        return [item for item in payload if isinstance(item, dict)]
+        for item in payload:
+            markets.extend(extract_markets(item))
+        return markets
+
     if not isinstance(payload, dict):
         return []
-    markets: List[Dict[str, Any]] = []
-    for key in ("markets", "odds", "eventOdds", "winningOdds", "data", "items"):
+
+    if any(k in payload for k in ("choices", "outcomes", "participants", "selections")):
+        markets.append(payload)
+
+    # Common wrappers. For dict values, recurse because daily odds and featured
+    # odds often store market objects under arbitrary keys such as event ids or
+    # "default"/"asian".
+    for key in ("markets", "odds", "eventOdds", "winningOdds", "featured", "default", "data", "items", "results"):
         value = payload.get(key)
         if isinstance(value, list):
-            markets.extend([item for item in value if isinstance(item, dict)])
+            for item in value:
+                markets.extend(extract_markets(item))
         elif isinstance(value, dict):
             markets.extend(extract_markets(value))
-    if not markets and any(k in payload for k in ("choices", "outcomes", "participants", "selections")):
-        markets.append(payload)
+
+    # Daily odds by date can be {odds: {event_id: market_payload}}. After the
+    # recursive call sees the odds dict, it has arbitrary numeric keys, so scan
+    # all dict values as potential market payloads. This is intentionally broad
+    # but still safe because normalize_winner_odds_payload later accepts only
+    # match-winner Home/Away markets.
+    if not any(k in payload for k in ("markets", "eventOdds", "winningOdds", "featured", "default", "data", "items", "results")):
+        for value in payload.values():
+            if isinstance(value, (dict, list)):
+                markets.extend(extract_markets(value))
+
     return markets
 
 
@@ -585,6 +617,38 @@ def choice_price(choice: Dict[str, Any]) -> Optional[float]:
         if converted is not None:
             return converted
     return None
+
+
+def is_match_winner_market(market: Dict[str, Any]) -> bool:
+    """Return True only for match winner / full-time Home-Away markets.
+
+    This prevents accidentally taking first-set winner, total games, handicap,
+    asian or set markets from getAllOddsForEvent / getMatchFeaturedOdds.
+    """
+    name = normalize_name(" ".join(str(market.get(k) or "") for k in ("name", "marketName", "market_name", "label", "type", "marketType")))
+    group = normalize_name(" ".join(str(market.get(k) or "") for k in ("marketGroup", "choiceGroup", "group", "market_group")))
+    period = normalize_name(" ".join(str(market.get(k) or "") for k in ("marketPeriod", "period", "market_period")))
+    haystack = " ".join([name, group, period]).strip()
+
+    bad_tokens = (
+        "first set", "1st set", "second set", "2nd set", "third set", "3rd set",
+        "set winner", "total game", "total games", "total sets", "handicap",
+        "asian", "correct score", "tie break", "tiebreak", "extra time",
+        "game winner", "point", "statistics", "power graph",
+    )
+    if any(token in haystack for token in bad_tokens):
+        return False
+
+    # The actual match winner market in the API screenshots is:
+    # marketName="Full time", marketGroup="Home/Away", marketPeriod="Match".
+    if "full time" in name and (not period or "match" in period) and (not group or "home away" in group):
+        return True
+    if "match winner" in name or "to win match" in name or "moneyline" in name:
+        return True
+    if "home away" in group and ("match" in period or "full time" in name):
+        return True
+
+    return False
 
 
 def normalize_winner_odds_payload(payload: Any) -> Optional[Dict[str, Any]]:
@@ -635,30 +699,50 @@ def normalize_winner_odds_payload(payload: Any) -> Optional[Dict[str, Any]]:
                 }
 
     for market in extract_markets(payload):
-        market_name = normalize_name(" ".join(str(market.get(k) or "") for k in ("name", "marketName", "market_name", "label", "type", "marketType")))
         choices = market_choices(market)
         if len(choices) < 2:
             continue
-        if market_name and not any(token in market_name for token in ("winner", "match", "to win", "full time", "moneyline", "home away", "home/away", "1x2")):
+        if not is_match_winner_market(market):
             continue
-        prices = [(choice_name(choice), choice_price(choice)) for choice in choices]
-        prices = [(label, price) for label, price in prices if price is not None]
-        if len(prices) >= 2:
-            return {
-                "player1_label": prices[0][0],
-                "player2_label": prices[1][0],
-                "odds_player1": prices[0][1],
-                "odds_player2": prices[1][1],
-                "p1_odds": prices[0][1],
-                "p2_odds": prices[1][1],
-                "home_odds": prices[0][1],
-                "away_odds": prices[1][1],
-                "odds1": prices[0][1],
-                "odds2": prices[1][1],
-                "bookmaker": None,
-                "odds_source": "RapidAPI PRO event odds",
-                "raw": payload,
-            }
+
+        by_label: Dict[str, float] = {}
+        ordered: List[Tuple[str, float]] = []
+        for choice in choices:
+            label = choice_name(choice)
+            price = choice_price(choice)
+            if price is None:
+                continue
+            norm_label = normalize_name(label)
+            if norm_label in {"1", "home", "home team", "player 1", "player1"}:
+                by_label["1"] = price
+            elif norm_label in {"2", "away", "away team", "player 2", "player2"}:
+                by_label["2"] = price
+            ordered.append((label, price))
+
+        if "1" in by_label and "2" in by_label:
+            p1_label, p2_label = "1", "2"
+            p1_price, p2_price = by_label["1"], by_label["2"]
+        elif len(ordered) >= 2:
+            p1_label, p1_price = ordered[0]
+            p2_label, p2_price = ordered[1]
+        else:
+            continue
+
+        return {
+            "player1_label": p1_label,
+            "player2_label": p2_label,
+            "odds_player1": p1_price,
+            "odds_player2": p2_price,
+            "p1_odds": p1_price,
+            "p2_odds": p2_price,
+            "home_odds": p1_price,
+            "away_odds": p2_price,
+            "odds1": p1_price,
+            "odds2": p2_price,
+            "bookmaker": None,
+            "odds_source": "RapidAPI PRO event odds",
+            "raw": payload,
+        }
     return None
 
 def _numeric_outcome_direction(label1: Any, label2: Any) -> Optional[str]:
