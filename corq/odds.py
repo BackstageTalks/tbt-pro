@@ -1,7 +1,7 @@
 """CORQ odds helpers using the clean RapidAPI PRO client.
 
-This module deliberately stays lean: the robust TennisApi PRO endpoint chain
-lives in thinq.loaders.rapidapi_client.RapidApiClient.get_event_odds().
+Lean wrapper: the robust TennisApi PRO endpoint chain lives in
+thinq.loaders.rapidapi_client.RapidApiClient.get_event_odds().
 """
 
 from __future__ import annotations
@@ -70,5 +70,4 @@ def enrich_match_with_odds(match: Dict[str, Any]) -> Dict[str, Any]:
             enriched["odds_gap_pct"] = round(gap / max(min(float(p1), float(p2)), 0.0001), 4)
         except Exception:
             pass
-
     return enriched
