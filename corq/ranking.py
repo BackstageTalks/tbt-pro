@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 import os
+import re
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 try:
@@ -326,6 +327,45 @@ def recent_form_sample_audit(row: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
+def _parse_record(value: Any) -> tuple[int, int]:
+    """Parse records like '2-8', '2W-8L', '2W - 8L'."""
+    text = str(value or "").strip()
+    match = re.search(r"(\d+)\s*W?\s*[-:]\s*(\d+)\s*L?", text, flags=re.I)
+    if not match:
+        return (0, 0)
+    return (int(match.group(1)), int(match.group(2)))
+
+
+def _pick_last10_record(row: Dict[str, Any]) -> str:
+    value = _first(row, ["pick_last10_record", "thinq_pick_last10_record"], None)
+    if value:
+        return str(value)
+    value = _get_nested(row, "thinq", "recent_form", "pick_last10_record")
+    if value:
+        return str(value)
+    value = _get_nested(row, "thinq", "recent_form", "pick", "last10", "record")
+    return str(value or "")
+
+
+def _pick_surface_edge(row: Dict[str, Any]) -> float:
+    value = _first(row, ["pick_surface_edge", "surface_recent_form_edge", "thinq_surface_recent_form_edge"], None)
+    if value is None:
+        value = _get_nested(row, "thinq", "recent_form", "surface_recent_form_edge")
+    return _prob(value, 0.0)
+
+
+def form_risk_model_support(row: Dict[str, Any]) -> bool:
+    """Flag value spots where form is weak but the model still supports the pick.
+
+    This is an audit/tag only. It must not reject the pick from TOP7.
+    """
+    wins, losses = _parse_record(_pick_last10_record(row))
+    weak_form = losses >= 8 and wins <= 2
+    surface_against = _pick_surface_edge(row) < 0
+    model_support = pick_thinq_edge(row) > 0 and corq_probability(row) >= MIN_CORQ_PROBABILITY
+    return bool(weak_form and surface_against and model_support)
+
+
 def low_data_risk_audit(row: Dict[str, Any]) -> Dict[str, Any]:
     return {
         "corq_probability": round(corq_probability(row), 6),
@@ -407,6 +447,19 @@ def annotate_top7_quality(row: Dict[str, Any]) -> Dict[str, Any]:
     row["top7_quality_score"] = top7_quality_score(row)
     row["recent_form_sample_audit"] = recent_form_sample_audit(row)
     row["low_data_risk_audit"] = low_data_risk_audit(row)
+    if form_risk_model_support(row):
+        flags = row.get("flags")
+        if not isinstance(flags, list):
+            flags = [] if flags in (None, "") else [str(flags)]
+        if "FORM_RISK_MODEL_SUPPORT" not in flags:
+            flags.append("FORM_RISK_MODEL_SUPPORT")
+        row["flags"] = flags
+        warning_flags = row.get("corq_warning_flags")
+        if not isinstance(warning_flags, list):
+            warning_flags = [] if warning_flags in (None, "") else [str(warning_flags)]
+        if "FORM_RISK_MODEL_SUPPORT" not in warning_flags:
+            warning_flags.append("FORM_RISK_MODEL_SUPPORT")
+        row["corq_warning_flags"] = warning_flags
     return row
 
 
