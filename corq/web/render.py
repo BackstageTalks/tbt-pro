@@ -313,38 +313,11 @@ def side_class_for_pick(value: Optional[float]) -> str:
 
 
 def side_class_from_text(text: str) -> str:
-    """Generic fallback classifier for normalized Support/Against text."""
-    t = str(text or "").lower()
-    if "against" in t:
+    t = str(text).lower()
+    if "opp" in t or "-" in t and "pick" not in t:
         return "against"
-    if "support" in t:
+    if "pick" in t or "+" in t:
         return "support"
-    if "neutral" in t:
-        return "neutral"
-    return "neutral"
-
-
-def h2h_record_class_from_text(text: str) -> str:
-    """Color H2H/S-H2H records from the current pick perspective."""
-    t = str(text or "").strip()
-    low = t.lower()
-    if not t or t == "—" or "no data" in low or "no previous" in low:
-        return "neutral"
-    match = re.search(r"(\d+)\s*W\s*-\s*(\d+)\s*L", t, re.IGNORECASE)
-    if match:
-        pick_wins = int(match.group(1))
-        opp_wins = int(match.group(2))
-        if pick_wins > opp_wins:
-            return "support"
-        if pick_wins < opp_wins:
-            return "against"
-    edge_match = re.search(r"([+-]\d+(?:\.\d+)?)\s*%", t)
-    if edge_match:
-        edge_value = float(edge_match.group(1))
-        if edge_value > 0:
-            return "support"
-        if edge_value < 0:
-            return "against"
     return "neutral"
 
 
@@ -476,9 +449,9 @@ def corq_box(row: Dict[str, Any]) -> str:
     <section class="metric-card corq-card">
       <header><span>CorQ {tooltip_icon('corq_box')}</span><strong>{esc(probability)}</strong></header>
       {row_html('Pick ELO / S-ELO', signed_pair(overall, surf), side_class_for_pick((overall or 0) + (surf or 0)))}
-      {row_html('Opp ELO / S-ELO', signed_pair(overall, surf, invert=True), side_class_for_pick((overall or 0) + (surf or 0)))}
-      {row_html('H2H P-O ' + tooltip_icon('h2h'), esc(h2h), h2h_record_class_from_text(h2h))}
-      {row_html('S-H2H P-O ' + tooltip_icon('s_h2h'), esc(sh2h), h2h_record_class_from_text(sh2h))}
+      {row_html('Opp ELO / S-ELO', signed_pair(overall, surf, invert=True), side_class_for_pick(-((overall or 0) + (surf or 0))))}
+      {row_html('H2H P-O ' + tooltip_icon('h2h'), esc(h2h), side_class_from_text(h2h))}
+      {row_html('S-H2H P-O ' + tooltip_icon('s_h2h'), esc(sh2h), side_class_from_text(sh2h))}
       {row_html('Pick ThinQ Edge', esc(edge_direction(thinq_e)), side_class_for_pick(thinq_e))}
       <div class="metric-row depth-row"><span>Stat Data Depth {tooltip_icon('pick_data_depth')}</span><strong>{depth_bar(depth)}</strong></div>
     </section>
@@ -559,169 +532,19 @@ def marq_box(row: Dict[str, Any]) -> str:
     """
 
 
-def has_missing_odds(row: Dict[str, Any]) -> bool:
-    pick_odds = num(row.get("pick_odds") or row.get("odds") or row.get("selected_odds"))
-    opp_odds = num(row.get("opponent_odds") or row.get("opp_odds") or row.get("opponent_price"))
-    odds_pair_available = row.get("odds_pair_available")
-    odds_status = str(row.get("odds_status") or row.get("odds_status_code") or "").upper()
-    no_odds_reason = str(row.get("no_odds_reason") or "").upper()
-    if pick_odds is None or opp_odds is None:
-        return True
-    if odds_pair_available is False:
-        return True
-    if odds_status in {"MISSING", "NO_ODDS", "NO_RAPIDAPI_PRO_ODDS"}:
-        return True
-    if "NO_ODDS" in no_odds_reason or "MISSING_ODDS" in no_odds_reason:
-        return True
-    return False
-
-
-def public_notes(row: Dict[str, Any]) -> List[str]:
-    flags: List[Any] = []
-    for key in (
-        "corq_risk_flags",
-        "thinq_flags",
-        "flags",
-        "top7_reject_reasons",
-        "top7_quality_reject_reasons",
-        "cloq_reject_reasons",
-    ):
+def flag_badges(row: Dict[str, Any]) -> str:
+    flags = []
+    for key in ("corq_risk_flags", "thinq_flags", "flags", "top7_reject_reasons"):
         value = row.get(key)
         if isinstance(value, list):
             flags.extend(value)
-    labels = list(public_flag_labels(flags))
-    if has_missing_odds(row) and "Missing odds" not in labels:
-        labels.insert(0, "Missing odds")
-    seen = set()
-    unique: List[str] = []
-    for label in labels:
-        text = str(label).strip()
-        if not text or text in seen:
-            continue
-        seen.add(text)
-        unique.append(text)
-    return unique
-
-
-def tag_counts(rows: List[Dict[str, Any]]) -> Dict[str, int]:
-    counts: Dict[str, int] = {}
-    for row in rows:
-        for label in public_notes(row):
-            counts[label] = counts.get(label, 0) + 1
-    return dict(sorted(counts.items(), key=lambda item: (-item[1], item[0].lower())))
-
-
-def tag_summary_html(rows: List[Dict[str, Any]]) -> str:
-    counts = tag_counts(rows)
-    if not counts:
-        return ""
-    chips = []
-    for label, count in list(counts.items())[:18]:
-        chips.append(f'<span class="tag-count"><b>{esc(count)}</b> {esc(label)}</span>')
-    return (
-        '<section class="notes-panel">'
-        '<h3>Data notes summary</h3>'
-        '<p>Counts of public data notes in the current ALL view.</p>'
-        '<div class="tag-counts">' + ''.join(chips) + '</div>'
-        '</section>'
-    )
-
-
-def odds_missing_reason_group(row: Dict[str, Any]) -> str:
-    """Summarise missing-odds cause from odds_attempts for the ALL page.
-
-    Important: this is a *terminal diagnosis*, not simply the first failed step.
-    Daily odds no match is useful, but if later event/provider endpoints were
-    tried and also failed, the more specific terminal reason should win.
-    """
-    if not has_missing_odds(row):
-        return ""
-
-    attempts_raw = row.get("odds_attempts") or []
-    if isinstance(attempts_raw, str):
-        attempts = [attempts_raw]
-    elif isinstance(attempts_raw, list):
-        attempts = [str(x) for x in attempts_raw]
-    else:
-        attempts = []
-
-    joined = " | ".join(attempts).lower()
-    no_odds_reason = str(row.get("no_odds_reason") or "").lower()
-
-    if not attempts and no_odds_reason:
-        return "Legacy no-odds path"
-    if not attempts:
-        return "No odds audit"
-
-    if "missing_event_id" in joined or "event_id" in no_odds_reason:
-        return "Event id missing/mismatch"
-    if "http_404" in joined or " 404" in joined or ":404" in joined:
-        return "Event odds 404"
-    if "timeout" in joined or "request failed" in joined or "api_request_error" in joined or "error" in joined:
-        return "API request error"
-
-    winner_market_failed = "no_winner_market" in joined or "no_match_winner" in joined
-    payload_failed = "no_payload" in joined or "204" in joined or "empty" in joined
-    daily_no_match = "events_odds_by_date_match:no_match" in joined
-
-    provider_tried = "provider_winning_odds" in joined or "all_odds_for_event" in joined
-    featured_tried = "featured_odds" in joined or "api_match_featured_odds" in joined
-    event_endpoint_tried = "event_odds" in joined or "api_match_betting_odds" in joined or "api_match_winning_odds" in joined
-
-    # If event/provider endpoints were reached and returned payloads without a
-    # valid Full time / Home-Away / Match market, this is more important than the
-    # earlier daily-feed no-match.
-    if winner_market_failed:
-        return "No match-winner market"
-
-    # If later endpoint attempts were made and all came back empty, the issue is
-    # coverage/provider availability rather than only daily-feed matching.
-    if payload_failed and (provider_tried or featured_tried or event_endpoint_tried):
-        return "Provider/API empty"
-
-    # Only call it Daily odds no match if the daily feed was the only meaningful
-    # failure signal or no more specific terminal endpoint signal is present.
-    if daily_no_match:
-        return "Daily odds no match"
-
-    if payload_failed:
-        return "Provider/API empty"
-    return "Unknown missing odds"
-
-
-def missing_odds_breakdown_counts(rows: List[Dict[str, Any]]) -> Dict[str, int]:
-    counts: Dict[str, int] = {}
-    for row in rows:
-        reason = odds_missing_reason_group(row)
-        if not reason:
-            continue
-        counts[reason] = counts.get(reason, 0) + 1
-    return dict(sorted(counts.items(), key=lambda item: (-item[1], item[0].lower())))
-
-
-def missing_odds_breakdown_html(rows: List[Dict[str, Any]]) -> str:
-    counts = missing_odds_breakdown_counts(rows)
-    if not counts:
-        return ""
-    chips = []
-    for label, count in list(counts.items())[:12]:
-        chips.append(f'<span class="tag-count odds-breakdown"><b>{esc(count)}</b> {esc(label)}</span>')
-    return (
-        '<section class="notes-panel odds-panel">'
-        '<h3>Missing odds breakdown</h3>'
-        '<p>Grouped reason buckets from odds_attempts in the current ALL view.</p>'
-        '<div class="tag-counts">' + ''.join(chips) + '</div>'
-        '</section>'
-    )
-
-def flag_badges(row: Dict[str, Any]) -> str:
-    labels = public_notes(row)
+    labels = public_flag_labels(flags)
     if not labels:
         return ""
-    return '<div class="badges">' + ''.join(f'<span>{esc(x)}</span>' for x in labels[:4]) + '</div>'
+    return '<div class="badges">' + ''.join(f'<span>{esc(x)}</span>' for x in labels[:3]) + '</div>'
 
-def card(row: Dict[str, Any], idx: int, show_notes: bool = False) -> str:
-    notes = flag_badges(row) if show_notes else ""
+
+def card(row: Dict[str, Any], idx: int) -> str:
     return f"""
     <article class="match-card">
       {pick_block(row, idx)}
@@ -731,48 +554,10 @@ def card(row: Dict[str, Any], idx: int, show_notes: bool = False) -> str:
         {sets_games_box(row)}
         {marq_box(row)}
       </div>
-      {notes}
+      {flag_badges(row)}
     </article>
     """
 
-
-
-def dedupe_all_display_rows(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """Return one display card per match for the ALL page.
-
-    ALL JSON can still keep HOME/AWAY candidate rows for audit, but the web ALL
-    page should show each match once. The displayed side is the strongest current
-    candidate for the match, ranked by publishable status, CorQ probability,
-    Stat Data Depth, Pick ThinQ Edge, Form Data Depth and odds.
-    """
-    grouped: Dict[str, List[Dict[str, Any]]] = {}
-    order: List[str] = []
-    for row in rows:
-        key = str(row.get("match_id") or row.get("event_id") or row.get("id") or "")
-        if not key:
-            p1 = str(row.get("player1") or row.get("home_player") or "").strip().lower()
-            p2 = str(row.get("player2") or row.get("away_player") or "").strip().lower()
-            start = str(row.get("match_start") or row.get("start_time") or "")
-            key = "|".join(sorted([p1, p2]) + [start])
-        if key not in grouped:
-            grouped[key] = []
-            order.append(key)
-        grouped[key].append(row)
-
-    def score(row: Dict[str, Any]) -> tuple:
-        publishable = 1 if row.get("top7_publishable") or row.get("eligible_for_top7") else 0
-        corq = prob_value(row) or 0.0
-        stat_depth = num(row.get("stat_data_depth") or row.get("pick_data_depth"), 0) or 0.0
-        edge_value = num(row.get("top7_pick_thinq_edge") or row.get("thinq_edge"), 0) or 0.0
-        form_depth = num(row.get("form_data_depth") or row.get("thinq_form_confidence"), 0) or 0.0
-        odds_value = num(row.get("pick_odds") or row.get("odds"), 0) or 0.0
-        return (publishable, corq, stat_depth, edge_value, form_depth, odds_value)
-
-    output: List[Dict[str, Any]] = []
-    for key in order:
-        candidates = grouped[key]
-        output.append(max(candidates, key=score))
-    return output
 
 def sort_by_probability(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return sorted(rows, key=lambda r: (prob_value(r) is not None, prob_value(r) or 0), reverse=True)
@@ -887,10 +672,7 @@ def prepare_assets() -> None:
             pass
 
 def page(title: str, rows: List[Dict[str, Any]], manifest: Dict[str, Any], subtitle: str = "", active: str = "top7") -> str:
-    show_notes = active == "all"
-    cards = "\n".join(card(row, i, show_notes=show_notes) for i, row in enumerate(rows, start=1)) or '<div class="empty">No rows available.</div>'
-    all_tag_summary = tag_summary_html(rows) if show_notes else ""
-    all_missing_odds_breakdown = missing_odds_breakdown_html(rows) if show_notes else ""
+    cards = "\n".join(card(row, i) for i, row in enumerate(rows, start=1)) or '<div class="empty">No rows available.</div>'
     updated = manifest.get("updated") or manifest.get("run_started_at") or manifest.get("run_date") or datetime.now(timezone.utc).isoformat()
     return f"""<!doctype html>
 <html lang="en">
@@ -914,18 +696,13 @@ def page(title: str, rows: List[Dict[str, Any]], manifest: Dict[str, Any], subti
       <div><span>Updated</span><strong>{esc(str(updated)[:16].replace('T',' '))}</strong></div>
     </section>
     <main class="cards">{cards}</main>
-    {all_tag_summary}
-    {all_missing_odds_breakdown}
   </div>
 </body></html>"""
 
 
 def all_page(rows: List[Dict[str, Any]], manifest: Dict[str, Any]) -> str:
-    rows = dedupe_all_display_rows(rows)
     rows = sort_by_probability(rows)
-    display_manifest = dict(manifest)
-    display_manifest["all_display_count"] = len(rows)
-    return page("All audit", rows, display_manifest, "Broad audit view. One card per match; full HOME/AWAY candidate rows stay visible in JSON/logs.", active="all")
+    return page("All audit", rows, manifest, "Broad audit view. Filters and raw data stay visible in JSON/logs.", active="all")
 
 
 def rss_xml(rows: List[Dict[str, Any]]) -> str:
@@ -970,9 +747,7 @@ def render():
 
 CSS = r'''
 :root{--bg:#06111f;--panel:#0b1b2b;--panel2:#081827;--line:#16324c;--text:#e5f0ff;--muted:#89a3be;--green:#25f59a;--cyan:#28d7ff;--orange:#ffb35c;--red:#ff6b6b;}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,#0b2540 0,#06111f 38%,#030914 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}.shell{max-width:1800px;margin:0 auto;padding:22px}.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.brand{display:flex;gap:12px;align-items:center}.brand-logo{width:54px;height:54px;border-radius:999px;object-fit:cover;object-position:center;border:1px solid rgba(125,211,252,.9);box-shadow:0 0 0 3px rgba(40,215,255,.10),0 0 18px rgba(40,215,255,.16),0 10px 24px rgba(0,0,0,.32);background:transparent;display:block}.hero-lead{margin:6px 0 0;color:#6ee7ff;font-size:14px}.hero-note,.hero-powered{margin:4px 0 0;color:var(--muted);font-size:12px}.hero-powered{color:#9bdfff}nav a.active{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(40,215,255,.55),0 0 18px rgba(40,215,255,.12);color:#fff;background:rgba(8,31,51,.95)}.brand-title{font-size:17px;font-weight:800}.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.09em;text-transform:uppercase}nav{display:flex;gap:8px;flex-wrap:wrap}nav a{color:#dff8ff;text-decoration:none;border:1px solid var(--line);background:#071827;border-radius:999px;padding:8px 13px;font-size:12px}nav a:hover{border-color:var(--cyan)}.hero-grid{display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:12px;margin-bottom:14px}.hero-panel{background:rgba(8,24,39,.58);border:1px solid rgba(22,50,76,.9);border-radius:18px;padding:13px 16px;min-height:74px}.hero-panel h3{margin:0 0 6px;color:#9ddcff;font-size:11px;text-transform:uppercase;letter-spacing:.10em}.hero-panel p{margin:3px 0;color:var(--muted);font-size:12px;line-height:1.45}.hero-panel.right{text-align:right}.hero-legal p:last-child{color:#9bdfff}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.summary div{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:12px}.summary span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.summary strong{font-size:20px}.cards{display:grid;gap:14px}.match-card{display:grid;grid-template-columns:250px minmax(0,1fr);gap:12px;background:rgba(6,17,31,.78);border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 10px 25px rgba(0,0,0,.22)}.pick-block{position:relative;background:var(--panel2);border:1px solid var(--line);border-radius:18px;padding:14px;min-height:220px}.rank{color:var(--cyan);font-weight:900;font-size:13px;margin-bottom:10px}.brain{position:absolute;right:12px;top:12px;text-decoration:none;color:#d2f7ff}.pick-name{font-weight:900;font-size:17px;line-height:1.2}.pick-odds{margin-top:6px;color:#ffe98d;font-weight:800;font-size:12px}.pick-action{text-transform:lowercase;color:var(--green);font-size:11px;letter-spacing:.06em;font-weight:900;margin-top:8px}.opp-name{margin-top:3px;color:#c9d7e8;font-weight:700}.opp-odds{margin-top:2px;color:var(--muted);font-size:12px}.meta{margin-top:12px;color:#6ee7ff;font-size:12px;line-height:1.35}.metrics-grid{display:grid;grid-template-columns:repeat(4,minmax(230px,1fr));gap:10px}.metric-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:12px;min-height:220px}.metric-card header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:9px;color:#9ddcff;text-transform:uppercase;letter-spacing:.10em;font-size:11px}.metric-card header strong{font-size:16px;color:var(--green);letter-spacing:0;text-transform:none}.metric-row{display:grid;grid-template-columns:1.1fr 1fr;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(22,50,76,.37)}.metric-row:last-child{border-bottom:0}.metric-row span{color:var(--muted);font-size:12px}.metric-row strong{font-size:12px;text-align:right;color:#f5fbff}.metric-row strong.support{color:#f5fbff}.metric-row strong.against{color:var(--orange)}.metric-row strong.neutral{color:#d5e5f6}.depth-row strong{text-align:right}.depth-wrap{display:flex;align-items:center;justify-content:flex-end;gap:8px}.depth-num{font-size:12px;color:#e5f9ff}.depth-bar{display:inline-block;width:96px;height:16px;border:1px solid #7febff;border-radius:999px;background:#10263f;overflow:hidden;vertical-align:middle;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}.depth-fill{display:block;height:100%;background:repeating-linear-gradient(135deg,#20c7d8 0 9px,#7af7ff 9px 13px);border-radius:999px}.badges{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;margin-top:-4px}.badges span{font-size:11px;color:#ffd89b;background:rgba(255,179,92,.12);border:1px solid rgba(255,179,92,.35);border-radius:999px;padding:4px 8px}.empty{padding:40px;text-align:center;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:18px}
-.notes-panel{margin-top:16px;background:rgba(8,24,39,.62);border:1px solid rgba(22,50,76,.92);border-radius:18px;padding:14px 16px}.notes-panel h3{margin:0 0 6px;color:#9ddcff;font-size:11px;text-transform:uppercase;letter-spacing:.10em}.notes-panel p{margin:0 0 10px;color:var(--muted);font-size:12px}.tag-counts{display:flex;gap:7px;flex-wrap:wrap}.tag-count{font-size:11px;color:#ffd89b;background:rgba(255,179,92,.12);border:1px solid rgba(255,179,92,.35);border-radius:999px;padding:5px 9px}.tag-count b{color:#fff;margin-right:4px}
-@media(max-width:1300px){.match-card{grid-template-columns:1fr}.metrics-grid{grid-template-columns:repeat(2,minmax(240px,1fr))}}@media(max-width:720px){.summary{grid-template-columns:repeat(2,1fr)}.metrics-grid{grid-template-columns:1fr}.topbar{align-items:flex-start;flex-direction:column;gap:12px}.hero-grid{grid-template-columns:1fr}.hero-panel.right{text-align:left}}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,#0b2540 0,#06111f 38%,#030914 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}.shell{max-width:1800px;margin:0 auto;padding:22px}.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.brand{display:flex;gap:12px;align-items:center}.brand-logo{width:54px;height:54px;border-radius:999px;object-fit:cover;object-position:center;border:1px solid rgba(125,211,252,.9);box-shadow:0 0 0 3px rgba(40,215,255,.10),0 0 18px rgba(40,215,255,.16),0 10px 24px rgba(0,0,0,.32);background:transparent;display:block}.hero-lead{margin:6px 0 0;color:#6ee7ff;font-size:14px}.hero-note,.hero-powered{margin:4px 0 0;color:var(--muted);font-size:12px}.hero-powered{color:#9bdfff}nav a.active{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(40,215,255,.55),0 0 18px rgba(40,215,255,.12);color:#fff;background:rgba(8,31,51,.95)}.brand-title{font-size:17px;font-weight:800}.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.09em;text-transform:uppercase}nav{display:flex;gap:8px;flex-wrap:wrap}nav a{color:#dff8ff;text-decoration:none;border:1px solid var(--line);background:#071827;border-radius:999px;padding:8px 13px;font-size:12px}nav a:hover{border-color:var(--cyan)}.hero-grid{display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:12px;margin-bottom:14px}.hero-panel{background:rgba(8,24,39,.58);border:1px solid rgba(22,50,76,.9);border-radius:18px;padding:13px 16px;min-height:74px}.hero-panel h3{margin:0 0 6px;color:#9ddcff;font-size:11px;text-transform:uppercase;letter-spacing:.10em}.hero-panel p{margin:3px 0;color:var(--muted);font-size:12px;line-height:1.45}.hero-panel.right{text-align:right}.hero-legal p:last-child{color:#9bdfff}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.summary div{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:12px}.summary span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.summary strong{font-size:20px}.cards{display:grid;gap:14px}.match-card{display:grid;grid-template-columns:250px minmax(0,1fr);gap:12px;background:rgba(6,17,31,.78);border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 10px 25px rgba(0,0,0,.22)}.pick-block{position:relative;background:var(--panel2);border:1px solid var(--line);border-radius:18px;padding:14px;min-height:220px}.rank{color:var(--cyan);font-weight:900;font-size:13px;margin-bottom:10px}.brain{position:absolute;right:12px;top:12px;text-decoration:none;color:#d2f7ff}.pick-name{font-weight:900;font-size:17px;line-height:1.2}.pick-odds{margin-top:6px;color:#ffe98d;font-weight:800;font-size:12px}.pick-action{text-transform:lowercase;color:var(--green);font-size:11px;letter-spacing:.06em;font-weight:900;margin-top:8px}.opp-name{margin-top:3px;color:#c9d7e8;font-weight:700}.opp-odds{margin-top:2px;color:var(--muted);font-size:12px}.meta{margin-top:12px;color:#6ee7ff;font-size:12px;line-height:1.35}.metrics-grid{display:grid;grid-template-columns:repeat(4,minmax(230px,1fr));gap:10px}.metric-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:12px;min-height:220px}.metric-card header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:9px;color:#9ddcff;text-transform:uppercase;letter-spacing:.10em;font-size:11px}.metric-card header strong{font-size:16px;color:var(--green);letter-spacing:0;text-transform:none}.metric-row{display:grid;grid-template-columns:1.1fr 1fr;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(22,50,76,.37)}.metric-row:last-child{border-bottom:0}.metric-row span{color:var(--muted);font-size:12px}.metric-row strong{font-size:12px;text-align:right;color:#f5fbff}.metric-row strong.support{color:#f5fbff}.metric-row strong.against{color:var(--orange)}.metric-row strong.neutral{color:#d5e5f6}.depth-row strong{text-align:right}.depth-wrap{display:flex;align-items:center;justify-content:flex-end;gap:8px}.depth-num{font-size:12px;color:#e5f9ff}.depth-bar{display:inline-block;width:96px;height:16px;border:1px solid #7febff;border-radius:999px;background:#10263f;overflow:hidden;vertical-align:middle;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}.depth-fill{display:block;height:100%;background:repeating-linear-gradient(135deg,#20c7d8 0 9px,#7af7ff 9px 13px);border-radius:999px}.badges{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;margin-top:-4px}.badges span{font-size:11px;color:#ffd89b;background:rgba(255,179,92,.12);border:1px solid rgba(255,179,92,.35);border-radius:999px;padding:4px 8px}.empty{padding:40px;text-align:center;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:18px}@media(max-width:1300px){.match-card{grid-template-columns:1fr}.metrics-grid{grid-template-columns:repeat(2,minmax(240px,1fr))}}@media(max-width:720px){.shell{padding:12px 10px}.summary{grid-template-columns:repeat(2,1fr);gap:8px}.topbar{align-items:flex-start;flex-direction:column;gap:10px;margin-bottom:12px}nav{gap:6px}nav a{padding:7px 10px;font-size:11px}.hero-grid{grid-template-columns:1fr;gap:8px}.hero-panel{padding:11px 12px;min-height:auto;border-radius:15px}.hero-panel.right{text-align:left}.cards{gap:10px}.match-card{grid-template-columns:1fr;padding:10px;border-radius:18px;gap:10px}.pick-block{min-height:auto;padding:12px;border-radius:16px;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"rank brain" "pick pick" "podd podd" "action action" "opp opp" "oodd oodd" "meta meta";row-gap:4px}.rank{grid-area:rank;margin:0 0 2px;font-size:12px}.brain{grid-area:brain;position:static;justify-self:end;align-self:start;font-size:13px;line-height:1}.pick-name{grid-area:pick;font-size:16px;line-height:1.15;max-width:100%}.pick-odds{grid-area:podd;margin-top:0;font-size:12px;line-height:1.2}.pick-action{grid-area:action;margin-top:1px;font-size:10px;line-height:1.15}.opp-name{grid-area:opp;margin-top:0;font-size:15px;line-height:1.15;max-width:100%}.opp-odds{grid-area:oodd;margin-top:0;font-size:11px;line-height:1.2}.meta{grid-area:meta;margin-top:7px;font-size:11px;line-height:1.28;color:#6ee7ff}.metrics-grid{grid-template-columns:1fr}.metric-card{min-height:auto;padding:11px;border-radius:16px}.metric-card header{font-size:10px}.metric-card header strong{font-size:15px}.metric-row{grid-template-columns:1fr auto;gap:10px;padding:4px 0}.metric-row span,.metric-row strong{font-size:11px}.depth-bar{width:78px;height:14px}}
 '''
 
 if __name__ == "__main__":
