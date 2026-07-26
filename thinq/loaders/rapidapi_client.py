@@ -277,19 +277,23 @@ class RapidApiClient:
         return deduped
 
     def _provider_ids_for_odds(self) -> List[int]:
-        raw = os.getenv("TENNISAPI_PROVIDER_IDS") or os.getenv("TENNISAPI_PROVIDER_ID", "1")
+        """Provider ids for TennisApi PRO odds endpoints.
+
+        Default is intentionally provider 1 only. Manual RapidAPI tests showed
+        providers 2-5 can return 204 empty for the same event, so sweeping them
+        by default wastes requests. If another provider is later confirmed useful,
+        set TENNISAPI_PROVIDER_IDS, for example: 1,3.
+        """
+        raw = os.getenv("TENNISAPI_PROVIDER_IDS") or os.getenv("TENNISAPI_PROVIDER_ID") or "1"
         ids: List[int] = []
         for part in str(raw).split(","):
             try:
                 value = int(part.strip())
-                if value not in ids:
+                if value > 0 and value not in ids:
                     ids.append(value)
             except Exception:
                 pass
-        for value in (1, 2, 3, 4, 5):
-            if value not in ids:
-                ids.append(value)
-        return ids
+        return ids or [1]
 
     def _match_odds_date(self, match: Optional[Dict[str, Any]]) -> datetime:
         if isinstance(match, dict):
