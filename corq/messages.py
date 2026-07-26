@@ -10,7 +10,7 @@ FLAG_MESSAGES = {
     "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL": {"label": "Recent form neutral", "show_public": False, "severity": "neutral"},
     "NO_H2H_DATA": {"label": "No previous H2H matches", "show_public": True, "severity": "info"},
     "H2H_NO_PREVIOUS_MATCHES": {"label": "No previous H2H matches", "show_public": True, "severity": "info"},
-    "MISSING_ELO": {"label": "ELO unavailable", "show_public": True, "severity": "warning"},
+    "MISSING_ELO": {"label": "ELO coverage missing", "show_public": True, "severity": "warning"},
     "MISSING_ELO_PICK": {"label": "Pick ELO unavailable", "show_public": False, "severity": "warning"},
     "MISSING_ELO_OPPONENT": {"label": "Opponent ELO unavailable", "show_public": False, "severity": "warning"},
     "DIRECT_BY_NUMERIC_OUTCOME": {"label": "Odds confirmed", "show_public": False, "severity": "info"},
