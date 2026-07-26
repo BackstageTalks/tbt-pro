@@ -313,11 +313,50 @@ def side_class_for_pick(value: Optional[float]) -> str:
 
 
 def side_class_from_text(text: str) -> str:
+    """Legacy generic text classifier.
+
+    Keep this only as a fallback. H2H and S-H2H must use
+    h2h_record_class_from_text(), because strings like '1W-0L' contain a dash
+    but actually support the pick.
+    """
     t = str(text).lower()
-    if "opp" in t or "-" in t and "pick" not in t:
+    if "/ against" in t or "against" in t:
         return "against"
-    if "pick" in t or "+" in t:
+    if "/ support" in t or "support" in t:
         return "support"
+    return "neutral"
+
+
+def h2h_record_class_from_text(text: str) -> str:
+    """Color H2H/S-H2H records from the current pick perspective.
+
+    Examples:
+    - 1W-0L · +4.0% => support
+    - 0W-1L · -4.0% => against
+    - 0W-0L or No data => neutral
+    """
+    t = str(text or "").strip()
+    low = t.lower()
+    if not t or "no data" in low or "no previous" in low or t == "—":
+        return "neutral"
+    match = re.search(r"(\d+)\s*W\s*-\s*(\d+)\s*L", t, re.IGNORECASE)
+    if match:
+        pick_wins = int(match.group(1))
+        opp_wins = int(match.group(2))
+        if pick_wins > opp_wins:
+            return "support"
+        if pick_wins < opp_wins:
+            return "against"
+    edge_match = re.search(r"([+-]\d+(?:\.\d+)?)\s*%", t)
+    if edge_match:
+        try:
+            edge_value = float(edge_match.group(1))
+            if edge_value > 0:
+                return "support"
+            if edge_value < 0:
+                return "against"
+        except Exception:
+            pass
     return "neutral"
 
 
@@ -449,9 +488,9 @@ def corq_box(row: Dict[str, Any]) -> str:
     <section class="metric-card corq-card">
       <header><span>CorQ {tooltip_icon('corq_box')}</span><strong>{esc(probability)}</strong></header>
       {row_html('Pick ELO / S-ELO', signed_pair(overall, surf), side_class_for_pick((overall or 0) + (surf or 0)))}
-      {row_html('Opp ELO / S-ELO', signed_pair(overall, surf, invert=True), side_class_for_pick(-((overall or 0) + (surf or 0))))}
-      {row_html('H2H P-O ' + tooltip_icon('h2h'), esc(h2h), side_class_from_text(h2h))}
-      {row_html('S-H2H P-O ' + tooltip_icon('s_h2h'), esc(sh2h), side_class_from_text(sh2h))}
+      {row_html('Opp ELO / S-ELO', signed_pair(overall, surf, invert=True), side_class_for_pick((overall or 0) + (surf or 0)))}
+      {row_html('H2H P-O ' + tooltip_icon('h2h'), esc(h2h), h2h_record_class_from_text(h2h))}
+      {row_html('S-H2H P-O ' + tooltip_icon('s_h2h'), esc(sh2h), h2h_record_class_from_text(sh2h))}
       {row_html('Pick ThinQ Edge', esc(edge_direction(thinq_e)), side_class_for_pick(thinq_e))}
       <div class="metric-row depth-row"><span>Stat Data Depth {tooltip_icon('pick_data_depth')}</span><strong>{depth_bar(depth)}</strong></div>
     </section>
