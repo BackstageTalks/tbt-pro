@@ -10,7 +10,9 @@ from __future__ import annotations
 
 import argparse
 import inspect
+import json
 from datetime import date, datetime, timezone
+from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from corq.candidates import load_candidates
@@ -176,6 +178,35 @@ def _enrich_with_thinq(record: Dict[str, Any], thinq_service: Any) -> Dict[str, 
     return safe_record
 
 
+
+
+def _write_results_foundation_snapshots(
+    all_rows: List[Dict[str, Any]],
+    top7_rows: List[Dict[str, Any]],
+    run_date: Optional[str],
+    output_root: str,
+) -> Dict[str, str]:
+    """Store immutable daily snapshots for future Results evaluation."""
+    day = (run_date or date.today().isoformat())[:10]
+    year = day[:4]
+    root = Path(output_root) / "snapshots" / year
+    root.mkdir(parents=True, exist_ok=True)
+    top7_path = root / f"{day}_corq_top7_snapshot.json"
+    all_path = root / f"{day}_all_audit_snapshot.json"
+    top7_path.write_text(json.dumps(top7_rows, ensure_ascii=False, indent=2), encoding="utf-8")
+    all_path.write_text(json.dumps(all_rows, ensure_ascii=False, indent=2), encoding="utf-8")
+    latest_root = Path(output_root) / "snapshots"
+    latest_root.mkdir(parents=True, exist_ok=True)
+    (latest_root / "latest_corq_top7_snapshot.json").write_text(json.dumps(top7_rows, ensure_ascii=False, indent=2), encoding="utf-8")
+    (latest_root / "latest_all_audit_snapshot.json").write_text(json.dumps(all_rows, ensure_ascii=False, indent=2), encoding="utf-8")
+    return {
+        "corq_top7_snapshot": str(top7_path),
+        "all_audit_snapshot": str(all_path),
+        "latest_corq_top7_snapshot": str(latest_root / "latest_corq_top7_snapshot.json"),
+        "latest_all_audit_snapshot": str(latest_root / "latest_all_audit_snapshot.json"),
+    }
+
+
 def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", run_date: Optional[str] = None) -> Dict[str, Any]:
     started_at = datetime.now(timezone.utc).isoformat()
     raw_candidates = load_candidates(input_path)
@@ -193,6 +224,7 @@ def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", ru
 
     all_paths = save_all(all_view, run_date=run_date, output_root=output_root)
     top7_paths = save_top7(top7, run_date=run_date, output_root=output_root)
+    snapshot_paths = _write_results_foundation_snapshots(all_view, top7, run_date=run_date, output_root=output_root)
     manifest = {
         "runtime": "corq_daily_side_safe",
         "started_at_utc": started_at,
@@ -210,7 +242,7 @@ def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", ru
             "player2_definition": "AWAY_API_SECOND_SIDE",
             "pick_definition": "DERIVED_FROM_PICK_SIDE",
         },
-        "outputs": {"all": all_paths, "top7": top7_paths},
+        "outputs": {"all": all_paths, "top7": top7_paths, "snapshots": snapshot_paths},
     }
     manifest_paths = save_run_manifest(manifest, run_date=run_date, output_root=output_root)
     manifest["outputs"]["manifest"] = manifest_paths

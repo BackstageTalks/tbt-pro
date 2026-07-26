@@ -422,6 +422,45 @@ def elo_unavailable(row: Dict[str, Any]) -> bool:
     return False
 
 
+def recent_form_status(row: Dict[str, Any]) -> str:
+    status = row.get("thinq_recent_form_status") or _get_nested(row, "thinq", "recent_form", "status")
+    return str(status or "UNKNOWN").upper()
+
+
+def recent_form_reason(row: Dict[str, Any]) -> str:
+    return str(row.get("thinq_recent_form_reason") or _get_nested(row, "thinq", "recent_form", "reason") or "")
+
+
+def recent_form_sample_audit(row: Dict[str, Any]) -> Dict[str, Any]:
+    rf = _get_nested(row, "thinq", "recent_form")
+    if not isinstance(rf, dict):
+        rf = row.get("recent_form") if isinstance(row.get("recent_form"), dict) else {}
+    pick = rf.get("pick") if isinstance(rf.get("pick"), dict) else {}
+    opp = rf.get("opponent") if isinstance(rf.get("opponent"), dict) else {}
+    return {
+        "status": recent_form_status(row),
+        "reason": recent_form_reason(row),
+        "pick_last10_count": _as_float(_get_nested(pick, "last10", "count"), 0.0),
+        "opponent_last10_count": _as_float(_get_nested(opp, "last10", "count"), 0.0),
+        "pick_surface_count": _as_float(_get_nested(pick, "surface_last10", "count"), 0.0),
+        "opponent_surface_count": _as_float(_get_nested(opp, "surface_last10", "count"), 0.0),
+        "history_match_count": _get_nested(rf, "history_status", "match_count"),
+    }
+
+
+def low_data_risk_audit(row: Dict[str, Any]) -> Dict[str, Any]:
+    return {
+        "corq_probability": round(corq_probability(row), 6),
+        "pick_thinq_edge": round(pick_thinq_edge(row), 6),
+        "pick_data_depth": round(pick_data_depth(row), 6),
+        "form_data_depth": round(form_data_depth(row), 6),
+        "thinq_confidence": round(thinq_confidence(row), 6),
+        "elo_coverage_missing": elo_unavailable(row),
+        "recent_form": recent_form_sample_audit(row),
+        "odds_available": odds_available(row),
+    }
+
+
 def top7_reject_reasons(row: Dict[str, Any]) -> List[str]:
     reasons: List[str] = []
     cp = corq_probability(row)
@@ -497,6 +536,10 @@ def annotate_top7_quality(row: Dict[str, Any]) -> Dict[str, Any]:
     row["form_data_depth"] = round(form_data_depth(row), 6)
     row["top7_pick_odds"] = pick_odds_value(row)
     row["top7_match_date_local"] = _match_date_local(row)
+    row["recent_form_status"] = recent_form_status(row)
+    row["recent_form_reason"] = recent_form_reason(row)
+    row["recent_form_sample_audit"] = recent_form_sample_audit(row)
+    row["low_data_risk_audit"] = low_data_risk_audit(row)
     row["top7_quality_score"] = top7_quality_score(row) if not reasons else 0.0
     return row
 
