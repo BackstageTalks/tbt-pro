@@ -313,16 +313,14 @@ def side_class_for_pick(value: Optional[float]) -> str:
 
 
 def side_class_from_text(text: str) -> str:
-    """Generic fallback classifier for already-normalized text values.
-
-    Do not use this for H2H strings because records like 1W-0L contain a dash
-    but support the pick. Use h2h_record_class_from_text() for H2H rows.
-    """
+    """Generic fallback classifier for normalized Support/Against text."""
     t = str(text or "").lower()
     if "against" in t:
         return "against"
     if "support" in t:
         return "support"
+    if "neutral" in t:
+        return "neutral"
     return "neutral"
 
 
@@ -342,14 +340,11 @@ def h2h_record_class_from_text(text: str) -> str:
             return "against"
     edge_match = re.search(r"([+-]\d+(?:\.\d+)?)\s*%", t)
     if edge_match:
-        try:
-            edge_value = float(edge_match.group(1))
-            if edge_value > 0:
-                return "support"
-            if edge_value < 0:
-                return "against"
-        except Exception:
-            pass
+        edge_value = float(edge_match.group(1))
+        if edge_value > 0:
+            return "support"
+        if edge_value < 0:
+            return "against"
     return "neutral"
 
 
@@ -567,16 +562,16 @@ def marq_box(row: Dict[str, Any]) -> str:
 def has_missing_odds(row: Dict[str, Any]) -> bool:
     pick_odds = num(row.get("pick_odds") or row.get("odds") or row.get("selected_odds"))
     opp_odds = num(row.get("opponent_odds") or row.get("opp_odds") or row.get("opponent_price"))
-    pair_available = row.get("odds_pair_available")
-    status = str(row.get("odds_status") or row.get("odds_status_code") or "").upper()
-    reason = str(row.get("no_odds_reason") or "").upper()
+    odds_pair_available = row.get("odds_pair_available")
+    odds_status = str(row.get("odds_status") or row.get("odds_status_code") or "").upper()
+    no_odds_reason = str(row.get("no_odds_reason") or "").upper()
     if pick_odds is None or opp_odds is None:
         return True
-    if pair_available is False:
+    if odds_pair_available is False:
         return True
-    if status in {"MISSING", "NO_ODDS", "NO_RAPIDAPI_PRO_ODDS"}:
+    if odds_status in {"MISSING", "NO_ODDS", "NO_RAPIDAPI_PRO_ODDS"}:
         return True
-    if "NO_ODDS" in reason or "MISSING_ODDS" in reason:
+    if "NO_ODDS" in no_odds_reason or "MISSING_ODDS" in no_odds_reason:
         return True
     return False
 
@@ -626,7 +621,7 @@ def tag_summary_html(rows: List[Dict[str, Any]]) -> str:
     return (
         '<section class="notes-panel">'
         '<h3>Data notes summary</h3>'
-        '<p>Counts of public data notes in the current view.</p>'
+        '<p>Counts of public data notes in the current ALL view.</p>'
         '<div class="tag-counts">' + ''.join(chips) + '</div>'
         '</section>'
     )
@@ -637,7 +632,8 @@ def flag_badges(row: Dict[str, Any]) -> str:
         return ""
     return '<div class="badges">' + ''.join(f'<span>{esc(x)}</span>' for x in labels[:4]) + '</div>'
 
-def card(row: Dict[str, Any], idx: int) -> str:
+def card(row: Dict[str, Any], idx: int, show_notes: bool = False) -> str:
+    notes = flag_badges(row) if show_notes else ""
     return f"""
     <article class="match-card">
       {pick_block(row, idx)}
@@ -647,7 +643,7 @@ def card(row: Dict[str, Any], idx: int) -> str:
         {sets_games_box(row)}
         {marq_box(row)}
       </div>
-      {flag_badges(row)}
+      {notes}
     </article>
     """
 
@@ -765,7 +761,9 @@ def prepare_assets() -> None:
             pass
 
 def page(title: str, rows: List[Dict[str, Any]], manifest: Dict[str, Any], subtitle: str = "", active: str = "top7") -> str:
-    cards = "\n".join(card(row, i) for i, row in enumerate(rows, start=1)) or '<div class="empty">No rows available.</div>'
+    show_notes = active == "all"
+    cards = "\n".join(card(row, i, show_notes=show_notes) for i, row in enumerate(rows, start=1)) or '<div class="empty">No rows available.</div>'
+    all_tag_summary = tag_summary_html(rows) if show_notes else ""
     updated = manifest.get("updated") or manifest.get("run_started_at") or manifest.get("run_date") or datetime.now(timezone.utc).isoformat()
     return f"""<!doctype html>
 <html lang="en">
@@ -789,7 +787,7 @@ def page(title: str, rows: List[Dict[str, Any]], manifest: Dict[str, Any], subti
       <div><span>Updated</span><strong>{esc(str(updated)[:16].replace('T',' '))}</strong></div>
     </section>
     <main class="cards">{cards}</main>
-    {tag_summary_html(rows)}
+    {all_tag_summary}
   </div>
 </body></html>"""
 
