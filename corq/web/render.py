@@ -626,6 +626,74 @@ def tag_summary_html(rows: List[Dict[str, Any]]) -> str:
         '</section>'
     )
 
+
+def odds_missing_reason_group(row: Dict[str, Any]) -> str:
+    """Summarise missing-odds cause from odds_attempts for the ALL page.
+
+    The exact API attempts stay in JSON/logs. The public ALL page needs a compact
+    diagnostic bucket so we can quickly see whether missing odds are caused by
+    coverage, provider emptiness, no match-winner market, daily-feed pairing, or
+    event-id issues.
+    """
+    if not has_missing_odds(row):
+        return ""
+
+    attempts_raw = row.get("odds_attempts") or []
+    if isinstance(attempts_raw, str):
+        attempts = [attempts_raw]
+    elif isinstance(attempts_raw, list):
+        attempts = [str(x) for x in attempts_raw]
+    else:
+        attempts = []
+
+    joined = " | ".join(attempts).lower()
+    no_odds_reason = str(row.get("no_odds_reason") or "").lower()
+
+    if not attempts and no_odds_reason:
+        return "Legacy no-odds path"
+    if not attempts:
+        return "No odds audit"
+    if "missing_event_id" in joined or "event_id" in no_odds_reason:
+        return "Event id missing/mismatch"
+    if "events_odds_by_date_match:no_match" in joined:
+        # Daily feed exists, but the current event was not matched inside it.
+        return "Daily odds no match"
+    if "no_winner_market" in joined or "no_match_winner" in joined:
+        return "No match-winner market"
+    if "no_payload" in joined:
+        return "Provider/API empty"
+    if "http_404" in joined or "404" in joined:
+        return "Event odds 404"
+    if "timeout" in joined or "request failed" in joined or "error" in joined:
+        return "API request error"
+    return "Unknown missing odds"
+
+
+def missing_odds_breakdown_counts(rows: List[Dict[str, Any]]) -> Dict[str, int]:
+    counts: Dict[str, int] = {}
+    for row in rows:
+        reason = odds_missing_reason_group(row)
+        if not reason:
+            continue
+        counts[reason] = counts.get(reason, 0) + 1
+    return dict(sorted(counts.items(), key=lambda item: (-item[1], item[0].lower())))
+
+
+def missing_odds_breakdown_html(rows: List[Dict[str, Any]]) -> str:
+    counts = missing_odds_breakdown_counts(rows)
+    if not counts:
+        return ""
+    chips = []
+    for label, count in list(counts.items())[:12]:
+        chips.append(f'<span class="tag-count odds-breakdown"><b>{esc(count)}</b> {esc(label)}</span>')
+    return (
+        '<section class="notes-panel odds-panel">'
+        '<h3>Missing odds breakdown</h3>'
+        '<p>Grouped reason buckets from odds_attempts in the current ALL view.</p>'
+        '<div class="tag-counts">' + ''.join(chips) + '</div>'
+        '</section>'
+    )
+
 def flag_badges(row: Dict[str, Any]) -> str:
     labels = public_notes(row)
     if not labels:
@@ -802,6 +870,7 @@ def page(title: str, rows: List[Dict[str, Any]], manifest: Dict[str, Any], subti
     show_notes = active == "all"
     cards = "\n".join(card(row, i, show_notes=show_notes) for i, row in enumerate(rows, start=1)) or '<div class="empty">No rows available.</div>'
     all_tag_summary = tag_summary_html(rows) if show_notes else ""
+    all_missing_odds_breakdown = missing_odds_breakdown_html(rows) if show_notes else ""
     updated = manifest.get("updated") or manifest.get("run_started_at") or manifest.get("run_date") or datetime.now(timezone.utc).isoformat()
     return f"""<!doctype html>
 <html lang="en">
@@ -826,6 +895,7 @@ def page(title: str, rows: List[Dict[str, Any]], manifest: Dict[str, Any], subti
     </section>
     <main class="cards">{cards}</main>
     {all_tag_summary}
+    {all_missing_odds_breakdown}
   </div>
 </body></html>"""
 
