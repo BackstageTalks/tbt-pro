@@ -2,6 +2,11 @@ name: Build Results Foundation
 
 on:
   workflow_dispatch:
+    inputs:
+      fetch_api:
+        description: "Fetch TennisApi event details for results"
+        required: false
+        default: "true"
   workflow_run:
     workflows: ["Daily Tennis Predictions"]
     types: [completed]
@@ -10,7 +15,7 @@ permissions:
   contents: write
 
 jobs:
-  build-results-foundation:
+  build-results:
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
@@ -22,17 +27,23 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Build results foundation
+      - name: Build results
+        env:
+          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
         run: |
-          python -m corq.results --output-root outputs
+          if [ "${{ github.event.inputs.fetch_api || 'true' }}" = "true" ]; then
+            python -m corq.results --output-root outputs --fetch-api
+          else
+            python -m corq.results --output-root outputs
+          fi
 
-      - name: Commit results foundation
+      - name: Commit results
         run: |
           if [ -n "$(git status --porcelain outputs/results)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add outputs/results
-            git commit -m "Build results foundation"
+            git commit -m "Build results"
             git push
           else
             echo "No results changes to commit."
