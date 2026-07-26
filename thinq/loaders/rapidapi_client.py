@@ -275,28 +275,56 @@ class RapidApiClient:
         print(f"RAPIDAPI RAW EVENTS: {len(events)} DEDUPED: {len(deduped)}")
         return deduped
 
-    def get_event_odds(self, event_id: Any) -> Optional[Dict[str, Any]]:
+    def get_event_odds(self, event_id: Any, match: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
+        """Fetch match-winner odds using a robust TennisApi PRO fallback chain.
+
+        The method returns a normalized odds pair when any endpoint works.
+        If all endpoints fail, it returns None and stores the audit in
+        self.last_odds_attempts for the caller to persist into ALL.
+        """
+        self.last_odds_attempts = []
+        self.last_odds_status = "MISSING"
+        self.last_odds_endpoint = None
+
         if event_id in (None, ""):
+            self.last_odds_attempts.append("missing_event_id:SKIPPED")
             return None
+
         provider = _env_int("TENNISAPI_PROVIDER_ID", 1)
         event_id_text = str(event_id)
         attempts = [
-            (f"/api/tennis/event/{event_id_text}/odds", None),
-            (f"/api/tennis/event/{event_id_text}/winning-odds", None),
-            (f"/api/tennis/event/{event_id_text}/provider/{provider}/winning-odds", None),
-            (f"/api/tennis/event/{event_id_text}/provider/{provider}/odds", None),
-            (f"/api/tennis/event/{event_id_text}/odds/{provider}", None),
-            ("/api/tennis/getMatchWinningOdds", {"matchId": event_id_text, "providerId": provider}),
-            ("/api/tennis/getMatchBettingOdds", {"matchId": event_id_text, "providerId": provider}),
-            ("/api/tennis/getAllOddsForEvent", {"eventId": event_id_text}),
-            ("/api/tennis/getMatchFeaturedOdds", {"matchId": event_id_text}),
+            ("event_odds", f"/api/tennis/event/{event_id_text}/odds", None),
+            ("provider_winning_odds", f"/api/tennis/event/{event_id_text}/provider/{provider}/winning-odds", None),
+            ("all_odds_for_event", f"/api/tennis/event/{event_id_text}/odds/{provider}/all", None),
+            ("featured_odds_1", f"/api/tennis/event/{event_id_text}/odds/featured", None),
+            ("featured_odds_2", f"/api/tennis/event/{event_id_text}/featured-odds", None),
+            ("featured_odds_3", f"/api/tennis/event/{event_id_text}/odds/1/featured", None),
+            # Keep API-style endpoint aliases as late fallbacks because some RapidAPI
+            # products expose operation names as routes.
+            ("api_match_winning_odds", "/api/tennis/getMatchWinningOdds", {"matchId": event_id_text, "providerId": provider}),
+            ("api_match_betting_odds", "/api/tennis/getMatchBettingOdds", {"matchId": event_id_text, "providerId": provider}),
+            ("api_all_odds_for_event", "/api/tennis/getAllOddsForEvent", {"eventId": event_id_text, "providerId": provider}),
+            ("api_match_featured_odds", "/api/tennis/getMatchFeaturedOdds", {"matchId": event_id_text}),
         ]
-        for path, params in attempts:
+
+        for name, path, params in attempts:
             payload = self.get(path, params=params)
+            if not payload:
+                self.last_odds_attempts.append(f"{name}:NO_PAYLOAD")
+                continue
             normalized = normalize_winner_odds_payload(payload)
-            if normalized:
-                normalized["odds_endpoint"] = path
-                return normalized
+            if not normalized:
+                self.last_odds_attempts.append(f"{name}:NO_WINNER_MARKET")
+                continue
+            normalized["odds_endpoint"] = path
+            normalized["odds_source"] = normalized.get("odds_source") or f"RapidAPI PRO {name}"
+            normalized["odds_status"] = "OK"
+            normalized["odds_attempts"] = list(self.last_odds_attempts) + [f"{name}:OK"]
+            self.last_odds_attempts = normalized["odds_attempts"]
+            self.last_odds_status = "OK"
+            self.last_odds_endpoint = path
+            return normalized
+
         return None
 
 
@@ -440,12 +468,62 @@ def choice_price(choice: Dict[str, Any]) -> Optional[float]:
 
 
 def normalize_winner_odds_payload(payload: Any) -> Optional[Dict[str, Any]]:
+    """Normalize match-winner odds from all TennisApi PRO odds payload shapes.
+
+    Supported shapes:
+    - event odds markets with choices/outcomes/selections
+    - provider winning odds with home/away fractionalValue
+    - wrapped data/odds objects
+    """
+    if not payload:
+        return None
+
+    # Provider winning odds shape:
+    # {"home": {"fractionalValue": "73/100"}, "away": {"fractionalValue": "11/10"}}
+    direct = payload
+    if isinstance(direct, dict) and isinstance(direct.get("odds"), dict):
+        direct = direct.get("odds")
+    elif isinstance(direct, dict) and isinstance(direct.get("data"), dict):
+        direct = direct.get("data")
+
+    if isinstance(direct, dict):
+        home = direct.get("home") or direct.get("homeOdds") or direct.get("home_odds")
+        away = direct.get("away") or direct.get("awayOdds") or direct.get("away_odds")
+        if isinstance(home, dict) and isinstance(away, dict):
+            h = None
+            a = None
+            for key in ("decimalValue", "decimal", "decimalOdds", "price", "odds", "value", "fractionalValue"):
+                h = fractional_to_decimal(home.get(key))
+                if h is not None:
+                    break
+            for key in ("decimalValue", "decimal", "decimalOdds", "price", "odds", "value", "fractionalValue"):
+                a = fractional_to_decimal(away.get(key))
+                if a is not None:
+                    break
+            if h is not None and a is not None:
+                return {
+                    "player1_label": "1",
+                    "player2_label": "2",
+                    "odds_player1": h,
+                    "odds_player2": a,
+                    "p1_odds": h,
+                    "p2_odds": a,
+                    "home_odds": h,
+                    "away_odds": a,
+                    "odds1": h,
+                    "odds2": a,
+                    "bookmaker": "TennisApi",
+                    "odds_source": "RapidAPI PRO winning odds",
+                    "raw": payload,
+                }
+
+    # Market-based shapes.
     for market in extract_markets(payload):
-        market_name = normalize_name(" ".join(str(market.get(k) or "") for k in ("name", "marketName", "market_name", "label", "type")))
+        market_name = normalize_name(" ".join(str(market.get(k) or "") for k in ("name", "marketName", "market_name", "label", "type", "marketType")))
         choices = market_choices(market)
         if len(choices) < 2:
             continue
-        if market_name and not any(token in market_name for token in ("winner", "match", "to win", "full time", "moneyline")):
+        if market_name and not any(token in market_name for token in ("winner", "match", "to win", "full time", "moneyline", "home away", "home/away", "1x2")):
             continue
         prices = [(choice_name(choice), choice_price(choice)) for choice in choices]
         prices = [(label, price) for label, price in prices if price is not None]
@@ -466,7 +544,6 @@ def normalize_winner_odds_payload(payload: Any) -> Optional[Dict[str, Any]]:
                 "raw": payload,
             }
     return None
-
 
 def _numeric_outcome_direction(label1: Any, label2: Any) -> Optional[str]:
     l1 = normalize_name(label1)
@@ -512,7 +589,7 @@ def fetch_daily_matches_with_odds(target_date: Optional[datetime] = None) -> Lis
     for match in matches:
         if match.get("is_doubles"):
             continue
-        odds = client.get_event_odds(match.get("event_id"))
+        odds = client.get_event_odds(match.get("event_id"), match=match)
         row = dict(match)
         if odds:
             p1, p2, direction, direct_score, reverse_score = orient_odds_to_match(match, odds)
@@ -534,6 +611,8 @@ def fetch_daily_matches_with_odds(target_date: Optional[datetime] = None) -> Lis
                 "price2": p2,
                 "odds_source": odds.get("odds_source"),
                 "odds_endpoint": odds.get("odds_endpoint"),
+                "odds_status": odds.get("odds_status", "OK"),
+                "odds_attempts": odds.get("odds_attempts", []),
                 "odds_pair_available": p1 is not None and p2 is not None,
                 "odds_labels_confirmed": direction in {
                     "DIRECT_TO_MATCH_PLAYERS",
@@ -551,6 +630,8 @@ def fetch_daily_matches_with_odds(target_date: Optional[datetime] = None) -> Lis
                 "odds_pair_available": False,
                 "odds_labels_confirmed": False,
                 "odds_matching_direction": "NO_ODDS",
+                "odds_status": "MISSING",
+                "odds_attempts": list(getattr(client, "last_odds_attempts", [])),
                 "no_odds_reason": "NO_RAPIDAPI_PRO_ODDS",
             })
         output.append(row)
