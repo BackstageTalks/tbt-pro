@@ -435,6 +435,26 @@ def write_log(row: Dict[str, Any], idx: int) -> str:
     return f"logs/{key}/"
 
 
+def ta_rank_display(row: Dict[str, Any], side: str) -> str:
+    key = "pick_ta_rank_display" if side == "pick" else "opponent_ta_rank_display"
+    value = row.get(key)
+    if value not in (None, ""):
+        return str(value)
+    raw_key = "pick_ta_rank" if side == "pick" else "opponent_ta_rank"
+    raw_value = row.get(raw_key)
+    if raw_value not in (None, ""):
+        try:
+            return f"({int(float(raw_value))})"
+        except Exception:
+            return f"({raw_value})"
+    return "(X)"
+
+
+def name_with_ta_rank(name: Any, rank_display: str) -> str:
+    base = str(name or "—").strip() or "—"
+    return f"{base} {rank_display}"
+
+
 def pick_block(row: Dict[str, Any], idx: int) -> str:
     pick = row.get("pick") or row.get("player") or row.get("player1") or "—"
     opponent = row.get("opponent") or row.get("player2") or "—"
@@ -450,10 +470,10 @@ def pick_block(row: Dict[str, Any], idx: int) -> str:
     <div class="pick-block">
       <div class="rank">#{idx}</div>
       <a class="brain" href="{esc(log_url)}" title="Open ThinQ calculation log">🧠</a>
-      <div class="pick-name">{esc(pick)}</div>
+      <div class="pick-name">{esc(name_with_ta_rank(pick, ta_rank_display(row, 'pick')))}</div>
       <div class="pick-odds">Pick @ {esc(odds_fmt(odds))}</div>
       <div class="pick-action">to beat</div>
-      <div class="opp-name">{esc(opponent)}</div>
+      <div class="opp-name">{esc(name_with_ta_rank(opponent, ta_rank_display(row, 'opponent')))}</div>
       <div class="opp-odds">Opp @ {esc(odds_fmt(opp_odds))}</div>
       <div class="meta">{esc(time)} · {esc(tournament)} · {esc(surface)} · BO{esc(best_of)}</div>
     </div>
