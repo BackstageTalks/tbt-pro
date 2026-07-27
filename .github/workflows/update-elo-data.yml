@@ -3,10 +3,11 @@ name: Update ELO Data
 on:
   workflow_dispatch:
   schedule:
-    # Runs at 04:45 Europe/Bratislava.
-    # Summer time: 02:45 UTC -> 04:45 CEST.
-    # Winter time: 03:45 UTC -> 04:45 CET.
-    - cron: "45 2,3 * * *"
+    # Runs at 04:55 Europe/Bratislava.
+    # Summer time: 02:55 UTC -> 04:55 CEST.
+    # Winter time: 03:55 UTC -> 04:55 CET.
+    # This leaves at least 45 minutes after Update TA Data at 04:10 SK/CZ.
+    - cron: "55 2,3 * * *"
 
 permissions:
   contents: write
@@ -29,7 +30,7 @@ jobs:
           from zoneinfo import ZoneInfo
 
           now = datetime.now(ZoneInfo("Europe/Bratislava"))
-          should_run = now.hour == 4 and now.minute == 45
+          should_run = now.hour == 4 and now.minute == 55
 
           print(f"now={now.isoformat()}")
           print(f"should_run={'true' if should_run else 'false'}")
