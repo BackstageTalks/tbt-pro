@@ -4,17 +4,15 @@ on:
   workflow_dispatch:
     inputs:
       limit:
-        description: "Max TA player profiles to refresh. 0 = all discovered players"
+        description: "TA profile limit"
         required: false
         default: "650"
       force_refresh:
-        description: "Refresh profiles even if cache already has OK record"
+        description: "Force refresh existing OK TA profiles"
         required: false
-        type: boolean
-        default: false
+        default: "true"
   schedule:
-    # Tuesday 00:05 UTC = approx. 02:05 Slovakia summer time.
-    - cron: "5 0 * * 2"
+    - cron: "10 4 * * *"
 
 permissions:
   contents: write
@@ -22,7 +20,7 @@ permissions:
 jobs:
   update-ta-data:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 90
 
     steps:
       - name: Checkout repository
@@ -33,50 +31,57 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then python -m pip install -r requirements.txt; fi
-          python -m pip install pandas lxml beautifulsoup4
+          python -m pip install pandas lxml html5lib beautifulsoup4
 
-      - name: Build TA rankings cache if loader CLI is available
-        continue-on-error: true
-        run: |
-          python -m thinq.loaders.ranking_loader
-
-      - name: Build TA player profile cache
+      - name: Build Tennis Abstract profile cache
         env:
           TA_PROFILE_LIMIT: ${{ github.event.inputs.limit || '650' }}
+          TA_FORCE_REFRESH: ${{ github.event.inputs.force_refresh || 'true' }}
           TA_REQUEST_DELAY_SECONDS: "0.35"
+          TA_REQUEST_TIMEOUT_SECONDS: "25"
         run: |
-          if [ "${{ github.event.inputs.force_refresh }}" = "true" ]; then
-            python -m thinq.loaders.ta_profile_loader --limit "${TA_PROFILE_LIMIT}" --force-refresh
+          echo "TA_PROFILE_LIMIT=${TA_PROFILE_LIMIT}"
+          echo "TA_FORCE_REFRESH=${TA_FORCE_REFRESH}"
+
+          if [ "${TA_FORCE_REFRESH}" = "true" ]; then
+            python thinq/loaders/ta_profile_loader.py --limit "${TA_PROFILE_LIMIT}" --force-refresh
           else
-            python -m thinq.loaders.ta_profile_loader --limit "${TA_PROFILE_LIMIT}"
+            python thinq/loaders/ta_profile_loader.py --limit "${TA_PROFILE_LIMIT}"
           fi
 
-      - name: Show generated TA files
+      - name: Show TA cache summary
         run: |
-          ls -la thinq/data/rankings || true
-          ls -la thinq/data/ta_profiles || true
           python - <<'PY'
           import json
           from pathlib import Path
-          path = Path('thinq/data/ta_profiles/ta_player_profiles.json')
-          if path.exists():
-              payload = json.loads(path.read_text(encoding='utf-8'))
-              print('TA profiles:', payload.get('profile_count'))
-              print('Stats:', payload.get('stats'))
+
+          path = Path("thinq/data/ta_profiles/ta_player_profiles.json")
+          if not path.exists():
+              raise SystemExit("TA profile cache was not created")
+
+          payload = json.loads(path.read_text(encoding="utf-8"))
+          players = payload.get("players") if isinstance(payload, dict) else {}
+          if not isinstance(players, dict):
+              players = {}
+
+          ok = sum(1 for rec in players.values() if isinstance(rec, dict) and rec.get("status") == "OK")
+          print(f"TA profiles total={len(players)} ok={ok}")
+          print(f"generated_at={payload.get('generated_at') if isinstance(payload, dict) else None}")
           PY
 
-      - name: Commit TA data cache
+      - name: Commit TA profile cache
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add thinq/data/rankings/ta_rankings.json thinq/data/ta_profiles/ta_player_profiles.json || true
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add thinq/data/ta_profiles/ta_player_profiles.json
+
           if git diff --cached --quiet; then
             echo "No TA data changes to commit."
           else
-            git commit -m "Update TA data cache"
+            git commit -m "Update Tennis Abstract profile cache"
             git push
           fi
