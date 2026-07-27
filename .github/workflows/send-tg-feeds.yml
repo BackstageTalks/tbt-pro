@@ -29,6 +29,9 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_TOP7_CHAT_ID: ${{ secrets.TELEGRAM_TOP7_CHAT_ID }}
+          TG_FEED_TIME_OFFSET_HOURS: "1"
+          TG_FEED_UPCOMING_ONLY: "true"
+          TG_FEED_PAST_GRACE_MINUTES: "0"
         run: |
           python corq/tg_feed.py --mode top7 --send
 
@@ -37,5 +40,8 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_FREE_CHAT_ID: ${{ secrets.TELEGRAM_FREE_CHAT_ID }}
+          TG_FEED_TIME_OFFSET_HOURS: "1"
+          TG_FEED_UPCOMING_ONLY: "true"
+          TG_FEED_PAST_GRACE_MINUTES: "0"
         run: |
           python corq/tg_feed.py --mode free --send
