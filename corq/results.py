@@ -454,11 +454,14 @@ def build_results(output_root: str = "outputs", run_date: Optional[str] = None, 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build CorQ/ALL results evaluation JSON files.")
+    parser.add_argument("legacy_fetch_api", nargs="?", default=None, help="Backward-compatible positional true/false value from older workflow versions.")
     parser.add_argument("--output-root", default="outputs")
     parser.add_argument("--date", dest="run_date", default=None)
     parser.add_argument("--fetch-api", action="store_true", help="Fetch TennisApi event details for winner/score/status.")
+    parser.add_argument("--sources", default="corq,all", help="Backward-compatible no-op. Results currently builds CorQ and ALL outputs.")
     args = parser.parse_args()
-    payload = build_results(output_root=args.output_root, run_date=args.run_date, fetch_api=args.fetch_api)
+    legacy_fetch = str(args.legacy_fetch_api or "").strip().lower() in {"1", "true", "yes", "y", "on"}
+    payload = build_results(output_root=args.output_root, run_date=args.run_date, fetch_api=(args.fetch_api or legacy_fetch))
     print("Results built:", payload["corq"]["summary"], payload["all"]["summary"])
 
 
