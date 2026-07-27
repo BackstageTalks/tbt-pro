@@ -47,16 +47,30 @@ except Exception:
     ]
 
 try:
-    from corq.messages import public_flag_labels
+    from corq.messages import public_flag_labels as _messages_public_flag_labels
+
+    def public_flag_labels(flags: Iterable[str], limit: Optional[int] = None) -> Listtry:
+            labels = _messages_public_flag_labels(flags)
+        except TypeError:
+            labels = _messages_public_flag_labels(flags, limit)
+
+        if labels is None:
+            labels = []
+
+        if isinstance(labels, str):
+            labels = [labels]
+
+        out = [str(x) for x in labels if x]
+        return out[:limit] if limit is not None else out
+
 except Exception:
-    def public_flag_labels(flags: Iterable[str], limit: Optional[int] = None) -> List[str]:
-        out: List[str] = []
-        for flag in flags or []:
-            if not flag:
+    def public_flag_labels(flags: Iterable[str], limit: Optional[int] = None) -> Listout = []
+        for f in flags or []:
+            if not f:
                 continue
-            txt = str(flag).replace("_", " ").strip().title()
+            txt = str(f).replace("_", " ").strip().title()
             out.append(txt)
-        return out[:limit] if limit else out
+        return out[:limit] if limit is not None else out
 
 
 def esc(value: Any) -> str:
