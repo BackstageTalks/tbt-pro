@@ -1274,15 +1274,15 @@ def sets_games_audit(rows: List[Dict[str, Any]]) -> str:
 def render_results_page(manifest: Dict[str, Any]) -> str:
     corq = json_rows(read_json(OUTPUTS / "results" / "latest_results_corq.json", []))
     cloq = json_rows(read_json(OUTPUTS / "results" / "latest_results_cloq.json", []))
-    all_rows = json_rows(read_json(OUTPUTS / "results" / "latest_results_all.json", []))
-    combined = corq + cloq + all_rows
+    audit_rows = json_rows(read_json(OUTPUTS / "results" / "latest_results_audit.json", []))
+    combined = corq + cloq + audit_rows
     body = [
         summary_cards_html(summarize_results(corq), "CorQ TOP7 Results"),
         summary_cards_html(summarize_results(cloq), "CloQ Results"),
-        summary_cards_html(summarize_results(all_rows), "ALL Results Audit"),
+        summary_cards_html(summarize_results(audit_rows), "Audit Results"),
         render_results_table(corq, "CorQ TOP7 Results"),
         render_results_table(cloq, "CloQ Results"),
-        render_results_table(all_rows, "ALL Results Audit", limit=80),
+        render_results_table(audit_rows, "Audit Results", limit=80),
         tag_analysis(combined),
         depth_analysis(combined),
         sets_games_audit(combined),
