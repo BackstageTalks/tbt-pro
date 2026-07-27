@@ -228,7 +228,7 @@ def load_source_rows(kind: str) -> Tuple[Any, List[Dict[str, Any]]]:
             if rows:
                 return payload, rows
     if kind == "audit":
-        for path in (SNAPSHOTS_DIR / "latest_all_audit_snapshot.json", OUTPUTS / "latest_all.json"):
+        for path in (SNAPSHOTS_DIR / "latest_all_audit_snapshot.json", OUTPUTS / "latest_audit.json"):
             payload = read_json(path, None)
             rows = json_rows(payload)
             if rows:
@@ -244,7 +244,7 @@ def build_results_database(run_date: Optional[str] = None, output_root: Path = R
 
     old_corq = existing_index(json_rows(read_json(output_root / "latest_results_corq.json", [])))
     old_cloq = existing_index(json_rows(read_json(output_root / "latest_results_cloq.json", [])))
-    old_audit = existing_index(json_rows(read_json(output_root / "latest_results_all.json", [])))
+    old_audit = existing_index(json_rows(read_json(output_root / "latest_results_audit.json", [])))
 
     corq_results = [enrich_result_row(r, "corq", day, old_corq.get(side_identity(r))) for r in corq_rows]
     cloq_results = [enrich_result_row(r, "cloq", day, old_cloq.get(side_identity(r))) for r in cloq_rows]
@@ -256,14 +256,11 @@ def build_results_database(run_date: Optional[str] = None, output_root: Path = R
 
     write_json(output_root / "latest_results_corq.json", corq_results)
     write_json(output_root / "latest_results_cloq.json", cloq_results)
-    write_json(output_root / "latest_results_all.json", audit_results)
     write_json(output_root / "latest_results_audit.json", audit_results)
 
     write_json(month_dir / f"{day}_corq.json", corq_results)
     write_json(month_dir / f"{day}_cloq.json", cloq_results)
     write_json(month_dir / f"{day}_audit.json", audit_results)
-    # Backward-compatible alias for old ALL naming.
-    write_json(month_dir / f"{day}_all.json", audit_results)
 
     rebuild_indexes(output_root)
     return {
@@ -299,7 +296,6 @@ def rebuild_indexes(output_root: Path = RESULTS_DIR) -> None:
                 "corq": "latest_results_corq.json",
                 "cloq": "latest_results_cloq.json",
                 "audit": "latest_results_audit.json",
-                "all_compat": "latest_results_all.json",
             },
         },
     )
