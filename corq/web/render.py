@@ -241,6 +241,117 @@ def normal_status(row: Dict[str, Any]) -> str:
     return str(row.get("status") or row.get("match_status") or row.get("event_status") or "").lower()
 
 
+def compact_record_label(record: str) -> Tuple[Optional[int], Optional[int]]:
+    txt = str(record or "").strip()
+    m = re.search(r"(\d+)\D+(\d+)", txt)
+    if not m:
+        return None, None
+    return int(m.group(1)), int(m.group(2))
+
+
+def surface_name(row: Dict[str, Any]) -> str:
+    return str(row.get("surface") or "Surface").strip() or "Surface"
+
+
+def card_insights(row: Dict[str, Any], notes: Optional[List[str]] = None, limit: int = 2) -> List[str]:
+    """Return max two compact, time/context-aware match insights for the pick card.
+
+    The renderer is deliberately conservative: it shows only unusually strong
+    context, and never turns raw stats into a table. Existing precomputed
+    insight fields are preferred when available.
+    """
+    candidates: List[Tuple[int, str]] = []
+
+    def add(priority: int, text: Any) -> None:
+        t = str(text or "").strip()
+        if t:
+            candidates.append((priority, t))
+
+    # Prefer already prepared intelligence outputs from THINQ/CORQ if present.
+    for key in ("card_insights", "thinq_insights", "match_insights", "public_insights"):
+        val = row.get(key)
+        items: List[Any] = []
+        if isinstance(val, list):
+            items = val
+        elif isinstance(val, str) and val.strip():
+            items = [x.strip() for x in re.split(r"[|;]", val) if x.strip()]
+        for item in items:
+            if isinstance(item, dict):
+                text = item.get("label") or item.get("text") or item.get("display")
+                pr = int(as_float(item.get("priority"), 70) or 70)
+                add(pr, text)
+            else:
+                add(70, item)
+
+    # H2H, only when it is meaningful and clearly one-sided.
+    hp, ho = h2h_record(row)
+    if hp is not None and ho is not None and (hp + ho) >= 3 and max(hp, ho) >= 3:
+        if hp == 0 or ho == 0 or abs(hp - ho) >= 3:
+            add(96, f"⚔ H2H: {hp}-{ho}")
+
+    shp, sho = surface_h2h_record(row)
+    if shp is not None and sho is not None and (shp + sho) >= 3 and max(shp, sho) >= 3:
+        if shp == 0 or sho == 0 or abs(shp - sho) >= 3:
+            add(94, f"⚔ {surface_name(row)} H2H: {shp}-{sho}")
+
+    # Last 10 records, only strong positive/negative cases.
+    pf, psf = form_records(row, "pick")
+    of, osf = form_records(row, "opponent")
+    for priority, label, rec in (
+        (88, "Pick Last 10", pf),
+        (84, "Opp Last 10", of),
+    ):
+        w, l = compact_record_label(rec)
+        if w is not None and l is not None and (w + l) >= 8 and (w >= 8 or l >= 7):
+            icon = "🔥" if w >= 8 else "⚠"
+            add(priority, f"{icon} {label}: {w}-{l}")
+
+    surf = surface_name(row)
+    for priority, label, rec in (
+        (92, f"Pick {surf} Last 10", psf),
+        (86, f"Opp {surf} Last 10", osf),
+    ):
+        w, l = compact_record_label(rec)
+        if w is not None and l is not None and (w + l) >= 8 and (w >= 8 or l >= 7):
+            icon = "🔥" if w >= 8 else "⚠"
+            add(priority, f"{icon} {label}: {w}-{l}")
+
+    # Optional absence fields if THINQ starts publishing them.
+    for side, label, priority in (("pick", "Pick", 90), ("opponent", "Opp", 82)):
+        weeks = None
+        for key in (
+            f"{side}_surface_absence_weeks",
+            f"{side}_weeks_since_surface_match",
+            f"{side}_surface_weeks_since_last_match",
+        ):
+            weeks = as_float(row.get(key))
+            if weeks is not None:
+                break
+        if weeks is not None and weeks >= 26:
+            add(priority, f"⚠ {label}: No {surf} match {int(round(weeks))}w")
+
+    # Last resort: public notes, but still limited to two rows.
+    for n in notes or []:
+        add(30, n)
+
+    out: List[str] = []
+    seen = set()
+    for _, txt in sorted(candidates, key=lambda kv: (-kv[0], kv[1])):
+        clean = re.sub(r"\s+", " ", txt).strip()
+        if clean and clean not in seen:
+            out.append(clean)
+            seen.add(clean)
+        if len(out) >= limit:
+            break
+    return out
+
+
+def card_insights_html(row: Dict[str, Any], notes: Optional[List[str]] = None) -> str:
+    insights = card_insights(row, notes, limit=2)
+    if not insights:
+        return '<div class="card-insights empty-insights"><span>—</span></div>'
+    return '<div class="card-insights">' + ''.join(f'<div>{esc(x)}</div>' for x in insights[:2]) + '</div>'
+
 def player_rank_display(row: Dict[str, Any], side: str) -> str:
     keys = [f"{side}_ta_rank_display", f"{side}_rank_display", f"{side}_ta_rank", f"{side}_rank"]
     for key in keys:
@@ -584,7 +695,6 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
     html_parts = [
         f'<article class="pick-card" data-tags="{esc(data_tags)}">',
         '<section class="pick-main">',
-        f'<div class="card-top">{rank_badge}<a class="brain" href="{log_link(row)}" title="Open calculation log">🧠</a></div>',
         f'<h2>{add_rank(p, row, "pick")}</h2>',
         f'<div class="odds-line">Pick @ <b>{fmt_odds(p_odds)}</b></div>',
         '<div class="to-beat">to beat</div>',
@@ -593,6 +703,10 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         f'<div class="time-line">{esc(start_time(row))} · {esc(meta_line(row))}</div>',
         f'<div class="status-line">Status: {esc(normal_status(row) or "—")}</div>',
         f'<div class="notes">{note_html}</div>' if note_html else '',
+        '<div class="card-footer-row">'
+        f'<div class="card-footer-tools">{rank_badge}<a class="brain" href="{log_link(row)}" title="Open calculation log">🧠</a></div>'
+        f'{card_insights_html(row, notes)}'
+        '</div>',
         '</section>',
         '<section class="metric-box">',
         f'<div class="box-head"><span>CorQ {info_icon("corq")}</span><b>{as_pct(prob, 1)}</b></div>',
@@ -628,7 +742,13 @@ def render_ta_box(row: Dict[str, Any]) -> str:
         f'<div class="box-head"><span>TA {info_icon("ta")}</span><b></b></div>',
         metric_row("Set% P / O", pct_pair(row.get("ta_pick_set_pct"), row.get("ta_opp_set_pct")), "",),
         metric_row("Game% P / O", pct_pair(row.get("ta_pick_game_pct"), row.get("ta_opp_game_pct")), "",),
-        metric_row("TB Split", esc(f"{wl_text(row.get("ta_pick_tb_split"))} / {wl_text(row.get("ta_opp_tb_split"))}")),
+        metric_row(
+            "TB Split",
+            esc(
+                f"{wl_text(row.get('ta_pick_tb_split'))} / "
+                f"{wl_text(row.get('ta_opp_tb_split'))}"
+            ),
+        ),
         metric_row("Surface DR", esc(value_pair(row.get("ta_pick_surface_dr"), row.get("ta_opp_surface_dr"), 2))),
         metric_row("TA Depth", esc(ta_depth_display(row))),
         metric_row("Aces", esc(aces_display(row))),
@@ -693,7 +813,7 @@ def copy_assets() -> str:
 def css() -> str:
     return """
 :root{--bg:#08111f;--panel:#111d2f;--panel2:#0e1828;--line:#24344d;--text:#e5eefc;--muted:#8ea5c2;--cyan:#38d5ff;--green:#34d399;--orange:#fb923c;--red:#f87171;--yellow:#facc15}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,#10233d 0,#08111f 42%,#050b14 100%);color:var(--text);font:14px/1.45 Inter,Segoe UI,Arial,sans-serif}.wrap{max-width:1680px;margin:0 auto;padding:18px}.topbar{display:flex;align-items:center;gap:16px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:12px;min-width:260px}.brand-logo{width:56px;height:56px;border-radius:999px;object-fit:contain;padding:6px;background:#071827;border:1px solid rgba(56,213,255,.65);box-shadow:0 0 22px rgba(56,213,255,.18)}.brand-title{font-weight:900;font-size:18px}.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}.nav{display:flex;gap:10px;flex-wrap:wrap}.nav a{color:#bcd1ea;text-decoration:none;border:1px solid #22344d;background:#0d1727;padding:8px 13px;border-radius:999px;font-weight:700}.nav a.active{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(56,213,255,.25),0 0 18px rgba(56,213,255,.14);color:#fff}.hero{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}.hero-panel{background:linear-gradient(180deg,rgba(17,29,47,.92),rgba(9,17,30,.92));border:1px solid #23344d;border-radius:18px;padding:14px}.hero-title{font-size:11px;color:var(--cyan);text-transform:uppercase;letter-spacing:.14em;font-weight:900}.hero-line{margin-top:4px;color:#dbeafe}.grid{display:grid;gap:14px}.pick-card{display:grid;grid-template-columns:minmax(260px,1.1fr) repeat(5,minmax(220px,1fr));gap:12px;background:rgba(10,18,32,.72);border:1px solid #20314a;border-radius:22px;padding:12px;box-shadow:0 12px 36px rgba(0,0,0,.25)}.pick-main,.metric-box{background:linear-gradient(180deg,#121f32,#0c1625);border:1px solid #283a55;border-radius:18px;padding:14px;min-width:0}.card-top{display:flex;justify-content:space-between;align-items:center}.rank-num{color:var(--cyan);font-size:12px;font-weight:900}.brain{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;text-decoration:none;background:#15243a;border:1px solid #334862;z-index:2}.pick-main h2,.pick-main h3{margin:8px 0 4px;font-size:18px;line-height:1.2}.pick-main h3{font-size:16px;color:#dbeafe}.rank{font-size:.82em;color:#7dd3fc;font-weight:800}.odds-line{display:inline-block;color:#7ee7aa;background:#07351f;border:1px solid #0d7c49;border-radius:999px;padding:3px 8px;font-weight:800}.odds-line.muted{color:#bdd7f5;background:#111d2d;border-color:#263b58}.to-beat{margin:8px 0;color:#67e8f9;font-weight:900;text-transform:uppercase;font-size:11px}.time-line,.status-line{color:var(--muted);font-size:12px;margin-top:8px}.notes{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.note,.result-tag,.tag-chip{display:inline-flex;align-items:center;border-radius:999px;padding:4px 8px;background:#16243a;border:1px solid #344a68;color:#bcd1ea;font-size:11px;font-weight:800}.box-head{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:10px;font-size:13px;font-weight:900;color:#bae6fd}.box-head b{font-size:20px;color:var(--green)}.metric-row{display:flex;justify-content:space-between;gap:12px;border-top:1px solid rgba(148,163,184,.14);padding:8px 0;color:#9fb5d1}.metric-row:first-of-type{border-top:0}.metric-row b{color:#f8fafc;text-align:right}.metric-row.good b{color:#f8fafc}.metric-row.bad b{color:var(--orange)}.metric-row.neutral b{color:#b9c6d8}.small-box .metric-row{font-size:12px}.depth-wrap{display:inline-flex;align-items:center;gap:8px}.depth-number{min-width:38px;text-align:right;color:#f8fafc}.depth-bar{display:inline-block;width:74px;height:8px;background:#1e293b;border-radius:999px;overflow:hidden;border:1px solid #334155}.depth-bar span{display:block;height:100%}.bar-good{background:linear-gradient(90deg,#10b981,#67e8f9)}.bar-mid{background:linear-gradient(90deg,#facc15,#fb923c)}.bar-bad{background:linear-gradient(90deg,#ef4444,#fb923c)}.info{position:relative;display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:999px;border:1px solid #4b6b8d;color:#93c5fd;font-size:10px;margin-left:4px;cursor:help}.info:hover:after,.info:focus:after{content:attr(data-tip);position:absolute;left:50%;top:22px;transform:translateX(-50%);z-index:50;width:min(320px,80vw);white-space:normal;text-align:left;background:#0b1424;color:#e5eefc;border:1px solid #34506f;border-radius:12px;padding:10px 12px;box-shadow:0 12px 30px rgba(0,0,0,.35);font-size:12px;line-height:1.35}.summary-panel,.results-panel{margin-top:16px;background:#0d1727;border:1px solid #24344d;border-radius:20px;padding:16px}.summary-title{font-size:12px;color:var(--cyan);font-weight:900;text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px}.tag-list{display:flex;flex-wrap:wrap;gap:8px}.tag-chip{cursor:pointer}.tag-chip.active{border-color:var(--cyan);color:#fff;box-shadow:0 0 16px rgba(56,213,255,.18)}.clear-filter{display:none;margin-left:8px;color:#93c5fd;cursor:pointer}.table-wrap{overflow:auto;border:1px solid #24344d;border-radius:16px}.results-table{width:100%;border-collapse:collapse;min-width:1150px;background:#0b1424}.results-table th{background:#172235;color:#9cc5e8;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.08em;padding:11px}.results-table td{border-top:1px solid #26354d;padding:11px;vertical-align:top}.status-won{color:#34d399;font-weight:900}.status-lost{color:#fb7185;font-weight:900}.status-pending{color:#facc15;font-weight:900}.status-void{color:#94a3b8;font-weight:900}.empty{padding:34px;text-align:center;color:#9fb5d1;background:#0d1727;border:1px dashed #334155;border-radius:20px}.footer{margin-top:26px;text-align:center;color:#6f86a4;font-size:12px}@media(max-width:1200px){.pick-card{grid-template-columns:1fr 1fr}.hero{grid-template-columns:1fr}}@media(max-width:760px){.wrap{padding:10px}.topbar{align-items:flex-start;flex-direction:column}.pick-card{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.brand-logo{width:48px;height:48px}.metric-row{font-size:13px}.pick-main h2{font-size:17px}}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,#10233d 0,#08111f 42%,#050b14 100%);color:var(--text);font:14px/1.45 Inter,Segoe UI,Arial,sans-serif}.wrap{max-width:1680px;margin:0 auto;padding:18px}.topbar{display:flex;align-items:center;gap:16px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:12px;min-width:260px}.brand-logo{width:56px;height:56px;border-radius:999px;object-fit:contain;padding:6px;background:#071827;border:1px solid rgba(56,213,255,.65);box-shadow:0 0 22px rgba(56,213,255,.18)}.brand-title{font-weight:900;font-size:18px}.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}.nav{display:flex;gap:10px;flex-wrap:wrap}.nav a{color:#bcd1ea;text-decoration:none;border:1px solid #22344d;background:#0d1727;padding:8px 13px;border-radius:999px;font-weight:700}.nav a.active{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(56,213,255,.25),0 0 18px rgba(56,213,255,.14);color:#fff}.hero{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}.hero-panel{background:linear-gradient(180deg,rgba(17,29,47,.92),rgba(9,17,30,.92));border:1px solid #23344d;border-radius:18px;padding:14px}.hero-title{font-size:11px;color:var(--cyan);text-transform:uppercase;letter-spacing:.14em;font-weight:900}.hero-line{margin-top:4px;color:#dbeafe}.grid{display:grid;gap:14px}.pick-card{display:grid;grid-template-columns:minmax(260px,1.1fr) repeat(5,minmax(220px,1fr));gap:12px;background:rgba(10,18,32,.72);border:1px solid #20314a;border-radius:22px;padding:12px;box-shadow:0 12px 36px rgba(0,0,0,.25)}.pick-main,.metric-box{background:linear-gradient(180deg,#121f32,#0c1625);border:1px solid #283a55;border-radius:18px;padding:14px;min-width:0}.card-top{display:flex;justify-content:space-between;align-items:center}.rank-num{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;padding:0 8px;border-radius:999px;background:#13253c;border:1px solid #2d4b6f;color:var(--cyan);font-size:12px;font-weight:900}.brain{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:999px;text-decoration:none;background:#15243a;border:1px solid #334862;flex:0 0 auto}.card-footer-row{display:flex;align-items:flex-end;gap:8px;margin-top:12px}.card-footer-tools{display:flex;align-items:center;gap:6px;flex:0 0 auto}.card-insights{flex:1;min-width:0;background:#101b2c;border:1px solid rgba(51,72,98,.55);border-radius:10px;padding:5px 8px;color:#dbeafe;font-size:11px;font-weight:800;line-height:1.25;overflow:hidden}.card-insights div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.card-insights.empty-insights{color:#64748b}.pick-main h2,.pick-main h3{margin:8px 0 4px;font-size:18px;line-height:1.2}.pick-main h3{font-size:16px;color:#dbeafe}.rank{font-size:.82em;color:#7dd3fc;font-weight:800}.odds-line{display:inline-block;color:#7ee7aa;background:#07351f;border:1px solid #0d7c49;border-radius:999px;padding:3px 8px;font-weight:800}.odds-line.muted{color:#bdd7f5;background:#111d2d;border-color:#263b58}.to-beat{margin:8px 0;color:#67e8f9;font-weight:900;text-transform:uppercase;font-size:11px}.time-line,.status-line{color:var(--muted);font-size:12px;margin-top:8px}.notes{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.note,.result-tag,.tag-chip{display:inline-flex;align-items:center;border-radius:999px;padding:4px 8px;background:#16243a;border:1px solid #344a68;color:#bcd1ea;font-size:11px;font-weight:800}.box-head{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:10px;font-size:13px;font-weight:900;color:#bae6fd}.box-head b{font-size:20px;color:var(--green)}.metric-row{display:flex;justify-content:space-between;gap:12px;border-top:1px solid rgba(148,163,184,.14);padding:8px 0;color:#9fb5d1}.metric-row:first-of-type{border-top:0}.metric-row b{color:#f8fafc;text-align:right}.metric-row.good b{color:#f8fafc}.metric-row.bad b{color:var(--orange)}.metric-row.neutral b{color:#b9c6d8}.small-box .metric-row{font-size:12px}.depth-wrap{display:inline-flex;align-items:center;gap:8px}.depth-number{min-width:38px;text-align:right;color:#f8fafc}.depth-bar{display:inline-block;width:74px;height:8px;background:#1e293b;border-radius:999px;overflow:hidden;border:1px solid #334155}.depth-bar span{display:block;height:100%}.bar-good{background:linear-gradient(90deg,#10b981,#67e8f9)}.bar-mid{background:linear-gradient(90deg,#facc15,#fb923c)}.bar-bad{background:linear-gradient(90deg,#ef4444,#fb923c)}.info{position:relative;display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:999px;border:1px solid #4b6b8d;color:#93c5fd;font-size:10px;margin-left:4px;cursor:help}.info:hover:after,.info:focus:after{content:attr(data-tip);position:absolute;left:50%;top:22px;transform:translateX(-50%);z-index:50;width:min(320px,80vw);white-space:normal;text-align:left;background:#0b1424;color:#e5eefc;border:1px solid #34506f;border-radius:12px;padding:10px 12px;box-shadow:0 12px 30px rgba(0,0,0,.35);font-size:12px;line-height:1.35}.summary-panel,.results-panel{margin-top:16px;background:#0d1727;border:1px solid #24344d;border-radius:20px;padding:16px}.summary-title{font-size:12px;color:var(--cyan);font-weight:900;text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px}.tag-list{display:flex;flex-wrap:wrap;gap:8px}.tag-chip{cursor:pointer}.tag-chip.active{border-color:var(--cyan);color:#fff;box-shadow:0 0 16px rgba(56,213,255,.18)}.clear-filter{display:none;margin-left:8px;color:#93c5fd;cursor:pointer}.table-wrap{overflow:auto;border:1px solid #24344d;border-radius:16px}.results-table{width:100%;border-collapse:collapse;min-width:1150px;background:#0b1424}.results-table th{background:#172235;color:#9cc5e8;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.08em;padding:11px}.results-table td{border-top:1px solid #26354d;padding:11px;vertical-align:top}.status-won{color:#34d399;font-weight:900}.status-lost{color:#fb7185;font-weight:900}.status-pending{color:#facc15;font-weight:900}.status-void{color:#94a3b8;font-weight:900}.empty{padding:34px;text-align:center;color:#9fb5d1;background:#0d1727;border:1px dashed #334155;border-radius:20px}.footer{margin-top:26px;text-align:center;color:#6f86a4;font-size:12px}@media(max-width:1200px){.pick-card{grid-template-columns:1fr 1fr}.hero{grid-template-columns:1fr}}@media(max-width:760px){.wrap{padding:10px}.topbar{align-items:flex-start;flex-direction:column}.pick-card{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.brand-logo{width:48px;height:48px}.metric-row{font-size:13px}.pick-main h2{font-size:17px}}
 """
 
 
