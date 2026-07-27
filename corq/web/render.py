@@ -1156,7 +1156,7 @@ def tag_analysis_html(payloads: List[Dict[str, Any]]) -> str:
         trs.append(
             '<tr>'
             f'<td>{esc(tag)}</td><td>{esc(row["count"])}</td><td>{esc(row["won"])}-{esc(row["lost"])}-{esc(row["pending"])}</td>'
-            f'<td>{esc(win)}</td><td>{esc(res_units(row.get("units")))}</td><td>{esc("—" if row.get("avg_odds") is None else f"{row.get("avg_odds"):.2f}")}</td>'
+            f'<td>{esc(win)}</td><td>{esc(res_units(row.get("units")))}</td><td>{esc("—" if row.get('avg_odds') is None else f"{row.get("avg_odds"):.2f}")}</td>'
             '</tr>'
         )
     return (
