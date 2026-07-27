@@ -1,62 +1,73 @@
 # BackstageTalks Project Development Metrics
 
-Generated: `2026-07-27T19:34:39+00:00`
+Generated: `2026-07-27T19:47:04+00:00`
 
-## Git snapshot
-- Branch: `main`
-- Commit count: **497**
-- Latest commit: `7ab9895 2026-07-27 Delete tools/1.py`
-
-## Executive summary
-- Tracked files: **110**
-- Total lines: **440,969**
-- Estimated code lines: **439,049**
-- Blank lines: **1,820**
-- Comment/config note lines: **100**
-- Tracked text size: **13537.1 KB**
+## Customer-facing summary
+- Maintained source/config/docs files: **63**
+- Maintained source/config/docs lines: **12,095**
+- Estimated maintained code/config lines: **10,175**
+- Data/cache files tracked separately: **26**
+- Data/cache lines tracked separately: **172,765**
+- All tracked text files together: **89 files / 184,860 lines**
+- Git commits: **500**
+- Latest commit: `367b10a 2026-07-27 Add files via upload`
 
 ## By file type
 
-| Extension | Files | Total lines | Code lines | Size KB |
+| Extension | Files | Lines | Code/config lines | Size KB |
 |---:|---:|---:|---:|---:|
-| `.json` | 43 | 428,885 | 428,885 | 13084.1 |
-| `.py` | 57 | 11,506 | 9,693 | 435.6 |
+| `.json` | 9 | 130,348 | 130,348 | 3901.2 |
+| `.csv` | 15 | 42,415 | 42,415 | 8556.5 |
+| `.py` | 57 | 11,529 | 9,711 | 436.0 |
 | `.yml` | 8 | 568 | 464 | 17.2 |
-| `.txt` | 2 | 10 | 7 | 0.2 |
 
 ## By top-level directory
 
-| Directory | Files | Total lines | Code lines |
+| Directory | Files | Lines | Code/config lines |
 |---|---:|---:|---:|
-| `outputs` | 35 | 298,546 | 298,543 |
 | `thinq` | 34 | 136,094 | 135,184 |
+| `data` | 18 | 42,585 | 42,584 |
 | `corq` | 22 | 4,995 | 4,190 |
 | `.github` | 8 | 568 | 464 |
 | `cloq` | 3 | 376 | 312 |
-| `tools` | 1 | 195 | 171 |
-| `data` | 3 | 170 | 169 |
+| `tools` | 1 | 218 | 189 |
 | `engine.py` | 1 | 16 | 11 |
 | `runtime` | 2 | 8 | 4 |
-| `requirements.txt` | 1 | 1 | 1 |
 
-## Largest tracked files
+## Largest maintained source files
 
-| File | Lines | Code lines |
+| File | Lines | Code/config lines |
 |---|---:|---:|
-| `outputs/2026/all/all_2026-07-25.json` | 106,430 | 106,430 |
-| `thinq/data/elo/elo_cache.json` | 71,195 | 71,195 |
-| `outputs/results/all/2026/results_all_2026-07-26.json` | 48,411 | 48,411 |
-| `outputs/2026/all/all_2026-07-26.json` | 47,419 | 47,419 |
-| `outputs/snapshots/2026/2026-07-26_all_audit_snapshot.json` | 47,419 | 47,419 |
-| `thinq/data/rankings/ta_rankings.json` | 34,529 | 34,529 |
-| `outputs/2026/all/all_2026-07-24.json` | 27,208 | 27,208 |
-| `thinq/data/elo/ta_elo_ratings.json` | 14,213 | 14,213 |
-| `thinq/data/ta_profiles/ta_player_profiles.json` | 10,115 | 10,115 |
-| `outputs/results/corq/2026/results_corq_2026-07-26.json` | 4,987 | 4,987 |
-| `outputs/2026/top7/top7_2026-07-26.json` | 4,878 | 4,878 |
-| `outputs/snapshots/2026/2026-07-26_corq_top7_snapshot.json` | 4,878 | 4,878 |
-| `outputs/2026/top7/top7_2026-07-24.json` | 2,741 | 2,741 |
 | `corq/web/render.py` | 1,335 | 1,142 |
-| `outputs/results/latest_results_cloq.json` | 1,290 | 1,290 |
+| `corq/ranking.py` | 874 | 721 |
+| `thinq/loaders/rapidapi_client.py` | 843 | 714 |
+| `thinq/loaders/ta_profile_loader.py` | 673 | 573 |
+| `thinq/loaders/sackmann_loader.py` | 617 | 484 |
+| `corq/results.py` | 469 | 403 |
+| `thinq/loaders/elo_loader.py` | 454 | 392 |
+| `thinq/service.py` | 415 | 390 |
+| `corq/tg_feed.py` | 393 | 321 |
+| `cloq/builder.py` | 368 | 306 |
+| `corq/engine.py` | 343 | 296 |
+| `thinq/loaders/h2h_loader.py` | 331 | 286 |
+| `thinq/thinq_service.py` | 328 | 305 |
+| `thinq/loaders/history_loader.py` | 316 | 263 |
+| `corq/presentation.py` | 280 | 223 |
 
-_Note: Generated folders, site build outputs, virtual environments, caches and lock files are excluded to keep the report focused on maintained project work._
+## Largest data/cache files, separated from code
+
+| File | Lines | Size KB |
+|---|---:|---:|
+| `thinq/data/elo/elo_cache.json` | 71,195 | 2068.5 |
+| `thinq/data/rankings/ta_rankings.json` | 34,529 | 1031.1 |
+| `thinq/data/elo/ta_elo_ratings.json` | 14,213 | 453.6 |
+| `thinq/data/ta_profiles/ta_player_profiles.json` | 10,115 | 338.9 |
+| `data/history/tml/2025_challenger.csv` | 6,412 | 1284.0 |
+| `data/history/tml/2024_challenger.csv` | 6,064 | 1205.5 |
+| `data/history/tml/2026_challenger.csv` | 4,346 | 869.1 |
+| `data/history/sackmann_archive/atp/2024/atp_matches_2024.csv` | 3,077 | 634.9 |
+| `data/history/tml/2024.csv` | 3,077 | 640.8 |
+| `data/history/sackmann_archive/atp/2025/atp_matches_2025.csv` | 2,945 | 602.7 |
+
+_Note: Source totals exclude generated site files, outputs, virtualenvs, caches and large data caches._
+_Note: Data totals are reported separately so JSON/CSV caches are not presented as hand-written code._
