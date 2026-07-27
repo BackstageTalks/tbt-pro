@@ -991,6 +991,11 @@ def nav_html(active: str) -> str:
         label_s = str(label)
         path_s = str(path)
         key_s = str(key)
+        display_label = label_s
+        if label_s.strip().lower() in {"all", "all audit"}:
+            display_label = "Audit"
+        elif label_s.strip().lower() in {"tg rss", "telegram rss"}:
+            display_label = "TG"
         is_xml = path_s.endswith(".xml")
         if active == "root":
             href = path_s if is_xml else f"{path_s}/"
