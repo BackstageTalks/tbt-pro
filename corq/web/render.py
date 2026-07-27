@@ -38,45 +38,44 @@ except Exception:
     CLOQ_RSS_PATH = "h4v34n1c3d4y185.xml"
     THINQ_PATH = "h4v34n1c3d4y186"
     THINQ_RSS_PATH = "h4v34n1c3d4y187.xml"
-    NAV_ITEMS = [
-        ("CorQ", TOP7_PATH),
-        ("All", ALL_PATH),
-        ("Results", RESULTS_PATH),
-        ("CloQ", CLOQ_PATH),
-        ("TG RSS", CORQ_RSS_PATH),
-    ]
+    NAV_ITEMS = [("CorQ", TOP7_PATH), ("All", ALL_PATH), ("Results", RESULTS_PATH), ("CloQ", CLOQ_PATH), ("TG RSS", CORQ_RSS_PATH)]
 
 try:
     from corq.messages import public_flag_labels as _messages_public_flag_labels
+except Exception:
+    _messages_public_flag_labels = None
 
-    def public_flag_labels(flags: Iterable[str], limit: Optional[int] = None) -> Listtry:
+
+def public_flag_labels(flags: Iterable[str], limit: Optional[int] = None) -> List[str]:
+    if _messages_public_flag_labels is not None:
+        try:
             labels = _messages_public_flag_labels(flags)
         except TypeError:
-            labels = _messages_public_flag_labels(flags, limit)
-
-        if labels is None:
-            labels = []
-
-        if isinstance(labels, str):
-            labels = [labels]
-
-        out = [str(x) for x in labels if x]
-        return out[:limit] if limit is not None else out
-
-except Exception:
-    def public_flag_labels(flags: Iterable[str], limit: Optional[int] = None) -> Listout = []
-        for f in flags or []:
-            if not f:
-                continue
-            txt = str(f).replace("_", " ").strip().title()
-            out.append(txt)
-        return out[:limit] if limit is not None else out
+            try:
+                labels = _messages_public_flag_labels(flags, limit)
+            except TypeError:
+                labels = []
+    else:
+        labels = []
+        for flag in flags or []:
+            if flag:
+                labels.append(str(flag).replace("_", " ").strip().title())
+    if labels is None:
+        labels = []
+    if isinstance(labels, str):
+        labels = [labels]
+    out: List[str] = []
+    seen = set()
+    for item in labels:
+        text = str(item).strip()
+        if text and text not in seen:
+            out.append(text)
+            seen.add(text)
+    return out[:limit] if limit is not None else out
 
 
 def esc(value: Any) -> str:
-    if value is None:
-        return ""
-    return html.escape(str(value), quote=True)
+    return html.escape("" if value is None else str(value), quote=True)
 
 
 def read_json(path: Path, default: Any) -> Any:
@@ -97,12 +96,10 @@ def json_rows(obj: Any) -> List[Dict[str, Any]]:
     if isinstance(obj, list):
         return [x for x in obj if isinstance(x, dict)]
     if isinstance(obj, dict):
-        for key in ("rows", "items", "top7", "all", "picks", "cloq", "records", "results"):
+        for key in ("rows", "items", "top7", "all", "picks", "cloq", "records", "results", "data"):
             val = obj.get(key)
             if isinstance(val, list):
                 return [x for x in val if isinstance(x, dict)]
-        if isinstance(obj.get("data"), list):
-            return [x for x in obj["data"] if isinstance(x, dict)]
     return []
 
 
@@ -152,12 +149,7 @@ def normal_status(row: Dict[str, Any]) -> str:
 
 
 def player_rank_display(row: Dict[str, Any], side: str) -> str:
-    keys = [
-        f"{side}_ta_rank_display",
-        f"{side}_rank_display",
-        f"{side}_ta_rank",
-        f"{side}_rank",
-    ]
+    keys = [f"{side}_ta_rank_display", f"{side}_rank_display", f"{side}_ta_rank", f"{side}_rank"]
     for key in keys:
         val = row.get(key)
         if val is None or val == "":
@@ -168,7 +160,7 @@ def player_rank_display(row: Dict[str, Any], side: str) -> str:
         try:
             return f"({int(float(txt))})"
         except Exception:
-            if txt and txt != "None":
+            if txt and txt.lower() != "none":
                 return f"({txt})"
     return "(X)"
 
@@ -205,14 +197,7 @@ def opponent_odds(row: Dict[str, Any]) -> Optional[float]:
 
 
 def probability(row: Dict[str, Any]) -> Optional[float]:
-    for key in (
-        "corq_probability",
-        "corq_estimated_win_probability",
-        "win_probability",
-        "estimated_win_probability",
-        "probability",
-        "cloq_probability",
-    ):
+    for key in ("corq_probability", "corq_estimated_win_probability", "win_probability", "estimated_win_probability", "probability", "cloq_probability"):
         val = as_float(row.get(key))
         if val is not None:
             return val
@@ -378,14 +363,7 @@ def notes_for_row(row: Dict[str, Any]) -> List[str]:
         flags.append("H2H_NO_PREVIOUS_MATCHES")
     if row.get("recent_form_status") in {"NO_DATA", "PENDING"} or str(row.get("recent_form_status") or "").upper().endswith("PENDING"):
         flags.append("RECENT_FORM_NO_DATA")
-    labels = public_flag_labels(flags, limit=None)
-    out: List[str] = []
-    seen = set()
-    for item in labels:
-        if item and item not in seen:
-            seen.add(item)
-            out.append(item)
-    return out
+    return public_flag_labels(flags, limit=None)
 
 
 def slugify(value: Any) -> str:
@@ -475,8 +453,7 @@ def meta_line(row: Dict[str, Any]) -> str:
 
 
 def log_link(row: Dict[str, Any]) -> str:
-    key = match_key(row)
-    return f'logs/{esc(key)}/index.html'
+    return f'logs/{esc(match_key(row))}/index.html'
 
 
 def ensure_logs(rows: List[Dict[str, Any]]) -> None:
@@ -525,16 +502,8 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         '</section>',
         '<section class="metric-box">',
         f'<div class="box-head"><span>CorQ {info_icon("corq")}</span><b>{as_pct(prob, 1)}</b></div>',
-        metric_row(
-            "Pick ELO / S-ELO",
-            f'{signed_pct(row.get("elo_edge") or row.get("pick_elo_edge"))} / {signed_pct(row.get("surface_elo_edge") or row.get("pick_surface_elo_edge"))}',
-            sign_class(row.get("elo_edge") or row.get("pick_elo_edge")),
-        ),
-        metric_row(
-            "Opp ELO / S-ELO",
-            f'{signed_pct(-(as_float(row.get("elo_edge") or row.get("pick_elo_edge"), 0) or 0))} / {signed_pct(-(as_float(row.get("surface_elo_edge") or row.get("pick_surface_elo_edge"), 0) or 0))}',
-            "good",
-        ),
+        metric_row("Pick ELO / S-ELO", f'{signed_pct(row.get("elo_edge") or row.get("pick_elo_edge"))} / {signed_pct(row.get("surface_elo_edge") or row.get("pick_surface_elo_edge"))}', sign_class(row.get("elo_edge") or row.get("pick_elo_edge"))),
+        metric_row("Opp ELO / S-ELO", f'{signed_pct(-(as_float(row.get("elo_edge") or row.get("pick_elo_edge"), 0) or 0))} / {signed_pct(-(as_float(row.get("surface_elo_edge") or row.get("pick_surface_elo_edge"), 0) or 0))}', "good"),
         metric_row("H2H P-O", esc(h2h_display(row)), h2h_class(row)),
         metric_row("S-H2H P-O", esc(surface_h2h_display(row)), surface_h2h_class(row)),
         metric_row("Pick ThinQ Edge", esc(f"{pe_txt} / {pe_state}"), pe_cls),
@@ -635,7 +604,10 @@ def nav_html(active: str) -> str:
         path_s = str(path)
         key_s = str(key)
         is_xml = path_s.endswith(".xml")
-        href = (path_s if is_xml else f"{path_s}/") if active == "root" else (f"../{path_s}" if is_xml else f"../{path_s}/")
+        if active == "root":
+            href = path_s if is_xml else f"{path_s}/"
+        else:
+            href = f"../{path_s}" if is_xml else f"../{path_s}/"
         active_values = {label_s.lower(), path_s.lower(), key_s.lower()}
         cls = "active" if str(active).lower() in active_values else ""
         parts.append(f'<a class="{cls}" href="{esc(href)}">{esc(label_s)}</a>')
@@ -838,8 +810,7 @@ def render_sets_games_result_cell(row: Dict[str, Any]) -> str:
 def tag_analysis(rows: List[Dict[str, Any]]) -> str:
     agg: Dict[str, Dict[str, Any]] = defaultdict(lambda: {"count": 0, "won": 0, "lost": 0, "pending": 0, "units": 0.0, "odds": []})
     for r in rows:
-        tags = result_tags(r)
-        for t in tags:
+        for t in result_tags(r):
             a = agg[t]
             a["count"] += 1
             st = result_status(r)
@@ -927,16 +898,17 @@ def render_results_page(manifest: Dict[str, Any]) -> str:
     cloq = json_rows(read_json(OUTPUTS / "results" / "latest_results_cloq.json", []))
     all_rows = json_rows(read_json(OUTPUTS / "results" / "latest_results_all.json", []))
     combined = corq + cloq + all_rows
-    body = []
-    body.append(summary_cards_html(summarize_results(corq), "CorQ TOP7 Results"))
-    body.append(summary_cards_html(summarize_results(cloq), "CloQ Results"))
-    body.append(summary_cards_html(summarize_results(all_rows), "ALL Results Audit"))
-    body.append(render_results_table(corq, "CorQ TOP7 Results"))
-    body.append(render_results_table(cloq, "CloQ Results"))
-    body.append(render_results_table(all_rows, "ALL Results Audit", limit=80))
-    body.append(tag_analysis(combined))
-    body.append(depth_analysis(combined))
-    body.append(sets_games_audit(combined))
+    body = [
+        summary_cards_html(summarize_results(corq), "CorQ TOP7 Results"),
+        summary_cards_html(summarize_results(cloq), "CloQ Results"),
+        summary_cards_html(summarize_results(all_rows), "ALL Results Audit"),
+        render_results_table(corq, "CorQ TOP7 Results"),
+        render_results_table(cloq, "CloQ Results"),
+        render_results_table(all_rows, "ALL Results Audit", limit=80),
+        tag_analysis(combined),
+        depth_analysis(combined),
+        sets_games_audit(combined),
+    ]
     return page_shell("Results", RESULTS_PATH, "\n".join(body), manifest)
 
 
