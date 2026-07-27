@@ -1,0 +1,41 @@
+name: Send TG Feeds
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Feed mode: top7, free, or both"
+        required: false
+        default: "both"
+
+permissions:
+  contents: read
+
+jobs:
+  send-tg-feeds:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Send TOP7 feed
+        if: ${{ github.event.inputs.mode == 'top7' || github.event.inputs.mode == 'both' || github.event.inputs.mode == '' }}
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_TOP7_CHAT_ID: ${{ secrets.TELEGRAM_TOP7_CHAT_ID }}
+        run: |
+          python corq/tg_feed.py --mode top7 --send
+
+      - name: Send FREE feed
+        if: ${{ github.event.inputs.mode == 'free' || github.event.inputs.mode == 'both' || github.event.inputs.mode == '' }}
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_FREE_CHAT_ID: ${{ secrets.TELEGRAM_FREE_CHAT_ID }}
+        run: |
+          python corq/tg_feed.py --mode free --send
