@@ -1,523 +1,465 @@
-#!/usr/bin/env python3
-"""TBT PRO Results foundation and evaluation.
-
-This module builds separate Results outputs for:
-- CorQ TOP7 Results: published / selected CorQ picks.
-- ALL Results Audit: all current audit rows from ALL.
-
-Design rules:
-- Results evaluate saved/output JSON rows, not a changing web page.
-- CorQ results and ALL audit stay separate.
-- Missing or not-finished matches remain PENDING.
-- Cancelled, postponed, walkover/no-contest style states are VOID.
-- Unit staking is flat 1u: win = odds - 1, loss = -1, void/pending = 0.
-
-Usage:
-    python -m corq.results --output-root outputs --fetch-api true
-"""
-
 from __future__ import annotations
 
 import argparse
+import http.client
 import json
 import os
 import re
-import shutil
-import sys
 import time
-import http.client
-from collections import Counter, defaultdict
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
-TENNISAPI_HOST = "tennisapi1.p.rapidapi.com"
-DEFAULT_TIMEOUT = 25
-REQUEST_SLEEP_SECONDS = 0.15
-
-FINISHED_STATES = {"finished", "ended", "complete", "completed", "final"}
-LIVE_STATES = {"inprogress", "in_progress", "live", "started", "running"}
-VOID_STATES = {"cancelled", "canceled", "postponed", "walkover", "retired", "interrupted", "abandoned"}
-PENDING_STATES = {"notstarted", "not_started", "scheduled", "open", "prematch", "upcoming", "pending", "unknown", ""}
+RAPIDAPI_HOST = "tennisapi1.p.rapidapi.com"
 
 
-def utc_now_iso() -> str:
-    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
-
-
-def today_iso() -> str:
-    # UTC date is enough for file labels; snapshots carry event timestamps separately.
-    return datetime.now(timezone.utc).date().isoformat()
-
-
-def read_json(path: Path, default: Any = None) -> Any:
-    if not path.exists():
-        return default
+def _load_json(path: Path, default: Any) -> Any:
     try:
-        return json.loads(path.read_text(encoding="utf-8"))
+        if path.exists():
+            return json.loads(path.read_text(encoding="utf-8"))
     except Exception:
-        return default
-
-
-def write_json(path: Path, payload: Any) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=False), encoding="utf-8")
-
-
-def as_rows(payload: Any) -> List[Dict[str, Any]]:
-    """Accept list or common dict wrappers and return a list of row dicts."""
-    if payload is None:
-        return []
-    if isinstance(payload, list):
-        return [x for x in payload if isinstance(x, dict)]
-    if isinstance(payload, dict):
-        for key in (
-            "rows", "items", "matches", "predictions", "top7", "all", "data", "records", "results"
-        ):
-            value = payload.get(key)
-            if isinstance(value, list):
-                return [x for x in value if isinstance(x, dict)]
-        # If dict is one record, keep it.
-        if any(k in payload for k in ("pick", "player1", "match_id", "event_id")):
-            return [payload]
-    return []
-
-
-def norm_text(value: Any) -> str:
-    return str(value or "").strip()
-
-
-def norm_name(value: Any) -> str:
-    text = norm_text(value).lower()
-    text = re.sub(r"[^a-z0-9]+", " ", text)
-    return re.sub(r"\s+", " ", text).strip()
-
-
-def to_float(value: Any, default: Optional[float] = None) -> Optional[float]:
-    try:
-        if value is None or value == "":
-            return default
-        if isinstance(value, str):
-            value = value.replace("%", "").strip()
-        return float(value)
-    except Exception:
-        return default
-
-
-def pct_value(row: Dict[str, Any], *keys: str) -> Optional[float]:
-    for key in keys:
-        value = to_float(row.get(key))
-        if value is None:
-            continue
-        if value > 1.0:
-            return value / 100.0
-        return value
-    return None
-
-
-def get_first(row: Dict[str, Any], *keys: str, default: Any = None) -> Any:
-    for key in keys:
-        value = row.get(key)
-        if value is not None and value != "":
-            return value
+        pass
     return default
 
 
-def extract_event_id(row: Dict[str, Any]) -> Optional[int]:
-    for key in (
-        "event_id", "match_id", "id", "tennisapi_event_id", "rapidapi_event_id"
-    ):
-        value = row.get(key)
-        if value is None or value == "":
-            continue
-        try:
-            return int(value)
-        except Exception:
-            continue
-    raw = row.get("raw") if isinstance(row.get("raw"), dict) else {}
-    for key in ("id", "event_id", "match_id"):
-        value = raw.get(key)
-        try:
-            if value is not None:
-                return int(value)
-        except Exception:
-            pass
+def _as_list(value: Any) -> List[Dict[str, Any]]:
+    if isinstance(value, list):
+        return [x for x in value if isinstance(x, dict)]
+    if isinstance(value, dict):
+        for key in ("rows", "items", "top7", "all", "results"):
+            if isinstance(value.get(key), list):
+                return [x for x in value[key] if isinstance(x, dict)]
+    return []
+
+
+def _norm(value: Any) -> str:
+    text = str(value or "").strip().lower()
+    text = re.sub(r"[^a-z0-9]+", "", text)
+    return text
+
+
+def _num(value: Any, default: Optional[float] = None) -> Optional[float]:
+    try:
+        if value in (None, "", "—", "-"):
+            return default
+        return float(str(value).replace("%", "").replace(",", "."))
+    except Exception:
+        return default
+
+
+def _prob(row: Dict[str, Any]) -> Optional[float]:
+    for key in ("corq_estimated_win_probability", "corq_probability", "win_probability", "corq_score"):
+        value = _num(row.get(key), None)
+        if value is not None:
+            return value / 100.0 if value > 1.5 else value
     return None
 
 
-def pick_name(row: Dict[str, Any]) -> str:
-    return norm_text(get_first(row, "pick", "selection", "player", "player_name", default=""))
+def _odds(row: Dict[str, Any]) -> Optional[float]:
+    for key in ("pick_odds", "odds", "selected_odds"):
+        value = _num(row.get(key), None)
+        if value is not None:
+            return value
+    return None
 
 
-def opponent_name(row: Dict[str, Any]) -> str:
-    return norm_text(get_first(row, "opponent", "opp", "opponent_name", default=""))
-
-
-def pick_odds(row: Dict[str, Any]) -> Optional[float]:
-    return to_float(get_first(row, "pick_odds", "selected_odds", "odds", "price", "decimal_odds"))
-
-
-def status_from_payload(payload: Dict[str, Any]) -> str:
-    event = payload.get("event") if isinstance(payload.get("event"), dict) else payload
-    status = event.get("status") if isinstance(event, dict) else None
-    if not isinstance(status, dict):
-        return norm_text(event.get("status") if isinstance(event, dict) else "unknown").lower()
-    status_type = norm_text(status.get("type")).lower()
-    description = norm_text(status.get("description")).lower()
-    code = status.get("code")
-    if code == 100 or status_type in FINISHED_STATES or description in FINISHED_STATES:
+def _status_from_obj(status: Any) -> str:
+    if isinstance(status, dict):
+        raw = status.get("type") or status.get("description") or status.get("status") or status.get("code")
+    else:
+        raw = status
+    text = str(raw or "").strip().lower().replace(" ", "_").replace("-", "_")
+    if text in {"100", "finished", "ended", "complete", "completed"}:
         return "finished"
-    if status_type in LIVE_STATES or description in LIVE_STATES:
+    if text in {"inprogress", "in_progress", "live"}:
         return "live"
-    if status_type in VOID_STATES or description in VOID_STATES:
-        return status_type or description
-    if status_type in PENDING_STATES or description in PENDING_STATES:
-        return status_type or description or "notstarted"
-    return status_type or description or "unknown"
+    if text in {"notstarted", "not_started", "scheduled", "open", "prematch", "upcoming"}:
+        return "notstarted"
+    if text in {"cancelled", "canceled", "postponed", "retired", "walkover", "interrupted"}:
+        return text
+    return text or "unknown"
 
 
-def event_from_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
-    if isinstance(payload, dict) and isinstance(payload.get("event"), dict):
-        return payload["event"]
-    return payload if isinstance(payload, dict) else {}
+def _snapshot_status(row: Dict[str, Any]) -> str:
+    raw = row.get("status") or row.get("status_type") or row.get("match_status_type")
+    if not raw and isinstance(row.get("raw"), dict):
+        raw = ((row.get("raw") or {}).get("status") or {}).get("type")
+    return _status_from_obj(raw)
 
 
-def team_name(obj: Any) -> str:
-    if isinstance(obj, dict):
-        for key in ("name", "fullName", "full_name", "displayName", "shortName", "slug"):
-            if obj.get(key):
-                return str(obj.get(key))
-    return str(obj or "")
+def _event_id(row: Dict[str, Any]) -> Optional[int]:
+    for key in ("event_id", "match_id", "id"):
+        value = row.get(key)
+        if value not in (None, ""):
+            try:
+                return int(value)
+            except Exception:
+                pass
+    raw = row.get("raw") if isinstance(row.get("raw"), dict) else {}
+    value = raw.get("id")
+    try:
+        return int(value) if value not in (None, "") else None
+    except Exception:
+        return None
 
 
-def score_periods(event: Dict[str, Any]) -> Tuple[List[int], List[int]]:
-    home_score = event.get("homeScore") or {}
-    away_score = event.get("awayScore") or {}
-    home_periods: List[int] = []
-    away_periods: List[int] = []
-    for i in range(1, 6):
-        hp = home_score.get(f"period{i}")
-        ap = away_score.get(f"period{i}")
-        if hp is None or ap is None:
-            continue
-        try:
-            home_periods.append(int(hp))
-            away_periods.append(int(ap))
-        except Exception:
-            continue
-    return home_periods, away_periods
-
-
-def build_score_string(home_periods: List[int], away_periods: List[int]) -> str:
-    sets = []
-    for h, a in zip(home_periods, away_periods):
-        sets.append(f"{h}-{a}")
-    return " ".join(sets)
-
-
-def derive_match_result_from_event(row: Dict[str, Any], event_payload: Optional[Dict[str, Any]]) -> Dict[str, Any]:
-    """Return normalized result fields for a row based on TennisApi event payload."""
-    pick = pick_name(row)
-    opponent = opponent_name(row)
-    odds = pick_odds(row)
-    base = {
-        "api_status": None,
-        "winner": None,
-        "score": None,
-        "actual_sets": None,
-        "actual_games": None,
-        "actual_tiebreak": None,
-        "result": "PENDING",
-        "units": 0.0,
-        "result_reason": "NO_API_PAYLOAD" if not event_payload else "PENDING_OR_UNKNOWN",
-    }
-    if not event_payload:
-        return base
-
-    event = event_from_payload(event_payload)
-    api_status = status_from_payload(event_payload)
-    base["api_status"] = api_status
-
-    if api_status in VOID_STATES:
-        base.update({"result": "VOID", "units": 0.0, "result_reason": f"VOID_STATUS:{api_status}"})
-        return base
-    if api_status not in FINISHED_STATES and api_status != "finished":
-        base.update({"result": "PENDING", "units": 0.0, "result_reason": f"NOT_FINISHED:{api_status}"})
-        return base
-
-    home_team = team_name(event.get("homeTeam") or event.get("home") or event.get("player1"))
-    away_team = team_name(event.get("awayTeam") or event.get("away") or event.get("player2"))
-    winner_code = event.get("winnerCode")
-    winner = None
-    if winner_code == 1:
-        winner = home_team
-    elif winner_code == 2:
-        winner = away_team
-    else:
-        winner = team_name(event.get("winner")) or None
-
-    home_periods, away_periods = score_periods(event)
-    score = build_score_string(home_periods, away_periods)
-    games = sum(home_periods) + sum(away_periods) if home_periods and away_periods else None
-    sets = len(home_periods) if home_periods else None
-    tiebreak = None
-    if home_periods and away_periods:
-        tiebreak = any(max(h, a) >= 7 and abs(h - a) <= 2 for h, a in zip(home_periods, away_periods))
-
-    base.update({
-        "winner": winner,
-        "score": score or None,
-        "actual_sets": sets,
-        "actual_games": games,
-        "actual_tiebreak": tiebreak,
-    })
-
-    if not winner:
-        base.update({"result": "PENDING", "result_reason": "FINISHED_BUT_WINNER_UNKNOWN"})
-        return base
-
-    pick_norm = norm_name(pick)
-    winner_norm = norm_name(winner)
-    if pick_norm and winner_norm and (pick_norm == winner_norm or pick_norm in winner_norm or winner_norm in pick_norm):
-        units = round((odds or 1.0) - 1.0, 4) if odds else 0.0
-        base.update({"result": "WON", "units": units, "result_reason": "PICK_MATCHES_WINNER"})
-    else:
-        base.update({"result": "LOST", "units": -1.0, "result_reason": "PICK_NOT_WINNER"})
-    return base
-
-
-def api_get_event(event_id: int, api_key: str, host: str = TENNISAPI_HOST) -> Optional[Dict[str, Any]]:
-    path = f"/api/tennis/event/{int(event_id)}"
+def _fetch_event_detail(event_id: int, cache: Dict[int, Dict[str, Any]], sleep_s: float = 0.05) -> Tuple[Optional[Dict[str, Any]], str]:
+    if event_id in cache:
+        return cache[event_id], "CACHE"
+    api_key = os.getenv("RAPIDAPI_KEY", "").strip() or os.getenv("TENNISAPI_RAPIDAPI_KEY", "").strip()
+    if not api_key:
+        return None, "NO_API_KEY"
+    path = f"/api/tennis/event/{event_id}"
     headers = {
         "x-rapidapi-key": api_key,
-        "x-rapidapi-host": host,
+        "x-rapidapi-host": RAPIDAPI_HOST,
         "Content-Type": "application/json",
     }
-    conn = None
     try:
-        conn = http.client.HTTPSConnection(host, timeout=DEFAULT_TIMEOUT)
+        conn = http.client.HTTPSConnection(RAPIDAPI_HOST, timeout=30)
         conn.request("GET", path, headers=headers)
         res = conn.getresponse()
         raw = res.read().decode("utf-8", errors="replace")
-        if res.status == 204:
-            return None
+        conn.close()
+        if sleep_s:
+            time.sleep(sleep_s)
+        if res.status == 204 or not raw:
+            return None, f"HTTP_{res.status}_EMPTY"
         if res.status >= 400:
-            return {"_error": f"HTTP_{res.status}", "_body": raw[:500]}
-        if not raw:
-            return None
+            return None, f"HTTP_{res.status}"
         data = json.loads(raw)
-        if isinstance(data, dict):
-            return data
-        return {"data": data}
+        event = data.get("event") if isinstance(data, dict) and isinstance(data.get("event"), dict) else data
+        if isinstance(event, dict):
+            cache[event_id] = event
+            return event, "OK"
+        return None, "NO_EVENT_OBJECT"
     except Exception as exc:
-        return {"_error": f"EXCEPTION:{exc}"}
-    finally:
+        return None, f"ERROR_{type(exc).__name__}"
+
+
+def _name_from_team(team: Any) -> str:
+    if isinstance(team, dict):
+        return str(team.get("name") or team.get("fullName") or team.get("shortName") or "").strip()
+    return ""
+
+
+def _winner_from_event(event: Dict[str, Any]) -> str:
+    winner_code = event.get("winnerCode")
+    if winner_code == 1:
+        return _name_from_team(event.get("homeTeam"))
+    if winner_code == 2:
+        return _name_from_team(event.get("awayTeam"))
+    return str(event.get("winner") or event.get("winnerName") or "").strip()
+
+
+def _period_scores(score_obj: Any) -> List[Optional[int]]:
+    if not isinstance(score_obj, dict):
+        return []
+    out: List[Optional[int]] = []
+    for i in range(1, 6):
+        value = score_obj.get(f"period{i}")
+        if value is None:
+            continue
         try:
-            if conn:
-                conn.close()
+            out.append(int(value))
         except Exception:
-            pass
+            out.append(None)
+    return out
 
 
-def collect_flags(row: Dict[str, Any]) -> List[str]:
-    flags: List[str] = []
-    for key in (
-        "corq_warning_flags", "corq_risk_flags", "top7_risk_tags", "reject_reasons", "top7_quality_reject_reasons", "public_notes", "flags"
-    ):
+def _score_from_event(event: Dict[str, Any]) -> Tuple[str, Optional[int], Optional[int], Optional[int], bool]:
+    home_scores = _period_scores(event.get("homeScore"))
+    away_scores = _period_scores(event.get("awayScore"))
+    max_len = max(len(home_scores), len(away_scores))
+    if not max_len:
+        return "", None, None, None, False
+    sets_home = 0
+    sets_away = 0
+    games_total = 0
+    tiebreak = False
+    parts: List[str] = []
+    for i in range(max_len):
+        h = home_scores[i] if i < len(home_scores) else None
+        a = away_scores[i] if i < len(away_scores) else None
+        if h is None or a is None:
+            continue
+        parts.append(f"{h}-{a}")
+        games_total += h + a
+        if h > a:
+            sets_home += 1
+        elif a > h:
+            sets_away += 1
+        if {h, a} in ({7, 6}, {6, 7}):
+            tiebreak = True
+    actual_sets = sets_home + sets_away if (sets_home or sets_away) else None
+    return " ".join(parts), actual_sets, games_total if games_total else None, max(sets_home, sets_away) if actual_sets else None, tiebreak
+
+
+def _snapshot_winner(row: Dict[str, Any]) -> str:
+    winner = row.get("winner") or row.get("match_winner")
+    raw = row.get("raw") if isinstance(row.get("raw"), dict) else {}
+    if not winner and raw:
+        winner = _winner_from_event(raw)
+    return str(winner or "").strip()
+
+
+def _snapshot_score(row: Dict[str, Any]) -> str:
+    for key in ("score", "result_score", "final_score"):
+        if row.get(key):
+            return str(row[key])
+    raw = row.get("raw") if isinstance(row.get("raw"), dict) else {}
+    if raw:
+        score, *_ = _score_from_event(raw)
+        return score
+    return ""
+
+
+def _flags(row: Dict[str, Any]) -> List[str]:
+    out: List[str] = []
+    for key in ("flags", "corq_risk_flags", "corq_warning_flags", "thinq_flags", "top7_quality_reject_reasons"):
         value = row.get(key)
         if isinstance(value, list):
-            flags.extend(str(x) for x in value if x)
-        elif isinstance(value, str) and value.strip():
-            flags.append(value.strip())
-    # Deduplicate while keeping order.
-    out: List[str] = []
-    seen = set()
-    for flag in flags:
-        if flag not in seen:
-            seen.add(flag)
-            out.append(flag)
-    return out
+            out.extend(str(x) for x in value if x)
+        elif value:
+            out.append(str(value))
+    return sorted(set(out))
 
 
-def projected_sets(row: Dict[str, Any]) -> Optional[float]:
-    return to_float(get_first(row, "projected_sets", "expected_sets", "sets_projected"))
+def _evaluate_row(row: Dict[str, Any], source_snapshot: str, run_date: str, fetch_api: bool, cache: Dict[int, Dict[str, Any]]) -> Dict[str, Any]:
+    pick = str(row.get("pick") or row.get("player") or "").strip()
+    opponent = str(row.get("opponent") or row.get("opp") or "").strip()
+    odds = _odds(row)
+    status = _snapshot_status(row)
+    winner = _snapshot_winner(row)
+    score = _snapshot_score(row)
+    event_fetch_status = "NOT_REQUESTED"
+    event = None
 
-
-def projected_games(row: Dict[str, Any]) -> Optional[float]:
-    return to_float(get_first(row, "projected_games", "expected_games", "games_projected"))
-
-
-def enrich_result_row(row: Dict[str, Any], event_payload: Optional[Dict[str, Any]]) -> Dict[str, Any]:
-    out = dict(row)
-    result = derive_match_result_from_event(row, event_payload)
-    out.update(result)
-    out["event_id"] = extract_event_id(row)
-    out["pick"] = pick_name(row)
-    out["opponent"] = opponent_name(row)
-    out["pick_odds"] = pick_odds(row)
-    out["corq_probability"] = pct_value(row, "corq_probability", "corq_prob", "estimated_win_probability", "win_probability", "estimated_win_pct")
-    out["thinq_confidence"] = pct_value(row, "thinq_confidence", "thinq_overall_confidence", "thinq_probability_confidence")
-    out["stat_data_depth"] = pct_value(row, "stat_data_depth", "pick_data_depth", "data_depth")
-    out["form_data_depth"] = pct_value(row, "form_data_depth", "form_confidence")
-    out["pick_thinq_edge"] = pct_value(row, "pick_thinq_edge", "thinq_edge", "thinq_total_edge")
-    out["result_flags"] = collect_flags(row)
-
-    ps = projected_sets(row)
-    pg = projected_games(row)
-    out["projected_sets"] = ps
-    out["projected_games"] = pg
-    if ps is not None and result.get("actual_sets") is not None:
-        out["sets_error"] = round(float(result["actual_sets"]) - float(ps), 3)
-        out["sets_hit_rounded"] = int(round(ps)) == int(result["actual_sets"])
+    if fetch_api:
+        eid = _event_id(row)
+        if eid is not None:
+            event, event_fetch_status = _fetch_event_detail(eid, cache)
+            if event:
+                status = _status_from_obj(event.get("status"))
+                winner = _winner_from_event(event) or winner
+                event_score, actual_sets, actual_games, _, actual_tiebreak = _score_from_event(event)
+                score = event_score or score
+            else:
+                actual_sets = actual_games = None
+                actual_tiebreak = False
+        else:
+            event_fetch_status = "NO_EVENT_ID"
+            actual_sets = actual_games = None
+            actual_tiebreak = False
     else:
-        out["sets_error"] = None
-        out["sets_hit_rounded"] = None
-    if pg is not None and result.get("actual_games") is not None:
-        out["games_error"] = round(float(result["actual_games"]) - float(pg), 3)
-    else:
-        out["games_error"] = None
-    return out
+        actual_sets = actual_games = None
+        actual_tiebreak = False
+
+    result = "PENDING"
+    units: Optional[float] = None
+    if status in {"cancelled", "canceled", "postponed", "walkover", "retired"}:
+        result = "VOID"
+        units = 0.0
+    elif status in {"finished", "ended", "complete", "completed"} or winner:
+        if winner and _norm(winner) == _norm(pick):
+            result = "WON"
+            units = round((odds or 1.0) - 1.0, 4) if odds else None
+        elif winner:
+            result = "LOST"
+            units = -1.0
+
+    projected_sets = _num(row.get("thinq_projected_sets"), None)
+    projected_games = _num(row.get("thinq_projected_games"), None)
+    games_error = round(actual_games - projected_games, 2) if actual_games is not None and projected_games is not None else None
+    sets_hit = None
+    if actual_sets is not None and projected_sets is not None:
+        sets_hit = round(projected_sets) == actual_sets
+
+    return {
+        "date": run_date,
+        "source_snapshot": source_snapshot,
+        "match_id": row.get("match_id") or row.get("event_id") or row.get("id"),
+        "custom_id": row.get("event_custom_id") or row.get("customId"),
+        "pick": pick,
+        "opponent": opponent,
+        "pick_odds": odds,
+        "opponent_odds": row.get("opponent_odds") or row.get("opp_odds"),
+        "corq_probability": _prob(row),
+        "thinq_confidence": row.get("thinq_confidence") or row.get("thinq_probability_confidence"),
+        "pick_thinq_edge": row.get("top7_pick_thinq_edge") or row.get("pick_thinq_edge") or row.get("thinq_edge"),
+        "stat_data_depth": row.get("stat_data_depth") or row.get("pick_data_depth"),
+        "form_data_depth": row.get("form_data_depth") or row.get("thinq_form_confidence"),
+        "status": status or "unknown",
+        "winner": winner,
+        "score": score,
+        "result": result,
+        "units": units,
+        "tags": _flags(row),
+        "event_fetch_status": event_fetch_status,
+        "sets_games": {
+            "projected_sets": projected_sets,
+            "projected_games": projected_games,
+            "actual_sets": actual_sets,
+            "actual_games": actual_games,
+            "sets_hit": sets_hit,
+            "games_error": games_error,
+            "actual_tiebreak": actual_tiebreak,
+            "three_sets_probability": row.get("thinq_decider_probability"),
+            "tie_break_probability": row.get("thinq_tiebreak_probability"),
+        },
+        "raw_snapshot_row": row,
+    }
 
 
-def summarize(rows: List[Dict[str, Any]]) -> Dict[str, Any]:
-    total = len(rows)
+def _summary(rows: List[Dict[str, Any]]) -> Dict[str, Any]:
     won = sum(1 for r in rows if r.get("result") == "WON")
     lost = sum(1 for r in rows if r.get("result") == "LOST")
     pending = sum(1 for r in rows if r.get("result") == "PENDING")
     void = sum(1 for r in rows if r.get("result") == "VOID")
-    finished = won + lost
-    units = round(sum(float(r.get("units") or 0.0) for r in rows), 4)
-    risked = max(won + lost, 0)
-    avg_odds_values = [float(r.get("pick_odds")) for r in rows if to_float(r.get("pick_odds"))]
-    avg_odds = round(sum(avg_odds_values) / len(avg_odds_values), 4) if avg_odds_values else None
+    settled = won + lost
+    units = round(sum(float(r.get("units") or 0.0) for r in rows if r.get("units") is not None), 4)
     return {
-        "rows": total,
+        "picks": len(rows),
         "won": won,
         "lost": lost,
         "pending": pending,
         "void": void,
-        "finished": finished,
-        "win_rate": round(won / finished, 4) if finished else None,
+        "win_rate": round(won / settled, 4) if settled else None,
         "units": units,
-        "roi": round(units / risked, 4) if risked else None,
-        "avg_odds": avg_odds,
+        "roi": round(units / settled, 4) if settled else None,
     }
 
 
-def tag_analysis(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    agg: Dict[str, Dict[str, Any]] = {}
+def _avg(values: List[Optional[float]]) -> Optional[float]:
+    cleaned = [float(v) for v in values if v is not None]
+    return round(sum(cleaned) / len(cleaned), 4) if cleaned else None
+
+
+def _tag_summary(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    buckets: Dict[str, List[Dict[str, Any]]] = {}
     for row in rows:
-        for tag in row.get("result_flags") or []:
-            bucket = agg.setdefault(tag, {"tag": tag, "count": 0, "won": 0, "lost": 0, "pending": 0, "void": 0, "units": 0.0})
-            bucket["count"] += 1
-            result = row.get("result") or "PENDING"
-            if result in ("WON", "LOST", "PENDING", "VOID"):
-                bucket[result.lower()] += 1
-            bucket["units"] += float(row.get("units") or 0.0)
-    output = []
-    for bucket in agg.values():
-        finished = bucket["won"] + bucket["lost"]
-        bucket["units"] = round(bucket["units"], 4)
-        bucket["win_rate"] = round(bucket["won"] / finished, 4) if finished else None
-        output.append(bucket)
-    output.sort(key=lambda x: (x["count"], x["units"]), reverse=True)
-    return output
+        for tag in row.get("tags") or []:
+            buckets.setdefault(str(tag), []).append(row)
+    out: List[Dict[str, Any]] = []
+    for tag, items in sorted(buckets.items()):
+        summary = {"tag": tag, **_summary(items)}
+        summary["avg_odds"] = _avg([_num(r.get("pick_odds"), None) for r in items])
+        summary["avg_corq"] = _avg([_num(r.get("corq_probability"), None) for r in items])
+        summary["avg_stat_data_depth"] = _avg([_num(r.get("stat_data_depth"), None) for r in items])
+        summary["avg_form_data_depth"] = _avg([_num(r.get("form_data_depth"), None) for r in items])
+        out.append(summary)
+    return out
 
 
-def sets_games_summary(rows: List[Dict[str, Any]]) -> Dict[str, Any]:
-    games_errors = [r.get("games_error") for r in rows if isinstance(r.get("games_error"), (int, float))]
-    sets_hits = [r.get("sets_hit_rounded") for r in rows if r.get("sets_hit_rounded") is not None]
+def _bucket_label(value: Optional[float], bins: List[Tuple[float, float, str]]) -> str:
+    if value is None:
+        return "Unknown"
+    v = value * 100.0 if abs(value) <= 1.5 else value
+    for low, high, label in bins:
+        if low <= v <= high:
+            return label
+    return "Other"
+
+
+def _bucket_summary(rows: List[Dict[str, Any]], key: str, bins: List[Tuple[float, float, str]]) -> List[Dict[str, Any]]:
+    buckets: Dict[str, List[Dict[str, Any]]] = {}
+    for row in rows:
+        buckets.setdefault(_bucket_label(_num(row.get(key), None), bins), []).append(row)
+    ordered_labels = [b[2] for b in bins] + ["Unknown", "Other"]
+    out = []
+    for label in ordered_labels:
+        items = buckets.get(label, [])
+        if items:
+            out.append({"bucket": label, **_summary(items)})
+    return out
+
+
+def _data_depth_summaries(rows: List[Dict[str, Any]]) -> Dict[str, Any]:
+    depth_bins = [(0, 39.999, "0-39%"), (40, 59.999, "40-59%"), (60, 79.999, "60-79%"), (80, 100, "80-100%")]
+    corq_bins = [(0, 49.999, "<50%"), (50, 54.999, "50-54%"), (55, 59.999, "55-59%"), (60, 100, "60%+")]
+    odds_bins = [(0, 1.399, "<1.40"), (1.4, 1.699, "1.40-1.69"), (1.7, 2.199, "1.70-2.19"), (2.2, 99, "2.20+")]
     return {
-        "rows_with_games_error": len(games_errors),
-        "avg_games_error": round(sum(games_errors) / len(games_errors), 4) if games_errors else None,
-        "avg_abs_games_error": round(sum(abs(x) for x in games_errors) / len(games_errors), 4) if games_errors else None,
-        "sets_hit_rows": len(sets_hits),
+        "stat_data_depth": _bucket_summary(rows, "stat_data_depth", depth_bins),
+        "form_data_depth": _bucket_summary(rows, "form_data_depth", depth_bins),
+        "corq_probability": _bucket_summary(rows, "corq_probability", corq_bins),
+        "pick_odds": _bucket_summary(rows, "pick_odds", odds_bins),
+    }
+
+
+def _sets_games_summary(rows: List[Dict[str, Any]]) -> Dict[str, Any]:
+    evaluated = [r for r in rows if isinstance(r.get("sets_games"), dict)]
+    actual_games = [r["sets_games"].get("actual_games") for r in evaluated if r["sets_games"].get("actual_games") is not None]
+    games_errors = [r["sets_games"].get("games_error") for r in evaluated if r["sets_games"].get("games_error") is not None]
+    sets_hits = [r["sets_games"].get("sets_hit") for r in evaluated if r["sets_games"].get("sets_hit") is not None]
+    tiebreaks = [r["sets_games"].get("actual_tiebreak") for r in evaluated if r["sets_games"].get("actual_tiebreak") is not None]
+    return {
+        "rows_with_actual_games": len(actual_games),
+        "avg_actual_games": round(sum(actual_games) / len(actual_games), 2) if actual_games else None,
+        "avg_games_error": round(sum(games_errors) / len(games_errors), 2) if games_errors else None,
         "sets_hit_rate": round(sum(1 for x in sets_hits if x) / len(sets_hits), 4) if sets_hits else None,
+        "tiebreak_rate": round(sum(1 for x in tiebreaks if x) / len(tiebreaks), 4) if tiebreaks else None,
     }
 
 
-def build_results_for_rows(rows: List[Dict[str, Any]], fetch_api: bool, api_key: Optional[str]) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
-    cache: Dict[int, Optional[Dict[str, Any]]] = {}
-    out_rows: List[Dict[str, Any]] = []
-    for row in rows:
-        event_id = extract_event_id(row)
-        payload = None
-        if fetch_api and api_key and event_id:
-            if event_id not in cache:
-                cache[event_id] = api_get_event(event_id, api_key)
-                time.sleep(REQUEST_SLEEP_SECONDS)
-            payload = cache.get(event_id)
-        out_rows.append(enrich_result_row(row, payload))
-    meta = {
-        "summary": summarize(out_rows),
-        "tag_analysis": tag_analysis(out_rows),
-        "sets_games_summary": sets_games_summary(out_rows),
+def build_results(output_root: str = "outputs", run_date: Optional[str] = None, fetch_api: bool = False) -> Dict[str, Any]:
+    root = Path(output_root)
+    day = (run_date or date.today().isoformat())[:10]
+    year = day[:4]
+
+    corq_snapshot = _as_list(_load_json(root / "snapshots" / "latest_corq_top7_snapshot.json", []))
+    all_snapshot = _as_list(_load_json(root / "snapshots" / "latest_all_audit_snapshot.json", []))
+    if not corq_snapshot:
+        corq_snapshot = _as_list(_load_json(root / "latest_top7.json", []))
+    if not all_snapshot:
+        all_snapshot = _as_list(_load_json(root / "latest_all.json", []))
+
+    cache: Dict[int, Dict[str, Any]] = {}
+    corq_results = [_evaluate_row(r, "CORQ_TOP7", day, fetch_api, cache) for r in corq_snapshot]
+    all_results = [_evaluate_row(r, "ALL_AUDIT", day, fetch_api, cache) for r in all_snapshot]
+
+    corq_payload = {
+        "date": day,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "section": "CorQ TOP7 Results",
+        "fetch_api": fetch_api,
+        "summary": _summary(corq_results),
+        "tag_summary": _tag_summary(corq_results),
+        "sets_games_summary": _sets_games_summary(corq_results),
+        "data_depth_summary": _data_depth_summaries(corq_results),
+        "rows": corq_results,
     }
-    return out_rows, meta
-
-
-def load_source_rows(output_root: Path, source: str) -> List[Dict[str, Any]]:
-    if source == "corq":
-        return as_rows(read_json(output_root / "latest_top7.json", []))
-    if source == "all":
-        return as_rows(read_json(output_root / "latest_all.json", []))
-    if source == "cloq":
-        return as_rows(read_json(output_root / "latest_cloq.json", []))
-    raise ValueError(f"Unsupported source: {source}")
-
-
-def write_results(output_root: Path, source: str, rows: List[Dict[str, Any]], meta: Dict[str, Any], date_str: str) -> Dict[str, Any]:
-    year = date_str[:4]
-    payload = {
-        "schema": "tbtpro.results.v1",
-        "source": source,
-        "date": date_str,
-        "generated_at": utc_now_iso(),
-        "summary": meta.get("summary", {}),
-        "tag_analysis": meta.get("tag_analysis", []),
-        "sets_games_summary": meta.get("sets_games_summary", {}),
-        "rows": rows,
+    all_payload = {
+        "date": day,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "section": "ALL Results Audit",
+        "fetch_api": fetch_api,
+        "summary": _summary(all_results),
+        "tag_summary": _tag_summary(all_results),
+        "sets_games_summary": _sets_games_summary(all_results),
+        "data_depth_summary": _data_depth_summaries(all_results),
+        "rows": all_results,
     }
-    dated_path = output_root / "results" / source / year / f"results_{source}_{date_str}.json"
-    latest_path = output_root / "results" / f"latest_results_{source}.json"
-    write_json(dated_path, payload)
-    write_json(latest_path, payload)
-    return {"dated_path": str(dated_path), "latest_path": str(latest_path), "rows": len(rows)}
+
+    corq_dir = root / "results" / "corq" / year
+    all_dir = root / "results" / "all" / year
+    corq_dir.mkdir(parents=True, exist_ok=True)
+    all_dir.mkdir(parents=True, exist_ok=True)
+    (corq_dir / f"results_corq_{day}.json").write_text(json.dumps(corq_payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    (all_dir / f"results_all_{day}.json").write_text(json.dumps(all_payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    (root / "results").mkdir(parents=True, exist_ok=True)
+    (root / "results" / "latest_results_corq.json").write_text(json.dumps(corq_payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    (root / "results" / "latest_results_all.json").write_text(json.dumps(all_payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    return {"corq": corq_payload, "all": all_payload}
 
 
-def run(output_root: Path, fetch_api: bool, sources: Iterable[str]) -> Dict[str, Any]:
-    api_key = os.getenv("RAPIDAPI_KEY", "").strip() or os.getenv("TENNISAPI_RAPIDAPI_KEY", "").strip()
-    if fetch_api and not api_key:
-        print("[WARN] fetch_api=true but RAPIDAPI_KEY/TENNISAPI_RAPIDAPI_KEY is missing; results will stay pending.", file=sys.stderr)
-    date_str = today_iso()
-    manifest = {
-        "generated_at": utc_now_iso(),
-        "date": date_str,
-        "fetch_api": bool(fetch_api and api_key),
-        "sources": {},
-    }
-    for source in sources:
-        rows = load_source_rows(output_root, source)
-        result_rows, meta = build_results_for_rows(rows, bool(fetch_api and api_key), api_key)
-        manifest["sources"][source] = write_results(output_root, source, result_rows, meta, date_str)
-    write_json(output_root / "results" / "results_manifest.json", manifest)
-    return manifest
-
-
-def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Build TBT PRO Results outputs.")
-    parser.add_argument("--output-root", default="outputs", help="Output root directory, default: outputs")
-    parser.add_argument("--fetch-api", default="false", help="true/false, fetch TennisApi event details")
-    parser.add_argument("--sources", default="corq,all,cloq", help="Comma-separated sources: corq,all,cloq")
-    return parser.parse_args(argv)
-
-
-def main(argv: Optional[List[str]] = None) -> None:
-    args = parse_args(argv)
-    fetch_api = str(args.fetch_api).strip().lower() in {"1", "true", "yes", "y", "on"}
-    sources = [s.strip() for s in str(args.sources).split(",") if s.strip()]
-    manifest = run(Path(args.output_root), fetch_api=fetch_api, sources=sources)
-    print(json.dumps(manifest, ensure_ascii=False, indent=2))
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Build CorQ/ALL results evaluation JSON files.")
+    parser.add_argument("--output-root", default="outputs")
+    parser.add_argument("--date", dest="run_date", default=None)
+    parser.add_argument("--fetch-api", action="store_true", help="Fetch TennisApi event details for winner/score/status.")
+    args = parser.parse_args()
+    payload = build_results(output_root=args.output_root, run_date=args.run_date, fetch_api=args.fetch_api)
+    print("Results built:", payload["corq"]["summary"], payload["all"]["summary"])
 
 
 if __name__ == "__main__":
