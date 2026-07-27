@@ -21,6 +21,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
+      PYTHONPATH: ${{ github.workspace }}
       RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN || secrets.TGBOT }}
       TELEGRAM_TOP7_CHAT_ID: ${{ secrets.TELEGRAM_TOP7_CHAT_ID || secrets.TGCHID }}
@@ -63,22 +64,22 @@ jobs:
       - name: Run CorQ daily runtime
         if: ${{ github.event_name == 'workflow_dispatch' || steps.local_time.outputs.should_run == 'true' }}
         run: |
-          python corq/engine.py --output-root outputs
+          python -m corq.engine --output-root outputs
 
       - name: Render web site
         if: ${{ github.event_name == 'workflow_dispatch' || steps.local_time.outputs.should_run == 'true' }}
         run: |
-          python corq/web/render.py
+          python -m corq.web.render
 
       - name: Send TOP7 TG feed
         if: ${{ github.event_name == 'workflow_dispatch' || steps.local_time.outputs.should_run == 'true' }}
         run: |
-          python corq/tg_feed.py --mode top7 --send
+          python -m corq.tg_feed --mode top7 --send
 
       - name: Send FREE TG feed
         if: ${{ github.event_name == 'workflow_dispatch' || steps.local_time.outputs.should_run == 'true' }}
         run: |
-          python corq/tg_feed.py --mode free --send
+          python -m corq.tg_feed --mode free --send
 
       - name: Commit generated outputs
         if: ${{ github.event_name == 'workflow_dispatch' || steps.local_time.outputs.should_run == 'true' }}
