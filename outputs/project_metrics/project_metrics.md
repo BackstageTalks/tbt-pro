@@ -1,6 +1,6 @@
 # BackstageTalks Project Development Metrics
 
-Generated: `2026-07-27T19:47:04+00:00`
+Generated: `2026-07-27T19:47:54+00:00`
 
 ## Customer-facing summary
 - Maintained source/config/docs files: **63**
@@ -9,8 +9,8 @@ Generated: `2026-07-27T19:47:04+00:00`
 - Data/cache files tracked separately: **26**
 - Data/cache lines tracked separately: **172,765**
 - All tracked text files together: **89 files / 184,860 lines**
-- Git commits: **500**
-- Latest commit: `367b10a 2026-07-27 Add files via upload`
+- Git commits: **502**
+- Latest commit: `c2f6350 2026-07-27 Add files via upload`
 
 ## By file type
 
