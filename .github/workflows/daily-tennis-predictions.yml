@@ -1,10 +1,12 @@
 name: Daily Tennis Predictions
 
 on:
-  schedule:
-    # 06:45 UTC = 08:45 Europe/Bratislava during summer time.
-    - cron: "45 6 * * *"
   workflow_dispatch:
+  schedule:
+    # Runs at 05:10 Europe/Bratislava.
+    # Summer time: 03:10 UTC -> 05:10 CEST.
+    # Winter time: 04:10 UTC -> 05:10 CET.
+    - cron: "10 3,4 * * *"
 
 permissions:
   contents: write
@@ -20,33 +22,85 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
-      TGBOT: ${{ secrets.TGBOT }}
-      TGCHID: ${{ secrets.TGCHID }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN || secrets.TGBOT }}
+      TELEGRAM_TOP7_CHAT_ID: ${{ secrets.TELEGRAM_TOP7_CHAT_ID || secrets.TGCHID }}
+      TELEGRAM_FREE_CHAT_ID: ${{ secrets.TELEGRAM_FREE_CHAT_ID }}
+      TG_FEED_TIME_OFFSET_HOURS: "1"
+      TG_FEED_UPCOMING_ONLY: "true"
+      TG_FEED_PAST_GRACE_MINUTES: "0"
+
     steps:
+      - name: Check local run time
+        id: local_time
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+
+          now = datetime.now(ZoneInfo("Europe/Bratislava"))
+          should_run = now.hour == 5 and now.minute == 10
+
+          print(f"now={now.isoformat()}")
+          print(f"should_run={'true' if should_run else 'false'}")
+          PY
+
       - name: Checkout
+        if: ${{ github.event_name == 'workflow_dispatch' || steps.local_time.outputs.should_run == 'true' }}
         uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Set up Python
+        if: ${{ github.event_name == 'workflow_dispatch' || steps.local_time.outputs.should_run == 'true' }}
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: Install Python dependencies
+        if: ${{ github.event_name == 'workflow_dispatch' || steps.local_time.outputs.should_run == 'true' }}
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          python -m pip install pandas lxml html5lib beautifulsoup4
 
-      - name: Run CORQ daily runtime
-        run: python engine.py
+      - name: Run CorQ daily runtime
+        if: ${{ github.event_name == 'workflow_dispatch' || steps.local_time.outputs.should_run == 'true' }}
+        run: |
+          python corq/engine.py --output-root outputs
 
-      - name: Commit outputs
+      - name: Render web site
+        if: ${{ github.event_name == 'workflow_dispatch' || steps.local_time.outputs.should_run == 'true' }}
+        run: |
+          python corq/web/render.py
+
+      - name: Send TOP7 TG feed
+        if: ${{ github.event_name == 'workflow_dispatch' || steps.local_time.outputs.should_run == 'true' }}
+        run: |
+          python corq/tg_feed.py --mode top7 --send
+
+      - name: Send FREE TG feed
+        if: ${{ github.event_name == 'workflow_dispatch' || steps.local_time.outputs.should_run == 'true' }}
+        run: |
+          python corq/tg_feed.py --mode free --send
+
+      - name: Commit generated outputs
+        if: ${{ github.event_name == 'workflow_dispatch' || steps.local_time.outputs.should_run == 'true' }}
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add outputs || true
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add outputs corq/site || true
+
           if git diff --cached --quiet; then
-            echo "No output changes to commit"
+            echo "No generated output changes to commit."
           else
-            git commit -m "Update CORQ daily outputs"
+            git commit -m "Update daily tennis predictions"
             git push
           fi
+
+      - name: Upload Pages artifact
+        if: ${{ github.event_name == 'workflow_dispatch' || steps.local_time.outputs.should_run == 'true' }}
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: corq/site
+
+      - name: Deploy to GitHub Pages
+        if: ${{ github.event_name == 'workflow_dispatch' || steps.local_time.outputs.should_run == 'true' }}
+        uses: actions/deploy-pages@v4
