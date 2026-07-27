@@ -46,6 +46,35 @@ except Exception:
             "flags": ["MATCH_DYNAMICS_UNAVAILABLE"],
         }
 
+
+try:
+    from thinq.loaders.ta_profile_loader import build_match_ta_context
+except Exception:
+    def build_match_ta_context(pick: str, opponent: str, surface: str = "") -> Dict[str, Any]:
+        return {
+            "ta_status": "N/A",
+            "ta_pick_status": "N/A",
+            "ta_opp_status": "N/A",
+            "ta_pick_set_pct": None,
+            "ta_opp_set_pct": None,
+            "ta_pick_game_pct": None,
+            "ta_opp_game_pct": None,
+            "ta_pick_tb_split": None,
+            "ta_opp_tb_split": None,
+            "ta_pick_ace_pct": None,
+            "ta_opp_ace_pct": None,
+            "ta_pick_surface_dr": None,
+            "ta_opp_surface_dr": None,
+            "ta_pick_rpw_pct": None,
+            "ta_opp_rpw_pct": None,
+            "ta_pick_depth": None,
+            "ta_opp_depth": None,
+            "pick_aces_line": None,
+            "opponent_aces_line": None,
+            "total_aces_line": None,
+            "aces_status": "N/A",
+        }
+
 try:
     from thinq.features.probability_layer import build_thinq_probability_layer
 except Exception:
@@ -176,6 +205,9 @@ class ThinqService:
             pick_odds=kwargs.get("pick_odds") or kwargs.get("odds"),
             opponent_odds=kwargs.get("opponent_odds"),
         )
+        ta_context = build_match_ta_context(analysis_pick, analysis_opponent, str(surface_bucket or ""))
+        if not isinstance(ta_context, dict):
+            ta_context = {"ta_status": "N/A", "aces_status": "N/A"}
 
         edges = {
             "overall_elo_edge": float(elo.get("overall_elo_edge") or 0.0),
@@ -269,6 +301,7 @@ class ThinqService:
                 "recent_form": recent_form,
                 "elo": elo,
                 "thinq_probability_layer": thinq_probability_layer,
+                "ta_context": ta_context,
             },
             "edges": edges,
             "flags": sorted(set(flags)),
@@ -320,6 +353,29 @@ class ThinqService:
             "thinq_match_shape": match_dynamics.get("match_shape"),
             "thinq_match_dynamics_confidence": match_dynamics.get("confidence", 0.0),
             "thinq_form_confidence": recent_form.get("form_confidence", 0.0),
+            "ta_context": ta_context,
+            "thinq_ta_context": ta_context,
+            "ta_status": ta_context.get("ta_status"),
+            "ta_pick_status": ta_context.get("ta_pick_status"),
+            "ta_opp_status": ta_context.get("ta_opp_status"),
+            "ta_pick_set_pct": ta_context.get("ta_pick_set_pct"),
+            "ta_opp_set_pct": ta_context.get("ta_opp_set_pct"),
+            "ta_pick_game_pct": ta_context.get("ta_pick_game_pct"),
+            "ta_opp_game_pct": ta_context.get("ta_opp_game_pct"),
+            "ta_pick_tb_split": ta_context.get("ta_pick_tb_split"),
+            "ta_opp_tb_split": ta_context.get("ta_opp_tb_split"),
+            "ta_pick_ace_pct": ta_context.get("ta_pick_ace_pct"),
+            "ta_opp_ace_pct": ta_context.get("ta_opp_ace_pct"),
+            "ta_pick_surface_dr": ta_context.get("ta_pick_surface_dr"),
+            "ta_opp_surface_dr": ta_context.get("ta_opp_surface_dr"),
+            "ta_pick_rpw_pct": ta_context.get("ta_pick_rpw_pct"),
+            "ta_opp_rpw_pct": ta_context.get("ta_opp_rpw_pct"),
+            "ta_pick_depth": ta_context.get("ta_pick_depth"),
+            "ta_opp_depth": ta_context.get("ta_opp_depth"),
+            "pick_aces_line": ta_context.get("pick_aces_line"),
+            "opponent_aces_line": ta_context.get("opponent_aces_line"),
+            "total_aces_line": ta_context.get("total_aces_line"),
+            "aces_status": ta_context.get("aces_status"),
             "thinq_flags": sorted(set(flags)),
         }
 
