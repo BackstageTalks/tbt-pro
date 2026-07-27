@@ -2,8 +2,6 @@ from __future__ import annotations
 
 import html
 import json
-import math
-import os
 import re
 import shutil
 from collections import Counter, defaultdict
@@ -52,11 +50,11 @@ try:
     from corq.messages import public_flag_labels
 except Exception:
     def public_flag_labels(flags: Iterable[str], limit: Optional[int] = None) -> List[str]:
-        out = []
-        for f in flags or []:
-            if not f:
+        out: List[str] = []
+        for flag in flags or []:
+            if not flag:
                 continue
-            txt = str(f).replace("_", " ").strip().title()
+            txt = str(flag).replace("_", " ").strip().title()
             out.append(txt)
         return out[:limit] if limit else out
 
@@ -112,7 +110,7 @@ def as_pct(value: Any, digits: int = 1, none: str = "—") -> str:
     return f"{num:.{digits}f}%"
 
 
-def signed_pct(value: Any, digits: int = 1, none: str = "0.0%") -> str:
+def signed_pct(value: Any, digits: int = 1) -> str:
     num = as_float(value, 0.0) or 0.0
     if abs(num) <= 1.0:
         num *= 100.0
@@ -162,7 +160,7 @@ def player_rank_display(row: Dict[str, Any], side: str) -> str:
 
 
 def add_rank(name: Any, row: Dict[str, Any], side: str) -> str:
-    return f"{esc(name or '—')} <span class=\"rank\">{esc(player_rank_display(row, side))}</span>"
+    return f'{esc(name or "—")} <span class="rank">{esc(player_rank_display(row, side))}</span>'
 
 
 def pick_name(row: Dict[str, Any]) -> str:
@@ -497,9 +495,7 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
     note_html = "".join(f'<span class="note" data-note="{esc(n)}">{esc(n)}</span>' for n in notes[:8])
     odds_gap = as_float(row.get("odds_gap_pct") or row.get("cloq_odds_gap_pct"))
     odds_gap_txt = as_pct(odds_gap, 1) if odds_gap is not None else "—"
-    cloq_extra = ""
-    if page == "cloq":
-        cloq_extra = metric_row("Odds Gap", odds_gap_txt)
+    cloq_extra = metric_row("Odds Gap", odds_gap_txt) if page == "cloq" else ""
     html_parts = [
         f'<article class="pick-card" data-tags="{esc(data_tags)}">',
         '<section class="pick-main">',
@@ -515,8 +511,16 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         '</section>',
         '<section class="metric-box">',
         f'<div class="box-head"><span>CorQ {info_icon("corq")}</span><b>{as_pct(prob, 1)}</b></div>',
-        metric_row("Pick ELO / S-ELO", f'{signed_pct(row.get("elo_edge") or row.get("pick_elo_edge"))} / {signed_pct(row.get("surface_elo_edge") or row.get("pick_surface_elo_edge"))}', sign_class(row.get("elo_edge") or row.get("pick_elo_edge"))),
-        metric_row("Opp ELO / S-ELO", f'{signed_pct(-(as_float(row.get("elo_edge") or row.get("pick_elo_edge"), 0) or 0))} / {signed_pct(-(as_float(row.get("surface_elo_edge") or row.get("pick_surface_elo_edge"), 0) or 0))}', "good"),
+        metric_row(
+            "Pick ELO / S-ELO",
+            f'{signed_pct(row.get("elo_edge") or row.get("pick_elo_edge"))} / {signed_pct(row.get("surface_elo_edge") or row.get("pick_surface_elo_edge"))}',
+            sign_class(row.get("elo_edge") or row.get("pick_elo_edge")),
+        ),
+        metric_row(
+            "Opp ELO / S-ELO",
+            f'{signed_pct(-(as_float(row.get("elo_edge") or row.get("pick_elo_edge"), 0) or 0))} / {signed_pct(-(as_float(row.get("surface_elo_edge") or row.get("pick_surface_elo_edge"), 0) or 0))}',
+            "good",
+        ),
         metric_row("H2H P-O", esc(h2h_display(row)), h2h_class(row)),
         metric_row("S-H2H P-O", esc(surface_h2h_display(row)), surface_h2h_class(row)),
         metric_row("Pick ThinQ Edge", esc(f"{pe_txt} / {pe_state}"), pe_cls),
@@ -602,12 +606,25 @@ def css() -> str:
 
 def nav_html(active: str) -> str:
     parts = []
-    for label, path in NAV_ITEMS:
-        cls = "active" if str(path) == active else ""
-        href = f"../{path}/" if not str(path).endswith(".xml") else f"../{path}"
-        if active == "root":
-            href = f"{path}/" if not str(path).endswith(".xml") else path
-        parts.append(f'<a class="{cls}" href="{esc(href)}">{esc(label)}</a>')
+    for item in NAV_ITEMS:
+        if isinstance(item, dict):
+            label = item.get("label") or item.get("name") or ""
+            path = item.get("path") or item.get("url") or ""
+            key = item.get("key") or label
+        elif isinstance(item, (list, tuple)):
+            label = item[0] if len(item) > 0 else ""
+            path = item[1] if len(item) > 1 else ""
+            key = item[2] if len(item) > 2 else label
+        else:
+            continue
+        label_s = str(label)
+        path_s = str(path)
+        key_s = str(key)
+        is_xml = path_s.endswith(".xml")
+        href = (path_s if is_xml else f"{path_s}/") if active == "root" else (f"../{path_s}" if is_xml else f"../{path_s}/")
+        active_values = {label_s.lower(), path_s.lower(), key_s.lower()}
+        cls = "active" if str(active).lower() in active_values else ""
+        parts.append(f'<a class="{cls}" href="{esc(href)}">{esc(label_s)}</a>')
     return "".join(parts)
 
 
@@ -677,9 +694,10 @@ def render_notes_summary(rows: List[Dict[str, Any]]) -> str:
     counts = Counter()
     missing_breakdown = Counter()
     for row in rows:
-        for note in notes_for_row(row):
+        row_notes = notes_for_row(row)
+        for note in row_notes:
             counts[note] += 1
-        if "Missing odds" in notes_for_row(row):
+        if "Missing odds" in row_notes:
             reason = str(row.get("odds_missing_reason_group") or row.get("no_odds_reason") or "Unknown")
             reason = reason.replace("_", " ").title()
             missing_breakdown[reason] += 1
@@ -717,8 +735,7 @@ def summarize_results(rows: List[Dict[str, Any]]) -> Dict[str, Any]:
             void += 1
         else:
             pending += 1
-        u = as_float(r.get("units"), 0.0) or 0.0
-        units += u
+        units += as_float(r.get("units"), 0.0) or 0.0
         od = pick_odds(r)
         if od:
             odds_vals.append(od)
@@ -738,7 +755,7 @@ def summary_cards_html(summary: Dict[str, Any], title: str) -> str:
 
 
 def result_tags(row: Dict[str, Any]) -> List[str]:
-    tags = []
+    tags: List[str] = []
     for key in ("tags", "technical_flags", "corq_warning_flags", "top7_risk_tags", "public_notes"):
         val = row.get(key)
         if isinstance(val, list):
@@ -805,19 +822,23 @@ def render_sets_games_result_cell(row: Dict[str, Any]) -> str:
 
 
 def tag_analysis(rows: List[Dict[str, Any]]) -> str:
-    agg: Dict[str, Dict[str, Any]] = defaultdict(lambda: {"count":0,"won":0,"lost":0,"pending":0,"units":0.0,"odds":[]})
+    agg: Dict[str, Dict[str, Any]] = defaultdict(lambda: {"count": 0, "won": 0, "lost": 0, "pending": 0, "units": 0.0, "odds": []})
     for r in rows:
         tags = result_tags(r)
         for t in tags:
             a = agg[t]
             a["count"] += 1
             st = result_status(r)
-            if st == "WON": a["won"] += 1
-            elif st == "LOST": a["lost"] += 1
-            else: a["pending"] += 1
+            if st == "WON":
+                a["won"] += 1
+            elif st == "LOST":
+                a["lost"] += 1
+            else:
+                a["pending"] += 1
             a["units"] += as_float(r.get("units"), 0.0) or 0.0
             od = pick_odds(r)
-            if od: a["odds"].append(od)
+            if od:
+                a["odds"].append(od)
     if not agg:
         return '<div class="results-panel"><div class="summary-title">Tag Analysis</div><div class="empty">No tag data yet.</div></div>'
     body = []
@@ -826,27 +847,42 @@ def tag_analysis(rows: List[Dict[str, Any]]) -> str:
         winp = a["won"] / decided * 100 if decided else 0.0
         avg = sum(a["odds"]) / len(a["odds"]) if a["odds"] else None
         avg_txt = "—" if avg is None else f"{avg:.2f}"
-        body.append(f'<tr><td><span class="tag-chip" data-filter="{esc(tag)}">{esc(tag)}</span></td><td>{a["count"]}</td><td>{a["won"]}-{a["lost"]}-{a["pending"]}</td><td>{winp:.1f}%</td><td>{a["units"]:+.2f}u</td><td>{esc(avg_txt)}</td></tr>')
+        body.append(
+            f'<tr><td><span class="tag-chip" data-filter="{esc(tag)}">{esc(tag)}</span></td>'
+            f'<td>{a["count"]}</td><td>{a["won"]}-{a["lost"]}-{a["pending"]}</td>'
+            f'<td>{winp:.1f}%</td><td>{a["units"]:+.2f}u</td><td>{esc(avg_txt)}</td></tr>'
+        )
     return f'<div class="results-panel"><div class="summary-title">Tag Analysis</div><div class="table-wrap"><table class="results-table"><thead><tr><th>Tag</th><th>Count</th><th>W-L-P</th><th>Win %</th><th>Units</th><th>Avg odds</th></tr></thead><tbody>{"".join(body)}</tbody></table></div><span class="clear-filter tag-chip">Clear filter</span></div>'
 
 
 def bucket_label(value: Optional[float], kind: str) -> str:
     if value is None:
         return "Missing"
-    v = value * 100 if value <= 1.0 else value
+    v = value * 100 if value <= 1.0 and kind != "odds" else value
     if kind == "odds":
-        if v < 1.5: return "<1.50"
-        if v < 1.8: return "1.50-1.79"
-        if v < 2.2: return "1.80-2.19"
+        if v < 1.5:
+            return "<1.50"
+        if v < 1.8:
+            return "1.50-1.79"
+        if v < 2.2:
+            return "1.80-2.19"
         return "2.20+"
-    if v < 40: return "0-39%"
-    if v < 60: return "40-59%"
-    if v < 80: return "60-79%"
+    if v < 40:
+        return "0-39%"
+    if v < 60:
+        return "40-59%"
+    if v < 80:
+        return "60-79%"
     return "80-100%"
 
 
 def depth_analysis(rows: List[Dict[str, Any]]) -> str:
-    sections = [("Stat Data Depth", lambda r: stat_depth(r), "pct"), ("Form Data Depth", lambda r: form_depth(r), "pct"), ("CorQ Probability", lambda r: probability(r), "pct"), ("Odds", lambda r: pick_odds(r), "odds")]
+    sections = [
+        ("Stat Data Depth", lambda r: stat_depth(r), "pct"),
+        ("Form Data Depth", lambda r: form_depth(r), "pct"),
+        ("CorQ Probability", lambda r: probability(r), "pct"),
+        ("Odds", lambda r: pick_odds(r), "odds"),
+    ]
     blocks = []
     for title, getter, kind in sections:
         agg = Counter(bucket_label(getter(r), kind) for r in rows)
@@ -907,7 +943,7 @@ def render_all() -> None:
     cloq = json_rows(read_json(OUTPUTS / "latest_cloq.json", []))
     ensure_logs(top7 + all_rows + cloq)
 
-    write_text(SITE_DIR / "index.html", page_shell("CorQ", "root", '<script>location.href="'+esc(TOP7_PATH)+'/"</script>', manifest))
+    write_text(SITE_DIR / "index.html", page_shell("CorQ", "root", '<script>location.href="' + esc(TOP7_PATH) + '/"</script>', manifest))
     write_text(SITE_DIR / TOP7_PATH / "index.html", render_cards_page("CorQ TOP7", TOP7_PATH, top7, manifest, page="corq"))
     write_text(SITE_DIR / ALL_PATH / "index.html", render_cards_page("ALL Audit", ALL_PATH, all_rows, manifest, page="all", dedupe=True))
     write_text(SITE_DIR / CLOQ_PATH / "index.html", render_cards_page("CloQ", CLOQ_PATH, cloq, manifest, page="cloq"))
