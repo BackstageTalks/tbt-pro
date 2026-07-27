@@ -1008,15 +1008,11 @@ def nav_html(active: str) -> str:
 
 
 def hero_html(page_label: str, manifest: Dict[str, Any]) -> str:
-    updated = manifest.get("updated_at") or manifest.get("generated_at") or manifest.get("run_at") or "—"
-    top7_count = manifest.get("top7_count", "—")
-    all_count = manifest.get("all_count", "—")
-    ranked_count = manifest.get("ranked_count", "—")
     return f"""
 <div class="hero">
-  <div class="hero-panel"><div class="hero-title">Snapshot</div><div class="hero-line">{esc(page_label)} · Updated {esc(updated)}</div><div class="hero-line">TOP7 {esc(top7_count)} · Audit {esc(all_count)} · Ranked {esc(ranked_count)}</div></div>
-  <div class="hero-panel"><div class="hero-title">Model</div><div class="hero-line">CorQ final probability · ThinQ data quality · MarQ market view</div><div class="hero-line">Audit tags and data depth are stored for Results.</div></div>
-  <div class="hero-panel"><div class="hero-title">Notice</div><div class="hero-line">This data is provided for informational and analytical purposes only.</div><div class="hero-line">Powered by BackstageTalks Statistical Engine</div></div>
+  <div class="hero-panel"><div class="hero-title">WHO WE ARE</div><div class="hero-line">Independent tennis intelligence platform built for analytics and data enthusiasts.</div></div>
+  <div class="hero-panel"><div class="hero-title">WHAT WE DO</div><div class="hero-line">We combine player data, market odds and machine learning to uncover value.</div></div>
+  <div class="hero-panel"><div class="hero-title">WHY WE DO IT</div><div class="hero-line">To replace guesswork with transparent, data-driven insights.</div></div>
 </div>
 """
 
