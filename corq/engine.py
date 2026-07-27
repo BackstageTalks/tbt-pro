@@ -53,6 +53,49 @@ def _enrich_with_ta_rankings(record: Dict[str, Any], rankings: Dict[str, Any]) -
         return record
 
 
+
+def _enrich_with_ta_profile_context(record: Dict[str, Any]) -> Dict[str, Any]:
+    try:
+        from thinq.loaders.ta_profile_loader import build_match_ta_context  # type: ignore
+        ctx = build_match_ta_context(
+            str(record.get("pick") or record.get("player") or record.get("player1") or ""),
+            str(record.get("opponent") or record.get("opp") or record.get("player2") or ""),
+            str(record.get("surface") or record.get("surface_raw") or ""),
+        )
+        if isinstance(ctx, dict):
+            record.update(ctx)
+            record["ta_context"] = ctx
+            return record
+    except Exception:
+        pass
+    defaults = {
+        "ta_status": "N/A",
+        "ta_pick_status": "N/A",
+        "ta_opp_status": "N/A",
+        "ta_pick_set_pct": None,
+        "ta_opp_set_pct": None,
+        "ta_pick_game_pct": None,
+        "ta_opp_game_pct": None,
+        "ta_pick_tb_split": None,
+        "ta_opp_tb_split": None,
+        "ta_pick_ace_pct": None,
+        "ta_opp_ace_pct": None,
+        "ta_pick_surface_dr": None,
+        "ta_opp_surface_dr": None,
+        "ta_pick_rpw_pct": None,
+        "ta_opp_rpw_pct": None,
+        "ta_pick_depth": None,
+        "ta_opp_depth": None,
+        "pick_aces_line": None,
+        "opponent_aces_line": None,
+        "total_aces_line": None,
+        "aces_status": "N/A",
+    }
+    for key, value in defaults.items():
+        record.setdefault(key, value)
+    return record
+
+
 def _call_build_match_features(thinq_service: Any, payload: Dict[str, Any]) -> Dict[str, Any]:
     method = thinq_service.build_match_features
     try:
@@ -238,6 +281,7 @@ def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", ru
         enriched = _enrich_with_thinq(candidate, thinq_service)
         prediction = build_corq_prediction(enriched)
         prediction = _enrich_with_ta_rankings(prediction, ta_rankings)
+        prediction = _enrich_with_ta_profile_context(prediction)
         scored.append(prediction)
 
     all_view = make_all_match_view(scored)
