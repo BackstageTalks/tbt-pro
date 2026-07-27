@@ -8,16 +8,32 @@ All returned edges are oriented from pick -> opponent:
 """
 from __future__ import annotations
 
+import argparse
 import csv
 import json
+import os
 import re
+import time
 import unicodedata
+import urllib.request
+from datetime import datetime, timezone
+from io import StringIO
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 SEARCH_DIRS = [Path("thinq/data"), Path("data/thinq"), Path("data/elo"), Path("data/history"), Path("data")]
 ELO_FILE_HINTS = ("elo", "rating", "tennisabstract", "ta")
+ELO_OUTPUT_PATH = Path("thinq/data/elo/ta_elo_ratings.json")
+ATP_ELO_URL = "https://tennisabstract.com/reports/atp_elo_ratings.html"
+WTA_ELO_URL = "https://tennisabstract.com/reports/wta_elo_ratings.html"
+USER_AGENT = os.getenv(
+    "TA_ELO_USER_AGENT",
+    "Mozilla/5.0 (compatible; TBT-PRO-ELO-Cache/1.0; +https://backstagetalks.example)",
+)
+REQUEST_TIMEOUT = int(os.getenv("TA_ELO_REQUEST_TIMEOUT_SECONDS", "25"))
+REQUEST_DELAY_SECONDS = float(os.getenv("TA_ELO_REQUEST_DELAY_SECONDS", "0.35"))
+
 _TRANSLATE = str.maketrans({"ł":"l","Ł":"L","đ":"d","Đ":"D","ð":"d","Ð":"D","þ":"th","Þ":"Th","ß":"ss","ø":"o","Ø":"O","æ":"ae","Æ":"Ae","œ":"oe","Œ":"Oe"})
 
 
@@ -280,3 +296,159 @@ def build_elo_context(pick: str, opponent: str, surface: Optional[str] = None) -
         "source": pick_row.get("source") or opponent_row.get("source"),
         "flags": sorted(set(flags)),
     }
+
+
+
+def now_iso() -> str:
+    return datetime.now(tz=timezone.utc).replace(microsecond=0).isoformat()
+
+
+def fetch_url(url: str, retries: int = 2) -> str:
+    last_error: Optional[Exception] = None
+    for attempt in range(retries + 1):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+            with urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT) as resp:
+                raw = resp.read()
+            return raw.decode("utf-8", errors="replace")
+        except Exception as exc:
+            last_error = exc
+            if attempt < retries:
+                time.sleep(0.8 + attempt * 0.5)
+    raise RuntimeError(f"TA ELO fetch failed url={url} error={last_error}")
+
+
+def try_read_html_tables(html_text: str) -> List[Any]:
+    try:
+        import pandas as pd  # type: ignore
+        return pd.read_html(StringIO(html_text))
+    except Exception:
+        return []
+
+
+def flatten_columns(df: Any) -> Any:
+    try:
+        df = df.copy()
+        columns = []
+        for col in df.columns:
+            if isinstance(col, tuple):
+                parts = [str(x).strip() for x in col if str(x).strip() and not str(x).startswith("Unnamed")]
+                columns.append(" ".join(parts).strip())
+            else:
+                columns.append(str(col).strip())
+        df.columns = columns
+        return df
+    except Exception:
+        return df
+
+
+def clean_column_name(value: Any) -> str:
+    text = str(value or "").replace("\xa0", " ").strip().lower()
+    text = re.sub(r"[^a-z0-9]+", "", text)
+    return text
+
+
+def table_value(row: Dict[str, Any], aliases: Iterable[str]) -> Any:
+    normalized = {clean_column_name(k): v for k, v in row.items()}
+    for alias in aliases:
+        key = clean_column_name(alias)
+        if key in normalized and normalized[key] not in (None, ""):
+            return normalized[key]
+    return None
+
+
+def parse_elo_tables(html_text: str, tour: str, source_url: str) -> List[Dict[str, Any]]:
+    tables = try_read_html_tables(html_text)
+    rows_out: List[Dict[str, Any]] = []
+    for table in tables:
+        table = flatten_columns(table)
+        try:
+            rows = table.to_dict(orient="records")
+        except Exception:
+            continue
+        for row in rows:
+            player = table_value(row, ("Player", "Name"))
+            elo = as_float(table_value(row, ("Elo", "Overall Elo", "Rating")))
+            if not player or elo is None:
+                continue
+            name = str(player).replace("\xa0", " ").strip()
+            if not name or name.lower() in {"player", "nan"}:
+                continue
+            record = {
+                "player": name,
+                "player_name": name,
+                "tour": tour,
+                "name_key": normalize_name(name),
+                "compact_key": compact_name(name),
+                "elo": elo,
+                "hard_elo": as_float(table_value(row, ("hElo", "Hard Elo", "Hard"))),
+                "clay_elo": as_float(table_value(row, ("cElo", "Clay Elo", "Clay"))),
+                "grass_elo": as_float(table_value(row, ("gElo", "Grass Elo", "Grass"))),
+                "source": source_url,
+                "updated_at": now_iso(),
+            }
+            rows_out.append({k: v for k, v in record.items() if v is not None})
+    # Deduplicate by compact key while preserving order.
+    dedup: Dict[str, Dict[str, Any]] = {}
+    for rec in rows_out:
+        key = str(rec.get("compact_key") or compact_name(rec.get("player")))
+        if key and key not in dedup:
+            dedup[key] = rec
+    return list(dedup.values())
+
+
+def build_ta_elo_cache(output_path: Path = ELO_OUTPUT_PATH) -> Dict[str, Any]:
+    sources = [
+        ("atp", ATP_ELO_URL),
+        ("wta", WTA_ELO_URL),
+    ]
+    players: Dict[str, Dict[str, Any]] = {}
+    stats = {"sources": len(sources), "players": 0, "failed": 0}
+    errors: List[str] = []
+    for tour, url in sources:
+        try:
+            html_text = fetch_url(url)
+            rows = parse_elo_tables(html_text, tour=tour, source_url=url)
+            for rec in rows:
+                key = str(rec.get("compact_key") or compact_name(rec.get("player")))
+                if key:
+                    players[key] = rec
+            print(f"[ELO] {tour} rows={len(rows)} url={url}")
+            time.sleep(REQUEST_DELAY_SECONDS)
+        except Exception as exc:
+            stats["failed"] += 1
+            errors.append(f"{tour}: {exc}")
+            print(f"[ELO] failed {tour}: {exc}")
+    stats["players"] = len(players)
+    payload = {
+        "generated_at": now_iso(),
+        "source": "tennis_abstract_elo_ratings",
+        "sources": {"atp": ATP_ELO_URL, "wta": WTA_ELO_URL},
+        "profile_count": len(players),
+        "stats": stats,
+        "errors": errors,
+        "players": players,
+    }
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
+    load_elo_index.cache_clear()
+    print(f"[ELO] wrote {output_path} players={len(players)}")
+    if not players:
+        raise RuntimeError("ELO cache update produced zero players")
+    return payload
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Build or inspect Tennis Abstract ELO cache")
+    parser.add_argument("--update", action="store_true", help="Fetch TA ATP/WTA Elo reports and write cache")
+    parser.add_argument("--output", default=str(ELO_OUTPUT_PATH), help="Output JSON path")
+    args = parser.parse_args()
+    if args.update:
+        build_ta_elo_cache(Path(args.output))
+    else:
+        index = load_elo_index()
+        print(f"Loaded ELO index players={len(index)}")
+
+
+if __name__ == "__main__":
+    main()
