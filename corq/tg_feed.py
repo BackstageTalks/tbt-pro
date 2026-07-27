@@ -7,7 +7,7 @@ import random
 import sys
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
 
@@ -98,6 +98,79 @@ def short_name(name: str) -> str:
     return parts[-1]
 
 
+def local_tz() -> timezone:
+    offset = as_float(os.getenv("TG_FEED_TIME_OFFSET_HOURS"), 1.0)
+    return timezone(timedelta(hours=offset or 0.0))
+
+
+def row_date_text(row: Dict[str, Any]) -> Optional[str]:
+    for key in ("snapshot_date", "date", "run_date", "match_date", "start_date"):
+        value = row.get(key)
+        if value:
+            txt = str(value).strip()
+            if len(txt) >= 10:
+                return txt[:10]
+    return None
+
+
+def parse_datetime_value(value: Any, tz: timezone) -> Optional[datetime]:
+    txt = str(value or "").strip()
+    if not txt:
+        return None
+    raw = txt.replace("Z", "+00:00")
+    try:
+        dt = datetime.fromisoformat(raw)
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=tz)
+        return dt.astimezone(tz)
+    except Exception:
+        pass
+    return None
+
+
+def match_start_datetime(row: Dict[str, Any], now: Optional[datetime] = None) -> Optional[datetime]:
+    tz = local_tz()
+    now = now or datetime.now(tz)
+
+    # Prefer full datetime fields, especially UTC fields if available.
+    for key in (
+        "start_time_utc",
+        "match_time_utc",
+        "start_time",
+        "match_time",
+        "start_time_display",
+        "match_time_display",
+    ):
+        dt = parse_datetime_value(row.get(key), tz)
+        if dt is not None:
+            return dt
+
+    # Fallback for fields that contain only HH:MM.
+    time_txt = start_time(row)
+    if time_txt == "—":
+        return None
+    import re
+
+    m = re.search(r"(\d{1,2}):(\d{2})", time_txt)
+    if not m:
+        return None
+    date_txt = row_date_text(row) or now.date().isoformat()
+    try:
+        base = datetime.fromisoformat(date_txt[:10]).date()
+        return datetime(base.year, base.month, base.day, int(m.group(1)), int(m.group(2)), tzinfo=tz)
+    except Exception:
+        return None
+
+
+def is_upcoming_match(row: Dict[str, Any], now: Optional[datetime] = None) -> bool:
+    tz = local_tz()
+    now = now or datetime.now(tz)
+    start_dt = match_start_datetime(row, now=now)
+    if start_dt is None:
+        return False
+    grace = as_float(os.getenv("TG_FEED_PAST_GRACE_MINUTES"), 0.0) or 0.0
+    return start_dt >= now - timedelta(minutes=grace)
+
 def start_time(row: Dict[str, Any]) -> str:
     raw = (
         row.get("start_time_display")
@@ -185,20 +258,24 @@ def is_doubles(row: Dict[str, Any]) -> bool:
     return "double" in text or "doubles" in text
 
 
-def valid_corq_row(row: Dict[str, Any]) -> bool:
+def valid_corq_row(row: Dict[str, Any], upcoming_only: bool = True) -> bool:
     if is_rejected(row) or is_doubles(row):
         return False
     if not pick_name(row) or not opponent_name(row):
+        return False
+    if start_time(row) == "—":
         return False
     if pick_odds(row) is None:
         return False
     if probability(row) is None:
         return False
+    if upcoming_only and not is_upcoming_match(row):
+        return False
     return True
 
 
-def valid_rows(rows: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    out = [row for row in rows if valid_corq_row(row)]
+def valid_rows(rows: Iterable[Dict[str, Any]], upcoming_only: bool = True) -> List[Dict[str, Any]]:
+    out = [row for row in rows if valid_corq_row(row, upcoming_only=upcoming_only)]
     out.sort(key=lambda r: as_float(probability(r), 0.0) or 0.0, reverse=True)
     return out
 
@@ -213,27 +290,27 @@ def format_row(row: Dict[str, Any], prefix: str) -> str:
     return f"{prefix} {name} | {start_time(row)} | {fmt_pct(probability(row))} | {fmt_odds(pick_odds(row))}"
 
 
-def build_top7_message(rows: List[Dict[str, Any]], limit: int = 7) -> str:
-    rows = valid_rows(rows)[:limit]
+def build_top7_message(rows: List[Dict[str, Any]], limit: int = 7, upcoming_only: bool = True) -> str:
+    rows = valid_rows(rows, upcoming_only=upcoming_only)[:limit]
     date_text = snapshot_date(rows)
     lines = [HEADER, "", "🎾 TOP7 | CorQ", f"📅 {date_text}", ""]
     if rows:
         lines.extend(format_row(row, number_emoji(idx)) for idx, row in enumerate(rows, 1))
     else:
-        lines.append("No valid CorQ picks available today.")
+        lines.append("No valid upcoming CorQ picks available today.")
     lines.extend(["", FOOTER])
     return "\n".join(lines)
 
 
-def build_free_message(rows: List[Dict[str, Any]]) -> str:
-    rows = valid_rows(rows)
+def build_free_message(rows: List[Dict[str, Any]], upcoming_only: bool = True) -> str:
+    rows = valid_rows(rows, upcoming_only=upcoming_only)
     date_text = snapshot_date(rows)
     lines = [HEADER, "", "🎾 FREE | CorQ", f"📅 {date_text}", ""]
     if rows:
         row = random.choice(rows)
         lines.append(format_row(row, "🆓"))
     else:
-        lines.append("No valid CorQ free pick available today.")
+        lines.append("No valid upcoming CorQ free pick available today.")
     lines.extend(["", FOOTER])
     return "\n".join(lines)
 
@@ -273,13 +350,21 @@ def main() -> None:
     parser.add_argument("--chat-id", default=None, help="Telegram chat id. Defaults by mode from env.")
     parser.add_argument("--bot-token", default=os.getenv("TELEGRAM_BOT_TOKEN") or os.getenv("TG_BOT_TOKEN"))
     parser.add_argument("--limit", type=int, default=7)
+    parser.add_argument(
+        "--include-started",
+        action="store_true",
+        help="Include matches that already started. Default is upcoming only.",
+    )
     args = parser.parse_args()
 
     rows = load_rows_for_mode(args.mode, Path(args.top7_path), Path(args.all_path))
+    upcoming_only_env = str(os.getenv("TG_FEED_UPCOMING_ONLY", "true")).lower() not in {"0", "false", "no"}
+    upcoming_only = upcoming_only_env and not args.include_started
+
     if args.mode == "free":
-        message = build_free_message(rows)
+        message = build_free_message(rows, upcoming_only=upcoming_only)
     else:
-        message = build_top7_message(rows, limit=args.limit)
+        message = build_top7_message(rows, limit=args.limit, upcoming_only=upcoming_only)
 
     output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
