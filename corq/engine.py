@@ -90,6 +90,16 @@ def _enrich_with_ta_profile_context(record: Dict[str, Any]) -> Dict[str, Any]:
         "opponent_aces_line": None,
         "total_aces_line": None,
         "aces_status": "N/A",
+        "ta_winner_decision": "N/A",
+        "ta_winner_read": "N/A",
+        "ta_sets_decision": "N/A",
+        "ta_games_decision": "N/A",
+        "ta_tb_decision": "N/A",
+        "ta_serve_return_pattern": "N/A",
+        "ta_match_shape": "N/A",
+        "ta_depth_label": "N/A",
+        "ta_decision_confidence": 0.0,
+        "ta_decision_notes": [],
     }
     for key, value in defaults.items():
         record.setdefault(key, value)
