@@ -4,48 +4,66 @@ on:
   workflow_dispatch:
     inputs:
       fetch_api:
-        description: "Fetch TennisApi event details for results"
+        description: "Reserved for future TennisApi result fetching"
         required: false
-        default: "true"
+        default: "false"
   workflow_run:
     workflows: ["Daily Tennis Predictions"]
     types: [completed]
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: build-results-foundation
+  cancel-in-progress: false
 
 jobs:
   build-results:
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Build results
+      - name: Build persistent Results database
         env:
-          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
-          FETCH_API: ${{ github.event.inputs.fetch_api || 'true' }}
+          PYTHONPATH: ${{ github.workspace }}
         run: |
-          if [ "$FETCH_API" = "true" ]; then
-            python -m corq.results --output-root outputs --fetch-api
+          python -m corq.results_db
+
+      - name: Render web site with updated Results
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: |
+          python -m corq.web.render
+
+      - name: Commit Results database and rendered site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add outputs/results corq/site || true
+
+          if git diff --cached --quiet; then
+            echo "No Results changes to commit."
           else
-            python -m corq.results --output-root outputs
+            git commit -m "Update Results database"
+            git push
           fi
 
-      - name: Commit results
-        run: |
-          if [ -n "$(git status --porcelain outputs/results)" ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add outputs/results
-            git commit -m "Build results"
-            git push
-          else
-            echo "No results changes to commit."
-          fi
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: corq/site
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
