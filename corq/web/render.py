@@ -736,24 +736,172 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
 
 
 
+def ta_first_text(row: Dict[str, Any], keys: Iterable[str], default: str = "N/A") -> str:
+    for key in keys:
+        val = row.get(key)
+        if val is None or val == "":
+            continue
+        txt = str(val).strip()
+        if txt and txt.lower() not in {"none", "null", "nan", "—", "-"}:
+            return txt
+    return default
+
+
+def ta_depth_label(row: Dict[str, Any]) -> str:
+    explicit = ta_first_text(
+        row,
+        (
+            "ta_depth_label",
+            "ta_data_depth_label",
+            "ta_decision_depth_label",
+            "ta_coverage_label",
+        ),
+        "",
+    )
+    if explicit:
+        return explicit
+    vals = [as_float(row.get("ta_pick_depth")), as_float(row.get("ta_opp_depth"))]
+    vals = [v * 100.0 if v is not None and abs(v) <= 1.0 else v for v in vals if v is not None]
+    if not vals:
+        return "N/A"
+    avg = sum(vals) / len(vals)
+    if avg >= 70:
+        return "Good"
+    if avg >= 40:
+        return "Thin"
+    return "Weak"
+
+
+def ta_winner_read(row: Dict[str, Any]) -> str:
+    explicit = ta_first_text(
+        row,
+        (
+            "ta_winner_decision",
+            "ta_winner_read",
+            "ta_winner_support",
+            "ta_pick_support",
+        ),
+        "",
+    )
+    if explicit:
+        return explicit
+    pick_dr = as_float(row.get("ta_pick_surface_dr") or row.get("ta_pick_dr"))
+    opp_dr = as_float(row.get("ta_opp_surface_dr") or row.get("ta_opp_dr"))
+    if pick_dr is None or opp_dr is None:
+        return "N/A"
+    diff = pick_dr - opp_dr
+    if diff >= 0.08:
+        return "Supports Pick"
+    if diff <= -0.08:
+        return "Supports Opp"
+    if abs(diff) <= 0.03:
+        return "Neutral"
+    return "Slight Pick" if diff > 0 else "Slight Opp"
+
+
+def ta_match_shape_read(row: Dict[str, Any]) -> str:
+    explicit = ta_first_text(
+        row,
+        (
+            "ta_match_shape",
+            "ta_shape",
+            "ta_match_type",
+        ),
+        "",
+    )
+    if explicit:
+        return explicit
+    pick_dr = as_float(row.get("ta_pick_surface_dr") or row.get("ta_pick_dr"))
+    opp_dr = as_float(row.get("ta_opp_surface_dr") or row.get("ta_opp_dr"))
+    if pick_dr is None or opp_dr is None:
+        return "N/A"
+    diff = abs(pick_dr - opp_dr)
+    if diff <= 0.03:
+        return "Competitive"
+    if diff >= 0.12:
+        return "One-sided"
+    return "Moderate Edge"
+
+
+def ta_aces_input_status(row: Dict[str, Any]) -> str:
+    return ta_first_text(
+        row,
+        (
+            "ta_aces_decision",
+            "ta_aces_input_status",
+            "ta_aces_status",
+        ),
+        aces_display(row),
+    )
+
 def render_ta_box(row: Dict[str, Any]) -> str:
+    """Render Tennis Abstract as decision output, not a raw stat table."""
     return "\n".join([
         '<section class="metric-box small-box">',
         f'<div class="box-head"><span>TA {info_icon("ta")}</span><b></b></div>',
-        metric_row("Set% P / O", pct_pair(row.get("ta_pick_set_pct"), row.get("ta_opp_set_pct")), "",),
-        metric_row("Game% P / O", pct_pair(row.get("ta_pick_game_pct"), row.get("ta_opp_game_pct")), "",),
+        metric_row("Winner Read", esc(ta_winner_read(row))),
         metric_row(
-            "TB Split",
+            "Sets Read",
             esc(
-                f"{wl_text(row.get('ta_pick_tb_split'))} / "
-                f"{wl_text(row.get('ta_opp_tb_split'))}"
+                ta_first_text(
+                    row,
+                    (
+                        "ta_sets_decision",
+                        "ta_sets_read",
+                        "ta_set_direction",
+                        "ta_sets_direction",
+                    ),
+                )
             ),
         ),
-        metric_row("Surface DR", esc(value_pair(row.get("ta_pick_surface_dr"), row.get("ta_opp_surface_dr"), 2))),
-        metric_row("TA Depth", esc(ta_depth_display(row))),
+        metric_row(
+            "Games Read",
+            esc(
+                ta_first_text(
+                    row,
+                    (
+                        "ta_games_decision",
+                        "ta_games_read",
+                        "ta_games_direction",
+                        "ta_games_lean",
+                    ),
+                )
+            ),
+        ),
+        metric_row(
+            "TB Read",
+            esc(
+                ta_first_text(
+                    row,
+                    (
+                        "ta_tb_decision",
+                        "ta_tb_read",
+                        "ta_tb_direction",
+                        "ta_tb_potential",
+                    ),
+                )
+            ),
+        ),
+        metric_row(
+            "Serve Pattern",
+            esc(
+                ta_first_text(
+                    row,
+                    (
+                        "ta_serve_return_pattern",
+                        "ta_serve_pattern",
+                        "ta_serve_pressure",
+                        "ta_pressure_pattern",
+                    ),
+                )
+            ),
+        ),
+        metric_row("Match Shape", esc(ta_match_shape_read(row))),
+        metric_row("TA Depth", esc(ta_depth_label(row))),
         metric_row("Aces", esc(aces_display(row))),
         '</section>',
     ])
+
 
 def render_sets_games_box(row: Dict[str, Any]) -> str:
     return "\n".join([
