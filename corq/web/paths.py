@@ -17,7 +17,7 @@ THINQ_PATH = "h4v34n1c3d4y186"
 THINQ_RSS_PATH = "h4v34n1c3d4y187.xml"
 
 NAV_ITEMS = [
-    {"key": "top7", "label": "TOP7", "path": TOP7_PATH},
+    {"key": "top7", "label": "CorQ", "path": TOP7_PATH},
     {"key": "all", "label": "ALL", "path": ALL_PATH},
     {"key": "results", "label": "Results", "path": RESULTS_PATH},
     {"key": "thinq", "label": "THINQ", "path": THINQ_PATH},

@@ -74,6 +74,53 @@ def public_flag_labels(flags: Iterable[str], limit: Optional[int] = None) -> Lis
     return out[:limit] if limit is not None else out
 
 
+
+_INFO_CACHE: Optional[Dict[str, Any]] = None
+
+def load_explanations() -> Dict[str, Any]:
+    global _INFO_CACHE
+    if _INFO_CACHE is not None:
+        return _INFO_CACHE
+    data = read_json(WEB_DIR / "explanations.json", {})
+    if not isinstance(data, dict):
+        data = {}
+    _INFO_CACHE = data
+    return data
+
+def explanation_text(key: str) -> str:
+    data = load_explanations()
+    aliases = {
+        "corq": "corq_box",
+        "thinq": "thinq_box",
+        "h2h": "h2h",
+        "s_h2h": "s_h2h",
+        "stat_data_depth": "pick_data_depth",
+        "form_data_depth": "form_data_depth",
+    }
+    lookup_keys = [key, aliases.get(key, "")]
+    for lookup in lookup_keys:
+        if not lookup:
+            continue
+        item = data.get(lookup)
+        if isinstance(item, dict):
+            title = str(item.get("title") or "").strip()
+            text = str(item.get("text") or item.get("description") or "").strip()
+            if title and text:
+                return f"{title}: {text}"
+            if text:
+                return text
+            if title:
+                return title
+        elif isinstance(item, str) and item.strip():
+            return item.strip()
+    defaults = {
+        "corq": "CorQ is the final win probability for the displayed pick.",
+        "thinq": "ThinQ is the overall data quality for the match, not win probability.",
+        "stat_data_depth": "S Data Depth shows the statistical support for the current pick.",
+        "form_data_depth": "F Data Depth shows the reliability of recent form, surface form and opponent-quality data.",
+    }
+    return defaults.get(key, key)
+
 def esc(value: Any) -> str:
     return html.escape("" if value is None else str(value), quote=True)
 
@@ -431,7 +478,8 @@ def metric_row(label: str, value: str, cls: str = "") -> str:
 
 
 def info_icon(key: str) -> str:
-    return f'<span class="info" tabindex="0" data-tip="{esc(key)}">i</span>'
+    tip = explanation_text(key)
+    return f'<span class="info" tabindex="0" role="button" aria-label="{esc(tip)}" data-tip="{esc(tip)}">i</span>'
 
 
 def start_time(row: Dict[str, Any]) -> str:
@@ -453,7 +501,7 @@ def meta_line(row: Dict[str, Any]) -> str:
 
 
 def log_link(row: Dict[str, Any]) -> str:
-    return f'logs/{esc(match_key(row))}/index.html'
+    return f'../logs/{esc(match_key(row))}/index.html'
 
 
 def ensure_logs(rows: List[Dict[str, Any]]) -> None:
@@ -502,21 +550,21 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         '</section>',
         '<section class="metric-box">',
         f'<div class="box-head"><span>CorQ {info_icon("corq")}</span><b>{as_pct(prob, 1)}</b></div>',
-        metric_row("Pick ELO / S-ELO", f'{signed_pct(row.get("elo_edge") or row.get("pick_elo_edge"))} / {signed_pct(row.get("surface_elo_edge") or row.get("pick_surface_elo_edge"))}', sign_class(row.get("elo_edge") or row.get("pick_elo_edge"))),
-        metric_row("Opp ELO / S-ELO", f'{signed_pct(-(as_float(row.get("elo_edge") or row.get("pick_elo_edge"), 0) or 0))} / {signed_pct(-(as_float(row.get("surface_elo_edge") or row.get("pick_surface_elo_edge"), 0) or 0))}', "good"),
+        metric_row("P EL / S-E", f'{signed_pct(row.get("elo_edge") or row.get("pick_elo_edge"))} / {signed_pct(row.get("surface_elo_edge") or row.get("pick_surface_elo_edge"))}', sign_class(row.get("elo_edge") or row.get("pick_elo_edge"))),
+        metric_row("O EL / S-E", f'{signed_pct(-(as_float(row.get("elo_edge") or row.get("pick_elo_edge"), 0) or 0))} / {signed_pct(-(as_float(row.get("surface_elo_edge") or row.get("pick_surface_elo_edge"), 0) or 0))}', "good"),
         metric_row("H2H P-O", esc(h2h_display(row)), h2h_class(row)),
         metric_row("S-H2H P-O", esc(surface_h2h_display(row)), surface_h2h_class(row)),
-        metric_row("Pick ThinQ Edge", esc(f"{pe_txt} / {pe_state}"), pe_cls),
-        metric_row("Stat Data Depth", bar_html(stat_depth(row))),
+        metric_row("P ThinQ Edge", esc(f"{pe_txt} / {pe_state}"), pe_cls),
+        metric_row("S Data Depth", bar_html(stat_depth(row))),
         '</section>',
         '<section class="metric-box">',
         f'<div class="box-head"><span>ThinQ {info_icon("thinq")}</span><b>{as_pct(thinq_conf(row), 1)}</b></div>',
-        metric_row("Pick Form / S-Form", esc(f"{pick_form} / {pick_sform}")),
-        metric_row("Opp Form / S-Form", esc(f"{opp_form} / {opp_sform}")),
-        metric_row("Pick R-Edge", signed_pct(row.get("recent_form_edge") or row.get("short_form_edge")), sign_class(row.get("recent_form_edge") or row.get("short_form_edge"))),
-        metric_row("Pick S-Edge", signed_pct(row.get("surface_recent_form_edge")), sign_class(row.get("surface_recent_form_edge"))),
-        metric_row("Pick Form Qty", signed_pct(row.get("opponent_quality_edge")), sign_class(row.get("opponent_quality_edge"))),
-        metric_row("Form Data Depth", bar_html(form_depth(row))),
+        metric_row("P F / S-F", esc(f"{pick_form} / {pick_sform}")),
+        metric_row("O F / S-F", esc(f"{opp_form} / {opp_sform}")),
+        metric_row("P R-Edge", signed_pct(row.get("recent_form_edge") or row.get("short_form_edge")), sign_class(row.get("recent_form_edge") or row.get("short_form_edge"))),
+        metric_row("P S-Edge", signed_pct(row.get("surface_recent_form_edge")), sign_class(row.get("surface_recent_form_edge"))),
+        metric_row("P F Qty", signed_pct(row.get("opponent_quality_edge")), sign_class(row.get("opponent_quality_edge"))),
+        metric_row("F Data Depth", bar_html(form_depth(row))),
         '</section>',
         render_sets_games_box(row),
         render_marq_box(row) if page != "cloq" else render_cloq_box(row),
@@ -583,7 +631,7 @@ def copy_assets() -> str:
 def css() -> str:
     return """
 :root{--bg:#08111f;--panel:#111d2f;--panel2:#0e1828;--line:#24344d;--text:#e5eefc;--muted:#8ea5c2;--cyan:#38d5ff;--green:#34d399;--orange:#fb923c;--red:#f87171;--yellow:#facc15}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,#10233d 0,#08111f 42%,#050b14 100%);color:var(--text);font:14px/1.45 Inter,Segoe UI,Arial,sans-serif}.wrap{max-width:1680px;margin:0 auto;padding:18px}.topbar{display:flex;align-items:center;gap:16px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:12px;min-width:260px}.brand-logo{width:56px;height:56px;border-radius:999px;object-fit:contain;padding:6px;background:#071827;border:1px solid rgba(56,213,255,.65);box-shadow:0 0 22px rgba(56,213,255,.18)}.brand-title{font-weight:900;font-size:18px}.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}.nav{display:flex;gap:10px;flex-wrap:wrap}.nav a{color:#bcd1ea;text-decoration:none;border:1px solid #22344d;background:#0d1727;padding:8px 13px;border-radius:999px;font-weight:700}.nav a.active{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(56,213,255,.25),0 0 18px rgba(56,213,255,.14);color:#fff}.hero{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}.hero-panel{background:linear-gradient(180deg,rgba(17,29,47,.92),rgba(9,17,30,.92));border:1px solid #23344d;border-radius:18px;padding:14px}.hero-title{font-size:11px;color:var(--cyan);text-transform:uppercase;letter-spacing:.14em;font-weight:900}.hero-line{margin-top:4px;color:#dbeafe}.grid{display:grid;gap:14px}.pick-card{display:grid;grid-template-columns:minmax(260px,1.1fr) repeat(4,minmax(220px,1fr));gap:12px;background:rgba(10,18,32,.72);border:1px solid #20314a;border-radius:22px;padding:12px;box-shadow:0 12px 36px rgba(0,0,0,.25)}.pick-main,.metric-box{background:linear-gradient(180deg,#121f32,#0c1625);border:1px solid #283a55;border-radius:18px;padding:14px;min-width:0}.card-top{display:flex;justify-content:space-between;align-items:center}.rank-num{color:var(--cyan);font-size:12px;font-weight:900}.brain{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;text-decoration:none;background:#15243a;border:1px solid #334862;z-index:2}.pick-main h2,.pick-main h3{margin:8px 0 4px;font-size:18px;line-height:1.2}.pick-main h3{font-size:16px;color:#dbeafe}.rank{font-size:.82em;color:#7dd3fc;font-weight:800}.odds-line{display:inline-block;color:#7ee7aa;background:#07351f;border:1px solid #0d7c49;border-radius:999px;padding:3px 8px;font-weight:800}.odds-line.muted{color:#bdd7f5;background:#111d2d;border-color:#263b58}.to-beat{margin:8px 0;color:#67e8f9;font-weight:900;text-transform:uppercase;font-size:11px}.time-line,.status-line{color:var(--muted);font-size:12px;margin-top:8px}.notes{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.note,.result-tag,.tag-chip{display:inline-flex;align-items:center;border-radius:999px;padding:4px 8px;background:#16243a;border:1px solid #344a68;color:#bcd1ea;font-size:11px;font-weight:800}.box-head{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:10px;font-size:13px;font-weight:900;color:#bae6fd}.box-head b{font-size:20px;color:var(--green)}.metric-row{display:flex;justify-content:space-between;gap:12px;border-top:1px solid rgba(148,163,184,.14);padding:8px 0;color:#9fb5d1}.metric-row:first-of-type{border-top:0}.metric-row b{color:#f8fafc;text-align:right}.metric-row.good b{color:#f8fafc}.metric-row.bad b{color:var(--orange)}.metric-row.neutral b{color:#b9c6d8}.small-box .metric-row{font-size:12px}.depth-wrap{display:inline-flex;align-items:center;gap:8px}.depth-number{min-width:38px;text-align:right;color:#f8fafc}.depth-bar{display:inline-block;width:74px;height:8px;background:#1e293b;border-radius:999px;overflow:hidden;border:1px solid #334155}.depth-bar span{display:block;height:100%}.bar-good{background:linear-gradient(90deg,#10b981,#67e8f9)}.bar-mid{background:linear-gradient(90deg,#facc15,#fb923c)}.bar-bad{background:linear-gradient(90deg,#ef4444,#fb923c)}.info{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:999px;border:1px solid #4b6b8d;color:#93c5fd;font-size:10px;margin-left:4px}.summary-panel,.results-panel{margin-top:16px;background:#0d1727;border:1px solid #24344d;border-radius:20px;padding:16px}.summary-title{font-size:12px;color:var(--cyan);font-weight:900;text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px}.tag-list{display:flex;flex-wrap:wrap;gap:8px}.tag-chip{cursor:pointer}.tag-chip.active{border-color:var(--cyan);color:#fff;box-shadow:0 0 16px rgba(56,213,255,.18)}.clear-filter{display:none;margin-left:8px;color:#93c5fd;cursor:pointer}.table-wrap{overflow:auto;border:1px solid #24344d;border-radius:16px}.results-table{width:100%;border-collapse:collapse;min-width:1150px;background:#0b1424}.results-table th{background:#172235;color:#9cc5e8;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.08em;padding:11px}.results-table td{border-top:1px solid #26354d;padding:11px;vertical-align:top}.status-won{color:#34d399;font-weight:900}.status-lost{color:#fb7185;font-weight:900}.status-pending{color:#facc15;font-weight:900}.status-void{color:#94a3b8;font-weight:900}.empty{padding:34px;text-align:center;color:#9fb5d1;background:#0d1727;border:1px dashed #334155;border-radius:20px}.footer{margin-top:26px;text-align:center;color:#6f86a4;font-size:12px}@media(max-width:1200px){.pick-card{grid-template-columns:1fr 1fr}.hero{grid-template-columns:1fr}}@media(max-width:760px){.wrap{padding:10px}.topbar{align-items:flex-start;flex-direction:column}.pick-card{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.brand-logo{width:48px;height:48px}.metric-row{font-size:13px}.pick-main h2{font-size:17px}}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,#10233d 0,#08111f 42%,#050b14 100%);color:var(--text);font:14px/1.45 Inter,Segoe UI,Arial,sans-serif}.wrap{max-width:1680px;margin:0 auto;padding:18px}.topbar{display:flex;align-items:center;gap:16px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:12px;min-width:260px}.brand-logo{width:56px;height:56px;border-radius:999px;object-fit:contain;padding:6px;background:#071827;border:1px solid rgba(56,213,255,.65);box-shadow:0 0 22px rgba(56,213,255,.18)}.brand-title{font-weight:900;font-size:18px}.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}.nav{display:flex;gap:10px;flex-wrap:wrap}.nav a{color:#bcd1ea;text-decoration:none;border:1px solid #22344d;background:#0d1727;padding:8px 13px;border-radius:999px;font-weight:700}.nav a.active{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(56,213,255,.25),0 0 18px rgba(56,213,255,.14);color:#fff}.hero{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}.hero-panel{background:linear-gradient(180deg,rgba(17,29,47,.92),rgba(9,17,30,.92));border:1px solid #23344d;border-radius:18px;padding:14px}.hero-title{font-size:11px;color:var(--cyan);text-transform:uppercase;letter-spacing:.14em;font-weight:900}.hero-line{margin-top:4px;color:#dbeafe}.grid{display:grid;gap:14px}.pick-card{display:grid;grid-template-columns:minmax(260px,1.1fr) repeat(4,minmax(220px,1fr));gap:12px;background:rgba(10,18,32,.72);border:1px solid #20314a;border-radius:22px;padding:12px;box-shadow:0 12px 36px rgba(0,0,0,.25)}.pick-main,.metric-box{background:linear-gradient(180deg,#121f32,#0c1625);border:1px solid #283a55;border-radius:18px;padding:14px;min-width:0}.card-top{display:flex;justify-content:space-between;align-items:center}.rank-num{color:var(--cyan);font-size:12px;font-weight:900}.brain{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;text-decoration:none;background:#15243a;border:1px solid #334862;z-index:2}.pick-main h2,.pick-main h3{margin:8px 0 4px;font-size:18px;line-height:1.2}.pick-main h3{font-size:16px;color:#dbeafe}.rank{font-size:.82em;color:#7dd3fc;font-weight:800}.odds-line{display:inline-block;color:#7ee7aa;background:#07351f;border:1px solid #0d7c49;border-radius:999px;padding:3px 8px;font-weight:800}.odds-line.muted{color:#bdd7f5;background:#111d2d;border-color:#263b58}.to-beat{margin:8px 0;color:#67e8f9;font-weight:900;text-transform:uppercase;font-size:11px}.time-line,.status-line{color:var(--muted);font-size:12px;margin-top:8px}.notes{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.note,.result-tag,.tag-chip{display:inline-flex;align-items:center;border-radius:999px;padding:4px 8px;background:#16243a;border:1px solid #344a68;color:#bcd1ea;font-size:11px;font-weight:800}.box-head{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:10px;font-size:13px;font-weight:900;color:#bae6fd}.box-head b{font-size:20px;color:var(--green)}.metric-row{display:flex;justify-content:space-between;gap:12px;border-top:1px solid rgba(148,163,184,.14);padding:8px 0;color:#9fb5d1}.metric-row:first-of-type{border-top:0}.metric-row b{color:#f8fafc;text-align:right}.metric-row.good b{color:#f8fafc}.metric-row.bad b{color:var(--orange)}.metric-row.neutral b{color:#b9c6d8}.small-box .metric-row{font-size:12px}.depth-wrap{display:inline-flex;align-items:center;gap:8px}.depth-number{min-width:38px;text-align:right;color:#f8fafc}.depth-bar{display:inline-block;width:74px;height:8px;background:#1e293b;border-radius:999px;overflow:hidden;border:1px solid #334155}.depth-bar span{display:block;height:100%}.bar-good{background:linear-gradient(90deg,#10b981,#67e8f9)}.bar-mid{background:linear-gradient(90deg,#facc15,#fb923c)}.bar-bad{background:linear-gradient(90deg,#ef4444,#fb923c)}.info{position:relative;display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:999px;border:1px solid #4b6b8d;color:#93c5fd;font-size:10px;margin-left:4px;cursor:help}.info:hover:after,.info:focus:after{content:attr(data-tip);position:absolute;left:50%;top:22px;transform:translateX(-50%);z-index:50;width:min(320px,80vw);white-space:normal;text-align:left;background:#0b1424;color:#e5eefc;border:1px solid #34506f;border-radius:12px;padding:10px 12px;box-shadow:0 12px 30px rgba(0,0,0,.35);font-size:12px;line-height:1.35}.summary-panel,.results-panel{margin-top:16px;background:#0d1727;border:1px solid #24344d;border-radius:20px;padding:16px}.summary-title{font-size:12px;color:var(--cyan);font-weight:900;text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px}.tag-list{display:flex;flex-wrap:wrap;gap:8px}.tag-chip{cursor:pointer}.tag-chip.active{border-color:var(--cyan);color:#fff;box-shadow:0 0 16px rgba(56,213,255,.18)}.clear-filter{display:none;margin-left:8px;color:#93c5fd;cursor:pointer}.table-wrap{overflow:auto;border:1px solid #24344d;border-radius:16px}.results-table{width:100%;border-collapse:collapse;min-width:1150px;background:#0b1424}.results-table th{background:#172235;color:#9cc5e8;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.08em;padding:11px}.results-table td{border-top:1px solid #26354d;padding:11px;vertical-align:top}.status-won{color:#34d399;font-weight:900}.status-lost{color:#fb7185;font-weight:900}.status-pending{color:#facc15;font-weight:900}.status-void{color:#94a3b8;font-weight:900}.empty{padding:34px;text-align:center;color:#9fb5d1;background:#0d1727;border:1px dashed #334155;border-radius:20px}.footer{margin-top:26px;text-align:center;color:#6f86a4;font-size:12px}@media(max-width:1200px){.pick-card{grid-template-columns:1fr 1fr}.hero{grid-template-columns:1fr}}@media(max-width:760px){.wrap{padding:10px}.topbar{align-items:flex-start;flex-direction:column}.pick-card{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.brand-logo{width:48px;height:48px}.metric-row{font-size:13px}.pick-main h2{font-size:17px}}
 """
 
 
@@ -863,8 +911,8 @@ def bucket_label(value: Optional[float], kind: str) -> str:
 
 def depth_analysis(rows: List[Dict[str, Any]]) -> str:
     sections = [
-        ("Stat Data Depth", lambda r: stat_depth(r), "pct"),
-        ("Form Data Depth", lambda r: form_depth(r), "pct"),
+        ("S Data Depth", lambda r: stat_depth(r), "pct"),
+        ("F Data Depth", lambda r: form_depth(r), "pct"),
         ("CorQ Probability", lambda r: probability(r), "pct"),
         ("Odds", lambda r: pick_odds(r), "odds"),
     ]
@@ -930,7 +978,7 @@ def render_all() -> None:
     ensure_logs(top7 + all_rows + cloq)
 
     write_text(SITE_DIR / "index.html", page_shell("CorQ", "root", '<script>location.href="' + esc(TOP7_PATH) + '/"</script>', manifest))
-    write_text(SITE_DIR / TOP7_PATH / "index.html", render_cards_page("CorQ TOP7", TOP7_PATH, top7, manifest, page="corq"))
+    write_text(SITE_DIR / TOP7_PATH / "index.html", render_cards_page("CorQ", TOP7_PATH, top7, manifest, page="corq"))
     write_text(SITE_DIR / ALL_PATH / "index.html", render_cards_page("ALL Audit", ALL_PATH, all_rows, manifest, page="all", dedupe=True))
     write_text(SITE_DIR / CLOQ_PATH / "index.html", render_cards_page("CloQ", CLOQ_PATH, cloq, manifest, page="cloq"))
     write_text(SITE_DIR / THINQ_PATH / "index.html", render_cards_page("ThinQ", THINQ_PATH, all_rows, manifest, page="all", dedupe=True))
