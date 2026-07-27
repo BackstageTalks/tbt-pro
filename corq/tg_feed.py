@@ -360,6 +360,7 @@ def main() -> None:
     rows = load_rows_for_mode(args.mode, Path(args.top7_path), Path(args.all_path))
     upcoming_only_env = str(os.getenv("TG_FEED_UPCOMING_ONLY", "true")).lower() not in {"0", "false", "no"}
     upcoming_only = upcoming_only_env and not args.include_started
+    sendable_rows = valid_rows(rows, upcoming_only=upcoming_only)
 
     if args.mode == "free":
         message = build_free_message(rows, upcoming_only=upcoming_only)
@@ -372,6 +373,9 @@ def main() -> None:
     print(message)
 
     if args.send:
+        if not sendable_rows:
+            print(f"[tg_feed] No valid upcoming rows for mode={args.mode}; Telegram send skipped.")
+            return
         chat_id = args.chat_id
         if not chat_id:
             if args.mode == "free":
