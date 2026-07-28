@@ -109,6 +109,95 @@ except Exception:
         }
 
 
+def _flags_from_context(ctx: Dict[str, Any]) -> List[str]:
+    value = ctx.get("flags") if isinstance(ctx, dict) else []
+    return [str(x) for x in value if x] if isinstance(value, list) else ([str(value)] if value else [])
+
+
+def _safe_elo_context(pick: str, opponent: str, surface: Optional[str]) -> Dict[str, Any]:
+    try:
+        ctx = build_elo_context(pick, opponent, surface)
+        return ctx if isinstance(ctx, dict) else {"status": "ERROR", "flags": ["ELO_RETURNED_NON_DICT"]}
+    except Exception as exc:
+        return {
+            "status": "ERROR",
+            "selected_elo_type": None,
+            "overall_elo_edge": 0.0,
+            "surface_elo_edge": 0.0,
+            "elo_edge": 0.0,
+            "flags": ["ELO_CONTEXT_FAILED", "MISSING_ELO"],
+            "error": str(exc),
+        }
+
+
+def _safe_h2h_context(**kwargs: Any) -> Dict[str, Any]:
+    try:
+        ctx = build_h2h_context(**kwargs)
+        return ctx if isinstance(ctx, dict) else {"status": "ERROR", "flags": ["H2H_RETURNED_NON_DICT"]}
+    except Exception as exc:
+        return {
+            "status": "ERROR",
+            "source": "none",
+            "total_matches": 0,
+            "pick_wins": 0,
+            "opponent_wins": 0,
+            "edge": 0.0,
+            "confidence": 0.0,
+            "reason": "H2H context failed",
+            "flags": ["H2H_CONTEXT_FAILED"],
+            "error": str(exc),
+        }
+
+
+def _safe_recent_form_context(pick: str, opponent: str, surface: Optional[str], level: Optional[str]) -> Dict[str, Any]:
+    try:
+        ctx = build_recent_form_context(pick, opponent, surface, level)
+        return ctx if isinstance(ctx, dict) else {"status": "ERROR", "flags": ["RECENT_FORM_RETURNED_NON_DICT"]}
+    except Exception as exc:
+        return {
+            "status": "ERROR",
+            "source": None,
+            "reason": "Recent form context failed",
+            "recent_form_edge": 0.0,
+            "short_form_edge": 0.0,
+            "surface_recent_form_edge": 0.0,
+            "opponent_quality_edge": 0.0,
+            "form_confidence": 0.0,
+            "form_data_depth": 0.0,
+            "flags": ["RECENT_FORM_CONTEXT_FAILED", "RECENT_FORM_NO_DATA"],
+            "history_status": {"status": "ERROR", "match_count": 0, "file_count": 0},
+            "error": str(exc),
+        }
+
+
+def _safe_match_dynamics_context(**kwargs: Any) -> Dict[str, Any]:
+    try:
+        ctx = build_match_dynamics_context(**kwargs)
+        return ctx if isinstance(ctx, dict) else {"status": "ERROR", "flags": ["MATCH_DYNAMICS_RETURNED_NON_DICT"]}
+    except Exception as exc:
+        return {
+            "status": "ERROR",
+            "source": None,
+            "projected_sets": None,
+            "projected_games": None,
+            "sets_edge": 0.0,
+            "games_edge": 0.0,
+            "confidence": 0.0,
+            "flags": ["MATCH_DYNAMICS_CONTEXT_FAILED"],
+            "error": str(exc),
+        }
+
+
+def _safe_ta_context(pick: str, opponent: str, surface: str = "") -> Dict[str, Any]:
+    try:
+        ctx = build_match_ta_context(pick, opponent, surface)
+        if isinstance(ctx, dict):
+            return ctx
+    except Exception as exc:
+        return {"ta_status": "N/A", "aces_status": "N/A", "ta_decision_confidence": 0.0, "ta_decision_notes": [f"TA_CONTEXT_FAILED: {exc}"]}
+    return {"ta_status": "N/A", "aces_status": "N/A", "ta_decision_confidence": 0.0, "ta_decision_notes": ["TA_CONTEXT_NON_DICT"]}
+
+
 def normalize_surface(surface: Optional[str]) -> Dict[str, Any]:
     raw = str(surface or "").strip()
     text = raw.lower()
@@ -190,8 +279,8 @@ class ThinqService:
 
         surface_ctx = normalize_surface(surface)
         surface_bucket = surface_ctx.get("surface") or surface
-        elo = build_elo_context(analysis_pick, analysis_opponent, surface_bucket)
-        h2h = build_h2h_context(
+        elo = _safe_elo_context(analysis_pick, analysis_opponent, surface_bucket)
+        h2h = _safe_h2h_context(
             event_id=event_id,
             pick=analysis_pick,
             opponent=analysis_opponent,
@@ -200,8 +289,8 @@ class ThinqService:
             player2_id=player2_id,
             event_custom_id=event_custom_id,
         )
-        recent_form = build_recent_form_context(analysis_pick, analysis_opponent, surface_bucket)
-        match_dynamics = build_match_dynamics_context(
+        recent_form = _safe_recent_form_context(analysis_pick, analysis_opponent, surface_bucket, level)
+        match_dynamics = _safe_match_dynamics_context(
             pick=analysis_pick,
             opponent=analysis_opponent,
             surface=surface_bucket,
@@ -209,14 +298,12 @@ class ThinqService:
             elo=elo,
             h2h=h2h,
             recent_form=recent_form,
-            odds_player1=kwargs.get("odds_player1") or kwargs.get("p1_odds") or kwargs.get("odds1"),
-            odds_player2=kwargs.get("odds_player2") or kwargs.get("p2_odds") or kwargs.get("odds2"),
+            odds_player1=kwargs.get("odds_player1") or kwargs.get("p1_odds") or kwargs.get("odds1") or kwargs.get("home_odds"),
+            odds_player2=kwargs.get("odds_player2") or kwargs.get("p2_odds") or kwargs.get("odds2") or kwargs.get("away_odds"),
             pick_odds=kwargs.get("pick_odds") or kwargs.get("odds"),
             opponent_odds=kwargs.get("opponent_odds"),
         )
-        ta_context = build_match_ta_context(analysis_pick, analysis_opponent, str(surface_bucket or ""))
-        if not isinstance(ta_context, dict):
-            ta_context = {"ta_status": "N/A", "aces_status": "N/A"}
+        ta_context = _safe_ta_context(analysis_pick, analysis_opponent, str(surface_bucket or ""))
 
         edges = {
             "overall_elo_edge": float(elo.get("overall_elo_edge") or 0.0),
@@ -408,6 +495,15 @@ class ThinqService:
             "ta_decision_confidence": ta_context.get("ta_decision_confidence"),
             "ta_decision_notes": ta_context.get("ta_decision_notes") or [],
             "thinq_flags": sorted(set(flags)),
+            "thinq_source_status": {
+                "elo": elo.get("status"),
+                "h2h": h2h.get("status"),
+                "recent_form": recent_form.get("status"),
+                "match_dynamics": match_dynamics.get("status"),
+                "ta": ta_context.get("ta_status"),
+                "history_match_count": (recent_form.get("history_status") or {}).get("match_count") if isinstance(recent_form.get("history_status"), dict) else None,
+                "history_file_count": (recent_form.get("history_status") or {}).get("file_count") if isinstance(recent_form.get("history_status"), dict) else None,
+            },
         }
 
 
