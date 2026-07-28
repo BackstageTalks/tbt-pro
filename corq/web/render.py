@@ -335,9 +335,9 @@ def surface_name(row: Dict[str, Any]) -> str:
 def card_insights(row: Dict[str, Any], notes: Optional[List[str]] = None, limit: int = 2) -> List[str]:
     """Return max two compact, time/context-aware match insights for the pick card.
 
-    The renderer is deliberately conservative: it shows only unusually strong
-    context, and never turns raw stats into a table. Existing precomputed
-    insight fields are preferred when available.
+    Icon semantics are from displayed pick perspective:
+    - 🔥 means supports the pick.
+    - ⚠ means goes against the pick.
     """
     candidates: List[Tuple[int, str]] = []
 
@@ -346,7 +346,8 @@ def card_insights(row: Dict[str, Any], notes: Optional[List[str]] = None, limit:
         if t:
             candidates.append((priority, t))
 
-    # Prefer already prepared intelligence outputs from THINQ/CORQ if present.
+    # Prefer already prepared intelligence outputs from THINQ/CORQ if present,
+    # but only if they are already clean public strings.
     for key in ("card_insights", "thinq_insights", "match_insights", "public_insights"):
         val = row.get(key)
         items: List[Any] = []
@@ -362,36 +363,45 @@ def card_insights(row: Dict[str, Any], notes: Optional[List[str]] = None, limit:
             else:
                 add(70, item)
 
-    # H2H, only when it is meaningful and clearly one-sided.
+    # H2H, only when meaningful and one-sided. Avoid duplicate if total H2H
+    # and surface H2H are the exact same sample.
     hp, ho = h2h_record(row)
+    shp, sho = surface_h2h_record(row)
     if hp is not None and ho is not None and (hp + ho) >= 3 and max(hp, ho) >= 3:
         if hp == 0 or ho == 0 or abs(hp - ho) >= 3:
-            add(96, f"🔥 H2H | {hp}-{ho}")
+            icon = "🔥" if hp > ho else "⚠"
+            add(96, f"{icon} H2H | {hp}-{ho}")
 
-    shp, sho = surface_h2h_record(row)
     if shp is not None and sho is not None and (shp + sho) >= 3 and max(shp, sho) >= 3:
-        if shp == 0 or sho == 0 or abs(shp - sho) >= 3:
-            add(94, f"🔥 {surface_name(row)} H2H | {shp}-{sho}")
+        duplicate_total = hp == shp and ho == sho
+        if not duplicate_total and (shp == 0 or sho == 0 or abs(shp - sho) >= 3):
+            icon = "🔥" if shp > sho else "⚠"
+            add(94, f"{icon} {surface_name(row)} H2H | {shp}-{sho}")
 
     # Last 10 records, only strong positive/negative cases.
     pf, psf = form_records(row, "pick")
     of, osf = form_records(row, "opponent")
-    for priority, label, rec, side in (
-        (88, "Pick", pf, "pick"),
-        (84, "Opp", of, "opponent"),
-    ):
+
+    def add_form(priority: int, label: str, rec: str, side: str) -> None:
         w, l = compact_record_label(rec)
-        if w is not None and l is not None and (w + l) >= 8 and (w >= 8 or l >= 7):
+        if w is None or l is None or (w + l) < 8:
+            return
+        # Pick good form supports pick. Pick bad form goes against pick.
+        # Opponent bad form supports pick. Opponent good form goes against pick.
+        if side == "pick" and w >= 8:
             add(priority, f"🔥 {label} | Last 10 | {w}-{l}")
+        elif side == "pick" and l >= 7:
+            add(priority, f"⚠ {label} | Last 10 | {w}-{l}")
+        elif side == "opponent" and l >= 7:
+            add(priority, f"🔥 {label} | Last 10 | {w}-{l}")
+        elif side == "opponent" and w >= 8:
+            add(priority, f"⚠ {label} | Last 10 | {w}-{l}")
 
     surf = surface_name(row)
-    for priority, label, rec, side in (
-        (92, f"Pick {surf}", psf, "pick"),
-        (86, f"Opp {surf}", osf, "opponent"),
-    ):
-        w, l = compact_record_label(rec)
-        if w is not None and l is not None and (w + l) >= 8 and (w >= 8 or l >= 7):
-            add(priority, f"🔥 {label} | Last 10 | {w}-{l}")
+    add_form(88, "Pick", pf, "pick")
+    add_form(84, "Opp", of, "opponent")
+    add_form(92, f"Pick {surf}", psf, "pick")
+    add_form(86, f"Opp {surf}", osf, "opponent")
 
     # Optional absence fields if THINQ starts publishing them.
     for side, label, priority in (("pick", "Pick", 90), ("opponent", "Opp", 82)):
@@ -405,7 +415,8 @@ def card_insights(row: Dict[str, Any], notes: Optional[List[str]] = None, limit:
             if weeks is not None:
                 break
         if weeks is not None and weeks >= 26:
-            add(priority, f"⚠ {label}: No {surf} match {int(round(weeks))}w")
+            icon = "⚠" if side == "pick" else "🔥"
+            add(priority, f"{icon} {label} | No {surf} | {int(round(weeks))}w")
 
     # Last resort: public notes, but still limited to two rows.
     for n in notes or []:
@@ -415,14 +426,14 @@ def card_insights(row: Dict[str, Any], notes: Optional[List[str]] = None, limit:
     seen = set()
     for _, txt in sorted(candidates, key=lambda kv: (-kv[0], kv[1])):
         clean = re.sub(r"\s+", " ", txt).strip()
-        if clean and clean not in seen:
+        # Normalize icon-less duplicates and surface duplicates.
+        dedupe_key = clean.replace("🔥 ", "").replace("⚠ ", "")
+        if clean and dedupe_key not in seen:
             out.append(clean)
-            seen.add(clean)
+            seen.add(dedupe_key)
         if len(out) >= limit:
             break
     return out
-
-
 def card_insights_html(row: Dict[str, Any], notes: Optional[List[str]] = None) -> str:
     insights = card_insights(row, notes, limit=2)
     if not insights:
@@ -544,47 +555,77 @@ def sign_class(value: Any, mode: str = "pick") -> str:
 
 def h2h_record(row: Dict[str, Any]) -> Tuple[Optional[int], Optional[int]]:
     h2h = thinq_context(row, "h2h")
+    total = as_float(row.get("thinq_h2h_total_matches") or row.get("h2h_total_matches") or (h2h.get("total_matches") if isinstance(h2h, dict) else None))
+    if total is not None and int(total or 0) <= 0:
+        return None, None
+
     pairs = (
         ("h2h_pick_wins", "h2h_opponent_wins"),
         ("thinq_h2h_pick_wins", "thinq_h2h_opponent_wins"),
     )
     for a, b in pairs:
         if row.get(a) is not None or row.get(b) is not None:
-            return int(as_float(row.get(a), 0) or 0), int(as_float(row.get(b), 0) or 0)
+            p = int(as_float(row.get(a), 0) or 0)
+            o = int(as_float(row.get(b), 0) or 0)
+            if p == 0 and o == 0:
+                return None, None
+            return p, o
+
     if isinstance(h2h, dict):
         if h2h.get("pick_wins") is not None or h2h.get("opponent_wins") is not None:
-            return int(as_float(h2h.get("pick_wins"), 0) or 0), int(as_float(h2h.get("opponent_wins"), 0) or 0)
-        if h2h.get("total_matches") in (0, "0"):
-            return None, None
-    txt = str(row.get("h2h_record") or row.get("thinq_h2h_record") or h2h.get("record") if isinstance(h2h, dict) else "")
+            p = int(as_float(h2h.get("pick_wins"), 0) or 0)
+            o = int(as_float(h2h.get("opponent_wins"), 0) or 0)
+            if p == 0 and o == 0:
+                return None, None
+            return p, o
+        txt = str(h2h.get("record") or "")
+    else:
+        txt = ""
+
+    txt = str(row.get("h2h_record") or row.get("thinq_h2h_record") or txt)
     m = re.search(r"(\d+)\s*[-:]\s*(\d+)", txt)
     if m:
-        return int(m.group(1)), int(m.group(2))
+        p, o = int(m.group(1)), int(m.group(2))
+        if p == 0 and o == 0:
+            return None, None
+        return p, o
     return None, None
 def surface_h2h_record(row: Dict[str, Any]) -> Tuple[Optional[int], Optional[int]]:
     h2h = thinq_context(row, "h2h")
+    total = as_float(row.get("thinq_h2h_same_surface_matches") or row.get("surface_h2h_total_matches") or (h2h.get("same_surface_matches") if isinstance(h2h, dict) else None))
+    if total is not None and int(total or 0) <= 0:
+        return None, None
+
     for a, b in (("surface_h2h_pick_wins", "surface_h2h_opponent_wins"), ("thinq_surface_h2h_pick_wins", "thinq_surface_h2h_opponent_wins")):
         if row.get(a) is not None or row.get(b) is not None:
-            return int(as_float(row.get(a), 0) or 0), int(as_float(row.get(b), 0) or 0)
+            p = int(as_float(row.get(a), 0) or 0)
+            o = int(as_float(row.get(b), 0) or 0)
+            if p == 0 and o == 0:
+                return None, None
+            return p, o
+
     if isinstance(h2h, dict):
-        matches = as_float(h2h.get("same_surface_matches"))
         pick_w = as_float(h2h.get("same_surface_pick_wins"))
         opp_w = as_float(h2h.get("same_surface_opponent_wins"))
-        if pick_w is not None or opp_w is not None or matches is not None:
-            pw = int(pick_w or 0)
+        if pick_w is not None or opp_w is not None or total is not None:
+            p = int(pick_w or 0)
             if opp_w is not None:
-                ow = int(opp_w or 0)
-            elif matches is not None:
-                ow = max(int(matches or 0) - pw, 0)
+                o = int(opp_w or 0)
+            elif total is not None:
+                o = max(int(total or 0) - p, 0)
             else:
-                ow = 0
-            if (matches is not None and int(matches or 0) <= 0) or (pw == 0 and ow == 0):
+                o = 0
+            if p == 0 and o == 0:
                 return None, None
-            return pw, ow
+            return p, o
+
     txt = str(row.get("surface_h2h_record") or row.get("s_h2h_record") or "")
     m = re.search(r"(\d+)\s*[-:]\s*(\d+)", txt)
     if m:
-        return int(m.group(1)), int(m.group(2))
+        p, o = int(m.group(1)), int(m.group(2))
+        if p == 0 and o == 0:
+            return None, None
+        return p, o
     return None, None
 def h2h_display(row: Dict[str, Any]) -> str:
     nested_h2h = thinq_context(row, "h2h")
@@ -821,7 +862,6 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         '<div class="compact-topline">',
         (rank_badge or f'<div class="rank-num">#{rank or "—"}</div>'),
         f'<a class="brain" href="{log_link(row)}" title="Open calculation log">🧠</a>',
-        f'<span class="status-pill">Status: {esc(normal_status(row) or "—")}</span>',
         '</div>',
         '<div class="compact-player pick-side">'
         '<div class="compact-label">Pick</div>'
