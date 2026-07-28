@@ -13,11 +13,13 @@
   &quot;best_of&quot;: 3,
   &quot;match_start&quot;: &quot;2026-07-28T11:00:00+00:00&quot;,
   &quot;start_time&quot;: &quot;2026-07-28T11:00:00+00:00&quot;,
-  &quot;status_type&quot;: &quot;notstarted&quot;,
-  &quot;status_code&quot;: 0,
+  &quot;status_type&quot;: &quot;inprogress&quot;,
+  &quot;status_code&quot;: 8,
   &quot;is_doubles&quot;: false,
   &quot;source&quot;: &quot;RapidAPI PRO&quot;,
   &quot;raw&quot;: {
+    &quot;firstToServe&quot;: 1,
+    &quot;homeTeamSeed&quot;: &quot;Q&quot;,
     &quot;awayTeamSeed&quot;: &quot;WC&quot;,
     &quot;tournament&quot;: {
       &quot;name&quot;: &quot;Targu Mures, Romania&quot;,
@@ -94,9 +96,9 @@
     },
     &quot;customId&quot;: &quot;nEBcsbMOc&quot;,
     &quot;status&quot;: {
-      &quot;code&quot;: 0,
-      &quot;description&quot;: &quot;Not started&quot;,
-      &quot;type&quot;: &quot;notstarted&quot;
+      &quot;code&quot;: 8,
+      &quot;description&quot;: &quot;1st set&quot;,
+      &quot;type&quot;: &quot;inprogress&quot;
     },
     &quot;homeTeam&quot;: {
       &quot;name&quot;: &quot;Lucija Ćirić-Bagarić&quot;,
@@ -183,11 +185,29 @@
         }
       }
     },
-    &quot;homeScore&quot;: {},
-    &quot;awayScore&quot;: {},
-    &quot;time&quot;: {},
+    &quot;homeScore&quot;: {
+      &quot;current&quot;: 0,
+      &quot;display&quot;: 0,
+      &quot;period1&quot;: 2,
+      &quot;point&quot;: &quot;0&quot;
+    },
+    &quot;awayScore&quot;: {
+      &quot;current&quot;: 0,
+      &quot;display&quot;: 0,
+      &quot;period1&quot;: 1,
+      &quot;point&quot;: &quot;0&quot;
+    },
+    &quot;time&quot;: {
+      &quot;currentPeriodStartTimestamp&quot;: 1785236651
+    },
     &quot;changes&quot;: {
-      &quot;changeTimestamp&quot;: 0
+      &quot;changes&quot;: [
+        &quot;homeScore.period1&quot;,
+        &quot;homeScore.point&quot;,
+        &quot;awayScore.point&quot;,
+        &quot;firstToServe&quot;
+      ],
+      &quot;changeTimestamp&quot;: 1785237074
     },
     &quot;hasGlobalHighlights&quot;: false,
     &quot;crowdsourcingDataDisplayEnabled&quot;: false,
@@ -203,6 +223,7 @@
       &quot;period4&quot;: &quot;4th set&quot;,
       &quot;period5&quot;: &quot;5th set&quot;
     },
+    &quot;lastPeriod&quot;: &quot;period1&quot;,
     &quot;finalResultOnly&quot;: false,
     &quot;feedLocked&quot;: false,
     &quot;groundType&quot;: &quot;Red clay&quot;,
@@ -227,16 +248,16 @@
   &quot;odds_label_2&quot;: &quot;2&quot;,
   &quot;odds_direct_match_score&quot;: 1.0,
   &quot;odds_reverse_match_score&quot;: 0.0,
-  &quot;odds_player1&quot;: 1.2857,
-  &quot;odds_player2&quot;: 3.5,
-  &quot;p1_odds&quot;: 1.2857,
-  &quot;p2_odds&quot;: 3.5,
-  &quot;home_odds&quot;: 1.2857,
-  &quot;away_odds&quot;: 3.5,
-  &quot;odds1&quot;: 1.2857,
-  &quot;odds2&quot;: 3.5,
-  &quot;price1&quot;: 1.2857,
-  &quot;price2&quot;: 3.5,
+  &quot;odds_player1&quot;: 1.1429,
+  &quot;odds_player2&quot;: 5.5,
+  &quot;p1_odds&quot;: 1.1429,
+  &quot;p2_odds&quot;: 5.5,
+  &quot;home_odds&quot;: 1.1429,
+  &quot;away_odds&quot;: 5.5,
+  &quot;odds1&quot;: 1.1429,
+  &quot;odds2&quot;: 5.5,
+  &quot;price1&quot;: 1.1429,
+  &quot;price2&quot;: 5.5,
   &quot;odds_source&quot;: &quot;RapidAPI PRO event odds&quot;,
   &quot;odds_endpoint&quot;: &quot;/api/tennis/event/16644344/odds&quot;,
   &quot;odds_status&quot;: &quot;OK&quot;,
@@ -245,17 +266,17 @@
   ],
   &quot;odds_pair_available&quot;: true,
   &quot;odds_labels_confirmed&quot;: true,
-  &quot;odds_gap_abs&quot;: 2.2143,
-  &quot;odds_gap_pct&quot;: 1.7223,
+  &quot;odds_gap_abs&quot;: 4.3571,
+  &quot;odds_gap_pct&quot;: 3.8123,
   &quot;home_player&quot;: &quot;Lucija Ćirić-Bagarić&quot;,
   &quot;away_player&quot;: &quot;Rachel Gailis&quot;,
   &quot;pick_side&quot;: &quot;AWAY&quot;,
   &quot;opponent_side&quot;: &quot;HOME&quot;,
   &quot;pick&quot;: &quot;Rachel Gailis&quot;,
   &quot;opponent&quot;: &quot;Lucija Ćirić-Bagarić&quot;,
-  &quot;odds&quot;: 3.5,
-  &quot;pick_odds&quot;: 3.5,
-  &quot;opponent_odds&quot;: 1.2857,
+  &quot;odds&quot;: 5.5,
+  &quot;pick_odds&quot;: 5.5,
+  &quot;opponent_odds&quot;: 1.1429,
   &quot;pick_is_player1&quot;: false,
   &quot;pick_is_player2&quot;: true,
   &quot;pick_is_home&quot;: false,
@@ -536,7 +557,7 @@
       &quot;tiebreak_edge&quot;: 0.0,
       &quot;decider_edge&quot;: 0.0,
       &quot;confidence&quot;: 0.48,
-      &quot;odds_gap_pct&quot;: 1.7223,
+      &quot;odds_gap_pct&quot;: 3.8123,
       &quot;flags&quot;: [
         &quot;MATCH_DYNAMICS_H2H_NEUTRAL&quot;
       ]
@@ -662,7 +683,7 @@
         &quot;tiebreak_edge&quot;: 0.0,
         &quot;decider_edge&quot;: 0.0,
         &quot;confidence&quot;: 0.48,
-        &quot;odds_gap_pct&quot;: 1.7223,
+        &quot;odds_gap_pct&quot;: 3.8123,
         &quot;flags&quot;: [
           &quot;MATCH_DYNAMICS_H2H_NEUTRAL&quot;
         ]
@@ -1276,7 +1297,24 @@
     &quot;history_match_count&quot;: 37883,
     &quot;history_file_count&quot;: 15
   },
-  &quot;implied_probability&quot;: 0.2857,
+  &quot;implied_probability&quot;: 0.1818,
+  &quot;overall_elo_edge&quot;: 0.0,
+  &quot;surface_elo_edge&quot;: 0.0,
+  &quot;elo_edge&quot;: 0.0,
+  &quot;pick_last10_record&quot;: &quot;N/A&quot;,
+  &quot;opponent_last10_record&quot;: &quot;1-3&quot;,
+  &quot;pick_surface_record&quot;: &quot;N/A&quot;,
+  &quot;opponent_surface_record&quot;: &quot;1-2&quot;,
+  &quot;pick_last10_count&quot;: 0,
+  &quot;opponent_last10_count&quot;: 4,
+  &quot;pick_surface_count&quot;: 0,
+  &quot;opponent_surface_count&quot;: 3,
+  &quot;recent_form_edge&quot;: 0.0,
+  &quot;short_form_edge&quot;: 0.0,
+  &quot;surface_recent_form_edge&quot;: 0.0,
+  &quot;opponent_quality_edge&quot;: 0.0,
+  &quot;form_confidence&quot;: 0.185,
+  &quot;form_data_depth&quot;: 0.185,
   &quot;corq_model_version&quot;: &quot;CORQ_V1_THINQ_PRIMARY_PROBABILITY&quot;,
   &quot;corq_probability_source&quot;: &quot;ThinQ&quot;,
   &quot;corq_thinq_probability&quot;: 0.5,
@@ -1339,31 +1377,32 @@
   &quot;ta_depth_label&quot;: &quot;N/A&quot;,
   &quot;ta_decision_confidence&quot;: 0.0,
   &quot;ta_decision_notes&quot;: [],
-  &quot;corq_source_rank&quot;: 92,
+  &quot;corq_source_rank&quot;: 99,
   &quot;top7_filter_mode&quot;: &quot;PUBLISHABLE_CORQ_THINQ_GUARD_V1&quot;,
   &quot;top7_publishable&quot;: false,
   &quot;eligible_for_top7&quot;: false,
   &quot;top7_quality_reject_reasons&quot;: [
+    &quot;REJECT_TOP7_STATUS_NOT_NOTSTARTED&quot;,
     &quot;REJECT_TOP7_LOW_PICK_DATA_DEPTH&quot;,
     &quot;REJECT_TOP7_LOW_THINQ_CONFIDENCE&quot;,
     &quot;REJECT_TOP7_LOW_FORM_DATA_DEPTH&quot;,
     &quot;REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH&quot;
   ],
   &quot;top7_reject_reasons&quot;: [
+    &quot;REJECT_TOP7_STATUS_NOT_NOTSTARTED&quot;,
     &quot;REJECT_TOP7_LOW_PICK_DATA_DEPTH&quot;,
     &quot;REJECT_TOP7_LOW_THINQ_CONFIDENCE&quot;,
     &quot;REJECT_TOP7_LOW_FORM_DATA_DEPTH&quot;,
     &quot;REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH&quot;
   ],
-  &quot;top7_status_type_normalized&quot;: &quot;notstarted&quot;,
-  &quot;top7_status_code&quot;: 0,
+  &quot;top7_status_type_normalized&quot;: &quot;inprogress&quot;,
+  &quot;top7_status_code&quot;: 8,
   &quot;top7_corq_probability&quot;: 0.5,
   &quot;top7_pick_thinq_edge&quot;: 0.0,
   &quot;top7_thinq_confidence&quot;: 0.25,
-  &quot;pick_data_depth&quot;: 0.0,
-  &quot;stat_data_depth&quot;: 0.0,
-  &quot;form_data_depth&quot;: 0.185,
-  &quot;top7_pick_odds&quot;: 3.5,
+  &quot;pick_data_depth&quot;: 0.13325,
+  &quot;stat_data_depth&quot;: 0.13325,
+  &quot;top7_pick_odds&quot;: 5.5,
   &quot;top7_match_date_local&quot;: &quot;2026-07-28&quot;,
   &quot;recent_form_status&quot;: &quot;OK&quot;,
   &quot;recent_form_reason&quot;: &quot;&quot;,
@@ -1379,7 +1418,7 @@
   &quot;low_data_risk_audit&quot;: {
     &quot;corq_probability&quot;: 0.5,
     &quot;pick_thinq_edge&quot;: 0.0,
-    &quot;pick_data_depth&quot;: 0.0,
+    &quot;pick_data_depth&quot;: 0.13325,
     &quot;form_data_depth&quot;: 0.185,
     &quot;thinq_confidence&quot;: 0.25,
     &quot;elo_coverage_missing&quot;: true,
@@ -1404,8 +1443,8 @@
     {
       &quot;tag&quot;: &quot;MARKET_STRONG_AGAINST_PICK&quot;,
       &quot;penalty&quot;: 3.0,
-      &quot;pick_odds&quot;: 3.5,
-      &quot;opponent_odds&quot;: 1.2857
+      &quot;pick_odds&quot;: 5.5,
+      &quot;opponent_odds&quot;: 1.1429
     }
   ],
   &quot;top7_risk_penalty_points&quot;: 3.0,
@@ -1414,5 +1453,5 @@
   &quot;corq_warning_flags&quot;: [
     &quot;MARKET_STRONG_AGAINST_PICK&quot;
   ],
-  &quot;corq_rank&quot;: 92
+  &quot;corq_rank&quot;: 99
 }</pre></body></html>
