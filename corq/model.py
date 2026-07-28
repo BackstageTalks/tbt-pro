@@ -208,6 +208,17 @@ def build_corq_prediction(record: Dict[str, Any]) -> Dict[str, Any]:
     trap = is_default_value_trap(out, components)
     corq_edge = round(estimated_probability - implied, 4) if implied is not None else 0.0
     risk_flags = list(out.get("corq_risk_flags") or [])
+
+    # Flatten the key ThinQ source fields into the CorQ row.  Render and ranking
+    # must not guess across multiple nested shapes.
+    elo_ctx = thinq.get("elo") if isinstance(thinq.get("elo"), dict) else {}
+    recent_ctx = thinq.get("recent_form") if isinstance(thinq.get("recent_form"), dict) else {}
+    pick_form_ctx = recent_ctx.get("pick") if isinstance(recent_ctx.get("pick"), dict) else {}
+    opp_form_ctx = recent_ctx.get("opponent") if isinstance(recent_ctx.get("opponent"), dict) else {}
+    pick_last10 = pick_form_ctx.get("last10") if isinstance(pick_form_ctx.get("last10"), dict) else {}
+    opp_last10 = opp_form_ctx.get("last10") if isinstance(opp_form_ctx.get("last10"), dict) else {}
+    pick_surface = pick_form_ctx.get("surface_last10") if isinstance(pick_form_ctx.get("surface_last10"), dict) else {}
+    opp_surface = opp_form_ctx.get("surface_last10") if isinstance(opp_form_ctx.get("surface_last10"), dict) else {}
     if trap:
         risk_flags.append("DEFAULT_SCORE_VALUE_TRAP")
         risk_flags.append("NO_INTELLIGENCE_OUTSIDER_VALUE_TRAP")
@@ -224,6 +235,29 @@ def build_corq_prediction(record: Dict[str, Any]) -> Dict[str, Any]:
             "thinq_available": bool(thinq) or bool(edges),
             "thinq_edges": edges,
             "thinq_flags": flags,
+            "thinq_elo_status": elo_ctx.get("status") or out.get("thinq_elo_status"),
+            "thinq_recent_form_status": recent_ctx.get("status") or out.get("thinq_recent_form_status"),
+            "thinq_recent_form_reason": recent_ctx.get("reason") or out.get("thinq_recent_form_reason"),
+            "thinq_overall_elo_edge": elo_ctx.get("overall_elo_edge", edges.get("overall_elo_edge")),
+            "thinq_surface_elo_edge": elo_ctx.get("surface_elo_edge", edges.get("surface_elo_edge")),
+            "thinq_elo_edge": elo_ctx.get("elo_edge", edges.get("elo_edge")),
+            "overall_elo_edge": elo_ctx.get("overall_elo_edge", edges.get("overall_elo_edge")),
+            "surface_elo_edge": elo_ctx.get("surface_elo_edge", edges.get("surface_elo_edge")),
+            "elo_edge": elo_ctx.get("elo_edge", edges.get("elo_edge")),
+            "pick_last10_record": pick_last10.get("record"),
+            "opponent_last10_record": opp_last10.get("record"),
+            "pick_surface_record": pick_surface.get("record"),
+            "opponent_surface_record": opp_surface.get("record"),
+            "pick_last10_count": pick_last10.get("count"),
+            "opponent_last10_count": opp_last10.get("count"),
+            "pick_surface_count": pick_surface.get("count"),
+            "opponent_surface_count": opp_surface.get("count"),
+            "recent_form_edge": recent_ctx.get("recent_form_edge", edges.get("recent_form_edge")),
+            "short_form_edge": recent_ctx.get("short_form_edge", edges.get("short_form_edge")),
+            "surface_recent_form_edge": recent_ctx.get("surface_recent_form_edge", edges.get("surface_recent_form_edge")),
+            "opponent_quality_edge": recent_ctx.get("opponent_quality_edge", edges.get("opponent_quality_edge")),
+            "form_confidence": recent_ctx.get("form_confidence"),
+            "form_data_depth": recent_ctx.get("form_data_depth"),
             "corq_model_version": "CORQ_V1_THINQ_PRIMARY_PROBABILITY",
             "corq_probability_source": "ThinQ" if thinq_probability is not None else "CorQ fallback",
             "corq_thinq_probability": thinq_probability,
