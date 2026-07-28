@@ -11,13 +11,14 @@
   &quot;level&quot;: &quot;ATP&quot;,
   &quot;gender&quot;: &quot;M&quot;,
   &quot;best_of&quot;: 3,
-  &quot;match_start&quot;: &quot;2026-07-28T18:30:00+00:00&quot;,
-  &quot;start_time&quot;: &quot;2026-07-28T18:30:00+00:00&quot;,
-  &quot;status_type&quot;: &quot;notstarted&quot;,
-  &quot;status_code&quot;: 0,
+  &quot;match_start&quot;: &quot;2026-07-28T20:20:00+00:00&quot;,
+  &quot;start_time&quot;: &quot;2026-07-28T20:20:00+00:00&quot;,
+  &quot;status_type&quot;: &quot;interrupted&quot;,
+  &quot;status_code&quot;: 80,
   &quot;is_doubles&quot;: false,
   &quot;source&quot;: &quot;RapidAPI PRO&quot;,
   &quot;raw&quot;: {
+    &quot;firstToServe&quot;: 1,
     &quot;homeTeamSeed&quot;: &quot;Q&quot;,
     &quot;awayTeamSeed&quot;: &quot;2&quot;,
     &quot;tournament&quot;: {
@@ -110,9 +111,9 @@
     },
     &quot;customId&quot;: &quot;VBvsKjed&quot;,
     &quot;status&quot;: {
-      &quot;code&quot;: 0,
-      &quot;description&quot;: &quot;Not started&quot;,
-      &quot;type&quot;: &quot;notstarted&quot;
+      &quot;code&quot;: 80,
+      &quot;description&quot;: &quot;Interrupted&quot;,
+      &quot;type&quot;: &quot;interrupted&quot;
     },
     &quot;homeTeam&quot;: {
       &quot;name&quot;: &quot;Martin Damm Jr&quot;,
@@ -203,17 +204,37 @@
         }
       }
     },
-    &quot;homeScore&quot;: {},
-    &quot;awayScore&quot;: {},
-    &quot;time&quot;: {},
+    &quot;homeScore&quot;: {
+      &quot;current&quot;: 0,
+      &quot;display&quot;: 0,
+      &quot;period1&quot;: 4,
+      &quot;period2&quot;: 3,
+      &quot;point&quot;: &quot;40&quot;
+    },
+    &quot;awayScore&quot;: {
+      &quot;current&quot;: 1,
+      &quot;display&quot;: 1,
+      &quot;period1&quot;: 6,
+      &quot;period2&quot;: 4,
+      &quot;point&quot;: &quot;40&quot;
+    },
+    &quot;time&quot;: {
+      &quot;period1&quot;: 2392,
+      &quot;currentPeriodStartTimestamp&quot;: 1785272722
+    },
     &quot;changes&quot;: {
-      &quot;changeTimestamp&quot;: 0
+      &quot;changes&quot;: [
+        &quot;status.code&quot;,
+        &quot;status.description&quot;,
+        &quot;status.type&quot;
+      ],
+      &quot;changeTimestamp&quot;: 1785274974
     },
     &quot;hasGlobalHighlights&quot;: false,
     &quot;crowdsourcingDataDisplayEnabled&quot;: false,
     &quot;id&quot;: 16638204,
     &quot;slug&quot;: &quot;ben-shelton-martin-damm-jr&quot;,
-    &quot;startTimestamp&quot;: 1785263400,
+    &quot;startTimestamp&quot;: 1785270000,
     &quot;periods&quot;: {
       &quot;point&quot;: &quot;Game&quot;,
       &quot;current&quot;: &quot;Match&quot;,
@@ -1402,22 +1423,24 @@
   &quot;ta_depth_label&quot;: &quot;N/A&quot;,
   &quot;ta_decision_confidence&quot;: 0.0,
   &quot;ta_decision_notes&quot;: [],
-  &quot;corq_source_rank&quot;: 94,
+  &quot;corq_source_rank&quot;: 93,
   &quot;top7_filter_mode&quot;: &quot;PUBLISHABLE_CORQ_THINQ_GUARD_V1&quot;,
   &quot;top7_publishable&quot;: false,
   &quot;eligible_for_top7&quot;: false,
   &quot;top7_quality_reject_reasons&quot;: [
+    &quot;REJECT_TOP7_STATUS_NOT_NOTSTARTED&quot;,
     &quot;REJECT_TOP7_LOW_PICK_DATA_DEPTH&quot;,
     &quot;REJECT_TOP7_LOW_THINQ_CONFIDENCE&quot;,
     &quot;REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH&quot;
   ],
   &quot;top7_reject_reasons&quot;: [
+    &quot;REJECT_TOP7_STATUS_NOT_NOTSTARTED&quot;,
     &quot;REJECT_TOP7_LOW_PICK_DATA_DEPTH&quot;,
     &quot;REJECT_TOP7_LOW_THINQ_CONFIDENCE&quot;,
     &quot;REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH&quot;
   ],
-  &quot;top7_status_type_normalized&quot;: &quot;notstarted&quot;,
-  &quot;top7_status_code&quot;: 0,
+  &quot;top7_status_type_normalized&quot;: &quot;interrupted&quot;,
+  &quot;top7_status_code&quot;: 80,
   &quot;top7_corq_probability&quot;: 0.5,
   &quot;top7_pick_thinq_edge&quot;: 0.0,
   &quot;top7_thinq_confidence&quot;: 0.25,
@@ -1474,6 +1497,6 @@
   &quot;corq_warning_flags&quot;: [
     &quot;MARKET_STRONG_AGAINST_PICK&quot;
   ],
-  &quot;corq_rank&quot;: 94,
+  &quot;corq_rank&quot;: 93,
   &quot;_corq_render_rank&quot;: 10
 }</pre></body></html>
