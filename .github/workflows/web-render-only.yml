@@ -1,0 +1,116 @@
+name: Web Render Only
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit_site:
+        description: "Commit generated corq/site back to repository"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+      deploy_pages:
+        description: "Deploy rendered site to GitHub Pages"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+  push:
+    branches:
+      - main
+    paths:
+      - "corq/web/**"
+      - "corq/messages.py"
+      - "corq/web/paths.py"
+      - ".github/workflows/web-render-only.yml"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+env:
+  PYTHONUNBUFFERED: "1"
+
+concurrency:
+  group: web-render-only-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  render-web:
+    name: Render web only
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Show available runtime data
+        run: |
+          echo "Repository root: $PWD"
+          echo "Outputs:"
+          find outputs -maxdepth 2 -type f 2>/dev/null | sort | head -80 || true
+          echo "Web files:"
+          find corq/web -maxdepth 3 -type f 2>/dev/null | sort | head -80 || true
+
+      - name: Validate web renderer imports
+        run: |
+          python -m py_compile corq/web/render.py
+          python - <<'PY'
+          import importlib
+          mod = importlib.import_module("corq.web.render")
+          print("render module OK:", mod.__file__)
+          PY
+
+      - name: Render web site from existing outputs
+        run: |
+          python -m corq.web.render
+
+      - name: Verify rendered site
+        run: |
+          test -f corq/site/index.html
+          test -d corq/site/logs
+          echo "Rendered files:"
+          find corq/site -maxdepth 3 -type f | sort | head -120
+
+      - name: Commit generated site
+        if: ${{ github.event_name == 'push' || inputs.commit_site == 'true' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add corq/site
+          if git diff --cached --quiet; then
+            echo "No web changes to commit."
+          else
+            git commit -m "Render web site only"
+            git push
+          fi
+
+      - name: Configure GitHub Pages
+        if: ${{ github.event_name == 'push' || inputs.deploy_pages == 'true' }}
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        if: ${{ github.event_name == 'push' || inputs.deploy_pages == 'true' }}
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: corq/site
+
+      - name: Deploy to GitHub Pages
+        if: ${{ github.event_name == 'push' || inputs.deploy_pages == 'true' }}
+        id: deployment
+        uses: actions/deploy-pages@v4
