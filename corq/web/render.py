@@ -172,6 +172,80 @@ def as_float(value: Any, default: Optional[float] = None) -> Optional[float]:
         return default
 
 
+
+
+def nested_get(data: Any, *path: str) -> Any:
+    cur = data
+    for key in path:
+        if not isinstance(cur, dict):
+            return None
+        cur = cur.get(key)
+    return cur
+
+
+def thinq_dict(row: Dict[str, Any]) -> Dict[str, Any]:
+    value = row.get("thinq")
+    return value if isinstance(value, dict) else {}
+
+
+def thinq_context(row: Dict[str, Any], key: str) -> Dict[str, Any]:
+    value = thinq_dict(row).get(key)
+    return value if isinstance(value, dict) else {}
+
+
+def clean_status(value: Any) -> str:
+    return str(value or "").strip().upper()
+
+
+def edge_value(row: Dict[str, Any], *keys: str) -> Optional[float]:
+    for key in keys:
+        val = nested_get(row, *key.split(".")) if "." in key else row.get(key)
+        parsed = as_float(val)
+        if parsed is not None:
+            return parsed
+    return None
+
+
+def signed_pct_na(value: Any, digits: int = 1, none: str = "N/A") -> str:
+    num = as_float(value)
+    if num is None:
+        return none
+    if abs(num) <= 1.0:
+        num *= 100.0
+    return f"{num:+.{digits}f}%"
+
+
+def elo_status(row: Dict[str, Any]) -> str:
+    return clean_status(row.get("thinq_elo_status") or nested_get(row, "thinq", "elo", "status"))
+
+
+def elo_edges(row: Dict[str, Any]) -> Tuple[Optional[float], Optional[float]]:
+    status = elo_status(row)
+    if status and status != "OK":
+        return None, None
+    overall = edge_value(row, "thinq_overall_elo_edge", "overall_elo_edge", "elo_edge", "thinq.elo.overall_elo_edge")
+    surface = edge_value(row, "thinq_surface_elo_edge", "surface_elo_edge", "thinq.elo.surface_elo_edge")
+    return overall, surface
+
+
+def elo_pair_display(row: Dict[str, Any], opponent: bool = False) -> str:
+    overall, surface = elo_edges(row)
+    if overall is None and surface is None:
+        return "N/A / N/A"
+    if opponent:
+        overall = -overall if overall is not None else None
+        surface = -surface if surface is not None else None
+    return f"{signed_pct_na(overall)} / {signed_pct_na(surface)}"
+
+
+def elo_pair_class(row: Dict[str, Any], opponent: bool = False) -> str:
+    overall, surface = elo_edges(row)
+    value = overall if overall is not None else surface
+    if value is None:
+        return "neutral"
+    if opponent:
+        value = -value
+    return sign_class(value)
 def as_pct(value: Any, digits: int = 1, none: str = "—") -> str:
     num = as_float(value)
     if num is None:
@@ -532,27 +606,51 @@ def surface_h2h_class(row: Dict[str, Any]) -> str:
 
 def record_display(record: Any) -> str:
     if isinstance(record, dict):
-        w = record.get("wins") or record.get("w") or record.get("win") or 0
-        l = record.get("losses") or record.get("l") or record.get("loss") or 0
+        count = as_float(record.get("count"))
+        w = record.get("wins") if record.get("wins") is not None else record.get("w") if record.get("w") is not None else record.get("win")
+        l = record.get("losses") if record.get("losses") is not None else record.get("l") if record.get("l") is not None else record.get("loss")
+        if count is not None and count <= 0:
+            return "N/A"
+        if w is None and l is None:
+            return "N/A"
+        if as_float(w, 0) == 0 and as_float(l, 0) == 0:
+            return "N/A"
         return f"{fmt_int(w, '0')}W-{fmt_int(l, '0')}L"
-    txt = str(record or "")
+    txt = str(record or "").strip()
+    if not txt or txt.upper() in {"N/A", "NA", "NONE", "NULL", "0-0", "0W-0L"}:
+        return "N/A"
     m = re.search(r"(\d+)\s*[-:]\s*(\d+)", txt)
     if m:
+        if int(m.group(1)) == 0 and int(m.group(2)) == 0:
+            return "N/A"
         return f"{m.group(1)}W-{m.group(2)}L"
-    return "0W-0L" if not txt else esc(txt)
-
-
+    return esc(txt)
 def form_records(row: Dict[str, Any], side: str) -> Tuple[str, str]:
     prefix = "pick" if side == "pick" else "opponent"
-    form = row.get(f"{prefix}_last10_record") or row.get(f"{prefix}_form_record") or row.get(f"{prefix}_recent_record")
-    sform = row.get(f"{prefix}_surface_record") or row.get(f"{prefix}_surface_last10_record")
-    rf = row.get("recent_form")
-    if isinstance(rf, dict):
-        form = form or rf.get(f"{prefix}_last10_record") or rf.get(f"{prefix}_record")
-        sform = sform or rf.get(f"{prefix}_surface_record")
-    return record_display(form), record_display(sform)
-
-
+    rf = thinq_context(row, "recent_form") or (row.get("recent_form") if isinstance(row.get("recent_form"), dict) else {})
+    status = clean_status(row.get("thinq_recent_form_status") or rf.get("status") or row.get("recent_form_status"))
+    player_ctx = rf.get(prefix) if isinstance(rf.get(prefix), dict) else {}
+    last10 = player_ctx.get("last10") if isinstance(player_ctx.get("last10"), dict) else {}
+    surface = player_ctx.get("surface_last10") if isinstance(player_ctx.get("surface_last10"), dict) else {}
+    form = (
+        row.get(f"{prefix}_last10_record")
+        or row.get(f"{prefix}_form_record")
+        or row.get(f"{prefix}_recent_record")
+        or rf.get(f"{prefix}_last10_record")
+        or rf.get(f"{prefix}_record")
+        or last10
+    )
+    sform = (
+        row.get(f"{prefix}_surface_record")
+        or row.get(f"{prefix}_surface_last10_record")
+        or rf.get(f"{prefix}_surface_record")
+        or surface
+    )
+    out_form = record_display(form)
+    out_surface = record_display(sform)
+    if status and status != "OK" and out_form == "N/A" and out_surface == "N/A":
+        return "N/A", "N/A"
+    return out_form, out_surface
 def notes_for_row(row: Dict[str, Any]) -> List[str]:
     flags: List[str] = []
     for key in ("corq_warning_flags", "risk_flags", "reject_reasons", "top7_quality_reject_reasons", "top7_risk_tags", "flags"):
@@ -623,14 +721,15 @@ def dedupe_matches(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
 
 def bar_html(value: Any) -> str:
-    pct = as_float(value, 0.0) or 0.0
+    raw = as_float(value)
+    if raw is None:
+        return '<span class="depth-wrap"><span class="depth-number">N/A</span><span class="depth-bar"><span class="bar-bad" style="width:0%"></span></span></span>'
+    pct = raw
     if pct <= 1.0:
         pct *= 100.0
     pct = max(0.0, min(100.0, pct))
     cls = "bar-good" if pct >= 70 else "bar-mid" if pct >= 40 else "bar-bad"
     return f'<span class="depth-wrap"><span class="depth-number">{pct:.0f}%</span><span class="depth-bar"><span class="{cls}" style="width:{pct:.0f}%"></span></span></span>'
-
-
 def metric_row(label: str, value: str, cls: str = "") -> str:
     return f'<div class="metric-row {esc(cls)}"><span>{esc(label)}</span><b>{value}</b></div>'
 
@@ -711,8 +810,8 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         '</section>',
         '<section class="metric-box">',
         f'<div class="box-head"><span>CorQ {info_icon("corq")}</span><b>{as_pct(prob, 1)}</b></div>',
-        metric_row("P EL / S-E", f'{signed_pct(row.get("elo_edge") or row.get("pick_elo_edge"))} / {signed_pct(row.get("surface_elo_edge") or row.get("pick_surface_elo_edge"))}', sign_class(row.get("elo_edge") or row.get("pick_elo_edge"))),
-        metric_row("O EL / S-E", f'{signed_pct(-(as_float(row.get("elo_edge") or row.get("pick_elo_edge"), 0) or 0))} / {signed_pct(-(as_float(row.get("surface_elo_edge") or row.get("pick_surface_elo_edge"), 0) or 0))}', "good"),
+        metric_row("P EL / S-E", esc(elo_pair_display(row)), elo_pair_class(row)),
+        metric_row("O EL / S-E", esc(elo_pair_display(row, opponent=True)), elo_pair_class(row, opponent=True)),
         metric_row("H2H P-O", esc(h2h_display(row)), h2h_class(row)),
         metric_row("S-H2H P-O", esc(surface_h2h_display(row)), surface_h2h_class(row)),
         metric_row("P ThinQ Edge", esc(f"{pe_txt} / {pe_state}"), pe_cls),
