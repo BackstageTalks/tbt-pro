@@ -1,0 +1,44 @@
+name: Results settlement
+
+on:
+  schedule:
+    # Around 14:00 Slovakia time during summer time (UTC+2)
+    - cron: "0 12 * * *"
+    # Around 19:00 Slovakia time during summer time (UTC+2)
+    - cron: "0 17 * * *"
+    # Around 00:00 Slovakia time during summer time (UTC+2)
+    - cron: "0 22 * * *"
+    # Around 08:00 Slovakia time during summer time (UTC+2)
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  results-settlement:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build results settlement
+        env:
+          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+          TENNISAPI_RAPIDAPI_KEY: ${{ secrets.TENNISAPI_RAPIDAPI_KEY }}
+        run: |
+          python -m corq.results_engine.results             --output-root outputs             --fetch-api             --settle-yesterday             --local-tz Europe/Bratislava             --settlement-grace-hours 2
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add outputs/results
+          git commit -m "Update results settlement" || echo "No result changes"
+          git push
