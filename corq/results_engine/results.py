@@ -1,9 +1,10 @@
 from __future__ import annotations
 
-# Backward-compatible entrypoint.
-# Real Results logic lives in corq/results_engine/ so Results can evolve separately.
+# Results entrypoint moved from corq/results.py into corq/results_engine/.
+# Preferred command:
+#   python -m corq.results_engine.results --output-root outputs
 
-from corq.results_engine.builder import build_results, build_results_database, main
+from .builder import build_results, build_results_database, main
 
 __all__ = ["build_results", "build_results_database", "main"]
 
