@@ -18,6 +18,31 @@ ASSET_SRC = WEB_DIR / "assets" / "tbt_ai_goat_icon.png"
 ASSET_DIR = SITE_DIR / "assets"
 LOGS_DIR = SITE_DIR / "logs"
 
+_GOAT_BADGE_URI: Optional[str] = None
+
+def goat_badge_src() -> str:
+    """Return the goat logo as a data URI for card badges.
+
+    Card pages can be rendered in hidden subfolders, so relative asset paths can
+    break. Embedding the 512x512 logo keeps the small badge stable everywhere.
+    """
+    global _GOAT_BADGE_URI
+    if _GOAT_BADGE_URI:
+        return _GOAT_BADGE_URI
+    for src in (
+        WEB_DIR / "assets" / "tbt_ai_goat_icon_small_safe.png",
+        WEB_DIR / "assets" / "tbt_ai_goat_icon.png",
+    ):
+        try:
+            if src.exists():
+                encoded = base64.b64encode(src.read_bytes()).decode("ascii")
+                _GOAT_BADGE_URI = f"data:image/png;base64,{encoded}"
+                return _GOAT_BADGE_URI
+        except Exception:
+            pass
+    return "assets/tbt_ai_goat_icon.png"
+
+
 try:
     from corq.web.paths import (
         TOP7_PATH,
@@ -863,7 +888,7 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         '<section class="pick-main compact-v3">',
         '<div class="compact-topline">',
         (rank_badge or f'<div class="rank-num">#{rank or "—"}</div>'),
-        f'<a class="brain goat-badge" href="{log_link(row)}" title="Open calculation log"><img class="card-goat-logo" src="assets/tbt_ai_goat_icon.png" alt="AI"></a>',
+        f'<a class="brain goat-badge" href="{log_link(row)}" title="Open calculation log"><img class="card-goat-logo" src="{goat_badge_src()}" alt="AI"></a>',
         top_tag_html,
         '</div>',
         '<div class="compact-player pick-side">'
@@ -1149,6 +1174,7 @@ def css() -> str:
 .compact-topline{gap:8px;min-height:36px}.compact-topline .rank-num{height:34px;min-width:34px;padding:0 9px;font-size:13px;border-color:#1f75aa;background:#0b2740;box-shadow:0 0 12px rgba(56,213,255,.12)}.compact-topline .brain{width:34px;height:34px;font-size:17px;border-color:#4b5f7a;background:#192a42;box-shadow:0 0 12px rgba(236,72,153,.10)}.compact-top-tags{gap:6px}.compact-top-tags .insight-chip{padding:4px 8px;font-size:10.5px;line-height:1.15;max-width:166px}.compact-top-tags .chip-insights{max-width:340px}@media(max-width:760px){.compact-topline .rank-num{height:32px;min-width:32px}.compact-topline .brain{width:32px;height:32px}.compact-top-tags .insight-chip{max-width:150px}}  
 .compact-topline .brain.ai-badge{width:30px!important;height:30px!important;min-width:30px!important;font-size:11px!important;font-weight:1000;letter-spacing:.02em;color:#f0abfc;background:radial-gradient(circle at 35% 28%,rgba(236,72,153,.38),rgba(31,41,55,.92));border-color:#6b4f91;box-shadow:0 0 10px rgba(236,72,153,.12)}.compact-top-tags .insight-chip{max-width:172px}.compact-top-tags .chip-insights{max-width:350px}@media(max-width:760px){.compact-topline .brain.ai-badge{width:29px!important;height:29px!important;min-width:29px!important;font-size:10.5px!important}.compact-top-tags .insight-chip{max-width:158px}}  
 .compact-topline .brain.goat-badge{width:30px!important;height:30px!important;min-width:30px!important;padding:0!important;overflow:hidden;border-color:#6b4f91;background:#151f35;box-shadow:0 0 10px rgba(236,72,153,.12)}.card-goat-logo{width:100%;height:100%;display:block;object-fit:cover;border-radius:999px}@media(max-width:760px){.compact-topline .brain.goat-badge{width:29px!important;height:29px!important;min-width:29px!important}}  
+.card-goat-logo{object-fit:contain!important;padding:2px;background:#101827}  
 """
 
 
