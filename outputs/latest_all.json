@@ -95170,7 +95170,7 @@
     "is_doubles": false,
     "source": "RapidAPI PRO",
     "raw": {
-      "firstToServe": 1,
+      "firstToServe": 2,
       "homeTeamSeed": "Q",
       "awayTeamSeed": "4",
       "tournament": {
@@ -95341,15 +95341,15 @@
         "current": 0,
         "display": 0,
         "period1": 2,
-        "period2": 1,
-        "point": "A"
+        "period2": 2,
+        "point": "0"
       },
       "awayScore": {
         "current": 1,
         "display": 1,
         "period1": 6,
-        "period2": 3,
-        "point": "40"
+        "period2": 5,
+        "point": "0"
       },
       "time": {
         "period1": 2565,
@@ -95357,9 +95357,12 @@
       },
       "changes": {
         "changes": [
-          "homeScore.point"
+          "homeScore.point",
+          "awayScore.period2",
+          "awayScore.point",
+          "firstToServe"
         ],
-        "changeTimestamp": 1785237102
+        "changeTimestamp": 1785237651
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
@@ -95400,16 +95403,16 @@
     "odds_label_2": "2",
     "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
-    "odds_player1": 26.0,
-    "odds_player2": 1.01,
-    "p1_odds": 26.0,
-    "p2_odds": 1.01,
-    "home_odds": 26.0,
-    "away_odds": 1.01,
-    "odds1": 26.0,
-    "odds2": 1.01,
-    "price1": 26.0,
-    "price2": 1.01,
+    "odds_player1": 101.0,
+    "odds_player2": 1.001,
+    "p1_odds": 101.0,
+    "p2_odds": 1.001,
+    "home_odds": 101.0,
+    "away_odds": 1.001,
+    "odds1": 101.0,
+    "odds2": 1.001,
+    "price1": 101.0,
+    "price2": 1.001,
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16644342/odds",
     "odds_status": "OK",
@@ -95418,17 +95421,17 @@
     ],
     "odds_pair_available": true,
     "odds_labels_confirmed": true,
-    "odds_gap_abs": 24.99,
-    "odds_gap_pct": 24.7426,
+    "odds_gap_abs": 99.999,
+    "odds_gap_pct": 99.8991,
     "home_player": "Miriana Tona",
     "away_player": "Lucia Bronzetti",
     "pick_side": "HOME",
     "opponent_side": "AWAY",
     "pick": "Miriana Tona",
     "opponent": "Lucia Bronzetti",
-    "odds": 26.0,
-    "pick_odds": 26.0,
-    "opponent_odds": 1.01,
+    "odds": 101.0,
+    "pick_odds": 101.0,
+    "opponent_odds": 1.001,
     "pick_is_player1": true,
     "pick_is_player2": false,
     "pick_is_home": true,
@@ -95706,7 +95709,7 @@
         "tiebreak_edge": -0.0015,
         "decider_edge": 0.0004,
         "confidence": 0.78,
-        "odds_gap_pct": 24.7426,
+        "odds_gap_pct": 99.0089,
         "flags": [
           "MATCH_DYNAMICS_H2H_NEUTRAL"
         ]
@@ -95828,7 +95831,7 @@
           "tiebreak_edge": -0.0015,
           "decider_edge": 0.0004,
           "confidence": 0.78,
-          "odds_gap_pct": 24.7426,
+          "odds_gap_pct": 99.0089,
           "flags": [
             "MATCH_DYNAMICS_H2H_NEUTRAL"
           ]
@@ -96429,7 +96432,7 @@
       "history_match_count": 37883,
       "history_file_count": 15
     },
-    "implied_probability": 0.0385,
+    "implied_probability": 0.0099,
     "overall_elo_edge": -0.07,
     "surface_elo_edge": -0.08,
     "elo_edge": -0.08,
@@ -96466,7 +96469,7 @@
     "corq_estimated_win_probability": 0.38,
     "estimated_win_pct": 38.0,
     "corq_score": 0.38,
-    "corq_edge": 0.3415,
+    "corq_edge": 0.3701,
     "corq_risk_flags": [],
     "pick_ta_rank": 358,
     "opponent_ta_rank": 118,
@@ -96527,7 +96530,7 @@
     "top7_thinq_confidence": 0.7856,
     "pick_data_depth": 0.823245,
     "stat_data_depth": 0.823245,
-    "top7_pick_odds": 26.0,
+    "top7_pick_odds": 101.0,
     "top7_match_date_local": "2026-07-28",
     "recent_form_status": "OK",
     "recent_form_reason": "",
@@ -96568,8 +96571,8 @@
       {
         "tag": "MARKET_STRONG_AGAINST_PICK",
         "penalty": 3.0,
-        "pick_odds": 26.0,
-        "opponent_odds": 1.01
+        "pick_odds": 101.0,
+        "opponent_odds": 1.001
       }
     ],
     "top7_risk_penalty_points": 3.0,
@@ -96600,7 +96603,7 @@
     "is_doubles": false,
     "source": "RapidAPI PRO",
     "raw": {
-      "firstToServe": 1,
+      "firstToServe": 2,
       "homeTeamSeed": "Q",
       "awayTeamSeed": "4",
       "tournament": {
@@ -96771,15 +96774,15 @@
         "current": 0,
         "display": 0,
         "period1": 2,
-        "period2": 1,
-        "point": "A"
+        "period2": 2,
+        "point": "0"
       },
       "awayScore": {
         "current": 1,
         "display": 1,
         "period1": 6,
-        "period2": 3,
-        "point": "40"
+        "period2": 5,
+        "point": "0"
       },
       "time": {
         "period1": 2565,
@@ -96787,9 +96790,12 @@
       },
       "changes": {
         "changes": [
-          "homeScore.point"
+          "homeScore.point",
+          "awayScore.period2",
+          "awayScore.point",
+          "firstToServe"
         ],
-        "changeTimestamp": 1785237102
+        "changeTimestamp": 1785237651
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
@@ -96830,16 +96836,16 @@
     "odds_label_2": "2",
     "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
-    "odds_player1": 26.0,
-    "odds_player2": 1.01,
-    "p1_odds": 26.0,
-    "p2_odds": 1.01,
-    "home_odds": 26.0,
-    "away_odds": 1.01,
-    "odds1": 26.0,
-    "odds2": 1.01,
-    "price1": 26.0,
-    "price2": 1.01,
+    "odds_player1": 101.0,
+    "odds_player2": 1.001,
+    "p1_odds": 101.0,
+    "p2_odds": 1.001,
+    "home_odds": 101.0,
+    "away_odds": 1.001,
+    "odds1": 101.0,
+    "odds2": 1.001,
+    "price1": 101.0,
+    "price2": 1.001,
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16644342/odds",
     "odds_status": "OK",
@@ -96848,17 +96854,17 @@
     ],
     "odds_pair_available": true,
     "odds_labels_confirmed": true,
-    "odds_gap_abs": 24.99,
-    "odds_gap_pct": 24.7426,
+    "odds_gap_abs": 99.999,
+    "odds_gap_pct": 99.8991,
     "home_player": "Miriana Tona",
     "away_player": "Lucia Bronzetti",
     "pick_side": "AWAY",
     "opponent_side": "HOME",
     "pick": "Lucia Bronzetti",
     "opponent": "Miriana Tona",
-    "odds": 1.01,
-    "pick_odds": 1.01,
-    "opponent_odds": 26.0,
+    "odds": 1.001,
+    "pick_odds": 1.001,
+    "opponent_odds": 101.0,
     "pick_is_player1": false,
     "pick_is_player2": true,
     "pick_is_home": false,
@@ -97136,7 +97142,7 @@
         "tiebreak_edge": 0.0015,
         "decider_edge": -0.0004,
         "confidence": 0.78,
-        "odds_gap_pct": 24.7426,
+        "odds_gap_pct": 99.0089,
         "flags": [
           "MATCH_DYNAMICS_H2H_NEUTRAL"
         ]
@@ -97258,7 +97264,7 @@
           "tiebreak_edge": 0.0015,
           "decider_edge": -0.0004,
           "confidence": 0.78,
-          "odds_gap_pct": 24.7426,
+          "odds_gap_pct": 99.0089,
           "flags": [
             "MATCH_DYNAMICS_H2H_NEUTRAL"
           ]
@@ -97859,7 +97865,7 @@
       "history_match_count": 37883,
       "history_file_count": 15
     },
-    "implied_probability": 0.9901,
+    "implied_probability": 0.999,
     "overall_elo_edge": 0.07,
     "surface_elo_edge": 0.08,
     "elo_edge": 0.08,
@@ -97896,7 +97902,7 @@
     "corq_estimated_win_probability": 0.62,
     "estimated_win_pct": 62.0,
     "corq_score": 0.62,
-    "corq_edge": -0.3701,
+    "corq_edge": -0.379,
     "corq_risk_flags": [],
     "pick_ta_rank": 118,
     "opponent_ta_rank": 358,
@@ -97955,7 +97961,7 @@
     "top7_thinq_confidence": 0.7856,
     "pick_data_depth": 0.823245,
     "stat_data_depth": 0.823245,
-    "top7_pick_odds": 1.01,
+    "top7_pick_odds": 1.001,
     "top7_match_date_local": "2026-07-28",
     "recent_form_status": "OK",
     "recent_form_reason": "",
@@ -98194,8 +98200,8 @@
         "display": 1,
         "period1": 6,
         "period2": 3,
-        "period3": 0,
-        "point": "15"
+        "period3": 2,
+        "point": "30"
       },
       "time": {
         "period1": 1277,
@@ -98206,7 +98212,7 @@
         "changes": [
           "awayScore.point"
         ],
-        "changeTimestamp": 1785237092
+        "changeTimestamp": 1785237676
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
@@ -98247,16 +98253,16 @@
     "odds_label_2": "2",
     "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
-    "odds_player1": 3.4,
-    "odds_player2": 1.3,
-    "p1_odds": 3.4,
-    "p2_odds": 1.3,
-    "home_odds": 3.4,
-    "away_odds": 1.3,
-    "odds1": 3.4,
-    "odds2": 1.3,
-    "price1": 3.4,
-    "price2": 1.3,
+    "odds_player1": 8.0,
+    "odds_player2": 1.0833,
+    "p1_odds": 8.0,
+    "p2_odds": 1.0833,
+    "home_odds": 8.0,
+    "away_odds": 1.0833,
+    "odds1": 8.0,
+    "odds2": 1.0833,
+    "price1": 8.0,
+    "price2": 1.0833,
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16644343/odds",
     "odds_status": "OK",
@@ -98265,17 +98271,17 @@
     ],
     "odds_pair_available": true,
     "odds_labels_confirmed": true,
-    "odds_gap_abs": 2.1,
-    "odds_gap_pct": 1.6154,
+    "odds_gap_abs": 6.9167,
+    "odds_gap_pct": 6.3848,
     "home_player": "Margaux Rouvroy",
     "away_player": "Lola Radivojević",
     "pick_side": "HOME",
     "opponent_side": "AWAY",
     "pick": "Margaux Rouvroy",
     "opponent": "Lola Radivojević",
-    "odds": 3.4,
-    "pick_odds": 3.4,
-    "opponent_odds": 1.3,
+    "odds": 8.0,
+    "pick_odds": 8.0,
+    "opponent_odds": 1.0833,
     "pick_is_player1": true,
     "pick_is_player2": false,
     "pick_is_home": true,
@@ -98552,7 +98558,7 @@
         "tiebreak_edge": -0.0014,
         "decider_edge": 0.0002,
         "confidence": 0.78,
-        "odds_gap_pct": 1.6154,
+        "odds_gap_pct": 6.3848,
         "flags": []
       },
       "thinq_probability_layer": {
@@ -98666,7 +98672,7 @@
           "tiebreak_edge": -0.0014,
           "decider_edge": 0.0002,
           "confidence": 0.78,
-          "odds_gap_pct": 1.6154,
+          "odds_gap_pct": 6.3848,
           "flags": []
         },
         "h2h": {
@@ -99252,7 +99258,7 @@
       "history_match_count": 37883,
       "history_file_count": 15
     },
-    "implied_probability": 0.2941,
+    "implied_probability": 0.125,
     "overall_elo_edge": -0.07,
     "surface_elo_edge": -0.08,
     "elo_edge": -0.08,
@@ -99289,7 +99295,7 @@
     "corq_estimated_win_probability": 0.4127,
     "estimated_win_pct": 41.27,
     "corq_score": 0.4127,
-    "corq_edge": 0.1186,
+    "corq_edge": 0.2877,
     "corq_risk_flags": [],
     "pick_ta_rank": 362,
     "opponent_ta_rank": 154,
@@ -99352,7 +99358,7 @@
     "top7_thinq_confidence": 0.7913,
     "pick_data_depth": 0.67251,
     "stat_data_depth": 0.67251,
-    "top7_pick_odds": 3.4,
+    "top7_pick_odds": 8.0,
     "top7_match_date_local": "2026-07-28",
     "recent_form_status": "OK",
     "recent_form_reason": "",
@@ -99393,8 +99399,8 @@
       {
         "tag": "MARKET_STRONG_AGAINST_PICK",
         "penalty": 3.0,
-        "pick_odds": 3.4,
-        "opponent_odds": 1.3
+        "pick_odds": 8.0,
+        "opponent_odds": 1.0833
       }
     ],
     "top7_risk_penalty_points": 3.0,
@@ -99605,8 +99611,8 @@
         "display": 1,
         "period1": 6,
         "period2": 3,
-        "period3": 0,
-        "point": "15"
+        "period3": 2,
+        "point": "30"
       },
       "time": {
         "period1": 1277,
@@ -99617,7 +99623,7 @@
         "changes": [
           "awayScore.point"
         ],
-        "changeTimestamp": 1785237092
+        "changeTimestamp": 1785237676
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
@@ -99658,16 +99664,16 @@
     "odds_label_2": "2",
     "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
-    "odds_player1": 3.4,
-    "odds_player2": 1.3,
-    "p1_odds": 3.4,
-    "p2_odds": 1.3,
-    "home_odds": 3.4,
-    "away_odds": 1.3,
-    "odds1": 3.4,
-    "odds2": 1.3,
-    "price1": 3.4,
-    "price2": 1.3,
+    "odds_player1": 8.0,
+    "odds_player2": 1.0833,
+    "p1_odds": 8.0,
+    "p2_odds": 1.0833,
+    "home_odds": 8.0,
+    "away_odds": 1.0833,
+    "odds1": 8.0,
+    "odds2": 1.0833,
+    "price1": 8.0,
+    "price2": 1.0833,
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16644343/odds",
     "odds_status": "OK",
@@ -99676,17 +99682,17 @@
     ],
     "odds_pair_available": true,
     "odds_labels_confirmed": true,
-    "odds_gap_abs": 2.1,
-    "odds_gap_pct": 1.6154,
+    "odds_gap_abs": 6.9167,
+    "odds_gap_pct": 6.3848,
     "home_player": "Margaux Rouvroy",
     "away_player": "Lola Radivojević",
     "pick_side": "AWAY",
     "opponent_side": "HOME",
     "pick": "Lola Radivojević",
     "opponent": "Margaux Rouvroy",
-    "odds": 1.3,
-    "pick_odds": 1.3,
-    "opponent_odds": 3.4,
+    "odds": 1.0833,
+    "pick_odds": 1.0833,
+    "opponent_odds": 8.0,
     "pick_is_player1": false,
     "pick_is_player2": true,
     "pick_is_home": false,
@@ -99963,7 +99969,7 @@
         "tiebreak_edge": 0.0014,
         "decider_edge": -0.0002,
         "confidence": 0.78,
-        "odds_gap_pct": 1.6154,
+        "odds_gap_pct": 6.3848,
         "flags": []
       },
       "thinq_probability_layer": {
@@ -100077,7 +100083,7 @@
           "tiebreak_edge": 0.0014,
           "decider_edge": -0.0002,
           "confidence": 0.78,
-          "odds_gap_pct": 1.6154,
+          "odds_gap_pct": 6.3848,
           "flags": []
         },
         "h2h": {
@@ -100663,7 +100669,7 @@
       "history_match_count": 37883,
       "history_file_count": 15
     },
-    "implied_probability": 0.7692,
+    "implied_probability": 0.9231,
     "overall_elo_edge": 0.07,
     "surface_elo_edge": 0.08,
     "elo_edge": 0.08,
@@ -100700,7 +100706,7 @@
     "corq_estimated_win_probability": 0.5873,
     "estimated_win_pct": 58.73,
     "corq_score": 0.5873,
-    "corq_edge": -0.1819,
+    "corq_edge": -0.3358,
     "corq_risk_flags": [],
     "pick_ta_rank": 154,
     "opponent_ta_rank": 362,
@@ -100761,7 +100767,7 @@
     "top7_thinq_confidence": 0.7913,
     "pick_data_depth": 0.67251,
     "stat_data_depth": 0.67251,
-    "top7_pick_odds": 1.3,
+    "top7_pick_odds": 1.0833,
     "top7_match_date_local": "2026-07-28",
     "recent_form_status": "OK",
     "recent_form_reason": "",
@@ -100990,7 +100996,7 @@
       "homeScore": {
         "current": 0,
         "display": 0,
-        "period1": 2,
+        "period1": 4,
         "point": "0"
       },
       "awayScore": {
@@ -101009,7 +101015,7 @@
           "awayScore.point",
           "firstToServe"
         ],
-        "changeTimestamp": 1785237074
+        "changeTimestamp": 1785237575
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
@@ -101050,16 +101056,16 @@
     "odds_label_2": "2",
     "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
-    "odds_player1": 1.1429,
-    "odds_player2": 5.5,
-    "p1_odds": 1.1429,
-    "p2_odds": 5.5,
-    "home_odds": 1.1429,
-    "away_odds": 5.5,
-    "odds1": 1.1429,
-    "odds2": 5.5,
-    "price1": 1.1429,
-    "price2": 5.5,
+    "odds_player1": 1.0625,
+    "odds_player2": 10.0,
+    "p1_odds": 1.0625,
+    "p2_odds": 10.0,
+    "home_odds": 1.0625,
+    "away_odds": 10.0,
+    "odds1": 1.0625,
+    "odds2": 10.0,
+    "price1": 1.0625,
+    "price2": 10.0,
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16644344/odds",
     "odds_status": "OK",
@@ -101068,17 +101074,17 @@
     ],
     "odds_pair_available": true,
     "odds_labels_confirmed": true,
-    "odds_gap_abs": 4.3571,
-    "odds_gap_pct": 3.8123,
+    "odds_gap_abs": 8.9375,
+    "odds_gap_pct": 8.4118,
     "home_player": "Lucija Ćirić-Bagarić",
     "away_player": "Rachel Gailis",
     "pick_side": "HOME",
     "opponent_side": "AWAY",
     "pick": "Lucija Ćirić-Bagarić",
     "opponent": "Rachel Gailis",
-    "odds": 1.1429,
-    "pick_odds": 1.1429,
-    "opponent_odds": 5.5,
+    "odds": 1.0625,
+    "pick_odds": 1.0625,
+    "opponent_odds": 10.0,
     "pick_is_player1": true,
     "pick_is_player2": false,
     "pick_is_home": true,
@@ -101359,7 +101365,7 @@
         "tiebreak_edge": 0.0,
         "decider_edge": 0.0,
         "confidence": 0.48,
-        "odds_gap_pct": 3.8123,
+        "odds_gap_pct": 8.4118,
         "flags": [
           "MATCH_DYNAMICS_H2H_NEUTRAL"
         ]
@@ -101485,7 +101491,7 @@
           "tiebreak_edge": 0.0,
           "decider_edge": 0.0,
           "confidence": 0.48,
-          "odds_gap_pct": 3.8123,
+          "odds_gap_pct": 8.4118,
           "flags": [
             "MATCH_DYNAMICS_H2H_NEUTRAL"
           ]
@@ -102099,7 +102105,7 @@
       "history_match_count": 37883,
       "history_file_count": 15
     },
-    "implied_probability": 0.875,
+    "implied_probability": 0.9412,
     "overall_elo_edge": 0.0,
     "surface_elo_edge": 0.0,
     "elo_edge": 0.0,
@@ -102136,7 +102142,7 @@
     "corq_estimated_win_probability": 0.5,
     "estimated_win_pct": 50.0,
     "corq_score": 0.5,
-    "corq_edge": -0.375,
+    "corq_edge": -0.4412,
     "corq_risk_flags": [],
     "pick_ta_rank": 394,
     "opponent_ta_rank": 901,
@@ -102203,7 +102209,7 @@
     "top7_thinq_confidence": 0.25,
     "pick_data_depth": 0.13325,
     "stat_data_depth": 0.13325,
-    "top7_pick_odds": 1.1429,
+    "top7_pick_odds": 1.0625,
     "top7_match_date_local": "2026-07-28",
     "recent_form_status": "OK",
     "recent_form_reason": "",
@@ -102432,7 +102438,7 @@
       "homeScore": {
         "current": 0,
         "display": 0,
-        "period1": 2,
+        "period1": 4,
         "point": "0"
       },
       "awayScore": {
@@ -102451,7 +102457,7 @@
           "awayScore.point",
           "firstToServe"
         ],
-        "changeTimestamp": 1785237074
+        "changeTimestamp": 1785237575
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
@@ -102492,16 +102498,16 @@
     "odds_label_2": "2",
     "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
-    "odds_player1": 1.1429,
-    "odds_player2": 5.5,
-    "p1_odds": 1.1429,
-    "p2_odds": 5.5,
-    "home_odds": 1.1429,
-    "away_odds": 5.5,
-    "odds1": 1.1429,
-    "odds2": 5.5,
-    "price1": 1.1429,
-    "price2": 5.5,
+    "odds_player1": 1.0625,
+    "odds_player2": 10.0,
+    "p1_odds": 1.0625,
+    "p2_odds": 10.0,
+    "home_odds": 1.0625,
+    "away_odds": 10.0,
+    "odds1": 1.0625,
+    "odds2": 10.0,
+    "price1": 1.0625,
+    "price2": 10.0,
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16644344/odds",
     "odds_status": "OK",
@@ -102510,17 +102516,17 @@
     ],
     "odds_pair_available": true,
     "odds_labels_confirmed": true,
-    "odds_gap_abs": 4.3571,
-    "odds_gap_pct": 3.8123,
+    "odds_gap_abs": 8.9375,
+    "odds_gap_pct": 8.4118,
     "home_player": "Lucija Ćirić-Bagarić",
     "away_player": "Rachel Gailis",
     "pick_side": "AWAY",
     "opponent_side": "HOME",
     "pick": "Rachel Gailis",
     "opponent": "Lucija Ćirić-Bagarić",
-    "odds": 5.5,
-    "pick_odds": 5.5,
-    "opponent_odds": 1.1429,
+    "odds": 10.0,
+    "pick_odds": 10.0,
+    "opponent_odds": 1.0625,
     "pick_is_player1": false,
     "pick_is_player2": true,
     "pick_is_home": false,
@@ -102801,7 +102807,7 @@
         "tiebreak_edge": 0.0,
         "decider_edge": 0.0,
         "confidence": 0.48,
-        "odds_gap_pct": 3.8123,
+        "odds_gap_pct": 8.4118,
         "flags": [
           "MATCH_DYNAMICS_H2H_NEUTRAL"
         ]
@@ -102927,7 +102933,7 @@
           "tiebreak_edge": 0.0,
           "decider_edge": 0.0,
           "confidence": 0.48,
-          "odds_gap_pct": 3.8123,
+          "odds_gap_pct": 8.4118,
           "flags": [
             "MATCH_DYNAMICS_H2H_NEUTRAL"
           ]
@@ -103541,7 +103547,7 @@
       "history_match_count": 37883,
       "history_file_count": 15
     },
-    "implied_probability": 0.1818,
+    "implied_probability": 0.1,
     "overall_elo_edge": 0.0,
     "surface_elo_edge": 0.0,
     "elo_edge": 0.0,
@@ -103646,7 +103652,7 @@
     "top7_thinq_confidence": 0.25,
     "pick_data_depth": 0.13325,
     "stat_data_depth": 0.13325,
-    "top7_pick_odds": 5.5,
+    "top7_pick_odds": 10.0,
     "top7_match_date_local": "2026-07-28",
     "recent_form_status": "OK",
     "recent_form_reason": "",
@@ -103687,8 +103693,8 @@
       {
         "tag": "MARKET_STRONG_AGAINST_PICK",
         "penalty": 3.0,
-        "pick_odds": 5.5,
-        "opponent_odds": 1.1429
+        "pick_odds": 10.0,
+        "opponent_odds": 1.0625
       }
     ],
     "top7_risk_penalty_points": 3.0,
@@ -103712,8 +103718,8 @@
     "level": "WTA 125",
     "gender": "F",
     "best_of": 3,
-    "match_start": "2026-07-28T11:20:00+00:00",
-    "start_time": "2026-07-28T11:20:00+00:00",
+    "match_start": "2026-07-28T11:30:00+00:00",
+    "start_time": "2026-07-28T11:30:00+00:00",
     "status_type": "notstarted",
     "status_code": 0,
     "is_doubles": false,
@@ -103893,7 +103899,7 @@
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16634791,
       "slug": "maia-ilinca-burcescu-alevtina-ibragimova",
-      "startTimestamp": 1785237600,
+      "startTimestamp": 1785238200,
       "periods": {
         "point": "Game",
         "current": "Match",
@@ -105130,8 +105136,8 @@
     "level": "WTA 125",
     "gender": "F",
     "best_of": 3,
-    "match_start": "2026-07-28T11:20:00+00:00",
-    "start_time": "2026-07-28T11:20:00+00:00",
+    "match_start": "2026-07-28T11:30:00+00:00",
+    "start_time": "2026-07-28T11:30:00+00:00",
     "status_type": "notstarted",
     "status_code": 0,
     "is_doubles": false,
@@ -105311,7 +105317,7 @@
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16634791,
       "slug": "maia-ilinca-burcescu-alevtina-ibragimova",
-      "startTimestamp": 1785237600,
+      "startTimestamp": 1785238200,
       "periods": {
         "point": "Game",
         "current": "Match",
@@ -106563,8 +106569,8 @@
     "level": "WTA 125",
     "gender": "F",
     "best_of": 3,
-    "match_start": "2026-07-28T11:20:00+00:00",
-    "start_time": "2026-07-28T11:20:00+00:00",
+    "match_start": "2026-07-28T11:30:00+00:00",
+    "start_time": "2026-07-28T11:30:00+00:00",
     "status_type": "notstarted",
     "status_code": 0,
     "is_doubles": false,
@@ -106746,7 +106752,7 @@
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16634795,
       "slug": "francesca-jones-chloe-paquet",
-      "startTimestamp": 1785237600,
+      "startTimestamp": 1785238200,
       "periods": {
         "point": "Game",
         "current": "Match",
@@ -107919,8 +107925,8 @@
     "level": "WTA 125",
     "gender": "F",
     "best_of": 3,
-    "match_start": "2026-07-28T11:20:00+00:00",
-    "start_time": "2026-07-28T11:20:00+00:00",
+    "match_start": "2026-07-28T11:30:00+00:00",
+    "start_time": "2026-07-28T11:30:00+00:00",
     "status_type": "notstarted",
     "status_code": 0,
     "is_doubles": false,
@@ -108102,7 +108108,7 @@
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16634795,
       "slug": "francesca-jones-chloe-paquet",
-      "startTimestamp": 1785237600,
+      "startTimestamp": 1785238200,
       "periods": {
         "point": "Game",
         "current": "Match",

@@ -188,7 +188,7 @@
     "homeScore": {
       "current": 0,
       "display": 0,
-      "period1": 2,
+      "period1": 4,
       "point": "0"
     },
     "awayScore": {
@@ -207,7 +207,7 @@
         "awayScore.point",
         "firstToServe"
       ],
-      "changeTimestamp": 1785237074
+      "changeTimestamp": 1785237575
     },
     "hasGlobalHighlights": false,
     "crowdsourcingDataDisplayEnabled": false,
@@ -248,16 +248,16 @@
   "odds_label_2": "2",
   "odds_direct_match_score": 1.0,
   "odds_reverse_match_score": 0.0,
-  "odds_player1": 1.1429,
-  "odds_player2": 5.5,
-  "p1_odds": 1.1429,
-  "p2_odds": 5.5,
-  "home_odds": 1.1429,
-  "away_odds": 5.5,
-  "odds1": 1.1429,
-  "odds2": 5.5,
-  "price1": 1.1429,
-  "price2": 5.5,
+  "odds_player1": 1.0625,
+  "odds_player2": 10.0,
+  "p1_odds": 1.0625,
+  "p2_odds": 10.0,
+  "home_odds": 1.0625,
+  "away_odds": 10.0,
+  "odds1": 1.0625,
+  "odds2": 10.0,
+  "price1": 1.0625,
+  "price2": 10.0,
   "odds_source": "RapidAPI PRO event odds",
   "odds_endpoint": "/api/tennis/event/16644344/odds",
   "odds_status": "OK",
@@ -266,17 +266,17 @@
   ],
   "odds_pair_available": true,
   "odds_labels_confirmed": true,
-  "odds_gap_abs": 4.3571,
-  "odds_gap_pct": 3.8123,
+  "odds_gap_abs": 8.9375,
+  "odds_gap_pct": 8.4118,
   "home_player": "Lucija Ćirić-Bagarić",
   "away_player": "Rachel Gailis",
   "pick_side": "AWAY",
   "opponent_side": "HOME",
   "pick": "Rachel Gailis",
   "opponent": "Lucija Ćirić-Bagarić",
-  "odds": 5.5,
-  "pick_odds": 5.5,
-  "opponent_odds": 1.1429,
+  "odds": 10.0,
+  "pick_odds": 10.0,
+  "opponent_odds": 1.0625,
   "pick_is_player1": false,
   "pick_is_player2": true,
   "pick_is_home": false,
@@ -557,7 +557,7 @@
       "tiebreak_edge": 0.0,
       "decider_edge": 0.0,
       "confidence": 0.48,
-      "odds_gap_pct": 3.8123,
+      "odds_gap_pct": 8.4118,
       "flags": [
         "MATCH_DYNAMICS_H2H_NEUTRAL"
       ]
@@ -683,7 +683,7 @@
         "tiebreak_edge": 0.0,
         "decider_edge": 0.0,
         "confidence": 0.48,
-        "odds_gap_pct": 3.8123,
+        "odds_gap_pct": 8.4118,
         "flags": [
           "MATCH_DYNAMICS_H2H_NEUTRAL"
         ]
@@ -1297,7 +1297,7 @@
     "history_match_count": 37883,
     "history_file_count": 15
   },
-  "implied_probability": 0.1818,
+  "implied_probability": 0.1,
   "overall_elo_edge": 0.0,
   "surface_elo_edge": 0.0,
   "elo_edge": 0.0,
@@ -1402,7 +1402,7 @@
   "top7_thinq_confidence": 0.25,
   "pick_data_depth": 0.13325,
   "stat_data_depth": 0.13325,
-  "top7_pick_odds": 5.5,
+  "top7_pick_odds": 10.0,
   "top7_match_date_local": "2026-07-28",
   "recent_form_status": "OK",
   "recent_form_reason": "",
@@ -1443,8 +1443,8 @@
     {
       "tag": "MARKET_STRONG_AGAINST_PICK",
       "penalty": 3.0,
-      "pick_odds": 5.5,
-      "opponent_odds": 1.1429
+      "pick_odds": 10.0,
+      "opponent_odds": 1.0625
     }
   ],
   "top7_risk_penalty_points": 3.0,
