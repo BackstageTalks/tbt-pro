@@ -332,75 +332,93 @@ def surface_name(row: Dict[str, Any]) -> str:
     return str(row.get("surface") or "Surface").strip() or "Surface"
 
 
-def card_insights(row: Dict[str, Any], notes: Optional[List[str]] = None, limit: int = 1) -> List[str]:
-    """Return compact positive insight tags from displayed pick perspective.
+def card_insights(row: Dict[str, Any], notes: Optional[List[str]] = None, limit: int = 2) -> List[str]:
+    """Return compact top insight tags from displayed pick perspective.
 
-    Top card tags are intentionally positive-only to avoid mirrored noise:
-    - Pick strong data/support is shown.
-    - Opp weak data/support for pick is shown.
-    - Against-pick/warning signals are not shown here.
-    Neutral/public notes live in the bottom note row.
+    Top tags are limited and de-duplicated:
+    - 🔥 means the signal supports the pick.
+    - ⚠ means the signal goes against the pick.
+    - If surface and general Last 10 show the same record for the same side,
+      keep the surface tag and hide the mirrored duplicate.
+    - Every tag explicitly says Pick or Opp.
     """
-    candidates: List[Tuple[int, str]] = []
+    candidates: List[Tuple[int, str, str]] = []
 
-    def add(priority: int, text: Any) -> None:
+    def add(priority: int, text: Any, dedupe_key: Optional[str] = None) -> None:
         t = str(text or "").strip()
         if t:
-            candidates.append((priority, t))
+            key = dedupe_key or re.sub(r"\s+", " ", t.replace("🔥 ", "").replace("⚠ ", "")).strip()
+            candidates.append((priority, t, key))
 
-    # H2H, only when meaningful and it supports the displayed pick.
     hp, ho = h2h_record(row)
     shp, sho = surface_h2h_record(row)
-    if hp is not None and ho is not None and (hp + ho) >= 3 and hp > ho:
-        if hp == 0 or ho == 0 or abs(hp - ho) >= 3:
-            add(96, f"🔥 Pick H2H | {hp}-{ho}")
 
-    if shp is not None and sho is not None and (shp + sho) >= 3 and shp > sho:
+    # H2H. Surface H2H is skipped when it is the same sample as total H2H.
+    if hp is not None and ho is not None and (hp + ho) >= 3 and max(hp, ho) >= 3:
+        if hp == 0 or ho == 0 or abs(hp - ho) >= 3:
+            icon = "🔥" if hp > ho else "⚠"
+            add(96, f"{icon} Pick H2H | {hp}-{ho}", f"h2h:{hp}-{ho}")
+
+    if shp is not None and sho is not None and (shp + sho) >= 3 and max(shp, sho) >= 3:
         duplicate_total = hp == shp and ho == sho
         if not duplicate_total and (shp == 0 or sho == 0 or abs(shp - sho) >= 3):
-            add(94, f"🔥 Pick {surface_name(row)} H2H | {shp}-{sho}")
+            icon = "🔥" if shp > sho else "⚠"
+            add(94, f"{icon} Pick {surface_name(row)} H2H | {shp}-{sho}", f"surf-h2h:{shp}-{sho}")
 
-    # Last 10 records, only positive-to-pick cases.
     pf, psf = form_records(row, "pick")
     of, osf = form_records(row, "opponent")
+    surf = surface_name(row)
 
-    def add_positive_form(priority: int, label: str, rec: str, side: str) -> None:
+    def add_form(priority: int, side_label: str, extra_label: str, rec: str, side: str) -> None:
         w, l = compact_record_label(rec)
         if w is None or l is None or (w + l) < 8:
             return
-        # Pick strong form supports pick. Opponent poor form supports pick.
-        if side == "pick" and w >= 8:
-            add(priority, f"🔥 Pick {label} | Last 10 | {w}-{l}")
-        elif side == "opponent" and l >= 7:
-            add(priority, f"🔥 Opp {label} | Last 10 | {w}-{l}")
+        icon = None
+        if side == "pick":
+            if w >= 8:
+                icon = "🔥"
+            elif l >= 7:
+                icon = "⚠"
+        else:
+            if l >= 7:
+                icon = "🔥"
+            elif w >= 8:
+                icon = "⚠"
+        if not icon:
+            return
+        label = f"{side_label} {extra_label}".strip()
+        # Deduplicate general/surface Last 10 same-side same-record. Surface has
+        # higher priority, so it wins and the generic duplicate is skipped.
+        add(priority, f"{icon} {label} | Last 10 | {w}-{l}", f"form:{side}:{w}-{l}")
 
-    surf = surface_name(row)
-    add_positive_form(92, surf, psf, "pick")
-    add_positive_form(88, "", pf, "pick")
-    add_positive_form(86, surf, osf, "opponent")
-    add_positive_form(84, "", of, "opponent")
+    # Surface before generic, because it is more informative when record is same.
+    add_form(92, "Pick", surf, psf, "pick")
+    add_form(88, "Pick", "", pf, "pick")
+    add_form(86, "Opp", surf, osf, "opponent")
+    add_form(84, "Opp", "", of, "opponent")
 
-    # Optional absence fields can support pick only if opponent has long absence.
-    weeks = None
-    for key in (
-        "opponent_surface_absence_weeks",
-        "opponent_weeks_since_surface_match",
-        "opponent_surface_weeks_since_last_match",
-    ):
-        weeks = as_float(row.get(key))
-        if weeks is not None:
-            break
-    if weeks is not None and weeks >= 26:
-        add(82, f"🔥 Opp | No {surface_name(row)} | {int(round(weeks))}w")
+    # Optional absence fields. Pick absence is a warning; Opp absence supports pick.
+    for side, side_label, priority in (("pick", "Pick", 83), ("opponent", "Opp", 82)):
+        weeks = None
+        for key in (
+            f"{side}_surface_absence_weeks",
+            f"{side}_weeks_since_surface_match",
+            f"{side}_surface_weeks_since_last_match",
+        ):
+            weeks = as_float(row.get(key))
+            if weeks is not None:
+                break
+        if weeks is not None and weeks >= 26:
+            icon = "⚠" if side == "pick" else "🔥"
+            add(priority, f"{icon} {side_label} | No {surf} | {int(round(weeks))}w", f"absence:{side}:{surf}:{int(round(weeks))}")
 
     out: List[str] = []
     seen = set()
-    for _, txt in sorted(candidates, key=lambda kv: (-kv[0], kv[1])):
-        clean = re.sub(r"\s+", " ", txt).replace("Pick  |", "Pick |").replace("Opp  |", "Opp |").strip()
-        dedupe_key = clean.replace("🔥 ", "")
-        if clean and dedupe_key not in seen:
+    for _, txt, key in sorted(candidates, key=lambda kv: (-kv[0], kv[1])):
+        clean = re.sub(r"\s+", " ", txt).strip()
+        if clean and key not in seen:
             out.append(clean)
-            seen.add(dedupe_key)
+            seen.add(key)
         if len(out) >= limit:
             break
     return out
@@ -1120,7 +1138,6 @@ def css() -> str:
 .compact-top-tags{display:flex;align-items:center;gap:5px;min-width:0;flex:1;overflow:hidden;white-space:nowrap}.compact-top-tags .card-insights{display:contents}.compact-top-tags .chip-insights{display:flex;align-items:center;gap:5px;min-width:0;overflow:hidden;white-space:nowrap}.compact-top-tags .insight-chip,.compact-top-tags .top-note{display:inline-flex;align-items:center;max-width:132px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-radius:999px;padding:3px 7px;background:#10233b;border:1px solid #2f4b6e;color:#d4e8ff;font-size:10px;font-weight:900;line-height:1.15}.compact-top-tags .empty-insights{display:none}.compact-topline{overflow:hidden}.compact-tags{flex-wrap:nowrap!important;overflow:hidden;white-space:nowrap}.compact-tags .note,.compact-tags .insight-chip{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.compact-v3 .status-pill{display:none!important}  
 .compact-top-tags .insight-chip.negative,.insight-chip.negative{background:rgba(250,204,21,.13)!important;border-color:rgba(250,204,21,.68)!important;color:#fde68a!important}.compact-top-tags .insight-chip.positive,.insight-chip.positive{background:rgba(251,146,60,.14)!important;border-color:rgba(251,146,60,.62)!important;color:#fed7aa!important}.compact-top-tags .insight-chip.neutral,.insight-chip.neutral{background:#10233b!important;border-color:#2f4b6e!important;color:#d4e8ff!important}  
 .compact-top-tags .insight-chip.positive,.insight-chip.positive{background:rgba(16,185,129,.16)!important;border-color:rgba(52,211,153,.70)!important;color:#86efac!important}.compact-top-tags .chip-insights{max-width:158px}.compact-top-tags .insight-chip{max-width:158px}.compact-tags.bottom-notes{display:flex;flex-wrap:nowrap;gap:6px;overflow:hidden;white-space:nowrap;padding-top:6px;border-top:1px solid rgba(148,163,184,.10)}.compact-tags.bottom-notes .note{background:rgba(88,28,135,.20);border-color:rgba(168,85,247,.45);color:#e9d5ff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:190px;font-size:10px;padding:3px 7px}.compact-top-tags .top-note{display:none!important}.compact-top-tags .empty-insights{display:none!important}  
-.compact-top-tags .insight-chip.negative,.insight-chip.negative{display:none!important}  
 """
 
 
