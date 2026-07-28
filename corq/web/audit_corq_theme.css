@@ -1,0 +1,71 @@
+/* corq/web/audit_corq_theme.css */
+
+.corq-audit-page {
+    min-height: 100vh;
+    background: radial-gradient(circle at 20% 0%, rgba(0, 217, 255, 0.08), transparent 28%), linear-gradient(180deg, #06111f 0%, #081524 55%, #050d18 100%);
+    color: #eaf7ff;
+}
+
+.data-notes-summary,
+.corq-audit-summary {
+    margin: 16px 0 20px 0;
+    padding: 18px 18px;
+    border: 1px solid rgba(90, 130, 180, 0.35);
+    border-radius: 18px;
+    background: rgba(8, 21, 36, 0.92);
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.data-notes-title {
+    margin-bottom: 12px;
+    color: #44e7ff;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+}
+
+.data-notes-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.audit-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 11px;
+    border-radius: 999px;
+    border: 1px solid rgba(120, 170, 230, 0.45);
+    background: rgba(42, 72, 112, 0.72);
+    color: #e9f4ff;
+    font-size: 12px;
+    font-weight: 850;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: 140ms ease-in-out;
+}
+
+.audit-pill:hover {
+    border-color: rgba(70, 230, 255, 0.85);
+    background: rgba(30, 105, 150, 0.85);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.audit-pill.is-active {
+    border-color: #44e7ff;
+    background: rgba(0, 210, 255, 0.22);
+    box-shadow: 0 0 0 1px rgba(68, 231, 255, 0.25), 0 0 18px rgba(68, 231, 255, 0.16);
+}
+
+.audit-pill-count { color: #ffffff; font-weight: 950; }
+.audit-pill-label { color: #e9f4ff; }
+.audit-pill-note { border-color: rgba(120, 170, 230, 0.45); background: rgba(42, 72, 112, 0.72); }
+.audit-pill-corq { border-color: rgba(72, 231, 255, 0.58); background: rgba(0, 113, 150, 0.58); }
+.audit-pill-signal { border-color: rgba(255, 178, 63, 0.58); background: rgba(112, 74, 14, 0.62); }
+.audit-pill-safe { border-color: rgba(0, 230, 120, 0.68); background: rgba(0, 110, 70, 0.70); }
+.audit-pill-clear { border-color: rgba(255, 120, 120, 0.45); background: rgba(92, 28, 40, 0.65); color: #ffd8d8; }
+.audit-filtered-count { margin: 0 0 14px 0; color: rgba(233, 244, 255, 0.74); font-size: 12px; font-weight: 750; }
