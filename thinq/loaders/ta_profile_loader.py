@@ -469,6 +469,95 @@ def ta_dr(stats: Dict[str, Any]) -> Optional[float]:
     return to_float((stats or {}).get("dominance_ratio"))
 
 
+
+def clamp_ta(value: float, lo: float, hi: float) -> float:
+    return max(lo, min(hi, value))
+
+
+def ta_projection_from_decision(
+    *,
+    winner: str,
+    sets_decision: str,
+    games_decision: str,
+    tb_decision: str,
+    match_shape: str,
+    score: float,
+    confidence: float,
+) -> Dict[str, Any]:
+    """Convert TA qualitative reads into a small numeric projection.
+
+    This is intentionally conservative. It is not a betting line model yet;
+    it creates usable pick-facing set/game outputs from Tennis Abstract profile
+    stats so the web page can stop showing blank Sets/Games values.
+    """
+    abs_score = abs(float(score or 0.0))
+    conf = clamp_ta(float(confidence or 0.0), 0.0, 1.0)
+
+    # Base probabilities in WTA/ATP best-of-3 context.
+    decider = 0.34
+    tb = 0.22
+
+    if sets_decision == "3 Sets Lean":
+        decider += 0.16
+    elif sets_decision == "2 Sets Lean":
+        decider -= 0.12
+    elif sets_decision == "Volatile":
+        decider += 0.06
+
+    if match_shape == "Competitive":
+        decider += 0.08
+    elif match_shape == "One-sided":
+        decider -= 0.10
+    elif match_shape == "Moderate Edge":
+        decider -= 0.03
+
+    if abs_score >= 3.0:
+        decider -= 0.06
+    elif abs_score <= 0.75:
+        decider += 0.05
+
+    if tb_decision == "High":
+        tb += 0.18
+    elif tb_decision == "Medium":
+        tb += 0.05
+    elif tb_decision == "Low":
+        tb -= 0.10
+
+    # Low confidence pulls probabilities toward conservative defaults.
+    decider = 0.34 + (decider - 0.34) * max(conf, 0.35)
+    tb = 0.22 + (tb - 0.22) * max(conf, 0.35)
+
+    decider = round(clamp_ta(decider, 0.12, 0.62), 4)
+    straight = round(1.0 - decider, 4)
+    tb = round(clamp_ta(tb, 0.08, 0.48), 4)
+
+    if sets_decision == "3 Sets Lean" or decider >= 0.46:
+        projected_sets = 3
+    elif sets_decision == "2 Sets Lean" or straight >= 0.62:
+        projected_sets = 2
+    else:
+        projected_sets = None
+
+    if projected_sets == 2:
+        projected_games = 20.5 if games_decision == "Over Lean" else 18.5 if games_decision == "Under Lean" else 19.5
+        score_projection = "2-0" if winner in {"Supports Pick", "Slight Pick"} else "0-2" if winner in {"Supports Opp", "Slight Opp"} else "2 sets"
+    elif projected_sets == 3:
+        projected_games = 27.5 if games_decision == "Over Lean" else 25.5
+        score_projection = "2-1" if winner in {"Supports Pick", "Slight Pick"} else "1-2" if winner in {"Supports Opp", "Slight Opp"} else "3 sets"
+    else:
+        projected_games = 23.5 if games_decision == "Over Lean" else 20.5 if games_decision == "Under Lean" else None
+        score_projection = "N/A"
+
+    return {
+        "ta_projected_sets": projected_sets,
+        "ta_projected_games": projected_games,
+        "ta_straight_sets_probability": straight,
+        "ta_decider_probability": decider,
+        "ta_tiebreak_probability": tb,
+        "ta_score_projection": score_projection,
+        "ta_sets_model_status": "OK" if projected_sets is not None else "LEAN_ONLY",
+    }
+
 def ta_decision_from_stats(p_stats: Dict[str, Any], o_stats: Dict[str, Any], p_depth: Optional[float], o_depth: Optional[float]) -> Dict[str, Any]:
     depth = ta_depth_label(p_depth, o_depth)
     if depth == "N/A":
@@ -482,6 +571,13 @@ def ta_decision_from_stats(p_stats: Dict[str, Any], o_stats: Dict[str, Any], p_d
             "ta_depth_label": "N/A",
             "ta_decision_confidence": 0.0,
             "ta_decision_notes": ["TA profile missing or no usable scoped stats"],
+            "ta_projected_sets": None,
+            "ta_projected_games": None,
+            "ta_straight_sets_probability": None,
+            "ta_decider_probability": None,
+            "ta_tiebreak_probability": None,
+            "ta_score_projection": "N/A",
+            "ta_sets_model_status": "N/A",
         }
 
     p_dr = ta_dr(p_stats)
@@ -584,10 +680,20 @@ def ta_decision_from_stats(p_stats: Dict[str, Any], o_stats: Dict[str, Any], p_d
 
     confidence = avg_present([p_depth, o_depth]) or 0.0
     confidence = round(max(0.0, min(confidence / 100.0, 1.0)), 4)
+    projection = ta_projection_from_decision(
+        winner=winner,
+        sets_decision=sets_decision,
+        games_decision=games_decision,
+        tb_decision=tb_decision,
+        match_shape=match_shape,
+        score=score,
+        confidence=confidence,
+    )
     if p_ace is not None or o_ace is not None:
         notes.append("Ace% available, aces output waits for service-games model")
 
     return {
+        **projection,
         "ta_winner_decision": winner,
         "ta_sets_decision": sets_decision,
         "ta_games_decision": games_decision,
