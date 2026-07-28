@@ -1074,46 +1074,134 @@ def ta_signal_conf_display(row: Dict[str, Any]) -> str:
     pct = f"{conf * 100:.0f}%" if conf <= 1 else f"{conf:.0f}%"
     return f"{strength} | {pct}" if strength else pct
 
+
+def clean_signal_text(value: Any, fallback: str = "No Clear Signal") -> str:
+    text = str(value or "").strip()
+    if not text or text.upper() in {"N/A", "NA", "NONE", "NULL", "—", "-"}:
+        return fallback
+    return text
+
+
+def pct_or_na(value: Any) -> str:
+    return as_pct(value, 1) if as_float(value) is not None else "N/A"
+
+
+def sets_games_signal(row: Dict[str, Any]) -> Dict[str, str]:
+    """Build a bettor-facing Sets/Games signal from TA first, then ThinQ fallback.
+
+    This prevents raw numbers like 2.45 projected sets from being shown as the
+    main UI output without an interpretation.
+    """
+    # TA signal wins if available and meaningful.
+    ta_label = clean_signal_text(row.get("ta_signal_label") or row.get("ta_signal"), "")
+    ta_market = str(row.get("ta_signal_market") or "").strip().lower()
+    if ta_label and ta_label != "No Clear Signal" and ta_market in {"sets", "games", "sets_games", "tiebreak"}:
+        return {
+            "source": "TA",
+            "signal": ta_label,
+            "action": clean_signal_text(row.get("ta_signal_action"), "Use TA signal with market price check"),
+            "confidence": ta_signal_conf_display(row),
+        }
+
+    decider = as_float(row.get("ta_decider_probability") or row.get("thinq_decider_probability") or row.get("three_sets_probability") or row.get("decider_probability"))
+    tb = as_float(row.get("ta_tiebreak_probability") or row.get("thinq_tiebreak_probability") or row.get("tie_break_probability") or row.get("tiebreak_probability"))
+    projected_sets = as_float(row.get("ta_projected_sets") or row.get("thinq_projected_sets") or row.get("projected_sets") or row.get("sets"))
+    projected_games = as_float(row.get("ta_projected_games") or row.get("thinq_projected_games") or row.get("projected_games") or row.get("games"))
+    games_read = clean_signal_text(row.get("ta_games_decision") or row.get("games_signal") or row.get("over_under_display") or row.get("ou_display"), "")
+    conf = as_float(row.get("ta_signal_confidence") or row.get("thinq_match_dynamics_confidence") or row.get("data_confidence"))
+    conf_txt = pct_or_na(conf)
+
+    signal = "No Clear Sets/Games Signal"
+    action = "No automatic set/games action"
+    source = "TA/ThinQ"
+
+    if decider is not None and decider >= 0.46:
+        signal = "3 Sets Risk"
+        action = "Avoid straight-sets angle; consider over-games only if line is fair"
+    elif projected_sets is not None and projected_sets >= 2.35:
+        signal = "3 Sets Lean"
+        action = "Avoid 2-0 assumptions; check over-games market"
+    elif tb is not None and tb >= 0.34:
+        signal = "Tie-break Risk"
+        action = "Be cautious with low-games unders and straight-set assumptions"
+    elif projected_games is not None and projected_games >= 24.0:
+        signal = "Games Over Lean"
+        action = "Consider over-games angle if sportsbook line is not inflated"
+    elif projected_games is not None and projected_games <= 20.0:
+        signal = "Games Under Lean"
+        action = "Consider under-games angle if line is high enough"
+    elif games_read and games_read not in {"N/A", "Neutral"}:
+        signal = games_read
+        action = "Use games lean only with market price check"
+
+    return {"source": source, "signal": signal, "action": action, "confidence": conf_txt}
+
+
+def sets_lean_display(row: Dict[str, Any]) -> str:
+    projected_sets = as_float(row.get("ta_projected_sets") or row.get("thinq_projected_sets") or row.get("projected_sets") or row.get("sets"))
+    decider = as_float(row.get("ta_decider_probability") or row.get("thinq_decider_probability") or row.get("three_sets_probability") or row.get("decider_probability"))
+    if projected_sets is None and decider is None:
+        return "N/A"
+    if decider is not None and decider >= 0.46:
+        return "3 sets risk"
+    if projected_sets is not None:
+        if projected_sets >= 2.35:
+            return "3 sets lean"
+        if projected_sets <= 2.15:
+            return "2 sets lean"
+        return "neutral"
+    return "3 sets risk" if decider and decider >= 0.43 else "neutral"
+
+
+def games_lean_display(row: Dict[str, Any]) -> str:
+    explicit = clean_signal_text(row.get("ta_games_decision") or row.get("games_signal") or row.get("over_under_display") or row.get("ou_display"), "")
+    projected_games = as_float(row.get("ta_projected_games") or row.get("thinq_projected_games") or row.get("projected_games") or row.get("games"))
+    if explicit and explicit not in {"N/A", "Neutral"}:
+        return explicit
+    if projected_games is None:
+        return "N/A"
+    if projected_games >= 24.0:
+        return f"Over lean ({projected_games:.1f})"
+    if projected_games <= 20.0:
+        return f"Under lean ({projected_games:.1f})"
+    return f"Neutral ({projected_games:.1f})"
+
 def render_ta_box(row: Dict[str, Any]) -> str:
     """Render Tennis Abstract as bettor-facing signal output."""
-    signal = row.get("ta_signal_label") or row.get("ta_signal") or ta_first_text(row, ("ta_sets_decision",), "N/A")
-    action = row.get("ta_signal_action") or "No automatic set/games action"
+    raw_signal = row.get("ta_signal_label") or row.get("ta_signal")
+    signal = clean_signal_text(raw_signal, "No Clear TA Signal")
+    action = clean_signal_text(row.get("ta_signal_action"), "No automatic TA action")
     reasons = compact_reason(row.get("ta_signal_reasons") or row.get("ta_decision_notes"))
+    market = clean_signal_text(row.get("ta_signal_market"), "")
     return "\n".join([
         '<section class="metric-box small-box ta-signal-box">',
-        f'<div class="box-head"><span>TA Signal {info_icon("ta")}</span><b>{esc(str(row.get("ta_signal_market") or ""))}</b></div>',
+        f'<div class="box-head"><span>TA Signal {info_icon("ta")}</span><b>{esc(market)}</b></div>',
         metric_row("Signal", esc(signal)),
         metric_row("Action", esc(action)),
         metric_row("Confidence", esc(ta_signal_conf_display(row))),
         metric_row("Reason", esc(reasons)),
-        metric_row("Winner Read", esc(ta_winner_read(row))),
-        metric_row(
-            "Sets Read",
-            esc(ta_first_text(row, ("ta_sets_decision", "ta_sets_read", "ta_set_direction", "ta_sets_direction"))),
-        ),
-        metric_row(
-            "Games Read",
-            esc(ta_first_text(row, ("ta_games_decision", "ta_games_read", "ta_games_direction", "ta_games_lean"))),
-        ),
+        metric_row("Winner Read", esc(clean_signal_text(ta_winner_read(row), "N/A"))),
+        metric_row("Sets Read", esc(clean_signal_text(ta_first_text(row, ("ta_sets_decision", "ta_sets_read", "ta_set_direction", "ta_sets_direction")), "N/A"))),
+        metric_row("Games Read", esc(clean_signal_text(ta_first_text(row, ("ta_games_decision", "ta_games_read", "ta_games_direction", "ta_games_lean")), "N/A"))),
         metric_row("TA Depth", esc(ta_depth_label(row))),
         '</section>',
     ])
 def render_sets_games_box(row: Dict[str, Any]) -> str:
-    sets_value = row.get("ta_projected_sets") or row.get("thinq_projected_sets") or row.get("projected_sets") or row.get("sets") or "—"
-    games_value = row.get("ta_projected_games") or row.get("thinq_projected_games") or row.get("projected_games") or row.get("games") or "—"
+    sg = sets_games_signal(row)
     decider = row.get("ta_decider_probability") or row.get("thinq_decider_probability") or row.get("three_sets_probability") or row.get("decider_probability")
     tb = row.get("ta_tiebreak_probability") or row.get("thinq_tiebreak_probability") or row.get("tie_break_probability") or row.get("tiebreak_probability")
-    score = row.get("ta_score_projection") or row.get("predicted_score") or row.get("score_prediction") or "—"
-    ou = row.get("ta_games_decision") or row.get("over_under_display") or row.get("ou_display") or "—"
+    score = clean_signal_text(row.get("ta_score_projection") or row.get("predicted_score") or row.get("score_prediction"), "N/A")
     return "\n".join([
-        '<section class="metric-box small-box">',
-        f'<div class="box-head"><span>Sets / Games {info_icon("sets_games")}</span><b></b></div>',
-        metric_row("Sets", esc(sets_value)),
-        metric_row("Games", esc(games_value)),
-        metric_row("O/U", esc(ou)),
+        '<section class="metric-box small-box sets-signal-box">',
+        f'<div class="box-head"><span>Sets / Games {info_icon("sets_games")}</span><b>{esc(sg.get("source") or "")}</b></div>',
+        metric_row("Signal", esc(sg.get("signal") or "No Clear Signal")),
+        metric_row("Action", esc(sg.get("action") or "No automatic set/games action")),
+        metric_row("Confidence", esc(sg.get("confidence") or "N/A")),
+        metric_row("Sets Lean", esc(sets_lean_display(row))),
+        metric_row("Games Lean", esc(games_lean_display(row))),
         metric_row("3 Sets", as_pct(decider, 1)),
-        metric_row("Score", esc(score)),
         metric_row("Tie-break", as_pct(tb, 1)),
+        metric_row("Score", esc(score)),
         metric_row("P | O | T Aces", esc(aces_display(row))),
         '</section>',
     ])
@@ -1183,6 +1271,7 @@ def css() -> str:
 .compact-topline .brain.goat-badge{border-color:rgba(250,204,21,.72)!important;box-shadow:0 0 10px rgba(250,204,21,.16)!important;background:#101827!important}  
 .pick-card,.metric-box{overflow:visible!important}.info{z-index:40;background:#0b2036;color:#93c5fd;border-color:#4b6b8d}.info:hover:after,.info:focus:after{z-index:99999!important;pointer-events:none}.compact-topline .brain.goat-badge{border-color:rgba(250,204,21,.72)!important;box-shadow:0 0 8px rgba(250,204,21,.12)!important;background:#101827!important}  
 .ta-signal-box .metric-row b{font-size:12px;line-height:1.25}.ta-signal-box .metric-row span{min-width:74px}.ta-signal-box .box-head b{text-transform:uppercase;font-size:11px;color:#facc15}  
+.sets-signal-box .metric-row b{font-size:12px;line-height:1.25}.sets-signal-box .metric-row span{min-width:76px}.sets-signal-box .box-head b{text-transform:uppercase;font-size:11px;color:#facc15}  
 """
 
 
