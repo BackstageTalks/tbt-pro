@@ -27,6 +27,31 @@ def _win_pct(wins: int, total: int) -> Optional[float]:
     return round(wins / total, 4)
 
 
+def _empty_player_stats(player: str, surface: Optional[str], level: Optional[str] = None) -> Dict[str, Any]:
+    surface_norm = normalize_surface(surface)
+    key = normalize_name(player)
+    empty_window = {
+        "count": 0,
+        "wins": 0,
+        "losses": 0,
+        "record": "0-0",
+        "win_pct": None,
+        "avg_opponent_rank": None,
+        "last_match_date": None,
+    }
+    return {
+        "player": player,
+        "normalized_player": key,
+        "total_history_matches": 0,
+        "last5": dict(empty_window),
+        "last10": dict(empty_window),
+        "surface": surface_norm,
+        "surface_last10": dict(empty_window),
+        "level": level or None,
+        "level_last10": dict(empty_window),
+    }
+
+
 def _player_windows(player: str, surface: Optional[str], level: Optional[str] = None) -> Dict[str, Any]:
     key = normalize_name(player)
     matches = get_player_matches(player)
@@ -87,12 +112,13 @@ def _confidence(pick_stats: Dict[str, Any], opp_stats: Dict[str, Any]) -> float:
     o_surface = opp_stats.get("surface_last10", {}).get("count") or 0
 
     base = min((p_total + o_total) / 20.0, 1.0) * 0.55
-    surface = min((p_surface + o_surface) / 12.0, 1.0) * 0.30
+    surface_score = min((p_surface + o_surface) / 12.0, 1.0) * 0.30
     quality = 0.15 if (
         pick_stats.get("last10", {}).get("avg_opponent_rank") is not None
         and opp_stats.get("last10", {}).get("avg_opponent_rank") is not None
     ) else 0.0
-    return round(clamp(base + surface + quality, 0.0, 0.95), 4)
+
+    return round(clamp(base + surface_score + quality, 0.0, 0.95), 4)
 
 
 def _sample_audit(pick_stats: Dict[str, Any], opp_stats: Dict[str, Any], status: str, reason: str = "") -> Dict[str, Any]:
@@ -116,22 +142,32 @@ def build_recent_form_context(
     *_args: Any,
     **_kwargs: Any,
 ) -> Dict[str, Any]:
+    """Build a side-safe recent-form context for ThinQ.
+
+    Important implementation note:
+    - The opponent stats variable is consistently named `opp_stats`.
+    - The function avoids the previous undefined-opponent-stats runtime crash.
+    """
     status = history_data_status()
-    empty_stats = {"last10": {"count": 0}, "surface_last10": {"count": 0}, "total_history_matches": 0}
+    empty_pick_stats = _empty_player_stats(pick, surface, level)
+    empty_opp_stats = _empty_player_stats(opponent, surface, level)
 
     if not status.get("match_count"):
+        reason = "No local history files found"
         return {
             "status": "NO_DATA",
             "source": None,
-            "reason": "No local history files found",
+            "reason": reason,
             "recent_form_edge": 0.0,
             "short_form_edge": 0.0,
             "surface_recent_form_edge": 0.0,
             "opponent_quality_edge": 0.0,
             "form_confidence": 0.0,
             "form_data_depth": 0.0,
-            "recent_form_sample_audit": _sample_audit(empty_stats, empty_stats, "NO_DATA", "No local history files found"),
+            "recent_form_sample_audit": _sample_audit(empty_pick_stats, empty_opp_stats, "NO_DATA", reason),
             "flags": ["RECENT_FORM_NO_DATA"],
+            "pick": empty_pick_stats,
+            "opponent": empty_opp_stats,
             "history_status": status,
         }
 
@@ -178,7 +214,6 @@ def build_recent_form_context(
         flags.append("RECENT_FORM_NEUTRAL")
 
     sample_audit = _sample_audit(pick_stats, opp_stats, "OK")
-
     return {
         "status": "OK",
         "source": "local_history",
