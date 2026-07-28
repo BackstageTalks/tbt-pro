@@ -20,6 +20,9 @@
 .data-notes-summary{border-radius:18px;background:rgba(8,21,36,.92);border-color:rgba(90,130,180,.35);box-shadow:0 16px 35px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.03);margin-bottom:18px}.data-notes-summary .summary-title{color:#44e7ff;letter-spacing:.14em}.data-notes-pills{display:flex;flex-wrap:wrap;gap:8px}.audit-pill{display:inline-flex;align-items:center;gap:5px;padding:6px 11px;border-radius:999px;border:1px solid rgba(120,170,230,.45);background:rgba(42,72,112,.72);color:#e9f4ff;font-size:12px;font-weight:850;line-height:1;text-decoration:none;white-space:nowrap;transition:140ms ease-in-out;cursor:pointer}.audit-pill:hover{border-color:rgba(70,230,255,.85);background:rgba(30,105,150,.85);color:#fff;transform:translateY(-1px)}.audit-pill.active{border-color:#44e7ff;background:rgba(0,210,255,.22);box-shadow:0 0 0 1px rgba(68,231,255,.25),0 0 18px rgba(68,231,255,.16)}.audit-pill-count{color:#fff;font-weight:950}.audit-pill-label{color:#e9f4ff}.audit-pill-note{border-color:rgba(120,170,230,.45);background:rgba(42,72,112,.72)}.audit-pill-corq{border-color:rgba(72,231,255,.58);background:rgba(0,113,150,.58)}.audit-pill-signal{border-color:rgba(255,178,63,.58);background:rgba(112,74,14,.62)}.audit-pill-safe{border-color:rgba(0,230,120,.68);background:rgba(0,110,70,.70)}.audit-pill-h2h{border-color:rgba(168,85,247,.62);background:rgba(76,29,149,.64)}.audit-pill-clear{border-color:rgba(255,120,120,.45);background:rgba(92,28,40,.65);color:#ffd8d8}
 .result-status-summary{margin:0 0 12px 0}.result-summary-chip{font-weight:900}
 .result-audit-filter-summary{margin:0 0 12px 0}.result-status-summary .tag-chip{cursor:pointer}
+.audit-pill-date{border-color:rgba(96,165,250,.62);background:rgba(30,64,175,.62)}.audit-pill-model{border-color:rgba(236,72,153,.56);background:rgba(131,24,67,.62)}.result-audit-filter-summary{gap:8px}
+
+.result-filter-builder{position:sticky;top:0;z-index:20;background:rgba(8,21,36,.96);backdrop-filter:blur(8px)}.result-filter-help{margin:-4px 0 10px 0;color:#8ea5c2;font-size:12px;font-weight:700}.result-filter-row{display:flex;align-items:flex-start;flex-wrap:wrap;gap:10px}.result-filter-group{display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:7px 8px;border-radius:14px;background:rgba(15,27,45,.72);border:1px solid rgba(90,130,180,.22)}.result-filter-group-title{margin-right:2px;color:#93c5fd;font-size:10px;font-weight:950;letter-spacing:.12em;text-transform:uppercase}.tag-analysis-row{transition:opacity 120ms ease-in-out}
 </style></head>
 <body><div class="wrap">
 <header class="topbar">
@@ -38,18 +41,48 @@
 </div>
 <script>
 (function(){
-  function filter(tag){
-    document.querySelectorAll('.tag-chip').forEach(x=>x.classList.toggle('active', x.dataset.filter===tag));
-    document.querySelectorAll('.pick-card,.result-row').forEach(card=>{
-      const tags=(card.getAttribute('data-tags')||'').split('|');
-      card.style.display = (!tag || tags.includes(tag)) ? '' : 'none';
-    });
-    document.querySelectorAll('.clear-filter').forEach(x=>x.style.display=tag?'inline-flex':'none');
+  const active = new Set();
+
+  function getCardTags(card){
+    return (card.getAttribute('data-tags') || '')
+      .split('|')
+      .map(x => x.trim())
+      .filter(Boolean);
   }
+
+  function applyFilters(){
+    document.querySelectorAll('.tag-chip,[data-filter]').forEach(x => {
+      const tag = x.dataset.filter;
+      if(tag){ x.classList.toggle('active', active.has(tag)); }
+    });
+
+    document.querySelectorAll('.pick-card,.result-row').forEach(card => {
+      const tags = getCardTags(card);
+      const show = Array.from(active).every(tag => tags.includes(tag));
+      card.style.display = (!active.size || show) ? '' : 'none';
+    });
+
+    document.querySelectorAll('.clear-filter').forEach(x => {
+      x.style.display = active.size ? 'inline-flex' : 'none';
+    });
+  }
+
   document.addEventListener('click', function(e){
-    const chip=e.target.closest('[data-filter]');
-    if(chip){filter(chip.dataset.filter);}
-    if(e.target.closest('.clear-filter')){filter('');}
+    const clear = e.target.closest('.clear-filter');
+    if(clear){
+      active.clear();
+      applyFilters();
+      return;
+    }
+
+    const chip = e.target.closest('[data-filter]');
+    if(chip){
+      const tag = chip.dataset.filter;
+      if(!tag){ return; }
+      if(active.has(tag)){ active.delete(tag); }
+      else{ active.add(tag); }
+      applyFilters();
+    }
   });
 })();
 </script></body></html>
