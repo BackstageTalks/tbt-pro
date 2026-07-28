@@ -220,6 +220,27 @@ def _enrich_with_thinq(record: Dict[str, Any], thinq_service: Any) -> Dict[str, 
         "pick_side": safe_record.get("pick_side"),
         "opponent_side": safe_record.get("opponent_side"),
         "side_audit": safe_record.get("side_audit"),
+        # Odds are part of the ThinQ match context. Do not force ThinQ to
+        # rediscover them from raw payloads because side-safe candidates already
+        # carry correctly oriented pick/opponent odds.
+        "odds_player1": safe_record.get("odds_player1") or safe_record.get("p1_odds") or safe_record.get("odds1") or safe_record.get("home_odds"),
+        "odds_player2": safe_record.get("odds_player2") or safe_record.get("p2_odds") or safe_record.get("odds2") or safe_record.get("away_odds"),
+        "p1_odds": safe_record.get("p1_odds") or safe_record.get("odds_player1") or safe_record.get("home_odds"),
+        "p2_odds": safe_record.get("p2_odds") or safe_record.get("odds_player2") or safe_record.get("away_odds"),
+        "odds1": safe_record.get("odds1") or safe_record.get("odds_player1") or safe_record.get("home_odds"),
+        "odds2": safe_record.get("odds2") or safe_record.get("odds_player2") or safe_record.get("away_odds"),
+        "home_odds": safe_record.get("home_odds") or safe_record.get("odds_player1") or safe_record.get("p1_odds"),
+        "away_odds": safe_record.get("away_odds") or safe_record.get("odds_player2") or safe_record.get("p2_odds"),
+        "pick_odds": safe_record.get("pick_odds") or safe_record.get("odds"),
+        "opponent_odds": safe_record.get("opponent_odds"),
+        "odds": safe_record.get("odds") or safe_record.get("pick_odds"),
+        "odds_pair_available": safe_record.get("odds_pair_available"),
+        "odds_matching_direction": safe_record.get("odds_matching_direction"),
+        "odds_labels_confirmed": safe_record.get("odds_labels_confirmed"),
+        "status_type": safe_record.get("status_type"),
+        "status_code": safe_record.get("status_code"),
+        "match_start": safe_record.get("match_start") or safe_record.get("start_time"),
+        "start_time": safe_record.get("start_time") or safe_record.get("match_start"),
         "raw": raw,
         "match_raw": raw,
         "raw_event": raw,
@@ -238,6 +259,14 @@ def _enrich_with_thinq(record: Dict[str, Any], thinq_service: Any) -> Dict[str, 
     safe_record["thinq_confidence"] = thinq.get("confidence") or thinq.get("thinq_confidence")
     safe_record["thinq_edges"] = thinq.get("edges") if isinstance(thinq.get("edges"), dict) else {}
     safe_record["thinq_flags"] = thinq.get("flags") or thinq.get("thinq_flags") or []
+    # Flatten data-source status for easier web/debug inspection.
+    safe_record["thinq_elo_status"] = _nested_get(thinq, "elo", "status") or thinq.get("thinq_elo_status")
+    safe_record["thinq_recent_form_status"] = _nested_get(thinq, "recent_form", "status") or thinq.get("thinq_recent_form_status")
+    safe_record["thinq_recent_form_reason"] = _nested_get(thinq, "recent_form", "reason") or thinq.get("thinq_recent_form_reason")
+    safe_record["thinq_history_match_count"] = _nested_get(thinq, "recent_form", "history_status", "match_count")
+    safe_record["thinq_history_file_count"] = _nested_get(thinq, "recent_form", "history_status", "file_count")
+    safe_record["thinq_match_dynamics_status"] = _nested_get(thinq, "match_dynamics", "status") or thinq.get("thinq_match_dynamics_status")
+    safe_record["thinq_probability_layer_status"] = _nested_get(thinq, "thinq_probability_layer", "status") or thinq.get("thinq_probability_status")
 
     for key, value in thinq.items():
         if key.startswith("thinq_"):
