@@ -2,13 +2,9 @@ name: Results settlement
 
 on:
   schedule:
-    # Around 14:00 Slovakia time during summer time (UTC+2)
     - cron: "0 12 * * *"
-    # Around 19:00 Slovakia time during summer time (UTC+2)
     - cron: "0 17 * * *"
-    # Around 00:00 Slovakia time during summer time (UTC+2)
     - cron: "0 22 * * *"
-    # Around 08:00 Slovakia time during summer time (UTC+2)
     - cron: "0 6 * * *"
   workflow_dispatch:
 
@@ -18,26 +14,19 @@ permissions:
 jobs:
   results-settlement:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
       - name: Build results settlement
         env:
           RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
         run: |
           python -m corq.results_engine.results             --output-root outputs             --fetch-api             --settle-yesterday             --local-tz Europe/Bratislava             --settlement-grace-hours 2
-
-      - name: Render web after results update
+      - name: Render web site with updated Results
         run: |
           python -m corq.web.render
-
       - name: Commit results and rendered site
         run: |
           git config user.name "github-actions[bot]"
