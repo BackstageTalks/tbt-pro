@@ -6,7 +6,7 @@ import json
 import re
 import shutil
 from collections import Counter, defaultdict
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
@@ -429,7 +429,7 @@ def card_insights(row: Dict[str, Any], notes: Optional[List[str]] = None, limit:
         label = f"{side_label} {qualifier}".strip()
         # Deduplicate general/surface Last 10 same-side same-record. Surface has
         # higher priority, so it wins and the generic duplicate is skipped.
-        add(priority, f"{icon} {label} | Last 10 | {w}-{l}", f"form:{side}:{w}-{l}")
+        add(priority, f"{icon} {label} | L10 | {w}-{l}", f"form:{side}:{w}-{l}")
 
     # Surface before generic, because it is more informative when record is same.
     add_form(92, "Pick", surf, psf, "pick")
@@ -904,7 +904,8 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
     pick_form, pick_sform = form_records(row, "pick")
     opp_form, opp_sform = form_records(row, "opponent")
     notes = notes_for_row(row)
-    data_tags = "|".join(notes)
+    audit_tags = audit_filter_tags_for_row(row)
+    data_tags = "|".join(notes + audit_tags)
     rank_badge = f'<div class="rank-num">#{rank}</div>' if rank else ""
     note_html = "".join(f'<span class="note" data-note="{esc(n)}">{esc(n)}</span>' for n in notes[:8])
     # Top row shows only one positive/support insight. Neutral public notes stay in the bottom row.
@@ -1272,6 +1273,8 @@ def css() -> str:
 .pick-card,.metric-box{overflow:visible!important}.info{z-index:40;background:#0b2036;color:#93c5fd;border-color:#4b6b8d}.info:hover:after,.info:focus:after{z-index:99999!important;pointer-events:none}.compact-topline .brain.goat-badge{border-color:rgba(250,204,21,.72)!important;box-shadow:0 0 8px rgba(250,204,21,.12)!important;background:#101827!important}  
 .ta-signal-box .metric-row b{font-size:12px;line-height:1.25}.ta-signal-box .metric-row span{min-width:74px}.ta-signal-box .box-head b{text-transform:uppercase;font-size:11px;color:#facc15}  
 .sets-signal-box .metric-row b{font-size:12px;line-height:1.25}.sets-signal-box .metric-row span{min-width:76px}.sets-signal-box .box-head b{text-transform:uppercase;font-size:11px;color:#facc15}  
+
+.data-notes-summary{border-radius:18px;background:rgba(8,21,36,.92);border-color:rgba(90,130,180,.35);box-shadow:0 16px 35px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.03);margin-bottom:18px}.data-notes-summary .summary-title{color:#44e7ff;letter-spacing:.14em}.data-notes-pills{display:flex;flex-wrap:wrap;gap:8px}.audit-pill{display:inline-flex;align-items:center;gap:5px;padding:6px 11px;border-radius:999px;border:1px solid rgba(120,170,230,.45);background:rgba(42,72,112,.72);color:#e9f4ff;font-size:12px;font-weight:850;line-height:1;text-decoration:none;white-space:nowrap;transition:140ms ease-in-out;cursor:pointer}.audit-pill:hover{border-color:rgba(70,230,255,.85);background:rgba(30,105,150,.85);color:#fff;transform:translateY(-1px)}.audit-pill.active{border-color:#44e7ff;background:rgba(0,210,255,.22);box-shadow:0 0 0 1px rgba(68,231,255,.25),0 0 18px rgba(68,231,255,.16)}.audit-pill-count{color:#fff;font-weight:950}.audit-pill-label{color:#e9f4ff}.audit-pill-note{border-color:rgba(120,170,230,.45);background:rgba(42,72,112,.72)}.audit-pill-corq{border-color:rgba(72,231,255,.58);background:rgba(0,113,150,.58)}.audit-pill-signal{border-color:rgba(255,178,63,.58);background:rgba(112,74,14,.62)}.audit-pill-safe{border-color:rgba(0,230,120,.68);background:rgba(0,110,70,.70)}.audit-pill-clear{border-color:rgba(255,120,120,.45);background:rgba(92,28,40,.65);color:#ffd8d8}
 """
 
 
@@ -1340,6 +1343,171 @@ def page_shell(title: str, active: str, body: str, manifest: Optional[Dict[str, 
 </div>{tag_filter_script()}</body></html>"""
 
 
+
+# ============================================================
+# Audit page filter pills / CorQ summary signals
+# ============================================================
+
+AUDIT_CORQ_TOP20_LABEL = "CorQ Top20"
+AUDIT_TIME_ODDS_LABEL = "Up to 2H | O>1.5"
+AUDIT_SAFE_BET_LABEL = "Safe Bet Signal"
+
+
+def audit_parse_datetime_utc(value: Any) -> Optional[datetime]:
+    if not value:
+        return None
+    if isinstance(value, datetime):
+        dt = value
+    else:
+        text = str(value or "").strip()
+        if not text:
+            return None
+        try:
+            if re.fullmatch(r"\d{10,13}", text):
+                dt = datetime.fromtimestamp(int(text[:10]), tz=timezone.utc)
+            else:
+                dt = datetime.fromisoformat(text.replace("Z", "+00:00"))
+        except Exception:
+            return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(timezone.utc)
+
+
+def audit_match_time_utc(row: Dict[str, Any]) -> Optional[datetime]:
+    for key in (
+        "match_time_utc",
+        "start_time_utc",
+        "commence_time",
+        "start_time",
+        "match_time",
+    ):
+        dt = audit_parse_datetime_utc(row.get(key))
+        if dt is not None:
+            return dt
+    for parent in ("market", "event"):
+        ctx = row.get(parent)
+        if isinstance(ctx, dict):
+            for key in ("commence_time", "start_time_utc", "start_time", "match_time_utc"):
+                dt = audit_parse_datetime_utc(ctx.get(key))
+                if dt is not None:
+                    return dt
+    return None
+
+
+def audit_corq_rank(row: Dict[str, Any]) -> Optional[int]:
+    candidates = [
+        nested_get(row, "corq", "rank"),
+        nested_get(row, "corq", "corq_rank"),
+        row.get("corq_rank"),
+        row.get("rank"),
+        row.get("pick_rank"),
+        row.get("top_rank"),
+        row.get("_corq_render_rank"),
+    ]
+    for value in candidates:
+        try:
+            if value is None or value == "":
+                continue
+            text = str(value).strip()
+            if text.startswith("#"):
+                text = text[1:]
+            return int(float(text))
+        except Exception:
+            continue
+    return None
+
+
+def audit_has_corq_top20(row: Dict[str, Any]) -> bool:
+    rank = audit_corq_rank(row)
+    return rank is not None and rank <= 20
+
+
+def audit_has_up_to_2h_o15(row: Dict[str, Any]) -> bool:
+    odds = pick_odds(row)
+    if odds is None or odds <= 1.50:
+        return False
+    dt = audit_match_time_utc(row)
+    if dt is None:
+        return False
+    now = datetime.now(timezone.utc)
+    return now <= dt <= now + timedelta(hours=2)
+
+
+def audit_record_pair(value: Any) -> Tuple[Optional[int], Optional[int]]:
+    if isinstance(value, dict):
+        w = value.get("wins") if value.get("wins") is not None else value.get("w")
+        l = value.get("losses") if value.get("losses") is not None else value.get("l")
+        return as_float(w), as_float(l)  # type: ignore[return-value]
+    return compact_record_label(str(value or ""))
+
+
+def audit_has_safe_bet_signal(row: Dict[str, Any]) -> bool:
+    pick_form, pick_surface_form = form_records(row, "pick")
+    opp_form, opp_surface_form = form_records(row, "opponent")
+
+    def pick_strong(record: Any) -> bool:
+        w, l = audit_record_pair(record)
+        return w is not None and l is not None and (w + l) >= 8 and w >= 8
+
+    def opp_weak(record: Any) -> bool:
+        w, l = audit_record_pair(record)
+        return w is not None and l is not None and (w + l) >= 8 and l >= 7
+
+    pick_ok = pick_strong(pick_form) or pick_strong(pick_surface_form)
+    opp_ok = opp_weak(opp_form) or opp_weak(opp_surface_form)
+
+    # Fallback if future upstream passes the visible green tags directly.
+    tag_text = " | ".join(str(x) for x in get_existing_public_tags(row)).lower().replace("last 10", "l10")
+    if "pick strong" in tag_text and "l10" in tag_text:
+        pick_ok = True
+    if "opp weak" in tag_text and "l10" in tag_text:
+        opp_ok = True
+
+    return pick_ok and opp_ok
+
+
+def get_existing_public_tags(row: Dict[str, Any]) -> List[str]:
+    tags: List[str] = []
+    for key in ("tags", "audit_tags", "audit_filter_tags", "data_notes", "notes", "flags"):
+        value = row.get(key)
+        if isinstance(value, list):
+            tags.extend(str(x) for x in value if x)
+        elif isinstance(value, str) and value.strip():
+            tags.append(value.strip())
+    return tags
+
+
+def audit_filter_tags_for_row(row: Dict[str, Any]) -> List[str]:
+    tags: List[str] = []
+    if audit_has_corq_top20(row):
+        tags.append(AUDIT_CORQ_TOP20_LABEL)
+    if audit_has_up_to_2h_o15(row):
+        tags.append(AUDIT_TIME_ODDS_LABEL)
+    if audit_has_safe_bet_signal(row):
+        tags.append(AUDIT_SAFE_BET_LABEL)
+    existing = row.get("audit_filter_tags")
+    if isinstance(existing, list):
+        tags.extend(str(x) for x in existing if x)
+    out: List[str] = []
+    seen = set()
+    for tag in tags:
+        t = str(tag or "").strip()
+        if t and t not in seen:
+            out.append(t)
+            seen.add(t)
+    return out
+
+
+def audit_note_css(label: str) -> str:
+    if label == AUDIT_CORQ_TOP20_LABEL:
+        return "tag-chip audit-pill audit-pill-corq"
+    if label == AUDIT_TIME_ODDS_LABEL:
+        return "tag-chip audit-pill audit-pill-signal"
+    if label == AUDIT_SAFE_BET_LABEL:
+        return "tag-chip audit-pill audit-pill-safe"
+    return "tag-chip audit-pill audit-pill-note"
+
 def tag_filter_script() -> str:
     return """
 <script>
@@ -1363,33 +1531,58 @@ def tag_filter_script() -> str:
 
 def render_cards_page(title: str, active: str, rows: List[Dict[str, Any]], manifest: Dict[str, Any], page: str = "corq", dedupe: bool = False) -> str:
     rows = dedupe_matches(rows) if dedupe else rows
+    for idx, row in enumerate(rows):
+        if isinstance(row, dict):
+            row["_corq_render_rank"] = idx + 1
     ensure_logs(rows)
     if not rows:
         cards = '<div class="empty">No rows available.</div>'
     else:
         cards = '<div class="grid">' + "\n".join(render_card(r, i + 1, page=page) for i, r in enumerate(rows)) + '</div>'
     summary = render_notes_summary(rows) if page == "all" else ""
-    return page_shell(title, active, cards + summary, manifest)
+    # Audit page: summary first, then cards. This makes the filter pills usable as the main control panel.
+    body = summary + cards if page == "all" else cards
+    return page_shell(title, active, body, manifest)
 
 
 def render_notes_summary(rows: List[Dict[str, Any]]) -> str:
     counts = Counter()
     missing_breakdown = Counter()
+
     for row in rows:
         row_notes = notes_for_row(row)
-        for note in row_notes:
+        row_audit_tags = audit_filter_tags_for_row(row)
+
+        for note in row_notes + row_audit_tags:
             counts[note] += 1
+
         if "Missing odds" in row_notes:
             reason = str(row.get("odds_missing_reason_group") or row.get("no_odds_reason") or "Unknown")
             reason = reason.replace("_", " ").title()
             missing_breakdown[reason] += 1
-    tags = "".join(f'<span class="tag-chip" data-filter="{esc(k)}">{v} {esc(k)}</span>' for k, v in counts.most_common())
-    clear = '<span class="clear-filter tag-chip">Clear filter</span>'
+
+    def sort_key(item: Tuple[str, int]) -> Tuple[int, int, str]:
+        label, count = item
+        order = {
+            AUDIT_CORQ_TOP20_LABEL: 0,
+            AUDIT_TIME_ODDS_LABEL: 1,
+            AUDIT_SAFE_BET_LABEL: 2,
+        }.get(label, 10)
+        return order, -count, label
+
+    tag_items = sorted(counts.items(), key=sort_key)
+    tags = "".join(
+        f'<span class="{audit_note_css(k)}" data-filter="{esc(k)}"><span class="audit-pill-count">{v}</span> <span class="audit-pill-label">{esc(k)}</span></span>'
+        for k, v in tag_items
+    )
+    clear = '<span class="clear-filter tag-chip audit-pill audit-pill-clear">Clear filter</span>'
+
     breakdown = ""
     if missing_breakdown:
         items = "".join(f'<span class="note">{v} {esc(k)}</span>' for k, v in missing_breakdown.most_common())
         breakdown = f'<div class="summary-panel"><div class="summary-title">Missing odds breakdown</div><div class="tag-list">{items}</div></div>'
-    return f'<div class="summary-panel"><div class="summary-title">Data notes summary</div><div class="tag-list">{tags}{clear}</div></div>{breakdown}'
+
+    return f'<div class="summary-panel data-notes-summary"><div class="summary-title">Data notes summary</div><div class="tag-list data-notes-pills">{tags}{clear}</div></div>{breakdown}'
 
 
 def result_status(row: Dict[str, Any]) -> str:
