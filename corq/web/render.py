@@ -438,8 +438,12 @@ def card_insights_html(row: Dict[str, Any], notes: Optional[List[str]] = None) -
     insights = card_insights(row, notes, limit=2)
     if not insights:
         return '<div class="card-insights empty-insights"><span>—</span></div>'
-    chips = ''.join(f'<span class="insight-chip">{esc(x)}</span>' for x in insights[:2])
-    return f'<div class="card-insights chip-insights">{chips}</div>'
+    chips = []
+    for item in insights[:2]:
+        text = str(item or "")
+        cls = "positive" if text.startswith("🔥") else "negative" if text.startswith("⚠") else "neutral"
+        chips.append(f'<span class="insight-chip {cls}">{esc(text)}</span>')
+    return f'<div class="card-insights chip-insights">{"".join(chips)}</div>'
 
 def player_rank_display(row: Dict[str, Any], side: str) -> str:
     keys = [f"{side}_ta_rank_display", f"{side}_rank_display", f"{side}_ta_rank", f"{side}_rank"]
@@ -853,6 +857,10 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
     data_tags = "|".join(notes)
     rank_badge = f'<div class="rank-num">#{rank}</div>' if rank else ""
     note_html = "".join(f'<span class="note" data-note="{esc(n)}">{esc(n)}</span>' for n in notes[:8])
+    # Compact one-line top tags. Keep only the most useful public notes here;
+    # detailed tags remain available in logs/audit pages.
+    top_note_html = "".join(f'<span class="top-note" data-note="{esc(n)}">{esc(n)}</span>' for n in notes[:2])
+    top_tag_html = f'<div class="compact-top-tags">{top_note_html}{card_insights_html(row, notes)}</div>'
     odds_gap = as_float(row.get("odds_gap_pct") or row.get("cloq_odds_gap_pct"))
     odds_gap_txt = as_pct(odds_gap, 1) if odds_gap is not None else "—"
     cloq_extra = metric_row("Odds Gap", odds_gap_txt) if page == "cloq" else ""
@@ -862,6 +870,7 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         '<div class="compact-topline">',
         (rank_badge or f'<div class="rank-num">#{rank or "—"}</div>'),
         f'<a class="brain" href="{log_link(row)}" title="Open calculation log">🧠</a>',
+        top_tag_html,
         '</div>',
         '<div class="compact-player pick-side">'
         '<div class="compact-label">Pick</div>'
@@ -872,10 +881,7 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         f'<div class="compact-name-row"><span class="compact-name">{esc(o)} <span class="compact-odds inline opp">@ {fmt_odds(o_odds)}</span></span><span class="compact-rank">{esc(player_rank_display(row, "opponent"))}</span></div>'
         '</div>',
         f'<div class="compact-match"><div class="compact-time">{esc(start_time(row))}</div><div class="compact-meta">{esc(meta_line(row))}</div></div>',
-        '<div class="compact-tags">'
-        f'{note_html}'
-        f'{card_insights_html(row, notes)}'
-        '</div>',
+        '',
         '</section>',
         '<section class="metric-box">',
         f'<div class="box-head"><span>CorQ {info_icon("corq")}</span><b>{as_pct(prob, 1)}</b></div>',
@@ -1143,6 +1149,8 @@ def css() -> str:
 .chip-insights{display:flex;flex-wrap:wrap;gap:6px;background:transparent!important;border:0!important;padding:0!important}.insight-chip{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:4px 8px;background:#10233b;border:1px solid #2f4b6e;color:#d4e8ff;font-size:11px;font-weight:900;line-height:1.2;white-space:nowrap}.side-insights .chip-insights{margin-top:0}.side-insights .insight-chip{max-width:100%;overflow:hidden;text-overflow:ellipsis}.metric-row b{white-space:normal}.metric-row span{padding-right:6px}  
 .pick-main.compact-v3{padding:12px;background:linear-gradient(180deg,#111f35,#0b1627);border-color:#2b405d;display:flex;flex-direction:column;gap:10px;min-height:268px}.compact-topline{display:flex;align-items:center;gap:7px;min-height:30px}.compact-topline .rank-num{height:26px;min-width:30px;font-size:12px}.compact-topline .brain{width:26px;height:26px;font-size:14px}.status-pill{display:inline-flex;align-items:center;min-height:24px;padding:3px 9px;border-radius:999px;border:1px solid #2f4059;background:#101c2e;color:#9fb5d1;font-size:11px;font-weight:800;margin-left:auto}.compact-player{padding:9px 10px;border-radius:14px;border:1px solid rgba(148,163,184,.14);background:rgba(9,18,32,.56)}.compact-player.pick-side{border-color:rgba(52,211,153,.38);background:linear-gradient(90deg,rgba(6,50,34,.62),rgba(9,18,32,.48))}.compact-player.opp-side{border-color:rgba(96,165,250,.22)}.compact-label{font-size:10px;line-height:1;letter-spacing:.15em;text-transform:uppercase;color:#67e8f9;font-weight:900;margin-bottom:6px}.compact-name-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}.compact-name{font-size:16px;line-height:1.2;font-weight:900;color:#f8fafc}.compact-rank{font-size:12px;color:#7dd3fc;font-weight:900;white-space:nowrap}.compact-odds{display:inline-flex;margin-top:7px;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:900;border:1px solid}.compact-odds.pick{color:#86efac;background:#06351f;border-color:#12834e}.compact-odds.opp{color:#bfdbfe;background:#101d32;border-color:#2a4566}.compact-vs{display:flex;align-items:center;justify-content:center;text-transform:uppercase;letter-spacing:.16em;font-size:10px;font-weight:900;color:#22d3ee;margin:-2px 0}.compact-match{border-radius:13px;background:#0a1424;border:1px solid rgba(148,163,184,.12);padding:9px 10px;color:#9fb5d1}.compact-time{font-size:12px;color:#dbeafe;font-weight:900}.compact-meta{font-size:11px;line-height:1.35;margin-top:3px;color:#8ea5c2}.compact-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:4px;border-top:1px solid rgba(148,163,184,.10)}.compact-tags .note,.compact-tags .insight-chip{font-size:11px;padding:4px 8px;max-width:100%;overflow:hidden;text-overflow:ellipsis}.compact-tags .card-insights{display:contents}.compact-tags .chip-insights{display:flex;flex-wrap:wrap;gap:6px}.compact-tags .empty-insights{display:none}@media(max-width:760px){.compact-name{font-size:15px}.pick-main.compact-v3{min-height:auto}}  
 .compact-odds.inline{display:inline-flex;margin:0 0 0 6px;vertical-align:middle;transform:translateY(-1px);padding:2px 7px;font-size:11px;line-height:1.2}.compact-player.no-label{padding-top:12px;padding-bottom:12px}.compact-name{display:inline;word-break:break-word}.compact-name-row{align-items:center}.compact-label{margin-bottom:5px}.compact-tags .insight-chip::first-letter{font-size:11px}.compact-tags .insight-chip{border-color:#2f4b6e;background:#10233b}.compact-v3 .compact-player{min-height:70px;display:flex;flex-direction:column;justify-content:center}.compact-v3 .pick-side{min-height:78px}  
+.compact-top-tags{display:flex;align-items:center;gap:5px;min-width:0;flex:1;overflow:hidden;white-space:nowrap}.compact-top-tags .card-insights{display:contents}.compact-top-tags .chip-insights{display:flex;align-items:center;gap:5px;min-width:0;overflow:hidden;white-space:nowrap}.compact-top-tags .insight-chip,.compact-top-tags .top-note{display:inline-flex;align-items:center;max-width:132px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-radius:999px;padding:3px 7px;background:#10233b;border:1px solid #2f4b6e;color:#d4e8ff;font-size:10px;font-weight:900;line-height:1.15}.compact-top-tags .empty-insights{display:none}.compact-topline{overflow:hidden}.compact-tags{flex-wrap:nowrap!important;overflow:hidden;white-space:nowrap}.compact-tags .note,.compact-tags .insight-chip{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.compact-v3 .status-pill{display:none!important}  
+.compact-top-tags .insight-chip.negative,.insight-chip.negative{background:rgba(250,204,21,.13)!important;border-color:rgba(250,204,21,.68)!important;color:#fde68a!important}.compact-top-tags .insight-chip.positive,.insight-chip.positive{background:rgba(251,146,60,.14)!important;border-color:rgba(251,146,60,.62)!important;color:#fed7aa!important}.compact-top-tags .insight-chip.neutral,.insight-chip.neutral{background:#10233b!important;border-color:#2f4b6e!important;color:#d4e8ff!important}  
 """
 
 
