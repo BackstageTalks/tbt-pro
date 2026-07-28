@@ -863,7 +863,7 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         '<section class="pick-main compact-v3">',
         '<div class="compact-topline">',
         (rank_badge or f'<div class="rank-num">#{rank or "—"}</div>'),
-        f'<a class="brain ai-badge" href="{log_link(row)}" title="Open calculation log">AI</a>',
+        f'<a class="brain goat-badge" href="{log_link(row)}" title="Open calculation log"><img class="card-goat-logo" src="assets/tbt_ai_goat_icon.png" alt="AI"></a>',
         top_tag_html,
         '</div>',
         '<div class="compact-player pick-side">'
@@ -1148,6 +1148,7 @@ def css() -> str:
 .compact-top-tags .insight-chip.positive,.insight-chip.positive{background:rgba(16,185,129,.16)!important;border-color:rgba(52,211,153,.70)!important;color:#86efac!important}.compact-top-tags .chip-insights{max-width:158px}.compact-top-tags .insight-chip{max-width:158px}.compact-tags.bottom-notes{display:flex;flex-wrap:nowrap;gap:6px;overflow:hidden;white-space:nowrap;padding-top:6px;border-top:1px solid rgba(148,163,184,.10)}.compact-tags.bottom-notes .note{background:rgba(88,28,135,.20);border-color:rgba(168,85,247,.45);color:#e9d5ff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:190px;font-size:10px;padding:3px 7px}.compact-top-tags .top-note{display:none!important}.compact-top-tags .empty-insights{display:none!important}  
 .compact-topline{gap:8px;min-height:36px}.compact-topline .rank-num{height:34px;min-width:34px;padding:0 9px;font-size:13px;border-color:#1f75aa;background:#0b2740;box-shadow:0 0 12px rgba(56,213,255,.12)}.compact-topline .brain{width:34px;height:34px;font-size:17px;border-color:#4b5f7a;background:#192a42;box-shadow:0 0 12px rgba(236,72,153,.10)}.compact-top-tags{gap:6px}.compact-top-tags .insight-chip{padding:4px 8px;font-size:10.5px;line-height:1.15;max-width:166px}.compact-top-tags .chip-insights{max-width:340px}@media(max-width:760px){.compact-topline .rank-num{height:32px;min-width:32px}.compact-topline .brain{width:32px;height:32px}.compact-top-tags .insight-chip{max-width:150px}}  
 .compact-topline .brain.ai-badge{width:30px!important;height:30px!important;min-width:30px!important;font-size:11px!important;font-weight:1000;letter-spacing:.02em;color:#f0abfc;background:radial-gradient(circle at 35% 28%,rgba(236,72,153,.38),rgba(31,41,55,.92));border-color:#6b4f91;box-shadow:0 0 10px rgba(236,72,153,.12)}.compact-top-tags .insight-chip{max-width:172px}.compact-top-tags .chip-insights{max-width:350px}@media(max-width:760px){.compact-topline .brain.ai-badge{width:29px!important;height:29px!important;min-width:29px!important;font-size:10.5px!important}.compact-top-tags .insight-chip{max-width:158px}}  
+.compact-topline .brain.goat-badge{width:30px!important;height:30px!important;min-width:30px!important;padding:0!important;overflow:hidden;border-color:#6b4f91;background:#151f35;box-shadow:0 0 10px rgba(236,72,153,.12)}.card-goat-logo{width:100%;height:100%;display:block;object-fit:cover;border-radius:999px}@media(max-width:760px){.compact-topline .brain.goat-badge{width:29px!important;height:29px!important;min-width:29px!important}}  
 """
 
 
