@@ -96,13 +96,28 @@ def parse_category_ids() -> List[int]:
 
 
 def target_betting_day(now: Optional[datetime] = None) -> datetime:
+    """Return the calendar day that the daily prediction run should fetch.
+
+    Daily Tennis Predictions now runs around 05:10 Europe/Bratislava to catch
+    early matches. The previous implementation subtracted one day before 06:00,
+    which made the 05:10 production run fetch yesterday's tennis calendar and
+    could produce zero candidates. For prediction generation we need today's
+    local tennis calendar.
+
+    If a different date is needed for a manual backfill, pass target_date from
+    the caller or use CORQ_TARGET_DATE / TENNISAPI_TARGET_DATE in the fetcher.
+    """
+    explicit = os.getenv("CORQ_TARGET_DATE") or os.getenv("TENNISAPI_TARGET_DATE") or os.getenv("RUN_DATE")
+    if explicit:
+        try:
+            parsed = datetime.fromisoformat(str(explicit)[:10])
+            return parsed.replace(tzinfo=LOCAL_TZ)
+        except Exception:
+            pass
     current = now or datetime.now(LOCAL_TZ)
     if current.tzinfo is None:
         current = current.replace(tzinfo=LOCAL_TZ)
-    current = current.astimezone(LOCAL_TZ)
-    if current.hour < 6:
-        current = current - timedelta(days=1)
-    return current
+    return current.astimezone(LOCAL_TZ)
 
 
 def unix_to_datetime(timestamp: Any) -> Optional[datetime]:
@@ -222,12 +237,15 @@ class RapidApiClient:
         try:
             response = requests.get(url, headers=self.headers, params=params or {}, timeout=self.timeout)
             if response.status_code in (204, 404):
+                print(f"RAPIDAPI GET {path} status={response.status_code}")
                 return None
             response.raise_for_status()
             if not response.text:
+                print(f"RAPIDAPI GET {path} status={response.status_code} empty_body")
                 return None
             return response.json()
-        except Exception:
+        except Exception as exc:
+            print(f"RAPIDAPI GET ERROR path={path} params={params or {}} error={exc}")
             return None
         finally:
             if self.sleep_seconds > 0:
