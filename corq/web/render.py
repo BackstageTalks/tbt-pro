@@ -1275,6 +1275,7 @@ def css() -> str:
 .sets-signal-box .metric-row b{font-size:12px;line-height:1.25}.sets-signal-box .metric-row span{min-width:76px}.sets-signal-box .box-head b{text-transform:uppercase;font-size:11px;color:#facc15}  
 
 .data-notes-summary{border-radius:18px;background:rgba(8,21,36,.92);border-color:rgba(90,130,180,.35);box-shadow:0 16px 35px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.03);margin-bottom:18px}.data-notes-summary .summary-title{color:#44e7ff;letter-spacing:.14em}.data-notes-pills{display:flex;flex-wrap:wrap;gap:8px}.audit-pill{display:inline-flex;align-items:center;gap:5px;padding:6px 11px;border-radius:999px;border:1px solid rgba(120,170,230,.45);background:rgba(42,72,112,.72);color:#e9f4ff;font-size:12px;font-weight:850;line-height:1;text-decoration:none;white-space:nowrap;transition:140ms ease-in-out;cursor:pointer}.audit-pill:hover{border-color:rgba(70,230,255,.85);background:rgba(30,105,150,.85);color:#fff;transform:translateY(-1px)}.audit-pill.active{border-color:#44e7ff;background:rgba(0,210,255,.22);box-shadow:0 0 0 1px rgba(68,231,255,.25),0 0 18px rgba(68,231,255,.16)}.audit-pill-count{color:#fff;font-weight:950}.audit-pill-label{color:#e9f4ff}.audit-pill-note{border-color:rgba(120,170,230,.45);background:rgba(42,72,112,.72)}.audit-pill-corq{border-color:rgba(72,231,255,.58);background:rgba(0,113,150,.58)}.audit-pill-signal{border-color:rgba(255,178,63,.58);background:rgba(112,74,14,.62)}.audit-pill-safe{border-color:rgba(0,230,120,.68);background:rgba(0,110,70,.70)}.audit-pill-h2h{border-color:rgba(168,85,247,.62);background:rgba(76,29,149,.64)}.audit-pill-clear{border-color:rgba(255,120,120,.45);background:rgba(92,28,40,.65);color:#ffd8d8}
+.result-status-summary{margin:0 0 12px 0}.result-summary-chip{font-weight:900}
 """
 
 
@@ -1704,9 +1705,34 @@ def result_tags(row: Dict[str, Any]) -> List[str]:
 
 
 def render_results_table(rows: List[Dict[str, Any]], title: str, limit: Optional[int] = None) -> str:
-    show = rows[:limit] if limit else rows
+    def result_table_sort_key(row: Dict[str, Any]) -> Tuple[int, str, str]:
+        status_order = {
+            "WON": 0,
+            "LOST": 1,
+            "VOID": 2,
+            "PENDING": 9,
+        }
+        st = result_status(row)
+        # Keep evaluated rows visible first. Pending rows are pushed to the bottom
+        # so the Results page does not look stale when only a few matches remain pending.
+        return (
+            status_order.get(st, 8),
+            str(row.get("date") or row.get("snapshot_date") or ""),
+            pick_name(row).lower(),
+        )
+
+    sorted_rows = sorted(rows or [], key=result_table_sort_key)
+    show = sorted_rows[:limit] if limit else sorted_rows
     if not show:
         return f'<div class="results-panel"><div class="summary-title">{esc(title)}</div><div class="empty">No evaluated results yet.</div></div>'
+
+    status_counts = Counter(result_status(r) for r in rows or [])
+    status_summary = "".join(
+        f'<span class="note result-summary-chip">{esc(label)} {status_counts.get(label, 0)}</span>'
+        for label in ("WON", "LOST", "VOID", "PENDING")
+        if status_counts.get(label, 0)
+    )
+
     body = []
     for r in show:
         tags = result_tags(r)
@@ -1734,7 +1760,7 @@ def render_results_table(rows: List[Dict[str, Any]], title: str, limit: Optional
             f'</tr>'
         )
     return f"""
-<div class="results-panel"><div class="summary-title">{esc(title)}</div><div class="table-wrap"><table class="results-table"><thead><tr>
+<div class="results-panel"><div class="summary-title">{esc(title)}</div><div class="tag-list result-status-summary">{status_summary}</div><div class="table-wrap"><table class="results-table"><thead><tr>
 <th>Date</th><th>Pick</th><th>Opponent</th><th>CorQ</th><th>ThinQ</th><th>Depth</th><th>Pick Edge</th><th>Sets/Games</th><th>Odds</th><th>Status</th><th>Winner</th><th>Score</th><th>Units</th><th>Tags</th>
 </tr></thead><tbody>{''.join(body)}</tbody></table></div></div>"""
 
