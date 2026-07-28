@@ -13,11 +13,12 @@
   "best_of": 3,
   "match_start": "2026-07-28T08:00:00+00:00",
   "start_time": "2026-07-28T08:00:00+00:00",
-  "status_type": "notstarted",
-  "status_code": 0,
+  "status_type": "inprogress",
+  "status_code": 8,
   "is_doubles": false,
   "source": "RapidAPI PRO",
   "raw": {
+    "firstToServe": 1,
     "tournament": {
       "name": "Targu Mures, Romania",
       "slug": "targu-mures-romania",
@@ -93,9 +94,9 @@
     },
     "customId": "cBebstigd",
     "status": {
-      "code": 0,
-      "description": "Not started",
-      "type": "notstarted"
+      "code": 8,
+      "description": "1st set",
+      "type": "inprogress"
     },
     "homeTeam": {
       "name": "Yelyzaveta Kotliar",
@@ -181,11 +182,29 @@
         }
       }
     },
-    "homeScore": {},
-    "awayScore": {},
-    "time": {},
+    "homeScore": {
+      "current": 0,
+      "display": 0,
+      "period1": 1,
+      "point": "0"
+    },
+    "awayScore": {
+      "current": 0,
+      "display": 0,
+      "period1": 2,
+      "point": "0"
+    },
+    "time": {
+      "currentPeriodStartTimestamp": 1785226031
+    },
     "changes": {
-      "changeTimestamp": 0
+      "changes": [
+        "homeScore.point",
+        "awayScore.period1",
+        "awayScore.point",
+        "firstToServe"
+      ],
+      "changeTimestamp": 1785226997
     },
     "hasGlobalHighlights": false,
     "crowdsourcingDataDisplayEnabled": false,
@@ -201,6 +220,7 @@
       "period4": "4th set",
       "period5": "5th set"
     },
+    "lastPeriod": "period1",
     "finalResultOnly": false,
     "feedLocked": false,
     "groundType": "Red clay",
@@ -225,16 +245,16 @@
   "odds_label_2": "2",
   "odds_direct_match_score": 1.0,
   "odds_reverse_match_score": 0.0,
-  "odds_player1": 1.6667,
-  "odds_player2": 2.1,
-  "p1_odds": 1.6667,
-  "p2_odds": 2.1,
-  "home_odds": 1.6667,
-  "away_odds": 2.1,
-  "odds1": 1.6667,
-  "odds2": 2.1,
-  "price1": 1.6667,
-  "price2": 2.1,
+  "odds_player1": 1.7,
+  "odds_player2": 2.05,
+  "p1_odds": 1.7,
+  "p2_odds": 2.05,
+  "home_odds": 1.7,
+  "away_odds": 2.05,
+  "odds1": 1.7,
+  "odds2": 2.05,
+  "price1": 1.7,
+  "price2": 2.05,
   "odds_source": "RapidAPI PRO event odds",
   "odds_endpoint": "/api/tennis/event/16644341/odds",
   "odds_status": "OK",
@@ -243,17 +263,17 @@
   ],
   "odds_pair_available": true,
   "odds_labels_confirmed": true,
-  "odds_gap_abs": 0.4333,
-  "odds_gap_pct": 0.26,
+  "odds_gap_abs": 0.35,
+  "odds_gap_pct": 0.2059,
   "home_player": "Yelyzaveta Kotliar",
   "away_player": "Dalila Spiteri",
   "pick_side": "AWAY",
   "opponent_side": "HOME",
   "pick": "Dalila Spiteri",
   "opponent": "Yelyzaveta Kotliar",
-  "odds": 2.1,
-  "pick_odds": 2.1,
-  "opponent_odds": 1.6667,
+  "odds": 2.05,
+  "pick_odds": 2.05,
+  "opponent_odds": 1.7,
   "pick_is_player1": false,
   "pick_is_player2": true,
   "pick_is_home": false,
@@ -296,7 +316,7 @@
     "THINQ_ATTACH_FAILED"
   ],
   "thinq_h2h_requested_event_custom_id": null,
-  "implied_probability": 0.4762,
+  "implied_probability": 0.4878,
   "corq_model_version": "CORQ_V1_THINQ_PRIMARY_PROBABILITY",
   "corq_probability_source": "CorQ fallback",
   "corq_thinq_probability": null,
@@ -316,7 +336,7 @@
   "corq_estimated_win_probability": 0.507,
   "estimated_win_pct": 50.7,
   "corq_score": 0.507,
-  "corq_edge": 0.0308,
+  "corq_edge": 0.0192,
   "corq_risk_flags": [],
   "pick_ta_rank": 355,
   "opponent_ta_rank": 444,
@@ -361,26 +381,28 @@
   "top7_publishable": false,
   "eligible_for_top7": false,
   "top7_quality_reject_reasons": [
+    "REJECT_TOP7_STATUS_NOT_NOTSTARTED",
     "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
     "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
     "REJECT_TOP7_LOW_FORM_DATA_DEPTH",
     "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
   ],
   "top7_reject_reasons": [
+    "REJECT_TOP7_STATUS_NOT_NOTSTARTED",
     "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
     "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
     "REJECT_TOP7_LOW_FORM_DATA_DEPTH",
     "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
   ],
-  "top7_status_type_normalized": "notstarted",
-  "top7_status_code": 0,
+  "top7_status_type_normalized": "inprogress",
+  "top7_status_code": 8,
   "top7_corq_probability": 0.507,
   "top7_pick_thinq_edge": 0.007,
   "top7_thinq_confidence": 0.0,
   "pick_data_depth": 0.0,
   "stat_data_depth": 0.0,
   "form_data_depth": 0.0,
-  "top7_pick_odds": 2.1,
+  "top7_pick_odds": 2.05,
   "top7_match_date_local": "2026-07-28",
   "recent_form_status": "UNKNOWN",
   "recent_form_reason": "",

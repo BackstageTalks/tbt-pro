@@ -13,11 +13,12 @@
   "best_of": 3,
   "match_start": "2026-07-28T08:00:00+00:00",
   "start_time": "2026-07-28T08:00:00+00:00",
-  "status_type": "notstarted",
-  "status_code": 0,
+  "status_type": "inprogress",
+  "status_code": 8,
   "is_doubles": false,
   "source": "RapidAPI PRO",
   "raw": {
+    "firstToServe": 1,
     "awayTeamSeed": "2",
     "tournament": {
       "name": "Targu Mures, Romania",
@@ -94,9 +95,9 @@
     },
     "customId": "uPAcspzOc",
     "status": {
-      "code": 0,
-      "description": "Not started",
-      "type": "notstarted"
+      "code": 8,
+      "description": "1st set",
+      "type": "inprogress"
     },
     "homeTeam": {
       "name": "Mia Ristić",
@@ -184,11 +185,26 @@
         }
       }
     },
-    "homeScore": {},
-    "awayScore": {},
-    "time": {},
+    "homeScore": {
+      "current": 0,
+      "display": 0,
+      "period1": 2,
+      "point": "30"
+    },
+    "awayScore": {
+      "current": 0,
+      "display": 0,
+      "period1": 2,
+      "point": "0"
+    },
+    "time": {
+      "currentPeriodStartTimestamp": 1785225962
+    },
     "changes": {
-      "changeTimestamp": 0
+      "changes": [
+        "homeScore.point"
+      ],
+      "changeTimestamp": 1785227046
     },
     "hasGlobalHighlights": false,
     "crowdsourcingDataDisplayEnabled": false,
@@ -204,6 +220,7 @@
       "period4": "4th set",
       "period5": "5th set"
     },
+    "lastPeriod": "period1",
     "finalResultOnly": false,
     "feedLocked": false,
     "groundType": "Red clay",
@@ -228,16 +245,16 @@
   "odds_label_2": "2",
   "odds_direct_match_score": 1.0,
   "odds_reverse_match_score": 0.0,
-  "odds_player1": 1.8333,
-  "odds_player2": 1.8333,
-  "p1_odds": 1.8333,
-  "p2_odds": 1.8333,
-  "home_odds": 1.8333,
-  "away_odds": 1.8333,
-  "odds1": 1.8333,
-  "odds2": 1.8333,
-  "price1": 1.8333,
-  "price2": 1.8333,
+  "odds_player1": 1.9091,
+  "odds_player2": 1.9091,
+  "p1_odds": 1.9091,
+  "p2_odds": 1.9091,
+  "home_odds": 1.9091,
+  "away_odds": 1.9091,
+  "odds1": 1.9091,
+  "odds2": 1.9091,
+  "price1": 1.9091,
+  "price2": 1.9091,
   "odds_source": "RapidAPI PRO event odds",
   "odds_endpoint": "/api/tennis/event/16634787/odds",
   "odds_status": "OK",
@@ -254,9 +271,9 @@
   "opponent_side": "HOME",
   "pick": "Darja Semenistaja",
   "opponent": "Mia Ristić",
-  "odds": 1.8333,
-  "pick_odds": 1.8333,
-  "opponent_odds": 1.8333,
+  "odds": 1.9091,
+  "pick_odds": 1.9091,
+  "opponent_odds": 1.9091,
   "pick_is_player1": false,
   "pick_is_player2": true,
   "pick_is_home": false,
@@ -299,7 +316,7 @@
     "THINQ_ATTACH_FAILED"
   ],
   "thinq_h2h_requested_event_custom_id": null,
-  "implied_probability": 0.5455,
+  "implied_probability": 0.5238,
   "corq_model_version": "CORQ_V1_THINQ_PRIMARY_PROBABILITY",
   "corq_probability_source": "CorQ fallback",
   "corq_thinq_probability": null,
@@ -319,7 +336,7 @@
   "corq_estimated_win_probability": 0.507,
   "estimated_win_pct": 50.7,
   "corq_score": 0.507,
-  "corq_edge": -0.0385,
+  "corq_edge": -0.0168,
   "corq_risk_flags": [],
   "pick_ta_rank": 109,
   "opponent_ta_rank": 261,
@@ -364,26 +381,28 @@
   "top7_publishable": false,
   "eligible_for_top7": false,
   "top7_quality_reject_reasons": [
+    "REJECT_TOP7_STATUS_NOT_NOTSTARTED",
     "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
     "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
     "REJECT_TOP7_LOW_FORM_DATA_DEPTH",
     "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
   ],
   "top7_reject_reasons": [
+    "REJECT_TOP7_STATUS_NOT_NOTSTARTED",
     "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
     "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
     "REJECT_TOP7_LOW_FORM_DATA_DEPTH",
     "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
   ],
-  "top7_status_type_normalized": "notstarted",
-  "top7_status_code": 0,
+  "top7_status_type_normalized": "inprogress",
+  "top7_status_code": 8,
   "top7_corq_probability": 0.507,
   "top7_pick_thinq_edge": 0.007,
   "top7_thinq_confidence": 0.0,
   "pick_data_depth": 0.0,
   "stat_data_depth": 0.0,
   "form_data_depth": 0.0,
-  "top7_pick_odds": 1.8333,
+  "top7_pick_odds": 1.9091,
   "top7_match_date_local": "2026-07-28",
   "recent_form_status": "UNKNOWN",
   "recent_form_reason": "",
