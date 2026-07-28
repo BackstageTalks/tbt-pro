@@ -111,6 +111,32 @@ jobs:
               raise SystemExit("Runtime produced zero audit rows. Refusing to render/deploy blank site.")
           PY
 
+      - name: Diagnose ThinQ data sources
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
+        run: |
+          python - <<'PY'
+          print("THINQ DATA SOURCE DIAGNOSTICS")
+          try:
+              from thinq.loaders.history_loader import history_data_status, get_player_matches
+              status = history_data_status()
+              print("history_status=", status)
+              for player in ["Frances Tiafoe", "Terence Atmane", "Tommy Paul", "Kamil Majchrzak"]:
+                  matches = get_player_matches(player, limit=3)
+                  print(f"history_player={player} matches={len(matches)}")
+                  for m in matches[:2]:
+                      print("  ", m)
+          except Exception as exc:
+              print("history_diagnostic_error=", exc)
+          try:
+              from thinq.loaders.elo_loader import load_elo_index, build_elo_context
+              idx = load_elo_index()
+              print("elo_index_size=", len(idx))
+              for pick, opp in [("Frances Tiafoe", "Terence Atmane"), ("Tommy Paul", "Kamil Majchrzak")]:
+                  print(f"elo_context={pick} vs {opp}", build_elo_context(pick, opp, "Hard"))
+          except Exception as exc:
+              print("elo_diagnostic_error=", exc)
+          PY
+
       - name: Diagnose TOP7 filters
         if: ${{ steps.local_time.outputs.should_run == 'true' }}
         run: |
