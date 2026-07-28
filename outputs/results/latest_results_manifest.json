@@ -1,0 +1,48 @@
+{
+  "generated_at": "2026-07-28T22:31:55+00:00",
+  "date": "2026-07-28",
+  "fetch_api": true,
+  "settlement_grace_hours": 2.0,
+  "local_tz": "Europe/Bratislava",
+  "corq_count": 0,
+  "cloq_count": 0,
+  "audit_count": 51,
+  "summary": {
+    "corq": {
+      "picks": 0,
+      "won": 0,
+      "lost": 0,
+      "pending": 0,
+      "void": 0,
+      "win_rate": null,
+      "units": 0,
+      "roi": null
+    },
+    "cloq": {
+      "picks": 0,
+      "won": 0,
+      "lost": 0,
+      "pending": 0,
+      "void": 0,
+      "win_rate": null,
+      "units": 0,
+      "roi": null
+    },
+    "audit": {
+      "picks": 51,
+      "won": 25,
+      "lost": 18,
+      "pending": 5,
+      "void": 3,
+      "win_rate": 0.5814,
+      "units": -4.9546,
+      "roi": -0.1152
+    }
+  },
+  "sources": {
+    "corq": "",
+    "cloq": "",
+    "audit": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/latest_all_audit_snapshot.json"
+  },
+  "output_root": "outputs/results"
+}
