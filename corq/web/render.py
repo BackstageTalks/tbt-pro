@@ -1274,7 +1274,7 @@ def css() -> str:
 .ta-signal-box .metric-row b{font-size:12px;line-height:1.25}.ta-signal-box .metric-row span{min-width:74px}.ta-signal-box .box-head b{text-transform:uppercase;font-size:11px;color:#facc15}  
 .sets-signal-box .metric-row b{font-size:12px;line-height:1.25}.sets-signal-box .metric-row span{min-width:76px}.sets-signal-box .box-head b{text-transform:uppercase;font-size:11px;color:#facc15}  
 
-.data-notes-summary{border-radius:18px;background:rgba(8,21,36,.92);border-color:rgba(90,130,180,.35);box-shadow:0 16px 35px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.03);margin-bottom:18px}.data-notes-summary .summary-title{color:#44e7ff;letter-spacing:.14em}.data-notes-pills{display:flex;flex-wrap:wrap;gap:8px}.audit-pill{display:inline-flex;align-items:center;gap:5px;padding:6px 11px;border-radius:999px;border:1px solid rgba(120,170,230,.45);background:rgba(42,72,112,.72);color:#e9f4ff;font-size:12px;font-weight:850;line-height:1;text-decoration:none;white-space:nowrap;transition:140ms ease-in-out;cursor:pointer}.audit-pill:hover{border-color:rgba(70,230,255,.85);background:rgba(30,105,150,.85);color:#fff;transform:translateY(-1px)}.audit-pill.active{border-color:#44e7ff;background:rgba(0,210,255,.22);box-shadow:0 0 0 1px rgba(68,231,255,.25),0 0 18px rgba(68,231,255,.16)}.audit-pill-count{color:#fff;font-weight:950}.audit-pill-label{color:#e9f4ff}.audit-pill-note{border-color:rgba(120,170,230,.45);background:rgba(42,72,112,.72)}.audit-pill-corq{border-color:rgba(72,231,255,.58);background:rgba(0,113,150,.58)}.audit-pill-signal{border-color:rgba(255,178,63,.58);background:rgba(112,74,14,.62)}.audit-pill-safe{border-color:rgba(0,230,120,.68);background:rgba(0,110,70,.70)}.audit-pill-clear{border-color:rgba(255,120,120,.45);background:rgba(92,28,40,.65);color:#ffd8d8}
+.data-notes-summary{border-radius:18px;background:rgba(8,21,36,.92);border-color:rgba(90,130,180,.35);box-shadow:0 16px 35px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.03);margin-bottom:18px}.data-notes-summary .summary-title{color:#44e7ff;letter-spacing:.14em}.data-notes-pills{display:flex;flex-wrap:wrap;gap:8px}.audit-pill{display:inline-flex;align-items:center;gap:5px;padding:6px 11px;border-radius:999px;border:1px solid rgba(120,170,230,.45);background:rgba(42,72,112,.72);color:#e9f4ff;font-size:12px;font-weight:850;line-height:1;text-decoration:none;white-space:nowrap;transition:140ms ease-in-out;cursor:pointer}.audit-pill:hover{border-color:rgba(70,230,255,.85);background:rgba(30,105,150,.85);color:#fff;transform:translateY(-1px)}.audit-pill.active{border-color:#44e7ff;background:rgba(0,210,255,.22);box-shadow:0 0 0 1px rgba(68,231,255,.25),0 0 18px rgba(68,231,255,.16)}.audit-pill-count{color:#fff;font-weight:950}.audit-pill-label{color:#e9f4ff}.audit-pill-note{border-color:rgba(120,170,230,.45);background:rgba(42,72,112,.72)}.audit-pill-corq{border-color:rgba(72,231,255,.58);background:rgba(0,113,150,.58)}.audit-pill-signal{border-color:rgba(255,178,63,.58);background:rgba(112,74,14,.62)}.audit-pill-safe{border-color:rgba(0,230,120,.68);background:rgba(0,110,70,.70)}.audit-pill-h2h{border-color:rgba(168,85,247,.62);background:rgba(76,29,149,.64)}.audit-pill-clear{border-color:rgba(255,120,120,.45);background:rgba(92,28,40,.65);color:#ffd8d8}
 """
 
 
@@ -1351,6 +1351,7 @@ def page_shell(title: str, active: str, body: str, manifest: Optional[Dict[str, 
 AUDIT_CORQ_TOP20_LABEL = "CorQ Top20"
 AUDIT_TIME_ODDS_LABEL = "Up to 2H | O>1.5"
 AUDIT_SAFE_BET_LABEL = "Safe Bet Signal"
+AUDIT_H2H_TOP10_LABEL = "H2H Top10"
 
 
 def audit_parse_datetime_utc(value: Any) -> Optional[datetime]:
@@ -1467,6 +1468,61 @@ def audit_has_safe_bet_signal(row: Dict[str, Any]) -> bool:
     return pick_ok and opp_ok
 
 
+
+def audit_h2h_support_score(row: Dict[str, Any]) -> float:
+    """Score positive H2H support from displayed pick perspective.
+
+    The score is intentionally audit-only. It does not change CorQ ranking.
+    It favors:
+    - bigger pick vs opponent H2H difference,
+    - enough sample size,
+    - same-surface H2H when it is available and different from total H2H.
+    """
+    hp, ho = h2h_record(row)
+    shp, sho = surface_h2h_record(row)
+    score = 0.0
+
+    if hp is not None and ho is not None:
+        total = hp + ho
+        diff = hp - ho
+        if total >= 2 and diff > 0:
+            win_rate = hp / total if total else 0.0
+            score += (diff * 10.0) + (win_rate * 8.0) + min(total, 10) * 0.7
+
+    if shp is not None and sho is not None:
+        surface_total = shp + sho
+        surface_diff = shp - sho
+        duplicate_total = hp == shp and ho == sho
+        if surface_total >= 2 and surface_diff > 0 and not duplicate_total:
+            surface_win_rate = shp / surface_total if surface_total else 0.0
+            score += (surface_diff * 12.0) + (surface_win_rate * 10.0) + min(surface_total, 10) * 0.9
+
+    return score
+
+
+def mark_audit_h2h_top10(rows: List[Dict[str, Any]]) -> None:
+    """Mark the best 10 positive H2H indicators in-place for Audit filtering."""
+    scored: List[Tuple[float, int, Dict[str, Any]]] = []
+
+    for idx, row in enumerate(rows or []):
+        if not isinstance(row, dict):
+            continue
+        row.pop("_audit_h2h_top10", None)
+        row.pop("_audit_h2h_score", None)
+        score = audit_h2h_support_score(row)
+        if score > 0:
+            scored.append((score, idx, row))
+
+    scored.sort(key=lambda item: (-item[0], item[1]))
+
+    for score, _, row in scored[:10]:
+        row["_audit_h2h_top10"] = True
+        row["_audit_h2h_score"] = round(score, 3)
+
+
+def audit_has_h2h_top10(row: Dict[str, Any]) -> bool:
+    return bool(row.get("_audit_h2h_top10"))
+
 def get_existing_public_tags(row: Dict[str, Any]) -> List[str]:
     tags: List[str] = []
     for key in ("tags", "audit_tags", "audit_filter_tags", "data_notes", "notes", "flags"):
@@ -1486,6 +1542,8 @@ def audit_filter_tags_for_row(row: Dict[str, Any]) -> List[str]:
         tags.append(AUDIT_TIME_ODDS_LABEL)
     if audit_has_safe_bet_signal(row):
         tags.append(AUDIT_SAFE_BET_LABEL)
+    if audit_has_h2h_top10(row):
+        tags.append(AUDIT_H2H_TOP10_LABEL)
     existing = row.get("audit_filter_tags")
     if isinstance(existing, list):
         tags.extend(str(x) for x in existing if x)
@@ -1506,6 +1564,8 @@ def audit_note_css(label: str) -> str:
         return "tag-chip audit-pill audit-pill-signal"
     if label == AUDIT_SAFE_BET_LABEL:
         return "tag-chip audit-pill audit-pill-safe"
+    if label == AUDIT_H2H_TOP10_LABEL:
+        return "tag-chip audit-pill audit-pill-h2h"
     return "tag-chip audit-pill audit-pill-note"
 
 def tag_filter_script() -> str:
@@ -1534,6 +1594,7 @@ def render_cards_page(title: str, active: str, rows: List[Dict[str, Any]], manif
     for idx, row in enumerate(rows):
         if isinstance(row, dict):
             row["_corq_render_rank"] = idx + 1
+    mark_audit_h2h_top10(rows)
     ensure_logs(rows)
     if not rows:
         cards = '<div class="empty">No rows available.</div>'
@@ -1546,6 +1607,7 @@ def render_cards_page(title: str, active: str, rows: List[Dict[str, Any]], manif
 
 
 def render_notes_summary(rows: List[Dict[str, Any]]) -> str:
+    mark_audit_h2h_top10(rows)
     counts = Counter()
     missing_breakdown = Counter()
 
@@ -1567,6 +1629,7 @@ def render_notes_summary(rows: List[Dict[str, Any]]) -> str:
             AUDIT_CORQ_TOP20_LABEL: 0,
             AUDIT_TIME_ODDS_LABEL: 1,
             AUDIT_SAFE_BET_LABEL: 2,
+            AUDIT_H2H_TOP10_LABEL: 3,
         }.get(label, 10)
         return order, -count, label
 
