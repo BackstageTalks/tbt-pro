@@ -379,9 +379,23 @@ def main() -> None:
         chat_id = args.chat_id
         if not chat_id:
             if args.mode == "free":
-                chat_id = os.getenv("TELEGRAM_FREE_CHAT_ID") or os.getenv("TG_FREE_CHAT_ID")
+                # FREE is sent to the same production channel as TOP7 by default.
+                # A dedicated FREE chat can still override this if configured.
+                chat_id = (
+                    os.getenv("TELEGRAM_FREE_CHAT_ID")
+                    or os.getenv("TG_FREE_CHAT_ID")
+                    or os.getenv("TELEGRAM_TOP7_CHAT_ID")
+                    or os.getenv("TG_TOP7_CHAT_ID")
+                    or os.getenv("TGCHID")
+                    or os.getenv("TELEGRAM_CHAT_ID")
+                )
             else:
-                chat_id = os.getenv("TELEGRAM_TOP7_CHAT_ID") or os.getenv("TG_TOP7_CHAT_ID") or os.getenv("TELEGRAM_CHAT_ID")
+                chat_id = (
+                    os.getenv("TELEGRAM_TOP7_CHAT_ID")
+                    or os.getenv("TG_TOP7_CHAT_ID")
+                    or os.getenv("TGCHID")
+                    or os.getenv("TELEGRAM_CHAT_ID")
+                )
         if not args.bot_token:
             if args.mode == "free":
                 print("[tg_feed] Missing TELEGRAM_BOT_TOKEN/TG_BOT_TOKEN; FREE Telegram send skipped.")
