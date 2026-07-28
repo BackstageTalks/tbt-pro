@@ -92,12 +92,23 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # The web-only workflow can run while another workflow has already
+          # pushed generated files. Rebase first so this job does not fail with
+          # a non-fast-forward push.
+          git fetch origin main
+          git pull --rebase --autostash origin main
+
           git add corq/site
           if git diff --cached --quiet; then
             echo "No web changes to commit."
           else
             git commit -m "Render web site only"
-            git push
+            git push || {
+              echo "Push rejected, rebasing once and retrying..."
+              git pull --rebase --autostash origin main
+              git push
+            }
           fi
 
       - name: Configure GitHub Pages
