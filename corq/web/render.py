@@ -332,12 +332,14 @@ def surface_name(row: Dict[str, Any]) -> str:
     return str(row.get("surface") or "Surface").strip() or "Surface"
 
 
-def card_insights(row: Dict[str, Any], notes: Optional[List[str]] = None, limit: int = 2) -> List[str]:
-    """Return max two compact, time/context-aware match insights for the pick card.
+def card_insights(row: Dict[str, Any], notes: Optional[List[str]] = None, limit: int = 1) -> List[str]:
+    """Return compact positive insight tags from displayed pick perspective.
 
-    Icon semantics are from displayed pick perspective:
-    - 🔥 means supports the pick.
-    - ⚠ means goes against the pick.
+    Top card tags are intentionally positive-only to avoid mirrored noise:
+    - Pick strong data/support is shown.
+    - Opp weak data/support for pick is shown.
+    - Against-pick/warning signals are not shown here.
+    Neutral/public notes live in the bottom note row.
     """
     candidates: List[Tuple[int, str]] = []
 
@@ -346,88 +348,56 @@ def card_insights(row: Dict[str, Any], notes: Optional[List[str]] = None, limit:
         if t:
             candidates.append((priority, t))
 
-    # Prefer already prepared intelligence outputs from THINQ/CORQ if present,
-    # but only if they are already clean public strings.
-    for key in ("card_insights", "thinq_insights", "match_insights", "public_insights"):
-        val = row.get(key)
-        items: List[Any] = []
-        if isinstance(val, list):
-            items = val
-        elif isinstance(val, str) and val.strip():
-            items = [x.strip() for x in re.split(r"[|;]", val) if x.strip()]
-        for item in items:
-            if isinstance(item, dict):
-                text = item.get("label") or item.get("text") or item.get("display")
-                pr = int(as_float(item.get("priority"), 70) or 70)
-                add(pr, text)
-            else:
-                add(70, item)
-
-    # H2H, only when meaningful and one-sided. Avoid duplicate if total H2H
-    # and surface H2H are the exact same sample.
+    # H2H, only when meaningful and it supports the displayed pick.
     hp, ho = h2h_record(row)
     shp, sho = surface_h2h_record(row)
-    if hp is not None and ho is not None and (hp + ho) >= 3 and max(hp, ho) >= 3:
+    if hp is not None and ho is not None and (hp + ho) >= 3 and hp > ho:
         if hp == 0 or ho == 0 or abs(hp - ho) >= 3:
-            icon = "🔥" if hp > ho else "⚠"
-            add(96, f"{icon} H2H | {hp}-{ho}")
+            add(96, f"🔥 Pick H2H | {hp}-{ho}")
 
-    if shp is not None and sho is not None and (shp + sho) >= 3 and max(shp, sho) >= 3:
+    if shp is not None and sho is not None and (shp + sho) >= 3 and shp > sho:
         duplicate_total = hp == shp and ho == sho
         if not duplicate_total and (shp == 0 or sho == 0 or abs(shp - sho) >= 3):
-            icon = "🔥" if shp > sho else "⚠"
-            add(94, f"{icon} {surface_name(row)} H2H | {shp}-{sho}")
+            add(94, f"🔥 Pick {surface_name(row)} H2H | {shp}-{sho}")
 
-    # Last 10 records, only strong positive/negative cases.
+    # Last 10 records, only positive-to-pick cases.
     pf, psf = form_records(row, "pick")
     of, osf = form_records(row, "opponent")
 
-    def add_form(priority: int, label: str, rec: str, side: str) -> None:
+    def add_positive_form(priority: int, label: str, rec: str, side: str) -> None:
         w, l = compact_record_label(rec)
         if w is None or l is None or (w + l) < 8:
             return
-        # Pick good form supports pick. Pick bad form goes against pick.
-        # Opponent bad form supports pick. Opponent good form goes against pick.
+        # Pick strong form supports pick. Opponent poor form supports pick.
         if side == "pick" and w >= 8:
-            add(priority, f"🔥 {label} | Last 10 | {w}-{l}")
-        elif side == "pick" and l >= 7:
-            add(priority, f"⚠ {label} | Last 10 | {w}-{l}")
+            add(priority, f"🔥 Pick {label} | Last 10 | {w}-{l}")
         elif side == "opponent" and l >= 7:
-            add(priority, f"🔥 {label} | Last 10 | {w}-{l}")
-        elif side == "opponent" and w >= 8:
-            add(priority, f"⚠ {label} | Last 10 | {w}-{l}")
+            add(priority, f"🔥 Opp {label} | Last 10 | {w}-{l}")
 
     surf = surface_name(row)
-    add_form(88, "Pick", pf, "pick")
-    add_form(84, "Opp", of, "opponent")
-    add_form(92, f"Pick {surf}", psf, "pick")
-    add_form(86, f"Opp {surf}", osf, "opponent")
+    add_positive_form(92, surf, psf, "pick")
+    add_positive_form(88, "", pf, "pick")
+    add_positive_form(86, surf, osf, "opponent")
+    add_positive_form(84, "", of, "opponent")
 
-    # Optional absence fields if THINQ starts publishing them.
-    for side, label, priority in (("pick", "Pick", 90), ("opponent", "Opp", 82)):
-        weeks = None
-        for key in (
-            f"{side}_surface_absence_weeks",
-            f"{side}_weeks_since_surface_match",
-            f"{side}_surface_weeks_since_last_match",
-        ):
-            weeks = as_float(row.get(key))
-            if weeks is not None:
-                break
-        if weeks is not None and weeks >= 26:
-            icon = "⚠" if side == "pick" else "🔥"
-            add(priority, f"{icon} {label} | No {surf} | {int(round(weeks))}w")
-
-    # Last resort: public notes, but still limited to two rows.
-    for n in notes or []:
-        add(30, n)
+    # Optional absence fields can support pick only if opponent has long absence.
+    weeks = None
+    for key in (
+        "opponent_surface_absence_weeks",
+        "opponent_weeks_since_surface_match",
+        "opponent_surface_weeks_since_last_match",
+    ):
+        weeks = as_float(row.get(key))
+        if weeks is not None:
+            break
+    if weeks is not None and weeks >= 26:
+        add(82, f"🔥 Opp | No {surface_name(row)} | {int(round(weeks))}w")
 
     out: List[str] = []
     seen = set()
     for _, txt in sorted(candidates, key=lambda kv: (-kv[0], kv[1])):
-        clean = re.sub(r"\s+", " ", txt).strip()
-        # Normalize icon-less duplicates and surface duplicates.
-        dedupe_key = clean.replace("🔥 ", "").replace("⚠ ", "")
+        clean = re.sub(r"\s+", " ", txt).replace("Pick  |", "Pick |").replace("Opp  |", "Opp |").strip()
+        dedupe_key = clean.replace("🔥 ", "")
         if clean and dedupe_key not in seen:
             out.append(clean)
             seen.add(dedupe_key)
@@ -857,10 +827,8 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
     data_tags = "|".join(notes)
     rank_badge = f'<div class="rank-num">#{rank}</div>' if rank else ""
     note_html = "".join(f'<span class="note" data-note="{esc(n)}">{esc(n)}</span>' for n in notes[:8])
-    # Compact one-line top tags. Keep only the most useful public notes here;
-    # detailed tags remain available in logs/audit pages.
-    top_note_html = "".join(f'<span class="top-note" data-note="{esc(n)}">{esc(n)}</span>' for n in notes[:2])
-    top_tag_html = f'<div class="compact-top-tags">{top_note_html}{card_insights_html(row, notes)}</div>'
+    # Top row shows only one positive/support insight. Neutral public notes stay in the bottom row.
+    top_tag_html = f'<div class="compact-top-tags">{card_insights_html(row, notes)}</div>'
     odds_gap = as_float(row.get("odds_gap_pct") or row.get("cloq_odds_gap_pct"))
     odds_gap_txt = as_pct(odds_gap, 1) if odds_gap is not None else "—"
     cloq_extra = metric_row("Odds Gap", odds_gap_txt) if page == "cloq" else ""
@@ -881,7 +849,7 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         f'<div class="compact-name-row"><span class="compact-name">{esc(o)} <span class="compact-odds inline opp">@ {fmt_odds(o_odds)}</span></span><span class="compact-rank">{esc(player_rank_display(row, "opponent"))}</span></div>'
         '</div>',
         f'<div class="compact-match"><div class="compact-time">{esc(start_time(row))}</div><div class="compact-meta">{esc(meta_line(row))}</div></div>',
-        '',
+        f'<div class="compact-tags bottom-notes">{note_html}</div>' if note_html else '',
         '</section>',
         '<section class="metric-box">',
         f'<div class="box-head"><span>CorQ {info_icon("corq")}</span><b>{as_pct(prob, 1)}</b></div>',
@@ -1151,6 +1119,8 @@ def css() -> str:
 .compact-odds.inline{display:inline-flex;margin:0 0 0 6px;vertical-align:middle;transform:translateY(-1px);padding:2px 7px;font-size:11px;line-height:1.2}.compact-player.no-label{padding-top:12px;padding-bottom:12px}.compact-name{display:inline;word-break:break-word}.compact-name-row{align-items:center}.compact-label{margin-bottom:5px}.compact-tags .insight-chip::first-letter{font-size:11px}.compact-tags .insight-chip{border-color:#2f4b6e;background:#10233b}.compact-v3 .compact-player{min-height:70px;display:flex;flex-direction:column;justify-content:center}.compact-v3 .pick-side{min-height:78px}  
 .compact-top-tags{display:flex;align-items:center;gap:5px;min-width:0;flex:1;overflow:hidden;white-space:nowrap}.compact-top-tags .card-insights{display:contents}.compact-top-tags .chip-insights{display:flex;align-items:center;gap:5px;min-width:0;overflow:hidden;white-space:nowrap}.compact-top-tags .insight-chip,.compact-top-tags .top-note{display:inline-flex;align-items:center;max-width:132px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-radius:999px;padding:3px 7px;background:#10233b;border:1px solid #2f4b6e;color:#d4e8ff;font-size:10px;font-weight:900;line-height:1.15}.compact-top-tags .empty-insights{display:none}.compact-topline{overflow:hidden}.compact-tags{flex-wrap:nowrap!important;overflow:hidden;white-space:nowrap}.compact-tags .note,.compact-tags .insight-chip{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.compact-v3 .status-pill{display:none!important}  
 .compact-top-tags .insight-chip.negative,.insight-chip.negative{background:rgba(250,204,21,.13)!important;border-color:rgba(250,204,21,.68)!important;color:#fde68a!important}.compact-top-tags .insight-chip.positive,.insight-chip.positive{background:rgba(251,146,60,.14)!important;border-color:rgba(251,146,60,.62)!important;color:#fed7aa!important}.compact-top-tags .insight-chip.neutral,.insight-chip.neutral{background:#10233b!important;border-color:#2f4b6e!important;color:#d4e8ff!important}  
+.compact-top-tags .insight-chip.positive,.insight-chip.positive{background:rgba(16,185,129,.16)!important;border-color:rgba(52,211,153,.70)!important;color:#86efac!important}.compact-top-tags .chip-insights{max-width:158px}.compact-top-tags .insight-chip{max-width:158px}.compact-tags.bottom-notes{display:flex;flex-wrap:nowrap;gap:6px;overflow:hidden;white-space:nowrap;padding-top:6px;border-top:1px solid rgba(148,163,184,.10)}.compact-tags.bottom-notes .note{background:rgba(88,28,135,.20);border-color:rgba(168,85,247,.45);color:#e9d5ff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:190px;font-size:10px;padding:3px 7px}.compact-top-tags .top-note{display:none!important}.compact-top-tags .empty-insights{display:none!important}  
+.compact-top-tags .insight-chip.negative,.insight-chip.negative{display:none!important}  
 """
 
 
