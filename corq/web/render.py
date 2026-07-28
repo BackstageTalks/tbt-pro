@@ -1277,6 +1277,9 @@ def css() -> str:
 .data-notes-summary{border-radius:18px;background:rgba(8,21,36,.92);border-color:rgba(90,130,180,.35);box-shadow:0 16px 35px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.03);margin-bottom:18px}.data-notes-summary .summary-title{color:#44e7ff;letter-spacing:.14em}.data-notes-pills{display:flex;flex-wrap:wrap;gap:8px}.audit-pill{display:inline-flex;align-items:center;gap:5px;padding:6px 11px;border-radius:999px;border:1px solid rgba(120,170,230,.45);background:rgba(42,72,112,.72);color:#e9f4ff;font-size:12px;font-weight:850;line-height:1;text-decoration:none;white-space:nowrap;transition:140ms ease-in-out;cursor:pointer}.audit-pill:hover{border-color:rgba(70,230,255,.85);background:rgba(30,105,150,.85);color:#fff;transform:translateY(-1px)}.audit-pill.active{border-color:#44e7ff;background:rgba(0,210,255,.22);box-shadow:0 0 0 1px rgba(68,231,255,.25),0 0 18px rgba(68,231,255,.16)}.audit-pill-count{color:#fff;font-weight:950}.audit-pill-label{color:#e9f4ff}.audit-pill-note{border-color:rgba(120,170,230,.45);background:rgba(42,72,112,.72)}.audit-pill-corq{border-color:rgba(72,231,255,.58);background:rgba(0,113,150,.58)}.audit-pill-signal{border-color:rgba(255,178,63,.58);background:rgba(112,74,14,.62)}.audit-pill-safe{border-color:rgba(0,230,120,.68);background:rgba(0,110,70,.70)}.audit-pill-h2h{border-color:rgba(168,85,247,.62);background:rgba(76,29,149,.64)}.audit-pill-clear{border-color:rgba(255,120,120,.45);background:rgba(92,28,40,.65);color:#ffd8d8}
 .result-status-summary{margin:0 0 12px 0}.result-summary-chip{font-weight:900}
 .result-audit-filter-summary{margin:0 0 12px 0}.result-status-summary .tag-chip{cursor:pointer}
+.audit-pill-date{border-color:rgba(96,165,250,.62);background:rgba(30,64,175,.62)}.audit-pill-model{border-color:rgba(236,72,153,.56);background:rgba(131,24,67,.62)}.result-audit-filter-summary{gap:8px}
+
+.result-filter-builder{position:sticky;top:0;z-index:20;background:rgba(8,21,36,.96);backdrop-filter:blur(8px)}.result-filter-help{margin:-4px 0 10px 0;color:#8ea5c2;font-size:12px;font-weight:700}.result-filter-row{display:flex;align-items:flex-start;flex-wrap:wrap;gap:10px}.result-filter-group{display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:7px 8px;border-radius:14px;background:rgba(15,27,45,.72);border:1px solid rgba(90,130,180,.22)}.result-filter-group-title{margin-right:2px;color:#93c5fd;font-size:10px;font-weight:950;letter-spacing:.12em;text-transform:uppercase}.tag-analysis-row{transition:opacity 120ms ease-in-out}
 """
 
 
@@ -1354,6 +1357,13 @@ AUDIT_CORQ_TOP20_LABEL = "CorQ Top20"
 AUDIT_TIME_ODDS_LABEL = "Up to 2H | O>1.5"
 AUDIT_SAFE_BET_LABEL = "Safe Bet Signal"
 AUDIT_H2H_TOP10_LABEL = "H2H Top10"
+RESULT_LAST_3_DAYS_LABEL = "Last 3 days"
+RESULT_LAST_7_DAYS_LABEL = "Last 7 days"
+RESULT_LAST_MONTH_LABEL = "Last month"
+RESULT_THIS_YEAR_LABEL = "This year"
+RESULT_MODEL_CORQ_LABEL = "CorQ"
+RESULT_MODEL_CLOQ_LABEL = "CloQ"
+RESULT_MODEL_AUDIT_LABEL = "Audit"
 
 
 def audit_parse_datetime_utc(value: Any) -> Optional[datetime]:
@@ -1568,24 +1578,58 @@ def audit_note_css(label: str) -> str:
         return "tag-chip audit-pill audit-pill-safe"
     if label == AUDIT_H2H_TOP10_LABEL:
         return "tag-chip audit-pill audit-pill-h2h"
+    if label in {RESULT_LAST_3_DAYS_LABEL, RESULT_LAST_7_DAYS_LABEL, RESULT_LAST_MONTH_LABEL, RESULT_THIS_YEAR_LABEL}:
+        return "tag-chip audit-pill audit-pill-date"
+    if label in {RESULT_MODEL_CORQ_LABEL, RESULT_MODEL_CLOQ_LABEL, RESULT_MODEL_AUDIT_LABEL}:
+        return "tag-chip audit-pill audit-pill-model"
     return "tag-chip audit-pill audit-pill-note"
 
 def tag_filter_script() -> str:
     return """
 <script>
 (function(){
-  function filter(tag){
-    document.querySelectorAll('.tag-chip').forEach(x=>x.classList.toggle('active', x.dataset.filter===tag));
-    document.querySelectorAll('.pick-card,.result-row').forEach(card=>{
-      const tags=(card.getAttribute('data-tags')||'').split('|');
-      card.style.display = (!tag || tags.includes(tag)) ? '' : 'none';
-    });
-    document.querySelectorAll('.clear-filter').forEach(x=>x.style.display=tag?'inline-flex':'none');
+  const active = new Set();
+
+  function getCardTags(card){
+    return (card.getAttribute('data-tags') || '')
+      .split('|')
+      .map(x => x.trim())
+      .filter(Boolean);
   }
+
+  function applyFilters(){
+    document.querySelectorAll('.tag-chip,[data-filter]').forEach(x => {
+      const tag = x.dataset.filter;
+      if(tag){ x.classList.toggle('active', active.has(tag)); }
+    });
+
+    document.querySelectorAll('.pick-card,.result-row').forEach(card => {
+      const tags = getCardTags(card);
+      const show = Array.from(active).every(tag => tags.includes(tag));
+      card.style.display = (!active.size || show) ? '' : 'none';
+    });
+
+    document.querySelectorAll('.clear-filter').forEach(x => {
+      x.style.display = active.size ? 'inline-flex' : 'none';
+    });
+  }
+
   document.addEventListener('click', function(e){
-    const chip=e.target.closest('[data-filter]');
-    if(chip){filter(chip.dataset.filter);}
-    if(e.target.closest('.clear-filter')){filter('');}
+    const clear = e.target.closest('.clear-filter');
+    if(clear){
+      active.clear();
+      applyFilters();
+      return;
+    }
+
+    const chip = e.target.closest('[data-filter]');
+    if(chip){
+      const tag = chip.dataset.filter;
+      if(!tag){ return; }
+      if(active.has(tag)){ active.delete(tag); }
+      else{ active.add(tag); }
+      applyFilters();
+    }
   });
 })();
 </script>"""
@@ -1694,6 +1738,60 @@ def summary_cards_html(summary: Dict[str, Any], title: str) -> str:
 </div></div>"""
 
 
+
+
+def result_row_date_value(row: Dict[str, Any]) -> Optional[datetime]:
+    for key in ("date", "snapshot_date", "run_date", "match_date", "start_time_utc", "match_time_utc", "start_time", "match_time"):
+        value = row.get(key)
+        if not value:
+            continue
+        raw = str(value).strip()
+        try:
+            if re.fullmatch(r"\d{4}-\d{2}-\d{2}", raw[:10]):
+                return datetime.fromisoformat(raw[:10]).replace(tzinfo=timezone.utc)
+            if raw.endswith("Z"):
+                raw = raw[:-1] + "+00:00"
+            dt = datetime.fromisoformat(raw)
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            return dt.astimezone(timezone.utc)
+        except Exception:
+            continue
+    return None
+
+
+def result_date_filter_tags(row: Dict[str, Any]) -> List[str]:
+    dt = result_row_date_value(row)
+    if dt is None:
+        return []
+
+    today = datetime.now(timezone.utc).date()
+    d = dt.date()
+    tags: List[str] = []
+
+    # Inclusive ranges. Example: Last 7 days means today plus the previous 6 days.
+    if today - timedelta(days=2) <= d <= today:
+        tags.append(RESULT_LAST_3_DAYS_LABEL)
+    if today - timedelta(days=6) <= d <= today:
+        tags.append(RESULT_LAST_7_DAYS_LABEL)
+    if today - timedelta(days=30) <= d <= today:
+        tags.append(RESULT_LAST_MONTH_LABEL)
+    if d.year == today.year:
+        tags.append(RESULT_THIS_YEAR_LABEL)
+
+    return tags
+
+
+def result_model_filter_tag(row: Dict[str, Any], fallback_title: str = "") -> str:
+    model = str(row.get("model") or row.get("source_snapshot") or fallback_title or "").strip().lower()
+    if "cloq" in model:
+        return RESULT_MODEL_CLOQ_LABEL
+    if "audit" in model or "all" in model:
+        return RESULT_MODEL_AUDIT_LABEL
+    if "corq" in model or "top7" in model:
+        return RESULT_MODEL_CORQ_LABEL
+    return ""
+
 def result_tags(row: Dict[str, Any]) -> List[str]:
     """Return Results filter/display tags.
 
@@ -1715,11 +1813,13 @@ def result_tags(row: Dict[str, Any]) -> List[str]:
 
     public_tags = public_flag_labels(raw_tags, limit=None) if raw_tags else notes_for_row(row)
     audit_tags = audit_filter_tags_for_row(row)
+    date_tags = result_date_filter_tags(row)
+    model_tag = result_model_filter_tag(row)
     status_tag = result_status(row)
 
     out: List[str] = []
     seen = set()
-    for tag in list(public_tags) + audit_tags + [status_tag]:
+    for tag in list(public_tags) + audit_tags + date_tags + [model_tag, status_tag]:
         clean = str(tag or "").strip()
         if not clean:
             continue
@@ -1765,12 +1865,19 @@ def render_results_table(rows: List[Dict[str, Any]], title: str, limit: Optional
                 tag_counts[tag] += 1
 
     audit_priority = {
-        AUDIT_CORQ_TOP20_LABEL: 0,
-        AUDIT_TIME_ODDS_LABEL: 1,
-        AUDIT_SAFE_BET_LABEL: 2,
-        AUDIT_H2H_TOP10_LABEL: 3,
-        "No previous H2H matches": 4,
-        "Recent form pending": 5,
+        RESULT_MODEL_CORQ_LABEL: 0,
+        RESULT_MODEL_CLOQ_LABEL: 1,
+        RESULT_MODEL_AUDIT_LABEL: 2,
+        RESULT_LAST_3_DAYS_LABEL: 10,
+        RESULT_LAST_7_DAYS_LABEL: 11,
+        RESULT_LAST_MONTH_LABEL: 12,
+        RESULT_THIS_YEAR_LABEL: 13,
+        AUDIT_CORQ_TOP20_LABEL: 20,
+        AUDIT_TIME_ODDS_LABEL: 21,
+        AUDIT_SAFE_BET_LABEL: 22,
+        AUDIT_H2H_TOP10_LABEL: 23,
+        "No previous H2H matches": 24,
+        "Recent form pending": 25,
     }
 
     tag_summary = "".join(
@@ -1857,7 +1964,7 @@ def tag_analysis(rows: List[Dict[str, Any]]) -> str:
         avg = sum(a["odds"]) / len(a["odds"]) if a["odds"] else None
         avg_txt = "—" if avg is None else f"{avg:.2f}"
         body.append(
-            f'<tr><td><span class="tag-chip" data-filter="{esc(tag)}">{esc(tag)}</span></td>'
+            f'<tr class="result-row tag-analysis-row" data-tags="{esc(tag)}"><td><span class="tag-chip" data-filter="{esc(tag)}">{esc(tag)}</span></td>'
             f'<td>{a["count"]}</td><td>{a["won"]}-{a["lost"]}-{a["pending"]}</td>'
             f'<td>{winp:.1f}%</td><td>{a["units"]:+.2f}u</td><td>{esc(avg_txt)}</td></tr>'
         )
@@ -1917,6 +2024,81 @@ def sets_games_audit(rows: List[Dict[str, Any]]) -> str:
 </div></div>"""
 
 
+
+
+def render_results_filter_builder(rows: List[Dict[str, Any]]) -> str:
+    """One compact multi-select filter row for the whole Results page.
+
+    It uses the same data-filter mechanism as cards/tables, so clicking multiple
+    pills applies AND filtering across all result tables and analysis rows.
+    """
+    if not rows:
+        return ""
+
+    counts = Counter()
+    for row in rows:
+        for tag in result_tags(row):
+            counts[tag] += 1
+
+    groups = [
+        ("Result", ["WON", "LOST", "VOID", "PENDING"]),
+        ("Model", [RESULT_MODEL_CORQ_LABEL, RESULT_MODEL_CLOQ_LABEL, RESULT_MODEL_AUDIT_LABEL]),
+        ("Date", [RESULT_LAST_3_DAYS_LABEL, RESULT_LAST_7_DAYS_LABEL, RESULT_LAST_MONTH_LABEL, RESULT_THIS_YEAR_LABEL]),
+        ("Signals", [AUDIT_CORQ_TOP20_LABEL, AUDIT_TIME_ODDS_LABEL, AUDIT_SAFE_BET_LABEL, AUDIT_H2H_TOP10_LABEL]),
+        ("Data notes", ["No previous H2H matches", "Recent form pending"]),
+    ]
+
+    sections: List[str] = []
+    used = set()
+    for title, labels in groups:
+        chips: List[str] = []
+        for label in labels:
+            count = counts.get(label, 0)
+            if not count:
+                continue
+            used.add(label)
+            css_class = audit_note_css(label)
+            chips.append(
+                f'<span class="{css_class}" data-filter="{esc(label)}">'
+                f'<span class="audit-pill-count">{count}</span> '
+                f'<span class="audit-pill-label">{esc(label)}</span>'
+                f'</span>'
+            )
+        if chips:
+            sections.append(
+                f'<div class="result-filter-group"><span class="result-filter-group-title">{esc(title)}</span>{"".join(chips)}</div>'
+            )
+
+    # Keep any future/unknown tags available, but do not let them dominate the main row.
+    extra_labels = [label for label, count in counts.most_common() if label not in used and label not in {"WON", "LOST", "VOID", "PENDING"}]
+    extra_chips: List[str] = []
+    for label in extra_labels[:12]:
+        count = counts.get(label, 0)
+        if not count:
+            continue
+        extra_chips.append(
+            f'<span class="{audit_note_css(label)}" data-filter="{esc(label)}">'
+            f'<span class="audit-pill-count">{count}</span> '
+            f'<span class="audit-pill-label">{esc(label)}</span>'
+            f'</span>'
+        )
+    if extra_chips:
+        sections.append(
+            f'<div class="result-filter-group"><span class="result-filter-group-title">Other</span>{"".join(extra_chips)}</div>'
+        )
+
+    clear = '<span class="clear-filter tag-chip audit-pill audit-pill-clear">Clear filters</span>'
+    return (
+        '<div class="results-panel result-filter-builder">'
+        '<div class="summary-title">Result filters</div>'
+        '<div class="result-filter-help">Click multiple pills to combine filters. Example: CorQ + Last 7 days + WON.</div>'
+        '<div class="result-filter-row">'
+        + "".join(sections)
+        + clear
+        + '</div>'
+        '</div>'
+    )
+
 def render_results_page(manifest: Dict[str, Any]) -> str:
     corq = json_rows(read_json(OUTPUTS / "results" / "latest_results_corq.json", []))
     cloq = json_rows(read_json(OUTPUTS / "results" / "latest_results_cloq.json", []))
@@ -1926,6 +2108,7 @@ def render_results_page(manifest: Dict[str, Any]) -> str:
     # H2H Top10 is a relative daily signal, so mark it before building result tags.
     mark_audit_h2h_top10(combined)
     body = [
+        render_results_filter_builder(combined),
         summary_cards_html(summarize_results(corq), "CorQ TOP7 Results"),
         summary_cards_html(summarize_results(cloq), "CloQ Results"),
         summary_cards_html(summarize_results(audit_rows), "Audit Results"),
