@@ -1276,6 +1276,7 @@ def css() -> str:
 
 .data-notes-summary{border-radius:18px;background:rgba(8,21,36,.92);border-color:rgba(90,130,180,.35);box-shadow:0 16px 35px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.03);margin-bottom:18px}.data-notes-summary .summary-title{color:#44e7ff;letter-spacing:.14em}.data-notes-pills{display:flex;flex-wrap:wrap;gap:8px}.audit-pill{display:inline-flex;align-items:center;gap:5px;padding:6px 11px;border-radius:999px;border:1px solid rgba(120,170,230,.45);background:rgba(42,72,112,.72);color:#e9f4ff;font-size:12px;font-weight:850;line-height:1;text-decoration:none;white-space:nowrap;transition:140ms ease-in-out;cursor:pointer}.audit-pill:hover{border-color:rgba(70,230,255,.85);background:rgba(30,105,150,.85);color:#fff;transform:translateY(-1px)}.audit-pill.active{border-color:#44e7ff;background:rgba(0,210,255,.22);box-shadow:0 0 0 1px rgba(68,231,255,.25),0 0 18px rgba(68,231,255,.16)}.audit-pill-count{color:#fff;font-weight:950}.audit-pill-label{color:#e9f4ff}.audit-pill-note{border-color:rgba(120,170,230,.45);background:rgba(42,72,112,.72)}.audit-pill-corq{border-color:rgba(72,231,255,.58);background:rgba(0,113,150,.58)}.audit-pill-signal{border-color:rgba(255,178,63,.58);background:rgba(112,74,14,.62)}.audit-pill-safe{border-color:rgba(0,230,120,.68);background:rgba(0,110,70,.70)}.audit-pill-h2h{border-color:rgba(168,85,247,.62);background:rgba(76,29,149,.64)}.audit-pill-clear{border-color:rgba(255,120,120,.45);background:rgba(92,28,40,.65);color:#ffd8d8}
 .result-status-summary{margin:0 0 12px 0}.result-summary-chip{font-weight:900}
+.result-audit-filter-summary{margin:0 0 12px 0}.result-status-summary .tag-chip{cursor:pointer}
 """
 
 
@@ -1694,14 +1695,38 @@ def summary_cards_html(summary: Dict[str, Any], title: str) -> str:
 
 
 def result_tags(row: Dict[str, Any]) -> List[str]:
-    tags: List[str] = []
+    """Return Results filter/display tags.
+
+    Results must expose the same audit filter signals as the Audit page so the
+    settled rows can be filtered by the same bettor-facing signals:
+    - CorQ Top20
+    - Up to 2H | O>1.5
+    - Safe Bet Signal
+    - H2H Top10
+    plus existing public data notes.
+    """
+    raw_tags: List[str] = []
     for key in ("tags", "technical_flags", "corq_warning_flags", "top7_risk_tags", "public_notes"):
         val = row.get(key)
         if isinstance(val, list):
-            tags.extend(str(x) for x in val if x)
-    if not tags:
-        tags = notes_for_row(row)
-    return public_flag_labels(tags, limit=None)
+            raw_tags.extend(str(x) for x in val if x)
+        elif isinstance(val, str) and val:
+            raw_tags.append(val)
+
+    public_tags = public_flag_labels(raw_tags, limit=None) if raw_tags else notes_for_row(row)
+    audit_tags = audit_filter_tags_for_row(row)
+    status_tag = result_status(row)
+
+    out: List[str] = []
+    seen = set()
+    for tag in list(public_tags) + audit_tags + [status_tag]:
+        clean = str(tag or "").strip()
+        if not clean:
+            continue
+        if clean not in seen:
+            out.append(clean)
+            seen.add(clean)
+    return out
 
 
 def render_results_table(rows: List[Dict[str, Any]], title: str, limit: Optional[int] = None) -> str:
@@ -1728,10 +1753,31 @@ def render_results_table(rows: List[Dict[str, Any]], title: str, limit: Optional
 
     status_counts = Counter(result_status(r) for r in rows or [])
     status_summary = "".join(
-        f'<span class="note result-summary-chip">{esc(label)} {status_counts.get(label, 0)}</span>'
+        f'<span class="tag-chip result-summary-chip" data-filter="{esc(label)}">{esc(label)} {status_counts.get(label, 0)}</span>'
         for label in ("WON", "LOST", "VOID", "PENDING")
         if status_counts.get(label, 0)
     )
+
+    tag_counts = Counter()
+    for source_row in rows or []:
+        for tag in result_tags(source_row):
+            if tag not in {"WON", "LOST", "VOID", "PENDING"}:
+                tag_counts[tag] += 1
+
+    audit_priority = {
+        AUDIT_CORQ_TOP20_LABEL: 0,
+        AUDIT_TIME_ODDS_LABEL: 1,
+        AUDIT_SAFE_BET_LABEL: 2,
+        AUDIT_H2H_TOP10_LABEL: 3,
+        "No previous H2H matches": 4,
+        "Recent form pending": 5,
+    }
+
+    tag_summary = "".join(
+        f'<span class="{audit_note_css(label)}" data-filter="{esc(label)}"><span class="audit-pill-count">{count}</span> <span class="audit-pill-label">{esc(label)}</span></span>'
+        for label, count in sorted(tag_counts.items(), key=lambda item: (audit_priority.get(item[0], 50), -item[1], item[0]))
+    )
+    clear_filter = '<span class="clear-filter tag-chip audit-pill audit-pill-clear">Clear filter</span>'
 
     body = []
     for r in show:
@@ -1760,7 +1806,7 @@ def render_results_table(rows: List[Dict[str, Any]], title: str, limit: Optional
             f'</tr>'
         )
     return f"""
-<div class="results-panel"><div class="summary-title">{esc(title)}</div><div class="tag-list result-status-summary">{status_summary}</div><div class="table-wrap"><table class="results-table"><thead><tr>
+<div class="results-panel"><div class="summary-title">{esc(title)}</div><div class="tag-list result-status-summary">{status_summary}{clear_filter}</div><div class="tag-list result-audit-filter-summary">{tag_summary}</div><div class="table-wrap"><table class="results-table"><thead><tr>
 <th>Date</th><th>Pick</th><th>Opponent</th><th>CorQ</th><th>ThinQ</th><th>Depth</th><th>Pick Edge</th><th>Sets/Games</th><th>Odds</th><th>Status</th><th>Winner</th><th>Score</th><th>Units</th><th>Tags</th>
 </tr></thead><tbody>{''.join(body)}</tbody></table></div></div>"""
 
@@ -1876,6 +1922,9 @@ def render_results_page(manifest: Dict[str, Any]) -> str:
     cloq = json_rows(read_json(OUTPUTS / "results" / "latest_results_cloq.json", []))
     audit_rows = json_rows(read_json(OUTPUTS / "results" / "latest_results_audit.json", []))
     combined = corq + cloq + audit_rows
+    # Results page must support the same audit filters as Audit page.
+    # H2H Top10 is a relative daily signal, so mark it before building result tags.
+    mark_audit_h2h_top10(combined)
     body = [
         summary_cards_html(summarize_results(corq), "CorQ TOP7 Results"),
         summary_cards_html(summarize_results(cloq), "CloQ Results"),
