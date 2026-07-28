@@ -17,7 +17,7 @@ def clamp(value: float, low: float, high: float) -> float:
 
 def _fmt_record(wins: int, total: int) -> str:
     if total <= 0:
-        return "0-0"
+        return "N/A"
     return f"{wins}-{total - wins}"
 
 
@@ -34,7 +34,7 @@ def _empty_player_stats(player: str, surface: Optional[str], level: Optional[str
         "count": 0,
         "wins": 0,
         "losses": 0,
-        "record": "0-0",
+        "record": "N/A",
         "win_pct": None,
         "avg_opponent_rank": None,
         "last_match_date": None,
