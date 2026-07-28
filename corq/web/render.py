@@ -374,19 +374,25 @@ def card_insights(row: Dict[str, Any], notes: Optional[List[str]] = None, limit:
         if w is None or l is None or (w + l) < 8:
             return
         icon = None
+        qualifier = ""
         if side == "pick":
             if w >= 8:
                 icon = "🔥"
+                qualifier = "strong"
             elif l >= 7:
                 icon = "⚠"
+                qualifier = "weak"
         else:
             if l >= 7:
                 icon = "🔥"
+                qualifier = "weak"
             elif w >= 8:
                 icon = "⚠"
+                qualifier = "strong"
         if not icon:
             return
-        label = f"{side_label} {extra_label}".strip()
+        parts = [side_label, qualifier, extra_label]
+        label = " ".join(str(x).strip() for x in parts if str(x).strip())
         # Deduplicate general/surface Last 10 same-side same-record. Surface has
         # higher priority, so it wins and the generic duplicate is skipped.
         add(priority, f"{icon} {label} | Last 10 | {w}-{l}", f"form:{side}:{w}-{l}")
