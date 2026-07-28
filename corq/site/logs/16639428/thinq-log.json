@@ -11,13 +11,14 @@
   "level": "WTA",
   "gender": "F",
   "best_of": 3,
-  "match_start": "2026-07-28T15:00:00+00:00",
-  "start_time": "2026-07-28T15:00:00+00:00",
-  "status_type": "notstarted",
-  "status_code": 0,
+  "match_start": "2026-07-28T15:05:00+00:00",
+  "start_time": "2026-07-28T15:05:00+00:00",
+  "status_type": "inprogress",
+  "status_code": 8,
   "is_doubles": false,
   "source": "RapidAPI PRO",
   "raw": {
+    "firstToServe": 1,
     "homeTeamSeed": "1",
     "awayTeamSeed": "Q",
     "tournament": {
@@ -70,7 +71,7 @@
             "shortNameTranslation": {}
           }
         },
-        "userCount": 144,
+        "userCount": 212,
         "groundType": "Hardcourt outdoor",
         "tennisPoints": 250,
         "hasPerformanceGraphFeature": false,
@@ -106,9 +107,9 @@
     },
     "customId": "jfCskjwh",
     "status": {
-      "code": 0,
-      "description": "Not started",
-      "type": "notstarted"
+      "code": 8,
+      "description": "1st set",
+      "type": "inprogress"
     },
     "homeTeam": {
       "name": "Ekaterina Alexandrova",
@@ -120,7 +121,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 8434,
+      "userCount": 8462,
       "playerTeamInfo": {
         "id": 235
       },
@@ -164,7 +165,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 404,
+      "userCount": 423,
       "playerTeamInfo": {
         "id": 20773
       },
@@ -197,17 +198,32 @@
         }
       }
     },
-    "homeScore": {},
-    "awayScore": {},
-    "time": {},
+    "homeScore": {
+      "current": 0,
+      "display": 0,
+      "period1": 1,
+      "point": "15"
+    },
+    "awayScore": {
+      "current": 0,
+      "display": 0,
+      "period1": 1,
+      "point": "15"
+    },
+    "time": {
+      "currentPeriodStartTimestamp": 1785251329
+    },
     "changes": {
-      "changeTimestamp": 0
+      "changes": [
+        "homeScore.point"
+      ],
+      "changeTimestamp": 1785251826
     },
     "hasGlobalHighlights": false,
     "crowdsourcingDataDisplayEnabled": false,
     "id": 16639428,
     "slug": "kristina-liutova-ekaterina-alexandrova",
-    "startTimestamp": 1785250800,
+    "startTimestamp": 1785251100,
     "periods": {
       "point": "Game",
       "current": "Match",
@@ -217,6 +233,7 @@
       "period4": "4th set",
       "period5": "5th set"
     },
+    "lastPeriod": "period1",
     "finalResultOnly": false,
     "feedLocked": false,
     "groundType": "Hardcourt outdoor",
@@ -241,16 +258,16 @@
   "odds_label_2": "2",
   "odds_direct_match_score": 1.0,
   "odds_reverse_match_score": 0.0,
-  "odds_player1": 1.44,
-  "odds_player2": 2.75,
-  "p1_odds": 1.44,
-  "p2_odds": 2.75,
-  "home_odds": 1.44,
-  "away_odds": 2.75,
-  "odds1": 1.44,
-  "odds2": 2.75,
-  "price1": 1.44,
-  "price2": 2.75,
+  "odds_player1": 1.3636,
+  "odds_player2": 3.2,
+  "p1_odds": 1.3636,
+  "p2_odds": 3.2,
+  "home_odds": 1.3636,
+  "away_odds": 3.2,
+  "odds1": 1.3636,
+  "odds2": 3.2,
+  "price1": 1.3636,
+  "price2": 3.2,
   "odds_source": "RapidAPI PRO event odds",
   "odds_endpoint": "/api/tennis/event/16639428/odds",
   "odds_status": "OK",
@@ -259,17 +276,17 @@
   ],
   "odds_pair_available": true,
   "odds_labels_confirmed": true,
-  "odds_gap_abs": 1.31,
-  "odds_gap_pct": 0.9097,
+  "odds_gap_abs": 1.8364,
+  "odds_gap_pct": 1.3467,
   "home_player": "Ekaterina Alexandrova",
   "away_player": "Kristina Liutova",
   "pick_side": "HOME",
   "opponent_side": "AWAY",
   "pick": "Ekaterina Alexandrova",
   "opponent": "Kristina Liutova",
-  "odds": 1.44,
-  "pick_odds": 1.44,
-  "opponent_odds": 2.75,
+  "odds": 1.3636,
+  "pick_odds": 1.3636,
+  "opponent_odds": 3.2,
   "pick_is_player1": true,
   "pick_is_player2": false,
   "pick_is_home": true,
@@ -548,7 +565,7 @@
       "tiebreak_edge": 0.0015,
       "decider_edge": -0.0004,
       "confidence": 0.78,
-      "odds_gap_pct": 0.9097,
+      "odds_gap_pct": 1.3467,
       "flags": [
         "MATCH_DYNAMICS_H2H_NEUTRAL"
       ]
@@ -672,7 +689,7 @@
         "tiebreak_edge": 0.0015,
         "decider_edge": -0.0004,
         "confidence": 0.78,
-        "odds_gap_pct": 0.9097,
+        "odds_gap_pct": 1.3467,
         "flags": [
           "MATCH_DYNAMICS_H2H_NEUTRAL"
         ]
@@ -1079,6 +1096,22 @@
     "ta_sets_decision": null,
     "ta_games_decision": null,
     "ta_tb_decision": null,
+    "ta_projected_sets": null,
+    "ta_projected_games": null,
+    "ta_straight_sets_probability": null,
+    "ta_decider_probability": null,
+    "ta_tiebreak_probability": null,
+    "ta_score_projection": null,
+    "ta_sets_model_status": null,
+    "ta_signal": null,
+    "ta_signal_label": null,
+    "ta_signal_action": null,
+    "ta_signal_market": null,
+    "ta_signal_type": null,
+    "ta_signal_strength": null,
+    "ta_signal_confidence": null,
+    "ta_signal_reasons": [],
+    "ta_signal_score_projection": null,
     "ta_serve_return_pattern": null,
     "ta_match_shape": null,
     "ta_depth_label": null,
@@ -1289,7 +1322,7 @@
     "history_match_count": 37883,
     "history_file_count": 15
   },
-  "implied_probability": 0.6944,
+  "implied_probability": 0.7334,
   "overall_elo_edge": 0.07,
   "surface_elo_edge": 0.08,
   "elo_edge": 0.08,
@@ -1326,7 +1359,7 @@
   "corq_estimated_win_probability": 0.6176,
   "estimated_win_pct": 61.76,
   "corq_score": 0.6176,
-  "corq_edge": -0.0768,
+  "corq_edge": -0.1158,
   "corq_risk_flags": [],
   "pick_ta_rank": 19,
   "opponent_ta_rank": 229,
@@ -1368,18 +1401,24 @@
   "ta_decision_notes": [],
   "corq_source_rank": 51,
   "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
-  "top7_publishable": true,
-  "eligible_for_top7": true,
-  "top7_quality_reject_reasons": [],
-  "top7_reject_reasons": [],
-  "top7_status_type_normalized": "notstarted",
-  "top7_status_code": 0,
+  "top7_publishable": false,
+  "eligible_for_top7": false,
+  "top7_quality_reject_reasons": [
+    "REJECT_TOP7_STATUS_NOT_NOTSTARTED",
+    "REJECT_TOP7_LOW_ODDS_UNDER_1_40"
+  ],
+  "top7_reject_reasons": [
+    "REJECT_TOP7_STATUS_NOT_NOTSTARTED",
+    "REJECT_TOP7_LOW_ODDS_UNDER_1_40"
+  ],
+  "top7_status_type_normalized": "inprogress",
+  "top7_status_code": 8,
   "top7_corq_probability": 0.6176,
   "top7_pick_thinq_edge": 0.1586,
   "top7_thinq_confidence": 0.7413,
   "pick_data_depth": 0.73451,
   "stat_data_depth": 0.73451,
-  "top7_pick_odds": 1.44,
+  "top7_pick_odds": 1.3636,
   "top7_match_date_local": "2026-07-28",
   "recent_form_status": "OK",
   "recent_form_reason": "",
@@ -1415,7 +1454,6 @@
   "top7_risk_penalty_details": [],
   "top7_risk_penalty_points": 0.0,
   "top7_clean_bonus_points": 0.0,
-  "top7_quality_score": 90.7077,
-  "corq_rank": 6,
-  "top7_rank": 6
+  "top7_quality_score": 0.0,
+  "corq_rank": 51
 }

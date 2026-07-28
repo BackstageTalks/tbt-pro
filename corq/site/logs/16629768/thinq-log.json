@@ -13,11 +13,12 @@
   "best_of": 3,
   "match_start": "2026-07-28T15:00:00+00:00",
   "start_time": "2026-07-28T15:00:00+00:00",
-  "status_type": "notstarted",
-  "status_code": 0,
+  "status_type": "inprogress",
+  "status_code": 8,
   "is_doubles": false,
   "source": "RapidAPI PRO",
   "raw": {
+    "firstToServe": 2,
     "tournament": {
       "name": "Washington, USA",
       "slug": "washington-usa",
@@ -108,9 +109,9 @@
     },
     "customId": "jzTsWvfb",
     "status": {
-      "code": 0,
-      "description": "Not started",
-      "type": "notstarted"
+      "code": 8,
+      "description": "1st set",
+      "type": "inprogress"
     },
     "homeTeam": {
       "name": "Kamil Majchrzak",
@@ -199,11 +200,28 @@
         }
       }
     },
-    "homeScore": {},
-    "awayScore": {},
-    "time": {},
+    "homeScore": {
+      "current": 0,
+      "display": 0,
+      "period1": 1,
+      "point": "0"
+    },
+    "awayScore": {
+      "current": 0,
+      "display": 0,
+      "period1": 0,
+      "point": "0"
+    },
+    "time": {
+      "currentPeriodStartTimestamp": 1785251708
+    },
     "changes": {
-      "changeTimestamp": 0
+      "changes": [
+        "homeScore.period1",
+        "homeScore.point",
+        "firstToServe"
+      ],
+      "changeTimestamp": 1785251813
     },
     "hasGlobalHighlights": false,
     "crowdsourcingDataDisplayEnabled": false,
@@ -219,6 +237,7 @@
       "period4": "4th set",
       "period5": "5th set"
     },
+    "lastPeriod": "period1",
     "finalResultOnly": false,
     "feedLocked": false,
     "groundType": "Hardcourt outdoor",
@@ -243,16 +262,16 @@
   "odds_label_2": "2",
   "odds_direct_match_score": 1.0,
   "odds_reverse_match_score": 0.0,
-  "odds_player1": 4.0,
-  "odds_player2": 1.25,
-  "p1_odds": 4.0,
-  "p2_odds": 1.25,
-  "home_odds": 4.0,
-  "away_odds": 1.25,
-  "odds1": 4.0,
-  "odds2": 1.25,
-  "price1": 4.0,
-  "price2": 1.25,
+  "odds_player1": 3.4,
+  "odds_player2": 1.3333,
+  "p1_odds": 3.4,
+  "p2_odds": 1.3333,
+  "home_odds": 3.4,
+  "away_odds": 1.3333,
+  "odds1": 3.4,
+  "odds2": 1.3333,
+  "price1": 3.4,
+  "price2": 1.3333,
   "odds_source": "RapidAPI PRO event odds",
   "odds_endpoint": "/api/tennis/event/16629768/odds",
   "odds_status": "OK",
@@ -261,17 +280,17 @@
   ],
   "odds_pair_available": true,
   "odds_labels_confirmed": true,
-  "odds_gap_abs": 2.75,
-  "odds_gap_pct": 2.2,
+  "odds_gap_abs": 2.0667,
+  "odds_gap_pct": 1.5501,
   "home_player": "Kamil Majchrzak",
   "away_player": "Tommy Paul",
   "pick_side": "AWAY",
   "opponent_side": "HOME",
   "pick": "Tommy Paul",
   "opponent": "Kamil Majchrzak",
-  "odds": 1.25,
-  "pick_odds": 1.25,
-  "opponent_odds": 4.0,
+  "odds": 1.3333,
+  "pick_odds": 1.3333,
+  "opponent_odds": 3.4,
   "pick_is_player1": false,
   "pick_is_player2": true,
   "pick_is_home": false,
@@ -545,7 +564,7 @@
       "tiebreak_edge": 0.0015,
       "decider_edge": -0.0004,
       "confidence": 0.78,
-      "odds_gap_pct": 2.2,
+      "odds_gap_pct": 1.5501,
       "flags": []
     },
     "thinq_probability_layer": {
@@ -653,7 +672,7 @@
         "tiebreak_edge": 0.0015,
         "decider_edge": -0.0004,
         "confidence": 0.78,
-        "odds_gap_pct": 2.2,
+        "odds_gap_pct": 1.5501,
         "flags": []
       },
       "h2h": {
@@ -1042,6 +1061,22 @@
     "ta_sets_decision": null,
     "ta_games_decision": null,
     "ta_tb_decision": null,
+    "ta_projected_sets": null,
+    "ta_projected_games": null,
+    "ta_straight_sets_probability": null,
+    "ta_decider_probability": null,
+    "ta_tiebreak_probability": null,
+    "ta_score_projection": null,
+    "ta_sets_model_status": null,
+    "ta_signal": null,
+    "ta_signal_label": null,
+    "ta_signal_action": null,
+    "ta_signal_market": null,
+    "ta_signal_type": null,
+    "ta_signal_strength": null,
+    "ta_signal_confidence": null,
+    "ta_signal_reasons": [],
+    "ta_signal_score_projection": null,
     "ta_serve_return_pattern": null,
     "ta_match_shape": null,
     "ta_depth_label": null,
@@ -1231,7 +1266,7 @@
     "history_match_count": 37883,
     "history_file_count": 15
   },
-  "implied_probability": 0.8,
+  "implied_probability": 0.75,
   "overall_elo_edge": 0.07,
   "surface_elo_edge": 0.08,
   "elo_edge": 0.08,
@@ -1268,7 +1303,7 @@
   "corq_estimated_win_probability": 0.6499,
   "estimated_win_pct": 64.99,
   "corq_score": 0.6499,
-  "corq_edge": -0.1501,
+  "corq_edge": -0.1001,
   "corq_risk_flags": [],
   "pick_ta_rank": 21,
   "opponent_ta_rank": 72,
@@ -1313,19 +1348,21 @@
   "top7_publishable": false,
   "eligible_for_top7": false,
   "top7_quality_reject_reasons": [
+    "REJECT_TOP7_STATUS_NOT_NOTSTARTED",
     "REJECT_TOP7_LOW_ODDS_UNDER_1_40"
   ],
   "top7_reject_reasons": [
+    "REJECT_TOP7_STATUS_NOT_NOTSTARTED",
     "REJECT_TOP7_LOW_ODDS_UNDER_1_40"
   ],
-  "top7_status_type_normalized": "notstarted",
-  "top7_status_code": 0,
+  "top7_status_type_normalized": "inprogress",
+  "top7_status_code": 8,
   "top7_corq_probability": 0.6499,
   "top7_pick_thinq_edge": 0.1703,
   "top7_thinq_confidence": 0.88,
   "pick_data_depth": 0.9535,
   "stat_data_depth": 0.9535,
-  "top7_pick_odds": 1.25,
+  "top7_pick_odds": 1.3333,
   "top7_match_date_local": "2026-07-28",
   "recent_form_status": "OK",
   "recent_form_reason": "",
