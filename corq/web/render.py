@@ -245,6 +245,10 @@ def elo_pair_class(row: Dict[str, Any], opponent: bool = False) -> str:
         return "neutral"
     if opponent:
         value = -value
+        # Opponent row is from opponent perspective. Positive opponent edge goes
+        # against the displayed pick and should be orange. Negative opponent edge
+        # supports the pick and must not be orange.
+        return sign_class(value, mode="opp")
     return sign_class(value)
 def as_pct(value: Any, digits: int = 1, none: str = "—") -> str:
     num = as_float(value)
@@ -372,23 +376,29 @@ def card_insights(row: Dict[str, Any], notes: Optional[List[str]] = None, limit:
     # Last 10 records, only strong positive/negative cases.
     pf, psf = form_records(row, "pick")
     of, osf = form_records(row, "opponent")
-    for priority, label, rec in (
-        (88, "Pick Last 10", pf),
-        (84, "Opp Last 10", of),
+    for priority, label, rec, side in (
+        (88, "Pick Last 10", pf, "pick"),
+        (84, "Opp Last 10", of, "opponent"),
     ):
         w, l = compact_record_label(rec)
         if w is not None and l is not None and (w + l) >= 8 and (w >= 8 or l >= 7):
-            icon = "🔥" if w >= 8 else "⚠"
+            if side == "opponent":
+                icon = "⚠" if w >= 8 else "✓"
+            else:
+                icon = "🔥" if w >= 8 else "⚠"
             add(priority, f"{icon} {label}: {w}-{l}")
 
     surf = surface_name(row)
-    for priority, label, rec in (
-        (92, f"Pick {surf} Last 10", psf),
-        (86, f"Opp {surf} Last 10", osf),
+    for priority, label, rec, side in (
+        (92, f"Pick {surf} Last 10", psf, "pick"),
+        (86, f"Opp {surf} Last 10", osf, "opponent"),
     ):
         w, l = compact_record_label(rec)
         if w is not None and l is not None and (w + l) >= 8 and (w >= 8 or l >= 7):
-            icon = "🔥" if w >= 8 else "⚠"
+            if side == "opponent":
+                icon = "⚠" if w >= 8 else "✓"
+            else:
+                icon = "🔥" if w >= 8 else "⚠"
             add(priority, f"{icon} {label}: {w}-{l}")
 
     # Optional absence fields if THINQ starts publishing them.
