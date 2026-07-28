@@ -492,22 +492,16 @@
       ],
       "history_status": {
         "status": "OK",
-        "match_count": 42400,
-        "file_count": 44,
+        "match_count": 37883,
+        "file_count": 15,
         "search_dirs": [
+          "data/history/sackmann_archive/tml",
           "data/history",
           "thinq/data/history",
           "data/sackmann",
-          "thinq/data/sackmann",
-          "data/results_history",
-          "outputs/results",
-          "outputs/results/all",
-          "outputs/results/corq",
-          "outputs/snapshots/all",
-          "outputs/snapshots"
+          "thinq/data/sackmann"
         ],
         "sample_files": [
-          "data/history/bootstrap_manifest.json",
           "data/history/sackmann_archive/atp/2024/atp_matches_2024.csv",
           "data/history/sackmann_archive/atp/2025/atp_matches_2025.csv",
           "data/history/sackmann_archive/atp/2026/atp_matches_2026.csv",
@@ -516,8 +510,12 @@
           "data/history/sackmann_archive/wta/2026/wta_matches_2026.csv",
           "data/history/tml/2024.csv",
           "data/history/tml/2024_challenger.csv",
-          "data/history/tml/2025.csv"
-        ]
+          "data/history/tml/2025.csv",
+          "data/history/tml/2025_challenger.csv",
+          "data/history/tml/2026.csv",
+          "data/history/tml/2026_challenger.csv"
+        ],
+        "runtime_outputs_included": false
       }
     },
     "match_dynamics": {
@@ -811,22 +809,16 @@
         ],
         "history_status": {
           "status": "OK",
-          "match_count": 42400,
-          "file_count": 44,
+          "match_count": 37883,
+          "file_count": 15,
           "search_dirs": [
+            "data/history/sackmann_archive/tml",
             "data/history",
             "thinq/data/history",
             "data/sackmann",
-            "thinq/data/sackmann",
-            "data/results_history",
-            "outputs/results",
-            "outputs/results/all",
-            "outputs/results/corq",
-            "outputs/snapshots/all",
-            "outputs/snapshots"
+            "thinq/data/sackmann"
           ],
           "sample_files": [
-            "data/history/bootstrap_manifest.json",
             "data/history/sackmann_archive/atp/2024/atp_matches_2024.csv",
             "data/history/sackmann_archive/atp/2025/atp_matches_2025.csv",
             "data/history/sackmann_archive/atp/2026/atp_matches_2026.csv",
@@ -835,8 +827,12 @@
             "data/history/sackmann_archive/wta/2026/wta_matches_2026.csv",
             "data/history/tml/2024.csv",
             "data/history/tml/2024_challenger.csv",
-            "data/history/tml/2025.csv"
-          ]
+            "data/history/tml/2025.csv",
+            "data/history/tml/2025_challenger.csv",
+            "data/history/tml/2026.csv",
+            "data/history/tml/2026_challenger.csv"
+          ],
+          "runtime_outputs_included": false
         }
       },
       "elo": {
@@ -1066,8 +1062,8 @@
       "recent_form": "OK",
       "match_dynamics": "OK",
       "ta": "N/A",
-      "history_match_count": 42400,
-      "history_file_count": 44
+      "history_match_count": 37883,
+      "history_file_count": 15
     }
   },
   "thinq_available": true,
@@ -1094,8 +1090,8 @@
   "thinq_elo_status": "OK",
   "thinq_recent_form_status": "OK",
   "thinq_recent_form_reason": null,
-  "thinq_history_match_count": 42400,
-  "thinq_history_file_count": 44,
+  "thinq_history_match_count": 37883,
+  "thinq_history_file_count": 15,
   "thinq_match_dynamics_status": "OK",
   "thinq_probability_layer_status": "OK",
   "thinq_side": {
@@ -1239,8 +1235,8 @@
     "recent_form": "OK",
     "match_dynamics": "OK",
     "ta": "N/A",
-    "history_match_count": 42400,
-    "history_file_count": 44
+    "history_match_count": 37883,
+    "history_file_count": 15
   },
   "implied_probability": 0.75,
   "corq_model_version": "CORQ_V1_THINQ_PRIMARY_PROBABILITY",
@@ -1302,7 +1298,7 @@
   "ta_depth_label": "N/A",
   "ta_decision_confidence": 0.0,
   "ta_decision_notes": [],
-  "corq_source_rank": 3,
+  "corq_source_rank": 2,
   "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
   "top7_publishable": false,
   "eligible_for_top7": false,
@@ -1331,7 +1327,7 @@
     "opponent_last10_count": 2.0,
     "pick_surface_count": 10.0,
     "opponent_surface_count": 2.0,
-    "history_match_count": 42400
+    "history_match_count": 37883
   },
   "low_data_risk_audit": {
     "corq_probability": 0.718,
@@ -1347,7 +1343,7 @@
       "opponent_last10_count": 2.0,
       "pick_surface_count": 10.0,
       "opponent_surface_count": 2.0,
-      "history_match_count": 42400
+      "history_match_count": 37883
     },
     "odds_available": true
   },
@@ -1357,5 +1353,5 @@
   "top7_risk_penalty_points": 0.0,
   "top7_clean_bonus_points": 0.0,
   "top7_quality_score": 0.0,
-  "corq_rank": 3
+  "corq_rank": 2
 }
