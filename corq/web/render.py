@@ -543,40 +543,62 @@ def sign_class(value: Any, mode: str = "pick") -> str:
 
 
 def h2h_record(row: Dict[str, Any]) -> Tuple[Optional[int], Optional[int]]:
-    for a, b in (("h2h_pick_wins", "h2h_opponent_wins"), ("thinq_h2h_pick_wins", "thinq_h2h_opponent_wins")):
+    h2h = thinq_context(row, "h2h")
+    pairs = (
+        ("h2h_pick_wins", "h2h_opponent_wins"),
+        ("thinq_h2h_pick_wins", "thinq_h2h_opponent_wins"),
+    )
+    for a, b in pairs:
         if row.get(a) is not None or row.get(b) is not None:
             return int(as_float(row.get(a), 0) or 0), int(as_float(row.get(b), 0) or 0)
-    txt = str(row.get("h2h_record") or row.get("thinq_h2h_record") or "")
+    if isinstance(h2h, dict):
+        if h2h.get("pick_wins") is not None or h2h.get("opponent_wins") is not None:
+            return int(as_float(h2h.get("pick_wins"), 0) or 0), int(as_float(h2h.get("opponent_wins"), 0) or 0)
+        if h2h.get("total_matches") in (0, "0"):
+            return None, None
+    txt = str(row.get("h2h_record") or row.get("thinq_h2h_record") or h2h.get("record") if isinstance(h2h, dict) else "")
     m = re.search(r"(\d+)\s*[-:]\s*(\d+)", txt)
     if m:
         return int(m.group(1)), int(m.group(2))
     return None, None
-
-
 def surface_h2h_record(row: Dict[str, Any]) -> Tuple[Optional[int], Optional[int]]:
+    h2h = thinq_context(row, "h2h")
     for a, b in (("surface_h2h_pick_wins", "surface_h2h_opponent_wins"), ("thinq_surface_h2h_pick_wins", "thinq_surface_h2h_opponent_wins")):
         if row.get(a) is not None or row.get(b) is not None:
             return int(as_float(row.get(a), 0) or 0), int(as_float(row.get(b), 0) or 0)
+    if isinstance(h2h, dict):
+        matches = as_float(h2h.get("same_surface_matches"))
+        pick_w = as_float(h2h.get("same_surface_pick_wins"))
+        opp_w = as_float(h2h.get("same_surface_opponent_wins"))
+        if pick_w is not None or opp_w is not None or matches is not None:
+            pw = int(pick_w or 0)
+            if opp_w is not None:
+                ow = int(opp_w or 0)
+            elif matches is not None:
+                ow = max(int(matches or 0) - pw, 0)
+            else:
+                ow = 0
+            if (matches is not None and int(matches or 0) <= 0) or (pw == 0 and ow == 0):
+                return None, None
+            return pw, ow
     txt = str(row.get("surface_h2h_record") or row.get("s_h2h_record") or "")
     m = re.search(r"(\d+)\s*[-:]\s*(\d+)", txt)
     if m:
         return int(m.group(1)), int(m.group(2))
     return None, None
-
-
 def h2h_display(row: Dict[str, Any]) -> str:
-    status = str(row.get("h2h_status") or row.get("thinq_h2h_status") or "").upper()
-    if "NO_PREVIOUS" in status or str(row.get("h2h_display") or "").lower().startswith("no previous"):
+    nested_h2h = thinq_context(row, "h2h")
+    status = str(row.get("h2h_status") or row.get("thinq_h2h_status") or nested_h2h.get("status") or "").upper()
+    explicit_display = str(row.get("h2h_display") or nested_h2h.get("display") or "").strip()
+    if "NO_PREVIOUS" in status or explicit_display.lower().startswith("no previous"):
         return "No previous matches"
     p, o = h2h_record(row)
-    edge = as_float(row.get("h2h_edge") or row.get("thinq_h2h_edge"))
+    edge = as_float(row.get("h2h_edge") or row.get("thinq_h2h_edge") or nested_h2h.get("edge"))
     if p is None or o is None:
-        return "No previous matches" if status in {"NO_DATA", "NO_MATCHES"} else "No data"
+        return "No previous matches" if status in {"NO_DATA", "NO_MATCHES", "NO_PREVIOUS_MATCHES"} else "No data"
     if edge is None:
         return f"{p}W-{o}L"
     return f"{p}W-{o}L · {signed_pct(edge)}"
-
-
 def h2h_class(row: Dict[str, Any]) -> str:
     p, o = h2h_record(row)
     edge = as_float(row.get("h2h_edge") or row.get("thinq_h2h_edge"), 0.0) or 0.0
@@ -594,8 +616,6 @@ def surface_h2h_display(row: Dict[str, Any]) -> str:
     if p is None or o is None or (p == 0 and o == 0):
         return "No data"
     return f"{p}W-{o}L"
-
-
 def surface_h2h_class(row: Dict[str, Any]) -> str:
     p, o = surface_h2h_record(row)
     if p is None or o is None:
