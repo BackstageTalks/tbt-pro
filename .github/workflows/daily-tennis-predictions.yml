@@ -111,6 +111,88 @@ jobs:
               raise SystemExit("Runtime produced zero audit rows. Refusing to render/deploy blank site.")
           PY
 
+      - name: Diagnose TOP7 filters
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
+        run: |
+          python - <<'PY'
+          import json
+          from collections import Counter
+          from pathlib import Path
+
+          path = Path("outputs/latest_all.json")
+          if not path.exists():
+              print("No outputs/latest_all.json found for TOP7 diagnostics.")
+              raise SystemExit(0)
+
+          payload = json.loads(path.read_text(encoding="utf-8"))
+          rows = payload if isinstance(payload, list) else []
+          if isinstance(payload, dict):
+              for key in ("rows", "items", "all", "data"):
+                  if isinstance(payload.get(key), list):
+                      rows = payload.get(key)
+                      break
+          rows = [r for r in rows if isinstance(r, dict)]
+
+          publishable = [r for r in rows if r.get("top7_publishable") is True]
+          print(f"top7_diagnostic_rows={len(rows)}")
+          print(f"top7_publishable_rows={len(publishable)}")
+
+          reason_keys = (
+              "top7_reject_reasons",
+              "top7_quality_reject_reasons",
+              "reject_reasons",
+              "corq_reject_reasons",
+              "risk_flags",
+              "corq_risk_flags",
+              "flags",
+          )
+          reasons = Counter()
+          for row in rows:
+              if row.get("top7_publishable") is True:
+                  continue
+              found = False
+              for key in reason_keys:
+                  val = row.get(key)
+                  if isinstance(val, list):
+                      for item in val:
+                          if item:
+                              reasons[str(item)] += 1
+                              found = True
+                  elif isinstance(val, str) and val.strip():
+                      reasons[val.strip()] += 1
+                      found = True
+              if not found:
+                  reasons["NO_REJECT_REASON_FIELD"] += 1
+
+          print("TOP7 reject reason summary:")
+          for reason, count in reasons.most_common(30):
+              print(f"  {count:4d}  {reason}")
+
+          def first_val(row, keys):
+              for key in keys:
+                  if row.get(key) not in (None, ""):
+                      return row.get(key)
+              return None
+
+          print("TOP7 sample rejected rows:")
+          for idx, row in enumerate(rows[:12], start=1):
+              pick = first_val(row, ("pick", "player", "player1", "home"))
+              opp = first_val(row, ("opponent", "opp", "player2", "away"))
+              prob = first_val(row, ("corq_probability", "corq_estimated_win_probability", "win_probability", "probability"))
+              odds = first_val(row, ("pick_odds", "odds", "odds_player1", "home_odds"))
+              thinq = first_val(row, ("thinq_confidence", "thinq_probability_confidence", "data_confidence"))
+              depth = first_val(row, ("stat_data_depth", "pick_data_depth", "data_depth"))
+              form = first_val(row, ("form_data_depth", "form_confidence", "recent_form_confidence"))
+              row_reasons = []
+              for key in reason_keys:
+                  val = row.get(key)
+                  if isinstance(val, list):
+                      row_reasons.extend(str(x) for x in val if x)
+                  elif isinstance(val, str) and val.strip():
+                      row_reasons.append(val.strip())
+              print(f"  {idx}. {pick} vs {opp} | prob={prob} odds={odds} thinq={thinq} stat_depth={depth} form_depth={form} | reasons={row_reasons[:8] or ['NONE']}")
+          PY
+
       - name: Render web site
         if: ${{ steps.local_time.outputs.should_run == 'true' }}
         run: |
