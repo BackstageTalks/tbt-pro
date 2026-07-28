@@ -30,7 +30,7 @@ def goat_badge_src() -> str:
     if _GOAT_BADGE_URI:
         return _GOAT_BADGE_URI
     for src in (
-        WEB_DIR / "tbt_ai_goat_badge.png",
+        WEB_DIR / "assets" / "tbt_ai_goat_badge.png",
         WEB_DIR / "assets" / "tbt_ai_goat_icon_small_safe.png",
         WEB_DIR / "assets" / "tbt_ai_goat_icon.png",
     ):
