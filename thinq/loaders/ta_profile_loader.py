@@ -558,6 +558,115 @@ def ta_projection_from_decision(
         "ta_sets_model_status": "OK" if projected_sets is not None else "LEAN_ONLY",
     }
 
+
+def ta_signal_from_decision(
+    *,
+    winner: str,
+    sets_decision: str,
+    games_decision: str,
+    tb_decision: str,
+    serve_pattern: str,
+    match_shape: str,
+    projection: Dict[str, Any],
+    score: float,
+    confidence: float,
+) -> Dict[str, Any]:
+    """Translate TA analysis into a clear bettor-facing signal.
+
+    The UI should not expose raw TA stats as the primary output. This layer
+    converts set/game/serve-return reads into an actionable signal.
+    """
+    conf = clamp_ta(float(confidence or 0.0), 0.0, 1.0)
+    projected_sets = projection.get("ta_projected_sets")
+    decider = projection.get("ta_decider_probability")
+    tb_prob = projection.get("ta_tiebreak_probability")
+    score_projection = projection.get("ta_score_projection") or "N/A"
+
+    reasons: List[str] = []
+    if match_shape and match_shape != "N/A":
+        reasons.append(f"Match shape: {match_shape}")
+    if sets_decision and sets_decision != "N/A":
+        reasons.append(f"Sets read: {sets_decision}")
+    if games_decision and games_decision != "N/A":
+        reasons.append(f"Games read: {games_decision}")
+    if tb_decision and tb_decision != "N/A":
+        reasons.append(f"TB read: {tb_decision}")
+    if serve_pattern and serve_pattern != "N/A":
+        reasons.append(f"Serve/return: {serve_pattern}")
+
+    strength = "Low"
+    if conf >= 0.72 and abs(float(score or 0.0)) >= 2.0:
+        strength = "Strong"
+    elif conf >= 0.55:
+        strength = "Medium"
+
+    label = "No Clear TA Signal"
+    action = "No automatic set/games action"
+    market = "none"
+    signal_type = "neutral"
+
+    pick_side = winner in {"Supports Pick", "Slight Pick"}
+    opp_side = winner in {"Supports Opp", "Slight Opp"}
+
+    if conf < 0.35:
+        label = "TA Low-Confidence Signal"
+        action = "Treat TA output as informational only"
+        signal_type = "low_confidence"
+        market = "none"
+        strength = "Low"
+    elif projected_sets == 2 and pick_side:
+        label = "Pick 2-0 Lean"
+        action = "Consider pick straight-sets angle if market price is fair"
+        market = "sets"
+        signal_type = "straight_sets_pick"
+    elif projected_sets == 2 and opp_side:
+        label = "Opp 2-0 Risk"
+        action = "Avoid pick straight-sets markets; review pick risk"
+        market = "risk"
+        signal_type = "straight_sets_against_pick"
+    elif projected_sets == 3 or (decider is not None and float(decider) >= 0.46):
+        label = "3 Sets Risk"
+        action = "Avoid straight-sets angle; consider over-games only if line is fair"
+        market = "sets_games"
+        signal_type = "decider_risk"
+    elif games_decision == "Over Lean":
+        label = "Games Over Lean"
+        action = "Consider over-games angle if sportsbook line is not inflated"
+        market = "games"
+        signal_type = "games_over"
+    elif games_decision == "Under Lean":
+        label = "Games Under Lean"
+        action = "Consider under-games angle if line is high enough"
+        market = "games"
+        signal_type = "games_under"
+    elif tb_decision == "High" or (tb_prob is not None and float(tb_prob) >= 0.34):
+        label = "Tie-break Risk"
+        action = "Be cautious with low-games unders and straight-set assumptions"
+        market = "tiebreak"
+        signal_type = "tb_risk"
+    elif winner == "Supports Pick":
+        label = "TA Supports Pick"
+        action = "TA profile supports the main pick; no separate set angle"
+        market = "winner"
+        signal_type = "winner_support"
+    elif winner == "Supports Opp":
+        label = "TA Against Pick"
+        action = "Do not upgrade pick from TA; review risk before betting"
+        market = "risk"
+        signal_type = "winner_against"
+
+    return {
+        "ta_signal": label,
+        "ta_signal_label": label,
+        "ta_signal_action": action,
+        "ta_signal_market": market,
+        "ta_signal_type": signal_type,
+        "ta_signal_strength": strength,
+        "ta_signal_confidence": round(conf, 4),
+        "ta_signal_reasons": reasons[:4],
+        "ta_signal_score_projection": score_projection,
+    }
+
 def ta_decision_from_stats(p_stats: Dict[str, Any], o_stats: Dict[str, Any], p_depth: Optional[float], o_depth: Optional[float]) -> Dict[str, Any]:
     depth = ta_depth_label(p_depth, o_depth)
     if depth == "N/A":
@@ -578,6 +687,15 @@ def ta_decision_from_stats(p_stats: Dict[str, Any], o_stats: Dict[str, Any], p_d
             "ta_tiebreak_probability": None,
             "ta_score_projection": "N/A",
             "ta_sets_model_status": "N/A",
+            "ta_signal": "No Clear TA Signal",
+            "ta_signal_label": "No Clear TA Signal",
+            "ta_signal_action": "No automatic set/games action",
+            "ta_signal_market": "none",
+            "ta_signal_type": "no_data",
+            "ta_signal_strength": "Low",
+            "ta_signal_confidence": 0.0,
+            "ta_signal_reasons": ["TA profile missing or no usable scoped stats"],
+            "ta_signal_score_projection": "N/A",
         }
 
     p_dr = ta_dr(p_stats)
@@ -689,11 +807,23 @@ def ta_decision_from_stats(p_stats: Dict[str, Any], o_stats: Dict[str, Any], p_d
         score=score,
         confidence=confidence,
     )
+    signal = ta_signal_from_decision(
+        winner=winner,
+        sets_decision=sets_decision,
+        games_decision=games_decision,
+        tb_decision=tb_decision,
+        serve_pattern=serve_pattern,
+        match_shape=match_shape,
+        projection=projection,
+        score=score,
+        confidence=confidence,
+    )
     if p_ace is not None or o_ace is not None:
         notes.append("Ace% available, aces output waits for service-games model")
 
     return {
         **projection,
+        **signal,
         "ta_winner_decision": winner,
         "ta_sets_decision": sets_decision,
         "ta_games_decision": games_decision,
