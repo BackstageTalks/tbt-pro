@@ -321,18 +321,16 @@ def pick_thinq_edge(row: Dict[str, Any]) -> float:
 def computed_pick_data_depth(row: Dict[str, Any]) -> float:
     """Compute statistical support for the displayed pick as 0..1.
 
-    This is not the same as ThinQ confidence.  It combines global ThinQ data
-    confidence with signal strength in favor of the displayed pick.
+    Data depth is coverage/quality, not pick support. A negative ThinQ edge
+    should reject the candidate via THINQ_EDGE_AGAINST_PICK, but it should not
+    make the data depth falsely look like zero.
     """
-    edge = pick_thinq_edge(row)
     conf = thinq_confidence(row)
-    if edge <= 0 or conf <= 0:
-        return 0.0
-    # Full depth once ThinQ edge reaches +10 percentage points.
-    strength = min(edge / 0.10, 1.0)
-    return max(0.0, min(conf * strength, 1.0))
-
-
+    form = form_data_depth(row)
+    elo_score = 0.35 if not elo_unavailable(row) else 0.0
+    form_score = min(form, 1.0) * 0.45
+    conf_score = min(conf, 1.0) * 0.20
+    return round(max(0.0, min(elo_score + form_score + conf_score, 1.0)), 6)
 def pick_data_depth(row: Dict[str, Any]) -> float:
     # Always recompute to avoid the older duplicate behavior where this field
     # simply copied ThinQ confidence.
