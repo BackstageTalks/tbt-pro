@@ -3,7 +3,7 @@ name: Daily Tennis Predictions
 on:
   workflow_dispatch:
   schedule:
-    # Runs at 05:10 Europe/Bratislava.
+    # Runs at 05:10 Europe/Bratislava, with a delayed-run guard window until 05:55.
     # Summer time: 03:10 UTC -> 05:10 CEST.
     # Winter time: 04:10 UTC -> 05:10 CET.
     - cron: "10 3,4 * * *"
@@ -39,9 +39,13 @@ jobs:
           from zoneinfo import ZoneInfo
 
           now = datetime.now(ZoneInfo("Europe/Bratislava"))
-          should_run = now.hour == 5 and now.minute == 10
+          # GitHub scheduled jobs often start a few minutes late.
+          # We schedule for 05:10 SK/CZ, but accept a safe execution window
+          # so a delayed runner does not skip the whole daily production run.
+          should_run = now.hour == 5 and 10 <= now.minute <= 55
 
           print(f"now={now.isoformat()}")
+          print("target_window=05:10-05:55 Europe/Bratislava")
           print(f"should_run={'true' if should_run else 'false'}")
           PY
 
