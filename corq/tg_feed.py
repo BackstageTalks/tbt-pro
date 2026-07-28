@@ -383,10 +383,22 @@ def main() -> None:
             else:
                 chat_id = os.getenv("TELEGRAM_TOP7_CHAT_ID") or os.getenv("TG_TOP7_CHAT_ID") or os.getenv("TELEGRAM_CHAT_ID")
         if not args.bot_token:
+            if args.mode == "free":
+                print("[tg_feed] Missing TELEGRAM_BOT_TOKEN/TG_BOT_TOKEN; FREE Telegram send skipped.")
+                return
             raise SystemExit("Missing TELEGRAM_BOT_TOKEN/TG_BOT_TOKEN")
         if not chat_id:
+            if args.mode == "free":
+                print("[tg_feed] Missing Telegram chat id for FREE mode; FREE Telegram send skipped.")
+                return
             raise SystemExit("Missing Telegram chat id for mode")
-        send_telegram(message, args.bot_token, chat_id)
+        try:
+            send_telegram(message, args.bot_token, chat_id)
+        except Exception as exc:
+            if args.mode == "free":
+                print(f"[tg_feed] FREE Telegram send failed but production workflow will continue: {exc}")
+                return
+            raise
 
 
 if __name__ == "__main__":
