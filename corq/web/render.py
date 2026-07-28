@@ -154,7 +154,7 @@ def explanation_text(key: str) -> str:
     defaults = {
         "corq": "CorQ is the final win probability for the displayed pick.",
         "thinq": "ThinQ is the overall data quality for the match, not win probability.",
-        "ta": "TA contains Tennis Abstract player-profile stats prepared for set, game and serve/return analysis.",
+        "ta": "TA Signal converts Tennis Abstract profile data into a bettor-facing action: sets lean, games lean, TB risk, score lean or no clear signal.",
         "sets_games": "Sets/Games combines TA set, game, tie-break and match-shape reads. It is a lean/projection, not a guaranteed final score.",
         "ta_set_game": "Set and game win percentages for pick and opponent from the relevant Tennis Abstract sample when available.",
         "ta_tiebreak": "Tiebreak win-loss split from the relevant Tennis Abstract sample when available.",
@@ -1057,75 +1057,47 @@ def ta_aces_input_status(row: Dict[str, Any]) -> str:
         aces_display(row),
     )
 
+
+def compact_reason(value: Any) -> str:
+    if isinstance(value, list):
+        items = [str(x).strip() for x in value if str(x).strip()]
+        return " | ".join(items[:2]) if items else "—"
+    text = str(value or "").strip()
+    return text or "—"
+
+
+def ta_signal_conf_display(row: Dict[str, Any]) -> str:
+    conf = as_float(row.get("ta_signal_confidence") or row.get("ta_decision_confidence"))
+    strength = str(row.get("ta_signal_strength") or "").strip()
+    if conf is None:
+        return strength or "N/A"
+    pct = f"{conf * 100:.0f}%" if conf <= 1 else f"{conf:.0f}%"
+    return f"{strength} | {pct}" if strength else pct
+
 def render_ta_box(row: Dict[str, Any]) -> str:
-    """Render Tennis Abstract as decision output, not a raw stat table."""
+    """Render Tennis Abstract as bettor-facing signal output."""
+    signal = row.get("ta_signal_label") or row.get("ta_signal") or ta_first_text(row, ("ta_sets_decision",), "N/A")
+    action = row.get("ta_signal_action") or "No automatic set/games action"
+    reasons = compact_reason(row.get("ta_signal_reasons") or row.get("ta_decision_notes"))
     return "\n".join([
-        '<section class="metric-box small-box">',
-        f'<div class="box-head"><span>TA {info_icon("ta")}</span><b></b></div>',
+        '<section class="metric-box small-box ta-signal-box">',
+        f'<div class="box-head"><span>TA Signal {info_icon("ta")}</span><b>{esc(str(row.get("ta_signal_market") or ""))}</b></div>',
+        metric_row("Signal", esc(signal)),
+        metric_row("Action", esc(action)),
+        metric_row("Confidence", esc(ta_signal_conf_display(row))),
+        metric_row("Reason", esc(reasons)),
         metric_row("Winner Read", esc(ta_winner_read(row))),
         metric_row(
             "Sets Read",
-            esc(
-                ta_first_text(
-                    row,
-                    (
-                        "ta_sets_decision",
-                        "ta_sets_read",
-                        "ta_set_direction",
-                        "ta_sets_direction",
-                    ),
-                )
-            ),
+            esc(ta_first_text(row, ("ta_sets_decision", "ta_sets_read", "ta_set_direction", "ta_sets_direction"))),
         ),
         metric_row(
             "Games Read",
-            esc(
-                ta_first_text(
-                    row,
-                    (
-                        "ta_games_decision",
-                        "ta_games_read",
-                        "ta_games_direction",
-                        "ta_games_lean",
-                    ),
-                )
-            ),
+            esc(ta_first_text(row, ("ta_games_decision", "ta_games_read", "ta_games_direction", "ta_games_lean"))),
         ),
-        metric_row(
-            "TB Read",
-            esc(
-                ta_first_text(
-                    row,
-                    (
-                        "ta_tb_decision",
-                        "ta_tb_read",
-                        "ta_tb_direction",
-                        "ta_tb_potential",
-                    ),
-                )
-            ),
-        ),
-        metric_row(
-            "Serve Pattern",
-            esc(
-                ta_first_text(
-                    row,
-                    (
-                        "ta_serve_return_pattern",
-                        "ta_serve_pattern",
-                        "ta_serve_pressure",
-                        "ta_pressure_pattern",
-                    ),
-                )
-            ),
-        ),
-        metric_row("Match Shape", esc(ta_match_shape_read(row))),
         metric_row("TA Depth", esc(ta_depth_label(row))),
-        metric_row("Aces", esc(aces_display(row))),
         '</section>',
     ])
-
-
 def render_sets_games_box(row: Dict[str, Any]) -> str:
     sets_value = row.get("ta_projected_sets") or row.get("thinq_projected_sets") or row.get("projected_sets") or row.get("sets") or "—"
     games_value = row.get("ta_projected_games") or row.get("thinq_projected_games") or row.get("projected_games") or row.get("games") or "—"
@@ -1210,6 +1182,7 @@ def css() -> str:
 .card-goat-logo{object-fit:contain!important;padding:2px;background:#101827}  
 .compact-topline .brain.goat-badge{border-color:rgba(250,204,21,.72)!important;box-shadow:0 0 10px rgba(250,204,21,.16)!important;background:#101827!important}  
 .pick-card,.metric-box{overflow:visible!important}.info{z-index:40;background:#0b2036;color:#93c5fd;border-color:#4b6b8d}.info:hover:after,.info:focus:after{z-index:99999!important;pointer-events:none}.compact-topline .brain.goat-badge{border-color:rgba(250,204,21,.72)!important;box-shadow:0 0 8px rgba(250,204,21,.12)!important;background:#101827!important}  
+.ta-signal-box .metric-row b{font-size:12px;line-height:1.25}.ta-signal-box .metric-row span{min-width:74px}.ta-signal-box .box-head b{text-transform:uppercase;font-size:11px;color:#facc15}  
 """
 
 
