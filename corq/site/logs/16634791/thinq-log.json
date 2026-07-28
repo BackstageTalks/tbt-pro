@@ -11,13 +11,14 @@
   "level": "WTA 125",
   "gender": "F",
   "best_of": 3,
-  "match_start": "2026-07-28T11:30:00+00:00",
-  "start_time": "2026-07-28T11:30:00+00:00",
-  "status_type": "notstarted",
-  "status_code": 0,
+  "match_start": "2026-07-28T11:40:00+00:00",
+  "start_time": "2026-07-28T11:40:00+00:00",
+  "status_type": "inprogress",
+  "status_code": 8,
   "is_doubles": false,
   "source": "RapidAPI PRO",
   "raw": {
+    "firstToServe": 2,
     "awayTeamSeed": "WC",
     "tournament": {
       "name": "Targu Mures, Romania",
@@ -94,9 +95,9 @@
     },
     "customId": "aUqdsOake",
     "status": {
-      "code": 0,
-      "description": "Not started",
-      "type": "notstarted"
+      "code": 8,
+      "description": "1st set",
+      "type": "inprogress"
     },
     "homeTeam": {
       "name": "Alevtina Ibragimova",
@@ -182,17 +183,35 @@
         }
       }
     },
-    "homeScore": {},
-    "awayScore": {},
-    "time": {},
+    "homeScore": {
+      "current": 0,
+      "display": 0,
+      "period1": 5,
+      "point": "0"
+    },
+    "awayScore": {
+      "current": 0,
+      "display": 0,
+      "period1": 4,
+      "point": "0"
+    },
+    "time": {
+      "currentPeriodStartTimestamp": 1785239137
+    },
     "changes": {
-      "changeTimestamp": 0
+      "changes": [
+        "homeScore.period1",
+        "homeScore.point",
+        "awayScore.point",
+        "firstToServe"
+      ],
+      "changeTimestamp": 1785241356
     },
     "hasGlobalHighlights": false,
     "crowdsourcingDataDisplayEnabled": false,
     "id": 16634791,
     "slug": "maia-ilinca-burcescu-alevtina-ibragimova",
-    "startTimestamp": 1785238200,
+    "startTimestamp": 1785238800,
     "periods": {
       "point": "Game",
       "current": "Match",
@@ -202,6 +221,7 @@
       "period4": "4th set",
       "period5": "5th set"
     },
+    "lastPeriod": "period1",
     "finalResultOnly": false,
     "feedLocked": false,
     "groundType": "Red clay",
@@ -226,16 +246,16 @@
   "odds_label_2": "2",
   "odds_direct_match_score": 1.0,
   "odds_reverse_match_score": 0.0,
-  "odds_player1": 1.1,
-  "odds_player2": 6.5,
-  "p1_odds": 1.1,
-  "p2_odds": 6.5,
-  "home_odds": 1.1,
-  "away_odds": 6.5,
-  "odds1": 1.1,
-  "odds2": 6.5,
-  "price1": 1.1,
-  "price2": 6.5,
+  "odds_player1": 1.0833,
+  "odds_player2": 8.0,
+  "p1_odds": 1.0833,
+  "p2_odds": 8.0,
+  "home_odds": 1.0833,
+  "away_odds": 8.0,
+  "odds1": 1.0833,
+  "odds2": 8.0,
+  "price1": 1.0833,
+  "price2": 8.0,
   "odds_source": "RapidAPI PRO event odds",
   "odds_endpoint": "/api/tennis/event/16634791/odds",
   "odds_status": "OK",
@@ -244,17 +264,17 @@
   ],
   "odds_pair_available": true,
   "odds_labels_confirmed": true,
-  "odds_gap_abs": 5.4,
-  "odds_gap_pct": 4.9091,
+  "odds_gap_abs": 6.9167,
+  "odds_gap_pct": 6.3848,
   "home_player": "Alevtina Ibragimova",
   "away_player": "Maia Ilinca Burcescu",
   "pick_side": "AWAY",
   "opponent_side": "HOME",
   "pick": "Maia Ilinca Burcescu",
   "opponent": "Alevtina Ibragimova",
-  "odds": 6.5,
-  "pick_odds": 6.5,
-  "opponent_odds": 1.1,
+  "odds": 8.0,
+  "pick_odds": 8.0,
+  "opponent_odds": 1.0833,
   "pick_is_player1": false,
   "pick_is_player2": true,
   "pick_is_home": false,
@@ -535,7 +555,7 @@
       "tiebreak_edge": 0.0,
       "decider_edge": 0.0,
       "confidence": 0.48,
-      "odds_gap_pct": 4.9091,
+      "odds_gap_pct": 6.3848,
       "flags": [
         "MATCH_DYNAMICS_H2H_NEUTRAL"
       ]
@@ -661,7 +681,7 @@
         "tiebreak_edge": 0.0,
         "decider_edge": 0.0,
         "confidence": 0.48,
-        "odds_gap_pct": 4.9091,
+        "odds_gap_pct": 6.3848,
         "flags": [
           "MATCH_DYNAMICS_H2H_NEUTRAL"
         ]
@@ -981,6 +1001,11 @@
     "thinq_h2h_status": "NO_DATA",
     "thinq_h2h_source": "none",
     "thinq_h2h_total_matches": 0,
+    "thinq_h2h_pick_wins": 0,
+    "thinq_h2h_opponent_wins": 0,
+    "thinq_h2h_same_surface_matches": 0,
+    "thinq_surface_h2h_pick_wins": 0,
+    "thinq_surface_h2h_opponent_wins": null,
     "thinq_h2h_edge": 0.0,
     "thinq_h2h_confidence": 0.0,
     "thinq_h2h_endpoint": "/api/tennis/event/aUqdsOake/h2h",
@@ -1226,6 +1251,11 @@
   "thinq_h2h_status": "NO_DATA",
   "thinq_h2h_source": "none",
   "thinq_h2h_total_matches": 0,
+  "thinq_h2h_pick_wins": 0,
+  "thinq_h2h_opponent_wins": 0,
+  "thinq_h2h_same_surface_matches": 0,
+  "thinq_surface_h2h_pick_wins": 0,
+  "thinq_surface_h2h_opponent_wins": null,
   "thinq_h2h_edge": 0.0,
   "thinq_h2h_confidence": 0.0,
   "thinq_h2h_endpoint": "/api/tennis/event/aUqdsOake/h2h",
@@ -1275,7 +1305,7 @@
     "history_match_count": 37883,
     "history_file_count": 15
   },
-  "implied_probability": 0.1538,
+  "implied_probability": 0.125,
   "overall_elo_edge": 0.0,
   "surface_elo_edge": 0.0,
   "elo_edge": 0.0,
@@ -1355,30 +1385,32 @@
   "ta_depth_label": "N/A",
   "ta_decision_confidence": 0.0,
   "ta_decision_notes": [],
-  "corq_source_rank": 95,
+  "corq_source_rank": 96,
   "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
   "top7_publishable": false,
   "eligible_for_top7": false,
   "top7_quality_reject_reasons": [
+    "REJECT_TOP7_STATUS_NOT_NOTSTARTED",
     "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
     "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
     "REJECT_TOP7_LOW_FORM_DATA_DEPTH",
     "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
   ],
   "top7_reject_reasons": [
+    "REJECT_TOP7_STATUS_NOT_NOTSTARTED",
     "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
     "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
     "REJECT_TOP7_LOW_FORM_DATA_DEPTH",
     "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
   ],
-  "top7_status_type_normalized": "notstarted",
-  "top7_status_code": 0,
+  "top7_status_type_normalized": "inprogress",
+  "top7_status_code": 8,
   "top7_corq_probability": 0.5,
   "top7_pick_thinq_edge": 0.0,
   "top7_thinq_confidence": 0.25,
   "pick_data_depth": 0.168125,
   "stat_data_depth": 0.168125,
-  "top7_pick_odds": 6.5,
+  "top7_pick_odds": 8.0,
   "top7_match_date_local": "2026-07-28",
   "recent_form_status": "OK",
   "recent_form_reason": "",
@@ -1419,8 +1451,8 @@
     {
       "tag": "MARKET_STRONG_AGAINST_PICK",
       "penalty": 3.0,
-      "pick_odds": 6.5,
-      "opponent_odds": 1.1
+      "pick_odds": 8.0,
+      "opponent_odds": 1.0833
     }
   ],
   "top7_risk_penalty_points": 3.0,
@@ -1429,5 +1461,5 @@
   "corq_warning_flags": [
     "MARKET_STRONG_AGAINST_PICK"
   ],
-  "corq_rank": 95
+  "corq_rank": 96
 }
