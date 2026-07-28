@@ -14,9 +14,14 @@ ROOT = Path(__file__).resolve().parents[2]
 OUTPUTS = ROOT / "outputs"
 WEB_DIR = ROOT / "corq" / "web"
 SITE_DIR = ROOT / "corq" / "site"
-ASSET_SRC = WEB_DIR / "assets" / "tbt_ai_goat_icon.png"
+ASSET_SRC = WEB_DIR / "assets" / "tbt_ai_goat_icon_new.png"
 ASSET_DIR = SITE_DIR / "assets"
 LOGS_DIR = SITE_DIR / "logs"
+
+# Manual display offset for web match times. Event times are treated as UTC.
+# Slovakia summer time is normally UTC+2; change to +1 in winter if needed.
+WEB_DISPLAY_TIME_OFFSET_HOURS = 2
+
 
 _GOAT_BADGE_URI: Optional[str] = None
 
@@ -150,6 +155,7 @@ def explanation_text(key: str) -> str:
         "corq": "CorQ is the final win probability for the displayed pick.",
         "thinq": "ThinQ is the overall data quality for the match, not win probability.",
         "ta": "TA contains Tennis Abstract player-profile stats prepared for set, game and serve/return analysis.",
+        "sets_games": "Sets/Games combines TA set, game, tie-break and match-shape reads. It is a lean/projection, not a guaranteed final score.",
         "ta_set_game": "Set and game win percentages for pick and opponent from the relevant Tennis Abstract sample when available.",
         "ta_tiebreak": "Tiebreak win-loss split from the relevant Tennis Abstract sample when available.",
         "ta_surface_dr": "Dominance ratio on the relevant surface. Values above 1.00 indicate stronger performance.",
@@ -830,14 +836,36 @@ def info_icon(key: str) -> str:
 
 
 def start_time(row: Dict[str, Any]) -> str:
-    raw = row.get("start_time_display") or row.get("match_time_display") or row.get("start_time") or row.get("start_time_utc") or row.get("match_time") or ""
-    if not raw:
+    raw = (
+        row.get("start_time_utc")
+        or row.get("match_time_utc")
+        or row.get("start_time")
+        or row.get("match_time")
+        or row.get("start_time_display")
+        or row.get("match_time_display")
+        or ""
+    )
+    text = str(raw or "").strip()
+    if not text:
         return "—"
-    txt = str(raw)
-    m = re.search(r"(\d{1,2}:\d{2})", txt)
-    return m.group(1) if m else txt[:16]
-
-
+    try:
+        from datetime import timedelta
+        if re.fullmatch(r"\d{10,13}", text):
+            dt = datetime.fromtimestamp(int(text[:10]), tz=timezone.utc)
+        else:
+            iso = text.replace("Z", "+00:00")
+            dt = datetime.fromisoformat(iso)
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            else:
+                dt = dt.astimezone(timezone.utc)
+        dt = dt + timedelta(hours=WEB_DISPLAY_TIME_OFFSET_HOURS)
+        return dt.strftime("%H:%M")
+    except Exception:
+        # Fallback for already formatted strings. Leave them unchanged to avoid
+        # accidentally double-shifting a true display value.
+        m = re.search(r"(\d{1,2}:\d{2})", text)
+        return m.group(1) if m else text[:16]
 def meta_line(row: Dict[str, Any]) -> str:
     bits = []
     for key in ("tournament", "category", "surface", "best_of"):
@@ -1099,20 +1127,24 @@ def render_ta_box(row: Dict[str, Any]) -> str:
 
 
 def render_sets_games_box(row: Dict[str, Any]) -> str:
+    sets_value = row.get("ta_projected_sets") or row.get("thinq_projected_sets") or row.get("projected_sets") or row.get("sets") or "—"
+    games_value = row.get("ta_projected_games") or row.get("thinq_projected_games") or row.get("projected_games") or row.get("games") or "—"
+    decider = row.get("ta_decider_probability") or row.get("thinq_decider_probability") or row.get("three_sets_probability") or row.get("decider_probability")
+    tb = row.get("ta_tiebreak_probability") or row.get("thinq_tiebreak_probability") or row.get("tie_break_probability") or row.get("tiebreak_probability")
+    score = row.get("ta_score_projection") or row.get("predicted_score") or row.get("score_prediction") or "—"
+    ou = row.get("ta_games_decision") or row.get("over_under_display") or row.get("ou_display") or "—"
     return "\n".join([
         '<section class="metric-box small-box">',
-        '<div class="box-head"><span>Sets / Games</span><b></b></div>',
-        metric_row("Sets", esc(row.get("projected_sets") or row.get("sets") or "—")),
-        metric_row("Games", esc(row.get("projected_games") or row.get("games") or "—")),
-        metric_row("O/U", esc(row.get("over_under_display") or row.get("ou_display") or "—")),
-        metric_row("3 Sets", as_pct(row.get("three_sets_probability") or row.get("decider_probability"), 1)),
-        metric_row("Score", esc(row.get("predicted_score") or row.get("score_prediction") or "—")),
-        metric_row("Tie-break", as_pct(row.get("tie_break_probability") or row.get("tiebreak_probability"), 1)),
+        f'<div class="box-head"><span>Sets / Games {info_icon("sets_games")}</span><b></b></div>',
+        metric_row("Sets", esc(sets_value)),
+        metric_row("Games", esc(games_value)),
+        metric_row("O/U", esc(ou)),
+        metric_row("3 Sets", as_pct(decider, 1)),
+        metric_row("Score", esc(score)),
+        metric_row("Tie-break", as_pct(tb, 1)),
         metric_row("P | O | T Aces", esc(aces_display(row))),
         '</section>',
     ])
-
-
 def render_marq_box(row: Dict[str, Any]) -> str:
     return "\n".join([
         '<section class="metric-box small-box">',
@@ -1176,6 +1208,8 @@ def css() -> str:
 .compact-topline .brain.ai-badge{width:30px!important;height:30px!important;min-width:30px!important;font-size:11px!important;font-weight:1000;letter-spacing:.02em;color:#f0abfc;background:radial-gradient(circle at 35% 28%,rgba(236,72,153,.38),rgba(31,41,55,.92));border-color:#6b4f91;box-shadow:0 0 10px rgba(236,72,153,.12)}.compact-top-tags .insight-chip{max-width:172px}.compact-top-tags .chip-insights{max-width:350px}@media(max-width:760px){.compact-topline .brain.ai-badge{width:29px!important;height:29px!important;min-width:29px!important;font-size:10.5px!important}.compact-top-tags .insight-chip{max-width:158px}}  
 .compact-topline .brain.goat-badge{width:30px!important;height:30px!important;min-width:30px!important;padding:0!important;overflow:hidden;border-color:#6b4f91;background:#151f35;box-shadow:0 0 10px rgba(236,72,153,.12)}.card-goat-logo{width:100%;height:100%;display:block;object-fit:cover;border-radius:999px}@media(max-width:760px){.compact-topline .brain.goat-badge{width:29px!important;height:29px!important;min-width:29px!important}}  
 .card-goat-logo{object-fit:contain!important;padding:2px;background:#101827}  
+.compact-topline .brain.goat-badge{border-color:rgba(250,204,21,.72)!important;box-shadow:0 0 10px rgba(250,204,21,.16)!important;background:#101827!important}  
+.pick-card,.metric-box{overflow:visible!important}.info{z-index:40;background:#0b2036;color:#93c5fd;border-color:#4b6b8d}.info:hover:after,.info:focus:after{z-index:99999!important;pointer-events:none}.compact-topline .brain.goat-badge{border-color:rgba(250,204,21,.72)!important;box-shadow:0 0 8px rgba(250,204,21,.12)!important;background:#101827!important}  
 """
 
 
