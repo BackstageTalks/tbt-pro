@@ -348,7 +348,14 @@ def main() -> None:
     parser.add_argument("--output", default=os.getenv("TG_MESSAGE_OUTPUT", str(DEFAULT_MESSAGE_PATH)))
     parser.add_argument("--send", action="store_true", help="Send to Telegram using env bot token and chat id")
     parser.add_argument("--chat-id", default=None, help="Telegram chat id. Defaults by mode from env.")
-    parser.add_argument("--bot-token", default=os.getenv("TELEGRAM_BOT_TOKEN") or os.getenv("TG_BOT_TOKEN"))
+    parser.add_argument(
+        "--bot-token",
+        default=(
+            os.getenv("TELEGRAM_BOT_TOKEN")
+            or os.getenv("TG_BOT_TOKEN")
+            or os.getenv("TGBOT")
+        ),
+    )
     parser.add_argument("--limit", type=int, default=7)
     parser.add_argument(
         "--include-started",
@@ -388,6 +395,8 @@ def main() -> None:
                     or os.getenv("TG_TOP7_CHAT_ID")
                     or os.getenv("TGCHID")
                     or os.getenv("TELEGRAM_CHAT_ID")
+                    or os.getenv("TG_CHAT_ID")
+                    or os.getenv("TG_CHAT_ID")
                 )
             else:
                 chat_id = (
@@ -395,12 +404,14 @@ def main() -> None:
                     or os.getenv("TG_TOP7_CHAT_ID")
                     or os.getenv("TGCHID")
                     or os.getenv("TELEGRAM_CHAT_ID")
+                    or os.getenv("TG_CHAT_ID")
+                    or os.getenv("TG_CHAT_ID")
                 )
         if not args.bot_token:
             if args.mode == "free":
-                print("[tg_feed] Missing TELEGRAM_BOT_TOKEN/TG_BOT_TOKEN; FREE Telegram send skipped.")
+                print("[tg_feed] Missing TELEGRAM_BOT_TOKEN/TG_BOT_TOKEN/TGBOT/TGBOT; FREE Telegram send skipped.")
                 return
-            raise SystemExit("Missing TELEGRAM_BOT_TOKEN/TG_BOT_TOKEN")
+            raise SystemExit("Missing TELEGRAM_BOT_TOKEN/TG_BOT_TOKEN/TGBOT")
         if not chat_id:
             if args.mode == "free":
                 print("[tg_feed] Missing Telegram chat id for FREE mode; FREE Telegram send skipped.")
