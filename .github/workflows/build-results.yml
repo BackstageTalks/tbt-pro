@@ -55,7 +55,7 @@ jobs:
           RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
           PYTHONPATH: ${{ github.workspace }}
         run: |
-          python -m corq.results_engine.results             --output-root outputs             --fetch-api             --settle-yesterday             --local-tz Europe/Bratislava             --settlement-grace-hours 2
+          python -m corq.results_engine.builder             --output-root outputs             --fetch-api             --settle-yesterday             --local-tz Europe/Bratislava             --settlement-grace-hours 2
 
       - name: Render web site with updated Results
         env:
