@@ -1202,24 +1202,110 @@ def render_ta_box(row: Dict[str, Any]) -> str:
         '</section>',
     ])
 def render_sets_games_box(row: Dict[str, Any]) -> str:
-    sg = sets_games_signal(row)
-    decider = row.get("ta_decider_probability") or row.get("thinq_decider_probability") or row.get("three_sets_probability") or row.get("decider_probability")
-    tb = row.get("ta_tiebreak_probability") or row.get("thinq_tiebreak_probability") or row.get("tie_break_probability") or row.get("tiebreak_probability")
-    score = clean_signal_text(row.get("ta_score_projection") or row.get("predicted_score") or row.get("score_prediction"), "N/A")
+    """Compact Sets/Games box.
+
+    Display contract:
+    Sets/Games
+    Sets: O2.5 | 63%
+    Score: 2-1
+    Games: ~24.5 | Over 21.5
+    TB Risk: 38%
+    Aces P | O | T: O2.5 | O3.5 | U9.5
+    Value: best model value / Pending lines
+    """
+    def _num(*keys: str) -> Optional[float]:
+        for key in keys:
+            value = as_float(row.get(key))
+            if value is not None:
+                return value
+        return None
+
+    def _txt(*keys: str, default: str = "N/A") -> str:
+        for key in keys:
+            value = row.get(key)
+            if value not in (None, ""):
+                text = str(value).strip()
+                if text and text.lower() not in {"none", "null", "nan", "-", "—"}:
+                    return text
+        return default
+
+    def _pct(value: Any) -> str:
+        if value is None or value == "":
+            return "N/A"
+        return as_pct(value, 0)
+
+    def _line(value: Any) -> str:
+        number = as_float(value)
+        if number is None:
+            return "N/A"
+        return f"{number:g}"
+
+    def _ou(side: Any, line: Any) -> str:
+        number = as_float(line)
+        if number is None:
+            return "N/A"
+        s = str(side or "").strip().lower()
+        if s.startswith("o") or s == "over":
+            return f"O{number:g}"
+        if s.startswith("u") or s == "under":
+            return f"U{number:g}"
+        return f"{number:g}"
+
+    best_of = int(as_float(row.get("best_of")) or 3)
+    set_line_label = "O4.5" if best_of == 5 else "O2.5"
+    set_prob = _num(
+        "sets_o45_probability" if best_of == 5 else "sets_o25_probability",
+        "sets_over_45_probability" if best_of == 5 else "sets_over_25_probability",
+        "sets_probability",
+        "three_sets_probability",
+        "decider_probability",
+    )
+    sets_display = f"{set_line_label} | {_pct(set_prob)}" if set_prob is not None else "N/A"
+
+    score = _txt("projected_sets_score", "most_likely_score_pick", "pick_oriented_score", "most_likely_score", "ta_score_projection", "predicted_score", default="N/A")
+
+    projected_games = _num("projected_total_games", "expected_games", "games_projection", "projected_games")
+    games_line = _num("total_games_line", "games_line")
+    games_side = _txt("total_games_side", "games_side", "games_pick", default="")
+    if games_side.lower().startswith("over") or games_side.lower().startswith("under"):
+        games_side_display = games_side
+    else:
+        over_prob = _num("total_games_over_probability", "games_over_probability")
+        if over_prob is not None and games_line is not None:
+            games_side_display = "Over" if over_prob >= 0.50 else "Under"
+        else:
+            games_side_display = ""
+    if projected_games is not None and games_line is not None and games_side_display:
+        games_display = f"~{projected_games:g} | {games_side_display.split()[0]} {games_line:g}"
+    elif projected_games is not None:
+        games_display = f"~{projected_games:g}"
+    elif games_line is not None and games_side_display:
+        games_display = f"{games_side_display.split()[0]} {games_line:g}"
+    else:
+        games_display = "N/A"
+
+    tb_prob = _num("tb_probability", "tie_break_probability", "tie_break_yes_probability", "tiebreak_probability", "ta_tiebreak_probability")
+    tb_display = _pct(tb_prob) if tb_prob is not None else "N/A"
+
+    pick_aces = _ou(_txt("pick_aces_side", default=""), row.get("pick_aces_line"))
+    opp_aces = _ou(_txt("opponent_aces_side", "opp_aces_side", default=""), row.get("opponent_aces_line") or row.get("opp_aces_line"))
+    total_aces = _ou(_txt("total_aces_side", default=""), row.get("total_aces_line"))
+    aces_display_value = f"{pick_aces} | {opp_aces} | {total_aces}"
+
+    value_display = _txt("sets_games_best_value", "best_sets_games_value", "best_value", "value_bet", default="Pending lines")
+
     return "\n".join([
         '<section class="metric-box small-box sets-signal-box">',
-        f'<div class="box-head"><span>Sets / Games {info_icon("sets_games")}</span><b>{esc(sg.get("source") or "")}</b></div>',
-        metric_row("Signal", esc(sg.get("signal") or "No Clear Signal")),
-        metric_row("Action", esc(sg.get("action") or "No automatic set/games action")),
-        metric_row("Confidence", esc(sg.get("confidence") or "N/A")),
-        metric_row("Sets Lean", esc(sets_lean_display(row))),
-        metric_row("Games Lean", esc(games_lean_display(row))),
-        metric_row("3 Sets", as_pct(decider, 1)),
-        metric_row("Tie-break", as_pct(tb, 1)),
+        f'<div class="box-head"><span>Sets/Games {info_icon("sets_games")}</span><b></b></div>',
+        metric_row("Sets", esc(sets_display)),
         metric_row("Score", esc(score)),
-        metric_row("P | O | T Aces", esc(aces_display(row))),
+        metric_row("Games", esc(games_display)),
+        metric_row("TB Risk", esc(tb_display)),
+        metric_row("Aces P | O | T", esc(aces_display_value)),
+        metric_row("Value", esc(value_display)),
         '</section>',
     ])
+
 def render_marq_box(row: Dict[str, Any]) -> str:
     return "\n".join([
         '<section class="metric-box small-box">',
