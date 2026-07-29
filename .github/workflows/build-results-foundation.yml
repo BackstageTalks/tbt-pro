@@ -2,27 +2,21 @@ name: Build Results Foundation
 
 on:
   workflow_dispatch:
-    inputs:
-      fetch_api:
-        description: "Reserved for future TennisApi result fetching"
-        required: false
-        default: "false"
-  workflow_run:
-    workflows: ["Daily Tennis Predictions"]
-    types: [completed]
+  schedule:
+    # Around 14:00 Slovakia time during summer time UTC+2
+    - cron: "0 12 * * *"
+    # Around 19:00 Slovakia time during summer time UTC+2
+    - cron: "0 17 * * *"
+    # Around 00:00 Slovakia time during summer time UTC+2
+    - cron: "0 22 * * *"
+    # Around 08:00 Slovakia time during summer time UTC+2
+    - cron: "0 6 * * *"
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
-
-concurrency:
-  group: build-results-foundation
-  cancel-in-progress: false
 
 jobs:
   build-results:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -34,11 +28,35 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Build persistent Results database
+      - name: Verify Results engine layout
         env:
           PYTHONPATH: ${{ github.workspace }}
         run: |
-          python -m corq.results_db
+          test -f corq/results_engine/__init__.py
+          test -f corq/results_engine/common.py
+          test -f corq/results_engine/provider.py
+          test -f corq/results_engine/builder.py
+          test -f corq/results_engine/results.py
+          test -f corq/results_engine/results_db.py
+          if grep -R "python -m corq.results_db\|python -m corq.results " .github/workflows -n; then
+            echo "ERROR: old Results module command still exists in workflows"
+            exit 1
+          fi
+          python - <<'PY'
+          import importlib.util
+          for name in ["corq.results_engine.results", "corq.results_engine.results_db", "corq.results_engine.builder"]:
+              spec = importlib.util.find_spec(name)
+              if spec is None:
+                  raise SystemExit(f"Missing module: {name}")
+              print(f"OK {name} -> {spec.origin}")
+          PY
+
+      - name: Build persistent Results database
+        env:
+          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+          PYTHONPATH: ${{ github.workspace }}
+        run: |
+          python -m corq.results_engine.results             --output-root outputs             --fetch-api             --settle-yesterday             --local-tz Europe/Bratislava             --settlement-grace-hours 2
 
       - name: Render web site with updated Results
         env:
@@ -50,20 +68,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add outputs/results corq/site || true
-
-          if git diff --cached --quiet; then
-            echo "No Results changes to commit."
-          else
-            git commit -m "Update Results database"
-            git push
-          fi
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: corq/site
-
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+          git add outputs/results corq/site
+          git commit -m "Update Results database and rendered site" || echo "No result/site changes"
+          git push
