@@ -747,19 +747,6 @@ def form_records(row: Dict[str, Any], side: str) -> Tuple[str, str]:
     if status and status != "OK" and out_form == "N/A" and out_surface == "N/A":
         return "N/A", "N/A"
     return out_form, out_surface
-def dedupe_tags(tags: List[Any]) -> List[str]:
-    """Return tags in original order without duplicates or empty values."""
-    out: List[str] = []
-    seen = set()
-    for tag in tags or []:
-        clean = str(tag or "").strip()
-        if not clean or clean in seen:
-            continue
-        out.append(clean)
-        seen.add(clean)
-    return out
-
-
 def notes_for_row(row: Dict[str, Any]) -> List[str]:
     flags: List[str] = []
     for key in ("corq_warning_flags", "risk_flags", "reject_reasons", "top7_quality_reject_reasons", "top7_risk_tags", "flags"):
@@ -920,8 +907,7 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
     audit_tags = audit_filter_tags_for_row(row)
     data_tags = "|".join(notes + audit_tags)
     rank_badge = f'<div class="rank-num">#{rank}</div>' if rank else ""
-    display_notes = dedupe_tags(notes + audit_tags)
-    note_html = "".join(f'<span class="note" data-note="{esc(n)}">{esc(n)}</span>' for n in display_notes[:10])
+    note_html = "".join(f'<span class="note" data-note="{esc(n)}">{esc(n)}</span>' for n in notes[:8])
     # Top row shows only one positive/support insight. Neutral public notes stay in the bottom row.
     top_tag_html = f'<div class="compact-top-tags">{card_insights_html(row, notes)}</div>'
     odds_gap = as_float(row.get("odds_gap_pct") or row.get("cloq_odds_gap_pct"))
@@ -964,6 +950,7 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         metric_row("P F Qty", signed_pct(row.get("opponent_quality_edge")), sign_class(row.get("opponent_quality_edge"))),
         metric_row("F Data Depth", bar_html(form_depth(row))),
         '</section>',
+        render_ta_box(row),
         render_sets_games_box(row),
         render_marq_box(row) if page != "cloq" else render_cloq_box(row),
         cloq_extra,
@@ -1201,273 +1188,34 @@ def render_ta_box(row: Dict[str, Any]) -> str:
         '</section>',
     ])
 def render_sets_games_box(row: Dict[str, Any]) -> str:
-    """Compact Sets/Games box.
-
-    Display contract:
-    Sets/Games
-    Sets: O2.5 | 63%
-    Score: 2-1
-    Games: ~24.5 | Over 21.5
-    TB Risk: 38%
-    Aces P | O | T: O2.5 | O3.5 | U9.5
-    DF P | O | T: O2.5 | U3.5 | O5.5 or 3.1 | 2.4 | 5.5
-    Value: best model value / Pending lines
-    """
-    def _num(*keys: str) -> Optional[float]:
-        for key in keys:
-            value = as_float(row.get(key))
-            if value is not None:
-                return value
-        return None
-
-    def _txt(*keys: str, default: str = "N/A") -> str:
-        for key in keys:
-            value = row.get(key)
-            if value not in (None, ""):
-                text = str(value).strip()
-                if text and text.lower() not in {"none", "null", "nan", "-", "—"}:
-                    return text
-        return default
-
-    def _pct(value: Any) -> str:
-        if value is None or value == "":
-            return "N/A"
-        return as_pct(value, 0)
-
-    def _line(value: Any) -> str:
-        number = as_float(value)
-        if number is None:
-            return "N/A"
-        return f"{number:g}"
-
-    def _ou(side: Any, line: Any) -> str:
-        number = as_float(line)
-        if number is None:
-            return "N/A"
-        s = str(side or "").strip().lower()
-        if s.startswith("o") or s == "over":
-            return f"O{number:g}"
-        if s.startswith("u") or s == "under":
-            return f"U{number:g}"
-        return f"{number:g}"
-
-    best_of = int(as_float(row.get("best_of")) or 3)
-    set_line_label = "O4.5" if best_of == 5 else "O2.5"
-    set_prob = _num(
-        "sets_o45_probability" if best_of == 5 else "sets_o25_probability",
-        "sets_over_45_probability" if best_of == 5 else "sets_over_25_probability",
-        "sets_probability",
-        "three_sets_probability",
-        "decider_probability",
-    )
-    sets_display = f"{set_line_label} | {_pct(set_prob)}" if set_prob is not None else "N/A"
-
-    score = _txt("projected_sets_score", "most_likely_score_pick", "pick_oriented_score", "most_likely_score", "ta_score_projection", "predicted_score", default="N/A")
-
-    projected_games = _num("projected_total_games", "expected_games", "games_projection", "projected_games")
-    games_line = _num("total_games_line", "games_line")
-    games_side = _txt("total_games_side", "games_side", "games_pick", default="")
-    if games_side.lower().startswith("over") or games_side.lower().startswith("under"):
-        games_side_display = games_side
-    else:
-        over_prob = _num("total_games_over_probability", "games_over_probability")
-        if over_prob is not None and games_line is not None:
-            games_side_display = "Over" if over_prob >= 0.50 else "Under"
-        else:
-            games_side_display = ""
-    if projected_games is not None and games_line is not None and games_side_display:
-        games_display = f"~{projected_games:g} | {games_side_display.split()[0]} {games_line:g}"
-    elif projected_games is not None:
-        games_display = f"~{projected_games:g}"
-    elif games_line is not None and games_side_display:
-        games_display = f"{games_side_display.split()[0]} {games_line:g}"
-    else:
-        games_display = "N/A"
-
-    tb_prob = _num("tb_probability", "tie_break_probability", "tie_break_yes_probability", "tiebreak_probability", "ta_tiebreak_probability")
-    tb_display = _pct(tb_prob) if tb_prob is not None else "N/A"
-
-    pick_aces = _ou(_txt("pick_aces_side", default=""), row.get("pick_aces_line"))
-    opp_aces = _ou(_txt("opponent_aces_side", "opp_aces_side", default=""), row.get("opponent_aces_line") or row.get("opp_aces_line"))
-    total_aces = _ou(_txt("total_aces_side", default=""), row.get("total_aces_line"))
-    aces_display_value = f"{pick_aces} | {opp_aces} | {total_aces}"
-
-    def _projection_value(*keys: str) -> str:
-        value = _num(*keys)
-        if value is None:
-            return "N/A"
-        return f"{value:.1f}" if abs(value - round(value)) > 0.01 else f"{value:g}"
-
-    def _ou_or_projection(side_keys: Tuple[str, ...], line_keys: Tuple[str, ...], projection_keys: Tuple[str, ...]) -> str:
-        side = _txt(*side_keys, default="")
-        line_value = None
-        for key in line_keys:
-            line_value = row.get(key)
-            if as_float(line_value) is not None:
-                break
-        if as_float(line_value) is not None:
-            return _ou(side, line_value)
-        return _projection_value(*projection_keys)
-
-    pick_df = _ou_or_projection(("pick_df_side", "pick_double_faults_side"), ("pick_df_line", "pick_double_faults_line"), ("df_pick", "pick_double_faults", "pick_df_projection"))
-    opp_df = _ou_or_projection(("opponent_df_side", "opp_df_side", "opponent_double_faults_side"), ("opponent_df_line", "opp_df_line", "opponent_double_faults_line"), ("df_opponent", "opponent_double_faults", "opp_df_projection"))
-    total_df = _ou_or_projection(("total_df_side", "total_double_faults_side"), ("total_df_line", "total_double_faults_line"), ("df_total", "total_double_faults", "total_df_projection"))
-    df_display_value = f"{pick_df} | {opp_df} | {total_df}"
-
-    value_display = _txt("sets_games_best_value", "best_sets_games_value", "best_value", "value_bet", default="Pending lines")
-
+    sg = sets_games_signal(row)
+    decider = row.get("ta_decider_probability") or row.get("thinq_decider_probability") or row.get("three_sets_probability") or row.get("decider_probability")
+    tb = row.get("ta_tiebreak_probability") or row.get("thinq_tiebreak_probability") or row.get("tie_break_probability") or row.get("tiebreak_probability")
+    score = clean_signal_text(row.get("ta_score_projection") or row.get("predicted_score") or row.get("score_prediction"), "N/A")
     return "\n".join([
         '<section class="metric-box small-box sets-signal-box">',
-        f'<div class="box-head"><span>Sets/Games {info_icon("sets_games")}</span><b></b></div>',
-        metric_row("Sets", esc(sets_display)),
+        f'<div class="box-head"><span>Sets / Games {info_icon("sets_games")}</span><b>{esc(sg.get("source") or "")}</b></div>',
+        metric_row("Signal", esc(sg.get("signal") or "No Clear Signal")),
+        metric_row("Action", esc(sg.get("action") or "No automatic set/games action")),
+        metric_row("Confidence", esc(sg.get("confidence") or "N/A")),
+        metric_row("Sets Lean", esc(sets_lean_display(row))),
+        metric_row("Games Lean", esc(games_lean_display(row))),
+        metric_row("3 Sets", as_pct(decider, 1)),
+        metric_row("Tie-break", as_pct(tb, 1)),
         metric_row("Score", esc(score)),
-        metric_row("Games", esc(games_display)),
-        metric_row("TB Risk", esc(tb_display)),
-        metric_row("Aces P | O | T", esc(aces_display_value)),
-        metric_row("DF P | O | T", esc(df_display_value)),
-        metric_row("Value", esc(value_display)),
+        metric_row("P | O | T Aces", esc(aces_display(row))),
         '</section>',
     ])
-
 def render_marq_box(row: Dict[str, Any]) -> str:
-    """Clean MarQ market-intelligence box.
-
-    No fake market data is created here. If a value is not present from real
-    odds/market inputs, the row shows N/A or Pending.
-    """
-    def _num(value: Any) -> Optional[float]:
-        if value is None or value == "":
-            return None
-        try:
-            if isinstance(value, str):
-                value = value.strip().replace("%", "").replace(",", ".")
-            return float(value)
-        except Exception:
-            return None
-
-    def _first_num(*keys: str) -> Optional[float]:
-        for key in keys:
-            value = _num(row.get(key))
-            if value is not None:
-                return value
-        return None
-
-    def _first_text(*keys: str, default: str = "N/A") -> str:
-        for key in keys:
-            value = row.get(key)
-            if value not in (None, ""):
-                text = str(value).strip()
-                if text and text.lower() not in {"none", "null", "nan", "-", "—"}:
-                    return text
-        return default
-
-    def _market_pct(value: Any) -> str:
-        number = _num(value)
-        if number is None:
-            return "N/A"
-        if abs(number) <= 1.0:
-            number *= 100.0
-        return f"{number:.1f}%"
-
-    def _signed_market_pct(value: Any) -> str:
-        number = _num(value)
-        if number is None:
-            return "N/A"
-        if abs(number) <= 1.0:
-            number *= 100.0
-        return f"{number:+.1f}%"
-
-    def _odds(value: Any) -> Optional[float]:
-        number = _num(value)
-        if number is not None and number > 1.0:
-            return number
-        return None
-
-    def _move_signal_text(value: Any) -> str:
-        if value in (None, ""):
-            return "Pending"
-        text = str(value).strip().replace("_", " ")
-        upper = text.upper()
-        if upper in {"TOWARD PICK", "TOWARD"}:
-            return "Toward"
-        if upper in {"AGAINST PICK", "AGAINST"}:
-            return "Against"
-        if upper in {"STABLE", "NO MOVE"}:
-            return "Stable"
-        if upper in {"PENDING", "UNKNOWN"}:
-            return "Pending"
-        return " ".join(part.capitalize() for part in text.split())
-
-    pick_marq = row.get("marq_crowd_pick_pct")
-    if pick_marq is None:
-        pick_marq = row.get("pick_marq") or row.get("marq_pick_pct")
-    opp_marq = row.get("marq_crowd_opponent_pct")
-    if opp_marq is None:
-        opp_marq = row.get("opponent_marq") or row.get("opp_marq") or row.get("marq_opponent_pct")
-
-    edge = row.get("marq_edge_pct")
-    if edge is None:
-        model_pct = _first_num("probability", "corq_probability", "corq_ai_probability")
-        pick_pct = _num(pick_marq)
-        if model_pct is not None and pick_pct is not None:
-            if abs(model_pct) <= 1.0:
-                model_pct *= 100.0
-            if abs(pick_pct) <= 1.0:
-                pick_pct *= 100.0
-            edge = model_pct - pick_pct
-
-    move_pct = row.get("marq_move_pct")
-    if move_pct is None:
-        move_pct = row.get("marq_market_move_pct") or row.get("market_move_pct")
-
-    initial_pick = _odds(row.get("marq_initial_pick_odds") or row.get("marq_opening") or row.get("marq_opening_pick_odds"))
-    current_pick = _odds(row.get("marq_current_pick_odds") or row.get("marq_latest") or row.get("marq_current_odds"))
-    if move_pct is None and initial_pick and current_pick and abs(initial_pick - current_pick) >= 0.0001:
-        move_pct = abs((current_pick - initial_pick) / initial_pick) * 100.0
-
-    move_signal = _move_signal_text(row.get("marq_display_move_signal") or row.get("marq_move_signal") or row.get("market_move"))
-    if move_signal == "Pending" and initial_pick and current_pick and abs(initial_pick - current_pick) >= 0.0001:
-        move_signal = "Toward" if current_pick < initial_pick else "Against"
-
-    move_display = "N/A | Pending"
-    if _num(move_pct) is not None:
-        move_display = f"{_market_pct(move_pct)} | {move_signal}"
-    elif move_signal != "Pending":
-        move_display = f"N/A | {move_signal}"
-
-    move_range = _first_text("marq_move_range", "market_move_range", default="")
-    if not move_range and initial_pick and current_pick and abs(initial_pick - current_pick) >= 0.0001:
-        move_range = f"{initial_pick:.2f} -> {current_pick:.2f}"
-    if not move_range:
-        move_range = "N/A"
-
-    def _marq_depth() -> Optional[float]:
-        explicit = _first_num("marq_data_depth", "marq_depth", "marq_market_depth", "marq_coverage_pct")
-        if explicit is not None:
-            return explicit
-        checks = [
-            pick_marq not in (None, ""),
-            opp_marq not in (None, ""),
-            edge not in (None, ""),
-            _num(move_pct) is not None or move_signal != "Pending",
-            move_range not in (None, "", "N/A"),
-            row.get("marq_source") not in (None, "") or row.get("odds_source") not in (None, "") or row.get("marq_provider_count") not in (None, ""),
-        ]
-        if not any(checks):
-            return None
-        return sum(1 for item in checks if item) / len(checks)
-
-    depth = _marq_depth()
-
     return "\n".join([
-        '<section class="metric-box small-box marq-panel">',
-        '<div class="box-head"><span>MARQ</span><b></b></div>',
-        metric_row("Pick MarQ", esc(_market_pct(pick_marq))),
-        metric_row("Opp MarQ", esc(_market_pct(opp_marq))),
-        metric_row("MarQ Edge", esc(_signed_market_pct(edge))),
-        metric_row("Move %", esc(move_display)),
-        metric_row("Range", esc(move_range)),
-        metric_row("MarQ Data Depth", bar_html(depth)),
+        '<section class="metric-box small-box">',
+        '<div class="box-head"><span>MarQ</span><b></b></div>',
+        metric_row("Market", esc(row.get("marq_status") or "Pending")),
+        metric_row("Pick MarQ", esc(row.get("pick_marq") or "—")),
+        metric_row("Opp MarQ", esc(row.get("opponent_marq") or "—")),
+        metric_row("Move", esc(row.get("market_move") or "—")),
+        metric_row("Odds Source", esc(row.get("odds_source") or "—")),
+        metric_row("Direction", esc(row.get("odds_matching_direction_display") or row.get("odds_matching_direction") or "Confirmed")),
         '</section>',
     ])
 
@@ -1609,7 +1357,6 @@ AUDIT_CORQ_TOP20_LABEL = "CorQ Top20"
 AUDIT_TIME_ODDS_LABEL = "Up to 2H | O>1.5"
 AUDIT_SAFE_BET_LABEL = "Safe Bet Signal"
 AUDIT_H2H_TOP10_LABEL = "H2H Top10"
-AUDIT_NO_ODDS_LABEL = "No odds"
 RESULT_LAST_3_DAYS_LABEL = "Last 3 days"
 RESULT_LAST_7_DAYS_LABEL = "Last 7 days"
 RESULT_LAST_MONTH_LABEL = "Last month"
@@ -1698,10 +1445,6 @@ def audit_has_up_to_2h_o15(row: Dict[str, Any]) -> bool:
         return False
     now = datetime.now(timezone.utc)
     return now <= dt <= now + timedelta(hours=2)
-
-def audit_has_no_odds_signal(row: Dict[str, Any]) -> bool:
-    """Audit/UI signal for matches where either side does not have usable decimal odds."""
-    return pick_odds(row) is None or opponent_odds(row) is None
 
 
 def audit_record_pair(value: Any) -> Tuple[Optional[int], Optional[int]]:
@@ -1813,8 +1556,6 @@ def audit_filter_tags_for_row(row: Dict[str, Any]) -> List[str]:
         tags.append(AUDIT_SAFE_BET_LABEL)
     if audit_has_h2h_top10(row):
         tags.append(AUDIT_H2H_TOP10_LABEL)
-    if audit_has_no_odds_signal(row):
-        tags.append(AUDIT_NO_ODDS_LABEL)
     existing = row.get("audit_filter_tags")
     if isinstance(existing, list):
         tags.extend(str(x) for x in existing if x)
@@ -1837,8 +1578,6 @@ def audit_note_css(label: str) -> str:
         return "tag-chip audit-pill audit-pill-safe"
     if label == AUDIT_H2H_TOP10_LABEL:
         return "tag-chip audit-pill audit-pill-h2h"
-    if label == AUDIT_NO_ODDS_LABEL:
-        return "tag-chip audit-pill audit-pill-noodds"
     if label in {RESULT_LAST_3_DAYS_LABEL, RESULT_LAST_7_DAYS_LABEL, RESULT_LAST_MONTH_LABEL, RESULT_THIS_YEAR_LABEL}:
         return "tag-chip audit-pill audit-pill-date"
     if label in {RESULT_MODEL_CORQ_LABEL, RESULT_MODEL_CLOQ_LABEL, RESULT_MODEL_AUDIT_LABEL}:
@@ -1937,7 +1676,6 @@ def render_notes_summary(rows: List[Dict[str, Any]]) -> str:
             AUDIT_TIME_ODDS_LABEL: 1,
             AUDIT_SAFE_BET_LABEL: 2,
             AUDIT_H2H_TOP10_LABEL: 3,
-            AUDIT_NO_ODDS_LABEL: 4,
         }.get(label, 10)
         return order, -count, label
 
@@ -2138,8 +1876,7 @@ def render_results_table(rows: List[Dict[str, Any]], title: str, limit: Optional
         AUDIT_TIME_ODDS_LABEL: 21,
         AUDIT_SAFE_BET_LABEL: 22,
         AUDIT_H2H_TOP10_LABEL: 23,
-        AUDIT_NO_ODDS_LABEL: 24,
-        "No previous H2H matches": 25,
+        "No previous H2H matches": 24,
         "Recent form pending": 25,
     }
 
@@ -2307,7 +2044,7 @@ def render_results_filter_builder(rows: List[Dict[str, Any]]) -> str:
         ("Result", ["WON", "LOST", "VOID", "PENDING"]),
         ("Model", [RESULT_MODEL_CORQ_LABEL, RESULT_MODEL_CLOQ_LABEL, RESULT_MODEL_AUDIT_LABEL]),
         ("Date", [RESULT_LAST_3_DAYS_LABEL, RESULT_LAST_7_DAYS_LABEL, RESULT_LAST_MONTH_LABEL, RESULT_THIS_YEAR_LABEL]),
-        ("Signals", [AUDIT_CORQ_TOP20_LABEL, AUDIT_TIME_ODDS_LABEL, AUDIT_SAFE_BET_LABEL, AUDIT_H2H_TOP10_LABEL, AUDIT_NO_ODDS_LABEL]),
+        ("Signals", [AUDIT_CORQ_TOP20_LABEL, AUDIT_TIME_ODDS_LABEL, AUDIT_SAFE_BET_LABEL, AUDIT_H2H_TOP10_LABEL]),
         ("Data notes", ["No previous H2H matches", "Recent form pending"]),
     ]
 
