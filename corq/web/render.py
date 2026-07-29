@@ -1299,6 +1299,132 @@ def triplet_market_display(row: Dict[str, Any], family: str) -> str:
     return " / ".join(parts) if parts else "— / — / —"
 
 
+def abs_market_pct(value: Any, digits: int = 1, none: str = "—") -> str:
+    num = as_float(value)
+    if num is None:
+        return none
+    if abs(num) <= 1.0:
+        num *= 100.0
+    return f"{abs(num):.{digits}f}%"
+
+
+def tiebreak_pct_display(row: Dict[str, Any]) -> str:
+    value = _first_data_value(
+        row,
+        "sets_games_tiebreak_probability",
+        "sets_games_tb_probability",
+        "tb_probability",
+        "tie_break_probability",
+        "tiebreak_probability",
+        "ta_tiebreak_probability",
+        "thinq_tiebreak_probability",
+    )
+    return market_pct(value, 1)
+
+
+def _candidate_text(candidate: Any, require_positive_edge: bool = False) -> str:
+    if isinstance(candidate, str):
+        text = candidate.strip()
+        return text if text else "—"
+    if not isinstance(candidate, dict):
+        return "—"
+    selection = (
+        candidate.get("selection")
+        or candidate.get("pick")
+        or candidate.get("market")
+        or candidate.get("bet")
+        or candidate.get("label")
+        or candidate.get("name")
+    )
+    probability = candidate.get("probability_pct") or candidate.get("probability") or candidate.get("model_probability_pct") or candidate.get("model_probability")
+    edge = candidate.get("edge_pct") or candidate.get("edge") or candidate.get("value_edge_pct") or candidate.get("value_edge")
+    edge_num = as_float(edge)
+    if require_positive_edge and (edge_num is None or edge_num <= 0):
+        return "—"
+    text = str(selection or "").strip()
+    if not text:
+        return "—"
+    parts = [text]
+    if as_float(probability) is not None:
+        parts.append(market_pct(probability, 0))
+    if edge_num is not None:
+        parts.append(signed_market_pct(edge, 1))
+    return " | ".join(parts)
+
+
+def _first_candidate(row: Dict[str, Any], *keys: str) -> Any:
+    for key in keys:
+        value = _first_data_value(row, key)
+        if isinstance(value, list):
+            for item in value:
+                if item:
+                    return item
+        elif value not in (None, ""):
+            return value
+    return None
+
+
+def best_bet_display(row: Dict[str, Any]) -> str:
+    explicit = _first_data_value(
+        row,
+        "best_bet_display",
+        "best_bet",
+        "best_model_bet",
+        "sets_games_best_bet",
+        "model_best_bet",
+    )
+    if explicit not in (None, ""):
+        return _candidate_text(explicit)
+    candidate = _first_candidate(row, "best_bet_candidate", "sets_games_best_candidate", "sets_games_value_candidates")
+    text = _candidate_text(candidate)
+    if text != "—":
+        return text
+    return compact_market_line(
+        _first_data_value(row, "sets_games_best_value", "sets_games_best_total", "best_total", "best_ou"),
+        _first_data_value(row, "sets_games_best_value_probability", "sets_games_best_total_probability", "best_total_probability", "best_ou_probability"),
+    )
+
+
+def value_bet_display(row: Dict[str, Any]) -> str:
+    explicit = _first_data_value(
+        row,
+        "value_bet_display",
+        "value_bet",
+        "best_value_bet",
+        "sets_games_value_bet",
+        "marq_value_bet",
+    )
+    if explicit not in (None, ""):
+        return _candidate_text(explicit)
+    candidate = _first_candidate(row, "value_bet_candidate", "sets_games_value_bet_candidate", "sets_games_value_candidates")
+    return _candidate_text(candidate, require_positive_edge=True)
+
+
+def move_signal_display(value: Any) -> str:
+    text = str(value or "").strip()
+    if not text:
+        return "Pending"
+    upper = text.upper().replace("_", " ")
+    if upper in {"UNKNOWN", "PENDING", "NO DATA", "NONE"}:
+        return "Pending"
+    if upper == "STABLE":
+        return "Stable"
+    return " ".join(part.capitalize() for part in upper.split())
+
+
+def marq_range_display(row: Dict[str, Any]) -> str:
+    explicit = _first_data_value(row, "marq_move_range", "move_range", "range")
+    if explicit not in (None, ""):
+        return str(explicit)
+    earliest = _first_data_value(row, "marq_initial_pick_odds", "move_earliest_odds", "initial_pick_odds")
+    latest = _first_data_value(row, "marq_current_pick_odds", "move_latest_odds", "current_pick_odds")
+    old = as_float(earliest)
+    new = as_float(latest)
+    if old is None or new is None:
+        return "—"
+    return f"{old:.2f} -> {new:.2f}"
+
+
 def render_sets_games_box(row: Dict[str, Any]) -> str:
     sets_value = market_pick_display(row, "sets", 2.5)
     games_value = market_pick_display(row, "games", 23.5)
@@ -1316,28 +1442,32 @@ def render_sets_games_box(row: Dict[str, Any]) -> str:
         metric_row("Sets", esc(sets_value)),
         metric_row("Games", esc(games_value)),
         metric_row("Best O/U", esc(best_value)),
+        metric_row("TB %", esc(tiebreak_pct_display(row))),
         metric_row("Aces P/O/T", esc(triplet_market_display(row, "aces"))),
         metric_row("DF P/O/T", esc(triplet_market_display(row, "df"))),
+        metric_row("Best Bet", esc(best_bet_display(row))),
+        metric_row("Value Bet", esc(value_bet_display(row))),
         '</section>',
     ])
 
 
 def render_marq_box(row: Dict[str, Any]) -> str:
     movement_available = _first_data_value(row, "marq_movement_available", "movement_available")
-    move_pct = _first_data_value(row, "marq_move_pct", "move_pct")
-    move_range = _first_data_value(row, "marq_move_range", "move_range", "range")
+    move_pct = _first_data_value(row, "marq_move_pct", "marq_market_move_pct", "move_pct", "market_move_pct")
+    move_range = marq_range_display(row)
+    move_signal = move_signal_display(_first_data_value(row, "marq_display_move_signal", "marq_move_signal", "market_move"))
     rows = [
         '<section class="metric-box small-box marq-box">',
         '<div class="box-head"><span>MarQ</span><b></b></div>',
         metric_row("Pick Marq", market_pct(_first_data_value(row, "marq_crowd_pick_pct", "pick_marq", "marq_pick_pct"))),
         metric_row("Opp Marq", market_pct(_first_data_value(row, "marq_crowd_opponent_pct", "opponent_marq", "opp_marq", "marq_opponent_pct"))),
         metric_row("Marq Edge", signed_market_pct(_first_data_value(row, "marq_edge_pct", "marq_edge", "edge_pct"))),
-        metric_row("Move", esc(_first_data_value(row, "marq_display_move_signal", "marq_move_signal", "market_move") or "Pending")),
+        metric_row("Move", esc(move_signal)),
     ]
     if movement_available is True or str(movement_available).lower() == "true" or move_pct not in (None, ""):
-        rows.append(metric_row("Move %", market_pct(move_pct)))
-    if movement_available is True or str(movement_available).lower() == "true" or move_range not in (None, ""):
-        rows.append(metric_row("Range", esc(move_range or "—")))
+        rows.append(metric_row("Move %", abs_market_pct(move_pct)))
+    if movement_available is True or str(movement_available).lower() == "true" or move_range != "—":
+        rows.append(metric_row("Range", esc(move_range)))
     rows.append('</section>')
     return "\n".join(rows)
 
