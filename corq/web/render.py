@@ -7,6 +7,7 @@ import re
 import shutil
 from collections import Counter, defaultdict
 from datetime import datetime, timezone, timedelta
+from zoneinfo import ZoneInfo
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
@@ -18,9 +19,9 @@ ASSET_SRC = WEB_DIR / "assets" / "tbt_ai_goat_icon_new.png"
 ASSET_DIR = SITE_DIR / "assets"
 LOGS_DIR = SITE_DIR / "logs"
 
-# Manual display offset for web match times. Event times are treated as UTC.
-# Slovakia summer time is normally UTC+2; change to +1 in winter if needed.
-WEB_DISPLAY_TIME_OFFSET_HOURS = 2
+# Web match times are always displayed in Europe/Bratislava local time.
+# ZoneInfo applies DST automatically: CET UTC+1 in winter, CEST UTC+2 in summer.
+WEB_DISPLAY_TIMEZONE = ZoneInfo("Europe/Bratislava")
 
 
 _GOAT_BADGE_URI: Optional[str] = None
@@ -839,6 +840,7 @@ def start_time(row: Dict[str, Any]) -> str:
     raw = (
         row.get("start_time_utc")
         or row.get("match_time_utc")
+        or row.get("commence_time")
         or row.get("start_time")
         or row.get("match_time")
         or row.get("start_time_display")
@@ -849,23 +851,24 @@ def start_time(row: Dict[str, Any]) -> str:
     if not text:
         return "—"
     try:
-        from datetime import timedelta
         if re.fullmatch(r"\d{10,13}", text):
             dt = datetime.fromtimestamp(int(text[:10]), tz=timezone.utc)
         else:
             iso = text.replace("Z", "+00:00")
             dt = datetime.fromisoformat(iso)
             if dt.tzinfo is None:
+                # API values without timezone are treated as UTC source times.
                 dt = dt.replace(tzinfo=timezone.utc)
             else:
                 dt = dt.astimezone(timezone.utc)
-        dt = dt + timedelta(hours=WEB_DISPLAY_TIME_OFFSET_HOURS)
-        return dt.strftime("%H:%M")
+        return dt.astimezone(WEB_DISPLAY_TIMEZONE).strftime("%H:%M")
     except Exception:
-        # Fallback for already formatted strings. Leave them unchanged to avoid
-        # accidentally double-shifting a true display value.
-        m = re.search(r"(\d{1,2}:\d{2})", text)
-        return m.group(1) if m else text[:16]
+        # Fallback for already formatted strings. Leave them unchanged because
+        # HH:MM without date/timezone cannot be converted safely.
+        m = re.search(r"\b(\d{1,2}:\d{2})\b", text)
+        return m.group(1) if m else text
+
+
 def meta_line(row: Dict[str, Any]) -> str:
     bits = []
     for key in ("tournament", "category", "surface", "best_of"):
