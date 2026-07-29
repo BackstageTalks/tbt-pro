@@ -332,6 +332,19 @@ def merge_rows_with_existing_for_settlement(source_rows: List[Dict[str, Any]], e
             by_side[key] = row
             order.append(key)
     return [by_side[key] for key in order]
+
+def lock_results_source_rows(model: str, source_rows: List[Dict[str, Any]], existing_rows: List[Dict[str, Any]], settle_date: str) -> Tuple[List[Dict[str, Any]], str]:
+    """Keep result pick slates stable during build-results runs.
+
+    The results workflow may update settlement fields on existing rows, but it
+    must not replace the CorQ TOP7 picks with a newly generated latest snapshot.
+    New pick slates are introduced by the pick-generation workflow, not by the
+    results-settlement workflow.
+    """
+    if existing_rows:
+        return existing_rows, "locked_existing_results"
+    return source_rows, "source_snapshot_initial_seed"
+
 def build_results_database(run_date: Optional[str] = None, output_root: Path = RESULTS_DIR, fetch_api: bool = False, settle_date: Optional[str] = None, settlement_grace_hours: float = 0.0, local_tz: str = "Europe/Bratislava") -> Dict[str, Any]:
     corq_payload, corq_rows, corq_source = load_source_rows("corq")
     cloq_payload, cloq_rows, cloq_source = load_source_rows("cloq")
@@ -345,7 +358,7 @@ def build_results_database(run_date: Optional[str] = None, output_root: Path = R
     old_cloq = existing_index(old_cloq_rows)
     old_audit = existing_index(old_audit_rows)
 
-    corq_rows = merge_rows_with_existing_for_settlement(corq_rows, old_corq_rows, day)
+    corq_rows, corq_lock_mode = lock_results_source_rows("corq", corq_rows, old_corq_rows, day)
     cloq_rows = merge_rows_with_existing_for_settlement(cloq_rows, old_cloq_rows, day)
     audit_rows = merge_rows_with_existing_for_settlement(audit_rows, old_audit_rows, day)
 
@@ -378,6 +391,9 @@ def build_results_database(run_date: Optional[str] = None, output_root: Path = R
             "corq": corq_source,
             "cloq": cloq_source,
             "audit": audit_source,
+        },
+        "locks": {
+            "corq": corq_lock_mode,
         },
         "output_root": str(output_root),
     }
