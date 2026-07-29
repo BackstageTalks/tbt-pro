@@ -13,11 +13,12 @@
   "best_of": 3,
   "match_start": "2026-07-29T14:00:00+00:00",
   "start_time": "2026-07-29T14:00:00+00:00",
-  "status_type": "notstarted",
-  "status_code": 0,
+  "status_type": "inprogress",
+  "status_code": 8,
   "is_doubles": false,
   "source": "RapidAPI PRO",
   "raw": {
+    "firstToServe": 2,
     "tournament": {
       "name": "Targu Mures, Romania",
       "slug": "targu-mures-romania",
@@ -93,9 +94,9 @@
     },
     "customId": "RhzsTKNb",
     "status": {
-      "code": 0,
-      "description": "Not started",
-      "type": "notstarted"
+      "code": 8,
+      "description": "1st set",
+      "type": "inprogress"
     },
     "homeTeam": {
       "name": "Sara Sorribes Tormo",
@@ -182,11 +183,26 @@
         }
       }
     },
-    "homeScore": {},
-    "awayScore": {},
-    "time": {},
+    "homeScore": {
+      "current": 0,
+      "display": 0,
+      "period1": 4,
+      "point": "30"
+    },
+    "awayScore": {
+      "current": 0,
+      "display": 0,
+      "period1": 1,
+      "point": "15"
+    },
+    "time": {
+      "currentPeriodStartTimestamp": 1785334041
+    },
     "changes": {
-      "changeTimestamp": 0
+      "changes": [
+        "homeScore.point"
+      ],
+      "changeTimestamp": 1785335814
     },
     "hasGlobalHighlights": false,
     "crowdsourcingDataDisplayEnabled": false,
@@ -202,6 +218,7 @@
       "period4": "4th set",
       "period5": "5th set"
     },
+    "lastPeriod": "period1",
     "finalResultOnly": false,
     "feedLocked": false,
     "groundType": "Red clay",
@@ -226,16 +243,16 @@
   "odds_label_2": "2",
   "odds_direct_match_score": 1.0,
   "odds_reverse_match_score": 0.0,
-  "odds_player1": 1.3333,
-  "odds_player2": 3.25,
-  "p1_odds": 1.3333,
-  "p2_odds": 3.25,
-  "home_odds": 1.3333,
-  "away_odds": 3.25,
-  "odds1": 1.3333,
-  "odds2": 3.25,
-  "price1": 1.3333,
-  "price2": 3.25,
+  "odds_player1": 1.0625,
+  "odds_player2": 10.0,
+  "p1_odds": 1.0625,
+  "p2_odds": 10.0,
+  "home_odds": 1.0625,
+  "away_odds": 10.0,
+  "odds1": 1.0625,
+  "odds2": 10.0,
+  "price1": 1.0625,
+  "price2": 10.0,
   "odds_source": "RapidAPI PRO event odds",
   "odds_endpoint": "/api/tennis/event/16603218/odds",
   "odds_status": "OK",
@@ -244,17 +261,17 @@
   ],
   "odds_pair_available": true,
   "odds_labels_confirmed": true,
-  "odds_gap_abs": 1.9167,
-  "odds_gap_pct": 1.4376,
+  "odds_gap_abs": 8.9375,
+  "odds_gap_pct": 8.4118,
   "home_player": "Sara Sorribes Tormo",
   "away_player": "Caijsa Wilda Hennemann",
   "pick_side": "HOME",
   "opponent_side": "AWAY",
   "pick": "Sara Sorribes Tormo",
   "opponent": "Caijsa Wilda Hennemann",
-  "odds": 1.3333,
-  "pick_odds": 1.3333,
-  "opponent_odds": 3.25,
+  "odds": 1.0625,
+  "pick_odds": 1.0625,
+  "opponent_odds": 10.0,
   "pick_is_player1": true,
   "pick_is_player2": false,
   "pick_is_home": true,
@@ -531,7 +548,7 @@
       "tiebreak_edge": 0.0015,
       "decider_edge": -0.0007,
       "confidence": 0.78,
-      "odds_gap_pct": 1.4376,
+      "odds_gap_pct": 8.4118,
       "flags": [
         "MATCH_DYNAMICS_H2H_NEUTRAL"
       ]
@@ -651,7 +668,7 @@
         "tiebreak_edge": 0.0015,
         "decider_edge": -0.0007,
         "confidence": 0.78,
-        "odds_gap_pct": 1.4376,
+        "odds_gap_pct": 8.4118,
         "flags": [
           "MATCH_DYNAMICS_H2H_NEUTRAL"
         ]
@@ -1272,7 +1289,7 @@
     "history_match_count": 37883,
     "history_file_count": 15
   },
-  "implied_probability": 0.75,
+  "implied_probability": 0.9412,
   "overall_elo_edge": 0.07,
   "surface_elo_edge": 0.08,
   "elo_edge": 0.08,
@@ -1309,7 +1326,7 @@
   "corq_estimated_win_probability": 0.6553,
   "estimated_win_pct": 65.53,
   "corq_score": 0.6553,
-  "corq_edge": -0.0947,
+  "corq_edge": -0.2859,
   "corq_risk_flags": [],
   "pick_ta_rank": 214,
   "opponent_ta_rank": 275,
@@ -1349,24 +1366,61 @@
   "ta_depth_label": "N/A",
   "ta_decision_confidence": 0.0,
   "ta_decision_notes": [],
+  "expected_sets": 2.47,
+  "sets_probability": 0.47,
+  "sets_probability_label": "O2.5",
+  "sets_o25_probability": 0.47,
+  "sets_o45_probability": null,
+  "most_likely_score": "2-0",
+  "most_likely_score_probability": 0.2915,
+  "score_probabilities": {
+    "2-0": 0.2915,
+    "2-1": 0.235,
+    "1-2": 0.235,
+    "0-2": 0.2385
+  },
+  "score_basis": "player1_vs_player2",
+  "first_set_player1_odds": null,
+  "first_set_player2_odds": null,
+  "first_set_player1_probability": null,
+  "first_set_player2_probability": null,
+  "expected_games": null,
+  "projected_total_games": null,
+  "games_line": null,
+  "total_games_line": null,
+  "games_pick": null,
+  "games_over_odds": null,
+  "games_under_odds": null,
+  "games_over_probability": null,
+  "games_under_probability": null,
+  "tie_break_yes_odds": null,
+  "tie_break_no_odds": null,
+  "tie_break_probability": null,
+  "tb_probability": null,
+  "sets_model_source": "ModelFallback",
+  "sets_games_value_candidates": [],
+  "sets_games_best_value": "Pending lines",
+  "sets_games_status": "OK",
   "corq_source_rank": 28,
   "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
   "top7_publishable": false,
   "eligible_for_top7": false,
   "top7_quality_reject_reasons": [
+    "REJECT_TOP7_STATUS_NOT_NOTSTARTED",
     "REJECT_TOP7_LOW_ODDS_UNDER_1_40"
   ],
   "top7_reject_reasons": [
+    "REJECT_TOP7_STATUS_NOT_NOTSTARTED",
     "REJECT_TOP7_LOW_ODDS_UNDER_1_40"
   ],
-  "top7_status_type_normalized": "notstarted",
-  "top7_status_code": 0,
+  "top7_status_type_normalized": "inprogress",
+  "top7_status_code": 8,
   "top7_corq_probability": 0.6553,
   "top7_pick_thinq_edge": 0.1966,
   "top7_thinq_confidence": 0.79,
   "pick_data_depth": 0.835375,
   "stat_data_depth": 0.835375,
-  "top7_pick_odds": 1.3333,
+  "top7_pick_odds": 1.0625,
   "top7_match_date_local": "2026-07-29",
   "recent_form_status": "OK",
   "recent_form_reason": "",
