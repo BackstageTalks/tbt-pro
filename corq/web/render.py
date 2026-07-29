@@ -1451,11 +1451,36 @@ def render_sets_games_box(row: Dict[str, Any]) -> str:
     ])
 
 
+def final_marq_display(row: Dict[str, Any]) -> str:
+    explicit = _first_data_value(
+        row,
+        "final_marq",
+        "final_marq_display",
+        "marq_final",
+        "marq_final_display",
+        "marq_ai_signal",
+        "marq_quality_signal",
+    )
+    text = str(explicit or "").strip()
+    if text and text.upper() not in {"UNKNOWN", "NO MARKET DATA", "NO DATA", "NONE", "NULL", "—", "-"}:
+        return text
+
+    edge = as_float(_first_data_value(row, "marq_edge_pct", "marq_edge", "edge_pct"))
+    if edge is not None:
+        if abs(edge) <= 1.0:
+            edge *= 100.0
+        if edge >= 2.0:
+            return "Support Pick"
+        if edge <= -2.0:
+            return "Support Opp"
+        return "Neutral"
+    return "Pending"
+
+
 def render_marq_box(row: Dict[str, Any]) -> str:
     movement_available = _first_data_value(row, "marq_movement_available", "movement_available")
     move_pct = _first_data_value(row, "marq_move_pct", "marq_market_move_pct", "move_pct", "market_move_pct")
     move_range = marq_range_display(row)
-    move_signal = move_signal_display(_first_data_value(row, "marq_display_move_signal", "marq_move_signal", "market_move"))
 
     rows = [
         '<section class="metric-box small-box marq-box">',
@@ -1463,12 +1488,12 @@ def render_marq_box(row: Dict[str, Any]) -> str:
         metric_row("Pick Marq", market_pct(_first_data_value(row, "marq_crowd_pick_pct", "pick_marq", "marq_pick_pct"))),
         metric_row("Opp Marq", market_pct(_first_data_value(row, "marq_crowd_opponent_pct", "opponent_marq", "opp_marq", "marq_opponent_pct"))),
         metric_row("Marq Edge", signed_market_pct(_first_data_value(row, "marq_edge_pct", "marq_edge", "edge_pct"))),
-        metric_row("Move", esc(move_signal)),
     ]
     if movement_available is True or str(movement_available).lower() == "true" or move_pct not in (None, ""):
         rows.append(metric_row("Move %", abs_market_pct(move_pct)))
     if movement_available is True or str(movement_available).lower() == "true" or move_range != "—":
         rows.append(metric_row("Range", esc(move_range)))
+    rows.append(metric_row("Final MarQ", esc(final_marq_display(row))))
     rows.append('</section>')
     return "\n".join(rows)
 
