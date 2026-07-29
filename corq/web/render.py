@@ -747,6 +747,19 @@ def form_records(row: Dict[str, Any], side: str) -> Tuple[str, str]:
     if status and status != "OK" and out_form == "N/A" and out_surface == "N/A":
         return "N/A", "N/A"
     return out_form, out_surface
+def dedupe_tags(tags: List[Any]) -> List[str]:
+    """Return tags in original order without duplicates or empty values."""
+    out: List[str] = []
+    seen = set()
+    for tag in tags or []:
+        clean = str(tag or "").strip()
+        if not clean or clean in seen:
+            continue
+        out.append(clean)
+        seen.add(clean)
+    return out
+
+
 def notes_for_row(row: Dict[str, Any]) -> List[str]:
     flags: List[str] = []
     for key in ("corq_warning_flags", "risk_flags", "reject_reasons", "top7_quality_reject_reasons", "top7_risk_tags", "flags"):
