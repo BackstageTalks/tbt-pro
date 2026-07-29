@@ -861,6 +861,8 @@ def build_match_ta_context(pick: str, opponent: str, surface: str = "") -> Dict[
         "ta_opp_tb_split": o_stats.get("tb_wl"),
         "ta_pick_ace_pct": p_stats.get("ace_pct"),
         "ta_opp_ace_pct": o_stats.get("ace_pct"),
+        "ta_pick_df_pct": p_stats.get("df_pct"),
+        "ta_opp_df_pct": o_stats.get("df_pct"),
         "ta_pick_hold_pct": p_stats.get("hold_pct"),
         "ta_opp_hold_pct": o_stats.get("hold_pct"),
         "ta_pick_break_pct": p_stats.get("break_pct"),
