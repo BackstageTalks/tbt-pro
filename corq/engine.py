@@ -281,6 +281,43 @@ def _enrich_with_thinq(record: Dict[str, Any], thinq_service: Any) -> Dict[str, 
 
 
 
+
+def _enrich_with_sets_games(record: Dict[str, Any]) -> Dict[str, Any]:
+    """Attach Sets/Games market-aware fields from marq.market_lines.
+
+    This is intentionally soft-fail: if market helpers or upstream APIs are not
+    available, the CORQ runtime continues and the renderer shows N/A/Pending.
+    """
+    try:
+        from marq.market_lines import build_sets_games_from_match, build_sets_games_value_candidates  # type: ignore
+    except Exception as exc:
+        record.setdefault("sets_games_status", "UNAVAILABLE")
+        record.setdefault("sets_games_error", str(exc))
+        record.setdefault("sets_games_best_value", "Pending lines")
+        return record
+
+    try:
+        model_prediction = {
+            "probability_player1": record.get("probability_player1") or record.get("p1_probability") or record.get("player1_probability"),
+            "probability_player2": record.get("probability_player2") or record.get("p2_probability") or record.get("player2_probability"),
+        }
+        enriched = build_sets_games_from_match(record, model_prediction=model_prediction)
+        if isinstance(enriched, dict):
+            record.update(enriched)
+        value_candidates = build_sets_games_value_candidates(record)
+        record["sets_games_value_candidates"] = value_candidates
+        if value_candidates and value_candidates[0].get("selection"):
+            record["sets_games_best_value"] = value_candidates[0].get("selection")
+            record["sets_games_best_value_edge"] = value_candidates[0].get("edge")
+        else:
+            record.setdefault("sets_games_best_value", "Pending lines")
+        record.setdefault("sets_games_status", "OK")
+    except Exception as exc:
+        record.setdefault("sets_games_status", "ERROR")
+        record.setdefault("sets_games_error", str(exc))
+        record.setdefault("sets_games_best_value", "Pending lines")
+    return record
+
 def _write_results_foundation_snapshots(
     all_rows: List[Dict[str, Any]],
     top7_rows: List[Dict[str, Any]],
@@ -321,6 +358,7 @@ def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", ru
         prediction = build_corq_prediction(enriched)
         prediction = _enrich_with_ta_rankings(prediction, ta_rankings)
         prediction = _enrich_with_ta_profile_context(prediction)
+        prediction = _enrich_with_sets_games(prediction)
         scored.append(prediction)
 
     all_view = make_all_match_view(scored)
