@@ -1025,6 +1025,169 @@ def build_market_aware_sets(match: Dict[str, Any], model_prediction: Dict[str, A
     }
 
 
+
+def _df_pct_from_value(value: Any) -> Optional[float]:
+    try:
+        if value is None or value == "":
+            return None
+        if isinstance(value, str):
+            value = value.strip().replace("%", "").replace(",", ".")
+        number = float(value)
+        if 0 < number <= 1:
+            number *= 100.0
+        # Tennis double-fault percentage above 30% is almost certainly not a DF%.
+        if 0 < number < 30:
+            return number
+    except Exception:
+        return None
+    return None
+
+
+def _recursive_find_df_pct(obj: Any, surface: Optional[str] = None) -> Optional[float]:
+    """Find a real double-fault percentage in TA/Sackmann-like player records."""
+    if not isinstance(obj, (dict, list)):
+        return None
+    preferred_keys = {
+        "df%", "df_pct", "df_percent", "df_percentage", "df_rate", "dfs_pct", "dfs_percent",
+        "double_fault_pct", "double_fault_percent", "double_fault_percentage", "double_fault_rate",
+        "double_faults_pct", "double_faults_percent", "double_faults_percentage",
+        "ta_df_pct", "ta_df_percent", "ta_double_fault_pct", "ta_double_fault_percent",
+        "dfPct", "dfPercent", "doubleFaultPct", "doubleFaultPercent",
+    }
+    if isinstance(obj, dict):
+        if surface:
+            surf = str(surface).strip().lower()
+            for key, value in obj.items():
+                if str(key).strip().lower() == surf and isinstance(value, dict):
+                    pct_value = _recursive_find_df_pct(value, surface=None)
+                    if pct_value is not None:
+                        return pct_value
+        for key, value in obj.items():
+            key_text = str(key).strip()
+            if key_text in preferred_keys or key_text.lower() in preferred_keys:
+                pct_value = _df_pct_from_value(value)
+                if pct_value is not None:
+                    return pct_value
+        for key in ("surface", "surfaces", "splits", "totals", "last52", "last_52", "recent", "current_year", "yearly", "career"):
+            pct_value = _recursive_find_df_pct(obj.get(key), surface=surface)
+            if pct_value is not None:
+                return pct_value
+        for value in obj.values():
+            pct_value = _recursive_find_df_pct(value, surface=surface)
+            if pct_value is not None:
+                return pct_value
+    if isinstance(obj, list):
+        for value in obj:
+            pct_value = _recursive_find_df_pct(value, surface=surface)
+            if pct_value is not None:
+                return pct_value
+    return None
+
+
+def _first_df_pct(row: Dict[str, Any], keys: Tuple[str, ...]) -> Optional[float]:
+    for key in keys:
+        pct_value = _df_pct_from_value(row.get(key))
+        if pct_value is not None:
+            return pct_value
+    return None
+
+
+def _projection_side(projection: Any, line: Any) -> Optional[str]:
+    proj = as_float(projection)
+    ln = as_float(line)
+    if proj is None or ln is None:
+        return None
+    return "Over" if proj >= ln else "Under"
+
+
+def build_ta_double_faults_projection(match: Dict[str, Any], games_line: Any = None, surface: Optional[str] = None) -> Dict[str, Any]:
+    """Project double faults from real TA/Sackmann DF% plus projected games.
+
+    No synthetic DF% is created. If DF% is missing for either side, the function
+    returns unavailable values and the UI can show N/A.
+    """
+    games = as_float(games_line or match.get("projected_total_games") or match.get("expected_games") or match.get("games_line") or match.get("total_games_line"))
+    if games is None or games <= 0:
+        return {"double_faults_available": False, "df_status": "NO_GAMES_LINE"}
+
+    surface = surface or str(match.get("surface") or match.get("surface_raw") or "") or None
+    pick_df_pct = _first_df_pct(match, (
+        "pick_df_pct", "ta_pick_df_pct", "pick_double_fault_pct", "pick_double_faults_pct",
+        "df_pick_pct", "pick_df_percent", "ta_pick_double_fault_pct",
+    ))
+    opp_df_pct = _first_df_pct(match, (
+        "opponent_df_pct", "opp_df_pct", "ta_opp_df_pct", "ta_opponent_df_pct",
+        "opponent_double_fault_pct", "opp_double_fault_pct", "opponent_double_faults_pct",
+        "df_opponent_pct", "opponent_df_percent", "ta_opp_double_fault_pct",
+    ))
+
+    if pick_df_pct is None:
+        for key in ("ta_profile_pick", "pick_ta_profile", "ta_pick_profile", "ta_context_pick", "pick_profile"):
+            if isinstance(match.get(key), dict):
+                pick_df_pct = _recursive_find_df_pct(match.get(key), surface=surface)
+                if pick_df_pct is not None:
+                    break
+    if opp_df_pct is None:
+        for key in ("ta_profile_opponent", "opponent_ta_profile", "ta_opp_profile", "ta_context_opponent", "opponent_profile"):
+            if isinstance(match.get(key), dict):
+                opp_df_pct = _recursive_find_df_pct(match.get(key), surface=surface)
+                if opp_df_pct is not None:
+                    break
+
+    if pick_df_pct is None and isinstance(match.get("ta_context"), dict):
+        ctx = match.get("ta_context") or {}
+        for key in ("pick", "player", "p", "player1", "side_pick"):
+            if isinstance(ctx.get(key), dict):
+                pick_df_pct = _recursive_find_df_pct(ctx.get(key), surface=surface)
+                if pick_df_pct is not None:
+                    break
+    if opp_df_pct is None and isinstance(match.get("ta_context"), dict):
+        ctx = match.get("ta_context") or {}
+        for key in ("opponent", "opp", "o", "player2", "side_opponent"):
+            if isinstance(ctx.get(key), dict):
+                opp_df_pct = _recursive_find_df_pct(ctx.get(key), surface=surface)
+                if opp_df_pct is not None:
+                    break
+
+    if pick_df_pct is None or opp_df_pct is None:
+        return {
+            "double_faults_available": False,
+            "df_status": "MISSING_DF_PCT",
+            "pick_df_pct": pick_df_pct,
+            "opponent_df_pct": opp_df_pct,
+        }
+
+    service_games_each = games / 2.0
+    service_points_each = service_games_each * AVG_POINTS_PER_SERVICE_GAME
+    pick_df = service_points_each * (pick_df_pct / 100.0)
+    opp_df = service_points_each * (opp_df_pct / 100.0)
+    total_df = pick_df + opp_df
+
+    pick_line = as_float(match.get("pick_df_line") or match.get("pick_double_faults_line"))
+    opp_line = as_float(match.get("opponent_df_line") or match.get("opp_df_line") or match.get("opponent_double_faults_line"))
+    total_line = as_float(match.get("total_df_line") or match.get("total_double_faults_line"))
+
+    output = {
+        "double_faults_available": True,
+        "df_pick": round(pick_df, 1),
+        "df_opponent": round(opp_df, 1),
+        "df_total": round(total_df, 1),
+        "pick_df_pct": round(pick_df_pct, 2),
+        "opponent_df_pct": round(opp_df_pct, 2),
+        "df_source": "TA/Sackmann DF% + games_line",
+        "df_status": "OK",
+    }
+    if pick_line is not None:
+        output["pick_df_line"] = pick_line
+        output["pick_df_side"] = _projection_side(pick_df, pick_line)
+    if opp_line is not None:
+        output["opponent_df_line"] = opp_line
+        output["opponent_df_side"] = _projection_side(opp_df, opp_line)
+    if total_line is not None:
+        output["total_df_line"] = total_line
+        output["total_df_side"] = _projection_side(total_df, total_line)
+    return output
+
 def build_sets_games_from_match(match: Dict[str, Any], model_prediction: Optional[Dict[str, Any]] = None, force_refresh: bool = False) -> Dict[str, Any]:
     """Fetch markets and build Sets/Games fields for a current project match row."""
     event_id = match.get("event_id") or match.get("match_id") or match.get("id")
@@ -1032,5 +1195,12 @@ def build_sets_games_from_match(match: Dict[str, Any], model_prediction: Optiona
     output = build_market_aware_sets(match, model_prediction or match, set_markets=set_markets)
     enriched = dict(match)
     enriched.update(output)
+    df_info = build_ta_double_faults_projection(
+        enriched,
+        games_line=enriched.get("projected_total_games") or enriched.get("expected_games") or enriched.get("games_line") or enriched.get("total_games_line"),
+        surface=str(enriched.get("surface") or enriched.get("surface_raw") or "") or None,
+    )
+    if isinstance(df_info, dict):
+        enriched.update(df_info)
     return enriched
 
