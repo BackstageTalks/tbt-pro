@@ -1211,6 +1211,7 @@ def render_sets_games_box(row: Dict[str, Any]) -> str:
     Games: ~24.5 | Over 21.5
     TB Risk: 38%
     Aces P | O | T: O2.5 | O3.5 | U9.5
+    DF P | O | T: O2.5 | U3.5 | O5.5 or 3.1 | 2.4 | 5.5
     Value: best model value / Pending lines
     """
     def _num(*keys: str) -> Optional[float]:
@@ -1292,6 +1293,28 @@ def render_sets_games_box(row: Dict[str, Any]) -> str:
     total_aces = _ou(_txt("total_aces_side", default=""), row.get("total_aces_line"))
     aces_display_value = f"{pick_aces} | {opp_aces} | {total_aces}"
 
+    def _projection_value(*keys: str) -> str:
+        value = _num(*keys)
+        if value is None:
+            return "N/A"
+        return f"{value:.1f}" if abs(value - round(value)) > 0.01 else f"{value:g}"
+
+    def _ou_or_projection(side_keys: Tuple[str, ...], line_keys: Tuple[str, ...], projection_keys: Tuple[str, ...]) -> str:
+        side = _txt(*side_keys, default="")
+        line_value = None
+        for key in line_keys:
+            line_value = row.get(key)
+            if as_float(line_value) is not None:
+                break
+        if as_float(line_value) is not None:
+            return _ou(side, line_value)
+        return _projection_value(*projection_keys)
+
+    pick_df = _ou_or_projection(("pick_df_side", "pick_double_faults_side"), ("pick_df_line", "pick_double_faults_line"), ("df_pick", "pick_double_faults", "pick_df_projection"))
+    opp_df = _ou_or_projection(("opponent_df_side", "opp_df_side", "opponent_double_faults_side"), ("opponent_df_line", "opp_df_line", "opponent_double_faults_line"), ("df_opponent", "opponent_double_faults", "opp_df_projection"))
+    total_df = _ou_or_projection(("total_df_side", "total_double_faults_side"), ("total_df_line", "total_double_faults_line"), ("df_total", "total_double_faults", "total_df_projection"))
+    df_display_value = f"{pick_df} | {opp_df} | {total_df}"
+
     value_display = _txt("sets_games_best_value", "best_sets_games_value", "best_value", "value_bet", default="Pending lines")
 
     return "\n".join([
@@ -1302,6 +1325,7 @@ def render_sets_games_box(row: Dict[str, Any]) -> str:
         metric_row("Games", esc(games_display)),
         metric_row("TB Risk", esc(tb_display)),
         metric_row("Aces P | O | T", esc(aces_display_value)),
+        metric_row("DF P | O | T", esc(df_display_value)),
         metric_row("Value", esc(value_display)),
         '</section>',
     ])
