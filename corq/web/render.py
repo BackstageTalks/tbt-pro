@@ -950,7 +950,6 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         metric_row("P F Qty", signed_pct(row.get("opponent_quality_edge")), sign_class(row.get("opponent_quality_edge"))),
         metric_row("F Data Depth", bar_html(form_depth(row))),
         '</section>',
-        render_ta_box(row),
         render_sets_games_box(row),
         render_marq_box(row) if page != "cloq" else render_cloq_box(row),
         cloq_extra,
@@ -1187,37 +1186,160 @@ def render_ta_box(row: Dict[str, Any]) -> str:
         metric_row("TA Depth", esc(ta_depth_label(row))),
         '</section>',
     ])
+def _ctx(row: Dict[str, Any], key: str) -> Dict[str, Any]:
+    value = row.get(key)
+    return value if isinstance(value, dict) else {}
+
+
+def _first_data_value(row: Dict[str, Any], *keys: str, contexts: Tuple[str, ...] = ("sets_games", "marq")) -> Any:
+    for key in keys:
+        if "." in key:
+            value = nested_get(row, *key.split("."))
+        else:
+            value = row.get(key)
+        if value not in (None, ""):
+            return value
+    for ctx_key in contexts:
+        ctx = _ctx(row, ctx_key)
+        for key in keys:
+            short = key.split(".")[-1]
+            value = ctx.get(short)
+            if value not in (None, ""):
+                return value
+    return None
+
+
+def market_pct(value: Any, digits: int = 1, none: str = "—") -> str:
+    num = as_float(value)
+    if num is None:
+        return none
+    if abs(num) <= 1.0:
+        num *= 100.0
+    return f"{num:.{digits}f}%"
+
+
+def signed_market_pct(value: Any, digits: int = 1, none: str = "—") -> str:
+    num = as_float(value)
+    if num is None:
+        return none
+    if abs(num) <= 1.0:
+        num *= 100.0
+    return f"{num:+.{digits}f}%"
+
+
+def compact_market_line(selection: Any, probability: Any = None, none: str = "—") -> str:
+    text = str(selection or "").strip()
+    if not text:
+        side = str(_first_data_value({}, "") or "").strip()
+    prob = as_float(probability)
+    if not text:
+        return none
+    return f"{text} {market_pct(prob, 0)}" if prob is not None else text
+
+
+def _side_line(action: Any, line: Any) -> str:
+    action_txt = str(action or "").strip().upper()
+    line_num = as_float(line)
+    if not action_txt and line_num is None:
+        return ""
+    if action_txt in {"OVER", "O"}:
+        prefix = "O"
+    elif action_txt in {"UNDER", "U"}:
+        prefix = "U"
+    else:
+        prefix = action_txt
+    if line_num is None:
+        return prefix or ""
+    return f"{prefix}{line_num:.1f}" if prefix else f"{line_num:.1f}"
+
+
+def market_pick_display(row: Dict[str, Any], prefix: str, default_line: Optional[float] = None) -> str:
+    selection = _first_data_value(
+        row,
+        f"{prefix}_selection",
+        f"{prefix}_display",
+        f"sets_games_{prefix}_selection",
+        f"sets_games_{prefix}_display",
+    )
+    probability = _first_data_value(
+        row,
+        f"{prefix}_probability_pct",
+        f"{prefix}_probability",
+        f"{prefix}_pct",
+        f"sets_games_{prefix}_probability_pct",
+        f"sets_games_{prefix}_probability",
+        f"sets_games_{prefix}_pct",
+    )
+    if selection not in (None, ""):
+        return compact_market_line(selection, probability)
+    action = _first_data_value(row, f"{prefix}_side", f"{prefix}_action", f"sets_games_{prefix}_side", f"sets_games_{prefix}_action")
+    line = _first_data_value(row, f"{prefix}_line", f"sets_games_{prefix}_line")
+    # Do not display a bookmaker-style line unless at least one real signal is
+    # present. The default_line only labels an existing probability/action; it
+    # must not create a fake pick by itself.
+    if line is None and default_line is not None and (action not in (None, "") or probability not in (None, "")):
+        line = default_line
+    text = _side_line(action, line)
+    return compact_market_line(text, probability)
+
+
+def triplet_market_display(row: Dict[str, Any], family: str) -> str:
+    aliases = {
+        "aces": (("pick_aces", "p_aces", "aces_pick"), ("opponent_aces", "opp_aces", "o_aces", "aces_opponent"), ("total_aces", "t_aces", "aces_total")),
+        "df": (("pick_df", "p_df", "pick_double_faults", "double_faults_pick"), ("opponent_df", "opp_df", "o_df", "opponent_double_faults", "double_faults_opponent"), ("total_df", "t_df", "total_double_faults", "double_faults_total")),
+    }
+    parts: List[str] = []
+    for group in aliases.get(family, ()):  # pick, opponent, total
+        value = ""
+        for prefix in group:
+            value = market_pick_display(row, prefix, None)
+            if value != "—":
+                break
+        parts.append(value if value else "—")
+    return " / ".join(parts) if parts else "— / — / —"
+
+
 def render_sets_games_box(row: Dict[str, Any]) -> str:
-    sg = sets_games_signal(row)
-    decider = row.get("ta_decider_probability") or row.get("thinq_decider_probability") or row.get("three_sets_probability") or row.get("decider_probability")
-    tb = row.get("ta_tiebreak_probability") or row.get("thinq_tiebreak_probability") or row.get("tie_break_probability") or row.get("tiebreak_probability")
-    score = clean_signal_text(row.get("ta_score_projection") or row.get("predicted_score") or row.get("score_prediction"), "N/A")
+    sets_value = market_pick_display(row, "sets", 2.5)
+    games_value = market_pick_display(row, "games", 23.5)
+    best_value = market_pick_display(row, "best_total", None)
+    if best_value == "—":
+        best_value = market_pick_display(row, "best_ou", None)
+    if best_value == "—":
+        best_value = compact_market_line(
+            _first_data_value(row, "sets_games_best_total", "best_total", "best_ou", "sets_games_best_value"),
+            _first_data_value(row, "sets_games_best_total_probability", "best_total_probability", "best_ou_probability"),
+        )
     return "\n".join([
         '<section class="metric-box small-box sets-signal-box">',
-        f'<div class="box-head"><span>Sets / Games {info_icon("sets_games")}</span><b>{esc(sg.get("source") or "")}</b></div>',
-        metric_row("Signal", esc(sg.get("signal") or "No Clear Signal")),
-        metric_row("Action", esc(sg.get("action") or "No automatic set/games action")),
-        metric_row("Confidence", esc(sg.get("confidence") or "N/A")),
-        metric_row("Sets Lean", esc(sets_lean_display(row))),
-        metric_row("Games Lean", esc(games_lean_display(row))),
-        metric_row("3 Sets", as_pct(decider, 1)),
-        metric_row("Tie-break", as_pct(tb, 1)),
-        metric_row("Score", esc(score)),
-        metric_row("P | O | T Aces", esc(aces_display(row))),
+        f'<div class="box-head"><span>Sets / Games {info_icon("sets_games")}</span><b></b></div>',
+        metric_row("Sets", esc(sets_value)),
+        metric_row("Games", esc(games_value)),
+        metric_row("Best O/U", esc(best_value)),
+        metric_row("Aces P/O/T", esc(triplet_market_display(row, "aces"))),
+        metric_row("DF P/O/T", esc(triplet_market_display(row, "df"))),
         '</section>',
     ])
+
+
 def render_marq_box(row: Dict[str, Any]) -> str:
-    return "\n".join([
-        '<section class="metric-box small-box">',
+    movement_available = _first_data_value(row, "marq_movement_available", "movement_available")
+    move_pct = _first_data_value(row, "marq_move_pct", "move_pct")
+    move_range = _first_data_value(row, "marq_move_range", "move_range", "range")
+    rows = [
+        '<section class="metric-box small-box marq-box">',
         '<div class="box-head"><span>MarQ</span><b></b></div>',
-        metric_row("Market", esc(row.get("marq_status") or "Pending")),
-        metric_row("Pick MarQ", esc(row.get("pick_marq") or "—")),
-        metric_row("Opp MarQ", esc(row.get("opponent_marq") or "—")),
-        metric_row("Move", esc(row.get("market_move") or "—")),
-        metric_row("Odds Source", esc(row.get("odds_source") or "—")),
-        metric_row("Direction", esc(row.get("odds_matching_direction_display") or row.get("odds_matching_direction") or "Confirmed")),
-        '</section>',
-    ])
+        metric_row("Pick Marq", market_pct(_first_data_value(row, "marq_crowd_pick_pct", "pick_marq", "marq_pick_pct"))),
+        metric_row("Opp Marq", market_pct(_first_data_value(row, "marq_crowd_opponent_pct", "opponent_marq", "opp_marq", "marq_opponent_pct"))),
+        metric_row("Marq Edge", signed_market_pct(_first_data_value(row, "marq_edge_pct", "marq_edge", "edge_pct"))),
+        metric_row("Move", esc(_first_data_value(row, "marq_display_move_signal", "marq_move_signal", "market_move") or "Pending")),
+    ]
+    if movement_available is True or str(movement_available).lower() == "true" or move_pct not in (None, ""):
+        rows.append(metric_row("Move %", market_pct(move_pct)))
+    if movement_available is True or str(movement_available).lower() == "true" or move_range not in (None, ""):
+        rows.append(metric_row("Range", esc(move_range or "—")))
+    rows.append('</section>')
+    return "\n".join(rows)
 
 
 def render_cloq_box(row: Dict[str, Any]) -> str:
@@ -1258,7 +1380,7 @@ def copy_assets() -> str:
 def css() -> str:
     return """
 :root{--bg:#08111f;--panel:#111d2f;--panel2:#0e1828;--line:#24344d;--text:#e5eefc;--muted:#8ea5c2;--cyan:#38d5ff;--green:#34d399;--orange:#fb923c;--red:#f87171;--yellow:#facc15}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,#10233d 0,#08111f 42%,#050b14 100%);color:var(--text);font:14px/1.45 Inter,Segoe UI,Arial,sans-serif}.wrap{max-width:1680px;margin:0 auto;padding:18px}.topbar{display:flex;align-items:center;gap:18px;margin-bottom:18px;min-height:78px}.brand{display:flex;align-items:center;gap:14px;min-width:310px}.brand-mark{display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:999px;background:#071827;border:1px solid rgba(56,213,255,.75);box-shadow:0 0 26px rgba(56,213,255,.24);overflow:hidden;flex:0 0 auto}.brand-logo{width:100%;height:100%;border-radius:999px;object-fit:contain;padding:0;background:#071827}.brand-fallback{display:none;align-items:center;justify-content:center;width:100%;height:100%;border-radius:999px;color:#e5eefc;font-weight:900;font-size:12px;letter-spacing:.02em}.brand-title{font-weight:900;font-size:20px}.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}.nav{display:flex;gap:10px;flex-wrap:wrap}.nav a{color:#bcd1ea;text-decoration:none;border:1px solid #22344d;background:#0d1727;padding:8px 13px;border-radius:999px;font-weight:700}.nav a.active{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(56,213,255,.25),0 0 18px rgba(56,213,255,.14);color:#fff}.hero{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}.hero-panel{background:linear-gradient(180deg,rgba(17,29,47,.92),rgba(9,17,30,.92));border:1px solid #23344d;border-radius:18px;padding:14px}.hero-title{font-size:11px;color:var(--cyan);text-transform:uppercase;letter-spacing:.14em;font-weight:900}.hero-line{margin-top:4px;color:#dbeafe}.grid{display:grid;gap:14px}.pick-card{display:grid;grid-template-columns:minmax(260px,1.1fr) repeat(5,minmax(220px,1fr));gap:12px;background:rgba(10,18,32,.72);border:1px solid #20314a;border-radius:22px;padding:12px;box-shadow:0 12px 36px rgba(0,0,0,.25)}.pick-main,.metric-box{background:linear-gradient(180deg,#121f32,#0c1625);border:1px solid #283a55;border-radius:18px;padding:14px;min-width:0}.card-top{display:flex;justify-content:space-between;align-items:center}.rank-num{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;padding:0 8px;border-radius:999px;background:#13253c;border:1px solid #2d4b6f;color:var(--cyan);font-size:12px;font-weight:900}.brain{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:999px;text-decoration:none;background:#15243a;border:1px solid #334862;flex:0 0 auto}.card-footer-row{display:flex;align-items:flex-end;gap:8px;margin-top:12px}.card-footer-tools{display:flex;align-items:center;gap:6px;flex:0 0 auto}.card-insights{flex:1;min-width:0;background:#101b2c;border:1px solid rgba(51,72,98,.55);border-radius:10px;padding:5px 8px;color:#dbeafe;font-size:11px;font-weight:800;line-height:1.25;overflow:hidden}.card-insights div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.card-insights.empty-insights{color:#64748b}.pick-main h2,.pick-main h3{margin:8px 0 4px;font-size:18px;line-height:1.2}.pick-main h3{font-size:16px;color:#dbeafe}.rank{font-size:.82em;color:#7dd3fc;font-weight:800}.odds-line{display:inline-block;color:#7ee7aa;background:#07351f;border:1px solid #0d7c49;border-radius:999px;padding:3px 8px;font-weight:800}.odds-line.muted{color:#bdd7f5;background:#111d2d;border-color:#263b58}.to-beat{margin:8px 0;color:#67e8f9;font-weight:900;text-transform:uppercase;font-size:11px}.time-line,.status-line{color:var(--muted);font-size:12px;margin-top:8px}.notes{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.note,.result-tag,.tag-chip{display:inline-flex;align-items:center;border-radius:999px;padding:4px 8px;background:#16243a;border:1px solid #344a68;color:#bcd1ea;font-size:11px;font-weight:800}.box-head{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:10px;font-size:13px;font-weight:900;color:#bae6fd}.box-head b{font-size:20px;color:var(--green)}.metric-row{display:flex;justify-content:space-between;gap:12px;border-top:1px solid rgba(148,163,184,.14);padding:8px 0;color:#9fb5d1}.metric-row:first-of-type{border-top:0}.metric-row b{color:#f8fafc;text-align:right}.metric-row.good b{color:#f8fafc}.metric-row.bad b{color:var(--orange)}.metric-row.neutral b{color:#b9c6d8}.small-box .metric-row{font-size:12px}.depth-wrap{display:inline-flex;align-items:center;gap:8px}.depth-number{min-width:38px;text-align:right;color:#f8fafc}.depth-bar{display:inline-block;width:74px;height:8px;background:#1e293b;border-radius:999px;overflow:hidden;border:1px solid #334155}.depth-bar span{display:block;height:100%}.bar-good{background:linear-gradient(90deg,#10b981,#67e8f9)}.bar-mid{background:linear-gradient(90deg,#facc15,#fb923c)}.bar-bad{background:linear-gradient(90deg,#ef4444,#fb923c)}.info{position:relative;display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:999px;border:1px solid #4b6b8d;color:#93c5fd;font-size:10px;margin-left:4px;cursor:help}.info:hover:after,.info:focus:after{content:attr(data-tip);position:absolute;left:50%;top:22px;transform:translateX(-50%);z-index:50;width:min(320px,80vw);white-space:normal;text-align:left;background:#0b1424;color:#e5eefc;border:1px solid #34506f;border-radius:12px;padding:10px 12px;box-shadow:0 12px 30px rgba(0,0,0,.35);font-size:12px;line-height:1.35}.summary-panel,.results-panel{margin-top:16px;background:#0d1727;border:1px solid #24344d;border-radius:20px;padding:16px}.summary-title{font-size:12px;color:var(--cyan);font-weight:900;text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px}.tag-list{display:flex;flex-wrap:wrap;gap:8px}.tag-chip{cursor:pointer}.tag-chip.active{border-color:var(--cyan);color:#fff;box-shadow:0 0 16px rgba(56,213,255,.18)}.clear-filter{display:none;margin-left:8px;color:#93c5fd;cursor:pointer}.table-wrap{overflow:auto;border:1px solid #24344d;border-radius:16px}.results-table{width:100%;border-collapse:collapse;min-width:1150px;background:#0b1424}.results-table th{background:#172235;color:#9cc5e8;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.08em;padding:11px}.results-table td{border-top:1px solid #26354d;padding:11px;vertical-align:top}.status-won{color:#34d399;font-weight:900}.status-lost{color:#fb7185;font-weight:900}.status-pending{color:#facc15;font-weight:900}.status-void{color:#94a3b8;font-weight:900}.empty{padding:34px;text-align:center;color:#9fb5d1;background:#0d1727;border:1px dashed #334155;border-radius:20px}.footer{margin-top:26px;text-align:center;color:#6f86a4;font-size:12px}@media(max-width:1200px){.pick-card{grid-template-columns:1fr 1fr}.hero{grid-template-columns:1fr}}@media(max-width:760px){.wrap{padding:10px}.topbar{align-items:flex-start;flex-direction:column;min-height:auto}.pick-card{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.brand-mark{width:56px;height:56px}.metric-row{font-size:13px}.pick-main h2{font-size:17px}}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,#10233d 0,#08111f 42%,#050b14 100%);color:var(--text);font:14px/1.45 Inter,Segoe UI,Arial,sans-serif}.wrap{max-width:1680px;margin:0 auto;padding:18px}.topbar{display:flex;align-items:center;gap:18px;margin-bottom:18px;min-height:78px}.brand{display:flex;align-items:center;gap:14px;min-width:310px}.brand-mark{display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:999px;background:#071827;border:1px solid rgba(56,213,255,.75);box-shadow:0 0 26px rgba(56,213,255,.24);overflow:hidden;flex:0 0 auto}.brand-logo{width:100%;height:100%;border-radius:999px;object-fit:contain;padding:0;background:#071827}.brand-fallback{display:none;align-items:center;justify-content:center;width:100%;height:100%;border-radius:999px;color:#e5eefc;font-weight:900;font-size:12px;letter-spacing:.02em}.brand-title{font-weight:900;font-size:20px}.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}.nav{display:flex;gap:10px;flex-wrap:wrap}.nav a{color:#bcd1ea;text-decoration:none;border:1px solid #22344d;background:#0d1727;padding:8px 13px;border-radius:999px;font-weight:700}.nav a.active{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(56,213,255,.25),0 0 18px rgba(56,213,255,.14);color:#fff}.hero{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}.hero-panel{background:linear-gradient(180deg,rgba(17,29,47,.92),rgba(9,17,30,.92));border:1px solid #23344d;border-radius:18px;padding:14px}.hero-title{font-size:11px;color:var(--cyan);text-transform:uppercase;letter-spacing:.14em;font-weight:900}.hero-line{margin-top:4px;color:#dbeafe}.grid{display:grid;gap:14px}.pick-card{display:grid;grid-template-columns:minmax(260px,1.1fr) repeat(4,minmax(220px,1fr));gap:12px;background:rgba(10,18,32,.72);border:1px solid #20314a;border-radius:22px;padding:12px;box-shadow:0 12px 36px rgba(0,0,0,.25)}.pick-main,.metric-box{background:linear-gradient(180deg,#121f32,#0c1625);border:1px solid #283a55;border-radius:18px;padding:14px;min-width:0}.card-top{display:flex;justify-content:space-between;align-items:center}.rank-num{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;padding:0 8px;border-radius:999px;background:#13253c;border:1px solid #2d4b6f;color:var(--cyan);font-size:12px;font-weight:900}.brain{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:999px;text-decoration:none;background:#15243a;border:1px solid #334862;flex:0 0 auto}.card-footer-row{display:flex;align-items:flex-end;gap:8px;margin-top:12px}.card-footer-tools{display:flex;align-items:center;gap:6px;flex:0 0 auto}.card-insights{flex:1;min-width:0;background:#101b2c;border:1px solid rgba(51,72,98,.55);border-radius:10px;padding:5px 8px;color:#dbeafe;font-size:11px;font-weight:800;line-height:1.25;overflow:hidden}.card-insights div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.card-insights.empty-insights{color:#64748b}.pick-main h2,.pick-main h3{margin:8px 0 4px;font-size:18px;line-height:1.2}.pick-main h3{font-size:16px;color:#dbeafe}.rank{font-size:.82em;color:#7dd3fc;font-weight:800}.odds-line{display:inline-block;color:#7ee7aa;background:#07351f;border:1px solid #0d7c49;border-radius:999px;padding:3px 8px;font-weight:800}.odds-line.muted{color:#bdd7f5;background:#111d2d;border-color:#263b58}.to-beat{margin:8px 0;color:#67e8f9;font-weight:900;text-transform:uppercase;font-size:11px}.time-line,.status-line{color:var(--muted);font-size:12px;margin-top:8px}.notes{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.note,.result-tag,.tag-chip{display:inline-flex;align-items:center;border-radius:999px;padding:4px 8px;background:#16243a;border:1px solid #344a68;color:#bcd1ea;font-size:11px;font-weight:800}.box-head{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:10px;font-size:13px;font-weight:900;color:#bae6fd}.box-head b{font-size:20px;color:var(--green)}.metric-row{display:flex;justify-content:space-between;gap:12px;border-top:1px solid rgba(148,163,184,.14);padding:8px 0;color:#9fb5d1}.metric-row:first-of-type{border-top:0}.metric-row b{color:#f8fafc;text-align:right}.metric-row.good b{color:#f8fafc}.metric-row.bad b{color:var(--orange)}.metric-row.neutral b{color:#b9c6d8}.small-box .metric-row{font-size:12px}.depth-wrap{display:inline-flex;align-items:center;gap:8px}.depth-number{min-width:38px;text-align:right;color:#f8fafc}.depth-bar{display:inline-block;width:74px;height:8px;background:#1e293b;border-radius:999px;overflow:hidden;border:1px solid #334155}.depth-bar span{display:block;height:100%}.bar-good{background:linear-gradient(90deg,#10b981,#67e8f9)}.bar-mid{background:linear-gradient(90deg,#facc15,#fb923c)}.bar-bad{background:linear-gradient(90deg,#ef4444,#fb923c)}.info{position:relative;display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:999px;border:1px solid #4b6b8d;color:#93c5fd;font-size:10px;margin-left:4px;cursor:help}.info:hover:after,.info:focus:after{content:attr(data-tip);position:absolute;left:50%;top:22px;transform:translateX(-50%);z-index:50;width:min(320px,80vw);white-space:normal;text-align:left;background:#0b1424;color:#e5eefc;border:1px solid #34506f;border-radius:12px;padding:10px 12px;box-shadow:0 12px 30px rgba(0,0,0,.35);font-size:12px;line-height:1.35}.summary-panel,.results-panel{margin-top:16px;background:#0d1727;border:1px solid #24344d;border-radius:20px;padding:16px}.summary-title{font-size:12px;color:var(--cyan);font-weight:900;text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px}.tag-list{display:flex;flex-wrap:wrap;gap:8px}.tag-chip{cursor:pointer}.tag-chip.active{border-color:var(--cyan);color:#fff;box-shadow:0 0 16px rgba(56,213,255,.18)}.clear-filter{display:none;margin-left:8px;color:#93c5fd;cursor:pointer}.table-wrap{overflow:auto;border:1px solid #24344d;border-radius:16px}.results-table{width:100%;border-collapse:collapse;min-width:1150px;background:#0b1424}.results-table th{background:#172235;color:#9cc5e8;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.08em;padding:11px}.results-table td{border-top:1px solid #26354d;padding:11px;vertical-align:top}.status-won{color:#34d399;font-weight:900}.status-lost{color:#fb7185;font-weight:900}.status-pending{color:#facc15;font-weight:900}.status-void{color:#94a3b8;font-weight:900}.empty{padding:34px;text-align:center;color:#9fb5d1;background:#0d1727;border:1px dashed #334155;border-radius:20px}.footer{margin-top:26px;text-align:center;color:#6f86a4;font-size:12px}@media(max-width:1200px){.pick-card{grid-template-columns:1fr 1fr}.hero{grid-template-columns:1fr}}@media(max-width:760px){.wrap{padding:10px}.topbar{align-items:flex-start;flex-direction:column;min-height:auto}.pick-card{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.brand-mark{width:56px;height:56px}.metric-row{font-size:13px}.pick-main h2{font-size:17px}}
 .chip-insights{display:flex;flex-wrap:wrap;gap:6px;background:transparent!important;border:0!important;padding:0!important}.insight-chip{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:4px 8px;background:#10233b;border:1px solid #2f4b6e;color:#d4e8ff;font-size:11px;font-weight:900;line-height:1.2;white-space:nowrap}.side-insights .chip-insights{margin-top:0}.side-insights .insight-chip{max-width:100%;overflow:hidden;text-overflow:ellipsis}.metric-row b{white-space:normal}.metric-row span{padding-right:6px}  
 .pick-main.compact-v3{padding:12px;background:linear-gradient(180deg,#111f35,#0b1627);border-color:#2b405d;display:flex;flex-direction:column;gap:10px;min-height:268px}.compact-topline{display:flex;align-items:center;gap:7px;min-height:30px}.compact-topline .rank-num{height:26px;min-width:30px;font-size:12px}.compact-topline .brain{width:26px;height:26px;font-size:14px}.status-pill{display:inline-flex;align-items:center;min-height:24px;padding:3px 9px;border-radius:999px;border:1px solid #2f4059;background:#101c2e;color:#9fb5d1;font-size:11px;font-weight:800;margin-left:auto}.compact-player{padding:9px 10px;border-radius:14px;border:1px solid rgba(148,163,184,.14);background:rgba(9,18,32,.56)}.compact-player.pick-side{border-color:rgba(52,211,153,.38);background:linear-gradient(90deg,rgba(6,50,34,.62),rgba(9,18,32,.48))}.compact-player.opp-side{border-color:rgba(96,165,250,.22)}.compact-label{font-size:10px;line-height:1;letter-spacing:.15em;text-transform:uppercase;color:#67e8f9;font-weight:900;margin-bottom:6px}.compact-name-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}.compact-name{font-size:16px;line-height:1.2;font-weight:900;color:#f8fafc}.compact-rank{font-size:12px;color:#7dd3fc;font-weight:900;white-space:nowrap}.compact-odds{display:inline-flex;margin-top:7px;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:900;border:1px solid}.compact-odds.pick{color:#86efac;background:#06351f;border-color:#12834e}.compact-odds.opp{color:#bfdbfe;background:#101d32;border-color:#2a4566}.compact-vs{display:flex;align-items:center;justify-content:center;text-transform:uppercase;letter-spacing:.16em;font-size:10px;font-weight:900;color:#22d3ee;margin:-2px 0}.compact-match{border-radius:13px;background:#0a1424;border:1px solid rgba(148,163,184,.12);padding:9px 10px;color:#9fb5d1}.compact-time{font-size:12px;color:#dbeafe;font-weight:900}.compact-meta{font-size:11px;line-height:1.35;margin-top:3px;color:#8ea5c2}.compact-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:4px;border-top:1px solid rgba(148,163,184,.10)}.compact-tags .note,.compact-tags .insight-chip{font-size:11px;padding:4px 8px;max-width:100%;overflow:hidden;text-overflow:ellipsis}.compact-tags .card-insights{display:contents}.compact-tags .chip-insights{display:flex;flex-wrap:wrap;gap:6px}.compact-tags .empty-insights{display:none}@media(max-width:760px){.compact-name{font-size:15px}.pick-main.compact-v3{min-height:auto}}  
 .compact-odds.inline{display:inline-flex;margin:0 0 0 6px;vertical-align:middle;transform:translateY(-1px);padding:2px 7px;font-size:11px;line-height:1.2}.compact-player.no-label{padding-top:12px;padding-bottom:12px}.compact-name{display:inline;word-break:break-word}.compact-name-row{align-items:center}.compact-label{margin-bottom:5px}.compact-tags .insight-chip::first-letter{font-size:11px}.compact-tags .insight-chip{border-color:#2f4b6e;background:#10233b}.compact-v3 .compact-player{min-height:70px;display:flex;flex-direction:column;justify-content:center}.compact-v3 .pick-side{min-height:78px}  
