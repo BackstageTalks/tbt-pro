@@ -80,6 +80,8 @@ def _enrich_with_ta_profile_context(record: Dict[str, Any]) -> Dict[str, Any]:
         "ta_opp_tb_split": None,
         "ta_pick_ace_pct": None,
         "ta_opp_ace_pct": None,
+        "ta_pick_df_pct": None,
+        "ta_opp_df_pct": None,
         "ta_pick_surface_dr": None,
         "ta_opp_surface_dr": None,
         "ta_pick_rpw_pct": None,
