@@ -93,23 +93,38 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          # The web-only workflow can run while another workflow has already
-          # pushed generated files. Rebase first so this job does not fail with
-          # a non-fast-forward push.
-          git fetch origin main
-          git pull --rebase --autostash origin main
-
+          # Generated site files can change in parallel workflows. Do not rebase
+          # over generated files after rendering because corq/site/render_manifest.json
+          # is expected to conflict often. If push is rejected, keep this job's
+          # freshly rendered site, reset to origin/main, restore the generated
+          # site, then commit again.
           git add corq/site
           if git diff --cached --quiet; then
             echo "No web changes to commit."
-          else
-            git commit -m "Render web site only"
-            git push || {
-              echo "Push rejected, rebasing once and retrying..."
-              git pull --rebase --autostash origin main
-              git push
-            }
+            exit 0
           fi
+
+          git commit -m "Render web site only"
+          if git push; then
+            echo "Generated site pushed."
+            exit 0
+          fi
+
+          echo "Push rejected, preserving rendered site and retrying on latest main..."
+          tmp_dir="$(mktemp -d)"
+          cp -a corq/site "$tmp_dir/site"
+          git fetch origin main
+          git reset --hard origin/main
+          rm -rf corq/site
+          mkdir -p corq
+          cp -a "$tmp_dir/site" corq/site
+          git add corq/site
+          if git diff --cached --quiet; then
+            echo "No generated site changes after reset."
+            exit 0
+          fi
+          git commit -m "Render web site only"
+          git push
 
       - name: Configure GitHub Pages
         if: ${{ github.event_name == 'push' || inputs.deploy_pages == 'true' }}

@@ -47,7 +47,27 @@ jobs:
 
           if git diff --cached --quiet; then
             echo "No metrics changes to commit."
-          else
-            git commit -m "Update project metrics report"
-            git push
+            exit 0
           fi
+
+          git commit -m "Update project metrics report"
+          if git push; then
+            echo "Metrics report pushed."
+            exit 0
+          fi
+
+          echo "Push rejected, preserving metrics report and retrying on latest main..."
+          tmp_dir="$(mktemp -d)"
+          cp -a outputs/project_metrics "$tmp_dir/project_metrics"
+          git fetch origin main
+          git reset --hard origin/main
+          mkdir -p outputs
+          rm -rf outputs/project_metrics
+          cp -a "$tmp_dir/project_metrics" outputs/project_metrics
+          git add outputs/project_metrics/project_metrics.json outputs/project_metrics/project_metrics.md
+          if git diff --cached --quiet; then
+            echo "No metrics changes after reset."
+            exit 0
+          fi
+          git commit -m "Update project metrics report"
+          git push
