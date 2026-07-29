@@ -38,19 +38,17 @@ jobs:
           test -f corq/results_engine/builder.py
           test -f corq/results_engine/results.py
           test -f corq/results_engine/results_db.py
-
+          if grep -R "python -m corq.results_db\|python -m corq.results " .github/workflows -n; then
+            echo "ERROR: old Results module command still exists in workflows"
+            exit 1
+          fi
           python - <<'PY'
           import importlib.util
-          required = [
-              "corq.results_engine.results",
-              "corq.results_engine.results_db",
-              "corq.results_engine.builder",
-          ]
-          for module_name in required:
-              spec = importlib.util.find_spec(module_name)
+          for name in ["corq.results_engine.results", "corq.results_engine.results_db", "corq.results_engine.builder"]:
+              spec = importlib.util.find_spec(name)
               if spec is None:
-                  raise SystemExit("Missing module: " + module_name)
-              print("OK", module_name, "->", spec.origin)
+                  raise SystemExit(f"Missing module: {name}")
+              print(f"OK {name} -> {spec.origin}")
           PY
 
       - name: Build persistent Results database
@@ -71,5 +69,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add outputs/results corq/site
-          git commit -m "Update Results database and rendered site" || echo "No result/site changes"
-          git push
+
+          if git diff --cached --quiet; then
+            echo "No result/site changes"
+            exit 0
+          fi
+
+          git commit -m "Update Results database and rendered site"
+          git pull --rebase origin main
+          git push origin main
