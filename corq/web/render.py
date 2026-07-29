@@ -907,7 +907,8 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
     audit_tags = audit_filter_tags_for_row(row)
     data_tags = "|".join(notes + audit_tags)
     rank_badge = f'<div class="rank-num">#{rank}</div>' if rank else ""
-    note_html = "".join(f'<span class="note" data-note="{esc(n)}">{esc(n)}</span>' for n in notes[:8])
+    display_notes = dedupe_tags(notes + audit_tags)
+    note_html = "".join(f'<span class="note" data-note="{esc(n)}">{esc(n)}</span>' for n in display_notes[:10])
     # Top row shows only one positive/support insight. Neutral public notes stay in the bottom row.
     top_tag_html = f'<div class="compact-top-tags">{card_insights_html(row, notes)}</div>'
     odds_gap = as_float(row.get("odds_gap_pct") or row.get("cloq_odds_gap_pct"))
@@ -1357,6 +1358,7 @@ AUDIT_CORQ_TOP20_LABEL = "CorQ Top20"
 AUDIT_TIME_ODDS_LABEL = "Up to 2H | O>1.5"
 AUDIT_SAFE_BET_LABEL = "Safe Bet Signal"
 AUDIT_H2H_TOP10_LABEL = "H2H Top10"
+AUDIT_NO_ODDS_LABEL = "No odds"
 RESULT_LAST_3_DAYS_LABEL = "Last 3 days"
 RESULT_LAST_7_DAYS_LABEL = "Last 7 days"
 RESULT_LAST_MONTH_LABEL = "Last month"
@@ -1445,6 +1447,10 @@ def audit_has_up_to_2h_o15(row: Dict[str, Any]) -> bool:
         return False
     now = datetime.now(timezone.utc)
     return now <= dt <= now + timedelta(hours=2)
+
+def audit_has_no_odds_signal(row: Dict[str, Any]) -> bool:
+    """Audit/UI signal for matches where either side does not have usable decimal odds."""
+    return pick_odds(row) is None or opponent_odds(row) is None
 
 
 def audit_record_pair(value: Any) -> Tuple[Optional[int], Optional[int]]:
@@ -1556,6 +1562,8 @@ def audit_filter_tags_for_row(row: Dict[str, Any]) -> List[str]:
         tags.append(AUDIT_SAFE_BET_LABEL)
     if audit_has_h2h_top10(row):
         tags.append(AUDIT_H2H_TOP10_LABEL)
+    if audit_has_no_odds_signal(row):
+        tags.append(AUDIT_NO_ODDS_LABEL)
     existing = row.get("audit_filter_tags")
     if isinstance(existing, list):
         tags.extend(str(x) for x in existing if x)
@@ -1578,6 +1586,8 @@ def audit_note_css(label: str) -> str:
         return "tag-chip audit-pill audit-pill-safe"
     if label == AUDIT_H2H_TOP10_LABEL:
         return "tag-chip audit-pill audit-pill-h2h"
+    if label == AUDIT_NO_ODDS_LABEL:
+        return "tag-chip audit-pill audit-pill-noodds"
     if label in {RESULT_LAST_3_DAYS_LABEL, RESULT_LAST_7_DAYS_LABEL, RESULT_LAST_MONTH_LABEL, RESULT_THIS_YEAR_LABEL}:
         return "tag-chip audit-pill audit-pill-date"
     if label in {RESULT_MODEL_CORQ_LABEL, RESULT_MODEL_CLOQ_LABEL, RESULT_MODEL_AUDIT_LABEL}:
@@ -1676,6 +1686,7 @@ def render_notes_summary(rows: List[Dict[str, Any]]) -> str:
             AUDIT_TIME_ODDS_LABEL: 1,
             AUDIT_SAFE_BET_LABEL: 2,
             AUDIT_H2H_TOP10_LABEL: 3,
+            AUDIT_NO_ODDS_LABEL: 4,
         }.get(label, 10)
         return order, -count, label
 
@@ -1876,7 +1887,8 @@ def render_results_table(rows: List[Dict[str, Any]], title: str, limit: Optional
         AUDIT_TIME_ODDS_LABEL: 21,
         AUDIT_SAFE_BET_LABEL: 22,
         AUDIT_H2H_TOP10_LABEL: 23,
-        "No previous H2H matches": 24,
+        AUDIT_NO_ODDS_LABEL: 24,
+        "No previous H2H matches": 25,
         "Recent form pending": 25,
     }
 
@@ -2044,7 +2056,7 @@ def render_results_filter_builder(rows: List[Dict[str, Any]]) -> str:
         ("Result", ["WON", "LOST", "VOID", "PENDING"]),
         ("Model", [RESULT_MODEL_CORQ_LABEL, RESULT_MODEL_CLOQ_LABEL, RESULT_MODEL_AUDIT_LABEL]),
         ("Date", [RESULT_LAST_3_DAYS_LABEL, RESULT_LAST_7_DAYS_LABEL, RESULT_LAST_MONTH_LABEL, RESULT_THIS_YEAR_LABEL]),
-        ("Signals", [AUDIT_CORQ_TOP20_LABEL, AUDIT_TIME_ODDS_LABEL, AUDIT_SAFE_BET_LABEL, AUDIT_H2H_TOP10_LABEL]),
+        ("Signals", [AUDIT_CORQ_TOP20_LABEL, AUDIT_TIME_ODDS_LABEL, AUDIT_SAFE_BET_LABEL, AUDIT_H2H_TOP10_LABEL, AUDIT_NO_ODDS_LABEL]),
         ("Data notes", ["No previous H2H matches", "Recent form pending"]),
     ]
 
