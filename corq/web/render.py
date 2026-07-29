@@ -1331,15 +1331,144 @@ def render_sets_games_box(row: Dict[str, Any]) -> str:
     ])
 
 def render_marq_box(row: Dict[str, Any]) -> str:
+    """Clean MarQ market-intelligence box.
+
+    No fake market data is created here. If a value is not present from real
+    odds/market inputs, the row shows N/A or Pending.
+    """
+    def _num(value: Any) -> Optional[float]:
+        if value is None or value == "":
+            return None
+        try:
+            if isinstance(value, str):
+                value = value.strip().replace("%", "").replace(",", ".")
+            return float(value)
+        except Exception:
+            return None
+
+    def _first_num(*keys: str) -> Optional[float]:
+        for key in keys:
+            value = _num(row.get(key))
+            if value is not None:
+                return value
+        return None
+
+    def _first_text(*keys: str, default: str = "N/A") -> str:
+        for key in keys:
+            value = row.get(key)
+            if value not in (None, ""):
+                text = str(value).strip()
+                if text and text.lower() not in {"none", "null", "nan", "-", "—"}:
+                    return text
+        return default
+
+    def _market_pct(value: Any) -> str:
+        number = _num(value)
+        if number is None:
+            return "N/A"
+        if abs(number) <= 1.0:
+            number *= 100.0
+        return f"{number:.1f}%"
+
+    def _signed_market_pct(value: Any) -> str:
+        number = _num(value)
+        if number is None:
+            return "N/A"
+        if abs(number) <= 1.0:
+            number *= 100.0
+        return f"{number:+.1f}%"
+
+    def _odds(value: Any) -> Optional[float]:
+        number = _num(value)
+        if number is not None and number > 1.0:
+            return number
+        return None
+
+    def _move_signal_text(value: Any) -> str:
+        if value in (None, ""):
+            return "Pending"
+        text = str(value).strip().replace("_", " ")
+        upper = text.upper()
+        if upper in {"TOWARD PICK", "TOWARD"}:
+            return "Toward"
+        if upper in {"AGAINST PICK", "AGAINST"}:
+            return "Against"
+        if upper in {"STABLE", "NO MOVE"}:
+            return "Stable"
+        if upper in {"PENDING", "UNKNOWN"}:
+            return "Pending"
+        return " ".join(part.capitalize() for part in text.split())
+
+    pick_marq = row.get("marq_crowd_pick_pct")
+    if pick_marq is None:
+        pick_marq = row.get("pick_marq") or row.get("marq_pick_pct")
+    opp_marq = row.get("marq_crowd_opponent_pct")
+    if opp_marq is None:
+        opp_marq = row.get("opponent_marq") or row.get("opp_marq") or row.get("marq_opponent_pct")
+
+    edge = row.get("marq_edge_pct")
+    if edge is None:
+        model_pct = _first_num("probability", "corq_probability", "corq_ai_probability")
+        pick_pct = _num(pick_marq)
+        if model_pct is not None and pick_pct is not None:
+            if abs(model_pct) <= 1.0:
+                model_pct *= 100.0
+            if abs(pick_pct) <= 1.0:
+                pick_pct *= 100.0
+            edge = model_pct - pick_pct
+
+    move_pct = row.get("marq_move_pct")
+    if move_pct is None:
+        move_pct = row.get("marq_market_move_pct") or row.get("market_move_pct")
+
+    initial_pick = _odds(row.get("marq_initial_pick_odds") or row.get("marq_opening") or row.get("marq_opening_pick_odds"))
+    current_pick = _odds(row.get("marq_current_pick_odds") or row.get("marq_latest") or row.get("marq_current_odds"))
+    if move_pct is None and initial_pick and current_pick and abs(initial_pick - current_pick) >= 0.0001:
+        move_pct = abs((current_pick - initial_pick) / initial_pick) * 100.0
+
+    move_signal = _move_signal_text(row.get("marq_display_move_signal") or row.get("marq_move_signal") or row.get("market_move"))
+    if move_signal == "Pending" and initial_pick and current_pick and abs(initial_pick - current_pick) >= 0.0001:
+        move_signal = "Toward" if current_pick < initial_pick else "Against"
+
+    move_display = "N/A | Pending"
+    if _num(move_pct) is not None:
+        move_display = f"{_market_pct(move_pct)} | {move_signal}"
+    elif move_signal != "Pending":
+        move_display = f"N/A | {move_signal}"
+
+    move_range = _first_text("marq_move_range", "market_move_range", default="")
+    if not move_range and initial_pick and current_pick and abs(initial_pick - current_pick) >= 0.0001:
+        move_range = f"{initial_pick:.2f} -> {current_pick:.2f}"
+    if not move_range:
+        move_range = "N/A"
+
+    def _marq_depth() -> Optional[float]:
+        explicit = _first_num("marq_data_depth", "marq_depth", "marq_market_depth", "marq_coverage_pct")
+        if explicit is not None:
+            return explicit
+        checks = [
+            pick_marq not in (None, ""),
+            opp_marq not in (None, ""),
+            edge not in (None, ""),
+            _num(move_pct) is not None or move_signal != "Pending",
+            move_range not in (None, "", "N/A"),
+            row.get("marq_source") not in (None, "") or row.get("odds_source") not in (None, "") or row.get("marq_provider_count") not in (None, ""),
+        ]
+        if not any(checks):
+            return None
+        return sum(1 for item in checks if item) / len(checks)
+
+    depth = _marq_depth()
+
     return "\n".join([
-        '<section class="metric-box small-box">',
-        '<div class="box-head"><span>MarQ</span><b></b></div>',
-        metric_row("Market", esc(row.get("marq_status") or "Pending")),
-        metric_row("Pick MarQ", esc(row.get("pick_marq") or "—")),
-        metric_row("Opp MarQ", esc(row.get("opponent_marq") or "—")),
-        metric_row("Move", esc(row.get("market_move") or "—")),
-        metric_row("Odds Source", esc(row.get("odds_source") or "—")),
-        metric_row("Direction", esc(row.get("odds_matching_direction_display") or row.get("odds_matching_direction") or "Confirmed")),
+        '<section class="metric-box small-box marq-panel">',
+        '<div class="box-head"><span>MARQ</span><b></b></div>',
+        metric_row("Pick MarQ", esc(_market_pct(pick_marq))),
+        metric_row("Opp MarQ", esc(_market_pct(opp_marq))),
+        metric_row("MarQ Edge", esc(_signed_market_pct(edge))),
+        metric_row("Move %", esc(move_display)),
+        metric_row("Range", esc(move_range)),
+        metric_row("MarQ Data Depth", bar_html(depth)),
         '</section>',
     ])
 
