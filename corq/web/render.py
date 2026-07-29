@@ -1456,6 +1456,7 @@ def render_marq_box(row: Dict[str, Any]) -> str:
     move_pct = _first_data_value(row, "marq_move_pct", "marq_market_move_pct", "move_pct", "market_move_pct")
     move_range = marq_range_display(row)
     move_signal = move_signal_display(_first_data_value(row, "marq_display_move_signal", "marq_move_signal", "market_move"))
+
     rows = [
         '<section class="metric-box small-box marq-box">',
         '<div class="box-head"><span>MarQ</span><b></b></div>',
