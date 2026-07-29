@@ -510,19 +510,30 @@ def _format_selection(side: Optional[str], line: Optional[float], label: str) ->
 
 
 def build_sets_games_value_candidates(row: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """Return real value candidates only when market odds are available.
+
+    Model-only projections belong to Best Bet, not Value Bet. This function
+    deliberately skips candidates with missing odds or missing edge.
+    """
     candidates: List[Dict[str, Any]] = []
+
+    def add_candidate(item: Dict[str, Any]) -> None:
+        if item.get("market_odds") is None:
+            return
+        if item.get("edge") is None:
+            return
+        candidates.append(item)
 
     sets_line = as_float(row.get("sets_o25_line")) or 2.5
     sets_prob = row.get("sets_o25_probability") or row.get("sets_over_25_probability")
     sets_edge = edge_from_probability(sets_prob, row.get("sets_o25_over_odds"), row.get("sets_o25_under_odds"))
-    if sets_prob is not None and row.get("sets_o25_over_odds"):
-        candidates.append({
-            "market": "sets_total",
-            "selection": f"Over {sets_line:g} sets",
-            "model_probability": pct(sets_prob),
-            "market_odds": as_float(row.get("sets_o25_over_odds")),
-            "edge": sets_edge,
-        })
+    add_candidate({
+        "market": "sets_total",
+        "selection": f"Over {sets_line:g} sets",
+        "model_probability": pct(sets_prob),
+        "market_odds": as_float(row.get("sets_o25_over_odds")),
+        "edge": sets_edge,
+    })
 
     games_line = as_float(row.get("total_games_line"))
     games_proj = as_float(row.get("projected_total_games"))
@@ -533,7 +544,7 @@ def build_sets_games_value_candidates(row: Dict[str, Any]) -> List[Dict[str, Any
         prob_key = "total_games_over_probability" if games_side == "Over" else "total_games_under_probability"
         prob = row.get(prob_key)
         edge = edge_from_probability(prob, row.get(odds_key), row.get(opp_key))
-        candidates.append({
+        add_candidate({
             "market": "total_games",
             "selection": f"{games_side} {games_line:g} games",
             "model_probability": pct(prob),
@@ -543,14 +554,13 @@ def build_sets_games_value_candidates(row: Dict[str, Any]) -> List[Dict[str, Any
 
     tb_prob = row.get("tb_probability") or row.get("tie_break_probability")
     tb_edge = edge_from_probability(tb_prob, row.get("tb_yes_odds"), row.get("tb_no_odds"))
-    if tb_prob is not None and row.get("tb_yes_odds"):
-        candidates.append({
-            "market": "tie_break",
-            "selection": "Tie-break Yes",
-            "model_probability": pct(tb_prob),
-            "market_odds": as_float(row.get("tb_yes_odds")),
-            "edge": tb_edge,
-        })
+    add_candidate({
+        "market": "tie_break",
+        "selection": "Tie-break Yes",
+        "model_probability": pct(tb_prob),
+        "market_odds": as_float(row.get("tb_yes_odds")),
+        "edge": tb_edge,
+    })
 
     for prefix, label in (("pick", "Pick aces"), ("opponent", "Opponent aces"), ("total", "Total aces")):
         line = as_float(row.get(f"{prefix}_aces_line"))
@@ -563,7 +573,7 @@ def build_sets_games_value_candidates(row: Dict[str, Any]) -> List[Dict[str, Any
         prob_key = f"{prefix}_aces_over_probability" if side == "Over" else f"{prefix}_aces_under_probability"
         prob = row.get(prob_key)
         edge = edge_from_probability(prob, row.get(odds_key), row.get(opp_key))
-        candidates.append({
+        add_candidate({
             "market": f"{prefix}_aces",
             "selection": selection,
             "model_probability": pct(prob),
@@ -571,14 +581,12 @@ def build_sets_games_value_candidates(row: Dict[str, Any]) -> List[Dict[str, Any
             "edge": edge,
         })
 
-    # Edge is the real value metric. If edge is unknown, sort by model probability as fallback.
     def sort_key(item: Dict[str, Any]) -> Tuple[float, float]:
         edge = item.get("edge")
         prob = item.get("model_probability")
         return (float(edge) if edge is not None else -999.0, float(prob) if prob is not None else -999.0)
 
     return sorted(candidates, key=sort_key, reverse=True)
-
 
 def enrich_match_with_market_lines(match: Dict[str, Any], client: Optional[Bet365MarketLinesClient] = None) -> Dict[str, Any]:
     client = client or Bet365MarketLinesClient()
@@ -946,6 +954,230 @@ def _most_likely_score(dist: Dict[str, float]) -> str:
     return max(dist.items(), key=lambda item: item[1])[0]
 
 
+def _pct_points(value: Any) -> Optional[float]:
+    num = as_float(value)
+    if num is None:
+        return None
+    return num * 100.0 if 0 < num <= 1.0 else num
+
+
+def _prob_from_pct(value: Any) -> Optional[float]:
+    num = _pct_points(value)
+    if num is None:
+        return None
+    return clamp_value(num / 100.0, 0.0, 1.0)
+
+
+def _average_present(values: Iterable[Any]) -> Optional[float]:
+    clean = [_pct_points(v) for v in values]
+    clean = [v for v in clean if v is not None]
+    if not clean:
+        return None
+    return sum(clean) / len(clean)
+
+
+def _standard_half_line(projection: float, low: float, high: float) -> float:
+    value = max(low, min(high, projection))
+    return round(value * 2.0) / 2.0
+
+
+def _over_probability_from_projection(projection: float, line: float, scale: float) -> float:
+    # Smooth deterministic model probability. The input projection must come
+    # from real TA/model data; this function only converts projection to line P.
+    import math
+    z = (projection - line) / max(scale, 0.01)
+    return round(clamp_value(1.0 / (1.0 + math.exp(-z)), 0.05, 0.95), 4)
+
+
+def _wl_probability(value: Any) -> Optional[float]:
+    text = str(value or "").strip()
+    if "-" not in text:
+        return None
+    try:
+        left, right = text.split("-", 1)
+        wins = float(left.strip())
+        losses = float(right.strip())
+        total = wins + losses
+        if total <= 0:
+            return None
+        return wins / total
+    except Exception:
+        return None
+
+
+def _ta_model_available(match: Dict[str, Any]) -> bool:
+    required = (
+        "ta_pick_hold_pct", "ta_opp_hold_pct", "ta_pick_break_pct", "ta_opp_break_pct",
+        "ta_pick_game_pct", "ta_opp_game_pct",
+    )
+    return sum(1 for key in required if _pct_points(match.get(key)) is not None) >= 4
+
+
+def _ta_set_pressure(match: Dict[str, Any], best_of: int) -> float:
+    pressure = 0.50
+    p_game = _pct_points(match.get("ta_pick_game_pct"))
+    o_game = _pct_points(match.get("ta_opp_game_pct"))
+    p_set = _pct_points(match.get("ta_pick_set_pct"))
+    o_set = _pct_points(match.get("ta_opp_set_pct"))
+    p_hold = _pct_points(match.get("ta_pick_hold_pct"))
+    o_hold = _pct_points(match.get("ta_opp_hold_pct"))
+    p_break = _pct_points(match.get("ta_pick_break_pct"))
+    o_break = _pct_points(match.get("ta_opp_break_pct"))
+
+    if p_game is not None and o_game is not None:
+        pressure += (8.0 - abs(p_game - o_game)) / 35.0
+    if p_set is not None and o_set is not None:
+        pressure += (10.0 - abs(p_set - o_set)) / 45.0
+    avg_hold = _average_present((p_hold, o_hold))
+    avg_break = _average_present((p_break, o_break))
+    if avg_hold is not None:
+        pressure += (avg_hold - 60.0) / 38.0
+    if avg_break is not None:
+        pressure -= (avg_break - 38.0) / 55.0
+    if best_of == 5:
+        pressure = 0.50 + (pressure - 0.50) * 0.75
+    return clamp_value(pressure, 0.05, 0.95)
+
+
+def _ta_total_games_projection(match: Dict[str, Any], best_of: int, expected_sets: float) -> Optional[float]:
+    if not _ta_model_available(match):
+        return None
+    p_game = _pct_points(match.get("ta_pick_game_pct"))
+    o_game = _pct_points(match.get("ta_opp_game_pct"))
+    p_hold = _pct_points(match.get("ta_pick_hold_pct"))
+    o_hold = _pct_points(match.get("ta_opp_hold_pct"))
+    p_break = _pct_points(match.get("ta_pick_break_pct"))
+    o_break = _pct_points(match.get("ta_opp_break_pct"))
+    p_tpw = _pct_points(match.get("ta_pick_tpw_pct"))
+    o_tpw = _pct_points(match.get("ta_opp_tpw_pct"))
+
+    avg_hold = _average_present((p_hold, o_hold)) or 60.0
+    avg_break = _average_present((p_break, o_break)) or 38.0
+    game_gap = abs((p_game or 50.0) - (o_game or 50.0))
+    strength_gap = abs((p_tpw or 50.0) - (o_tpw or 50.0))
+
+    games_per_set = 9.45
+    games_per_set += (avg_hold - 60.0) * 0.045
+    games_per_set -= (avg_break - 38.0) * 0.030
+    games_per_set -= min(game_gap + strength_gap, 18.0) * 0.035
+    games_per_set = clamp_value(games_per_set, 8.4, 11.2)
+
+    projection = games_per_set * expected_sets
+    if best_of == 5:
+        projection = clamp_value(projection, 27.0, 54.0)
+    else:
+        projection = clamp_value(projection, 17.0, 29.5)
+    return round(projection, 1)
+
+
+def _ta_tiebreak_probability(match: Dict[str, Any], best_of: int) -> Optional[float]:
+    p_hold = _pct_points(match.get("ta_pick_hold_pct"))
+    o_hold = _pct_points(match.get("ta_opp_hold_pct"))
+    p_break = _pct_points(match.get("ta_pick_break_pct"))
+    o_break = _pct_points(match.get("ta_opp_break_pct"))
+    p_ace = _pct_points(match.get("ta_pick_ace_pct"))
+    o_ace = _pct_points(match.get("ta_opp_ace_pct"))
+    if p_hold is None or o_hold is None:
+        return None
+    avg_hold = (p_hold + o_hold) / 2.0
+    avg_break = _average_present((p_break, o_break)) or 38.0
+    avg_ace = _average_present((p_ace, o_ace)) or 3.0
+    tb = 0.18 + (avg_hold - 58.0) * 0.010 - (avg_break - 38.0) * 0.004 + (avg_ace - 3.0) * 0.012
+    for split_key in ("ta_pick_tb_split", "ta_opp_tb_split"):
+        split_prob = _wl_probability(match.get(split_key))
+        if split_prob is not None:
+            # Use TB history as a small availability signal, not as direct H2H truth.
+            tb += (split_prob - 0.50) * 0.03
+    if best_of == 5:
+        tb += 0.10
+    return round(clamp_value(tb, 0.08, 0.62), 4)
+
+
+def _prop_model_line(projection: Optional[float], low: float, high: float, scale: float, label: str) -> Dict[str, Any]:
+    if projection is None:
+        return {}
+    line = _standard_half_line(float(projection), low, high)
+    if projection >= line:
+        side = "Over"
+        probability = _over_probability_from_projection(float(projection), line, scale)
+    else:
+        side = "Under"
+        probability = round(1.0 - _over_probability_from_projection(float(projection), line, scale), 4)
+    short = "O" if side == "Over" else "U"
+    return {
+        "line": line,
+        "side": side,
+        "selection": f"{short}{line:g}",
+        "probability": probability,
+        "projection": round(float(projection), 1),
+        "label": label,
+    }
+
+
+def _ta_aces_projection(match: Dict[str, Any], games: Optional[float]) -> Dict[str, Any]:
+    if games is None or games <= 0:
+        return {"aces_status": "NO_GAMES_PROJECTION"}
+    p_ace = _pct_points(match.get("ta_pick_ace_pct"))
+    o_ace = _pct_points(match.get("ta_opp_ace_pct"))
+    if p_ace is None or o_ace is None:
+        return {"aces_status": "MISSING_ACE_PCT"}
+    service_points_each = (games / 2.0) * AVG_POINTS_PER_SERVICE_GAME
+    pick = service_points_each * (p_ace / 100.0)
+    opp = service_points_each * (o_ace / 100.0)
+    total = pick + opp
+    p_line = _prop_model_line(pick, 0.5, 20.5, 1.15, "Pick aces")
+    o_line = _prop_model_line(opp, 0.5, 20.5, 1.15, "Opponent aces")
+    t_line = _prop_model_line(total, 1.5, 35.5, 1.70, "Total aces")
+    return {
+        "aces_status": "OK",
+        "pick_aces_projection": round(pick, 1),
+        "opponent_aces_projection": round(opp, 1),
+        "total_aces_projection": round(total, 1),
+        "pick_aces_line": p_line.get("line"),
+        "pick_aces_side": p_line.get("side"),
+        "pick_aces_selection": p_line.get("selection"),
+        "pick_aces_probability": p_line.get("probability"),
+        "opponent_aces_line": o_line.get("line"),
+        "opponent_aces_side": o_line.get("side"),
+        "opponent_aces_selection": o_line.get("selection"),
+        "opponent_aces_probability": o_line.get("probability"),
+        "total_aces_line": t_line.get("line"),
+        "total_aces_side": t_line.get("side"),
+        "total_aces_selection": t_line.get("selection"),
+        "total_aces_probability": t_line.get("probability"),
+        "aces_source": "TA A% + projected service points",
+    }
+
+
+def _best_model_bet(enriched: Dict[str, Any]) -> Dict[str, Any]:
+    candidates: List[Dict[str, Any]] = []
+    for label, sel_key, prob_key in (
+        ("Sets", "sets_selection", "sets_probability"),
+        ("Games", "games_selection", "games_probability"),
+        ("Best O/U", "best_total_selection", "best_total_probability"),
+        ("TB", "tiebreak_selection", "tiebreak_probability"),
+        ("Pick aces", "pick_aces_selection", "pick_aces_probability"),
+        ("Opp aces", "opponent_aces_selection", "opponent_aces_probability"),
+        ("Total aces", "total_aces_selection", "total_aces_probability"),
+        ("Pick DF", "pick_df_selection", "pick_df_probability"),
+        ("Opp DF", "opponent_df_selection", "opponent_df_probability"),
+        ("Total DF", "total_df_selection", "total_df_probability"),
+    ):
+        selection = enriched.get(sel_key)
+        probability = normalize_probability_value(enriched.get(prob_key))
+        if selection and probability is not None:
+            candidates.append({"label": label, "selection": selection, "probability": probability})
+    if not candidates:
+        return {}
+    best = max(candidates, key=lambda item: abs(float(item["probability"]) - 0.50))
+    return {
+        "best_bet": f"{best['selection']}",
+        "best_bet_display": f"{best['selection']} {round(best['probability'] * 100):.0f}%",
+        "best_bet_probability": round(best["probability"], 4),
+        "best_bet_market": best["label"],
+    }
+
+
 def build_market_aware_sets(match: Dict[str, Any], model_prediction: Dict[str, Any], set_markets: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     """Build Sets/Games model fields using real market data when available."""
     set_markets = set_markets or {}
@@ -975,7 +1207,10 @@ def build_market_aware_sets(match: Dict[str, Any], model_prediction: Dict[str, A
         match_prob = p2_match
         first_prob = fsw.get("p2_probability") if isinstance(fsw, dict) else None
 
-    pressure = _market_set_pressure(best_of, tg, tb)
+    if set_markets:
+        pressure = _market_set_pressure(best_of, tg, tb)
+    else:
+        pressure = _ta_set_pressure(match, best_of)
     if best_of == 5:
         dist = _bo5_distribution(winner_side, match_prob, first_prob, pressure)
         max_label = "O4.5"
@@ -986,16 +1221,40 @@ def build_market_aware_sets(match: Dict[str, Any], model_prediction: Dict[str, A
     expected_sets = _expected_sets_from_dist(dist)
     max_sets_prob = _probability_of_max_sets(dist, best_of)
     score = _most_likely_score(dist)
-    games_line = tg.get("line") if isinstance(tg, dict) else None
-    over_prob = tg.get("over_probability") if isinstance(tg, dict) else None
-    under_prob = tg.get("under_probability") if isinstance(tg, dict) else None
+    if isinstance(tg, dict):
+        games_line = tg.get("line")
+        over_prob = tg.get("over_probability")
+        under_prob = tg.get("under_probability")
+        projected_games = games_line
+    else:
+        projected_games = _ta_total_games_projection(match, best_of, expected_sets)
+        if projected_games is not None:
+            low, high = (28.5, 49.5) if best_of == 5 else (18.5, 25.5)
+            games_line = _standard_half_line(projected_games, low, high)
+            over_prob = _over_probability_from_projection(projected_games, games_line, 1.85 if best_of == 3 else 3.2)
+            under_prob = round(1.0 - over_prob, 4)
+        else:
+            games_line = None
+            over_prob = None
+            under_prob = None
     games_pick = None
-    if games_line is not None and over_prob is not None:
-        games_pick = f"Over {games_line:g}" if over_prob >= 0.50 else f"Under {games_line:g}"
-    tie_break_probability = tb.get("yes_probability") if isinstance(tb, dict) else None
+    games_selection = None
+    games_probability = None
+    if games_line is not None and over_prob is not None and under_prob is not None:
+        if over_prob >= under_prob:
+            games_pick = f"Over {games_line:g}"
+            games_selection = f"O{games_line:g}"
+            games_probability = over_prob
+        else:
+            games_pick = f"Under {games_line:g}"
+            games_selection = f"U{games_line:g}"
+            games_probability = under_prob
+    tie_break_probability = tb.get("yes_probability") if isinstance(tb, dict) else _ta_tiebreak_probability(match, best_of)
+    tie_break_selection = "Yes" if tie_break_probability is not None and tie_break_probability >= 0.50 else "No" if tie_break_probability is not None else None
 
     return {
         "expected_sets": expected_sets,
+        "sets_selection": max_label,
         "sets_probability": max_sets_prob,
         "sets_probability_label": max_label,
         "sets_o25_probability": max_sets_prob if best_of == 3 else None,
@@ -1008,19 +1267,26 @@ def build_market_aware_sets(match: Dict[str, Any], model_prediction: Dict[str, A
         "first_set_player2_odds": fsw.get("p2_odds") if isinstance(fsw, dict) else None,
         "first_set_player1_probability": fsw.get("p1_probability") if isinstance(fsw, dict) else None,
         "first_set_player2_probability": fsw.get("p2_probability") if isinstance(fsw, dict) else None,
-        "expected_games": games_line,
-        "projected_total_games": games_line,
+        "expected_games": projected_games,
+        "projected_total_games": projected_games,
         "games_line": games_line,
         "total_games_line": games_line,
         "games_pick": games_pick,
+        "games_selection": games_selection,
+        "games_probability": games_probability,
+        "best_total_selection": games_selection,
+        "best_total_probability": games_probability,
         "games_over_odds": tg.get("over_odds") if isinstance(tg, dict) else None,
         "games_under_odds": tg.get("under_odds") if isinstance(tg, dict) else None,
         "games_over_probability": round(float(over_prob), 4) if over_prob is not None else None,
         "games_under_probability": round(float(under_prob), 4) if under_prob is not None else None,
         "tie_break_yes_odds": tb.get("yes_odds") if isinstance(tb, dict) else None,
         "tie_break_no_odds": tb.get("no_odds") if isinstance(tb, dict) else None,
+        "tie_break_selection": tie_break_selection,
+        "tiebreak_selection": tie_break_selection,
         "tie_break_probability": round(float(tie_break_probability), 4) if tie_break_probability is not None else None,
         "tb_probability": round(float(tie_break_probability), 4) if tie_break_probability is not None else None,
+        "tiebreak_probability": round(float(tie_break_probability), 4) if tie_break_probability is not None else None,
         "sets_model_source": "TennisApiMarkets" if set_markets else "ModelFallback",
     }
 
@@ -1177,15 +1443,26 @@ def build_ta_double_faults_projection(match: Dict[str, Any], games_line: Any = N
         "df_source": "TA/Sackmann DF% + games_line",
         "df_status": "OK",
     }
-    if pick_line is not None:
-        output["pick_df_line"] = pick_line
-        output["pick_df_side"] = _projection_side(pick_df, pick_line)
-    if opp_line is not None:
-        output["opponent_df_line"] = opp_line
-        output["opponent_df_side"] = _projection_side(opp_df, opp_line)
-    if total_line is not None:
-        output["total_df_line"] = total_line
-        output["total_df_side"] = _projection_side(total_df, total_line)
+    if pick_line is None:
+        pick_line = _standard_half_line(pick_df, 0.5, 12.5)
+    if opp_line is None:
+        opp_line = _standard_half_line(opp_df, 0.5, 12.5)
+    if total_line is None:
+        total_line = _standard_half_line(total_df, 1.5, 22.5)
+
+    def add_df(prefix: str, projection: float, line: float, scale: float) -> None:
+        side = _projection_side(projection, line)
+        over_probability = _over_probability_from_projection(projection, line, scale)
+        probability = over_probability if side == "Over" else round(1.0 - over_probability, 4)
+        short = "O" if side == "Over" else "U"
+        output[f"{prefix}_df_line"] = line
+        output[f"{prefix}_df_side"] = side
+        output[f"{prefix}_df_selection"] = f"{short}{line:g}"
+        output[f"{prefix}_df_probability"] = probability
+
+    add_df("pick", pick_df, pick_line, 0.90)
+    add_df("opponent", opp_df, opp_line, 0.90)
+    add_df("total", total_df, total_line, 1.25)
     return output
 
 def build_sets_games_from_match(match: Dict[str, Any], model_prediction: Optional[Dict[str, Any]] = None, force_refresh: bool = False) -> Dict[str, Any]:
@@ -1202,5 +1479,22 @@ def build_sets_games_from_match(match: Dict[str, Any], model_prediction: Optiona
     )
     if isinstance(df_info, dict):
         enriched.update(df_info)
+    aces_info = _ta_aces_projection(enriched, as_float(enriched.get("projected_total_games") or enriched.get("expected_games")))
+    if isinstance(aces_info, dict):
+        enriched.update(aces_info)
+    best_info = _best_model_bet(enriched)
+    if isinstance(best_info, dict):
+        enriched.update(best_info)
+    value_candidates = build_sets_games_value_candidates(enriched)
+    enriched["sets_games_value_candidates"] = value_candidates
+    if value_candidates and value_candidates[0].get("selection"):
+        enriched["value_bet"] = value_candidates[0].get("selection")
+        enriched["value_bet_display"] = value_candidates[0].get("selection")
+        enriched["sets_games_best_value"] = value_candidates[0].get("selection")
+        enriched["sets_games_best_value_edge"] = value_candidates[0].get("edge")
+    else:
+        enriched["value_bet"] = None
+        enriched["value_bet_display"] = None
+        enriched.setdefault("sets_games_best_value", None)
     return enriched
 
