@@ -1,6 +1,6 @@
-"""MARQ package.
+from __future__ import annotations
 
-MARQ is the market-intelligence layer. Market line helpers for Sets/Games live
-here because they reuse market-source infrastructure, but they do not change the
-MARQ match-winner UI box.
-"""
+from .pipeline import build_marq_from_match
+from .enrich import enrich_row_with_marq, enrich_rows_with_marq
+
+__all__ = ["build_marq_from_match", "enrich_row_with_marq", "enrich_rows_with_marq"]
