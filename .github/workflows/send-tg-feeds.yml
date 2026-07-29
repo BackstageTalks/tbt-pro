@@ -1,22 +1,34 @@
-name: Send TG Feeds
+name: send-tg-feeds
 
 on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "Feed mode: top7, free, or both"
+        description: "Feed mode: top7 or free"
         required: false
-        default: "both"
+        default: "top7"
+      limit:
+        description: "TOP7 limit"
+        required: false
+        default: "7"
+      include_started:
+        description: "Include already started matches: true/false"
+        required: false
+        default: "false"
+  # Safe default: one morning TOP7 push. Adjust later if needed.
+  schedule:
+    # Around 08:30 Slovakia time during summer time UTC+2
+    - cron: "30 6 * * *"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   send-tg-feeds:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -24,24 +36,37 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Send TOP7 feed
-        if: ${{ github.event.inputs.mode == 'top7' || github.event.inputs.mode == 'both' || github.event.inputs.mode == '' }}
+      - name: Build Telegram preview and send feed
         env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_TOP7_CHAT_ID: ${{ secrets.TELEGRAM_TOP7_CHAT_ID }}
-          TG_FEED_TIME_OFFSET_HOURS: "1"
-          TG_FEED_UPCOMING_ONLY: "true"
+          # Repository secrets are named TGBOT and TGCHID.
+          TGBOT: ${{ secrets.TGBOT }}
+          TGCHID: ${{ secrets.TGCHID }}
+          # Also map them to the canonical names accepted by tg_feed.py.
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TGBOT }}
+          TG_BOT_TOKEN: ${{ secrets.TGBOT }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TGCHID }}
+          TG_CHAT_ID: ${{ secrets.TGCHID }}
+          TG_TOP7_CHAT_ID: ${{ secrets.TGCHID }}
+          TELEGRAM_TOP7_CHAT_ID: ${{ secrets.TGCHID }}
+          TG_FEED_TIME_OFFSET_HOURS: "2"
           TG_FEED_PAST_GRACE_MINUTES: "0"
         run: |
-          python corq/tg_feed.py --mode top7 --send
+          MODE="${{ github.event.inputs.mode || 'top7' }}"
+          LIMIT="${{ github.event.inputs.limit || '7' }}"
+          INCLUDE_STARTED="${{ github.event.inputs.include_started || 'false' }}"
 
-      - name: Send FREE feed
-        if: ${{ github.event.inputs.mode == 'free' || github.event.inputs.mode == 'both' || github.event.inputs.mode == '' }}
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_FREE_CHAT_ID: ${{ secrets.TELEGRAM_FREE_CHAT_ID }}
-          TG_FEED_TIME_OFFSET_HOURS: "1"
-          TG_FEED_UPCOMING_ONLY: "true"
-          TG_FEED_PAST_GRACE_MINUTES: "0"
+          CMD="python corq/tg_feed.py --mode ${MODE} --limit ${LIMIT} --send"
+          if [ "${INCLUDE_STARTED}" = "true" ]; then
+            CMD="${CMD} --include-started"
+          fi
+
+          echo "Running: ${CMD}"
+          ${CMD}
+
+      - name: Commit Telegram preview message
         run: |
-          python corq/tg_feed.py --mode free --send
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add outputs/telegram || true
+          git commit -m "Update Telegram feed preview" || echo "No Telegram preview changes"
+          git push
