@@ -1,0 +1,40 @@
+name: Update MarQ data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "20 6 * * *"
+    - cron: "20 12 * * *"
+    - cron: "20 17 * * *"
+    - cron: "20 22 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update-marq:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install requests
+      - name: Enrich MarQ data
+        env:
+          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+        run: |
+          python tools/update_marq_data.py --outputs-dir outputs
+      - name: Render web
+        run: |
+          python -m corq.web.render
+      - name: Commit MarQ data and rendered site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add outputs corq/site data/marq_ai
+          git commit -m "Update MarQ market data" || echo "No MarQ changes"
+          git push
