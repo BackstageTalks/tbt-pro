@@ -964,7 +964,6 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         metric_row("P F Qty", signed_pct(row.get("opponent_quality_edge")), sign_class(row.get("opponent_quality_edge"))),
         metric_row("F Data Depth", bar_html(form_depth(row))),
         '</section>',
-        render_ta_box(row),
         render_sets_games_box(row),
         render_marq_box(row) if page != "cloq" else render_cloq_box(row),
         cloq_extra,
