@@ -601,3 +601,436 @@ def enrich_match_with_market_lines(match: Dict[str, Any], client: Optional[Bet36
     else:
         enriched["sets_games_best_value"] = "Pending lines"
     return enriched
+
+# ---------------------------------------------------------------------------
+# Adapted Sets/Games model helpers from the legacy project
+# ---------------------------------------------------------------------------
+# These helpers are kept in marq/market_lines.py because the current project has
+# a top-level marq package with market_lines.py and we avoid creating legacy
+# filenames.  They are pure helpers: they do not fake missing market/model data.
+
+_SET_MARKET_CACHE: Dict[int, Dict[str, Any]] = {}
+AVG_POINTS_PER_SERVICE_GAME = 6.2
+
+
+def clamp_value(value: float, low: float, high: float) -> float:
+    return max(low, min(high, value))
+
+
+def normalize_probability_value(value: Any) -> Optional[float]:
+    number = as_float(value)
+    if number is None:
+        return None
+    return number / 100.0 if number > 1.0 else number
+
+
+def normalize_pair_probability(p1_odds: Optional[float], p2_odds: Optional[float]) -> Tuple[Optional[float], Optional[float]]:
+    p1_raw = implied_probability(p1_odds)
+    p2_raw = implied_probability(p2_odds)
+    if p1_raw is None or p2_raw is None:
+        return None, None
+    total = p1_raw + p2_raw
+    if total <= 0:
+        return None, None
+    return p1_raw / total, p2_raw / total
+
+
+def _choice_decimal(choice: Dict[str, Any]) -> Optional[float]:
+    if not isinstance(choice, dict):
+        return None
+    for key in ("fractionalValue", "initialFractionalValue"):
+        value = choice.get(key)
+        if value:
+            decimal = _fractional_to_decimal_local(value)
+            if decimal and decimal > 1.0:
+                return decimal
+    for key in ("decimalValue", "value", "price", "odds", "coef"):
+        decimal = valid_odds(choice.get(key))
+        if decimal is not None:
+            return decimal
+    return None
+
+
+def _choice_initial_decimal(choice: Dict[str, Any]) -> Optional[float]:
+    if not isinstance(choice, dict):
+        return None
+    for key in ("initialFractionalValue", "openingFractionalValue"):
+        value = choice.get(key)
+        if value:
+            decimal = _fractional_to_decimal_local(value)
+            if decimal and decimal > 1.0:
+                return decimal
+    for key in ("initialDecimalValue", "openingDecimalValue"):
+        decimal = valid_odds(choice.get(key))
+        if decimal is not None:
+            return decimal
+    return None
+
+
+def _fractional_to_decimal_local(value: Any) -> Optional[float]:
+    if value in (None, ""):
+        return None
+    if isinstance(value, (int, float)):
+        number = float(value)
+        return number if number > 1 else None
+    text = str(value).strip().replace(",", ".")
+    if "/" in text:
+        try:
+            left, right = text.split("/", 1)
+            denominator = float(right.strip())
+            if denominator == 0:
+                return None
+            return round(1.0 + float(left.strip()) / denominator, 5)
+        except Exception:
+            return None
+    return valid_odds(text)
+
+
+def _choice_change(choice: Dict[str, Any]) -> Optional[float]:
+    return as_float(choice.get("change")) if isinstance(choice, dict) else None
+
+
+def _market_choices_pair_details(market: Dict[str, Any]) -> Dict[str, Any]:
+    choices = market.get("choices") or market.get("outcomes")
+    output: Dict[str, Any] = {
+        "p1_odds": None,
+        "p2_odds": None,
+        "p1_initial_odds": None,
+        "p2_initial_odds": None,
+        "p1_change": None,
+        "p2_change": None,
+    }
+    if not isinstance(choices, list) or len(choices) < 2:
+        return output
+    first = choices[0] if isinstance(choices[0], dict) else {}
+    second = choices[1] if isinstance(choices[1], dict) else {}
+    output["p1_odds"] = _choice_decimal(first)
+    output["p2_odds"] = _choice_decimal(second)
+    output["p1_initial_odds"] = _choice_initial_decimal(first)
+    output["p2_initial_odds"] = _choice_initial_decimal(second)
+    output["p1_change"] = _choice_change(first)
+    output["p2_change"] = _choice_change(second)
+    return output
+
+
+def _find_over_under_details(market: Dict[str, Any]) -> Dict[str, Any]:
+    choices = market.get("choices") or market.get("outcomes")
+    output: Dict[str, Any] = {
+        "over_odds": None,
+        "under_odds": None,
+        "over_initial_odds": None,
+        "under_initial_odds": None,
+        "over_change": None,
+        "under_change": None,
+    }
+    if not isinstance(choices, list) or len(choices) < 2:
+        return output
+    for idx, choice in enumerate(choices):
+        if not isinstance(choice, dict):
+            continue
+        name = str(choice.get("name") or choice.get("choiceName") or choice.get("label") or "").lower()
+        if "over" in name or (idx == 0 and output["over_odds"] is None):
+            key = "over"
+        elif "under" in name or idx == 1:
+            key = "under"
+        else:
+            continue
+        output[f"{key}_odds"] = _choice_decimal(choice)
+        output[f"{key}_initial_odds"] = _choice_initial_decimal(choice)
+        output[f"{key}_change"] = _choice_change(choice)
+    return output
+
+
+def _normalize_tennisapi_markets_payload(payload: Dict[str, Any]) -> List[Dict[str, Any]]:
+    if not isinstance(payload, dict):
+        return []
+    if isinstance(payload.get("markets"), list):
+        return payload["markets"]
+    if isinstance(payload.get("odds"), list):
+        return payload["odds"]
+    data = payload.get("data")
+    if isinstance(data, dict) and isinstance(data.get("markets"), list):
+        return data["markets"]
+    featured = payload.get("featured")
+    if isinstance(featured, dict):
+        return [value for value in featured.values() if isinstance(value, dict)]
+    return []
+
+
+def parse_tennisapi_set_markets(payload: Dict[str, Any], event_id: Optional[int] = None) -> Dict[str, Any]:
+    """Parse TennisApi market ids used by the legacy Sets/Games model.
+
+    Known legacy mapping:
+    - marketId 1: match winner
+    - marketId 11: first set winner
+    - marketId 12: total games
+    - marketId 13: tie break
+    """
+    markets = _normalize_tennisapi_markets_payload(payload)
+    output: Dict[str, Any] = {
+        "event_id": event_id or payload.get("eventId") if isinstance(payload, dict) else event_id,
+        "match_winner": None,
+        "first_set_winner": None,
+        "total_games": None,
+        "tie_break": None,
+        "raw_market_count": len(markets),
+    }
+    for market in markets:
+        if not isinstance(market, dict):
+            continue
+        market_id = market.get("marketId")
+        market_name = str(market.get("marketName") or market.get("name") or "").lower()
+        market_period = str(market.get("marketPeriod") or "").lower()
+        market_group = str(market.get("marketGroup") or market.get("group") or "")
+        if market_id == 1 or ("full time" in market_name and "match" in market_period):
+            details = _market_choices_pair_details(market)
+            p1, p2 = details.get("p1_odds"), details.get("p2_odds")
+            p1_prob, p2_prob = normalize_pair_probability(p1, p2)
+            if p1 and p2:
+                output["match_winner"] = {**details, "p1_probability": p1_prob, "p2_probability": p2_prob, "market_id": market_id, "market_name": market_name, "market_group": market_group, "market_period": market_period}
+        elif market_id == 11 or "first set winner" in market_name:
+            details = _market_choices_pair_details(market)
+            p1, p2 = details.get("p1_odds"), details.get("p2_odds")
+            p1_prob, p2_prob = normalize_pair_probability(p1, p2)
+            if p1 and p2:
+                output["first_set_winner"] = {**details, "p1_probability": p1_prob, "p2_probability": p2_prob, "market_id": market_id, "market_name": market_name, "market_group": market_group, "market_period": market_period}
+        elif market_id == 12 or "total games" in market_name:
+            line = as_float(market.get("choiceGroup") or market.get("line") or market.get("handicap"))
+            details = _find_over_under_details(market)
+            over_odds, under_odds = details.get("over_odds"), details.get("under_odds")
+            over_prob, under_prob = normalize_pair_probability(over_odds, under_odds)
+            if line is not None and over_odds and under_odds:
+                output["total_games"] = {**details, "line": line, "over_probability": over_prob, "under_probability": under_prob, "market_id": market_id, "market_name": market_name, "market_group": market_group, "market_period": market_period}
+        elif market_id == 13 or "tie break" in market_name or "tiebreak" in market_name:
+            details = _market_choices_pair_details(market)
+            yes_odds, no_odds = details.get("p1_odds"), details.get("p2_odds")
+            yes_prob, no_prob = normalize_pair_probability(yes_odds, no_odds)
+            if yes_odds and no_odds:
+                output["tie_break"] = {"yes_odds": yes_odds, "no_odds": no_odds, "yes_initial_odds": details.get("p1_initial_odds"), "no_initial_odds": details.get("p2_initial_odds"), "yes_change": details.get("p1_change"), "no_change": details.get("p2_change"), "yes_probability": yes_prob, "no_probability": no_prob, "market_id": market_id, "market_name": market_name, "market_group": market_group, "market_period": market_period}
+    return output
+
+
+def get_tennisapi_set_markets(event_id: Optional[int], force_refresh: bool = False) -> Dict[str, Any]:
+    """Optional TennisApi set/games market fetcher.
+
+    This function only runs if a project TennisApi client exists.  It is safe to
+    keep in marq/market_lines.py because it returns {} when the client is not
+    available or when event_id is missing.
+    """
+    if not event_id:
+        return {}
+    event_id_int = int(event_id)
+    if not force_refresh and event_id_int in _SET_MARKET_CACHE:
+        return _SET_MARKET_CACHE[event_id_int]
+    try:
+        try:
+            from thinq.loaders.rapidapi_client import TennisApiClient  # type: ignore
+        except Exception:
+            from tennisapi_client import TennisApiClient  # type: ignore
+        client = TennisApiClient()
+        payload = client.get_all_odds_for_event(event_id_int) or {}
+        parsed = parse_tennisapi_set_markets(payload, event_id=event_id_int)
+        _SET_MARKET_CACHE[event_id_int] = parsed
+        return parsed
+    except Exception:
+        return {}
+
+
+def _infer_bo(match: Dict[str, Any]) -> int:
+    try:
+        best_of = int(match.get("best_of") or 3)
+        return 5 if best_of == 5 else 3
+    except Exception:
+        return 3
+
+
+def _infer_is_doubles(match: Dict[str, Any]) -> bool:
+    text = " ".join(str(match.get(k) or "") for k in ("match", "tournament", "category")).lower()
+    return "doubles" in text
+
+
+def _market_set_pressure(best_of: int, total_games: Optional[Dict[str, Any]], tie_break: Optional[Dict[str, Any]]) -> float:
+    pressure = 0.50
+    if isinstance(total_games, dict):
+        line = as_float(total_games.get("line"))
+        over_prob = normalize_probability_value(total_games.get("over_probability"))
+        if best_of == 5:
+            if line is not None:
+                pressure += (line - 38.5) / 18.0
+        else:
+            if line is not None:
+                pressure += (line - 22.0) / 10.0
+        if over_prob is not None:
+            pressure += (over_prob - 0.50) * 0.60
+    if isinstance(tie_break, dict):
+        tie_prob = normalize_probability_value(tie_break.get("yes_probability"))
+        if tie_prob is not None:
+            pressure += (tie_prob - 0.35) * 0.35
+    return clamp_value(pressure, 0.05, 0.95)
+
+
+def _dominance_score(match_probability: Optional[float], first_set_probability: Optional[float]) -> float:
+    p_match = match_probability if match_probability is not None else 0.5
+    p_first = first_set_probability if first_set_probability is not None else p_match
+    return clamp_value(((p_match - 0.50) * 1.3) + ((p_first - 0.50) * 0.7), -0.45, 0.45)
+
+
+def _normalize_dist(dist: Dict[str, float]) -> Dict[str, float]:
+    total = sum(max(v, 0.0) for v in dist.values())
+    if total <= 0:
+        return dist
+    return {k: round(max(v, 0.0) / total, 4) for k, v in dist.items()}
+
+
+def _bo3_distribution(winner_side: str, match_prob: float, first_set_prob: Optional[float], pressure: float) -> Dict[str, float]:
+    dom = _dominance_score(match_prob, first_set_prob)
+    three_sets = clamp_value(0.30 + pressure * 0.34 - max(dom, 0) * 0.20, 0.18, 0.62)
+    fav_win = clamp_value(match_prob, 0.35, 0.85)
+    fav_straight = clamp_value((1 - three_sets) * (0.55 + max(dom, 0) * 0.70), 0.20, 0.70)
+    fav_deciding = clamp_value(three_sets * fav_win, 0.08, 0.45)
+    dog_deciding = clamp_value(three_sets * (1 - fav_win), 0.05, 0.35)
+    dog_straight = max(0.02, 1.0 - fav_straight - fav_deciding - dog_deciding)
+    if winner_side == "p1":
+        dist = {"2-0": fav_straight, "2-1": fav_deciding, "1-2": dog_deciding, "0-2": dog_straight}
+    else:
+        dist = {"0-2": fav_straight, "1-2": fav_deciding, "2-1": dog_deciding, "2-0": dog_straight}
+    return _normalize_dist(dist)
+
+
+def _bo5_distribution(winner_side: str, match_prob: float, first_set_prob: Optional[float], pressure: float) -> Dict[str, float]:
+    dom = _dominance_score(match_prob, first_set_prob)
+    five_sets = clamp_value(0.16 + pressure * 0.28 - max(dom, 0) * 0.10, 0.08, 0.42)
+    four_sets = clamp_value(0.30 + pressure * 0.10 - abs(dom) * 0.05, 0.20, 0.45)
+    three_sets = clamp_value(1.0 - five_sets - four_sets, 0.20, 0.58)
+    fav_win = clamp_value(match_prob, 0.35, 0.88)
+    fav_three = three_sets * (0.62 + max(dom, 0) * 0.60)
+    dog_three = max(0.01, three_sets - fav_three)
+    fav_four = four_sets * fav_win
+    dog_four = four_sets * (1 - fav_win)
+    fav_five = five_sets * fav_win
+    dog_five = five_sets * (1 - fav_win)
+    if winner_side == "p1":
+        dist = {"3-0": fav_three, "3-1": fav_four, "3-2": fav_five, "2-3": dog_five, "1-3": dog_four, "0-3": dog_three}
+    else:
+        dist = {"0-3": fav_three, "1-3": fav_four, "2-3": fav_five, "3-2": dog_five, "3-1": dog_four, "3-0": dog_three}
+    return _normalize_dist(dist)
+
+
+def _expected_sets_from_dist(dist: Dict[str, float]) -> float:
+    total = 0.0
+    for score, prob in dist.items():
+        try:
+            a, b = score.split("-")
+            total += (int(a) + int(b)) * float(prob)
+        except Exception:
+            pass
+    return round(total, 2)
+
+
+def _probability_of_max_sets(dist: Dict[str, float], best_of: int) -> float:
+    max_sets = 5 if best_of == 5 else 3
+    total = 0.0
+    for score, prob in dist.items():
+        try:
+            a, b = score.split("-")
+            if int(a) + int(b) == max_sets:
+                total += float(prob)
+        except Exception:
+            pass
+    return round(total, 4)
+
+
+def _most_likely_score(dist: Dict[str, float]) -> str:
+    if not dist:
+        return "-"
+    return max(dist.items(), key=lambda item: item[1])[0]
+
+
+def build_market_aware_sets(match: Dict[str, Any], model_prediction: Dict[str, Any], set_markets: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    """Build Sets/Games model fields using real market data when available."""
+    set_markets = set_markets or {}
+    best_of = _infer_bo(match)
+    if _infer_is_doubles(match):
+        best_of = 3
+    p1_model = normalize_probability_value(model_prediction.get("probability_player1") or match.get("p1_probability"))
+    p2_model = normalize_probability_value(model_prediction.get("probability_player2") or match.get("p2_probability"))
+    mw = set_markets.get("match_winner") if isinstance(set_markets, dict) else None
+    fsw = set_markets.get("first_set_winner") if isinstance(set_markets, dict) else None
+    tg = set_markets.get("total_games") if isinstance(set_markets, dict) else None
+    tb = set_markets.get("tie_break") if isinstance(set_markets, dict) else None
+
+    if isinstance(mw, dict) and mw.get("p1_probability") is not None:
+        p1_match = float(mw["p1_probability"])
+        p2_match = float(mw["p2_probability"])
+    else:
+        p1_match = p1_model if p1_model is not None else 0.5
+        p2_match = p2_model if p2_model is not None else 1.0 - p1_match
+
+    if p1_match >= p2_match:
+        winner_side = "p1"
+        match_prob = p1_match
+        first_prob = fsw.get("p1_probability") if isinstance(fsw, dict) else None
+    else:
+        winner_side = "p2"
+        match_prob = p2_match
+        first_prob = fsw.get("p2_probability") if isinstance(fsw, dict) else None
+
+    pressure = _market_set_pressure(best_of, tg, tb)
+    if best_of == 5:
+        dist = _bo5_distribution(winner_side, match_prob, first_prob, pressure)
+        max_label = "O4.5"
+    else:
+        dist = _bo3_distribution(winner_side, match_prob, first_prob, pressure)
+        max_label = "O2.5"
+
+    expected_sets = _expected_sets_from_dist(dist)
+    max_sets_prob = _probability_of_max_sets(dist, best_of)
+    score = _most_likely_score(dist)
+    games_line = tg.get("line") if isinstance(tg, dict) else None
+    over_prob = tg.get("over_probability") if isinstance(tg, dict) else None
+    under_prob = tg.get("under_probability") if isinstance(tg, dict) else None
+    games_pick = None
+    if games_line is not None and over_prob is not None:
+        games_pick = f"Over {games_line:g}" if over_prob >= 0.50 else f"Under {games_line:g}"
+    tie_break_probability = tb.get("yes_probability") if isinstance(tb, dict) else None
+
+    return {
+        "expected_sets": expected_sets,
+        "sets_probability": max_sets_prob,
+        "sets_probability_label": max_label,
+        "sets_o25_probability": max_sets_prob if best_of == 3 else None,
+        "sets_o45_probability": max_sets_prob if best_of == 5 else None,
+        "most_likely_score": score,
+        "most_likely_score_probability": dist.get(score),
+        "score_probabilities": dist,
+        "score_basis": "player1_vs_player2",
+        "first_set_player1_odds": fsw.get("p1_odds") if isinstance(fsw, dict) else None,
+        "first_set_player2_odds": fsw.get("p2_odds") if isinstance(fsw, dict) else None,
+        "first_set_player1_probability": fsw.get("p1_probability") if isinstance(fsw, dict) else None,
+        "first_set_player2_probability": fsw.get("p2_probability") if isinstance(fsw, dict) else None,
+        "expected_games": games_line,
+        "projected_total_games": games_line,
+        "games_line": games_line,
+        "total_games_line": games_line,
+        "games_pick": games_pick,
+        "games_over_odds": tg.get("over_odds") if isinstance(tg, dict) else None,
+        "games_under_odds": tg.get("under_odds") if isinstance(tg, dict) else None,
+        "games_over_probability": round(float(over_prob), 4) if over_prob is not None else None,
+        "games_under_probability": round(float(under_prob), 4) if under_prob is not None else None,
+        "tie_break_yes_odds": tb.get("yes_odds") if isinstance(tb, dict) else None,
+        "tie_break_no_odds": tb.get("no_odds") if isinstance(tb, dict) else None,
+        "tie_break_probability": round(float(tie_break_probability), 4) if tie_break_probability is not None else None,
+        "tb_probability": round(float(tie_break_probability), 4) if tie_break_probability is not None else None,
+        "sets_model_source": "TennisApiMarkets" if set_markets else "ModelFallback",
+    }
+
+
+def build_sets_games_from_match(match: Dict[str, Any], model_prediction: Optional[Dict[str, Any]] = None, force_refresh: bool = False) -> Dict[str, Any]:
+    """Fetch markets and build Sets/Games fields for a current project match row."""
+    event_id = match.get("event_id") or match.get("match_id") or match.get("id")
+    set_markets = get_tennisapi_set_markets(event_id, force_refresh=force_refresh) if event_id else {}
+    output = build_market_aware_sets(match, model_prediction or match, set_markets=set_markets)
+    enriched = dict(match)
+    enriched.update(output)
+    return enriched
+
