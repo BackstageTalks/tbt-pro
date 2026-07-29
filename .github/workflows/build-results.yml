@@ -38,17 +38,24 @@ jobs:
           test -f corq/results_engine/builder.py
           test -f corq/results_engine/results.py
           test -f corq/results_engine/results_db.py
+
           if grep -R "python -m corq.results_db\|python -m corq.results " .github/workflows -n; then
             echo "ERROR: old Results module command still exists in workflows"
             exit 1
           fi
+
           python - <<'PY'
           import importlib.util
-          for name in ["corq.results_engine.results", "corq.results_engine.results_db", "corq.results_engine.builder"]:
-              spec = importlib.util.find_spec(name)
+          required = [
+              "corq.results_engine.results",
+              "corq.results_engine.results_db",
+              "corq.results_engine.builder",
+          ]
+          for module_name in required:
+              spec = importlib.util.find_spec(module_name)
               if spec is None:
-                  raise SystemExit(f"Missing module: {name}")
-              print(f"OK {name} -> {spec.origin}")
+                  raise SystemExit("Missing module: " + module_name)
+              print("OK", module_name, "->", spec.origin)
           PY
 
       - name: Build persistent Results database
