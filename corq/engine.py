@@ -314,6 +314,145 @@ def _decimal_odds(value: Any) -> Optional[float]:
     return None
 
 
+def _pct_points(value: Any) -> Optional[float]:
+    try:
+        if value in (None, "", "—", "-"):
+            return None
+        number = float(str(value).replace("%", "").replace(",", "."))
+        if abs(number) <= 1.0:
+            number *= 100.0
+        return number
+    except Exception:
+        return None
+
+
+def _first_pct_points(row: Dict[str, Any], *keys: str) -> Optional[float]:
+    for key in keys:
+        value = _nested_get(row, *key.split(".")) if "." in key else row.get(key)
+        number = _pct_points(value)
+        if number is not None:
+            return number
+    return None
+
+
+def _first_float(row: Dict[str, Any], *keys: str) -> Optional[float]:
+    for key in keys:
+        value = _nested_get(row, *key.split(".")) if "." in key else row.get(key)
+        try:
+            if value not in (None, "", "—", "-"):
+                return float(str(value).replace(",", "."))
+        except Exception:
+            continue
+    return None
+
+
+def _append_unique_flag(row: Dict[str, Any], key: str, flag: str) -> None:
+    values = row.get(key)
+    if not isinstance(values, list):
+        values = [] if values in (None, "") else [str(values)]
+    if flag not in values:
+        values.append(flag)
+    row[key] = values
+
+
+def _has_positive_ta_support(row: Dict[str, Any]) -> bool:
+    text = " ".join(
+        str(row.get(key) or "")
+        for key in (
+            "ta_winner_decision",
+            "ta_winner_read",
+            "ta_signal",
+            "ta_signal_label",
+            "ta_signal_type",
+        )
+    ).lower()
+    return any(token in text for token in ("supports pick", "slight pick", "winner_support", "ta supports pick"))
+
+
+def _has_positive_form_support(row: Dict[str, Any]) -> bool:
+    for key in (
+        "recent_form_edge",
+        "short_form_edge",
+        "surface_recent_form_edge",
+        "opponent_quality_edge",
+        "thinq.recent_form.edge",
+        "thinq.recent_form.recent_form_edge",
+    ):
+        value = _first_float(row, key)
+        if value is not None and value > 0:
+            return True
+    return False
+
+
+def _apply_high_edge_reality_guard(row: Dict[str, Any]) -> Dict[str, Any]:
+    """Block TOP7 promotion for overconfident high-edge market disagreements."""
+    out = dict(row)
+    corq_pct = _first_pct_points(out, "corq_probability", "corq_estimated_win_probability", "win_probability", "estimated_win_probability", "probability", "cloq_probability")
+    odds = _decimal_odds(out.get("pick_odds") or out.get("cloq_pick_odds") or out.get("selected_odds") or out.get("odds_decimal") or out.get("decimal_odds") or out.get("odds"))
+    raw_edge = _first_pct_points(out, "pick_thinq_edge", "thinq_edge", "thinq_total_edge", "top7_pick_thinq_edge", "edge", "model_edge", "value_edge")
+    if raw_edge is None and corq_pct is not None and odds is not None:
+        raw_edge = corq_pct - (100.0 / odds)
+    elif raw_edge is None and corq_pct is not None:
+        raw_edge = corq_pct - 50.0
+
+    stat_depth = _first_pct_points(out, "stat_data_depth", "pick_data_depth", "data_depth", "top7_pick_data_depth", "thinq_probability_confidence")
+    form_depth = _first_pct_points(out, "form_data_depth", "form_confidence", "recent_form_confidence", "thinq_form_confidence")
+    ta_support = _has_positive_ta_support(out)
+    form_support = _has_positive_form_support(out)
+    strong_depth = (stat_depth is not None and stat_depth >= 80.0) and (form_depth is not None and form_depth >= 70.0)
+
+    edge_multiplier = 1.0
+    if raw_edge is not None:
+        if form_depth is not None and form_depth < 50.0:
+            edge_multiplier = 0.45
+            _append_unique_flag(out, "corq_warning_flags", "LOW_FORM_DEPTH_EDGE_CAPPED")
+        elif form_depth is not None and form_depth < 60.0:
+            edge_multiplier = 0.55
+            _append_unique_flag(out, "corq_warning_flags", "LOW_FORM_DEPTH_EDGE_CAPPED")
+        elif form_depth is not None and form_depth < 70.0:
+            edge_multiplier = 0.75
+    adjusted_edge = round(raw_edge * edge_multiplier, 4) if raw_edge is not None else None
+
+    confirmations = int(ta_support) + int(form_support) + int(strong_depth)
+    blocked_reasons: List[str] = []
+    if raw_edge is not None and odds is not None and raw_edge >= 15.0 and odds >= 1.80:
+        _append_unique_flag(out, "risk_flags", "MARKET_DISAGREEMENT_RISK")
+        if not (ta_support and strong_depth):
+            blocked_reasons.append("HIGH_EDGE_NEEDS_TA_AND_DEPTH_CONFIRMATION")
+    if corq_pct is not None and odds is not None and odds >= 2.00 and corq_pct >= 65.0:
+        _append_unique_flag(out, "risk_flags", "MARKET_DISAGREEMENT_RISK")
+        if confirmations < 2:
+            blocked_reasons.append("UNDERDOG_PRICE_NEEDS_TWO_CONFIRMATIONS")
+    if raw_edge is not None and raw_edge >= 12.0 and form_depth is not None and form_depth < 60.0:
+        blocked_reasons.append("LOW_FORM_DEPTH_WITH_HIGH_EDGE")
+
+    out["raw_pick_edge_pp"] = round(raw_edge, 4) if raw_edge is not None else None
+    out["confidence_adjusted_edge_pp"] = adjusted_edge
+    out["edge_guard_multiplier"] = edge_multiplier
+    out["edge_guard_confirmations"] = confirmations
+    out["edge_guard_ta_support"] = ta_support
+    out["edge_guard_form_support"] = form_support
+    out["edge_guard_strong_depth"] = strong_depth
+
+    if blocked_reasons:
+        for flag in ("HIGH_EDGE_QUARANTINE", "TOP7_EDGE_GUARD_BLOCKED"):
+            _append_unique_flag(out, "risk_flags", flag)
+            _append_unique_flag(out, "corq_warning_flags", flag)
+            _append_unique_flag(out, "top7_quality_reject_reasons", flag)
+        for reason in blocked_reasons:
+            _append_unique_flag(out, "top7_quality_reject_reasons", reason)
+        out["top7_edge_guard_blocked"] = True
+        out["top7_publishable"] = False
+        out["eligible_for_top7"] = False
+        out["edge_guard_status"] = "BLOCKED_FROM_TOP7"
+        out["edge_guard_reasons"] = blocked_reasons
+    else:
+        out["top7_edge_guard_blocked"] = False
+        out["edge_guard_status"] = "OK"
+        out["edge_guard_reasons"] = []
+    return out
+
+
 def _no_vig_pair_from_odds(pick_odds: Any, opponent_odds: Any) -> tuple[Optional[float], Optional[float]]:
     pick = _decimal_odds(pick_odds)
     opp = _decimal_odds(opponent_odds)
@@ -504,11 +643,13 @@ def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", ru
         prediction = _enrich_with_ta_profile_context(prediction)
         prediction = _enrich_with_sets_games(prediction)
         prediction = _enrich_with_marq(prediction)
+        prediction = _apply_high_edge_reality_guard(prediction)
         scored.append(prediction)
 
     all_view = make_all_match_view(scored)
     ranking = rank_corq(scored)
-    top7 = top7_from_ranking(ranking, top_n=7)
+    ranking_for_top7 = [row for row in ranking if not row.get("top7_edge_guard_blocked")]
+    top7 = top7_from_ranking(ranking_for_top7, top_n=7)
 
     all_paths = save_all(all_view, run_date=run_date, output_root=output_root)
     top7_paths = save_top7(top7, run_date=run_date, output_root=output_root)
@@ -524,6 +665,11 @@ def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", ru
         "all_count": len(all_view),
         "ranked_count": len(ranking),
         "top7_count": len(top7),
+        "edge_guard": {
+            "blocked_count": sum(1 for row in scored if row.get("top7_edge_guard_blocked")),
+            "ranking_before_guard": len(ranking),
+            "ranking_after_guard": len(ranking_for_top7),
+        },
         "thinq_service_available": thinq_service is not None,
         "side_safety": {
             "player1_definition": "HOME_API_FIRST_SIDE",
