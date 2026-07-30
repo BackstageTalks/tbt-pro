@@ -1438,14 +1438,35 @@
   "marq_clv_status": "PENDING",
   "marq_exchange_available": false,
   "marq_final": "Pending",
-  "corq_source_rank": 5,
-  "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
-  "top7_publishable": false,
-  "eligible_for_top7": false,
+  "corq_warning_flags": [
+    "LOW_FORM_DEPTH_EDGE_CAPPED",
+    "HIGH_EDGE_QUARANTINE",
+    "TOP7_EDGE_GUARD_BLOCKED"
+  ],
+  "raw_pick_edge_pp": 25.0,
+  "confidence_adjusted_edge_pp": 13.75,
+  "edge_guard_multiplier": 0.55,
+  "edge_guard_confirmations": 1,
+  "edge_guard_ta_support": false,
+  "edge_guard_form_support": true,
+  "edge_guard_strong_depth": false,
+  "risk_flags": [
+    "HIGH_EDGE_QUARANTINE",
+    "TOP7_EDGE_GUARD_BLOCKED"
+  ],
   "top7_quality_reject_reasons": [
     "REJECT_TOP7_STATUS_NOT_NOTSTARTED",
     "REJECT_TOP7_MISSING_ODDS"
   ],
+  "top7_edge_guard_blocked": true,
+  "top7_publishable": false,
+  "eligible_for_top7": false,
+  "edge_guard_status": "BLOCKED_FROM_TOP7",
+  "edge_guard_reasons": [
+    "LOW_FORM_DEPTH_WITH_HIGH_EDGE"
+  ],
+  "corq_source_rank": 7,
+  "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
   "top7_reject_reasons": [
     "REJECT_TOP7_STATUS_NOT_NOTSTARTED",
     "REJECT_TOP7_MISSING_ODDS"
@@ -1494,13 +1515,6 @@
   "top7_risk_penalty_points": 0.0,
   "top7_clean_bonus_points": 0.0,
   "top7_quality_score": 0.0,
-  "corq_rank": 5,
-  "marq_status": "NO MARKET DATA",
-  "pick_marq": "—",
-  "opponent_marq": "—",
-  "market_move": "UNKNOWN",
-  "odds_source": "—",
-  "odds_matching_direction_display": "NO SHARP DATA",
-  "marq_quality_display": "NO MARKET DATA | P0",
+  "corq_rank": 7,
   "_corq_render_rank": 27
 }

@@ -1438,14 +1438,35 @@
   &quot;marq_clv_status&quot;: &quot;PENDING&quot;,
   &quot;marq_exchange_available&quot;: false,
   &quot;marq_final&quot;: &quot;Pending&quot;,
-  &quot;corq_source_rank&quot;: 5,
-  &quot;top7_filter_mode&quot;: &quot;PUBLISHABLE_CORQ_THINQ_GUARD_V1&quot;,
-  &quot;top7_publishable&quot;: false,
-  &quot;eligible_for_top7&quot;: false,
+  &quot;corq_warning_flags&quot;: [
+    &quot;LOW_FORM_DEPTH_EDGE_CAPPED&quot;,
+    &quot;HIGH_EDGE_QUARANTINE&quot;,
+    &quot;TOP7_EDGE_GUARD_BLOCKED&quot;
+  ],
+  &quot;raw_pick_edge_pp&quot;: 25.0,
+  &quot;confidence_adjusted_edge_pp&quot;: 13.75,
+  &quot;edge_guard_multiplier&quot;: 0.55,
+  &quot;edge_guard_confirmations&quot;: 1,
+  &quot;edge_guard_ta_support&quot;: false,
+  &quot;edge_guard_form_support&quot;: true,
+  &quot;edge_guard_strong_depth&quot;: false,
+  &quot;risk_flags&quot;: [
+    &quot;HIGH_EDGE_QUARANTINE&quot;,
+    &quot;TOP7_EDGE_GUARD_BLOCKED&quot;
+  ],
   &quot;top7_quality_reject_reasons&quot;: [
     &quot;REJECT_TOP7_STATUS_NOT_NOTSTARTED&quot;,
     &quot;REJECT_TOP7_MISSING_ODDS&quot;
   ],
+  &quot;top7_edge_guard_blocked&quot;: true,
+  &quot;top7_publishable&quot;: false,
+  &quot;eligible_for_top7&quot;: false,
+  &quot;edge_guard_status&quot;: &quot;BLOCKED_FROM_TOP7&quot;,
+  &quot;edge_guard_reasons&quot;: [
+    &quot;LOW_FORM_DEPTH_WITH_HIGH_EDGE&quot;
+  ],
+  &quot;corq_source_rank&quot;: 7,
+  &quot;top7_filter_mode&quot;: &quot;PUBLISHABLE_CORQ_THINQ_GUARD_V1&quot;,
   &quot;top7_reject_reasons&quot;: [
     &quot;REJECT_TOP7_STATUS_NOT_NOTSTARTED&quot;,
     &quot;REJECT_TOP7_MISSING_ODDS&quot;
@@ -1494,13 +1515,6 @@
   &quot;top7_risk_penalty_points&quot;: 0.0,
   &quot;top7_clean_bonus_points&quot;: 0.0,
   &quot;top7_quality_score&quot;: 0.0,
-  &quot;corq_rank&quot;: 5,
-  &quot;marq_status&quot;: &quot;NO MARKET DATA&quot;,
-  &quot;pick_marq&quot;: &quot;—&quot;,
-  &quot;opponent_marq&quot;: &quot;—&quot;,
-  &quot;market_move&quot;: &quot;UNKNOWN&quot;,
-  &quot;odds_source&quot;: &quot;—&quot;,
-  &quot;odds_matching_direction_display&quot;: &quot;NO SHARP DATA&quot;,
-  &quot;marq_quality_display&quot;: &quot;NO MARKET DATA | P0&quot;,
+  &quot;corq_rank&quot;: 7,
   &quot;_corq_render_rank&quot;: 27
 }</pre></body></html>
