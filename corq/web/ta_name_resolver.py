@@ -1,62 +1,78 @@
 # corq/web/ta_name_resolver.py
+"""
+Compatibility wrapper around thinq.loaders.player_resolver.
 
-TA_NAME_ALIASES = {
-    'martin damm jr': 'Martin Damm',
-    'martin damm jr.': 'Martin Damm',
-    'catherine mcnally': 'Caty Mcnally',
-    'catherine mcnally.': 'Caty Mcnally',
-    'caty mcnally': 'Caty Mcnally',
-    'anastasia soboleva': 'Anastasiya Soboleva',
-    'anastasiya soboleva': 'Anastasiya Soboleva',
-    'miriam bulgaru': 'Miriam Bianca Bulgaru',
-    'miriam bianca bulgaru': 'Miriam Bianca Bulgaru',
-}
+All player-name matching now comes from one shared database:
+- tennis_name_alias_database.json
+
+Keep this file so existing CORQ imports do not break, but do not maintain
+separate hard-coded name aliases here anymore.
+"""
+
+from __future__ import annotations
+
+from typing import Any, Dict, List, Optional
+
+try:
+    from thinq.loaders.player_resolver import (
+        canonical_player_name,
+        find_profile_for_player,
+        get_player_name_candidates,
+    )
+except Exception:  # pragma: no cover - safe fallback for isolated render contexts
+    canonical_player_name = None
+    find_profile_for_player = None
+    get_player_name_candidates = None
 
 
 def clean_player_name(name: str) -> str:
     if not name:
-        return ''
-    return ' '.join(str(name).strip().split())
+        return ""
+    return " ".join(str(name).replace("\xa0", " ").strip().split())
 
 
-def get_ta_name_candidates(name: str) -> list:
+def get_ta_name_candidates(name: str, tour: Optional[str] = None) -> List[str]:
     raw = clean_player_name(name)
     if not raw:
         return []
-    key = raw.lower()
-    candidates = []
-    if key in TA_NAME_ALIASES:
-        candidates.append(TA_NAME_ALIASES[key])
-    candidates.append(raw)
-    lowered = raw.lower()
-    if lowered.endswith(' jr'):
-        candidates.append(raw[:-3].strip())
-    elif lowered.endswith(' jr.'):
-        candidates.append(raw[:-4].strip())
-    out = []
+    if get_player_name_candidates is not None:
+        candidates = get_player_name_candidates(raw, tour=tour)
+    else:
+        candidates = [raw]
+    out: List[str] = []
     seen = set()
     for candidate in candidates:
         candidate = clean_player_name(candidate)
-        candidate_key = candidate.lower()
-        if candidate and candidate_key not in seen:
+        key = candidate.lower()
+        if candidate and key not in seen:
             out.append(candidate)
-            seen.add(candidate_key)
+            seen.add(key)
     return out
 
 
-def normalize_player_name_for_ta(name: str) -> str:
-    candidates = get_ta_name_candidates(name)
-    return candidates[0] if candidates else ''
+def normalize_player_name_for_ta(name: str, tour: Optional[str] = None) -> str:
+    raw = clean_player_name(name)
+    if not raw:
+        return ""
+    if canonical_player_name is not None:
+        return clean_player_name(canonical_player_name(raw, tour=tour))
+    return raw
 
 
-def find_ta_profile_for_player(player_name: str, ta_profiles_by_name: dict):
+def find_ta_profile_for_player(player_name: str, ta_profiles_by_name: Dict[str, Any], tour: Optional[str] = None):
     if not isinstance(ta_profiles_by_name, dict):
         return None
+    if find_profile_for_player is not None:
+        profile = find_profile_for_player(player_name, ta_profiles_by_name, tour=tour)
+        if profile:
+            return profile
+
+    # Defensive fallback: exact normalized lookup only.
     lookup = {}
     for key, value in ta_profiles_by_name.items():
         lookup[clean_player_name(key).lower()] = value
-    for candidate_name in get_ta_name_candidates(player_name):
-        profile = lookup.get(candidate_name.lower())
+    for candidate_name in get_ta_name_candidates(player_name, tour=tour):
+        profile = lookup.get(clean_player_name(candidate_name).lower())
         if profile:
             return profile
     return None
