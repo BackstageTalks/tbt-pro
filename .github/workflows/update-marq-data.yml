@@ -1,37 +1,189 @@
-name: Update MarQ data
+name: Update MarQ Data
 
 on:
   workflow_dispatch:
+    inputs:
+      outputs_dir:
+        description: "Outputs directory to enrich"
+        required: false
+        default: "outputs"
+      days_ahead:
+        description: "MARQ internal odds snapshot days ahead"
+        required: false
+        default: "6"
+      force_refresh:
+        description: "Force API refresh for internal odds snapshots"
+        required: false
+        default: "false"
+      max_detail_events_per_day:
+        description: "Max fallback detail lookups per day"
+        required: false
+        default: "80"
   schedule:
-    - cron: "20 6 * * *"
-    - cron: "20 12 * * *"
-    - cron: "20 17 * * *"
-    - cron: "20 22 * * *"
+    # Run after morning predictions/render and again during the day for market refresh.
+    # Summer Bratislava approx: 06:30, 12:30, 18:30.
+    - cron: "30 4,10,16 * * *"
 
 permissions:
   contents: write
 
+concurrency:
+  group: update-marq-data
+  cancel-in-progress: false
+
 jobs:
-  update-marq:
+  update-marq-data:
     runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+      RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+      OUTPUTS_DIR: ${{ github.event.inputs.outputs_dir || 'outputs' }}
+      DAYS_AHEAD: ${{ github.event.inputs.days_ahead || '6' }}
+      FORCE_REFRESH: ${{ github.event.inputs.force_refresh || 'false' }}
+      MAX_DETAIL_EVENTS_PER_DAY: ${{ github.event.inputs.max_detail_events_per_day || '80' }}
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install dependencies
+
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install requests
-    - name: Enrich MarQ data2  
-    run: |3    PYTHONPATH="${{ github.workspace }}:${PYTHONPATH}" python tools/update_marq_data.py --outputs-dir outputs
-      - name: Render web
+          python -m pip install requests pandas beautifulsoup4 lxml html5lib
+
+      - name: Show runtime context
         run: |
-          python -m corq.web.render
-      - name: Commit MarQ data and rendered site
+          echo "PYTHONPATH=${PYTHONPATH}"
+          echo "OUTPUTS_DIR=${OUTPUTS_DIR}"
+          echo "DAYS_AHEAD=${DAYS_AHEAD}"
+          echo "FORCE_REFRESH=${FORCE_REFRESH}"
+          echo "MAX_DETAIL_EVENTS_PER_DAY=${MAX_DETAIL_EVENTS_PER_DAY}"
+          python --version
+          python - <<'PY'
+          import importlib.util
+          import os
+          import sys
+          print("cwd:", os.getcwd())
+          print("sys.path[0:5]:", sys.path[:5])
+          for module in ("marq", "corq"):
+              print(module, "found=", importlib.util.find_spec(module) is not None)
+          PY
+
+      - name: Build MARQ internal odds snapshots
+        run: |
+          if python - <<'PY'
+          import importlib.util
+          raise SystemExit(0 if importlib.util.find_spec("marq.odds_snapshots") else 1)
+          PY
+          then
+            if [ "${FORCE_REFRESH}" = "true" ]; then
+              python -m marq.odds_snapshots \
+                --days-ahead "${DAYS_AHEAD}" \
+                --force-refresh \
+                --max-detail-events-per-day "${MAX_DETAIL_EVENTS_PER_DAY}"
+            else
+              python -m marq.odds_snapshots \
+                --days-ahead "${DAYS_AHEAD}" \
+                --max-detail-events-per-day "${MAX_DETAIL_EVENTS_PER_DAY}"
+            fi
+          else
+            echo "marq.odds_snapshots not found, skipping internal snapshot refresh."
+          fi
+
+      - name: Enrich MarQ data
+        run: |
+          if [ ! -f tools/update_marq_data.py ]; then
+            echo "Missing tools/update_marq_data.py"
+            exit 1
+          fi
+          python tools/update_marq_data.py --outputs-dir "${OUTPUTS_DIR}"
+
+      - name: Show MARQ internal snapshot summary
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path("data/marq_ai/odds_snapshots/latest.json")
+          if not path.exists():
+              print("No data/marq_ai/odds_snapshots/latest.json found.")
+              raise SystemExit(0)
+          payload = json.loads(path.read_text(encoding="utf-8"))
+          print("snapshot_count:", payload.get("snapshot_count"))
+          print("date_counts:", payload.get("date_counts"))
+          print("detail_request_counts:", payload.get("detail_request_counts"))
+          print("skipped_counts:", payload.get("skipped_counts"))
+          print("rate_limited:", payload.get("rate_limited"))
+          print("generated_at_utc:", payload.get("generated_at_utc"))
+          PY
+
+      - name: Commit MARQ data updates
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add outputs corq/site data/marq_ai
-          git commit -m "Update MarQ market data" || echo "No MarQ changes"
+
+          git add \
+            "${OUTPUTS_DIR}" \
+            data/marq_ai \
+            runtime \
+            corq/site/render_manifest.json \
+            corq/site/index.html \
+            corq/site/assets \
+            corq/site/logs 2>/dev/null || true
+
+          if git diff --cached --quiet; then
+            echo "No MARQ data changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Update MarQ data"
+          if git push; then
+            echo "MARQ data pushed."
+            exit 0
+          fi
+
+          echo "Push rejected, preserving MARQ outputs and retrying on latest main..."
+          tmp_dir="$(mktemp -d)"
+          mkdir -p "$tmp_dir"
+          cp -a "${OUTPUTS_DIR}" "$tmp_dir/outputs" 2>/dev/null || true
+          cp -a data/marq_ai "$tmp_dir/marq_ai" 2>/dev/null || true
+          cp -a runtime "$tmp_dir/runtime" 2>/dev/null || true
+          cp -a corq/site/render_manifest.json "$tmp_dir/render_manifest.json" 2>/dev/null || true
+          cp -a corq/site/index.html "$tmp_dir/index.html" 2>/dev/null || true
+          cp -a corq/site/assets "$tmp_dir/assets" 2>/dev/null || true
+          cp -a corq/site/logs "$tmp_dir/logs" 2>/dev/null || true
+
+          git fetch origin main
+          git reset --hard origin/main
+
+          mkdir -p "${OUTPUTS_DIR}" data runtime corq/site
+          [ -d "$tmp_dir/outputs" ] && rm -rf "${OUTPUTS_DIR}" && cp -a "$tmp_dir/outputs" "${OUTPUTS_DIR}"
+          [ -d "$tmp_dir/marq_ai" ] && mkdir -p data && rm -rf data/marq_ai && cp -a "$tmp_dir/marq_ai" data/marq_ai
+          [ -d "$tmp_dir/runtime" ] && rm -rf runtime && cp -a "$tmp_dir/runtime" runtime
+          [ -f "$tmp_dir/render_manifest.json" ] && cp -a "$tmp_dir/render_manifest.json" corq/site/render_manifest.json
+          [ -f "$tmp_dir/index.html" ] && cp -a "$tmp_dir/index.html" corq/site/index.html
+          [ -d "$tmp_dir/assets" ] && rm -rf corq/site/assets && cp -a "$tmp_dir/assets" corq/site/assets
+          [ -d "$tmp_dir/logs" ] && rm -rf corq/site/logs && cp -a "$tmp_dir/logs" corq/site/logs
+
+          git add \
+            "${OUTPUTS_DIR}" \
+            data/marq_ai \
+            runtime \
+            corq/site/render_manifest.json \
+            corq/site/index.html \
+            corq/site/assets \
+            corq/site/logs 2>/dev/null || true
+
+          if git diff --cached --quiet; then
+            echo "No MARQ data changes after reset."
+            exit 0
+          fi
+
+          git commit -m "Update MarQ data"
           git push
