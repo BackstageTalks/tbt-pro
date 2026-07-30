@@ -1204,13 +1204,109 @@ def _prop_model_line(projection: Optional[float], low: float, high: float, scale
     }
 
 
+def _ace_pct_from_value(value: Any) -> Optional[float]:
+    try:
+        if value is None or value == "":
+            return None
+        if isinstance(value, str):
+            value = value.strip().replace("%", "").replace(",", ".")
+        number = float(value)
+        if 0 < number <= 1:
+            number *= 100.0
+        # Ace% outside this broad range is usually a malformed value.
+        if 0 <= number <= 60:
+            return number
+    except Exception:
+        return None
+    return None
+
+
+def _recursive_find_ace_pct(obj: Any, surface: Optional[str] = None) -> Optional[float]:
+    if not isinstance(obj, (dict, list)):
+        return None
+    preferred_keys = {
+        "a%", "ace%", "ace_pct", "ace_percent", "ace_percentage", "ace_rate",
+        "aces_pct", "aces_percent", "aces_percentage", "ta_ace_pct", "ta_ace_percent",
+        "acePct", "acePercent", "acesPct", "acesPercent",
+    }
+    if isinstance(obj, dict):
+        if surface:
+            surf = str(surface).strip().lower()
+            for key, value in obj.items():
+                if str(key).strip().lower() == surf and isinstance(value, dict):
+                    pct_value = _recursive_find_ace_pct(value, surface=None)
+                    if pct_value is not None:
+                        return pct_value
+        for key, value in obj.items():
+            key_text = str(key).strip()
+            if key_text in preferred_keys or key_text.lower() in preferred_keys:
+                pct_value = _ace_pct_from_value(value)
+                if pct_value is not None:
+                    return pct_value
+        for key in ("surface", "surfaces", "splits", "totals", "last52", "last_52", "recent", "current_year", "yearly", "career"):
+            pct_value = _recursive_find_ace_pct(obj.get(key), surface=surface)
+            if pct_value is not None:
+                return pct_value
+        for value in obj.values():
+            pct_value = _recursive_find_ace_pct(value, surface=surface)
+            if pct_value is not None:
+                return pct_value
+    if isinstance(obj, list):
+        for value in obj:
+            pct_value = _recursive_find_ace_pct(value, surface=surface)
+            if pct_value is not None:
+                return pct_value
+    return None
+
+
+def _first_ace_pct(row: Dict[str, Any], keys: Tuple[str, ...]) -> Optional[float]:
+    for key in keys:
+        pct_value = _ace_pct_from_value(row.get(key))
+        if pct_value is not None:
+            return pct_value
+    return None
+
+
 def _ta_aces_projection(match: Dict[str, Any], games: Optional[float]) -> Dict[str, Any]:
     if games is None or games <= 0:
         return {"aces_status": "NO_GAMES_PROJECTION"}
-    p_ace = _pct_points(match.get("ta_pick_ace_pct"))
-    o_ace = _pct_points(match.get("ta_opp_ace_pct"))
+    surface = str(match.get("surface") or match.get("surface_raw") or "") or None
+    p_ace = _first_ace_pct(match, (
+        "ta_pick_ace_pct", "pick_ace_pct", "pick_aces_pct", "pick_ace_percent",
+        "ta_pick_ace_percent", "pick_aces_percent",
+    ))
+    o_ace = _first_ace_pct(match, (
+        "ta_opp_ace_pct", "ta_opponent_ace_pct", "opponent_ace_pct", "opp_ace_pct",
+        "opponent_aces_pct", "ta_opp_ace_percent", "opponent_ace_percent",
+    ))
+    if p_ace is None:
+        for key in ("ta_profile_pick", "pick_ta_profile", "ta_pick_profile", "ta_context_pick", "pick_profile"):
+            if isinstance(match.get(key), dict):
+                p_ace = _recursive_find_ace_pct(match.get(key), surface=surface)
+                if p_ace is not None:
+                    break
+    if o_ace is None:
+        for key in ("ta_profile_opponent", "opponent_ta_profile", "ta_opp_profile", "ta_context_opponent", "opponent_profile"):
+            if isinstance(match.get(key), dict):
+                o_ace = _recursive_find_ace_pct(match.get(key), surface=surface)
+                if o_ace is not None:
+                    break
+    if p_ace is None and isinstance(match.get("ta_context"), dict):
+        ctx = match.get("ta_context") or {}
+        for key in ("pick", "player", "p", "player1", "side_pick"):
+            if isinstance(ctx.get(key), dict):
+                p_ace = _recursive_find_ace_pct(ctx.get(key), surface=surface)
+                if p_ace is not None:
+                    break
+    if o_ace is None and isinstance(match.get("ta_context"), dict):
+        ctx = match.get("ta_context") or {}
+        for key in ("opponent", "opp", "o", "player2", "side_opponent"):
+            if isinstance(ctx.get(key), dict):
+                o_ace = _recursive_find_ace_pct(ctx.get(key), surface=surface)
+                if o_ace is not None:
+                    break
     if p_ace is None or o_ace is None:
-        return {"aces_status": "MISSING_ACE_PCT"}
+        return {"aces_status": "MISSING_ACE_PCT", "pick_ace_pct": p_ace, "opponent_ace_pct": o_ace}
     service_points_each = (games / 2.0) * AVG_POINTS_PER_SERVICE_GAME
     pick = service_points_each * (p_ace / 100.0)
     opp = service_points_each * (o_ace / 100.0)
@@ -1223,6 +1319,11 @@ def _ta_aces_projection(match: Dict[str, Any], games: Optional[float]) -> Dict[s
         "pick_aces_projection": round(pick, 1),
         "opponent_aces_projection": round(opp, 1),
         "total_aces_projection": round(total, 1),
+        "pick_aces": round(pick, 1),
+        "opponent_aces": round(opp, 1),
+        "total_aces": round(total, 1),
+        "pick_ace_pct": p_ace,
+        "opponent_ace_pct": o_ace,
         "pick_aces_line": p_line.get("line"),
         "pick_aces_side": p_line.get("side"),
         "pick_aces_selection": p_line.get("selection"),
