@@ -2,23 +2,31 @@
   "date_counts": {
     "2026-07-30": 58,
     "2026-07-31": 55,
-    "2026-08-01": 3,
+    "2026-08-01": 6,
     "2026-08-02": 0,
     "2026-08-03": 0,
     "2026-08-04": 0,
-    "2026-08-05": 0
+    "2026-08-05": 0,
+    "2026-08-06": 0,
+    "2026-08-07": 0,
+    "2026-08-08": 0,
+    "2026-08-09": 0
   },
-  "days_ahead": 6,
+  "days_ahead": 10,
   "detail_request_counts": {
     "2026-07-30": 80,
     "2026-07-31": 80,
-    "2026-08-01": 4,
+    "2026-08-01": 7,
     "2026-08-02": 0,
     "2026-08-03": 0,
     "2026-08-04": 0,
-    "2026-08-05": 0
+    "2026-08-05": 0,
+    "2026-08-06": 0,
+    "2026-08-07": 0,
+    "2026-08-08": 0,
+    "2026-08-09": 0
   },
-  "generated_at_utc": "2026-07-30T15:03:48.660428+00:00",
+  "generated_at_utc": "2026-07-30T15:05:54.020853+00:00",
   "rate_limited": true,
   "schema": "marq_internal_odds_snapshot_daily_v1",
   "skipped_counts": {
@@ -28,14 +36,18 @@
     "2026-08-02": 0,
     "2026-08-03": 0,
     "2026-08-04": 0,
-    "2026-08-05": 0
+    "2026-08-05": 0,
+    "2026-08-06": 0,
+    "2026-08-07": 0,
+    "2026-08-08": 0,
+    "2026-08-09": 0
   },
-  "snapshot_count": 116,
+  "snapshot_count": 119,
   "snapshots": [
     {
       "event_id": "16674772",
       "event_key": "2026-07-30_emma-ottavia-ghirardato_vs_franziska-sziedat",
-      "hours_to_start": 21.94,
+      "hours_to_start": 21.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -46,7 +58,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T13:00:00+00:00",
       "target_date": "2026-07-30"
@@ -54,7 +66,7 @@
     {
       "event_id": "16658549",
       "event_key": "2026-07-30_cosme-rolland-de-ravel_vs_tim-hohmann",
-      "hours_to_start": -27.0,
+      "hours_to_start": -27.04,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -65,7 +77,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T12:03:35+00:00",
       "target_date": "2026-07-30"
@@ -73,7 +85,7 @@
     {
       "event_id": "16593422",
       "event_key": "2026-07-30_petr-brunclik_vs_sumit-nagal",
-      "hours_to_start": -26.98,
+      "hours_to_start": -27.02,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -84,7 +96,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T12:05:00+00:00",
       "target_date": "2026-07-30"
@@ -92,7 +104,7 @@
     {
       "event_id": "16658351",
       "event_key": "2026-07-30_claus-piening_vs_karel-froemel",
-      "hours_to_start": -26.95,
+      "hours_to_start": -26.99,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -103,7 +115,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T12:06:36+00:00",
       "target_date": "2026-07-30"
@@ -111,7 +123,7 @@
     {
       "event_id": "16658241",
       "event_key": "2026-07-30_emily-victoria-eigelsbach_vs_noemi-basiletti",
-      "hours_to_start": -26.93,
+      "hours_to_start": -26.96,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -122,7 +134,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T12:08:08+00:00",
       "target_date": "2026-07-30"
@@ -130,7 +142,7 @@
     {
       "event_id": "16658358",
       "event_key": "2026-07-30_alexander-gschiel_vs_marcello-serafini",
-      "hours_to_start": -26.92,
+      "hours_to_start": -26.96,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -141,7 +153,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T12:08:36+00:00",
       "target_date": "2026-07-30"
@@ -149,7 +161,7 @@
     {
       "event_id": "16658640",
       "event_key": "2026-07-30_oscar-brown_vs_tiago-cacao",
-      "hours_to_start": -26.86,
+      "hours_to_start": -26.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -160,7 +172,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T12:12:12+00:00",
       "target_date": "2026-07-30"
@@ -168,7 +180,7 @@
     {
       "event_id": "16656981",
       "event_key": "2026-07-30_barbara-straszewska_vs_klara-kajabova",
-      "hours_to_start": -26.82,
+      "hours_to_start": -26.85,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -179,7 +191,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T12:14:49+00:00",
       "target_date": "2026-07-30"
@@ -187,7 +199,7 @@
     {
       "event_id": "16658672",
       "event_key": "2026-07-30_masha-lazarenko_vs_victoria-borodulina",
-      "hours_to_start": -26.79,
+      "hours_to_start": -26.83,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -198,7 +210,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T12:16:19+00:00",
       "target_date": "2026-07-30"
@@ -206,7 +218,7 @@
     {
       "event_id": "16660043",
       "event_key": "2026-07-30_luca-castagnola_vs_vladyslav-orlov",
-      "hours_to_start": -26.72,
+      "hours_to_start": -26.76,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -217,7 +229,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T12:20:36+00:00",
       "target_date": "2026-07-30"
@@ -225,7 +237,7 @@
     {
       "event_id": "16656968",
       "event_key": "2026-07-30_anouck-vrancken-peeters_vs_ikumi-yamazaki",
-      "hours_to_start": -26.69,
+      "hours_to_start": -26.72,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -236,7 +248,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T12:22:37+00:00",
       "target_date": "2026-07-30"
@@ -244,7 +256,7 @@
     {
       "event_id": "16659219",
       "event_key": "2026-07-30_andrea-de-marchi_vs_kristijan-juhas",
-      "hours_to_start": -26.64,
+      "hours_to_start": -26.67,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -255,7 +267,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T12:25:31+00:00",
       "target_date": "2026-07-30"
@@ -263,7 +275,7 @@
     {
       "event_id": "16659700",
       "event_key": "2026-07-30_angelina-voloshchuk_vs_aspen-schuman",
-      "hours_to_start": -26.56,
+      "hours_to_start": -26.6,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -274,7 +286,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T12:30:00+00:00",
       "target_date": "2026-07-30"
@@ -282,7 +294,7 @@
     {
       "event_id": "16658638",
       "event_key": "2026-07-30_luke-hooper_vs_mark-ceban",
-      "hours_to_start": -26.56,
+      "hours_to_start": -26.6,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -293,7 +305,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T12:30:11+00:00",
       "target_date": "2026-07-30"
@@ -301,7 +313,7 @@
     {
       "event_id": "16658814",
       "event_key": "2026-07-30_clarissa-blomqvist_vs_emma-ottavia-ghirardato",
-      "hours_to_start": -26.53,
+      "hours_to_start": -26.57,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -312,7 +324,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T12:31:58+00:00",
       "target_date": "2026-07-30"
@@ -320,7 +332,7 @@
     {
       "event_id": "16656965",
       "event_key": "2026-07-30_despina-papamichail_vs_marie-weckerle",
-      "hours_to_start": -26.51,
+      "hours_to_start": -26.55,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -331,7 +343,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T12:33:11+00:00",
       "target_date": "2026-07-30"
@@ -339,7 +351,7 @@
     {
       "event_id": "16659695",
       "event_key": "2026-07-30_kristina-penickova_vs_liv-hovde",
-      "hours_to_start": -26.43,
+      "hours_to_start": -26.46,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -350,7 +362,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T12:38:07+00:00",
       "target_date": "2026-07-30"
@@ -358,7 +370,7 @@
     {
       "event_id": "16658810",
       "event_key": "2026-07-30_alexandra-biot_vs_ella-haavisto",
-      "hours_to_start": -26.35,
+      "hours_to_start": -26.38,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -369,7 +381,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T12:42:54+00:00",
       "target_date": "2026-07-30"
@@ -377,7 +389,7 @@
     {
       "event_id": "16659703",
       "event_key": "2026-07-30_anita-sahdiieva_vs_anne-christine-lutkemeyer-obregon",
-      "hours_to_start": -26.31,
+      "hours_to_start": -26.34,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -388,7 +400,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T12:45:14+00:00",
       "target_date": "2026-07-30"
@@ -396,7 +408,7 @@
     {
       "event_id": "16660040",
       "event_key": "2026-07-30_giorgio-tabacco_vs_viktor-durasovic",
-      "hours_to_start": -26.29,
+      "hours_to_start": -26.33,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -407,7 +419,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T12:46:18+00:00",
       "target_date": "2026-07-30"
@@ -415,7 +427,7 @@
     {
       "event_id": "16648976",
       "event_key": "2026-07-30_amelia-rajecki_vs_eliz-maloney",
-      "hours_to_start": -26.28,
+      "hours_to_start": -26.31,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -426,7 +438,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T12:47:02+00:00",
       "target_date": "2026-07-30"
@@ -434,7 +446,7 @@
     {
       "event_id": "16593395",
       "event_key": "2026-07-30_elmer-moller_vs_jamie-mackenzie",
-      "hours_to_start": -26.15,
+      "hours_to_start": -26.18,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -445,7 +457,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T12:55:00+00:00",
       "target_date": "2026-07-30"
@@ -453,7 +465,7 @@
     {
       "event_id": "16658817",
       "event_key": "2026-07-30_naoko-eto_vs_natalia-klys",
-      "hours_to_start": -25.98,
+      "hours_to_start": -26.01,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -464,7 +476,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:05:09+00:00",
       "target_date": "2026-07-30"
@@ -472,7 +484,7 @@
     {
       "event_id": "16656996",
       "event_key": "2026-07-30_cezar-gabriel-papoe_vs_dario-alexandru-ciobotaru",
-      "hours_to_start": -25.97,
+      "hours_to_start": -26.01,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -483,7 +495,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:05:29+00:00",
       "target_date": "2026-07-30"
@@ -491,7 +503,7 @@
     {
       "event_id": "16660149",
       "event_key": "2026-07-30_rachael-smith_vs_savannah-broadus",
-      "hours_to_start": -25.96,
+      "hours_to_start": -25.99,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -502,7 +514,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:06:25+00:00",
       "target_date": "2026-07-30"
@@ -510,7 +522,7 @@
     {
       "event_id": "16660747",
       "event_key": "2026-07-30_camila-rodero-contreras_vs_daria-egorova",
-      "hours_to_start": -25.96,
+      "hours_to_start": -25.99,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -521,7 +533,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:06:27+00:00",
       "target_date": "2026-07-30"
@@ -529,7 +541,7 @@
     {
       "event_id": "16660153",
       "event_key": "2026-07-30_celine-simunyu_vs_eunhye-lee",
-      "hours_to_start": -25.95,
+      "hours_to_start": -25.98,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -540,7 +552,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:07:04+00:00",
       "target_date": "2026-07-30"
@@ -548,7 +560,7 @@
     {
       "event_id": "16660740",
       "event_key": "2026-07-30_francesca-mattioli_vs_rebeca-pereira",
-      "hours_to_start": -25.91,
+      "hours_to_start": -25.95,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -559,7 +571,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:08:58+00:00",
       "target_date": "2026-07-30"
@@ -567,7 +579,7 @@
     {
       "event_id": "16658235",
       "event_key": "2026-07-30_eva-bennemann_vs_josy-daems",
-      "hours_to_start": -25.91,
+      "hours_to_start": -25.94,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -578,7 +590,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:09:13+00:00",
       "target_date": "2026-07-30"
@@ -586,7 +598,7 @@
     {
       "event_id": "16660750",
       "event_key": "2026-07-30_alisa-danilova_vs_isabella-barrera-aguirre",
-      "hours_to_start": -25.9,
+      "hours_to_start": -25.93,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -597,7 +609,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:10:03+00:00",
       "target_date": "2026-07-30"
@@ -605,7 +617,7 @@
     {
       "event_id": "16660145",
       "event_key": "2026-07-30_malaika-rapolu_vs_mia-slama",
-      "hours_to_start": -25.89,
+      "hours_to_start": -25.92,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -616,7 +628,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:10:42+00:00",
       "target_date": "2026-07-30"
@@ -624,7 +636,7 @@
     {
       "event_id": "16660744",
       "event_key": "2026-07-30_fernanda-labrana_vs_jimar-gerald-gonzalez",
-      "hours_to_start": -25.88,
+      "hours_to_start": -25.91,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -635,7 +647,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:11:08+00:00",
       "target_date": "2026-07-30"
@@ -643,7 +655,7 @@
     {
       "event_id": "16660152",
       "event_key": "2026-07-30_dalayna-hewitt_vs_jenna-defalco",
-      "hours_to_start": -25.87,
+      "hours_to_start": -25.91,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -654,7 +666,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:11:25+00:00",
       "target_date": "2026-07-30"
@@ -662,7 +674,7 @@
     {
       "event_id": "16656571",
       "event_key": "2026-07-30_francesca-curmi_vs_francisca-jorge",
-      "hours_to_start": -25.75,
+      "hours_to_start": -25.78,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -673,7 +685,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:19:06+00:00",
       "target_date": "2026-07-30"
@@ -681,7 +693,7 @@
     {
       "event_id": "16658554",
       "event_key": "2026-07-30_jesse-de-jager_vs_tom-sickenberger",
-      "hours_to_start": -25.69,
+      "hours_to_start": -25.73,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -692,7 +704,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:22:13+00:00",
       "target_date": "2026-07-30"
@@ -700,7 +712,7 @@
     {
       "event_id": "16658676",
       "event_key": "2026-07-30_anika-jaskova_vs_clarissa-gai",
-      "hours_to_start": -25.6,
+      "hours_to_start": -25.63,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -711,7 +723,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:28:02+00:00",
       "target_date": "2026-07-30"
@@ -719,7 +731,7 @@
     {
       "event_id": "16658641",
       "event_key": "2026-07-30_alexis-canter_vs_patrick-brady",
-      "hours_to_start": -25.54,
+      "hours_to_start": -25.57,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -730,7 +742,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:31:38+00:00",
       "target_date": "2026-07-30"
@@ -738,7 +750,7 @@
     {
       "event_id": "16656984",
       "event_key": "2026-07-30_katerina-mandelikova_vs_zuzanna-kolonus",
-      "hours_to_start": -25.44,
+      "hours_to_start": -25.48,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -749,7 +761,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:37:09+00:00",
       "target_date": "2026-07-30"
@@ -757,7 +769,7 @@
     {
       "event_id": "16658242",
       "event_key": "2026-07-30_diana-martynov_vs_federica-urgesi",
-      "hours_to_start": -25.36,
+      "hours_to_start": -25.39,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -768,7 +780,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:42:25+00:00",
       "target_date": "2026-07-30"
@@ -776,7 +788,7 @@
     {
       "event_id": "16661511",
       "event_key": "2026-07-30_jack-satterfield_vs_oliver-bonding",
-      "hours_to_start": -25.34,
+      "hours_to_start": -25.38,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -787,7 +799,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:43:10+00:00",
       "target_date": "2026-07-30"
@@ -795,7 +807,7 @@
     {
       "event_id": "16661507",
       "event_key": "2026-07-30_andreja-petrovic_vs_kyle-mcnally",
-      "hours_to_start": -25.33,
+      "hours_to_start": -25.37,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -806,7 +818,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:43:46+00:00",
       "target_date": "2026-07-30"
@@ -814,7 +826,7 @@
     {
       "event_id": "16661513",
       "event_key": "2026-07-30_keaton-hance_vs_naoya-honda",
-      "hours_to_start": -25.33,
+      "hours_to_start": -25.37,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -825,7 +837,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:43:50+00:00",
       "target_date": "2026-07-30"
@@ -833,7 +845,7 @@
     {
       "event_id": "16661519",
       "event_key": "2026-07-30_justin-roberts_vs_vignesh-gogineni",
-      "hours_to_start": -25.3,
+      "hours_to_start": -25.34,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -844,7 +856,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:45:41+00:00",
       "target_date": "2026-07-30"
@@ -852,7 +864,7 @@
     {
       "event_id": "16658669",
       "event_key": "2026-07-30_eszter-meri_vs_panna-bartha",
-      "hours_to_start": -25.29,
+      "hours_to_start": -25.33,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -863,7 +875,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:46:07+00:00",
       "target_date": "2026-07-30"
@@ -871,7 +883,7 @@
     {
       "event_id": "16658636",
       "event_key": "2026-07-30_louis-bowden_vs_william-jansen",
-      "hours_to_start": -25.29,
+      "hours_to_start": -25.32,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -882,7 +894,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:46:35+00:00",
       "target_date": "2026-07-30"
@@ -890,7 +902,7 @@
     {
       "event_id": "16658354",
       "event_key": "2026-07-30_alex-huszar_vs_david-eichenseher",
-      "hours_to_start": -25.28,
+      "hours_to_start": -25.32,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -901,7 +913,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:47:00+00:00",
       "target_date": "2026-07-30"
@@ -909,7 +921,7 @@
     {
       "event_id": "16661516",
       "event_key": "2026-07-30_emon-van-loben-sels_vs_noah-zamora",
-      "hours_to_start": -25.2,
+      "hours_to_start": -25.24,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -920,7 +932,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:51:45+00:00",
       "target_date": "2026-07-30"
@@ -928,7 +940,7 @@
     {
       "event_id": "16656976",
       "event_key": "2026-07-30_anna-kmiecik_vs_marcelina-podlinska",
-      "hours_to_start": -25.08,
+      "hours_to_start": -25.12,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -939,7 +951,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:58:44+00:00",
       "target_date": "2026-07-30"
@@ -947,7 +959,7 @@
     {
       "event_id": "16656992",
       "event_key": "2026-07-30_filiberto-fumagalli_vs_oleksandr-ovcharenko",
-      "hours_to_start": -25.07,
+      "hours_to_start": -25.11,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -958,7 +970,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T13:59:19+00:00",
       "target_date": "2026-07-30"
@@ -966,7 +978,7 @@
     {
       "event_id": "16656972",
       "event_key": "2026-07-30_lucia-cortez-llorca_vs_luna-vujovic",
-      "hours_to_start": -25.06,
+      "hours_to_start": -25.1,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -977,7 +989,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T14:00:00+00:00",
       "target_date": "2026-07-30"
@@ -985,7 +997,7 @@
     {
       "event_id": "16621291",
       "event_key": "2026-07-30_iker-urribarrens-ramirez_vs_leo-pade",
-      "hours_to_start": -25.06,
+      "hours_to_start": -25.1,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -996,7 +1008,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T14:00:00+00:00",
       "target_date": "2026-07-30"
@@ -1004,7 +1016,7 @@
     {
       "event_id": "16593355",
       "event_key": "2026-07-30_hugo-dellien_vs_juan-carlos-prado-angelo",
-      "hours_to_start": -25.06,
+      "hours_to_start": -25.1,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1015,7 +1027,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T14:00:00+00:00",
       "target_date": "2026-07-30"
@@ -1023,7 +1035,7 @@
     {
       "event_id": "16621287",
       "event_key": "2026-07-30_ireland-o-brien_vs_susana-souhrada",
-      "hours_to_start": -25.06,
+      "hours_to_start": -25.1,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1034,7 +1046,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T14:00:00+00:00",
       "target_date": "2026-07-30"
@@ -1042,7 +1054,7 @@
     {
       "event_id": "16603218",
       "event_key": "2026-07-30_caijsa-wilda-hennemann_vs_sara-sorribes-tormo",
-      "hours_to_start": -25.06,
+      "hours_to_start": -25.1,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1053,7 +1065,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T14:00:00+00:00",
       "target_date": "2026-07-30"
@@ -1061,7 +1073,7 @@
     {
       "event_id": "16621272",
       "event_key": "2026-07-30_andrea-chacon_vs_ava-esposito-cogan",
-      "hours_to_start": -25.06,
+      "hours_to_start": -25.1,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1072,7 +1084,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T14:00:00+00:00",
       "target_date": "2026-07-30"
@@ -1080,7 +1092,7 @@
     {
       "event_id": "16621256",
       "event_key": "2026-07-30_cole-henceroth_vs_david-krasner",
-      "hours_to_start": -25.06,
+      "hours_to_start": -25.1,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1091,7 +1103,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T14:00:00+00:00",
       "target_date": "2026-07-30"
@@ -1099,7 +1111,7 @@
     {
       "event_id": "16647543",
       "event_key": "2026-07-30_gabriella-barrera_vs_liz-pinson",
-      "hours_to_start": -25.06,
+      "hours_to_start": -25.1,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1110,7 +1122,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T14:00:00+00:00",
       "target_date": "2026-07-30"
@@ -1118,7 +1130,7 @@
     {
       "event_id": "16621215",
       "event_key": "2026-07-30_braden-hannig_vs_joseph-phillips",
-      "hours_to_start": -25.06,
+      "hours_to_start": -25.1,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1129,7 +1141,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-29T14:00:00+00:00",
       "target_date": "2026-07-30"
@@ -1137,7 +1149,7 @@
     {
       "event_id": "16593501",
       "event_key": "2026-07-31_elisabetta-cocciaretto_vs_naomi-osaka",
-      "hours_to_start": 24.94,
+      "hours_to_start": 24.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1148,7 +1160,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T16:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1156,7 +1168,7 @@
     {
       "event_id": "16593427",
       "event_key": "2026-07-31_guido-ivan-justo_vs_juan-bautista-torres",
-      "hours_to_start": -3.06,
+      "hours_to_start": -3.1,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1167,7 +1179,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-30T12:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1175,7 +1187,7 @@
     {
       "event_id": "16667939",
       "event_key": "2026-07-31_hikaru-sato_vs_sayaka-ishii",
-      "hours_to_start": -3.0,
+      "hours_to_start": -3.03,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1186,7 +1198,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-30T12:04:00+00:00",
       "target_date": "2026-07-31"
@@ -1194,7 +1206,7 @@
     {
       "event_id": "16668145",
       "event_key": "2026-07-31_esther-adeshina_vs_viktoria-morvayova",
-      "hours_to_start": -2.97,
+      "hours_to_start": -3.0,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1205,7 +1217,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-30T12:05:43+00:00",
       "target_date": "2026-07-31"
@@ -1213,7 +1225,7 @@
     {
       "event_id": "16667545",
       "event_key": "2026-07-31_ole-bredschneijder_vs_pyotr-nesterov",
-      "hours_to_start": -2.94,
+      "hours_to_start": -2.98,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1224,7 +1236,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-30T12:07:08+00:00",
       "target_date": "2026-07-31"
@@ -1232,7 +1244,7 @@
     {
       "event_id": "16667478",
       "event_key": "2026-07-31_adam-majchrzak_vs_oleg-prihodko",
-      "hours_to_start": -2.94,
+      "hours_to_start": -2.98,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1243,7 +1255,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-30T12:07:23+00:00",
       "target_date": "2026-07-31"
@@ -1251,7 +1263,7 @@
     {
       "event_id": "16668277",
       "event_key": "2026-07-31_aaron-funk_vs_yannik-kelm",
-      "hours_to_start": -2.86,
+      "hours_to_start": -2.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1262,7 +1274,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-30T12:11:58+00:00",
       "target_date": "2026-07-31"
@@ -1270,7 +1282,7 @@
     {
       "event_id": "16668401",
       "event_key": "2026-07-31_pedro-rodenas_vs_sergi-fita-juan",
-      "hours_to_start": -2.86,
+      "hours_to_start": -2.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1281,7 +1293,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-30T12:12:07+00:00",
       "target_date": "2026-07-31"
@@ -1289,7 +1301,7 @@
     {
       "event_id": "16667935",
       "event_key": "2026-07-31_indianna-spink_vs_naiktha-bains",
-      "hours_to_start": -2.86,
+      "hours_to_start": -2.89,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1300,7 +1312,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-30T12:12:18+00:00",
       "target_date": "2026-07-31"
@@ -1308,7 +1320,7 @@
     {
       "event_id": "16667970",
       "event_key": "2026-07-31_david-fix_vs_geoffrey-blancaneaux",
-      "hours_to_start": -2.83,
+      "hours_to_start": -2.87,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1319,7 +1331,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-30T12:13:43+00:00",
       "target_date": "2026-07-31"
@@ -1327,45 +1339,26 @@
     {
       "event_id": "16667964",
       "event_key": "2026-07-31_billy-blaydes_vs_william-jansen",
-      "hours_to_start": -2.59,
+      "hours_to_start": -2.62,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
-      "odds_player1": 2.1,
-      "odds_player2": 1.66667,
+      "odds_player1": 1.14286,
+      "odds_player2": 5.0,
       "player1": "Billy Blaydes",
       "player2": "William Jansen",
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-30T12:28:29+00:00",
       "target_date": "2026-07-31"
     },
     {
-      "event_id": "16671353",
-      "event_key": "2026-07-31_omar-jasika_vs_ymerali-ibraimi",
-      "hours_to_start": 10.94,
-      "initial_odds_player1": null,
-      "initial_odds_player2": null,
-      "market": "match_winner",
-      "odds_player1": 1.07143,
-      "odds_player2": 7.5,
-      "player1": "Omar Jasika",
-      "player2": "Ymerali Ibraimi",
-      "provider_id": null,
-      "provider_name": "bulk",
-      "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
-      "source": "TennisAPI_PRO",
-      "start_time_utc": "2026-07-31T02:00:00+00:00",
-      "target_date": "2026-07-31"
-    },
-    {
       "event_id": "16673228",
       "event_key": "2026-07-31_sam-ryan-ziegann_vs_tanapatt-nirundorn",
-      "hours_to_start": 10.94,
+      "hours_to_start": 10.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1376,7 +1369,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T02:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1384,7 +1377,7 @@
     {
       "event_id": "16673227",
       "event_key": "2026-07-31_asahi-harazaki_vs_yusuke-takahashi",
-      "hours_to_start": 10.94,
+      "hours_to_start": 10.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1395,7 +1388,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T02:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1403,7 +1396,7 @@
     {
       "event_id": "16673226",
       "event_key": "2026-07-31_keisuke-saitoh_vs_sanhui-shin",
-      "hours_to_start": 10.94,
+      "hours_to_start": 10.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1414,7 +1407,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T02:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1422,7 +1415,7 @@
     {
       "event_id": "16673229",
       "event_key": "2026-07-31_isaac-becroft_vs_ryuki-matsuda",
-      "hours_to_start": 10.94,
+      "hours_to_start": 10.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1433,7 +1426,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T02:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1441,7 +1434,7 @@
     {
       "event_id": "16593334",
       "event_key": "2026-07-31_dalibor-svrcina_vs_denis-shapovalov",
-      "hours_to_start": 11.1,
+      "hours_to_start": 11.07,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1452,7 +1445,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T02:10:00+00:00",
       "target_date": "2026-07-31"
@@ -1460,7 +1453,7 @@
     {
       "event_id": "16593344",
       "event_key": "2026-07-31_bernard-tomic_vs_cameron-norrie",
-      "hours_to_start": 12.94,
+      "hours_to_start": 12.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1471,7 +1464,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T04:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1479,7 +1472,7 @@
     {
       "event_id": "16674243",
       "event_key": "2026-07-31_petr-bar-biryukov_vs_shunsuke-mitsui",
-      "hours_to_start": 14.94,
+      "hours_to_start": 14.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1490,7 +1483,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T06:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1498,7 +1491,7 @@
     {
       "event_id": "16674240",
       "event_key": "2026-07-31_amir-omarkhanov_vs_damir-zhalgasbay",
-      "hours_to_start": 14.94,
+      "hours_to_start": 14.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1509,7 +1502,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T06:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1517,7 +1510,7 @@
     {
       "event_id": "16674236",
       "event_key": "2026-07-31_asylzhan-arystanbekova_vs_daria-zelinskaya",
-      "hours_to_start": 14.94,
+      "hours_to_start": 14.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1528,7 +1521,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T06:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1536,7 +1529,7 @@
     {
       "event_id": "16674238",
       "event_key": "2026-07-31_edda-mamedova_vs_maria-sholokhova",
-      "hours_to_start": 15.94,
+      "hours_to_start": 15.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1547,7 +1540,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T07:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1555,7 +1548,7 @@
     {
       "event_id": "16676446",
       "event_key": "2026-07-31_francesco-ferrari_vs_gabriel-ghetu",
-      "hours_to_start": 15.94,
+      "hours_to_start": 15.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1566,7 +1559,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T07:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1574,7 +1567,7 @@
     {
       "event_id": "16674239",
       "event_key": "2026-07-31_aiya-nupbay_vs_victoria-milovanova",
-      "hours_to_start": 16.44,
+      "hours_to_start": 16.4,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1585,7 +1578,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T07:30:00+00:00",
       "target_date": "2026-07-31"
@@ -1593,7 +1586,7 @@
     {
       "event_id": "16603263",
       "event_key": "2026-07-31_laura-samson_vs_mia-ristic",
-      "hours_to_start": 16.94,
+      "hours_to_start": 16.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1604,7 +1597,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T08:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1612,7 +1605,7 @@
     {
       "event_id": "16603267",
       "event_key": "2026-07-31_carole-monnet_vs_kaitlin-quevedo",
-      "hours_to_start": 16.94,
+      "hours_to_start": 16.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1623,7 +1616,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T08:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1631,7 +1624,7 @@
     {
       "event_id": "16674241",
       "event_key": "2026-07-31_dan-brand_vs_zangar-nurlanuly",
-      "hours_to_start": 16.94,
+      "hours_to_start": 16.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1642,7 +1635,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T08:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1650,7 +1643,7 @@
     {
       "event_id": "16674237",
       "event_key": "2026-07-31_eva-korysheva_vs_ingkar-dyussebay",
-      "hours_to_start": 16.94,
+      "hours_to_start": 16.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1661,7 +1654,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T08:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1669,7 +1662,7 @@
     {
       "event_id": "16676444",
       "event_key": "2026-07-31_laura-svatikova_vs_lucie-petruzelova",
-      "hours_to_start": 16.94,
+      "hours_to_start": 16.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1680,7 +1673,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T08:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1688,7 +1681,7 @@
     {
       "event_id": "16676449",
       "event_key": "2026-07-31_cezar-gabriel-papoe_vs_radu-mihai-papoe",
-      "hours_to_start": 16.94,
+      "hours_to_start": 16.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1699,7 +1692,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T08:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1707,7 +1700,7 @@
     {
       "event_id": "16676445",
       "event_key": "2026-07-31_astrid-wanja-brune-olsen_vs_emma-slavikova",
-      "hours_to_start": 16.94,
+      "hours_to_start": 16.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1718,7 +1711,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T08:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1726,7 +1719,7 @@
     {
       "event_id": "16603202",
       "event_key": "2026-07-31_gabriel-debru_vs_koki-matsuda",
-      "hours_to_start": 17.94,
+      "hours_to_start": 17.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1737,7 +1730,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T09:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1745,7 +1738,7 @@
     {
       "event_id": "16593403",
       "event_key": "2026-07-31_jan-choinski_vs_olle-wallin",
-      "hours_to_start": 17.94,
+      "hours_to_start": 17.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1756,7 +1749,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T09:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1764,7 +1757,7 @@
     {
       "event_id": "16593425",
       "event_key": "2026-07-31_martin-krumich_vs_sumit-nagal",
-      "hours_to_start": 17.94,
+      "hours_to_start": 17.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1775,7 +1768,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T09:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1783,7 +1776,7 @@
     {
       "event_id": "16603201",
       "event_key": "2026-07-31_paul-inchauspe_vs_yanki-erel",
-      "hours_to_start": 17.94,
+      "hours_to_start": 17.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1794,7 +1787,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T09:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1802,7 +1795,7 @@
     {
       "event_id": "16593405",
       "event_key": "2026-07-31_jamie-mackenzie_vs_jurij-rodionov",
-      "hours_to_start": 17.94,
+      "hours_to_start": 17.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1813,7 +1806,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T09:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1821,7 +1814,7 @@
     {
       "event_id": "16593417",
       "event_key": "2026-07-31_frederico-ferreira-silva_vs_jan-kumstat",
-      "hours_to_start": 17.94,
+      "hours_to_start": 17.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1832,7 +1825,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T09:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1840,7 +1833,7 @@
     {
       "event_id": "16676447",
       "event_key": "2026-07-31_stefan-adrian-andreescu_vs_stefan-horia-haita",
-      "hours_to_start": 17.94,
+      "hours_to_start": 17.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1851,7 +1844,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T09:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1859,7 +1852,7 @@
     {
       "event_id": "16676495",
       "event_key": "2026-07-31_anna-siskova_vs_berfu-cengiz",
-      "hours_to_start": 17.94,
+      "hours_to_start": 17.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1870,7 +1863,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T09:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1878,7 +1871,7 @@
     {
       "event_id": "16676493",
       "event_key": "2026-07-31_arantxa-rus_vs_dominika-salkova",
-      "hours_to_start": 17.94,
+      "hours_to_start": 17.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1889,7 +1882,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T09:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1897,7 +1890,7 @@
     {
       "event_id": "16674769",
       "event_key": "2026-07-31_alexandra-biot_vs_dune-vaissaud",
-      "hours_to_start": 18.94,
+      "hours_to_start": 18.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1908,7 +1901,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T10:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1916,7 +1909,7 @@
     {
       "event_id": "16676448",
       "event_key": "2026-07-31_bor-artnak_vs_yannick-theodor-alexandrescou",
-      "hours_to_start": 18.94,
+      "hours_to_start": 18.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1927,7 +1920,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T10:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1935,7 +1928,7 @@
     {
       "event_id": "16676496",
       "event_key": "2026-07-31_emma-lene_vs_francesca-curmi",
-      "hours_to_start": 19.44,
+      "hours_to_start": 19.4,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1946,7 +1939,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T10:30:00+00:00",
       "target_date": "2026-07-31"
@@ -1954,7 +1947,7 @@
     {
       "event_id": "16676494",
       "event_key": "2026-07-31_andrea-lazaro-garcia_vs_laura-pigossi",
-      "hours_to_start": 19.44,
+      "hours_to_start": 19.4,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1965,7 +1958,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T10:30:00+00:00",
       "target_date": "2026-07-31"
@@ -1973,7 +1966,7 @@
     {
       "event_id": "16674770",
       "event_key": "2026-07-31_maileen-nuudi_vs_valentini-grammatikopoulou",
-      "hours_to_start": 21.94,
+      "hours_to_start": 21.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -1984,7 +1977,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T13:00:00+00:00",
       "target_date": "2026-07-31"
@@ -1992,7 +1985,7 @@
     {
       "event_id": "16674772",
       "event_key": "2026-07-31_emma-ottavia-ghirardato_vs_franziska-sziedat",
-      "hours_to_start": 21.94,
+      "hours_to_start": 21.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -2003,7 +1996,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T13:00:00+00:00",
       "target_date": "2026-07-31"
@@ -2011,7 +2004,7 @@
     {
       "event_id": "16593357",
       "event_key": "2026-07-31_facundo-diaz-acosta_vs_juan-carlos-prado-angelo",
-      "hours_to_start": 22.94,
+      "hours_to_start": 22.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -2022,7 +2015,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T14:00:00+00:00",
       "target_date": "2026-07-31"
@@ -2030,7 +2023,7 @@
     {
       "event_id": "16593352",
       "event_key": "2026-07-31_alexandre-muller_vs_mili-poljicak",
-      "hours_to_start": 22.94,
+      "hours_to_start": 22.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -2041,7 +2034,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T14:00:00+00:00",
       "target_date": "2026-07-31"
@@ -2049,7 +2042,7 @@
     {
       "event_id": "16593689",
       "event_key": "2026-07-31_anastasia-zakharova_vs_renata-zarazua",
-      "hours_to_start": 23.94,
+      "hours_to_start": 23.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -2060,7 +2053,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T15:00:00+00:00",
       "target_date": "2026-07-31"
@@ -2068,7 +2061,7 @@
     {
       "event_id": "16603183",
       "event_key": "2026-07-31_lorenzo-musetti_vs_rafael-jodar",
-      "hours_to_start": 23.94,
+      "hours_to_start": 23.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -2079,7 +2072,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T15:00:00+00:00",
       "target_date": "2026-07-31"
@@ -2087,7 +2080,7 @@
     {
       "event_id": "16603185",
       "event_key": "2026-07-31_alex-michelsen_vs_taylor-fritz",
-      "hours_to_start": 23.94,
+      "hours_to_start": 23.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -2098,7 +2091,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T15:00:00+00:00",
       "target_date": "2026-07-31"
@@ -2106,18 +2099,18 @@
     {
       "event_id": "16668561",
       "event_key": "2026-07-31_gabriela-ce_vs_jenny-lim",
-      "hours_to_start": -2.57,
+      "hours_to_start": -2.6,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
-      "odds_player1": 1.90909,
-      "odds_player2": 1.90909,
+      "odds_player1": 2.5,
+      "odds_player2": 1.5,
       "player1": "Gabriela Cé",
       "player2": "Jenny Lim",
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-30T12:29:49+00:00",
       "target_date": "2026-07-31"
@@ -2125,7 +2118,7 @@
     {
       "event_id": "16668575",
       "event_key": "2026-07-31_angelina-voloshchuk_vs_jordyn-hazelitt",
-      "hours_to_start": -2.49,
+      "hours_to_start": -2.53,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -2136,7 +2129,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-30T12:34:20+00:00",
       "target_date": "2026-07-31"
@@ -2144,7 +2137,7 @@
     {
       "event_id": "16668181",
       "event_key": "2026-07-31_samuil-chestovaliev_vs_veljko-krstic",
-      "hours_to_start": -2.4,
+      "hours_to_start": -2.43,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -2155,7 +2148,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-30T12:40:00+00:00",
       "target_date": "2026-07-31"
@@ -2163,7 +2156,7 @@
     {
       "event_id": "16668569",
       "event_key": "2026-07-31_jo-yee-chan_vs_kristina-penickova",
-      "hours_to_start": -2.39,
+      "hours_to_start": -2.43,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -2174,15 +2167,34 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-30T12:40:07+00:00",
       "target_date": "2026-07-31"
     },
     {
+      "event_id": "16668572",
+      "event_key": "2026-07-31_annika-penickova_vs_carmen-andreea-herea",
+      "hours_to_start": -2.41,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.36364,
+      "odds_player2": 3.0,
+      "player1": "Carmen Andreea Herea",
+      "player2": "Annika Penickova",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-07-30T12:41:35+00:00",
+      "target_date": "2026-07-31"
+    },
+    {
       "event_id": "16674770",
       "event_key": "2026-08-01_maileen-nuudi_vs_valentini-grammatikopoulou",
-      "hours_to_start": 21.94,
+      "hours_to_start": 21.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -2193,7 +2205,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T13:00:00+00:00",
       "target_date": "2026-08-01"
@@ -2201,7 +2213,7 @@
     {
       "event_id": "16674772",
       "event_key": "2026-08-01_emma-ottavia-ghirardato_vs_franziska-sziedat",
-      "hours_to_start": 21.94,
+      "hours_to_start": 21.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -2212,7 +2224,7 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T13:00:00+00:00",
       "target_date": "2026-08-01"
@@ -2220,7 +2232,7 @@
     {
       "event_id": "16593357",
       "event_key": "2026-08-01_facundo-diaz-acosta_vs_juan-carlos-prado-angelo",
-      "hours_to_start": 22.94,
+      "hours_to_start": 22.9,
       "initial_odds_player1": null,
       "initial_odds_player2": null,
       "market": "match_winner",
@@ -2231,9 +2243,66 @@
       "provider_id": null,
       "provider_name": "bulk",
       "schema": "marq_internal_odds_snapshot_v1",
-      "snapshot_time_utc": "2026-07-30T15:03:48.660428+00:00",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T14:00:00+00:00",
+      "target_date": "2026-08-01"
+    },
+    {
+      "event_id": "16593352",
+      "event_key": "2026-08-01_alexandre-muller_vs_mili-poljicak",
+      "hours_to_start": 22.9,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.4,
+      "odds_player2": 2.75,
+      "player1": "Alexandre Muller",
+      "player2": "Mili Poljičak",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-07-31T14:00:00+00:00",
+      "target_date": "2026-08-01"
+    },
+    {
+      "event_id": "16593689",
+      "event_key": "2026-08-01_anastasia-zakharova_vs_renata-zarazua",
+      "hours_to_start": 23.9,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.62,
+      "odds_player2": 2.3,
+      "player1": "Anastasia Zakharova",
+      "player2": "Renata Zarazua",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-07-31T15:00:00+00:00",
+      "target_date": "2026-08-01"
+    },
+    {
+      "event_id": "16603183",
+      "event_key": "2026-08-01_lorenzo-musetti_vs_rafael-jodar",
+      "hours_to_start": 23.9,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.5,
+      "odds_player2": 2.63,
+      "player1": "Rafael Jodar",
+      "player2": "Lorenzo Musetti",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_time_utc": "2026-07-30T15:05:54.020853+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-07-31T15:00:00+00:00",
       "target_date": "2026-08-01"
     }
   ],
