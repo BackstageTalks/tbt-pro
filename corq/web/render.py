@@ -1286,15 +1286,106 @@ def market_pick_display(row: Dict[str, Any], prefix: str, default_line: Optional
     return compact_market_line(text, probability)
 
 
+def _pct_input_value(value: Any, high: float = 60.0) -> Optional[float]:
+    num = as_float(value)
+    if num is None:
+        return None
+    if 0 < num <= 1.0:
+        num *= 100.0
+    if 0 <= num <= high:
+        return num
+    return None
+
+
+def _projected_games_for_props(row: Dict[str, Any]) -> Optional[float]:
+    for key in (
+        "projected_total_games",
+        "expected_games",
+        "ta_projected_games",
+        "thinq_projected_games",
+        "projected_games",
+        "games_projected",
+        "games",
+        "games_line",
+        "total_games_line",
+    ):
+        val = as_float(row.get(key))
+        if val is not None and val > 0:
+            return val
+    return None
+
+
+def _prop_projection_from_pct(row: Dict[str, Any], family: str, side: str) -> Optional[float]:
+    games = _projected_games_for_props(row)
+    if games is None:
+        return None
+
+    if family == "aces":
+        pct_keys = {
+            "pick": ("ta_pick_ace_pct", "pick_ace_pct", "pick_aces_pct", "pick_ace_percent", "pick_aces_percent"),
+            "opponent": ("ta_opp_ace_pct", "ta_opponent_ace_pct", "opponent_ace_pct", "opp_ace_pct", "opponent_aces_pct", "opponent_ace_percent"),
+        }
+        high = 60.0
+    else:
+        pct_keys = {
+            "pick": ("ta_pick_df_pct", "pick_df_pct", "pick_double_fault_pct", "pick_double_faults_pct", "df_pick_pct", "pick_df_percent"),
+            "opponent": ("ta_opp_df_pct", "ta_opponent_df_pct", "opponent_df_pct", "opp_df_pct", "opponent_double_fault_pct", "opponent_double_faults_pct", "df_opponent_pct", "opponent_df_percent"),
+        }
+        high = 30.0
+
+    def one(which: str) -> Optional[float]:
+        for pct_key in pct_keys[which]:
+            pct = _pct_input_value(row.get(pct_key), high=high)
+            if pct is not None:
+                service_points = (games / 2.0) * 6.2
+                return service_points * (pct / 100.0)
+        return None
+
+    pick_proj = one("pick")
+    opp_proj = one("opponent")
+    if side == "pick":
+        return pick_proj
+    if side == "opponent":
+        return opp_proj
+    if side == "total" and pick_proj is not None and opp_proj is not None:
+        return pick_proj + opp_proj
+    return None
+
+
+def _triplet_projection_fallback(row: Dict[str, Any], family: str, side: str) -> Optional[float]:
+    explicit_keys = {
+        "aces": {
+            "pick": ("pick_aces_projection", "pick_aces"),
+            "opponent": ("opponent_aces_projection", "opponent_aces", "opp_aces"),
+            "total": ("total_aces_projection", "total_aces"),
+        },
+        "df": {
+            "pick": ("pick_df_projection", "df_pick", "pick_df", "pick_double_faults"),
+            "opponent": ("opponent_df_projection", "df_opponent", "opponent_df", "opp_df", "opponent_double_faults"),
+            "total": ("total_df_projection", "df_total", "total_df", "total_double_faults"),
+        },
+    }
+    for key in explicit_keys.get(family, {}).get(side, ()):
+        val = as_float(row.get(key))
+        if val is not None:
+            return val
+    return _prop_projection_from_pct(row, family, side)
+
+
 def triplet_market_display(row: Dict[str, Any], family: str) -> str:
     aliases = {
-        "aces": (("pick_aces", "p_aces", "aces_pick"), ("opponent_aces", "opp_aces", "o_aces", "aces_opponent"), ("total_aces", "t_aces", "aces_total")),
-        "df": (("pick_df", "p_df", "pick_double_faults", "double_faults_pick"), ("opponent_df", "opp_df", "o_df", "opponent_double_faults", "double_faults_opponent"), ("total_df", "t_df", "total_double_faults", "double_faults_total")),
+        "aces": (
+            ("pick_aces", "p_aces", "aces_pick"),
+            ("opponent_aces", "opp_aces", "o_aces", "aces_opponent"),
+            ("total_aces", "t_aces", "aces_total"),
+        ),
+        "df": (
+            ("pick_df", "p_df", "pick_double_faults", "double_faults_pick"),
+            ("opponent_df", "opp_df", "o_df", "opponent_double_faults", "double_faults_opponent"),
+            ("total_df", "t_df", "total_double_faults", "double_faults_total"),
+        ),
     }
-    projection_aliases = {
-        "aces": (("pick_aces_projection", "pick_aces"), ("opponent_aces_projection", "opponent_aces", "opp_aces"), ("total_aces_projection", "total_aces")),
-        "df": (("pick_df_projection", "df_pick", "pick_df"), ("opponent_df_projection", "df_opponent", "opponent_df", "opp_df"), ("total_df_projection", "df_total", "total_df")),
-    }
+    side_names = ("pick", "opponent", "total")
     parts: List[str] = []
     for idx, group in enumerate(aliases.get(family, ())):  # pick, opponent, total
         value = ""
@@ -1303,11 +1394,9 @@ def triplet_market_display(row: Dict[str, Any], family: str) -> str:
             if value != "—":
                 break
         if value == "—" or not value:
-            for proj_key in projection_aliases.get(family, ((), (), ()))[idx]:
-                proj = as_float(row.get(proj_key))
-                if proj is not None:
-                    value = f"{proj:.1f}"
-                    break
+            proj = _triplet_projection_fallback(row, family, side_names[idx])
+            if proj is not None:
+                value = f"{proj:.1f}"
         parts.append(value if value else "—")
     return " / ".join(parts) if parts else "— / — / —"
 
@@ -2173,19 +2262,22 @@ def result_tags(row: Dict[str, Any]) -> List[str]:
 
 
 def render_results_table(rows: List[Dict[str, Any]], title: str, limit: Optional[int] = None) -> str:
-    def result_table_sort_key(row: Dict[str, Any]) -> Tuple[int, str, str]:
+    def result_table_sort_key(row: Dict[str, Any]) -> Tuple[int, int, str]:
         status_order = {
-            "WON": 0,
-            "LOST": 1,
-            "VOID": 2,
-            "PENDING": 9,
+            "PENDING": 0,
+            "WON": 1,
+            "LOST": 2,
+            "VOID": 3,
         }
         st = result_status(row)
-        # Keep evaluated rows visible first. Pending rows are pushed to the bottom
-        # so the Results page does not look stale when only a few matches remain pending.
+        dt = result_row_date_value(row)
+        # Results should look live: today's CorQ bets, even when PENDING,
+        # must stay at the top instead of being buried below older settled rows.
+        # Negative timestamp lets normal ascending sort show newest dates first.
+        ts = -int(dt.timestamp()) if dt is not None else 0
         return (
+            ts,
             status_order.get(st, 8),
-            str(row.get("date") or row.get("snapshot_date") or ""),
             pick_name(row).lower(),
         )
 
