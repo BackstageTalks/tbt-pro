@@ -104,6 +104,59 @@ def _event_start_time(event: Dict[str, Any], date_only: str) -> Optional[str]:
     return None
 
 
+def _team_name_from_obj(value: Any) -> str:
+    if isinstance(value, dict):
+        for key in ("name", "shortName", "fullName", "displayName", "slug"):
+            found = value.get(key)
+            if found:
+                return str(found)
+    return str(value or "")
+
+
+def _event_from_bulk_payload(bulk_odds: Any) -> Optional[Dict[str, Any]]:
+    """Best-effort event extraction from the daily odds payload.
+
+    This avoids one /event/{id} detail request per fixture. We only call the
+    detail endpoint when the daily odds payload does not contain team names.
+    """
+    if not isinstance(bulk_odds, dict):
+        return None
+    for key in ("event", "match", "fixture", "data"):
+        value = bulk_odds.get(key)
+        if isinstance(value, dict) and (value.get("homeTeam") or value.get("awayTeam") or value.get("home") or value.get("away")):
+            return value
+    if bulk_odds.get("homeTeam") or bulk_odds.get("awayTeam") or bulk_odds.get("home") or bulk_odds.get("away"):
+        return bulk_odds
+    return None
+
+
+def _event_home_away_from_any(event: Dict[str, Any]) -> Tuple[str, str]:
+    home = _team_name_from_obj(
+        event.get("homeTeam") or event.get("home") or event.get("participant1") or event.get("team1")
+    )
+    away = _team_name_from_obj(
+        event.get("awayTeam") or event.get("away") or event.get("participant2") or event.get("team2")
+    )
+    return home, away
+
+
+def _is_doubles_or_team_match(player1: Any, player2: Any, event: Optional[Dict[str, Any]] = None) -> bool:
+    text = f"{player1 or ''} {player2 or ''}".lower()
+    if " / " in text or "/" in str(player1 or "") or "/" in str(player2 or ""):
+        return True
+    if isinstance(event, dict):
+        tournament = event.get("tournament") if isinstance(event.get("tournament"), dict) else {}
+        t_name = str(tournament.get("name") or event.get("tournamentName") or "").lower()
+        t_slug = str(tournament.get("slug") or event.get("tournamentSlug") or "").lower()
+        if "doubles" in t_name or "doubles" in t_slug:
+            return True
+    return False
+
+
+def _rate_limited(provider_mod: Any) -> bool:
+    return bool(getattr(provider_mod, "_RATE_LIMITED", False))
+
+
 def _load_event_file(path: Path) -> Dict[str, Any]:
     if not path.exists():
         return {"event_key": path.stem, "snapshots": []}
@@ -175,12 +228,12 @@ def _extract_full_time_odds_from_bulk(bulk_odds: Any) -> Tuple[Optional[float], 
     return None, None
 
 
-def collect_horizon_snapshots(days_ahead: int = 6, force_refresh: bool = False, max_detail_events_per_day: int = 500) -> Dict[str, Any]:
+def collect_horizon_snapshots(days_ahead: int = 6, force_refresh: bool = False, max_detail_events_per_day: int = 80) -> Dict[str, Any]:
     """Collect match-winner odds snapshots for today through days_ahead.
 
-    The collector stores whatever the API currently exposes. If the API only
-    returns 48h ahead, only those events are saved. If the API returns six days,
-    all six days are saved.
+    The collector first uses the daily odds payload and only calls the event
+    detail endpoint when team names are missing. This prevents burning hundreds
+    of detail requests on ITF/doubles matches and avoids 429 rate spikes.
     """
     from marq import provider as provider_mod  # type: ignore
 
@@ -188,31 +241,73 @@ def collect_horizon_snapshots(days_ahead: int = 6, force_refresh: bool = False, 
     today = snapshot_time.date()
     daily_records: List[Dict[str, Any]] = []
     counts: Dict[str, int] = {}
+    detail_counts: Dict[str, int] = {}
+    skipped_counts: Dict[str, int] = {}
+    rate_limited = False
 
     for offset in range(max(0, days_ahead) + 1):
         day = today + timedelta(days=offset)
         date_only = day.isoformat()
+        if _rate_limited(provider_mod):
+            rate_limited = True
+            counts[date_only] = 0
+            detail_counts[date_only] = 0
+            skipped_counts[date_only] = 0
+            continue
+
         odds_by_event = provider_mod.fetch_events_odds_by_date(date_only, force_refresh=force_refresh)
         saved_count = 0
-        for event_id, bulk_odds in list(odds_by_event.items())[:max_detail_events_per_day]:
-            event = provider_mod.fetch_match_details(str(event_id), force_refresh=force_refresh)
-            if not event:
-                continue
-            player1, player2 = provider_mod._event_home_away(event)  # noqa: SLF001
-            if not player1 or not player2:
-                continue
+        skipped_count = 0
+        detail_used = 0
+
+        for event_id, bulk_odds in list(odds_by_event.items()):
+            if _rate_limited(provider_mod):
+                rate_limited = True
+                break
+
+            # Odds first. If there is no match-winner price in the daily payload,
+            # do not spend a detail request on this event.
             odds1, odds2 = _extract_full_time_odds_from_bulk(bulk_odds)
             if odds1 is None or odds2 is None:
-                quote = provider_mod._quote_from_payload(bulk_odds, event_id=str(event_id), provider_id=None, provider_name="bulk")  # noqa: SLF001
+                quote = provider_mod._quote_from_payload(  # noqa: SLF001
+                    bulk_odds,
+                    event_id=str(event_id),
+                    provider_id=None,
+                    provider_name="bulk",
+                )
                 if isinstance(quote, dict):
                     odds1, odds2 = _as_float(quote.get("odds_1")), _as_float(quote.get("odds_2"))
             if odds1 is None or odds2 is None:
+                skipped_count += 1
                 continue
-            start_time_utc = _event_start_time(event, date_only)
+
+            event = _event_from_bulk_payload(bulk_odds)
+            if event:
+                player1, player2 = _event_home_away_from_any(event)
+            else:
+                if detail_used >= max_detail_events_per_day:
+                    skipped_count += 1
+                    continue
+                event = provider_mod.fetch_match_details(str(event_id), force_refresh=force_refresh)
+                detail_used += 1
+                if not event:
+                    skipped_count += 1
+                    continue
+                player1, player2 = provider_mod._event_home_away(event)  # noqa: SLF001
+
+            if not player1 or not player2:
+                skipped_count += 1
+                continue
+            if _is_doubles_or_team_match(player1, player2, event):
+                skipped_count += 1
+                continue
+
+            start_time_utc = _event_start_time(event or {}, date_only)
             start_dt = _parse_datetime(start_time_utc)
             hours_to_start = None
             if start_dt:
                 hours_to_start = round((start_dt - snapshot_time).total_seconds() / 3600.0, 2)
+
             record = {
                 "schema": "marq_internal_odds_snapshot_v1",
                 "source": "TennisAPI_PRO",
@@ -231,7 +326,10 @@ def collect_horizon_snapshots(days_ahead: int = 6, force_refresh: bool = False, 
             _save_event_snapshot(record)
             daily_records.append(record)
             saved_count += 1
+
         counts[date_only] = saved_count
+        detail_counts[date_only] = detail_used
+        skipped_counts[date_only] = skipped_count
 
     year_dir = SNAPSHOT_ROOT / str(today.year)
     year_dir.mkdir(parents=True, exist_ok=True)
@@ -241,7 +339,10 @@ def collect_horizon_snapshots(days_ahead: int = 6, force_refresh: bool = False, 
         "generated_at_utc": snapshot_time.isoformat(),
         "days_ahead": days_ahead,
         "source": "TennisAPI_PRO",
+        "rate_limited": rate_limited,
         "date_counts": counts,
+        "detail_request_counts": detail_counts,
+        "skipped_counts": skipped_counts,
         "snapshot_count": len(daily_records),
         "snapshots": daily_records,
     }
@@ -249,7 +350,6 @@ def collect_horizon_snapshots(days_ahead: int = 6, force_refresh: bool = False, 
     LATEST_PATH.parent.mkdir(parents=True, exist_ok=True)
     LATEST_PATH.write_text(json.dumps(summary, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
     return summary
-
 
 def _find_event_payload(player1: Any, player2: Any, date_only: str) -> Optional[Dict[str, Any]]:
     key = _event_key(date_only, player1, player2)
@@ -390,7 +490,7 @@ def main(argv: Optional[Iterable[str]] = None) -> int:
     parser = argparse.ArgumentParser(description="Collect internal MARQ odds snapshots")
     parser.add_argument("--days-ahead", type=int, default=6)
     parser.add_argument("--force-refresh", action="store_true")
-    parser.add_argument("--max-detail-events-per-day", type=int, default=500)
+    parser.add_argument("--max-detail-events-per-day", type=int, default=80)
     args = parser.parse_args(list(argv) if argv is not None else None)
     summary = collect_horizon_snapshots(
         days_ahead=args.days_ahead,
