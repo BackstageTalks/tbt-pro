@@ -22,6 +22,8 @@ ATP_RANKINGS_URL = "https://tennisabstract.com/reports/atpRankings.html"
 WTA_RANKINGS_URL = "https://tennisabstract.com/reports/wtaRankings.html"
 ATP_PROFILE_URL = "https://www.tennisabstract.com/cgi-bin/player.cgi?p={player_key}"
 WTA_PROFILE_URL = "https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p={player_key}"
+ATP_CLASSIC_PROFILE_URL = "https://www.tennisabstract.com/cgi-bin/player-classic.cgi?p={player_key}"
+WTA_CLASSIC_PROFILE_URL = "https://www.tennisabstract.com/cgi-bin/wplayer-classic.cgi?p={player_key}"
 
 USER_AGENT = os.getenv(
     "TA_USER_AGENT",
@@ -196,6 +198,59 @@ def scrape_ranking_page(url: str, tour: str) -> List[Dict[str, Any]]:
     return rows
 
 
+def profile_urls_for_player(player: Dict[str, Any]) -> Dict[str, str]:
+    player_key = str(player.get("player_key") or key_from_player_name(str(player.get("player_name") or "")))
+    tour = str(player.get("tour") or "").lower()
+    if tour == "wta":
+        modern = WTA_PROFILE_URL.format(player_key=player_key)
+        classic = WTA_CLASSIC_PROFILE_URL.format(player_key=player_key)
+    else:
+        modern = ATP_PROFILE_URL.format(player_key=player_key)
+        classic = ATP_CLASSIC_PROFILE_URL.format(player_key=player_key)
+    return {"modern": modern, "classic": classic}
+
+
+def has_value(value: Any) -> bool:
+    return value not in (None, "", "N/A", "n/a", "-", "—")
+
+
+def deep_merge_prefer(base: Any, override: Any) -> Any:
+    """Deep merge where non-empty override values win.
+
+    Used for modern + classic TA profiles.  Classic usually has the richest
+    A%/DF%/TB%/serve-return tables, while modern can still provide useful text
+    metadata.  Empty override values never erase existing base values.
+    """
+    if isinstance(base, dict) and isinstance(override, dict):
+        out = dict(base)
+        for key, value in override.items():
+            if key in out:
+                out[key] = deep_merge_prefer(out[key], value)
+            elif has_value(value) or isinstance(value, (dict, list)):
+                out[key] = value
+        return out
+    if isinstance(override, list):
+        return override if override else base
+    return override if has_value(override) else base
+
+
+def count_stat_presence(rec: Dict[str, Any], stat_key: str) -> bool:
+    if not isinstance(rec, dict):
+        return False
+    stack = [rec]
+    while stack:
+        item = stack.pop()
+        if isinstance(item, dict):
+            for key, value in item.items():
+                if str(key) == stat_key and has_value(value):
+                    return True
+                if isinstance(value, (dict, list)):
+                    stack.append(value)
+        elif isinstance(item, list):
+            stack.extend(value for value in item if isinstance(value, (dict, list)))
+    return False
+
+
 def build_player_index(limit: int = DEFAULT_LIMIT) -> List[Dict[str, Any]]:
     rows = load_existing_rankings()
     if not rows:
@@ -331,7 +386,13 @@ def parse_profile_text(html_text: str) -> Dict[str, Any]:
     return out
 
 
-def parse_profile(player: Dict[str, Any], html_text: str) -> Dict[str, Any]:
+def parse_profile(
+    player: Dict[str, Any],
+    html_text: str,
+    *,
+    profile_url: Optional[str] = None,
+    profile_variant: str = "modern",
+) -> Dict[str, Any]:
     tables = try_read_tables(html_text)
     table_data = parse_table_rows(tables)
     text_data = parse_profile_text(html_text)
@@ -342,7 +403,8 @@ def parse_profile(player: Dict[str, Any], html_text: str) -> Dict[str, Any]:
         "player_key": player.get("player_key"),
         "tour": player.get("tour"),
         "rank": player.get("rank") or text_data.get("current_rank"),
-        "profile_url": player.get("profile_url"),
+        "profile_url": profile_url or player.get("profile_url"),
+        "profile_variant": profile_variant,
         "source": "tennis_abstract",
         "updated_at": now_iso(),
         "status": status,
@@ -352,6 +414,49 @@ def parse_profile(player: Dict[str, Any], html_text: str) -> Dict[str, Any]:
         "current_season": table_data.get("current_season", {}),
         "splits": table_data.get("splits", {}),
     }
+
+
+def merge_profile_variants(player: Dict[str, Any], variants: Dict[str, Dict[str, Any]], errors: Dict[str, str], urls: Dict[str, str]) -> Dict[str, Any]:
+    modern = variants.get("modern") or {}
+    classic = variants.get("classic") or {}
+
+    # Start with modern metadata and then let classic fill/override parsed stat
+    # tables.  This gives classic priority for A%/DF%/TB% and serve-return data.
+    merged = deep_merge_prefer(modern, classic)
+    if not merged:
+        merged = {
+            "player_name": player.get("player_name"),
+            "player_key": player.get("player_key"),
+            "tour": player.get("tour"),
+            "rank": player.get("rank"),
+            "source": "tennis_abstract",
+            "updated_at": now_iso(),
+        }
+
+    source_status = {
+        "modern": (modern.get("status") if isinstance(modern, dict) else None) or ("FETCH_FAILED" if errors.get("modern") else "NOT_REQUESTED"),
+        "classic": (classic.get("status") if isinstance(classic, dict) else None) or ("FETCH_FAILED" if errors.get("classic") else "NOT_REQUESTED"),
+    }
+    ok_any = any(status in {"OK", "PARTIAL_NO_TABLES"} for status in source_status.values())
+    ok_tables = any(status == "OK" for status in source_status.values())
+
+    merged.update({
+        "player_name": player.get("player_name") or merged.get("player_name"),
+        "player_key": player.get("player_key") or merged.get("player_key"),
+        "tour": player.get("tour") or merged.get("tour"),
+        "rank": player.get("rank") or merged.get("rank"),
+        "profile_url": urls.get("modern") or merged.get("profile_url"),
+        "profile_urls": urls,
+        "sources": source_status,
+        "source_errors": errors,
+        "source": "tennis_abstract_modern_classic",
+        "updated_at": now_iso(),
+        "status": "OK" if ok_tables else "PARTIAL_NO_TABLES" if ok_any else "FETCH_FAILED",
+        "has_ace_pct": count_stat_presence(merged, "ace_pct"),
+        "has_df_pct": count_stat_presence(merged, "df_pct"),
+        "has_tb_pct": count_stat_presence(merged, "tb_pct"),
+    })
+    return merged
 
 
 def load_cache(path: Path = OUTPUT_PATH) -> Dict[str, Any]:
@@ -378,7 +483,18 @@ def build_profiles(limit: int = DEFAULT_LIMIT, force_refresh: bool = False) -> D
         existing_players = {}
 
     result_players: Dict[str, Any] = dict(existing_players)
-    stats = {"requested": len(players), "updated": 0, "skipped": 0, "failed": 0}
+    stats = {
+        "requested": len(players),
+        "updated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "modern_ok": 0,
+        "classic_ok": 0,
+        "both_ok": 0,
+        "ace_pct": 0,
+        "df_pct": 0,
+        "tb_pct": 0,
+    }
 
     for idx, player in enumerate(players, 1):
         key = compact_name(player.get("player_name")) or compact_name(player.get("player_key"))
@@ -387,30 +503,50 @@ def build_profiles(limit: int = DEFAULT_LIMIT, force_refresh: bool = False) -> D
         if not force_refresh and key in result_players and result_players[key].get("status") == "OK":
             stats["skipped"] += 1
             continue
-        url = str(player.get("profile_url") or "")
-        try:
-            print(f"[TA] {idx}/{len(players)} fetch {player.get('player_name')} {url}")
-            html_text = fetch_url(url)
-            result_players[key] = parse_profile(player, html_text)
-            stats["updated"] += 1
-            time.sleep(REQUEST_DELAY_SECONDS)
-        except Exception as exc:
+
+        urls = profile_urls_for_player(player)
+        variants: Dict[str, Dict[str, Any]] = {}
+        errors: Dict[str, str] = {}
+
+        for variant_name in ("modern", "classic"):
+            url = urls[variant_name]
+            try:
+                print(f"[TA] {idx}/{len(players)} fetch {variant_name} {player.get('player_name')} {url}")
+                html_text = fetch_url(url)
+                variants[variant_name] = parse_profile(
+                    player,
+                    html_text,
+                    profile_url=url,
+                    profile_variant=variant_name,
+                )
+                time.sleep(REQUEST_DELAY_SECONDS)
+            except Exception as exc:
+                errors[variant_name] = str(exc)[:500]
+                time.sleep(REQUEST_DELAY_SECONDS)
+
+        merged = merge_profile_variants(player, variants, errors, urls)
+        result_players[key] = merged
+
+        if merged.get("status") == "FETCH_FAILED":
             stats["failed"] += 1
-            result_players[key] = {
-                "player_name": player.get("player_name"),
-                "player_key": player.get("player_key"),
-                "tour": player.get("tour"),
-                "profile_url": url,
-                "source": "tennis_abstract",
-                "updated_at": now_iso(),
-                "status": "FETCH_FAILED",
-                "error": str(exc)[:500],
-            }
-            time.sleep(REQUEST_DELAY_SECONDS)
+        else:
+            stats["updated"] += 1
+        if merged.get("sources", {}).get("modern") == "OK":
+            stats["modern_ok"] += 1
+        if merged.get("sources", {}).get("classic") == "OK":
+            stats["classic_ok"] += 1
+        if merged.get("sources", {}).get("modern") == "OK" and merged.get("sources", {}).get("classic") == "OK":
+            stats["both_ok"] += 1
+        if merged.get("has_ace_pct"):
+            stats["ace_pct"] += 1
+        if merged.get("has_df_pct"):
+            stats["df_pct"] += 1
+        if merged.get("has_tb_pct"):
+            stats["tb_pct"] += 1
 
     payload = {
         "generated_at": now_iso(),
-        "source": "tennis_abstract_player_profiles",
+        "source": "tennis_abstract_player_profiles_modern_classic",
         "ranking_source": str(RANKINGS_PATH),
         "profile_count": len(result_players),
         "stats": stats,
