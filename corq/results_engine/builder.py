@@ -142,6 +142,7 @@ def evaluate_row(
     fetch_api: bool,
     cache: Dict[int, Dict[str, Any]],
     existing: Optional[Dict[str, Any]] = None,
+    local_tz: str = "Europe/Bratislava",
 ) -> Dict[str, Any]:
     out = dict(row)
     preserve_existing(out, existing)
@@ -182,7 +183,7 @@ def evaluate_row(
     sets_hit = round(projected_sets) == actual_sets if actual_sets is not None and projected_sets is not None else None
 
     out.update({
-        "date": row_date(out, run_date),
+        "date": result_row_date(out, run_date, local_tz),
         "model": model,
         "source_snapshot": source_snapshot,
         "match_id": out.get("match_id") or out.get("event_id") or out.get("id"),
@@ -243,9 +244,18 @@ def summary(rows: List[Dict[str, Any]]) -> Dict[str, Any]:
 
 
 def write_model_results(model: str, rows: List[Dict[str, Any]], output_root: Path, run_date: str) -> None:
-    year, month = run_date[:4], run_date[5:7]
     write_json(output_root / f"latest_results_{model}.json", rows)
-    write_json(output_root / year / month / f"{run_date}_{model}.json", rows)
+    by_date: Dict[str, List[Dict[str, Any]]] = {}
+    for row in rows or []:
+        row_day = str(row.get("date") or run_date)[:10]
+        if not re.match(r"^20\d{2}-\d{2}-\d{2}$", row_day):
+            row_day = run_date
+        by_date.setdefault(row_day, []).append(row)
+    if not by_date:
+        by_date[run_date] = []
+    for row_day, day_rows in by_date.items():
+        year, month = row_day[:4], row_day[5:7]
+        write_json(output_root / year / month / f"{row_day}_{model}.json", day_rows)
 
 
 def rebuild_indexes(output_root: Path = RESULTS_DIR) -> None:
@@ -301,6 +311,21 @@ def row_start_datetime_utc(row: Dict[str, Any]) -> Optional[datetime]:
     return None
 
 
+def result_row_date(row: Dict[str, Any], default_date: str, local_tz: str = "Europe/Bratislava") -> str:
+    explicit = row_date(row, "")
+    if explicit:
+        return explicit[:10]
+    start_dt = row_start_datetime_utc(row)
+    if start_dt is not None:
+        try:
+            if ZoneInfo is not None:
+                return start_dt.astimezone(ZoneInfo(local_tz)).date().isoformat()
+            return start_dt.date().isoformat()
+        except Exception:
+            return start_dt.date().isoformat()
+    return default_date
+
+
 def should_fetch_result(row: Dict[str, Any], fetch_api: bool, settlement_grace_hours: float) -> bool:
     if not fetch_api:
         return False
@@ -333,17 +358,49 @@ def merge_rows_with_existing_for_settlement(source_rows: List[Dict[str, Any]], e
             order.append(key)
     return [by_side[key] for key in order]
 
-def lock_results_source_rows(model: str, source_rows: List[Dict[str, Any]], existing_rows: List[Dict[str, Any]], settle_date: str) -> Tuple[List[Dict[str, Any]], str]:
-    """Keep result pick slates stable during build-results runs.
+def merge_current_source_with_existing_results(
+    model: str,
+    source_rows: List[Dict[str, Any]],
+    existing_rows: List[Dict[str, Any]],
+    settle_date: str,
+) -> Tuple[List[Dict[str, Any]], str]:
+    """Keep today's picks visible while preserving older Results history.
 
-    The results workflow may update settlement fields on existing rows, but it
-    must not replace the CorQ TOP7 picks with a newly generated latest snapshot.
-    New pick slates are introduced by the pick-generation workflow, not by the
-    results-settlement workflow.
+    Older behavior locked CorQ Results to existing latest_results_corq.json once
+    any Results file existed. That allowed settlement of the old card, but it
+    blocked the new daily TOP7 card from being inserted as PENDING. This merge
+    makes latest Results a live ledger:
+    - current source rows are inserted first,
+    - existing rows are preserved when not duplicated,
+    - existing rows for the settlement date can still be fetched and settled.
     """
-    if existing_rows:
-        return existing_rows, "locked_existing_results"
-    return source_rows, "source_snapshot_initial_seed"
+    by_side: Dict[str, Dict[str, Any]] = {}
+    order: List[str] = []
+
+    for row in source_rows or []:
+        key = side_identity(row)
+        if key not in by_side:
+            order.append(key)
+        by_side[key] = row
+
+    added_existing = 0
+    for row in existing_rows or []:
+        key = side_identity(row)
+        if key in by_side:
+            continue
+        by_side[key] = row
+        order.append(key)
+        added_existing += 1
+
+    if source_rows and existing_rows:
+        mode = f"merged_source_current_plus_existing_history:{len(source_rows)}+{added_existing}"
+    elif source_rows:
+        mode = "source_snapshot_initial_seed"
+    elif existing_rows:
+        mode = "existing_results_only_no_source_rows"
+    else:
+        mode = "empty_no_source_or_existing"
+    return [by_side[key] for key in order], mode
 
 def build_results_database(run_date: Optional[str] = None, output_root: Path = RESULTS_DIR, fetch_api: bool = False, settle_date: Optional[str] = None, settlement_grace_hours: float = 0.0, local_tz: str = "Europe/Bratislava") -> Dict[str, Any]:
     corq_payload, corq_rows, corq_source = load_source_rows("corq")
@@ -358,15 +415,15 @@ def build_results_database(run_date: Optional[str] = None, output_root: Path = R
     old_cloq = existing_index(old_cloq_rows)
     old_audit = existing_index(old_audit_rows)
 
-    corq_rows, corq_lock_mode = lock_results_source_rows("corq", corq_rows, old_corq_rows, day)
-    cloq_rows = merge_rows_with_existing_for_settlement(cloq_rows, old_cloq_rows, day)
-    audit_rows = merge_rows_with_existing_for_settlement(audit_rows, old_audit_rows, day)
+    corq_rows, corq_lock_mode = merge_current_source_with_existing_results("corq", corq_rows, old_corq_rows, day)
+    cloq_rows, cloq_lock_mode = merge_current_source_with_existing_results("cloq", cloq_rows, old_cloq_rows, day)
+    audit_rows, audit_lock_mode = merge_current_source_with_existing_results("audit", audit_rows, old_audit_rows, day)
 
     cache: Dict[int, Dict[str, Any]] = {}
-    corq_results = [evaluate_row(r, "corq", day, corq_source, should_fetch_result(r, fetch_api, settlement_grace_hours), cache, old_corq.get(side_identity(r))) for r in corq_rows]
-    cloq_results = [evaluate_row(r, "cloq", day, cloq_source, should_fetch_result(r, fetch_api, settlement_grace_hours), cache, old_cloq.get(side_identity(r))) for r in cloq_rows]
+    corq_results = [evaluate_row(r, "corq", day, corq_source, should_fetch_result(r, fetch_api, settlement_grace_hours), cache, old_corq.get(side_identity(r)), local_tz) for r in corq_rows]
+    cloq_results = [evaluate_row(r, "cloq", day, cloq_source, should_fetch_result(r, fetch_api, settlement_grace_hours), cache, old_cloq.get(side_identity(r)), local_tz) for r in cloq_rows]
     audit_deduped = dedupe_match_rows(audit_rows)
-    audit_results = [evaluate_row(r, "audit", day, audit_source, should_fetch_result(r, fetch_api, settlement_grace_hours), cache, old_audit.get(side_identity(r))) for r in audit_deduped]
+    audit_results = [evaluate_row(r, "audit", day, audit_source, should_fetch_result(r, fetch_api, settlement_grace_hours), cache, old_audit.get(side_identity(r)), local_tz) for r in audit_deduped]
 
     write_model_results("corq", corq_results, output_root, day)
     write_model_results("cloq", cloq_results, output_root, day)
@@ -394,6 +451,8 @@ def build_results_database(run_date: Optional[str] = None, output_root: Path = R
         },
         "locks": {
             "corq": corq_lock_mode,
+            "cloq": cloq_lock_mode,
+            "audit": audit_lock_mode,
         },
         "output_root": str(output_root),
     }
