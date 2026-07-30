@@ -1449,7 +1449,6 @@ def render_sets_games_box(row: Dict[str, Any]) -> str:
         metric_row("Aces P/O/T", esc(triplet_market_display(row, "aces"))),
         metric_row("DF P/O/T", esc(triplet_market_display(row, "df"))),
         metric_row("Best Bet", esc(best_bet_display(row))),
-        metric_row("Value Bet", esc(value_bet_display(row))),
         '</section>',
     ])
 
@@ -1499,6 +1498,35 @@ def final_marq_display(row: Dict[str, Any]) -> str:
     return "Pending"
 
 
+def marq_sharp_display(row: Dict[str, Any]) -> str:
+    signal = str(_first_data_value(row, "marq_sharp_signal", "sharp_signal") or "").strip()
+    pct_value = _first_data_value(row, "marq_sharp_pick_pct", "sharp_pick_pct", "marq_exchange_pick_probability", "exchange_pick_probability")
+    pct_text = market_pct(pct_value, 1)
+    bad = {"", "UNKNOWN", "PENDING", "NO DATA", "NONE", "NULL", "NO SHARP DATA", "N/A", "—", "-"}
+    signal_upper = signal.upper().replace("_", " ")
+    signal_text = " ".join(part.capitalize() for part in signal_upper.split()) if signal_upper not in bad else ""
+    if pct_text != "—" and signal_text:
+        return f"{pct_text} | {signal_text}"
+    if pct_text != "—":
+        return pct_text
+    if signal_text:
+        return signal_text
+    return "—"
+
+
+def marq_clv_display(row: Dict[str, Any]) -> str:
+    pct_value = _first_data_value(row, "marq_clv_pct", "clv_pct", "marq_closing_edge_pct", "closing_edge_pct")
+    pct_text = signed_market_pct(pct_value, 1)
+    if pct_text != "—":
+        return pct_text
+    status = str(_first_data_value(row, "marq_clv_status", "clv_status") or "").strip()
+    bad = {"", "UNKNOWN", "PENDING", "NO DATA", "NONE", "NULL", "N/A", "—", "-"}
+    status_upper = status.upper().replace("_", " ")
+    if status_upper in bad:
+        return "—"
+    return " ".join(part.capitalize() for part in status_upper.split())
+
+
 def render_marq_box(row: Dict[str, Any]) -> str:
     movement_available = _first_data_value(row, "marq_movement_available", "movement_available")
     move_range = marq_range_display(row)
@@ -1514,6 +1542,12 @@ def render_marq_box(row: Dict[str, Any]) -> str:
     ]
     if movement_available is True or str(movement_available).lower() == "true" or move_range != "—":
         rows.append(metric_row("Range", esc(move_range)))
+    sharp_value = marq_sharp_display(row)
+    if sharp_value != "—":
+        rows.append(metric_row("Sharp", esc(sharp_value)))
+    clv_value = marq_clv_display(row)
+    if clv_value != "—":
+        rows.append(metric_row("CLV", esc(clv_value)))
     rows.append(metric_row("MarQ Final", esc(final_marq_display(row))))
     rows.append('</section>')
     return "\n".join(rows)
