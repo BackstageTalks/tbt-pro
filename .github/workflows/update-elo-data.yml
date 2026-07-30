@@ -2,93 +2,15 @@ name: Update ELO Data
 
 on:
   workflow_dispatch:
-  schedule:
-    # Runs at 04:55 Europe/Bratislava.
-    # Summer time: 02:55 UTC -> 04:55 CEST.
-    # Winter time: 03:55 UTC -> 04:55 CET.
-    # This leaves at least 45 minutes after Update TA Data at 04:10 SK/CZ.
-    - cron: "55 2,3 * * *"
 
 permissions:
-  contents: write
-
-concurrency:
-  group: update-elo-data
-  cancel-in-progress: false
+  contents: read
 
 jobs:
   update-elo-data:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
-
     steps:
-      - name: Check local run time
-        id: local_time
+      - name: Merged into Update TA Data
         run: |
-          python - <<'PY' >> "$GITHUB_OUTPUT"
-          from datetime import datetime
-          from zoneinfo import ZoneInfo
-
-          now = datetime.now(ZoneInfo("Europe/Bratislava"))
-          should_run = now.hour == 4 and now.minute == 55
-
-          print(f"now={now.isoformat()}")
-          print(f"should_run={'true' if should_run else 'false'}")
-          PY
-
-      - name: Checkout repository
-        if: ${{ github.event_name == 'workflow_dispatch' || steps.local_time.outputs.should_run == 'true' }}
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        if: ${{ github.event_name == 'workflow_dispatch' || steps.local_time.outputs.should_run == 'true' }}
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install Python dependencies
-        if: ${{ github.event_name == 'workflow_dispatch' || steps.local_time.outputs.should_run == 'true' }}
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install pandas lxml html5lib beautifulsoup4
-
-      - name: Build Tennis Abstract ELO cache
-        if: ${{ github.event_name == 'workflow_dispatch' || steps.local_time.outputs.should_run == 'true' }}
-        env:
-          PYTHONPATH: ${{ github.workspace }}
-          TA_ELO_REQUEST_TIMEOUT_SECONDS: "25"
-          TA_ELO_REQUEST_DELAY_SECONDS: "0.35"
-        run: |
-          python -m thinq.loaders.elo_loader --update --output thinq/data/elo/ta_elo_ratings.json
-
-      - name: Show ELO cache summary
-        if: ${{ github.event_name == 'workflow_dispatch' || steps.local_time.outputs.should_run == 'true' }}
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-
-          path = Path("thinq/data/elo/ta_elo_ratings.json")
-          if not path.exists():
-              raise SystemExit("ELO cache was not created")
-          payload = json.loads(path.read_text(encoding="utf-8"))
-          players = payload.get("players") if isinstance(payload, dict) else {}
-          if not isinstance(players, dict):
-              players = {}
-          print(f"ELO players={len(players)} generated_at={payload.get('generated_at')}")
-          PY
-
-      - name: Commit ELO cache
-        if: ${{ github.event_name == 'workflow_dispatch' || steps.local_time.outputs.should_run == 'true' }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add thinq/data/elo/ta_elo_ratings.json
-
-          if git diff --cached --quiet; then
-            echo "No ELO data changes to commit."
-          else
-            git commit -m "Update Tennis Abstract ELO cache"
-            git push
-          fi
+          echo "TA ELO update is now part of .github/workflows/update-ta-data.yml."
+          echo "Run 'Update TA Data' to update rankings, TA profiles and TA ELO in one batch."
