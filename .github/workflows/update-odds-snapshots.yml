@@ -12,10 +12,10 @@ on:
         required: false
         default: "true"
   schedule:
-    # Bratislava summer: 06:00, 12:00, 18:00. Winter is one hour later.
+    # Bratislava summer: 04:45, 12:45, 18:45. Winter is one hour later.
     # The collector stores snapshot_time_utc and hours_to_start, so exact wall-clock
-    # time is not used for CLV math.
-    - cron: "0 4,10,16 * * *"
+    # time is not used for CLV math. The early run finishes before daily predictions.
+    - cron: "45 2,10,16 * * *"
 
 permissions:
   contents: write

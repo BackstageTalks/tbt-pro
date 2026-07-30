@@ -10,7 +10,7 @@ jobs:
   update-elo-data:
     runs-on: ubuntu-latest
     steps:
-      - name: Merged into Update TA Data
+      - name: Merged into Update TA Light Data
         run: |
-          echo "TA ELO update is now part of .github/workflows/update-ta-data.yml."
-          echo "Run 'Update TA Data' to update rankings, TA profiles and TA ELO in one batch."
+          echo "TA ELO update is now part of .github/workflows/update-ta-rankings.yml."
+          echo "Run 'Update TA Light Data' to update TA rankings and TA ELO."

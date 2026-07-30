@@ -3,32 +3,61 @@ name: build-results
 on:
   workflow_dispatch:
   schedule:
-    # Around 14:00 Slovakia time during summer time UTC+2
-    - cron: "0 12 * * *"
-    # Around 19:00 Slovakia time during summer time UTC+2
-    - cron: "0 17 * * *"
-    # Around 00:00 Slovakia time during summer time UTC+2
-    - cron: "0 22 * * *"
-    # Around 08:00 Slovakia time during summer time UTC+2
-    - cron: "0 6 * * *"
+    # Target windows in Europe/Bratislava: 00:15 and 06:15.
+    # Both summer/winter UTC candidates are scheduled; the local-time guard below
+    # allows only the intended local windows to run.
+    - cron: "15 22,23,4,5 * * *"
 
 permissions:
   contents: write
+
+concurrency:
+  group: build-results
+  cancel-in-progress: false
 
 jobs:
   build-results:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check local run time
+        id: local_time
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import os
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+
+          event_name = os.getenv("EVENT_NAME", "")
+          now = datetime.now(ZoneInfo("Europe/Bratislava"))
+          in_schedule_window = (now.hour, now.minute) in {(0, 15), (6, 15)}
+          should_run = event_name == "workflow_dispatch" or in_schedule_window
+
+          print(f"now={now.isoformat()}")
+          print(f"event_name={event_name}")
+          print("target_windows=00:15,06:15 Europe/Bratislava")
+          print(f"should_run={'true' if should_run else 'false'}")
+          PY
+
+      - name: Stop outside scheduled window
+        if: ${{ steps.local_time.outputs.should_run != 'true' }}
+        run: |
+          echo "Outside Results refresh window. Skipping build-results run."
+
       - name: Checkout
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
         uses: actions/checkout@v4
 
       - name: Set up Python
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
       - name: Verify Results engine layout
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
         env:
           PYTHONPATH: ${{ github.workspace }}
         run: |
@@ -51,19 +80,27 @@ jobs:
           PY
 
       - name: Build persistent Results database
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
         env:
           RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
           PYTHONPATH: ${{ github.workspace }}
         run: |
-          python -m corq.results_engine.builder             --output-root outputs             --fetch-api             --settle-yesterday             --local-tz Europe/Bratislava             --settlement-grace-hours 2
+          python -m corq.results_engine.builder \
+            --output-root outputs \
+            --fetch-api \
+            --settle-yesterday \
+            --local-tz Europe/Bratislava \
+            --settlement-grace-hours 2
 
       - name: Render web site with updated Results
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
         env:
           PYTHONPATH: ${{ github.workspace }}
         run: |
           python -m corq.web.render
 
       - name: Commit Results database and rendered site
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -75,5 +112,30 @@ jobs:
           fi
 
           git commit -m "Update Results database and rendered site"
-          git pull --rebase origin main
+          if git push origin main; then
+            echo "Results database and rendered site pushed."
+            exit 0
+          fi
+
+          echo "Push rejected, preserving Results database/site and retrying on latest main..."
+          tmp_dir="$(mktemp -d)"
+          mkdir -p "$tmp_dir/outputs" "$tmp_dir/corq"
+          cp -a outputs/results "$tmp_dir/outputs/results" 2>/dev/null || true
+          cp -a corq/site "$tmp_dir/corq/site" 2>/dev/null || true
+
+          git fetch origin main
+          git reset --hard origin/main
+
+          mkdir -p outputs corq
+          rm -rf outputs/results corq/site
+          [ -d "$tmp_dir/outputs/results" ] && cp -a "$tmp_dir/outputs/results" outputs/results
+          [ -d "$tmp_dir/corq/site" ] && cp -a "$tmp_dir/corq/site" corq/site
+
+          git add outputs/results corq/site
+          if git diff --cached --quiet; then
+            echo "No result/site changes after reset."
+            exit 0
+          fi
+
+          git commit -m "Update Results database and rendered site"
           git push origin main
