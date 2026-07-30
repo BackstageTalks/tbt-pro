@@ -20,9 +20,10 @@ on:
         required: false
         default: "80"
   schedule:
-    # Run after morning predictions/render and again during the day for market refresh.
-    # Summer Bratislava approx: 06:30, 12:30, 18:30.
-    - cron: "30 4,10,16 * * *"
+    # Target windows in Europe/Bratislava: 06:30, 12:30, 18:30.
+    # Both summer/winter UTC candidates are scheduled; the local-time guard below
+    # allows only the intended local windows to run.
+    - cron: "30 4,5,10,11,16,17 * * *"
 
 permissions:
   contents: write
@@ -45,20 +46,50 @@ jobs:
       MAX_DETAIL_EVENTS_PER_DAY: ${{ github.event.inputs.max_detail_events_per_day || '80' }}
 
     steps:
+      - name: Check local run time
+        id: local_time
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import os
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+
+          event_name = os.getenv("EVENT_NAME", "")
+          now = datetime.now(ZoneInfo("Europe/Bratislava"))
+          in_schedule_window = now.minute == 30 and now.hour in {6, 12, 18}
+          should_run = event_name == "workflow_dispatch" or in_schedule_window
+
+          print(f"now={now.isoformat()}")
+          print(f"event_name={event_name}")
+          print("target_windows=06:30,12:30,18:30 Europe/Bratislava")
+          print(f"should_run={'true' if should_run else 'false'}")
+          PY
+
+      - name: Stop outside scheduled window
+        if: ${{ steps.local_time.outputs.should_run != 'true' }}
+        run: |
+          echo "Outside MarQ refresh window. Skipping update-marq-data run."
+
       - name: Checkout repository
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
         uses: actions/checkout@v4
 
       - name: Set up Python
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
       - name: Install Python dependencies
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
         run: |
           python -m pip install --upgrade pip
           python -m pip install requests pandas beautifulsoup4 lxml html5lib
 
       - name: Show runtime context
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
         run: |
           echo "PYTHONPATH=${PYTHONPATH}"
           echo "OUTPUTS_DIR=${OUTPUTS_DIR}"
@@ -77,6 +108,7 @@ jobs:
           PY
 
       - name: Build MARQ internal odds snapshots
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
         run: |
           if python - <<'PY'
           import importlib.util
@@ -98,6 +130,7 @@ jobs:
           fi
 
       - name: Enrich MarQ data
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
         run: |
           if [ ! -f tools/update_marq_data.py ]; then
             echo "Missing tools/update_marq_data.py"
@@ -106,6 +139,7 @@ jobs:
           python tools/update_marq_data.py --outputs-dir "${OUTPUTS_DIR}"
 
       - name: Show MARQ internal snapshot summary
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
         run: |
           python - <<'PY'
           import json
@@ -124,6 +158,7 @@ jobs:
           PY
 
       - name: Commit MARQ data updates
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

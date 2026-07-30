@@ -23,10 +23,7 @@ jobs:
     env:
       PYTHONPATH: ${{ github.workspace }}
       RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
-      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN || secrets.TGBOT }}
-      TELEGRAM_TOP7_CHAT_ID: ${{ secrets.TELEGRAM_TOP7_CHAT_ID || secrets.TGCHID }}
-      TELEGRAM_FREE_CHAT_ID: ${{ secrets.TELEGRAM_FREE_CHAT_ID }}
-      TG_FEED_TIME_OFFSET_HOURS: "1"
+      TG_FEED_TIMEZONE: "Europe/Bratislava"
       TG_FEED_UPCOMING_ONLY: "true"
       TG_FEED_PAST_GRACE_MINUTES: "0"
 
@@ -223,16 +220,6 @@ jobs:
         if: ${{ steps.local_time.outputs.should_run == 'true' }}
         run: |
           python -m corq.web.render
-
-      - name: Send TOP7 TG feed
-        if: ${{ steps.local_time.outputs.should_run == 'true' }}
-        run: |
-          python -m corq.tg_feed --mode top7 --send
-
-      - name: Send FREE TG feed
-        if: ${{ steps.local_time.outputs.should_run == 'true' }}
-        run: |
-          python -m corq.tg_feed --mode free --send
 
       - name: Commit generated outputs
         if: ${{ steps.local_time.outputs.should_run == 'true' }}

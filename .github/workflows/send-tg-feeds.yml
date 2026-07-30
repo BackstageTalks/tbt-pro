@@ -15,28 +15,62 @@ on:
         description: "Include already started matches: true/false"
         required: false
         default: "false"
-  # Safe default: one morning TOP7 push. Adjust later if needed.
   schedule:
-    # Around 08:30 Slovakia time during summer time UTC+2
-    - cron: "30 6 * * *"
+    # Target window: 06:05 Europe/Bratislava after daily predictions/render.
+    # Both summer/winter UTC candidates are scheduled; the local-time guard below
+    # allows only the intended local window to run.
+    - cron: "5 4,5 * * *"
 
 permissions:
   contents: write
+
+concurrency:
+  group: send-tg-feeds
+  cancel-in-progress: false
 
 jobs:
   send-tg-feeds:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check local run time
+        id: local_time
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import os
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+
+          event_name = os.getenv("EVENT_NAME", "")
+          now = datetime.now(ZoneInfo("Europe/Bratislava"))
+          in_schedule_window = now.hour == 6 and now.minute == 5
+          should_run = event_name == "workflow_dispatch" or in_schedule_window
+
+          print(f"now={now.isoformat()}")
+          print(f"event_name={event_name}")
+          print("target_window=06:05 Europe/Bratislava")
+          print(f"should_run={'true' if should_run else 'false'}")
+          PY
+
+      - name: Stop outside scheduled window
+        if: ${{ steps.local_time.outputs.should_run != 'true' }}
+        run: |
+          echo "Outside Telegram feed window. Skipping send-tg-feeds run."
+
       - name: Checkout
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
         uses: actions/checkout@v4
 
       - name: Set up Python
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
       - name: Build Telegram preview and send feed
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
         env:
           # Repository secrets are named TGBOT and TGCHID.
           TGBOT: ${{ secrets.TGBOT }}
@@ -48,7 +82,8 @@ jobs:
           TG_CHAT_ID: ${{ secrets.TGCHID }}
           TG_TOP7_CHAT_ID: ${{ secrets.TGCHID }}
           TELEGRAM_TOP7_CHAT_ID: ${{ secrets.TGCHID }}
-          TG_FEED_TIME_OFFSET_HOURS: "2"
+          TG_FEED_TIMEZONE: "Europe/Bratislava"
+          TG_FEED_UPCOMING_ONLY: "true"
           TG_FEED_PAST_GRACE_MINUTES: "0"
         run: |
           MODE="${{ github.event.inputs.mode || 'top7' }}"
@@ -64,9 +99,40 @@ jobs:
           ${CMD}
 
       - name: Commit Telegram preview message
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add outputs/telegram || true
-          git commit -m "Update Telegram feed preview" || echo "No Telegram preview changes"
+
+          if git diff --cached --quiet; then
+            echo "No Telegram preview changes"
+            exit 0
+          fi
+
+          git commit -m "Update Telegram feed preview"
+          if git push; then
+            echo "Telegram preview pushed."
+            exit 0
+          fi
+
+          echo "Push rejected, preserving Telegram preview and retrying on latest main..."
+          tmp_dir="$(mktemp -d)"
+          mkdir -p "$tmp_dir"
+          cp -a outputs/telegram "$tmp_dir/telegram" 2>/dev/null || true
+
+          git fetch origin main
+          git reset --hard origin/main
+
+          mkdir -p outputs
+          rm -rf outputs/telegram
+          [ -d "$tmp_dir/telegram" ] && cp -a "$tmp_dir/telegram" outputs/telegram
+
+          git add outputs/telegram || true
+          if git diff --cached --quiet; then
+            echo "No Telegram preview changes after reset."
+            exit 0
+          fi
+
+          git commit -m "Update Telegram feed preview"
           git push
