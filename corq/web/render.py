@@ -1291,13 +1291,23 @@ def triplet_market_display(row: Dict[str, Any], family: str) -> str:
         "aces": (("pick_aces", "p_aces", "aces_pick"), ("opponent_aces", "opp_aces", "o_aces", "aces_opponent"), ("total_aces", "t_aces", "aces_total")),
         "df": (("pick_df", "p_df", "pick_double_faults", "double_faults_pick"), ("opponent_df", "opp_df", "o_df", "opponent_double_faults", "double_faults_opponent"), ("total_df", "t_df", "total_double_faults", "double_faults_total")),
     }
+    projection_aliases = {
+        "aces": (("pick_aces_projection", "pick_aces"), ("opponent_aces_projection", "opponent_aces", "opp_aces"), ("total_aces_projection", "total_aces")),
+        "df": (("pick_df_projection", "df_pick", "pick_df"), ("opponent_df_projection", "df_opponent", "opponent_df", "opp_df"), ("total_df_projection", "df_total", "total_df")),
+    }
     parts: List[str] = []
-    for group in aliases.get(family, ()):  # pick, opponent, total
+    for idx, group in enumerate(aliases.get(family, ())):  # pick, opponent, total
         value = ""
         for prefix in group:
             value = market_pick_display(row, prefix, None)
             if value != "—":
                 break
+        if value == "—" or not value:
+            for proj_key in projection_aliases.get(family, ((), (), ()))[idx]:
+                proj = as_float(row.get(proj_key))
+                if proj is not None:
+                    value = f"{proj:.1f}"
+                    break
         parts.append(value if value else "—")
     return " / ".join(parts) if parts else "— / — / —"
 
