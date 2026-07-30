@@ -458,6 +458,22 @@ def enrich_row_with_internal_marq(row: Dict[str, Any]) -> Dict[str, Any]:
     pp = round((new_imp or 0) - (old_imp or 0), 2) if old_imp is not None and new_imp is not None else None
     signal = _move_signal(old_odds, new_odds)
     status = _clv_status(pp)
+    edge = _as_float(output.get("marq_edge_pct"))
+    final = None
+    if pp is not None:
+        if pp <= -2.0:
+            final = "Market Against Pick - Internal CLV"
+        elif pp >= 2.0 and (edge is None or edge >= 0):
+            final = "Market With Pick - Internal CLV"
+        elif pp >= 2.0 and edge < 0:
+            final = "Mixed Market - Internal CLV"
+        elif abs(pp) < 1.0 and edge is not None and edge >= 5.0:
+            final = "Market With Pick - Stable"
+        elif abs(pp) < 1.0 and edge is not None and edge <= -2.0:
+            final = "Market Against Pick - Stable"
+        elif abs(pp) < 1.0:
+            final = "Neutral - Stable"
+
     output.update({
         "marq_internal_status": status,
         "marq_internal_source": "TennisAPI_PRO snapshots",
@@ -474,6 +490,9 @@ def enrich_row_with_internal_marq(row: Dict[str, Any]) -> Dict[str, Any]:
         "marq_clv_pct": pp,
         "marq_clv_status": status,
     })
+    if final:
+        output["marq_final"] = final
+        output["marq_final_display"] = final
     # Use internal movement to improve MarQ when provider movement is missing/flat.
     existing_move = str(output.get("marq_move_signal") or "").upper()
     if existing_move in {"", "UNKNOWN", "PENDING", "STABLE"}:
