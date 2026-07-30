@@ -1039,6 +1039,21 @@ def _ta_set_pressure(match: Dict[str, Any], best_of: int) -> float:
     return clamp_value(pressure, 0.05, 0.95)
 
 
+
+def _fallback_total_games_projection(best_of: int, expected_sets: float, match_probability: Optional[float] = None) -> float:
+    """Fallback total-games projection when TA hold/break detail is missing.
+
+    This uses already available set distribution and favorite strength. It is
+    intentionally labelled as fallback by the caller and should not be treated
+    as a market value signal.
+    """
+    favorite_strength = abs((match_probability if match_probability is not None else 0.5) - 0.5)
+    if best_of == 5:
+        games_per_set = 9.75 - favorite_strength * 1.10
+        return round(clamp_value(games_per_set * expected_sets, 27.0, 53.5), 1)
+    games_per_set = 9.35 - favorite_strength * 0.90
+    return round(clamp_value(games_per_set * expected_sets, 17.0, 29.5), 1)
+
 def _ta_total_games_projection(match: Dict[str, Any], best_of: int, expected_sets: float) -> Optional[float]:
     if not _ta_model_available(match):
         return None
@@ -1226,17 +1241,17 @@ def build_market_aware_sets(match: Dict[str, Any], model_prediction: Dict[str, A
         over_prob = tg.get("over_probability")
         under_prob = tg.get("under_probability")
         projected_games = games_line
+        games_model_source = "TennisApiMarkets"
     else:
         projected_games = _ta_total_games_projection(match, best_of, expected_sets)
-        if projected_games is not None:
-            low, high = (28.5, 49.5) if best_of == 5 else (18.5, 25.5)
-            games_line = _standard_half_line(projected_games, low, high)
-            over_prob = _over_probability_from_projection(projected_games, games_line, 1.85 if best_of == 3 else 3.2)
-            under_prob = round(1.0 - over_prob, 4)
-        else:
-            games_line = None
-            over_prob = None
-            under_prob = None
+        games_model_source = "TA profile"
+        if projected_games is None:
+            projected_games = _fallback_total_games_projection(best_of, expected_sets, match_prob)
+            games_model_source = "ModelFallback"
+        low, high = (28.5, 49.5) if best_of == 5 else (18.5, 25.5)
+        games_line = _standard_half_line(projected_games, low, high)
+        over_prob = _over_probability_from_projection(projected_games, games_line, 1.85 if best_of == 3 else 3.2)
+        under_prob = round(1.0 - over_prob, 4)
     games_pick = None
     games_selection = None
     games_probability = None
@@ -1274,6 +1289,8 @@ def build_market_aware_sets(match: Dict[str, Any], model_prediction: Dict[str, A
         "games_pick": games_pick,
         "games_selection": games_selection,
         "games_probability": games_probability,
+        "games_model_source": games_model_source,
+        "games_data_quality": "B" if games_model_source == "TA profile" else "C+",
         "best_total_selection": games_selection,
         "best_total_probability": games_probability,
         "games_over_odds": tg.get("over_odds") if isinstance(tg, dict) else None,
