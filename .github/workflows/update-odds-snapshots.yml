@@ -53,9 +53,9 @@ jobs:
           echo "DAYS_AHEAD=${DAYS_AHEAD}"
           echo "FORCE_REFRESH=${FORCE_REFRESH}"
           if [ "${FORCE_REFRESH}" = "true" ]; then
-            python -m marq.odds_snapshots --days-ahead "${DAYS_AHEAD}" --force-refresh
+            python -m marq.odds_snapshots --days-ahead "${DAYS_AHEAD}" --force-refresh --max-detail-events-per-day 80
           else
-            python -m marq.odds_snapshots --days-ahead "${DAYS_AHEAD}"
+            python -m marq.odds_snapshots --days-ahead "${DAYS_AHEAD}" --max-detail-events-per-day 80
           fi
 
       - name: Show snapshot summary
@@ -69,6 +69,9 @@ jobs:
           payload = json.loads(path.read_text(encoding="utf-8"))
           print("snapshot_count:", payload.get("snapshot_count"))
           print("date_counts:", payload.get("date_counts"))
+          print("detail_request_counts:", payload.get("detail_request_counts"))
+          print("skipped_counts:", payload.get("skipped_counts"))
+          print("rate_limited:", payload.get("rate_limited"))
           print("generated_at_utc:", payload.get("generated_at_utc"))
           PY
 
