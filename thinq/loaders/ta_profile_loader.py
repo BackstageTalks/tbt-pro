@@ -13,6 +13,12 @@ from io import StringIO
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
+try:
+    from thinq.loaders.player_resolver import get_player_name_candidates
+except Exception:  # pragma: no cover - keeps TA loader usable standalone
+    def get_player_name_candidates(player_name: str, tour: Optional[str] = None) -> List[str]:
+        return [str(player_name or "").strip()]
+
 ROOT = Path(__file__).resolve().parents[2]
 RANKINGS_PATH = ROOT / "thinq" / "data" / "rankings" / "ta_rankings.json"
 OUTPUT_PATH = ROOT / "thinq" / "data" / "ta_profiles" / "ta_player_profiles.json"
@@ -566,20 +572,45 @@ def build_profiles(limit: int = DEFAULT_LIMIT, offset: int = DEFAULT_OFFSET, for
     return payload
 
 
-def lookup_profile(name: str, cache_path: Path = OUTPUT_PATH) -> Optional[Dict[str, Any]]:
+def lookup_profile(name: str, cache_path: Path = OUTPUT_PATH, tour: Optional[str] = None) -> Optional[Dict[str, Any]]:
     cache = load_cache(cache_path)
     players = cache.get("players") if isinstance(cache.get("players"), dict) else {}
-    key = compact_name(name)
-    if key in players:
-        return players[key]
-    # Try loose key against player_name/player_key.
+    if not isinstance(players, dict):
+        return None
+
+    lookup: Dict[str, Dict[str, Any]] = {}
+    for cache_key, rec in players.items():
+        if not isinstance(rec, dict):
+            continue
+        for value in (
+            cache_key,
+            rec.get("player_name"),
+            rec.get("canonical_name"),
+            rec.get("name"),
+            rec.get("player"),
+            rec.get("player_key"),
+        ):
+            key = compact_name(value)
+            if key and key not in lookup:
+                lookup[key] = rec
+
+    candidates = get_player_name_candidates(name, tour=tour)
+    if not candidates:
+        candidates = [str(name or "")]
+
+    for candidate in candidates:
+        key = compact_name(candidate)
+        if key in lookup:
+            return lookup[key]
+
+    # Final conservative fallback against stored player_name/player_key.
+    raw_key = compact_name(name)
     for rec in players.values():
         if not isinstance(rec, dict):
             continue
-        if compact_name(rec.get("player_name")) == key or compact_name(rec.get("player_key")) == key:
+        if compact_name(rec.get("player_name")) == raw_key or compact_name(rec.get("player_key")) == raw_key:
             return rec
     return None
-
 
 def pct_value(value: Any) -> Optional[float]:
     val = to_float(value)
