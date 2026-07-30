@@ -56,7 +56,13 @@ def _enrich_with_ta_rankings(record: Dict[str, Any], rankings: Dict[str, Any]) -
 
 def _enrich_with_ta_profile_context(record: Dict[str, Any]) -> Dict[str, Any]:
     try:
-        from thinq.loaders.ta_profile_loader import build_match_ta_context  # type: ignore
+        try:
+            from thinq.loaders.ta_profile_loader import build_match_ta_context  # type: ignore
+        except Exception:
+            # Some repo snapshots keep the TA profile loader as a top-level helper.
+            # Keep this fallback so Aces/DF projections are not silently lost due to
+            # import-path drift between workflows.
+            from ta_profile_loader import build_match_ta_context  # type: ignore
         ctx = build_match_ta_context(
             str(record.get("pick") or record.get("player") or record.get("player1") or ""),
             str(record.get("opponent") or record.get("opp") or record.get("player2") or ""),
@@ -66,8 +72,8 @@ def _enrich_with_ta_profile_context(record: Dict[str, Any]) -> Dict[str, Any]:
             record.update(ctx)
             record["ta_context"] = ctx
             return record
-    except Exception:
-        pass
+    except Exception as exc:
+        record.setdefault("ta_context_error", str(exc))
     defaults = {
         "ta_status": "N/A",
         "ta_pick_status": "N/A",
