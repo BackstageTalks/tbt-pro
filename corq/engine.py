@@ -412,6 +412,12 @@ def _enrich_with_marq(record: Dict[str, Any]) -> Dict[str, Any]:
             output["marq_final_display"] = output["marq_final"]
         except Exception:
             output.setdefault("marq_final", "Pending")
+
+    try:
+        from marq.odds_snapshots import enrich_row_with_internal_marq  # type: ignore
+        output = enrich_row_with_internal_marq(output)
+    except Exception as exc:
+        output.setdefault("marq_internal_error", str(exc))
     return output
 
 def _enrich_with_sets_games(record: Dict[str, Any]) -> Dict[str, Any]:
