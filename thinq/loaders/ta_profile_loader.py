@@ -32,6 +32,7 @@ USER_AGENT = os.getenv(
 REQUEST_TIMEOUT = int(os.getenv("TA_REQUEST_TIMEOUT_SECONDS", "25"))
 REQUEST_DELAY_SECONDS = float(os.getenv("TA_REQUEST_DELAY_SECONDS", "0.35"))
 DEFAULT_LIMIT = int(os.getenv("TA_PROFILE_LIMIT", "650"))
+DEFAULT_OFFSET = int(os.getenv("TA_PROFILE_OFFSET", "0"))
 
 SURFACE_KEYS = {
     "hard": "hard",
@@ -251,7 +252,7 @@ def count_stat_presence(rec: Dict[str, Any], stat_key: str) -> bool:
     return False
 
 
-def build_player_index(limit: int = DEFAULT_LIMIT) -> List[Dict[str, Any]]:
+def build_player_index(limit: int = DEFAULT_LIMIT, offset: int = DEFAULT_OFFSET) -> List[Dict[str, Any]]:
     rows = load_existing_rankings()
     if not rows:
         rows = scrape_ranking_page(WTA_RANKINGS_URL, "wta") + scrape_ranking_page(ATP_RANKINGS_URL, "atp")
@@ -268,7 +269,11 @@ def build_player_index(limit: int = DEFAULT_LIMIT) -> List[Dict[str, Any]]:
         return (int(val) if val is not None else 999999, str(rec.get("player_name") or ""))
 
     out.sort(key=rank_sort)
-    return out[:limit] if limit and limit > 0 else out
+    start = max(0, int(offset or 0))
+    if limit and limit > 0:
+        end = start + int(limit)
+        return out[start:end]
+    return out[start:]
 
 
 def try_read_tables(html_text: str) -> List[Any]:
@@ -475,8 +480,8 @@ def save_cache(payload: Dict[str, Any], path: Path = OUTPUT_PATH) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
 
 
-def build_profiles(limit: int = DEFAULT_LIMIT, force_refresh: bool = False) -> Dict[str, Any]:
-    players = build_player_index(limit=limit)
+def build_profiles(limit: int = DEFAULT_LIMIT, offset: int = DEFAULT_OFFSET, force_refresh: bool = False) -> Dict[str, Any]:
+    players = build_player_index(limit=limit, offset=offset)
     cache = load_cache()
     existing_players = cache.get("players") if isinstance(cache.get("players"), dict) else {}
     if not isinstance(existing_players, dict):
@@ -485,6 +490,8 @@ def build_profiles(limit: int = DEFAULT_LIMIT, force_refresh: bool = False) -> D
     result_players: Dict[str, Any] = dict(existing_players)
     stats = {
         "requested": len(players),
+        "limit": limit,
+        "offset": offset,
         "updated": 0,
         "skipped": 0,
         "failed": 0,
@@ -549,6 +556,8 @@ def build_profiles(limit: int = DEFAULT_LIMIT, force_refresh: bool = False) -> D
         "source": "tennis_abstract_player_profiles_modern_classic",
         "ranking_source": str(RANKINGS_PATH),
         "profile_count": len(result_players),
+        "limit": limit,
+        "offset": offset,
         "stats": stats,
         "players": result_players,
     }
@@ -1038,9 +1047,10 @@ def ta_depth_from_stats(stats: Dict[str, Any]) -> Optional[float]:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build Tennis Abstract player profile cache")
     parser.add_argument("--limit", type=int, default=DEFAULT_LIMIT)
+    parser.add_argument("--offset", type=int, default=DEFAULT_OFFSET)
     parser.add_argument("--force-refresh", action="store_true")
     args = parser.parse_args()
-    build_profiles(limit=args.limit, force_refresh=args.force_refresh)
+    build_profiles(limit=args.limit, offset=args.offset, force_refresh=args.force_refresh)
 
 
 if __name__ == "__main__":
