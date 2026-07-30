@@ -1416,7 +1416,7 @@ def move_signal_display(value: Any) -> str:
 
 
 def marq_range_display(row: Dict[str, Any]) -> str:
-    explicit = _first_data_value(row, "marq_move_range", "move_range", "range")
+    explicit = _first_data_value(row, "marq_internal_range", "marq_move_range", "move_range", "range")
     if explicit not in (None, ""):
         return str(explicit)
     earliest = _first_data_value(row, "marq_initial_pick_odds", "move_earliest_odds", "initial_pick_odds")
@@ -1515,11 +1515,11 @@ def marq_sharp_display(row: Dict[str, Any]) -> str:
 
 
 def marq_clv_display(row: Dict[str, Any]) -> str:
-    pct_value = _first_data_value(row, "marq_clv_pct", "clv_pct", "marq_closing_edge_pct", "closing_edge_pct")
+    pct_value = _first_data_value(row, "marq_internal_clv_pp", "marq_clv_pct", "clv_pct", "marq_closing_edge_pct", "closing_edge_pct")
     pct_text = signed_market_pct(pct_value, 1)
     if pct_text != "—":
         return pct_text
-    status = str(_first_data_value(row, "marq_clv_status", "clv_status") or "").strip()
+    status = str(_first_data_value(row, "marq_internal_clv_status", "marq_clv_status", "clv_status") or "").strip()
     bad = {"", "UNKNOWN", "PENDING", "NO DATA", "NONE", "NULL", "N/A", "—", "-"}
     status_upper = status.upper().replace("_", " ")
     if status_upper in bad:
@@ -1530,7 +1530,7 @@ def marq_clv_display(row: Dict[str, Any]) -> str:
 def render_marq_box(row: Dict[str, Any]) -> str:
     movement_available = _first_data_value(row, "marq_movement_available", "movement_available")
     move_range = marq_range_display(row)
-    move_signal = move_signal_display(_first_data_value(row, "marq_display_move_signal", "marq_move_signal", "market_move"))
+    move_signal = move_signal_display(_first_data_value(row, "marq_internal_move_signal", "marq_display_move_signal", "marq_move_signal", "market_move"))
 
     rows = [
         '<section class="metric-box small-box marq-box">',
@@ -1547,7 +1547,7 @@ def render_marq_box(row: Dict[str, Any]) -> str:
         rows.append(metric_row("Sharp", esc(sharp_value)))
     clv_value = marq_clv_display(row)
     if clv_value != "—":
-        rows.append(metric_row("CLV", esc(clv_value)))
+        rows.append(metric_row("Internal CLV", esc(clv_value)))
     rows.append(metric_row("MarQ Final", esc(final_marq_display(row))))
     rows.append('</section>')
     return "\n".join(rows)
