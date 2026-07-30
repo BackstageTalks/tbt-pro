@@ -1515,10 +1515,10 @@ def marq_sharp_display(row: Dict[str, Any]) -> str:
 
 
 def marq_clv_display(row: Dict[str, Any]) -> str:
-    pct_value = _first_data_value(row, "marq_internal_clv_pp", "marq_clv_pct", "clv_pct", "marq_closing_edge_pct", "closing_edge_pct")
-    pct_text = signed_market_pct(pct_value, 1)
-    if pct_text != "—":
-        return pct_text
+    pp_value = _first_data_value(row, "marq_internal_clv_pp", "marq_clv_pct", "clv_pct", "marq_closing_edge_pct", "closing_edge_pct")
+    pp_num = as_float(pp_value)
+    if pp_num is not None:
+        return f"{pp_num:+.1f}pp"
     status = str(_first_data_value(row, "marq_internal_clv_status", "marq_clv_status", "clv_status") or "").strip()
     bad = {"", "UNKNOWN", "PENDING", "NO DATA", "NONE", "NULL", "N/A", "—", "-"}
     status_upper = status.upper().replace("_", " ")
