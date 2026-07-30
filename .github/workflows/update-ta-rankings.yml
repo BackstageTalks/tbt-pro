@@ -1,16 +1,123 @@
-name: Update TA Rankings
+name: Update TA Light Data
 
 on:
   workflow_dispatch:
+  schedule:
+    # Fast daily Tennis Abstract update before the daily prediction build.
+    # 02:35 UTC = 04:35 Europe/Bratislava during summer time.
+    - cron: "35 2 * * *"
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: update-ta-light-data
+  cancel-in-progress: false
 
 jobs:
-  update-ta-rankings:
+  update-ta-light-data:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
+
     steps:
-      - name: Merged into Update TA Data
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
         run: |
-          echo "TA rankings update is now part of .github/workflows/update-ta-data.yml."
-          echo "Run 'Update TA Data' to update rankings, TA profiles and TA ELO in one batch."
+          python -m pip install --upgrade pip
+          python -m pip install pandas lxml html5lib beautifulsoup4
+
+      - name: Update TA rankings cache
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: |
+          python -m thinq.loaders.ranking_loader --output thinq/data/rankings/ta_rankings.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path("thinq/data/rankings/ta_rankings.json")
+          if not path.exists():
+              raise SystemExit("TA rankings cache was not created")
+
+          payload = json.loads(path.read_text(encoding="utf-8"))
+          print("TA rankings players:", payload.get("player_count"))
+          print("TA rankings source updates:", payload.get("source_last_updates"))
+          PY
+
+      - name: Build Tennis Abstract ELO cache
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+          TA_ELO_REQUEST_TIMEOUT_SECONDS: "25"
+          TA_ELO_REQUEST_DELAY_SECONDS: "0.35"
+        run: |
+          python -m thinq.loaders.elo_loader --update --output thinq/data/elo/ta_elo_ratings.json
+
+      - name: Show TA ELO cache summary
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path("thinq/data/elo/ta_elo_ratings.json")
+          if not path.exists():
+              raise SystemExit("TA ELO cache was not created")
+
+          payload = json.loads(path.read_text(encoding="utf-8"))
+          players = payload.get("players") if isinstance(payload, dict) else {}
+          if not isinstance(players, dict):
+              players = {}
+
+          print(f"TA ELO players={len(players)} generated_at={payload.get('generated_at')}")
+          PY
+
+      - name: Commit TA light caches
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add \
+            thinq/data/rankings/ta_rankings.json \
+            thinq/data/elo/ta_elo_ratings.json
+
+          if git diff --cached --quiet; then
+            echo "No TA light data changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Update Tennis Abstract rankings and ELO caches"
+          if git push; then
+            echo "TA light data pushed."
+            exit 0
+          fi
+
+          echo "Push rejected, preserving TA light caches and retrying on latest main..."
+          tmp_dir="$(mktemp -d)"
+          mkdir -p "$tmp_dir/rankings" "$tmp_dir/elo"
+          cp -a thinq/data/rankings/ta_rankings.json "$tmp_dir/rankings/ta_rankings.json" 2>/dev/null || true
+          cp -a thinq/data/elo/ta_elo_ratings.json "$tmp_dir/elo/ta_elo_ratings.json" 2>/dev/null || true
+
+          git fetch origin main
+          git reset --hard origin/main
+
+          mkdir -p thinq/data/rankings thinq/data/elo
+          [ -f "$tmp_dir/rankings/ta_rankings.json" ] && cp -a "$tmp_dir/rankings/ta_rankings.json" thinq/data/rankings/ta_rankings.json
+          [ -f "$tmp_dir/elo/ta_elo_ratings.json" ] && cp -a "$tmp_dir/elo/ta_elo_ratings.json" thinq/data/elo/ta_elo_ratings.json
+
+          git add \
+            thinq/data/rankings/ta_rankings.json \
+            thinq/data/elo/ta_elo_ratings.json
+
+          if git diff --cached --quiet; then
+            echo "No TA light data changes after reset."
+            exit 0
+          fi
+
+          git commit -m "Update Tennis Abstract rankings and ELO caches"
+          git push

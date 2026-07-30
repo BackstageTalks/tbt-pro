@@ -1,33 +1,37 @@
-name: Update TA Data
+name: Update TA Profiles
 
 on:
   workflow_dispatch:
     inputs:
       limit:
-        description: "TA profile limit"
+        description: "TA profile limit for this batch"
         required: false
-        default: "650"
+        default: "1000"
+      offset:
+        description: "TA profile offset for batch splitting"
+        required: false
+        default: "0"
       force_refresh:
         description: "Force refresh existing OK TA profiles"
         required: false
         default: "true"
   schedule:
-    # One combined Tennis Abstract data run.
-    # Order: rankings -> TA profiles -> TA ELO.
-    # Daily 04:10 UTC. This is after night ranking availability and before daily predictions.
-    - cron: "10 4 * * *"
+    # Heavy Tennis Abstract profile refresh.
+    # 23:00 UTC Mon/Thu = 01:00 Europe/Bratislava Tue/Fri during summer time.
+    # In winter this is 00:00 Europe/Bratislava Tue/Fri.
+    - cron: "0 23 * * 1,4"
 
 permissions:
   contents: write
 
 concurrency:
-  group: update-ta-data-combined
+  group: update-ta-profiles
   cancel-in-progress: false
 
 jobs:
-  update-ta-data:
+  update-ta-profiles:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 300
 
     steps:
       - name: Checkout repository
@@ -43,39 +47,23 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install pandas lxml html5lib beautifulsoup4
 
-      - name: Update TA rankings cache
-        env:
-          PYTHONPATH: ${{ github.workspace }}
-        run: |
-          python -m thinq.loaders.ranking_loader --output thinq/data/rankings/ta_rankings.json
-          python - <<'PY'
-          import json
-          from pathlib import Path
-
-          path = Path("thinq/data/rankings/ta_rankings.json")
-          if not path.exists():
-              raise SystemExit("TA rankings cache was not created")
-
-          payload = json.loads(path.read_text(encoding="utf-8"))
-          print("TA rankings players:", payload.get("player_count"))
-          print("TA rankings source updates:", payload.get("source_last_updates"))
-          PY
-
       - name: Build Tennis Abstract profile cache
         env:
           PYTHONPATH: ${{ github.workspace }}
-          TA_PROFILE_LIMIT: ${{ github.event.inputs.limit || '650' }}
+          TA_PROFILE_LIMIT: ${{ github.event.inputs.limit || '1000' }}
+          TA_PROFILE_OFFSET: ${{ github.event.inputs.offset || '0' }}
           TA_FORCE_REFRESH: ${{ github.event.inputs.force_refresh || 'true' }}
           TA_REQUEST_DELAY_SECONDS: "0.35"
           TA_REQUEST_TIMEOUT_SECONDS: "25"
         run: |
           echo "TA_PROFILE_LIMIT=${TA_PROFILE_LIMIT}"
+          echo "TA_PROFILE_OFFSET=${TA_PROFILE_OFFSET}"
           echo "TA_FORCE_REFRESH=${TA_FORCE_REFRESH}"
 
           if [ "${TA_FORCE_REFRESH}" = "true" ]; then
-            python thinq/loaders/ta_profile_loader.py --limit "${TA_PROFILE_LIMIT}" --force-refresh
+            python thinq/loaders/ta_profile_loader.py --limit "${TA_PROFILE_LIMIT}" --offset "${TA_PROFILE_OFFSET}" --force-refresh
           else
-            python thinq/loaders/ta_profile_loader.py --limit "${TA_PROFILE_LIMIT}"
+            python thinq/loaders/ta_profile_loader.py --limit "${TA_PROFILE_LIMIT}" --offset "${TA_PROFILE_OFFSET}"
           fi
 
       - name: Show TA profile cache summary
@@ -93,82 +81,112 @@ jobs:
           if not isinstance(players, dict):
               players = {}
 
-          ok = sum(1 for rec in players.values() if isinstance(rec, dict) and rec.get("status") == "OK")
-          print(f"TA profiles total={len(players)} ok={ok}")
-          print(f"TA profiles generated_at={payload.get('generated_at') if isinstance(payload, dict) else None}")
+          def has_value(value):
+              return value not in (None, "", "N/A", "n/a", "-", "—")
+
+          def find_key(obj, wanted):
+              if isinstance(obj, dict):
+                  for key, value in obj.items():
+                      if str(key).lower() == wanted.lower() and has_value(value):
+                          return value
+                      found = find_key(value, wanted)
+                      if has_value(found):
+                          return found
+              elif isinstance(obj, list):
+                  for value in obj:
+                      found = find_key(value, wanted)
+                      if has_value(found):
+                          return found
+              return None
+
+          ok = 0
+          failed = 0
+          modern_ok = 0
+          classic_ok = 0
+          both_ok = 0
+          ace_count = 0
+          df_count = 0
+          tb_count = 0
+          both_ace_df = 0
+
+          for rec in players.values():
+              if not isinstance(rec, dict):
+                  continue
+              if rec.get("status") == "OK":
+                  ok += 1
+              if rec.get("status") == "FETCH_FAILED":
+                  failed += 1
+              sources = rec.get("sources") if isinstance(rec.get("sources"), dict) else {}
+              if sources.get("modern") == "OK":
+                  modern_ok += 1
+              if sources.get("classic") == "OK":
+                  classic_ok += 1
+              if sources.get("modern") == "OK" and sources.get("classic") == "OK":
+                  both_ok += 1
+
+              has_ace = find_key(rec, "ace_pct") is not None
+              has_df = find_key(rec, "df_pct") is not None
+              has_tb = find_key(rec, "tb_pct") is not None
+              ace_count += int(has_ace)
+              df_count += int(has_df)
+              tb_count += int(has_tb)
+              both_ace_df += int(has_ace and has_df)
+
+          print("TA PROFILE CACHE SUMMARY")
+          print("========================")
+          print(f"generated_at: {payload.get('generated_at')}")
+          print(f"source: {payload.get('source')}")
+          print(f"profile_count field: {payload.get('profile_count')}")
+          print(f"limit: {payload.get('limit')}")
+          print(f"offset: {payload.get('offset')}")
+          print(f"players stored: {len(players)}")
+          print(f"status OK: {ok}")
+          print(f"status FETCH_FAILED: {failed}")
+          print(f"modern OK: {modern_ok}")
+          print(f"classic OK: {classic_ok}")
+          print(f"modern+classic OK: {both_ok}")
+          print(f"with ace_pct: {ace_count}")
+          print(f"with df_pct: {df_count}")
+          print(f"with tb_pct: {tb_count}")
+          print(f"with both ace_pct+df_pct: {both_ace_df}")
+          print("stats:", json.dumps(payload.get("stats", {}), ensure_ascii=False, indent=2))
           PY
 
-      - name: Build Tennis Abstract ELO cache
-        env:
-          PYTHONPATH: ${{ github.workspace }}
-          TA_ELO_REQUEST_TIMEOUT_SECONDS: "25"
-          TA_ELO_REQUEST_DELAY_SECONDS: "0.35"
-        run: |
-          python -m thinq.loaders.elo_loader --update --output thinq/data/elo/ta_elo_ratings.json
-
-      - name: Show TA ELO cache summary
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-
-          path = Path("thinq/data/elo/ta_elo_ratings.json")
-          if not path.exists():
-              raise SystemExit("TA ELO cache was not created")
-
-          payload = json.loads(path.read_text(encoding="utf-8"))
-          players = payload.get("players") if isinstance(payload, dict) else {}
-          if not isinstance(players, dict):
-              players = {}
-
-          print(f"TA ELO players={len(players)} generated_at={payload.get('generated_at')}")
-          PY
-
-      - name: Commit combined TA caches
+      - name: Commit TA profile cache
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add \
-            thinq/data/rankings/ta_rankings.json \
-            thinq/data/ta_profiles/ta_player_profiles.json \
-            thinq/data/elo/ta_elo_ratings.json
+          git add thinq/data/ta_profiles/ta_player_profiles.json
 
           if git diff --cached --quiet; then
-            echo "No combined TA data changes to commit."
+            echo "No TA profile cache changes to commit."
             exit 0
           fi
 
-          git commit -m "Update combined Tennis Abstract data caches"
+          git commit -m "Update Tennis Abstract profile cache"
           if git push; then
-            echo "Combined TA data pushed."
+            echo "TA profile cache pushed."
             exit 0
           fi
 
-          echo "Push rejected, preserving combined TA caches and retrying on latest main..."
+          echo "Push rejected, preserving TA profile cache and retrying on latest main..."
           tmp_dir="$(mktemp -d)"
-          mkdir -p "$tmp_dir/rankings" "$tmp_dir/ta_profiles" "$tmp_dir/elo"
-          cp -a thinq/data/rankings/ta_rankings.json "$tmp_dir/rankings/ta_rankings.json" 2>/dev/null || true
+          mkdir -p "$tmp_dir/ta_profiles"
           cp -a thinq/data/ta_profiles/ta_player_profiles.json "$tmp_dir/ta_profiles/ta_player_profiles.json" 2>/dev/null || true
-          cp -a thinq/data/elo/ta_elo_ratings.json "$tmp_dir/elo/ta_elo_ratings.json" 2>/dev/null || true
 
           git fetch origin main
           git reset --hard origin/main
 
-          mkdir -p thinq/data/rankings thinq/data/ta_profiles thinq/data/elo
-          [ -f "$tmp_dir/rankings/ta_rankings.json" ] && cp -a "$tmp_dir/rankings/ta_rankings.json" thinq/data/rankings/ta_rankings.json
+          mkdir -p thinq/data/ta_profiles
           [ -f "$tmp_dir/ta_profiles/ta_player_profiles.json" ] && cp -a "$tmp_dir/ta_profiles/ta_player_profiles.json" thinq/data/ta_profiles/ta_player_profiles.json
-          [ -f "$tmp_dir/elo/ta_elo_ratings.json" ] && cp -a "$tmp_dir/elo/ta_elo_ratings.json" thinq/data/elo/ta_elo_ratings.json
 
-          git add \
-            thinq/data/rankings/ta_rankings.json \
-            thinq/data/ta_profiles/ta_player_profiles.json \
-            thinq/data/elo/ta_elo_ratings.json
+          git add thinq/data/ta_profiles/ta_player_profiles.json
 
           if git diff --cached --quiet; then
-            echo "No combined TA data changes after reset."
+            echo "No TA profile cache changes after reset."
             exit 0
           fi
 
-          git commit -m "Update combined Tennis Abstract data caches"
+          git commit -m "Update Tennis Abstract profile cache"
           git push
