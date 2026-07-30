@@ -752,17 +752,71 @@ def _find_over_under_details(market: Dict[str, Any]) -> Dict[str, Any]:
 def _normalize_tennisapi_markets_payload(payload: Dict[str, Any]) -> List[Dict[str, Any]]:
     if not isinstance(payload, dict):
         return []
-    if isinstance(payload.get("markets"), list):
-        return payload["markets"]
-    if isinstance(payload.get("odds"), list):
-        return payload["odds"]
-    data = payload.get("data")
-    if isinstance(data, dict) and isinstance(data.get("markets"), list):
-        return data["markets"]
-    featured = payload.get("featured")
-    if isinstance(featured, dict):
-        return [value for value in featured.values() if isinstance(value, dict)]
-    return []
+
+    def looks_like_market(value: Any) -> bool:
+        if not isinstance(value, dict):
+            return False
+        if value.get("choices") or value.get("outcomes"):
+            return True
+        return any(k in value for k in ("marketName", "marketId", "marketGroup", "marketPeriod"))
+
+    direct_keys = (
+        "markets",
+        "odds",
+        "featuredOdds",
+        "featured_odds",
+        "matchOdds",
+        "bettingOdds",
+        "winningOdds",
+        "items",
+        "results",
+    )
+    found: List[Dict[str, Any]] = []
+
+    def visit(value: Any, depth: int = 0) -> None:
+        if depth > 5 or value is None:
+            return
+        if isinstance(value, list):
+            market_like = [item for item in value if looks_like_market(item)]
+            if market_like:
+                found.extend(market_like)
+                return
+            for item in value:
+                visit(item, depth + 1)
+            return
+        if not isinstance(value, dict):
+            return
+        if looks_like_market(value):
+            found.append(value)
+            return
+        for key in direct_keys:
+            child = value.get(key)
+            if child is not None:
+                visit(child, depth + 1)
+        featured = value.get("featured")
+        if isinstance(featured, dict):
+            for child in featured.values():
+                visit(child, depth + 1)
+        data = value.get("data")
+        if data is not None:
+            visit(data, depth + 1)
+
+    visit(payload)
+    unique: List[Dict[str, Any]] = []
+    seen = set()
+    for market in found:
+        sig = (
+            str(market.get("marketId") or ""),
+            str(market.get("marketName") or market.get("name") or ""),
+            str(market.get("marketGroup") or market.get("group") or ""),
+            str(market.get("marketPeriod") or ""),
+            str(market.get("sourceId") or ""),
+        )
+        if sig in seen:
+            continue
+        seen.add(sig)
+        unique.append(market)
+    return unique
 
 
 def parse_tennisapi_set_markets(payload: Dict[str, Any], event_id: Optional[int] = None) -> Dict[str, Any]:
@@ -780,6 +834,7 @@ def parse_tennisapi_set_markets(payload: Dict[str, Any], event_id: Optional[int]
         "match_winner": None,
         "first_set_winner": None,
         "total_games": None,
+        "total_sets": None,
         "tie_break": None,
         "raw_market_count": len(markets),
     }
@@ -809,6 +864,13 @@ def parse_tennisapi_set_markets(payload: Dict[str, Any], event_id: Optional[int]
             over_prob, under_prob = normalize_pair_probability(over_odds, under_odds)
             if line is not None and over_odds and under_odds:
                 output["total_games"] = {**details, "line": line, "over_probability": over_prob, "under_probability": under_prob, "market_id": market_id, "market_name": market_name, "market_group": market_group, "market_period": market_period}
+        elif "total sets" in market_name or "sets total" in market_name:
+            line = as_float(market.get("choiceGroup") or market.get("line") or market.get("handicap"))
+            details = _find_over_under_details(market)
+            over_odds, under_odds = details.get("over_odds"), details.get("under_odds")
+            over_prob, under_prob = normalize_pair_probability(over_odds, under_odds)
+            if line is not None and over_odds and under_odds:
+                output["total_sets"] = {**details, "line": line, "over_probability": over_prob, "under_probability": under_prob, "market_id": market_id, "market_name": market_name, "market_group": market_group, "market_period": market_period}
         elif market_id == 13 or "tie break" in market_name or "tiebreak" in market_name:
             details = _market_choices_pair_details(market)
             yes_odds, no_odds = details.get("p1_odds"), details.get("p2_odds")
@@ -819,17 +881,30 @@ def parse_tennisapi_set_markets(payload: Dict[str, Any], event_id: Optional[int]
 
 
 def get_tennisapi_set_markets(event_id: Optional[int], force_refresh: bool = False) -> Dict[str, Any]:
-    """Optional TennisApi set/games market fetcher.
+    """Fetch and parse TennisAPI PRO markets for Sets/Games.
 
-    This function only runs if a project TennisApi client exists.  It is safe to
-    keep in marq/market_lines.py because it returns {} when the client is not
-    available or when event_id is missing.
+    Primary source is marq.provider.fetch_provider_odds(), which now probes
+    getAllOddsForEvent plus PRO fallback endpoints. Legacy TennisApiClient
+    remains as a fallback for older repo branches.
     """
     if not event_id:
         return {}
     event_id_int = int(event_id)
     if not force_refresh and event_id_int in _SET_MARKET_CACHE:
         return _SET_MARKET_CACHE[event_id_int]
+
+    payload: Dict[str, Any] = {}
+    try:
+        from marq import provider as provider_mod  # type: ignore
+        for provider_id in getattr(provider_mod, "DEFAULT_PROVIDER_IDS", [1]):
+            fetched = provider_mod.fetch_provider_odds(str(event_id_int), int(provider_id), force_refresh=force_refresh)
+            parsed = parse_tennisapi_set_markets(fetched or {}, event_id=event_id_int)
+            if parsed.get("raw_market_count"):
+                _SET_MARKET_CACHE[event_id_int] = parsed
+                return parsed
+    except Exception:
+        pass
+
     try:
         try:
             from thinq.loaders.rapidapi_client import TennisApiClient  # type: ignore
@@ -1204,6 +1279,7 @@ def build_market_aware_sets(match: Dict[str, Any], model_prediction: Dict[str, A
     mw = set_markets.get("match_winner") if isinstance(set_markets, dict) else None
     fsw = set_markets.get("first_set_winner") if isinstance(set_markets, dict) else None
     tg = set_markets.get("total_games") if isinstance(set_markets, dict) else None
+    ts = set_markets.get("total_sets") if isinstance(set_markets, dict) else None
     tb = set_markets.get("tie_break") if isinstance(set_markets, dict) else None
 
     if isinstance(mw, dict) and mw.get("p1_probability") is not None:
@@ -1235,6 +1311,19 @@ def build_market_aware_sets(match: Dict[str, Any], model_prediction: Dict[str, A
 
     expected_sets = _expected_sets_from_dist(dist)
     max_sets_prob = _probability_of_max_sets(dist, best_of)
+    sets_source = "Model"
+    if isinstance(ts, dict) and ts.get("line") is not None:
+        ts_line = as_float(ts.get("line"))
+        ts_over_prob = ts.get("over_probability")
+        ts_under_prob = ts.get("under_probability")
+        if ts_line is not None and ts_over_prob is not None and ts_under_prob is not None:
+            if float(ts_over_prob) >= float(ts_under_prob):
+                max_label = f"O{ts_line:g}"
+                max_sets_prob = float(ts_over_prob)
+            else:
+                max_label = f"U{ts_line:g}"
+                max_sets_prob = float(ts_under_prob)
+            sets_source = "TennisApiMarkets"
     score = _most_likely_score(dist)
     if isinstance(tg, dict):
         games_line = tg.get("line")
@@ -1278,6 +1367,7 @@ def build_market_aware_sets(match: Dict[str, Any], model_prediction: Dict[str, A
         "most_likely_score_probability": dist.get(score),
         "score_probabilities": dist,
         "score_basis": "player1_vs_player2",
+        "sets_source": sets_source,
         "first_set_player1_odds": fsw.get("p1_odds") if isinstance(fsw, dict) else None,
         "first_set_player2_odds": fsw.get("p2_odds") if isinstance(fsw, dict) else None,
         "first_set_player1_probability": fsw.get("p1_probability") if isinstance(fsw, dict) else None,

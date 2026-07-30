@@ -225,23 +225,86 @@ def _fractional_to_decimal(value: Any) -> Optional[float]:
 
 
 def _extract_markets(payload: Any) -> List[Dict[str, Any]]:
-    if isinstance(payload, dict):
-        markets = payload.get("markets")
-        if isinstance(markets, list):
-            return [m for m in markets if isinstance(m, dict)]
-        odds = payload.get("odds")
-        if isinstance(odds, list):
-            return [m for m in odds if isinstance(m, dict)]
-        data = payload.get("data")
-        if isinstance(data, dict):
-            markets = data.get("markets")
-            if isinstance(markets, list):
-                return [m for m in markets if isinstance(m, dict)]
-        if isinstance(data, list):
-            return [m for m in data if isinstance(m, dict)]
-    if isinstance(payload, list):
-        return [m for m in payload if isinstance(m, dict)]
-    return []
+    """Extract market arrays from TennisAPI PRO payloads.
+
+    Newer API PRO endpoints can return markets under several shapes:
+    - {"markets": [...]}
+    - {"odds": [...]}
+    - {"data": {"markets": [...]}}
+    - {"data": [...]}
+    - nested featured/market objects.
+    Keep this parser tolerant so getAllOddsForEvent, getMatchBettingOdds,
+    getMatchWinningOdds and getMatchFeaturedOdds all feed the same downstream
+    MarQ/Sets logic.
+    """
+    direct_keys = (
+        "markets",
+        "odds",
+        "featuredOdds",
+        "featured_odds",
+        "matchOdds",
+        "bettingOdds",
+        "winningOdds",
+        "items",
+        "results",
+    )
+
+    def looks_like_market(value: Any) -> bool:
+        if not isinstance(value, dict):
+            return False
+        if value.get("choices") or value.get("outcomes"):
+            return True
+        return any(k in value for k in ("marketName", "marketId", "marketGroup", "marketPeriod"))
+
+    found: List[Dict[str, Any]] = []
+
+    def visit(value: Any, depth: int = 0) -> None:
+        if depth > 5 or value is None:
+            return
+        if isinstance(value, list):
+            market_like = [item for item in value if looks_like_market(item)]
+            if market_like:
+                found.extend(market_like)
+                return
+            for item in value:
+                visit(item, depth + 1)
+            return
+        if not isinstance(value, dict):
+            return
+        if looks_like_market(value):
+            found.append(value)
+            return
+        for key in direct_keys:
+            child = value.get(key)
+            if child is not None:
+                visit(child, depth + 1)
+        # Some payloads place a dict of named market objects under "featured".
+        featured = value.get("featured")
+        if isinstance(featured, dict):
+            for child in featured.values():
+                visit(child, depth + 1)
+        data = value.get("data")
+        if data is not None:
+            visit(data, depth + 1)
+
+    visit(payload)
+
+    # De-duplicate by id/name/group/period/source while preserving order.
+    unique: List[Dict[str, Any]] = []
+    seen = set()
+    for market in found:
+        sig = (
+            str(market.get("marketId") or ""),
+            str(market.get("marketName") or market.get("name") or ""),
+            str(market.get("marketGroup") or market.get("group") or ""),
+            str(market.get("marketPeriod") or ""),
+            str(market.get("sourceId") or ""),
+        )
+        if sig in seen:
+            continue
+        seen.add(sig)
+        unique.append(market)
+    return unique
 
 
 def _select_full_time_market(markets: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
@@ -457,8 +520,13 @@ def fetch_provider_odds(event_id: str, provider_id: int, force_refresh: bool = F
     # Main PRO market endpoint. It gives Full time, First set winner, Total games,
     # Tie break in match, plus initialFractionalValue/fractionalValue/change.
     candidates = [
+        # Rich PRO endpoints. getAllOddsForEvent is the primary source for
+        # Match Winner, Total Games, Total Sets, First Set Winner and TB markets.
         f"/api/tennis/event/{event_id}/odds/{provider_id}/all",
-        # Fallbacks. Winning odds is useful only for Crowd, not for Move.
+        f"/api/tennis/event/{event_id}/provider/{provider_id}/all-odds",
+        f"/api/tennis/event/{event_id}/provider/{provider_id}/betting-odds",
+        f"/api/tennis/event/{event_id}/provider/{provider_id}/featured-odds",
+        # Generic and legacy fallbacks. Winning odds is useful for Crowd/Edge.
         f"/api/tennis/event/{event_id}/odds",
         f"/api/tennis/event/{event_id}/provider/{provider_id}/winning-odds",
         f"/api/tennis/event/{event_id}/provider/{provider_id}/odds",
@@ -480,10 +548,9 @@ def fetch_provider_odds(event_id: str, provider_id: int, force_refresh: bool = F
                 f"provider odds candidate ok event_id={event_id} "
                 f"provider_id={provider_id} path={path} markets={len(markets)}"
             )
-            # First candidate is the richest endpoint in current tests, use it immediately.
-            if idx == 0:
-                _RUN_PROVIDER_ODDS_CACHE[key] = payload
-                return payload
+            # The first candidate is usually richest, but newer PRO fallbacks can
+            # expose different market groups. Keep scanning candidates and choose
+            # the payload with the most parseable markets.
 
     if best_payload is not None:
         _RUN_PROVIDER_ODDS_CACHE[key] = best_payload

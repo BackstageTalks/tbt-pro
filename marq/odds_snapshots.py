@@ -265,22 +265,6 @@ def collect_horizon_snapshots(days_ahead: int = 6, force_refresh: bool = False, 
                 rate_limited = True
                 break
 
-            # Odds first. If there is no match-winner price in the daily payload,
-            # do not spend a detail request on this event.
-            odds1, odds2 = _extract_full_time_odds_from_bulk(bulk_odds)
-            if odds1 is None or odds2 is None:
-                quote = provider_mod._quote_from_payload(  # noqa: SLF001
-                    bulk_odds,
-                    event_id=str(event_id),
-                    provider_id=None,
-                    provider_name="bulk",
-                )
-                if isinstance(quote, dict):
-                    odds1, odds2 = _as_float(quote.get("odds_1")), _as_float(quote.get("odds_2"))
-            if odds1 is None or odds2 is None:
-                skipped_count += 1
-                continue
-
             event = _event_from_bulk_payload(bulk_odds)
             if event:
                 player1, player2 = _event_home_away_from_any(event)
@@ -299,6 +283,41 @@ def collect_horizon_snapshots(days_ahead: int = 6, force_refresh: bool = False, 
                 skipped_count += 1
                 continue
             if _is_doubles_or_team_match(player1, player2, event):
+                skipped_count += 1
+                continue
+
+            odds1, odds2 = _extract_full_time_odds_from_bulk(bulk_odds)
+            provider_payload = None
+            provider_quote = None
+            if odds1 is None or odds2 is None:
+                quote = provider_mod._quote_from_payload(  # noqa: SLF001
+                    bulk_odds,
+                    event_id=str(event_id),
+                    provider_id=None,
+                    provider_name="bulk",
+                )
+                if isinstance(quote, dict):
+                    odds1, odds2 = _as_float(quote.get("odds_1")), _as_float(quote.get("odds_2"))
+
+            # New API PRO odds endpoints are most reliable at event level. If the
+            # daily odds payload does not expose Full Time odds, spend one
+            # provider request for eligible singles events so tomorrow's CLV/Move
+            # comparison has a baseline.
+            if odds1 is None or odds2 is None:
+                for provider_id in getattr(provider_mod, "DEFAULT_PROVIDER_IDS", [1]):
+                    provider_payload = provider_mod.fetch_provider_odds(str(event_id), int(provider_id), force_refresh=force_refresh)
+                    provider_quote = provider_mod._quote_from_payload(  # noqa: SLF001
+                        provider_payload,
+                        event_id=str(event_id),
+                        provider_id=int(provider_id),
+                        provider_name=f"provider_{provider_id}",
+                    )
+                    if isinstance(provider_quote, dict):
+                        odds1, odds2 = _as_float(provider_quote.get("odds_1")), _as_float(provider_quote.get("odds_2"))
+                        if odds1 is not None and odds2 is not None:
+                            break
+
+            if odds1 is None or odds2 is None:
                 skipped_count += 1
                 continue
 
@@ -322,6 +341,10 @@ def collect_horizon_snapshots(days_ahead: int = 6, force_refresh: bool = False, 
                 "market": "match_winner",
                 "odds_player1": round(float(odds1), 5),
                 "odds_player2": round(float(odds2), 5),
+                "provider_id": provider_quote.get("provider_id") if isinstance(provider_quote, dict) else None,
+                "provider_name": provider_quote.get("provider_name") if isinstance(provider_quote, dict) else "bulk",
+                "initial_odds_player1": provider_quote.get("initial_1") if isinstance(provider_quote, dict) else None,
+                "initial_odds_player2": provider_quote.get("initial_2") if isinstance(provider_quote, dict) else None,
             }
             _save_event_snapshot(record)
             daily_records.append(record)
