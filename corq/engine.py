@@ -284,6 +284,136 @@ def _enrich_with_thinq(record: Dict[str, Any], thinq_service: Any) -> Dict[str, 
 
 
 
+
+def _date_only_for_marq(record: Dict[str, Any]) -> str:
+    for key in ("match_date", "date", "start_time_utc", "match_time_utc", "commence_time", "start_time", "match_time"):
+        value = record.get(key)
+        if value in (None, ""):
+            continue
+        text = str(value).strip()
+        if len(text) >= 10:
+            return text[:10]
+    return date.today().isoformat()
+
+
+def _decimal_odds(value: Any) -> Optional[float]:
+    try:
+        if value in (None, "", "—", "-"):
+            return None
+        number = float(str(value).replace(",", "."))
+        if 1.01 <= number <= 100.0:
+            return number
+    except Exception:
+        return None
+    return None
+
+
+def _no_vig_pair_from_odds(pick_odds: Any, opponent_odds: Any) -> tuple[Optional[float], Optional[float]]:
+    pick = _decimal_odds(pick_odds)
+    opp = _decimal_odds(opponent_odds)
+    if pick is None or opp is None:
+        return None, None
+    p_raw = 1.0 / pick
+    o_raw = 1.0 / opp
+    total = p_raw + o_raw
+    if total <= 0:
+        return None, None
+    return round((p_raw / total) * 100.0, 1), round((o_raw / total) * 100.0, 1)
+
+
+def _fallback_marq_from_row(record: Dict[str, Any]) -> Dict[str, Any]:
+    """Build a minimal MARQ view from already available match odds.
+
+    This prevents empty MarQ boxes when bookmaker event lookup fails. It does
+    not create movement or CLV because historical/current quote snapshots are
+    required for those fields.
+    """
+    pick_odds = _first_present(record.get("pick_odds"), record.get("odds"))
+    opponent_odds = _first_present(record.get("opponent_odds"), record.get("opp_odds"))
+    if pick_odds is None or opponent_odds is None:
+        pick_side = str(record.get("pick_side") or "").upper()
+        if pick_side == "HOME":
+            pick_odds = _first_present(record.get("odds_player1"), record.get("p1_odds"), record.get("odds1"), record.get("home_odds"))
+            opponent_odds = _first_present(record.get("odds_player2"), record.get("p2_odds"), record.get("odds2"), record.get("away_odds"))
+        elif pick_side == "AWAY":
+            pick_odds = _first_present(record.get("odds_player2"), record.get("p2_odds"), record.get("odds2"), record.get("away_odds"))
+            opponent_odds = _first_present(record.get("odds_player1"), record.get("p1_odds"), record.get("odds1"), record.get("home_odds"))
+        else:
+            pick_odds = _first_present(record.get("odds_player1"), record.get("p1_odds"), record.get("odds1"), record.get("home_odds"), pick_odds)
+            opponent_odds = _first_present(record.get("odds_player2"), record.get("p2_odds"), record.get("odds2"), record.get("away_odds"), opponent_odds)
+    pick_pct, opp_pct = _no_vig_pair_from_odds(pick_odds, opponent_odds)
+    if pick_pct is None or opp_pct is None:
+        return {}
+    edge = round(pick_pct - 50.0, 1)
+    final = "Market With Pick" if edge >= 2.0 else "Market Against Pick" if edge <= -2.0 else "Neutral"
+    return {
+        "marq_market_view": True,
+        "marq_source": "RuntimeOddsFallback",
+        "marq_market_name": "Match winner",
+        "marq_provider_count": 1,
+        "marq_crowd_pick_pct": pick_pct,
+        "marq_crowd_opponent_pct": opp_pct,
+        "marq_edge_pct": edge,
+        "marq_move_signal": "PENDING",
+        "marq_display_move_signal": "PENDING",
+        "marq_movement_available": False,
+        "marq_initial_pick_odds": None,
+        "marq_current_pick_odds": _decimal_odds(pick_odds),
+        "marq_initial_opponent_odds": None,
+        "marq_current_opponent_odds": _decimal_odds(opponent_odds),
+        "marq_move_range": None,
+        "marq_market_move_pct": None,
+        "marq_quality_signal": "ODDS ONLY",
+        "marq_final": final,
+        "marq_final_display": final,
+        "marq_clv_status": "PENDING",
+    }
+
+
+def _enrich_with_marq(record: Dict[str, Any]) -> Dict[str, Any]:
+    """Attach MARQ market-view fields to a scored match row.
+
+    Primary source is marq.pipeline/provider. If provider data is unavailable,
+    use the current routed odds as a minimal no-vig market view so the MarQ box
+    still has Pick/Opp/Edge data instead of all blanks.
+    """
+    output = dict(record)
+    try:
+        from marq.pipeline import build_marq_from_match  # type: ignore
+        marq = build_marq_from_match(
+            player1=str(output.get("player1") or ""),
+            player2=str(output.get("player2") or ""),
+            date_only=_date_only_for_marq(output),
+            pick=str(output.get("pick") or output.get("player") or "") or None,
+            odds_player1=_decimal_odds(_first_present(output.get("odds_player1"), output.get("p1_odds"), output.get("odds1"), output.get("home_odds"))),
+            odds_player2=_decimal_odds(_first_present(output.get("odds_player2"), output.get("p2_odds"), output.get("odds2"), output.get("away_odds"))),
+        )
+        if isinstance(marq, dict):
+            output.update({k: v for k, v in marq.items() if v not in (None, "")})
+    except Exception as exc:
+        output.setdefault("marq_error", str(exc))
+
+    if output.get("marq_crowd_pick_pct") in (None, "") or output.get("marq_crowd_opponent_pct") in (None, ""):
+        fallback = _fallback_marq_from_row(output)
+        if fallback:
+            for key, value in fallback.items():
+                output.setdefault(key, value)
+
+    if output.get("marq_edge_pct") in (None, ""):
+        try:
+            pick_pct = float(output.get("marq_crowd_pick_pct"))
+            output["marq_edge_pct"] = round(pick_pct - 50.0, 1)
+        except Exception:
+            pass
+    if output.get("marq_final") in (None, ""):
+        try:
+            edge = float(output.get("marq_edge_pct"))
+            output["marq_final"] = "Market With Pick" if edge >= 2.0 else "Market Against Pick" if edge <= -2.0 else "Neutral"
+            output["marq_final_display"] = output["marq_final"]
+        except Exception:
+            output.setdefault("marq_final", "Pending")
+    return output
+
 def _enrich_with_sets_games(record: Dict[str, Any]) -> Dict[str, Any]:
     """Attach Sets/Games market-aware fields from marq.market_lines.
 
@@ -361,6 +491,7 @@ def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", ru
         prediction = _enrich_with_ta_rankings(prediction, ta_rankings)
         prediction = _enrich_with_ta_profile_context(prediction)
         prediction = _enrich_with_sets_games(prediction)
+        prediction = _enrich_with_marq(prediction)
         scored.append(prediction)
 
     all_view = make_all_match_view(scored)
