@@ -8,6 +8,10 @@ import sys
 import urllib.parse
 import urllib.request
 from datetime import datetime, timezone, timedelta
+try:
+    from zoneinfo import ZoneInfo
+except Exception:  # pragma: no cover
+    ZoneInfo = None
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
 
@@ -98,8 +102,20 @@ def short_name(name: str) -> str:
     return parts[-1]
 
 
-def local_tz() -> timezone:
-    offset = as_float(os.getenv("TG_FEED_TIME_OFFSET_HOURS"), 1.0)
+def local_tz():
+    """Telegram feed timezone.
+
+    Default to Europe/Bratislava so summer/winter time is handled correctly.
+    TG_FEED_TIME_OFFSET_HOURS remains as a fallback override for simple fixed
+    offsets.
+    """
+    tz_name = os.getenv("TG_FEED_TIMEZONE") or os.getenv("TZ") or "Europe/Bratislava"
+    if ZoneInfo is not None:
+        try:
+            return ZoneInfo(tz_name)
+        except Exception:
+            pass
+    offset = as_float(os.getenv("TG_FEED_TIME_OFFSET_HOURS"), 2.0)
     return timezone(timedelta(hours=offset or 0.0))
 
 
@@ -113,7 +129,7 @@ def row_date_text(row: Dict[str, Any]) -> Optional[str]:
     return None
 
 
-def parse_datetime_value(value: Any, tz: timezone) -> Optional[datetime]:
+def parse_datetime_value(value: Any, tz, assume_utc: bool = False) -> Optional[datetime]:
     txt = str(value or "").strip()
     if not txt:
         return None
@@ -121,7 +137,7 @@ def parse_datetime_value(value: Any, tz: timezone) -> Optional[datetime]:
     try:
         dt = datetime.fromisoformat(raw)
         if dt.tzinfo is None:
-            dt = dt.replace(tzinfo=tz)
+            dt = dt.replace(tzinfo=timezone.utc if assume_utc else tz)
         return dt.astimezone(tz)
     except Exception:
         pass
@@ -141,7 +157,7 @@ def match_start_datetime(row: Dict[str, Any], now: Optional[datetime] = None) ->
         "start_time_display",
         "match_time_display",
     ):
-        dt = parse_datetime_value(row.get(key), tz)
+        dt = parse_datetime_value(row.get(key), tz, assume_utc=key.endswith("_utc"))
         if dt is not None:
             return dt
 
@@ -172,23 +188,27 @@ def is_upcoming_match(row: Dict[str, Any], now: Optional[datetime] = None) -> bo
     return start_dt >= now - timedelta(minutes=grace)
 
 def start_time(row: Dict[str, Any]) -> str:
-    raw = (
-        row.get("start_time_display")
-        or row.get("match_time_display")
-        or row.get("start_time")
-        or row.get("start_time_utc")
-        or row.get("match_time")
-        or row.get("time")
-        or ""
-    )
+    tz = local_tz()
+    # Prefer full datetime fields and always convert UTC fields to TG local time.
+    for key in (
+        "start_time_utc",
+        "match_time_utc",
+        "start_time",
+        "match_time",
+        "start_time_display",
+        "match_time_display",
+    ):
+        dt = parse_datetime_value(row.get(key), tz, assume_utc=key.endswith("_utc"))
+        if dt is not None:
+            return dt.strftime("%H:%M")
+
+    raw = row.get("time") or ""
     txt = str(raw).strip()
     if not txt:
         return "—"
     import re
-
     m = re.search(r"(\d{1,2}:\d{2})", txt)
     return m.group(1) if m else txt[:16]
-
 
 def probability(row: Dict[str, Any]) -> Optional[float]:
     for key in (
