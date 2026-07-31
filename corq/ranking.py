@@ -784,6 +784,89 @@ def annotate_rows(rows: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return annotated
 
 
+
+def _match_identity_key(row: Dict[str, Any]) -> str:
+    return str(
+        row.get("match_key")
+        or row.get("event_id")
+        or row.get("id")
+        or "|".join(sorted([str(row.get("player1") or row.get("home") or ""), str(row.get("player2") or row.get("away") or "")]))
+    )
+
+
+def _basic_top7_safety_ok(row: Dict[str, Any], allow_status_fallback: bool = False) -> bool:
+    """Minimum safety gates for emergency TOP7 fallback.
+
+    This is intentionally much less strict than full publishable_for_top7().
+    It prevents an empty CorQ page while still blocking clearly unsafe/non-bet rows.
+    Quality concerns such as CorQ below 50 or ThinQ edge against pick are allowed
+    only as fallback rows and are marked in the output.
+    """
+    if not is_today_match(row):
+        return False
+    if is_doubles(row):
+        return False
+    if not odds_available(row):
+        return False
+    if not side_valid(row):
+        return False
+    if odds_orientation_extreme_risk(row):
+        return False
+    odds_value = pick_odds_value(row)
+    if odds_value is not None and odds_value < MIN_PICK_ODDS:
+        return False
+    if not allow_status_fallback and not is_notstarted(row):
+        return False
+    return True
+
+
+def _fallback_quality_score(row: Dict[str, Any]) -> float:
+    risk = top7_risk_assessment(row)
+    cp = corq_probability(row) * 100.0
+    depth = pick_data_depth(row) * 100.0
+    edge = max(pick_thinq_edge(row), -0.08) * 100.0
+    conf = thinq_confidence(row) * 100.0
+    odds_value = pick_odds_value(row) or 0.0
+    return round(cp + 0.20 * depth + 0.18 * edge + 0.05 * conf - float(risk.get("penalty_points") or 0.0) + min(odds_value, 3.0) * 0.25, 4)
+
+
+def sort_fallback_candidates(rows: Iterable[Dict[str, Any]], allow_status_fallback: bool = False) -> List[Dict[str, Any]]:
+    data = [r for r in rows if isinstance(r, dict) and r.get("top7_publishable") is not True and _basic_top7_safety_ok(r, allow_status_fallback=allow_status_fallback)]
+    return sorted(
+        data,
+        key=lambda r: (
+            _fallback_quality_score(r),
+            _ranking_score(r),
+            corq_probability(r),
+            pick_data_depth(r),
+            thinq_confidence(r),
+        ),
+        reverse=True,
+    )
+
+
+def _append_unique_selection(selected: List[Dict[str, Any]], candidates: Iterable[Dict[str, Any]], seen_matches: set, top_n: int, *, fallback_reason: Optional[str] = None) -> None:
+    for row in candidates:
+        key = _match_identity_key(row)
+        if key in seen_matches:
+            continue
+        seen_matches.add(key)
+        if fallback_reason:
+            row["top7_fallback_selected"] = True
+            row["top7_fallback_reason"] = fallback_reason
+            row["top7_publishable"] = False
+            row["eligible_for_top7"] = False
+            flags = row.get("corq_warning_flags")
+            if not isinstance(flags, list):
+                flags = []
+            for flag in ("TOP7_SOFT_FALLBACK", fallback_reason):
+                if flag not in flags:
+                    flags.append(flag)
+            row["corq_warning_flags"] = flags
+        selected.append(row)
+        if len(selected) >= top_n:
+            break
+
 def sort_publishable(rows: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
     data = [r for r in rows if r.get("top7_publishable") is True]
     return sorted(
@@ -805,24 +888,39 @@ def select_top7(rows: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> L
     publishable = sort_publishable(annotated)
     selected: List[Dict[str, Any]] = []
     seen_matches = set()
-    for row in publishable:
-        key = (
-            row.get("match_key")
-            or row.get("event_id")
-            or row.get("id")
-            or "|".join(sorted([str(row.get("player1") or row.get("home") or ""), str(row.get("player2") or row.get("away") or "")]))
+    _append_unique_selection(selected, publishable, seen_matches, top_n)
+
+    # Do not allow an empty CorQ page. If strict publishable logic returns
+    # fewer than top_n rows, backfill with safe same-day prematch candidates
+    # and mark them clearly as fallback rows. This is a display continuity
+    # safety net, not a quality upgrade.
+    if len(selected) < top_n:
+        fallback = sort_fallback_candidates(annotated, allow_status_fallback=False)
+        _append_unique_selection(
+            selected,
+            fallback,
+            seen_matches,
+            top_n,
+            fallback_reason="TOP7_SOFT_FALLBACK_QUALITY_RELAXED",
         )
-        if key in seen_matches:
-            continue
-        seen_matches.add(key)
-        selected.append(row)
-        if len(selected) >= top_n:
-            break
+
+    # Absolute emergency: if status normalization failed for the provider and
+    # the page would still be empty, relax only the status gate. Rows remain
+    # flagged and can be audited in the UI/JSON.
+    if len(selected) < top_n:
+        fallback_status = sort_fallback_candidates(annotated, allow_status_fallback=True)
+        _append_unique_selection(
+            selected,
+            fallback_status,
+            seen_matches,
+            top_n,
+            fallback_reason="TOP7_SOFT_FALLBACK_STATUS_RELAXED",
+        )
+
     for idx, row in enumerate(selected, start=1):
         row["top7_rank"] = idx
         row["corq_rank"] = idx
     return selected
-
 
 def rank_predictions(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
     """Return (ALL annotated rows, TOP7 publishable rows)."""
@@ -903,26 +1001,41 @@ def rank_corq(predictions: Iterable[Dict[str, Any]], *args: Any, **kwargs: Any) 
 
 
 def top7_from_ranking(ranked: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT, *args: Any, **kwargs: Any) -> List[Dict[str, Any]]:
-    """Return publishable TOP7 rows from an already ranked list."""
+    """Return TOP7 rows from an already ranked list.
+
+    Strict publishable rows are preferred. If strict gates produce fewer than
+    seven rows, the function backfills with safe same-day fallback candidates so
+    the CorQ page never renders empty after a successful daily runtime.
+    """
     rows = annotate_rows(list(ranked or []))
     publishable = sort_publishable(rows)
     selected: List[Dict[str, Any]] = []
     seen_matches = set()
-    for row in publishable:
-        key = (
-            row.get("match_key")
-            or row.get("event_id")
-            or row.get("id")
-            or "|".join(sorted([str(row.get("player1") or row.get("home") or ""), str(row.get("player2") or row.get("away") or "")]))
+    _append_unique_selection(selected, publishable, seen_matches, top_n)
+
+    if len(selected) < top_n:
+        fallback = sort_fallback_candidates(rows, allow_status_fallback=False)
+        _append_unique_selection(
+            selected,
+            fallback,
+            seen_matches,
+            top_n,
+            fallback_reason="TOP7_SOFT_FALLBACK_QUALITY_RELAXED",
         )
-        if key in seen_matches:
-            continue
-        seen_matches.add(key)
-        selected.append(row)
-        if len(selected) >= top_n:
-            break
+
+    if len(selected) < top_n:
+        fallback_status = sort_fallback_candidates(rows, allow_status_fallback=True)
+        _append_unique_selection(
+            selected,
+            fallback_status,
+            seen_matches,
+            top_n,
+            fallback_reason="TOP7_SOFT_FALLBACK_STATUS_RELAXED",
+        )
+
     for idx, row in enumerate(selected, start=1):
         row["top7_rank"] = idx
         row["corq_rank"] = idx
     return selected
+
 
