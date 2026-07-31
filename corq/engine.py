@@ -9,8 +9,10 @@ Hard rule:
 from __future__ import annotations
 
 import argparse
+import importlib
 import inspect
 import json
+import traceback
 from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -22,16 +24,65 @@ from corq.ranking import make_all_match_view, rank_corq, top7_from_ranking
 from corq.sides import build_side_audit, repair_candidate_side
 
 
+THINQ_SERVICE_LOAD_DIAGNOSTICS: List[Dict[str, Any]] = []
+
+
+class _UnavailableThinqService:
+    """Non-crashing service placeholder used only when all imports fail.
+
+    This keeps the daily web build alive while making the failure explicit in
+    outputs/latest_*.json and in the run manifest. Returning a structured
+    payload is safer than silently producing 0%/N/A values without an import
+    reason.
+    """
+
+    def __init__(self, diagnostics: List[Dict[str, Any]]) -> None:
+        self._corq_import_module = None
+        self._corq_import_file = None
+        self._corq_import_diagnostics = diagnostics
+
+    def build_match_features(self, *args: Any, **kwargs: Any) -> Dict[str, Any]:
+        return {
+            "available": False,
+            "thinq_available": False,
+            "error": "THINQ_SERVICE_IMPORT_FAILED",
+            "flags": ["THINQ_SERVICE_IMPORT_FAILED"],
+            "thinq_flags": ["THINQ_SERVICE_IMPORT_FAILED"],
+            "thinq_service_import_diagnostics": self._corq_import_diagnostics,
+        }
+
+
 def _load_thinq_service():
-    try:
-        from thinq.service import ThinqService  # type: ignore
-        return ThinqService()
-    except Exception:
+    """Load exactly one ThinQ service implementation, with diagnostics.
+
+    The canonical implementation is `thinq.service`. `corq.service` must be a
+    compatibility wrapper only. This loader records the module path so future
+    path mix-ups are visible in the manifest and in enriched rows.
+    """
+    global THINQ_SERVICE_LOAD_DIAGNOSTICS
+    THINQ_SERVICE_LOAD_DIAGNOSTICS = []
+    candidates = (
+        "thinq.service",
+        "corq.service",
+        "thinq.thinq_service",
+    )
+    for module_name in candidates:
         try:
-            from thinq.thinq_service import ThinqService  # type: ignore
-            return ThinqService()
-        except Exception:
-            return None
+            module = importlib.import_module(module_name)
+            service_cls = getattr(module, "ThinqService")
+            service = service_cls()
+            setattr(service, "_corq_import_module", module_name)
+            setattr(service, "_corq_import_file", getattr(module, "__file__", None))
+            setattr(service, "_corq_import_diagnostics", list(THINQ_SERVICE_LOAD_DIAGNOSTICS))
+            return service
+        except Exception as exc:
+            THINQ_SERVICE_LOAD_DIAGNOSTICS.append({
+                "module": module_name,
+                "ok": False,
+                "error": f"{type(exc).__name__}: {exc}",
+                "traceback_tail": traceback.format_exc(limit=4).splitlines()[-8:],
+            })
+    return _UnavailableThinqService(list(THINQ_SERVICE_LOAD_DIAGNOSTICS))
 
 
 def _load_ta_rankings() -> Dict[str, Any]:
@@ -475,6 +526,9 @@ def _enrich_with_thinq(record: Dict[str, Any], thinq_service: Any) -> Dict[str, 
         thinq = {"available": False, "error": str(exc), "flags": ["THINQ_ATTACH_FAILED"]}
 
     safe_record["thinq"] = thinq
+    safe_record["thinq_service_module"] = getattr(thinq_service, "_corq_import_module", None)
+    safe_record["thinq_service_file"] = getattr(thinq_service, "_corq_import_file", None)
+    safe_record["thinq_service_import_diagnostics"] = getattr(thinq_service, "_corq_import_diagnostics", [])
     safe_record["thinq_available"] = bool(thinq.get("available", thinq.get("thinq_available", False)))
     safe_record["thinq_error"] = thinq.get("error")
     safe_record["thinq_confidence"] = thinq.get("confidence") or thinq.get("thinq_confidence")
@@ -740,7 +794,10 @@ def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", ru
         "all_count": len(all_view),
         "ranked_count": len(ranking),
         "top7_count": len(top7),
-        "thinq_service_available": thinq_service is not None,
+        "thinq_service_available": thinq_service is not None and not isinstance(thinq_service, _UnavailableThinqService),
+        "thinq_service_module": getattr(thinq_service, "_corq_import_module", None),
+        "thinq_service_file": getattr(thinq_service, "_corq_import_file", None),
+        "thinq_service_import_diagnostics": getattr(thinq_service, "_corq_import_diagnostics", THINQ_SERVICE_LOAD_DIAGNOSTICS),
         "side_safety": {
             "player1_definition": "HOME_API_FIRST_SIDE",
             "player2_definition": "AWAY_API_SECOND_SIDE",
