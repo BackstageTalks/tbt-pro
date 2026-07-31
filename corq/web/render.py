@@ -1367,6 +1367,17 @@ def _side_nested_pct(row: Dict[str, Any], family: str, which: str, high: float) 
     containers = [row.get(k) for k in side_keys if isinstance(row.get(k), (dict, list))]
     ctx = row.get("ta_context")
     if isinstance(ctx, dict):
+        # Build-match TA context commonly stores these as flat keys.
+        flat_keys = (
+            ("ta_pick_ace_pct", "pick_ace_pct") if family == "aces" and which == "pick" else
+            ("ta_opp_ace_pct", "ta_opponent_ace_pct", "opponent_ace_pct", "opp_ace_pct") if family == "aces" else
+            ("ta_pick_df_pct", "pick_df_pct", "pick_double_fault_pct") if which == "pick" else
+            ("ta_opp_df_pct", "ta_opponent_df_pct", "opponent_df_pct", "opp_df_pct", "opponent_double_fault_pct")
+        )
+        for key in flat_keys:
+            pct = _pct_input_value(ctx.get(key), high=high)
+            if pct is not None:
+                return pct
         containers.extend(ctx.get(k) for k in side_keys if isinstance(ctx.get(k), (dict, list)))
         # Some TA contexts use nested player sides under generic containers.
         for generic in ("players", "profiles", "stats", "ta_profiles"):
