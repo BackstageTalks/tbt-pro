@@ -1509,7 +1509,7 @@ def triplet_market_display(row: Dict[str, Any], family: str) -> str:
             if proj is not None:
                 value = f"{proj:.1f}"
         parts.append(value if value else "—")
-    return " / ".join(parts) if parts else "— / — / —"
+    return " | ".join(parts) if parts else "— | — | —"
 
 
 def abs_market_pct(value: Any, digits: int = 1, none: str = "—") -> str:
@@ -1527,6 +1527,9 @@ def tiebreak_pct_display(row: Dict[str, Any]) -> str:
         "sets_games_tiebreak_probability",
         "sets_games_tb_probability",
         "tb_probability",
+        "tb_pct",
+        "ta_tb_pct",
+        "ta_tiebreak_pct",
         "tie_break_probability",
         "tiebreak_probability",
         "ta_tiebreak_probability",
@@ -1771,6 +1774,61 @@ def marq_range_move_display(row: Dict[str, Any]) -> str:
     move_signal = move_signal_display(_first_data_value(row, "marq_internal_move_signal", "marq_display_move_signal", "marq_move_signal", "market_move"))
     return f"{move_range} | {move_signal}"
 
+
+def _present_stat(row: Dict[str, Any], *keys: str) -> bool:
+    for key in keys:
+        value = _first_data_value(row, key)
+        if value not in (None, "", "N/A", "—", "-"):
+            return True
+    return False
+
+
+def s_data_depth(row: Dict[str, Any]) -> Optional[float]:
+    """Return real Sets/Games data quality from TA-derived data only.
+
+    This deliberately does not fall back to ThinQ/model confidence.  The score is
+    based on real sample coverage and real field completeness for both players:
+    50% sample depth + 50% stat-field completeness.  If no TA/stat data exists,
+    return None so the UI displays N/A instead of a fake high percentage.
+    """
+    explicit = _first_data_value(row, "s_data_depth", "sets_games_data_depth", "ta_sets_games_depth")
+    explicit_num = as_float(explicit)
+    if explicit_num is not None:
+        if explicit_num <= 1.0:
+            explicit_num *= 100.0
+        return max(0.0, min(100.0, explicit_num))
+
+    p_matches = as_float(_first_data_value(row, "ta_pick_matches", "pick_ta_matches"))
+    o_matches = as_float(_first_data_value(row, "ta_opp_matches", "ta_opponent_matches", "opp_ta_matches"))
+    sample_values = [m for m in (p_matches, o_matches) if m is not None]
+
+    stat_pairs = [
+        ("ta_pick_set_pct", "ta_opp_set_pct"),
+        ("ta_pick_game_pct", "ta_opp_game_pct"),
+        ("ta_pick_tb_pct", "ta_opp_tb_pct"),
+        ("ta_pick_ace_pct", "ta_opp_ace_pct"),
+        ("ta_pick_df_pct", "ta_opp_df_pct"),
+        ("ta_pick_rpw_pct", "ta_opp_rpw_pct"),
+        ("ta_pick_surface_dr", "ta_opp_surface_dr"),
+    ]
+    total_fields = len(stat_pairs) * 2
+    present_fields = 0
+    for pick_key, opp_key in stat_pairs:
+        present_fields += 1 if _present_stat(row, pick_key) else 0
+        present_fields += 1 if _present_stat(row, opp_key) else 0
+
+    if not sample_values and present_fields == 0:
+        return None
+
+    # 52 recent matches is the TA last-52 target sample. Anything less is scaled
+    # proportionally, and missing one side is treated as incomplete sample data.
+    sample_scores = [(max(0.0, min(m, 52.0)) / 52.0) for m in sample_values]
+    if len(sample_scores) < 2:
+        sample_scores += [0.0] * (2 - len(sample_scores))
+    sample_score = (sum(sample_scores[:2]) / 2.0) * 50.0
+    completeness_score = (present_fields / total_fields) * 50.0 if total_fields else 0.0
+    return round(max(0.0, min(100.0, sample_score + completeness_score)), 1)
+
 def render_mmx_box(row: Dict[str, Any]) -> str:
     """Compact CorQ Model Mix diagnostics box."""
     thinq_prob_value = _first_data_value(row, "corq_raw_model_probability", "thinq_pick_probability", "thinq_probability", "top7_thinq_pick_probability")
@@ -1799,14 +1857,13 @@ def render_sets_games_box(row: Dict[str, Any]) -> str:
     games_ou_value = market_pick_display(row, "games", 23.5)
     return "\n".join([
         '<section class="metric-box small-box sets-signal-box">',
-        f'<div class="box-head"><span>Sets / Games {info_icon("sets_games")}</span><b></b></div>',
-        metric_row("Sets | Games", esc(sets_games_value)),
+        f'<div class="box-head"><span>Sets / Games {info_icon("sets_games")}</span><b>{esc(sets_games_value)}</b></div>',
         metric_row("Sets o|u", esc(sets_ou_value)),
         metric_row("Games o|u", esc(games_ou_value)),
         metric_row("TB%", esc(tiebreak_pct_display(row))),
         metric_row("Aces P | O | T", esc(triplet_market_display(row, "aces"))),
         metric_row("DF P | O | T", esc(triplet_market_display(row, "df"))),
-        metric_row("S Data Depth", bar_html(stat_depth(row))),
+        metric_row("S Data Depth", bar_html(s_data_depth(row))),
         '</section>',
     ])
 
@@ -1952,7 +2009,7 @@ def css() -> str:
 .compact-topline .brain.goat-badge{border-color:rgba(250,204,21,.72)!important;box-shadow:0 0 10px rgba(250,204,21,.16)!important;background:#101827!important}  
 .pick-card,.metric-box{overflow:visible!important}.info{z-index:40;background:#0b2036;color:#93c5fd;border-color:#4b6b8d}.info:hover:after,.info:focus:after{z-index:99999!important;pointer-events:none}.compact-topline .brain.goat-badge{border-color:rgba(250,204,21,.72)!important;box-shadow:0 0 8px rgba(250,204,21,.12)!important;background:#101827!important}  
 .ta-signal-box .metric-row b{font-size:12px;line-height:1.25}.ta-signal-box .metric-row span{min-width:74px}.ta-signal-box .box-head b{text-transform:uppercase;font-size:11px;color:#facc15}  
-.sets-signal-box .metric-row b{font-size:12px;line-height:1.25}.sets-signal-box .metric-row span{min-width:76px}.sets-signal-box .box-head b{text-transform:uppercase;font-size:11px;color:#facc15}  
+.sets-signal-box .metric-row b{font-size:12px;line-height:1.25}.sets-signal-box .metric-row span{min-width:76px}.sets-signal-box .box-head b{font-size:13px!important;line-height:1.15;color:var(--green)!important}  
 
 .one-row-debug .metric-row b{font-size:11px}.marq-box .metric-row b,.sets-signal-box .metric-row b{font-size:11px}.mmx-box .box-head b{font-size:13px!important;line-height:1.15;color:var(--green)!important}.mmx-box .box-head{align-items:center}.info{line-height:1}.pick-card{align-items:stretch}.metric-box{min-height:0}.box-head{margin-bottom:7px}.metric-row span{font-size:11px}.metric-row b{font-size:11px}.compact-name{font-size:15px}
 
