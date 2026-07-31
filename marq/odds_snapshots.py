@@ -170,6 +170,27 @@ def _load_event_file(path: Path) -> Dict[str, Any]:
     return {"event_key": path.stem, "snapshots": []}
 
 
+def _snapshot_sort_key(item: Dict[str, Any]) -> str:
+    return str(item.get("snapshot_time_utc") or "")
+
+
+def _opening_snapshot_from_payload(payload: Dict[str, Any], snapshots: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
+    """Return immutable OPEN snapshot for an event.
+
+    The first recorded snapshot is treated as OPEN. It must not be overwritten by
+    later workflow runs. If older payloads do not have opening_* metadata, this
+    function safely falls back to the earliest stored snapshot.
+    """
+    opening_time = payload.get("opening_snapshot_time_utc")
+    if opening_time:
+        for snap in snapshots:
+            if str(snap.get("snapshot_time_utc") or "") == str(opening_time):
+                return snap
+    if snapshots:
+        return sorted(snapshots, key=_snapshot_sort_key)[0]
+    return None
+
+
 def _save_event_snapshot(record: Dict[str, Any]) -> None:
     event_key = str(record.get("event_key") or "").strip()
     if not event_key:
@@ -180,6 +201,9 @@ def _save_event_snapshot(record: Dict[str, Any]) -> None:
     snapshots = payload.get("snapshots")
     if not isinstance(snapshots, list):
         snapshots = []
+
+    snapshots = [snap for snap in snapshots if isinstance(snap, dict)]
+    had_existing_snapshots = bool(snapshots)
     signature = (
         record.get("snapshot_time_utc"),
         round(float(record.get("odds_player1") or 0), 5),
@@ -192,11 +216,17 @@ def _save_event_snapshot(record: Dict[str, Any]) -> None:
             round(float(snap.get("odds_player2") or 0), 5),
         )
         for snap in snapshots
-        if isinstance(snap, dict)
     }
     if signature not in existing:
+        record = dict(record)
+        record["snapshot_role"] = "CURRENT" if had_existing_snapshots else "OPEN"
         snapshots.append(record)
-    snapshots = sorted(snapshots, key=lambda item: str(item.get("snapshot_time_utc") or ""))[-80:]
+
+    snapshots = sorted(snapshots, key=_snapshot_sort_key)[-80:]
+    opening = _opening_snapshot_from_payload(payload, snapshots)
+    if opening is None and snapshots:
+        opening = snapshots[0]
+
     payload.update({
         "event_key": event_key,
         "event_id": record.get("event_id") or payload.get("event_id"),
@@ -204,8 +234,23 @@ def _save_event_snapshot(record: Dict[str, Any]) -> None:
         "player2": record.get("player2") or payload.get("player2"),
         "start_time_utc": record.get("start_time_utc") or payload.get("start_time_utc"),
         "updated_at_utc": _utc_now().isoformat(),
+        "snapshot_count": len(snapshots),
         "snapshots": snapshots,
     })
+    if opening is not None:
+        # Immutable OPEN metadata. setdefault intentionally preserves the first
+        # observed line for this event across future runs.
+        payload.setdefault("opening_snapshot_time_utc", opening.get("snapshot_time_utc"))
+        payload.setdefault("opening_odds_player1", opening.get("odds_player1"))
+        payload.setdefault("opening_odds_player2", opening.get("odds_player2"))
+        payload.setdefault("opening_source", opening.get("snapshot_source") or opening.get("source"))
+        payload.setdefault("opening_provider_name", opening.get("provider_name"))
+    latest = snapshots[-1] if snapshots else None
+    if latest is not None:
+        payload["latest_snapshot_time_utc"] = latest.get("snapshot_time_utc")
+        payload["latest_odds_player1"] = latest.get("odds_player1")
+        payload["latest_odds_player2"] = latest.get("odds_player2")
+        payload["latest_provider_name"] = latest.get("provider_name")
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
 
 
@@ -330,6 +375,7 @@ def collect_horizon_snapshots(days_ahead: int = 6, force_refresh: bool = False, 
             record = {
                 "schema": "marq_internal_odds_snapshot_v1",
                 "source": "TennisAPI_PRO",
+                "snapshot_source": "BULK_ODDS" if provider_quote is None else "PROVIDER_EVENT_ODDS",
                 "snapshot_time_utc": snapshot_time.isoformat(),
                 "target_date": date_only,
                 "hours_to_start": hours_to_start,
@@ -357,6 +403,10 @@ def collect_horizon_snapshots(days_ahead: int = 6, force_refresh: bool = False, 
     year_dir = SNAPSHOT_ROOT / str(today.year)
     year_dir.mkdir(parents=True, exist_ok=True)
     daily_path = year_dir / f"{today.isoformat()}.json"
+    source_counts: Dict[str, int] = {}
+    for record in daily_records:
+        source_key = str(record.get("snapshot_source") or "UNKNOWN")
+        source_counts[source_key] = source_counts.get(source_key, 0) + 1
     summary = {
         "schema": "marq_internal_odds_snapshot_daily_v1",
         "generated_at_utc": snapshot_time.isoformat(),
@@ -366,6 +416,7 @@ def collect_horizon_snapshots(days_ahead: int = 6, force_refresh: bool = False, 
         "date_counts": counts,
         "detail_request_counts": detail_counts,
         "skipped_counts": skipped_counts,
+        "snapshot_source_counts": source_counts,
         "snapshot_count": len(daily_records),
         "snapshots": daily_records,
     }
@@ -411,15 +462,16 @@ def _implied_probability(odds: Optional[float]) -> Optional[float]:
     return 100.0 / odds
 
 
-def _select_baseline_snapshot(snapshots: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
+def _select_baseline_snapshot(snapshots: List[Dict[str, Any]], payload: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
     if not snapshots:
         return None
-    # Prefer a snapshot nearest to 72h before start, otherwise use earliest.
-    with_hours = [s for s in snapshots if _as_float(s.get("hours_to_start")) is not None]
-    if with_hours:
-        valid = [s for s in with_hours if (_as_float(s.get("hours_to_start")) or 0) >= 6]
-        pool = valid or with_hours
-        return min(pool, key=lambda s: abs((_as_float(s.get("hours_to_start")) or 0) - 72.0))
+    snapshots = sorted([s for s in snapshots if isinstance(s, dict)], key=_snapshot_sort_key)
+    if payload:
+        opening = _opening_snapshot_from_payload(payload, snapshots)
+        if opening is not None:
+            return opening
+    # OPEN is always the earliest captured snapshot. Do not re-select a later
+    # point around 72h, because that would silently rewrite the baseline.
     return snapshots[0]
 
 
@@ -436,14 +488,18 @@ def _move_signal(old_odds: float, new_odds: float) -> str:
     return "Stable"
 
 
-def _clv_status(pp: Optional[float]) -> str:
-    if pp is None:
+def _clv_status(pp: Optional[float], snapshot_count: int = 0) -> str:
+    if snapshot_count <= 0:
         return "NO_SNAPSHOT"
+    if snapshot_count == 1:
+        return "SINGLE_SNAPSHOT"
+    if pp is None:
+        return "PENDING"
     if pp >= 1.0:
-        return "POSITIVE_CLV"
+        return "POSITIVE_MOVE"
     if pp <= -1.0:
-        return "NEGATIVE_CLV"
-    return "FLAT_CLV"
+        return "NEGATIVE_MOVE"
+    return "FLAT_MOVE"
 
 
 def enrich_row_with_internal_marq(row: Dict[str, Any]) -> Dict[str, Any]:
@@ -466,30 +522,42 @@ def enrich_row_with_internal_marq(row: Dict[str, Any]) -> Dict[str, Any]:
     if not snapshots:
         output.setdefault("marq_internal_status", "NO_SNAPSHOT")
         return output
-    baseline = _select_baseline_snapshot(snapshots)
+    snapshot_count = len(snapshots)
+    baseline = _select_baseline_snapshot(snapshots, payload=payload)
     latest = snapshots[-1]
     key = "odds_player1" if side == "player1" else "odds_player2"
-    old_odds = _as_float(baseline.get(key) if baseline else None)
+    old_odds = _as_float((payload.get("opening_odds_player1") if side == "player1" else payload.get("opening_odds_player2")) if isinstance(payload, dict) else None)
+    if old_odds is None:
+        old_odds = _as_float(baseline.get(key) if baseline else None)
     latest_odds = _as_float(latest.get(key))
-    current_odds = _as_float(output.get("marq_current_pick_odds") or output.get("pick_odds") or output.get("odds"))
-    new_odds = current_odds or latest_odds
-    if old_odds is None or new_odds is None:
+
+    # Movement requires two distinct stored snapshots. A single captured price is
+    # OPEN only, not current movement. Do not compare the open with itself.
+    if old_odds is None or latest_odds is None:
         output.setdefault("marq_internal_status", "NO_ODDS")
         return output
-    old_imp = _implied_probability(old_odds)
-    new_imp = _implied_probability(new_odds)
-    pp = round((new_imp or 0) - (old_imp or 0), 2) if old_imp is not None and new_imp is not None else None
-    signal = _move_signal(old_odds, new_odds)
-    status = _clv_status(pp)
+    if snapshot_count < 2:
+        new_odds = old_odds
+        pp = None
+        signal = "Pending"
+        status = _clv_status(None, snapshot_count=snapshot_count)
+    else:
+        new_odds = latest_odds
+        old_imp = _implied_probability(old_odds)
+        new_imp = _implied_probability(new_odds)
+        pp = round((new_imp or 0) - (old_imp or 0), 2) if old_imp is not None and new_imp is not None else None
+        signal = _move_signal(old_odds, new_odds)
+        status = _clv_status(pp, snapshot_count=snapshot_count)
+
     edge = _as_float(output.get("marq_edge_pct"))
     final = None
     if pp is not None:
         if pp <= -2.0:
-            final = "Market Against Pick - Internal CLV"
+            final = "Market Against Pick - Internal Move"
         elif pp >= 2.0 and (edge is None or edge >= 0):
-            final = "Market With Pick - Internal CLV"
+            final = "Market With Pick - Internal Move"
         elif pp >= 2.0 and edge < 0:
-            final = "Mixed Market - Internal CLV"
+            final = "Mixed Market - Internal Move"
         elif abs(pp) < 1.0 and edge is not None and edge >= 5.0:
             final = "Market With Pick - Stable"
         elif abs(pp) < 1.0 and edge is not None and edge <= -2.0:
@@ -500,14 +568,18 @@ def enrich_row_with_internal_marq(row: Dict[str, Any]) -> Dict[str, Any]:
     output.update({
         "marq_internal_status": status,
         "marq_internal_source": "TennisAPI_PRO snapshots",
+        "marq_internal_metric": "OPEN_TO_CURRENT_MOVE" if snapshot_count >= 2 else "OPEN_ONLY_PENDING",
+        "marq_internal_snapshot_count": snapshot_count,
         "marq_internal_event_key": payload.get("event_key"),
         "marq_internal_baseline_hours": baseline.get("hours_to_start") if baseline else None,
         "marq_internal_baseline_time_utc": baseline.get("snapshot_time_utc") if baseline else None,
+        "marq_internal_opening_time_utc": payload.get("opening_snapshot_time_utc") or (baseline.get("snapshot_time_utc") if baseline else None),
         "marq_internal_latest_time_utc": latest.get("snapshot_time_utc"),
         "marq_internal_opening_pick_odds": round(old_odds, 4),
         "marq_internal_latest_pick_odds": round(new_odds, 4),
         "marq_internal_range": f"{old_odds:.2f} -> {new_odds:.2f}",
         "marq_internal_move_signal": signal,
+        "marq_internal_move_pp": pp,
         "marq_internal_clv_pp": pp,
         "marq_internal_clv_status": status,
         "marq_clv_pct": pp,
