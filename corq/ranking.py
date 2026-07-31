@@ -294,12 +294,39 @@ def thinq_confidence(row: Dict[str, Any]) -> float:
 
 
 def thinq_pick_probability(row: Dict[str, Any]) -> float:
-    """Return ThinQ pick win probability, not confidence."""
-    value = _first(row, ["thinq_pick_probability", "thinq_probability"], None)
+    """Return displayed model pick probability, not confidence.
+
+    Real ThinQ probability is preferred.  If ThinQ attach failed but the CorQ/MMx
+    layer still produced a raw model probability, use that as the display/model
+    fallback. Missing values stay missing internally by returning 0 only as the
+    final numeric guard for legacy callers.
+    """
+    failed = bool(row.get("thinq_error")) or "THINQ_ATTACH_FAILED" in set(str(x) for x in (row.get("thinq_flags") or []))
+    thinq = row.get("thinq")
+    if isinstance(thinq, dict):
+        failed = failed or bool(thinq.get("error")) or "THINQ_ATTACH_FAILED" in set(str(x) for x in (thinq.get("flags") or []))
+    value = None
+    for key in (
+        "thinq_pick_probability",
+        "thinq_probability",
+        "top7_thinq_pick_probability",
+        "corq_thinq_probability",
+        "corq_raw_model_probability",
+    ):
+        candidate = row.get(key)
+        if candidate is None:
+            continue
+        parsed = _as_float(candidate, None)
+        if parsed is not None and failed and abs(parsed) < 1e-12 and key != "corq_raw_model_probability":
+            continue
+        value = candidate
+        break
     if value is None:
         value = _get_nested(row, "thinq_probability_layer", "pick_probability")
     if value is None:
         value = _get_nested(row, "thinq", "thinq_probability_layer", "pick_probability")
+    if value is None:
+        value = _get_nested(row, "thinq", "probability_layer", "pick_probability")
     return _prob(value, 0.0)
 
 
@@ -746,6 +773,13 @@ def annotate_top7_quality(row: Dict[str, Any]) -> Dict[str, Any]:
     row["top7_thinq_confidence"] = round(conf, 6)
     row["top7_thinq_data_confidence"] = round(conf, 6)
     row["top7_thinq_pick_probability"] = round(thinq_pick_probability(row), 6)
+    if row.get("thinq_error") or "THINQ_ATTACH_FAILED" in set(str(x) for x in (row.get("thinq_flags") or [])):
+        flags = row.get("corq_warning_flags")
+        if not isinstance(flags, list):
+            flags = []
+        if "THINQ_ATTACH_FAILED" not in flags:
+            flags.append("THINQ_ATTACH_FAILED")
+        row["corq_warning_flags"] = flags
     row["pick_data_depth"] = round(depth, 6)
     row["stat_data_depth"] = round(depth, 6)
     row["form_data_depth"] = round(form_data_depth(row), 6)

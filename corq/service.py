@@ -7,6 +7,13 @@ player1 and player2 are kept as canonical HOME/AWAY input fields only.
 from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
+import json
+import os
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+
+import requests
 
 from corq.sides import build_side_audit
 
@@ -61,8 +68,16 @@ except Exception:
             "ta_opp_game_pct": None,
             "ta_pick_tb_split": None,
             "ta_opp_tb_split": None,
+            "ta_pick_tb_pct": None,
+            "ta_opp_tb_pct": None,
             "ta_pick_ace_pct": None,
             "ta_opp_ace_pct": None,
+            "ta_pick_df_pct": None,
+            "ta_opp_df_pct": None,
+            "pick_ace_pct": None,
+            "opponent_ace_pct": None,
+            "pick_df_pct": None,
+            "opponent_df_pct": None,
             "ta_pick_surface_dr": None,
             "ta_opp_surface_dr": None,
             "ta_pick_rpw_pct": None,
@@ -198,6 +213,38 @@ def _safe_ta_context(pick: str, opponent: str, surface: str = "") -> Dict[str, A
     return {"ta_status": "N/A", "aces_status": "N/A", "ta_decision_confidence": 0.0, "ta_decision_notes": ["TA_CONTEXT_NON_DICT"]}
 
 
+
+
+def _first_non_null(*values: Any) -> Any:
+    for value in values:
+        if value not in (None, "", "N/A", "—", "-"):
+            return value
+    return None
+
+
+def _avg_pct(*values: Any) -> Optional[float]:
+    nums: List[float] = []
+    for value in values:
+        try:
+            if value not in (None, "", "N/A", "—", "-"):
+                nums.append(float(value))
+        except Exception:
+            continue
+    if not nums:
+        return None
+    return round(sum(nums) / len(nums), 1)
+
+
+def _ta_data_status(*values: Any) -> str:
+    return "OK" if all(value not in (None, "", "N/A", "—", "-") for value in values) else "MISSING_TA_DATA"
+
+
+def _ta_depth_pct(pick_depth: Any, opp_depth: Any) -> Optional[float]:
+    avg = _avg_pct(pick_depth, opp_depth)
+    if avg is None:
+        return None
+    return max(0.0, min(100.0, avg))
+
 def normalize_surface(surface: Optional[str]) -> Dict[str, Any]:
     raw = str(surface or "").strip()
     text = raw.lower()
@@ -230,6 +277,228 @@ def normalize_surface(surface: Optional[str]) -> Dict[str, Any]:
         "flags": flags,
     }
 
+
+
+
+API_PRO_HOST = "tennisapi1.p.rapidapi.com"
+API_PRO_BASE_URL = "https://tennisapi1.p.rapidapi.com"
+API_PRO_TIMEOUT = 20
+API_PRO_CACHE_DIR = Path("data/api_pro/team_year_stats")
+API_PRO_CACHE_TTL_SECONDS = 60 * 60 * 24 * 7
+
+
+def _api_pro_key() -> str:
+    return os.getenv("RAPIDAPI_KEY", "").strip()
+
+
+def _api_pro_headers() -> Dict[str, str]:
+    return {
+        "Content-Type": "application/json",
+        "x-rapidapi-host": API_PRO_HOST,
+        "x-rapidapi-key": _api_pro_key(),
+    }
+
+
+def _team_stats_cache_path(team_id: Any, year: int) -> Path:
+    API_PRO_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    return API_PRO_CACHE_DIR / f"{team_id}_{year}.json"
+
+
+def _read_api_cache(path: Path) -> Optional[Any]:
+    try:
+        if not path.exists():
+            return None
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        saved_at = float(payload.get("saved_at", 0))
+        if time.time() - saved_at > API_PRO_CACHE_TTL_SECONDS:
+            return None
+        return payload.get("data")
+    except Exception:
+        return None
+
+
+def _write_api_cache(path: Path, data: Any) -> None:
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps({"saved_at": time.time(), "data": data}, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception:
+        pass
+
+
+def _fetch_team_year_statistics(team_id: Any, year: int, force_refresh: bool = False) -> Dict[str, Any]:
+    if team_id in (None, ""):
+        return {"status": "NO_TEAM_ID", "statistics": []}
+    cache_path = _team_stats_cache_path(team_id, year)
+    if not force_refresh:
+        cached = _read_api_cache(cache_path)
+        if isinstance(cached, dict):
+            cached.setdefault("cache_path", str(cache_path))
+            cached.setdefault("from_cache", True)
+            return cached
+    if not _api_pro_key():
+        return {"status": "NO_API_KEY", "statistics": [], "cache_path": str(cache_path)}
+    url = f"{API_PRO_BASE_URL}/api/tennis/team/{team_id}/year-statistics/{year}"
+    try:
+        response = requests.get(url, headers=_api_pro_headers(), timeout=API_PRO_TIMEOUT)
+        status = response.status_code
+        if status == 429:
+            return {"status": "RATE_LIMITED", "statistics": [], "api_status_code": status, "cache_path": str(cache_path)}
+        response.raise_for_status()
+        payload = response.json()
+        result = {"status": "OK", "payload": payload, "api_status_code": status, "cache_path": str(cache_path), "from_cache": False}
+        _write_api_cache(cache_path, result)
+        return result
+    except Exception as exc:
+        return {"status": "FETCH_FAILED", "statistics": [], "error": str(exc), "cache_path": str(cache_path)}
+
+
+def _iter_stat_dicts(obj: Any) -> List[Dict[str, Any]]:
+    out: List[Dict[str, Any]] = []
+    if isinstance(obj, dict):
+        if any(k in obj for k in ("aces", "doubleFaults", "totalServeAttempts", "matches", "groundType")):
+            out.append(obj)
+        for value in obj.values():
+            out.extend(_iter_stat_dicts(value))
+    elif isinstance(obj, list):
+        for item in obj:
+            out.extend(_iter_stat_dicts(item))
+    return out
+
+
+def _surface_bucket(value: Any) -> str:
+    text = str(value or "").strip().lower()
+    if "clay" in text or "red clay" in text:
+        return "Clay"
+    if "grass" in text:
+        return "Grass"
+    if "hard" in text or "indoor" in text or "carpet" in text:
+        return "Hard"
+    return "Unknown"
+
+
+def _stat_num(stat: Dict[str, Any], *keys: str) -> float:
+    for key in keys:
+        try:
+            value = stat.get(key)
+            if value not in (None, ""):
+                return float(value)
+        except Exception:
+            continue
+    return 0.0
+
+
+def _aggregate_team_stats(stats: List[Dict[str, Any]], requested_surface: Any = None, min_matches: int = 3) -> Dict[str, Any]:
+    requested_bucket = _surface_bucket(requested_surface)
+    usable = [s for s in stats if isinstance(s, dict)]
+    surface_rows = [s for s in usable if _surface_bucket(s.get("groundType") or s.get("surface")) == requested_bucket and requested_bucket != "Unknown"]
+    selected = surface_rows if sum(_stat_num(s, "matches") for s in surface_rows) >= min_matches else usable
+    source_scope = "surface" if selected is surface_rows and selected else "overall"
+    aces = sum(_stat_num(s, "aces") for s in selected)
+    dfs = sum(_stat_num(s, "doubleFaults", "double_faults", "doubleFault") for s in selected)
+    serves = sum(_stat_num(s, "totalServeAttempts", "serveAttempts", "servicePoints", "totalServicePoints") for s in selected)
+    matches = sum(_stat_num(s, "matches") for s in selected)
+    ace_pct = round(aces / serves * 100.0, 2) if serves > 0 else None
+    df_pct = round(dfs / serves * 100.0, 2) if serves > 0 else None
+    return {
+        "status": "OK" if serves > 0 and (ace_pct is not None or df_pct is not None) else "NO_SERVE_STATS",
+        "scope": source_scope,
+        "requested_surface_bucket": requested_bucket,
+        "rows": len(selected),
+        "matches": int(matches),
+        "aces": int(aces),
+        "double_faults": int(dfs),
+        "total_serve_attempts": int(serves),
+        "ace_pct": ace_pct,
+        "df_pct": df_pct,
+        "ground_types": sorted({str(s.get("groundType") or s.get("surface") or "").strip() for s in selected if str(s.get("groundType") or s.get("surface") or "").strip()}),
+    }
+
+
+def _season_year(as_of_date: Any = None) -> int:
+    text = str(as_of_date or "").strip()
+    if len(text) >= 4 and text[:4].isdigit():
+        return int(text[:4])
+    return datetime.now(timezone.utc).year
+
+
+def _project_serve_prop(pct: Any, projected_games: Any) -> Optional[float]:
+    try:
+        p = float(pct)
+        g = float(projected_games)
+        if p <= 0 or g <= 0:
+            return None
+        service_points = (g / 2.0) * 6.2
+        return round(service_points * (p / 100.0), 1)
+    except Exception:
+        return None
+
+
+def build_api_pro_serve_stats_context(
+    pick_player_id: Any,
+    opponent_player_id: Any,
+    surface: Any,
+    projected_games: Any,
+    as_of_date: Any = None,
+    force_refresh: bool = False,
+) -> Dict[str, Any]:
+    year = _season_year(as_of_date)
+    pick_raw = _fetch_team_year_statistics(pick_player_id, year, force_refresh=force_refresh)
+    opp_raw = _fetch_team_year_statistics(opponent_player_id, year, force_refresh=force_refresh)
+    # If current year is thin or missing, try previous year. This matters in early season and for players with sparse 2026 sample.
+    pick_stats = _aggregate_team_stats(_iter_stat_dicts(pick_raw.get("payload", pick_raw)), requested_surface=surface)
+    opp_stats = _aggregate_team_stats(_iter_stat_dicts(opp_raw.get("payload", opp_raw)), requested_surface=surface)
+    if pick_stats.get("status") != "OK" and year > 2000:
+        pick_prev_raw = _fetch_team_year_statistics(pick_player_id, year - 1, force_refresh=force_refresh)
+        pick_prev_stats = _aggregate_team_stats(_iter_stat_dicts(pick_prev_raw.get("payload", pick_prev_raw)), requested_surface=surface)
+        if pick_prev_stats.get("status") == "OK":
+            pick_raw = pick_prev_raw
+            pick_stats = pick_prev_stats
+            pick_stats["year"] = year - 1
+    else:
+        pick_stats["year"] = year
+    if opp_stats.get("status") != "OK" and year > 2000:
+        opp_prev_raw = _fetch_team_year_statistics(opponent_player_id, year - 1, force_refresh=force_refresh)
+        opp_prev_stats = _aggregate_team_stats(_iter_stat_dicts(opp_prev_raw.get("payload", opp_prev_raw)), requested_surface=surface)
+        if opp_prev_stats.get("status") == "OK":
+            opp_raw = opp_prev_raw
+            opp_stats = opp_prev_stats
+            opp_stats["year"] = year - 1
+    else:
+        opp_stats["year"] = year
+    pick_aces = _project_serve_prop(pick_stats.get("ace_pct"), projected_games)
+    opp_aces = _project_serve_prop(opp_stats.get("ace_pct"), projected_games)
+    pick_df = _project_serve_prop(pick_stats.get("df_pct"), projected_games)
+    opp_df = _project_serve_prop(opp_stats.get("df_pct"), projected_games)
+    return {
+        "api_serve_stats_source": "API_PRO_TEAM_YEAR_STATS",
+        "api_serve_stats_status": "OK" if pick_stats.get("status") == "OK" and opp_stats.get("status") == "OK" else "PARTIAL",
+        "api_pick_serve_stats_status": pick_stats.get("status"),
+        "api_opp_serve_stats_status": opp_stats.get("status"),
+        "api_pick_ace_pct": pick_stats.get("ace_pct"),
+        "api_opp_ace_pct": opp_stats.get("ace_pct"),
+        "api_pick_df_pct": pick_stats.get("df_pct"),
+        "api_opp_df_pct": opp_stats.get("df_pct"),
+        "api_pick_serve_matches": pick_stats.get("matches"),
+        "api_opp_serve_matches": opp_stats.get("matches"),
+        "api_pick_serve_attempts": pick_stats.get("total_serve_attempts"),
+        "api_opp_serve_attempts": opp_stats.get("total_serve_attempts"),
+        "api_pick_serve_scope": pick_stats.get("scope"),
+        "api_opp_serve_scope": opp_stats.get("scope"),
+        "api_pick_serve_year": pick_stats.get("year", year),
+        "api_opp_serve_year": opp_stats.get("year", year),
+        "api_pick_serve_cache_path": pick_raw.get("cache_path"),
+        "api_opp_serve_cache_path": opp_raw.get("cache_path"),
+        "api_pick_serve_api_status": pick_raw.get("api_status_code"),
+        "api_opp_serve_api_status": opp_raw.get("api_status_code"),
+        "pick_aces_projection": pick_aces,
+        "opponent_aces_projection": opp_aces,
+        "total_aces_projection": round(pick_aces + opp_aces, 1) if pick_aces is not None and opp_aces is not None else None,
+        "pick_df_projection": pick_df,
+        "opponent_df_projection": opp_df,
+        "total_df_projection": round(pick_df + opp_df, 1) if pick_df is not None and opp_df is not None else None,
+        "aces_status": "OK" if pick_aces is not None and opp_aces is not None else "MISSING_API_SERVE_STATS",
+        "df_status": "OK" if pick_df is not None and opp_df is not None else "MISSING_API_SERVE_STATS",
+    }
 
 class ThinqService:
     def __init__(self, *args: Any, **kwargs: Any) -> None:
@@ -316,6 +585,48 @@ class ThinqService:
             opponent_odds=kwargs.get("opponent_odds"),
         )
         ta_context = _safe_ta_context(analysis_pick, analysis_opponent, str(surface_bucket or ""))
+        try:
+            api_serve_stats = build_api_pro_serve_stats_context(
+                pick_player_id=pick_player_id,
+                opponent_player_id=opponent_player_id,
+                surface=surface_bucket,
+                projected_games=(
+                    ta_context.get("ta_projected_games")
+                    or match_dynamics.get("projected_games")
+                    or kwargs.get("projected_games")
+                    or kwargs.get("projected_total_games")
+                    or kwargs.get("games_line")
+                    or kwargs.get("total_games_line")
+                ),
+                as_of_date=as_of_date,
+                force_refresh=bool(kwargs.get("force_refresh_api_serve_stats", False)),
+            )
+        except Exception as exc:
+            api_serve_stats = {
+                "api_serve_stats_source": "API_PRO_TEAM_YEAR_STATS",
+                "api_serve_stats_status": "ERROR",
+                "api_serve_stats_error": str(exc),
+                "api_pick_ace_pct": None,
+                "api_opp_ace_pct": None,
+                "api_pick_df_pct": None,
+                "api_opp_df_pct": None,
+                "api_pick_serve_matches": None,
+                "api_opp_serve_matches": None,
+                "api_pick_serve_attempts": None,
+                "api_opp_serve_attempts": None,
+                "api_pick_serve_scope": None,
+                "api_opp_serve_scope": None,
+                "api_pick_serve_year": None,
+                "api_opp_serve_year": None,
+                "pick_aces_projection": None,
+                "opponent_aces_projection": None,
+                "total_aces_projection": None,
+                "pick_df_projection": None,
+                "opponent_df_projection": None,
+                "total_df_projection": None,
+                "aces_status": "MISSING_API_SERVE_STATS",
+                "df_status": "MISSING_API_SERVE_STATS",
+            }
 
         edges = {
             "overall_elo_edge": float(elo.get("overall_elo_edge") or 0.0),
@@ -390,6 +701,13 @@ class ThinqService:
                 "pick_win_pct": h2h.get("pick_win_pct"),
                 "same_surface_matches": h2h.get("same_surface_matches"),
                 "same_surface_pick_wins": h2h.get("same_surface_pick_wins"),
+                "same_surface_opponent_wins": h2h.get("same_surface_opponent_wins"),
+                "same_surface_pick_win_pct": h2h.get("same_surface_pick_win_pct"),
+                "same_surface_edge": h2h.get("same_surface_edge", 0.0),
+                "h2h_requested_surface": h2h.get("h2h_requested_surface"),
+                "h2h_requested_surface_bucket": h2h.get("h2h_requested_surface_bucket"),
+                "h2h_detected_surface_buckets": h2h.get("h2h_detected_surface_buckets") or [],
+                "h2h_missing_surface_matches": h2h.get("h2h_missing_surface_matches"),
                 "edge": h2h.get("edge", 0.0),
                 "confidence": h2h.get("confidence", 0.0),
                 "reason": h2h.get("reason"),
@@ -415,6 +733,7 @@ class ThinqService:
                 "elo": elo,
                 "thinq_probability_layer": thinq_probability_layer,
                 "ta_context": ta_context,
+                "api_serve_stats": api_serve_stats,
             },
             "edges": edges,
             "flags": sorted(set(flags)),
@@ -450,7 +769,12 @@ class ThinqService:
             "thinq_h2h_opponent_wins": h2h.get("opponent_wins", 0),
             "thinq_h2h_same_surface_matches": h2h.get("same_surface_matches", 0),
             "thinq_surface_h2h_pick_wins": h2h.get("same_surface_pick_wins", 0),
-            "thinq_surface_h2h_opponent_wins": h2h.get("same_surface_opponent_wins", None),
+            "thinq_surface_h2h_opponent_wins": h2h.get("same_surface_opponent_wins", 0),
+            "thinq_surface_h2h_pick_win_pct": h2h.get("same_surface_pick_win_pct"),
+            "thinq_surface_h2h_edge": h2h.get("same_surface_edge", 0.0),
+            "thinq_h2h_requested_surface_bucket": h2h.get("h2h_requested_surface_bucket"),
+            "thinq_h2h_detected_surface_buckets": h2h.get("h2h_detected_surface_buckets") or [],
+            "thinq_h2h_missing_surface_matches": h2h.get("h2h_missing_surface_matches"),
             "thinq_h2h_edge": edges["h2h_edge"],
             "thinq_h2h_confidence": h2h.get("confidence", 0.0),
             "thinq_h2h_endpoint": h2h.get("endpoint"),
@@ -486,18 +810,58 @@ class ThinqService:
             "ta_opp_game_pct": ta_context.get("ta_opp_game_pct"),
             "ta_pick_tb_split": ta_context.get("ta_pick_tb_split"),
             "ta_opp_tb_split": ta_context.get("ta_opp_tb_split"),
+            "ta_pick_tb_pct": ta_context.get("ta_pick_tb_pct"),
+            "ta_opp_tb_pct": ta_context.get("ta_opp_tb_pct"),
             "ta_pick_ace_pct": ta_context.get("ta_pick_ace_pct"),
             "ta_opp_ace_pct": ta_context.get("ta_opp_ace_pct"),
+            "ta_pick_df_pct": ta_context.get("ta_pick_df_pct"),
+            "ta_opp_df_pct": ta_context.get("ta_opp_df_pct"),
+            "api_serve_stats": api_serve_stats,
+            "api_serve_stats_source": api_serve_stats.get("api_serve_stats_source"),
+            "api_serve_stats_status": api_serve_stats.get("api_serve_stats_status"),
+            "api_pick_ace_pct": api_serve_stats.get("api_pick_ace_pct"),
+            "api_opp_ace_pct": api_serve_stats.get("api_opp_ace_pct"),
+            "api_pick_df_pct": api_serve_stats.get("api_pick_df_pct"),
+            "api_opp_df_pct": api_serve_stats.get("api_opp_df_pct"),
+            "api_pick_serve_matches": api_serve_stats.get("api_pick_serve_matches"),
+            "api_opp_serve_matches": api_serve_stats.get("api_opp_serve_matches"),
+            "api_pick_serve_attempts": api_serve_stats.get("api_pick_serve_attempts"),
+            "api_opp_serve_attempts": api_serve_stats.get("api_opp_serve_attempts"),
+            "api_pick_serve_scope": api_serve_stats.get("api_pick_serve_scope"),
+            "api_opp_serve_scope": api_serve_stats.get("api_opp_serve_scope"),
+            "api_pick_serve_year": api_serve_stats.get("api_pick_serve_year"),
+            "api_opp_serve_year": api_serve_stats.get("api_opp_serve_year"),
+            # Compatibility aliases consumed by the Sets/Games/Aces/DF layers. Prefer TA if available, otherwise API PRO team yearly stats.
+            "pick_ace_pct": _first_non_null(ta_context.get("ta_pick_ace_pct"), api_serve_stats.get("api_pick_ace_pct")),
+            "opponent_ace_pct": _first_non_null(ta_context.get("ta_opp_ace_pct"), api_serve_stats.get("api_opp_ace_pct")),
+            "pick_df_pct": _first_non_null(ta_context.get("ta_pick_df_pct"), api_serve_stats.get("api_pick_df_pct")),
+            "opponent_df_pct": _first_non_null(ta_context.get("ta_opp_df_pct"), api_serve_stats.get("api_opp_df_pct")),
+            "pick_tb_pct": ta_context.get("ta_pick_tb_pct"),
+            "opponent_tb_pct": ta_context.get("ta_opp_tb_pct"),
+            "tb_probability": _avg_pct(ta_context.get("ta_pick_tb_pct"), ta_context.get("ta_opp_tb_pct")),
+            "tiebreak_probability": _avg_pct(ta_context.get("ta_pick_tb_pct"), ta_context.get("ta_opp_tb_pct")),
+            "tie_break_probability": _avg_pct(ta_context.get("ta_pick_tb_pct"), ta_context.get("ta_opp_tb_pct")),
+            "ace_status": "OK" if _first_non_null(ta_context.get("ta_pick_ace_pct"), api_serve_stats.get("api_pick_ace_pct")) is not None and _first_non_null(ta_context.get("ta_opp_ace_pct"), api_serve_stats.get("api_opp_ace_pct")) is not None else "MISSING_ACE_DATA",
+            "df_status": "OK" if _first_non_null(ta_context.get("ta_pick_df_pct"), api_serve_stats.get("api_pick_df_pct")) is not None and _first_non_null(ta_context.get("ta_opp_df_pct"), api_serve_stats.get("api_opp_df_pct")) is not None else "MISSING_DF_DATA",
             "ta_pick_surface_dr": ta_context.get("ta_pick_surface_dr"),
             "ta_opp_surface_dr": ta_context.get("ta_opp_surface_dr"),
             "ta_pick_rpw_pct": ta_context.get("ta_pick_rpw_pct"),
             "ta_opp_rpw_pct": ta_context.get("ta_opp_rpw_pct"),
             "ta_pick_depth": ta_context.get("ta_pick_depth"),
             "ta_opp_depth": ta_context.get("ta_opp_depth"),
+            "s_data_depth": _ta_depth_pct(ta_context.get("ta_pick_depth"), ta_context.get("ta_opp_depth")),
+            "sets_games_data_depth": _ta_depth_pct(ta_context.get("ta_pick_depth"), ta_context.get("ta_opp_depth")),
+            "sets_model_source": "TA" if _first_non_null(ta_context.get("ta_pick_game_pct"), ta_context.get("ta_opp_game_pct"), ta_context.get("ta_pick_ace_pct"), ta_context.get("ta_opp_ace_pct")) is not None else "ModelFallback",
             "pick_aces_line": ta_context.get("pick_aces_line"),
             "opponent_aces_line": ta_context.get("opponent_aces_line"),
-            "total_aces_line": ta_context.get("total_aces_line"),
-            "aces_status": ta_context.get("aces_status"),
+            "total_aces_line": _first_non_null(ta_context.get("total_aces_line"), api_serve_stats.get("total_aces_projection")),
+            "pick_aces_projection": api_serve_stats.get("pick_aces_projection"),
+            "opponent_aces_projection": api_serve_stats.get("opponent_aces_projection"),
+            "total_aces_projection": api_serve_stats.get("total_aces_projection"),
+            "pick_df_projection": api_serve_stats.get("pick_df_projection"),
+            "opponent_df_projection": api_serve_stats.get("opponent_df_projection"),
+            "total_df_projection": api_serve_stats.get("total_df_projection"),
+            "aces_status": _first_non_null(ta_context.get("aces_status"), api_serve_stats.get("aces_status")),
             "ta_scope": ta_context.get("ta_scope"),
             "ta_surface": ta_context.get("ta_surface"),
             "ta_pick_hold_pct": ta_context.get("ta_pick_hold_pct"),
