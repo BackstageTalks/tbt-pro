@@ -1,36 +1,38 @@
 # BackstageTalks Project Development Metrics
 
-Generated: `2026-07-27T19:47:54+00:00`
+Generated: `2026-07-31T04:30:25+00:00`
 
 ## Customer-facing summary
-- Maintained source/config/docs files: **63**
-- Maintained source/config/docs lines: **12,095**
-- Estimated maintained code/config lines: **10,175**
-- Data/cache files tracked separately: **26**
-- Data/cache lines tracked separately: **172,765**
-- All tracked text files together: **89 files / 184,860 lines**
-- Git commits: **502**
-- Latest commit: `c2f6350 2026-07-27 Add files via upload`
+- Maintained source/config/docs files: **82**
+- Maintained source/config/docs lines: **22,054**
+- Estimated maintained code/config lines: **18,464**
+- Data/cache files tracked separately: **359**
+- Data/cache lines tracked separately: **954,136**
+- All tracked text files together: **441 files / 976,190 lines**
+- Git commits: **917**
+- Latest commit: `57719b4 2026-07-31 Update Telegram feed preview`
 
 ## By file type
 
 | Extension | Files | Lines | Code/config lines | Size KB |
 |---:|---:|---:|---:|---:|
-| `.json` | 9 | 130,348 | 130,348 | 3901.2 |
+| `.json` | 344 | 911,721 | 911,721 | 26219.1 |
 | `.csv` | 15 | 42,415 | 42,415 | 8556.5 |
-| `.py` | 57 | 11,529 | 9,711 | 436.0 |
-| `.yml` | 8 | 568 | 464 | 17.2 |
+| `.py` | 71 | 20,479 | 17,152 | 781.9 |
+| `.yml` | 10 | 1,504 | 1,250 | 51.4 |
+| `.css` | 1 | 71 | 62 | 2.2 |
 
 ## By top-level directory
 
 | Directory | Files | Lines | Code/config lines |
 |---|---:|---:|---:|
-| `thinq` | 34 | 136,094 | 135,184 |
-| `data` | 18 | 42,585 | 42,584 |
-| `corq` | 22 | 4,995 | 4,190 |
-| `.github` | 8 | 568 | 464 |
+| `thinq` | 33 | 807,272 | 806,236 |
+| `data` | 351 | 153,427 | 153,427 |
+| `corq` | 32 | 8,555 | 7,169 |
+| `marq` | 7 | 4,773 | 3,969 |
+| `.github` | 10 | 1,504 | 1,250 |
 | `cloq` | 3 | 376 | 312 |
-| `tools` | 1 | 218 | 189 |
+| `tools` | 2 | 259 | 222 |
 | `engine.py` | 1 | 16 | 11 |
 | `runtime` | 2 | 8 | 4 |
 
@@ -38,36 +40,36 @@ Generated: `2026-07-27T19:47:54+00:00`
 
 | File | Lines | Code/config lines |
 |---|---:|---:|
-| `corq/web/render.py` | 1,335 | 1,142 |
-| `corq/ranking.py` | 874 | 721 |
-| `thinq/loaders/rapidapi_client.py` | 843 | 714 |
-| `thinq/loaders/ta_profile_loader.py` | 673 | 573 |
+| `corq/web/render.py` | 2,632 | 2,235 |
+| `marq/market_lines.py` | 1,708 | 1,483 |
+| `marq/provider.py` | 1,283 | 1,059 |
+| `thinq/loaders/ta_profile_loader.py` | 1,088 | 938 |
+| `corq/ranking.py` | 872 | 722 |
+| `thinq/loaders/rapidapi_client.py` | 861 | 730 |
+| `marq/pipeline.py` | 831 | 642 |
+| `corq/engine.py` | 701 | 609 |
 | `thinq/loaders/sackmann_loader.py` | 617 | 484 |
-| `corq/results.py` | 469 | 403 |
+| `marq/odds_snapshots.py` | 551 | 473 |
+| `thinq/service.py` | 532 | 495 |
+| `corq/results_engine/builder.py` | 502 | 437 |
+| `corq/results_engine/results.py` | 469 | 403 |
 | `thinq/loaders/elo_loader.py` | 454 | 392 |
-| `thinq/service.py` | 415 | 390 |
-| `corq/tg_feed.py` | 393 | 321 |
-| `cloq/builder.py` | 368 | 306 |
-| `corq/engine.py` | 343 | 296 |
-| `thinq/loaders/h2h_loader.py` | 331 | 286 |
-| `thinq/thinq_service.py` | 328 | 305 |
-| `thinq/loaders/history_loader.py` | 316 | 263 |
-| `corq/presentation.py` | 280 | 223 |
+| `corq/tg_feed.py` | 450 | 375 |
 
 ## Largest data/cache files, separated from code
 
 | File | Lines | Size KB |
 |---|---:|---:|
+| `thinq/data/players/tennis_name_alias_database.json` | 554,330 | 15488.6 |
+| `thinq/data/ta_profiles/ta_player_profiles.json` | 128,079 | 4049.3 |
 | `thinq/data/elo/elo_cache.json` | 71,195 | 2068.5 |
-| `thinq/data/rankings/ta_rankings.json` | 34,529 | 1031.1 |
+| `thinq/data/rankings/ta_rankings.json` | 32,765 | 978.4 |
+| `data/marq_ai/tennisapi_events_odds_2026_07_30.json` | 23,413 | 651.9 |
 | `thinq/data/elo/ta_elo_ratings.json` | 14,213 | 453.6 |
-| `thinq/data/ta_profiles/ta_player_profiles.json` | 10,115 | 338.9 |
+| `data/marq_ai/tennisapi_events_odds_2026_07_31.json` | 7,540 | 208.7 |
 | `data/history/tml/2025_challenger.csv` | 6,412 | 1284.0 |
 | `data/history/tml/2024_challenger.csv` | 6,064 | 1205.5 |
 | `data/history/tml/2026_challenger.csv` | 4,346 | 869.1 |
-| `data/history/sackmann_archive/atp/2024/atp_matches_2024.csv` | 3,077 | 634.9 |
-| `data/history/tml/2024.csv` | 3,077 | 640.8 |
-| `data/history/sackmann_archive/atp/2025/atp_matches_2025.csv` | 2,945 | 602.7 |
 
 _Note: Source totals exclude generated site files, outputs, virtualenvs, caches and large data caches._
 _Note: Data totals are reported separately so JSON/CSV caches are not presented as hand-written code._
