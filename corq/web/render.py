@@ -1634,35 +1634,135 @@ def pp_display(value: Any, digits: int = 1, none: str = "—") -> str:
     return f"{num:+.{digits}f}pp"
 
 
+
+def _ratio_int(value: Any) -> Optional[int]:
+    num = as_float(value)
+    if num is None:
+        return None
+    if abs(num) <= 1.0:
+        num *= 100.0
+    return int(round(num))
+
+
+def mmx_mix_display(row: Dict[str, Any]) -> str:
+    """Compact Model Mix label for the MMx box header."""
+    thinq_weight = _first_data_value(
+        row,
+        "corq_thinq_weight",
+        "thinq_weight",
+        "model_mix_thinq_weight",
+        "corq_model_mix_thinq_weight",
+    )
+    marq_weight = _first_data_value(
+        row,
+        "corq_marq_weight",
+        "marq_weight",
+        "model_mix_marq_weight",
+        "corq_model_mix_marq_weight",
+    )
+    t = _ratio_int(thinq_weight)
+    m = _ratio_int(marq_weight)
+    if t is not None or m is not None:
+        if t is None and m is not None:
+            t = max(0, 100 - m)
+        if m is None and t is not None:
+            m = max(0, 100 - t)
+        return f"ThinQ {t} | MarQ {m}"
+
+    label = str(row.get("corq_model_mix_label") or row.get("model_mix_label") or "").strip()
+    if label:
+        found = re.findall(r"(ThinQ|MarQ)\s*([0-9]+(?:\.[0-9]+)?)\s*%?", label, flags=re.I)
+        values = {name.lower(): int(round(float(num))) for name, num in found}
+        if "thinq" in values or "marq" in values:
+            t = values.get("thinq")
+            m = values.get("marq")
+            if t is None and m is not None:
+                t = max(0, 100 - m)
+            if m is None and t is not None:
+                m = max(0, 100 - t)
+            return f"ThinQ {t} | MarQ {m}"
+        return label.replace("%", "").replace("/", "|").replace("  ", " ")
+    return "ThinQ 100 | MarQ 0"
+
+
+def marq_delta_pp(row: Dict[str, Any]) -> Optional[float]:
+    explicit = _first_data_value(
+        row,
+        "corq_market_adjustment_pp",
+        "corq_marq_delta_pp",
+        "marq_delta_pp",
+        "market_adjustment_pp",
+        "marq_adjustment_pp",
+    )
+    num = as_float(explicit)
+    if num is not None:
+        return num
+    marq_prob = as_float(_first_data_value(row, "corq_market_probability", "marq_pick_probability", "marq_crowd_pick_pct", "market_pick_probability"))
+    final_prob = as_float(_first_data_value(row, "corq_calibrated_probability", "corq_probability", "corq_estimated_win_probability"))
+    if marq_prob is None or final_prob is None:
+        return None
+    if abs(marq_prob) <= 1.0:
+        marq_prob *= 100.0
+    if abs(final_prob) <= 1.0:
+        final_prob *= 100.0
+    return round(marq_prob - final_prob, 2)
+
+
+def _projection_line(value: Any) -> str:
+    num = as_float(value)
+    if num is None:
+        return "—"
+    return f"{num:.1f}"
+
+
+def sets_projection_display(row: Dict[str, Any]) -> str:
+    projected = _first_data_value(row, "ta_projected_sets", "thinq_projected_sets", "projected_sets", "sets_projected")
+    lean = sets_lean_display(row)
+    text = _projection_line(projected)
+    if text != "—" and lean and lean != "N/A":
+        return f"{text} | {lean}"
+    return lean if lean and lean != "N/A" else text
+
+
+def games_projection_display(row: Dict[str, Any]) -> str:
+    projected = _first_data_value(row, "ta_projected_games", "thinq_projected_games", "projected_total_games", "expected_games", "projected_games", "games_projected")
+    lean = games_lean_display(row)
+    text = _projection_line(projected)
+    if text != "—" and lean and lean != "N/A":
+        lean_clean = re.sub(r"\s*\([^)]*\)\s*$", "", lean).strip()
+        return f"{text} | {lean_clean}" if lean_clean else text
+    return lean if lean and lean != "N/A" else text
+
+
 def render_mmx_box(row: Dict[str, Any]) -> str:
-    """Temporary CorQ Model Mix diagnostics box."""
+    """Compact CorQ Model Mix diagnostics box."""
     thinq_prob_value = _first_data_value(row, "corq_raw_model_probability", "thinq_pick_probability", "thinq_probability", "top7_thinq_pick_probability")
     marq_prob_value = _first_data_value(row, "corq_market_probability", "marq_pick_probability", "marq_crowd_pick_pct", "market_pick_probability")
-    mix_label = str(row.get("corq_model_mix_label") or "ThinQ 100% / MarQ 0%")
     thinq_input = row.get("corq_thinq_input_pp")
     marq_input = row.get("corq_marq_input_pp")
     final_prob = _first_data_value(row, "corq_calibrated_probability", "corq_probability", "corq_estimated_win_probability")
-    method = str(row.get("corq_calibration_method") or "ThinQ Fallback")
+    delta = marq_delta_pp(row)
     return "\n".join(
         [
             '<section class="metric-box">',
-            '<div class="box-head"><span>MMx</span><b>Model Mix</b></div>',
+            f'<div class="box-head"><span>MMx</span><b>{esc(mmx_mix_display(row))}</b></div>',
             metric_row("ThinQ Prob", as_pct(thinq_prob_value, 1)),
             metric_row("MarQ Prob", as_pct(marq_prob_value, 1)),
-            metric_row("Mix", esc(mix_label)),
-            metric_row("ThinQ Input", pp_display(thinq_input, 1)),
-            metric_row("MarQ Input", pp_display(marq_input, 1)),
+            metric_row("ThinQ Input", pp_display(thinq_input, 1), sign_class(thinq_input)),
+            metric_row("MarQ Input", pp_display(marq_input, 1), sign_class(marq_input)),
             metric_row("CorQ Final", as_pct(final_prob, 1)),
-            metric_row("Mkt Adj", pp_display(row.get("corq_market_adjustment_pp"), 1), sign_class(row.get("corq_market_adjustment_pp"))),
-            metric_row("CLV", esc(marq_clv_display(row)), sign_class(row.get("marq_internal_clv_pp") or row.get("marq_clv_pct"))),
-            metric_row("Method", esc(method.replace("_", " ").title())),
+            metric_row("MarQ Δ", pp_display(delta, 1), sign_class(delta)),
             '</section>',
         ]
     )
 
 def render_sets_games_box(row: Dict[str, Any]) -> str:
     sets_value = market_pick_display(row, "sets", 2.5)
+    if sets_value == "—":
+        sets_value = sets_projection_display(row)
     games_value = market_pick_display(row, "games", 23.5)
+    if games_value == "—":
+        games_value = games_projection_display(row)
     best_value = market_pick_display(row, "best_total", None)
     if best_value == "—":
         best_value = market_pick_display(row, "best_ou", None)
@@ -1683,7 +1783,6 @@ def render_sets_games_box(row: Dict[str, Any]) -> str:
         metric_row("Best Bet", esc(best_bet_display(row))),
         '</section>',
     ])
-
 
 def final_marq_display(row: Dict[str, Any]) -> str:
     explicit = _first_data_value(
