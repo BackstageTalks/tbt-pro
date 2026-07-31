@@ -171,8 +171,8 @@ def explanation_text(key: str) -> str:
         "form_data_depth": "F Data Depth shows the reliability of recent form, surface form and opponent-quality data.",
         "mmx": "MMx shows the final blend between ThinQ model signal and MarQ market signal.",
         "marq": "MarQ summarises market-facing signals: crowd split, market edge, movement, CLV and final market read.",
-        "marq_edge": "MarQ Edge is the market-side advantage for the displayed pick. Positive means the market signal supports the pick, negative means it supports the opponent.",
-        "marq_move": "Move describes how the market has moved since the first usable snapshot. Stable means no meaningful directional move was detected.",
+        "marq_edge": "MarQ Edge is Pick Marq minus 50%. Pick Marq is the median no-vig market probability for the displayed pick across usable bookmaker quotes.",
+        "marq_move": "Range shows opening to latest pick odds. Move compares implied probability from those odds. Stable means no meaningful directional move was detected.",
     }
     return defaults.get(key, key)
 
@@ -1747,6 +1747,30 @@ def games_projection_display(row: Dict[str, Any]) -> str:
     return lean if lean and lean != "N/A" else text
 
 
+
+
+def _projection_value(row: Dict[str, Any], keys: Iterable[str]) -> str:
+    value = _first_data_value(row, *tuple(keys))
+    return _projection_line(value)
+
+
+def sets_games_projection_pair(row: Dict[str, Any]) -> str:
+    sets_text = _projection_value(row, ("ta_projected_sets", "thinq_projected_sets", "projected_sets", "sets_projected"))
+    games_text = _projection_value(row, ("ta_projected_games", "thinq_projected_games", "projected_total_games", "expected_games", "projected_games", "games_projected"))
+    return f"{sets_text} | {games_text}"
+
+
+def market_pair_display(row: Dict[str, Any], left_prefix: str, right_prefix: str, left_default: Optional[float] = None, right_default: Optional[float] = None) -> str:
+    left = market_pick_display(row, left_prefix, left_default)
+    right = market_pick_display(row, right_prefix, right_default)
+    return f"{left} | {right}"
+
+
+def marq_range_move_display(row: Dict[str, Any]) -> str:
+    move_range = marq_range_display(row)
+    move_signal = move_signal_display(_first_data_value(row, "marq_internal_move_signal", "marq_display_move_signal", "marq_move_signal", "market_move"))
+    return f"{move_range} | {move_signal}"
+
 def render_mmx_box(row: Dict[str, Any]) -> str:
     """Compact CorQ Model Mix diagnostics box."""
     thinq_prob_value = _first_data_value(row, "corq_raw_model_probability", "thinq_pick_probability", "thinq_probability", "top7_thinq_pick_probability")
@@ -1770,30 +1794,19 @@ def render_mmx_box(row: Dict[str, Any]) -> str:
     )
 
 def render_sets_games_box(row: Dict[str, Any]) -> str:
-    sets_value = market_pick_display(row, "sets", 2.5)
-    if sets_value == "—":
-        sets_value = sets_projection_display(row)
-    games_value = market_pick_display(row, "games", 23.5)
-    if games_value == "—":
-        games_value = games_projection_display(row)
-    best_value = market_pick_display(row, "best_total", None)
-    if best_value == "—":
-        best_value = market_pick_display(row, "best_ou", None)
-    if best_value == "—":
-        best_value = compact_market_line(
-            _first_data_value(row, "sets_games_best_total", "best_total", "best_ou", "sets_games_best_value"),
-            _first_data_value(row, "sets_games_best_total_probability", "best_total_probability", "best_ou_probability"),
-        )
+    sets_games_value = sets_games_projection_pair(row)
+    sets_ou_value = market_pick_display(row, "sets", 2.5)
+    games_ou_value = market_pick_display(row, "games", 23.5)
     return "\n".join([
         '<section class="metric-box small-box sets-signal-box">',
         f'<div class="box-head"><span>Sets / Games {info_icon("sets_games")}</span><b></b></div>',
-        metric_row("Sets", esc(sets_value)),
-        metric_row("Games", esc(games_value)),
-        metric_row("Best O/U", esc(best_value)),
-        metric_row("TB %", esc(tiebreak_pct_display(row))),
-        metric_row("Aces P/O/T", esc(triplet_market_display(row, "aces"))),
-        metric_row("DF P/O/T", esc(triplet_market_display(row, "df"))),
-        metric_row("Best Bet", esc(best_bet_display(row))),
+        metric_row("Sets | Games", esc(sets_games_value)),
+        metric_row("Sets o|u", esc(sets_ou_value)),
+        metric_row("Games o|u", esc(games_ou_value)),
+        metric_row("TB%", esc(tiebreak_pct_display(row))),
+        metric_row("Aces P | O | T", esc(triplet_market_display(row, "aces"))),
+        metric_row("DF P | O | T", esc(triplet_market_display(row, "df"))),
+        metric_row("S Data Depth", bar_html(stat_depth(row))),
         '</section>',
     ])
 
@@ -1873,28 +1886,19 @@ def marq_clv_display(row: Dict[str, Any]) -> str:
 
 
 def render_marq_box(row: Dict[str, Any]) -> str:
-    movement_available = _first_data_value(row, "marq_movement_available", "movement_available")
-    move_range = marq_range_display(row)
-    move_signal = move_signal_display(_first_data_value(row, "marq_internal_move_signal", "marq_display_move_signal", "marq_move_signal", "market_move"))
-
     rows = [
         '<section class="metric-box small-box marq-box">',
         f'<div class="box-head"><span>MarQ {info_icon("marq")}</span><b></b></div>',
         metric_row("Pick Marq", market_pct(_first_data_value(row, "marq_crowd_pick_pct", "pick_marq", "marq_pick_pct"))),
         metric_row("Opp Marq", market_pct(_first_data_value(row, "marq_crowd_opponent_pct", "opponent_marq", "opp_marq", "marq_opponent_pct"))),
         metric_row_info("MarQ Edge", signed_market_pct(_first_data_value(row, "marq_edge_pct", "marq_edge", "edge_pct")), "marq_edge"),
-        metric_row_info("Move", esc(move_signal), "marq_move"),
-        metric_row("Range", esc(move_range)),
+        metric_row_info("Range | Move", esc(marq_range_move_display(row)), "marq_move"),
     ]
-    sharp_value = marq_sharp_display(row)
-    if sharp_value != "—":
-        rows.append(metric_row("Sharp", esc(sharp_value)))
     clv_value = marq_clv_display(row)
     rows.append(metric_row("CLV", esc(clv_value), sign_class(row.get("marq_internal_clv_pp") or row.get("marq_clv_pct"))))
     rows.append(metric_row("MarQ Final", esc(final_marq_display(row))))
     rows.append('</section>')
     return "\n".join(rows)
-
 
 def render_cloq_box(row: Dict[str, Any]) -> str:
     return "\n".join([
