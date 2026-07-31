@@ -61,10 +61,16 @@ except Exception:
             "ta_opp_game_pct": None,
             "ta_pick_tb_split": None,
             "ta_opp_tb_split": None,
+            "ta_pick_tb_pct": None,
+            "ta_opp_tb_pct": None,
             "ta_pick_ace_pct": None,
             "ta_opp_ace_pct": None,
             "ta_pick_df_pct": None,
             "ta_opp_df_pct": None,
+            "pick_ace_pct": None,
+            "opponent_ace_pct": None,
+            "pick_df_pct": None,
+            "opponent_df_pct": None,
             "ta_pick_surface_dr": None,
             "ta_opp_surface_dr": None,
             "ta_pick_rpw_pct": None,
@@ -199,6 +205,38 @@ def _safe_ta_context(pick: str, opponent: str, surface: str = "") -> Dict[str, A
         return {"ta_status": "N/A", "aces_status": "N/A", "ta_decision_confidence": 0.0, "ta_decision_notes": [f"TA_CONTEXT_FAILED: {exc}"]}
     return {"ta_status": "N/A", "aces_status": "N/A", "ta_decision_confidence": 0.0, "ta_decision_notes": ["TA_CONTEXT_NON_DICT"]}
 
+
+
+
+def _first_non_null(*values: Any) -> Any:
+    for value in values:
+        if value not in (None, "", "N/A", "—", "-"):
+            return value
+    return None
+
+
+def _avg_pct(*values: Any) -> Optional[float]:
+    nums: List[float] = []
+    for value in values:
+        try:
+            if value not in (None, "", "N/A", "—", "-"):
+                nums.append(float(value))
+        except Exception:
+            continue
+    if not nums:
+        return None
+    return round(sum(nums) / len(nums), 1)
+
+
+def _ta_data_status(*values: Any) -> str:
+    return "OK" if all(value not in (None, "", "N/A", "—", "-") for value in values) else "MISSING_TA_DATA"
+
+
+def _ta_depth_pct(pick_depth: Any, opp_depth: Any) -> Optional[float]:
+    avg = _avg_pct(pick_depth, opp_depth)
+    if avg is None:
+        return None
+    return max(0.0, min(100.0, avg))
 
 def normalize_surface(surface: Optional[str]) -> Dict[str, Any]:
     raw = str(surface or "").strip()
@@ -500,18 +538,33 @@ class ThinqService:
             "ta_opp_game_pct": ta_context.get("ta_opp_game_pct"),
             "ta_pick_tb_split": ta_context.get("ta_pick_tb_split"),
             "ta_opp_tb_split": ta_context.get("ta_opp_tb_split"),
+            "ta_pick_tb_pct": ta_context.get("ta_pick_tb_pct"),
+            "ta_opp_tb_pct": ta_context.get("ta_opp_tb_pct"),
             "ta_pick_ace_pct": ta_context.get("ta_pick_ace_pct"),
             "ta_opp_ace_pct": ta_context.get("ta_opp_ace_pct"),
             "ta_pick_df_pct": ta_context.get("ta_pick_df_pct"),
             "ta_opp_df_pct": ta_context.get("ta_opp_df_pct"),
+            # Compatibility aliases consumed by the Sets/Games/Aces/DF layers.
+            "pick_ace_pct": ta_context.get("ta_pick_ace_pct"),
+            "opponent_ace_pct": ta_context.get("ta_opp_ace_pct"),
             "pick_df_pct": ta_context.get("ta_pick_df_pct"),
             "opponent_df_pct": ta_context.get("ta_opp_df_pct"),
+            "pick_tb_pct": ta_context.get("ta_pick_tb_pct"),
+            "opponent_tb_pct": ta_context.get("ta_opp_tb_pct"),
+            "tb_probability": _avg_pct(ta_context.get("ta_pick_tb_pct"), ta_context.get("ta_opp_tb_pct")),
+            "tiebreak_probability": _avg_pct(ta_context.get("ta_pick_tb_pct"), ta_context.get("ta_opp_tb_pct")),
+            "tie_break_probability": _avg_pct(ta_context.get("ta_pick_tb_pct"), ta_context.get("ta_opp_tb_pct")),
+            "ace_status": _ta_data_status(ta_context.get("ta_pick_ace_pct"), ta_context.get("ta_opp_ace_pct")),
+            "df_status": _ta_data_status(ta_context.get("ta_pick_df_pct"), ta_context.get("ta_opp_df_pct")),
             "ta_pick_surface_dr": ta_context.get("ta_pick_surface_dr"),
             "ta_opp_surface_dr": ta_context.get("ta_opp_surface_dr"),
             "ta_pick_rpw_pct": ta_context.get("ta_pick_rpw_pct"),
             "ta_opp_rpw_pct": ta_context.get("ta_opp_rpw_pct"),
             "ta_pick_depth": ta_context.get("ta_pick_depth"),
             "ta_opp_depth": ta_context.get("ta_opp_depth"),
+            "s_data_depth": _ta_depth_pct(ta_context.get("ta_pick_depth"), ta_context.get("ta_opp_depth")),
+            "sets_games_data_depth": _ta_depth_pct(ta_context.get("ta_pick_depth"), ta_context.get("ta_opp_depth")),
+            "sets_model_source": "TA" if _first_non_null(ta_context.get("ta_pick_game_pct"), ta_context.get("ta_opp_game_pct"), ta_context.get("ta_pick_ace_pct"), ta_context.get("ta_opp_ace_pct")) is not None else "ModelFallback",
             "pick_aces_line": ta_context.get("pick_aces_line"),
             "opponent_aces_line": ta_context.get("opponent_aces_line"),
             "total_aces_line": ta_context.get("total_aces_line"),
