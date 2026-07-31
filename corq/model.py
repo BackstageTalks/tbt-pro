@@ -182,6 +182,165 @@ def thinq_pick_probability(record: Dict[str, Any]) -> Optional[float]:
         return None
     return val / 100.0 if val > 1 else val
 
+
+def _prob_from_any(value: Any) -> Optional[float]:
+    val = as_float(value)
+    if val is None:
+        return None
+    if val > 1.0:
+        val /= 100.0
+    return clamp(val, 0.0, 1.0)
+
+
+def _first_probability(record: Dict[str, Any], keys: list[str]) -> Optional[float]:
+    for key in keys:
+        if key in record:
+            value = _prob_from_any(record.get(key))
+            if value is not None:
+                return value
+    return None
+
+
+def marq_pick_probability(record: Dict[str, Any]) -> Optional[float]:
+    """Return MarQ/market pick probability in 0..1 scale when available."""
+    value = _first_probability(
+        record,
+        [
+            "corq_market_probability",
+            "marq_pick_probability",
+            "marq_pick_probability_pct",
+            "marq_pick_pct",
+            "marq_pick_no_vig_probability",
+            "marq_no_vig_pick_probability",
+            "marq_crowd_pick_pct",
+            "market_pick_probability",
+            "market_pick_probability_pct",
+            "market_pick_no_vig_probability",
+            "pick_no_vig_probability",
+            "pick_implied_no_vig_probability",
+        ],
+    )
+    if value is not None:
+        return value
+
+    # Last-resort market probability from both decimal odds. This is still MarQ
+    # fallback because it is a no-vig market view, not a model estimate.
+    pick_odds = as_float(record.get("pick_odds") or record.get("odds"))
+    opp_odds = as_float(record.get("opponent_odds") or record.get("opp_odds"))
+    if pick_odds and opp_odds and pick_odds > 1 and opp_odds > 1:
+        pick_imp = 1.0 / pick_odds
+        opp_imp = 1.0 / opp_odds
+        total = pick_imp + opp_imp
+        if total > 0:
+            return clamp(pick_imp / total, 0.0, 1.0)
+    return None
+
+
+def _clv_pp(record: Dict[str, Any]) -> Optional[float]:
+    for key in ("marq_internal_clv_pp", "internal_clv_pp", "marq_clv_pp", "clv_pp"):
+        val = as_float(record.get(key))
+        if val is not None:
+            return val
+    return None
+
+
+def _model_market_weights(record: Dict[str, Any], data_confidence: float, market_probability: Optional[float]) -> tuple[float, float, str]:
+    if market_probability is None:
+        return 1.0, 0.0, "THINQ_FALLBACK_NO_MARQ"
+
+    if data_confidence >= 0.80:
+        model_weight = 0.70
+    elif data_confidence >= 0.70:
+        model_weight = 0.65
+    else:
+        model_weight = 0.55
+
+    move = str(
+        record.get("marq_internal_move_signal")
+        or record.get("marq_move_signal")
+        or record.get("marq_display_move_signal")
+        or ""
+    ).upper()
+    clv = _clv_pp(record)
+
+    # If market movement is against the pick, give MarQ more braking power.
+    if "AGAINST" in move or (clv is not None and clv <= -2.0):
+        model_weight -= 0.10
+    # If market movement supports the pick, still keep MarQ visible but reduce braking.
+    elif "TOWARD" in move or "WITH" in move or (clv is not None and clv >= 2.0):
+        model_weight += 0.05
+
+    model_weight = clamp(model_weight, 0.50, 0.75)
+    market_weight = round(1.0 - model_weight, 4)
+    return round(model_weight, 4), market_weight, "THINQ_MARQ_MODEL_MIX"
+
+
+def apply_corq_market_calibration(record: Dict[str, Any]) -> Dict[str, Any]:
+    """Calibrate CorQ as MMx = ThinQ model probability + MarQ market probability.
+
+    This function is intentionally not a filter. It keeps all candidates but makes
+    CorQ a genuine final calibrated probability instead of a ThinQ copy.
+    """
+    out = dict(record)
+    thinq_probability = thinq_pick_probability(out)
+    if thinq_probability is None:
+        thinq_probability = _prob_from_any(
+            out.get("corq_raw_model_probability")
+            or out.get("corq_estimated_win_probability")
+            or out.get("corq_probability")
+            or out.get("probability")
+        )
+    if thinq_probability is None:
+        thinq_probability = 0.50
+
+    data_confidence = as_float(out.get("thinq_data_confidence"), None)
+    if data_confidence is None:
+        data_confidence = as_float(out.get("thinq_confidence"), 0.0) or 0.0
+    if data_confidence > 1.0:
+        data_confidence /= 100.0
+    data_confidence = clamp(float(data_confidence or 0.0), 0.0, 1.0)
+
+    market_probability = marq_pick_probability(out)
+    model_weight, market_weight, method = _model_market_weights(out, data_confidence, market_probability)
+    if market_probability is None:
+        market_probability = thinq_probability
+
+    thinq_input = thinq_probability * model_weight
+    marq_input = market_probability * market_weight
+    calibrated = clamp(thinq_input + marq_input, 0.05, 0.95)
+    adjustment_pp = (calibrated - thinq_probability) * 100.0
+
+    odds = as_float(out.get("pick_odds") or out.get("odds"))
+    implied = round(1.0 / odds, 4) if odds and odds > 1 else None
+    corq_edge = round(calibrated - implied, 4) if implied is not None else as_float(out.get("corq_edge"), 0.0) or 0.0
+
+    out.update(
+        {
+            "corq_raw_model_probability": round(thinq_probability, 4),
+            "corq_raw_model_probability_pct": round(thinq_probability * 100.0, 2),
+            "corq_market_probability": round(market_probability, 4),
+            "corq_market_probability_pct": round(market_probability * 100.0, 2),
+            "corq_model_weight": round(model_weight, 4),
+            "corq_market_weight": round(market_weight, 4),
+            "corq_model_mix_label": f"ThinQ {int(round(model_weight * 100))}% / MarQ {int(round(market_weight * 100))}%",
+            "corq_thinq_input_pp": round(thinq_input * 100.0, 2),
+            "corq_marq_input_pp": round(marq_input * 100.0, 2),
+            "corq_calibrated_probability": round(calibrated, 4),
+            "corq_calibrated_probability_pct": round(calibrated * 100.0, 2),
+            "corq_market_adjustment_pp": round(adjustment_pp, 2),
+            "corq_calibration_method": method,
+            "corq_probability": round(calibrated, 4),
+            "corq_estimated_win_probability": round(calibrated, 4),
+            "estimated_win_pct": round(calibrated * 100.0, 2),
+            "corq_score": round(calibrated, 4),
+            "probability": round(calibrated, 4),
+            "corq_edge": corq_edge,
+            "value_edge": corq_edge,
+            "edge": corq_edge,
+        }
+    )
+    return out
+
 def build_corq_prediction(record: Dict[str, Any]) -> Dict[str, Any]:
     out = dict(record)
     thinq = out.get("thinq") if isinstance(out.get("thinq"), dict) else {}

@@ -16,7 +16,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from corq.candidates import load_candidates
-from corq.model import build_corq_prediction
+from corq.model import apply_corq_market_calibration, build_corq_prediction
 from corq.outputs import save_all, save_run_manifest, save_top7
 from corq.ranking import make_all_match_view, rank_corq, top7_from_ranking
 from corq.sides import build_side_audit, repair_candidate_side
@@ -504,6 +504,7 @@ def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", ru
         prediction = _enrich_with_ta_profile_context(prediction)
         prediction = _enrich_with_sets_games(prediction)
         prediction = _enrich_with_marq(prediction)
+        prediction = apply_corq_market_calibration(prediction)
         scored.append(prediction)
 
     all_view = make_all_match_view(scored)
