@@ -530,8 +530,28 @@ def probability(row: Dict[str, Any]) -> Optional[float]:
     return None
 
 
+def thinq_prob(row: Dict[str, Any]) -> Optional[float]:
+    """Return ThinQ pick win probability, not data confidence."""
+    for key in ("thinq_pick_probability", "thinq_probability", "top7_thinq_pick_probability"):
+        val = as_float(row.get(key))
+        if val is not None:
+            return val
+    layer = row.get("thinq_probability_layer") or row.get("probability_layer")
+    if isinstance(layer, dict):
+        val = as_float(layer.get("pick_probability") or layer.get("probability"))
+        if val is not None:
+            return val
+    thinq = row.get("thinq")
+    if isinstance(thinq, dict):
+        layer = thinq.get("thinq_probability_layer") or thinq.get("probability_layer")
+        if isinstance(layer, dict):
+            return as_float(layer.get("pick_probability") or layer.get("probability"))
+    return None
+
+
 def thinq_conf(row: Dict[str, Any]) -> Optional[float]:
-    for key in ("thinq_confidence", "thinq_overall_confidence", "thinq_probability_confidence", "data_confidence"):
+    """Return ThinQ data/model confidence, not win probability."""
+    for key in ("thinq_data_confidence", "thinq_probability_confidence", "thinq_confidence", "thinq_overall_confidence", "data_confidence"):
         val = as_float(row.get(key))
         if val is not None:
             return val
@@ -945,7 +965,8 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         metric_row("S Data Depth", bar_html(stat_depth(row))),
         '</section>',
         '<section class="metric-box">',
-        f'<div class="box-head"><span>ThinQ {info_icon("thinq")}</span><b>{as_pct(thinq_conf(row), 1)}</b></div>',
+        f'<div class="box-head"><span>ThinQ Prob {info_icon("thinq")}</span><b>{as_pct(thinq_prob(row), 1)}</b></div>',
+        metric_row("Data Conf", as_pct(thinq_conf(row), 1)),
         metric_row("P F | S-F", esc(f"{pick_form} | {pick_sform}")),
         metric_row("O F | S-F", esc(f"{opp_form} | {opp_sform}")),
         metric_row("P R-Edge", signed_pct(row.get("recent_form_edge") or row.get("short_form_edge")), sign_class(row.get("recent_form_edge") or row.get("short_form_edge"))),
