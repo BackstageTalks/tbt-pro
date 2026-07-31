@@ -1250,6 +1250,10 @@
     "history_file_count": 15
   },
   "implied_probability": 0.6536,
+  "thinq_data_confidence": 0.88,
+  "thinq_data_confidence_pct": 88.0,
+  "thinq_pick_probability": 0.6212,
+  "thinq_pick_probability_pct": 62.12,
   "overall_elo_edge": 0.07,
   "surface_elo_edge": 0.08,
   "elo_edge": 0.08,
@@ -1268,7 +1272,7 @@
   "form_confidence": 0.95,
   "form_data_depth": 0.95,
   "corq_model_version": "CORQ_V1_THINQ_PRIMARY_PROBABILITY",
-  "corq_probability_source": "ThinQ",
+  "corq_probability_source": "THINQ_PICK_PROBABILITY",
   "corq_thinq_probability": 0.6212,
   "corq_components": {
     "overall_elo_component": 0.07,
@@ -1421,7 +1425,7 @@
   "marq_edge_pct": 12.0,
   "marq_final": "Market With Pick",
   "marq_final_display": "Market With Pick",
-  "corq_source_rank": 29,
+  "corq_source_rank": 30,
   "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
   "top7_publishable": true,
   "eligible_for_top7": true,
@@ -1432,6 +1436,8 @@
   "top7_corq_probability": 0.6212,
   "top7_pick_thinq_edge": 0.1377,
   "top7_thinq_confidence": 0.88,
+  "top7_thinq_data_confidence": 0.88,
+  "top7_thinq_pick_probability": 0.6212,
   "pick_data_depth": 0.9535,
   "stat_data_depth": 0.9535,
   "top7_pick_odds": 1.53,
@@ -1479,11 +1485,11 @@
   ],
   "top7_risk_penalty_points": 0.0,
   "top7_clean_bonus_points": 3.0,
-  "top7_quality_score": 100.5115,
+  "top7_quality_score": 93.6118,
   "corq_warning_flags": [
     "CLEAN_MODEL_SUPPORT"
   ],
-  "corq_rank": 3,
-  "top7_rank": 3,
+  "corq_rank": 4,
+  "top7_rank": 4,
   "_corq_render_rank": 2
 }

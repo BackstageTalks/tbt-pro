@@ -1235,6 +1235,10 @@
     "history_file_count": 15
   },
   "implied_probability": 0.619,
+  "thinq_data_confidence": 0.88,
+  "thinq_data_confidence_pct": 88.0,
+  "thinq_pick_probability": 0.5967,
+  "thinq_pick_probability_pct": 59.67,
   "overall_elo_edge": 0.0231,
   "surface_elo_edge": 0.0187,
   "elo_edge": 0.0187,
@@ -1253,7 +1257,7 @@
   "form_confidence": 0.95,
   "form_data_depth": 0.95,
   "corq_model_version": "CORQ_V1_THINQ_PRIMARY_PROBABILITY",
-  "corq_probability_source": "ThinQ",
+  "corq_probability_source": "THINQ_PICK_PROBABILITY",
   "corq_thinq_probability": 0.5967,
   "corq_components": {
     "overall_elo_component": 0.0231,
@@ -1417,6 +1421,8 @@
   "top7_corq_probability": 0.5967,
   "top7_pick_thinq_edge": 0.1099,
   "top7_thinq_confidence": 0.88,
+  "top7_thinq_data_confidence": 0.88,
+  "top7_thinq_pick_probability": 0.5967,
   "pick_data_depth": 0.9535,
   "stat_data_depth": 0.9535,
   "top7_pick_odds": 1.6154,
@@ -1464,11 +1470,11 @@
   ],
   "top7_risk_penalty_points": 0.0,
   "top7_clean_bonus_points": 3.0,
-  "top7_quality_score": 97.5055,
+  "top7_quality_score": 90.2221,
   "corq_warning_flags": [
     "CLEAN_MODEL_SUPPORT"
   ],
-  "corq_rank": 4,
-  "top7_rank": 4,
+  "corq_rank": 5,
+  "top7_rank": 5,
   "_corq_render_rank": 20
 }
