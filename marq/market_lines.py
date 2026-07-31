@@ -1706,3 +1706,323 @@ def build_sets_games_from_match(match: Dict[str, Any], model_prediction: Optiona
         enriched.setdefault("sets_games_best_value", None)
     return enriched
 
+
+
+# ---------------------------------------------------------------------------
+# Runtime override: TennisAPI PRO /odds/{provider}/all real market-line parser
+# ---------------------------------------------------------------------------
+# The functions below intentionally override earlier definitions with the same
+# names.  They keep older Bet365/TA helpers intact, but prefer TennisAPI PRO
+# real market lines when provider payloads expose them.
+
+_REAL_LINE_SOURCE = "TennisApiPRO getAllOddsForEvent"
+
+
+def _line_from_market_or_choices(market: Dict[str, Any]) -> Optional[float]:
+    for key in ("choiceGroup", "line", "handicap", "total", "points"):
+        val = as_float(market.get(key))
+        if val is not None:
+            return val
+    choices = market.get("choices") or market.get("outcomes") or []
+    if isinstance(choices, list):
+        for choice in choices:
+            if not isinstance(choice, dict):
+                continue
+            for key in ("choiceGroup", "line", "handicap", "total", "points", "name", "label"):
+                val = as_float(choice.get(key))
+                if val is not None:
+                    return val
+                line = _extract_line(choice.get(key))
+                if line is not None:
+                    return line
+    for key in ("marketName", "name", "marketGroup", "group"):
+        line = _extract_line(market.get(key))
+        if line is not None:
+            return line
+    return None
+
+
+def _market_name_blob(market: Dict[str, Any]) -> str:
+    parts = []
+    for key in ("marketName", "name", "marketGroup", "group", "marketPeriod", "choiceGroup"):
+        value = market.get(key)
+        if value not in (None, ""):
+            parts.append(str(value))
+    return " ".join(parts).strip()
+
+
+def _market_kind_from_blob(blob: str, line: Optional[float] = None) -> Optional[str]:
+    low = blob.lower().replace("-", " ")
+    if "double fault" in low or "doublefault" in low or " double faults" in low or " df" in low:
+        return "total_df" if "total" in low and "player" not in low else "player_df"
+    if "ace" in low:
+        return "total_aces" if "total" in low and "player" not in low else "player_aces"
+    # TennisAPI sometimes uses one family name like Total sets/games and choiceGroup is the line.
+    if "total sets/games" in low or ("total" in low and "sets" in low and "game" in low):
+        if line is not None and line <= 5.5:
+            return "total_sets"
+        return "total_games"
+    if "total set" in low or "sets total" in low:
+        return "total_sets"
+    if "total game" in low or "games total" in low:
+        return "total_games"
+    if "tie break" in low or "tiebreak" in low or "tie-break" in low:
+        return "tie_break"
+    if "first set winner" in low:
+        return "first_set_winner"
+    if "full time" in low or "match winner" in low or "winner" == low.strip():
+        return "match_winner"
+    return None
+
+
+def _ou_details_from_market(market: Dict[str, Any]) -> Dict[str, Any]:
+    details = _find_over_under_details(market)
+    line = _line_from_market_or_choices(market)
+    if line is not None:
+        details["line"] = line
+    over_odds, under_odds = details.get("over_odds"), details.get("under_odds")
+    over_prob, under_prob = normalize_pair_probability(over_odds, under_odds)
+    details["over_probability"] = over_prob
+    details["under_probability"] = under_prob
+    details["source"] = _REAL_LINE_SOURCE
+    return details
+
+
+def _pair_details_from_market(market: Dict[str, Any]) -> Dict[str, Any]:
+    details = _market_choices_pair_details(market)
+    p1, p2 = details.get("p1_odds"), details.get("p2_odds")
+    p1_prob, p2_prob = normalize_pair_probability(p1, p2)
+    details["p1_probability"] = p1_prob
+    details["p2_probability"] = p2_prob
+    details["source"] = _REAL_LINE_SOURCE
+    return details
+
+
+def parse_tennisapi_set_markets(payload: Dict[str, Any], event_id: Optional[int] = None) -> Dict[str, Any]:
+    """Parse rich TennisAPI PRO all-odds payload into real market-line fields.
+
+    Primary endpoint shape: /api/tennis/event/{event_id}/odds/{provider_id}/all.
+    The parser captures match winner, Total Sets, Total Games, TB, player/total
+    aces and player/total double-fault lines when those markets are available.
+    """
+    markets = _normalize_tennisapi_markets_payload(payload or {})
+    output: Dict[str, Any] = {
+        "event_id": event_id or (payload.get("eventId") if isinstance(payload, dict) else None),
+        "match_winner": None,
+        "first_set_winner": None,
+        "total_games": None,
+        "total_sets": None,
+        "tie_break": None,
+        "player_aces_markets": [],
+        "total_aces": None,
+        "player_df_markets": [],
+        "total_df": None,
+        "raw_market_count": len(markets),
+        "market_source": _REAL_LINE_SOURCE,
+    }
+
+    for market in markets:
+        if not isinstance(market, dict):
+            continue
+        line = _line_from_market_or_choices(market)
+        blob = _market_name_blob(market)
+        market_id = market.get("marketId")
+        kind = _market_kind_from_blob(blob, line=line)
+        # Legacy ids can still help where names are sparse.
+        if kind is None:
+            if market_id == 1:
+                kind = "match_winner"
+            elif market_id == 11:
+                kind = "first_set_winner"
+            elif market_id == 12:
+                kind = "total_games"
+            elif market_id == 13:
+                kind = "tie_break"
+        meta = {
+            "market_id": market_id,
+            "market_name": str(market.get("marketName") or market.get("name") or ""),
+            "market_group": str(market.get("marketGroup") or market.get("group") or ""),
+            "market_period": str(market.get("marketPeriod") or ""),
+            "raw_label": blob,
+            "source": _REAL_LINE_SOURCE,
+        }
+        if kind == "match_winner":
+            details = _pair_details_from_market(market)
+            if details.get("p1_odds") and details.get("p2_odds"):
+                output["match_winner"] = {**details, **meta}
+        elif kind == "first_set_winner":
+            details = _pair_details_from_market(market)
+            if details.get("p1_odds") and details.get("p2_odds"):
+                output["first_set_winner"] = {**details, **meta}
+        elif kind in {"total_games", "total_sets"}:
+            details = _ou_details_from_market(market)
+            if details.get("line") is not None and details.get("over_odds") and details.get("under_odds"):
+                target = "total_sets" if kind == "total_sets" else "total_games"
+                output[target] = {**details, **meta}
+        elif kind == "tie_break":
+            details = _pair_details_from_market(market)
+            yes_odds, no_odds = details.get("p1_odds"), details.get("p2_odds")
+            yes_prob, no_prob = normalize_pair_probability(yes_odds, no_odds)
+            if yes_odds and no_odds:
+                output["tie_break"] = {
+                    "yes_odds": yes_odds,
+                    "no_odds": no_odds,
+                    "yes_initial_odds": details.get("p1_initial_odds"),
+                    "no_initial_odds": details.get("p2_initial_odds"),
+                    "yes_change": details.get("p1_change"),
+                    "no_change": details.get("p2_change"),
+                    "yes_probability": yes_prob,
+                    "no_probability": no_prob,
+                    **meta,
+                }
+        elif kind in {"player_aces", "player_df", "total_aces", "total_df"}:
+            details = _ou_details_from_market(market)
+            if details.get("line") is None or not (details.get("over_odds") and details.get("under_odds")):
+                continue
+            payload_line = {**details, **meta}
+            if kind == "total_aces":
+                output["total_aces"] = payload_line
+            elif kind == "total_df":
+                output["total_df"] = payload_line
+            elif kind == "player_aces":
+                output.setdefault("player_aces_markets", []).append(payload_line)
+            elif kind == "player_df":
+                output.setdefault("player_df_markets", []).append(payload_line)
+    return output
+
+
+def _score_prop_market_for_player(market: Dict[str, Any], player_name: str, side_hint: Optional[str] = None) -> float:
+    blob = f"{market.get('raw_label') or ''} {market.get('market_name') or ''} {market.get('market_group') or ''}"
+    try:
+        score = name_match_score(player_name, blob)
+    except Exception:
+        score = 0.0
+    low = blob.lower()
+    if side_hint:
+        side = side_hint.lower()
+        if side == "home" and any(x in low for x in ("player 1", "home", "team 1", "1 ")):
+            score = max(score, 0.75)
+        if side == "away" and any(x in low for x in ("player 2", "away", "team 2", "2 ")):
+            score = max(score, 0.75)
+    return score
+
+
+def _select_player_prop(markets: List[Dict[str, Any]], player_name: str, side_hint: Optional[str] = None) -> Optional[Dict[str, Any]]:
+    if not markets:
+        return None
+    scored = sorted(
+        ((_score_prop_market_for_player(m, player_name, side_hint), m) for m in markets),
+        key=lambda item: item[0],
+        reverse=True,
+    )
+    if scored and scored[0][0] >= 0.45:
+        return scored[0][1]
+    # If only two markets exist but names are unusable, preserve order as a fallback.
+    return None
+
+
+def _prop_selection_from_projection(projection: Any, line: Any, scale: float) -> Dict[str, Any]:
+    proj = as_float(projection)
+    ln = as_float(line)
+    if proj is None or ln is None:
+        return {"side": None, "selection": None, "probability": None}
+    over_p = _over_probability_from_projection(proj, ln, scale)
+    if proj >= ln:
+        return {"side": "Over", "selection": f"O{ln:g}", "probability": over_p}
+    return {"side": "Under", "selection": f"U{ln:g}", "probability": round(1.0 - over_p, 4)}
+
+
+def _apply_real_prop_lines(enriched: Dict[str, Any], set_markets: Dict[str, Any]) -> None:
+    """Overlay real Aces/DF bookmaker lines on top of model projections.
+
+    Projection still comes from API/TA serve stats. Line comes from the real
+    market when available. If no real market is present, the existing synthetic
+    projection line remains unchanged.
+    """
+    pick = str(enriched.get("pick") or enriched.get("player") or enriched.get("player1") or "")
+    opp = str(enriched.get("opponent") or enriched.get("opp") or enriched.get("player2") or "")
+    pick_side = str(enriched.get("pick_side") or "").strip().upper() or None
+    opp_side = str(enriched.get("opponent_side") or "").strip().upper() or None
+
+    for family, market_key, prefix, total_key, scale in (
+        ("aces", "player_aces_markets", "aces", "total_aces", 1.15),
+        ("df", "player_df_markets", "df", "total_df", 1.05),
+    ):
+        p_market = _select_player_prop(set_markets.get(market_key) or [], pick, pick_side)
+        o_market = _select_player_prop(set_markets.get(market_key) or [], opp, opp_side)
+        # Order fallback: if two player markets exist and matching did not work, use row side order.
+        candidate_markets = set_markets.get(market_key) or []
+        if p_market is None and len(candidate_markets) >= 1:
+            p_market = candidate_markets[0 if pick_side != "AWAY" else min(1, len(candidate_markets) - 1)]
+        if o_market is None and len(candidate_markets) >= 2:
+            o_market = candidate_markets[1 if pick_side != "AWAY" else 0]
+        t_market = set_markets.get(total_key)
+
+        mappings = [
+            ("pick", p_market, f"pick_{prefix}"),
+            ("opponent", o_market, f"opponent_{prefix}"),
+            ("total", t_market, f"total_{prefix}"),
+        ]
+        for side_name, market, base in mappings:
+            if not isinstance(market, dict):
+                continue
+            line = as_float(market.get("line"))
+            if line is None:
+                continue
+            projection = enriched.get(f"{base}_projection") or enriched.get(base)
+            sel = _prop_selection_from_projection(projection, line, scale)
+            enriched[f"{base}_line"] = line
+            enriched[f"{base}_over_odds"] = market.get("over_odds")
+            enriched[f"{base}_under_odds"] = market.get("under_odds")
+            enriched[f"{base}_market_source"] = market.get("source") or _REAL_LINE_SOURCE
+            if sel.get("side"):
+                enriched[f"{base}_side"] = sel["side"]
+                enriched[f"{base}_selection"] = sel["selection"]
+                enriched[f"{base}_probability"] = sel["probability"]
+            enriched[f"{base}_line_source"] = "REAL_MARKET_LINE"
+
+
+def build_sets_games_from_match(match: Dict[str, Any], model_prediction: Optional[Dict[str, Any]] = None, force_refresh: bool = False) -> Dict[str, Any]:
+    """Fetch markets and build Sets/Games fields for a current project match row.
+
+    Real TennisAPI PRO market lines are preferred for Sets, Games, Aces and DF.
+    Model/serve projections are used to decide O/U probability against those
+    lines. If a real prop line is missing, existing projection fallback remains.
+    """
+    event_id = match.get("event_id") or match.get("match_id") or match.get("id")
+    set_markets = get_tennisapi_set_markets(event_id, force_refresh=force_refresh) if event_id else {}
+    output = build_market_aware_sets(match, model_prediction or match, set_markets=set_markets)
+    enriched = dict(match)
+    enriched.update(output)
+    enriched["sets_games_market_source"] = set_markets.get("market_source") if isinstance(set_markets, dict) else None
+    enriched["sets_games_raw_market_count"] = set_markets.get("raw_market_count") if isinstance(set_markets, dict) else None
+
+    df_info = build_ta_double_faults_projection(
+        enriched,
+        games_line=enriched.get("projected_total_games") or enriched.get("expected_games") or enriched.get("games_line") or enriched.get("total_games_line"),
+        surface=str(enriched.get("surface") or enriched.get("surface_raw") or "") or None,
+    )
+    if isinstance(df_info, dict):
+        enriched.update(df_info)
+    aces_info = _ta_aces_projection(enriched, as_float(enriched.get("projected_total_games") or enriched.get("expected_games")))
+    if isinstance(aces_info, dict):
+        enriched.update(aces_info)
+
+    if isinstance(set_markets, dict):
+        _apply_real_prop_lines(enriched, set_markets)
+
+    best_info = _best_model_bet(enriched)
+    if isinstance(best_info, dict):
+        enriched.update(best_info)
+    value_candidates = build_sets_games_value_candidates(enriched)
+    enriched["sets_games_value_candidates"] = value_candidates
+    if value_candidates and value_candidates[0].get("selection"):
+        enriched["value_bet"] = value_candidates[0].get("selection")
+        enriched["value_bet_display"] = value_candidates[0].get("selection")
+        enriched["sets_games_best_value"] = value_candidates[0].get("selection")
+        enriched["sets_games_best_value_edge"] = value_candidates[0].get("edge")
+    else:
+        enriched["value_bet"] = None
+        enriched["value_bet_display"] = None
+        enriched.setdefault("sets_games_best_value", None)
+    return enriched
