@@ -652,7 +652,11 @@ def surface_h2h_record(row: Dict[str, Any]) -> Tuple[Optional[int], Optional[int
     for a, b in (("surface_h2h_pick_wins", "surface_h2h_opponent_wins"), ("thinq_surface_h2h_pick_wins", "thinq_surface_h2h_opponent_wins")):
         if row.get(a) is not None or row.get(b) is not None:
             p = int(as_float(row.get(a), 0) or 0)
-            o = int(as_float(row.get(b), 0) or 0)
+            opp_raw = as_float(row.get(b))
+            if opp_raw is None and total is not None:
+                o = max(int(total or 0) - p, 0)
+            else:
+                o = int(opp_raw or 0)
             if p == 0 and o == 0:
                 return None, None
             return p, o
@@ -709,7 +713,10 @@ def surface_h2h_display(row: Dict[str, Any]) -> str:
     p, o = surface_h2h_record(row)
     if p is None or o is None or (p == 0 and o == 0):
         return "No data"
-    return f"{p}W-{o}L"
+    edge = as_float(row.get("surface_h2h_edge") or row.get("thinq_surface_h2h_edge") or nested_get(row, "thinq", "h2h", "same_surface_edge"))
+    if edge is None:
+        return f"{p}W-{o}L"
+    return f"{p}W-{o}L · {signed_pct(edge)}"
 def surface_h2h_class(row: Dict[str, Any]) -> str:
     p, o = surface_h2h_record(row)
     if p is None or o is None:
