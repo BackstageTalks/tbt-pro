@@ -124,6 +124,70 @@ def string_id(value: Any) -> Optional[str]:
     return text or None
 
 
+def normalize_surface_bucket(value: Any) -> Optional[str]:
+    """Map API and project surface labels into one H2H bucket.
+
+    Tennis API payloads are not consistent: surface can be a plain string,
+    groundType.name, nested tournament.groundType or labels such as red clay.
+    The H2H same-surface calculation must compare buckets, not raw strings.
+    """
+    if value in (None, ""):
+        return None
+    if isinstance(value, dict):
+        for key in ("name", "slug", "type", "value", "displayName", "surface", "groundType"):
+            bucket = normalize_surface_bucket(value.get(key))
+            if bucket:
+                return bucket
+        return None
+    text = str(value or "").strip().lower()
+    if not text:
+        return None
+    text = text.replace("_", " ").replace("-", " ")
+    clay_terms = ("clay", "red clay", "green clay", "terre battue", "antuka", "har tru", "hartru")
+    grass_terms = ("grass", "lawn")
+    hard_terms = ("hard", "hardcourt", "hard court", "indoor hard", "outdoor hard", "carpet")
+    if any(term in text for term in clay_terms):
+        return "Clay"
+    if any(term in text for term in grass_terms):
+        return "Grass"
+    if any(term in text for term in hard_terms):
+        return "Hard"
+    return None
+
+
+def _surface_candidates(obj: Any, depth: int = 0) -> List[Any]:
+    if depth > 4:
+        return []
+    out: List[Any] = []
+    if isinstance(obj, dict):
+        for key, value in obj.items():
+            key_norm = str(key).lower().replace("_", "").replace("-", "")
+            if key_norm in {"surface", "surfacetype", "ground", "groundtype", "courttype", "court", "surfaceinfo"}:
+                out.append(value)
+            if isinstance(value, (dict, list)):
+                out.extend(_surface_candidates(value, depth + 1))
+    elif isinstance(obj, list):
+        for item in obj:
+            out.extend(_surface_candidates(item, depth + 1))
+    return out
+
+
+def event_surface_bucket(event: Dict[str, Any]) -> Optional[str]:
+    # First check common top-level fields, then scan nested tournament/venue data.
+    direct = [
+        event.get("surface"),
+        event.get("groundType"),
+        event.get("surfaceType"),
+        event.get("courtType"),
+        event.get("court"),
+    ]
+    for value in direct + _surface_candidates(event):
+        bucket = normalize_surface_bucket(value)
+        if bucket:
+            return bucket
+    return None
+
+
 def fetch_h2h_from_api(
     event_id: Any,
     player1_id: Any = None,
@@ -246,25 +310,41 @@ def winner_from_event(event: Dict[str, Any]) -> Optional[str]:
 
 def summarize_h2h(payload: Any, pick: str, opponent: str, surface: Optional[str] = None) -> Dict[str, Any]:
     events = extract_events(payload)
+    requested_surface = normalize_surface_bucket(surface)
     total = 0
     pick_wins = 0
     opponent_wins = 0
     same_surface_total = 0
     same_surface_pick_wins = 0
+    same_surface_opponent_wins = 0
+    missing_surface_matches = 0
+    detected_surface_buckets: List[str] = []
+
     for event in events:
         winner = winner_from_event(event)
         if not winner:
             continue
         total += 1
-        if names_match(winner, pick):
+        pick_won = names_match(winner, pick)
+        opponent_won = names_match(winner, opponent)
+        if pick_won:
             pick_wins += 1
-        elif names_match(winner, opponent):
+        elif opponent_won:
             opponent_wins += 1
-        raw_surface = str(event.get("surface") or event.get("groundType") or event.get("surfaceType") or "").lower()
-        if surface and str(surface).lower() in raw_surface:
+
+        event_bucket = event_surface_bucket(event)
+        if event_bucket:
+            detected_surface_buckets.append(event_bucket)
+        else:
+            missing_surface_matches += 1
+
+        if requested_surface and event_bucket == requested_surface:
             same_surface_total += 1
-            if names_match(winner, pick):
+            if pick_won:
                 same_surface_pick_wins += 1
+            elif opponent_won:
+                same_surface_opponent_wins += 1
+
     if total == 0:
         return {
             "status": "NO_DATA",
@@ -272,13 +352,22 @@ def summarize_h2h(payload: Any, pick: str, opponent: str, surface: Optional[str]
             "total_matches": 0,
             "pick_wins": 0,
             "opponent_wins": 0,
+            "same_surface_matches": 0,
+            "same_surface_pick_wins": 0,
+            "same_surface_opponent_wins": 0,
+            "h2h_requested_surface": surface,
+            "h2h_requested_surface_bucket": requested_surface,
+            "h2h_missing_surface_matches": 0,
             "edge": 0.0,
             "confidence": 0.0,
             "reason": "No API H2H events returned",
         }
+
     win_pct = pick_wins / total
     edge = max(min((win_pct - 0.5) * 0.08, 0.04), -0.04)
     confidence = min(0.15 + total * 0.08, 0.55)
+    surface_win_pct = (same_surface_pick_wins / same_surface_total) if same_surface_total else None
+    surface_edge = max(min(((surface_win_pct or 0.5) - 0.5) * 0.08, 0.04), -0.04) if surface_win_pct is not None else 0.0
     return {
         "status": "OK",
         "source": "rapidapi_pro_or_cache",
@@ -288,6 +377,13 @@ def summarize_h2h(payload: Any, pick: str, opponent: str, surface: Optional[str]
         "pick_win_pct": round(win_pct, 4),
         "same_surface_matches": same_surface_total,
         "same_surface_pick_wins": same_surface_pick_wins,
+        "same_surface_opponent_wins": same_surface_opponent_wins,
+        "same_surface_pick_win_pct": round(surface_win_pct, 4) if surface_win_pct is not None else None,
+        "same_surface_edge": round(surface_edge, 4),
+        "h2h_requested_surface": surface,
+        "h2h_requested_surface_bucket": requested_surface,
+        "h2h_detected_surface_buckets": sorted(set(detected_surface_buckets)),
+        "h2h_missing_surface_matches": missing_surface_matches,
         "edge": round(edge, 4),
         "confidence": round(confidence, 4),
         "reason": None,
