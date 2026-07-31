@@ -4,7 +4,7 @@
   "latest_odds_player1": 8.5,
   "latest_odds_player2": 1.05,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-07-31T14:29:56.594951+00:00",
+  "latest_snapshot_time_utc": "2026-07-31T18:11:14.376002+00:00",
   "opening_odds_player1": 8.5,
   "opening_odds_player2": 1.05,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "TennisAPI_PRO",
   "player1": "Isabella Barrera Aguirre",
   "player2": "Carolina Alves",
-  "snapshot_count": 6,
+  "snapshot_count": 7,
   "snapshots": [
     {
       "event_id": "16668913",
@@ -133,8 +133,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-30T14:03:32+00:00",
       "target_date": "2026-07-31"
+    },
+    {
+      "event_id": "16668913",
+      "event_key": "2026-07-31_carolina-alves_vs_isabella-barrera-aguirre",
+      "hours_to_start": -28.13,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 8.5,
+      "odds_player2": 1.05,
+      "player1": "Isabella Barrera Aguirre",
+      "player2": "Carolina Alves",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-07-31T18:11:14.376002+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-07-30T14:03:32+00:00",
+      "target_date": "2026-07-31"
     }
   ],
   "start_time_utc": "2026-07-30T14:03:32+00:00",
-  "updated_at_utc": "2026-07-31T14:30:17.339965+00:00"
+  "updated_at_utc": "2026-07-31T18:11:43.046399+00:00"
 }

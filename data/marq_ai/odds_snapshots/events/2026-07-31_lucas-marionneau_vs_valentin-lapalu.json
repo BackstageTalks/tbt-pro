@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.11111,
   "latest_odds_player2": 6.0,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-07-31T14:29:56.594951+00:00",
+  "latest_snapshot_time_utc": "2026-07-31T18:11:14.376002+00:00",
   "opening_odds_player1": 1.11111,
   "opening_odds_player2": 6.0,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "TennisAPI_PRO",
   "player1": "Lucas Marionneau",
   "player2": "Valentin Lapalu",
-  "snapshot_count": 11,
+  "snapshot_count": 12,
   "snapshots": [
     {
       "event_id": "16668307",
@@ -228,8 +228,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-30T14:12:55+00:00",
       "target_date": "2026-07-31"
+    },
+    {
+      "event_id": "16668307",
+      "event_key": "2026-07-31_lucas-marionneau_vs_valentin-lapalu",
+      "hours_to_start": -27.97,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.11111,
+      "odds_player2": 6.0,
+      "player1": "Lucas Marionneau",
+      "player2": "Valentin Lapalu",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-07-31T18:11:14.376002+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-07-30T14:12:55+00:00",
+      "target_date": "2026-07-31"
     }
   ],
   "start_time_utc": "2026-07-30T14:12:55+00:00",
-  "updated_at_utc": "2026-07-31T14:30:21.391813+00:00"
+  "updated_at_utc": "2026-07-31T18:11:48.136547+00:00"
 }

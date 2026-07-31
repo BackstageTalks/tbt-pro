@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.625,
   "latest_odds_player2": 1.44444,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-07-31T14:29:56.594951+00:00",
+  "latest_snapshot_time_utc": "2026-07-31T18:11:14.376002+00:00",
   "opening_odds_player1": 2.625,
   "opening_odds_player2": 1.44444,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "TennisAPI_PRO",
   "player1": "Billy Blaydes",
   "player2": "William Jansen",
-  "snapshot_count": 13,
+  "snapshot_count": 14,
   "snapshots": [
     {
       "event_id": "16667964",
@@ -266,8 +266,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-30T12:28:29+00:00",
       "target_date": "2026-07-31"
+    },
+    {
+      "event_id": "16667964",
+      "event_key": "2026-07-31_billy-blaydes_vs_william-jansen",
+      "hours_to_start": -29.71,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.625,
+      "odds_player2": 1.44444,
+      "player1": "Billy Blaydes",
+      "player2": "William Jansen",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-07-31T18:11:14.376002+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-07-30T12:28:29+00:00",
+      "target_date": "2026-07-31"
     }
   ],
   "start_time_utc": "2026-07-30T12:28:29+00:00",
-  "updated_at_utc": "2026-07-31T14:30:01.269169+00:00"
+  "updated_at_utc": "2026-07-31T18:11:21.262547+00:00"
 }
