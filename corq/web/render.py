@@ -964,6 +964,7 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         metric_row("P ThinQ Edge", esc(f"{pe_txt} | {pe_state}"), pe_cls),
         metric_row("S Data Depth", bar_html(stat_depth(row))),
         '</section>',
+        render_mmx_box(row),
         '<section class="metric-box">',
         f'<div class="box-head"><span>ThinQ Prob {info_icon("thinq")}</span><b>{as_pct(thinq_prob(row), 1)}</b></div>',
         metric_row("Data Conf", as_pct(thinq_conf(row), 1)),
@@ -1547,6 +1548,40 @@ def marq_range_display(row: Dict[str, Any]) -> str:
         return "—"
     return f"{old:.2f} -> {new:.2f}"
 
+
+
+
+def pp_display(value: Any, digits: int = 1, none: str = "—") -> str:
+    num = as_float(value)
+    if num is None:
+        return none
+    return f"{num:+.{digits}f}pp"
+
+
+def render_mmx_box(row: Dict[str, Any]) -> str:
+    """Temporary CorQ Model Mix diagnostics box."""
+    thinq_prob_value = _first_data_value(row, "corq_raw_model_probability", "thinq_pick_probability", "thinq_probability", "top7_thinq_pick_probability")
+    marq_prob_value = _first_data_value(row, "corq_market_probability", "marq_pick_probability", "marq_crowd_pick_pct", "market_pick_probability")
+    mix_label = str(row.get("corq_model_mix_label") or "ThinQ 100% / MarQ 0%")
+    thinq_input = row.get("corq_thinq_input_pp")
+    marq_input = row.get("corq_marq_input_pp")
+    final_prob = _first_data_value(row, "corq_calibrated_probability", "corq_probability", "corq_estimated_win_probability")
+    method = str(row.get("corq_calibration_method") or "ThinQ Fallback")
+    return "\n".join(
+        [
+            '<section class="metric-box">',
+            '<div class="box-head"><span>MMx</span><b>Model Mix</b></div>',
+            metric_row("ThinQ Prob", as_pct(thinq_prob_value, 1)),
+            metric_row("MarQ Prob", as_pct(marq_prob_value, 1)),
+            metric_row("Mix", esc(mix_label)),
+            metric_row("ThinQ Input", pp_display(thinq_input, 1)),
+            metric_row("MarQ Input", pp_display(marq_input, 1)),
+            metric_row("CorQ Final", as_pct(final_prob, 1)),
+            metric_row("Mkt Adj", pp_display(row.get("corq_market_adjustment_pp"), 1), sign_class(row.get("corq_market_adjustment_pp"))),
+            metric_row("Method", esc(method.replace("_", " ").title())),
+            '</section>',
+        ]
+    )
 
 def render_sets_games_box(row: Dict[str, Any]) -> str:
     sets_value = market_pick_display(row, "sets", 2.5)
