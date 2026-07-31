@@ -482,7 +482,7 @@ def top7_reject_reasons(row: Dict[str, Any]) -> List[str]:
     if not is_today_match(row):
         reasons.append("REJECT_TOP7_NOT_TODAY_MATCH")
     if not is_notstarted(row):
-        reasons.append("REJECT_TOP7_STATUS_NOT_NOTSTARTED")
+        reasons.append("REJECT_TOP7_STATUS_NOT_PREMATCH")
     odds_value = pick_odds_value(row)
     if odds_value is not None and odds_value < MIN_PICK_ODDS:
         reasons.append("REJECT_TOP7_LOW_ODDS_UNDER_1_40")
@@ -507,6 +507,33 @@ def top7_reject_reasons(row: Dict[str, Any]) -> List[str]:
     if elo_unavailable(row) and depth < MIN_ELO_DEPTH_IF_MISSING:
         reasons.append("REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH")
     return reasons
+
+
+TOP7_REJECT_PRIORITY = [
+    "REJECT_TOP7_NOT_TODAY_MATCH",
+    "REJECT_TOP7_STATUS_NOT_PREMATCH",
+    "REJECT_TOP7_MISSING_ODDS",
+    "REJECT_TOP7_INVALID_SIDE_ORIENTATION",
+    "REJECT_TOP7_ODDS_ORIENTATION_UNCONFIRMED_EXTREME",
+    "REJECT_TOP7_DOUBLES",
+    "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
+    "REJECT_TOP7_CORQ_BELOW_50",
+    "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
+    "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
+    "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
+    "REJECT_TOP7_LOW_FORM_DATA_DEPTH",
+    "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH",
+]
+
+
+def top7_primary_reject_reason(reasons: Sequence[str]) -> Optional[str]:
+    if not reasons:
+        return None
+    reason_set = set(str(x) for x in reasons if x)
+    for reason in TOP7_REJECT_PRIORITY:
+        if reason in reason_set:
+            return reason
+    return str(reasons[0]) if reasons else None
 
 
 def publishable_for_top7(row: Dict[str, Any]) -> bool:
@@ -697,11 +724,21 @@ def annotate_top7_quality(row: Dict[str, Any]) -> Dict[str, Any]:
     conf = thinq_confidence(row)
     depth = pick_data_depth(row)
 
+    publishable = not reasons
+    status_allowed = is_notstarted(row)
     row["top7_filter_mode"] = TOP7_FILTER_MODE
-    row["top7_publishable"] = not reasons
-    row["eligible_for_top7"] = not reasons
+    row["top7_publishable"] = publishable
+    row["eligible_for_top7"] = publishable
+    # These are hard TOP7 reject reasons. They are intentionally empty for
+    # publishable rows. Workflow summaries should count this field only on
+    # non-publishable diagnostic rows, not on selected TOP7 rows.
     row["top7_quality_reject_reasons"] = reasons
     row["top7_reject_reasons"] = reasons
+    row["top7_hard_reject_reasons"] = reasons
+    row["top7_primary_reject_reason"] = top7_primary_reject_reason(reasons)
+    row["top7_reject_reason_count"] = len(reasons)
+    row["top7_reject_summary_scope"] = "NON_PUBLISHABLE_ROWS_ONLY"
+    row["top7_status_allowed"] = status_allowed
     row["top7_status_type_normalized"] = status_type(row)
     row["top7_status_code"] = status_code(row)
     row["top7_corq_probability"] = round(cp, 6)
