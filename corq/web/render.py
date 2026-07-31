@@ -1552,14 +1552,14 @@ def _prop_projection_from_pct(row: Dict[str, Any], family: str, side: str) -> Op
 
     if family == "aces":
         pct_keys = {
-            "pick": ("ta_pick_ace_pct", "pick_ace_pct", "pick_aces_pct", "pick_ace_percent", "pick_aces_percent"),
-            "opponent": ("ta_opp_ace_pct", "ta_opponent_ace_pct", "opponent_ace_pct", "opp_ace_pct", "opponent_aces_pct", "opponent_ace_percent"),
+            "pick": ("api_pick_ace_pct", "ta_pick_ace_pct", "pick_ace_pct", "pick_aces_pct", "pick_ace_percent", "pick_aces_percent"),
+            "opponent": ("api_opp_ace_pct", "api_opponent_ace_pct", "ta_opp_ace_pct", "ta_opponent_ace_pct", "opponent_ace_pct", "opp_ace_pct", "opponent_aces_pct", "opponent_ace_percent"),
         }
         high = 60.0
     else:
         pct_keys = {
-            "pick": ("ta_pick_df_pct", "pick_df_pct", "pick_double_fault_pct", "pick_double_faults_pct", "df_pick_pct", "pick_df_percent"),
-            "opponent": ("ta_opp_df_pct", "ta_opponent_df_pct", "opponent_df_pct", "opp_df_pct", "opponent_double_fault_pct", "opponent_double_faults_pct", "df_opponent_pct", "opponent_df_percent"),
+            "pick": ("api_pick_df_pct", "ta_pick_df_pct", "pick_df_pct", "pick_double_fault_pct", "pick_double_faults_pct", "df_pick_pct", "pick_df_percent"),
+            "opponent": ("api_opp_df_pct", "api_opponent_df_pct", "ta_opp_df_pct", "ta_opponent_df_pct", "opponent_df_pct", "opp_df_pct", "opponent_double_fault_pct", "opponent_double_faults_pct", "df_opponent_pct", "opponent_df_percent"),
         }
         high = 30.0
 
@@ -1589,14 +1589,14 @@ def _prop_projection_from_pct(row: Dict[str, Any], family: str, side: str) -> Op
 def _triplet_projection_fallback(row: Dict[str, Any], family: str, side: str) -> Optional[float]:
     explicit_keys = {
         "aces": {
-            "pick": ("pick_aces_projection", "pick_aces"),
-            "opponent": ("opponent_aces_projection", "opponent_aces", "opp_aces"),
-            "total": ("total_aces_projection", "total_aces"),
+            "pick": ("pick_aces_projection", "api_pick_aces_projection", "pick_aces"),
+            "opponent": ("opponent_aces_projection", "api_opponent_aces_projection", "api_opp_aces_projection", "opponent_aces", "opp_aces"),
+            "total": ("total_aces_projection", "api_total_aces_projection", "total_aces"),
         },
         "df": {
-            "pick": ("pick_df_projection", "df_pick", "pick_df", "pick_double_faults"),
-            "opponent": ("opponent_df_projection", "df_opponent", "opponent_df", "opp_df", "opponent_double_faults"),
-            "total": ("total_df_projection", "df_total", "total_df", "total_double_faults"),
+            "pick": ("pick_df_projection", "api_pick_df_projection", "df_pick", "pick_df", "pick_double_faults"),
+            "opponent": ("opponent_df_projection", "api_opponent_df_projection", "api_opp_df_projection", "df_opponent", "opponent_df", "opp_df", "opponent_double_faults"),
+            "total": ("total_df_projection", "api_total_df_projection", "df_total", "total_df", "total_double_faults"),
         },
     }
     for key in explicit_keys.get(family, {}).get(side, ()):
