@@ -277,6 +277,18 @@ class ThinqService:
         if not event_custom_id and isinstance(raw_payload, dict):
             event_custom_id = raw_payload.get("customId") or raw_payload.get("custom_id")
 
+        canonical_pick_side = str(pick_side or thinq_side.get("pick_side") or "").upper().strip()
+        if canonical_pick_side == "HOME":
+            pick_player_id = player1_id
+            opponent_player_id = player2_id
+        elif canonical_pick_side == "AWAY":
+            pick_player_id = player2_id
+            opponent_player_id = player1_id
+        else:
+            # Legacy fallback: preserve old behavior when no valid side is available.
+            pick_player_id = player1_id
+            opponent_player_id = player2_id
+
         surface_ctx = normalize_surface(surface)
         surface_bucket = surface_ctx.get("surface") or surface
         elo = _safe_elo_context(analysis_pick, analysis_opponent, surface_bucket)
@@ -285,8 +297,8 @@ class ThinqService:
             pick=analysis_pick,
             opponent=analysis_opponent,
             surface=surface_bucket,
-            player1_id=player1_id,
-            player2_id=player2_id,
+            player1_id=pick_player_id,
+            player2_id=opponent_player_id,
             event_custom_id=event_custom_id,
         )
         recent_form = _safe_recent_form_context(analysis_pick, analysis_opponent, surface_bucket, level)
@@ -341,6 +353,9 @@ class ThinqService:
             confidence += min(float(match_dynamics.get("confidence") or 0.0) * 0.08, 0.06)
         if surface_ctx.get("surface") != "Unknown":
             confidence += 0.05
+        if not thinq_side.get("side_valid"):
+            # Do not let a side-orientation problem produce a high-confidence signal.
+            confidence = min(confidence, 0.35)
         confidence = round(max(min(confidence, 0.88), 0.0), 4)
 
         thinq_probability_layer = build_thinq_probability_layer(
@@ -361,6 +376,8 @@ class ThinqService:
             "available": True,
             "error": None,
             "confidence": confidence,
+            "thinq_data_confidence": confidence,
+            "thinq_data_confidence_pct": round(confidence * 100.0, 2),
             "thinq_side": thinq_side,
             "surface": surface_ctx,
             "elo": elo,
@@ -404,6 +421,8 @@ class ThinqService:
             "thinq_available": True,
             "thinq_probability_status": thinq_probability_layer.get("status"),
             "thinq_model_version": thinq_probability_layer.get("model_version"),
+            "thinq_pick_probability": thinq_probability_layer.get("pick_probability"),
+            "thinq_pick_probability_pct": thinq_probability_layer.get("pick_probability_pct"),
             "thinq_probability": thinq_probability_layer.get("pick_probability"),
             "thinq_probability_pct": thinq_probability_layer.get("pick_probability_pct"),
             "thinq_winner": thinq_probability_layer.get("winner"),
@@ -414,6 +433,8 @@ class ThinqService:
             "thinq_probability_confidence": thinq_probability_layer.get("confidence"),
             "thinq_probability_components": thinq_probability_layer.get("components"),
             "thinq_confidence": confidence,
+            "thinq_data_confidence": confidence,
+            "thinq_data_confidence_pct": round(confidence * 100.0, 2),
             "thinq_selected_elo_type": elo.get("selected_elo_type"),
             "thinq_elo_pick": elo.get("pick_elo"),
             "thinq_elo_opponent": elo.get("opponent_elo"),
@@ -515,6 +536,9 @@ class ThinqService:
             "ta_depth_label": ta_context.get("ta_depth_label"),
             "ta_decision_confidence": ta_context.get("ta_decision_confidence"),
             "ta_decision_notes": ta_context.get("ta_decision_notes") or [],
+            "thinq_pick_player_id": pick_player_id,
+            "thinq_opponent_player_id": opponent_player_id,
+            "thinq_id_orientation": "PICK_IDS_SIDE_AWARE_V1",
             "thinq_flags": sorted(set(flags)),
             "thinq_source_status": {
                 "elo": elo.get("status"),
