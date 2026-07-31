@@ -135,6 +135,11 @@ def explanation_text(key: str) -> str:
         "s_h2h": "s_h2h",
         "stat_data_depth": "pick_data_depth",
         "form_data_depth": "form_data_depth",
+        "mmx": "mmx_box",
+        "marq": "marq_box",
+        "sets_games": "sets_games_box",
+        "marq_edge": "marq_edge",
+        "marq_move": "marq_move",
     }
     lookup_keys = [key, aliases.get(key, "")]
     for lookup in lookup_keys:
@@ -164,6 +169,10 @@ def explanation_text(key: str) -> str:
         "aces": "Projected aces for pick, opponent and total. Currently N/A until the set and game model is completed.",
         "stat_data_depth": "S Data Depth shows the statistical support for the current pick.",
         "form_data_depth": "F Data Depth shows the reliability of recent form, surface form and opponent-quality data.",
+        "mmx": "MMx shows the final blend between ThinQ model signal and MarQ market signal.",
+        "marq": "MarQ summarises market-facing signals: crowd split, market edge, movement, CLV and final market read.",
+        "marq_edge": "MarQ Edge is the market-side advantage for the displayed pick. Positive means the market signal supports the pick, negative means it supports the opponent.",
+        "marq_move": "Move describes how the market has moved since the first usable snapshot. Stable means no meaningful directional move was detected.",
     }
     return defaults.get(key, key)
 
@@ -856,6 +865,10 @@ def bar_html(value: Any) -> str:
     return f'<span class="depth-wrap"><span class="depth-number">{pct:.0f}%</span><span class="depth-bar"><span class="{cls}" style="width:{pct:.0f}%"></span></span></span>'
 def metric_row(label: str, value: str, cls: str = "") -> str:
     return f'<div class="metric-row {esc(cls)}"><span>{esc(label)}</span><b>{value}</b></div>'
+
+
+def metric_row_info(label: str, value: str, info_key: str, cls: str = "") -> str:
+    return f'<div class="metric-row {esc(cls)}"><span>{esc(label)} {info_icon(info_key)}</span><b>{value}</b></div>'
 
 
 def info_icon(key: str) -> str:
@@ -1744,8 +1757,8 @@ def render_mmx_box(row: Dict[str, Any]) -> str:
     delta = marq_delta_pp(row)
     return "\n".join(
         [
-            '<section class="metric-box">',
-            f'<div class="box-head"><span>MMx</span><b>{esc(mmx_mix_display(row))}</b></div>',
+            '<section class="metric-box mmx-box">',
+            f'<div class="box-head"><span>MMx {info_icon("mmx")}</span><b>{esc(mmx_mix_display(row))}</b></div>',
             metric_row("ThinQ Prob", as_pct(thinq_prob_value, 1)),
             metric_row("MarQ Prob", as_pct(marq_prob_value, 1)),
             metric_row("ThinQ Input", pp_display(thinq_input, 1), sign_class(thinq_input)),
@@ -1866,11 +1879,11 @@ def render_marq_box(row: Dict[str, Any]) -> str:
 
     rows = [
         '<section class="metric-box small-box marq-box">',
-        '<div class="box-head"><span>MarQ</span><b></b></div>',
+        f'<div class="box-head"><span>MarQ {info_icon("marq")}</span><b></b></div>',
         metric_row("Pick Marq", market_pct(_first_data_value(row, "marq_crowd_pick_pct", "pick_marq", "marq_pick_pct"))),
         metric_row("Opp Marq", market_pct(_first_data_value(row, "marq_crowd_opponent_pct", "opponent_marq", "opp_marq", "marq_opponent_pct"))),
-        metric_row("Marq Edge", signed_market_pct(_first_data_value(row, "marq_edge_pct", "marq_edge", "edge_pct"))),
-        metric_row("Move", esc(move_signal)),
+        metric_row_info("MarQ Edge", signed_market_pct(_first_data_value(row, "marq_edge_pct", "marq_edge", "edge_pct")), "marq_edge"),
+        metric_row_info("Move", esc(move_signal), "marq_move"),
         metric_row("Range", esc(move_range)),
     ]
     sharp_value = marq_sharp_display(row)
@@ -1937,7 +1950,7 @@ def css() -> str:
 .ta-signal-box .metric-row b{font-size:12px;line-height:1.25}.ta-signal-box .metric-row span{min-width:74px}.ta-signal-box .box-head b{text-transform:uppercase;font-size:11px;color:#facc15}  
 .sets-signal-box .metric-row b{font-size:12px;line-height:1.25}.sets-signal-box .metric-row span{min-width:76px}.sets-signal-box .box-head b{text-transform:uppercase;font-size:11px;color:#facc15}  
 
-.one-row-debug .metric-row b{font-size:11px}.marq-box .metric-row b,.sets-signal-box .metric-row b{font-size:11px}.pick-card{align-items:stretch}.metric-box{min-height:0}.box-head{margin-bottom:7px}.metric-row span{font-size:11px}.metric-row b{font-size:11px}.compact-name{font-size:15px}
+.one-row-debug .metric-row b{font-size:11px}.marq-box .metric-row b,.sets-signal-box .metric-row b{font-size:11px}.mmx-box .box-head b{font-size:13px!important;line-height:1.15;color:var(--green)!important}.mmx-box .box-head{align-items:center}.info{line-height:1}.pick-card{align-items:stretch}.metric-box{min-height:0}.box-head{margin-bottom:7px}.metric-row span{font-size:11px}.metric-row b{font-size:11px}.compact-name{font-size:15px}
 
 .data-notes-summary{border-radius:18px;background:rgba(8,21,36,.92);border-color:rgba(90,130,180,.35);box-shadow:0 16px 35px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.03);margin-bottom:18px}.data-notes-summary .summary-title{color:#44e7ff;letter-spacing:.14em}.data-notes-pills{display:flex;flex-wrap:wrap;gap:8px}.audit-pill{display:inline-flex;align-items:center;gap:5px;padding:6px 11px;border-radius:999px;border:1px solid rgba(120,170,230,.45);background:rgba(42,72,112,.72);color:#e9f4ff;font-size:12px;font-weight:850;line-height:1;text-decoration:none;white-space:nowrap;transition:140ms ease-in-out;cursor:pointer}.audit-pill:hover{border-color:rgba(70,230,255,.85);background:rgba(30,105,150,.85);color:#fff;transform:translateY(-1px)}.audit-pill.active{border-color:#44e7ff;background:rgba(0,210,255,.22);box-shadow:0 0 0 1px rgba(68,231,255,.25),0 0 18px rgba(68,231,255,.16)}.audit-pill-count{color:#fff;font-weight:950}.audit-pill-label{color:#e9f4ff}.audit-pill-note{border-color:rgba(120,170,230,.45);background:rgba(42,72,112,.72)}.audit-pill-corq{border-color:rgba(72,231,255,.58);background:rgba(0,113,150,.58)}.audit-pill-signal{border-color:rgba(255,178,63,.58);background:rgba(112,74,14,.62)}.audit-pill-safe{border-color:rgba(0,230,120,.68);background:rgba(0,110,70,.70)}.audit-pill-h2h{border-color:rgba(168,85,247,.62);background:rgba(76,29,149,.64)}.audit-pill-clear{border-color:rgba(255,120,120,.45);background:rgba(92,28,40,.65);color:#ffd8d8}
 .result-status-summary{margin:0 0 12px 0}.result-summary-chip{font-weight:900}
