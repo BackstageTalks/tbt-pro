@@ -575,33 +575,6 @@ def pick_edge(row: Dict[str, Any]) -> float:
     return p - 0.5
 
 
-def result_metric_percent_points(value: Optional[float]) -> Optional[float]:
-    """Normalize probability/confidence/edge values into percentage points."""
-    if value is None:
-        return None
-    try:
-        number = float(value)
-    except Exception:
-        return None
-    if abs(number) <= 1.5:
-        number *= 100.0
-    return number
-
-
-def result_is_high_confidence_lost(row: Dict[str, Any]) -> bool:
-    """Diagnostic segment: CorQ >= 60%, ThinQ >= 80%, Edge >= 10pp, LOST."""
-    if result_status(row) != "LOST":
-        return False
-    corq = result_metric_percent_points(probability(row))
-    thinq = result_metric_percent_points(thinq_conf(row))
-    edge = result_metric_percent_points(pick_edge(row))
-    return (
-        corq is not None and corq >= 60.0
-        and thinq is not None and thinq >= 80.0
-        and edge is not None and edge >= 10.0
-    )
-
-
 def sign_class(value: Any, mode: str = "pick") -> str:
     num = as_float(value, 0.0) or 0.0
     if abs(num) <= 1.0:
@@ -1823,7 +1796,6 @@ RESULT_THIS_YEAR_LABEL = "This year"
 RESULT_MODEL_CORQ_LABEL = "CorQ"
 RESULT_MODEL_CLOQ_LABEL = "CloQ"
 RESULT_MODEL_AUDIT_LABEL = "Audit"
-RESULT_DIAGNOSTIC_HIGH_CONF_LOST_LABEL = "Diagnostic: High-confidence LOST"
 
 
 def audit_parse_datetime_utc(value: Any) -> Optional[datetime]:
@@ -2276,11 +2248,10 @@ def result_tags(row: Dict[str, Any]) -> List[str]:
     date_tags = result_date_filter_tags(row)
     model_tag = result_model_filter_tag(row)
     status_tag = result_status(row)
-    diagnostic_tags = [RESULT_DIAGNOSTIC_HIGH_CONF_LOST_LABEL] if result_is_high_confidence_lost(row) else []
 
     out: List[str] = []
     seen = set()
-    for tag in list(public_tags) + audit_tags + date_tags + diagnostic_tags + [model_tag, status_tag]:
+    for tag in list(public_tags) + audit_tags + date_tags + [model_tag, status_tag]:
         clean = str(tag or "").strip()
         if not clean:
             continue
@@ -2508,7 +2479,6 @@ def render_results_filter_builder(rows: List[Dict[str, Any]]) -> str:
         ("Result", ["WON", "LOST", "VOID", "PENDING"]),
         ("Model", [RESULT_MODEL_CORQ_LABEL, RESULT_MODEL_CLOQ_LABEL, RESULT_MODEL_AUDIT_LABEL]),
         ("Date", [RESULT_LAST_3_DAYS_LABEL, RESULT_LAST_7_DAYS_LABEL, RESULT_LAST_MONTH_LABEL, RESULT_THIS_YEAR_LABEL]),
-        ("Diagnostic", [RESULT_DIAGNOSTIC_HIGH_CONF_LOST_LABEL]),
         ("Signals", [AUDIT_CORQ_TOP20_LABEL, AUDIT_TIME_ODDS_LABEL, AUDIT_SAFE_BET_LABEL, AUDIT_H2H_TOP10_LABEL]),
         ("Data notes", ["No previous H2H matches", "Recent form pending"]),
     ]
@@ -2556,7 +2526,7 @@ def render_results_filter_builder(rows: List[Dict[str, Any]]) -> str:
     return (
         '<div class="results-panel result-filter-builder">'
         '<div class="summary-title">Result filters</div>'
-        '<div class="result-filter-help">Click multiple pills to combine filters. Diagnostic = CorQ ≥ 60% + ThinQ ≥ 80% + Edge ≥ 10% + LOST.</div>'
+        '<div class="result-filter-help">Click multiple pills to combine filters. Example: CorQ + Last 7 days + WON.</div>'
         '<div class="result-filter-row">'
         + "".join(sections)
         + clear
