@@ -187,6 +187,219 @@ def _first_present(*values: Any) -> Any:
     return None
 
 
+
+
+def _first_from_dict(data: Dict[str, Any], *keys: str) -> Any:
+    for key in keys:
+        value = data.get(key)
+        if value not in (None, ""):
+            return value
+    return None
+
+
+def _copy_present(dst: Dict[str, Any], src: Dict[str, Any], key: str, alias: Optional[str] = None, overwrite: bool = False) -> None:
+    out_key = alias or key
+    if not overwrite and dst.get(out_key) not in (None, ""):
+        return
+    value = src.get(key)
+    if value not in (None, ""):
+        dst[out_key] = value
+
+
+def _copy_many(dst: Dict[str, Any], src: Dict[str, Any], keys: List[str], overwrite: bool = False) -> None:
+    for key in keys:
+        _copy_present(dst, src, key, overwrite=overwrite)
+
+
+def _num(value: Any) -> Optional[float]:
+    try:
+        if value in (None, "", "—", "-"):
+            return None
+        return float(value)
+    except Exception:
+        return None
+
+
+def _pct_alias(value: Any) -> Optional[float]:
+    number = _num(value)
+    if number is None:
+        return None
+    return round(number * 100.0, 4) if abs(number) <= 1.0 else round(number, 4)
+
+
+def _flatten_thinq_payload(record: Dict[str, Any], thinq: Dict[str, Any]) -> None:
+    """Robust one-way bridge from ThinqService output to render/ranking rows.
+
+    The service intentionally returns both nested diagnostic sections and flat
+    compatibility fields. Older engine versions copied only thinq_* fields,
+    which made the web render show 0%/N/A even when the nested service payload
+    contained valid Elo, recent form, TA/API serve stats and model confidence.
+    This flattener keeps the nested payload intact and also exposes every field
+    that the CorQ cards, TOP7 ranking and Sets/Games/Aces/DF boxes consume.
+    """
+    if not isinstance(thinq, dict):
+        return
+
+    # Keep important nested contexts top-level as well. Render helpers check both.
+    for ctx_key in (
+        "elo",
+        "surface",
+        "h2h",
+        "recent_form",
+        "match_dynamics",
+        "thinq_probability_layer",
+        "ta_context",
+        "api_serve_stats",
+        "edges",
+    ):
+        value = thinq.get(ctx_key)
+        if isinstance(value, dict):
+            record.setdefault(ctx_key, value)
+
+    flat_keys = [
+        # ThinQ probability/confidence
+        "confidence", "thinq_confidence", "thinq_data_confidence", "thinq_data_confidence_pct",
+        "thinq_pick_probability", "thinq_pick_probability_pct", "thinq_probability", "thinq_probability_pct",
+        # Elo / H2H / form / dynamics fields used by render and ranking
+        "overall_pick_elo", "overall_opponent_elo", "surface_pick_elo", "surface_opponent_elo",
+        "pick_elo", "opponent_elo", "overall_elo_diff", "surface_elo_diff", "elo_diff",
+        "overall_elo_edge", "surface_elo_edge", "elo_edge", "h2h_edge", "surface_h2h_edge",
+        "pick_last5_record", "opponent_last5_record", "pick_last10_record", "opponent_last10_record",
+        "pick_surface_record", "opponent_surface_record", "pick_last10_win_pct", "opponent_last10_win_pct",
+        "pick_surface_last10_win_pct", "opponent_surface_last10_win_pct",
+        "recent_form_edge", "short_form_edge", "surface_recent_form_edge", "opponent_quality_edge",
+        "form_confidence", "form_data_depth", "recent_form_status", "recent_form_reason",
+        "projected_sets", "projected_games", "tiebreak_probability", "decider_probability", "straight_sets_probability",
+        "sets_edge", "games_edge", "tiebreak_edge", "decider_edge", "match_shape",
+        # TA and serve stats
+        "ta_status", "ta_pick_status", "ta_opp_status", "ta_scope", "ta_surface",
+        "ta_pick_set_pct", "ta_opp_set_pct", "ta_pick_game_pct", "ta_opp_game_pct",
+        "ta_pick_tb_pct", "ta_opp_tb_pct", "ta_pick_tb_split", "ta_opp_tb_split",
+        "ta_pick_ace_pct", "ta_opp_ace_pct", "ta_pick_df_pct", "ta_opp_df_pct",
+        "ta_pick_surface_dr", "ta_opp_surface_dr", "ta_pick_rpw_pct", "ta_opp_rpw_pct",
+        "ta_pick_depth", "ta_opp_depth", "ta_pick_matches", "ta_opp_matches",
+        "s_data_depth", "sets_games_data_depth", "sets_model_source",
+        "api_serve_stats_source", "api_serve_stats_status", "api_pick_serve_stats_status", "api_opp_serve_stats_status",
+        "api_pick_ace_pct", "api_opp_ace_pct", "api_pick_df_pct", "api_opp_df_pct",
+        "api_pick_serve_matches", "api_opp_serve_matches", "api_pick_serve_attempts", "api_opp_serve_attempts",
+        "api_pick_serve_scope", "api_opp_serve_scope", "api_pick_serve_year", "api_opp_serve_year",
+        "pick_ace_pct", "opponent_ace_pct", "pick_df_pct", "opponent_df_pct", "pick_tb_pct", "opponent_tb_pct",
+        "pick_aces_line", "opponent_aces_line", "total_aces_line",
+        "pick_aces_projection", "opponent_aces_projection", "total_aces_projection",
+        "pick_df_projection", "opponent_df_projection", "total_df_projection",
+        "ace_status", "df_status", "aces_status",
+    ]
+    _copy_many(record, thinq, flat_keys)
+
+    prob_layer = thinq.get("thinq_probability_layer") if isinstance(thinq.get("thinq_probability_layer"), dict) else {}
+    elo = thinq.get("elo") if isinstance(thinq.get("elo"), dict) else {}
+    recent = thinq.get("recent_form") if isinstance(thinq.get("recent_form"), dict) else {}
+    dynamics = thinq.get("match_dynamics") if isinstance(thinq.get("match_dynamics"), dict) else {}
+    ta_ctx = thinq.get("ta_context") if isinstance(thinq.get("ta_context"), dict) else {}
+    api_stats = thinq.get("api_serve_stats") if isinstance(thinq.get("api_serve_stats"), dict) else {}
+
+    # Probability and confidence aliases.
+    pick_prob = _first_from_dict(thinq, "thinq_pick_probability", "thinq_probability")
+    if pick_prob in (None, ""):
+        pick_prob = _first_from_dict(prob_layer, "pick_probability", "probability", "model_probability")
+    if pick_prob not in (None, ""):
+        record.setdefault("thinq_pick_probability", pick_prob)
+        record.setdefault("thinq_probability", pick_prob)
+        pct = _pct_alias(pick_prob)
+        if pct is not None:
+            record.setdefault("thinq_pick_probability_pct", pct)
+            record.setdefault("thinq_probability_pct", pct)
+
+    conf = _first_from_dict(thinq, "thinq_data_confidence", "thinq_confidence", "confidence")
+    if conf in (None, ""):
+        conf = _first_from_dict(prob_layer, "confidence", "data_confidence")
+    if conf not in (None, ""):
+        record.setdefault("thinq_confidence", conf)
+        record.setdefault("thinq_data_confidence", conf)
+        pct = _pct_alias(conf)
+        if pct is not None:
+            record.setdefault("thinq_data_confidence_pct", pct)
+
+    # Flatten nested Elo, recent form, dynamics, TA and API serve contexts.
+    _copy_many(record, elo, [
+        "overall_pick_elo", "overall_opponent_elo", "surface_pick_elo", "surface_opponent_elo",
+        "pick_elo", "opponent_elo", "overall_elo_diff", "surface_elo_diff", "elo_diff",
+        "overall_elo_edge", "surface_elo_edge", "elo_edge", "selected_elo_type",
+    ])
+    _copy_many(record, recent, [
+        "pick_last5_record", "opponent_last5_record", "pick_last10_record", "opponent_last10_record",
+        "pick_surface_record", "opponent_surface_record", "pick_last10_win_pct", "opponent_last10_win_pct",
+        "pick_surface_last10_win_pct", "opponent_surface_last10_win_pct",
+        "recent_form_edge", "short_form_edge", "surface_recent_form_edge", "opponent_quality_edge",
+        "form_confidence", "form_data_depth", "status", "reason",
+    ])
+    if recent.get("status") not in (None, ""):
+        record.setdefault("recent_form_status", recent.get("status"))
+        record.setdefault("thinq_recent_form_status", recent.get("status"))
+    if recent.get("reason") not in (None, ""):
+        record.setdefault("recent_form_reason", recent.get("reason"))
+        record.setdefault("thinq_recent_form_reason", recent.get("reason"))
+
+    _copy_many(record, dynamics, [
+        "projected_sets", "projected_games", "tiebreak_probability", "decider_probability", "straight_sets_probability",
+        "sets_edge", "games_edge", "tiebreak_edge", "decider_edge", "match_shape", "confidence",
+    ])
+
+    _copy_many(record, ta_ctx, [
+        "ta_status", "ta_pick_status", "ta_opp_status", "ta_scope", "ta_surface",
+        "ta_pick_set_pct", "ta_opp_set_pct", "ta_pick_game_pct", "ta_opp_game_pct",
+        "ta_pick_tb_pct", "ta_opp_tb_pct", "ta_pick_tb_split", "ta_opp_tb_split",
+        "ta_pick_ace_pct", "ta_opp_ace_pct", "ta_pick_df_pct", "ta_opp_df_pct",
+        "ta_pick_depth", "ta_opp_depth", "ta_pick_matches", "ta_opp_matches",
+        "pick_ace_pct", "opponent_ace_pct", "pick_df_pct", "opponent_df_pct",
+        "pick_aces_line", "opponent_aces_line", "total_aces_line", "aces_status",
+    ])
+
+    _copy_many(record, api_stats, [
+        "api_serve_stats_source", "api_serve_stats_status", "api_pick_serve_stats_status", "api_opp_serve_stats_status",
+        "api_pick_ace_pct", "api_opp_ace_pct", "api_pick_df_pct", "api_opp_df_pct",
+        "api_pick_serve_matches", "api_opp_serve_matches", "api_pick_serve_attempts", "api_opp_serve_attempts",
+        "api_pick_serve_scope", "api_opp_serve_scope", "api_pick_serve_year", "api_opp_serve_year",
+        "pick_aces_projection", "opponent_aces_projection", "total_aces_projection",
+        "pick_df_projection", "opponent_df_projection", "total_df_projection", "aces_status", "df_status",
+    ])
+
+    # Final compatibility aliases for Sets/Games/Aces/DF render.
+    for out_key, candidates in {
+        "pick_ace_pct": ("pick_ace_pct", "ta_pick_ace_pct", "api_pick_ace_pct"),
+        "opponent_ace_pct": ("opponent_ace_pct", "ta_opp_ace_pct", "api_opp_ace_pct"),
+        "pick_df_pct": ("pick_df_pct", "ta_pick_df_pct", "api_pick_df_pct"),
+        "opponent_df_pct": ("opponent_df_pct", "ta_opp_df_pct", "api_opp_df_pct"),
+        "pick_aces_line": ("pick_aces_line", "pick_aces_projection"),
+        "opponent_aces_line": ("opponent_aces_line", "opponent_aces_projection"),
+        "total_aces_line": ("total_aces_line", "total_aces_projection"),
+        "pick_df_line": ("pick_df_line", "pick_df_projection"),
+        "opponent_df_line": ("opponent_df_line", "opponent_df_projection"),
+        "total_df_line": ("total_df_line", "total_df_projection"),
+    }.items():
+        if record.get(out_key) not in (None, ""):
+            continue
+        for key in candidates:
+            value = record.get(key)
+            if value not in (None, ""):
+                record[out_key] = value
+                break
+
+    # Data depth fallback: use TA depths first, then API serve sample availability.
+    if record.get("s_data_depth") in (None, "", 0, 0.0):
+        p_depth = _num(record.get("ta_pick_depth"))
+        o_depth = _num(record.get("ta_opp_depth"))
+        if p_depth is not None and o_depth is not None:
+            record["s_data_depth"] = round((p_depth + o_depth) / 2.0, 4)
+            record.setdefault("sets_games_data_depth", record["s_data_depth"])
+        else:
+            p_matches = _num(record.get("api_pick_serve_matches"))
+            o_matches = _num(record.get("api_opp_serve_matches"))
+            if p_matches is not None and o_matches is not None and (p_matches > 0 or o_matches > 0):
+                depth = min(((p_matches + o_matches) / 52.0), 1.0)
+                record["s_data_depth"] = round(depth, 4)
+                record.setdefault("sets_games_data_depth", record["s_data_depth"])
+
 def _enrich_with_thinq(record: Dict[str, Any], thinq_service: Any) -> Dict[str, Any]:
     safe_record = repair_candidate_side(record)
     safe_record["side_audit"] = build_side_audit(safe_record)
@@ -279,6 +492,8 @@ def _enrich_with_thinq(record: Dict[str, Any], thinq_service: Any) -> Dict[str, 
     for key, value in thinq.items():
         if key.startswith("thinq_"):
             safe_record[key] = value
+
+    _flatten_thinq_payload(safe_record, thinq)
 
     safe_record["thinq_h2h_requested_event_custom_id"] = (
         _nested_get(thinq, "h2h", "requested_event_custom_id")
