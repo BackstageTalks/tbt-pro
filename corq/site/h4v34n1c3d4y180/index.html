@@ -28,6 +28,9 @@
 /* Info icon polish: keep tooltip buttons circular even inside compact boxes. */
 .box-head .info,.metric-row .info,.metric-row .metric-label>.info,.sets-signal-box .metric-row .info,.ta-signal-box .metric-row .info{position:relative!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;width:14px!important;min-width:14px!important;max-width:14px!important;height:14px!important;min-height:14px!important;max-height:14px!important;flex:0 0 14px!important;padding:0!important;margin-left:4px!important;border-radius:999px!important;border:1px solid rgba(125,211,252,.65)!important;background:rgba(8,28,48,.72)!important;color:#7dd3fc!important;font-size:9px!important;font-weight:900!important;line-height:1!important;vertical-align:middle!important;box-shadow:0 0 0 1px rgba(14,165,233,.10),0 0 8px rgba(14,165,233,.12)!important;cursor:help!important}.box-head .info:hover,.metric-row .info:hover,.box-head .info:focus,.metric-row .info:focus{border-color:#67e8f9!important;color:#e0f2fe!important;background:rgba(14,116,144,.30)!important;box-shadow:0 0 0 1px rgba(103,232,249,.22),0 0 12px rgba(34,211,238,.25)!important}.metric-row .metric-label{display:inline-flex;align-items:center;gap:2px;min-width:0!important;max-width:100%;padding-right:6px}.sets-signal-box .metric-row .metric-label,.ta-signal-box .metric-row .metric-label{min-width:76px!important}.ta-signal-box .metric-row .metric-label{min-width:74px!important}.info:hover:after,.info:focus:after{font-weight:700!important;color:#e5eefc!important;text-transform:none!important;letter-spacing:0!important}.metric-row .info:before,.box-head .info:before{content:"";position:absolute;inset:-3px;border-radius:999px}.sets-signal-box .metric-row span.depth-wrap,.sets-signal-box .metric-row span.depth-number,.sets-signal-box .metric-row span.depth-bar{min-width:0!important}
 
+/* Compact pick panel final override: reduce free space in player boxes, keep top tags unchanged, put match meta on one row. */
+.pick-main.compact-v3{padding:10px!important;gap:7px!important;min-height:0!important}.compact-v3 .compact-player{min-height:0!important;padding:8px 10px!important;justify-content:center!important}.compact-v3 .pick-side{min-height:0!important;padding-top:8px!important;padding-bottom:8px!important}.compact-player.no-label{padding-top:8px!important;padding-bottom:8px!important}.compact-label{margin-bottom:5px!important;font-size:9px!important;line-height:1!important}.compact-name-row{align-items:center!important;gap:7px!important}.compact-name{display:flex!important;align-items:center!important;gap:6px!important;min-width:0!important;font-size:13px!important;line-height:1.12!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}.compact-name .compact-odds.inline{flex:0 0 auto!important;margin-left:2px!important;transform:none!important;padding:2px 7px!important;font-size:10px!important;line-height:1.1!important}.compact-rank{font-size:11px!important;line-height:1!important;flex:0 0 auto!important}.compact-vs{height:14px!important;min-height:14px!important;margin:-1px 0!important;font-size:9px!important;line-height:1!important}.compact-match{padding:7px 9px!important;border-radius:12px!important}.compact-match-row{display:flex!important;align-items:center!important;gap:8px!important;min-width:0!important;white-space:nowrap!important;overflow:hidden!important}.compact-time{font-size:12px!important;line-height:1!important;flex:0 0 auto!important}.compact-meta{font-size:10px!important;line-height:1.15!important;margin-top:0!important;min-width:0!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}.compact-tags.bottom-notes{padding-top:4px!important;margin-top:auto!important}@media(max-width:760px){.compact-name{font-size:13px!important}.compact-match-row{gap:6px!important}.compact-meta{font-size:10px!important}}
+
 </style></head>
 <body><div class="wrap">
 <header class="topbar">
@@ -51,7 +54,7 @@
 <div class="compact-player pick-side"><div class="compact-label">Pick</div><div class="compact-name-row"><span class="compact-name">Diana Shnaider <span class="compact-odds inline pick">@ 1.73</span></span><span class="compact-rank">(18)</span></div></div>
 <div class="compact-vs">to beat</div>
 <div class="compact-player opp-side no-label"><div class="compact-name-row"><span class="compact-name">Liudmila Samsonova <span class="compact-odds inline opp">@ 2.10</span></span><span class="compact-rank">(70)</span></div></div>
-<div class="compact-match"><div class="compact-time">21:10</div><div class="compact-meta">Washington, USA · WTA · Hard · 3</div></div>
+<div class="compact-match"><div class="compact-match-row"><span class="compact-time">21:10</span><span class="compact-meta">Washington, USA · WTA · Hard · 3</span></div></div>
 </section>
 <section class="metric-box">
 <div class="box-head"><span>CorQ <span class="info info-dot" tabindex="0" role="button" aria-label="CorQ: CorQ is the final win probability for the displayed pick. Positive values support the pick, negative values go against it." data-tip="CorQ: CorQ is the final win probability for the displayed pick. Positive values support the pick, negative values go against it.">i</span></span><b>64.9%</b></div>
@@ -109,7 +112,7 @@
 <div class="compact-player pick-side"><div class="compact-label">Pick</div><div class="compact-name-row"><span class="compact-name">Mananchaya Sawangkaew <span class="compact-odds inline pick">@ 1.53</span></span><span class="compact-rank">(111)</span></div></div>
 <div class="compact-vs">to beat</div>
 <div class="compact-player opp-side no-label"><div class="compact-name-row"><span class="compact-name">Taylah Preston <span class="compact-odds inline opp">@ 2.38</span></span><span class="compact-rank">(119)</span></div></div>
-<div class="compact-match"><div class="compact-time">21:10</div><div class="compact-meta">Vancouver, Canada · WTA 125 · Hard · 3</div></div>
+<div class="compact-match"><div class="compact-match-row"><span class="compact-time">21:10</span><span class="compact-meta">Vancouver, Canada · WTA 125 · Hard · 3</span></div></div>
 <div class="compact-tags bottom-notes"><span class="note" data-note="No previous H2H matches">No previous H2H matches</span></div>
 </section>
 <section class="metric-box">
@@ -168,7 +171,7 @@
 <div class="compact-player pick-side"><div class="compact-label">Pick</div><div class="compact-name-row"><span class="compact-name">Anastasia Zakharova <span class="compact-odds inline pick">@ 1.62</span></span><span class="compact-rank">(101)</span></div></div>
 <div class="compact-vs">to beat</div>
 <div class="compact-player opp-side no-label"><div class="compact-name-row"><span class="compact-name">Renata Zarazua <span class="compact-odds inline opp">@ 2.30</span></span><span class="compact-rank">(83)</span></div></div>
-<div class="compact-match"><div class="compact-time">20:20</div><div class="compact-meta">Memphis, USA · WTA · Hard · 3</div></div>
+<div class="compact-match"><div class="compact-match-row"><span class="compact-time">20:20</span><span class="compact-meta">Memphis, USA · WTA · Hard · 3</span></div></div>
 <div class="compact-tags bottom-notes"><span class="note" data-note="No previous H2H matches">No previous H2H matches</span></div>
 </section>
 <section class="metric-box">
@@ -227,7 +230,7 @@
 <div class="compact-player pick-side"><div class="compact-label">Pick</div><div class="compact-name-row"><span class="compact-name">Alex de Minaur <span class="compact-odds inline pick">@ 1.53</span></span><span class="compact-rank">(6)</span></div></div>
 <div class="compact-vs">to beat</div>
 <div class="compact-player opp-side no-label"><div class="compact-name-row"><span class="compact-name">Brandon Nakashima <span class="compact-odds inline opp">@ 2.50</span></span><span class="compact-rank">(33)</span></div></div>
-<div class="compact-match"><div class="compact-time">20:00</div><div class="compact-meta">Washington, USA · ATP · Hard · 3</div></div>
+<div class="compact-match"><div class="compact-match-row"><span class="compact-time">20:00</span><span class="compact-meta">Washington, USA · ATP · Hard · 3</span></div></div>
 </section>
 <section class="metric-box">
 <div class="box-head"><span>CorQ <span class="info info-dot" tabindex="0" role="button" aria-label="CorQ: CorQ is the final win probability for the displayed pick. Positive values support the pick, negative values go against it." data-tip="CorQ: CorQ is the final win probability for the displayed pick. Positive values support the pick, negative values go against it.">i</span></span><b>62.1%</b></div>
@@ -285,7 +288,7 @@
 <div class="compact-player pick-side"><div class="compact-label">Pick</div><div class="compact-name-row"><span class="compact-name">Sara Sorribes Tormo <span class="compact-odds inline pick">@ 1.62</span></span><span class="compact-rank">(214)</span></div></div>
 <div class="compact-vs">to beat</div>
 <div class="compact-player opp-side no-label"><div class="compact-name-row"><span class="compact-name">Lucia Bronzetti <span class="compact-odds inline opp">@ 2.20</span></span><span class="compact-rank">(118)</span></div></div>
-<div class="compact-match"><div class="compact-time">16:00</div><div class="compact-meta">Targu Mures, Romania · WTA 125 · Clay · 3</div></div>
+<div class="compact-match"><div class="compact-match-row"><span class="compact-time">16:00</span><span class="compact-meta">Targu Mures, Romania · WTA 125 · Clay · 3</span></div></div>
 </section>
 <section class="metric-box">
 <div class="box-head"><span>CorQ <span class="info info-dot" tabindex="0" role="button" aria-label="CorQ: CorQ is the final win probability for the displayed pick. Positive values support the pick, negative values go against it." data-tip="CorQ: CorQ is the final win probability for the displayed pick. Positive values support the pick, negative values go against it.">i</span></span><b>59.1%</b></div>
@@ -343,7 +346,7 @@
 <div class="compact-player pick-side"><div class="compact-label">Pick</div><div class="compact-name-row"><span class="compact-name">Taylor Fritz <span class="compact-odds inline pick">@ 1.44</span></span><span class="compact-rank">(10)</span></div></div>
 <div class="compact-vs">to beat</div>
 <div class="compact-player opp-side no-label"><div class="compact-name-row"><span class="compact-name">Alex Michelsen <span class="compact-odds inline opp">@ 2.75</span></span><span class="compact-rank">(40)</span></div></div>
-<div class="compact-match"><div class="compact-time">21:10</div><div class="compact-meta">Washington, USA · ATP · Hard · 3</div></div>
+<div class="compact-match"><div class="compact-match-row"><span class="compact-time">21:10</span><span class="compact-meta">Washington, USA · ATP · Hard · 3</span></div></div>
 </section>
 <section class="metric-box">
 <div class="box-head"><span>CorQ <span class="info info-dot" tabindex="0" role="button" aria-label="CorQ: CorQ is the final win probability for the displayed pick. Positive values support the pick, negative values go against it." data-tip="CorQ: CorQ is the final win probability for the displayed pick. Positive values support the pick, negative values go against it.">i</span></span><b>60.9%</b></div>
@@ -401,7 +404,7 @@
 <div class="compact-player pick-side"><div class="compact-label">Pick</div><div class="compact-name-row"><span class="compact-name">Maddison Inglis <span class="compact-odds inline pick">@ 2.10</span></span><span class="compact-rank">(150)</span></div></div>
 <div class="compact-vs">to beat</div>
 <div class="compact-player opp-side no-label"><div class="compact-name-row"><span class="compact-name">Mai Hontama <span class="compact-odds inline opp">@ 1.67</span></span><span class="compact-rank">(189)</span></div></div>
-<div class="compact-match"><div class="compact-time">20:00</div><div class="compact-meta">Vancouver, Canada · WTA 125 · Hard · 3</div></div>
+<div class="compact-match"><div class="compact-match-row"><span class="compact-time">20:00</span><span class="compact-meta">Vancouver, Canada · WTA 125 · Hard · 3</span></div></div>
 </section>
 <section class="metric-box">
 <div class="box-head"><span>CorQ <span class="info info-dot" tabindex="0" role="button" aria-label="CorQ: CorQ is the final win probability for the displayed pick. Positive values support the pick, negative values go against it." data-tip="CorQ: CorQ is the final win probability for the displayed pick. Positive values support the pick, negative values go against it.">i</span></span><b>57.0%</b></div>
