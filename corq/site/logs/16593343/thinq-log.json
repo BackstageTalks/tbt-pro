@@ -282,7 +282,7 @@
   "odds2": 2.63,
   "price1": 1.5,
   "price2": 2.63,
-  "odds_source": "RapidAPI PRO event odds",
+  "odds_source": "fallback_existing_odds_thin_market",
   "odds_endpoint": "/api/tennis/event/16593343/odds",
   "odds_status": "OK",
   "odds_attempts": [
@@ -1597,5 +1597,11 @@
     "MODEL_SUPPORT_H2H_DISAGREE"
   ],
   "corq_rank": 21,
+  "marq_status": "THIN | P1",
+  "pick_marq": "63.7%",
+  "opponent_marq": "36.3%",
+  "market_move": "STABLE (0.0%)",
+  "odds_matching_direction_display": "NO SHARP DATA",
+  "marq_quality_display": "THIN | P1",
   "_corq_render_rank": 4
 }
