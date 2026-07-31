@@ -1043,6 +1043,10 @@
     "ta_opp_tb_split": null,
     "ta_pick_ace_pct": null,
     "ta_opp_ace_pct": null,
+    "ta_pick_df_pct": null,
+    "ta_opp_df_pct": null,
+    "pick_df_pct": null,
+    "opponent_df_pct": null,
     "ta_pick_surface_dr": null,
     "ta_opp_surface_dr": null,
     "ta_pick_rpw_pct": null,
@@ -1481,7 +1485,7 @@
   "probability": 0.7254,
   "value_edge": -0.1518,
   "edge": -0.1518,
-  "corq_source_rank": 5,
+  "corq_source_rank": 4,
   "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
   "top7_publishable": false,
   "eligible_for_top7": false,
@@ -1491,6 +1495,13 @@
   "top7_reject_reasons": [
     "REJECT_TOP7_LOW_ODDS_UNDER_1_40"
   ],
+  "top7_hard_reject_reasons": [
+    "REJECT_TOP7_LOW_ODDS_UNDER_1_40"
+  ],
+  "top7_primary_reject_reason": "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
+  "top7_reject_reason_count": 1,
+  "top7_reject_summary_scope": "NON_PUBLISHABLE_ROWS_ONLY",
+  "top7_status_allowed": true,
   "top7_status_type_normalized": "notstarted",
   "top7_status_code": 0,
   "top7_corq_probability": 0.7254,
@@ -1537,6 +1548,6 @@
   "top7_risk_penalty_points": 0.0,
   "top7_clean_bonus_points": 0.0,
   "top7_quality_score": 0.0,
-  "corq_rank": 5,
+  "corq_rank": 4,
   "_corq_render_rank": 11
 }

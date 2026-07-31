@@ -1056,6 +1056,10 @@
     "ta_opp_tb_split": null,
     "ta_pick_ace_pct": null,
     "ta_opp_ace_pct": null,
+    "ta_pick_df_pct": null,
+    "ta_opp_df_pct": null,
+    "pick_df_pct": null,
+    "opponent_df_pct": null,
     "ta_pick_surface_dr": null,
     "ta_opp_surface_dr": null,
     "ta_pick_rpw_pct": null,
@@ -1532,6 +1536,16 @@
     "REJECT_TOP7_LOW_FORM_DATA_DEPTH",
     "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
   ],
+  "top7_hard_reject_reasons": [
+    "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
+    "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
+    "REJECT_TOP7_LOW_FORM_DATA_DEPTH",
+    "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
+  ],
+  "top7_primary_reject_reason": "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
+  "top7_reject_reason_count": 4,
+  "top7_reject_summary_scope": "NON_PUBLISHABLE_ROWS_ONLY",
+  "top7_status_allowed": true,
   "top7_status_type_normalized": "notstarted",
   "top7_status_code": 0,
   "top7_corq_probability": 0.5819,
