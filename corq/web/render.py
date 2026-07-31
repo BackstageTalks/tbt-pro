@@ -2044,6 +2044,23 @@ def render_sets_games_box(row: Dict[str, Any]) -> str:
         '</section>',
     ])
 
+
+def render_sets_games_box(row: Dict[str, Any]) -> str:
+    sets_games_value = sets_games_projection_pair(row)
+    sets_ou_value = market_pick_display(row, "sets", 2.5)
+    games_ou_value = market_pick_display(row, "games", 23.5)
+    return "\n".join([
+        '<section class="metric-box small-box sets-signal-box">',
+        f'<div class="box-head"><span>Sets | Games {info_icon("sets_games")}</span><b>{esc(sets_games_value)}</b></div>',
+        metric_row("Sets o|u", esc(sets_ou_value)),
+        metric_row("Games o|u", esc(games_ou_value)),
+        metric_row("TB%", esc(tiebreak_pct_display(row))),
+        metric_row("Aces P | O | T", esc(triplet_market_display(row, "aces"))),
+        metric_row("DF P | O | T", esc(triplet_market_display(row, "df"))),
+        metric_row("S Data Depth", bar_html(s_data_depth(row))),
+        '</section>',
+    ])
+
 def final_marq_display(row: Dict[str, Any]) -> str:
     explicit = _first_data_value(
         row,
