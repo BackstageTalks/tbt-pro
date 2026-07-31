@@ -400,6 +400,15 @@
       "pick_win_pct": 1.0,
       "same_surface_matches": 2,
       "same_surface_pick_wins": 2,
+      "same_surface_opponent_wins": 0,
+      "same_surface_pick_win_pct": 1.0,
+      "same_surface_edge": 0.04,
+      "h2h_requested_surface": "Hard",
+      "h2h_requested_surface_bucket": "Hard",
+      "h2h_detected_surface_buckets": [
+        "Hard"
+      ],
+      "h2h_missing_surface_matches": 0,
       "edge": 0.04,
       "confidence": 0.31,
       "reason": null,
@@ -708,6 +717,15 @@
         "pick_win_pct": 1.0,
         "same_surface_matches": 2,
         "same_surface_pick_wins": 2,
+        "same_surface_opponent_wins": 0,
+        "same_surface_pick_win_pct": 1.0,
+        "same_surface_edge": 0.04,
+        "h2h_requested_surface": "Hard",
+        "h2h_requested_surface_bucket": "Hard",
+        "h2h_detected_surface_buckets": [
+          "Hard"
+        ],
+        "h2h_missing_surface_matches": 0,
         "edge": 0.04,
         "confidence": 0.31,
         "reason": null,
@@ -1000,7 +1018,14 @@
     "thinq_h2h_opponent_wins": 0,
     "thinq_h2h_same_surface_matches": 2,
     "thinq_surface_h2h_pick_wins": 2,
-    "thinq_surface_h2h_opponent_wins": null,
+    "thinq_surface_h2h_opponent_wins": 0,
+    "thinq_surface_h2h_pick_win_pct": 1.0,
+    "thinq_surface_h2h_edge": 0.04,
+    "thinq_h2h_requested_surface_bucket": "Hard",
+    "thinq_h2h_detected_surface_buckets": [
+      "Hard"
+    ],
+    "thinq_h2h_missing_surface_matches": 0,
     "thinq_h2h_edge": 0.04,
     "thinq_h2h_confidence": 0.31,
     "thinq_h2h_endpoint": "/api/tennis/event/NhzbsKjed/h2h",
@@ -1249,7 +1274,14 @@
   "thinq_h2h_opponent_wins": 0,
   "thinq_h2h_same_surface_matches": 2,
   "thinq_surface_h2h_pick_wins": 2,
-  "thinq_surface_h2h_opponent_wins": null,
+  "thinq_surface_h2h_opponent_wins": 0,
+  "thinq_surface_h2h_pick_win_pct": 1.0,
+  "thinq_surface_h2h_edge": 0.04,
+  "thinq_h2h_requested_surface_bucket": "Hard",
+  "thinq_h2h_detected_surface_buckets": [
+    "Hard"
+  ],
+  "thinq_h2h_missing_surface_matches": 0,
   "thinq_h2h_edge": 0.04,
   "thinq_h2h_confidence": 0.31,
   "thinq_h2h_endpoint": "/api/tennis/event/NhzbsKjed/h2h",
