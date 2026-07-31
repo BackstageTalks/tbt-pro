@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-07-31T06:14:05+00:00",
+  "generated_at": "2026-07-31T14:26:40+00:00",
   "date": "2026-07-30",
   "fetch_api": true,
   "settlement_grace_hours": 2.0,
   "local_tz": "Europe/Bratislava",
-  "corq_count": 17,
+  "corq_count": 22,
   "cloq_count": 0,
   "audit_count": 90,
   "summary": {
     "corq": {
-      "picks": 17,
+      "picks": 22,
       "won": 8,
       "lost": 6,
-      "pending": 2,
+      "pending": 7,
       "void": 1,
       "win_rate": 0.5714,
       "units": -0.7213,
@@ -30,13 +30,13 @@
     },
     "audit": {
       "picks": 90,
-      "won": 50,
+      "won": 54,
       "lost": 20,
-      "pending": 15,
+      "pending": 11,
       "void": 5,
-      "win_rate": 0.7143,
-      "units": 1.8189,
-      "roi": 0.026
+      "win_rate": 0.7297,
+      "units": 3.9491,
+      "roi": 0.0534
     }
   },
   "sources": {
@@ -45,7 +45,7 @@
     "audit": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/latest_all_audit_snapshot.json"
   },
   "locks": {
-    "corq": "merged_source_current_plus_existing_history:3+14",
+    "corq": "merged_source_current_plus_existing_history:7+15",
     "cloq": "empty_no_source_or_existing",
     "audit": "merged_source_current_plus_existing_history:44+68"
   },
