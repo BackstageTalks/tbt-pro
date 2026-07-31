@@ -52,32 +52,43 @@ STAT_FIELDS = {
     "W": "wins",
     "L": "losses",
     "Win%": "win_pct",
+    "WinPct": "win_pct",
     "Set W-L": "set_wl",
     "Set%": "set_pct",
+    "SetPct": "set_pct",
     "Game W-L": "game_wl",
     "Game%": "game_pct",
+    "GamePct": "game_pct",
     "TB W-L": "tb_wl",
     "Tiebreak": "tb_wl",
+    "Tiebreaks": "tb_wl",
     "TB%": "tb_pct",
+    "TBPct": "tb_pct",
     "A%": "ace_pct",
     "Ace%": "ace_pct",
-    "Ace %": "ace_pct",
-    "Aces%": "ace_pct",
-    "Aces %": "ace_pct",
+    "AcePct": "ace_pct",
     "DF%": "df_pct",
-    "DF %": "df_pct",
-    "Double Fault%": "df_pct",
-    "Double Fault %": "df_pct",
+    "DFPct": "df_pct",
     "1stIn": "first_in_pct",
+    "1stIn%": "first_in_pct",
     "1st%": "first_won_pct",
+    "1stWon%": "first_won_pct",
     "2nd%": "second_won_pct",
+    "2ndWon%": "second_won_pct",
     "Hld%": "hold_pct",
+    "Hold%": "hold_pct",
     "SPW": "serve_points_won_pct",
+    "SPW%": "serve_points_won_pct",
     "Brk%": "break_pct",
+    "Break%": "break_pct",
     "RPW": "return_points_won_pct",
+    "RPW%": "return_points_won_pct",
     "TPW": "total_points_won_pct",
+    "TPW%": "total_points_won_pct",
     "DR": "dominance_ratio",
+    "Dominance Ratio": "dominance_ratio",
     "Match": "match_wl",
+    "Match W-L": "match_wl",
 }
 
 
@@ -296,64 +307,83 @@ def try_read_tables(html_text: str) -> List[Any]:
         return []
 
 
-def normalize_columns(df: Any) -> Any:
-    try:
-        df = df.copy()
-        columns = []
-        for col in df.columns:
-            if isinstance(col, tuple):
-                parts = [str(part).strip() for part in col if str(part).strip() and not str(part).startswith("Unnamed")]
-                name = " ".join(parts).strip()
-            else:
-                name = str(col).strip()
-            name = re.sub(r"\s+", " ", name).strip()
-            columns.append(name)
-        df.columns = columns
-        return df
-    except Exception:
-        return df
+def _flatten_column_name(column: Any) -> str:
+    if isinstance(column, tuple):
+        parts = [str(part).strip() for part in column if str(part).strip() and not str(part).lower().startswith("unnamed")]
+        text = " ".join(parts)
+    else:
+        text = str(column or "").strip()
+    text = html.unescape(text)
+    text = re.sub(r"\s+", " ", text).strip()
+    # pandas can expose TA multi-row headers as strings like ('Serve', 'A%').
+    # Keep the most specific/right-most token because those are the stat labels.
+    tuple_match = re.findall(r"['\"]([^'\"]+)['\"]", text)
+    if tuple_match:
+        useful = [part for part in tuple_match if part and not part.lower().startswith("unnamed")]
+        if useful:
+            text = useful[-1]
+    return text.strip()
 
 
-def canonical_stat_column(name: Any) -> str:
-    raw = str(name or "").strip()
-    clean = html.unescape(raw).replace("\xa0", " ")
-    clean = re.sub(r"\s+", " ", clean).strip()
-    compact = re.sub(r"[^a-z0-9%]+", "", clean.lower())
+def canonical_column_name(column: Any) -> str:
+    text = _flatten_column_name(column)
+    compact = re.sub(r"[^A-Za-z0-9%]+", "", text).lower()
     aliases = {
-        "totals": "TOTALS",
-        "split": "Split",
-        "year": "Year",
-        "match": "Match",
-        "matches": "Match",
         "m": "M",
         "w": "W",
         "l": "L",
+        "year": "Year",
+        "split": "Split",
+        "totals": "TOTALS",
+        "surface": "Split",
+        "level": "Split",
+        "match": "Match",
+        "matchwl": "Match W-L",
+        "win": "Win%",
+        "winpct": "Win%",
         "win%": "Win%",
-        "setw-l": "Set W-L",
         "setwl": "Set W-L",
+        "setw-l": "Set W-L",
+        "set": "Set%",
+        "setpct": "Set%",
         "set%": "Set%",
-        "gamew-l": "Game W-L",
         "gamewl": "Game W-L",
+        "gamew-l": "Game W-L",
+        "game": "Game%",
+        "gamepct": "Game%",
         "game%": "Game%",
-        "tiebreak": "Tiebreak",
-        "tbw-l": "TB W-L",
         "tbwl": "TB W-L",
+        "tiebreak": "TB W-L",
+        "tiebreaks": "TB W-L",
+        "tb": "TB%",
+        "tbpct": "TB%",
         "tb%": "TB%",
+        "a": "A%",
+        "ace": "A%",
+        "acepct": "A%",
         "a%": "A%",
-        "ace%": "Ace%",
-        "aces%": "Ace%",
+        "ace%": "A%",
+        "df": "DF%",
+        "dfpct": "DF%",
         "df%": "DF%",
-        "doublefault%": "DF%",
         "1stin": "1stIn",
         "1stin%": "1stIn",
+        "1stwon": "1st%",
+        "1stwon%": "1st%",
+        "1st": "1st%",
         "1st%": "1st%",
-        "first%": "1st%",
+        "2ndwon": "2nd%",
+        "2ndwon%": "2nd%",
+        "2nd": "2nd%",
         "2nd%": "2nd%",
-        "second%": "2nd%",
+        "hld": "Hld%",
+        "hold": "Hld%",
         "hld%": "Hld%",
         "hold%": "Hld%",
         "spw": "SPW",
         "spw%": "SPW",
+        "brk": "Brk%",
+        "break": "Brk%",
         "brk%": "Brk%",
         "break%": "Brk%",
         "rpw": "RPW",
@@ -361,32 +391,38 @@ def canonical_stat_column(name: Any) -> str:
         "tpw": "TPW",
         "tpw%": "TPW",
         "dr": "DR",
+        "dominanceratio": "DR",
     }
-    return aliases.get(compact, clean)
+    if compact in aliases:
+        return aliases[compact]
+    if " " in text:
+        tail = text.split()[-1].strip()
+        tail_compact = re.sub(r"[^A-Za-z0-9%]+", "", tail).lower()
+        if tail_compact in aliases:
+            return aliases[tail_compact]
+    return text
 
 
-def normalize_row_keys(row: Dict[str, Any]) -> Dict[str, Any]:
-    out: Dict[str, Any] = {}
-    for key, value in row.items():
-        canonical = canonical_stat_column(key)
-        if canonical not in out or not has_value(out.get(canonical)):
-            out[canonical] = value
-    return out
+def normalize_columns(df: Any) -> Any:
+    try:
+        df = df.copy()
+        df.columns = [canonical_column_name(c) for c in df.columns]
+        return df
+    except Exception:
+        return df
 
 
 def record_from_row(row: Dict[str, Any]) -> Dict[str, Any]:
-    row = normalize_row_keys(row)
     out: Dict[str, Any] = {}
+    normalized_row = {canonical_column_name(k): v for k, v in dict(row).items()}
     for src, dst in STAT_FIELDS.items():
-        canonical = canonical_stat_column(src)
-        if canonical not in row:
+        src_key = canonical_column_name(src)
+        if src_key not in normalized_row:
             continue
-        raw = row.get(canonical)
-        if canonical in {"Set W-L", "Game W-L", "TB W-L", "Tiebreak", "Match"}:
-            parsed = parse_wl(raw)
-            if parsed:
-                out[dst] = parsed
-        elif canonical in {"M", "W", "L"}:
+        raw = normalized_row.get(src_key)
+        if src_key in {"Set W-L", "Game W-L", "TB W-L", "Tiebreak", "Tiebreaks", "Match", "Match W-L"}:
+            out[dst] = parse_wl(raw)
+        elif src_key in {"M", "W", "L"}:
             val = to_float(raw)
             out[dst] = int(val) if val is not None else None
         else:
@@ -397,10 +433,8 @@ def record_from_row(row: Dict[str, Any]) -> Dict[str, Any]:
         out.setdefault("losses", match_wl.get("losses"))
         out.setdefault("matches", match_wl.get("total"))
         out.setdefault("win_pct", match_wl.get("win_pct"))
-    tb_wl = out.get("tb_wl")
-    if isinstance(tb_wl, dict):
-        out.setdefault("tb_pct", tb_wl.get("win_pct"))
     return {k: v for k, v in out.items() if v is not None}
+
 
 def parse_table_rows(tables: List[Any]) -> Dict[str, Any]:
     data: Dict[str, Any] = {
@@ -408,21 +442,19 @@ def parse_table_rows(tables: List[Any]) -> Dict[str, Any]:
         "career": {"overall": {}, "surface": {}},
         "current_season": {},
         "splits": {},
-        "recent_matches": [],
     }
+
     for raw_df in tables:
         df = normalize_columns(raw_df)
         try:
-            df = df.copy()
-            df.columns = [canonical_stat_column(c) for c in df.columns]
             columns = set(str(c) for c in df.columns)
             records = df.to_dict(orient="records")
         except Exception:
             continue
 
+        # Tour / season table: Year + M/W/L + A%/RPW/DR
         if "Year" in columns and ({"M", "W", "L"}.issubset(columns) or "Match" in columns):
             for row in records:
-                row = normalize_row_keys(row)
                 label = str(row.get("Year") or "").strip()
                 rec = record_from_row(row)
                 if not rec:
@@ -432,18 +464,19 @@ def parse_table_rows(tables: List[Any]) -> Dict[str, Any]:
                 elif re.match(r"^20\d{2}$", label) and not data["current_season"]:
                     data["current_season"] = {"year": int(label), **rec}
 
+        # Split / totals table: TA player pages often expose either Split or TOTALS labels.
         label_column = "Split" if "Split" in columns else "TOTALS" if "TOTALS" in columns else None
         if label_column and ({"M", "W", "L"}.issubset(columns) or "Match" in columns):
+            # Heuristic: TA's top table contains rows such as Last 52, Hard, Clay, Grass and Career.
+            # We normalize only the stable betting-relevant scopes and keep the rest under splits.
             for row in records:
-                row = normalize_row_keys(row)
                 split = str(row.get(label_column) or "").strip()
                 rec = record_from_row(row)
                 if not split or not rec:
                     continue
-                split_norm = normalize_name(split)
-                split_key = split_norm.replace(" ", "_")
-                if split_norm in SURFACE_KEYS:
-                    surface = SURFACE_KEYS[split_norm]
+                split_key = split.lower().replace(" ", "_")
+                if split.lower() in SURFACE_KEYS:
+                    surface = SURFACE_KEYS[split.lower()]
                     if not data["last52"]["surface"].get(surface):
                         data["last52"]["surface"][surface] = rec
                     else:
@@ -455,18 +488,8 @@ def parse_table_rows(tables: List[Any]) -> Dict[str, Any]:
                 else:
                     data["splits"][split_key] = rec
 
-        # Tennis Abstract classic match log rows contain Date/Tournament/Surface
-        # plus A% and DF%. Keep a compact copy for diagnostics and future models.
-        if "Surface" in columns and ("A%" in columns or "Ace%" in columns or "DF%" in columns):
-            for row in records[:80]:
-                row = normalize_row_keys(row)
-                rec = record_from_row(row)
-                if rec:
-                    rec["surface"] = row.get("Surface")
-                    rec["date"] = row.get("Date")
-                    rec["tournament"] = row.get("Tournament")
-                    data["recent_matches"].append({k: v for k, v in rec.items() if has_value(v) or isinstance(v, dict)})
     return data
+
 
 def parse_profile_text(html_text: str) -> Dict[str, Any]:
     text = html.unescape(re.sub(r"<[^>]+>", " ", html_text))
@@ -578,6 +601,34 @@ def save_cache(payload: Dict[str, Any], path: Path = OUTPUT_PATH) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
 
 
+def profile_has_core_stats(profile: Dict[str, Any]) -> bool:
+    if not isinstance(profile, dict):
+        return False
+    wanted = {
+        "game_pct",
+        "tb_pct",
+        "ace_pct",
+        "df_pct",
+        "dominance_ratio",
+        "return_points_won_pct",
+        "serve_points_won_pct",
+        "total_points_won_pct",
+    }
+
+    def walk(obj: Any) -> bool:
+        if isinstance(obj, dict):
+            for key, value in obj.items():
+                if key in wanted and value not in (None, "", "N/A", "-", "—"):
+                    return True
+                if isinstance(value, (dict, list)) and walk(value):
+                    return True
+        elif isinstance(obj, list):
+            return any(walk(item) for item in obj)
+        return False
+
+    return walk(profile)
+
+
 def build_profiles(limit: int = DEFAULT_LIMIT, offset: int = DEFAULT_OFFSET, force_refresh: bool = False) -> Dict[str, Any]:
     players = build_player_index(limit=limit, offset=offset)
     cache = load_cache()
@@ -605,7 +656,8 @@ def build_profiles(limit: int = DEFAULT_LIMIT, offset: int = DEFAULT_OFFSET, for
         key = compact_name(player.get("player_name")) or compact_name(player.get("player_key"))
         if not key:
             continue
-        if not force_refresh and key in result_players and result_players[key].get("status") == "OK":
+        existing_profile = result_players.get(key) if isinstance(result_players.get(key), dict) else None
+        if not force_refresh and existing_profile and existing_profile.get("status") == "OK" and profile_has_core_stats(existing_profile):
             stats["skipped"] += 1
             continue
 
@@ -661,93 +713,6 @@ def build_profiles(limit: int = DEFAULT_LIMIT, offset: int = DEFAULT_OFFSET, for
     }
     save_cache(payload)
     print(f"[TA] wrote {OUTPUT_PATH} profiles={len(result_players)} stats={stats}")
-    return payload
-
-
-def build_profiles_for_players(players: List[Dict[str, Any]], force_refresh: bool = True) -> Dict[str, Any]:
-    """Build or refresh a small explicit set of TA player profiles.
-
-    This is useful for debugging one match without hammering Tennis Abstract.
-    Example:
-      python -m thinq.loaders.ta_profile_loader --player "Aryna Sabalenka" --tour wta --force-refresh
-    """
-    cache = load_cache()
-    existing_players = cache.get("players") if isinstance(cache.get("players"), dict) else {}
-    if not isinstance(existing_players, dict):
-        existing_players = {}
-    result_players: Dict[str, Any] = dict(existing_players)
-    stats = {
-        "requested": len(players),
-        "targeted": True,
-        "updated": 0,
-        "skipped": 0,
-        "failed": 0,
-        "modern_ok": 0,
-        "classic_ok": 0,
-        "both_ok": 0,
-        "ace_pct": 0,
-        "df_pct": 0,
-        "tb_pct": 0,
-    }
-    for idx, player in enumerate(players, 1):
-        name = str(player.get("player_name") or player.get("name") or "").strip()
-        if not name:
-            continue
-        player.setdefault("player_name", name)
-        player.setdefault("player_key", key_from_player_name(name))
-        player.setdefault("tour", "wta")
-        key = compact_name(name) or compact_name(player.get("player_key"))
-        if not key:
-            continue
-        if not force_refresh and key in result_players and result_players[key].get("status") == "OK":
-            stats["skipped"] += 1
-            continue
-        urls = profile_urls_for_player(player)
-        variants: Dict[str, Dict[str, Any]] = {}
-        errors: Dict[str, str] = {}
-        for variant_name in ("modern", "classic"):
-            url = urls[variant_name]
-            try:
-                print(f"[TA] targeted {idx}/{len(players)} fetch {variant_name} {name} {url}")
-                html_text = fetch_url(url)
-                variants[variant_name] = parse_profile(
-                    player,
-                    html_text,
-                    profile_url=url,
-                    profile_variant=variant_name,
-                )
-                time.sleep(REQUEST_DELAY_SECONDS)
-            except Exception as exc:
-                errors[variant_name] = str(exc)[:500]
-                time.sleep(REQUEST_DELAY_SECONDS)
-        merged = merge_profile_variants(player, variants, errors, urls)
-        result_players[key] = merged
-        if merged.get("status") == "FETCH_FAILED":
-            stats["failed"] += 1
-        else:
-            stats["updated"] += 1
-        if merged.get("sources", {}).get("modern") == "OK":
-            stats["modern_ok"] += 1
-        if merged.get("sources", {}).get("classic") == "OK":
-            stats["classic_ok"] += 1
-        if merged.get("sources", {}).get("modern") == "OK" and merged.get("sources", {}).get("classic") == "OK":
-            stats["both_ok"] += 1
-        if merged.get("has_ace_pct"):
-            stats["ace_pct"] += 1
-        if merged.get("has_df_pct"):
-            stats["df_pct"] += 1
-        if merged.get("has_tb_pct"):
-            stats["tb_pct"] += 1
-    payload = {
-        "generated_at": now_iso(),
-        "source": "tennis_abstract_player_profiles_modern_classic",
-        "ranking_source": str(RANKINGS_PATH),
-        "profile_count": len(result_players),
-        "stats": stats,
-        "players": result_players,
-    }
-    save_cache(payload)
-    print(f"[TA] wrote {OUTPUT_PATH} profiles={len(result_players)} targeted_stats={stats}")
     return payload
 
 
@@ -1196,60 +1161,35 @@ def build_match_ta_context(pick: str, opponent: str, surface: str = "") -> Dict[
     surface_key = str(surface or "").strip().lower()
     surface_key = SURFACE_KEYS.get(surface_key, surface_key)
 
-    def profile_status(profile: Optional[Dict[str, Any]]) -> str:
-        return str((profile or {}).get("status") or "N/A") if profile else "N/A"
-
-    def select_stats(profile: Optional[Dict[str, Any]]) -> Tuple[Dict[str, Any], str, List[str]]:
-        if not isinstance(profile, dict):
-            return {}, "missing_profile", ["TA profile not found"]
-        notes: List[str] = []
+    def surface_stats(profile: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+        if not profile:
+            return {}
         last52 = profile.get("last52") if isinstance(profile.get("last52"), dict) else {}
+        surface_map = last52.get("surface") if isinstance(last52.get("surface"), dict) else {}
+        if surface_key and isinstance(surface_map, dict) and isinstance(surface_map.get(surface_key), dict) and surface_map.get(surface_key):
+            return surface_map.get(surface_key) or {}
+        overall = last52.get("overall") if isinstance(last52.get("overall"), dict) else {}
+        if overall:
+            return overall
+        current = profile.get("current_season") if isinstance(profile.get("current_season"), dict) else {}
+        if current:
+            return current
         career = profile.get("career") if isinstance(profile.get("career"), dict) else {}
-        candidates: List[Tuple[str, Dict[str, Any]]] = []
-        if surface_key:
-            candidates.append((f"last52.surface.{surface_key}", ((last52.get("surface") or {}).get(surface_key) or {})))
-        candidates.append(("last52.overall", last52.get("overall") or {}))
-        if surface_key:
-            candidates.append((f"career.surface.{surface_key}", ((career.get("surface") or {}).get(surface_key) or {})))
-        candidates.append(("career.overall", career.get("overall") or {}))
-        for scope, stats in candidates:
-            if isinstance(stats, dict) and stats:
-                return stats, scope, notes
-        if profile.get("source_errors"):
-            notes.append(f"TA fetch errors: {profile.get('source_errors')}")
-        if profile_status(profile) == "FETCH_FAILED":
-            notes.append("TA profile fetch failed")
-        else:
-            notes.append("TA profile found but parsed stats are empty")
-        return {}, "no_usable_stats", notes
+        career_overall = career.get("overall") if isinstance(career.get("overall"), dict) else {}
+        return career_overall or {}
 
-    p_stats, p_scope, p_notes = select_stats(pick_profile)
-    o_stats, o_scope, o_notes = select_stats(opp_profile)
+    p_stats = surface_stats(pick_profile)
+    o_stats = surface_stats(opp_profile)
     p_depth = ta_depth_from_stats(p_stats)
     o_depth = ta_depth_from_stats(o_stats)
     decisions = ta_decision_from_stats(p_stats, o_stats, p_depth, o_depth)
 
-    p_ace = p_stats.get("ace_pct")
-    o_ace = o_stats.get("ace_pct")
-    p_df = p_stats.get("df_pct")
-    o_df = o_stats.get("df_pct")
-    ace_df_available = any(v is not None for v in (p_ace, o_ace, p_df, o_df))
-    notes = list(p_notes) + list(o_notes)
-    if not ace_df_available:
-        notes.append("TA A%/DF% unavailable in selected cached stats")
-
     ctx = {
         "ta_status": "OK" if pick_profile or opp_profile else "N/A",
-        "ta_pick_status": profile_status(pick_profile),
-        "ta_opp_status": profile_status(opp_profile),
-        "ta_pick_profile_found": bool(pick_profile),
-        "ta_opp_profile_found": bool(opp_profile),
-        "ta_scope": p_scope if p_scope == o_scope else f"pick:{p_scope}|opp:{o_scope}",
-        "ta_pick_scope": p_scope,
-        "ta_opp_scope": o_scope,
+        "ta_pick_status": (pick_profile or {}).get("status") if pick_profile else "N/A",
+        "ta_opp_status": (opp_profile or {}).get("status") if opp_profile else "N/A",
+        "ta_scope": "surface_last52" if surface_key and (p_stats or o_stats) else "last52_overall",
         "ta_surface": surface_key or None,
-        "ta_ace_df_available": ace_df_available,
-        "ta_missing_reason": "; ".join(notes[:4]) if notes else None,
         "ta_pick_set_pct": p_stats.get("set_pct"),
         "ta_opp_set_pct": o_stats.get("set_pct"),
         "ta_pick_game_pct": p_stats.get("game_pct"),
@@ -1258,10 +1198,10 @@ def build_match_ta_context(pick: str, opponent: str, surface: str = "") -> Dict[
         "ta_opp_tb_split": o_stats.get("tb_wl"),
         "ta_pick_tb_pct": p_stats.get("tb_pct"),
         "ta_opp_tb_pct": o_stats.get("tb_pct"),
-        "ta_pick_ace_pct": p_ace,
-        "ta_opp_ace_pct": o_ace,
-        "ta_pick_df_pct": p_df,
-        "ta_opp_df_pct": o_df,
+        "ta_pick_ace_pct": p_stats.get("ace_pct"),
+        "ta_opp_ace_pct": o_stats.get("ace_pct"),
+        "ta_pick_df_pct": p_stats.get("df_pct"),
+        "ta_opp_df_pct": o_stats.get("df_pct"),
         "ta_pick_hold_pct": p_stats.get("hold_pct"),
         "ta_opp_hold_pct": o_stats.get("hold_pct"),
         "ta_pick_break_pct": p_stats.get("break_pct"),
@@ -1281,13 +1221,9 @@ def build_match_ta_context(pick: str, opponent: str, surface: str = "") -> Dict[
         "pick_aces_line": None,
         "opponent_aces_line": None,
         "total_aces_line": None,
-        "aces_status": "OK" if (p_ace is not None or o_ace is not None) else "N/A",
-        "df_status": "OK" if (p_df is not None or o_df is not None) else "N/A",
+        "aces_status": "N/A",
     }
     ctx.update(decisions)
-    if notes:
-        existing_notes = ctx.get("ta_decision_notes") or []
-        ctx["ta_decision_notes"] = list(existing_notes) + notes[:4]
     return ctx
 
 def ta_depth_from_stats(stats: Dict[str, Any]) -> Optional[float]:
@@ -1307,16 +1243,8 @@ def main() -> None:
     parser.add_argument("--limit", type=int, default=DEFAULT_LIMIT)
     parser.add_argument("--offset", type=int, default=DEFAULT_OFFSET)
     parser.add_argument("--force-refresh", action="store_true")
-    parser.add_argument("--player", action="append", default=[], help="Refresh one explicit player name. Can be passed multiple times.")
-    parser.add_argument("--tour", choices=["atp", "wta"], default="wta", help="Tour for --player refreshes.")
     args = parser.parse_args()
-    if args.player:
-        build_profiles_for_players(
-            [{"player_name": name, "tour": args.tour, "player_key": key_from_player_name(name)} for name in args.player],
-            force_refresh=args.force_refresh,
-        )
-    else:
-        build_profiles(limit=args.limit, offset=args.offset, force_refresh=args.force_refresh)
+    build_profiles(limit=args.limit, offset=args.offset, force_refresh=args.force_refresh)
 
 
 if __name__ == "__main__":
