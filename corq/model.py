@@ -171,7 +171,12 @@ def thinq_probability_layer(record: Dict[str, Any]) -> Dict[str, Any]:
 
 def thinq_pick_probability(record: Dict[str, Any]) -> Optional[float]:
     layer = thinq_probability_layer(record)
-    value = layer.get("pick_probability") or layer.get("probability") or record.get("thinq_probability")
+    value = (
+        layer.get("pick_probability")
+        or layer.get("probability")
+        or record.get("thinq_pick_probability")
+        or record.get("thinq_probability")
+    )
     val = as_float(value)
     if val is None:
         return None
@@ -181,7 +186,11 @@ def build_corq_prediction(record: Dict[str, Any]) -> Dict[str, Any]:
     out = dict(record)
     thinq = out.get("thinq") if isinstance(out.get("thinq"), dict) else {}
     edges = extract_edges(out)
-    thinq_confidence = as_float(out.get("thinq_confidence"), None)
+    thinq_confidence = as_float(out.get("thinq_data_confidence"), None)
+    if thinq_confidence is None:
+        thinq_confidence = as_float(out.get("thinq_confidence"), None)
+    if thinq_confidence is None:
+        thinq_confidence = as_float(thinq.get("thinq_data_confidence"), None)
     if thinq_confidence is None:
         thinq_confidence = as_float(thinq.get("confidence"), 0.0) or 0.0
     flags = list(thinq.get("flags") or out.get("thinq_flags") or [])
@@ -232,6 +241,10 @@ def build_corq_prediction(record: Dict[str, Any]) -> Dict[str, Any]:
             "opponent_odds": opponent_odds,
             "implied_probability": implied,
             "thinq_confidence": round(float(thinq_confidence or 0.0), 4),
+            "thinq_data_confidence": round(float(thinq_confidence or 0.0), 4),
+            "thinq_data_confidence_pct": round(float(thinq_confidence or 0.0) * 100.0, 2),
+            "thinq_pick_probability": thinq_probability,
+            "thinq_pick_probability_pct": round(thinq_probability * 100.0, 2) if thinq_probability is not None else None,
             "thinq_available": bool(thinq) or bool(edges),
             "thinq_edges": edges,
             "thinq_flags": flags,
@@ -259,7 +272,7 @@ def build_corq_prediction(record: Dict[str, Any]) -> Dict[str, Any]:
             "form_confidence": recent_ctx.get("form_confidence"),
             "form_data_depth": recent_ctx.get("form_data_depth"),
             "corq_model_version": "CORQ_V1_THINQ_PRIMARY_PROBABILITY",
-            "corq_probability_source": "ThinQ" if thinq_probability is not None else "CorQ fallback",
+            "corq_probability_source": "THINQ_PICK_PROBABILITY" if thinq_probability is not None else "CORQ_COMPONENT_FALLBACK",
             "corq_thinq_probability": thinq_probability,
             "corq_components": components,
             "corq_raw_model_edge": raw_model_edge,

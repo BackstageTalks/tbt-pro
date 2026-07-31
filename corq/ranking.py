@@ -272,20 +272,34 @@ def corq_probability(row: Dict[str, Any]) -> float:
 
 
 def thinq_confidence(row: Dict[str, Any]) -> float:
+    """Return data/model confidence, not win probability."""
     value = _first(
         row,
         [
+            "thinq_data_confidence",
             "thinq_probability_confidence",
             "thinq_confidence",
             "thinQ_confidence",
-            "thinq_data_confidence",
+            "data_confidence",
         ],
         None,
     )
     if value is None:
         value = _get_nested(row, "thinq_probability_layer", "confidence")
     if value is None:
+        value = _get_nested(row, "thinq", "thinq_data_confidence")
+    if value is None:
         value = _get_nested(row, "thinq", "confidence")
+    return _prob(value, 0.0)
+
+
+def thinq_pick_probability(row: Dict[str, Any]) -> float:
+    """Return ThinQ pick win probability, not confidence."""
+    value = _first(row, ["thinq_pick_probability", "thinq_probability"], None)
+    if value is None:
+        value = _get_nested(row, "thinq_probability_layer", "pick_probability")
+    if value is None:
+        value = _get_nested(row, "thinq", "thinq_probability_layer", "pick_probability")
     return _prob(value, 0.0)
 
 
@@ -668,8 +682,11 @@ def top7_quality_score(row: Dict[str, Any]) -> float:
     depth = pick_data_depth(row) * 100.0
     edge = max(pick_thinq_edge(row), 0.0) * 100.0
     conf = thinq_confidence(row) * 100.0
+    # Confidence is data quality, not directional support. It can only amplify
+    # confirmed positive ThinQ edge, never act as a standalone pick bonus.
+    confidence_weighted_edge = (conf / 100.0) * edge
     risk = top7_risk_assessment(row)
-    raw = cp + 0.25 * depth + 0.20 * edge + 0.10 * conf
+    raw = cp + 0.25 * depth + 0.25 * edge + 0.10 * confidence_weighted_edge
     return round(raw - float(risk.get("penalty_points") or 0.0) + float(risk.get("bonus_points") or 0.0), 4)
 
 
@@ -690,6 +707,8 @@ def annotate_top7_quality(row: Dict[str, Any]) -> Dict[str, Any]:
     row["top7_corq_probability"] = round(cp, 6)
     row["top7_pick_thinq_edge"] = round(edge, 6)
     row["top7_thinq_confidence"] = round(conf, 6)
+    row["top7_thinq_data_confidence"] = round(conf, 6)
+    row["top7_thinq_pick_probability"] = round(thinq_pick_probability(row), 6)
     row["pick_data_depth"] = round(depth, 6)
     row["stat_data_depth"] = round(depth, 6)
     row["form_data_depth"] = round(form_data_depth(row), 6)
