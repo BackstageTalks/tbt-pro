@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413502.5014307,
+  "saved_at": 1785508204.5249915,
   "data": {
     "event": {
       "tournament": {
@@ -89,10 +89,11 @@
       },
       "customId": "xrtdsWrJd",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 1,
       "homeTeam": {
         "name": "Hannah Klugman",
         "slug": "klugman-hannah",
@@ -208,18 +209,33 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period2": 7,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 5,
+        "period2": 5,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "firstToServe"
+        ],
+        "changeTimestamp": 1785422868
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16667937,
       "defaultPeriodCount": 3,
       "slug": "monika-ekstrand-hannah-klugman",
-      "startTimestamp": 1785413880,
+      "startTimestamp": 1785415430,
       "periods": {
         "point": "Game",
         "current": "Match",

@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413505.1793237,
+  "saved_at": 1785508203.9129274,
   "data": {
     "event": {
       "tournament": {
@@ -89,10 +89,11 @@
       },
       "customId": "kVqdsrUVd",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 2,
       "homeTeam": {
         "name": "Carmen Andreea Herea",
         "slug": "herea-carmen-andreea",
@@ -205,18 +206,35 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 1,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ],
+        "changeTimestamp": 1785420695
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16668572,
       "defaultPeriodCount": 3,
       "slug": "annika-penickova-carmen-andreea-herea",
-      "startTimestamp": 1785414600,
+      "startTimestamp": 1785415295,
       "periods": {
         "point": "Game",
         "current": "Match",

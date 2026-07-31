@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413510.2349384,
+  "saved_at": 1785508208.5782428,
   "data": {
     "event": {
       "tournament": {
@@ -89,10 +89,11 @@
       },
       "customId": "MYeesEFRi",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 1,
       "homeTeam": {
         "name": "Sakellaridi S / Zantedeschi A",
         "slug": "sakellaridi-s-zantedeschi-a",
@@ -120,7 +121,7 @@
               "slug": "tennis",
               "id": 5
             },
-            "userCount": 601,
+            "userCount": 600,
             "playerTeamInfo": {
               "height": 1.83,
               "plays": "right-handed",
@@ -190,7 +191,7 @@
               "slug": "tennis",
               "id": 5
             },
-            "userCount": 587,
+            "userCount": 586,
             "playerTeamInfo": {
               "plays": "right-handed",
               "prizeCurrent": 21971,
@@ -280,7 +281,7 @@
               "slug": "tennis",
               "id": 5
             },
-            "userCount": 168,
+            "userCount": 169,
             "playerTeamInfo": {
               "prizeCurrent": 5773,
               "prizeTotal": 39040,
@@ -398,18 +399,33 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 1,
+        "period2": 4,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "firstToServe"
+        ],
+        "changeTimestamp": 1785421972
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16667694,
       "defaultPeriodCount": 3,
       "slug": "boehner-fontenel-sakellaridi-zantedeschi",
-      "startTimestamp": 1785416400,
+      "startTimestamp": 1785417192,
       "periods": {
         "point": "Game",
         "current": "Match",

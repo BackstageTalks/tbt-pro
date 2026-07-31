@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413495.842932,
+  "saved_at": 1785508199.072657,
   "data": {
     "event": {
       "tournament": {
@@ -89,10 +89,11 @@
       },
       "customId": "ohlbsjEud",
       "status": {
-        "code": 8,
-        "description": "1st set",
-        "type": "inprogress"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 1,
       "homeTeam": {
         "name": "Oleg Prihodko",
         "slug": "prihodko-oleg",
@@ -215,32 +216,36 @@
         "timeActive": []
       },
       "homeScore": {
-        "current": 0,
-        "display": 0,
-        "period1": 1,
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period2": 6,
+        "period1TieBreak": 7,
         "point": "0"
       },
       "awayScore": {
         "current": 0,
         "display": 0,
-        "period1": 0,
+        "period1": 6,
+        "period2": 2,
+        "period1TieBreak": 4,
         "point": "0"
       },
       "time": {},
       "changes": {
         "changes": [
-          "homeScore.period1",
-          "homeScore.point",
-          "awayScore.point"
+          "status.code",
+          "status.description",
+          "status.type"
         ],
-        "changeTimestamp": 1785413419
+        "changeTimestamp": 1785419116
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16667478,
       "defaultPeriodCount": 3,
       "slug": "adam-majchrzak-oleg-prihodko",
-      "startTimestamp": 1785412800,
+      "startTimestamp": 1785413243,
       "periods": {
         "point": "Game",
         "current": "Match",
@@ -250,7 +255,6 @@
         "period4": "4th set",
         "period5": "5th set"
       },
-      "lastPeriod": "period1",
       "finalResultOnly": false,
       "hasBet365LiveStream": true,
       "bet365ExcludedCountryCodes": [

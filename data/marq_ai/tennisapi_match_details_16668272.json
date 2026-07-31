@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413504.5041828,
+  "saved_at": 1785508209.9895546,
   "data": {
     "event": {
       "tournament": {
@@ -89,10 +89,11 @@
       },
       "customId": "FwaesVVbk",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 2,
       "homeTeam": {
         "name": "Hansen S O / Munk Mortensen R",
         "slug": "hansen-s-o-munk-mortensen-r",
@@ -377,18 +378,42 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 6,
+        "period2": 6,
+        "period1TieBreak": 8,
+        "period2TieBreak": 3
+      },
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period2": 7,
+        "period1TieBreak": 10,
+        "period2TieBreak": 7
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.period2TieBreak",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period2",
+          "awayScore.period2TieBreak"
+        ],
+        "changeTimestamp": 1785424728
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16668272,
       "defaultPeriodCount": 3,
       "slug": "ait-el-bachir-van-zonneveld-hanseno-munk-mortensen",
-      "startTimestamp": 1785414600,
+      "startTimestamp": 1785418468,
       "periods": {
         "point": "Game",
         "current": "Match",

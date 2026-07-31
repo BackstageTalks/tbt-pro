@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413512.8755233,
+  "saved_at": 1785508212.829076,
   "data": {
     "event": {
       "tournament": {
@@ -89,10 +89,11 @@
       },
       "customId": "tOgcsVofe",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 1,
       "homeTeam": {
         "name": "Facundo Yunis",
         "slug": "yunis-facundo",
@@ -232,18 +233,36 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 1,
+        "period2": 2,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "firstToServe",
+          "status.code",
+          "status.description",
+          "status.type"
+        ],
+        "changeTimestamp": 1785424786
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16667998,
       "defaultPeriodCount": 3,
       "slug": "piet-luis-pinter-facundo-yunis",
-      "startTimestamp": 1785417062,
+      "startTimestamp": 1785419687,
       "periods": {
         "point": "Game",
         "current": "Match",

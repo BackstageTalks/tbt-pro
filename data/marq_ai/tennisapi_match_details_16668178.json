@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413512.0219607,
+  "saved_at": 1785508214.3328857,
   "data": {
     "event": {
       "tournament": {
@@ -88,10 +88,11 @@
       },
       "customId": "Utfdsgyge",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 2,
       "homeTeam": {
         "name": "Matisse Farzam",
         "slug": "farzam-matisse",
@@ -208,18 +209,37 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 5,
+        "period2": 6,
+        "period2TieBreak": 7,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period2": 7,
+        "period2TieBreak": 9,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ],
+        "changeTimestamp": 1785428361
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16668178,
       "defaultPeriodCount": 3,
       "slug": "matisse-farzam-markus-molder",
-      "startTimestamp": 1785417000,
+      "startTimestamp": 1785419945,
       "periods": {
         "point": "Game",
         "current": "Match",

@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413504.8107393,
+  "saved_at": 1785508203.2480488,
   "data": {
     "event": {
       "tournament": {
@@ -89,10 +89,11 @@
       },
       "customId": "mUVdsRRoj",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 1,
       "homeTeam": {
         "name": "Jo-Yee Chan",
         "slug": "chan-jo-yee",
@@ -190,18 +191,37 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period2": 6,
+        "period1TieBreak": 8,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 6,
+        "period2": 0,
+        "period1TieBreak": 6,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ],
+        "changeTimestamp": 1785421819
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16668569,
       "defaultPeriodCount": 3,
       "slug": "jo-yee-chan-kristina-penickova",
-      "startTimestamp": 1785414600,
+      "startTimestamp": 1785415207,
       "periods": {
         "point": "Game",
         "current": "Match",

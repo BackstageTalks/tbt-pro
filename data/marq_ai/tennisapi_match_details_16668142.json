@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413501.3727648,
+  "saved_at": 1785508205.4493413,
   "data": {
     "event": {
       "tournament": {
@@ -75,10 +75,11 @@
       },
       "customId": "PqwcsyuPc",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 1,
       "homeTeam": {
         "name": "Amelia Rajecki",
         "slug": "rajecki-amelia",
@@ -206,18 +207,37 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "period2": 6,
+        "period2TieBreak": 4,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ],
+        "changeTimestamp": 1785422070
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16668142,
       "defaultPeriodCount": 3,
       "slug": "alicia-dudeney-amelia-rajecki",
-      "startTimestamp": 1785413760,
+      "startTimestamp": 1785415904,
       "periods": {
         "point": "Game",
         "current": "Match",

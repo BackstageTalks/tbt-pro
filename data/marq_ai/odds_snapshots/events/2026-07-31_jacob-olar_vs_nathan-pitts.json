@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.5,
   "latest_odds_player2": 1.5,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-07-31T12:31:43.868592+00:00",
+  "latest_snapshot_time_utc": "2026-07-31T14:29:56.594951+00:00",
   "opening_odds_player1": 2.5,
   "opening_odds_player2": 1.5,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "TennisAPI_PRO",
   "player1": "Jacob Olar",
   "player2": "Nathan Pitts",
-  "snapshot_count": 5,
+  "snapshot_count": 6,
   "snapshots": [
     {
       "event_id": "16621526",
@@ -112,8 +112,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-30T14:00:00+00:00",
       "target_date": "2026-07-31"
+    },
+    {
+      "event_id": "16621526",
+      "event_key": "2026-07-31_jacob-olar_vs_nathan-pitts",
+      "hours_to_start": -24.5,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.5,
+      "odds_player2": 1.5,
+      "player1": "Jacob Olar",
+      "player2": "Nathan Pitts",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-07-31T14:29:56.594951+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-07-30T14:00:00+00:00",
+      "target_date": "2026-07-31"
     }
   ],
   "start_time_utc": "2026-07-30T14:00:00+00:00",
-  "updated_at_utc": "2026-07-31T12:31:57.841014+00:00"
+  "updated_at_utc": "2026-07-31T14:30:16.798265+00:00"
 }

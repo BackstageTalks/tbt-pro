@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413509.6227014,
+  "saved_at": 1785508222.3026633,
   "data": {
     "event": {
       "tournament": {
@@ -89,10 +89,11 @@
       },
       "customId": "JckesTUbk",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 2,
       "homeTeam": {
         "name": "Dhokia R / Habib A",
         "slug": "dhokia-r-habib-a",
@@ -103,7 +104,7 @@
           "slug": "tennis",
           "id": 5
         },
-        "userCount": 0,
+        "userCount": 1,
         "nameCode": "R/A",
         "disabled": false,
         "national": false,
@@ -162,7 +163,7 @@
               "slug": "tennis",
               "id": 5
             },
-            "userCount": 172,
+            "userCount": 173,
             "playerTeamInfo": {
               "height": 1.75,
               "weight": 65,
@@ -232,7 +233,7 @@
         "timeActive": []
       },
       "awayTeam": {
-        "name": "Rybakov A / Vance J",
+        "name": "Rybakov A / Vance JM",
         "slug": "rybakov-a-vance-j",
         "gender": "M",
         "sport": {
@@ -242,11 +243,12 @@
         },
         "userCount": 2,
         "nameCode": "R/V",
+        "disabled": false,
         "national": false,
         "type": 2,
         "country": {},
         "id": 525134,
-        "fullName": "Rybakov A / Vance J",
+        "fullName": "Rybakov A / Vance JM",
         "subTeams": [
           {
             "name": "Alex Rybakov",
@@ -258,7 +260,7 @@
               "slug": "tennis",
               "id": 5
             },
-            "userCount": 737,
+            "userCount": 739,
             "playerTeamInfo": {
               "height": 1.85,
               "weight": 77,
@@ -388,18 +390,36 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "period2": 3
+      },
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period2"
+        ],
+        "changeTimestamp": 1785425636
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16667958,
       "defaultPeriodCount": 3,
       "slug": "dhokia-habib-rybakov-vance",
-      "startTimestamp": 1785416400,
+      "startTimestamp": 1785420996,
       "periods": {
         "point": "Game",
         "current": "Match",

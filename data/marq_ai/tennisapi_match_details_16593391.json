@@ -1,7 +1,8 @@
 {
-  "saved_at": 1785413503.5828447,
+  "saved_at": 1785508213.1189084,
   "data": {
     "event": {
+      "firstToServe": 1,
       "homeTeamSeed": "6",
       "tournament": {
         "name": "Bonn, Germany",
@@ -90,10 +91,11 @@
       },
       "customId": "RacdsEMhd",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 2,
       "venue": {
         "city": {
           "name": "Bonn",
@@ -261,18 +263,46 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
-      "time": {},
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 4,
+        "period2": 6,
+        "period3": 6,
+        "period3TieBreak": 8,
+        "point": "8",
+        "normaltime": 1
+      },
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 3,
+        "period3": 7,
+        "period3TieBreak": 10,
+        "point": "9",
+        "normaltime": 2
+      },
+      "time": {
+        "period1": 2391,
+        "period2": 2046,
+        "period3": 3680,
+        "currentPeriodStartTimestamp": 1785424549
+      },
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ],
+        "changeTimestamp": 1785428278
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16593391,
       "defaultPeriodCount": 3,
       "slug": "max-dahlin-tom-gentzsch",
-      "startTimestamp": 1785414000,
+      "currentPeriodStartTimestamp": 1785424549,
+      "startTimestamp": 1785419700,
       "periods": {
         "point": "Game",
         "current": "Match",

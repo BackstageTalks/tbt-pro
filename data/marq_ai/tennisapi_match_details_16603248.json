@@ -1,7 +1,8 @@
 {
-  "saved_at": 1785413499.759347,
+  "saved_at": 1785508204.8135352,
   "data": {
     "event": {
+      "firstToServe": 1,
       "homeTeamSeed": "3",
       "awayTeamSeed": "Q",
       "tournament": {
@@ -81,10 +82,11 @@
       },
       "customId": "PpCbsbMOc",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 1,
       "venue": {
         "city": {
           "name": "Targu Mures",
@@ -248,18 +250,41 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
-      "time": {},
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period2": 6,
+        "point": "40",
+        "normaltime": 2
+      },
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 5,
+        "period2": 3,
+        "point": "0",
+        "normaltime": 0
+      },
+      "time": {
+        "period1": 3022,
+        "period2": 2732,
+        "currentPeriodStartTimestamp": 1785419038
+      },
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ],
+        "changeTimestamp": 1785421806
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16603248,
       "defaultPeriodCount": 3,
       "slug": "lucija-ciric-bagaric-francesca-jones",
-      "startTimestamp": 1785413400,
+      "currentPeriodStartTimestamp": 1785419038,
+      "startTimestamp": 1785415500,
       "periods": {
         "point": "Game",
         "current": "Match",

@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413500.047467,
+  "saved_at": 1785508203.548112,
   "data": {
     "event": {
       "tournament": {
@@ -75,10 +75,11 @@
       },
       "customId": "EvHdshiKj",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 2,
       "homeTeam": {
         "name": "Bartashevich Y / Nguyen Tan L",
         "slug": "bartashevich-y-nguyen-tan-l",
@@ -375,18 +376,37 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "period2": 6,
+        "period2TieBreak": 5,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ],
+        "changeTimestamp": 1785422542
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16668565,
       "defaultPeriodCount": 3,
       "slug": "adams-hoedt-bartashevich-nguyen-tan",
-      "startTimestamp": 1785413404,
+      "startTimestamp": 1785415224,
       "periods": {
         "point": "Game",
         "current": "Match",

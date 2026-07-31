@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413516.0157995,
+  "saved_at": 1785508210.6469908,
   "data": {
     "event": {
       "tournament": {
@@ -89,10 +89,11 @@
       },
       "customId": "EMEbsNFOb",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 1,
       "homeTeam": {
         "name": "Sandro Kopp",
         "slug": "kopp-sandro",
@@ -246,18 +247,38 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 1,
+        "period2": 3,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period2"
+        ],
+        "changeTimestamp": 1785424020
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16668578,
       "defaultPeriodCount": 3,
       "slug": "federico-arnaboldi-sandro-kopp",
-      "startTimestamp": 1785418986,
+      "startTimestamp": 1785418670,
       "periods": {
         "point": "Game",
         "current": "Match",

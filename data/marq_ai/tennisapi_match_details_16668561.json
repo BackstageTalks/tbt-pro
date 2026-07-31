@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413501.9872797,
+  "saved_at": 1785508201.565455,
   "data": {
     "event": {
       "tournament": {
@@ -75,10 +75,11 @@
       },
       "customId": "fmtsThhd",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 2,
       "homeTeam": {
         "name": "Gabriela Cé",
         "slug": "ce-gabriela",
@@ -194,18 +195,37 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 4,
+        "period2": 6,
+        "period3": 4,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 3,
+        "period3": 6,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ],
+        "changeTimestamp": 1785425385
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16668561,
       "defaultPeriodCount": 3,
       "slug": "jenny-lim-gabriela-ce",
-      "startTimestamp": 1785413820,
+      "startTimestamp": 1785414589,
       "periods": {
         "point": "Game",
         "current": "Match",

@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413513.629087,
+  "saved_at": 1785508221.3899813,
   "data": {
     "event": {
       "tournament": {
@@ -88,10 +88,11 @@
       },
       "customId": "TCKcsenpd",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 1,
       "homeTeam": {
         "name": "Lucas Marionneau",
         "slug": "marionneau-lucas",
@@ -221,18 +222,36 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 2,
+        "period2": 3,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "firstToServe"
+        ],
+        "changeTimestamp": 1785425962
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16668307,
       "defaultPeriodCount": 3,
       "slug": "lucas-marionneau-valentin-lapalu",
-      "startTimestamp": 1785417360,
+      "startTimestamp": 1785420775,
       "periods": {
         "point": "Game",
         "current": "Match",

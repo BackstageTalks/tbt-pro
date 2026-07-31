@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413493.3225462,
+  "saved_at": 1785508220.4306366,
   "data": {
     "event": {
       "tournament": {
@@ -89,10 +89,11 @@
       },
       "customId": "uoysUyed",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 2,
       "homeTeam": {
         "name": "Toby Martin",
         "slug": "martin-toby",
@@ -245,18 +246,38 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 6,
+        "period2": 4,
+        "period1TieBreak": 5,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period2": 6,
+        "period1TieBreak": 7,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "firstToServe"
+        ],
+        "changeTimestamp": 1785428299
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16667960,
       "defaultPeriodCount": 3,
       "slug": "patrick-brady-toby-martin",
-      "startTimestamp": 1785412800,
+      "startTimestamp": 1785420732,
       "periods": {
         "point": "Game",
         "current": "Match",

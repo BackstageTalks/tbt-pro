@@ -1,7 +1,8 @@
 {
-  "saved_at": 1785413508.0540123,
+  "saved_at": 1785508210.2886665,
   "data": {
     "event": {
+      "firstToServe": 2,
       "homeTeamSeed": "3",
       "awayTeamSeed": "Q",
       "tournament": {
@@ -54,7 +55,7 @@
               "shortNameTranslation": {}
             }
           },
-          "userCount": 64,
+          "userCount": 73,
           "groundType": "Hardcourt outdoor",
           "hasRounds": false,
           "hasPerformanceGraphFeature": false,
@@ -84,10 +85,11 @@
       },
       "customId": "outbszbkc",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 2,
       "venue": {
         "city": {
           "name": "Samsun",
@@ -123,7 +125,7 @@
           "slug": "tennis",
           "id": 5
         },
-        "userCount": 709,
+        "userCount": 714,
         "playerTeamInfo": {
           "height": 1.8,
           "weight": 70,
@@ -194,7 +196,7 @@
           "slug": "tennis",
           "id": 5
         },
-        "userCount": 420,
+        "userCount": 421,
         "playerTeamInfo": {
           "height": 1.78,
           "weight": 73,
@@ -266,18 +268,45 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
-      "time": {},
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 6,
+        "period3": 2,
+        "period2TieBreak": 7,
+        "point": "15",
+        "normaltime": 1
+      },
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 0,
+        "period2": 7,
+        "period3": 6,
+        "period2TieBreak": 9,
+        "point": "40",
+        "normaltime": 2
+      },
+      "time": {
+        "period1": 1712,
+        "period2": 4724,
+        "period3": 2694,
+        "currentPeriodStartTimestamp": 1785425454
+      },
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "time.currentPeriodStart"
+        ],
+        "changeTimestamp": 1785428339
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16603215,
       "defaultPeriodCount": 3,
       "slug": "max-basing-constantin-bittoun-kouzmine",
-      "startTimestamp": 1785416400,
+      "currentPeriodStartTimestamp": 1785425454,
+      "startTimestamp": 1785418500,
       "periods": {
         "point": "Game",
         "current": "Match",

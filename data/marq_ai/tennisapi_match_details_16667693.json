@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413504.1890736,
+  "saved_at": 1785508208.9497008,
   "data": {
     "event": {
       "tournament": {
@@ -48,7 +48,7 @@
               "shortNameTranslation": {}
             }
           },
-          "userCount": 17,
+          "userCount": 20,
           "groundType": "Clay",
           "hasRounds": true,
           "hasPerformanceGraphFeature": false,
@@ -89,10 +89,11 @@
       },
       "customId": "TmvsacWb",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 2,
       "homeTeam": {
         "name": "Anastasia Tikhonova",
         "slug": "tikhonova-anastasia",
@@ -103,7 +104,7 @@
           "slug": "tennis",
           "id": 5
         },
-        "userCount": 676,
+        "userCount": 675,
         "playerTeamInfo": {
           "plays": "right-handed",
           "prizeCurrent": 45407,
@@ -179,7 +180,7 @@
             "value": 371926,
             "currency": "EUR"
           },
-          "currentRanking": 382
+          "currentRanking": 385
         },
         "nameCode": "LUK",
         "ranking": 454,
@@ -212,18 +213,38 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 3,
+        "period2": 6,
+        "period3": 5,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 2,
+        "period3": 7,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "firstToServe",
+          "status.code",
+          "status.description",
+          "status.type"
+        ],
+        "changeTimestamp": 1785426197
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16667693,
       "defaultPeriodCount": 3,
       "slug": "anastasia-tikhonova-tena-lukas",
-      "startTimestamp": 1785414600,
+      "startTimestamp": 1785417564,
       "periods": {
         "point": "Game",
         "current": "Match",

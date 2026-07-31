@@ -1,7 +1,8 @@
 {
-  "saved_at": 1785413506.7875133,
+  "saved_at": 1785508211.5634027,
   "data": {
     "event": {
+      "firstToServe": 2,
       "tournament": {
         "name": "Liberec, Czech Republic",
         "slug": "liberec-czech-republic",
@@ -90,10 +91,11 @@
       },
       "customId": "GQHbsOZad",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 2,
       "venue": {
         "city": {
           "name": "Liberec",
@@ -281,18 +283,41 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
-      "time": {},
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 3,
+        "point": "40",
+        "normaltime": 0
+      },
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A",
+        "normaltime": 2
+      },
+      "time": {
+        "period1": 2027,
+        "period2": 2892,
+        "currentPeriodStartTimestamp": 1785421491
+      },
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ],
+        "changeTimestamp": 1785424401
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16593418,
       "defaultPeriodCount": 3,
       "slug": "kilian-feldbausch-duje-ajdukovic",
-      "startTimestamp": 1785415200,
+      "currentPeriodStartTimestamp": 1785421491,
+      "startTimestamp": 1785418800,
       "periods": {
         "point": "Game",
         "current": "Match",

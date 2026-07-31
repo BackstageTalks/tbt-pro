@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413502.8970098,
+  "saved_at": 1785508222.593943,
   "data": {
     "event": {
       "tournament": {
@@ -88,10 +88,11 @@
       },
       "customId": "KdFbsQebk",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 2,
       "homeTeam": {
         "name": "Daniel Borisov",
         "slug": "daniel-borisov",
@@ -194,18 +195,35 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 2,
+        "period2": 4,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ],
+        "changeTimestamp": 1785426592
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16668179,
       "defaultPeriodCount": 3,
       "slug": "daniel-borisov-daniel-de-jonge",
-      "startTimestamp": 1785413880,
+      "startTimestamp": 1785421362,
       "periods": {
         "point": "Game",
         "current": "Match",

@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413503.8743901,
+  "saved_at": 1785508204.2027264,
   "data": {
     "event": {
       "tournament": {
@@ -48,7 +48,7 @@
               "shortNameTranslation": {}
             }
           },
-          "userCount": 13,
+          "userCount": 16,
           "groundType": "Hardcourt outdoor",
           "hasRounds": true,
           "hasPerformanceGraphFeature": false,
@@ -89,10 +89,11 @@
       },
       "customId": "FbfdsEgqd",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 2,
       "homeTeam": {
         "name": "Anne-Christine Lutkemeyer Obregon",
         "slug": "lutkemeyer-obregon-anne-christine",
@@ -103,7 +104,7 @@
           "slug": "tennis",
           "id": 5
         },
-        "userCount": 119,
+        "userCount": 120,
         "playerTeamInfo": {
           "prizeCurrent": 2729,
           "prizeTotal": 12502,
@@ -117,7 +118,7 @@
             "value": 12502,
             "currency": "EUR"
           },
-          "currentRanking": 764
+          "currentRanking": 769
         },
         "nameCode": "LUT",
         "ranking": 807,
@@ -207,18 +208,35 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 1,
+        "period2": 2,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ],
+        "changeTimestamp": 1785419298
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16668567,
       "defaultPeriodCount": 3,
       "slug": "anne-christine-lutkemeyer-obregon-ekaterina-khayrutdinova",
-      "startTimestamp": 1785414600,
+      "startTimestamp": 1785415301,
       "periods": {
         "point": "Game",
         "current": "Match",

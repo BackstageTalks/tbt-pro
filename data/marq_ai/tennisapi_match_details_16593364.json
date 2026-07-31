@@ -1,7 +1,8 @@
 {
-  "saved_at": 1785413516.9407477,
+  "saved_at": 1785508215.2789507,
   "data": {
     "event": {
+      "firstToServe": 1,
       "awayTeamSeed": "2",
       "tournament": {
         "name": "San Marino, San Marino",
@@ -91,10 +92,11 @@
       },
       "customId": "tJQbsAKQb",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 1,
       "venue": {
         "city": {
           "name": "San Marino",
@@ -284,17 +286,40 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
-      "time": {},
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40",
+        "normaltime": 2
+      },
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 2,
+        "period2": 4,
+        "point": "0",
+        "normaltime": 0
+      },
+      "time": {
+        "period1": 1989,
+        "period2": 2899,
+        "currentPeriodStartTimestamp": 1785422583
+      },
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ],
+        "changeTimestamp": 1785425508
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16593364,
       "defaultPeriodCount": 3,
       "slug": "timofey-skatov-otto-virtanen",
+      "currentPeriodStartTimestamp": 1785422583,
       "startTimestamp": 1785420000,
       "periods": {
         "point": "Game",

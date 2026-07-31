@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413498.8840935,
+  "saved_at": 1785508198.7447643,
   "data": {
     "event": {
       "tournament": {
@@ -89,10 +89,11 @@
       },
       "customId": "eWHcsrcmd",
       "status": {
-        "code": 8,
-        "description": "1st set",
-        "type": "inprogress"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 2,
       "homeTeam": {
         "name": "Ole Bredschneijder",
         "slug": "bredschneijder-ole",
@@ -206,30 +207,32 @@
       "homeScore": {
         "current": 0,
         "display": 0,
-        "period1": 0,
+        "period1": 2,
+        "period2": 5,
         "point": "0"
       },
       "awayScore": {
-        "current": 0,
-        "display": 0,
-        "period1": 1,
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 7,
         "point": "0"
       },
       "time": {},
       "changes": {
         "changes": [
-          "homeScore.point",
-          "awayScore.period1",
-          "awayScore.point"
+          "status.code",
+          "status.description",
+          "status.type"
         ],
-        "changeTimestamp": 1785413443
+        "changeTimestamp": 1785418849
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16667545,
       "defaultPeriodCount": 3,
       "slug": "ole-bredschneijder-pyotr-nesterov",
-      "startTimestamp": 1785413280,
+      "startTimestamp": 1785413228,
       "periods": {
         "point": "Game",
         "current": "Match",
@@ -239,7 +242,6 @@
         "period4": "4th set",
         "period5": "5th set"
       },
-      "lastPeriod": "period1",
       "finalResultOnly": false,
       "hasBet365LiveStream": true,
       "bet365ExcludedCountryCodes": [

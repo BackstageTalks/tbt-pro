@@ -1,8 +1,8 @@
 {
-  "saved_at": 1785413497.873183,
+  "saved_at": 1785508198.0960612,
   "data": {
     "event": {
-      "firstToServe": 1,
+      "firstToServe": 2,
       "homeTeamSeed": "5",
       "tournament": {
         "name": "Liberec, Czech Republic",
@@ -92,10 +92,11 @@
       },
       "customId": "ticcszpBc",
       "status": {
-        "code": 8,
-        "description": "1st set",
-        "type": "inprogress"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 2,
       "venue": {
         "city": {
           "name": "Liberec",
@@ -275,33 +276,37 @@
       "homeScore": {
         "current": 0,
         "display": 0,
-        "period1": 0,
-        "point": "0"
+        "period1": 3,
+        "period2": 3,
+        "point": "40",
+        "normaltime": 0
       },
       "awayScore": {
-        "current": 0,
-        "display": 0,
-        "period1": 2,
-        "point": "0"
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A",
+        "normaltime": 2
       },
       "time": {
-        "currentPeriodStartTimestamp": 1785413064
+        "period1": 2494,
+        "period2": 2927,
+        "currentPeriodStartTimestamp": 1785415558
       },
       "changes": {
         "changes": [
-          "homeScore.point",
-          "awayScore.period1",
-          "awayScore.point",
-          "firstToServe"
+          "time.currentPeriodStart",
+          "time.period2"
         ],
-        "changeTimestamp": 1785413459
+        "changeTimestamp": 1785418508
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16593427,
       "defaultPeriodCount": 3,
       "slug": "juan-bautista-torres-guido-ivan-justo",
-      "currentPeriodStartTimestamp": 1785413064,
+      "currentPeriodStartTimestamp": 1785415558,
       "startTimestamp": 1785412800,
       "periods": {
         "point": "Game",
@@ -312,7 +317,6 @@
         "period4": "4th set",
         "period5": "5th set"
       },
-      "lastPeriod": "period1",
       "finalResultOnly": false,
       "hasBet365LiveStream": true,
       "bet365ExcludedCountryCodes": [

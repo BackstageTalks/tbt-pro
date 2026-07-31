@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413498.450197,
+  "saved_at": 1785508200.3061664,
   "data": {
     "event": {
       "tournament": {
@@ -89,10 +89,11 @@
       },
       "customId": "HMgbsoTfd",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 2,
       "homeTeam": {
         "name": "David Fix",
         "slug": "fix-david",
@@ -250,31 +251,35 @@
       "homeScore": {
         "current": 0,
         "display": 0,
-        "period1": 0,
+        "period1": 6,
+        "period2": 3,
+        "period1TieBreak": 5,
         "point": "0"
       },
       "awayScore": {
-        "current": 0,
-        "display": 0,
-        "period1": 0,
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period2": 6,
+        "period1TieBreak": 7,
         "point": "0"
       },
       "time": {},
       "changes": {
         "changes": [
-          "homeScore.period1",
-          "homeScore.point",
-          "awayScore.period1",
-          "awayScore.point"
+          "status.code",
+          "status.description",
+          "status.type",
+          "firstToServe"
         ],
-        "changeTimestamp": 1785413358
+        "changeTimestamp": 1785422458
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16667970,
       "defaultPeriodCount": 3,
       "slug": "david-fix-geoffrey-blancaneaux",
-      "startTimestamp": 1785413220,
+      "startTimestamp": 1785413623,
       "periods": {
         "point": "Game",
         "current": "Match",

@@ -1,7 +1,8 @@
 {
-  "saved_at": 1785413508.9966593,
+  "saved_at": 1785508207.0044935,
   "data": {
     "event": {
+      "firstToServe": 1,
       "tournament": {
         "name": "Samsun, Turkiye, Doubles",
         "slug": "samsun-turkiye-doubles",
@@ -52,7 +53,7 @@
               "shortNameTranslation": {}
             }
           },
-          "userCount": 8,
+          "userCount": 9,
           "groundType": "Hardcourt outdoor",
           "hasRounds": false,
           "hasPerformanceGraphFeature": false,
@@ -82,10 +83,11 @@
       },
       "customId": "wzodsUXak",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 1,
       "venue": {
         "city": {
           "name": "Samsun",
@@ -180,7 +182,7 @@
               "slug": "tennis",
               "id": 5
             },
-            "userCount": 335,
+            "userCount": 339,
             "playerTeamInfo": {
               "height": 1.83,
               "weight": 85,
@@ -285,7 +287,7 @@
               "slug": "tennis",
               "id": 5
             },
-            "userCount": 95,
+            "userCount": 97,
             "playerTeamInfo": {
               "height": 1.73,
               "weight": 69,
@@ -321,7 +323,7 @@
                 "value": 223234,
                 "currency": "EUR"
               },
-              "currentRanking": 2140
+              "currentRanking": 2135
             },
             "nameCode": "NED",
             "national": false,
@@ -363,7 +365,7 @@
               "slug": "tennis",
               "id": 5
             },
-            "userCount": 239,
+            "userCount": 237,
             "playerTeamInfo": {
               "height": 1.91,
               "weight": 93,
@@ -445,17 +447,40 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
-      "time": {},
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40",
+        "normaltime": 2
+      },
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 2,
+        "point": "0",
+        "normaltime": 0
+      },
+      "time": {
+        "period1": 1714,
+        "period2": 1792,
+        "currentPeriodStartTimestamp": 1785418574
+      },
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ],
+        "changeTimestamp": 1785420402
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16603245,
       "defaultPeriodCount": 3,
       "slug": "nedunchezhiyan-wang-neos-pankin",
+      "currentPeriodStartTimestamp": 1785418574,
       "startTimestamp": 1785416400,
       "periods": {
         "point": "Game",

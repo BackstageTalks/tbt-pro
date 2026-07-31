@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413495.1116436,
+  "saved_at": 1785508202.6166074,
   "data": {
     "event": {
       "tournament": {
@@ -89,10 +89,11 @@
       },
       "customId": "oIbksQIbk",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 2,
       "homeTeam": {
         "name": "Diabate E / Favier M",
         "slug": "diabate-e-favier-m",
@@ -103,7 +104,7 @@
           "slug": "tennis",
           "id": 5
         },
-        "userCount": 1,
+        "userCount": 3,
         "nameCode": "E/M",
         "disabled": false,
         "national": false,
@@ -167,7 +168,7 @@
               "slug": "tennis",
               "id": 5
             },
-            "userCount": 50,
+            "userCount": 52,
             "nameCode": "FAV",
             "national": false,
             "type": 1,
@@ -234,7 +235,7 @@
               "slug": "tennis",
               "id": 5
             },
-            "userCount": 67,
+            "userCount": 69,
             "playerTeamInfo": {
               "prizeCurrent": 1748,
               "prizeTotal": 8476,
@@ -290,7 +291,7 @@
               "slug": "tennis",
               "id": 5
             },
-            "userCount": 52,
+            "userCount": 53,
             "nameCode": "ROO",
             "national": false,
             "type": 1,
@@ -328,18 +329,39 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 5,
+        "period2": 6,
+        "period3": 5,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period2": 3,
+        "period3": 10,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "awayScore.current",
+          "awayScore.display"
+        ],
+        "changeTimestamp": 1785422061
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16668305,
       "defaultPeriodCount": 3,
       "slug": "diabate-favier-lavinia-puiac-roots",
-      "startTimestamp": 1785412800,
+      "startTimestamp": 1785414997,
       "periods": {
         "point": "Game",
         "current": "Match",

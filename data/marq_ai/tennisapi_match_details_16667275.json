@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413507.1709213,
+  "saved_at": 1785508201.8741136,
   "data": {
     "event": {
       "tournament": {
@@ -89,10 +89,11 @@
       },
       "customId": "IIDisYGbk",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 1,
       "homeTeam": {
         "name": "Ligniere E C /  Bogdan Petre S I",
         "slug": "ligniere-e-c-bogdan-petre-s-i",
@@ -389,18 +390,36 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "period2": 3,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "firstToServe",
+          "status.code",
+          "status.description",
+          "status.type"
+        ],
+        "changeTimestamp": 1785419516
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16667275,
       "defaultPeriodCount": 3,
       "slug": "lignierec-bogdan-petrei-lara-salmeronrojas",
-      "startTimestamp": 1785415500,
+      "startTimestamp": 1785414635,
       "periods": {
         "point": "Game",
         "current": "Match",

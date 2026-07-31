@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413515.3527174,
+  "saved_at": 1785508218.5145295,
   "data": {
     "event": {
       "tournament": {
@@ -89,10 +89,11 @@
       },
       "customId": "fFedsFQTi",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 2,
       "homeTeam": {
         "name": "Berecoechea N / Tran D",
         "slug": "berecoechea-n-tran-d",
@@ -122,7 +123,7 @@
               "slug": "tennis",
               "id": 5
             },
-            "userCount": 314,
+            "userCount": 313,
             "playerTeamInfo": {
               "prizeCurrent": 9429,
               "prizeTotal": 67975,
@@ -136,7 +137,7 @@
                 "value": 67975,
                 "currency": "EUR"
               },
-              "currentRanking": 442
+              "currentRanking": 443
             },
             "nameCode": "BER",
             "ranking": 468,
@@ -178,7 +179,7 @@
               "slug": "tennis",
               "id": 5
             },
-            "userCount": 202,
+            "userCount": 205,
             "playerTeamInfo": {
               "prizeCurrent": 8192,
               "prizeTotal": 50672,
@@ -192,7 +193,7 @@
                 "value": 50672,
                 "currency": "EUR"
               },
-              "currentRanking": 663
+              "currentRanking": 664
             },
             "nameCode": "TRA",
             "ranking": 667,
@@ -250,7 +251,7 @@
           "slug": "tennis",
           "id": 5
         },
-        "userCount": 0,
+        "userCount": 1,
         "nameCode": "KZS",
         "national": false,
         "type": 2,
@@ -268,7 +269,7 @@
               "slug": "tennis",
               "id": 5
             },
-            "userCount": 411,
+            "userCount": 412,
             "playerTeamInfo": {
               "plays": "right-handed",
               "prizeCurrent": 23078,
@@ -284,7 +285,7 @@
                 "value": 189850,
                 "currency": "EUR"
               },
-              "currentRanking": 434
+              "currentRanking": 438
             },
             "nameCode": "KUL",
             "ranking": 466,
@@ -326,7 +327,7 @@
               "slug": "tennis",
               "id": 5
             },
-            "userCount": 864,
+            "userCount": 865,
             "playerTeamInfo": {
               "plays": "right-handed",
               "prizeCurrent": 172125,
@@ -342,7 +343,7 @@
                 "value": 526299,
                 "currency": "EUR"
               },
-              "currentRanking": 144
+              "currentRanking": 145
             },
             "nameCode": "SIS",
             "ranking": 238,
@@ -389,18 +390,33 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 2,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "firstToServe"
+        ],
+        "changeTimestamp": 1785424670
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16668300,
       "defaultPeriodCount": 3,
       "slug": "berecoechea-tran-kulambayeva-siskova",
-      "startTimestamp": 1785418200,
+      "startTimestamp": 1785420455,
       "periods": {
         "point": "Game",
         "current": "Match",

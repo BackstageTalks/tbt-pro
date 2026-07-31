@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413515.0644343,
+  "saved_at": 1785508221.0667326,
   "data": {
     "event": {
       "tournament": {
@@ -89,10 +89,11 @@
       },
       "customId": "HUjjscTbk",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 2,
       "homeTeam": {
         "name": "Fossa Huergo N / Pigossi L",
         "slug": "fossa-huergo-n-pigossi-l",
@@ -103,7 +104,7 @@
           "slug": "tennis",
           "id": 5
         },
-        "userCount": 1,
+        "userCount": 3,
         "nameCode": "N/L",
         "disabled": false,
         "national": false,
@@ -122,7 +123,7 @@
               "slug": "tennis",
               "id": 5
             },
-            "userCount": 767,
+            "userCount": 768,
             "playerTeamInfo": {
               "plays": "right-handed",
               "prizeCurrent": 56339,
@@ -191,7 +192,7 @@
               "slug": "tennis",
               "id": 5
             },
-            "userCount": 3575,
+            "userCount": 3581,
             "playerTeamInfo": {
               "height": 1.64,
               "plays": "right-handed",
@@ -220,7 +221,7 @@
                 "value": 1156768,
                 "currency": "EUR"
               },
-              "currentRanking": 236
+              "currentRanking": 234
             },
             "nameCode": "PIG",
             "ranking": 239,
@@ -411,18 +412,35 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 2,
+        "period3": 5,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 3,
+        "period2": 6,
+        "period3": 10,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "firstToServe"
+        ],
+        "changeTimestamp": 1785426652
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16667415,
       "defaultPeriodCount": 3,
       "slug": "fossa-huergo-pigossi-da-silva-fick-mcgiffin",
-      "startTimestamp": 1785418200,
+      "startTimestamp": 1785420765,
       "periods": {
         "point": "Game",
         "current": "Match",

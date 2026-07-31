@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413507.7744443,
+  "saved_at": 1785508207.9093294,
   "data": {
     "event": {
       "tournament": {
@@ -89,10 +89,11 @@
       },
       "customId": "lHbksZTbk",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 1,
       "homeTeam": {
         "name": "Brune Olsen A W / Yuldasheva S",
         "slug": "brune-olsen-a-w-yuldasheva-s",
@@ -373,18 +374,38 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period2": 6,
+        "period1TieBreak": 7
+      },
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 6,
+        "period2": 4,
+        "period1TieBreak": 5
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period2"
+        ],
+        "changeTimestamp": 1785422753
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16667952,
       "defaultPeriodCount": 3,
       "slug": "brune-olsenw-yuldasheva-kulhava-vlckova",
-      "startTimestamp": 1785415500,
+      "startTimestamp": 1785417009,
       "periods": {
         "point": "Game",
         "current": "Match",

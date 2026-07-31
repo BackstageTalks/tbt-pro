@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413501.0696416,
+  "saved_at": 1785508206.3673851,
   "data": {
     "event": {
       "tournament": {
@@ -89,10 +89,11 @@
       },
       "customId": "rcOjsLUbk",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 1,
       "homeTeam": {
         "name": "Elfving R / Minasyan M",
         "slug": "elfving-r-minasyan-m",
@@ -391,18 +392,35 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 5,
+        "period2": 2,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ],
+        "changeTimestamp": 1785421170
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16667553,
       "defaultPeriodCount": 3,
       "slug": "elfving-minasyan-eriksson-ziverts-karlsson-wistrand",
-      "startTimestamp": 1785413700,
+      "startTimestamp": 1785416328,
       "periods": {
         "point": "Game",
         "current": "Match",

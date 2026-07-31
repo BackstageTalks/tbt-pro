@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413497.296384,
+  "saved_at": 1785508209.643916,
   "data": {
     "event": {
       "tournament": {
@@ -89,10 +89,11 @@
       },
       "customId": "AxIbsRPqc",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 1,
       "homeTeam": {
         "name": "Tom Zeuch",
         "slug": "zeuch-tom",
@@ -235,18 +236,35 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 0,
+        "period2": 4,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ],
+        "changeTimestamp": 1785423233
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16667480,
       "defaultPeriodCount": 3,
       "slug": "yassine-smiej-tom-zeuch",
-      "startTimestamp": 1785412800,
+      "startTimestamp": 1785418318,
       "periods": {
         "point": "Game",
         "current": "Match",

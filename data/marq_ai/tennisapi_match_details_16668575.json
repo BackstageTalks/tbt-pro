@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413505.7343419,
+  "saved_at": 1785508202.1957028,
   "data": {
     "event": {
       "tournament": {
@@ -48,7 +48,7 @@
               "shortNameTranslation": {}
             }
           },
-          "userCount": 13,
+          "userCount": 16,
           "groundType": "Hardcourt outdoor",
           "hasRounds": true,
           "hasPerformanceGraphFeature": false,
@@ -89,10 +89,11 @@
       },
       "customId": "BhndsIduj",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 2,
       "homeTeam": {
         "name": "Jordyn Hazelitt",
         "slug": "jordyn-hazelitt",
@@ -103,7 +104,7 @@
           "slug": "tennis",
           "id": 5
         },
-        "userCount": 16,
+        "userCount": 19,
         "playerTeamInfo": {
           "id": 36569,
           "underage": false
@@ -148,7 +149,7 @@
           "slug": "tennis",
           "id": 5
         },
-        "userCount": 515,
+        "userCount": 516,
         "playerTeamInfo": {
           "prizeCurrent": 15722,
           "prizeTotal": 46777,
@@ -163,7 +164,7 @@
             "value": 46777,
             "currency": "EUR"
           },
-          "currentRanking": 353
+          "currentRanking": 358
         },
         "nameCode": "VOL",
         "ranking": 380,
@@ -195,18 +196,36 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 2,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "firstToServe"
+        ],
+        "changeTimestamp": 1785420171
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16668575,
       "defaultPeriodCount": 3,
       "slug": "jordyn-hazelitt-angelina-voloshchuk",
-      "startTimestamp": 1785414600,
+      "startTimestamp": 1785414860,
       "periods": {
         "point": "Game",
         "current": "Match",

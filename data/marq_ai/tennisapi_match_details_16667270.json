@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413500.6943061,
+  "saved_at": 1785508200.6371055,
   "data": {
     "event": {
       "tournament": {
@@ -89,10 +89,11 @@
       },
       "customId": "zBiesiVfj",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 1,
       "homeTeam": {
         "name": "Ferrari F / Valle F",
         "slug": "ferrari-f-valle-f",
@@ -432,18 +433,33 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 7,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 5,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "firstToServe"
+        ],
+        "changeTimestamp": 1785419809
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16667270,
       "defaultPeriodCount": 3,
       "slug": "batin-pieleanut-ferrari-valle",
-      "startTimestamp": 1785413700,
+      "startTimestamp": 1785414282,
       "periods": {
         "point": "Game",
         "current": "Match",

@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413493.032899,
+  "saved_at": 1785508200.9252295,
   "data": {
     "event": {
       "tournament": {
@@ -89,10 +89,11 @@
       },
       "customId": "mYbksdbck",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 1,
       "homeTeam": {
         "name": "Grzegorzewski O / Pereira T",
         "slug": "grzegorzewski-o-pereira-t",
@@ -376,30 +377,32 @@
         "timeActive": []
       },
       "homeScore": {
-        "current": 0,
-        "display": 0
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
       },
       "awayScore": {
         "current": 0,
-        "display": 0
+        "display": 0,
+        "period1": 2,
+        "period2": 4,
+        "point": "0"
       },
       "time": {},
       "changes": {
         "changes": [
-          "homeScore.current",
-          "homeScore.display",
-          "awayScore.current",
-          "awayScore.display",
-          "providerLock.status"
+          "firstToServe"
         ],
-        "changeTimestamp": 1785413369
+        "changeTimestamp": 1785418912
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16667556,
       "defaultPeriodCount": 3,
       "slug": "grzegorzewski-pereira-berto-iemmi",
-      "startTimestamp": 1785412800,
+      "startTimestamp": 1785414498,
       "periods": {
         "point": "Game",
         "current": "Match",

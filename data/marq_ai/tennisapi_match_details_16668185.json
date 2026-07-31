@@ -1,5 +1,5 @@
 {
-  "saved_at": 1785413494.5313587,
+  "saved_at": 1785508214.0497797,
   "data": {
     "event": {
       "tournament": {
@@ -89,10 +89,11 @@
       },
       "customId": "RhddsbmQd",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 1,
       "homeTeam": {
         "name": "Marko Maksimović",
         "slug": "maksimovic-marko",
@@ -209,18 +210,36 @@
         },
         "timeActive": []
       },
-      "homeScore": {},
-      "awayScore": {},
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "period2": 2,
+        "point": "0"
+      },
       "time": {},
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "firstToServe"
+        ],
+        "changeTimestamp": 1785426862
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16668185,
       "defaultPeriodCount": 3,
       "slug": "matthieu-chambonniere-marko-maksimovic",
-      "startTimestamp": 1785412800,
+      "startTimestamp": 1785419924,
       "periods": {
         "point": "Game",
         "current": "Match",
