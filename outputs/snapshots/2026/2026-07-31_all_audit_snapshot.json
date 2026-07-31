@@ -1419,7 +1419,7 @@
     "probability": 0.5857,
     "value_edge": -0.1286,
     "edge": -0.1286,
-    "corq_source_rank": 15,
+    "corq_source_rank": 14,
     "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
     "top7_publishable": false,
     "eligible_for_top7": false,
@@ -1494,7 +1494,7 @@
     "top7_risk_penalty_points": 0.0,
     "top7_clean_bonus_points": 0.0,
     "top7_quality_score": 0.0,
-    "corq_rank": 15
+    "corq_rank": 14
   },
   {
     "match_id": 16603194,
@@ -3521,7 +3521,7 @@
     "probability": 0.5857,
     "value_edge": -0.1286,
     "edge": -0.1286,
-    "corq_source_rank": 16,
+    "corq_source_rank": 15,
     "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
     "top7_publishable": false,
     "eligible_for_top7": false,
@@ -9317,7 +9317,7 @@
     "probability": 0.5948,
     "value_edge": -0.1405,
     "edge": -0.1405,
-    "corq_source_rank": 12,
+    "corq_source_rank": 11,
     "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
     "top7_publishable": false,
     "eligible_for_top7": false,
@@ -9395,7 +9395,7 @@
     "top7_risk_penalty_points": 0.0,
     "top7_clean_bonus_points": 0.0,
     "top7_quality_score": 0.0,
-    "corq_rank": 12
+    "corq_rank": 11
   },
   {
     "match_id": 16593344,
@@ -10046,7 +10046,7 @@
     "probability": 0.4052,
     "value_edge": 0.0927,
     "edge": 0.0927,
-    "corq_source_rank": 75,
+    "corq_source_rank": 76,
     "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
     "top7_publishable": false,
     "eligible_for_top7": false,
@@ -10141,7 +10141,7 @@
     "corq_warning_flags": [
       "MARKET_STRONG_AGAINST_PICK"
     ],
-    "corq_rank": 75
+    "corq_rank": 76
   },
   {
     "match_id": 16593499,
@@ -13703,7 +13703,7 @@
     "probability": 0.5942,
     "value_edge": -0.1411,
     "edge": -0.1411,
-    "corq_source_rank": 14,
+    "corq_source_rank": 13,
     "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
     "top7_publishable": false,
     "eligible_for_top7": false,
@@ -13781,7 +13781,7 @@
     "top7_risk_penalty_points": 0.0,
     "top7_clean_bonus_points": 0.0,
     "top7_quality_score": 0.0,
-    "corq_rank": 14
+    "corq_rank": 13
   },
   {
     "match_id": 16593508,
@@ -14430,7 +14430,7 @@
     "probability": 0.4058,
     "value_edge": 0.0933,
     "edge": 0.0933,
-    "corq_source_rank": 74,
+    "corq_source_rank": 75,
     "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
     "top7_publishable": false,
     "eligible_for_top7": false,
@@ -14525,7 +14525,7 @@
     "corq_warning_flags": [
       "MARKET_STRONG_AGAINST_PICK"
     ],
-    "corq_rank": 74
+    "corq_rank": 75
   },
   {
     "match_id": 16593501,
@@ -15238,9 +15238,14 @@
     "top7_clean_bonus_points": 0.0,
     "top7_quality_score": 0.0,
     "corq_warning_flags": [
-      "MARKET_STRONG_AGAINST_PICK"
+      "MARKET_STRONG_AGAINST_PICK",
+      "TOP7_SOFT_FALLBACK",
+      "TOP7_SOFT_FALLBACK_QUALITY_RELAXED"
     ],
-    "corq_rank": 81
+    "corq_rank": 7,
+    "top7_fallback_selected": true,
+    "top7_fallback_reason": "TOP7_SOFT_FALLBACK_QUALITY_RELAXED",
+    "top7_rank": 7
   },
   {
     "match_id": 16593501,
@@ -18787,12 +18792,12 @@
     "best_of": 3,
     "match_start": "2026-07-31T16:00:00+00:00",
     "start_time": "2026-07-31T16:00:00+00:00",
-    "status_type": "inprogress",
-    "status_code": 9,
+    "status_type": "finished",
+    "status_code": 100,
     "is_doubles": false,
     "source": "RapidAPI PRO",
     "raw": {
-      "firstToServe": 2,
+      "firstToServe": 1,
       "homeTeamSeed": "Q",
       "awayTeamSeed": "6",
       "tournament": {
@@ -18881,10 +18886,11 @@
       },
       "customId": "RlNbskjwh",
       "status": {
-        "code": 9,
-        "description": "2nd set",
-        "type": "inprogress"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 1,
       "homeTeam": {
         "name": "Kristina Liutova",
         "slug": "liutova-kristina",
@@ -18973,28 +18979,32 @@
         }
       },
       "homeScore": {
-        "current": 1,
-        "display": 1,
+        "current": 2,
+        "display": 2,
         "period1": 6,
-        "period2": 4,
-        "point": "40"
+        "period2": 6,
+        "point": "40",
+        "normaltime": 2
       },
       "awayScore": {
         "current": 0,
         "display": 0,
         "period1": 3,
         "period2": 4,
-        "point": "30"
+        "point": "0",
+        "normaltime": 0
       },
       "time": {
         "period1": 2235,
+        "period2": 3381,
         "currentPeriodStartTimestamp": 1785516374
       },
       "changes": {
         "changes": [
-          "homeScore.point"
+          "time.currentPeriodStart",
+          "time.period2"
         ],
-        "changeTimestamp": 1785519459
+        "changeTimestamp": 1785519776
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
@@ -19010,7 +19020,6 @@
         "period4": "4th set",
         "period5": "5th set"
       },
-      "lastPeriod": "period2",
       "finalResultOnly": false,
       "feedLocked": false,
       "groundType": "Hardcourt outdoor",
@@ -19035,16 +19044,16 @@
     "odds_label_2": "2",
     "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
-    "odds_player1": 1.2857,
-    "odds_player2": 3.75,
-    "p1_odds": 1.2857,
-    "p2_odds": 3.75,
-    "home_odds": 1.2857,
-    "away_odds": 3.75,
-    "odds1": 1.2857,
-    "odds2": 3.75,
-    "price1": 1.2857,
-    "price2": 3.75,
+    "odds_player1": 3.0,
+    "odds_player2": 1.4,
+    "p1_odds": 3.0,
+    "p2_odds": 1.4,
+    "home_odds": 3.0,
+    "away_odds": 1.4,
+    "odds1": 3.0,
+    "odds2": 1.4,
+    "price1": 3.0,
+    "price2": 1.4,
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16593687/odds",
     "odds_status": "OK",
@@ -19053,17 +19062,17 @@
     ],
     "odds_pair_available": true,
     "odds_labels_confirmed": true,
-    "odds_gap_abs": 2.4643,
-    "odds_gap_pct": 1.9167,
+    "odds_gap_abs": 1.6,
+    "odds_gap_pct": 1.1429,
     "home_player": "Kristina Liutova",
     "away_player": "Catherine McNally",
     "pick_side": "HOME",
     "opponent_side": "AWAY",
     "pick": "Kristina Liutova",
     "opponent": "Catherine McNally",
-    "odds": 1.2857,
-    "pick_odds": 1.2857,
-    "opponent_odds": 3.75,
+    "odds": 3.0,
+    "pick_odds": 3.0,
+    "opponent_odds": 1.4,
     "pick_is_player1": true,
     "pick_is_player2": false,
     "pick_is_home": true,
@@ -19113,7 +19122,7 @@
     "thinq_match_dynamics_status": null,
     "thinq_probability_layer_status": null,
     "thinq_h2h_requested_event_custom_id": null,
-    "implied_probability": 0.7778,
+    "implied_probability": 0.3333,
     "thinq_data_confidence": 0.0,
     "thinq_data_confidence_pct": 0.0,
     "thinq_pick_probability": null,
@@ -19154,11 +19163,14 @@
     },
     "corq_raw_model_edge": -0.02,
     "corq_confidence_factor": 0.35,
-    "corq_estimated_win_probability": 0.6064,
-    "estimated_win_pct": 60.64,
-    "corq_score": 0.6064,
-    "corq_edge": -0.1714,
-    "corq_risk_flags": [],
+    "corq_estimated_win_probability": 0.4143,
+    "estimated_win_pct": 41.42,
+    "corq_score": 0.4143,
+    "corq_edge": 0.081,
+    "corq_risk_flags": [
+      "DEFAULT_SCORE_VALUE_TRAP",
+      "NO_INTELLIGENCE_OUTSIDER_VALUE_TRAP"
+    ],
     "pick_ta_rank": 229,
     "opponent_ta_rank": null,
     "pick_ta_rank_display": "(229)",
@@ -19370,52 +19382,53 @@
     "marq_market_name": "Full time",
     "marq_provider_count": 1,
     "marq_market_spread_pct": 0.0,
-    "marq_market_median_odds": 1.2857,
+    "marq_market_median_odds": 3.0,
     "marq_outlier_count": 0,
-    "marq_crowd_player1_pct": 74.5,
-    "marq_crowd_player2_pct": 25.5,
-    "marq_crowd_pick_pct": 74.5,
-    "marq_crowd_opponent_pct": 25.5,
+    "marq_crowd_player1_pct": 31.8,
+    "marq_crowd_player2_pct": 68.2,
+    "marq_crowd_pick_pct": 31.8,
+    "marq_crowd_opponent_pct": 68.2,
     "marq_move_signal": "STABLE",
-    "marq_initial_pick_odds": 1.2857,
-    "marq_current_pick_odds": 1.2857,
-    "marq_initial_opponent_odds": 3.75,
-    "marq_current_opponent_odds": 3.75,
+    "marq_initial_pick_odds": 3.0,
+    "marq_current_pick_odds": 3.0,
+    "marq_initial_opponent_odds": 1.4,
+    "marq_current_opponent_odds": 1.4,
     "marq_market_move_pct": 0.0,
     "marq_opponent_move_pct": 0.0,
     "marq_sharp_signal": "NO SHARP DATA",
     "marq_quality_signal": "THIN",
     "marq_clv_status": "PENDING",
     "marq_exchange_available": false,
-    "marq_opening": 1.2857,
-    "marq_latest": 1.2857,
-    "marq_edge_pct": 24.5,
-    "marq_final": "Market With Pick",
-    "marq_final_display": "Market With Pick",
+    "marq_opening": 3.0,
+    "marq_latest": 3.0,
+    "marq_edge_pct": -18.2,
+    "marq_final": "Market Against Pick",
+    "marq_final_display": "Market Against Pick",
     "corq_raw_model_probability": 0.493,
     "corq_raw_model_probability_pct": 49.3,
-    "corq_market_probability": 0.745,
-    "corq_market_probability_pct": 74.5,
+    "corq_market_probability": 0.318,
+    "corq_market_probability_pct": 31.8,
     "corq_model_weight": 0.55,
     "corq_market_weight": 0.45,
     "corq_model_mix_label": "ThinQ 55% / MarQ 45%",
     "corq_thinq_input_pp": 27.12,
-    "corq_marq_input_pp": 33.52,
-    "corq_calibrated_probability": 0.6064,
-    "corq_calibrated_probability_pct": 60.64,
-    "corq_market_adjustment_pp": 11.34,
+    "corq_marq_input_pp": 14.31,
+    "corq_calibrated_probability": 0.4143,
+    "corq_calibrated_probability_pct": 41.42,
+    "corq_market_adjustment_pp": -7.87,
     "corq_calibration_method": "THINQ_MARQ_MODEL_MIX",
-    "corq_probability": 0.6064,
-    "probability": 0.6064,
-    "value_edge": -0.1714,
-    "edge": -0.1714,
-    "corq_source_rank": 11,
+    "corq_probability": 0.4143,
+    "probability": 0.4143,
+    "value_edge": 0.081,
+    "edge": 0.081,
+    "corq_source_rank": 73,
     "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
       "REJECT_TOP7_STATUS_NOT_PREMATCH",
-      "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
+      "REJECT_TOP7_CORQ_BELOW_50",
+      "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
       "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
       "REJECT_TOP7_LOW_FORM_DATA_DEPTH",
@@ -19423,7 +19436,8 @@
     ],
     "top7_reject_reasons": [
       "REJECT_TOP7_STATUS_NOT_PREMATCH",
-      "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
+      "REJECT_TOP7_CORQ_BELOW_50",
+      "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
       "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
       "REJECT_TOP7_LOW_FORM_DATA_DEPTH",
@@ -19431,26 +19445,27 @@
     ],
     "top7_hard_reject_reasons": [
       "REJECT_TOP7_STATUS_NOT_PREMATCH",
-      "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
+      "REJECT_TOP7_CORQ_BELOW_50",
+      "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
       "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
       "REJECT_TOP7_LOW_FORM_DATA_DEPTH",
       "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
     ],
     "top7_primary_reject_reason": "REJECT_TOP7_STATUS_NOT_PREMATCH",
-    "top7_reject_reason_count": 6,
+    "top7_reject_reason_count": 7,
     "top7_reject_summary_scope": "NON_PUBLISHABLE_ROWS_ONLY",
     "top7_status_allowed": false,
-    "top7_status_type_normalized": "inprogress",
-    "top7_status_code": 9,
-    "top7_corq_probability": 0.6064,
-    "top7_pick_thinq_edge": 0.1064,
+    "top7_status_type_normalized": "finished",
+    "top7_status_code": 100,
+    "top7_corq_probability": 0.4143,
+    "top7_pick_thinq_edge": -0.0857,
     "top7_thinq_confidence": 0.0,
     "top7_thinq_data_confidence": 0.0,
     "top7_thinq_pick_probability": 0.0,
     "pick_data_depth": 0.0,
     "stat_data_depth": 0.0,
-    "top7_pick_odds": 1.2857,
+    "top7_pick_odds": 3.0,
     "top7_match_date_local": "2026-07-31",
     "recent_form_status": "UNKNOWN",
     "recent_form_reason": "",
@@ -19464,8 +19479,8 @@
       "history_match_count": null
     },
     "low_data_risk_audit": {
-      "corq_probability": 0.6064,
-      "pick_thinq_edge": 0.1064,
+      "corq_probability": 0.4143,
+      "pick_thinq_edge": -0.0857,
       "pick_data_depth": 0.0,
       "form_data_depth": 0.0,
       "thinq_confidence": 0.0,
@@ -19481,13 +19496,27 @@
       },
       "odds_available": true
     },
-    "top7_risk_tags": [],
-    "top7_risk_labels": [],
-    "top7_risk_penalty_details": [],
-    "top7_risk_penalty_points": 0.0,
+    "top7_risk_tags": [
+      "MARKET_STRONG_AGAINST_PICK"
+    ],
+    "top7_risk_labels": [
+      "Market strongly against pick"
+    ],
+    "top7_risk_penalty_details": [
+      {
+        "tag": "MARKET_STRONG_AGAINST_PICK",
+        "penalty": 3.0,
+        "pick_odds": 3.0,
+        "opponent_odds": 1.4
+      }
+    ],
+    "top7_risk_penalty_points": 3.0,
     "top7_clean_bonus_points": 0.0,
     "top7_quality_score": 0.0,
-    "corq_rank": 11
+    "corq_warning_flags": [
+      "MARKET_STRONG_AGAINST_PICK"
+    ],
+    "corq_rank": 73
   },
   {
     "match_id": 16593687,
@@ -19504,12 +19533,12 @@
     "best_of": 3,
     "match_start": "2026-07-31T16:00:00+00:00",
     "start_time": "2026-07-31T16:00:00+00:00",
-    "status_type": "inprogress",
-    "status_code": 9,
+    "status_type": "finished",
+    "status_code": 100,
     "is_doubles": false,
     "source": "RapidAPI PRO",
     "raw": {
-      "firstToServe": 2,
+      "firstToServe": 1,
       "homeTeamSeed": "Q",
       "awayTeamSeed": "6",
       "tournament": {
@@ -19598,10 +19627,11 @@
       },
       "customId": "RlNbskjwh",
       "status": {
-        "code": 9,
-        "description": "2nd set",
-        "type": "inprogress"
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
       },
+      "winnerCode": 1,
       "homeTeam": {
         "name": "Kristina Liutova",
         "slug": "liutova-kristina",
@@ -19690,28 +19720,32 @@
         }
       },
       "homeScore": {
-        "current": 1,
-        "display": 1,
+        "current": 2,
+        "display": 2,
         "period1": 6,
-        "period2": 4,
-        "point": "40"
+        "period2": 6,
+        "point": "40",
+        "normaltime": 2
       },
       "awayScore": {
         "current": 0,
         "display": 0,
         "period1": 3,
         "period2": 4,
-        "point": "30"
+        "point": "0",
+        "normaltime": 0
       },
       "time": {
         "period1": 2235,
+        "period2": 3381,
         "currentPeriodStartTimestamp": 1785516374
       },
       "changes": {
         "changes": [
-          "homeScore.point"
+          "time.currentPeriodStart",
+          "time.period2"
         ],
-        "changeTimestamp": 1785519459
+        "changeTimestamp": 1785519776
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
@@ -19727,7 +19761,6 @@
         "period4": "4th set",
         "period5": "5th set"
       },
-      "lastPeriod": "period2",
       "finalResultOnly": false,
       "feedLocked": false,
       "groundType": "Hardcourt outdoor",
@@ -19752,16 +19785,16 @@
     "odds_label_2": "2",
     "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
-    "odds_player1": 1.2857,
-    "odds_player2": 3.75,
-    "p1_odds": 1.2857,
-    "p2_odds": 3.75,
-    "home_odds": 1.2857,
-    "away_odds": 3.75,
-    "odds1": 1.2857,
-    "odds2": 3.75,
-    "price1": 1.2857,
-    "price2": 3.75,
+    "odds_player1": 3.0,
+    "odds_player2": 1.4,
+    "p1_odds": 3.0,
+    "p2_odds": 1.4,
+    "home_odds": 3.0,
+    "away_odds": 1.4,
+    "odds1": 3.0,
+    "odds2": 1.4,
+    "price1": 3.0,
+    "price2": 1.4,
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16593687/odds",
     "odds_status": "OK",
@@ -19770,17 +19803,17 @@
     ],
     "odds_pair_available": true,
     "odds_labels_confirmed": true,
-    "odds_gap_abs": 2.4643,
-    "odds_gap_pct": 1.9167,
+    "odds_gap_abs": 1.6,
+    "odds_gap_pct": 1.1429,
     "home_player": "Kristina Liutova",
     "away_player": "Catherine McNally",
     "pick_side": "AWAY",
     "opponent_side": "HOME",
     "pick": "Catherine McNally",
     "opponent": "Kristina Liutova",
-    "odds": 3.75,
-    "pick_odds": 3.75,
-    "opponent_odds": 1.2857,
+    "odds": 1.4,
+    "pick_odds": 1.4,
+    "opponent_odds": 3.0,
     "pick_is_player1": false,
     "pick_is_player2": true,
     "pick_is_home": false,
@@ -19830,7 +19863,7 @@
     "thinq_match_dynamics_status": null,
     "thinq_probability_layer_status": null,
     "thinq_h2h_requested_event_custom_id": null,
-    "implied_probability": 0.2667,
+    "implied_probability": 0.7143,
     "thinq_data_confidence": 0.0,
     "thinq_data_confidence_pct": 0.0,
     "thinq_pick_probability": null,
@@ -19871,14 +19904,11 @@
     },
     "corq_raw_model_edge": 0.02,
     "corq_confidence_factor": 0.35,
-    "corq_estimated_win_probability": 0.3936,
-    "estimated_win_pct": 39.36,
-    "corq_score": 0.3936,
-    "corq_edge": 0.1269,
-    "corq_risk_flags": [
-      "DEFAULT_SCORE_VALUE_TRAP",
-      "NO_INTELLIGENCE_OUTSIDER_VALUE_TRAP"
-    ],
+    "corq_estimated_win_probability": 0.5857,
+    "estimated_win_pct": 58.58,
+    "corq_score": 0.5857,
+    "corq_edge": -0.1286,
+    "corq_risk_flags": [],
     "pick_ta_rank": null,
     "opponent_ta_rank": 229,
     "pick_ta_rank_display": "(X)",
@@ -20090,53 +20120,51 @@
     "marq_market_name": "Full time",
     "marq_provider_count": 1,
     "marq_market_spread_pct": 0.0,
-    "marq_market_median_odds": 3.75,
+    "marq_market_median_odds": 1.4,
     "marq_outlier_count": 0,
-    "marq_crowd_player1_pct": 74.5,
-    "marq_crowd_player2_pct": 25.5,
-    "marq_crowd_pick_pct": 25.5,
-    "marq_crowd_opponent_pct": 74.5,
+    "marq_crowd_player1_pct": 31.8,
+    "marq_crowd_player2_pct": 68.2,
+    "marq_crowd_pick_pct": 68.2,
+    "marq_crowd_opponent_pct": 31.8,
     "marq_move_signal": "STABLE",
-    "marq_initial_pick_odds": 3.75,
-    "marq_current_pick_odds": 3.75,
-    "marq_initial_opponent_odds": 1.2857,
-    "marq_current_opponent_odds": 1.2857,
+    "marq_initial_pick_odds": 1.4,
+    "marq_current_pick_odds": 1.4,
+    "marq_initial_opponent_odds": 3.0,
+    "marq_current_opponent_odds": 3.0,
     "marq_market_move_pct": 0.0,
     "marq_opponent_move_pct": 0.0,
     "marq_sharp_signal": "NO SHARP DATA",
     "marq_quality_signal": "THIN",
     "marq_clv_status": "PENDING",
     "marq_exchange_available": false,
-    "marq_opening": 3.75,
-    "marq_latest": 3.75,
-    "marq_edge_pct": -24.5,
-    "marq_final": "Market Against Pick",
-    "marq_final_display": "Market Against Pick",
+    "marq_opening": 1.4,
+    "marq_latest": 1.4,
+    "marq_edge_pct": 18.2,
+    "marq_final": "Market With Pick",
+    "marq_final_display": "Market With Pick",
     "corq_raw_model_probability": 0.507,
     "corq_raw_model_probability_pct": 50.7,
-    "corq_market_probability": 0.255,
-    "corq_market_probability_pct": 25.5,
+    "corq_market_probability": 0.682,
+    "corq_market_probability_pct": 68.2,
     "corq_model_weight": 0.55,
     "corq_market_weight": 0.45,
     "corq_model_mix_label": "ThinQ 55% / MarQ 45%",
     "corq_thinq_input_pp": 27.89,
-    "corq_marq_input_pp": 11.47,
-    "corq_calibrated_probability": 0.3936,
-    "corq_calibrated_probability_pct": 39.36,
-    "corq_market_adjustment_pp": -11.34,
+    "corq_marq_input_pp": 30.69,
+    "corq_calibrated_probability": 0.5857,
+    "corq_calibrated_probability_pct": 58.58,
+    "corq_market_adjustment_pp": 7.87,
     "corq_calibration_method": "THINQ_MARQ_MODEL_MIX",
-    "corq_probability": 0.3936,
-    "probability": 0.3936,
-    "value_edge": 0.1269,
-    "edge": 0.1269,
-    "corq_source_rank": 76,
+    "corq_probability": 0.5857,
+    "probability": 0.5857,
+    "value_edge": -0.1286,
+    "edge": -0.1286,
+    "corq_source_rank": 16,
     "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
       "REJECT_TOP7_STATUS_NOT_PREMATCH",
-      "REJECT_TOP7_CORQ_BELOW_50",
-      "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
       "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
       "REJECT_TOP7_LOW_FORM_DATA_DEPTH",
@@ -20144,8 +20172,6 @@
     ],
     "top7_reject_reasons": [
       "REJECT_TOP7_STATUS_NOT_PREMATCH",
-      "REJECT_TOP7_CORQ_BELOW_50",
-      "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
       "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
       "REJECT_TOP7_LOW_FORM_DATA_DEPTH",
@@ -20153,27 +20179,25 @@
     ],
     "top7_hard_reject_reasons": [
       "REJECT_TOP7_STATUS_NOT_PREMATCH",
-      "REJECT_TOP7_CORQ_BELOW_50",
-      "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
       "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
       "REJECT_TOP7_LOW_FORM_DATA_DEPTH",
       "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
     ],
     "top7_primary_reject_reason": "REJECT_TOP7_STATUS_NOT_PREMATCH",
-    "top7_reject_reason_count": 7,
+    "top7_reject_reason_count": 5,
     "top7_reject_summary_scope": "NON_PUBLISHABLE_ROWS_ONLY",
     "top7_status_allowed": false,
-    "top7_status_type_normalized": "inprogress",
-    "top7_status_code": 9,
-    "top7_corq_probability": 0.3936,
-    "top7_pick_thinq_edge": -0.1064,
+    "top7_status_type_normalized": "finished",
+    "top7_status_code": 100,
+    "top7_corq_probability": 0.5857,
+    "top7_pick_thinq_edge": 0.0857,
     "top7_thinq_confidence": 0.0,
     "top7_thinq_data_confidence": 0.0,
     "top7_thinq_pick_probability": 0.0,
     "pick_data_depth": 0.0,
     "stat_data_depth": 0.0,
-    "top7_pick_odds": 3.75,
+    "top7_pick_odds": 1.4,
     "top7_match_date_local": "2026-07-31",
     "recent_form_status": "UNKNOWN",
     "recent_form_reason": "",
@@ -20187,8 +20211,8 @@
       "history_match_count": null
     },
     "low_data_risk_audit": {
-      "corq_probability": 0.3936,
-      "pick_thinq_edge": -0.1064,
+      "corq_probability": 0.5857,
+      "pick_thinq_edge": 0.0857,
       "pick_data_depth": 0.0,
       "form_data_depth": 0.0,
       "thinq_confidence": 0.0,
@@ -20204,27 +20228,13 @@
       },
       "odds_available": true
     },
-    "top7_risk_tags": [
-      "MARKET_STRONG_AGAINST_PICK"
-    ],
-    "top7_risk_labels": [
-      "Market strongly against pick"
-    ],
-    "top7_risk_penalty_details": [
-      {
-        "tag": "MARKET_STRONG_AGAINST_PICK",
-        "penalty": 3.0,
-        "pick_odds": 3.75,
-        "opponent_odds": 1.2857
-      }
-    ],
-    "top7_risk_penalty_points": 3.0,
+    "top7_risk_tags": [],
+    "top7_risk_labels": [],
+    "top7_risk_penalty_details": [],
+    "top7_risk_penalty_points": 0.0,
     "top7_clean_bonus_points": 0.0,
     "top7_quality_score": 0.0,
-    "corq_warning_flags": [
-      "MARKET_STRONG_AGAINST_PICK"
-    ],
-    "corq_rank": 76
+    "corq_rank": 16
   },
   {
     "match_id": 16593685,
@@ -20241,11 +20251,12 @@
     "best_of": 3,
     "match_start": "2026-07-31T17:50:00+00:00",
     "start_time": "2026-07-31T17:50:00+00:00",
-    "status_type": "notstarted",
-    "status_code": 0,
+    "status_type": "inprogress",
+    "status_code": 8,
     "is_doubles": false,
     "source": "RapidAPI PRO",
     "raw": {
+      "firstToServe": 2,
       "awayTeamSeed": "7",
       "tournament": {
         "name": "Memphis, USA",
@@ -20333,9 +20344,9 @@
       },
       "customId": "VwecsVPgc",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 8,
+        "description": "1st set",
+        "type": "inprogress"
       },
       "homeTeam": {
         "name": "Elvina Kalieva",
@@ -20425,11 +20436,26 @@
           }
         }
       },
-      "homeScore": {},
-      "awayScore": {},
-      "time": {},
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 0,
+        "point": "15"
+      },
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 0,
+        "point": "30"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1785520778
+      },
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "homeScore.point"
+        ],
+        "changeTimestamp": 1785520876
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
@@ -20445,6 +20471,7 @@
         "period4": "4th set",
         "period5": "5th set"
       },
+      "lastPeriod": "period1",
       "finalResultOnly": false,
       "feedLocked": false,
       "groundType": "Hardcourt outdoor",
@@ -20851,6 +20878,7 @@
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
+      "REJECT_TOP7_STATUS_NOT_PREMATCH",
       "REJECT_TOP7_CORQ_BELOW_50",
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
@@ -20859,6 +20887,7 @@
       "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
     ],
     "top7_reject_reasons": [
+      "REJECT_TOP7_STATUS_NOT_PREMATCH",
       "REJECT_TOP7_CORQ_BELOW_50",
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
@@ -20867,6 +20896,7 @@
       "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
     ],
     "top7_hard_reject_reasons": [
+      "REJECT_TOP7_STATUS_NOT_PREMATCH",
       "REJECT_TOP7_CORQ_BELOW_50",
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
@@ -20874,12 +20904,12 @@
       "REJECT_TOP7_LOW_FORM_DATA_DEPTH",
       "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
-    "top7_reject_reason_count": 6,
+    "top7_primary_reject_reason": "REJECT_TOP7_STATUS_NOT_PREMATCH",
+    "top7_reject_reason_count": 7,
     "top7_reject_summary_scope": "NON_PUBLISHABLE_ROWS_ONLY",
-    "top7_status_allowed": true,
-    "top7_status_type_normalized": "notstarted",
-    "top7_status_code": 0,
+    "top7_status_allowed": false,
+    "top7_status_type_normalized": "inprogress",
+    "top7_status_code": 8,
     "top7_corq_probability": 0.3931,
     "top7_pick_thinq_edge": -0.1069,
     "top7_thinq_confidence": 0.0,
@@ -20936,14 +20966,9 @@
     "top7_clean_bonus_points": 0.0,
     "top7_quality_score": 0.0,
     "corq_warning_flags": [
-      "MARKET_STRONG_AGAINST_PICK",
-      "TOP7_SOFT_FALLBACK",
-      "TOP7_SOFT_FALLBACK_QUALITY_RELAXED"
+      "MARKET_STRONG_AGAINST_PICK"
     ],
-    "corq_rank": 7,
-    "top7_fallback_selected": true,
-    "top7_fallback_reason": "TOP7_SOFT_FALLBACK_QUALITY_RELAXED",
-    "top7_rank": 7
+    "corq_rank": 78
   },
   {
     "match_id": 16593685,
@@ -20960,11 +20985,12 @@
     "best_of": 3,
     "match_start": "2026-07-31T17:50:00+00:00",
     "start_time": "2026-07-31T17:50:00+00:00",
-    "status_type": "notstarted",
-    "status_code": 0,
+    "status_type": "inprogress",
+    "status_code": 8,
     "is_doubles": false,
     "source": "RapidAPI PRO",
     "raw": {
+      "firstToServe": 2,
       "awayTeamSeed": "7",
       "tournament": {
         "name": "Memphis, USA",
@@ -21052,9 +21078,9 @@
       },
       "customId": "VwecsVPgc",
       "status": {
-        "code": 0,
-        "description": "Not started",
-        "type": "notstarted"
+        "code": 8,
+        "description": "1st set",
+        "type": "inprogress"
       },
       "homeTeam": {
         "name": "Elvina Kalieva",
@@ -21144,11 +21170,26 @@
           }
         }
       },
-      "homeScore": {},
-      "awayScore": {},
-      "time": {},
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 0,
+        "point": "15"
+      },
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 0,
+        "point": "30"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1785520778
+      },
       "changes": {
-        "changeTimestamp": 0
+        "changes": [
+          "homeScore.point"
+        ],
+        "changeTimestamp": 1785520876
       },
       "hasGlobalHighlights": false,
       "crowdsourcingDataDisplayEnabled": false,
@@ -21164,6 +21205,7 @@
         "period4": "4th set",
         "period5": "5th set"
       },
+      "lastPeriod": "period1",
       "finalResultOnly": false,
       "feedLocked": false,
       "groundType": "Hardcourt outdoor",
@@ -21567,6 +21609,7 @@
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
+      "REJECT_TOP7_STATUS_NOT_PREMATCH",
       "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
       "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
       "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
@@ -21574,6 +21617,7 @@
       "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
     ],
     "top7_reject_reasons": [
+      "REJECT_TOP7_STATUS_NOT_PREMATCH",
       "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
       "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
       "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
@@ -21581,18 +21625,19 @@
       "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
     ],
     "top7_hard_reject_reasons": [
+      "REJECT_TOP7_STATUS_NOT_PREMATCH",
       "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
       "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
       "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
       "REJECT_TOP7_LOW_FORM_DATA_DEPTH",
       "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
-    "top7_reject_reason_count": 5,
+    "top7_primary_reject_reason": "REJECT_TOP7_STATUS_NOT_PREMATCH",
+    "top7_reject_reason_count": 6,
     "top7_reject_summary_scope": "NON_PUBLISHABLE_ROWS_ONLY",
-    "top7_status_allowed": true,
-    "top7_status_type_normalized": "notstarted",
-    "top7_status_code": 0,
+    "top7_status_allowed": false,
+    "top7_status_type_normalized": "inprogress",
+    "top7_status_code": 8,
     "top7_corq_probability": 0.6069,
     "top7_pick_thinq_edge": 0.1069,
     "top7_thinq_confidence": 0.0,

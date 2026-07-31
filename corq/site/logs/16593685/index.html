@@ -13,11 +13,12 @@
   &quot;best_of&quot;: 3,
   &quot;match_start&quot;: &quot;2026-07-31T17:50:00+00:00&quot;,
   &quot;start_time&quot;: &quot;2026-07-31T17:50:00+00:00&quot;,
-  &quot;status_type&quot;: &quot;notstarted&quot;,
-  &quot;status_code&quot;: 0,
+  &quot;status_type&quot;: &quot;inprogress&quot;,
+  &quot;status_code&quot;: 8,
   &quot;is_doubles&quot;: false,
   &quot;source&quot;: &quot;RapidAPI PRO&quot;,
   &quot;raw&quot;: {
+    &quot;firstToServe&quot;: 2,
     &quot;awayTeamSeed&quot;: &quot;7&quot;,
     &quot;tournament&quot;: {
       &quot;name&quot;: &quot;Memphis, USA&quot;,
@@ -105,9 +106,9 @@
     },
     &quot;customId&quot;: &quot;VwecsVPgc&quot;,
     &quot;status&quot;: {
-      &quot;code&quot;: 0,
-      &quot;description&quot;: &quot;Not started&quot;,
-      &quot;type&quot;: &quot;notstarted&quot;
+      &quot;code&quot;: 8,
+      &quot;description&quot;: &quot;1st set&quot;,
+      &quot;type&quot;: &quot;inprogress&quot;
     },
     &quot;homeTeam&quot;: {
       &quot;name&quot;: &quot;Elvina Kalieva&quot;,
@@ -197,11 +198,26 @@
         }
       }
     },
-    &quot;homeScore&quot;: {},
-    &quot;awayScore&quot;: {},
-    &quot;time&quot;: {},
+    &quot;homeScore&quot;: {
+      &quot;current&quot;: 0,
+      &quot;display&quot;: 0,
+      &quot;period1&quot;: 0,
+      &quot;point&quot;: &quot;15&quot;
+    },
+    &quot;awayScore&quot;: {
+      &quot;current&quot;: 0,
+      &quot;display&quot;: 0,
+      &quot;period1&quot;: 0,
+      &quot;point&quot;: &quot;30&quot;
+    },
+    &quot;time&quot;: {
+      &quot;currentPeriodStartTimestamp&quot;: 1785520778
+    },
     &quot;changes&quot;: {
-      &quot;changeTimestamp&quot;: 0
+      &quot;changes&quot;: [
+        &quot;homeScore.point&quot;
+      ],
+      &quot;changeTimestamp&quot;: 1785520876
     },
     &quot;hasGlobalHighlights&quot;: false,
     &quot;crowdsourcingDataDisplayEnabled&quot;: false,
@@ -217,6 +233,7 @@
       &quot;period4&quot;: &quot;4th set&quot;,
       &quot;period5&quot;: &quot;5th set&quot;
     },
+    &quot;lastPeriod&quot;: &quot;period1&quot;,
     &quot;finalResultOnly&quot;: false,
     &quot;feedLocked&quot;: false,
     &quot;groundType&quot;: &quot;Hardcourt outdoor&quot;,
@@ -620,6 +637,7 @@
   &quot;top7_publishable&quot;: false,
   &quot;eligible_for_top7&quot;: false,
   &quot;top7_quality_reject_reasons&quot;: [
+    &quot;REJECT_TOP7_STATUS_NOT_PREMATCH&quot;,
     &quot;REJECT_TOP7_LOW_ODDS_UNDER_1_40&quot;,
     &quot;REJECT_TOP7_LOW_PICK_DATA_DEPTH&quot;,
     &quot;REJECT_TOP7_LOW_THINQ_CONFIDENCE&quot;,
@@ -627,6 +645,7 @@
     &quot;REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH&quot;
   ],
   &quot;top7_reject_reasons&quot;: [
+    &quot;REJECT_TOP7_STATUS_NOT_PREMATCH&quot;,
     &quot;REJECT_TOP7_LOW_ODDS_UNDER_1_40&quot;,
     &quot;REJECT_TOP7_LOW_PICK_DATA_DEPTH&quot;,
     &quot;REJECT_TOP7_LOW_THINQ_CONFIDENCE&quot;,
@@ -634,18 +653,19 @@
     &quot;REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH&quot;
   ],
   &quot;top7_hard_reject_reasons&quot;: [
+    &quot;REJECT_TOP7_STATUS_NOT_PREMATCH&quot;,
     &quot;REJECT_TOP7_LOW_ODDS_UNDER_1_40&quot;,
     &quot;REJECT_TOP7_LOW_PICK_DATA_DEPTH&quot;,
     &quot;REJECT_TOP7_LOW_THINQ_CONFIDENCE&quot;,
     &quot;REJECT_TOP7_LOW_FORM_DATA_DEPTH&quot;,
     &quot;REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH&quot;
   ],
-  &quot;top7_primary_reject_reason&quot;: &quot;REJECT_TOP7_LOW_ODDS_UNDER_1_40&quot;,
-  &quot;top7_reject_reason_count&quot;: 5,
+  &quot;top7_primary_reject_reason&quot;: &quot;REJECT_TOP7_STATUS_NOT_PREMATCH&quot;,
+  &quot;top7_reject_reason_count&quot;: 6,
   &quot;top7_reject_summary_scope&quot;: &quot;NON_PUBLISHABLE_ROWS_ONLY&quot;,
-  &quot;top7_status_allowed&quot;: true,
-  &quot;top7_status_type_normalized&quot;: &quot;notstarted&quot;,
-  &quot;top7_status_code&quot;: 0,
+  &quot;top7_status_allowed&quot;: false,
+  &quot;top7_status_type_normalized&quot;: &quot;inprogress&quot;,
+  &quot;top7_status_code&quot;: 8,
   &quot;top7_corq_probability&quot;: 0.6069,
   &quot;top7_pick_thinq_edge&quot;: 0.1069,
   &quot;top7_thinq_confidence&quot;: 0.0,

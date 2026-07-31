@@ -13,11 +13,12 @@
   "best_of": 3,
   "match_start": "2026-07-31T17:50:00+00:00",
   "start_time": "2026-07-31T17:50:00+00:00",
-  "status_type": "notstarted",
-  "status_code": 0,
+  "status_type": "inprogress",
+  "status_code": 8,
   "is_doubles": false,
   "source": "RapidAPI PRO",
   "raw": {
+    "firstToServe": 2,
     "awayTeamSeed": "7",
     "tournament": {
       "name": "Memphis, USA",
@@ -105,9 +106,9 @@
     },
     "customId": "VwecsVPgc",
     "status": {
-      "code": 0,
-      "description": "Not started",
-      "type": "notstarted"
+      "code": 8,
+      "description": "1st set",
+      "type": "inprogress"
     },
     "homeTeam": {
       "name": "Elvina Kalieva",
@@ -197,11 +198,26 @@
         }
       }
     },
-    "homeScore": {},
-    "awayScore": {},
-    "time": {},
+    "homeScore": {
+      "current": 0,
+      "display": 0,
+      "period1": 0,
+      "point": "15"
+    },
+    "awayScore": {
+      "current": 0,
+      "display": 0,
+      "period1": 0,
+      "point": "30"
+    },
+    "time": {
+      "currentPeriodStartTimestamp": 1785520778
+    },
     "changes": {
-      "changeTimestamp": 0
+      "changes": [
+        "homeScore.point"
+      ],
+      "changeTimestamp": 1785520876
     },
     "hasGlobalHighlights": false,
     "crowdsourcingDataDisplayEnabled": false,
@@ -217,6 +233,7 @@
       "period4": "4th set",
       "period5": "5th set"
     },
+    "lastPeriod": "period1",
     "finalResultOnly": false,
     "feedLocked": false,
     "groundType": "Hardcourt outdoor",
@@ -620,6 +637,7 @@
   "top7_publishable": false,
   "eligible_for_top7": false,
   "top7_quality_reject_reasons": [
+    "REJECT_TOP7_STATUS_NOT_PREMATCH",
     "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
     "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
     "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
@@ -627,6 +645,7 @@
     "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
   ],
   "top7_reject_reasons": [
+    "REJECT_TOP7_STATUS_NOT_PREMATCH",
     "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
     "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
     "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
@@ -634,18 +653,19 @@
     "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
   ],
   "top7_hard_reject_reasons": [
+    "REJECT_TOP7_STATUS_NOT_PREMATCH",
     "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
     "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
     "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
     "REJECT_TOP7_LOW_FORM_DATA_DEPTH",
     "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
   ],
-  "top7_primary_reject_reason": "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
-  "top7_reject_reason_count": 5,
+  "top7_primary_reject_reason": "REJECT_TOP7_STATUS_NOT_PREMATCH",
+  "top7_reject_reason_count": 6,
   "top7_reject_summary_scope": "NON_PUBLISHABLE_ROWS_ONLY",
-  "top7_status_allowed": true,
-  "top7_status_type_normalized": "notstarted",
-  "top7_status_code": 0,
+  "top7_status_allowed": false,
+  "top7_status_type_normalized": "inprogress",
+  "top7_status_code": 8,
   "top7_corq_probability": 0.6069,
   "top7_pick_thinq_edge": 0.1069,
   "top7_thinq_confidence": 0.0,
