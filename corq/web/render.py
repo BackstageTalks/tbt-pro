@@ -623,18 +623,38 @@ def probability(row: Dict[str, Any]) -> Optional[float]:
 
 
 def thinq_prob(row: Dict[str, Any]) -> Optional[float]:
-    """Return ThinQ pick win probability, not data confidence."""
-    for key in ("thinq_pick_probability", "thinq_probability", "top7_thinq_pick_probability"):
+    """Return displayed model probability for the pick.
+
+    Prefer real ThinQ probability. If ThinQ attach failed but CorQ still carries
+    the raw model probability used by MMx, use that as a transparent model
+    fallback. Never convert missing ThinQ into a fake 0.0%.
+    """
+    failed = bool(row.get("thinq_error")) or "THINQ_ATTACH_FAILED" in set(str(x) for x in (row.get("thinq_flags") or []))
+    thinq = row.get("thinq")
+    if isinstance(thinq, dict):
+        failed = failed or bool(thinq.get("error")) or "THINQ_ATTACH_FAILED" in set(str(x) for x in (thinq.get("flags") or []))
+    for key in (
+        "thinq_pick_probability",
+        "thinq_probability",
+        "top7_thinq_pick_probability",
+        "corq_thinq_probability",
+        "corq_raw_model_probability",
+    ):
         val = as_float(row.get(key))
         if val is not None:
+            if failed and abs(val) < 1e-12 and key not in ("corq_raw_model_probability",):
+                continue
             return val
     layer = row.get("thinq_probability_layer") or row.get("probability_layer")
     if isinstance(layer, dict):
         val = as_float(layer.get("pick_probability") or layer.get("probability"))
         if val is not None:
             return val
-    thinq = row.get("thinq")
     if isinstance(thinq, dict):
+        for key in ("thinq_pick_probability", "thinq_probability", "corq_raw_model_probability"):
+            val = as_float(thinq.get(key))
+            if val is not None:
+                return val
         layer = thinq.get("thinq_probability_layer") or thinq.get("probability_layer")
         if isinstance(layer, dict):
             return as_float(layer.get("pick_probability") or layer.get("probability"))
@@ -642,21 +662,44 @@ def thinq_prob(row: Dict[str, Any]) -> Optional[float]:
 
 
 def thinq_conf(row: Dict[str, Any]) -> Optional[float]:
-    """Return ThinQ data/model confidence, not win probability."""
-    for key in ("thinq_data_confidence", "thinq_probability_confidence", "thinq_confidence", "thinq_overall_confidence", "data_confidence"):
+    """Return ThinQ data/model confidence, not win probability.
+
+    A 0.0 confidence with THINQ_ATTACH_FAILED means missing data, not true zero
+    confidence. Display it as N/A instead of a misleading 0.0%.
+    """
+    failed = bool(row.get("thinq_error")) or "THINQ_ATTACH_FAILED" in set(str(x) for x in (row.get("thinq_flags") or []))
+    thinq = row.get("thinq")
+    if isinstance(thinq, dict):
+        failed = failed or bool(thinq.get("error")) or "THINQ_ATTACH_FAILED" in set(str(x) for x in (thinq.get("flags") or []))
+    for key in ("thinq_data_confidence", "thinq_probability_confidence", "thinq_confidence", "thinq_overall_confidence", "data_confidence", "top7_thinq_data_confidence", "top7_thinq_confidence"):
         val = as_float(row.get(key))
         if val is not None:
+            if failed and abs(val) < 1e-12:
+                continue
             return val
     layer = row.get("thinq_probability_layer")
     if isinstance(layer, dict):
-        return as_float(layer.get("confidence"))
+        val = as_float(layer.get("confidence"))
+        if val is not None and not (failed and abs(val) < 1e-12):
+            return val
+    if isinstance(thinq, dict):
+        for key in ("thinq_data_confidence", "confidence"):
+            val = as_float(thinq.get(key))
+            if val is not None and not (failed and abs(val) < 1e-12):
+                return val
     return None
 
 
 def stat_depth(row: Dict[str, Any]) -> Optional[float]:
+    failed = bool(row.get("thinq_error")) or "THINQ_ATTACH_FAILED" in set(str(x) for x in (row.get("thinq_flags") or []))
+    thinq = row.get("thinq")
+    if isinstance(thinq, dict):
+        failed = failed or bool(thinq.get("error")) or "THINQ_ATTACH_FAILED" in set(str(x) for x in (thinq.get("flags") or []))
     for key in ("stat_data_depth", "pick_data_depth", "data_depth", "top7_pick_data_depth"):
         val = as_float(row.get(key))
         if val is not None:
+            if failed and abs(val) < 1e-12:
+                continue
             return val
     return thinq_conf(row)
 
@@ -1113,9 +1156,9 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         f'<div class="box-head"><span>ThinQ P | C {info_icon("thinq_pc")}</span><b>{as_pct(thinq_prob(row), 1)} | {as_pct(thinq_conf(row), 1)}</b></div>',
         metric_row("P F | S-F", esc(f"{pick_form} | {pick_sform}")),
         metric_row("O F | S-F", esc(f"{opp_form} | {opp_sform}")),
-        metric_row("P R-Edge", signed_pct(row.get("recent_form_edge") or row.get("short_form_edge")), sign_class(row.get("recent_form_edge") or row.get("short_form_edge"))),
-        metric_row("P S-Edge", signed_pct(row.get("surface_recent_form_edge")), sign_class(row.get("surface_recent_form_edge"))),
-        metric_row("P F Qty", signed_pct(row.get("opponent_quality_edge")), sign_class(row.get("opponent_quality_edge"))),
+        metric_row("P R-Edge", signed_pct_na(row.get("recent_form_edge") or row.get("short_form_edge")), sign_class(row.get("recent_form_edge") or row.get("short_form_edge"))),
+        metric_row("P S-Edge", signed_pct_na(row.get("surface_recent_form_edge")), sign_class(row.get("surface_recent_form_edge"))),
+        metric_row("P F Qty", signed_pct_na(row.get("opponent_quality_edge")), sign_class(row.get("opponent_quality_edge"))),
         metric_row("F Data Depth", bar_html(form_depth(row))),
         '</section>',
         render_sets_games_box(row),
@@ -1919,6 +1962,17 @@ def s_data_depth(row: Dict[str, Any]) -> Optional[float]:
     if explicit_num is not None:
         if explicit_num <= 1.0:
             explicit_num *= 100.0
+        if explicit_num <= 0.0:
+            # Legacy pipeline sometimes wrote 0 when TA/stat data was simply absent.
+            # Do not render that as real 0% data depth unless another TA/stat field is present.
+            candidate_fields = (
+                "ta_pick_matches", "ta_opp_matches", "ta_pick_set_pct", "ta_opp_set_pct",
+                "ta_pick_game_pct", "ta_opp_game_pct", "ta_pick_tb_pct", "ta_opp_tb_pct",
+                "ta_pick_ace_pct", "ta_opp_ace_pct", "ta_pick_df_pct", "ta_opp_df_pct",
+                "ta_pick_rpw_pct", "ta_opp_rpw_pct", "ta_pick_surface_dr", "ta_opp_surface_dr",
+            )
+            if not any(_present_stat(row, key) for key in candidate_fields):
+                return None
         return max(0.0, min(100.0, explicit_num))
 
     p_matches = as_float(_first_data_value(row, "ta_pick_matches", "pick_ta_matches"))
