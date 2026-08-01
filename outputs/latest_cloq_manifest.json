@@ -1,14 +1,14 @@
 {
-  "generated_at_utc": "2026-08-01T14:19:36.887537+00:00",
+  "generated_at_utc": "2026-08-01T15:12:39.806910+00:00",
   "source_rows": 45,
-  "passed_rows": 2,
-  "rejected_rows": 43,
-  "filter_version": "CLOQ_FILTER_V1_3_MARQ_OPTIONAL",
+  "passed_rows": 0,
+  "rejected_rows": 45,
+  "filter_version": "CLOQ_FILTER_V1_5_CLOSE_GAP_15",
   "config": {
     "min_odds": 1.7,
     "max_odds": 2.9,
     "min_odd_gap_pct": 0.0,
-    "max_odd_gap_pct": 0.4,
+    "max_odd_gap_pct": 0.15,
     "min_corq_probability": 0.52,
     "min_thinq_probability": 0.52,
     "min_marq_probability": 0.3,
@@ -27,8 +27,8 @@
   },
   "reason_counts": {
     "CLOQ_REJECT_STATUS_NOT_PREMATCH": 7,
+    "CLOQ_REJECT_ODD_GAP_TOO_WIDE": 36,
     "CLOQ_REJECT_ODDS_BELOW_MIN": 9,
-    "CLOQ_REJECT_ODD_GAP_TOO_WIDE": 20,
     "CLOQ_REJECT_CORQ_BELOW_MIN": 34,
     "CLOQ_REJECT_THINQ_BELOW_MIN": 35,
     "CLOQ_REJECT_ODDS_ABOVE_MAX": 9,
@@ -39,18 +39,18 @@
   },
   "tag_counts": {
     "CLV Pending": 45,
-    "Close Odds": 17,
+    "Low H2H Sample": 12,
     "MMx Aligned": 45,
     "MarQ Missing": 45,
-    "Low H2H Sample": 12
+    "Close Odds": 9
   },
   "filter_extra": {
-    "filter_version": "CLOQ_FILTER_V1_3_MARQ_OPTIONAL",
+    "filter_version": "CLOQ_FILTER_V1_5_CLOSE_GAP_15",
     "config": {
       "min_odds": 1.7,
       "max_odds": 2.9,
       "min_odd_gap_pct": 0.0,
-      "max_odd_gap_pct": 0.4,
+      "max_odd_gap_pct": 0.15,
       "min_corq_probability": 0.52,
       "min_thinq_probability": 0.52,
       "min_marq_probability": 0.3,
@@ -61,14 +61,14 @@
       "require_singles": true
     },
     "source_rows": 45,
-    "passed_rows": 2,
-    "rejected_rows": 43,
+    "passed_rows": 0,
+    "rejected_rows": 45,
     "reason_counts": {
       "CLOQ_REJECT_CORQ_BELOW_MIN": 34,
       "CLOQ_REJECT_LOW_STATS_DEPTH": 3,
       "CLOQ_REJECT_ODDS_ABOVE_MAX": 9,
       "CLOQ_REJECT_ODDS_BELOW_MIN": 9,
-      "CLOQ_REJECT_ODD_GAP_TOO_WIDE": 20,
+      "CLOQ_REJECT_ODD_GAP_TOO_WIDE": 36,
       "CLOQ_REJECT_STATUS_NOT_PREMATCH": 7,
       "CLOQ_REJECT_THINQ_BELOW_MIN": 35
     },
@@ -77,7 +77,7 @@
     },
     "tag_counts": {
       "CLV Pending": 45,
-      "Close Odds": 17,
+      "Close Odds": 9,
       "Low H2H Sample": 12,
       "MMx Aligned": 45,
       "MarQ Missing": 45
