@@ -1467,3 +1467,77 @@ def fetch_marq_market_data(
         _debug(f"using fallback thin market player1={player1} player2={player2} odds1={odds_player1} odds2={odds_player2}")
         return fallback
     return None
+
+# ---------------------------------------------------------------------------
+# Final robust override: exact TennisAPI match odds endpoint family
+# ---------------------------------------------------------------------------
+# Keeps getAllOddsForEvent as primary and adds the endpoint shapes visible in
+# RapidAPI Playground for getMatchFeaturedOdds, getMatchBettingOdds and
+# getMatchWinningOdds. The best payload wins by Full time availability and
+# market count.
+
+_MARQ_PRO_FINAL_ENDPOINT_VERSION = "2026-08-01-tennisapi-all-featured-betting-winning-final"
+
+
+def fetch_provider_odds(event_id: str, provider_id: int, force_refresh: bool = False) -> Optional[Dict[str, Any]]:
+    event_id = str(event_id)
+    provider_id = int(provider_id)
+    key = f"{event_id}:{provider_id}:final"
+    if key in _RUN_PROVIDER_ODDS_CACHE and not force_refresh:
+        return _RUN_PROVIDER_ODDS_CACHE[key]
+
+    candidates = [
+        (f"/api/tennis/event/{event_id}/odds/{provider_id}/all", "getAllOddsForEvent"),
+        (f"/api/tennis/event/{event_id}/featured-odds/{provider_id}", "getMatchFeaturedOdds"),
+        (f"/api/tennis/event/{event_id}/odds/{provider_id}/featured", "getMatchFeaturedOdds"),
+        (f"/api/tennis/event/{event_id}/odds/{provider_id}/featured-odds", "getMatchFeaturedOdds"),
+        (f"/api/tennis/event/{event_id}/provider/{provider_id}/featured-odds", "getMatchFeaturedOdds"),
+        (f"/api/tennis/event/{event_id}/betting-odds/{provider_id}", "getMatchBettingOdds"),
+        (f"/api/tennis/event/{event_id}/provider/{provider_id}/betting-odds", "getMatchBettingOdds"),
+        (f"/api/tennis/event/{event_id}/winning-odds/{provider_id}", "getMatchWinningOdds"),
+        (f"/api/tennis/event/{event_id}/provider/{provider_id}/winning-odds", "getMatchWinningOdds"),
+        (f"/api/tennis/event/{event_id}/odds/{provider_id}", "getProviderOdds"),
+        (f"/api/tennis/event/{event_id}/odds", "getEventOdds"),
+    ]
+
+    best_payload: Optional[Dict[str, Any]] = None
+    best_meta: Dict[str, Any] = {}
+    best_score = -1
+    seen = set()
+    for idx, (path, endpoint_name) in enumerate(candidates):
+        if path in seen:
+            continue
+        seen.add(path)
+        cache_name = f"tennisapi_provider_odds_final_{event_id}_{provider_id}_{idx}_{endpoint_name}.json"
+        payload = _get_json(path, cache_name=cache_name, force_refresh=force_refresh)
+        markets = _extract_markets(payload)
+        if not markets:
+            continue
+        full_time = _select_full_time_market(markets)
+        score = len(markets) + (1000 if full_time else 0) + (100 if endpoint_name == "getAllOddsForEvent" else 0)
+        if score > best_score:
+            best_score = score
+            best_payload = payload
+            best_meta = {
+                "provider_odds_endpoint": path,
+                "provider_odds_endpoint_name": endpoint_name,
+                "provider_odds_market_count": len(markets),
+                "provider_odds_has_full_time": bool(full_time),
+                "provider_odds_fetch_version": _MARQ_PRO_FINAL_ENDPOINT_VERSION,
+            }
+        _debug(f"provider odds final candidate event_id={event_id} provider_id={provider_id} endpoint={endpoint_name} markets={len(markets)} full_time={bool(full_time)}")
+
+    if isinstance(best_payload, dict):
+        best_payload = dict(best_payload)
+        best_payload["_corq_provider_meta"] = best_meta
+        _RUN_PROVIDER_ODDS_CACHE[key] = best_payload
+        return best_payload
+
+    _RUN_PROVIDER_ODDS_CACHE[key] = None
+    _debug(f"provider odds final missing event_id={event_id} provider_id={provider_id}")
+    return None
+
+
+# Replace debug printer that was historically too easy to break with f-string edits.
+def _debug(message: str) -> None:
+    print(f"MARQ TENNISAPI DEBUG: {message}")

@@ -2026,3 +2026,114 @@ def build_sets_games_from_match(match: Dict[str, Any], model_prediction: Optiona
         enriched["value_bet_display"] = None
         enriched.setdefault("sets_games_best_value", None)
     return enriched
+
+# ---------------------------------------------------------------------------
+# Final robust override: real prop-line provenance and output aliases
+# ---------------------------------------------------------------------------
+# Keeps model projections, but line/source fields now clearly say whether the
+# line is a real TennisAPI PRO market line. This helps the render show real O/U
+# lines for Games, Sets, Aces and DF.
+
+_MARKET_LINES_FINAL_VERSION = "2026-08-01-real-prop-line-source-final"
+
+
+def _apply_real_prop_lines(enriched: Dict[str, Any], set_markets: Dict[str, Any]) -> None:
+    pick = str(enriched.get("pick") or enriched.get("player") or enriched.get("player1") or "")
+    opp = str(enriched.get("opponent") or enriched.get("opp") or enriched.get("player2") or "")
+    pick_side = str(enriched.get("pick_side") or "").strip().upper() or None
+
+    def apply_one(base: str, market: Optional[Dict[str, Any]], projection: Any, scale: float) -> None:
+        if not isinstance(market, dict):
+            enriched.setdefault(f"{base}_line_source", "MODEL_PROJECTION_LINE")
+            return
+        line = as_float(market.get("line"))
+        if line is None:
+            enriched.setdefault(f"{base}_line_source", "MODEL_PROJECTION_LINE")
+            return
+        sel = _prop_selection_from_projection(projection, line, scale)
+        source = market.get("source") or _REAL_LINE_SOURCE
+        enriched[f"{base}_line"] = line
+        enriched[f"{base}_over_odds"] = market.get("over_odds")
+        enriched[f"{base}_under_odds"] = market.get("under_odds")
+        enriched[f"{base}_line_source"] = source
+        enriched[f"{base}_market_source"] = source
+        enriched[f"{base}_market_name"] = market.get("market_name")
+        enriched[f"{base}_market_group"] = market.get("market_group")
+        enriched[f"{base}_market_raw_label"] = market.get("raw_label")
+        if sel.get("side"):
+            enriched[f"{base}_side"] = sel["side"]
+            enriched[f"{base}_selection"] = sel["selection"]
+            enriched[f"{base}_probability"] = sel["probability"]
+
+    aces_markets = set_markets.get("player_aces_markets") or []
+    df_markets = set_markets.get("player_df_markets") or []
+
+    p_aces = _select_player_prop(aces_markets, pick, pick_side)
+    o_aces = _select_player_prop(aces_markets, opp, "AWAY" if pick_side == "HOME" else "HOME" if pick_side == "AWAY" else None)
+    if p_aces is None and len(aces_markets) >= 1:
+        p_aces = aces_markets[0 if pick_side != "AWAY" else min(1, len(aces_markets) - 1)]
+    if o_aces is None and len(aces_markets) >= 2:
+        o_aces = aces_markets[1 if pick_side != "AWAY" else 0]
+
+    p_df = _select_player_prop(df_markets, pick, pick_side)
+    o_df = _select_player_prop(df_markets, opp, "AWAY" if pick_side == "HOME" else "HOME" if pick_side == "AWAY" else None)
+    if p_df is None and len(df_markets) >= 1:
+        p_df = df_markets[0 if pick_side != "AWAY" else min(1, len(df_markets) - 1)]
+    if o_df is None and len(df_markets) >= 2:
+        o_df = df_markets[1 if pick_side != "AWAY" else 0]
+
+    apply_one("pick_aces", p_aces, enriched.get("pick_aces_projection") or enriched.get("pick_aces"), 1.15)
+    apply_one("opponent_aces", o_aces, enriched.get("opponent_aces_projection") or enriched.get("opponent_aces"), 1.15)
+    apply_one("total_aces", set_markets.get("total_aces"), enriched.get("total_aces_projection") or enriched.get("total_aces"), 1.70)
+    apply_one("pick_df", p_df, enriched.get("pick_df_projection") or enriched.get("df_pick") or enriched.get("pick_df"), 1.05)
+    apply_one("opponent_df", o_df, enriched.get("opponent_df_projection") or enriched.get("df_opponent") or enriched.get("opponent_df"), 1.05)
+    apply_one("total_df", set_markets.get("total_df"), enriched.get("total_df_projection") or enriched.get("df_total") or enriched.get("total_df"), 1.25)
+
+
+def build_sets_games_from_match(match: Dict[str, Any], model_prediction: Optional[Dict[str, Any]] = None, force_refresh: bool = False) -> Dict[str, Any]:
+    event_id = match.get("event_id") or match.get("match_id") or match.get("id")
+    set_markets = get_tennisapi_set_markets(event_id, force_refresh=force_refresh) if event_id else {}
+    output = build_market_aware_sets(match, model_prediction or match, set_markets=set_markets)
+    enriched = dict(match)
+    enriched.update(output)
+
+    if isinstance(set_markets, dict):
+        enriched["sets_games_market_source"] = set_markets.get("market_source") or _REAL_LINE_SOURCE if set_markets.get("raw_market_count") else None
+        enriched["sets_games_raw_market_count"] = set_markets.get("raw_market_count")
+        if isinstance(set_markets.get("total_sets"), dict):
+            enriched["sets_line"] = set_markets["total_sets"].get("line")
+            enriched["sets_line_source"] = set_markets["total_sets"].get("source") or _REAL_LINE_SOURCE
+        if isinstance(set_markets.get("total_games"), dict):
+            enriched["games_line"] = set_markets["total_games"].get("line")
+            enriched["games_line_source"] = set_markets["total_games"].get("source") or _REAL_LINE_SOURCE
+
+    df_info = build_ta_double_faults_projection(
+        enriched,
+        games_line=enriched.get("projected_total_games") or enriched.get("expected_games") or enriched.get("games_line") or enriched.get("total_games_line"),
+        surface=str(enriched.get("surface") or enriched.get("surface_raw") or "") or None,
+    )
+    if isinstance(df_info, dict):
+        enriched.update(df_info)
+    aces_info = _ta_aces_projection(enriched, as_float(enriched.get("projected_total_games") or enriched.get("expected_games")))
+    if isinstance(aces_info, dict):
+        enriched.update(aces_info)
+
+    if isinstance(set_markets, dict):
+        _apply_real_prop_lines(enriched, set_markets)
+
+    best_info = _best_model_bet(enriched)
+    if isinstance(best_info, dict):
+        enriched.update(best_info)
+    value_candidates = build_sets_games_value_candidates(enriched)
+    enriched["sets_games_value_candidates"] = value_candidates
+    if value_candidates and value_candidates[0].get("selection"):
+        enriched["value_bet"] = value_candidates[0].get("selection")
+        enriched["value_bet_display"] = value_candidates[0].get("selection")
+        enriched["sets_games_best_value"] = value_candidates[0].get("selection")
+        enriched["sets_games_best_value_edge"] = value_candidates[0].get("edge")
+    else:
+        enriched["value_bet"] = None
+        enriched["value_bet_display"] = None
+        enriched.setdefault("sets_games_best_value", None)
+    enriched["sets_games_market_lines_version"] = _MARKET_LINES_FINAL_VERSION
+    return enriched
