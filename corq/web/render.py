@@ -2769,6 +2769,92 @@ def result_tags(row: Dict[str, Any]) -> List[str]:
     return out
 
 
+
+
+def result_lookup(row: Dict[str, Any], *keys: str, default: Any = None) -> Any:
+    for key in keys:
+        cur: Any = row
+        ok = True
+        for part in str(key).split('.'):
+            if isinstance(cur, dict) and part in cur:
+                cur = cur.get(part)
+            else:
+                ok = False
+                break
+        if ok and cur not in (None, "", "—", "-"):
+            return cur
+    return default
+
+
+def result_hit_badge(value: Any) -> str:
+    if value is True:
+        return '<span class="result-tag" style="border-color:#10b981;color:#86efac">HIT</span>'
+    if value is False:
+        return '<span class="result-tag" style="border-color:#ef4444;color:#fca5a5">MISS</span>'
+    return '<span class="result-tag">—</span>'
+
+
+def result_pct_text(value: Any, none: str = "—") -> str:
+    num = as_float(value)
+    if num is None:
+        return none
+    if abs(num) <= 1.0:
+        num *= 100.0
+    return f"{num:.1f}%"
+
+
+def result_pp_text(value: Any, none: str = "—") -> str:
+    num = as_float(value)
+    if num is None:
+        return none
+    return f"{num:+.1f}pp"
+
+
+def render_mmx_marq_result_cell(row: Dict[str, Any]) -> str:
+    thinq_p = result_lookup(row, 'thinq_pick_probability', 'prediction_snapshot.thinq.pick_probability')
+    thinq_c = result_lookup(row, 'thinq_data_confidence', 'prediction_snapshot.thinq.data_confidence')
+    tw = result_lookup(row, 'mmx_thinq_weight', 'prediction_snapshot.mmx.thinq_weight')
+    mw = result_lookup(row, 'mmx_marq_weight', 'prediction_snapshot.mmx.marq_weight')
+    marq_p = result_lookup(row, 'marq_pick_probability', 'prediction_snapshot.marq.pick_probability')
+    marq_edge = result_lookup(row, 'marq_edge_pct', 'prediction_snapshot.marq.edge_pct')
+    move = result_lookup(row, 'marq_move', 'prediction_snapshot.marq.move', default='—')
+    clv = result_lookup(row, 'marq_clv_pp', 'prediction_snapshot.marq.clv_pp')
+    def weight_txt(v: Any) -> str:
+        n = as_float(v)
+        if n is None:
+            return '—'
+        if abs(n) <= 1.0:
+            n *= 100.0
+        return str(int(round(n)))
+    lines = [
+        f'<span class="result-tag">TQ {result_pct_text(thinq_p)} | C {result_pct_text(thinq_c)}</span>',
+        f'<span class="result-tag">MMx {weight_txt(tw)}/{weight_txt(mw)}</span>',
+        f'<span class="result-tag">MarQ {result_pct_text(marq_p)} / {result_pp_text(marq_edge)}</span>',
+    ]
+    if move != '—' or clv is not None:
+        lines.append(f'<span class="result-tag">Move {esc(move)} | CLV {result_pp_text(clv)}</span>')
+    return '<br>'.join(lines)
+
+
+def render_props_result_cell(row: Dict[str, Any]) -> str:
+    props = row.get('aces_df') if isinstance(row.get('aces_df'), dict) else {}
+    aces_sel = result_lookup(row, 'total_aces_selection', 'prediction_snapshot.aces_df.aces_total_selection', 'aces_df.aces_total_selection')
+    aces_proj = result_lookup(row, 'total_aces_projection', 'prediction_snapshot.aces_df.aces_total_projection', 'aces_df.aces_total_projection')
+    aces_actual = result_lookup(row, 'actual_total_aces', 'aces_df.actual_total_aces')
+    aces_hit = result_lookup(row, 'total_aces_hit', 'aces_df.total_aces_hit')
+    df_sel = result_lookup(row, 'total_df_selection', 'prediction_snapshot.aces_df.df_total_selection', 'aces_df.df_total_selection')
+    df_proj = result_lookup(row, 'total_df_projection', 'prediction_snapshot.aces_df.df_total_projection', 'aces_df.df_total_projection')
+    df_actual = result_lookup(row, 'actual_total_df', 'aces_df.actual_total_df')
+    df_hit = result_lookup(row, 'total_df_hit', 'aces_df.total_df_hit')
+    src = result_lookup(row, 'api_serve_stats_source', 'prediction_snapshot.aces_df.serve_stats_source')
+    lines = []
+    if aces_sel or aces_proj is not None or aces_actual is not None:
+        lines.append(f'<span class="result-tag">Aces {esc(aces_sel or "—")} | Pred {esc(aces_proj if aces_proj is not None else "—")} -> Real {esc(aces_actual if aces_actual is not None else "—")}</span> {result_hit_badge(aces_hit)}')
+    if df_sel or df_proj is not None or df_actual is not None:
+        lines.append(f'<span class="result-tag">DF {esc(df_sel or "—")} | Pred {esc(df_proj if df_proj is not None else "—")} -> Real {esc(df_actual if df_actual is not None else "—")}</span> {result_hit_badge(df_hit)}')
+    if src:
+        lines.append(f'<small>Src: {esc(src)}</small>')
+    return '<br>'.join(lines) if lines else '—'
 def render_results_table(rows: List[Dict[str, Any]], title: str, limit: Optional[int] = None) -> str:
     def result_table_sort_key(row: Dict[str, Any]) -> Tuple[int, int, str]:
         status_order = {
@@ -2843,10 +2929,12 @@ def render_results_table(rows: List[Dict[str, Any]], title: str, limit: Optional
             f'<td><b>{add_rank(pick_name(r), r, "pick")}</b><br><span class="odds-line">Pick @{fmt_odds(pick_odds(r))}</span><br><small>{esc(meta_line(r))}</small></td>'
             f'<td><b>{add_rank(opponent_name(r), r, "opponent")}</b></td>'
             f'<td>{as_pct(probability(r),1)}</td>'
-            f'<td>{as_pct(thinq_conf(r),1)}</td>'
+            f'<td>{as_pct(thinq_prob(r),1)}<br><small>C {as_pct(thinq_conf(r),1)}</small></td>'
+            f'<td>{render_mmx_marq_result_cell(r)}</td>'
             f'<td>{bar_html(stat_depth(r))}<br>{bar_html(form_depth(r))}</td>'
             f'<td>{signed_pct(pick_edge(r))}</td>'
             f'<td>{sg}</td>'
+            f'<td>{render_props_result_cell(r)}</td>'
             f'<td><span class="odds-line">{fmt_odds(pick_odds(r))}</span></td>'
             f'<td class="{st_cls}">{esc(st)}</td>'
             f'<td>{esc(r.get("winner") or "—")}</td>'
@@ -2857,27 +2945,43 @@ def render_results_table(rows: List[Dict[str, Any]], title: str, limit: Optional
         )
     return f"""
 <div class="results-panel"><div class="summary-title">{esc(title)}</div><div class="tag-list result-status-summary">{status_summary}{clear_filter}</div><div class="tag-list result-audit-filter-summary">{tag_summary}</div><div class="table-wrap"><table class="results-table"><thead><tr>
-<th>Date</th><th>Pick</th><th>Opponent</th><th>CorQ</th><th>ThinQ</th><th>Depth</th><th>Pick Edge</th><th>Sets/Games</th><th>Odds</th><th>Status</th><th>Winner</th><th>Score</th><th>Units</th><th>Tags</th>
+<th>Date</th><th>Pick</th><th>Opponent</th><th>CorQ</th><th>ThinQ</th><th>MMx/MarQ</th><th>Depth</th><th>Pick Edge</th><th>Sets/Games</th><th>Aces/DF</th><th>Odds</th><th>Status</th><th>Winner</th><th>Score</th><th>Units</th><th>Tags</th>
 </tr></thead><tbody>{''.join(body)}</tbody></table></div></div>"""
 
 
 def render_sets_games_result_cell(row: Dict[str, Any]) -> str:
-    pred_sets = row.get("projected_sets") or row.get("sets_projected") or row.get("sets")
-    actual_sets = row.get("actual_sets")
-    pred_games = row.get("projected_games") or row.get("games_projected") or row.get("games")
-    actual_games = row.get("actual_games")
-    score_pred = row.get("predicted_score") or row.get("score_prediction")
+    sg = row.get("sets_games") if isinstance(row.get("sets_games"), dict) else {}
+    pred_sets = result_lookup(row, "projected_sets", "sets_games.projected_sets")
+    actual_sets = result_lookup(row, "actual_sets", "sets_games.actual_sets")
+    sets_sel = result_lookup(row, "sets_selection", "sets_games.sets_selection", "prediction_snapshot.sets_games.sets_selection")
+    sets_prob = result_lookup(row, "sets_probability", "sets_games.sets_probability", "prediction_snapshot.sets_games.sets_probability")
+    sets_hit = result_lookup(row, "sets_ou_hit", "sets_games.sets_ou_hit")
+
+    pred_games = result_lookup(row, "projected_games", "sets_games.projected_games")
+    actual_games = result_lookup(row, "actual_games", "sets_games.actual_games")
+    games_sel = result_lookup(row, "games_selection", "sets_games.games_selection", "prediction_snapshot.sets_games.games_selection")
+    games_prob = result_lookup(row, "games_probability", "sets_games.games_probability", "prediction_snapshot.sets_games.games_probability")
+    games_hit = result_lookup(row, "games_ou_hit", "sets_games.games_ou_hit")
+    games_error = result_lookup(row, "games_error", "sets_games.games_error")
+
+    tb_prob = result_lookup(row, "tb_probability", "sets_games.tb_probability", "sets_games.tie_break_probability", "prediction_snapshot.sets_games.tb_probability")
+    actual_tb = result_lookup(row, "actual_tiebreak", "sets_games.actual_tiebreak")
+    tb_hit = result_lookup(row, "tb_hit", "sets_games.tb_hit")
+
     bits = []
-    if pred_sets is not None or actual_sets is not None:
-        hit = row.get("sets_hit")
-        tag = "HIT" if hit is True else "MISS" if hit is False else "—"
-        bits.append(f'<span class="result-tag">Sets: Pred {esc(pred_sets or "—")} → Real {esc(actual_sets or "—")} · {tag}</span>')
-    if pred_games is not None or actual_games is not None:
-        err = row.get("games_error")
-        err_txt = "" if err is None else f" · err {as_float(err,0):+.1f}"
-        bits.append(f'<span class="result-tag">Games: Pred {esc(pred_games or "—")} → Real {esc(actual_games or "—")}{esc(err_txt)}</span>')
-    if score_pred:
-        bits.append(f'<span class="result-tag">Score pred {esc(score_pred)}</span>')
+    if pred_sets is not None or actual_sets is not None or sets_sel:
+        prob_txt = f" {result_pct_text(sets_prob)}" if sets_prob is not None else ""
+        bits.append(f'<span class="result-tag">Sets: Pred {esc(pred_sets if pred_sets is not None else "—")} | {esc(sets_sel or "—")}{prob_txt} -> Real {esc(actual_sets if actual_sets is not None else "—")}</span> {result_hit_badge(sets_hit)}')
+    if pred_games is not None or actual_games is not None or games_sel:
+        prob_txt = f" {result_pct_text(games_prob)}" if games_prob is not None else ""
+        err_txt = "" if games_error is None else f" · err {as_float(games_error,0):+.1f}"
+        bits.append(f'<span class="result-tag">Games: Pred {esc(pred_games if pred_games is not None else "—")} | {esc(games_sel or "—")}{prob_txt} -> Real {esc(actual_games if actual_games is not None else "—")}{esc(err_txt)}</span> {result_hit_badge(games_hit)}')
+    if tb_prob is not None or actual_tb is not None:
+        tb_real = "Yes" if actual_tb is True else "No" if actual_tb is False else "—"
+        bits.append(f'<span class="result-tag">TB: {result_pct_text(tb_prob)} -> Real {esc(tb_real)}</span> {result_hit_badge(tb_hit)}')
+    source = result_lookup(row, "sets_games_market_source", "sets_model_source", "sets_games.market_source", "prediction_snapshot.sets_games.market_source")
+    if source:
+        bits.append(f'<small>Market: {esc(source)}</small>')
     return "<br>".join(bits) if bits else "—"
 
 
