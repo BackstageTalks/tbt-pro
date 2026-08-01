@@ -731,6 +731,111 @@ def _enrich_with_sets_games(record: Dict[str, Any]) -> Dict[str, Any]:
         record.setdefault("sets_games_best_value", "Pending lines")
     return record
 
+
+def _probability_ratio(value: Any) -> Optional[float]:
+    num = _num(value)
+    if num is None:
+        return None
+    if num > 1.0:
+        num /= 100.0
+    if 0.0 <= num <= 1.0:
+        return num
+    return None
+
+
+def _first_probability_ratio(record: Dict[str, Any], *keys: str) -> Optional[float]:
+    for key in keys:
+        value = record.get(key)
+        ratio = _probability_ratio(value)
+        if ratio is not None:
+            return ratio
+    return None
+
+
+def _price_bucket_label(odds: Optional[float]) -> str:
+    if odds is None:
+        return "Unknown"
+    if odds < 1.50:
+        return "Short"
+    if odds <= 2.20:
+        return "Fair"
+    return "Long Risk"
+
+
+def _value_bucket_label(delta_pp: Optional[float]) -> str:
+    if delta_pp is None:
+        return "Unknown"
+    if delta_pp >= 3.0:
+        return "Value+"
+    if delta_pp >= -2.0:
+        return "Neutral"
+    return "No Value"
+
+
+def _enrich_with_price_value(record: Dict[str, Any]) -> Dict[str, Any]:
+    """Attach non-filtering betting-value audit fields.
+
+    These fields do NOT select or reject picks. They only make price/value
+    visible in CorQ, Audit and Results snapshots:
+    - raw implied probability = 1 / pick odds
+    - Value Delta = CorQ probability - raw implied probability
+    - EV = CorQ probability * decimal odds - 1
+    """
+    odds = _decimal_odds(
+        _first_present(
+            record.get("pick_odds"),
+            record.get("odds"),
+            record.get("selected_odds"),
+            record.get("odds_decimal"),
+            record.get("decimal_odds"),
+        )
+    )
+    corq_prob = _first_probability_ratio(
+        record,
+        "corq_calibrated_probability",
+        "corq_probability",
+        "corq_estimated_win_probability",
+        "win_probability",
+        "estimated_win_probability",
+        "probability",
+    )
+    if odds is None or corq_prob is None or odds <= 0:
+        record.setdefault("price_value_status", "MISSING_VALUE_INPUT")
+        return record
+
+    raw_implied = 1.0 / odds
+    delta_pp = (corq_prob - raw_implied) * 100.0
+    ev_ratio = (corq_prob * odds) - 1.0
+    ev_pct = ev_ratio * 100.0
+
+    price_bucket = _price_bucket_label(odds)
+    value_bucket = _value_bucket_label(delta_pp)
+    price_slug = price_bucket.upper().replace(" ", "_")
+    value_slug = (
+        "VALUE_POSITIVE" if value_bucket == "Value+" else
+        "VALUE_NEUTRAL" if value_bucket == "Neutral" else
+        "VALUE_NEGATIVE" if value_bucket == "No Value" else
+        "VALUE_UNKNOWN"
+    )
+
+    record["raw_implied_probability"] = round(raw_implied, 6)
+    record["raw_implied_probability_pct"] = round(raw_implied * 100.0, 2)
+    record["break_even_probability"] = round(raw_implied, 6)
+    record["break_even_probability_pct"] = round(raw_implied * 100.0, 2)
+    record["corq_value_delta_pp"] = round(delta_pp, 2)
+    record["expected_value"] = round(ev_ratio, 6)
+    record["expected_value_pct"] = round(ev_pct, 2)
+    record["price_value_grade"] = price_slug
+    record["price_value_tag"] = value_slug
+    record["price_value_display"] = f"{price_bucket} | {value_bucket}"
+    record["price_value_status"] = "OK"
+    tags = [price_slug, value_slug]
+    existing = record.get("price_value_tags")
+    if isinstance(existing, list):
+        tags = list(dict.fromkeys([str(x) for x in existing if x] + tags))
+    record["price_value_tags"] = tags
+    return record
+
 def _write_results_foundation_snapshots(
     all_rows: List[Dict[str, Any]],
     top7_rows: List[Dict[str, Any]],
@@ -774,6 +879,7 @@ def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", ru
         prediction = _enrich_with_sets_games(prediction)
         prediction = _enrich_with_marq(prediction)
         prediction = apply_corq_market_calibration(prediction)
+        prediction = _enrich_with_price_value(prediction)
         scored.append(prediction)
 
     all_view = make_all_match_view(scored)
