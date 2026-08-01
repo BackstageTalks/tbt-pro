@@ -18,6 +18,8 @@
   "is_doubles": false,
   "source": "RapidAPI PRO",
   "raw": {
+    "homeTeamSeed": "1",
+    "awayTeamSeed": "WC",
     "tournament": {
       "name": "Toronto, Canada, Qualifying",
       "slug": "toronto-canada-qualifying",
@@ -68,7 +70,7 @@
             "shortNameTranslation": {}
           }
         },
-        "userCount": 1100,
+        "userCount": 1141,
         "groundType": "Hardcourt outdoor",
         "tennisPoints": 1000,
         "hasPerformanceGraphFeature": false,
@@ -118,7 +120,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 5280,
+      "userCount": 5268,
       "playerTeamInfo": {
         "id": 12375
       },
@@ -160,7 +162,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 191,
+      "userCount": 190,
       "playerTeamInfo": {
         "id": 5436
       },
@@ -2156,7 +2158,7 @@
   "ta_opp_status": "OK",
   "ta_scope": "last52_overall",
   "ta_surface": "hard",
-  "sets_model_source": "ModelFallback",
+  "sets_model_source": "TennisApiMarkets",
   "api_serve_stats_source": "API_PRO_TEAM_YEAR_STATS",
   "api_serve_stats_status": "PARTIAL",
   "api_pick_ace_pct": 1.68,
@@ -2350,8 +2352,8 @@
   "tiebreak_selection": null,
   "tie_break_probability": null,
   "tb_probability": null,
-  "sets_games_market_source": null,
-  "sets_games_raw_market_count": null,
+  "sets_games_market_source": "TennisApiPRO getAllOddsForEvent",
+  "sets_games_raw_market_count": 1,
   "double_faults_available": false,
   "opponent_df_pct": null,
   "opponent_ace_pct": null,
@@ -2378,10 +2380,11 @@
   "marq_ai_strength": 25,
   "marq_ai_consistency": 35,
   "marq_ai_reason": "ok",
+  "marq_event_id": "16687754",
   "marq_outcome_key": "od1",
-  "marq_source": "fallback_existing_odds_thin_market",
+  "marq_source": "tennisapi_market_quality",
   "marq_market_name": "Full time",
-  "marq_provider_count": 1,
+  "marq_provider_count": 2,
   "marq_market_spread_pct": 0.0,
   "marq_market_median_odds": 1.02,
   "marq_outlier_count": 0,

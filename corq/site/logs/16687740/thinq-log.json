@@ -13,11 +13,12 @@
   "best_of": 3,
   "match_start": "2026-08-01T20:10:00+00:00",
   "start_time": "2026-08-01T20:10:00+00:00",
-  "status_type": "notstarted",
-  "status_code": 0,
+  "status_type": "canceled",
+  "status_code": 70,
   "is_doubles": false,
   "source": "RapidAPI PRO",
   "raw": {
+    "homeTeamSeed": "8",
     "tournament": {
       "name": "Toronto, Canada, Qualifying",
       "slug": "toronto-canada-qualifying",
@@ -68,7 +69,7 @@
             "shortNameTranslation": {}
           }
         },
-        "userCount": 1100,
+        "userCount": 1141,
         "groundType": "Hardcourt outdoor",
         "tennisPoints": 1000,
         "hasPerformanceGraphFeature": false,
@@ -104,9 +105,9 @@
     },
     "customId": "VZAbsVPgc",
     "status": {
-      "code": 0,
-      "description": "Not started",
-      "type": "notstarted"
+      "code": 70,
+      "description": "Canceled",
+      "type": "canceled"
     },
     "homeTeam": {
       "name": "Anna Blinkova",
@@ -118,7 +119,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 4053,
+      "userCount": 4056,
       "playerTeamInfo": {
         "id": 336
       },
@@ -162,7 +163,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 1298,
+      "userCount": 1390,
       "playerTeamInfo": {
         "id": 4074
       },
@@ -199,7 +200,12 @@
     "awayScore": {},
     "time": {},
     "changes": {
-      "changeTimestamp": 0
+      "changes": [
+        "status.code",
+        "status.description",
+        "status.type"
+      ],
+      "changeTimestamp": 1785592502
     },
     "hasGlobalHighlights": false,
     "crowdsourcingDataDisplayEnabled": false,
@@ -2152,7 +2158,7 @@
   "ta_opp_status": "OK",
   "ta_scope": "last52_overall",
   "ta_surface": "hard",
-  "sets_model_source": "ModelFallback",
+  "sets_model_source": "TennisApiMarkets",
   "api_serve_stats_source": "API_PRO_TEAM_YEAR_STATS",
   "api_serve_stats_status": "OK",
   "api_pick_ace_pct": 0.88,
@@ -2321,19 +2327,19 @@
     "TA profile missing or no usable scoped stats"
   ],
   "ta_signal_score_projection": "N/A",
-  "expected_sets": 2.47,
+  "expected_sets": 2.46,
   "sets_selection": "O2.5",
-  "sets_probability": 0.47,
+  "sets_probability": 0.4553,
   "sets_probability_label": "O2.5",
-  "sets_o25_probability": 0.47,
+  "sets_o25_probability": 0.4553,
   "sets_o45_probability": null,
   "most_likely_score": "2-0",
-  "most_likely_score_probability": 0.2915,
+  "most_likely_score_probability": 0.3274,
   "score_probabilities": {
-    "2-0": 0.2915,
-    "2-1": 0.235,
-    "1-2": 0.235,
-    "0-2": 0.2385
+    "2-0": 0.3274,
+    "2-1": 0.2443,
+    "1-2": 0.211,
+    "0-2": 0.2172
   },
   "score_basis": "player1_vs_player2",
   "sets_source": "Model",
@@ -2341,43 +2347,43 @@
   "first_set_player2_odds": null,
   "first_set_player1_probability": null,
   "first_set_player2_probability": null,
-  "expected_games": 23.1,
-  "projected_total_games": 23.1,
+  "expected_games": 22.9,
+  "projected_total_games": 22.9,
   "games_line": 23.0,
   "total_games_line": 23.0,
-  "games_pick": "Over 23",
-  "games_selection": "O23",
+  "games_pick": "Under 23",
+  "games_selection": "U23",
   "games_probability": 0.5135,
   "games_model_source": "ModelFallback",
   "games_data_quality": "C+",
-  "best_total_selection": "O23",
+  "best_total_selection": "U23",
   "best_total_probability": 0.5135,
   "games_over_odds": null,
   "games_under_odds": null,
-  "games_over_probability": 0.5135,
-  "games_under_probability": 0.4865,
+  "games_over_probability": 0.4865,
+  "games_under_probability": 0.5135,
   "tie_break_yes_odds": null,
   "tie_break_no_odds": null,
   "tie_break_selection": null,
   "tiebreak_selection": null,
   "tie_break_probability": null,
   "tb_probability": null,
-  "sets_games_market_source": null,
-  "sets_games_raw_market_count": null,
+  "sets_games_market_source": "TennisApiPRO getAllOddsForEvent",
+  "sets_games_raw_market_count": 1,
   "double_faults_available": true,
   "df_pick": 2.5,
   "df_opponent": 2.3,
-  "df_total": 4.8,
+  "df_total": 4.7,
   "df_source": "TA/Sackmann DF% + games_line",
   "pick_df_side": "Under",
   "pick_df_selection": "U2.8",
-  "pick_df_probability": 0.5809,
+  "pick_df_probability": 0.5867,
   "opponent_df_side": "Under",
   "opponent_df_selection": "U2.5",
-  "opponent_df_probability": 0.5616,
+  "opponent_df_probability": 0.567,
   "total_df_side": "Under",
   "total_df_selection": "U5.3",
-  "total_df_probability": 0.6018,
+  "total_df_probability": 0.6098,
   "pick_aces_line_source": "MODEL_PROJECTION_LINE",
   "opponent_aces_line_source": "MODEL_PROJECTION_LINE",
   "total_aces_line_source": "MODEL_PROJECTION_LINE",
@@ -2385,8 +2391,8 @@
   "opponent_df_line_source": "MODEL_PROJECTION_LINE",
   "total_df_line_source": "MODEL_PROJECTION_LINE",
   "best_bet": "U5.3",
-  "best_bet_display": "U5.3 60%",
-  "best_bet_probability": 0.6018,
+  "best_bet_display": "U5.3 61%",
+  "best_bet_probability": 0.6098,
   "best_bet_market": "Total DF",
   "sets_games_value_candidates": [],
   "value_bet": null,
@@ -2401,10 +2407,11 @@
   "marq_ai_strength": 25,
   "marq_ai_consistency": 35,
   "marq_ai_reason": "ok",
+  "marq_event_id": "16687740",
   "marq_outcome_key": "od1",
-  "marq_source": "fallback_existing_odds_thin_market",
+  "marq_source": "tennisapi_market_quality",
   "marq_market_name": "Full time",
-  "marq_provider_count": 1,
+  "marq_provider_count": 2,
   "marq_market_spread_pct": 0.0,
   "marq_market_median_odds": 1.7273,
   "marq_outlier_count": 0,
@@ -2447,17 +2454,23 @@
   "edge": -0.0249,
   "corq_source_rank": 45,
   "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
-  "top7_publishable": true,
-  "eligible_for_top7": true,
-  "top7_quality_reject_reasons": [],
-  "top7_reject_reasons": [],
-  "top7_hard_reject_reasons": [],
-  "top7_primary_reject_reason": null,
-  "top7_reject_reason_count": 0,
+  "top7_publishable": false,
+  "eligible_for_top7": false,
+  "top7_quality_reject_reasons": [
+    "REJECT_TOP7_STATUS_NOT_PREMATCH"
+  ],
+  "top7_reject_reasons": [
+    "REJECT_TOP7_STATUS_NOT_PREMATCH"
+  ],
+  "top7_hard_reject_reasons": [
+    "REJECT_TOP7_STATUS_NOT_PREMATCH"
+  ],
+  "top7_primary_reject_reason": "REJECT_TOP7_STATUS_NOT_PREMATCH",
+  "top7_reject_reason_count": 1,
   "top7_reject_summary_scope": "NON_PUBLISHABLE_ROWS_ONLY",
-  "top7_status_allowed": true,
-  "top7_status_type_normalized": "notstarted",
-  "top7_status_code": 0,
+  "top7_status_allowed": false,
+  "top7_status_type_normalized": "canceled",
+  "top7_status_code": 70,
   "top7_corq_probability": 0.554,
   "top7_pick_thinq_edge": 0.0697,
   "top7_thinq_confidence": 0.88,
@@ -2509,10 +2522,10 @@
   ],
   "top7_risk_penalty_points": 0.0,
   "top7_clean_bonus_points": 3.0,
-  "top7_quality_score": 82.6246,
+  "top7_quality_score": 0.0,
   "corq_warning_flags": [
     "CLEAN_MODEL_SUPPORT"
   ],
   "corq_rank": 45,
-  "_corq_render_rank": 25
+  "_corq_render_rank": 26
 }

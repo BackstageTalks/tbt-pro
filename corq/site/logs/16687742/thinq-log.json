@@ -13,11 +13,12 @@
   "best_of": 3,
   "match_start": "2026-08-01T19:00:00+00:00",
   "start_time": "2026-08-01T19:00:00+00:00",
-  "status_type": "notstarted",
-  "status_code": 0,
+  "status_type": "canceled",
+  "status_code": 70,
   "is_doubles": false,
   "source": "RapidAPI PRO",
   "raw": {
+    "homeTeamSeed": "15",
     "tournament": {
       "name": "Toronto, Canada, Qualifying",
       "slug": "toronto-canada-qualifying",
@@ -68,7 +69,7 @@
             "shortNameTranslation": {}
           }
         },
-        "userCount": 1100,
+        "userCount": 1141,
         "groundType": "Hardcourt outdoor",
         "tennisPoints": 1000,
         "hasPerformanceGraphFeature": false,
@@ -104,9 +105,9 @@
     },
     "customId": "fOKcsmdJd",
     "status": {
-      "code": 0,
-      "description": "Not started",
-      "type": "notstarted"
+      "code": 70,
+      "description": "Canceled",
+      "type": "canceled"
     },
     "homeTeam": {
       "name": "Taylah Preston",
@@ -118,7 +119,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 1312,
+      "userCount": 1355,
       "playerTeamInfo": {
         "id": 5218
       },
@@ -160,7 +161,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 1702,
+      "userCount": 1700,
       "playerTeamInfo": {
         "id": 11963
       },
@@ -196,7 +197,12 @@
     "awayScore": {},
     "time": {},
     "changes": {
-      "changeTimestamp": 0
+      "changes": [
+        "status.code",
+        "status.description",
+        "status.type"
+      ],
+      "changeTimestamp": 1785592502
     },
     "hasGlobalHighlights": false,
     "crowdsourcingDataDisplayEnabled": false,
@@ -391,7 +397,7 @@
       "pick": {
         "player": "Emerson Jones",
         "normalized_player": "emerson jones",
-        "total_history_matches": 22,
+        "total_history_matches": 21,
         "last5": {
           "count": 5,
           "wins": 2,
@@ -432,7 +438,7 @@
         },
         "api_status": "OK",
         "api_event_count": 30,
-        "api_usable_match_count": 22,
+        "api_usable_match_count": 21,
         "api_endpoint": "https://tennisapi1.p.rapidapi.com/api/tennis/player/460162/events/previous/0",
         "api_cache_path": "data/api_pro/team_last_matches/460162_last_0.json"
       },
@@ -523,7 +529,7 @@
       "opponent_api_status": "OK",
       "pick_api_event_count": 30,
       "opponent_api_event_count": 30,
-      "pick_api_usable_match_count": 22,
+      "pick_api_usable_match_count": 21,
       "opponent_api_usable_match_count": 26,
       "recent_form_sample_audit": {
         "status": "OK",
@@ -532,7 +538,7 @@
         "opponent_last10_count": 10,
         "pick_surface_count": 10,
         "opponent_surface_count": 10,
-        "pick_total_history_matches": 22,
+        "pick_total_history_matches": 21,
         "opponent_total_history_matches": 26
       },
       "flags": [
@@ -757,7 +763,7 @@
         "pick": {
           "player": "Emerson Jones",
           "normalized_player": "emerson jones",
-          "total_history_matches": 22,
+          "total_history_matches": 21,
           "last5": {
             "count": 5,
             "wins": 2,
@@ -798,7 +804,7 @@
           },
           "api_status": "OK",
           "api_event_count": 30,
-          "api_usable_match_count": 22,
+          "api_usable_match_count": 21,
           "api_endpoint": "https://tennisapi1.p.rapidapi.com/api/tennis/player/460162/events/previous/0",
           "api_cache_path": "data/api_pro/team_last_matches/460162_last_0.json"
         },
@@ -889,7 +895,7 @@
         "opponent_api_status": "OK",
         "pick_api_event_count": 30,
         "opponent_api_event_count": 30,
-        "pick_api_usable_match_count": 22,
+        "pick_api_usable_match_count": 21,
         "opponent_api_usable_match_count": 26,
         "recent_form_sample_audit": {
           "status": "OK",
@@ -898,7 +904,7 @@
           "opponent_last10_count": 10,
           "pick_surface_count": 10,
           "opponent_surface_count": 10,
-          "pick_total_history_matches": 22,
+          "pick_total_history_matches": 21,
           "opponent_total_history_matches": 26
         },
         "flags": [
@@ -1213,7 +1219,7 @@
     "opponent_api_status": "OK",
     "pick_api_event_count": 30,
     "opponent_api_event_count": 30,
-    "pick_api_usable_match_count": 22,
+    "pick_api_usable_match_count": 21,
     "opponent_api_usable_match_count": 26,
     "ta_context": {
       "ta_status": "OK",
@@ -1825,7 +1831,7 @@
     "pick": {
       "player": "Emerson Jones",
       "normalized_player": "emerson jones",
-      "total_history_matches": 22,
+      "total_history_matches": 21,
       "last5": {
         "count": 5,
         "wins": 2,
@@ -1866,7 +1872,7 @@
       },
       "api_status": "OK",
       "api_event_count": 30,
-      "api_usable_match_count": 22,
+      "api_usable_match_count": 21,
       "api_endpoint": "https://tennisapi1.p.rapidapi.com/api/tennis/player/460162/events/previous/0",
       "api_cache_path": "data/api_pro/team_last_matches/460162_last_0.json"
     },
@@ -1957,7 +1963,7 @@
     "opponent_api_status": "OK",
     "pick_api_event_count": 30,
     "opponent_api_event_count": 30,
-    "pick_api_usable_match_count": 22,
+    "pick_api_usable_match_count": 21,
     "opponent_api_usable_match_count": 26,
     "recent_form_sample_audit": {
       "status": "OK",
@@ -1966,7 +1972,7 @@
       "opponent_last10_count": 10,
       "pick_surface_count": 10,
       "opponent_surface_count": 10,
-      "pick_total_history_matches": 22,
+      "pick_total_history_matches": 21,
       "opponent_total_history_matches": 26
     },
     "flags": [
@@ -2139,7 +2145,7 @@
   "ta_opp_status": "OK",
   "ta_scope": "last52_overall",
   "ta_surface": "hard",
-  "sets_model_source": "ModelFallback",
+  "sets_model_source": "TennisApiMarkets",
   "api_serve_stats_source": "API_PRO_TEAM_YEAR_STATS",
   "api_serve_stats_status": "OK",
   "api_pick_ace_pct": 1.36,
@@ -2308,19 +2314,19 @@
     "TA profile missing or no usable scoped stats"
   ],
   "ta_signal_score_projection": "N/A",
-  "expected_sets": 2.47,
+  "expected_sets": 2.46,
   "sets_selection": "O2.5",
-  "sets_probability": 0.47,
+  "sets_probability": 0.4553,
   "sets_probability_label": "O2.5",
-  "sets_o25_probability": 0.47,
+  "sets_o25_probability": 0.4553,
   "sets_o45_probability": null,
   "most_likely_score": "2-0",
-  "most_likely_score_probability": 0.2915,
+  "most_likely_score_probability": 0.3274,
   "score_probabilities": {
-    "2-0": 0.2915,
-    "2-1": 0.235,
-    "1-2": 0.235,
-    "0-2": 0.2385
+    "2-0": 0.3274,
+    "2-1": 0.2443,
+    "1-2": 0.211,
+    "0-2": 0.2172
   },
   "score_basis": "player1_vs_player2",
   "sets_source": "Model",
@@ -2328,55 +2334,55 @@
   "first_set_player2_odds": null,
   "first_set_player1_probability": null,
   "first_set_player2_probability": null,
-  "expected_games": 23.1,
-  "projected_total_games": 23.1,
+  "expected_games": 22.9,
+  "projected_total_games": 22.9,
   "games_line": 23.0,
   "total_games_line": 23.0,
-  "games_pick": "Over 23",
-  "games_selection": "O23",
+  "games_pick": "Under 23",
+  "games_selection": "U23",
   "games_probability": 0.5135,
   "games_model_source": "ModelFallback",
   "games_data_quality": "C+",
-  "best_total_selection": "O23",
+  "best_total_selection": "U23",
   "best_total_probability": 0.5135,
   "games_over_odds": null,
   "games_under_odds": null,
-  "games_over_probability": 0.5135,
-  "games_under_probability": 0.4865,
+  "games_over_probability": 0.4865,
+  "games_under_probability": 0.5135,
   "tie_break_yes_odds": null,
   "tie_break_no_odds": null,
   "tie_break_selection": null,
   "tiebreak_selection": null,
   "tie_break_probability": null,
   "tb_probability": null,
-  "sets_games_market_source": null,
-  "sets_games_raw_market_count": null,
+  "sets_games_market_source": "TennisApiPRO getAllOddsForEvent",
+  "sets_games_raw_market_count": 1,
   "double_faults_available": true,
   "df_pick": 2.5,
   "df_opponent": 2.1,
-  "df_total": 4.7,
+  "df_total": 4.6,
   "df_source": "TA/Sackmann DF% + games_line",
   "pick_df_side": "Under",
   "pick_df_selection": "U2.8",
-  "pick_df_probability": 0.5711,
+  "pick_df_probability": 0.5771,
   "opponent_df_side": "Under",
   "opponent_df_selection": "U2.3",
-  "opponent_df_probability": 0.5519,
+  "opponent_df_probability": 0.5569,
   "total_df_side": "Under",
   "total_df_selection": "U5.1",
-  "total_df_probability": 0.5881,
+  "total_df_probability": 0.5959,
   "pick_aces": 1.0,
   "opponent_aces": 1.5,
   "total_aces": 2.4,
   "pick_aces_side": "Under",
   "pick_aces_selection": "U1",
-  "pick_aces_probability": 0.5057,
+  "pick_aces_probability": 0.5075,
   "opponent_aces_side": "Under",
   "opponent_aces_selection": "U1.5",
-  "opponent_aces_probability": 0.507,
+  "opponent_aces_probability": 0.5097,
   "total_aces_side": "Under",
   "total_aces_selection": "U2.5",
-  "total_aces_probability": 0.5085,
+  "total_aces_probability": 0.5117,
   "aces_source": "TA A% + projected service points",
   "pick_aces_line_source": "MODEL_PROJECTION_LINE",
   "opponent_aces_line_source": "MODEL_PROJECTION_LINE",
@@ -2385,8 +2391,8 @@
   "opponent_df_line_source": "MODEL_PROJECTION_LINE",
   "total_df_line_source": "MODEL_PROJECTION_LINE",
   "best_bet": "U5.1",
-  "best_bet_display": "U5.1 59%",
-  "best_bet_probability": 0.5881,
+  "best_bet_display": "U5.1 60%",
+  "best_bet_probability": 0.5959,
   "best_bet_market": "Total DF",
   "sets_games_value_candidates": [],
   "value_bet": null,
@@ -2401,10 +2407,11 @@
   "marq_ai_strength": 25,
   "marq_ai_consistency": 35,
   "marq_ai_reason": "ok",
+  "marq_event_id": "16687742",
   "marq_outcome_key": "od2",
-  "marq_source": "fallback_existing_odds_thin_market",
+  "marq_source": "tennisapi_market_quality",
   "marq_market_name": "Full time",
-  "marq_provider_count": 1,
+  "marq_provider_count": 2,
   "marq_market_spread_pct": 0.0,
   "marq_market_median_odds": 2.0,
   "marq_outlier_count": 0,
@@ -2447,17 +2454,23 @@
   "edge": 0.0611,
   "corq_source_rank": 43,
   "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
-  "top7_publishable": true,
-  "eligible_for_top7": true,
-  "top7_quality_reject_reasons": [],
-  "top7_reject_reasons": [],
-  "top7_hard_reject_reasons": [],
-  "top7_primary_reject_reason": null,
-  "top7_reject_reason_count": 0,
+  "top7_publishable": false,
+  "eligible_for_top7": false,
+  "top7_quality_reject_reasons": [
+    "REJECT_TOP7_STATUS_NOT_PREMATCH"
+  ],
+  "top7_reject_reasons": [
+    "REJECT_TOP7_STATUS_NOT_PREMATCH"
+  ],
+  "top7_hard_reject_reasons": [
+    "REJECT_TOP7_STATUS_NOT_PREMATCH"
+  ],
+  "top7_primary_reject_reason": "REJECT_TOP7_STATUS_NOT_PREMATCH",
+  "top7_reject_reason_count": 1,
   "top7_reject_summary_scope": "NON_PUBLISHABLE_ROWS_ONLY",
-  "top7_status_allowed": true,
-  "top7_status_type_normalized": "notstarted",
-  "top7_status_code": 0,
+  "top7_status_allowed": false,
+  "top7_status_type_normalized": "canceled",
+  "top7_status_code": 70,
   "top7_corq_probability": 0.5611,
   "top7_pick_thinq_edge": 0.1173,
   "top7_thinq_confidence": 0.88,
@@ -2509,7 +2522,7 @@
   ],
   "top7_risk_penalty_points": 0.0,
   "top7_clean_bonus_points": 3.0,
-  "top7_quality_score": 85.7872,
+  "top7_quality_score": 0.0,
   "corq_warning_flags": [
     "CLEAN_MODEL_SUPPORT"
   ],
