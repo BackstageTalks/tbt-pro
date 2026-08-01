@@ -3257,6 +3257,349 @@ def render_all() -> None:
     print(f"Rendered site: top7={len(top7)} all={len(all_rows_for_audit)} cloq={len(cloq)} root={SITE_DIR}")
 
 
+
+# ============================================================
+# Results card layout override V2
+# This replaces the old table-based Results view with CorQ-style audit cards.
+# ============================================================
+
+def _result_css_block() -> str:
+    return """
+<style>
+.results-card-grid{display:grid;gap:14px;margin-top:14px}
+.result-card{display:grid;grid-template-columns:minmax(245px,1.10fr) repeat(6,minmax(165px,.95fr));gap:10px;background:rgba(10,18,32,.72);border:1px solid #20314a;border-radius:22px;padding:12px;box-shadow:0 12px 36px rgba(0,0,0,.25)}
+.result-section{margin-top:16px;background:#0d1727;border:1px solid #24344d;border-radius:20px;padding:14px}
+.result-section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.result-section-title{font-size:12px;color:var(--cyan);font-weight:900;text-transform:uppercase;letter-spacing:.12em}
+.result-section-stats{display:flex;flex-wrap:wrap;gap:7px}
+.result-stat-pill{display:inline-flex;align-items:center;border-radius:999px;padding:4px 8px;background:#13243a;border:1px solid #35506f;color:#dbeafe;font-size:11px;font-weight:850}
+.result-eval-row{border-radius:9px;margin:2px -4px;padding-left:4px!important;padding-right:4px!important;border-top:1px solid rgba(148,163,184,.14)!important}
+.result-eval-row.result-good{background:rgba(16,185,129,.10);box-shadow:inset 3px 0 0 rgba(52,211,153,.95)}
+.result-eval-row.result-good b{color:#86efac!important}
+.result-eval-row.result-bad{background:rgba(248,113,113,.10);box-shadow:inset 3px 0 0 rgba(248,113,113,.95)}
+.result-eval-row.result-bad b{color:#fca5a5!important}
+.result-eval-row.result-neutral b{color:#dbeafe!important}
+.result-box-good{border-color:rgba(52,211,153,.72)!important;box-shadow:0 0 0 1px rgba(52,211,153,.16),0 0 18px rgba(16,185,129,.11)}
+.result-box-bad{border-color:rgba(248,113,113,.78)!important;box-shadow:0 0 0 1px rgba(248,113,113,.16),0 0 18px rgba(248,113,113,.10)}
+.result-box-neutral{border-color:#283a55!important}
+.result-status-title b.status-won,.result-status-title b.status-hit{color:#34d399!important}
+.result-status-title b.status-lost,.result-status-title b.status-miss{color:#f87171!important}
+.result-status-title b.status-pending{color:#facc15!important}
+.result-status-title b.status-void{color:#94a3b8!important}
+.result-card .note{font-size:10px;padding:3px 7px}
+.result-tag-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.result-filter-builder{position:relative!important;top:auto!important;margin-bottom:14px}
+.result-filter-group .audit-pill.active,.result-filter-builder .audit-pill.active{background:rgba(251,146,60,.24)!important;border-color:#fb923c!important;box-shadow:0 0 0 1px rgba(251,146,60,.18),0 0 16px rgba(251,146,60,.13)!important;color:#fff!important}
+@media(max-width:1600px){.result-card{grid-template-columns:1fr 1fr 1fr}.result-card .pick-main{grid-column:span 1}}
+@media(max-width:900px){.result-card{grid-template-columns:1fr}}
+</style>
+"""
+
+
+def _result_eval_class(hit: Any) -> str:
+    if hit is True:
+        return "result-good"
+    if hit is False:
+        return "result-bad"
+    return "result-neutral"
+
+
+def _result_box_class(*hits: Any) -> str:
+    vals = [h for h in hits if h is not None]
+    if not vals:
+        return "result-box-neutral"
+    if any(v is False for v in vals):
+        return "result-box-bad"
+    if any(v is True for v in vals):
+        return "result-box-good"
+    return "result-box-neutral"
+
+
+def _result_metric(label: str, value: str, hit: Any = None, info_key: Optional[str] = None) -> str:
+    key = info_key or _label_info_key(label)
+    cls = _result_eval_class(hit)
+    return f'<div class="metric-row result-eval-row {cls}"><span class="metric-label">{esc(label)} {info_icon(key)}</span><b>{value}</b></div>'
+
+
+def _num_text(value: Any, digits: int = 1, none: str = "—") -> str:
+    num = as_float(value)
+    if num is None:
+        return none
+    return f"{num:.{digits}f}"
+
+
+def _prob_text(value: Any, digits: int = 1, none: str = "—") -> str:
+    return as_pct(value, digits, none)
+
+
+def _yes_no(value: Any) -> str:
+    if value is True:
+        return "Yes"
+    if value is False:
+        return "No"
+    return "—"
+
+
+def _result_card_pick_box(row: Dict[str, Any], rank: int) -> str:
+    notes = result_tags(row)[:6]
+    note_html = ''.join(f'<span class="note">{esc(t)}</span>' for t in notes)
+    status = result_status(row)
+    status_cls = 'status-won' if status == 'WON' else 'status-lost' if status == 'LOST' else 'status-void' if status == 'VOID' else 'status-pending'
+    return "\n".join([
+        '<div class="pick-main compact-v3">',
+        '<div class="compact-topline">',
+        f'<span class="rank-num">#{rank}</span>',
+        f'<span class="status-pill {status_cls}">{esc(status)}</span>',
+        '</div>',
+        '<div class="compact-player pick-side no-label">',
+        '<div class="compact-name-row">',
+        f'<span class="compact-name">{esc(pick_name(row))}<span class="compact-odds pick inline">@ {fmt_odds(pick_odds(row))}</span></span>',
+        f'<span class="compact-rank">{esc(player_rank_display(row, "pick"))}</span>',
+        '</div></div>',
+        '<div class="compact-vs">TO BEAT</div>',
+        '<div class="compact-player opp-side no-label">',
+        '<div class="compact-name-row">',
+        f'<span class="compact-name">{esc(opponent_name(row))}<span class="compact-odds opp inline">@ {fmt_odds(opponent_odds(row))}</span></span>',
+        f'<span class="compact-rank">{esc(player_rank_display(row, "opponent"))}</span>',
+        '</div></div>',
+        '<div class="compact-match"><div class="compact-match-row">',
+        f'<span class="compact-time">{esc(start_time(row))}</span>',
+        f'<span class="compact-meta">{esc(meta_line(row))}</span>',
+        '</div></div>',
+        f'<div class="compact-tags bottom-notes">{note_html}</div>' if note_html else '',
+        '</div>',
+    ])
+
+
+def _raw_implied_prob(row: Dict[str, Any]) -> Optional[float]:
+    odds = pick_odds(row)
+    if not odds or odds <= 0:
+        return None
+    return 1.0 / odds
+
+
+def _value_delta_pp(row: Dict[str, Any]) -> Optional[float]:
+    explicit = result_lookup(row, 'corq_value_delta_pp', 'value_delta_pp', 'prediction_snapshot.value.corq_value_delta_pp')
+    num = as_float(explicit)
+    if num is not None:
+        return num
+    prob = probability(row)
+    implied = _raw_implied_prob(row)
+    if prob is None or implied is None:
+        return None
+    if prob > 1:
+        prob /= 100.0
+    return (prob - implied) * 100.0
+
+
+def _ev_pct(row: Dict[str, Any]) -> Optional[float]:
+    explicit = result_lookup(row, 'expected_value_pct', 'ev_pct', 'prediction_snapshot.value.expected_value_pct')
+    num = as_float(explicit)
+    if num is not None:
+        return num
+    prob = probability(row)
+    odds = pick_odds(row)
+    if prob is None or not odds:
+        return None
+    if prob > 1:
+        prob /= 100.0
+    return (prob * odds - 1.0) * 100.0
+
+
+def _price_text(row: Dict[str, Any]) -> str:
+    explicit = result_lookup(row, 'price_value_tag', 'price_value_grade', 'prediction_snapshot.value.price')
+    if explicit:
+        return str(explicit)
+    odds = pick_odds(row)
+    vd = _value_delta_pp(row)
+    if not odds:
+        return '—'
+    price = 'Short' if odds < 1.50 else 'Fair' if odds < 2.20 else 'Long Risk'
+    value = 'Value+' if vd is not None and vd >= 3.0 else 'No Value' if vd is not None and vd < -2.0 else 'Value Neutral'
+    return f'{price} | {value}'
+
+
+def _result_mmx_box(row: Dict[str, Any]) -> str:
+    thinq_prob_value = result_lookup(row, 'corq_raw_model_probability', 'thinq_pick_probability', 'prediction_snapshot.thinq.pick_probability')
+    marq_prob_value = result_lookup(row, 'corq_market_probability', 'marq_pick_probability', 'marq_crowd_pick_pct', 'prediction_snapshot.marq.pick_probability')
+    thinq_input = result_lookup(row, 'corq_thinq_input_pp', 'prediction_snapshot.mmx.thinq_input_pp')
+    marq_input = result_lookup(row, 'corq_marq_input_pp', 'prediction_snapshot.mmx.marq_input_pp')
+    final_prob = result_lookup(row, 'corq_calibrated_probability', 'corq_probability', 'prediction_snapshot.corq.calibrated_probability')
+    delta = marq_delta_pp(row)
+    value_delta = _value_delta_pp(row)
+    ev = _ev_pct(row)
+    return "\n".join([
+        '<div class="metric-box mmx-box">',
+        f'<div class="box-head"><span>MMx {info_icon("mmx")}</span><b>{esc(mmx_mix_display(row))}</b></div>',
+        metric_row('ThinQ P | MarQ P', f'{as_pct(thinq_prob_value,1)} | {as_pct(marq_prob_value,1)}'),
+        metric_row('ThinQ In | MarQ In', f'{pp_display(thinq_input,1)} | {pp_display(marq_input,1)}'),
+        metric_row('CorQ F | MarQ Δ', f'{as_pct(final_prob,1)} | {pp_display(delta,1)}', sign_class(delta)),
+        metric_row('Value Δ', pp_display(value_delta,1), sign_class(value_delta)),
+        metric_row('EV', signed_market_pct(ev,1), sign_class(ev)),
+        metric_row('Price', esc(_price_text(row)), 'bad' if (value_delta is not None and value_delta < -2) else 'good' if (value_delta is not None and value_delta >= 3) else 'neutral'),
+        '</div>',
+    ])
+
+
+def _result_corq_box(row: Dict[str, Any]) -> str:
+    pe = pick_edge(row)
+    pe_cls = 'good' if pe > 0 else 'bad' if pe < 0 else 'neutral'
+    pe_state = 'Support' if pe > 0.0005 else 'Against' if pe < -0.0005 else 'Neutral'
+    return "\n".join([
+        '<div class="metric-box">',
+        f'<div class="box-head"><span>CorQ {info_icon("corq")}</span><b>{as_pct(probability(row),1)}</b></div>',
+        metric_row('P EL | S-E', esc(elo_pair_display(row)), elo_pair_class(row)),
+        metric_row('O EL | S-E', esc(elo_pair_display(row, opponent=True)), elo_pair_class(row, opponent=True)),
+        metric_row('H2H P-O', esc(h2h_display(row)), h2h_class(row)),
+        metric_row('S-H2H P-O', esc(surface_h2h_display(row)), surface_h2h_class(row)),
+        metric_row('P ThinQ Edge', esc(f'{signed_pct(pe)} | {pe_state}'), pe_cls),
+        metric_row('S Data Depth', bar_html(stat_depth(row))),
+        '</div>',
+    ])
+
+
+def _result_thinq_box(row: Dict[str, Any]) -> str:
+    pf, psf = form_records(row, 'pick')
+    of, osf = form_records(row, 'opponent')
+    return "\n".join([
+        '<div class="metric-box">',
+        f'<div class="box-head"><span>ThinQ P | C {info_icon("thinq_pc")}</span><b>{as_pct(thinq_prob(row),1)} | {as_pct(thinq_conf(row),1)}</b></div>',
+        metric_row('P F | S-F', esc(f'{pf} | {psf}')),
+        metric_row('O F | S-F', esc(f'{of} | {osf}')),
+        metric_row('P R-Edge', signed_pct_na(row.get('recent_form_edge') or row.get('short_form_edge')), sign_class(row.get('recent_form_edge') or row.get('short_form_edge'))),
+        metric_row('P S-Edge', signed_pct_na(row.get('surface_recent_form_edge')), sign_class(row.get('surface_recent_form_edge'))),
+        metric_row('P F Qty', signed_pct_na(row.get('opponent_quality_edge')), sign_class(row.get('opponent_quality_edge'))),
+        metric_row('F Data Depth', bar_html(form_depth(row))),
+        '</div>',
+    ])
+
+
+def _actual_triplet(row: Dict[str, Any], family: str) -> str:
+    if family == 'aces':
+        p = result_lookup(row, 'actual_pick_aces', 'aces_df.actual_pick_aces')
+        o = result_lookup(row, 'actual_opponent_aces', 'aces_df.actual_opponent_aces')
+        t = result_lookup(row, 'actual_total_aces', 'aces_df.actual_total_aces')
+    else:
+        p = result_lookup(row, 'actual_pick_df', 'aces_df.actual_pick_df')
+        o = result_lookup(row, 'actual_opponent_df', 'aces_df.actual_opponent_df')
+        t = result_lookup(row, 'actual_total_df', 'aces_df.actual_total_df')
+    if p is None and o is None and t is None:
+        return '— | — | —'
+    return f'{esc(p if p is not None else "—")} | {esc(o if o is not None else "—")} | {esc(t if t is not None else "—")}'
+
+
+def _result_sets_games_box(row: Dict[str, Any]) -> str:
+    pred_sets = result_lookup(row, 'projected_sets', 'sets_games.projected_sets', 'prediction_snapshot.sets_games.projected_sets')
+    pred_games = result_lookup(row, 'projected_games', 'sets_games.projected_games', 'prediction_snapshot.sets_games.projected_games')
+    actual_sets = result_lookup(row, 'actual_sets', 'sets_games.actual_sets')
+    actual_games = result_lookup(row, 'actual_games', 'sets_games.actual_games')
+    sets_sel = result_lookup(row, 'sets_selection', 'sets_games.sets_selection', 'prediction_snapshot.sets_games.sets_selection')
+    sets_prob = result_lookup(row, 'sets_probability', 'sets_games.sets_probability', 'prediction_snapshot.sets_games.sets_probability')
+    games_sel = result_lookup(row, 'games_selection', 'sets_games.games_selection', 'prediction_snapshot.sets_games.games_selection')
+    games_prob = result_lookup(row, 'games_probability', 'sets_games.games_probability', 'prediction_snapshot.sets_games.games_probability')
+    tb_prob = result_lookup(row, 'tb_probability', 'sets_games.tb_probability', 'prediction_snapshot.sets_games.tb_probability')
+    actual_tb = result_lookup(row, 'actual_tiebreak', 'sets_games.actual_tiebreak')
+    sets_hit = result_lookup(row, 'sets_ou_hit', 'sets_games.sets_ou_hit')
+    games_hit = result_lookup(row, 'games_ou_hit', 'sets_games.games_ou_hit')
+    tb_hit = result_lookup(row, 'tb_hit', 'sets_games.tb_hit')
+    aces_hit = result_lookup(row, 'total_aces_hit', 'aces_df.total_aces_hit')
+    df_hit = result_lookup(row, 'total_df_hit', 'aces_df.total_df_hit')
+    box_cls = _result_box_class(sets_hit, games_hit, tb_hit, aces_hit, df_hit)
+    return "\n".join([
+        f'<div class="metric-box sets-signal-box {box_cls}">',
+        f'<div class="box-head"><span>Sets | Games {info_icon("sets_games")}</span><b>{_num_text(pred_sets,1)} | {_num_text(pred_games,1)}</b></div>',
+        _result_metric('Sets o|u', f'{esc(sets_sel or "—")} {result_pct_text(sets_prob)} -> Real {esc(actual_sets if actual_sets is not None else "—")}', sets_hit, 'sets_ou'),
+        _result_metric('Games o|u', f'{esc(games_sel or "—")} {result_pct_text(games_prob)} -> Real {esc(actual_games if actual_games is not None else "—")}', games_hit, 'games_ou'),
+        _result_metric('TB%', f'{result_pct_text(tb_prob)} -> Real {_yes_no(actual_tb)}', tb_hit, 'tb_pct'),
+        _result_metric('Aces P | O | T', f'{esc(triplet_market_display(row,"aces"))} -> Real {_actual_triplet(row,"aces")}', aces_hit, 'aces_p_o_t'),
+        _result_metric('DF P | O | T', f'{esc(triplet_market_display(row,"df"))} -> Real {_actual_triplet(row,"df")}', df_hit, 'df_p_o_t'),
+        metric_row('S Data Depth', bar_html(s_data_depth(row))),
+        '</div>',
+    ])
+
+
+def _result_status_box(row: Dict[str, Any]) -> str:
+    st = result_status(row)
+    units = row.get('units')
+    roi = None
+    if st in {'WON','LOST'} and units is not None:
+        roi = as_float(units)
+    box_cls = 'result-box-good' if st == 'WON' else 'result-box-bad' if st == 'LOST' else 'result-box-neutral'
+    b_cls = 'status-won' if st == 'WON' else 'status-lost' if st == 'LOST' else 'status-void' if st == 'VOID' else 'status-pending'
+    tags = result_tags(row)[:10]
+    tag_html = ''.join(f'<span class="note">{esc(t)}</span>' for t in tags)
+    return "\n".join([
+        f'<div class="metric-box {box_cls}">',
+        f'<div class="box-head result-status-title"><span>Result {info_icon("status")}</span><b class="{b_cls}">{esc(st)}</b></div>',
+        metric_row('Winner', esc(row.get('winner') or '—')),
+        metric_row('Score', esc(row.get('score') or row.get('final_score') or '—')),
+        metric_row('Units', esc(res_units(units))),
+        metric_row('ROI', esc('—' if roi is None else f'{roi:+.2f}u')),
+        f'<div class="result-tag-row">{tag_html}</div>' if tag_html else '',
+        '</div>',
+    ])
+
+
+def render_result_card(row: Dict[str, Any], rank: int, model_title: str = '') -> str:
+    tags = result_tags(row)
+    data_tags = '|'.join(tags)
+    return "\n".join([
+        f'<div class="result-card tag-analysis-row" data-tags="{esc(data_tags)}" data-result="{esc(result_status(row))}" data-model="{esc(model_title)}">',
+        _result_card_pick_box(row, rank),
+        _result_mmx_box(row),
+        _result_corq_box(row),
+        _result_thinq_box(row),
+        _result_sets_games_box(row),
+        render_marq_box(row),
+        _result_status_box(row),
+        '</div>',
+    ])
+
+
+def _result_section_header(rows: List[Dict[str, Any]], title: str) -> str:
+    s = summarize_results(rows)
+    avg = '—' if s.get('avg_odds') is None else f'{s["avg_odds"]:.2f}'
+    return "\n".join([
+        '<div class="result-section-head">',
+        f'<div class="result-section-title">{esc(title)}</div>',
+        '<div class="result-section-stats">',
+        f'<span class="result-stat-pill">Picks {s["picks"]}</span>',
+        f'<span class="result-stat-pill">W-L {s["won"]}-{s["lost"]}</span>',
+        f'<span class="result-stat-pill">Pending {s["pending"]}</span>',
+        f'<span class="result-stat-pill">Win {s["win_pct"]:.1f}%</span>',
+        f'<span class="result-stat-pill">Units {s["units"]:+.2f}u</span>',
+        f'<span class="result-stat-pill">ROI {s["roi"]:+.1f}%</span>',
+        f'<span class="result-stat-pill">Avg odds {avg}</span>',
+        '</div></div>',
+    ])
+
+
+def render_results_card_section(rows: List[Dict[str, Any]], title: str, limit: Optional[int] = None) -> str:
+    rows_sorted = sorted(rows or [], key=lambda r: result_table_sort_key(r))
+    if limit is not None:
+        rows_sorted = rows_sorted[:limit]
+    if not rows_sorted:
+        cards = '<div class="empty">No results available.</div>'
+    else:
+        cards = '<div class="results-card-grid">' + '\n'.join(render_result_card(r, i + 1, title) for i, r in enumerate(rows_sorted)) + '</div>'
+    return f'<section class="result-section">{_result_section_header(rows_sorted, title)}{cards}</section>'
+
+
+def render_results_page(manifest: Dict[str, Any]) -> str:
+    corq = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_corq.json', []))
+    cloq = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_cloq.json', []))
+    audit_rows = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_audit.json', []))
+    combined = corq + cloq + audit_rows
+    mark_audit_h2h_top10(combined)
+    body = [
+        _result_css_block(),
+        render_results_filter_builder(combined),
+        render_results_card_section(corq, 'CorQ TOP7 Results'),
+        render_results_card_section(cloq, 'CloQ Results'),
+        render_results_card_section(audit_rows, 'Audit Results', limit=80),
+    ]
+    return page_shell('Results', RESULTS_PATH, '\n'.join(body), manifest)
+
 def main() -> None:
     render_all()
 
