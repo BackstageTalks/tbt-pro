@@ -1,45 +1,42 @@
 {
-  "generated_at_utc": "2026-08-01T12:33:17.751960+00:00",
-  "source_rows": 90,
+  "generated_at_utc": "2026-08-01T13:09:12.137726+00:00",
+  "source_rows": 45,
   "passed_rows": 1,
-  "rejected_rows": 89,
-  "filter_version": "CLOQ_FILTER_V1",
+  "rejected_rows": 44,
+  "filter_version": "CLOQ_FILTER_V1_1",
   "config": {
     "min_odds": 1.7,
     "max_odds": 2.6,
-    "min_odd_gap_pct": 0.1,
-    "max_odd_gap_pct": 0.25,
-    "min_corq_probability": 0.55,
-    "min_thinq_probability": 0.55,
-    "min_marq_probability": 0.5,
-    "min_form_depth": 0.6,
-    "min_stats_depth": 0.4,
+    "min_odd_gap_pct": 0.0,
+    "max_odd_gap_pct": 0.4,
+    "min_corq_probability": 0.52,
+    "min_thinq_probability": 0.52,
+    "min_marq_probability": 0.48,
+    "min_form_depth": 0.5,
+    "min_stats_depth": 0.25,
     "max_mmx_conflict_pp": 18.0,
     "require_prematch": true,
     "require_singles": true
   },
   "reason_counts": {
-    "CLOQ_REJECT_STATUS_NOT_PREMATCH": 14,
-    "CLOQ_REJECT_ODDS_BELOW_MIN": 37,
-    "CLOQ_REJECT_ODD_GAP_TOO_WIDE": 74,
-    "CLOQ_REJECT_CORQ_BELOW_MIN": 56,
-    "CLOQ_REJECT_THINQ_BELOW_MIN": 63,
-    "CLOQ_REJECT_MARQ_BELOW_MIN": 44,
-    "CLOQ_REJECT_ODDS_ABOVE_MAX": 19,
-    "CLOQ_REJECT_LOW_FORM_DEPTH": 4,
-    "CLOQ_REJECT_LOW_STATS_DEPTH": 26,
-    "CLOQ_REJECT_ODD_GAP_TOO_SMALL": 2
+    "CLOQ_REJECT_THINQ_BELOW_MIN": 28,
+    "CLOQ_REJECT_CORQ_BELOW_MIN": 27,
+    "CLOQ_REJECT_MARQ_BELOW_MIN": 24,
+    "CLOQ_REJECT_ODD_GAP_TOO_WIDE": 18,
+    "CLOQ_REJECT_ODDS_BELOW_MIN": 16,
+    "CLOQ_REJECT_ODDS_ABOVE_MAX": 12,
+    "CLOQ_REJECT_STATUS_NOT_PREMATCH": 7,
+    "CLOQ_REJECT_LOW_STATS_DEPTH": 3
   },
   "warning_counts": {
-    "CLOQ_WARN_MMX_CONFLICT": 10
+    "CLOQ_WARN_MMX_CONFLICT": 3
   },
   "tag_counts": {
-    "CLV Pending": 90,
-    "Low H2H Sample": 70,
-    "MMx Aligned": 80,
-    "MarQ Support": 46,
-    "Stable Move": 90,
-    "Close Odds": 14,
-    "MMx Conflict": 10
+    "CLV Pending": 45,
+    "MMx Aligned": 42,
+    "Close Odds": 27,
+    "MarQ Support": 21,
+    "Low H2H Sample": 12,
+    "MMx Conflict": 3
   }
 }
