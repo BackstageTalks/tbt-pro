@@ -234,6 +234,9 @@ def explanation_text(key: str) -> str:
         "marq_input": "MarQ Input: contribution of MarQ market signal to the final CorQ probability, shown in percentage points. Positive values lift CorQ, negative values reduce CorQ.",
         "corq_final": "CorQ Final: final calibrated CorQ probability after blending ThinQ model signal and MarQ market signal.",
         "marq_delta": "MarQ Delta: difference between final CorQ and MarQ market probability, shown in percentage points. Positive means CorQ is above market, negative means below market.",
+        "value_delta": "Value Delta: CorQ probability minus raw break-even probability from the current decimal odds. Positive means model value versus price; negative means short/no value at the offered odds.",
+        "ev": "EV: expected value using CorQ probability and current decimal odds. Formula: CorQ * odds - 1. It is an audit indicator, not a hard filter.",
+        "price": "Price: compact price/value tag. Short means low odds, Fair means mid odds, Long Risk means higher price. No Value/Value+/Neutral comes from Value Delta.",
         "sets_ou": "Sets o|u: recommended over/under side for total sets with line and probability. Example O2.5 47% means over 2.5 sets at 47% model probability.",
         "games_ou": "Games o|u: recommended over/under side for total games with line and probability. Example O23.5 51% means over 23.5 games at 51% model probability.",
         "tb_pct": "TB%: projected tiebreak probability. It is derived from the set/game and serve profile when available; otherwise it falls back to the configured match-shape source.",
@@ -1142,7 +1145,8 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         f'<div class="compact-match"><div class="compact-match-row"><span class="compact-time">{esc(start_time(row))}</span><span class="compact-meta">{esc(meta_line(row))}</span></div></div>',
         f'<div class="compact-tags bottom-notes">{note_html}</div>' if note_html else '',
         '</section>',
-        '<section class="metric-box">',
+        render_mmx_box(row),
+        '<section class="metric-box corq-box">',
         f'<div class="box-head"><span>CorQ {info_icon("corq")}</span><b>{as_pct(prob, 1)}</b></div>',
         metric_row("P EL | S-E", esc(elo_pair_display(row)), elo_pair_class(row)),
         metric_row("O EL | S-E", esc(elo_pair_display(row, opponent=True)), elo_pair_class(row, opponent=True)),
@@ -1151,7 +1155,6 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         metric_row("P ThinQ Edge", esc(f"{pe_txt} | {pe_state}"), pe_cls),
         metric_row("S Data Depth", bar_html(stat_depth(row))),
         '</section>',
-        render_mmx_box(row),
         '<section class="metric-box thinq-box">',
         f'<div class="box-head"><span>ThinQ P | C {info_icon("thinq_pc")}</span><b>{as_pct(thinq_prob(row), 1)} | {as_pct(thinq_conf(row), 1)}</b></div>',
         metric_row("P F | S-F", esc(f"{pick_form} | {pick_sform}")),
@@ -2006,24 +2009,90 @@ def s_data_depth(row: Dict[str, Any]) -> Optional[float]:
     completeness_score = (present_fields / total_fields) * 50.0 if total_fields else 0.0
     return round(max(0.0, min(100.0, sample_score + completeness_score)), 1)
 
+
+def _probability_ratio_from_value(value: Any) -> Optional[float]:
+    num = as_float(value)
+    if num is None:
+        return None
+    if abs(num) > 1.0:
+        num /= 100.0
+    if 0.0 <= num <= 1.0:
+        return num
+    return None
+
+
+def _raw_implied_probability(row: Dict[str, Any]) -> Optional[float]:
+    explicit = as_float(_first_data_value(row, "raw_implied_probability", "break_even_probability"))
+    if explicit is not None:
+        return explicit / 100.0 if explicit > 1.0 else explicit
+    odds = pick_odds(row)
+    if odds is None or odds <= 0:
+        return None
+    return 1.0 / odds
+
+
+def _value_delta_pp(row: Dict[str, Any]) -> Optional[float]:
+    explicit = as_float(_first_data_value(row, "corq_value_delta_pp", "value_delta_pp", "price_value_delta_pp"))
+    if explicit is not None:
+        return explicit
+    corq = _probability_ratio_from_value(_first_data_value(row, "corq_calibrated_probability", "corq_probability", "corq_estimated_win_probability", "win_probability", "estimated_win_probability", "probability"))
+    raw = _raw_implied_probability(row)
+    if corq is None or raw is None:
+        return None
+    return (corq - raw) * 100.0
+
+
+def _expected_value_pct(row: Dict[str, Any]) -> Optional[float]:
+    explicit = as_float(_first_data_value(row, "expected_value_pct", "ev_pct"))
+    if explicit is not None:
+        return explicit if abs(explicit) > 1.0 else explicit * 100.0
+    explicit_ratio = as_float(_first_data_value(row, "expected_value", "ev"))
+    if explicit_ratio is not None:
+        return explicit_ratio * 100.0 if abs(explicit_ratio) <= 1.0 else explicit_ratio
+    odds = pick_odds(row)
+    corq = _probability_ratio_from_value(_first_data_value(row, "corq_calibrated_probability", "corq_probability", "corq_estimated_win_probability", "win_probability", "estimated_win_probability", "probability"))
+    if odds is None or corq is None:
+        return None
+    return ((corq * odds) - 1.0) * 100.0
+
+
+def _price_value_text(row: Dict[str, Any]) -> str:
+    explicit = str(_first_data_value(row, "price_value_display", "price_value_label") or "").strip()
+    if explicit:
+        return explicit
+    odds = pick_odds(row)
+    delta = _value_delta_pp(row)
+    if odds is None or delta is None:
+        return "—"
+    price = "Short" if odds < 1.50 else "Fair" if odds <= 2.20 else "Long Risk"
+    value = "Value+" if delta >= 3.0 else "Neutral" if delta >= -2.0 else "No Value"
+    return f"{price} | {value}"
+
+
+def _value_metric_class(value: Any) -> str:
+    return sign_class(value)
+
 def render_mmx_box(row: Dict[str, Any]) -> str:
-    """Compact CorQ Model Mix diagnostics box."""
+    """Compact CorQ Model Mix diagnostics box with value audit."""
     thinq_prob_value = _first_data_value(row, "corq_raw_model_probability", "thinq_pick_probability", "thinq_probability", "top7_thinq_pick_probability")
     marq_prob_value = _first_data_value(row, "corq_market_probability", "marq_pick_probability", "marq_crowd_pick_pct", "market_pick_probability")
     thinq_input = row.get("corq_thinq_input_pp")
     marq_input = row.get("corq_marq_input_pp")
     final_prob = _first_data_value(row, "corq_calibrated_probability", "corq_probability", "corq_estimated_win_probability")
     delta = marq_delta_pp(row)
+    value_delta = _value_delta_pp(row)
+    ev_pct = _expected_value_pct(row)
+    price_text = _price_value_text(row)
     return "\n".join(
         [
             '<section class="metric-box mmx-box">',
             f'<div class="box-head"><span>MMx {info_icon("mmx")}</span><b>{esc(mmx_mix_display(row))}</b></div>',
-            metric_row("ThinQ Prob", as_pct(thinq_prob_value, 1)),
-            metric_row("MarQ Prob", as_pct(marq_prob_value, 1)),
-            metric_row("ThinQ Input", pp_display(thinq_input, 1), sign_class(thinq_input)),
-            metric_row("MarQ Input", pp_display(marq_input, 1), sign_class(marq_input)),
-            metric_row("CorQ Final", as_pct(final_prob, 1)),
-            metric_row("MarQ Δ", pp_display(delta, 1), sign_class(delta)),
+            metric_row("ThinQ P | MarQ P", esc(f"{as_pct(thinq_prob_value, 1)} | {as_pct(marq_prob_value, 1)}")),
+            metric_row("ThinQ In | MarQ In", esc(f"{pp_display(thinq_input, 1)} | {pp_display(marq_input, 1)}"), sign_class(thinq_input)),
+            metric_row("CorQ F | MarQ Δ", esc(f"{as_pct(final_prob, 1)} | {pp_display(delta, 1)}"), sign_class(delta)),
+            metric_row("Value Δ", pp_display(value_delta, 1), _value_metric_class(value_delta)),
+            metric_row("EV", signed_market_pct(ev_pct, 1), _value_metric_class(ev_pct)),
+            metric_row("Price", esc(price_text), "bad" if "No Value" in price_text else "good" if "Value+" in price_text else "neutral"),
             '</section>',
         ]
     )
@@ -2216,6 +2285,7 @@ def css() -> str:
 /* Info icon polish: keep tooltip buttons circular even inside compact boxes. */
 .box-head .info,.metric-row .info,.metric-row .metric-label>.info,.sets-signal-box .metric-row .info,.ta-signal-box .metric-row .info{position:relative!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;width:14px!important;min-width:14px!important;max-width:14px!important;height:14px!important;min-height:14px!important;max-height:14px!important;flex:0 0 14px!important;padding:0!important;margin-left:4px!important;border-radius:999px!important;border:1px solid rgba(125,211,252,.65)!important;background:rgba(8,28,48,.72)!important;color:#7dd3fc!important;font-size:9px!important;font-weight:900!important;line-height:1!important;vertical-align:middle!important;box-shadow:0 0 0 1px rgba(14,165,233,.10),0 0 8px rgba(14,165,233,.12)!important;cursor:help!important}.box-head .info:hover,.metric-row .info:hover,.box-head .info:focus,.metric-row .info:focus{border-color:#67e8f9!important;color:#e0f2fe!important;background:rgba(14,116,144,.30)!important;box-shadow:0 0 0 1px rgba(103,232,249,.22),0 0 12px rgba(34,211,238,.25)!important}.metric-row .metric-label{display:inline-flex;align-items:center;gap:2px;min-width:0!important;max-width:100%;padding-right:6px}.sets-signal-box .metric-row .metric-label,.ta-signal-box .metric-row .metric-label{min-width:76px!important}.ta-signal-box .metric-row .metric-label{min-width:74px!important}.info:hover:after,.info:focus:after{font-weight:700!important;color:#e5eefc!important;text-transform:none!important;letter-spacing:0!important}.metric-row .info:before,.box-head .info:before{content:"";position:absolute;inset:-3px;border-radius:999px}.sets-signal-box .metric-row span.depth-wrap,.sets-signal-box .metric-row span.depth-number,.sets-signal-box .metric-row span.depth-bar{min-width:0!important}
 
+.thinq-box .box-head b{font-size:13px!important;line-height:1.15!important;color:var(--green)!important;white-space:nowrap!important}.thinq-box .box-head{gap:10px!important}.mmx-box .metric-row b{white-space:nowrap}
 /* Compact pick panel final override: reduce free space in player boxes, keep top tags unchanged, put match meta on one row. */
 .pick-main.compact-v3{padding:10px!important;gap:7px!important;min-height:0!important}.compact-v3 .compact-player{min-height:0!important;padding:8px 10px!important;justify-content:center!important}.compact-v3 .pick-side{min-height:0!important;padding-top:8px!important;padding-bottom:8px!important}.compact-player.no-label{padding-top:8px!important;padding-bottom:8px!important}.compact-label{margin-bottom:5px!important;font-size:9px!important;line-height:1!important}.compact-name-row{align-items:center!important;gap:7px!important}.compact-name{display:flex!important;align-items:center!important;gap:6px!important;min-width:0!important;font-size:13px!important;line-height:1.12!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}.compact-name .compact-odds.inline{flex:0 0 auto!important;margin-left:2px!important;transform:none!important;padding:2px 7px!important;font-size:10px!important;line-height:1.1!important}.compact-rank{font-size:11px!important;line-height:1!important;flex:0 0 auto!important}.compact-vs{height:14px!important;min-height:14px!important;margin:-1px 0!important;font-size:9px!important;line-height:1!important}.compact-match{padding:7px 9px!important;border-radius:12px!important}.compact-match-row{display:flex!important;align-items:center!important;gap:8px!important;min-width:0!important;white-space:nowrap!important;overflow:hidden!important}.compact-time{font-size:12px!important;line-height:1!important;flex:0 0 auto!important}.compact-meta{font-size:10px!important;line-height:1.15!important;margin-top:0!important;min-width:0!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}.compact-tags.bottom-notes{padding-top:4px!important;margin-top:auto!important}@media(max-width:760px){.compact-name{font-size:13px!important}.compact-match-row{gap:6px!important}.compact-meta{font-size:10px!important}}
 
@@ -2497,6 +2567,23 @@ def get_existing_public_tags(row: Dict[str, Any]) -> List[str]:
     return tags
 
 
+
+def price_value_filter_tags_for_row(row: Dict[str, Any]) -> List[str]:
+    """Non-selective price/value tags for Audit and Results filtering."""
+    tags: List[str] = []
+    odds = pick_odds(row)
+    delta = _value_delta_pp(row)
+    if odds is not None and odds < 1.50:
+        tags.append("Short Price")
+    if delta is not None:
+        if delta >= 3.0:
+            tags.append("Value+")
+        elif delta < -2.0:
+            tags.append("No Value")
+        else:
+            tags.append("Value Neutral")
+    return tags
+
 def audit_filter_tags_for_row(row: Dict[str, Any]) -> List[str]:
     tags: List[str] = []
     if audit_has_corq_top20(row):
@@ -2509,6 +2596,7 @@ def audit_filter_tags_for_row(row: Dict[str, Any]) -> List[str]:
         tags.append(AUDIT_H2H_TOP10_LABEL)
     if audit_has_cloq(row):
         tags.append(AUDIT_CLOQ_LABEL)
+    tags.extend(price_value_filter_tags_for_row(row))
     existing = row.get("audit_filter_tags")
     if isinstance(existing, list):
         tags.extend(str(x) for x in existing if x)
@@ -2533,6 +2621,10 @@ def audit_note_css(label: str) -> str:
         return "tag-chip audit-pill audit-pill-h2h"
     if label == AUDIT_CLOQ_LABEL:
         return "tag-chip audit-pill audit-pill-signal"
+    if label in {"Short Price", "No Value", "Value Neutral"}:
+        return "tag-chip audit-pill audit-pill-signal"
+    if label == "Value+":
+        return "tag-chip audit-pill audit-pill-safe"
     if label in {RESULT_LAST_3_DAYS_LABEL, RESULT_LAST_7_DAYS_LABEL, RESULT_LAST_MONTH_LABEL, RESULT_THIS_YEAR_LABEL}:
         return "tag-chip audit-pill audit-pill-date"
     if label in {RESULT_MODEL_CORQ_LABEL, RESULT_MODEL_CLOQ_LABEL, RESULT_MODEL_AUDIT_LABEL}:
@@ -3109,6 +3201,7 @@ def render_results_filter_builder(rows: List[Dict[str, Any]]) -> str:
         ("Model", [RESULT_MODEL_CORQ_LABEL, RESULT_MODEL_CLOQ_LABEL, RESULT_MODEL_AUDIT_LABEL]),
         ("Date", [RESULT_LAST_3_DAYS_LABEL, RESULT_LAST_7_DAYS_LABEL, RESULT_LAST_MONTH_LABEL, RESULT_THIS_YEAR_LABEL]),
         ("Signals", [AUDIT_CORQ_TOP20_LABEL, AUDIT_TIME_ODDS_LABEL, AUDIT_CLOQ_LABEL, AUDIT_SAFE_BET_LABEL, AUDIT_H2H_TOP10_LABEL]),
+        ("Value", ["Value+", "No Value", "Value Neutral", "Short Price"]),
         ("Data notes", ["No previous H2H matches", "Recent form pending"]),
     ]
 
