@@ -160,19 +160,39 @@ def _fetch_team_last_matches(team_id: Any, page: int = 0, force_refresh: bool = 
     if not _api_key():
         return {"status": "NO_API_KEY", "events": [], "cache_path": str(path)}
 
-    # TennisAPI PRO playground endpoint: getTeamLastMatches.
-    # Path used by Sofascore-style APIs: /api/tennis/team/{id}/events/last/{page}
+    # RapidAPI TennisApi endpoint confirmed in the playground as:
+    # Players -> getPreviousPlayerMatches, params: id, page.
+    # The exact generated path can vary between API wrapper releases, so we try
+    # the player/previous variants first and keep the older Sofascore-style
+    # team/last paths as fallbacks. A response with real events wins.
     urls = [
+        f"{API_PRO_BASE_URL}/api/tennis/player/{team_id}/matches/previous/{page}",
+        f"{API_PRO_BASE_URL}/api/tennis/player/{team_id}/events/previous/{page}",
+        f"{API_PRO_BASE_URL}/api/tennis/player/{team_id}/previous-matches/{page}",
+        f"{API_PRO_BASE_URL}/api/tennis/player/{team_id}/matches/last/{page}",
+        f"{API_PRO_BASE_URL}/api/tennis/player/{team_id}/events/last/{page}",
+        f"{API_PRO_BASE_URL}/api/tennis/team/{team_id}/matches/previous/{page}",
+        f"{API_PRO_BASE_URL}/api/tennis/team/{team_id}/events/previous/{page}",
         f"{API_PRO_BASE_URL}/api/tennis/team/{team_id}/events/last/{page}",
         f"{API_PRO_BASE_URL}/api/tennis/team/{team_id}/matches/last/{page}",
     ]
     last_error = None
+    best_result = None
+    attempts = []
     for url in urls:
         try:
             response = requests.get(url, headers=_headers(), timeout=API_PRO_TIMEOUT)
             status = response.status_code
+            attempts.append({"endpoint": url, "status_code": status})
             if status == 429:
-                return {"status": "RATE_LIMITED", "events": [], "api_status_code": status, "cache_path": str(path), "endpoint": url}
+                return {
+                    "status": "RATE_LIMITED",
+                    "events": [],
+                    "api_status_code": status,
+                    "cache_path": str(path),
+                    "endpoint": url,
+                    "endpoint_attempts": attempts,
+                }
             if status == 404:
                 last_error = f"HTTP 404: {url}"
                 continue
@@ -188,13 +208,29 @@ def _fetch_team_last_matches(team_id: Any, page: int = 0, force_refresh: bool = 
                 "event_count": len(events),
                 "from_cache": False,
                 "cache_path": str(path),
+                "endpoint_attempts": attempts,
             }
-            _write_cache(path, result)
-            return result
+            if len(events) > 0:
+                _write_cache(path, result)
+                return result
+            # Keep an OK zero-event payload as a last resort, but continue
+            # probing because some paths return metadata without matches.
+            if best_result is None:
+                best_result = result
         except Exception as exc:
             last_error = str(exc)
+            attempts.append({"endpoint": url, "error": last_error})
             continue
-    return {"status": "FETCH_FAILED", "events": [], "error": last_error, "cache_path": str(path)}
+    if best_result is not None:
+        _write_cache(path, best_result)
+        return best_result
+    return {
+        "status": "FETCH_FAILED",
+        "events": [],
+        "error": last_error,
+        "cache_path": str(path),
+        "endpoint_attempts": attempts,
+    }
 
 
 def _event_surface(event: Dict[str, Any]) -> Optional[str]:
