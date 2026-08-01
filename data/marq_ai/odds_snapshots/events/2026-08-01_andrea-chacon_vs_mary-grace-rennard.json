@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.2,
   "latest_odds_player2": 1.61538,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-01T11:48:35.603539+00:00",
+  "latest_snapshot_time_utc": "2026-08-01T17:45:07.313246+00:00",
   "opening_odds_player1": 2.2,
   "opening_odds_player2": 1.61538,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "TennisAPI_PRO",
   "player1": "Mary Grace Rennard",
   "player2": "Andrea Chacon",
-  "snapshot_count": 8,
+  "snapshot_count": 9,
   "snapshots": [
     {
       "event_id": "16678364",
@@ -177,8 +177,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T14:00:00+00:00",
       "target_date": "2026-08-01"
+    },
+    {
+      "event_id": "16678364",
+      "event_key": "2026-08-01_andrea-chacon_vs_mary-grace-rennard",
+      "hours_to_start": -27.75,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.2,
+      "odds_player2": 1.61538,
+      "player1": "Mary Grace Rennard",
+      "player2": "Andrea Chacon",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-01T17:45:07.313246+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-07-31T14:00:00+00:00",
+      "target_date": "2026-08-01"
     }
   ],
   "start_time_utc": "2026-07-31T14:00:00+00:00",
-  "updated_at_utc": "2026-08-01T11:48:48.057366+00:00"
+  "updated_at_utc": "2026-08-01T17:45:15.863785+00:00"
 }

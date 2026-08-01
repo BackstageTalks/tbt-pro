@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.61538,
   "latest_odds_player2": 2.2,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-01T11:48:35.603539+00:00",
+  "latest_snapshot_time_utc": "2026-08-01T17:45:07.313246+00:00",
   "opening_odds_player1": 1.001,
   "opening_odds_player2": 26.0,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Conor Gannon",
   "player2": "Matt Ponchet",
-  "snapshot_count": 4,
+  "snapshot_count": 5,
   "snapshots": [
     {
       "event_id": "16677603",
@@ -97,8 +97,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T12:50:52+00:00",
       "target_date": "2026-08-01"
+    },
+    {
+      "event_id": "16677603",
+      "event_key": "2026-08-01_conor-gannon_vs_matt-ponchet",
+      "hours_to_start": -28.9,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.61538,
+      "odds_player2": 2.2,
+      "player1": "Conor Gannon",
+      "player2": "Matt Ponchet",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-01T17:45:07.313246+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-07-31T12:50:52+00:00",
+      "target_date": "2026-08-01"
     }
   ],
   "start_time_utc": "2026-07-31T12:50:52+00:00",
-  "updated_at_utc": "2026-08-01T11:48:40.604091+00:00"
+  "updated_at_utc": "2026-08-01T17:45:10.744273+00:00"
 }
