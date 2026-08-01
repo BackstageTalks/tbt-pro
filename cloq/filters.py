@@ -5,7 +5,7 @@ This module is intentionally self-contained so the workflow can import:
     from cloq.filters import CloQConfig, DEFAULT_CONFIG, FILTER_VERSION,
         config_to_dict, filter_cloq_rows
 
-Version V1.3: MarQ is optional/soft. CorQ and ThinQ remain hard filters.
+Version V1.5: strict close-odds gap <= 15%. MarQ is optional/soft. CorQ and ThinQ remain hard filters.
 """
 
 from __future__ import annotations
@@ -13,7 +13,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
-FILTER_VERSION = "CLOQ_FILTER_V1_3_MARQ_OPTIONAL"
+FILTER_VERSION = "CLOQ_FILTER_V1_5_CLOSE_GAP_15"
 
 
 @dataclass(frozen=True)
@@ -21,7 +21,7 @@ class CloQConfig:
     min_odds: float = 1.70
     max_odds: float = 2.90
     min_odd_gap_pct: float = 0.00
-    max_odd_gap_pct: float = 0.40
+    max_odd_gap_pct: float = 0.15
     min_corq_probability: float = 0.52
     min_thinq_probability: float = 0.52
     min_marq_probability: float = 0.30
@@ -194,10 +194,10 @@ def _score(row: Dict[str, Any], corq: Optional[float], thinq: Optional[float], m
     if gap is None:
         gap_quality = 0.50
     else:
-        # Best around close-but-not-identical 10-25% gap, acceptable until 40%.
-        if gap <= 0.25:
+        # True close-odds profile: best at <=15% gap, degraded above configured close range.
+        if gap <= 0.15:
             gap_quality = 1.0
-        elif gap <= 0.40:
+        elif gap <= 0.25:
             gap_quality = 0.70
         else:
             gap_quality = 0.25
@@ -246,7 +246,7 @@ def evaluate_cloq_row(row: Dict[str, Any], config: Optional[CloQConfig] = None) 
             reasons.append("CLOQ_REJECT_ODD_GAP_TOO_NARROW")
         if gap > config.max_odd_gap_pct:
             reasons.append("CLOQ_REJECT_ODD_GAP_TOO_WIDE")
-        if gap <= 0.25:
+        if gap <= config.max_odd_gap_pct:
             tags.append("Close Odds")
 
     # CorQ and ThinQ remain hard filters.
