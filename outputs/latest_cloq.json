@@ -2515,24 +2515,28 @@
       "CLEAN_MODEL_SUPPORT"
     ],
     "corq_rank": 43,
-    "cloq_filter_version": "CLOQ_FILTER_V1_2",
+    "cloq_filter_version": "CLOQ_FILTER_V1_3_MARQ_OPTIONAL",
     "cloq_passed": true,
+    "cloq_score": 60.99,
     "cloq_reasons": [],
-    "cloq_warnings": [],
+    "cloq_warnings": [
+      "CLOQ_WARN_MARQ_MISSING"
+    ],
     "cloq_tags": [
+      "CLV Pending",
       "Close Odds",
       "MMx Aligned",
-      "CLV Pending"
+      "MarQ Missing"
     ],
-    "cloq_score": 59.18,
-    "cloq_odd_gap_pct": 15.79,
     "cloq_pick_odds": 2.0,
     "cloq_opponent_odds": 1.7273,
-    "cloq_corq_probability": 56.11,
-    "cloq_thinq_probability": 60.32,
-    "cloq_marq_probability": 46.3,
-    "cloq_form_depth": 85.0,
-    "cloq_stats_depth": 30.77
+    "cloq_odd_gap_pct": 15.79,
+    "cloq_corq_probability": 0.5611,
+    "cloq_thinq_probability": 0.6032,
+    "cloq_marq_probability": null,
+    "cloq_form_depth": 0.85,
+    "cloq_stats_depth": 0.3077,
+    "cloq_mmx_conflict_pp": null
   },
   {
     "match_id": 16687747,
@@ -5060,24 +5064,27 @@
       "FORM_RISK_MODEL_SUPPORT"
     ],
     "corq_rank": 48,
-    "cloq_filter_version": "CLOQ_FILTER_V1_2",
+    "cloq_filter_version": "CLOQ_FILTER_V1_3_MARQ_OPTIONAL",
     "cloq_passed": true,
+    "cloq_score": 58.93,
     "cloq_reasons": [],
-    "cloq_warnings": [],
-    "cloq_tags": [
-      "Close Odds",
-      "MarQ Support",
-      "MMx Aligned",
-      "CLV Pending"
+    "cloq_warnings": [
+      "CLOQ_WARN_MARQ_MISSING"
     ],
-    "cloq_score": 58.87,
-    "cloq_odd_gap_pct": 15.79,
+    "cloq_tags": [
+      "CLV Pending",
+      "Close Odds",
+      "MMx Aligned",
+      "MarQ Missing"
+    ],
     "cloq_pick_odds": 1.7273,
     "cloq_opponent_odds": 2.0,
-    "cloq_corq_probability": 54.57,
-    "cloq_thinq_probability": 54.94,
-    "cloq_marq_probability": 53.7,
-    "cloq_form_depth": 82.5,
-    "cloq_stats_depth": 30.77
+    "cloq_odd_gap_pct": 15.79,
+    "cloq_corq_probability": 0.5457,
+    "cloq_thinq_probability": 0.5494,
+    "cloq_marq_probability": null,
+    "cloq_form_depth": 0.825,
+    "cloq_stats_depth": 0.3077,
+    "cloq_mmx_conflict_pp": null
   }
 ]

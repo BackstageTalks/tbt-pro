@@ -1,9 +1,9 @@
 {
-  "generated_at_utc": "2026-08-01T13:20:33.945334+00:00",
+  "generated_at_utc": "2026-08-01T13:45:35.055483+00:00",
   "source_rows": 45,
   "passed_rows": 2,
   "rejected_rows": 43,
-  "filter_version": "CLOQ_FILTER_V1_2",
+  "filter_version": "CLOQ_FILTER_V1_3_MARQ_OPTIONAL",
   "config": {
     "min_odds": 1.7,
     "max_odds": 2.9,
@@ -18,25 +18,69 @@
     "require_prematch": true,
     "require_singles": true
   },
+  "source_meta": {
+    "latest_all_path": "outputs/latest_all.json",
+    "latest_top7_path": "outputs/latest_top7.json",
+    "latest_all_rows": 90,
+    "latest_top7_rows": 7,
+    "source_rows": 45
+  },
   "reason_counts": {
-    "CLOQ_REJECT_THINQ_BELOW_MIN": 28,
-    "CLOQ_REJECT_CORQ_BELOW_MIN": 27,
-    "CLOQ_REJECT_ODD_GAP_TOO_WIDE": 18,
-    "CLOQ_REJECT_ODDS_BELOW_MIN": 16,
-    "CLOQ_REJECT_ODDS_ABOVE_MAX": 9,
-    "CLOQ_REJECT_MARQ_BELOW_MIN": 8,
     "CLOQ_REJECT_STATUS_NOT_PREMATCH": 7,
+    "CLOQ_REJECT_ODDS_BELOW_MIN": 9,
+    "CLOQ_REJECT_ODD_GAP_TOO_WIDE": 20,
+    "CLOQ_REJECT_CORQ_BELOW_MIN": 34,
+    "CLOQ_REJECT_THINQ_BELOW_MIN": 35,
+    "CLOQ_REJECT_ODDS_ABOVE_MAX": 9,
     "CLOQ_REJECT_LOW_STATS_DEPTH": 3
   },
   "warning_counts": {
-    "CLOQ_WARN_MMX_CONFLICT": 3
+    "CLOQ_WARN_MARQ_MISSING": 45
   },
   "tag_counts": {
     "CLV Pending": 45,
-    "MMx Aligned": 42,
-    "Close Odds": 27,
-    "MarQ Support": 21,
-    "Low H2H Sample": 12,
-    "MMx Conflict": 3
+    "Close Odds": 17,
+    "MMx Aligned": 45,
+    "MarQ Missing": 45,
+    "Low H2H Sample": 12
+  },
+  "filter_extra": {
+    "filter_version": "CLOQ_FILTER_V1_3_MARQ_OPTIONAL",
+    "config": {
+      "min_odds": 1.7,
+      "max_odds": 2.9,
+      "min_odd_gap_pct": 0.0,
+      "max_odd_gap_pct": 0.4,
+      "min_corq_probability": 0.52,
+      "min_thinq_probability": 0.52,
+      "min_marq_probability": 0.3,
+      "min_form_depth": 0.4,
+      "min_stats_depth": 0.25,
+      "max_mmx_conflict_pp": 18.0,
+      "require_prematch": true,
+      "require_singles": true
+    },
+    "source_rows": 45,
+    "passed_rows": 2,
+    "rejected_rows": 43,
+    "reason_counts": {
+      "CLOQ_REJECT_CORQ_BELOW_MIN": 34,
+      "CLOQ_REJECT_LOW_STATS_DEPTH": 3,
+      "CLOQ_REJECT_ODDS_ABOVE_MAX": 9,
+      "CLOQ_REJECT_ODDS_BELOW_MIN": 9,
+      "CLOQ_REJECT_ODD_GAP_TOO_WIDE": 20,
+      "CLOQ_REJECT_STATUS_NOT_PREMATCH": 7,
+      "CLOQ_REJECT_THINQ_BELOW_MIN": 35
+    },
+    "warning_counts": {
+      "CLOQ_WARN_MARQ_MISSING": 45
+    },
+    "tag_counts": {
+      "CLV Pending": 45,
+      "Close Odds": 17,
+      "Low H2H Sample": 12,
+      "MMx Aligned": 45,
+      "MarQ Missing": 45
+    }
   }
 }
