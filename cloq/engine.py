@@ -1,130 +1,107 @@
-"""CloQ engine.
-
-Reads CorQ prediction outputs, applies close-odds quality filters, and writes
-an auditable CloQ output. Independent from main TOP7 selection.
-"""
-
 from __future__ import annotations
 
 import argparse
 import json
+from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, Iterable, List
+from typing import Any, Dict, Iterable, List, Tuple
 
-try:
-    from .filters import CloQConfig, evaluate_cloq_row
-except Exception:
-    from cloq.filters import CloQConfig, evaluate_cloq_row
+from .filters import CloQConfig, DEFAULT_CONFIG, FILTER_VERSION, config_to_dict, filter_cloq_rows
 
 
-def _load_json(path: Path) -> Any:
+def _read_json(path: Path, default: Any) -> Any:
     if not path.exists():
-        return []
+        return default
     try:
         return json.loads(path.read_text(encoding="utf-8"))
     except Exception:
-        return []
+        return default
 
 
-def _rows_from_payload(payload: Any) -> List[Dict[str, Any]]:
-    if isinstance(payload, list):
-        return [row for row in payload if isinstance(row, dict)]
-    if isinstance(payload, dict):
-        for key in ("rows", "matches", "data", "items"):
-            value = payload.get(key)
-            if isinstance(value, list):
-                return [row for row in value if isinstance(row, dict)]
-    return []
+def _write_json(path: Path, payload: Any) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def _dedupe_rows(rows: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    seen = set()
-    out: List[Dict[str, Any]] = []
-    for row in rows:
-        key = (
-            row.get("match_id") or row.get("event_id") or row.get("id"),
-            row.get("pick"),
-            row.get("opponent"),
-            row.get("match_start") or row.get("start_time"),
-        )
-        if key in seen:
-            continue
-        seen.add(key)
-        out.append(row)
-    return out
+def _row_key(row: Dict[str, Any]) -> str:
+    for key in ("event_id", "match_id", "id"):
+        value = row.get(key)
+        if value is not None:
+            return f"id:{value}"
+    p1 = str(row.get("player1") or row.get("pick") or "").strip().lower()
+    p2 = str(row.get("player2") or row.get("opponent") or "").strip().lower()
+    start = str(row.get("match_start") or row.get("start_time") or "")
+    return f"fallback:{p1}:{p2}:{start}"
 
 
-def build_cloq(outputs_dir: Path = Path("outputs"), config: CloQConfig = CloQConfig()) -> Dict[str, Any]:
-    latest_all = _rows_from_payload(_load_json(outputs_dir / "latest_all.json"))
-    latest_top7 = _rows_from_payload(_load_json(outputs_dir / "latest_top7.json"))
-    source_rows = _dedupe_rows([*latest_all, *latest_top7])
+def load_source_rows(outputs_dir: Path) -> List[Dict[str, Any]]:
+    """Load CorQ source rows without duplicating latest_top7 rows."""
+    all_rows = _read_json(outputs_dir / "latest_all.json", [])
+    top7_rows = _read_json(outputs_dir / "latest_top7.json", [])
+    if not isinstance(all_rows, list):
+        all_rows = []
+    if not isinstance(top7_rows, list):
+        top7_rows = []
 
-    evaluated = [evaluate_cloq_row(row, config=config) for row in source_rows]
-    passed = [row for row in evaluated if row.get("cloq_passed")]
-    rejected = [row for row in evaluated if not row.get("cloq_passed")]
-    passed.sort(key=lambda row: (row.get("cloq_score") or 0.0, row.get("corq_calibrated_probability") or 0.0), reverse=True)
-    rejected.sort(key=lambda row: (row.get("cloq_score") or 0.0), reverse=True)
+    merged: Dict[str, Dict[str, Any]] = {}
+    for row in all_rows:
+        if isinstance(row, dict):
+            merged[_row_key(row)] = dict(row)
+    # Top7 can contain fields added later in pipeline. Merge over all rows.
+    for row in top7_rows:
+        if isinstance(row, dict):
+            key = _row_key(row)
+            base = merged.get(key, {})
+            base.update(row)
+            merged[key] = base
+    return list(merged.values())
 
-    reason_counts: Dict[str, int] = {}
-    warning_counts: Dict[str, int] = {}
-    tag_counts: Dict[str, int] = {}
-    for row in evaluated:
+
+def build_manifest(source_rows: List[Dict[str, Any]], passed: List[Dict[str, Any]], rejected: List[Dict[str, Any]], config: CloQConfig) -> Dict[str, Any]:
+    reason_counts: Counter[str] = Counter()
+    warning_counts: Counter[str] = Counter()
+    tag_counts: Counter[str] = Counter()
+
+    for row in rejected:
         for reason in row.get("cloq_reasons") or []:
-            reason_counts[reason] = reason_counts.get(reason, 0) + 1
+            reason_counts[str(reason)] += 1
+    for row in passed + rejected:
         for warning in row.get("cloq_warnings") or []:
-            warning_counts[warning] = warning_counts.get(warning, 0) + 1
+            warning_counts[str(warning)] += 1
         for tag in row.get("cloq_tags") or []:
-            tag_counts[tag] = tag_counts.get(tag, 0) + 1
+            tag_counts[str(tag)] += 1
 
-    manifest = {
+    return {
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "source_rows": len(source_rows),
         "passed_rows": len(passed),
         "rejected_rows": len(rejected),
-        "filter_version": "CLOQ_FILTER_V1",
-        "config": config.__dict__,
-        "reason_counts": reason_counts,
-        "warning_counts": warning_counts,
-        "tag_counts": tag_counts,
+        "filter_version": FILTER_VERSION,
+        "config": config_to_dict(config),
+        "reason_counts": dict(reason_counts.most_common()),
+        "warning_counts": dict(warning_counts.most_common()),
+        "tag_counts": dict(tag_counts.most_common()),
     }
-    return {"rows": passed, "rejected_rows": rejected, "manifest": manifest}
 
 
-def write_cloq(outputs_dir: Path = Path("outputs"), config: CloQConfig = CloQConfig()) -> Dict[str, Any]:
-    outputs_dir.mkdir(parents=True, exist_ok=True)
-    built = build_cloq(outputs_dir=outputs_dir, config=config)
-    (outputs_dir / "latest_cloq.json").write_text(json.dumps(built["rows"], ensure_ascii=False, indent=2), encoding="utf-8")
-    (outputs_dir / "latest_cloq_rejected.json").write_text(json.dumps(built["rejected_rows"], ensure_ascii=False, indent=2), encoding="utf-8")
-    (outputs_dir / "latest_cloq_manifest.json").write_text(json.dumps(built["manifest"], ensure_ascii=False, indent=2), encoding="utf-8")
-    return built["manifest"]
+def run(outputs_dir: Path, config: CloQConfig = DEFAULT_CONFIG) -> Dict[str, Any]:
+    source_rows = load_source_rows(outputs_dir)
+    passed, rejected = filter_cloq_rows(source_rows, config)
+    manifest = build_manifest(source_rows, passed, rejected, config)
+
+    _write_json(outputs_dir / "latest_cloq.json", passed)
+    _write_json(outputs_dir / "latest_cloq_rejected.json", rejected)
+    _write_json(outputs_dir / "latest_cloq_manifest.json", manifest)
+    return manifest
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser(description="Build CloQ close-odds output from CorQ predictions")
-    parser.add_argument("--outputs-dir", default="outputs")
-    parser.add_argument("--min-odds", type=float, default=1.70)
-    parser.add_argument("--max-odds", type=float, default=2.60)
-    parser.add_argument("--min-gap", type=float, default=0.10)
-    parser.add_argument("--max-gap", type=float, default=0.25)
-    parser.add_argument("--min-corq", type=float, default=0.55)
-    parser.add_argument("--min-thinq", type=float, default=0.55)
-    parser.add_argument("--min-marq", type=float, default=0.50)
-    parser.add_argument("--min-form-depth", type=float, default=0.60)
-    parser.add_argument("--min-stats-depth", type=float, default=0.40)
-    args = parser.parse_args()
-    config = CloQConfig(
-        min_odds=args.min_odds,
-        max_odds=args.max_odds,
-        min_odd_gap_pct=args.min_gap,
-        max_odd_gap_pct=args.max_gap,
-        min_corq_probability=args.min_corq,
-        min_thinq_probability=args.min_thinq,
-        min_marq_probability=args.min_marq,
-        min_form_depth=args.min_form_depth,
-        min_stats_depth=args.min_stats_depth,
-    )
-    manifest = write_cloq(outputs_dir=Path(args.outputs_dir), config=config)
+def main(argv: List[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Generate CloQ close-odds shortlist outputs.")
+    parser.add_argument("--outputs-dir", default="outputs", help="Directory containing latest_all.json/latest_top7.json")
+    args = parser.parse_args(argv)
+
+    manifest = run(Path(args.outputs_dir), DEFAULT_CONFIG)
     print(json.dumps(manifest, ensure_ascii=False, indent=2))
     return 0
 
