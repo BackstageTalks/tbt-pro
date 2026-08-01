@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.0,
   "latest_odds_player2": 1.72727,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-01T05:43:07.049209+00:00",
+  "latest_snapshot_time_utc": "2026-08-01T11:48:35.603539+00:00",
   "opening_odds_player1": 2.0,
   "opening_odds_player2": 1.72727,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "TennisAPI_PRO",
   "player1": "Tena Lukas",
   "player2": "Eva Bennemann",
-  "snapshot_count": 7,
+  "snapshot_count": 8,
   "snapshots": [
     {
       "event_id": "16677682",
@@ -156,8 +156,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T13:08:47+00:00",
       "target_date": "2026-08-01"
+    },
+    {
+      "event_id": "16677682",
+      "event_key": "2026-08-01_eva-bennemann_vs_tena-lukas",
+      "hours_to_start": -22.66,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.0,
+      "odds_player2": 1.72727,
+      "player1": "Tena Lukas",
+      "player2": "Eva Bennemann",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-01T11:48:35.603539+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-07-31T13:08:47+00:00",
+      "target_date": "2026-08-01"
     }
   ],
   "start_time_utc": "2026-07-31T13:08:47+00:00",
-  "updated_at_utc": "2026-08-01T05:43:13.513969+00:00"
+  "updated_at_utc": "2026-08-01T11:48:42.091105+00:00"
 }

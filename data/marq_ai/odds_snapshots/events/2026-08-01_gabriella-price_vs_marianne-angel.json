@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.08333,
   "latest_odds_player2": 7.0,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-01T05:43:07.049209+00:00",
+  "latest_snapshot_time_utc": "2026-08-01T11:48:35.603539+00:00",
   "opening_odds_player1": 1.08333,
   "opening_odds_player2": 7.0,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "TennisAPI_PRO",
   "player1": "Gabriella Price",
   "player2": "Marianne Angel",
-  "snapshot_count": 5,
+  "snapshot_count": 6,
   "snapshots": [
     {
       "event_id": "16679113",
@@ -114,8 +114,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-07-31T15:43:21+00:00",
       "target_date": "2026-08-01"
+    },
+    {
+      "event_id": "16679113",
+      "event_key": "2026-08-01_gabriella-price_vs_marianne-angel",
+      "hours_to_start": -20.09,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.08333,
+      "odds_player2": 7.0,
+      "player1": "Gabriella Price",
+      "player2": "Marianne Angel",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-01T11:48:35.603539+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-07-31T15:43:21+00:00",
+      "target_date": "2026-08-01"
     }
   ],
   "start_time_utc": "2026-07-31T15:43:21+00:00",
-  "updated_at_utc": "2026-08-01T05:43:30.105091+00:00"
+  "updated_at_utc": "2026-08-01T11:48:55.487161+00:00"
 }
