@@ -1281,3 +1281,189 @@ def fetch_marq_market_data(
         return fallback
 
     return None
+
+# ---------------------------------------------------------------------------
+# Robust runtime override: TennisAPI PRO all/featured odds as primary MARQ
+# ---------------------------------------------------------------------------
+
+_MARQ_PRO_OVERRIDE_VERSION = "2026-08-01-tennisapi-all-featured-primary"
+
+
+def fetch_provider_odds(event_id: str, provider_id: int, force_refresh: bool = False) -> Optional[Dict[str, Any]]:
+    key = f"{event_id}:{provider_id}:robust"
+    if key in _RUN_PROVIDER_ODDS_CACHE and not force_refresh:
+        return _RUN_PROVIDER_ODDS_CACHE[key]
+
+    candidates = [
+        (f"/api/tennis/event/{event_id}/odds/{provider_id}/all", "getAllOddsForEvent"),
+        (f"/api/tennis/event/{event_id}/odds/{provider_id}/featured", "getMatchFeaturedOdds"),
+        (f"/api/tennis/event/{event_id}/odds/{provider_id}/featured-odds", "getMatchFeaturedOdds"),
+        (f"/api/tennis/event/{event_id}/featured-odds/{provider_id}", "getMatchFeaturedOdds"),
+        (f"/api/tennis/event/{event_id}/provider/{provider_id}/featured-odds", "getMatchFeaturedOdds"),
+        (f"/api/tennis/event/{event_id}/provider/{provider_id}/betting-odds", "getMatchBettingOdds"),
+        (f"/api/tennis/event/{event_id}/odds/{provider_id}", "getProviderOdds"),
+        (f"/api/tennis/event/{event_id}/odds", "getEventOdds"),
+        (f"/api/tennis/event/{event_id}/provider/{provider_id}/winning-odds", "getMatchWinningOdds"),
+        (f"/api/tennis/event/{event_id}/provider/{provider_id}/odds", "getProviderOddsLegacy"),
+    ]
+
+    best_payload: Optional[Dict[str, Any]] = None
+    best_score = -1
+    best_meta: Dict[str, Any] = {}
+    for idx, (path, endpoint_name) in enumerate(candidates):
+        cache_name = f"tennisapi_provider_odds_{event_id}_{provider_id}_{idx}_{endpoint_name}.json"
+        payload = _get_json(path, cache_name=cache_name, force_refresh=force_refresh)
+        markets = _extract_markets(payload)
+        if not markets:
+            continue
+        full_time = _select_full_time_market(markets)
+        # Prefer market-rich payloads, but strongly reward payloads containing Full time.
+        score = len(markets) + (100 if full_time else 0)
+        if score > best_score:
+            best_score = score
+            best_payload = payload
+            best_meta = {
+                "provider_odds_endpoint": path,
+                "provider_odds_endpoint_name": endpoint_name,
+                "provider_odds_market_count": len(markets),
+                "provider_odds_has_full_time": bool(full_time),
+                "provider_odds_fetch_version": _MARQ_PRO_OVERRIDE_VERSION,
+            }
+        _debug(f"provider odds candidate ok event_id={event_id} provider_id={provider_id} endpoint={endpoint_name} markets={len(markets)} full_time={bool(full_time)}")
+
+    if isinstance(best_payload, dict):
+        best_payload = dict(best_payload)
+        best_payload.setdefault("_corq_provider_meta", best_meta)
+    if best_payload is not None:
+        _RUN_PROVIDER_ODDS_CACHE[key] = best_payload
+        return best_payload
+
+    _RUN_PROVIDER_ODDS_CACHE[key] = None
+    _debug(f"provider odds missing event_id={event_id} provider_id={provider_id} robust_override=true")
+    return None
+
+
+def _quote_from_payload(payload: Any, event_id: str, provider_id: Optional[int], provider_name: Optional[str] = None) -> Optional[Dict[str, Any]]:
+    markets = _extract_markets(payload)
+    market = _select_full_time_market(markets)
+    if not market:
+        return None
+    extracted = _extract_choice_markets(market)
+    odds_1 = extracted.get("odds_1")
+    odds_2 = extracted.get("odds_2")
+    if odds_1 is None or odds_2 is None:
+        return None
+    initial_1 = extracted.get("initial_1") or odds_1
+    initial_2 = extracted.get("initial_2") or odds_2
+    meta = payload.get("_corq_provider_meta") if isinstance(payload, dict) else None
+    if not isinstance(meta, dict):
+        meta = {}
+    return {
+        "event_id": str(event_id),
+        "provider_id": provider_id,
+        "provider_name": provider_name or (f"provider_{provider_id}" if provider_id is not None else "bulk"),
+        "source": "TennisApiPRO",
+        "bookmaker": provider_name or (f"provider_{provider_id}" if provider_id is not None else "bulk"),
+        "market_name": market.get("marketName") or market.get("name") or "Full time",
+        "market_group": market.get("marketGroup"),
+        "market_period": market.get("marketPeriod"),
+        "market_id": market.get("marketId"),
+        "source_id": market.get("sourceId"),
+        "odds_1": odds_1,
+        "odds_2": odds_2,
+        "initial_1": initial_1,
+        "initial_2": initial_2,
+        "opening_1": initial_1,
+        "opening_2": initial_2,
+        "change_1": extracted.get("change_1"),
+        "change_2": extracted.get("change_2"),
+        "choice_source_id_1": extracted.get("choice_source_id_1"),
+        "choice_source_id_2": extracted.get("choice_source_id_2"),
+        "provider_odds_endpoint": meta.get("provider_odds_endpoint"),
+        "provider_odds_endpoint_name": meta.get("provider_odds_endpoint_name"),
+        "provider_odds_market_count": meta.get("provider_odds_market_count") or len(markets),
+        "provider_odds_fetch_version": _MARQ_PRO_OVERRIDE_VERSION,
+    }
+
+
+def _build_tennisapi_marq_market_data(player1: str, player2: str, date_only: str, pick: Optional[str], force_refresh: bool = False) -> Optional[Dict[str, Any]]:
+    event_match = find_tennisapi_event_for_match(player1, player2, date_only, force_refresh=force_refresh)
+    if not event_match:
+        return None
+    event_id = str(event_match["event_id"])
+    quotes = collect_market_quotes(event_id, bulk_odds=event_match.get("bulk_odds"), force_refresh=force_refresh)
+    if not quotes:
+        return None
+
+    direct = event_match.get("match_direction") == "direct"
+    od1_quotes = [q["odds_1" if direct else "odds_2"] for q in quotes if q.get("odds_1" if direct else "odds_2")]
+    od2_quotes = [q["odds_2" if direct else "odds_1"] for q in quotes if q.get("odds_2" if direct else "odds_1")]
+    if not od1_quotes or not od2_quotes:
+        return None
+    od1 = float(median(od1_quotes))
+    od2 = float(median(od2_quotes))
+
+    initial1_quotes = [q.get("initial_1" if direct else "initial_2") for q in quotes if q.get("initial_1" if direct else "initial_2")]
+    initial2_quotes = [q.get("initial_2" if direct else "initial_1") for q in quotes if q.get("initial_2" if direct else "initial_1")]
+    change1_quotes = [q.get("change_1" if direct else "change_2") for q in quotes if q.get("change_1" if direct else "change_2") is not None]
+    change2_quotes = [q.get("change_2" if direct else "change_1") for q in quotes if q.get("change_2" if direct else "change_1") is not None]
+    initial1 = float(median(initial1_quotes)) if initial1_quotes else od1
+    initial2 = float(median(initial2_quotes)) if initial2_quotes else od2
+    change1 = float(median(change1_quotes)) if change1_quotes else 0.0
+    change2 = float(median(change2_quotes)) if change2_quotes else 0.0
+
+    endpoint_names = sorted({str(q.get("provider_odds_endpoint_name")) for q in quotes if q.get("provider_odds_endpoint_name")})
+    return {
+        "source": "tennisapi_market_quality",
+        "event_id": event_id,
+        "player1": player1,
+        "player2": player2,
+        "home_name": event_match.get("home_name"),
+        "away_name": event_match.get("away_name"),
+        "match_direction": event_match.get("match_direction"),
+        "match_score": event_match.get("match_score"),
+        "pick_outcome_key": _resolve_pick_outcome_key(player1, player2, pick),
+        "market_quotes": quotes,
+        "market_quotes_source": "TennisApiPRO getAllOddsForEvent/getMatchFeaturedOdds",
+        "market_quote_count": len(quotes),
+        "provider_endpoint_names": endpoint_names,
+        "odds": {
+            "od1": {"opening": initial1, "latest": od1, "current": od1, "change": change1},
+            "od2": {"opening": initial2, "latest": od2, "current": od2, "change": change2},
+        },
+        "marq_fetch_version": _MARQ_PRO_OVERRIDE_VERSION,
+    }
+
+
+def fetch_marq_market_data(
+    player1: str,
+    player2: str,
+    date_only: str,
+    pick: Optional[str] = None,
+    odds_player1: Optional[float] = None,
+    odds_player2: Optional[float] = None,
+    force_refresh: bool = False,
+    **_: Any,
+) -> Optional[Dict[str, Any]]:
+    # Prefer TennisAPI PRO because it carries Full time + initial/current prices.
+    tennisapi_market = _build_tennisapi_marq_market_data(player1, player2, date_only, pick, force_refresh=force_refresh)
+    if tennisapi_market:
+        return tennisapi_market
+
+    bet365_market = _build_bet365_marq_market_data(
+        player1=player1,
+        player2=player2,
+        date_only=date_only,
+        pick=pick,
+        force_refresh=force_refresh,
+    )
+    if bet365_market:
+        bet365_market.setdefault("marq_fetch_version", _MARQ_PRO_OVERRIDE_VERSION)
+        return bet365_market
+
+    fallback = _fallback_existing_odds(player1, player2, pick, odds_player1, odds_player2)
+    if fallback:
+        fallback.setdefault("marq_fetch_version", _MARQ_PRO_OVERRIDE_VERSION)
+        _debug(f"using fallback thin market player1={player1} player2={player2} odds1={odds_player1} odds2={odds_player2}")
+        return fallback
+    return None
