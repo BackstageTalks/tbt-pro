@@ -294,9 +294,9 @@
   "thinq": {
     "available": true,
     "error": null,
-    "confidence": 0.4197,
-    "thinq_data_confidence": 0.4197,
-    "thinq_data_confidence_pct": 41.97,
+    "confidence": 0.2804,
+    "thinq_data_confidence": 0.2804,
+    "thinq_data_confidence_pct": 28.04,
     "thinq_side": {
       "player1_home": "Tatjana Maria",
       "player2_away": "Isabella Marton",
@@ -386,155 +386,25 @@
       "requested_player2_id": 422802
     },
     "recent_form": {
-      "status": "OK",
-      "source": "local_history",
-      "surface": "Hard",
-      "level": "WTA",
-      "pick": {
-        "player": "Tatjana Maria",
-        "normalized_player": "tatjana maria",
-        "total_history_matches": 99,
-        "last5": {
-          "count": 5,
-          "wins": 2,
-          "losses": 3,
-          "record": "2-3",
-          "win_pct": 0.4,
-          "avg_opponent_rank": 292.0,
-          "last_match_date": "2026-05-25"
-        },
-        "last10": {
-          "count": 10,
-          "wins": 5,
-          "losses": 5,
-          "record": "5-5",
-          "win_pct": 0.5,
-          "avg_opponent_rank": 202.6,
-          "last_match_date": "2026-05-25"
-        },
-        "surface": "Hard",
-        "surface_last10": {
-          "count": 10,
-          "wins": 1,
-          "losses": 9,
-          "record": "1-9",
-          "win_pct": 0.1,
-          "avg_opponent_rank": 121.7,
-          "last_match_date": "2026-03-17"
-        },
-        "level": "WTA",
-        "level_last10": {
-          "count": 0,
-          "wins": 0,
-          "losses": 0,
-          "record": "N/A",
-          "win_pct": null,
-          "avg_opponent_rank": null,
-          "last_match_date": null
-        }
-      },
-      "opponent": {
-        "player": "Isabella Marton",
-        "normalized_player": "isabella marton",
-        "total_history_matches": 0,
-        "last5": {
-          "count": 0,
-          "wins": 0,
-          "losses": 0,
-          "record": "N/A",
-          "win_pct": null,
-          "avg_opponent_rank": null,
-          "last_match_date": null
-        },
-        "last10": {
-          "count": 0,
-          "wins": 0,
-          "losses": 0,
-          "record": "N/A",
-          "win_pct": null,
-          "avg_opponent_rank": null,
-          "last_match_date": null
-        },
-        "surface": "Hard",
-        "surface_last10": {
-          "count": 0,
-          "wins": 0,
-          "losses": 0,
-          "record": "N/A",
-          "win_pct": null,
-          "avg_opponent_rank": null,
-          "last_match_date": null
-        },
-        "level": "WTA",
-        "level_last10": {
-          "count": 0,
-          "wins": 0,
-          "losses": 0,
-          "record": "N/A",
-          "win_pct": null,
-          "avg_opponent_rank": null,
-          "last_match_date": null
-        }
-      },
-      "pick_last5_record": "2-3",
-      "opponent_last5_record": "N/A",
-      "pick_last10_record": "5-5",
-      "opponent_last10_record": "N/A",
-      "pick_last10_win_pct": 0.5,
-      "opponent_last10_win_pct": null,
-      "pick_surface_record": "1-9",
-      "opponent_surface_record": "N/A",
-      "pick_surface_last10_win_pct": 0.1,
-      "opponent_surface_last10_win_pct": null,
+      "status": "ERROR",
+      "source": null,
+      "reason": "Recent form context failed",
       "recent_form_edge": 0.0,
       "short_form_edge": 0.0,
       "surface_recent_form_edge": 0.0,
       "opponent_quality_edge": 0.0,
-      "form_confidence": 0.525,
-      "form_data_depth": 0.525,
-      "recent_form_sample_audit": {
-        "status": "OK",
-        "reason": "",
-        "pick_last10_count": 10,
-        "opponent_last10_count": 0,
-        "pick_surface_count": 10,
-        "opponent_surface_count": 0,
-        "pick_total_history_matches": 99,
-        "opponent_total_history_matches": 0
-      },
+      "form_confidence": 0.0,
+      "form_data_depth": 0.0,
       "flags": [
-        "RECENT_FORM_THIN_SAMPLE",
-        "SURFACE_RECENT_FORM_THIN_SAMPLE",
-        "OPPONENT_QUALITY_THIN_DATA",
-        "RECENT_FORM_NEUTRAL"
+        "RECENT_FORM_CONTEXT_FAILED",
+        "RECENT_FORM_NO_DATA"
       ],
       "history_status": {
-        "status": "OK",
-        "match_count": 37883,
-        "file_count": 15,
-        "search_dirs": [
-          "data/history/sackmann_archive/tml",
-          "data/history",
-          "thinq/data/history",
-          "data/sackmann",
-          "thinq/data/sackmann"
-        ],
-        "sample_files": [
-          "data/history/sackmann_archive/atp/2024/atp_matches_2024.csv",
-          "data/history/sackmann_archive/atp/2025/atp_matches_2025.csv",
-          "data/history/sackmann_archive/atp/2026/atp_matches_2026.csv",
-          "data/history/sackmann_archive/wta/2024/wta_matches_2024.csv",
-          "data/history/sackmann_archive/wta/2025/wta_matches_2025.csv",
-          "data/history/sackmann_archive/wta/2026/wta_matches_2026.csv",
-          "data/history/tml/2024.csv",
-          "data/history/tml/2024_challenger.csv",
-          "data/history/tml/2025.csv",
-          "data/history/tml/2025_challenger.csv",
-          "data/history/tml/2026.csv",
-          "data/history/tml/2026_challenger.csv"
-        ],
-        "runtime_outputs_included": false
-      }
+        "status": "ERROR",
+        "match_count": 0,
+        "file_count": 0
+      },
+      "error": "name 'form_source' is not defined"
     },
     "match_dynamics": {
       "status": "OK",
@@ -555,14 +425,15 @@
       "games_edge": 0.0,
       "tiebreak_edge": 0.0,
       "decider_edge": 0.0,
-      "confidence": 0.48,
+      "confidence": 0.38,
       "odds_gap_pct": 11.5,
       "flags": [
-        "MATCH_DYNAMICS_H2H_NEUTRAL"
+        "MATCH_DYNAMICS_H2H_NEUTRAL",
+        "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL"
       ]
     },
     "thinq_probability_layer": {
-      "status": "OK",
+      "status": "LOW_DATA",
       "model_version": "THINQ_PROBABILITY_V1",
       "pick": "Tatjana Maria",
       "pick_side": "HOME",
@@ -603,16 +474,15 @@
       },
       "flags": [
         "MATCH_DYNAMICS_H2H_NEUTRAL",
+        "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
         "MISSING_ELO",
         "NO_H2H_DATA",
-        "OPPONENT_QUALITY_THIN_DATA",
-        "RECENT_FORM_NEUTRAL",
-        "RECENT_FORM_THIN_SAMPLE",
-        "SURFACE_RECENT_FORM_THIN_SAMPLE"
+        "RECENT_FORM_CONTEXT_FAILED",
+        "RECENT_FORM_NO_DATA"
       ]
     },
     "probability_layer": {
-      "status": "OK",
+      "status": "LOW_DATA",
       "model_version": "THINQ_PROBABILITY_V1",
       "pick": "Tatjana Maria",
       "pick_side": "HOME",
@@ -653,12 +523,11 @@
       },
       "flags": [
         "MATCH_DYNAMICS_H2H_NEUTRAL",
+        "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
         "MISSING_ELO",
         "NO_H2H_DATA",
-        "OPPONENT_QUALITY_THIN_DATA",
-        "RECENT_FORM_NEUTRAL",
-        "RECENT_FORM_THIN_SAMPLE",
-        "SURFACE_RECENT_FORM_THIN_SAMPLE"
+        "RECENT_FORM_CONTEXT_FAILED",
+        "RECENT_FORM_NO_DATA"
       ]
     },
     "contexts": {
@@ -681,10 +550,11 @@
         "games_edge": 0.0,
         "tiebreak_edge": 0.0,
         "decider_edge": 0.0,
-        "confidence": 0.48,
+        "confidence": 0.38,
         "odds_gap_pct": 11.5,
         "flags": [
-          "MATCH_DYNAMICS_H2H_NEUTRAL"
+          "MATCH_DYNAMICS_H2H_NEUTRAL",
+          "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL"
         ]
       },
       "h2h": {
@@ -726,155 +596,25 @@
         "requested_player2_id": 422802
       },
       "recent_form": {
-        "status": "OK",
-        "source": "local_history",
-        "surface": "Hard",
-        "level": "WTA",
-        "pick": {
-          "player": "Tatjana Maria",
-          "normalized_player": "tatjana maria",
-          "total_history_matches": 99,
-          "last5": {
-            "count": 5,
-            "wins": 2,
-            "losses": 3,
-            "record": "2-3",
-            "win_pct": 0.4,
-            "avg_opponent_rank": 292.0,
-            "last_match_date": "2026-05-25"
-          },
-          "last10": {
-            "count": 10,
-            "wins": 5,
-            "losses": 5,
-            "record": "5-5",
-            "win_pct": 0.5,
-            "avg_opponent_rank": 202.6,
-            "last_match_date": "2026-05-25"
-          },
-          "surface": "Hard",
-          "surface_last10": {
-            "count": 10,
-            "wins": 1,
-            "losses": 9,
-            "record": "1-9",
-            "win_pct": 0.1,
-            "avg_opponent_rank": 121.7,
-            "last_match_date": "2026-03-17"
-          },
-          "level": "WTA",
-          "level_last10": {
-            "count": 0,
-            "wins": 0,
-            "losses": 0,
-            "record": "N/A",
-            "win_pct": null,
-            "avg_opponent_rank": null,
-            "last_match_date": null
-          }
-        },
-        "opponent": {
-          "player": "Isabella Marton",
-          "normalized_player": "isabella marton",
-          "total_history_matches": 0,
-          "last5": {
-            "count": 0,
-            "wins": 0,
-            "losses": 0,
-            "record": "N/A",
-            "win_pct": null,
-            "avg_opponent_rank": null,
-            "last_match_date": null
-          },
-          "last10": {
-            "count": 0,
-            "wins": 0,
-            "losses": 0,
-            "record": "N/A",
-            "win_pct": null,
-            "avg_opponent_rank": null,
-            "last_match_date": null
-          },
-          "surface": "Hard",
-          "surface_last10": {
-            "count": 0,
-            "wins": 0,
-            "losses": 0,
-            "record": "N/A",
-            "win_pct": null,
-            "avg_opponent_rank": null,
-            "last_match_date": null
-          },
-          "level": "WTA",
-          "level_last10": {
-            "count": 0,
-            "wins": 0,
-            "losses": 0,
-            "record": "N/A",
-            "win_pct": null,
-            "avg_opponent_rank": null,
-            "last_match_date": null
-          }
-        },
-        "pick_last5_record": "2-3",
-        "opponent_last5_record": "N/A",
-        "pick_last10_record": "5-5",
-        "opponent_last10_record": "N/A",
-        "pick_last10_win_pct": 0.5,
-        "opponent_last10_win_pct": null,
-        "pick_surface_record": "1-9",
-        "opponent_surface_record": "N/A",
-        "pick_surface_last10_win_pct": 0.1,
-        "opponent_surface_last10_win_pct": null,
+        "status": "ERROR",
+        "source": null,
+        "reason": "Recent form context failed",
         "recent_form_edge": 0.0,
         "short_form_edge": 0.0,
         "surface_recent_form_edge": 0.0,
         "opponent_quality_edge": 0.0,
-        "form_confidence": 0.525,
-        "form_data_depth": 0.525,
-        "recent_form_sample_audit": {
-          "status": "OK",
-          "reason": "",
-          "pick_last10_count": 10,
-          "opponent_last10_count": 0,
-          "pick_surface_count": 10,
-          "opponent_surface_count": 0,
-          "pick_total_history_matches": 99,
-          "opponent_total_history_matches": 0
-        },
+        "form_confidence": 0.0,
+        "form_data_depth": 0.0,
         "flags": [
-          "RECENT_FORM_THIN_SAMPLE",
-          "SURFACE_RECENT_FORM_THIN_SAMPLE",
-          "OPPONENT_QUALITY_THIN_DATA",
-          "RECENT_FORM_NEUTRAL"
+          "RECENT_FORM_CONTEXT_FAILED",
+          "RECENT_FORM_NO_DATA"
         ],
         "history_status": {
-          "status": "OK",
-          "match_count": 37883,
-          "file_count": 15,
-          "search_dirs": [
-            "data/history/sackmann_archive/tml",
-            "data/history",
-            "thinq/data/history",
-            "data/sackmann",
-            "thinq/data/sackmann"
-          ],
-          "sample_files": [
-            "data/history/sackmann_archive/atp/2024/atp_matches_2024.csv",
-            "data/history/sackmann_archive/atp/2025/atp_matches_2025.csv",
-            "data/history/sackmann_archive/atp/2026/atp_matches_2026.csv",
-            "data/history/sackmann_archive/wta/2024/wta_matches_2024.csv",
-            "data/history/sackmann_archive/wta/2025/wta_matches_2025.csv",
-            "data/history/sackmann_archive/wta/2026/wta_matches_2026.csv",
-            "data/history/tml/2024.csv",
-            "data/history/tml/2024_challenger.csv",
-            "data/history/tml/2025.csv",
-            "data/history/tml/2025_challenger.csv",
-            "data/history/tml/2026.csv",
-            "data/history/tml/2026_challenger.csv"
-          ],
-          "runtime_outputs_included": false
-        }
+          "status": "ERROR",
+          "match_count": 0,
+          "file_count": 0
+        },
+        "error": "name 'form_source' is not defined"
       },
       "elo": {
         "status": "NO_DATA",
@@ -899,7 +639,7 @@
         ]
       },
       "thinq_probability_layer": {
-        "status": "OK",
+        "status": "LOW_DATA",
         "model_version": "THINQ_PROBABILITY_V1",
         "pick": "Tatjana Maria",
         "pick_side": "HOME",
@@ -940,12 +680,11 @@
         },
         "flags": [
           "MATCH_DYNAMICS_H2H_NEUTRAL",
+          "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
           "MISSING_ELO",
           "NO_H2H_DATA",
-          "OPPONENT_QUALITY_THIN_DATA",
-          "RECENT_FORM_NEUTRAL",
-          "RECENT_FORM_THIN_SAMPLE",
-          "SURFACE_RECENT_FORM_THIN_SAMPLE"
+          "RECENT_FORM_CONTEXT_FAILED",
+          "RECENT_FORM_NO_DATA"
         ]
       },
       "ta_context": {
@@ -1061,15 +800,14 @@
     },
     "flags": [
       "MATCH_DYNAMICS_H2H_NEUTRAL",
+      "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
       "MISSING_ELO",
       "NO_H2H_DATA",
-      "OPPONENT_QUALITY_THIN_DATA",
-      "RECENT_FORM_NEUTRAL",
-      "RECENT_FORM_THIN_SAMPLE",
-      "SURFACE_RECENT_FORM_THIN_SAMPLE"
+      "RECENT_FORM_CONTEXT_FAILED",
+      "RECENT_FORM_NO_DATA"
     ],
     "thinq_available": true,
-    "thinq_probability_status": "OK",
+    "thinq_probability_status": "LOW_DATA",
     "thinq_model_version": "THINQ_PROBABILITY_V1",
     "thinq_pick_probability": 0.5,
     "thinq_pick_probability_pct": 50.0,
@@ -1092,7 +830,7 @@
       "sets_edge": 0.0,
       "games_edge": 0.0
     },
-    "thinq_confidence": 0.4197,
+    "thinq_confidence": 0.2804,
     "thinq_selected_elo_type": "hard_elo",
     "thinq_elo_pick": 1625.6,
     "thinq_elo_opponent": null,
@@ -1151,8 +889,26 @@
     "thinq_decider_probability": 0.472,
     "thinq_straight_sets_probability": 0.528,
     "thinq_match_shape": "CLOSE_DECIDER_LEAN",
-    "thinq_match_dynamics_confidence": 0.48,
-    "thinq_form_confidence": 0.525,
+    "thinq_match_dynamics_confidence": 0.38,
+    "thinq_form_confidence": 0.0,
+    "recent_form_source": null,
+    "recent_form_freshness_status": null,
+    "pick_local_last_match_date": null,
+    "opponent_local_last_match_date": null,
+    "pick_local_days_old": null,
+    "opponent_local_days_old": null,
+    "pick_api_last10_record": null,
+    "opponent_api_last10_record": null,
+    "pick_api_surface_record": null,
+    "opponent_api_surface_record": null,
+    "pick_api_last_match_date": null,
+    "opponent_api_last_match_date": null,
+    "pick_api_status": null,
+    "opponent_api_status": null,
+    "pick_api_event_count": null,
+    "opponent_api_event_count": null,
+    "pick_api_usable_match_count": null,
+    "opponent_api_usable_match_count": null,
     "ta_context": {
       "ta_status": "OK",
       "ta_pick_status": "FETCH_FAILED",
@@ -1425,21 +1181,20 @@
     "thinq_id_orientation": "PICK_IDS_SIDE_AWARE_V1",
     "thinq_flags": [
       "MATCH_DYNAMICS_H2H_NEUTRAL",
+      "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
       "MISSING_ELO",
       "NO_H2H_DATA",
-      "OPPONENT_QUALITY_THIN_DATA",
-      "RECENT_FORM_NEUTRAL",
-      "RECENT_FORM_THIN_SAMPLE",
-      "SURFACE_RECENT_FORM_THIN_SAMPLE"
+      "RECENT_FORM_CONTEXT_FAILED",
+      "RECENT_FORM_NO_DATA"
     ],
     "thinq_source_status": {
       "elo": "NO_DATA",
       "h2h": "NO_DATA",
-      "recent_form": "OK",
+      "recent_form": "ERROR",
       "match_dynamics": "OK",
       "ta": "OK",
-      "history_match_count": 37883,
-      "history_file_count": 15
+      "history_match_count": 0,
+      "history_file_count": 0
     }
   },
   "thinq_service_module": "thinq.service",
@@ -1447,7 +1202,7 @@
   "thinq_service_import_diagnostics": [],
   "thinq_available": true,
   "thinq_error": null,
-  "thinq_confidence": 0.4197,
+  "thinq_confidence": 0.2804,
   "thinq_edges": {
     "overall_elo_edge": 0.0,
     "surface_elo_edge": 0.0,
@@ -1464,22 +1219,21 @@
   },
   "thinq_flags": [
     "MATCH_DYNAMICS_H2H_NEUTRAL",
+    "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
     "MISSING_ELO",
     "NO_H2H_DATA",
-    "OPPONENT_QUALITY_THIN_DATA",
-    "RECENT_FORM_NEUTRAL",
-    "RECENT_FORM_THIN_SAMPLE",
-    "SURFACE_RECENT_FORM_THIN_SAMPLE"
+    "RECENT_FORM_CONTEXT_FAILED",
+    "RECENT_FORM_NO_DATA"
   ],
   "thinq_elo_status": "NO_DATA",
-  "thinq_recent_form_status": "OK",
-  "thinq_recent_form_reason": null,
-  "thinq_history_match_count": 37883,
-  "thinq_history_file_count": 15,
+  "thinq_recent_form_status": "ERROR",
+  "thinq_recent_form_reason": "Recent form context failed",
+  "thinq_history_match_count": 0,
+  "thinq_history_file_count": 0,
   "thinq_match_dynamics_status": "OK",
-  "thinq_probability_layer_status": "OK",
-  "thinq_data_confidence": 0.4197,
-  "thinq_data_confidence_pct": 41.97,
+  "thinq_probability_layer_status": "LOW_DATA",
+  "thinq_data_confidence": 0.2804,
+  "thinq_data_confidence_pct": 28.04,
   "thinq_side": {
     "player1_home": "Tatjana Maria",
     "player2_away": "Isabella Marton",
@@ -1499,7 +1253,7 @@
     "side_valid": true
   },
   "thinq_probability_layer": {
-    "status": "OK",
+    "status": "LOW_DATA",
     "model_version": "THINQ_PROBABILITY_V1",
     "pick": "Tatjana Maria",
     "pick_side": "HOME",
@@ -1540,15 +1294,14 @@
     },
     "flags": [
       "MATCH_DYNAMICS_H2H_NEUTRAL",
+      "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL",
       "MISSING_ELO",
       "NO_H2H_DATA",
-      "OPPONENT_QUALITY_THIN_DATA",
-      "RECENT_FORM_NEUTRAL",
-      "RECENT_FORM_THIN_SAMPLE",
-      "SURFACE_RECENT_FORM_THIN_SAMPLE"
+      "RECENT_FORM_CONTEXT_FAILED",
+      "RECENT_FORM_NO_DATA"
     ]
   },
-  "thinq_probability_status": "OK",
+  "thinq_probability_status": "LOW_DATA",
   "thinq_model_version": "THINQ_PROBABILITY_V1",
   "thinq_pick_probability": 0.5,
   "thinq_pick_probability_pct": 50.0,
@@ -1629,8 +1382,8 @@
   "thinq_decider_probability": 0.472,
   "thinq_straight_sets_probability": 0.528,
   "thinq_match_shape": "CLOSE_DECIDER_LEAN",
-  "thinq_match_dynamics_confidence": 0.48,
-  "thinq_form_confidence": 0.525,
+  "thinq_match_dynamics_confidence": 0.38,
+  "thinq_form_confidence": 0.0,
   "thinq_ta_context": {
     "ta_status": "OK",
     "ta_pick_status": "FETCH_FAILED",
@@ -1705,11 +1458,11 @@
   "thinq_source_status": {
     "elo": "NO_DATA",
     "h2h": "NO_DATA",
-    "recent_form": "OK",
+    "recent_form": "ERROR",
     "match_dynamics": "OK",
     "ta": "OK",
-    "history_match_count": 37883,
-    "history_file_count": 15
+    "history_match_count": 0,
+    "history_file_count": 0
   },
   "elo": {
     "status": "NO_DATA",
@@ -1772,155 +1525,25 @@
     "requested_player2_id": 422802
   },
   "recent_form": {
-    "status": "OK",
-    "source": "local_history",
-    "surface": "Hard",
-    "level": "WTA",
-    "pick": {
-      "player": "Tatjana Maria",
-      "normalized_player": "tatjana maria",
-      "total_history_matches": 99,
-      "last5": {
-        "count": 5,
-        "wins": 2,
-        "losses": 3,
-        "record": "2-3",
-        "win_pct": 0.4,
-        "avg_opponent_rank": 292.0,
-        "last_match_date": "2026-05-25"
-      },
-      "last10": {
-        "count": 10,
-        "wins": 5,
-        "losses": 5,
-        "record": "5-5",
-        "win_pct": 0.5,
-        "avg_opponent_rank": 202.6,
-        "last_match_date": "2026-05-25"
-      },
-      "surface": "Hard",
-      "surface_last10": {
-        "count": 10,
-        "wins": 1,
-        "losses": 9,
-        "record": "1-9",
-        "win_pct": 0.1,
-        "avg_opponent_rank": 121.7,
-        "last_match_date": "2026-03-17"
-      },
-      "level": "WTA",
-      "level_last10": {
-        "count": 0,
-        "wins": 0,
-        "losses": 0,
-        "record": "N/A",
-        "win_pct": null,
-        "avg_opponent_rank": null,
-        "last_match_date": null
-      }
-    },
-    "opponent": {
-      "player": "Isabella Marton",
-      "normalized_player": "isabella marton",
-      "total_history_matches": 0,
-      "last5": {
-        "count": 0,
-        "wins": 0,
-        "losses": 0,
-        "record": "N/A",
-        "win_pct": null,
-        "avg_opponent_rank": null,
-        "last_match_date": null
-      },
-      "last10": {
-        "count": 0,
-        "wins": 0,
-        "losses": 0,
-        "record": "N/A",
-        "win_pct": null,
-        "avg_opponent_rank": null,
-        "last_match_date": null
-      },
-      "surface": "Hard",
-      "surface_last10": {
-        "count": 0,
-        "wins": 0,
-        "losses": 0,
-        "record": "N/A",
-        "win_pct": null,
-        "avg_opponent_rank": null,
-        "last_match_date": null
-      },
-      "level": "WTA",
-      "level_last10": {
-        "count": 0,
-        "wins": 0,
-        "losses": 0,
-        "record": "N/A",
-        "win_pct": null,
-        "avg_opponent_rank": null,
-        "last_match_date": null
-      }
-    },
-    "pick_last5_record": "2-3",
-    "opponent_last5_record": "N/A",
-    "pick_last10_record": "5-5",
-    "opponent_last10_record": "N/A",
-    "pick_last10_win_pct": 0.5,
-    "opponent_last10_win_pct": null,
-    "pick_surface_record": "1-9",
-    "opponent_surface_record": "N/A",
-    "pick_surface_last10_win_pct": 0.1,
-    "opponent_surface_last10_win_pct": null,
+    "status": "ERROR",
+    "source": null,
+    "reason": "Recent form context failed",
     "recent_form_edge": 0.0,
     "short_form_edge": 0.0,
     "surface_recent_form_edge": 0.0,
     "opponent_quality_edge": 0.0,
-    "form_confidence": 0.525,
-    "form_data_depth": 0.525,
-    "recent_form_sample_audit": {
-      "status": "OK",
-      "reason": "",
-      "pick_last10_count": 10,
-      "opponent_last10_count": 0,
-      "pick_surface_count": 10,
-      "opponent_surface_count": 0,
-      "pick_total_history_matches": 99,
-      "opponent_total_history_matches": 0
-    },
+    "form_confidence": 0.0,
+    "form_data_depth": 0.0,
     "flags": [
-      "RECENT_FORM_THIN_SAMPLE",
-      "SURFACE_RECENT_FORM_THIN_SAMPLE",
-      "OPPONENT_QUALITY_THIN_DATA",
-      "RECENT_FORM_NEUTRAL"
+      "RECENT_FORM_CONTEXT_FAILED",
+      "RECENT_FORM_NO_DATA"
     ],
     "history_status": {
-      "status": "OK",
-      "match_count": 37883,
-      "file_count": 15,
-      "search_dirs": [
-        "data/history/sackmann_archive/tml",
-        "data/history",
-        "thinq/data/history",
-        "data/sackmann",
-        "thinq/data/sackmann"
-      ],
-      "sample_files": [
-        "data/history/sackmann_archive/atp/2024/atp_matches_2024.csv",
-        "data/history/sackmann_archive/atp/2025/atp_matches_2025.csv",
-        "data/history/sackmann_archive/atp/2026/atp_matches_2026.csv",
-        "data/history/sackmann_archive/wta/2024/wta_matches_2024.csv",
-        "data/history/sackmann_archive/wta/2025/wta_matches_2025.csv",
-        "data/history/sackmann_archive/wta/2026/wta_matches_2026.csv",
-        "data/history/tml/2024.csv",
-        "data/history/tml/2024_challenger.csv",
-        "data/history/tml/2025.csv",
-        "data/history/tml/2025_challenger.csv",
-        "data/history/tml/2026.csv",
-        "data/history/tml/2026_challenger.csv"
-      ],
-      "runtime_outputs_included": false
-    }
+      "status": "ERROR",
+      "match_count": 0,
+      "file_count": 0
+    },
+    "error": "name 'form_source' is not defined"
   },
   "match_dynamics": {
     "status": "OK",
@@ -1941,10 +1564,11 @@
     "games_edge": 0.0,
     "tiebreak_edge": 0.0,
     "decider_edge": 0.0,
-    "confidence": 0.48,
+    "confidence": 0.38,
     "odds_gap_pct": 11.5,
     "flags": [
-      "MATCH_DYNAMICS_H2H_NEUTRAL"
+      "MATCH_DYNAMICS_H2H_NEUTRAL",
+      "MATCH_DYNAMICS_RECENT_FORM_NEUTRAL"
     ]
   },
   "ta_context": {
@@ -2057,7 +1681,7 @@
     "sets_edge": 0.0,
     "games_edge": 0.0
   },
-  "confidence": 0.4197,
+  "confidence": 0.2804,
   "ta_status": "OK",
   "ta_pick_status": "FETCH_FAILED",
   "ta_opp_status": "OK",
@@ -2090,22 +1714,16 @@
   "surface_elo_edge": 0.0,
   "elo_edge": 0.0,
   "selected_elo_type": "hard_elo",
-  "pick_last5_record": "2-3",
-  "opponent_last5_record": "N/A",
-  "pick_last10_record": "5-5",
-  "opponent_last10_record": "N/A",
-  "pick_surface_record": "1-9",
-  "opponent_surface_record": "N/A",
-  "pick_last10_win_pct": 0.5,
-  "pick_surface_last10_win_pct": 0.1,
   "recent_form_edge": 0.0,
   "short_form_edge": 0.0,
   "surface_recent_form_edge": 0.0,
   "opponent_quality_edge": 0.0,
-  "form_confidence": 0.525,
-  "form_data_depth": 0.525,
-  "status": "OK",
-  "recent_form_status": "OK",
+  "form_confidence": 0.0,
+  "form_data_depth": 0.0,
+  "status": "ERROR",
+  "reason": "Recent form context failed",
+  "recent_form_status": "ERROR",
+  "recent_form_reason": "Recent form context failed",
   "projected_sets": 2.47,
   "projected_games": 25.4,
   "tiebreak_probability": null,
@@ -2123,10 +1741,14 @@
   "s_data_depth": 0.1731,
   "sets_games_data_depth": 0.1731,
   "implied_probability": 0.9615,
-  "pick_last10_count": 10,
-  "opponent_last10_count": 0,
-  "pick_surface_count": 10,
-  "opponent_surface_count": 0,
+  "pick_last10_record": null,
+  "opponent_last10_record": null,
+  "pick_surface_record": null,
+  "opponent_surface_record": null,
+  "pick_last10_count": null,
+  "opponent_last10_count": null,
+  "pick_surface_count": null,
+  "opponent_surface_count": null,
   "corq_model_version": "CORQ_V1_THINQ_PRIMARY_PROBABILITY",
   "corq_probability_source": "THINQ_PICK_PROBABILITY",
   "corq_thinq_probability": 0.5,
@@ -2320,7 +1942,7 @@
   "probability": 0.6917,
   "value_edge": -0.2698,
   "edge": -0.2698,
-  "corq_source_rank": 7,
+  "corq_source_rank": 4,
   "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
   "top7_publishable": false,
   "eligible_for_top7": false,
@@ -2328,60 +1950,62 @@
     "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
     "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
     "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
+    "REJECT_TOP7_LOW_FORM_DATA_DEPTH",
     "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
   ],
   "top7_reject_reasons": [
     "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
     "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
     "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
+    "REJECT_TOP7_LOW_FORM_DATA_DEPTH",
     "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
   ],
   "top7_hard_reject_reasons": [
     "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
     "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
     "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
+    "REJECT_TOP7_LOW_FORM_DATA_DEPTH",
     "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
   ],
   "top7_primary_reject_reason": "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
-  "top7_reject_reason_count": 4,
+  "top7_reject_reason_count": 5,
   "top7_reject_summary_scope": "NON_PUBLISHABLE_ROWS_ONLY",
   "top7_status_allowed": true,
   "top7_status_type_normalized": "notstarted",
   "top7_status_code": 0,
   "top7_corq_probability": 0.6917,
   "top7_pick_thinq_edge": 0.0,
-  "top7_thinq_confidence": 0.4197,
-  "top7_thinq_data_confidence": 0.4197,
+  "top7_thinq_confidence": 0.2804,
+  "top7_thinq_data_confidence": 0.2804,
   "top7_thinq_pick_probability": 0.5,
-  "pick_data_depth": 0.32019,
-  "stat_data_depth": 0.32019,
+  "pick_data_depth": 0.05608,
+  "stat_data_depth": 0.05608,
   "top7_pick_odds": 1.04,
   "top7_match_date_local": "2026-08-01",
-  "recent_form_reason": "",
   "recent_form_sample_audit": {
-    "status": "OK",
-    "reason": "",
-    "pick_last10_count": 10.0,
+    "status": "ERROR",
+    "reason": "Recent form context failed",
+    "pick_last10_count": 0.0,
     "opponent_last10_count": 0.0,
-    "pick_surface_count": 10.0,
+    "pick_surface_count": 0.0,
     "opponent_surface_count": 0.0,
-    "history_match_count": 37883
+    "history_match_count": 0
   },
   "low_data_risk_audit": {
     "corq_probability": 0.6917,
     "pick_thinq_edge": 0.0,
-    "pick_data_depth": 0.32019,
-    "form_data_depth": 0.525,
-    "thinq_confidence": 0.4197,
+    "pick_data_depth": 0.05608,
+    "form_data_depth": 0.0,
+    "thinq_confidence": 0.2804,
     "elo_coverage_missing": true,
     "recent_form": {
-      "status": "OK",
-      "reason": "",
-      "pick_last10_count": 10.0,
+      "status": "ERROR",
+      "reason": "Recent form context failed",
+      "pick_last10_count": 0.0,
       "opponent_last10_count": 0.0,
-      "pick_surface_count": 10.0,
+      "pick_surface_count": 0.0,
       "opponent_surface_count": 0.0,
-      "history_match_count": 37883
+      "history_match_count": 0
     },
     "odds_available": true
   },
@@ -2391,6 +2015,6 @@
   "top7_risk_penalty_points": 0.0,
   "top7_clean_bonus_points": 0.0,
   "top7_quality_score": 0.0,
-  "corq_rank": 7,
+  "corq_rank": 4,
   "_corq_render_rank": 34
 }
