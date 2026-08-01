@@ -509,3 +509,200 @@ def build_h2h_context(
     if summary.get("status") == "OK":
         summary["source"] = source
     return summary
+
+# ---------------------------------------------------------------------------
+# Robust runtime override: RapidAPI H2H history + summary fallback
+# ---------------------------------------------------------------------------
+# Kept at the end so older function bodies stay available, but runtime imports
+# use these safer definitions. Primary endpoint remains event/{customId}/h2h.
+
+_H2H_ROBUST_OVERRIDE_VERSION = "2026-08-01-h2h-history-summary-fallback"
+
+
+def _h2h_find_summary_counts(payload: Any) -> Optional[Dict[str, int]]:
+    """Find homeWins/awayWins style counts in a nested RapidAPI response."""
+    if isinstance(payload, dict) and "payload" in payload:
+        payload = payload.get("payload")
+    if not isinstance(payload, dict):
+        return None
+    stack = [payload]
+    while stack:
+        current = stack.pop()
+        if not isinstance(current, dict):
+            continue
+        hw = current.get("homeWins")
+        aw = current.get("awayWins")
+        if hw is not None and aw is not None:
+            try:
+                return {"homeWins": int(hw or 0), "awayWins": int(aw or 0)}
+            except Exception:
+                pass
+        for value in current.values():
+            if isinstance(value, dict):
+                stack.append(value)
+    return None
+
+
+def fetch_h2h_from_api(
+    event_id: Any,
+    player1_id: Any = None,
+    player2_id: Any = None,
+    event_custom_id: Any = None,
+) -> Optional[Any]:
+    """Fetch H2H with strict primary endpoint and auditable fallbacks.
+
+    Order:
+    1. /api/tennis/event/{customId}/h2h where available.
+    2. numeric event h2h/history/summary endpoints.
+    3. player/team pair history/summary endpoints when ids are available.
+
+    Summary-only responses are kept, but summarize_h2h() only uses them when
+    the endpoint is an explicit HeadToHeadSummary fallback, so event-order
+    ambiguity cannot silently contaminate pick/opponent orientation.
+    """
+    custom_id = string_id(event_custom_id)
+    event_id_text = string_id(event_id)
+    event_id_int = as_int(event_id)
+    if not custom_id and event_id_text and not event_id_text.isdigit():
+        custom_id = event_id_text
+    p1 = as_int(player1_id)
+    p2 = as_int(player2_id)
+
+    attempts: List[Any] = []
+    if custom_id:
+        attempts.extend([
+            (f"/api/tennis/event/{custom_id}/h2h", None),
+            (f"/api/tennis/event/{custom_id}/head-to-head", None),
+        ])
+    if event_id_int:
+        attempts.extend([
+            (f"/api/tennis/event/{event_id_int}/h2h", None),
+            (f"/api/tennis/event/{event_id_int}/head-to-head", None),
+            ("/api/tennis/getHeadToHeadHistory", {"id": event_id_int}),
+            ("/api/tennis/getHeadToHeadHistory", {"eventId": event_id_int}),
+            ("/api/tennis/getHeadToHeadSummary", {"id": event_id_int}),
+            ("/api/tennis/getHeadToHeadSummary", {"eventId": event_id_int}),
+        ])
+    if p1 and p2:
+        attempts.extend([
+            (f"/api/tennis/head-to-head/{p1}/{p2}", None),
+            (f"/api/tennis/team/{p1}/versus/{p2}/matches", None),
+            (f"/api/tennis/player/{p1}/versus/{p2}/matches", None),
+            ("/api/tennis/getHeadToHeadHistory", {"player1Id": p1, "player2Id": p2}),
+            ("/api/tennis/getHeadToHeadHistory", {"homeTeamId": p1, "awayTeamId": p2}),
+            ("/api/tennis/getHeadToHeadSummary", {"player1Id": p1, "player2Id": p2}),
+            ("/api/tennis/getHeadToHeadSummary", {"homeTeamId": p1, "awayTeamId": p2}),
+            # Some RapidAPI screens label path param as id. Keep this as final fallback.
+            ("/api/tennis/getHeadToHeadHistory", {"id": p1, "secondId": p2}),
+            ("/api/tennis/getHeadToHeadSummary", {"id": p1, "secondId": p2}),
+        ])
+
+    endpoint_attempts: List[Dict[str, Any]] = []
+    seen = set()
+    for path, params in attempts:
+        sig = (path, json.dumps(params or {}, sort_keys=True))
+        if sig in seen:
+            continue
+        seen.add(sig)
+        audit = api_get_with_audit(path, params=params)
+        endpoint_attempts.append({
+            "endpoint": audit.get("endpoint"),
+            "params": audit.get("params"),
+            "status_code": audit.get("status_code"),
+            "ok": audit.get("ok"),
+            "error": audit.get("error"),
+        })
+        raw = audit.get("payload")
+        events = extract_events(raw)
+        summary = _h2h_find_summary_counts(raw)
+        if raw and (events or summary):
+            return {
+                "endpoint": path,
+                "params": params,
+                "payload": raw,
+                "endpoint_attempts": endpoint_attempts,
+                "api_status_code": audit.get("status_code"),
+                "api_error": audit.get("error"),
+                "h2h_fetch_version": _H2H_ROBUST_OVERRIDE_VERSION,
+                "h2h_payload_event_count": len(events),
+                "h2h_payload_has_summary": bool(summary),
+            }
+    if endpoint_attempts:
+        return {
+            "endpoint": None,
+            "params": None,
+            "payload": None,
+            "endpoint_attempts": endpoint_attempts,
+            "api_status_code": endpoint_attempts[-1].get("status_code"),
+            "api_error": endpoint_attempts[-1].get("error"),
+            "h2h_fetch_version": _H2H_ROBUST_OVERRIDE_VERSION,
+        }
+    return None
+
+
+_previous_summarize_h2h = summarize_h2h
+
+
+def summarize_h2h(payload: Any, pick: str, opponent: str, surface: Optional[str] = None) -> Dict[str, Any]:
+    summary = _previous_summarize_h2h(payload, pick, opponent, surface=surface)
+    if summary.get("status") == "OK":
+        summary.setdefault("h2h_summary_source", "events")
+        return summary
+
+    # If history events are missing but explicit HeadToHeadSummary returned
+    # homeWins/awayWins using player1/player2 params, use it as total-H2H only.
+    endpoint = ""
+    params = None
+    if isinstance(payload, dict):
+        endpoint = str(payload.get("endpoint") or "")
+        params = payload.get("params")
+    counts = _h2h_find_summary_counts(payload)
+    params_text = json.dumps(params or {}, sort_keys=True)
+    safe_summary_endpoint = "getHeadToHeadSummary" in endpoint and any(
+        key in params_text for key in ("player1Id", "homeTeamId", "secondId")
+    )
+    if not counts or not safe_summary_endpoint:
+        summary["h2h_summary_source"] = "none"
+        summary["h2h_summary_usable"] = False
+        return summary
+
+    pick_wins = int(counts.get("homeWins") or 0)
+    opponent_wins = int(counts.get("awayWins") or 0)
+    total = pick_wins + opponent_wins
+    if total <= 0:
+        return summary
+    win_pct = pick_wins / total
+    raw_edge = max(min((win_pct - 0.5) * 0.08, 0.04), -0.04)
+    confidence = min(0.12 + total * 0.06, 0.42)
+    edge = effective_h2h_edge(raw_edge, total, confidence)
+    return {
+        "status": "OK",
+        "source": "rapidapi_pro_summary",
+        "h2h_summary_source": "getHeadToHeadSummary",
+        "h2h_summary_usable": True,
+        "h2h_orientation": "homeWins_as_pick_from_player_params",
+        "total_matches": total,
+        "pick_wins": pick_wins,
+        "opponent_wins": opponent_wins,
+        "pick_win_pct": round(win_pct, 4),
+        "same_surface_matches": 0,
+        "same_surface_pick_wins": 0,
+        "same_surface_opponent_wins": 0,
+        "same_surface_pick_win_pct": None,
+        "same_surface_raw_edge": 0.0,
+        "same_surface_effective_edge": 0.0,
+        "same_surface_edge": 0.0,
+        "same_surface_sample_quality": "NO_SAMPLE",
+        "h2h_requested_surface": surface,
+        "h2h_requested_surface_bucket": normalize_surface_bucket(surface),
+        "h2h_detected_surface_buckets": [],
+        "h2h_missing_surface_matches": 0,
+        "raw_edge": round(raw_edge, 4),
+        "effective_edge": round(edge, 4),
+        "edge": round(edge, 4),
+        "sample_cap": round(h2h_sample_cap(total), 4),
+        "sample_quality": h2h_sample_quality(total, confidence),
+        "confidence": round(confidence, 4),
+        "reason": None,
+        "warning": "Summary-only H2H cannot calculate same-surface H2H.",
+    }
