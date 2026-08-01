@@ -1122,7 +1122,7 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
     top_tag_html = f'<div class="compact-top-tags">{card_insights_html(row, notes)}</div>'
     odds_gap = as_float(row.get("odds_gap_pct") or row.get("cloq_odds_gap_pct"))
     odds_gap_txt = as_pct(odds_gap, 1) if odds_gap is not None else "—"
-    cloq_extra = metric_row("Odds Gap", odds_gap_txt) if page == "cloq" else ""
+    cloq_extra = ""
     html_parts = [
         f'<article class="pick-card" data-tags="{esc(data_tags)}">',
         '<section class="pick-main compact-v3">',
@@ -1162,7 +1162,7 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         metric_row("F Data Depth", bar_html(form_depth(row))),
         '</section>',
         render_sets_games_box(row),
-        render_marq_box(row) if page != "cloq" else render_cloq_box(row),
+        render_marq_box(row),
         cloq_extra,
         '</article>',
     ]
@@ -2296,6 +2296,7 @@ AUDIT_CORQ_TOP20_LABEL = "CorQ Top20"
 AUDIT_TIME_ODDS_LABEL = "Up to 2H | O>1.5"
 AUDIT_SAFE_BET_LABEL = "Safe Bet Signal"
 AUDIT_H2H_TOP10_LABEL = "H2H Top10"
+AUDIT_CLOQ_LABEL = "CloQ"
 RESULT_LAST_3_DAYS_LABEL = "Last 3 days"
 RESULT_LAST_7_DAYS_LABEL = "Last 7 days"
 RESULT_LAST_MONTH_LABEL = "Last month"
@@ -2475,6 +2476,16 @@ def mark_audit_h2h_top10(rows: List[Dict[str, Any]]) -> None:
 def audit_has_h2h_top10(row: Dict[str, Any]) -> bool:
     return bool(row.get("_audit_h2h_top10"))
 
+
+def audit_has_cloq(row: Dict[str, Any]) -> bool:
+    """Return True when an Audit row belongs to the current CloQ shortlist.
+
+    The flag is written during render_all by matching latest_all rows against
+    outputs/latest_cloq.json. The direct cloq_passed fallback keeps the filter
+    compatible with rows that already carry CloQ metadata.
+    """
+    return bool(row.get("_audit_cloq") or row.get("cloq_passed"))
+
 def get_existing_public_tags(row: Dict[str, Any]) -> List[str]:
     tags: List[str] = []
     for key in ("tags", "audit_tags", "audit_filter_tags", "data_notes", "notes", "flags"):
@@ -2496,6 +2507,8 @@ def audit_filter_tags_for_row(row: Dict[str, Any]) -> List[str]:
         tags.append(AUDIT_SAFE_BET_LABEL)
     if audit_has_h2h_top10(row):
         tags.append(AUDIT_H2H_TOP10_LABEL)
+    if audit_has_cloq(row):
+        tags.append(AUDIT_CLOQ_LABEL)
     existing = row.get("audit_filter_tags")
     if isinstance(existing, list):
         tags.extend(str(x) for x in existing if x)
@@ -2518,6 +2531,8 @@ def audit_note_css(label: str) -> str:
         return "tag-chip audit-pill audit-pill-safe"
     if label == AUDIT_H2H_TOP10_LABEL:
         return "tag-chip audit-pill audit-pill-h2h"
+    if label == AUDIT_CLOQ_LABEL:
+        return "tag-chip audit-pill audit-pill-signal"
     if label in {RESULT_LAST_3_DAYS_LABEL, RESULT_LAST_7_DAYS_LABEL, RESULT_LAST_MONTH_LABEL, RESULT_THIS_YEAR_LABEL}:
         return "tag-chip audit-pill audit-pill-date"
     if label in {RESULT_MODEL_CORQ_LABEL, RESULT_MODEL_CLOQ_LABEL, RESULT_MODEL_AUDIT_LABEL}:
@@ -2614,8 +2629,9 @@ def render_notes_summary(rows: List[Dict[str, Any]]) -> str:
         order = {
             AUDIT_CORQ_TOP20_LABEL: 0,
             AUDIT_TIME_ODDS_LABEL: 1,
-            AUDIT_SAFE_BET_LABEL: 2,
-            AUDIT_H2H_TOP10_LABEL: 3,
+            AUDIT_CLOQ_LABEL: 2,
+            AUDIT_SAFE_BET_LABEL: 3,
+            AUDIT_H2H_TOP10_LABEL: 4,
         }.get(label, 10)
         return order, -count, label
 
@@ -2903,8 +2919,9 @@ def render_results_table(rows: List[Dict[str, Any]], title: str, limit: Optional
         RESULT_THIS_YEAR_LABEL: 13,
         AUDIT_CORQ_TOP20_LABEL: 20,
         AUDIT_TIME_ODDS_LABEL: 21,
-        AUDIT_SAFE_BET_LABEL: 22,
-        AUDIT_H2H_TOP10_LABEL: 23,
+        AUDIT_CLOQ_LABEL: 22,
+        AUDIT_SAFE_BET_LABEL: 23,
+        AUDIT_H2H_TOP10_LABEL: 24,
         "No previous H2H matches": 24,
         "Recent form pending": 25,
     }
@@ -3091,7 +3108,7 @@ def render_results_filter_builder(rows: List[Dict[str, Any]]) -> str:
         ("Result", ["WON", "LOST", "VOID", "PENDING"]),
         ("Model", [RESULT_MODEL_CORQ_LABEL, RESULT_MODEL_CLOQ_LABEL, RESULT_MODEL_AUDIT_LABEL]),
         ("Date", [RESULT_LAST_3_DAYS_LABEL, RESULT_LAST_7_DAYS_LABEL, RESULT_LAST_MONTH_LABEL, RESULT_THIS_YEAR_LABEL]),
-        ("Signals", [AUDIT_CORQ_TOP20_LABEL, AUDIT_TIME_ODDS_LABEL, AUDIT_SAFE_BET_LABEL, AUDIT_H2H_TOP10_LABEL]),
+        ("Signals", [AUDIT_CORQ_TOP20_LABEL, AUDIT_TIME_ODDS_LABEL, AUDIT_CLOQ_LABEL, AUDIT_SAFE_BET_LABEL, AUDIT_H2H_TOP10_LABEL]),
         ("Data notes", ["No previous H2H matches", "Recent form pending"]),
     ]
 
@@ -3178,32 +3195,66 @@ def rss_items(rows: List[Dict[str, Any]], title: str) -> str:
     return f"""<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>{esc(title)}</title><description>AI Betting by BackstageTalks</description>{''.join(items)}</channel></rss>"""
 
 
+
+def mark_audit_cloq_rows(all_rows: List[Dict[str, Any]], cloq_rows: List[Dict[str, Any]]) -> None:
+    """Mark latest_all rows that are present in the current CloQ shortlist."""
+    cloq_keys = {row_match_identity(r) for r in cloq_rows or [] if isinstance(r, dict)}
+    cloq_match_ids = {str(r.get("match_id") or r.get("event_id") or r.get("id") or "") for r in cloq_rows or [] if isinstance(r, dict)}
+    cloq_match_ids.discard("")
+    for row in all_rows or []:
+        if not isinstance(row, dict):
+            continue
+        row.pop("_audit_cloq", None)
+        key = row_match_identity(row)
+        mid = str(row.get("match_id") or row.get("event_id") or row.get("id") or "")
+        if key in cloq_keys or (mid and mid in cloq_match_ids) or row.get("cloq_passed"):
+            row["_audit_cloq"] = True
+
+
+def sort_rows_by_match_time(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Return rows sorted by nearest upcoming match time first."""
+    now = datetime.now(timezone.utc)
+    def key(row: Dict[str, Any]) -> Tuple[int, float, str]:
+        dt = audit_match_time_utc(row)
+        if dt is None:
+            return (2, 10**15, pick_name(row).lower())
+        delta = (dt - now).total_seconds()
+        if delta >= 0:
+            return (0, delta, pick_name(row).lower())
+        return (1, abs(delta), pick_name(row).lower())
+    return sorted(rows or [], key=key)
+
+
 def render_all() -> None:
     SITE_DIR.mkdir(parents=True, exist_ok=True)
     manifest = read_json(OUTPUTS / "latest_manifest.json", {})
     top7 = json_rows(read_json(OUTPUTS / "latest_top7.json", []))
     all_rows = json_rows(read_json(OUTPUTS / "latest_all.json", []))
-    cloq = json_rows(read_json(OUTPUTS / "latest_cloq.json", []))
-    ensure_logs(top7 + all_rows + cloq)
+    cloq = json_rows(read_json(OUTPUTS / "cloq" / "latest_cloq.json", []))
+    if not cloq:
+        cloq = json_rows(read_json(OUTPUTS / "latest_cloq.json", []))
+    mark_audit_cloq_rows(all_rows, cloq)
+    all_rows_for_audit = sort_rows_by_match_time(all_rows)
+    ensure_logs(top7 + all_rows_for_audit + cloq)
 
     write_text(SITE_DIR / "index.html", page_shell("CorQ", "root", '<script>location.href="' + esc(TOP7_PATH) + '/"</script>', manifest))
     write_text(SITE_DIR / TOP7_PATH / "index.html", render_cards_page("CorQ", TOP7_PATH, top7, manifest, page="corq"))
-    write_text(SITE_DIR / ALL_PATH / "index.html", render_cards_page("Audit", ALL_PATH, all_rows, manifest, page="all", dedupe=True))
+    write_text(SITE_DIR / ALL_PATH / "index.html", render_cards_page("Audit", ALL_PATH, all_rows_for_audit, manifest, page="all", dedupe=True))
     write_text(SITE_DIR / CLOQ_PATH / "index.html", render_cards_page("CloQ", CLOQ_PATH, cloq, manifest, page="cloq"))
-    write_text(SITE_DIR / THINQ_PATH / "index.html", render_cards_page("ThinQ", THINQ_PATH, all_rows, manifest, page="all", dedupe=True))
+    write_text(SITE_DIR / THINQ_PATH / "index.html", render_cards_page("ThinQ", THINQ_PATH, all_rows_for_audit, manifest, page="all", dedupe=True))
     write_text(SITE_DIR / RESULTS_PATH / "index.html", render_results_page(manifest))
     write_text(SITE_DIR / CORQ_RSS_PATH, rss_items(top7, "CorQ TOP7"))
     write_text(SITE_DIR / CLOQ_RSS_PATH, rss_items(cloq, "CloQ"))
-    write_text(SITE_DIR / THINQ_RSS_PATH, rss_items(all_rows[:20], "ThinQ"))
+    write_text(SITE_DIR / THINQ_RSS_PATH, rss_items(all_rows_for_audit[:20], "ThinQ"))
     render_manifest = {
         "rendered_at": datetime.now(tz=timezone.utc).isoformat(),
         "top7_count": len(top7),
-        "all_count": len(all_rows),
+        "all_count": len(all_rows_for_audit),
         "cloq_count": len(cloq),
         "site_root": str(SITE_DIR),
     }
     write_text(SITE_DIR / "render_manifest.json", json.dumps(render_manifest, ensure_ascii=False, indent=2))
-    print(f"Rendered site: top7={len(top7)} all={len(all_rows)} cloq={len(cloq)} root={SITE_DIR}")
+    print(f"Rendered site: top7={len(top7)} all={len(all_rows_for_audit)} cloq={len(cloq)} root={SITE_DIR}")
 
 
 def main() -> None:
