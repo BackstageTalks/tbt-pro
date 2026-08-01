@@ -3574,8 +3574,25 @@ def _result_section_header(rows: List[Dict[str, Any]], title: str) -> str:
     ])
 
 
+def result_card_sort_key(row: Dict[str, Any]) -> Tuple[int, int, str]:
+    status_order = {
+        "PENDING": 0,
+        "WON": 1,
+        "LOST": 2,
+        "VOID": 3,
+    }
+    st = result_status(row)
+    dt = result_row_date_value(row)
+    ts = -int(dt.timestamp()) if dt is not None else 0
+    return (
+        ts,
+        status_order.get(st, 8),
+        pick_name(row).lower(),
+    )
+
+
 def render_results_card_section(rows: List[Dict[str, Any]], title: str, limit: Optional[int] = None) -> str:
-    rows_sorted = sorted(rows or [], key=lambda r: result_table_sort_key(r))
+    rows_sorted = sorted(rows or [], key=result_card_sort_key)
     if limit is not None:
         rows_sorted = rows_sorted[:limit]
     if not rows_sorted:
