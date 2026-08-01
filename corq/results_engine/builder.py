@@ -50,6 +50,7 @@ def source_candidates(kind: str) -> List[Path]:
     if kind == "cloq":
         return [
             SNAPSHOTS_DIR / "latest_cloq_snapshot.json",
+            OUTPUTS / "cloq" / "latest_cloq.json",
             OUTPUTS / "latest_cloq.json",
         ]
     return [
