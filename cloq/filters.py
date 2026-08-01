@@ -1,299 +1,325 @@
-"""CloQ filters and scoring.
+"""CloQ filters - Close Odds Quality layer.
 
-CloQ = Close Odds Quality.
-It is a transparent view/filter over existing CorQ/ThinQ/MarQ predictions.
-The goal is to study close-odds segments without changing TOP7 selection.
+Target path in repository:
+    cloq/filters.py
+
+CloQ is intentionally a lightweight view/filter over existing CorQ/ThinQ/MarQ
+outputs. It does not change CorQ ranking or model probabilities.
 """
-
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, Tuple
-import math
+from dataclasses import dataclass, asdict
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Tuple
+
+CLOQ_FILTER_VERSION = "CLOQ_FILTER_V1_1"
 
 
 @dataclass(frozen=True)
-class CloQConfig:
+class CloqConfig:
     min_odds: float = 1.70
     max_odds: float = 2.60
-    min_odd_gap_pct: float = 0.10
-    max_odd_gap_pct: float = 0.25
-    min_corq_probability: float = 0.55
-    min_thinq_probability: float = 0.55
-    min_marq_probability: float = 0.50
-    min_form_depth: float = 0.60
-    min_stats_depth: float = 0.40
+    min_odd_gap_pct: float = 0.00
+    max_odd_gap_pct: float = 0.40
+    min_corq_probability: float = 0.52
+    min_thinq_probability: float = 0.52
+    min_marq_probability: float = 0.48
+    min_form_depth: float = 0.50
+    min_stats_depth: float = 0.25
     max_mmx_conflict_pp: float = 18.0
     require_prematch: bool = True
     require_singles: bool = True
 
 
-PREMATCH_STATUS_TYPES = {
-    "notstarted", "not_started", "scheduled", "prematch", "pre_match", "upcoming", "pending"
-}
-BAD_STATUS_TYPES = {
-    "inprogress", "in_progress", "live", "finished", "ended", "cancelled", "canceled",
-    "postponed", "interrupted", "retired", "walkover", "abandoned"
-}
+DEFAULT_CONFIG = asdict(CloqConfig())
 
 
-def _to_float(value: Any, default: Optional[float] = None) -> Optional[float]:
-    if value is None or isinstance(value, bool):
-        return default
-    if isinstance(value, (int, float)):
-        number = float(value)
-        return number if math.isfinite(number) else default
-    if isinstance(value, str):
-        text = value.strip().replace("%", "")
-        if text in {"", "-", "--", "—", "N/A", "n/a", "None", "null"}:
-            return default
-        try:
-            return float(text)
-        except ValueError:
-            return default
+def get_default_config() -> Dict[str, Any]:
+    return dict(DEFAULT_CONFIG)
+
+
+def _first_value(row: Mapping[str, Any], keys: Iterable[str], default: Any = None) -> Any:
+    for key in keys:
+        if key in row and row.get(key) not in (None, "", "N/A", "n/a", "—", "-"):
+            return row.get(key)
     return default
 
 
-def _as_probability(value: Any) -> Optional[float]:
-    number = _to_float(value)
+def _as_float(value: Any, default: Optional[float] = None) -> Optional[float]:
+    if value in (None, "", "N/A", "n/a", "—", "-"):
+        return default
+    try:
+        if isinstance(value, str):
+            value = value.strip().replace("%", "").replace("pp", "")
+        return float(value)
+    except Exception:
+        return default
+
+
+def _prob(value: Any, default: float = 0.0) -> float:
+    """Return probability in 0..1 scale from either 0..1 or 0..100 input."""
+    number = _as_float(value, None)
     if number is None:
-        return None
-    if number > 1.0:
+        return default
+    if number > 1.5:
         number = number / 100.0
-    return number if 0.0 <= number <= 1.0 else None
+    return max(0.0, min(1.0, number))
 
 
-def _first_prob(row: Dict[str, Any], keys: List[str]) -> Optional[float]:
-    for key in keys:
-        value = _as_probability(row.get(key))
-        if value is not None:
-            return value
-    return None
+def _pct_0_1(value: Any, default: float = 0.0) -> float:
+    return _prob(value, default=default)
 
 
-def _first_float(row: Dict[str, Any], keys: List[str]) -> Optional[float]:
-    for key in keys:
-        value = _to_float(row.get(key))
-        if value is not None:
-            return value
-    return None
-
-
-def _nested_get(mapping: Dict[str, Any], path: List[str]) -> Any:
-    cur: Any = mapping
-    for part in path:
-        if not isinstance(cur, dict):
-            return None
-        cur = cur.get(part)
-    return cur
-
-
-def _status_is_prematch(row: Dict[str, Any]) -> bool:
-    status_type = str(row.get("status_type") or row.get("status") or "").strip().lower()
-    status_code = row.get("status_code")
-    if status_code in (0, "0"):
+def _status_is_prematch(row: Mapping[str, Any]) -> bool:
+    status_type = str(_first_value(row, ["status_type", "status", "match_status"], "")).lower()
+    status_code = _as_float(_first_value(row, ["status_code"], None), None)
+    if status_code == 0:
         return True
-    if status_type in PREMATCH_STATUS_TYPES:
+    if status_type in {"notstarted", "not_started", "scheduled", "prematch", "upcoming"}:
         return True
-    if status_type in BAD_STATUS_TYPES:
-        return False
     return False
 
 
-def compute_odd_gap_pct(row: Dict[str, Any]) -> Optional[float]:
-    pick_odds = _first_float(row, ["pick_odds", "odds", "price", "pick_price"])
-    opp_odds = _first_float(row, ["opponent_odds", "opp_odds", "opponent_price"])
-    if pick_odds is None or opp_odds is None:
-        p1 = _first_float(row, ["p1_odds", "odds_player1", "home_odds", "odds1", "price1"])
-        p2 = _first_float(row, ["p2_odds", "odds_player2", "away_odds", "odds2", "price2"])
-        pick_side = str(row.get("pick_side") or "").upper()
-        if p1 is not None and p2 is not None:
-            if pick_side in {"HOME", "PLAYER1", "P1"}:
-                pick_odds, opp_odds = p1, p2
-            elif pick_side in {"AWAY", "PLAYER2", "P2"}:
-                pick_odds, opp_odds = p2, p1
-    if pick_odds is None or opp_odds is None or pick_odds <= 1.0 or opp_odds <= 1.0:
-        return None
-    return abs(pick_odds - opp_odds) / min(pick_odds, opp_odds)
-
-
-def _marq_prob(row: Dict[str, Any]) -> Optional[float]:
-    value = _first_prob(row, [
-        "corq_market_probability", "marq_pick_probability", "marq_probability", "pick_marq_probability",
-        "pick_marq_pct", "marq_pick_pct", "pick_marq"
-    ])
-    if value is not None:
+def _is_doubles(row: Mapping[str, Any]) -> bool:
+    value = row.get("is_doubles")
+    if isinstance(value, bool):
         return value
-    marq = row.get("marq")
-    if isinstance(marq, dict):
-        for key in ["pick_probability", "pick_marq_probability", "pick_marq_pct", "pick_marq"]:
-            value = _as_probability(marq.get(key))
-            if value is not None:
-                return value
-    return None
+    text = str(value).lower()
+    if text in {"true", "1", "yes", "y"}:
+        return True
+    category = str(_first_value(row, ["category", "event_category", "match_category"], "")).lower()
+    return "double" in category
 
 
-def _thinq_prob(row: Dict[str, Any]) -> Optional[float]:
-    value = _first_prob(row, [
-        "thinq_pick_probability", "thinq_probability", "thinq_prob", "pick_thinq_probability",
-        "corq_raw_model_probability"
-    ])
-    if value is not None:
-        return value
-    return _as_probability(_nested_get(row, ["thinq", "thinq_probability_layer", "pick_probability"]))
+def _odds(row: Mapping[str, Any]) -> Tuple[float, float]:
+    pick_odds = _as_float(_first_value(row, ["pick_odds", "odds", "p1_odds", "home_odds", "odds1"], None), 0.0) or 0.0
+    opp_odds = _as_float(_first_value(row, ["opponent_odds", "opp_odds", "p2_odds", "away_odds", "odds2"], None), 0.0) or 0.0
+    return pick_odds, opp_odds
 
 
-def _corq_prob(row: Dict[str, Any]) -> Optional[float]:
-    return _first_prob(row, [
-        "corq_calibrated_probability", "corq_probability", "corq", "probability", "estimated_probability"
-    ])
+def compute_odd_gap_pct(row: Mapping[str, Any]) -> float:
+    existing = _as_float(_first_value(row, ["cloq_odd_gap_pct", "odd_gap_pct", "odds_gap_pct"], None), None)
+    if existing is not None:
+        if existing > 1.5:
+            existing = existing / 100.0
+        return max(0.0, existing)
+    pick_odds, opp_odds = _odds(row)
+    if pick_odds <= 0 or opp_odds <= 0:
+        return 0.0
+    base = min(pick_odds, opp_odds)
+    if base <= 0:
+        return 0.0
+    return abs(pick_odds - opp_odds) / base
 
 
-def _form_depth(row: Dict[str, Any]) -> Optional[float]:
-    return _first_prob(row, ["form_data_depth", "f_data_depth", "thinq_form_data_depth"])
+def _corq_probability(row: Mapping[str, Any]) -> float:
+    return _prob(_first_value(row, [
+        "corq_calibrated_probability", "corq_probability", "corq_prob", "corq", "model_probability"
+    ], 0.0))
 
 
-def _stats_depth(row: Dict[str, Any]) -> Optional[float]:
-    return _first_prob(row, ["s_data_depth", "sets_games_data_depth", "stats_data_depth"])
+def _thinq_probability(row: Mapping[str, Any]) -> float:
+    return _prob(_first_value(row, [
+        "thinq_pick_probability", "thinq_probability", "thinq_prob", "thinq", "thinq_probability_pct"
+    ], 0.0))
 
 
-def _move_quality(row: Dict[str, Any]) -> Tuple[float, List[str]]:
-    tags: List[str] = []
-    move = str(row.get("marq_internal_move_signal") or row.get("marq_move_signal") or row.get("move") or "").strip().lower()
-    clv_status = str(row.get("marq_internal_clv_status") or row.get("clv_status") or "").strip().lower()
-    clv_pp = _to_float(row.get("marq_internal_clv_pp"), None)
-    quality = 0.50
-    if "toward" in move or "with" in move:
-        quality += 0.20
-        tags.append("Positive Move")
-    elif "against" in move:
-        quality -= 0.25
-        tags.append("Move Against")
-    elif "stable" in move:
-        tags.append("Stable Move")
-    elif "pending" in move or not move:
-        tags.append("CLV Pending")
-    if clv_pp is not None:
-        if clv_pp >= 2.0:
-            quality += 0.15
-            tags.append("Positive CLV")
-        elif clv_pp <= -2.0:
-            quality -= 0.20
-            tags.append("Negative CLV")
-        else:
-            tags.append("Flat CLV")
-    elif "pending" in clv_status or not clv_status:
-        tags.append("CLV Pending")
-    return max(0.0, min(1.0, quality)), tags
+def _marq_probability(row: Mapping[str, Any]) -> float:
+    return _prob(_first_value(row, [
+        "corq_market_probability", "marq_pick_probability", "pick_marq_probability", "pick_marq", "marq_prob", "marq_probability"
+    ], 0.0))
 
 
-def score_cloq_row(row: Dict[str, Any], config: CloQConfig = CloQConfig()) -> float:
-    corq = _corq_prob(row) or 0.50
-    thinq = _thinq_prob(row) or 0.50
-    marq = _marq_prob(row) or 0.50
-    f_depth = _form_depth(row) or 0.0
-    s_depth = _stats_depth(row) or 0.0
-    odd_gap = compute_odd_gap_pct(row)
-    if odd_gap is None:
-        gap_quality = 0.0
+def _form_depth(row: Mapping[str, Any]) -> float:
+    return _pct_0_1(_first_value(row, ["form_data_depth", "f_data_depth", "thinq_form_data_depth"], 0.0))
+
+
+def _stats_depth(row: Mapping[str, Any]) -> float:
+    return _pct_0_1(_first_value(row, [
+        "s_data_depth", "sets_games_data_depth", "stats_data_depth", "ta_depth", "api_serve_stats_depth"
+    ], 0.0))
+
+
+def _mmx_conflict_pp(row: Mapping[str, Any], thinq_prob: float, marq_prob: float) -> float:
+    existing = _as_float(_first_value(row, ["mmx_conflict_pp", "corq_mmx_conflict_pp"], None), None)
+    if existing is not None:
+        return abs(existing)
+    return abs(thinq_prob - marq_prob) * 100.0
+
+
+def _score(row: Mapping[str, Any], config: Mapping[str, Any]) -> float:
+    corq = _corq_probability(row)
+    thinq = _thinq_probability(row)
+    marq = _marq_probability(row)
+    form_depth = _form_depth(row)
+    stats_depth = _stats_depth(row)
+    gap = compute_odd_gap_pct(row)
+
+    min_gap = float(config.get("min_odd_gap_pct", 0.0))
+    max_gap = float(config.get("max_odd_gap_pct", 0.40))
+    if max_gap <= min_gap:
+        gap_quality = 1.0
+    elif gap < min_gap:
+        gap_quality = max(0.0, gap / max(min_gap, 0.0001))
+    elif gap > max_gap:
+        gap_quality = max(0.0, 1.0 - ((gap - max_gap) / max(max_gap, 0.0001)))
     else:
-        center = (config.min_odd_gap_pct + config.max_odd_gap_pct) / 2.0
-        span = max((config.max_odd_gap_pct - config.min_odd_gap_pct) / 2.0, 0.01)
-        gap_quality = max(0.0, 1.0 - abs(odd_gap - center) / span)
-    move_quality, _ = _move_quality(row)
-    depth_quality = (f_depth + s_depth) / 2.0
-    score = (
-        0.30 * corq
-        + 0.20 * thinq
-        + 0.20 * marq
-        + 0.10 * depth_quality
-        + 0.10 * gap_quality
-        + 0.10 * move_quality
+        gap_quality = 1.0
+
+    move_bonus = 0.0
+    move = str(_first_value(row, ["marq_move", "move", "marq_internal_move_signal"], "")).lower()
+    clv = _as_float(_first_value(row, ["marq_internal_clv_pp", "internal_clv_pp", "clv_pp"], 0.0), 0.0) or 0.0
+    if "toward" in move or clv > 0:
+        move_bonus = min(1.0, max(0.0, abs(clv) / 5.0))
+    elif "against" in move or clv < 0:
+        move_bonus = -min(1.0, max(0.0, abs(clv) / 5.0)) * 0.5
+
+    raw = (
+        0.30 * corq +
+        0.20 * thinq +
+        0.20 * marq +
+        0.10 * form_depth +
+        0.10 * stats_depth +
+        0.07 * gap_quality +
+        0.03 * move_bonus
     )
-    return round(score * 100.0, 2)
+    return round(max(0.0, min(1.0, raw)) * 100.0, 2)
 
 
-def evaluate_cloq_row(row: Dict[str, Any], config: CloQConfig = CloQConfig()) -> Dict[str, Any]:
+def evaluate_row(row: Mapping[str, Any], config: Optional[Mapping[str, Any]] = None) -> Dict[str, Any]:
+    cfg = dict(DEFAULT_CONFIG)
+    if config:
+        cfg.update(config)
+
+    pick_odds, opp_odds = _odds(row)
+    gap = compute_odd_gap_pct(row)
+    corq = _corq_probability(row)
+    thinq = _thinq_probability(row)
+    marq = _marq_probability(row)
+    form_depth = _form_depth(row)
+    stats_depth = _stats_depth(row)
+    mmx_conflict_pp = _mmx_conflict_pp(row, thinq, marq)
+
     reasons: List[str] = []
-    tags: List[str] = []
     warnings: List[str] = []
+    tags: List[str] = []
 
-    pick_odds = _first_float(row, ["pick_odds", "odds", "price", "pick_price"])
-    corq = _corq_prob(row)
-    thinq = _thinq_prob(row)
-    marq = _marq_prob(row)
-    f_depth = _form_depth(row)
-    s_depth = _stats_depth(row)
-    odd_gap = compute_odd_gap_pct(row)
-
-    if config.require_prematch and not _status_is_prematch(row):
+    if cfg.get("require_prematch", True) and not _status_is_prematch(row):
         reasons.append("CLOQ_REJECT_STATUS_NOT_PREMATCH")
-    if config.require_singles and bool(row.get("is_doubles")):
+    if cfg.get("require_singles", True) and _is_doubles(row):
         reasons.append("CLOQ_REJECT_DOUBLES")
-    if pick_odds is None:
-        reasons.append("CLOQ_REJECT_MISSING_PICK_ODDS")
-    else:
-        if pick_odds < config.min_odds:
-            reasons.append("CLOQ_REJECT_ODDS_BELOW_MIN")
-        if pick_odds > config.max_odds:
-            reasons.append("CLOQ_REJECT_ODDS_ABOVE_MAX")
-    if odd_gap is None:
-        reasons.append("CLOQ_REJECT_MISSING_ODD_GAP")
-    else:
-        if odd_gap < config.min_odd_gap_pct:
-            reasons.append("CLOQ_REJECT_ODD_GAP_TOO_SMALL")
-        if odd_gap > config.max_odd_gap_pct:
-            reasons.append("CLOQ_REJECT_ODD_GAP_TOO_WIDE")
-    if corq is None or corq < config.min_corq_probability:
+
+    if pick_odds < float(cfg["min_odds"]):
+        reasons.append("CLOQ_REJECT_ODDS_BELOW_MIN")
+    if pick_odds > float(cfg["max_odds"]):
+        reasons.append("CLOQ_REJECT_ODDS_ABOVE_MAX")
+
+    if gap < float(cfg["min_odd_gap_pct"]):
+        reasons.append("CLOQ_REJECT_ODD_GAP_TOO_SMALL")
+    if gap > float(cfg["max_odd_gap_pct"]):
+        reasons.append("CLOQ_REJECT_ODD_GAP_TOO_WIDE")
+
+    if corq < float(cfg["min_corq_probability"]):
         reasons.append("CLOQ_REJECT_CORQ_BELOW_MIN")
-    if thinq is None or thinq < config.min_thinq_probability:
+    if thinq < float(cfg["min_thinq_probability"]):
         reasons.append("CLOQ_REJECT_THINQ_BELOW_MIN")
-    if marq is None:
-        warnings.append("CLOQ_WARN_MARQ_MISSING")
-    elif marq < config.min_marq_probability:
+    if marq < float(cfg["min_marq_probability"]):
         reasons.append("CLOQ_REJECT_MARQ_BELOW_MIN")
-    if f_depth is None:
-        warnings.append("CLOQ_WARN_FORM_DEPTH_MISSING")
-    elif f_depth < config.min_form_depth:
+    if form_depth < float(cfg["min_form_depth"]):
         reasons.append("CLOQ_REJECT_LOW_FORM_DEPTH")
-    if s_depth is None:
-        warnings.append("CLOQ_WARN_STATS_DEPTH_MISSING")
-    elif s_depth < config.min_stats_depth:
+    if stats_depth < float(cfg["min_stats_depth"]):
         reasons.append("CLOQ_REJECT_LOW_STATS_DEPTH")
 
-    if thinq is not None and marq is not None:
-        conflict_pp = abs(thinq - marq) * 100.0
-        if conflict_pp > config.max_mmx_conflict_pp:
-            warnings.append("CLOQ_WARN_MMX_CONFLICT")
-            tags.append("MMx Conflict")
-        else:
-            tags.append("MMx Aligned")
+    if mmx_conflict_pp > float(cfg["max_mmx_conflict_pp"]):
+        warnings.append("CLOQ_WARN_MMX_CONFLICT")
 
-    move_quality, move_tags = _move_quality(row)
-    tags.extend(move_tags)
-    if marq is not None and marq >= 0.50:
-        tags.append("MarQ Support")
-    if odd_gap is not None and config.min_odd_gap_pct <= odd_gap <= config.max_odd_gap_pct:
+    if pick_odds >= float(cfg["min_odds"]):
         tags.append("Close Odds")
-    h2h_sample = _first_float(row, ["thinq_h2h_total_matches", "h2h_total_matches"])
-    if h2h_sample is not None and h2h_sample <= 1:
-        tags.append("Low H2H Sample")
+    if float(cfg["min_odd_gap_pct"]) <= gap <= float(cfg["max_odd_gap_pct"]):
+        tags.append("Gap OK")
+    if marq >= float(cfg["min_marq_probability"]):
+        tags.append("MarQ Support")
+    if corq >= float(cfg["min_corq_probability"]) and thinq >= float(cfg["min_thinq_probability"]):
+        tags.append("Model Support")
+    if mmx_conflict_pp <= float(cfg["max_mmx_conflict_pp"]):
+        tags.append("MMx Aligned")
+    else:
+        tags.append("MMx Conflict")
 
-    result = dict(row)
-    result.update({
-        "cloq_score": score_cloq_row(row, config=config),
-        "cloq_passed": len(reasons) == 0,
+    move = str(_first_value(row, ["marq_move", "move", "marq_internal_move_signal"], "")).lower()
+    if "toward" in move:
+        tags.append("Move Toward")
+    elif "against" in move:
+        tags.append("Move Against")
+    else:
+        tags.append("Stable Move")
+
+    if _first_value(row, ["marq_internal_clv_pp", "internal_clv_pp", "clv_pp"], None) in (None, "", "N/A"):
+        tags.append("CLV Pending")
+
+    return {
+        "cloq_filter_version": CLOQ_FILTER_VERSION,
+        "cloq_passed": not reasons,
         "cloq_reasons": reasons,
         "cloq_warnings": warnings,
-        "cloq_tags": sorted(set(tags)),
+        "cloq_tags": tags,
+        "cloq_score": _score(row, cfg),
+        "cloq_odd_gap_pct": round(gap, 4),
         "cloq_pick_odds": pick_odds,
-        "cloq_odd_gap_pct": round(odd_gap * 100.0, 2) if odd_gap is not None else None,
-        "cloq_corq_probability": round(corq * 100.0, 2) if corq is not None else None,
-        "cloq_thinq_probability": round(thinq * 100.0, 2) if thinq is not None else None,
-        "cloq_marq_probability": round(marq * 100.0, 2) if marq is not None else None,
-        "cloq_form_depth": round(f_depth * 100.0, 2) if f_depth is not None else None,
-        "cloq_stats_depth": round(s_depth * 100.0, 2) if s_depth is not None else None,
-        "cloq_move_quality": round(move_quality * 100.0, 2),
-        "cloq_filter_version": "CLOQ_FILTER_V1",
-    })
-    return result
+        "cloq_opponent_odds": opp_odds,
+        "cloq_corq_probability": round(corq, 4),
+        "cloq_thinq_probability": round(thinq, 4),
+        "cloq_marq_probability": round(marq, 4),
+        "cloq_form_depth": round(form_depth, 4),
+        "cloq_stats_depth": round(stats_depth, 4),
+        "cloq_mmx_conflict_pp": round(mmx_conflict_pp, 2),
+        "cloq_config": cfg,
+    }
+
+
+def enrich_row(row: Mapping[str, Any], config: Optional[Mapping[str, Any]] = None) -> Dict[str, Any]:
+    out = dict(row)
+    out.update(evaluate_row(row, config=config))
+    return out
+
+
+def filter_rows(rows: Iterable[Mapping[str, Any]], config: Optional[Mapping[str, Any]] = None) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]], Dict[str, Any]]:
+    passed: List[Dict[str, Any]] = []
+    rejected: List[Dict[str, Any]] = []
+    reason_counts: Dict[str, int] = {}
+    warning_counts: Dict[str, int] = {}
+    tag_counts: Dict[str, int] = {}
+
+    for row in rows:
+        enriched = enrich_row(row, config=config)
+        for reason in enriched.get("cloq_reasons", []):
+            reason_counts[reason] = reason_counts.get(reason, 0) + 1
+        for warning in enriched.get("cloq_warnings", []):
+            warning_counts[warning] = warning_counts.get(warning, 0) + 1
+        for tag in enriched.get("cloq_tags", []):
+            tag_counts[tag] = tag_counts.get(tag, 0) + 1
+        if enriched.get("cloq_passed"):
+            passed.append(enriched)
+        else:
+            rejected.append(enriched)
+
+    passed.sort(key=lambda r: r.get("cloq_score", 0.0), reverse=True)
+    rejected.sort(key=lambda r: r.get("cloq_score", 0.0), reverse=True)
+    manifest = {
+        "filter_version": CLOQ_FILTER_VERSION,
+        "config": dict(DEFAULT_CONFIG if config is None else {**DEFAULT_CONFIG, **dict(config)}),
+        "source_rows": len(passed) + len(rejected),
+        "passed_rows": len(passed),
+        "rejected_rows": len(rejected),
+        "reason_counts": reason_counts,
+        "warning_counts": warning_counts,
+        "tag_counts": tag_counts,
+    }
+    return passed, rejected, manifest
+
+
+# Backward-compatible aliases for older engine imports.
+evaluate_cloq_row = evaluate_row
+apply_filter = evaluate_row
+apply_cloq_filter = evaluate_row
+score_row = _score
+build_cloq_record = enrich_row
