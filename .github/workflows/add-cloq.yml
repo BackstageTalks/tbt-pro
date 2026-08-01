@@ -1,0 +1,127 @@
+name: Add CloQ
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  PYTHONPATH: ${{ github.workspace }}
+
+concurrency:
+  group: add-cloq
+  cancel-in-progress: false
+
+jobs:
+  add-cloq:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Verify required CorQ outputs
+        run: |
+          set -e
+          test -s outputs/latest_all.json
+          test -s outputs/latest_top7.json
+          echo "Found outputs/latest_all.json and outputs/latest_top7.json"
+
+      - name: Generate CloQ outputs
+        run: |
+          set -e
+          python -m cloq.engine --outputs-dir outputs
+          python -m cloq.render --outputs-dir outputs --out outputs/cloq.html
+
+      - name: Show CloQ summary
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          manifest_path = Path("outputs/latest_cloq_manifest.json")
+          cloq_path = Path("outputs/latest_cloq.json")
+          rejected_path = Path("outputs/latest_cloq_rejected.json")
+
+          print("CloQ files:")
+          for path in [cloq_path, rejected_path, manifest_path, Path("outputs/cloq.html")]:
+              print(f"- {path}: {'OK' if path.exists() else 'MISSING'}")
+
+          if cloq_path.exists():
+              rows = json.loads(cloq_path.read_text(encoding="utf-8"))
+              print(f"CloQ rows: {len(rows) if isinstance(rows, list) else 'unknown'}")
+
+          if rejected_path.exists():
+              rows = json.loads(rejected_path.read_text(encoding="utf-8"))
+              print(f"CloQ rejected rows: {len(rows) if isinstance(rows, list) else 'unknown'}")
+
+          if manifest_path.exists():
+              payload = json.loads(manifest_path.read_text(encoding="utf-8"))
+              print(json.dumps(payload, ensure_ascii=False, indent=2)[:4000])
+          PY
+
+      - name: Upload CloQ artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloq-output
+          path: |
+            outputs/latest_cloq.json
+            outputs/latest_cloq_rejected.json
+            outputs/latest_cloq_manifest.json
+            outputs/cloq.html
+          if-no-files-found: warn
+
+      - name: Commit CloQ outputs
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add outputs/latest_cloq.json outputs/latest_cloq_rejected.json outputs/latest_cloq_manifest.json outputs/cloq.html || true
+
+          if git diff --cached --quiet; then
+            echo "No CloQ output changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Update CloQ outputs"
+
+          if git push; then
+            echo "Pushed CloQ outputs."
+            exit 0
+          fi
+
+          echo "Initial push failed. Retrying after refresh."
+          tmp_dir="$(mktemp -d)"
+          mkdir -p "$tmp_dir/outputs"
+          cp -f outputs/latest_cloq.json "$tmp_dir/outputs/latest_cloq.json" 2>/dev/null || true
+          cp -f outputs/latest_cloq_rejected.json "$tmp_dir/outputs/latest_cloq_rejected.json" 2>/dev/null || true
+          cp -f outputs/latest_cloq_manifest.json "$tmp_dir/outputs/latest_cloq_manifest.json" 2>/dev/null || true
+          cp -f outputs/cloq.html "$tmp_dir/outputs/cloq.html" 2>/dev/null || true
+
+          git fetch origin main
+          git reset --hard origin/main
+
+          mkdir -p outputs
+          cp -f "$tmp_dir/outputs/latest_cloq.json" outputs/latest_cloq.json 2>/dev/null || true
+          cp -f "$tmp_dir/outputs/latest_cloq_rejected.json" outputs/latest_cloq_rejected.json 2>/dev/null || true
+          cp -f "$tmp_dir/outputs/latest_cloq_manifest.json" outputs/latest_cloq_manifest.json 2>/dev/null || true
+          cp -f "$tmp_dir/outputs/cloq.html" outputs/cloq.html 2>/dev/null || true
+
+          git add outputs/latest_cloq.json outputs/latest_cloq_rejected.json outputs/latest_cloq_manifest.json outputs/cloq.html || true
+          if git diff --cached --quiet; then
+            echo "No CloQ output changes to commit after refresh."
+            exit 0
+          fi
+
+          git commit -m "Update CloQ outputs"
+          git push
