@@ -134,6 +134,244 @@ def preserve_existing(out: Dict[str, Any], existing: Optional[Dict[str, Any]]) -
             out[key] = existing.get(key)
 
 
+
+# ---------------------------------------------------------------------------
+# Results prediction snapshot helpers
+# ---------------------------------------------------------------------------
+def first_value(row: Dict[str, Any], *keys: str, default: Any = None) -> Any:
+    """Return the first non-empty value from a row, supporting dotted paths."""
+    for key in keys:
+        cur: Any = row
+        ok = True
+        for part in str(key).split('.'):
+            if isinstance(cur, dict) and part in cur:
+                cur = cur.get(part)
+            else:
+                ok = False
+                break
+        if ok and cur not in (None, "", "—", "-"):
+            return cur
+    return default
+
+
+def pct_to_float(value: Any) -> Optional[float]:
+    val = as_float(value, None)
+    if val is None:
+        return None
+    return val / 100.0 if abs(val) > 1.5 else val
+
+
+def pct_points(value: Any) -> Optional[float]:
+    val = as_float(value, None)
+    if val is None:
+        return None
+    return val * 100.0 if abs(val) <= 1.5 else val
+
+
+def bool_hit_from_ou(selection: Any, actual: Optional[float]) -> Optional[bool]:
+    if actual is None:
+        return None
+    text = str(selection or "").strip().upper().replace(" ", "")
+    if not text:
+        return None
+    m = re.search(r"([OU])\s*([0-9]+(?:[\.,][0-9]+)?)", text)
+    if not m:
+        return None
+    side = m.group(1)
+    line = as_float(m.group(2).replace(',', '.'), None)
+    if line is None:
+        return None
+    if side == "O":
+        return actual > line
+    if side == "U":
+        return actual < line
+    return None
+
+
+def hit_label(value: Optional[bool]) -> str:
+    if value is True:
+        return "HIT"
+    if value is False:
+        return "MISS"
+    return "PENDING"
+
+
+def fmt_record_value(value: Any) -> Any:
+    if isinstance(value, (dict, list)):
+        return value
+    if value in (None, "", "—", "-"):
+        return None
+    return value
+
+
+def extract_actual_match_stats(event: Optional[Dict[str, Any]], pick: str, opponent: str) -> Dict[str, Any]:
+    """Best-effort extraction of actual aces/DF from event detail.
+
+    TennisApi sometimes exposes post-match event statistics in different nested
+    shapes. This parser is intentionally conservative: if it cannot map a stat
+    to both sides, it returns None instead of fabricating values.
+    """
+    out = {
+        "actual_pick_aces": None,
+        "actual_opponent_aces": None,
+        "actual_total_aces": None,
+        "actual_pick_df": None,
+        "actual_opponent_df": None,
+        "actual_total_df": None,
+        "actual_stats_source": "UNAVAILABLE",
+    }
+    if not isinstance(event, dict):
+        return out
+
+    def side_name(side: str) -> str:
+        team = event.get('homeTeam') if side == 'home' else event.get('awayTeam')
+        if isinstance(team, dict):
+            return str(team.get('name') or team.get('shortName') or '').strip()
+        return ''
+
+    side_for_pick = None
+    if normalize_name(side_name('home')) == normalize_name(pick):
+        side_for_pick = 'home'
+    elif normalize_name(side_name('away')) == normalize_name(pick):
+        side_for_pick = 'away'
+    if not side_for_pick:
+        return out
+    side_for_opp = 'away' if side_for_pick == 'home' else 'home'
+
+    stat_pairs: Dict[str, Dict[str, Optional[float]]] = {
+        'aces': {'home': None, 'away': None},
+        'df': {'home': None, 'away': None},
+    }
+
+    def classify_stat_name(name: Any) -> Optional[str]:
+        n = str(name or '').strip().lower().replace('_', ' ')
+        if 'double' in n and 'fault' in n:
+            return 'df'
+        if n in {'df', 'double faults', 'double fault'}:
+            return 'df'
+        if 'ace' in n or n == 'aces':
+            return 'aces'
+        return None
+
+    def parse_node(obj: Any) -> None:
+        if isinstance(obj, dict):
+            stat_kind = classify_stat_name(obj.get('name') or obj.get('stat') or obj.get('label') or obj.get('type'))
+            if stat_kind:
+                home_val = first_value(obj, 'home', 'homeValue', 'homeTeamValue', 'valueHome', 'homeStat')
+                away_val = first_value(obj, 'away', 'awayValue', 'awayTeamValue', 'valueAway', 'awayStat')
+                if home_val is not None or away_val is not None:
+                    stat_pairs[stat_kind]['home'] = as_float(home_val, None)
+                    stat_pairs[stat_kind]['away'] = as_float(away_val, None)
+                # Some APIs use values arrays.
+                values = obj.get('values') or obj.get('statistics')
+                if isinstance(values, list) and len(values) >= 2:
+                    stat_pairs[stat_kind]['home'] = as_float(values[0].get('value') if isinstance(values[0], dict) else values[0], None)
+                    stat_pairs[stat_kind]['away'] = as_float(values[1].get('value') if isinstance(values[1], dict) else values[1], None)
+            for value in obj.values():
+                parse_node(value)
+        elif isinstance(obj, list):
+            for value in obj:
+                parse_node(value)
+
+    for key in ('statistics', 'eventStatistics', 'playerStatistics', 'matchStatistics', 'stats'):
+        parse_node(event.get(key))
+
+    for kind in ('aces', 'df'):
+        pick_val = stat_pairs[kind].get(side_for_pick)
+        opp_val = stat_pairs[kind].get(side_for_opp)
+        if pick_val is not None:
+            out[f'actual_pick_{"aces" if kind == "aces" else "df"}'] = pick_val
+        if opp_val is not None:
+            out[f'actual_opponent_{"aces" if kind == "aces" else "df"}'] = opp_val
+        if pick_val is not None and opp_val is not None:
+            out[f'actual_total_{"aces" if kind == "aces" else "df"}'] = pick_val + opp_val
+            out['actual_stats_source'] = 'EVENT_DETAIL_STATS'
+    return out
+
+
+def prediction_snapshot_from_row(out: Dict[str, Any]) -> Dict[str, Any]:
+    """Store the prediction exactly as it was published for later audit."""
+    return {
+        "corq": {
+            "probability": probability(out),
+            "raw_model_probability": first_value(out, 'corq_raw_model_probability', 'thinq_pick_probability'),
+            "calibrated_probability": first_value(out, 'corq_calibrated_probability', 'corq_probability'),
+            "market_adjustment_pp": first_value(out, 'corq_market_adjustment_pp', 'market_adjustment_pp'),
+        },
+        "mmx": {
+            "thinq_weight": first_value(out, 'corq_thinq_weight', 'thinq_weight', 'model_mix_thinq_weight'),
+            "marq_weight": first_value(out, 'corq_marq_weight', 'marq_weight', 'model_mix_marq_weight'),
+            "thinq_input_pp": first_value(out, 'corq_thinq_input_pp', 'thinq_input_pp'),
+            "marq_input_pp": first_value(out, 'corq_marq_input_pp', 'marq_input_pp'),
+        },
+        "thinq": {
+            "pick_probability": first_value(out, 'thinq_pick_probability', 'top7_thinq_pick_probability', 'thinq_probability_layer.pick_probability'),
+            "data_confidence": first_value(out, 'thinq_data_confidence', 'thinq_confidence', 'confidence'),
+            "edge": first_value(out, 'pick_thinq_edge', 'top7_pick_thinq_edge', 'thinq_edge'),
+            "form_data_depth": first_value(out, 'form_data_depth', 'form_confidence'),
+            "recent_form_source": first_value(out, 'recent_form_source', 'recent_form.source'),
+            "recent_form_freshness_status": first_value(out, 'recent_form_freshness_status', 'recent_form.freshness_status'),
+        },
+        "marq": {
+            "pick_probability": first_value(out, 'marq_crowd_pick_pct', 'marq_pick_probability', 'corq_market_probability'),
+            "opponent_probability": first_value(out, 'marq_crowd_opponent_pct', 'marq_opponent_probability'),
+            "edge_pct": first_value(out, 'marq_edge_pct', 'marq_edge'),
+            "range": first_value(out, 'marq_internal_range', 'marq_move_range', 'move_range'),
+            "move": first_value(out, 'marq_internal_move_signal', 'marq_move_signal', 'market_move'),
+            "clv_pp": first_value(out, 'marq_internal_clv_pp', 'marq_clv_pct'),
+            "final": first_value(out, 'marq_final', 'marq_market_final', 'market_final'),
+            "source": first_value(out, 'marq_source', 'marq_market_source'),
+            "quality_signal": first_value(out, 'marq_quality_signal'),
+        },
+        "elo_h2h_form": {
+            "overall_elo_edge": first_value(out, 'thinq_overall_elo_edge', 'overall_elo_edge'),
+            "surface_elo_edge": first_value(out, 'thinq_surface_elo_edge', 'surface_elo_edge'),
+            "h2h_raw_edge": first_value(out, 'thinq_h2h_raw_edge', 'h2h_raw_edge'),
+            "h2h_effective_edge": first_value(out, 'thinq_h2h_effective_edge', 'h2h_effective_edge', 'h2h_edge'),
+            "h2h_total_matches": first_value(out, 'thinq_h2h_total_matches', 'h2h_total_matches'),
+            "same_surface_h2h_matches": first_value(out, 'thinq_h2h_same_surface_matches', 'same_surface_h2h_matches'),
+            "recent_form_edge": first_value(out, 'recent_form_edge', 'short_form_edge'),
+            "surface_recent_form_edge": first_value(out, 'surface_recent_form_edge'),
+            "opponent_quality_edge": first_value(out, 'opponent_quality_edge'),
+        },
+        "sets_games": {
+            "projected_sets": first_value(out, 'ta_projected_sets', 'thinq_projected_sets', 'projected_sets'),
+            "projected_games": first_value(out, 'ta_projected_games', 'thinq_projected_games', 'projected_games'),
+            "sets_selection": first_value(out, 'sets_selection', 'sets_display'),
+            "sets_probability": first_value(out, 'sets_probability', 'sets_probability_pct'),
+            "sets_line": first_value(out, 'sets_line'),
+            "games_selection": first_value(out, 'games_selection', 'games_display'),
+            "games_probability": first_value(out, 'games_probability', 'games_probability_pct'),
+            "games_line": first_value(out, 'games_line'),
+            "tb_probability": first_value(out, 'tb_probability', 'tiebreak_probability', 'ta_tiebreak_probability', 'thinq_tiebreak_probability'),
+            "market_source": first_value(out, 'sets_games_market_source', 'sets_model_source'),
+            "raw_market_count": first_value(out, 'sets_games_raw_market_count'),
+            "data_depth": first_value(out, 'sets_games_data_depth', 's_data_depth', 'stat_data_depth'),
+        },
+        "aces_df": {
+            "aces_pick_selection": first_value(out, 'pick_aces_selection'),
+            "aces_opponent_selection": first_value(out, 'opponent_aces_selection'),
+            "aces_total_selection": first_value(out, 'total_aces_selection'),
+            "aces_pick_projection": first_value(out, 'pick_aces_projection'),
+            "aces_opponent_projection": first_value(out, 'opponent_aces_projection'),
+            "aces_total_projection": first_value(out, 'total_aces_projection'),
+            "aces_pick_line_source": first_value(out, 'pick_aces_line_source'),
+            "aces_opponent_line_source": first_value(out, 'opponent_aces_line_source'),
+            "aces_total_line_source": first_value(out, 'total_aces_line_source'),
+            "df_pick_selection": first_value(out, 'pick_df_selection'),
+            "df_opponent_selection": first_value(out, 'opponent_df_selection'),
+            "df_total_selection": first_value(out, 'total_df_selection'),
+            "df_pick_projection": first_value(out, 'pick_df_projection'),
+            "df_opponent_projection": first_value(out, 'opponent_df_projection'),
+            "df_total_projection": first_value(out, 'total_df_projection'),
+            "df_pick_line_source": first_value(out, 'pick_df_line_source'),
+            "df_opponent_line_source": first_value(out, 'opponent_df_line_source'),
+            "df_total_line_source": first_value(out, 'total_df_line_source'),
+            "serve_stats_source": first_value(out, 'api_serve_stats_source', 'serve_stats_source'),
+        },
+    }
+
+
 def evaluate_row(
     row: Dict[str, Any],
     model: str,
@@ -150,6 +388,7 @@ def evaluate_row(
     status = snapshot_status(row)
     winner = snapshot_winner(row) or str(out.get("winner") or "").strip()
     score, actual_sets, actual_games, actual_tiebreak = snapshot_score(row)
+    event: Optional[Dict[str, Any]] = None
 
     if out.get("score") and not score:
         score = str(out.get("score"))
@@ -177,10 +416,32 @@ def evaluate_row(
             event_fetch_status = "NO_EVENT_ID"
 
     result, units = result_from_winner({**out, "winner": winner, "score": score, "status": status}, winner, status)
-    projected_sets = as_float(out.get("ta_projected_sets") or out.get("thinq_projected_sets") or out.get("projected_sets"), None)
-    projected_games = as_float(out.get("ta_projected_games") or out.get("thinq_projected_games") or out.get("projected_games"), None)
+    projected_sets = as_float(first_value(out, "ta_projected_sets", "thinq_projected_sets", "projected_sets"), None)
+    projected_games = as_float(first_value(out, "ta_projected_games", "thinq_projected_games", "projected_games"), None)
     games_error = round(actual_games - projected_games, 2) if actual_games is not None and projected_games is not None else None
-    sets_hit = round(projected_sets) == actual_sets if actual_sets is not None and projected_sets is not None else None
+    sets_hit_projection = round(projected_sets) == actual_sets if actual_sets is not None and projected_sets is not None else None
+
+    sets_selection = first_value(out, "sets_selection", "sets_display")
+    games_selection = first_value(out, "games_selection", "games_display")
+    tb_probability = first_value(out, "tb_probability", "tiebreak_probability", "ta_tiebreak_probability", "thinq_tiebreak_probability")
+    sets_ou_hit = bool_hit_from_ou(sets_selection, actual_sets)
+    games_ou_hit = bool_hit_from_ou(games_selection, actual_games)
+    tb_projected_hit = None
+    tb_prob_num = pct_to_float(tb_probability)
+    if actual_tiebreak is not None and tb_prob_num is not None:
+        # We treat TB >= 50% as the model calling a tiebreak.
+        tb_projected_hit = (tb_prob_num >= 0.5) == bool(actual_tiebreak)
+
+    actual_stats = extract_actual_match_stats(event, pick_name(out), opponent_name(out))
+    out.update(actual_stats)
+    aces_total_hit = None
+    df_total_hit = None
+    if actual_stats.get("actual_total_aces") is not None:
+        aces_total_hit = bool_hit_from_ou(first_value(out, "total_aces_selection"), actual_stats.get("actual_total_aces"))
+    if actual_stats.get("actual_total_df") is not None:
+        df_total_hit = bool_hit_from_ou(first_value(out, "total_df_selection"), actual_stats.get("actual_total_df"))
+
+    prediction_snapshot = prediction_snapshot_from_row(out)
 
     out.update({
         "date": result_row_date(out, run_date, local_tz),
@@ -192,6 +453,15 @@ def evaluate_row(
         "pick_odds": pick_odds(out),
         "opponent_odds": opponent_odds(out),
         "corq_probability": probability(out),
+        "thinq_pick_probability": first_value(out, "thinq_pick_probability", "top7_thinq_pick_probability", "thinq_probability_layer.pick_probability"),
+        "thinq_data_confidence": first_value(out, "thinq_data_confidence", "thinq_confidence", "confidence"),
+        "mmx_thinq_weight": first_value(out, "corq_thinq_weight", "thinq_weight", "model_mix_thinq_weight"),
+        "mmx_marq_weight": first_value(out, "corq_marq_weight", "marq_weight", "model_mix_marq_weight"),
+        "marq_pick_probability": first_value(out, "marq_crowd_pick_pct", "marq_pick_probability", "corq_market_probability"),
+        "marq_edge_pct": first_value(out, "marq_edge_pct", "marq_edge"),
+        "marq_move": first_value(out, "marq_internal_move_signal", "marq_move_signal", "market_move"),
+        "marq_range": first_value(out, "marq_internal_range", "marq_move_range", "move_range"),
+        "marq_clv_pp": first_value(out, "marq_internal_clv_pp", "marq_clv_pct"),
         "status": result,
         "result_status": result,
         "result": result,
@@ -202,24 +472,65 @@ def evaluate_row(
         "actual_sets": actual_sets,
         "actual_games": actual_games,
         "actual_tiebreak": actual_tiebreak,
-        "sets_hit": sets_hit,
+        "sets_hit": sets_hit_projection,
+        "sets_ou_hit": sets_ou_hit,
+        "games_ou_hit": games_ou_hit,
+        "tb_hit": tb_projected_hit,
+        "total_aces_hit": aces_total_hit,
+        "total_df_hit": df_total_hit,
         "games_error": games_error,
         "tags": flags(out),
         "event_fetch_status": event_fetch_status,
         "match_identity": match_identity(out),
         "side_identity": side_identity(out),
+        "prediction_snapshot": prediction_snapshot,
     })
 
     out["sets_games"] = {
         "projected_sets": projected_sets,
         "projected_games": projected_games,
+        "sets_selection": sets_selection,
+        "sets_probability": first_value(out, "sets_probability", "sets_probability_pct"),
+        "sets_line": first_value(out, "sets_line"),
+        "games_selection": games_selection,
+        "games_probability": first_value(out, "games_probability", "games_probability_pct"),
+        "games_line": first_value(out, "games_line"),
         "actual_sets": actual_sets,
         "actual_games": actual_games,
-        "sets_hit": sets_hit,
+        "sets_projection_hit": sets_hit_projection,
+        "sets_ou_hit": sets_ou_hit,
+        "games_ou_hit": games_ou_hit,
         "games_error": games_error,
         "actual_tiebreak": actual_tiebreak,
+        "tb_probability": tb_probability,
+        "tb_hit": tb_projected_hit,
         "three_sets_probability": out.get("ta_decider_probability") or out.get("thinq_decider_probability"),
-        "tie_break_probability": out.get("ta_tiebreak_probability") or out.get("thinq_tiebreak_probability"),
+        "tie_break_probability": tb_probability,
+        "market_source": first_value(out, "sets_games_market_source", "sets_model_source"),
+        "raw_market_count": first_value(out, "sets_games_raw_market_count"),
+    }
+    out["aces_df"] = {
+        "aces_pick_selection": first_value(out, "pick_aces_selection"),
+        "aces_opponent_selection": first_value(out, "opponent_aces_selection"),
+        "aces_total_selection": first_value(out, "total_aces_selection"),
+        "aces_pick_projection": first_value(out, "pick_aces_projection"),
+        "aces_opponent_projection": first_value(out, "opponent_aces_projection"),
+        "aces_total_projection": first_value(out, "total_aces_projection"),
+        "actual_pick_aces": actual_stats.get("actual_pick_aces"),
+        "actual_opponent_aces": actual_stats.get("actual_opponent_aces"),
+        "actual_total_aces": actual_stats.get("actual_total_aces"),
+        "total_aces_hit": aces_total_hit,
+        "df_pick_selection": first_value(out, "pick_df_selection"),
+        "df_opponent_selection": first_value(out, "opponent_df_selection"),
+        "df_total_selection": first_value(out, "total_df_selection"),
+        "df_pick_projection": first_value(out, "pick_df_projection"),
+        "df_opponent_projection": first_value(out, "opponent_df_projection"),
+        "df_total_projection": first_value(out, "total_df_projection"),
+        "actual_pick_df": actual_stats.get("actual_pick_df"),
+        "actual_opponent_df": actual_stats.get("actual_opponent_df"),
+        "actual_total_df": actual_stats.get("actual_total_df"),
+        "total_df_hit": df_total_hit,
+        "actual_stats_source": actual_stats.get("actual_stats_source"),
     }
     return out
 
