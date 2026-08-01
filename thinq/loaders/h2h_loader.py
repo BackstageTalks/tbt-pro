@@ -308,6 +308,74 @@ def winner_from_event(event: Dict[str, Any]) -> Optional[str]:
     return None
 
 
+
+def _clamp(value: float, lo: float, hi: float) -> float:
+    return max(lo, min(hi, value))
+
+
+def h2h_sample_cap(total_matches: int) -> float:
+    """Maximum directional H2H edge allowed by sample size.
+
+    H2H has high narrative value but can easily overfit on 1-2 meetings.
+    This cap prevents one historical match from moving CorQ like a strong model layer.
+    Returned value is probability-point scale, e.g. 0.015 = 1.5pp.
+    """
+    try:
+        total = int(total_matches or 0)
+    except Exception:
+        total = 0
+    if total <= 0:
+        return 0.0
+    if total == 1:
+        return 0.015
+    if total <= 3:
+        return 0.025
+    return 0.040
+
+
+def h2h_sample_quality(total_matches: int, confidence: float) -> str:
+    try:
+        total = int(total_matches or 0)
+    except Exception:
+        total = 0
+    try:
+        conf = float(confidence or 0.0)
+    except Exception:
+        conf = 0.0
+    if total <= 0:
+        return "NO_SAMPLE"
+    if total == 1:
+        return "LOW_SAMPLE"
+    if total <= 3:
+        return "MEDIUM_SAMPLE"
+    if conf >= 0.45:
+        return "GOOD_SAMPLE"
+    return "MEDIUM_SAMPLE"
+
+
+def effective_h2h_edge(raw_edge: float, total_matches: int, confidence: float) -> float:
+    """Shrink raw H2H edge by sample quality and confidence.
+
+    Example: a 1-0 H2H can still support a pick, but it is capped at +/-1.5pp,
+    not the old +/-4.0pp maximum.
+    """
+    try:
+        raw = float(raw_edge or 0.0)
+    except Exception:
+        raw = 0.0
+    try:
+        conf = float(confidence or 0.0)
+    except Exception:
+        conf = 0.0
+    cap = h2h_sample_cap(total_matches)
+    if cap <= 0.0:
+        return 0.0
+    # Confidence max in this loader is 0.55. Use it as a smooth shrink factor,
+    # then never allow the value to exceed the sample cap.
+    conf_factor = _clamp(conf / 0.55, 0.20, 1.0)
+    return round(_clamp(raw * conf_factor, -cap, cap), 4)
+
+
 def summarize_h2h(payload: Any, pick: str, opponent: str, surface: Optional[str] = None) -> Dict[str, Any]:
     events = extract_events(payload)
     requested_surface = normalize_surface_bucket(surface)
@@ -358,16 +426,25 @@ def summarize_h2h(payload: Any, pick: str, opponent: str, surface: Optional[str]
             "h2h_requested_surface": surface,
             "h2h_requested_surface_bucket": requested_surface,
             "h2h_missing_surface_matches": 0,
+            "raw_edge": 0.0,
+            "effective_edge": 0.0,
             "edge": 0.0,
+            "sample_cap": 0.0,
+            "sample_quality": "NO_SAMPLE",
             "confidence": 0.0,
             "reason": "No API H2H events returned",
         }
 
     win_pct = pick_wins / total
-    edge = max(min((win_pct - 0.5) * 0.08, 0.04), -0.04)
+    raw_edge = max(min((win_pct - 0.5) * 0.08, 0.04), -0.04)
     confidence = min(0.15 + total * 0.08, 0.55)
+    edge = effective_h2h_edge(raw_edge, total, confidence)
     surface_win_pct = (same_surface_pick_wins / same_surface_total) if same_surface_total else None
-    surface_edge = max(min(((surface_win_pct or 0.5) - 0.5) * 0.08, 0.04), -0.04) if surface_win_pct is not None else 0.0
+    raw_surface_edge = max(min(((surface_win_pct or 0.5) - 0.5) * 0.08, 0.04), -0.04) if surface_win_pct is not None else 0.0
+    surface_confidence = min(0.15 + same_surface_total * 0.08, 0.55) if same_surface_total else 0.0
+    surface_edge = effective_h2h_edge(raw_surface_edge, same_surface_total, surface_confidence) if surface_win_pct is not None else 0.0
+    quality = h2h_sample_quality(total, confidence)
+    surface_quality = h2h_sample_quality(same_surface_total, surface_confidence)
     return {
         "status": "OK",
         "source": "rapidapi_pro_or_cache",
@@ -379,12 +456,19 @@ def summarize_h2h(payload: Any, pick: str, opponent: str, surface: Optional[str]
         "same_surface_pick_wins": same_surface_pick_wins,
         "same_surface_opponent_wins": same_surface_opponent_wins,
         "same_surface_pick_win_pct": round(surface_win_pct, 4) if surface_win_pct is not None else None,
+        "same_surface_raw_edge": round(raw_surface_edge, 4),
+        "same_surface_effective_edge": round(surface_edge, 4),
         "same_surface_edge": round(surface_edge, 4),
+        "same_surface_sample_quality": surface_quality,
         "h2h_requested_surface": surface,
         "h2h_requested_surface_bucket": requested_surface,
         "h2h_detected_surface_buckets": sorted(set(detected_surface_buckets)),
         "h2h_missing_surface_matches": missing_surface_matches,
+        "raw_edge": round(raw_edge, 4),
+        "effective_edge": round(edge, 4),
         "edge": round(edge, 4),
+        "sample_cap": round(h2h_sample_cap(total), 4),
+        "sample_quality": quality,
         "confidence": round(confidence, 4),
         "reason": None,
     }
