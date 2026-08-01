@@ -3607,13 +3607,25 @@ def render_results_page(manifest: Dict[str, Any]) -> str:
     cloq = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_cloq.json', []))
     audit_rows = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_audit.json', []))
     combined = corq + cloq + audit_rows
+
+    # Results page supports the same signal tags as Audit. H2H Top10 is a
+    # relative signal, so mark it before rendering both cards and long-term
+    # analysis sections.
     mark_audit_h2h_top10(combined)
+
     body = [
         _result_css_block(),
         render_results_filter_builder(combined),
         render_results_card_section(corq, 'CorQ TOP7 Results'),
         render_results_card_section(cloq, 'CloQ Results'),
         render_results_card_section(audit_rows, 'Audit Results', limit=80),
+
+        # Long-term analysis sections restored below the new card layout.
+        # These keep the historical stats view without bringing back the old
+        # row/table result layout for individual picks.
+        tag_analysis(combined),
+        depth_analysis(combined),
+        sets_games_audit(combined),
     ]
     return page_shell('Results', RESULTS_PATH, '\n'.join(body), manifest)
 
