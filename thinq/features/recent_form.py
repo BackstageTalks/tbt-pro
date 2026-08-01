@@ -1,6 +1,12 @@
 from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
+import json
+import os
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+import requests
 
 from thinq.loaders.history_loader import (
     HistoryMatch,
@@ -26,6 +32,314 @@ def _win_pct(wins: int, total: int) -> Optional[float]:
         return None
     return round(wins / total, 4)
 
+
+
+
+API_PRO_HOST = "tennisapi1.p.rapidapi.com"
+API_PRO_BASE_URL = "https://tennisapi1.p.rapidapi.com"
+API_PRO_TIMEOUT = 20
+API_RECENT_FORM_CACHE_DIR = Path("data/api_pro/team_last_matches")
+API_RECENT_FORM_CACHE_TTL_SECONDS = 60 * 60 * 6
+STALE_FORM_DAYS = 30
+AGING_FORM_DAYS = 21
+
+
+def _api_key() -> str:
+    return os.getenv("RAPIDAPI_KEY", "").strip()
+
+
+def _headers() -> Dict[str, str]:
+    return {
+        "Content-Type": "application/json",
+        "x-rapidapi-host": API_PRO_HOST,
+        "x-rapidapi-key": _api_key(),
+    }
+
+
+def _cache_path(team_id: Any, page: int = 0) -> Path:
+    API_RECENT_FORM_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    return API_RECENT_FORM_CACHE_DIR / f"{team_id}_last_{page}.json"
+
+
+def _read_cache(path: Path) -> Optional[Any]:
+    try:
+        if not path.exists():
+            return None
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if time.time() - float(payload.get("saved_at", 0)) > API_RECENT_FORM_CACHE_TTL_SECONDS:
+            return None
+        return payload.get("data")
+    except Exception:
+        return None
+
+
+def _write_cache(path: Path, data: Any) -> None:
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps({"saved_at": time.time(), "data": data}, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception:
+        pass
+
+
+def _parse_date(value: Any) -> Optional[datetime]:
+    if value in (None, ""):
+        return None
+    if isinstance(value, (int, float)):
+        try:
+            # API timestamps are seconds.
+            v = float(value)
+            if v > 10_000_000_000:
+                v = v / 1000.0
+            return datetime.fromtimestamp(v, tz=timezone.utc)
+        except Exception:
+            return None
+    text = str(value).strip()
+    if not text:
+        return None
+    try:
+        if text.endswith("Z"):
+            text = text[:-1] + "+00:00"
+        dt = datetime.fromisoformat(text)
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt.astimezone(timezone.utc)
+    except Exception:
+        return None
+
+
+def _date_str(dt: Optional[datetime]) -> Optional[str]:
+    return dt.date().isoformat() if dt else None
+
+
+def _days_old(last_date: Optional[str], match_date: Optional[Any]) -> Optional[int]:
+    if not last_date:
+        return None
+    left = _parse_date(last_date)
+    right = _parse_date(match_date) or datetime.now(timezone.utc)
+    if not left:
+        try:
+            left = datetime.fromisoformat(str(last_date)).replace(tzinfo=timezone.utc)
+        except Exception:
+            return None
+    return max((right.date() - left.date()).days, 0)
+
+
+def _freshness_status(days: Optional[int]) -> str:
+    if days is None:
+        return "UNKNOWN"
+    if days <= AGING_FORM_DAYS:
+        return "FRESH"
+    if days <= STALE_FORM_DAYS:
+        return "AGING"
+    return "STALE"
+
+
+def _iter_events(obj: Any) -> List[Dict[str, Any]]:
+    out: List[Dict[str, Any]] = []
+    if isinstance(obj, dict):
+        if isinstance(obj.get("homeTeam"), dict) and isinstance(obj.get("awayTeam"), dict):
+            out.append(obj)
+        for value in obj.values():
+            out.extend(_iter_events(value))
+    elif isinstance(obj, list):
+        for item in obj:
+            out.extend(_iter_events(item))
+    return out
+
+
+def _fetch_team_last_matches(team_id: Any, page: int = 0, force_refresh: bool = False) -> Dict[str, Any]:
+    if team_id in (None, ""):
+        return {"status": "NO_TEAM_ID", "events": []}
+    path = _cache_path(team_id, page)
+    if not force_refresh:
+        cached = _read_cache(path)
+        if isinstance(cached, dict):
+            cached.setdefault("from_cache", True)
+            cached.setdefault("cache_path", str(path))
+            return cached
+    if not _api_key():
+        return {"status": "NO_API_KEY", "events": [], "cache_path": str(path)}
+
+    # TennisAPI PRO playground endpoint: getTeamLastMatches.
+    # Path used by Sofascore-style APIs: /api/tennis/team/{id}/events/last/{page}
+    urls = [
+        f"{API_PRO_BASE_URL}/api/tennis/team/{team_id}/events/last/{page}",
+        f"{API_PRO_BASE_URL}/api/tennis/team/{team_id}/matches/last/{page}",
+    ]
+    last_error = None
+    for url in urls:
+        try:
+            response = requests.get(url, headers=_headers(), timeout=API_PRO_TIMEOUT)
+            status = response.status_code
+            if status == 429:
+                return {"status": "RATE_LIMITED", "events": [], "api_status_code": status, "cache_path": str(path), "endpoint": url}
+            if status == 404:
+                last_error = f"HTTP 404: {url}"
+                continue
+            response.raise_for_status()
+            payload = response.json()
+            events = _iter_events(payload)
+            result = {
+                "status": "OK",
+                "endpoint": url,
+                "api_status_code": status,
+                "payload": payload,
+                "events": events,
+                "event_count": len(events),
+                "from_cache": False,
+                "cache_path": str(path),
+            }
+            _write_cache(path, result)
+            return result
+        except Exception as exc:
+            last_error = str(exc)
+            continue
+    return {"status": "FETCH_FAILED", "events": [], "error": last_error, "cache_path": str(path)}
+
+
+def _event_surface(event: Dict[str, Any]) -> Optional[str]:
+    tournament = event.get("tournament") if isinstance(event.get("tournament"), dict) else {}
+    unique = tournament.get("uniqueTournament") if isinstance(tournament.get("uniqueTournament"), dict) else {}
+    return event.get("groundType") or tournament.get("groundType") or unique.get("groundType") or event.get("surface")
+
+
+def _event_dt(event: Dict[str, Any]) -> Optional[datetime]:
+    return _parse_date(event.get("startTimestamp") or event.get("startTime") or event.get("match_start"))
+
+
+def _is_finished(event: Dict[str, Any]) -> bool:
+    status = event.get("status") if isinstance(event.get("status"), dict) else {}
+    stype = str(status.get("type") or event.get("status_type") or "").lower()
+    code = status.get("code", event.get("status_code"))
+    desc = str(status.get("description") or "").lower()
+    return stype in {"finished", "ended"} or code == 100 or "finished" in desc
+
+
+def _team_id(team: Any) -> Optional[Any]:
+    if not isinstance(team, dict):
+        return None
+    return team.get("id") or (team.get("playerTeamInfo") or {}).get("id")
+
+
+def _team_name(team: Any) -> str:
+    if not isinstance(team, dict):
+        return ""
+    return str(team.get("name") or team.get("shortName") or "")
+
+
+def _winner_side(event: Dict[str, Any]) -> Optional[str]:
+    code = event.get("winnerCode") or event.get("winner_code")
+    try:
+        code = int(code)
+        if code == 1:
+            return "HOME"
+        if code == 2:
+            return "AWAY"
+    except Exception:
+        pass
+    home_score = event.get("homeScore") if isinstance(event.get("homeScore"), dict) else {}
+    away_score = event.get("awayScore") if isinstance(event.get("awayScore"), dict) else {}
+    try:
+        h = int(home_score.get("current"))
+        a = int(away_score.get("current"))
+        if h > a:
+            return "HOME"
+        if a > h:
+            return "AWAY"
+    except Exception:
+        return None
+    return None
+
+
+def _api_history_matches(team_id: Any, player_name: str, surface: Optional[str], current_event_id: Any = None, current_match_start: Any = None, force_refresh: bool = False) -> Dict[str, Any]:
+    result = _fetch_team_last_matches(team_id, page=0, force_refresh=force_refresh)
+    events = result.get("events") or []
+    current_dt = _parse_date(current_match_start)
+    surface_norm = normalize_surface(surface)
+    normalized_player = normalize_name(player_name)
+    matches: List[Dict[str, Any]] = []
+
+    for event in events:
+        if not isinstance(event, dict):
+            continue
+        event_id = event.get("id")
+        if current_event_id is not None and str(event_id) == str(current_event_id):
+            continue
+        if not _is_finished(event):
+            continue
+        dt = _event_dt(event)
+        if current_dt and dt and dt >= current_dt:
+            continue
+        home = event.get("homeTeam") or {}
+        away = event.get("awayTeam") or {}
+        home_id = _team_id(home)
+        away_id = _team_id(away)
+        home_name = _team_name(home)
+        away_name = _team_name(away)
+        is_home = str(home_id) == str(team_id) or normalize_name(home_name) == normalized_player
+        is_away = str(away_id) == str(team_id) or normalize_name(away_name) == normalized_player
+        if not is_home and not is_away:
+            continue
+        winner = _winner_side(event)
+        won = (winner == "HOME" and is_home) or (winner == "AWAY" and is_away)
+        opp_name = away_name if is_home else home_name
+        matches.append({
+            "date": _date_str(dt),
+            "timestamp": dt.timestamp() if dt else 0,
+            "surface": normalize_surface(_event_surface(event)),
+            "won": bool(won),
+            "opponent": opp_name,
+            "opponent_rank": None,
+            "event_id": event_id,
+        })
+    matches.sort(key=lambda item: item.get("timestamp") or 0, reverse=True)
+    return {
+        "status": result.get("status"),
+        "source": "rapidapi_team_last_matches",
+        "team_id": team_id,
+        "api_event_count": len(events),
+        "usable_match_count": len(matches),
+        "endpoint": result.get("endpoint"),
+        "cache_path": result.get("cache_path"),
+        "matches": matches,
+        "surface": surface_norm,
+        "error": result.get("error"),
+    }
+
+
+def _summarize_api_sample(sample: List[Dict[str, Any]]) -> Dict[str, Any]:
+    wins = sum(1 for item in sample if item.get("won") is True)
+    total = len(sample)
+    return {
+        "count": total,
+        "wins": wins,
+        "losses": max(total - wins, 0),
+        "record": _fmt_record(wins, total),
+        "win_pct": _win_pct(wins, total),
+        "avg_opponent_rank": None,
+        "last_match_date": sample[0].get("date") if sample else None,
+    }
+
+
+def _api_player_windows(player: str, surface: Optional[str], api_ctx: Dict[str, Any], level: Optional[str] = None) -> Dict[str, Any]:
+    matches = api_ctx.get("matches") or []
+    surface_norm = normalize_surface(surface)
+    last5 = matches[:5]
+    last10 = matches[:10]
+    surface_matches = [m for m in matches if normalize_surface(m.get("surface")) == surface_norm][:10]
+    empty = _empty_player_stats(player, surface, level)
+    return {
+        **empty,
+        "total_history_matches": len(matches),
+        "last5": _summarize_api_sample(last5),
+        "last10": _summarize_api_sample(last10),
+        "surface_last10": _summarize_api_sample(surface_matches),
+        "api_status": api_ctx.get("status"),
+        "api_event_count": api_ctx.get("api_event_count"),
+        "api_usable_match_count": api_ctx.get("usable_match_count"),
+        "api_endpoint": api_ctx.get("endpoint"),
+        "api_cache_path": api_ctx.get("cache_path"),
+    }
 
 def _empty_player_stats(player: str, surface: Optional[str], level: Optional[str] = None) -> Dict[str, Any]:
     surface_norm = normalize_surface(surface)
@@ -216,7 +530,7 @@ def build_recent_form_context(
     sample_audit = _sample_audit(pick_stats, opp_stats, "OK")
     return {
         "status": "OK",
-        "source": "local_history",
+        "source": form_source,
         "surface": normalize_surface(surface),
         "level": level,
         "pick": pick_stats,
@@ -231,12 +545,37 @@ def build_recent_form_context(
         "opponent_surface_record": opp_stats["surface_last10"]["record"],
         "pick_surface_last10_win_pct": pick_stats["surface_last10"].get("win_pct"),
         "opponent_surface_last10_win_pct": opp_stats["surface_last10"].get("win_pct"),
+        "raw_recent_form_edge": raw_recent_form_edge,
+        "raw_short_form_edge": raw_short_form_edge,
+        "raw_surface_recent_form_edge": raw_surface_recent_form_edge,
+        "raw_opponent_quality_edge": raw_opponent_quality_edge,
         "recent_form_edge": recent_form_edge,
         "short_form_edge": short_form_edge,
         "surface_recent_form_edge": surface_recent_form_edge,
         "opponent_quality_edge": opponent_quality_edge,
+        "effective_recent_form_edge": recent_form_edge,
+        "effective_short_form_edge": short_form_edge,
+        "effective_surface_recent_form_edge": surface_recent_form_edge,
+        "effective_opponent_quality_edge": opponent_quality_edge,
         "form_confidence": form_confidence,
         "form_data_depth": form_confidence,
+        "recent_form_freshness_status": form_freshness,
+        "pick_local_last_match_date": pick_stats_local.get("last10", {}).get("last_match_date"),
+        "opponent_local_last_match_date": opp_stats_local.get("last10", {}).get("last_match_date"),
+        "pick_local_days_old": local_pick_days,
+        "opponent_local_days_old": local_opp_days,
+        "pick_api_last10_record": pick_stats_api.get("last10", {}).get("record") if pick_stats_api else None,
+        "opponent_api_last10_record": opp_stats_api.get("last10", {}).get("record") if opp_stats_api else None,
+        "pick_api_surface_record": pick_stats_api.get("surface_last10", {}).get("record") if pick_stats_api else None,
+        "opponent_api_surface_record": opp_stats_api.get("surface_last10", {}).get("record") if opp_stats_api else None,
+        "pick_api_last_match_date": pick_stats_api.get("last10", {}).get("last_match_date") if pick_stats_api else None,
+        "opponent_api_last_match_date": opp_stats_api.get("last10", {}).get("last_match_date") if opp_stats_api else None,
+        "pick_api_status": pick_api.get("status"),
+        "opponent_api_status": opp_api.get("status"),
+        "pick_api_event_count": pick_api.get("api_event_count"),
+        "opponent_api_event_count": opp_api.get("api_event_count"),
+        "pick_api_usable_match_count": pick_api.get("usable_match_count"),
+        "opponent_api_usable_match_count": opp_api.get("usable_match_count"),
         "recent_form_sample_audit": sample_audit,
         "flags": flags,
         "history_status": status,

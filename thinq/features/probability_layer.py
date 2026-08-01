@@ -39,6 +39,8 @@ def _confidence(base_confidence: float, recent_form: Dict[str, Any], h2h: Dict[s
         value -= 0.12
     if recent_form.get("status") != "OK":
         value -= 0.12
+    elif str(recent_form.get("recent_form_freshness_status") or "").upper().endswith("STALE") or "RECENT_FORM_STALE_LOCAL_HISTORY" in flag_set:
+        value -= 0.12
     else:
         form_conf = as_float(recent_form.get("form_confidence"), 0.0) or 0.0
         if form_conf < 0.50:
