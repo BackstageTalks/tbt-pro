@@ -164,9 +164,9 @@ def _safe_h2h_context(**kwargs: Any) -> Dict[str, Any]:
         }
 
 
-def _safe_recent_form_context(pick: str, opponent: str, surface: Optional[str], level: Optional[str]) -> Dict[str, Any]:
+def _safe_recent_form_context(pick: str, opponent: str, surface: Optional[str], level: Optional[str], **kwargs: Any) -> Dict[str, Any]:
     try:
-        ctx = build_recent_form_context(pick, opponent, surface, level)
+        ctx = build_recent_form_context(pick, opponent, surface, level, **kwargs)
         return ctx if isinstance(ctx, dict) else {"status": "ERROR", "flags": ["RECENT_FORM_RETURNED_NON_DICT"]}
     except Exception as exc:
         return {
@@ -570,7 +570,19 @@ class ThinqService:
             player2_id=opponent_player_id,
             event_custom_id=event_custom_id,
         )
-        recent_form = _safe_recent_form_context(analysis_pick, analysis_opponent, surface_bucket, level)
+        recent_form = _safe_recent_form_context(
+            analysis_pick,
+            analysis_opponent,
+            surface_bucket,
+            level,
+            pick_player_id=pick_player_id,
+            opponent_player_id=opponent_player_id,
+            event_id=event_id,
+            event_custom_id=event_custom_id,
+            match_start=kwargs.get("match_start") or kwargs.get("start_time") or as_of_date,
+            as_of_date=as_of_date,
+            force_refresh_api_recent_form=bool(kwargs.get("force_refresh_api_recent_form", False)),
+        )
         match_dynamics = _safe_match_dynamics_context(
             pick=analysis_pick,
             opponent=analysis_opponent,
@@ -633,10 +645,10 @@ class ThinqService:
             "surface_elo_edge": float(elo.get("surface_elo_edge") or 0.0),
             "elo_edge": float(elo.get("elo_edge") or 0.0),
             "h2h_edge": float(h2h.get("effective_edge", h2h.get("edge")) or 0.0),
-            "recent_form_edge": float(recent_form.get("recent_form_edge") or 0.0),
-            "short_form_edge": float(recent_form.get("short_form_edge") or 0.0),
-            "surface_recent_form_edge": float(recent_form.get("surface_recent_form_edge") or 0.0),
-            "opponent_quality_edge": float(recent_form.get("opponent_quality_edge") or 0.0),
+            "recent_form_edge": float(recent_form.get("effective_recent_form_edge", recent_form.get("recent_form_edge")) or 0.0),
+            "short_form_edge": float(recent_form.get("effective_short_form_edge", recent_form.get("short_form_edge")) or 0.0),
+            "surface_recent_form_edge": float(recent_form.get("effective_surface_recent_form_edge", recent_form.get("surface_recent_form_edge")) or 0.0),
+            "opponent_quality_edge": float(recent_form.get("effective_opponent_quality_edge", recent_form.get("opponent_quality_edge")) or 0.0),
             "sets_edge": float(match_dynamics.get("sets_edge") or 0.0),
             "games_edge": float(match_dynamics.get("games_edge") or 0.0),
         }
@@ -806,6 +818,24 @@ class ThinqService:
             "thinq_match_shape": match_dynamics.get("match_shape"),
             "thinq_match_dynamics_confidence": match_dynamics.get("confidence", 0.0),
             "thinq_form_confidence": recent_form.get("form_confidence", 0.0),
+            "recent_form_source": recent_form.get("source"),
+            "recent_form_freshness_status": recent_form.get("recent_form_freshness_status"),
+            "pick_local_last_match_date": recent_form.get("pick_local_last_match_date"),
+            "opponent_local_last_match_date": recent_form.get("opponent_local_last_match_date"),
+            "pick_local_days_old": recent_form.get("pick_local_days_old"),
+            "opponent_local_days_old": recent_form.get("opponent_local_days_old"),
+            "pick_api_last10_record": recent_form.get("pick_api_last10_record"),
+            "opponent_api_last10_record": recent_form.get("opponent_api_last10_record"),
+            "pick_api_surface_record": recent_form.get("pick_api_surface_record"),
+            "opponent_api_surface_record": recent_form.get("opponent_api_surface_record"),
+            "pick_api_last_match_date": recent_form.get("pick_api_last_match_date"),
+            "opponent_api_last_match_date": recent_form.get("opponent_api_last_match_date"),
+            "pick_api_status": recent_form.get("pick_api_status"),
+            "opponent_api_status": recent_form.get("opponent_api_status"),
+            "pick_api_event_count": recent_form.get("pick_api_event_count"),
+            "opponent_api_event_count": recent_form.get("opponent_api_event_count"),
+            "pick_api_usable_match_count": recent_form.get("pick_api_usable_match_count"),
+            "opponent_api_usable_match_count": recent_form.get("opponent_api_usable_match_count"),
             "ta_context": ta_context,
             "thinq_ta_context": ta_context,
             "ta_status": ta_context.get("ta_status"),
