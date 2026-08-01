@@ -7,7 +7,7 @@ import math
 
 @dataclass(frozen=True)
 class CloQConfig:
-    """CloQ V1.1 threshold set.
+    """CloQ V1.2 threshold set.
 
     CloQ is a close-odds shortlist layer. It is intentionally not a new model.
     It takes already generated CorQ/ThinQ/MarQ rows and applies transparent
@@ -15,13 +15,13 @@ class CloQConfig:
     """
 
     min_odds: float = 1.70
-    max_odds: float = 2.60
+    max_odds: float = 2.90
     min_odd_gap_pct: float = 0.00
     max_odd_gap_pct: float = 0.40
     min_corq_probability: float = 0.52
     min_thinq_probability: float = 0.52
-    min_marq_probability: float = 0.48
-    min_form_depth: float = 0.50
+    min_marq_probability: float = 0.30
+    min_form_depth: float = 0.40
     min_stats_depth: float = 0.25
     max_mmx_conflict_pp: float = 18.0
     require_prematch: bool = True
@@ -29,7 +29,7 @@ class CloQConfig:
 
 
 DEFAULT_CONFIG = CloQConfig()
-FILTER_VERSION = "CLOQ_FILTER_V1_1"
+FILTER_VERSION = "CLOQ_FILTER_V1_2"
 
 
 def _as_float(value: Any, default: Optional[float] = None) -> Optional[float]:
