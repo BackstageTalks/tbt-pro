@@ -458,66 +458,132 @@ def build_recent_form_context(
 ) -> Dict[str, Any]:
     """Build a side-safe recent-form context for ThinQ.
 
-    Important implementation note:
-    - The opponent stats variable is consistently named `opp_stats`.
-    - The function avoids the previous undefined-opponent-stats runtime crash.
+    Priority:
+    1. RapidAPI team last matches when pick/opponent team IDs are available.
+    2. Local history only when it exists and is not stale.
+    3. Neutral/no-data response when neither source is usable.
     """
-    status = history_data_status()
+    history_status = history_data_status()
     empty_pick_stats = _empty_player_stats(pick, surface, level)
     empty_opp_stats = _empty_player_stats(opponent, surface, level)
 
-    if not status.get("match_count"):
-        reason = "No local history files found"
+    has_local_history = bool(history_status.get("match_count"))
+    pick_stats_local = _player_windows(pick, surface, level) if has_local_history else empty_pick_stats
+    opp_stats_local = _player_windows(opponent, surface, level) if has_local_history else empty_opp_stats
+
+    pick_team_id = _kwargs.get("pick_player_id") or _kwargs.get("pick_team_id")
+    opp_team_id = _kwargs.get("opponent_player_id") or _kwargs.get("opponent_team_id")
+    current_event_id = _kwargs.get("event_id")
+    current_match_start = _kwargs.get("match_start") or _kwargs.get("start_time") or _kwargs.get("as_of_date")
+    force_api_refresh = bool(_kwargs.get("force_refresh_api_recent_form", False))
+
+    pick_api = _api_history_matches(
+        pick_team_id,
+        pick,
+        surface,
+        current_event_id=current_event_id,
+        current_match_start=current_match_start,
+        force_refresh=force_api_refresh,
+    ) if pick_team_id else {"status": "NO_TEAM_ID", "matches": [], "usable_match_count": 0}
+    opp_api = _api_history_matches(
+        opp_team_id,
+        opponent,
+        surface,
+        current_event_id=current_event_id,
+        current_match_start=current_match_start,
+        force_refresh=force_api_refresh,
+    ) if opp_team_id else {"status": "NO_TEAM_ID", "matches": [], "usable_match_count": 0}
+
+    pick_stats_api = _api_player_windows(pick, surface, pick_api, level) if int(pick_api.get("usable_match_count") or 0) > 0 else None
+    opp_stats_api = _api_player_windows(opponent, surface, opp_api, level) if int(opp_api.get("usable_match_count") or 0) > 0 else None
+
+    local_pick_days = _days_old(pick_stats_local.get("last10", {}).get("last_match_date"), current_match_start)
+    local_opp_days = _days_old(opp_stats_local.get("last10", {}).get("last_match_date"), current_match_start)
+    local_pick_freshness = _freshness_status(local_pick_days)
+    local_opp_freshness = _freshness_status(local_opp_days)
+    local_stale = local_pick_freshness == "STALE" or local_opp_freshness == "STALE"
+    api_available = bool(pick_stats_api and opp_stats_api)
+
+    if api_available:
+        pick_stats = pick_stats_api
+        opp_stats = opp_stats_api
+        form_source = "rapidapi_team_last_matches"
+        form_freshness = "API_CURRENT"
+    elif has_local_history and (pick_stats_local["last10"]["count"] > 0 or opp_stats_local["last10"]["count"] > 0):
+        pick_stats = pick_stats_local
+        opp_stats = opp_stats_local
+        form_source = "local_history"
+        form_freshness = "LOCAL_STALE" if local_stale else "LOCAL_FRESH"
+    else:
+        reason = "No usable API or local recent-form matches found"
         return {
             "status": "NO_DATA",
             "source": None,
+            "surface": normalize_surface(surface),
+            "level": level,
             "reason": reason,
             "recent_form_edge": 0.0,
             "short_form_edge": 0.0,
             "surface_recent_form_edge": 0.0,
             "opponent_quality_edge": 0.0,
+            "effective_recent_form_edge": 0.0,
+            "effective_short_form_edge": 0.0,
+            "effective_surface_recent_form_edge": 0.0,
+            "effective_opponent_quality_edge": 0.0,
             "form_confidence": 0.0,
             "form_data_depth": 0.0,
-            "recent_form_sample_audit": _sample_audit(empty_pick_stats, empty_opp_stats, "NO_DATA", reason),
-            "flags": ["RECENT_FORM_NO_DATA"],
+            "recent_form_freshness_status": "NO_USABLE_SOURCE",
             "pick": empty_pick_stats,
             "opponent": empty_opp_stats,
-            "history_status": status,
-        }
-
-    pick_stats = _player_windows(pick, surface, level)
-    opp_stats = _player_windows(opponent, surface, level)
-
-    if pick_stats["last10"]["count"] == 0 and opp_stats["last10"]["count"] == 0:
-        reason = "No completed historical matches found for either player"
-        return {
-            "status": "NO_DATA",
-            "source": "local_history",
-            "reason": reason,
-            "recent_form_edge": 0.0,
-            "short_form_edge": 0.0,
-            "surface_recent_form_edge": 0.0,
-            "opponent_quality_edge": 0.0,
-            "form_confidence": 0.0,
-            "form_data_depth": 0.0,
-            "recent_form_sample_audit": _sample_audit(pick_stats, opp_stats, "NO_DATA", reason),
-            "flags": ["RECENT_FORM_NO_PLAYER_MATCHES"],
-            "pick": pick_stats,
-            "opponent": opp_stats,
-            "history_status": status,
+            "pick_last10_record": None,
+            "opponent_last10_record": None,
+            "pick_surface_record": None,
+            "opponent_surface_record": None,
+            "pick_local_last_match_date": pick_stats_local.get("last10", {}).get("last_match_date"),
+            "opponent_local_last_match_date": opp_stats_local.get("last10", {}).get("last_match_date"),
+            "pick_local_days_old": local_pick_days,
+            "opponent_local_days_old": local_opp_days,
+            "pick_api_last10_record": pick_stats_api.get("last10", {}).get("record") if pick_stats_api else None,
+            "opponent_api_last10_record": opp_stats_api.get("last10", {}).get("record") if opp_stats_api else None,
+            "pick_api_surface_record": pick_stats_api.get("surface_last10", {}).get("record") if pick_stats_api else None,
+            "opponent_api_surface_record": opp_stats_api.get("surface_last10", {}).get("record") if opp_stats_api else None,
+            "pick_api_last_match_date": pick_stats_api.get("last10", {}).get("last_match_date") if pick_stats_api else None,
+            "opponent_api_last_match_date": opp_stats_api.get("last10", {}).get("last_match_date") if opp_stats_api else None,
+            "pick_api_status": pick_api.get("status"),
+            "opponent_api_status": opp_api.get("status"),
+            "pick_api_event_count": pick_api.get("api_event_count"),
+            "opponent_api_event_count": opp_api.get("api_event_count"),
+            "pick_api_usable_match_count": pick_api.get("usable_match_count"),
+            "opponent_api_usable_match_count": opp_api.get("usable_match_count"),
+            "recent_form_sample_audit": _sample_audit(empty_pick_stats, empty_opp_stats, "NO_DATA", reason),
+            "flags": ["RECENT_FORM_NO_DATA"],
+            "history_status": history_status,
         }
 
     last10_diff = _diff_pct(pick_stats["last10"].get("win_pct"), opp_stats["last10"].get("win_pct"))
     last5_diff = _diff_pct(pick_stats["last5"].get("win_pct"), opp_stats["last5"].get("win_pct"))
     surface_diff = _diff_pct(pick_stats["surface_last10"].get("win_pct"), opp_stats["surface_last10"].get("win_pct"))
 
-    recent_form_edge = round(clamp(last10_diff * 0.08, -0.05, 0.05), 4)
-    short_form_edge = round(clamp(last5_diff * 0.05, -0.035, 0.035), 4)
-    surface_recent_form_edge = round(clamp(surface_diff * 0.07, -0.05, 0.05), 4)
-    opponent_quality_edge = _quality_edge(pick_stats, opp_stats)
+    raw_recent_form_edge = round(clamp(last10_diff * 0.08, -0.05, 0.05), 4)
+    raw_short_form_edge = round(clamp(last5_diff * 0.05, -0.035, 0.035), 4)
+    raw_surface_recent_form_edge = round(clamp(surface_diff * 0.07, -0.05, 0.05), 4)
+    raw_opponent_quality_edge = _quality_edge(pick_stats, opp_stats)
     form_confidence = _confidence(pick_stats, opp_stats)
 
     flags: List[str] = []
+    if form_source == "local_history" and local_stale:
+        recent_form_edge = 0.0
+        short_form_edge = 0.0
+        surface_recent_form_edge = 0.0
+        opponent_quality_edge = 0.0
+        form_confidence = min(form_confidence, 0.35)
+        flags.append("RECENT_FORM_STALE_LOCAL_HISTORY")
+    else:
+        recent_form_edge = raw_recent_form_edge
+        short_form_edge = raw_short_form_edge
+        surface_recent_form_edge = raw_surface_recent_form_edge
+        opponent_quality_edge = raw_opponent_quality_edge
+
     if pick_stats["last10"]["count"] < 3 or opp_stats["last10"]["count"] < 3:
         flags.append("RECENT_FORM_THIN_SAMPLE")
     if pick_stats["surface_last10"]["count"] < 3 or opp_stats["surface_last10"]["count"] < 3:
@@ -557,8 +623,8 @@ def build_recent_form_context(
         "effective_short_form_edge": short_form_edge,
         "effective_surface_recent_form_edge": surface_recent_form_edge,
         "effective_opponent_quality_edge": opponent_quality_edge,
-        "form_confidence": form_confidence,
-        "form_data_depth": form_confidence,
+        "form_confidence": round(form_confidence, 4),
+        "form_data_depth": round(form_confidence, 4),
         "recent_form_freshness_status": form_freshness,
         "pick_local_last_match_date": pick_stats_local.get("last10", {}).get("last_match_date"),
         "opponent_local_last_match_date": opp_stats_local.get("last10", {}).get("last_match_date"),
@@ -577,6 +643,6 @@ def build_recent_form_context(
         "pick_api_usable_match_count": pick_api.get("usable_match_count"),
         "opponent_api_usable_match_count": opp_api.get("usable_match_count"),
         "recent_form_sample_audit": sample_audit,
-        "flags": flags,
-        "history_status": status,
+        "flags": sorted(set(flags)),
+        "history_status": history_status,
     }
