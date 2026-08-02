@@ -16,8 +16,36 @@ import argparse
 import html
 import json
 from pathlib import Path
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 from typing import Any, Dict, Iterable, List, Optional
 
+
+WEB_DISPLAY_TIMEZONE = ZoneInfo("Europe/Bratislava")
+
+def _format_dt_part(value: Any, fmt: str) -> str:
+    text = str(value or "").strip()
+    if not text:
+        return ""
+    try:
+        if text.isdigit() and len(text) in (10, 13):
+            dt = datetime.fromtimestamp(int(text[:10]), tz=timezone.utc)
+        else:
+            dt = datetime.fromisoformat(text.replace("Z", "+00:00"))
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            else:
+                dt = dt.astimezone(timezone.utc)
+        return dt.astimezone(WEB_DISPLAY_TIMEZONE).strftime(fmt)
+    except Exception:
+        return ""
+
+def _date_time_pill(value: Any) -> str:
+    d = _format_dt_part(value, "%d.%m.%y")
+    t = _format_dt_part(value, "%H:%M")
+    if not d and not t:
+        return ""
+    return f'<span class="cloq-date-time"><span>{_esc(d)}</span><span>{_esc(t)}</span></span>'
 
 def _load_rows(path: Path) -> List[Dict[str, Any]]:
     if not path.exists():
@@ -102,7 +130,7 @@ def render_cloq_section(rows: List[Dict[str, Any]], title: str = "CloQ Close Odd
         <article class="cloq-card">
           <div class="cloq-top"><span class="rank">#{rank}</span><span class="score">CloQ {_num(score, 1)}</span></div>
           <h2>{_esc(pick)} <span>vs</span> {_esc(opponent)}</h2>
-          <div class="meta">{_esc(tournament)}{(' · ' + _esc(start)) if start else ''}</div>
+          <div class="meta">{_date_time_pill(start)}<span class="cloq-meta">{_esc(tournament)}</span></div>
           <div class="metrics">
             <div><label>Odds</label><b>{_num(odds, 2)}</b></div>
             <div><label>Gap</label><b>{_pct(gap, 1)}</b></div>
@@ -155,7 +183,7 @@ def page_shell(section_html: str) -> str:
     .warn{{border-color:rgba(251,146,60,.55);background:rgba(92,45,12,.48);color:#fed7aa;}}
     .empty{{padding:28px;text-align:center;color:#9fb5d1;border:1px dashed #334155;border-radius:18px;background:#0d1727;}}
     @media(max-width:760px){{.metrics{{grid-template-columns:1fr 1fr;}}}}
-  </style>
+  .cloq-date-time{display:inline-flex;flex-direction:column;gap:1px;margin-right:8px;padding:3px 7px;border:1px solid #244766;border-radius:10px;background:#0f2036;color:#e0f2fe;font-weight:900;line-height:1.05}.cloq-meta{color:#9fb5d1}</style>
 </head><body><div class="wrap">{section_html}</div></body></html>"""
 
 
