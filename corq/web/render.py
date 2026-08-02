@@ -599,11 +599,52 @@ def _clean_player_rank_value(value: Any) -> Optional[int]:
 
 
 def player_rank_display(row: Dict[str, Any], side: str) -> str:
-    keys = [f"{side}_ta_rank_display", f"{side}_rank_display", f"{side}_ta_rank", f"{side}_rank"]
+    """Return display rank for pick/opponent with TennisApi priority.
+
+    TennisApi/API ranking fields are preferred over legacy TA rank fields. If no
+    valid rank is available, UI must show (X), not blank, None or 0.
+    """
+    side_aliases = [side]
+    if side == "pick":
+        side_aliases.extend(["player1", "p1", "home", "selected"])
+    elif side == "opponent":
+        side_aliases.extend(["player2", "p2", "away", "opp"])
+
+    keys: List[str] = []
+    for alias in side_aliases:
+        keys.extend([
+            f"{alias}_api_rank",
+            f"{alias}_tennisapi_rank",
+            f"{alias}_current_rank",
+            f"api_{alias}_rank",
+            f"tennisapi_{alias}_rank",
+            f"{alias}_ta_rank_display",
+            f"{alias}_rank_display",
+            f"{alias}_ta_rank",
+            f"{alias}_rank",
+        ])
+
     for key in keys:
         rank = _clean_player_rank_value(row.get(key))
         if rank is not None:
             return f"({rank})"
+
+    # Results snapshots sometimes keep ranks under prediction_snapshot.*.
+    for root_key in ("prediction_snapshot", "snapshot", "rankings", "api_rankings", "tennisapi"):
+        ctx = row.get(root_key)
+        if not isinstance(ctx, dict):
+            continue
+        for alias in side_aliases:
+            candidate = ctx.get(alias)
+            if isinstance(candidate, dict):
+                for k in ("rank", "api_rank", "current_rank", "tennisapi_rank", "ta_rank"):
+                    rank = _clean_player_rank_value(candidate.get(k))
+                    if rank is not None:
+                        return f"({rank})"
+            for k in (f"{alias}_api_rank", f"{alias}_rank", f"{alias}_ta_rank"):
+                rank = _clean_player_rank_value(ctx.get(k))
+                if rank is not None:
+                    return f"({rank})"
     return RANK_FALLBACK_DISPLAY
 
 
