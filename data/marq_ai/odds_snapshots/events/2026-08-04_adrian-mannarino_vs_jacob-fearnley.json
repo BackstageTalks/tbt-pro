@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.57,
   "latest_odds_player2": 2.38,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-02T11:46:56.004383+00:00",
+  "latest_snapshot_time_utc": "2026-08-02T17:45:52.499914+00:00",
   "opening_odds_player1": 1.57,
   "opening_odds_player2": 2.38,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Jacob Fearnley",
   "player2": "Adrian Mannarino",
-  "snapshot_count": 1,
+  "snapshot_count": 2,
   "snapshots": [
     {
       "event_id": "16696352",
@@ -34,8 +34,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-03T15:00:00+00:00",
       "target_date": "2026-08-04"
+    },
+    {
+      "event_id": "16696352",
+      "event_key": "2026-08-04_adrian-mannarino_vs_jacob-fearnley",
+      "hours_to_start": 21.24,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.57,
+      "odds_player2": 2.38,
+      "player1": "Jacob Fearnley",
+      "player2": "Adrian Mannarino",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-02T17:45:52.499914+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-03T15:00:00+00:00",
+      "target_date": "2026-08-04"
     }
   ],
   "start_time_utc": "2026-08-03T15:00:00+00:00",
-  "updated_at_utc": "2026-08-02T11:47:40.649291+00:00"
+  "updated_at_utc": "2026-08-02T17:46:45.407149+00:00"
 }

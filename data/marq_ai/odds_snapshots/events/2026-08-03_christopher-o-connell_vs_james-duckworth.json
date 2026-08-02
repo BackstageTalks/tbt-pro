@@ -1,10 +1,10 @@
 {
   "event_id": "16696369",
   "event_key": "2026-08-03_christopher-o-connell_vs_james-duckworth",
-  "latest_odds_player1": 2.5,
-  "latest_odds_player2": 1.53,
+  "latest_odds_player1": 2.3,
+  "latest_odds_player2": 1.62,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-02T11:46:56.004383+00:00",
+  "latest_snapshot_time_utc": "2026-08-02T17:45:52.499914+00:00",
   "opening_odds_player1": 2.5,
   "opening_odds_player2": 1.53,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "James Duckworth",
   "player2": "Christopher O'Connell",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "16696369",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-02T16:10:00+00:00",
       "target_date": "2026-08-03"
+    },
+    {
+      "event_id": "16696369",
+      "event_key": "2026-08-03_christopher-o-connell_vs_james-duckworth",
+      "hours_to_start": -0.43,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.3,
+      "odds_player2": 1.62,
+      "player1": "James Duckworth",
+      "player2": "Christopher O'Connell",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-02T17:45:52.499914+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-02T17:20:00+00:00",
+      "target_date": "2026-08-03"
     }
   ],
-  "start_time_utc": "2026-08-02T16:10:00+00:00",
-  "updated_at_utc": "2026-08-02T11:47:26.350729+00:00"
+  "start_time_utc": "2026-08-02T17:20:00+00:00",
+  "updated_at_utc": "2026-08-02T17:46:32.703416+00:00"
 }
