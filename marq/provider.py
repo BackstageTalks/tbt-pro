@@ -72,6 +72,40 @@ def _write_cache(path: Path, data: Any) -> None:
         _debug(f"cache write failed path={path} error={exc}")
 
 
+
+def summarize_provider_endpoint_attempts(attempts: List[Dict[str, Any]]) -> Dict[str, Any]:
+    summary: Dict[str, Any] = {
+        "request_count": len(attempts or []),
+        "status_counts": {},
+        "endpoint_counts": {},
+        "ok_count": 0,
+        "rate_limited_count": 0,
+        "no_content_count": 0,
+        "http_error_count": 0,
+    }
+    for item in attempts or []:
+        if not isinstance(item, dict):
+            continue
+        status = item.get("status_code")
+        note = str(item.get("note") or "")
+        endpoint = str(item.get("endpoint_name") or "unknown")
+        status_key = str(status if status is not None else note or "UNKNOWN")
+        summary["status_counts"][status_key] = int(summary["status_counts"].get(status_key, 0)) + 1
+        summary["endpoint_counts"][endpoint] = int(summary["endpoint_counts"].get(endpoint, 0)) + 1
+        if item.get("ok"):
+            summary["ok_count"] = int(summary.get("ok_count") or 0) + 1
+        if status == 429 or note == "RATE_LIMIT":
+            summary["rate_limited_count"] = int(summary.get("rate_limited_count") or 0) + 1
+        if status == 204 or note == "NO_CONTENT":
+            summary["no_content_count"] = int(summary.get("no_content_count") or 0) + 1
+        if isinstance(status, int) and status >= 400 and status != 429:
+            summary["http_error_count"] = int(summary.get("http_error_count") or 0) + 1
+    return summary
+
+
+def get_run_api_request_summary() -> Dict[str, Any]:
+    return summarize_provider_endpoint_attempts(API_REQUEST_AUDIT)
+
 def _get_json(path: str, cache_name: Optional[str] = None, force_refresh: bool = False) -> Optional[Any]:
     global _RATE_LIMITED
 
@@ -1713,7 +1747,8 @@ def fetch_provider_odds(event_id: str, provider_id: int, force_refresh: bool = F
     # but were too noisy in Daily runs.
     if os.getenv("MARQ_ENABLE_ODDS_ENDPOINT_FANOUT", "0").strip() == "1":
         candidates.extend([
-            (f"/api/tennis/event/{event_id}/odds/{provider_id}", "getProviderOdds", False),
+            (f"/api/tennis/event/{event_id}/odds/{provider_id}/featured", "getMatchFeaturedOdds", False),
+            (f"/api/tennis/event/{event_id}/provider/{provider_id}/winning-odds", "getMatchWinningOdds", False),
             (f"/api/tennis/event/{event_id}/odds", "getEventOdds", False),
         ])
 
@@ -1731,6 +1766,9 @@ def fetch_provider_odds(event_id: str, provider_id: int, force_refresh: bool = F
 
         markets = _extract_markets(payload)
         full_time = _select_full_time_market(markets) if markets else None
+        audit["market_count"] = len(markets)
+        audit["has_full_time"] = bool(full_time)
+        audit["useful"] = bool(markets or full_time)
         _debug(
             f"provider odds pruned candidate event_id={event_id} provider_id={provider_id} "
             f"endpoint={endpoint_name} status={audit.get('status_code')} markets={len(markets)} full_time={bool(full_time)}"
@@ -1752,6 +1790,7 @@ def fetch_provider_odds(event_id: str, provider_id: int, force_refresh: bool = F
                 "provider_odds_stop_after_success": bool(full_time and stop_on_full_time),
                 "provider_odds_request_count": len(endpoint_attempts),
                 "provider_odds_endpoint_attempts": endpoint_attempts,
+                "provider_odds_endpoint_summary": summarize_provider_endpoint_attempts(endpoint_attempts),
                 "provider_odds_helper_version": _API_HELPER_VERSION,
             }
 
@@ -1762,6 +1801,7 @@ def fetch_provider_odds(event_id: str, provider_id: int, force_refresh: bool = F
         output = dict(best_payload)
         best_meta["provider_odds_request_count"] = len(endpoint_attempts)
         best_meta["provider_odds_endpoint_attempts"] = endpoint_attempts
+        best_meta["provider_odds_endpoint_summary"] = summarize_provider_endpoint_attempts(endpoint_attempts)
         output["_corq_provider_meta"] = best_meta
         _RUN_PROVIDER_ODDS_CACHE[key] = output
         return output

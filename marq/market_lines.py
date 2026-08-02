@@ -899,6 +899,12 @@ def get_tennisapi_set_markets(event_id: Optional[int], force_refresh: bool = Fal
         for provider_id in getattr(provider_mod, "DEFAULT_PROVIDER_IDS", [1]):
             fetched = provider_mod.fetch_provider_odds(str(event_id_int), int(provider_id), force_refresh=force_refresh)
             parsed = parse_tennisapi_set_markets(fetched or {}, event_id=event_id_int)
+            if isinstance(fetched, dict):
+                provider_meta = fetched.get("_corq_provider_meta")
+                if isinstance(provider_meta, dict):
+                    parsed["sets_games_provider_odds_meta"] = provider_meta
+                    parsed["sets_games_endpoint_summary"] = provider_meta.get("provider_odds_endpoint_summary")
+                    parsed["sets_games_market_source"] = provider_meta.get("provider_odds_endpoint_name") or provider_meta.get("provider_odds_endpoint")
             if parsed.get("raw_market_count"):
                 _SET_MARKET_CACHE[event_id_int] = parsed
                 return parsed
@@ -2096,6 +2102,10 @@ def build_sets_games_from_match(match: Dict[str, Any], model_prediction: Optiona
     output = build_market_aware_sets(match, model_prediction or match, set_markets=set_markets)
     enriched = dict(match)
     enriched.update(output)
+    if isinstance(set_markets, dict):
+        enriched.setdefault("sets_games_market_source", set_markets.get("sets_games_market_source") or set_markets.get("source") or _REAL_LINE_SOURCE)
+        enriched.setdefault("sets_games_raw_market_count", set_markets.get("raw_market_count"))
+        enriched.setdefault("sets_games_endpoint_summary", set_markets.get("sets_games_endpoint_summary"))
 
     if isinstance(set_markets, dict):
         enriched["sets_games_market_source"] = set_markets.get("market_source") or _REAL_LINE_SOURCE if set_markets.get("raw_market_count") else None
