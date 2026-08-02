@@ -45,7 +45,7 @@ def _date_time_pill(value: Any) -> str:
     t = _format_dt_part(value, "%H:%M")
     if not d and not t:
         return ""
-    return f'<span class="cloq-date-time"><span>{_esc(d)}</span><span>{_esc(t)}</span></span>'
+    return f'<span class="cloq-date-time"><span class="cloq-date">{_esc(d)}</span><span class="cloq-clock">{_esc(t)}</span></span>'
 
 def _load_rows(path: Path) -> List[Dict[str, Any]]:
     if not path.exists():
@@ -142,7 +142,7 @@ def render_cloq_section(rows: List[Dict[str, Any]], title: str = "CloQ Close Odd
         </article>
         """)
 
-    body = "\n".join(cards) if cards else '<div class="empty">No CloQ rows available.</div>'
+    body = "\n".join(cards) if cards else '<div class="empty">No CloQ picks passed the current strict close-odds filter.</div>'
     return f"""
     <section class="cloq-section">
       <h1>{_esc(title)}</h1>
@@ -183,7 +183,7 @@ def page_shell(section_html: str) -> str:
     .warn{{border-color:rgba(251,146,60,.55);background:rgba(92,45,12,.48);color:#fed7aa;}}
     .empty{{padding:28px;text-align:center;color:#9fb5d1;border:1px dashed #334155;border-radius:18px;background:#0d1727;}}
     @media(max-width:760px){{.metrics{{grid-template-columns:1fr 1fr;}}}}
-  .cloq-date-time{display:inline-flex;flex-direction:column;gap:1px;margin-right:8px;padding:3px 7px;border:1px solid #244766;border-radius:10px;background:#0f2036;color:#e0f2fe;font-weight:900;line-height:1.05}.cloq-meta{color:#9fb5d1}</style>
+  .cloq-date-time{display:inline-flex;flex-direction:column;gap:1px;margin-right:8px;padding:3px 7px;border:1px solid #244766;border-radius:10px;background:#0f2036;color:#e0f2fe;font-weight:900;line-height:1.05}.cloq-date-time .cloq-date{font-size:10.5px;color:#bae6fd}.cloq-date-time .cloq-clock{font-size:13.5px;color:#f8fafc}.cloq-meta{color:#9fb5d1}</style>
 </head><body><div class="wrap">{section_html}</div></body></html>"""
 
 
