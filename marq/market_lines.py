@@ -2151,3 +2151,29 @@ def build_sets_games_from_match(match: Dict[str, Any], model_prediction: Optiona
 # 2026-08-02 note: TennisAPI request throttling and endpoint pruning is centralized
 # in marq/provider.py. This module continues to consume provider.fetch_provider_odds()
 # for Sets/Games market extraction, so no direct endpoint fan-out is added here.
+
+
+# ---------------------------------------------------------------------------
+# 2026-08-02 production override: Bet365 market-lines disabled
+# ---------------------------------------------------------------------------
+# Sets/Games/Aces/DF market lines should come from TennisApi PRO odds/all via
+# get_tennisapi_set_markets(). This compatibility override prevents legacy
+# Bet365MarketLinesClient from making any API calls if an older code path invokes
+# enrich_match_with_market_lines().
+
+_MARKET_LINES_BET365_DISABLED_VERSION = "2026-08-02-bet365-market-lines-disabled"
+
+
+def _disabled_bet365_fetch_match_market_lines(self: Any, match: Dict[str, Any]) -> Dict[str, Any]:
+    return {
+        "market_lines_available": False,
+        "market_lines_status": "BET365_DISABLED",
+        "market_lines_source": "DISABLED",
+        "market_lines_disabled_reason": "Daily uses TennisApi PRO odds/all only",
+        "market_lines_version": _MARKET_LINES_BET365_DISABLED_VERSION,
+    }
+
+try:
+    Bet365MarketLinesClient.fetch_match_market_lines = _disabled_bet365_fetch_match_market_lines  # type: ignore[name-defined]
+except Exception:
+    pass
