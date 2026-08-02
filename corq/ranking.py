@@ -1072,4 +1072,260 @@ def top7_from_ranking(ranked: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAU
         row["corq_rank"] = idx
     return selected
 
+# ============================================================
+# Risk/support ranking override V2
+# ============================================================
+# This block intentionally overrides the earlier soft-risk functions.  The
+# original implementation already produced warning tags, but negative signals
+# were mostly visual.  V2 separates positive/support tags from risk tags and
+# makes stacked risk reduce TOP7 ranking quality.
+try:
+    _ORIGINAL_RISK_SUPPORT_ANNOTATE_TOP7_QUALITY
+except NameError:
+    _ORIGINAL_RISK_SUPPORT_ANNOTATE_TOP7_QUALITY = annotate_top7_quality
+
+
+def _risk_support_recent_counts(row: Dict[str, Any], side: str, surface: bool = False) -> Tuple[int, int, int]:
+    rf = _get_nested(row, "thinq", "recent_form")
+    if not isinstance(rf, dict):
+        rf = row.get("recent_form") if isinstance(row.get("recent_form"), dict) else {}
+    ctx = rf.get(side) if isinstance(rf.get(side), dict) else {}
+    bucket_name = "surface_last10" if surface else "last10"
+    bucket = ctx.get(bucket_name) if isinstance(ctx.get(bucket_name), dict) else {}
+    prefix = "pick" if side == "pick" else "opponent"
+    surface_prefixes = [
+        f"{prefix}_surface_wins",
+        f"{prefix}_surface_losses",
+        f"{prefix}_surface_count",
+    ]
+    normal_prefixes = [
+        f"{prefix}_recent_wins",
+        f"{prefix}_recent_losses",
+        f"{prefix}_recent_count",
+    ]
+    keys = surface_prefixes if surface else normal_prefixes
+    wins = int(_as_float(_get_nested(bucket, "wins"), _as_float(row.get(keys[0]), 0)) or 0)
+    losses = int(_as_float(_get_nested(bucket, "losses"), _as_float(row.get(keys[1]), 0)) or 0)
+    count = int(_as_float(_get_nested(bucket, "count"), _as_float(row.get(keys[2]), wins + losses)) or 0)
+    if count <= 0:
+        count = wins + losses
+    return wins, losses, count
+
+
+def _risk_support_first_float(row: Dict[str, Any], *keys: str) -> Optional[float]:
+    for key in keys:
+        value = _get_nested(row, *key.split('.')) if '.' in key else row.get(key)
+        num = _as_float(value, None)
+        if num is not None:
+            return num
+    return None
+
+
+def _risk_support_tag_blob(row: Dict[str, Any]) -> str:
+    parts: List[str] = []
+    for key in ("tags", "audit_tags", "audit_filter_tags", "public_notes", "top7_risk_tags", "top7_support_tags", "corq_warning_flags", "risk_flags", "flags"):
+        value = row.get(key)
+        if isinstance(value, list):
+            parts.extend(str(x) for x in value if x)
+        elif isinstance(value, str) and value.strip():
+            parts.append(value.strip())
+    return " | ".join(parts).lower().replace("_", " ")
+
+
+def _risk_support_add(tags: List[str], labels: List[str], details: List[Dict[str, Any]], tag: str, label: str, points: float, **extra: Any) -> float:
+    tags.append(tag)
+    labels.append(label)
+    payload = {"tag": tag, "penalty" if points < 0 else "bonus": abs(points)}
+    payload.update(extra)
+    details.append(payload)
+    return points
+
+
+def top7_risk_assessment(row: Dict[str, Any]) -> Dict[str, Any]:
+    tags: List[str] = []
+    labels: List[str] = []
+    details: List[Dict[str, Any]] = []
+    risk_tags: List[str] = []
+    support_tags: List[str] = []
+    risk_labels: List[str] = []
+    support_labels: List[str] = []
+    penalty = 0.0
+    bonus = 0.0
+
+    cp = corq_probability(row)
+    edge = pick_thinq_edge(row)
+    depth = pick_data_depth(row)
+    fdepth = form_data_depth(row)
+    conf = thinq_confidence(row)
+    p_odds = pick_odds_value(row)
+    o_odds = opponent_odds_value(row)
+    text = _risk_support_tag_blob(row)
+
+    def add_risk(tag: str, label: str, pts: float, **extra: Any) -> None:
+        nonlocal penalty
+        risk_tags.append(tag)
+        risk_labels.append(label)
+        penalty += abs(_risk_support_add(tags, labels, details, tag, label, -abs(pts), **extra))
+
+    def add_support(tag: str, label: str, pts: float, **extra: Any) -> None:
+        nonlocal bonus
+        support_tags.append(tag)
+        support_labels.append(label)
+        bonus += abs(_risk_support_add(tags, labels, details, tag, label, abs(pts), **extra))
+
+    # H2H risk/support.
+    h2h_pick, h2h_opp, h2h_total = h2h_pick_opp_counts(row)
+    h2h_edge = h2h_edge_value(row)
+    if (h2h_total >= 3 and h2h_opp - h2h_pick >= 3) or h2h_edge <= -0.03:
+        add_risk("H2H_STRONG_AGAINST_PICK", "H2H strongly against pick", 6.0, h2h_pick_wins=h2h_pick, h2h_opponent_wins=h2h_opp, h2h_edge=round(h2h_edge, 6))
+        if cp >= 0.50 and edge > 0:
+            add_risk("MODEL_SUPPORT_H2H_DISAGREE", "Model support, H2H disagrees", 1.5)
+    elif h2h_total >= 2 and (h2h_pick > h2h_opp or h2h_edge > 0):
+        add_support("H2H_SUPPORT_PICK", "H2H supports pick", 1.0, h2h_pick_wins=h2h_pick, h2h_opponent_wins=h2h_opp)
+
+    sh2h_pick, sh2h_opp, sh2h_total = surface_h2h_pick_opp_counts(row)
+    if sh2h_total >= 2 and sh2h_opp > sh2h_pick:
+        add_risk("SURFACE_H2H_AGAINST_PICK", "Surface H2H against pick", 2.5, surface_h2h_pick_wins=sh2h_pick, surface_h2h_opponent_wins=sh2h_opp)
+    elif sh2h_total >= 2 and sh2h_pick > sh2h_opp:
+        add_support("SURFACE_H2H_SUPPORT_PICK", "Surface H2H supports pick", 0.8, surface_h2h_pick_wins=sh2h_pick, surface_h2h_opponent_wins=sh2h_opp)
+
+    # Recent form / surface form risk and support.
+    p_w, p_l, p_c = _risk_support_recent_counts(row, "pick", False)
+    ps_w, ps_l, ps_c = _risk_support_recent_counts(row, "pick", True)
+    o_w, o_l, o_c = _risk_support_recent_counts(row, "opponent", False)
+    os_w, os_l, os_c = _risk_support_recent_counts(row, "opponent", True)
+    if (p_c >= 8 and p_w <= 3) or (ps_c >= 8 and ps_w <= 3) or "pick weak" in text:
+        add_risk("PICK_WEAK_FORM", "Pick weak", 4.0, pick_recent=f"{p_w}-{p_l}", pick_surface=f"{ps_w}-{ps_l}")
+    if (o_c >= 8 and o_w >= 8) or (os_c >= 8 and os_w >= 8) or "opp strong" in text:
+        add_risk("OPP_STRONG_FORM", "Opp strong", 5.0, opponent_recent=f"{o_w}-{o_l}", opponent_surface=f"{os_w}-{os_l}")
+    if (p_c >= 8 and p_w >= 8) or (ps_c >= 8 and ps_w >= 8) or "pick strong" in text:
+        add_support("PICK_STRONG_FORM", "Pick strong", 2.0, pick_recent=f"{p_w}-{p_l}", pick_surface=f"{ps_w}-{ps_l}")
+    if (o_c >= 8 and o_l >= 7) or (os_c >= 8 and os_l >= 7) or "opp weak" in text:
+        add_support("OPP_WEAK_FORM", "Opp weak", 2.0, opponent_recent=f"{o_w}-{o_l}", opponent_surface=f"{os_w}-{os_l}")
+
+    recent_edge = _risk_support_first_float(row, "recent_form_edge", "short_form_edge", "thinq_recent_form_edge")
+    surface_edge = recent_surface_edge_value(row)
+    if recent_edge is not None and recent_edge > 0:
+        add_support("FORM_SUPPORT_PICK", "Form support", 1.0, recent_form_edge=round(float(recent_edge), 6))
+    if surface_edge > 0:
+        add_support("SURFACE_SUPPORT_PICK", "Surface support", 1.0, surface_edge=round(surface_edge, 6))
+    if edge > 0:
+        add_support("THINQ_EDGE_SUPPORT_PICK", "ThinQ edge support", 1.0, thinq_edge=round(edge, 6))
+
+    # ELO support/risk.
+    overall_elo = _risk_support_first_float(row, "thinq_overall_elo_edge", "overall_elo_edge", "elo_edge", "thinq.elo.overall_elo_edge")
+    surface_elo = _risk_support_first_float(row, "thinq_surface_elo_edge", "surface_elo_edge", "thinq.elo.surface_elo_edge")
+    if (overall_elo is not None and overall_elo > 0) or (surface_elo is not None and surface_elo > 0):
+        add_support("ELO_SUPPORT_PICK", "ELO support", 1.0, overall_elo=overall_elo, surface_elo=surface_elo)
+    if (overall_elo is not None and overall_elo < -0.03) or (surface_elo is not None and surface_elo < -0.03):
+        add_risk("ELO_AGAINST_PICK", "ELO against pick", 2.0, overall_elo=overall_elo, surface_elo=surface_elo)
+
+    # Market/value risk and support.
+    market_text = " | ".join(str(x) for x in (
+        row.get("marq_final"), row.get("marq_final_display"), row.get("final_marq"), row.get("market_final"), row.get("marq_market_final")
+    ) if x).lower().replace("_", " ")
+    marq_edge = _risk_support_first_float(row, "marq_edge_pct", "marq_edge", "edge_pct")
+    market_delta = _risk_support_first_float(row, "corq_market_adjustment_pp", "corq_marq_delta_pp", "marq_delta_pp", "market_adjustment_pp", "marq_adjustment_pp")
+    if "market against pick" in market_text or (marq_edge is not None and marq_edge < 0) or (market_delta is not None and market_delta < -3):
+        add_risk("MARKET_AGAINST_PICK", "Market against pick", 3.5, marq_edge=marq_edge, market_delta=market_delta)
+    if "market with pick" in market_text or (marq_edge is not None and marq_edge > 0) or (market_delta is not None and market_delta >= 0):
+        add_support("MARKET_WITH_PICK", "Market with pick", 1.5, marq_edge=marq_edge, market_delta=market_delta)
+
+    value_delta = _risk_support_first_float(row, "corq_value_delta_pp", "value_delta_pp", "prediction_snapshot.value.corq_value_delta_pp")
+    ev = _risk_support_first_float(row, "expected_value_pct", "ev_pct", "prediction_snapshot.value.expected_value_pct")
+    implied_ev = None
+    if p_odds and cp is not None:
+        implied_ev = (cp * p_odds - 1.0) * 100.0
+    value_probe = value_delta if value_delta is not None else ev if ev is not None else implied_ev
+    if value_probe is not None and value_probe > 0:
+        add_support("VALUE_POSITIVE", "Value+", 1.5, value=value_probe)
+    if value_probe is not None and value_probe < -2.0:
+        add_risk("NO_VALUE_PRICE", "No value", 3.0, value=value_probe)
+    if p_odds is not None and p_odds < 1.50:
+        add_risk("SHORT_PRICE_RISK", "Short price", 2.0, pick_odds=p_odds)
+    if p_odds is not None and o_odds is not None and p_odds >= 2.80 and o_odds <= 1.45:
+        add_risk("MARKET_STRONG_AGAINST_PICK", "Market strongly against pick", 3.0, pick_odds=p_odds, opponent_odds=o_odds)
+
+    # Data/conflict risks.
+    if depth < 0.55 or fdepth < 0.55 or conf < 0.55:
+        add_risk("LOW_DATA_CONFIDENCE", "Low data confidence", 2.5, pick_data_depth=round(depth, 6), form_data_depth=round(fdepth, 6), thinq_confidence=round(conf, 6))
+    if edge > 0 and market_delta is not None and market_delta < -3:
+        add_risk("MMX_MODEL_MARKET_CONFLICT", "MMx model-market conflict", 2.5, thinq_edge=round(edge, 6), market_delta=market_delta)
+
+    # Clean support stays a bonus, but only if risk stack is empty.
+    if not risk_tags and cp >= 0.55 and edge >= 0.03 and depth >= 0.70 and fdepth >= 0.70 and conf >= 0.70 and p_odds is not None and 1.40 <= p_odds <= 2.20:
+        add_support("CLEAN_MODEL_SUPPORT", "Clean model support", 3.0)
+
+    primary_risk_count = len({t for t in risk_tags if t not in {"MODEL_SUPPORT_H2H_DISAGREE"}})
+    if primary_risk_count >= 2:
+        add_risk("MULTI_RISK_PICK", "Multiple risk signals", 3.0, risk_count=primary_risk_count)
+    if primary_risk_count >= 3 or penalty >= 10.0:
+        add_risk("HIGH_RISK_PICK", "High Risk", 4.0, risk_count=primary_risk_count, penalty_before_high_risk=round(penalty, 4))
+
+    def unique(items: List[str]) -> List[str]:
+        out: List[str] = []
+        seen = set()
+        for item in items:
+            if item not in seen:
+                seen.add(item)
+                out.append(item)
+        return out
+
+    risk_tags_u = unique(risk_tags)
+    support_tags_u = unique(support_tags)
+    return {
+        "tags": unique(tags),
+        "labels": unique(labels),
+        "risk_tags": risk_tags_u,
+        "risk_labels": unique(risk_labels),
+        "support_tags": support_tags_u,
+        "support_labels": unique(support_labels),
+        "positive_support_count": len(support_tags_u),
+        "risk_count": len(risk_tags_u),
+        "high_risk": "HIGH_RISK_PICK" in risk_tags_u,
+        "details": details,
+        "penalty_points": round(penalty, 4),
+        "bonus_points": round(bonus, 4),
+        "net_points": round(bonus - penalty, 4),
+    }
+
+
+def top7_quality_score(row: Dict[str, Any]) -> float:
+    cp = corq_probability(row) * 100.0
+    depth = pick_data_depth(row) * 100.0
+    edge = max(pick_thinq_edge(row), 0.0) * 100.0
+    conf = thinq_confidence(row) * 100.0
+    risk = top7_risk_assessment(row)
+    confidence_weighted_edge = (conf / 100.0) * edge
+    raw = cp + 0.25 * depth + 0.25 * edge + 0.10 * confidence_weighted_edge
+    raw -= float(risk.get("penalty_points") or 0.0)
+    raw += float(risk.get("bonus_points") or 0.0)
+    # Stacked risks must materially move rows down, even when raw CorQ is high.
+    raw -= max(0, int(risk.get("risk_count") or 0) - 1) * 2.0
+    raw += min(int(risk.get("positive_support_count") or 0), 4) * 0.75
+    return round(raw, 4)
+
+
+def annotate_top7_quality(row: Dict[str, Any]) -> Dict[str, Any]:
+    row = _ORIGINAL_RISK_SUPPORT_ANNOTATE_TOP7_QUALITY(row)
+    risk = top7_risk_assessment(row)
+    row["top7_risk_tags"] = risk["risk_tags"]
+    row["top7_risk_labels"] = risk["risk_labels"]
+    row["top7_support_tags"] = risk["support_tags"]
+    row["top7_support_labels"] = risk["support_labels"]
+    row["top7_positive_support_count"] = risk["positive_support_count"]
+    row["top7_risk_count"] = risk["risk_count"]
+    row["top7_high_risk"] = risk["high_risk"]
+    row["top7_risk_penalty_details"] = risk["details"]
+    row["top7_risk_penalty_points"] = risk["penalty_points"]
+    row["top7_clean_bonus_points"] = risk["bonus_points"]
+    row["top7_quality_score"] = top7_quality_score(row) if not row.get("top7_quality_reject_reasons") else 0.0
+    flags = row.get("corq_warning_flags")
+    if not isinstance(flags, list):
+        flags = []
+    for tag in list(risk["risk_tags"]) + (["HIGH_RISK_PICK"] if risk.get("high_risk") else []):
+        if tag not in flags:
+            flags.append(tag)
+    row["corq_warning_flags"] = flags
+    return row
 
