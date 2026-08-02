@@ -2259,6 +2259,9 @@ def css() -> str:
 /* Unified date/time pill for CorQ, Audit, CloQ and Results cards. */
 .compact-datetime-pill{display:inline-flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:1px;min-width:62px;padding:3px 7px;border-radius:10px;background:rgba(15,32,54,.78);border:1px solid rgba(125,211,252,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.03);line-height:1.05;flex:0 0 auto}.compact-datetime-pill .compact-date{font-size:10.5px;font-weight:900;color:#bae6fd;letter-spacing:.02em}.compact-datetime-pill .compact-clock{font-size:13.5px;font-weight:1000;color:#f8fafc;letter-spacing:.02em}.compact-meta-only{width:100%;font-size:11px!important;line-height:1.2!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}.compact-match-row{align-items:center!important}.result-card .status-pill{display:inline-flex!important;margin-left:auto!important}.results-card .status-pill{display:inline-flex!important;margin-left:auto!important}
 /* Active filters are orange across Audit and Results; inactive filters keep the neutral style. */
+
+/* Final pick-card header order/style override: rank, date/time, log icon, tags. */
+.compact-topline{display:flex!important;align-items:center!important;gap:8px!important;min-height:36px!important;overflow:hidden!important}.compact-topline .rank-num{order:1!important;flex:0 0 auto!important}.compact-datetime-pill{order:2!important;flex:0 0 auto!important;align-items:flex-start!important}.compact-datetime-pill .compact-date{font-size:10px!important;line-height:1.05!important;color:#bde9ff!important;font-weight:900!important}.compact-datetime-pill .compact-clock{font-size:14px!important;line-height:1.05!important;color:#fff!important;font-weight:1000!important}.compact-topline .brain.goat-badge{order:3!important;flex:0 0 auto!important}.compact-top-tags{order:4!important;flex:1 1 auto!important;min-width:0!important}.status-pill{order:5!important}.compact-match .compact-time{display:none!important}.compact-meta-only{padding-left:0!important}
 .audit-pill.active,.tag-chip.active,.result-summary-chip.active{border-color:var(--orange)!important;background:rgba(251,146,60,.24)!important;color:#fff!important;box-shadow:0 0 0 1px rgba(251,146,60,.25),0 0 18px rgba(251,146,60,.18)!important}.audit-pill.active .audit-pill-label,.audit-pill.active .audit-pill-count{color:#fff!important}
 @media(max-width:760px){.compact-datetime-pill{min-width:54px;padding:3px 6px}.compact-datetime-pill .compact-date{font-size:10px}.compact-datetime-pill .compact-clock{font-size:13px}}
 
@@ -2347,7 +2350,8 @@ AUDIT_ELO_SUPPORT_LABEL = "ELO support"
 AUDIT_SURFACE_SUPPORT_LABEL = "Surface support"
 AUDIT_MARKET_WITH_PICK_LABEL = "Market with pick"
 AUDIT_VALUE_POSITIVE_LABEL = "Value+"
-AUDIT_TWO_POSITIVE_TAGS_LABEL = "Positive tag"
+AUDIT_POSITIVE_TAG_LABEL = "Positive tag"
+AUDIT_TWO_POSITIVE_TAGS_LABEL = "2 positive tags"
 RESULT_LAST_3_DAYS_LABEL = "Last 3 days"
 RESULT_LAST_7_DAYS_LABEL = "Last 7 days"
 RESULT_LAST_MONTH_LABEL = "Last month"
@@ -2633,9 +2637,14 @@ def audit_positive_support_count(row: Dict[str, Any]) -> int:
     return sum(1 for x in checks if x)
 
 
-def audit_has_2plus_positive_tags(row: Dict[str, Any]) -> bool:
+def audit_has_positive_tag(row: Dict[str, Any]) -> bool:
     # At least one positive/support signal. Count only positive support tags.
     return audit_positive_support_count(row) >= 1
+
+
+def audit_has_2plus_positive_tags(row: Dict[str, Any]) -> bool:
+    # Two or more positive/support signals. Risk/warning tags are not counted.
+    return audit_positive_support_count(row) >= 2
 
 def get_existing_public_tags(row: Dict[str, Any]) -> List[str]:
     tags: List[str] = []
@@ -2674,6 +2683,8 @@ def audit_filter_tags_for_row(row: Dict[str, Any]) -> List[str]:
         tags.append(AUDIT_MARKET_WITH_PICK_LABEL)
     if audit_has_value_positive(row):
         tags.append(AUDIT_VALUE_POSITIVE_LABEL)
+    if audit_has_positive_tag(row):
+        tags.append(AUDIT_POSITIVE_TAG_LABEL)
     if audit_has_2plus_positive_tags(row):
         tags.append(AUDIT_TWO_POSITIVE_TAGS_LABEL)
     existing = row.get("audit_filter_tags")
@@ -2700,7 +2711,7 @@ def audit_note_css(label: str) -> str:
         return "tag-chip audit-pill audit-pill-h2h"
     if label == AUDIT_CLOQ_LABEL:
         return "tag-chip audit-pill audit-pill-signal"
-    if label in {AUDIT_OPP_WEAK_LABEL, AUDIT_PICK_STRONG_LABEL, AUDIT_FORM_SUPPORT_LABEL, AUDIT_ELO_SUPPORT_LABEL, AUDIT_SURFACE_SUPPORT_LABEL, AUDIT_MARKET_WITH_PICK_LABEL, AUDIT_VALUE_POSITIVE_LABEL, AUDIT_TWO_POSITIVE_TAGS_LABEL}:
+    if label in {AUDIT_OPP_WEAK_LABEL, AUDIT_PICK_STRONG_LABEL, AUDIT_FORM_SUPPORT_LABEL, AUDIT_ELO_SUPPORT_LABEL, AUDIT_SURFACE_SUPPORT_LABEL, AUDIT_MARKET_WITH_PICK_LABEL, AUDIT_VALUE_POSITIVE_LABEL, AUDIT_POSITIVE_TAG_LABEL, AUDIT_TWO_POSITIVE_TAGS_LABEL}:
         return "tag-chip audit-pill audit-pill-safe"
     if label in {RESULT_LAST_3_DAYS_LABEL, RESULT_LAST_7_DAYS_LABEL, RESULT_LAST_MONTH_LABEL, RESULT_THIS_YEAR_LABEL}:
         return "tag-chip audit-pill audit-pill-date"
@@ -2817,15 +2828,16 @@ def render_notes_summary(rows: List[Dict[str, Any]]) -> str:
             AUDIT_CLOQ_LABEL: 2,
             AUDIT_OPP_WEAK_LABEL: 3,
             AUDIT_PICK_STRONG_LABEL: 4,
-            AUDIT_TWO_POSITIVE_TAGS_LABEL: 5,
-            AUDIT_FORM_SUPPORT_LABEL: 6,
-            AUDIT_ELO_SUPPORT_LABEL: 7,
-            AUDIT_SURFACE_SUPPORT_LABEL: 8,
-            AUDIT_MARKET_WITH_PICK_LABEL: 9,
-            AUDIT_VALUE_POSITIVE_LABEL: 10,
-            AUDIT_SAFE_BET_LABEL: 11,
-            AUDIT_H2H_TOP10_LABEL: 12,
-        }.get(label, 10)
+            AUDIT_FORM_SUPPORT_LABEL: 5,
+            AUDIT_ELO_SUPPORT_LABEL: 6,
+            AUDIT_SURFACE_SUPPORT_LABEL: 7,
+            AUDIT_MARKET_WITH_PICK_LABEL: 8,
+            AUDIT_VALUE_POSITIVE_LABEL: 9,
+            AUDIT_POSITIVE_TAG_LABEL: 10,
+            AUDIT_TWO_POSITIVE_TAGS_LABEL: 11,
+            AUDIT_SAFE_BET_LABEL: 13,
+            AUDIT_H2H_TOP10_LABEL: 14,
+        }.get(label, 20)
         return order, -count, label
 
     tag_items = sorted(counts.items(), key=sort_key)
@@ -3301,7 +3313,7 @@ def render_results_filter_builder(rows: List[Dict[str, Any]]) -> str:
         ("Result", ["WON", "LOST", "VOID", "PENDING"]),
         ("Model", [RESULT_MODEL_CORQ_LABEL, RESULT_MODEL_CLOQ_LABEL, RESULT_MODEL_AUDIT_LABEL]),
         ("Date", [RESULT_LAST_3_DAYS_LABEL, RESULT_LAST_7_DAYS_LABEL, RESULT_LAST_MONTH_LABEL, RESULT_THIS_YEAR_LABEL]),
-        ("Signals", [AUDIT_CORQ_TOP20_LABEL, AUDIT_TIME_ODDS_LABEL, AUDIT_CLOQ_LABEL, AUDIT_OPP_WEAK_LABEL, AUDIT_PICK_STRONG_LABEL, AUDIT_TWO_POSITIVE_TAGS_LABEL, AUDIT_FORM_SUPPORT_LABEL, AUDIT_ELO_SUPPORT_LABEL, AUDIT_MARKET_WITH_PICK_LABEL, AUDIT_VALUE_POSITIVE_LABEL, AUDIT_SAFE_BET_LABEL, AUDIT_H2H_TOP10_LABEL]),
+        ("Signals", [AUDIT_CORQ_TOP20_LABEL, AUDIT_TIME_ODDS_LABEL, AUDIT_CLOQ_LABEL, AUDIT_OPP_WEAK_LABEL, AUDIT_PICK_STRONG_LABEL, AUDIT_POSITIVE_TAG_LABEL, AUDIT_TWO_POSITIVE_TAGS_LABEL, AUDIT_FORM_SUPPORT_LABEL, AUDIT_ELO_SUPPORT_LABEL, AUDIT_MARKET_WITH_PICK_LABEL, AUDIT_VALUE_POSITIVE_LABEL, AUDIT_SAFE_BET_LABEL, AUDIT_H2H_TOP10_LABEL]),
         ("Data notes", ["No previous H2H matches", "Recent form pending"]),
     ]
 
