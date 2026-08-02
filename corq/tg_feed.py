@@ -3,7 +3,6 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import random
 import sys
 import urllib.parse
 import urllib.request
@@ -294,9 +293,14 @@ def valid_corq_row(row: Dict[str, Any], upcoming_only: bool = True) -> bool:
     return True
 
 
-def valid_rows(rows: Iterable[Dict[str, Any]], upcoming_only: bool = True) -> List[Dict[str, Any]]:
+def valid_rows(
+    rows: Iterable[Dict[str, Any]],
+    upcoming_only: bool = True,
+    preserve_order: bool = False,
+) -> List[Dict[str, Any]]:
     out = [row for row in rows if valid_corq_row(row, upcoming_only=upcoming_only)]
-    out.sort(key=lambda r: as_float(probability(r), 0.0) or 0.0, reverse=True)
+    if not preserve_order:
+        out.sort(key=lambda r: as_float(probability(r), 0.0) or 0.0, reverse=True)
     return out
 
 
@@ -323,11 +327,16 @@ def build_top7_message(rows: List[Dict[str, Any]], limit: int = 7, upcoming_only
 
 
 def build_free_message(rows: List[Dict[str, Any]], upcoming_only: bool = True) -> str:
-    rows = valid_rows(rows, upcoming_only=upcoming_only)
+    # FREE must always use the first valid CorQ pick from the source order.
+    # Do not randomize and do not re-rank by probability here. If latest_top7.json
+    # is present, this means the first valid TOP7/CorQ pick. If TOP7 is empty,
+    # load_rows_for_mode falls back to latest_all.json and this still means the
+    # first valid CorQ row from that file.
+    rows = valid_rows(rows, upcoming_only=upcoming_only, preserve_order=True)
     date_text = snapshot_date(rows)
     lines = [HEADER, "", "🎾 FREE | CorQ", f"📅 {date_text}", ""]
     if rows:
-        row = random.choice(rows)
+        row = rows[0]
         lines.append(format_row(row, "🆓"))
     else:
         lines.append("No valid upcoming CorQ free pick available today.")
