@@ -58,6 +58,22 @@
       .filter(Boolean);
   }
 
+  function sortVisibleCardsByTime(){
+    const gridNodes = document.querySelectorAll('.grid');
+    gridNodes.forEach(grid => {
+      const cards = Array.from(grid.querySelectorAll('.pick-card'));
+      if(!cards.length){ return; }
+      cards.sort((a,b) => {
+        const av = Number(a.getAttribute('data-start-ts') || '0');
+        const bv = Number(b.getAttribute('data-start-ts') || '0');
+        if(av === bv){ return 0; }
+        if(av === 0){ return 1; }
+        if(bv === 0){ return -1; }
+        return av - bv;
+      }).forEach(card => grid.appendChild(card));
+    });
+  }
+
   function applyFilters(){
     document.querySelectorAll('.tag-chip,[data-filter]').forEach(x => {
       const tag = x.dataset.filter;
