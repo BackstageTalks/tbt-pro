@@ -218,7 +218,7 @@ class RapidApiClient:
     api_key: Optional[str] = None
     host: Optional[str] = None
     timeout: int = 30
-    sleep_seconds: float = 0.15
+    sleep_seconds: float = 0.24
 
     def __post_init__(self) -> None:
         self.api_key = self.api_key or os.getenv("RAPIDAPI_KEY")
@@ -227,6 +227,13 @@ class RapidApiClient:
             raise RapidApiError("requests package is not installed")
         if not self.api_key:
             raise RapidApiError("RAPIDAPI_KEY is missing")
+        try:
+            max_rps = float(os.getenv("TENNISAPI_MAX_RPS", "5"))
+            if max_rps <= 0:
+                max_rps = 5.0
+            self.sleep_seconds = max(float(self.sleep_seconds or 0.0), (1.0 / max_rps) + 0.02)
+        except Exception:
+            self.sleep_seconds = max(float(self.sleep_seconds or 0.0), 0.24)
 
     @property
     def headers(self) -> Dict[str, str]:
@@ -234,22 +241,36 @@ class RapidApiClient:
 
     def get(self, path: str, params: Optional[Dict[str, Any]] = None) -> Optional[Any]:
         url = f"https://{self.host}{path}"
-        try:
-            response = requests.get(url, headers=self.headers, params=params or {}, timeout=self.timeout)
-            if response.status_code in (204, 404):
-                print(f"RAPIDAPI GET {path} status={response.status_code}")
+        attempts = 2
+        for attempt in range(attempts):
+            try:
+                response = requests.get(url, headers=self.headers, params=params or {}, timeout=self.timeout)
+                status = int(response.status_code)
+                if status == 429:
+                    print(f"RAPIDAPI GET {path} status=429 rate_limited attempt={attempt + 1}")
+                    if attempt + 1 < attempts:
+                        try:
+                            sleep_for = float(os.getenv("TENNISAPI_429_SLEEP_SECONDS", "10"))
+                        except Exception:
+                            sleep_for = 10.0
+                        time.sleep(max(3.0, sleep_for))
+                        continue
+                    return None
+                if status in (204, 404):
+                    print(f"RAPIDAPI GET {path} status={status}")
+                    return None
+                response.raise_for_status()
+                if not response.text:
+                    print(f"RAPIDAPI GET {path} status={status} empty_body")
+                    return None
+                return response.json()
+            except Exception as exc:
+                print(f"RAPIDAPI GET ERROR path={path} params={params or {}} error={exc}")
                 return None
-            response.raise_for_status()
-            if not response.text:
-                print(f"RAPIDAPI GET {path} status={response.status_code} empty_body")
-                return None
-            return response.json()
-        except Exception as exc:
-            print(f"RAPIDAPI GET ERROR path={path} params={params or {}} error={exc}")
-            return None
-        finally:
-            if self.sleep_seconds > 0:
-                time.sleep(self.sleep_seconds)
+            finally:
+                if self.sleep_seconds > 0:
+                    time.sleep(self.sleep_seconds)
+        return None
 
     def discover_categories(self, target_date: datetime) -> List[int]:
         day, month, year = target_date.day, target_date.month, target_date.year
@@ -370,9 +391,23 @@ class RapidApiClient:
         return best_item
 
     def get_event_odds(self, event_id: Any, match: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
+        """Fetch and normalize match-winner odds for one event.
+
+        Daily runtime uses only confirmed event-based TennisAPI paths. The old
+        operation-name paths (/api/tennis/getMatchWinningOdds and similar) are
+        RapidAPI operation labels, not valid request paths for this host.
+
+        Confirmed priority:
+        1. /api/tennis/event/{event_id}/odds/{provider}/all
+        2. /api/tennis/event/{event_id}/odds/{provider}/featured
+        3. /api/tennis/event/{event_id}/provider/{provider}/winning-odds
+        4. /api/tennis/event/{event_id}/odds
+        5. /api/tennis/events/odds/{day}/{month}/{year} cache fallback
+        """
         self.last_odds_attempts = []
         self.last_odds_status = "MISSING"
         self.last_odds_endpoint = None
+        self.last_odds_request_count = 0
 
         if event_id in (None, ""):
             self.last_odds_attempts.append("missing_event_id:SKIPPED")
@@ -380,93 +415,78 @@ class RapidApiClient:
 
         event_id_text = str(event_id)
 
-        # 1) Direct event odds usually has the best coverage.
-        first_path = f"/api/tennis/event/{event_id_text}/odds"
-        payload = self.get(first_path)
-        if payload:
+        def _try_payload(name: str, path: str, params: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
+            self.last_odds_request_count += 1
+            payload = self.get(path, params=params)
+            if not payload:
+                self.last_odds_attempts.append(f"{name}:NO_PAYLOAD")
+                return None
             normalized = normalize_winner_odds_payload(payload)
-            if normalized:
-                normalized["odds_endpoint"] = first_path
-                normalized["odds_source"] = normalized.get("odds_source") or "RapidAPI PRO event odds"
-                normalized["odds_status"] = "OK"
-                normalized["odds_attempts"] = ["event_odds:OK"]
-                self.last_odds_attempts = normalized["odds_attempts"]
-                self.last_odds_status = "OK"
-                self.last_odds_endpoint = first_path
-                return normalized
-            self.last_odds_attempts.append("event_odds:NO_WINNER_MARKET")
-        else:
-            self.last_odds_attempts.append("event_odds:NO_PAYLOAD")
+            if not normalized:
+                self.last_odds_attempts.append(f"{name}:NO_WINNER_MARKET")
+                return None
+            normalized["odds_endpoint"] = path
+            normalized["odds_endpoint_name"] = name
+            normalized["odds_source"] = normalized.get("odds_source") or f"RapidAPI PRO {name}"
+            normalized["odds_status"] = "OK"
+            normalized["odds_attempts"] = list(self.last_odds_attempts) + [f"{name}:OK"]
+            normalized["odds_request_count"] = self.last_odds_request_count
+            self.last_odds_attempts = normalized["odds_attempts"]
+            self.last_odds_status = "OK"
+            self.last_odds_endpoint = path
+            return normalized
 
-        # 2) Date batch odds can contain WTA/WTA125/Q matches missed by event odds.
+        # 1) Full provider markets: best source for MarQ and market lines.
+        for provider in self._provider_ids_for_odds():
+            normalized = _try_payload(
+                f"provider_all_odds[{provider}]",
+                f"/api/tennis/event/{event_id_text}/odds/{provider}/all",
+            )
+            if normalized:
+                return normalized
+
+        # 2) Featured provider markets: confirmed event-based fallback.
+        for provider in self._provider_ids_for_odds():
+            normalized = _try_payload(
+                f"provider_featured_odds[{provider}]",
+                f"/api/tennis/event/{event_id_text}/odds/{provider}/featured",
+            )
+            if normalized:
+                return normalized
+
+        # 3) Provider match winner odds: lightweight home/away winner fallback.
+        for provider in self._provider_ids_for_odds():
+            normalized = _try_payload(
+                f"provider_winning_odds[{provider}]",
+                f"/api/tennis/event/{event_id_text}/provider/{provider}/winning-odds",
+            )
+            if normalized:
+                return normalized
+
+        # 4) Basic event odds: valid but usually lower coverage / may return 204.
+        normalized = _try_payload("event_odds", f"/api/tennis/event/{event_id_text}/odds")
+        if normalized:
+            return normalized
+
+        # 5) Date batch odds can contain matches missed by per-event endpoints.
         if isinstance(match, dict):
             daily_items = self._daily_odds_items_for_date(self._match_odds_date(match), self.last_odds_attempts)
             daily = self._find_daily_odds_for_match(daily_items, match)
             if daily:
                 endpoint = "/api/tennis/events/odds/{day}/{month}/{year}"
                 daily["odds_endpoint"] = endpoint
+                daily["odds_endpoint_name"] = "events_odds_by_date"
                 daily["odds_source"] = daily.get("odds_source") or "RapidAPI PRO events odds by date"
                 daily["odds_status"] = "OK"
                 daily["odds_attempts"] = list(self.last_odds_attempts) + ["events_odds_by_date_match:OK"]
+                daily["odds_request_count"] = self.last_odds_request_count
                 self.last_odds_attempts = daily["odds_attempts"]
                 self.last_odds_status = "OK"
                 self.last_odds_endpoint = endpoint
                 return daily
             self.last_odds_attempts.append("events_odds_by_date_match:NO_MATCH")
 
-        # 3) Provider sweep. Some markets are empty for provider 1 but present elsewhere.
-        for provider in self._provider_ids_for_odds():
-            provider_attempts = [
-                ("provider_winning_odds", f"/api/tennis/event/{event_id_text}/provider/{provider}/winning-odds"),
-                ("all_odds_for_event", f"/api/tennis/event/{event_id_text}/odds/{provider}/all"),
-            ]
-            for name, path in provider_attempts:
-                payload = self.get(path)
-                label = f"{name}[{provider}]"
-                if not payload:
-                    self.last_odds_attempts.append(f"{label}:NO_PAYLOAD")
-                    continue
-                normalized = normalize_winner_odds_payload(payload)
-                if not normalized:
-                    self.last_odds_attempts.append(f"{label}:NO_WINNER_MARKET")
-                    continue
-                normalized["odds_endpoint"] = path
-                normalized["odds_source"] = normalized.get("odds_source") or f"RapidAPI PRO {label}"
-                normalized["odds_status"] = "OK"
-                normalized["odds_attempts"] = list(self.last_odds_attempts) + [f"{label}:OK"]
-                self.last_odds_attempts = normalized["odds_attempts"]
-                self.last_odds_status = "OK"
-                self.last_odds_endpoint = path
-                return normalized
-
-        # 4) Featured and operation-name endpoints as late fallbacks.
-        tail_attempts = [
-            ("featured_odds_1", f"/api/tennis/event/{event_id_text}/odds/featured", None),
-            ("featured_odds_2", f"/api/tennis/event/{event_id_text}/featured-odds", None),
-            ("featured_odds_3", f"/api/tennis/event/{event_id_text}/odds/1/featured", None),
-            ("api_match_winning_odds", "/api/tennis/getMatchWinningOdds", {"matchId": event_id_text}),
-            ("api_match_betting_odds", "/api/tennis/getMatchBettingOdds", {"matchId": event_id_text}),
-            ("api_all_odds_for_event", "/api/tennis/getAllOddsForEvent", {"eventId": event_id_text}),
-            ("api_match_featured_odds", "/api/tennis/getMatchFeaturedOdds", {"matchId": event_id_text}),
-        ]
-        for name, path, params in tail_attempts:
-            payload = self.get(path, params=params)
-            if not payload:
-                self.last_odds_attempts.append(f"{name}:NO_PAYLOAD")
-                continue
-            normalized = normalize_winner_odds_payload(payload)
-            if not normalized:
-                self.last_odds_attempts.append(f"{name}:NO_WINNER_MARKET")
-                continue
-            normalized["odds_endpoint"] = path
-            normalized["odds_source"] = normalized.get("odds_source") or f"RapidAPI PRO {name}"
-            normalized["odds_status"] = "OK"
-            normalized["odds_attempts"] = list(self.last_odds_attempts) + [f"{name}:OK"]
-            self.last_odds_attempts = normalized["odds_attempts"]
-            self.last_odds_status = "OK"
-            self.last_odds_endpoint = path
-            return normalized
-
+        self.last_odds_status = "NO_ODDS"
         return None
 
 
