@@ -234,6 +234,10 @@ class RapidApiClient:
             self.sleep_seconds = max(float(self.sleep_seconds or 0.0), (1.0 / max_rps) + 0.02)
         except Exception:
             self.sleep_seconds = max(float(self.sleep_seconds or 0.0), 0.24)
+        self.last_get_status: Optional[int] = None
+        self.last_get_note: Optional[str] = None
+        self.last_get_path: Optional[str] = None
+        self.odds_endpoint_stats: Dict[str, Dict[str, Any]] = {}
 
     @property
     def headers(self) -> Dict[str, str]:
@@ -242,11 +246,16 @@ class RapidApiClient:
     def get(self, path: str, params: Optional[Dict[str, Any]] = None) -> Optional[Any]:
         url = f"https://{self.host}{path}"
         attempts = 2
+        self.last_get_path = path
+        self.last_get_status = None
+        self.last_get_note = None
         for attempt in range(attempts):
             try:
                 response = requests.get(url, headers=self.headers, params=params or {}, timeout=self.timeout)
                 status = int(response.status_code)
+                self.last_get_status = status
                 if status == 429:
+                    self.last_get_note = "RATE_LIMIT"
                     print(f"RAPIDAPI GET {path} status=429 rate_limited attempt={attempt + 1}")
                     if attempt + 1 < attempts:
                         try:
@@ -256,21 +265,47 @@ class RapidApiClient:
                         time.sleep(max(3.0, sleep_for))
                         continue
                     return None
-                if status in (204, 404):
-                    print(f"RAPIDAPI GET {path} status={status}")
+                if status == 204:
+                    self.last_get_note = "NO_CONTENT"
+                    print(f"RAPIDAPI GET {path} status=204")
                     return None
-                response.raise_for_status()
+                if status == 404:
+                    self.last_get_note = "NOT_FOUND"
+                    print(f"RAPIDAPI GET {path} status=404")
+                    return None
+                if status >= 400:
+                    self.last_get_note = "HTTP_ERROR"
+                    response.raise_for_status()
                 if not response.text:
+                    self.last_get_note = "EMPTY_BODY"
                     print(f"RAPIDAPI GET {path} status={status} empty_body")
                     return None
+                self.last_get_note = "OK"
                 return response.json()
             except Exception as exc:
+                if self.last_get_note is None:
+                    self.last_get_note = "EXCEPTION"
                 print(f"RAPIDAPI GET ERROR path={path} params={params or {}} error={exc}")
                 return None
             finally:
                 if self.sleep_seconds > 0:
                     time.sleep(self.sleep_seconds)
         return None
+
+    def _record_odds_endpoint_stat(self, endpoint_name: str, status: Optional[int], note: Optional[str], useful: bool = False) -> None:
+        stats = self.odds_endpoint_stats.setdefault(endpoint_name, {
+            "requests": 0,
+            "status_counts": {},
+            "useful_count": 0,
+            "winner_market_count": 0,
+        })
+        stats["requests"] = int(stats.get("requests") or 0) + 1
+        key = str(status if status is not None else note or "UNKNOWN")
+        counts = stats.setdefault("status_counts", {})
+        counts[key] = int(counts.get(key) or 0) + 1
+        if useful:
+            stats["useful_count"] = int(stats.get("useful_count") or 0) + 1
+            stats["winner_market_count"] = int(stats.get("winner_market_count") or 0) + 1
 
     def discover_categories(self, target_date: datetime) -> List[int]:
         day, month, year = target_date.day, target_date.month, target_date.year
@@ -418,13 +453,18 @@ class RapidApiClient:
         def _try_payload(name: str, path: str, params: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
             self.last_odds_request_count += 1
             payload = self.get(path, params=params)
+            status = getattr(self, "last_get_status", None)
+            note = getattr(self, "last_get_note", None)
             if not payload:
-                self.last_odds_attempts.append(f"{name}:NO_PAYLOAD")
+                self._record_odds_endpoint_stat(name, status, note, useful=False)
+                self.last_odds_attempts.append(f"{name}:NO_PAYLOAD:{status or note or 'UNKNOWN'}")
                 return None
             normalized = normalize_winner_odds_payload(payload)
             if not normalized:
-                self.last_odds_attempts.append(f"{name}:NO_WINNER_MARKET")
+                self._record_odds_endpoint_stat(name, status, note or "NO_WINNER_MARKET", useful=False)
+                self.last_odds_attempts.append(f"{name}:NO_WINNER_MARKET:{status or note or 'UNKNOWN'}")
                 return None
+            self._record_odds_endpoint_stat(name, status, note or "OK", useful=True)
             normalized["odds_endpoint"] = path
             normalized["odds_endpoint_name"] = name
             normalized["odds_source"] = normalized.get("odds_source") or f"RapidAPI PRO {name}"
@@ -877,5 +917,13 @@ def fetch_daily_matches_with_odds(target_date: Optional[datetime] = None) -> Lis
                 "no_odds_reason": "NO_RAPIDAPI_PRO_ODDS",
             })
         output.append(row)
+    try:
+        stats = getattr(client, "odds_endpoint_stats", {}) or {}
+        if stats:
+            print("RAPIDAPI ODDS ENDPOINT STATS:")
+            for endpoint_name, endpoint_stats in sorted(stats.items()):
+                print(f"  {endpoint_name}: {endpoint_stats}")
+    except Exception:
+        pass
     print(f"RAPIDAPI MATCHES WITH ODDS ROWS: {len(output)}")
     return output
