@@ -183,6 +183,117 @@ def deep_find_first(obj: Any, keys: Iterable[str]) -> Any:
     return None
 
 
+
+# TENNISAPI_CURRENT_RANKING_PATCH_V1
+# Ranking lookups are intentionally conservative and configurable. They never
+# fabricate missing ranks: callers receive None values and the renderer displays
+# the project fallback (X).
+_RANKING_LOOKUP_CACHE: Dict[str, Dict[str, Any]] = {}
+
+
+def _rank_int(value: Any) -> Optional[int]:
+    if value in (None, "") or isinstance(value, bool):
+        return None
+    text = str(value).strip()
+    if not text or text.lower() in {"none", "null", "nan", "n/a", "na", "-", "--", "—", "x", "(x)"}:
+        return None
+    if text.startswith("#"):
+        text = text[1:].strip()
+    if text.startswith("(") and text.endswith(")"):
+        text = text[1:-1].strip()
+    try:
+        rank = int(float(text))
+    except Exception:
+        return None
+    return rank if rank > 0 else None
+
+
+def _points_int(value: Any) -> Optional[int]:
+    if value in (None, "") or isinstance(value, bool):
+        return None
+    try:
+        points = int(float(str(value).replace(",", "").strip()))
+    except Exception:
+        return None
+    return points if points >= 0 else None
+
+
+def _walk_dicts(obj: Any) -> Iterable[Dict[str, Any]]:
+    if isinstance(obj, dict):
+        yield obj
+        for value in obj.values():
+            yield from _walk_dicts(value)
+    elif isinstance(obj, list):
+        for item in obj:
+            yield from _walk_dicts(item)
+
+
+def _ranking_candidates(payload: Any) -> List[Dict[str, Any]]:
+    candidates: List[Dict[str, Any]] = []
+    for item in _walk_dicts(payload):
+        rank = None
+        for key in ("rank", "ranking", "position", "currentRank", "current_rank", "place"):
+            rank = _rank_int(item.get(key))
+            if rank is not None:
+                break
+        if rank is None:
+            continue
+        points = None
+        for key in ("points", "rankingPoints", "ranking_points", "currentPoints", "current_points"):
+            points = _points_int(item.get(key))
+            if points is not None:
+                break
+        name = _team_name(item.get("player")) or _team_name(item.get("team")) or _team_name(item.get("participant")) or _team_name(item)
+        player_id = item.get("id") or item.get("player_id") or item.get("playerId") or deep_find_first(item, {"playerId", "player_id"})
+        tour = item.get("tour") or item.get("category") or item.get("type")
+        candidates.append({
+            "rank": rank,
+            "points": points,
+            "name": name,
+            "player_id": player_id,
+            "tour": tour,
+            "raw": item,
+        })
+    return candidates
+
+
+def _ranking_tour_tokens(tour: Optional[str]) -> List[str]:
+    text = normalize_name(tour or "")
+    if "wta" in text or "women" in text or text in {"w"}:
+        return ["wta", "women"]
+    if "atp" in text or "men" in text or text in {"m"}:
+        return ["atp", "men"]
+    return ["atp", "wta", "men", "women"]
+
+
+def _best_ranking_candidate(player_name: str, payload: Any, tour: Optional[str] = None) -> Optional[Dict[str, Any]]:
+    candidates = _ranking_candidates(payload)
+    if not candidates:
+        return None
+    player_norm = normalize_name(player_name)
+    tour_tokens = _ranking_tour_tokens(tour)
+    best_score = -1.0
+    best: Optional[Dict[str, Any]] = None
+    for item in candidates:
+        name_score = name_match_score(player_name, item.get("name")) if item.get("name") else 0.0
+        if not item.get("name"):
+            # Ranking endpoints searched by player id/name may return one object
+            # without a display name. Accept it only if it is the sole candidate.
+            name_score = 0.80 if len(candidates) == 1 and player_norm else 0.0
+        tour_text = normalize_name(item.get("tour") or "")
+        tour_bonus = 0.05 if not tour_text or any(tok in tour_text for tok in tour_tokens) else -0.10
+        score = name_score + tour_bonus
+        if score > best_score:
+            best_score = score
+            best = item
+    if best is None or best_score < 0.70:
+        return None
+    return best
+
+
+def _ranking_cache_key(player_name: str, tour: Optional[str]) -> str:
+    return f"{normalize_name(tour or '*')}:{normalize_name(player_name)}"
+
 def event_status_type(event: Dict[str, Any]) -> str:
     status = event.get("status") if isinstance(event.get("status"), dict) else {}
     return str(status.get("type") or status.get("description") or "unknown").strip().lower()
@@ -291,6 +402,117 @@ class RapidApiClient:
                 if self.sleep_seconds > 0:
                     time.sleep(self.sleep_seconds)
         return None
+
+
+    def _ranking_endpoint_templates(self) -> List[str]:
+        """Return TennisApi ranking endpoint templates.
+
+        The default order is deliberately narrow and can be overridden without
+        a code change using TENNISAPI_RANKING_ENDPOINTS. Supported placeholders:
+        {player_id}, {query}, {tour}. Unknown/empty responses are ignored.
+        """
+        raw = os.getenv("TENNISAPI_RANKING_ENDPOINTS", "")
+        if raw.strip():
+            templates = [part.strip() for part in raw.split(",") if part.strip()]
+            if templates:
+                return templates
+        return [
+            "/api/tennis/player/{player_id}/rankings",
+            "/api/tennis/player/{player_id}/ranking",
+            "/api/tennis/search/{query}",
+            "/api/tennis/rankings/{tour}",
+        ]
+
+    def _candidate_player_ids(self, player_name: str, identity: Optional[Dict[str, Any]] = None) -> List[str]:
+        ids: List[str] = []
+        if isinstance(identity, dict):
+            for key in ("rapidapi_id", "external_player_key", "player_id", "id"):
+                value = identity.get(key)
+                if value not in (None, ""):
+                    ids.append(str(value))
+        out: List[str] = []
+        seen = set()
+        for value in ids:
+            key = str(value).strip()
+            if key and key not in seen:
+                out.append(key)
+                seen.add(key)
+        return out
+
+    def get_player_ranking(self, player_name: str, tour: Optional[str] = None, identity: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """Fetch current TennisApi ranking for one player.
+
+        Returns a dict with rank/points/status/source. Missing or untrusted data
+        is returned as None, never estimated. This makes render fallback (X)
+        deterministic and avoids fake 0/None values in UI.
+        """
+        name = str(player_name or "").strip()
+        if not name:
+            return {"rank": None, "points": None, "status": "MISSING_NAME", "source": "TennisApi"}
+        cache_key = _ranking_cache_key(name, tour)
+        cached = _RANKING_LOOKUP_CACHE.get(cache_key)
+        if cached is not None:
+            return dict(cached)
+
+        query = re.sub(r"\s+", "%20", name.strip())
+        ids = self._candidate_player_ids(name, identity)
+        tours = _ranking_tour_tokens(tour)
+        attempts: List[str] = []
+
+        for template in self._ranking_endpoint_templates():
+            if "{player_id}" in template and not ids:
+                continue
+            id_values = ids if "{player_id}" in template else [""]
+            tour_values = tours if "{tour}" in template else [tour or ""]
+            for player_id in id_values:
+                for tour_value in tour_values:
+                    path = template.format(player_id=player_id, query=query, tour=str(tour_value or "").lower())
+                    payload = self.get(path)
+                    status = getattr(self, "last_get_status", None)
+                    note = getattr(self, "last_get_note", None)
+                    attempts.append(f"{path}:{status or note or 'UNKNOWN'}")
+                    if not payload:
+                        continue
+                    best = _best_ranking_candidate(name, payload, tour=tour)
+                    if not best:
+                        continue
+                    result = {
+                        "rank": _rank_int(best.get("rank")),
+                        "points": _points_int(best.get("points")),
+                        "status": "OK",
+                        "source": "TennisApi",
+                        "player_id": best.get("player_id"),
+                        "matched_name": best.get("name"),
+                        "attempts": attempts,
+                    }
+                    _RANKING_LOOKUP_CACHE[cache_key] = dict(result)
+                    return result
+
+        result = {"rank": None, "points": None, "status": "NOT_FOUND", "source": "TennisApi", "attempts": attempts}
+        _RANKING_LOOKUP_CACHE[cache_key] = dict(result)
+        return result
+
+    def attach_rankings_to_match(self, match: Dict[str, Any], tour: Optional[str] = None) -> Dict[str, Any]:
+        """Attach TennisApi rank, points and rank gap to a normalized match row."""
+        row = dict(match)
+        p1 = row.get("player1") or row.get("home")
+        p2 = row.get("player2") or row.get("away")
+        r1 = self.get_player_ranking(str(p1 or ""), tour=tour or row.get("gender") or row.get("category"))
+        r2 = self.get_player_ranking(str(p2 or ""), tour=tour or row.get("gender") or row.get("category"))
+        rank1 = _rank_int(r1.get("rank"))
+        rank2 = _rank_int(r2.get("rank"))
+        gap = abs(rank1 - rank2) if rank1 is not None and rank2 is not None else None
+        row.update({
+            "player1_api_rank": rank1,
+            "player2_api_rank": rank2,
+            "player1_api_rank_points": _points_int(r1.get("points")),
+            "player2_api_rank_points": _points_int(r2.get("points")),
+            "api_rank_gap": gap,
+            "api_ranking_source": "TennisApi",
+            "api_ranking_status": "OK" if rank1 is not None and rank2 is not None else "PARTIAL_OR_MISSING",
+            "api_ranking_attempts": {"player1": r1.get("attempts", []), "player2": r2.get("attempts", [])},
+        })
+        return row
 
     def _record_odds_endpoint_stat(self, endpoint_name: str, status: Optional[int], note: Optional[str], useful: bool = False) -> None:
         stats = self.odds_endpoint_stats.setdefault(endpoint_name, {
@@ -827,9 +1049,13 @@ def fetch_daily_matches_with_odds(target_date: Optional[datetime] = None) -> Lis
     print(f"RAPIDAPI NORMALIZED MATCHES BEFORE ODDS: {len(matches)}")
     output: List[Dict[str, Any]] = []
 
+    attach_rankings = str(os.getenv("TENNISAPI_ATTACH_RANKINGS", "0")).strip().lower() in {"1", "true", "yes", "y", "on"}
+
     for match in matches:
         if match.get("is_doubles"):
             continue
+        if attach_rankings:
+            match = client.attach_rankings_to_match(match)
         odds = client.get_event_odds(match.get("event_id"), match=match)
         row = dict(match)
         if odds:

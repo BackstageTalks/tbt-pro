@@ -368,6 +368,17 @@ class PlayerResolver:
 _DEFAULT_RESOLVER: Optional[PlayerResolver] = None
 
 
+
+def rapidapi_player_id(player_name: str, tour: Optional[str] = None) -> Optional[Any]:
+    """Return configured RapidAPI/TennisApi player id when the alias database has one."""
+    resolved = get_default_resolver().resolve(player_name, tour=tour)
+    for key in ("rapidapi_id", "external_player_key", "player_id", "id"):
+        value = resolved.get(key)
+        if value not in (None, ""):
+            return value
+    return None
+
+
 def get_default_resolver() -> PlayerResolver:
     global _DEFAULT_RESOLVER
     if _DEFAULT_RESOLVER is None:
