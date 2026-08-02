@@ -2354,6 +2354,19 @@
   "tb_probability": null,
   "sets_games_market_source": "TennisApiPRO getAllOddsForEvent",
   "sets_games_raw_market_count": 3,
+  "sets_games_endpoint_summary": {
+    "request_count": 1,
+    "status_counts": {
+      "200": 1
+    },
+    "endpoint_counts": {
+      "getAllOddsForEvent": 1
+    },
+    "ok_count": 1,
+    "rate_limited_count": 0,
+    "no_content_count": 0,
+    "http_error_count": 0
+  },
   "games_line_source": "TennisApiPRO getAllOddsForEvent",
   "double_faults_available": true,
   "df_pick": 4.2,
@@ -2392,11 +2405,10 @@
   "marq_ai_strength": 25,
   "marq_ai_consistency": 35,
   "marq_ai_reason": "ok",
-  "marq_event_id": "16687405",
   "marq_outcome_key": "od1",
-  "marq_source": "tennisapi_market_quality",
+  "marq_source": "fallback_existing_odds_thin_market",
   "marq_market_name": "Full time",
-  "marq_provider_count": 2,
+  "marq_provider_count": 1,
   "marq_market_spread_pct": 0.0,
   "marq_market_median_odds": 1.91,
   "marq_outlier_count": 0,

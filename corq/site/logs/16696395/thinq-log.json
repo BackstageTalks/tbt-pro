@@ -2363,6 +2363,19 @@
   "tb_probability": null,
   "sets_games_market_source": "TennisApiPRO getAllOddsForEvent",
   "sets_games_raw_market_count": 3,
+  "sets_games_endpoint_summary": {
+    "request_count": 1,
+    "status_counts": {
+      "200": 1
+    },
+    "endpoint_counts": {
+      "getAllOddsForEvent": 1
+    },
+    "ok_count": 1,
+    "rate_limited_count": 0,
+    "no_content_count": 0,
+    "http_error_count": 0
+  },
   "games_line_source": "TennisApiPRO getAllOddsForEvent",
   "double_faults_available": true,
   "df_pick": 1.5,
@@ -2473,7 +2486,7 @@
     "FAIR",
     "VALUE_NEGATIVE"
   ],
-  "corq_source_rank": 71,
+  "corq_source_rank": 70,
   "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
   "top7_publishable": true,
   "eligible_for_top7": true,
@@ -2541,6 +2554,6 @@
   "corq_warning_flags": [
     "CLEAN_MODEL_SUPPORT"
   ],
-  "corq_rank": 71,
+  "corq_rank": 70,
   "_corq_render_rank": 19
 }
