@@ -31,6 +31,13 @@
 /* Compact pick panel final override: reduce free space in player boxes, keep top tags unchanged, put match meta on one row. */
 .pick-main.compact-v3{padding:10px!important;gap:7px!important;min-height:0!important}.compact-v3 .compact-player{min-height:0!important;padding:8px 10px!important;justify-content:center!important}.compact-v3 .pick-side{min-height:0!important;padding-top:8px!important;padding-bottom:8px!important}.compact-player.no-label{padding-top:8px!important;padding-bottom:8px!important}.compact-label{margin-bottom:5px!important;font-size:9px!important;line-height:1!important}.compact-name-row{align-items:center!important;gap:7px!important}.compact-name{display:flex!important;align-items:center!important;gap:6px!important;min-width:0!important;font-size:13px!important;line-height:1.12!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}.compact-name .compact-odds.inline{flex:0 0 auto!important;margin-left:2px!important;transform:none!important;padding:2px 7px!important;font-size:10px!important;line-height:1.1!important}.compact-rank{font-size:11px!important;line-height:1!important;flex:0 0 auto!important}.compact-vs{height:14px!important;min-height:14px!important;margin:-1px 0!important;font-size:9px!important;line-height:1!important}.compact-match{padding:7px 9px!important;border-radius:12px!important}.compact-match-row{display:flex!important;align-items:center!important;gap:8px!important;min-width:0!important;white-space:nowrap!important;overflow:hidden!important}.compact-time{font-size:12px!important;line-height:1!important;flex:0 0 auto!important}.compact-meta{font-size:10px!important;line-height:1.15!important;margin-top:0!important;min-width:0!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}.compact-tags.bottom-notes{padding-top:4px!important;margin-top:auto!important}@media(max-width:760px){.compact-name{font-size:13px!important}.compact-match-row{gap:6px!important}.compact-meta{font-size:10px!important}}
 
+
+/* Unified date/time pill for CorQ, Audit, CloQ and Results cards. */
+.compact-datetime-pill{display:inline-flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:1px;min-width:58px;padding:3px 7px;border-radius:10px;background:rgba(15,32,54,.78);border:1px solid rgba(125,211,252,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.03);line-height:1.05;flex:0 0 auto}.compact-datetime-pill .compact-date{font-size:12px;font-weight:950;color:#e0f2fe;letter-spacing:.02em}.compact-datetime-pill .compact-clock{font-size:12px;font-weight:950;color:#dbeafe;letter-spacing:.02em}.compact-meta-only{width:100%;font-size:11px!important;line-height:1.2!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}.compact-match-row{align-items:center!important}.result-card .status-pill{display:inline-flex!important;margin-left:auto!important}.results-card .status-pill{display:inline-flex!important;margin-left:auto!important}
+/* Active filters are orange across Audit and Results; inactive filters keep the neutral style. */
+.audit-pill.active,.tag-chip.active,.result-summary-chip.active{border-color:var(--orange)!important;background:rgba(251,146,60,.24)!important;color:#fff!important;box-shadow:0 0 0 1px rgba(251,146,60,.25),0 0 18px rgba(251,146,60,.18)!important}.audit-pill.active .audit-pill-label,.audit-pill.active .audit-pill-count{color:#fff!important}
+@media(max-width:760px){.compact-datetime-pill{min-width:52px;padding:3px 6px}.compact-datetime-pill .compact-date,.compact-datetime-pill .compact-clock{font-size:11px}}
+
 </style></head>
 <body><div class="wrap">
 <header class="topbar">
@@ -89,6 +96,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#1</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">17:00</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -103,8 +111,7 @@
 <span class="compact-rank">(77)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">17:00</span>
-<span class="compact-meta">Toronto, Canada · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span></div>
 </div>
@@ -166,6 +173,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#2</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">10:00</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -180,8 +188,7 @@
 <span class="compact-rank">(789)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">10:00</span>
-<span class="compact-meta">Warsaw, Poland, Qualifying · WTA 125 · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Warsaw, Poland, Qualifying · WTA 125 · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -243,6 +250,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#3</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">23:10</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -257,8 +265,7 @@
 <span class="compact-rank">(72)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">23:10</span>
-<span class="compact-meta">Toronto, Canada · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -320,6 +327,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#4</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">18:00</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -334,8 +342,7 @@
 <span class="compact-rank">(28)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:00</span>
-<span class="compact-meta">Washington, USA · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Washington, USA · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Pick strong</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -397,6 +404,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#5</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">18:10</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -411,8 +419,7 @@
 <span class="compact-rank">(44)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:10</span>
-<span class="compact-meta">Montreal, Canada · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">H2H Top10</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -474,6 +481,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#6</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">17:00</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -488,8 +496,7 @@
 <span class="compact-rank">(95)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">17:00</span>
-<span class="compact-meta">Montreal, Canada · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -551,6 +558,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#7</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">05:00</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -565,8 +573,7 @@
 <span class="compact-rank">(127)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">05:00</span>
-<span class="compact-meta">Los Cabos, Mexico · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Los Cabos, Mexico · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span></div>
 </div>
@@ -628,6 +635,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#8</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">18:10</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -642,8 +650,7 @@
 <span class="compact-rank">(124)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:10</span>
-<span class="compact-meta">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -705,6 +712,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#9</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">20:00</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -719,8 +727,7 @@
 <span class="compact-rank">(132)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">20:00</span>
-<span class="compact-meta">Memphis, USA · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Memphis, USA · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Pick strong</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -782,6 +789,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#10</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">18:50</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -796,8 +804,7 @@
 <span class="compact-rank">(121)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:50</span>
-<span class="compact-meta">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -859,6 +866,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#11</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">21:30</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -873,8 +881,7 @@
 <span class="compact-rank">(116)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">21:30</span>
-<span class="compact-meta">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">CorQ Top20</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -936,6 +943,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#12</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">18:50</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -950,8 +958,7 @@
 <span class="compact-rank">(126)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:50</span>
-<span class="compact-meta">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">ELO support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span></div>
 </div>
@@ -1013,6 +1020,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#13</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">21:00</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -1027,8 +1035,7 @@
 <span class="compact-rank">(141)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">21:00</span>
-<span class="compact-meta">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -1090,6 +1097,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#14</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">21:10</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -1104,8 +1112,7 @@
 <span class="compact-rank">(28)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">21:10</span>
-<span class="compact-meta">Washington, USA · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Washington, USA · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Pick strong</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -1167,6 +1174,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#15</span>
+<div class="compact-datetime-pill"><span class="compact-date">31.07.26</span><span class="compact-clock">06:00</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -1181,8 +1189,7 @@
 <span class="compact-rank">(116)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">06:00</span>
-<span class="compact-meta">Los Cabos, Mexico · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Los Cabos, Mexico · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -1244,6 +1251,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#16</span>
+<div class="compact-datetime-pill"><span class="compact-date">31.07.26</span><span class="compact-clock">22:40</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -1258,8 +1266,7 @@
 <span class="compact-rank">(70)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">22:40</span>
-<span class="compact-meta">Washington, USA · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Washington, USA · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -1321,6 +1328,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#17</span>
+<div class="compact-datetime-pill"><span class="compact-date">31.07.26</span><span class="compact-clock">11:00</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -1335,8 +1343,7 @@
 <span class="compact-rank">(224)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">11:00</span>
-<span class="compact-meta">Targu Mures, Romania · WTA 125 · Clay · 3</span>
+<span class="compact-meta compact-meta-only">Targu Mures, Romania · WTA 125 · Clay · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Pick strong</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Value+</span></div>
 </div>
@@ -1398,6 +1405,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#18</span>
+<div class="compact-datetime-pill"><span class="compact-date">31.07.26</span><span class="compact-clock">20:00</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -1412,8 +1420,7 @@
 <span class="compact-rank">(189)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">20:00</span>
-<span class="compact-meta">Vancouver, Canada · WTA 125 · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Vancouver, Canada · WTA 125 · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Value+</span></div>
 </div>
@@ -1475,6 +1482,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#19</span>
+<div class="compact-datetime-pill"><span class="compact-date">31.07.26</span><span class="compact-clock">21:10</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -1489,8 +1497,7 @@
 <span class="compact-rank">(40)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">21:10</span>
-<span class="compact-meta">Washington, USA · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Washington, USA · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Pick strong</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -1552,6 +1559,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#20</span>
+<div class="compact-datetime-pill"><span class="compact-date">31.07.26</span><span class="compact-clock">20:00</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -1566,8 +1574,7 @@
 <span class="compact-rank">(33)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">20:00</span>
-<span class="compact-meta">Washington, USA · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Washington, USA · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -1629,6 +1636,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#21</span>
+<div class="compact-datetime-pill"><span class="compact-date">31.07.26</span><span class="compact-clock">22:10</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -1643,8 +1651,7 @@
 <span class="compact-rank">(83)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">22:10</span>
-<span class="compact-meta">Memphis, USA · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Memphis, USA · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -1706,6 +1713,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#22</span>
+<div class="compact-datetime-pill"><span class="compact-date">31.07.26</span><span class="compact-clock">21:40</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -1720,8 +1728,7 @@
 <span class="compact-rank">(119)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">21:40</span>
-<span class="compact-meta">Vancouver, Canada · WTA 125 · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Vancouver, Canada · WTA 125 · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -1783,6 +1790,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#23</span>
+<div class="compact-datetime-pill"><span class="compact-date">31.07.26</span><span class="compact-clock">16:00</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -1797,8 +1805,7 @@
 <span class="compact-rank">(118)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">16:00</span>
-<span class="compact-meta">Targu Mures, Romania · WTA 125 · Clay · 3</span>
+<span class="compact-meta compact-meta-only">Targu Mures, Romania · WTA 125 · Clay · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -1860,6 +1867,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#24</span>
+<div class="compact-datetime-pill"><span class="compact-date">31.07.26</span><span class="compact-clock">04:00</span></div>
 <span class="status-pill status-void">VOID</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -1874,8 +1882,7 @@
 <span class="compact-rank">(108)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">04:00</span>
-<span class="compact-meta">Los Cabos, Mexico · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Los Cabos, Mexico · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -1937,6 +1944,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#25</span>
+<div class="compact-datetime-pill"><span class="compact-date">30.07.26</span><span class="compact-clock">22:30</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -1951,8 +1959,7 @@
 <span class="compact-rank">(56)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">22:30</span>
-<span class="compact-meta">Washington, USA · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Washington, USA · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Value+</span></div>
 </div>
@@ -2014,6 +2021,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#26</span>
+<div class="compact-datetime-pill"><span class="compact-date">31.07.26</span><span class="compact-clock">00:30</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -2028,8 +2036,7 @@
 <span class="compact-rank">(29)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">00:30</span>
-<span class="compact-meta">Washington, USA · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Washington, USA · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -2091,6 +2098,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#27</span>
+<div class="compact-datetime-pill"><span class="compact-date">30.07.26</span><span class="compact-clock">20:10</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -2105,8 +2113,7 @@
 <span class="compact-rank">(139)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">20:10</span>
-<span class="compact-meta">Vancouver, Canada · WTA 125 · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Vancouver, Canada · WTA 125 · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -2168,6 +2175,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#28</span>
+<div class="compact-datetime-pill"><span class="compact-date">30.07.26</span><span class="compact-clock">20:20</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -2182,8 +2190,7 @@
 <span class="compact-rank">(181)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">20:20</span>
-<span class="compact-meta">Memphis, USA · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Memphis, USA · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">Value+</span></div>
 </div>
@@ -2245,6 +2252,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#29</span>
+<div class="compact-datetime-pill"><span class="compact-date">30.07.26</span><span class="compact-clock">21:20</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -2259,8 +2267,7 @@
 <span class="compact-rank">(143)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">21:20</span>
-<span class="compact-meta">Vancouver, Canada · WTA 125 · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Vancouver, Canada · WTA 125 · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -2322,6 +2329,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#30</span>
+<div class="compact-datetime-pill"><span class="compact-date">30.07.26</span><span class="compact-clock">20:10</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -2336,8 +2344,7 @@
 <span class="compact-rank">(189)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">20:10</span>
-<span class="compact-meta">Vancouver, Canada · WTA 125 · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Vancouver, Canada · WTA 125 · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Value+</span></div>
 </div>
@@ -2399,6 +2406,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#31</span>
+<div class="compact-datetime-pill"><span class="compact-date">30.07.26</span><span class="compact-clock">18:00</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -2413,8 +2421,7 @@
 <span class="compact-rank">(229)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:00</span>
-<span class="compact-meta">Memphis, USA · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Memphis, USA · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">CorQ Top20</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -2476,6 +2483,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#32</span>
+<div class="compact-datetime-pill"><span class="compact-date">30.07.26</span><span class="compact-clock">19:00</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -2490,8 +2498,7 @@
 <span class="compact-rank">(150)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">19:00</span>
-<span class="compact-meta">Vancouver, Canada · WTA 125 · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Vancouver, Canada · WTA 125 · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -2553,6 +2560,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#33</span>
+<div class="compact-datetime-pill"><span class="compact-date">29.07.26</span><span class="compact-clock">19:00</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -2567,8 +2575,7 @@
 <span class="compact-rank">(51)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">19:00</span>
-<span class="compact-meta">Washington, USA · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Washington, USA · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Value+</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -2630,6 +2637,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#34</span>
+<div class="compact-datetime-pill"><span class="compact-date">29.07.26</span><span class="compact-clock">17:00</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -2644,8 +2652,7 @@
 <span class="compact-rank">(34)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">17:00</span>
-<span class="compact-meta">Washington, USA · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Washington, USA · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Value+</span></div>
 </div>
@@ -2707,6 +2714,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#35</span>
+<div class="compact-datetime-pill"><span class="compact-date">29.07.26</span><span class="compact-clock">21:55</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -2721,8 +2729,7 @@
 <span class="compact-rank">(226)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">21:55</span>
-<span class="compact-meta">Vancouver, Canada · WTA 125 · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Vancouver, Canada · WTA 125 · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Value+</span></div>
 </div>
@@ -2784,6 +2791,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#36</span>
+<div class="compact-datetime-pill"><span class="compact-date">29.07.26</span><span class="compact-clock">19:10</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -2798,8 +2806,7 @@
 <span class="compact-rank">(101)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">19:10</span>
-<span class="compact-meta">Memphis, USA · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Memphis, USA · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">2+ positive tags</span><span class="note">Last 7 days</span></div>
 </div>
@@ -2861,6 +2868,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#37</span>
+<div class="compact-datetime-pill"><span class="compact-date">29.07.26</span><span class="compact-clock">20:10</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -2875,8 +2883,7 @@
 <span class="compact-rank">(150)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">20:10</span>
-<span class="compact-meta">Vancouver, Canada · WTA 125 · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Vancouver, Canada · WTA 125 · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -2938,6 +2945,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#38</span>
+<div class="compact-datetime-pill"><span class="compact-date">29.07.26</span><span class="compact-clock">20:20</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -2952,8 +2960,7 @@
 <span class="compact-rank">(132)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">20:20</span>
-<span class="compact-meta">Memphis, USA · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Memphis, USA · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">2+ positive tags</span><span class="note">Last 7 days</span></div>
 </div>
@@ -3015,6 +3022,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#39</span>
+<div class="compact-datetime-pill"><span class="compact-date">29.07.26</span><span class="compact-clock">20:10</span></div>
 <span class="status-pill status-void">VOID</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -3029,8 +3037,7 @@
 <span class="compact-rank">(71)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">20:10</span>
-<span class="compact-meta">Washington, USA · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Washington, USA · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">2+ positive tags</span><span class="note">Last 7 days</span></div>
 </div>
@@ -3113,6 +3120,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#1</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">11:10</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -3127,8 +3135,7 @@
 <span class="compact-rank">(1226)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">11:10</span>
-<span class="compact-meta">Warsaw, Poland, Qualifying · WTA 125 · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Warsaw, Poland, Qualifying · WTA 125 · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">CorQ Top20</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span></div>
 </div>
@@ -3190,6 +3197,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#2</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">17:00</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -3204,8 +3212,7 @@
 <span class="compact-rank">(77)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">17:00</span>
-<span class="compact-meta">Toronto, Canada · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span></div>
 </div>
@@ -3267,6 +3274,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#3</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">20:50</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -3281,8 +3289,7 @@
 <span class="compact-rank">(141)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">20:50</span>
-<span class="compact-meta">Toronto, Canada · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span></div>
 </div>
@@ -3344,6 +3351,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#4</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">19:40</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -3358,8 +3366,7 @@
 <span class="compact-rank">(292)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">19:40</span>
-<span class="compact-meta">Toronto, Canada · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -3421,6 +3428,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#5</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">16:00</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -3435,8 +3443,7 @@
 <span class="compact-rank">(231)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">16:00</span>
-<span class="compact-meta">Toronto, Canada · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span></div>
 </div>
@@ -3498,6 +3505,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#6</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">19:40</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -3512,8 +3520,7 @@
 <span class="compact-rank">(144)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">19:40</span>
-<span class="compact-meta">Toronto, Canada · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span></div>
 </div>
@@ -3575,6 +3582,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#7</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">18:10</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -3589,8 +3597,7 @@
 <span class="compact-rank">(83)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:10</span>
-<span class="compact-meta">Montreal, Canada · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">Pick strong</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -3652,6 +3659,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#8</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">18:10</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -3666,8 +3674,7 @@
 <span class="compact-rank">(107)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:10</span>
-<span class="compact-meta">Toronto, Canada · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span></div>
 </div>
@@ -3729,6 +3736,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#9</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">18:10</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -3743,8 +3751,7 @@
 <span class="compact-rank">(105)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:10</span>
-<span class="compact-meta">Montreal, Canada · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span></div>
 </div>
@@ -3806,6 +3813,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#10</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">19:30</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -3820,8 +3828,7 @@
 <span class="compact-rank">(229)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">19:30</span>
-<span class="compact-meta">Memphis, USA · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Memphis, USA · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">Pick strong</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -3883,6 +3890,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#11</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">16:00</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -3897,8 +3905,7 @@
 <span class="compact-rank">(127)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">16:00</span>
-<span class="compact-meta">Toronto, Canada · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span></div>
 </div>
@@ -3960,6 +3967,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#12</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">10:00</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -3974,8 +3982,7 @@
 <span class="compact-rank">(789)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">10:00</span>
-<span class="compact-meta">Warsaw, Poland, Qualifying · WTA 125 · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Warsaw, Poland, Qualifying · WTA 125 · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -4037,6 +4044,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#13</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">23:10</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -4051,8 +4059,7 @@
 <span class="compact-rank">(72)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">23:10</span>
-<span class="compact-meta">Toronto, Canada · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -4114,6 +4121,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#14</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">17:00</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -4128,8 +4136,7 @@
 <span class="compact-rank">(93)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">17:00</span>
-<span class="compact-meta">Montreal, Canada · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">Value+</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span></div>
 </div>
@@ -4191,6 +4198,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#15</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">17:00</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -4205,8 +4213,7 @@
 <span class="compact-rank">(407)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">17:00</span>
-<span class="compact-meta">Toronto, Canada · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">CorQ Top20</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -4268,6 +4275,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#16</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">18:00</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -4282,8 +4290,7 @@
 <span class="compact-rank">(28)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:00</span>
-<span class="compact-meta">Washington, USA · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Washington, USA · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Pick strong</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -4345,6 +4352,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#17</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">17:00</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -4359,8 +4367,7 @@
 <span class="compact-rank">(65)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">17:00</span>
-<span class="compact-meta">Montreal, Canada · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span></div>
 </div>
@@ -4422,6 +4429,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#18</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">15:00</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -4436,8 +4444,7 @@
 <span class="compact-rank">(153)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">15:00</span>
-<span class="compact-meta">Targu Mures, Romania · WTA 125 · Clay · 3</span>
+<span class="compact-meta compact-meta-only">Targu Mures, Romania · WTA 125 · Clay · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Value+</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span></div>
 </div>
@@ -4499,6 +4506,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#19</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">18:30</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -4513,8 +4521,7 @@
 <span class="compact-rank">(664)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:30</span>
-<span class="compact-meta">Toronto, Canada · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">CorQ Top20</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span></div>
 </div>
@@ -4576,6 +4583,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#20</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">18:30</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -4590,8 +4598,7 @@
 <span class="compact-rank">(51)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:30</span>
-<span class="compact-meta">Toronto, Canada · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Value+</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span></div>
 </div>
@@ -4653,6 +4660,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#21</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">22:00</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -4667,8 +4675,7 @@
 <span class="compact-rank">(139)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">22:00</span>
-<span class="compact-meta">Toronto, Canada · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Pick strong</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -4730,6 +4737,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#22</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">10:00</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -4744,8 +4752,7 @@
 <span class="compact-rank">(1221)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">10:00</span>
-<span class="compact-meta">Warsaw, Poland, Qualifying · WTA 125 · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Warsaw, Poland, Qualifying · WTA 125 · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">Form support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span></div>
 </div>
@@ -4807,6 +4814,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#23</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">17:00</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -4821,8 +4829,7 @@
 <span class="compact-rank">(620)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">17:00</span>
-<span class="compact-meta">Toronto, Canada · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">CorQ Top20</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span></div>
 </div>
@@ -4884,6 +4891,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#24</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">19:20</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -4898,8 +4906,7 @@
 <span class="compact-rank">(117)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">19:20</span>
-<span class="compact-meta">Toronto, Canada · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span></div>
 </div>
@@ -4961,6 +4968,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#25</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">18:10</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -4975,8 +4983,7 @@
 <span class="compact-rank">(131)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:10</span>
-<span class="compact-meta">Montreal, Canada · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span></div>
 </div>
@@ -5038,6 +5045,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#26</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">19:20</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -5052,8 +5060,7 @@
 <span class="compact-rank">(57)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">19:20</span>
-<span class="compact-meta">Montreal, Canada · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Value+</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -5115,6 +5122,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#27</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">18:10</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -5129,8 +5137,7 @@
 <span class="compact-rank">(44)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:10</span>
-<span class="compact-meta">Montreal, Canada · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">H2H Top10</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -5192,6 +5199,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#28</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">23:00</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -5206,8 +5214,7 @@
 <span class="compact-rank">(254)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">23:00</span>
-<span class="compact-meta">Toronto, Canada · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">CorQ Top20</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span></div>
 </div>
@@ -5269,6 +5276,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#29</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">17:00</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -5283,8 +5291,7 @@
 <span class="compact-rank">(60)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">17:00</span>
-<span class="compact-meta">Montreal, Canada · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -5346,6 +5353,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#30</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">17:00</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -5360,8 +5368,7 @@
 <span class="compact-rank">(95)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">17:00</span>
-<span class="compact-meta">Montreal, Canada · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -5423,6 +5430,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#31</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">18:30</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -5437,8 +5445,7 @@
 <span class="compact-rank">(94)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:30</span>
-<span class="compact-meta">Toronto, Canada · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -5500,6 +5507,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#32</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">17:00</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -5514,8 +5522,7 @@
 <span class="compact-rank">(105)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">17:00</span>
-<span class="compact-meta">Toronto, Canada · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">Form support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span></div>
 </div>
@@ -5577,6 +5584,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#33</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">19:20</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -5591,8 +5599,7 @@
 <span class="compact-rank">(48)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">19:20</span>
-<span class="compact-meta">Montreal, Canada · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">ELO support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span><span class="note">Last month</span></div>
 </div>
@@ -5654,6 +5661,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#34</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">11:10</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -5668,8 +5676,7 @@
 <span class="compact-rank">(653)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">11:10</span>
-<span class="compact-meta">Warsaw, Poland, Qualifying · WTA 125 · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Warsaw, Poland, Qualifying · WTA 125 · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">Market with pick</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span><span class="note">Last month</span><span class="note">This year</span></div>
 </div>
@@ -5731,6 +5738,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#35</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">16:00</span></div>
 <span class="status-pill status-pending">PENDING</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -5745,8 +5753,7 @@
 <span class="compact-rank">(76)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">16:00</span>
-<span class="compact-meta">Toronto, Canada · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">ELO support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span><span class="note">Last month</span></div>
 </div>
@@ -5808,6 +5815,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#36</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">02:35</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -5822,8 +5830,7 @@
 <span class="compact-rank">(30)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">02:35</span>
-<span class="compact-meta">Washington, USA · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Washington, USA · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">Pick strong</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Value+</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -5885,6 +5892,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#37</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">05:00</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -5899,8 +5907,7 @@
 <span class="compact-rank">(127)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">05:00</span>
-<span class="compact-meta">Los Cabos, Mexico · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Los Cabos, Mexico · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span></div>
 </div>
@@ -5962,6 +5969,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#38</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">17:40</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -5976,8 +5984,7 @@
 <span class="compact-rank">(390)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">17:40</span>
-<span class="compact-meta">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">CorQ Top20</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -6039,6 +6046,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#39</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">17:40</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -6053,8 +6061,7 @@
 <span class="compact-rank">(138)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">17:40</span>
-<span class="compact-meta">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">Safe Bet Signal</span><span class="note">Opp weak</span><span class="note">Pick strong</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span></div>
 </div>
@@ -6116,6 +6123,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#40</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">18:10</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -6130,8 +6138,7 @@
 <span class="compact-rank">(124)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:10</span>
-<span class="compact-meta">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -6193,6 +6200,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#41</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">04:35</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -6207,8 +6215,7 @@
 <span class="compact-rank">(108)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">04:35</span>
-<span class="compact-meta">Los Cabos, Mexico · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Los Cabos, Mexico · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">Pick strong</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">Value+</span></div>
 </div>
@@ -6270,6 +6277,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#42</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">18:50</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -6284,8 +6292,7 @@
 <span class="compact-rank">(143)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:50</span>
-<span class="compact-meta">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span></div>
 </div>
@@ -6347,6 +6354,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#43</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">22:00</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -6361,8 +6369,7 @@
 <span class="compact-rank">(83)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">22:00</span>
-<span class="compact-meta">Memphis, USA · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Memphis, USA · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">Pick strong</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -6424,6 +6431,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#44</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">17:40</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -6438,8 +6446,7 @@
 <span class="compact-rank">(124)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">17:40</span>
-<span class="compact-meta">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">Pick strong</span><span class="note">Form support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span></div>
 </div>
@@ -6501,6 +6508,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#45</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">20:00</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -6515,8 +6523,7 @@
 <span class="compact-rank">(18)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">20:00</span>
-<span class="compact-meta">Washington, USA · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Washington, USA · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">H2H Top10</span><span class="note">Pick strong</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span></div>
 </div>
@@ -6578,6 +6585,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#46</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">15:20</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -6592,8 +6600,7 @@
 <span class="compact-rank">(110)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">15:20</span>
-<span class="compact-meta">Targu Mures, Romania · WTA 125 · Clay · 3</span>
+<span class="compact-meta compact-meta-only">Targu Mures, Romania · WTA 125 · Clay · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Value+</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span></div>
 </div>
@@ -6655,6 +6662,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#47</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">20:00</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -6669,8 +6677,7 @@
 <span class="compact-rank">(132)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">20:00</span>
-<span class="compact-meta">Memphis, USA · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Memphis, USA · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Pick strong</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -6732,6 +6739,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#48</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">17:00</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -6746,8 +6754,7 @@
 <span class="compact-rank">(95)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">17:00</span>
-<span class="compact-meta">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Value+</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span></div>
 </div>
@@ -6809,6 +6816,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#49</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">16:30</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -6823,8 +6831,7 @@
 <span class="compact-rank">(123)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">16:30</span>
-<span class="compact-meta">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Form support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span></div>
 </div>
@@ -6886,6 +6893,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#50</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">21:00</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -6900,8 +6908,7 @@
 <span class="compact-rank">(534)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">21:00</span>
-<span class="compact-meta">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">CorQ Top20</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span></div>
 </div>
@@ -6963,6 +6970,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#51</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">16:30</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -6977,8 +6985,7 @@
 <span class="compact-rank">(721)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">16:30</span>
-<span class="compact-meta">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -7040,6 +7047,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#52</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">18:10</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -7054,8 +7062,7 @@
 <span class="compact-rank">(138)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:10</span>
-<span class="compact-meta">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span></div>
 </div>
@@ -7117,6 +7124,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#53</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">19:20</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -7131,8 +7139,7 @@
 <span class="compact-rank">(1254)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">19:20</span>
-<span class="compact-meta">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">CorQ Top20</span><span class="note">Form support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -7194,6 +7201,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#54</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">18:50</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -7208,8 +7216,7 @@
 <span class="compact-rank">(121)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:50</span>
-<span class="compact-meta">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -7271,6 +7278,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#55</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">17:40</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -7285,8 +7293,7 @@
 <span class="compact-rank">(144)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">17:40</span>
-<span class="compact-meta">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -7348,6 +7355,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#56</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">18:10</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -7362,8 +7370,7 @@
 <span class="compact-rank">(986)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:10</span>
-<span class="compact-meta">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">CorQ Top20</span><span class="note">Form support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span></div>
 </div>
@@ -7425,6 +7432,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#57</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">22:30</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -7439,8 +7447,7 @@
 <span class="compact-rank">(150)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">22:30</span>
-<span class="compact-meta">Vancouver, Canada · WTA 125 · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Vancouver, Canada · WTA 125 · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span></div>
 </div>
@@ -7502,6 +7509,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#58</span>
+<div class="compact-datetime-pill"><span class="compact-date">02.08.26</span><span class="compact-clock">00:30</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -7516,8 +7524,7 @@
 <span class="compact-rank">(33)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">00:30</span>
-<span class="compact-meta">Washington, USA · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Washington, USA · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">H2H Top10</span><span class="note">Pick strong</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -7579,6 +7586,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#59</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">21:30</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -7593,8 +7601,7 @@
 <span class="compact-rank">(116)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">21:30</span>
-<span class="compact-meta">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">CorQ Top20</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -7656,6 +7663,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#60</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">17:05</span></div>
 <span class="status-pill status-won">WON</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -7670,8 +7678,7 @@
 <span class="compact-rank">(130)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">17:05</span>
-<span class="compact-meta">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span></div>
 </div>
@@ -7733,6 +7740,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#61</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">16:30</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -7747,8 +7755,7 @@
 <span class="compact-rank">(120)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">16:30</span>
-<span class="compact-meta">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">H2H Top10</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span><span class="note">Last month</span></div>
 </div>
@@ -7810,6 +7817,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#62</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">03:15</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -7824,8 +7832,7 @@
 <span class="compact-rank">(30)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">03:15</span>
-<span class="compact-meta">Washington, USA · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Washington, USA · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Pick strong</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -7887,6 +7894,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#63</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">06:50</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -7901,8 +7909,7 @@
 <span class="compact-rank">(68)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">06:50</span>
-<span class="compact-meta">Los Cabos, Mexico · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Los Cabos, Mexico · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span></div>
 </div>
@@ -7964,6 +7971,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#64</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">18:50</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -7978,8 +7986,7 @@
 <span class="compact-rank">(601)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:50</span>
-<span class="compact-meta">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">Form support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span></div>
 </div>
@@ -8041,6 +8048,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#65</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">18:50</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -8055,8 +8063,7 @@
 <span class="compact-rank">(126)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:50</span>
-<span class="compact-meta">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">ELO support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span></div>
 </div>
@@ -8118,6 +8125,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#66</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">03:00</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -8132,8 +8140,7 @@
 <span class="compact-rank">(114)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">03:00</span>
-<span class="compact-meta">Memphis, USA · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Memphis, USA · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Pick strong</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -8195,6 +8202,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#67</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">21:30</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -8209,8 +8217,7 @@
 <span class="compact-rank">(51)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">21:30</span>
-<span class="compact-meta">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span></div>
 </div>
@@ -8272,6 +8279,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#68</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">17:15</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -8286,8 +8294,7 @@
 <span class="compact-rank">(117)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">17:15</span>
-<span class="compact-meta">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span></div>
 </div>
@@ -8349,6 +8356,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#69</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">17:00</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -8363,8 +8371,7 @@
 <span class="compact-rank">(153)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">17:00</span>
-<span class="compact-meta">Targu Mures, Romania · WTA 125 · Clay · 3</span>
+<span class="compact-meta compact-meta-only">Targu Mures, Romania · WTA 125 · Clay · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">Pick strong</span><span class="note">Form support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span></div>
 </div>
@@ -8426,6 +8433,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#70</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">21:00</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -8440,8 +8448,7 @@
 <span class="compact-rank">(141)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">21:00</span>
-<span class="compact-meta">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -8503,6 +8510,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#71</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">16:30</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -8517,8 +8525,7 @@
 <span class="compact-rank">(131)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">16:30</span>
-<span class="compact-meta">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span></div>
 </div>
@@ -8580,6 +8587,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#72</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">21:10</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -8594,8 +8602,7 @@
 <span class="compact-rank">(28)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">21:10</span>
-<span class="compact-meta">Washington, USA · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Washington, USA · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">CorQ Top20</span><span class="note">Pick strong</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span></div>
 </div>
@@ -8657,6 +8664,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#73</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">17:00</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -8671,8 +8679,7 @@
 <span class="compact-rank">(235)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">17:00</span>
-<span class="compact-meta">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">Value+</span></div>
 </div>
@@ -8734,6 +8741,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#74</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">16:30</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -8748,8 +8756,7 @@
 <span class="compact-rank">(85)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">16:30</span>
-<span class="compact-meta">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">Market with pick</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span><span class="note">Last month</span><span class="note">This year</span></div>
 </div>
@@ -8811,6 +8818,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#75</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">18:10</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -8825,8 +8833,7 @@
 <span class="compact-rank">(78)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">18:10</span>
-<span class="compact-meta">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">No previous H2H matches</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span></div>
 </div>
@@ -8888,6 +8895,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#76</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">19:20</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -8902,8 +8910,7 @@
 <span class="compact-rank">(144)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">19:20</span>
-<span class="compact-meta">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span></div>
 </div>
@@ -8965,6 +8972,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#77</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">17:40</span></div>
 <span class="status-pill status-lost">LOST</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -8979,8 +8987,7 @@
 <span class="compact-rank">(103)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">17:40</span>
-<span class="compact-meta">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Montreal, Canada, Qualifying · ATP · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">H2H Top10</span><span class="note">Opp weak</span><span class="note">Form support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span></div>
 </div>
@@ -9042,6 +9049,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#78</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">22:10</span></div>
 <span class="status-pill status-void">VOID</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -9056,8 +9064,7 @@
 <span class="compact-rank">(132)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">22:10</span>
-<span class="compact-meta">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span></div>
 </div>
@@ -9119,6 +9126,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#79</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">22:10</span></div>
 <span class="status-pill status-void">VOID</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -9133,8 +9141,7 @@
 <span class="compact-rank">(127)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">22:10</span>
-<span class="compact-meta">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">Pick strong</span><span class="note">Form support</span><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Market with pick</span><span class="note">Value+</span></div>
 </div>
@@ -9196,6 +9203,7 @@
 <div class="pick-main compact-v3">
 <div class="compact-topline">
 <span class="rank-num">#80</span>
+<div class="compact-datetime-pill"><span class="compact-date">01.08.26</span><span class="compact-clock">21:00</span></div>
 <span class="status-pill status-void">VOID</span>
 </div>
 <div class="compact-player pick-side no-label">
@@ -9210,8 +9218,7 @@
 <span class="compact-rank">(119)</span>
 </div></div>
 <div class="compact-match"><div class="compact-match-row">
-<span class="compact-time">21:00</span>
-<span class="compact-meta">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
+<span class="compact-meta compact-meta-only">Toronto, Canada, Qualifying · WTA · Hard · 3</span>
 </div></div>
 <div class="compact-tags bottom-notes"><span class="note">ELO support</span><span class="note">Surface support</span><span class="note">Value+</span><span class="note">2+ positive tags</span><span class="note">Last 3 days</span><span class="note">Last 7 days</span></div>
 </div>
