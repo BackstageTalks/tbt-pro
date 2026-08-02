@@ -3835,6 +3835,160 @@ def render_results_page(manifest: Dict[str, Any]) -> str:
     ]
     return page_shell('Results', RESULTS_PATH, '\n'.join(body), manifest)
 
+
+# ============================================================
+# Unified risk/support filter override V2
+# ============================================================
+# Applies to CorQ, CloQ, Audit and Results.  Positive support filters and risk
+# filters are intentionally separate so warning tags are never counted as
+# positive support.
+try:
+    _ORIGINAL_AUDIT_FILTER_TAGS_FOR_ROW
+except NameError:
+    _ORIGINAL_AUDIT_FILTER_TAGS_FOR_ROW = audit_filter_tags_for_row
+    _ORIGINAL_AUDIT_NOTE_CSS = audit_note_css
+
+AUDIT_HIGH_RISK_LABEL = "High Risk"
+AUDIT_TWO_RISK_TAGS_LABEL = "2+ risk tags"
+AUDIT_OPP_STRONG_LABEL = "Opp strong"
+AUDIT_PICK_WEAK_LABEL = "Pick weak"
+AUDIT_MARKET_AGAINST_LABEL = "Market against pick"
+AUDIT_NO_VALUE_LABEL = "No value"
+AUDIT_SHORT_PRICE_LABEL = "Short price"
+AUDIT_LOW_DATA_LABEL = "Low data risk"
+AUDIT_MMX_CONFLICT_LABEL = "MMx conflict"
+
+
+def _audit_blob(row: Dict[str, Any]) -> str:
+    parts: List[str] = []
+    for key in ("tags", "audit_tags", "audit_filter_tags", "public_notes", "top7_risk_tags", "top7_risk_labels", "corq_warning_flags", "risk_flags", "flags"):
+        value = row.get(key)
+        if isinstance(value, list):
+            parts.extend(str(x) for x in value if x)
+        elif isinstance(value, str) and value.strip():
+            parts.append(value.strip())
+    return " | ".join(parts).lower().replace("_", " ")
+
+
+def _audit_risk_tag_count(row: Dict[str, Any]) -> int:
+    value = row.get("top7_risk_count")
+    num = as_float(value)
+    if num is not None:
+        return int(num)
+    tags = row.get("top7_risk_tags")
+    if isinstance(tags, list):
+        return len([t for t in tags if t])
+    text = _audit_blob(row)
+    risk_tokens = ("high risk", "opp strong", "pick weak", "market against", "no value", "short price", "low data", "mmx model market conflict", "h2h strongly against", "surface h2h against")
+    return sum(1 for token in risk_tokens if token in text)
+
+
+def audit_has_high_risk(row: Dict[str, Any]) -> bool:
+    return bool(row.get("top7_high_risk")) or "high risk" in _audit_blob(row) or "high risk pick" in _audit_blob(row)
+
+
+def audit_has_2plus_risk_tags(row: Dict[str, Any]) -> bool:
+    return _audit_risk_tag_count(row) >= 2
+
+
+def audit_has_opp_strong(row: Dict[str, Any]) -> bool:
+    text = _audit_blob(row)
+    return "opp strong" in text or "opponent strong" in text or "opp strong form" in text
+
+
+def audit_has_pick_weak(row: Dict[str, Any]) -> bool:
+    text = _audit_blob(row)
+    return "pick weak" in text or "pick weak form" in text
+
+
+def audit_has_market_against_pick(row: Dict[str, Any]) -> bool:
+    text = _audit_blob(row)
+    market_text = " | ".join(str(x) for x in (row.get("marq_final"), row.get("marq_final_display"), row.get("final_marq"), row.get("market_final"), row.get("marq_market_final")) if x).lower().replace("_", " ")
+    delta = marq_delta_pp(row)
+    return "market against pick" in text or "market against pick" in market_text or (delta is not None and delta < -3)
+
+
+def audit_has_no_value(row: Dict[str, Any]) -> bool:
+    text = _audit_blob(row)
+    if "no value" in text or "no value price" in text:
+        return True
+    for key in ("corq_value_delta_pp", "value_delta_pp", "expected_value_pct", "ev_pct"):
+        val = as_float(row.get(key))
+        if val is not None and val < -2:
+            return True
+    odds = pick_odds(row)
+    prob = probability(row)
+    if odds and prob is not None:
+        p = prob / 100.0 if prob > 1 else prob
+        return (p * odds - 1.0) < -0.02
+    return False
+
+
+def audit_has_short_price(row: Dict[str, Any]) -> bool:
+    odds = pick_odds(row)
+    return bool((odds is not None and odds < 1.50) or "short price" in _audit_blob(row))
+
+
+def audit_has_low_data_risk(row: Dict[str, Any]) -> bool:
+    return "low data" in _audit_blob(row) or "low data confidence" in _audit_blob(row)
+
+
+def audit_has_mmx_conflict(row: Dict[str, Any]) -> bool:
+    return "mmx conflict" in _audit_blob(row) or "model market conflict" in _audit_blob(row)
+
+
+def audit_filter_tags_for_row(row: Dict[str, Any]) -> List[str]:
+    tags = list(_ORIGINAL_AUDIT_FILTER_TAGS_FOR_ROW(row))
+    if audit_has_high_risk(row):
+        tags.append(AUDIT_HIGH_RISK_LABEL)
+    if audit_has_2plus_risk_tags(row):
+        tags.append(AUDIT_TWO_RISK_TAGS_LABEL)
+    if audit_has_opp_strong(row):
+        tags.append(AUDIT_OPP_STRONG_LABEL)
+    if audit_has_pick_weak(row):
+        tags.append(AUDIT_PICK_WEAK_LABEL)
+    if audit_has_market_against_pick(row):
+        tags.append(AUDIT_MARKET_AGAINST_LABEL)
+    if audit_has_no_value(row):
+        tags.append(AUDIT_NO_VALUE_LABEL)
+    if audit_has_short_price(row):
+        tags.append(AUDIT_SHORT_PRICE_LABEL)
+    if audit_has_low_data_risk(row):
+        tags.append(AUDIT_LOW_DATA_LABEL)
+    if audit_has_mmx_conflict(row):
+        tags.append(AUDIT_MMX_CONFLICT_LABEL)
+    out: List[str] = []
+    seen = set()
+    for tag in tags:
+        t = str(tag or "").strip()
+        if t and t not in seen:
+            out.append(t)
+            seen.add(t)
+    return out
+
+
+def audit_note_css(label: str) -> str:
+    if label in {AUDIT_HIGH_RISK_LABEL, AUDIT_TWO_RISK_TAGS_LABEL, AUDIT_OPP_STRONG_LABEL, AUDIT_PICK_WEAK_LABEL, AUDIT_MARKET_AGAINST_LABEL, AUDIT_NO_VALUE_LABEL, AUDIT_SHORT_PRICE_LABEL, AUDIT_LOW_DATA_LABEL, AUDIT_MMX_CONFLICT_LABEL}:
+        return "tag-chip audit-pill audit-pill-clear"
+    return _ORIGINAL_AUDIT_NOTE_CSS(label)
+
+
+def render_cards_page(title: str, active: str, rows: List[Dict[str, Any]], manifest: Dict[str, Any], page: str = "corq", dedupe: bool = False) -> str:
+    rows = dedupe_matches(rows) if dedupe else rows
+    for idx, row in enumerate(rows):
+        if isinstance(row, dict):
+            row["_corq_render_rank"] = idx + 1
+    mark_audit_h2h_top10(rows)
+    ensure_logs(rows)
+    if not rows:
+        cards = '<div class="empty">No rows available.</div>'
+    else:
+        cards = '<div class="grid">' + "\n".join(render_card(r, i + 1, page=page) for i, r in enumerate(rows)) + '</div>'
+    # CorQ, CloQ and Audit now share the same tag filter panel. Results has its
+    # own result_filter_builder, which also uses audit_filter_tags_for_row().
+    summary = render_notes_summary(rows) if page in {"corq", "cloq", "all"} else ""
+    return page_shell(title, active, summary + cards, manifest)
+
 def main() -> None:
     render_all()
 
