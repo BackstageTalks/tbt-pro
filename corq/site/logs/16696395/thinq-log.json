@@ -249,10 +249,10 @@
   "price1": 1.62,
   "price2": 2.3,
   "odds_source": "RapidAPI PRO event odds",
-  "odds_endpoint": "/api/tennis/event/16696395/odds",
+  "odds_endpoint": "/api/tennis/event/16696395/odds/1/all",
   "odds_status": "OK",
   "odds_attempts": [
-    "event_odds:OK"
+    "provider_all_odds[1]:OK"
   ],
   "odds_pair_available": true,
   "odds_labels_confirmed": true,
@@ -2414,11 +2414,10 @@
   "marq_ai_strength": 25,
   "marq_ai_consistency": 35,
   "marq_ai_reason": "ok",
-  "marq_event_id": "16696395",
   "marq_outcome_key": "od1",
-  "marq_source": "tennisapi_market_quality",
+  "marq_source": "fallback_existing_odds_thin_market",
   "marq_market_name": "Full time",
-  "marq_provider_count": 2,
+  "marq_provider_count": 1,
   "marq_market_spread_pct": 0.0,
   "marq_market_median_odds": 1.62,
   "marq_outlier_count": 0,
@@ -2543,5 +2542,5 @@
     "CLEAN_MODEL_SUPPORT"
   ],
   "corq_rank": 71,
-  "_corq_render_rank": 21
+  "_corq_render_rank": 19
 }

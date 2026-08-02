@@ -247,10 +247,10 @@
   "price1": 2.2,
   "price2": 1.67,
   "odds_source": "RapidAPI PRO event odds",
-  "odds_endpoint": "/api/tennis/event/16687412/odds",
+  "odds_endpoint": "/api/tennis/event/16687412/odds/1/all",
   "odds_status": "OK",
   "odds_attempts": [
-    "event_odds:OK"
+    "provider_all_odds[1]:OK"
   ],
   "odds_pair_available": true,
   "odds_labels_confirmed": true,
@@ -2534,5 +2534,5 @@
     "CLEAN_MODEL_SUPPORT"
   ],
   "corq_rank": 45,
-  "_corq_render_rank": 31
+  "_corq_render_rank": 29
 }
