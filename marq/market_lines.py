@@ -2137,3 +2137,7 @@ def build_sets_games_from_match(match: Dict[str, Any], model_prediction: Optiona
         enriched.setdefault("sets_games_best_value", None)
     enriched["sets_games_market_lines_version"] = _MARKET_LINES_FINAL_VERSION
     return enriched
+
+# 2026-08-02 note: TennisAPI request throttling and endpoint pruning is centralized
+# in marq/provider.py. This module continues to consume provider.fetch_provider_odds()
+# for Sets/Games market extraction, so no direct endpoint fan-out is added here.

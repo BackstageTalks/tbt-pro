@@ -1541,3 +1541,231 @@ def fetch_provider_odds(event_id: str, provider_id: int, force_refresh: bool = F
 # Replace debug printer that was historically too easy to break with f-string edits.
 def _debug(message: str) -> None:
     print(f"MARQ TENNISAPI DEBUG: {message}")
+
+# ---------------------------------------------------------------------------
+# 2026-08-02 API helper + MARQ endpoint pruning override
+# ---------------------------------------------------------------------------
+# Final definitions in this file intentionally override earlier runtime helpers.
+# Goals:
+# - keep RapidAPI below plan limit with max ~5 req/sec
+# - back off on 429 without killing the full run permanently
+# - stop MarQ odds fan-out after a successful Full time market
+# - avoid known permanent 404 endpoint shapes in daily runs
+
+_API_HELPER_VERSION = "2026-08-02-max5-stop-after-success"
+_LAST_REQUEST_TS = 0.0
+_RATE_LIMIT_COOLDOWN_UNTIL = 0.0
+_LAST_HTTP_AUDIT: Dict[str, Any] = {}
+API_REQUEST_AUDIT: List[Dict[str, Any]] = []
+
+
+def _api_min_delay_seconds() -> float:
+    try:
+        speed = float(os.getenv("MARQ_RAPIDAPI_MAX_RPS", "5"))
+        if speed <= 0:
+            speed = 5.0
+        # Keep a tiny buffer above theoretical 1/rps.
+        return max(0.20, (1.0 / speed) + 0.02)
+    except Exception:
+        return 0.24
+
+
+def _api_429_sleep_seconds() -> float:
+    try:
+        return max(3.0, float(os.getenv("MARQ_RAPIDAPI_429_SLEEP_SECONDS", "10")))
+    except Exception:
+        return 10.0
+
+
+def _throttle_rapidapi_request() -> None:
+    global _LAST_REQUEST_TS
+    now = time.time()
+    delay = _api_min_delay_seconds()
+    wait = delay - (now - _LAST_REQUEST_TS)
+    if wait > 0:
+        time.sleep(wait)
+    _LAST_REQUEST_TS = time.time()
+
+
+def _record_api_attempt(path: str, status: Optional[int], ok: bool, endpoint_name: Optional[str] = None, note: Optional[str] = None) -> None:
+    item = {
+        "ts": int(time.time()),
+        "path": str(path),
+        "endpoint_name": endpoint_name,
+        "status_code": status,
+        "ok": bool(ok),
+        "note": note,
+        "helper_version": _API_HELPER_VERSION,
+    }
+    API_REQUEST_AUDIT.append(item)
+    # Keep run audit bounded.
+    if len(API_REQUEST_AUDIT) > 3000:
+        del API_REQUEST_AUDIT[:1000]
+
+
+def _get_json(path: str, cache_name: Optional[str] = None, force_refresh: bool = False) -> Optional[Any]:
+    """Central RapidAPI JSON helper with cache, throttle and single 429 retry.
+
+    This replaces the earlier helper that permanently flipped a rate-limit flag.
+    We still protect the run, but one 429 now pauses and retries once instead of
+    making the rest of the run blind to MarQ market data.
+    """
+    global _RATE_LIMITED, _RATE_LIMIT_COOLDOWN_UNTIL, _LAST_HTTP_AUDIT
+
+    if not _api_key():
+        _debug("RAPIDAPI_KEY missing")
+        _LAST_HTTP_AUDIT = {"path": path, "status_code": None, "ok": False, "note": "MISSING_KEY"}
+        _record_api_attempt(path, None, False, note="MISSING_KEY")
+        return None
+
+    cache_file = _cache_path(cache_name) if cache_name else None
+    if cache_file and not force_refresh:
+        cached = _read_cache(cache_file)
+        if cached is not None:
+            _LAST_HTTP_AUDIT = {"path": path, "status_code": 200, "ok": True, "note": "CACHE"}
+            return cached
+
+    url = f"{TENNISAPI_BASE_URL}{path}"
+    attempts = 2
+    for attempt in range(attempts):
+        now = time.time()
+        if _RATE_LIMIT_COOLDOWN_UNTIL > now:
+            time.sleep(max(0.0, _RATE_LIMIT_COOLDOWN_UNTIL - now))
+
+        _throttle_rapidapi_request()
+        try:
+            response = requests.get(url, headers=_headers(), timeout=25)
+            status = int(response.status_code)
+            content_type = response.headers.get("content-type", "")
+            text_preview = (response.text or "")[:240].replace("\n", " ")
+            _debug(f"http status={status} path={path} content_type={content_type} body_preview={text_preview}")
+
+            if status == 204:
+                _LAST_HTTP_AUDIT = {"path": path, "status_code": status, "ok": False, "note": "NO_CONTENT"}
+                _record_api_attempt(path, status, False, note="NO_CONTENT")
+                return None
+
+            if status == 429:
+                _RATE_LIMITED = True
+                _RATE_LIMIT_COOLDOWN_UNTIL = time.time() + _api_429_sleep_seconds()
+                _LAST_HTTP_AUDIT = {"path": path, "status_code": status, "ok": False, "note": "RATE_LIMIT"}
+                _record_api_attempt(path, status, False, note="RATE_LIMIT")
+                if attempt + 1 < attempts:
+                    _debug(f"rate limited path={path}; sleeping then retrying once")
+                    continue
+                return None
+
+            if status >= 400:
+                _LAST_HTTP_AUDIT = {"path": path, "status_code": status, "ok": False, "note": "HTTP_ERROR"}
+                _record_api_attempt(path, status, False, note="HTTP_ERROR")
+                return None
+
+            if not response.text or not response.text.strip():
+                _LAST_HTTP_AUDIT = {"path": path, "status_code": status, "ok": False, "note": "EMPTY_BODY"}
+                _record_api_attempt(path, status, False, note="EMPTY_BODY")
+                return None
+
+            try:
+                data = response.json()
+            except Exception as exc:
+                _debug(f"json parse failed path={path} error={exc} body_preview={text_preview}")
+                _LAST_HTTP_AUDIT = {"path": path, "status_code": status, "ok": False, "note": "JSON_PARSE_FAILED"}
+                _record_api_attempt(path, status, False, note="JSON_PARSE_FAILED")
+                return None
+
+            if cache_file:
+                _write_cache(cache_file, data)
+            _LAST_HTTP_AUDIT = {"path": path, "status_code": status, "ok": True, "note": "OK"}
+            _record_api_attempt(path, status, True, note="OK")
+            return data
+
+        except Exception as exc:
+            _debug(f"request failed path={path} error={exc}")
+            _LAST_HTTP_AUDIT = {"path": path, "status_code": None, "ok": False, "note": f"EXCEPTION:{exc}"}
+            _record_api_attempt(path, None, False, note="EXCEPTION")
+            return None
+
+    return None
+
+
+_MARQ_PRUNED_ENDPOINT_VERSION = "2026-08-02-pruned-odds-endpoints-v1"
+
+
+def fetch_provider_odds(event_id: str, provider_id: int, force_refresh: bool = False) -> Optional[Dict[str, Any]]:
+    """Fetch provider odds with minimal endpoint fan-out.
+
+    Daily mode tries the known useful endpoint first and stops immediately when
+    a Full time market is available. Optional fan-out can be re-enabled for
+    endpoint research with MARQ_ENABLE_ODDS_ENDPOINT_FANOUT=1.
+    """
+    event_id = str(event_id)
+    provider_id = int(provider_id)
+    key = f"{event_id}:{provider_id}:pruned_v1"
+    if key in _RUN_PROVIDER_ODDS_CACHE and not force_refresh:
+        return _RUN_PROVIDER_ODDS_CACHE[key]
+
+    # Keep daily requests lean. Known 404 variants are intentionally excluded.
+    candidates: List[Tuple[str, str, bool]] = [
+        (f"/api/tennis/event/{event_id}/odds/{provider_id}/all", "getAllOddsForEvent", True),
+    ]
+
+    # Only use these in explicit audit/debug mode. They can be useful for testing
+    # but were too noisy in Daily runs.
+    if os.getenv("MARQ_ENABLE_ODDS_ENDPOINT_FANOUT", "0").strip() == "1":
+        candidates.extend([
+            (f"/api/tennis/event/{event_id}/odds/{provider_id}", "getProviderOdds", False),
+            (f"/api/tennis/event/{event_id}/odds", "getEventOdds", False),
+        ])
+
+    best_payload: Optional[Dict[str, Any]] = None
+    best_meta: Dict[str, Any] = {}
+    best_score = -1
+    endpoint_attempts: List[Dict[str, Any]] = []
+
+    for idx, (path, endpoint_name, stop_on_full_time) in enumerate(candidates):
+        cache_name = f"tennisapi_provider_odds_pruned_{event_id}_{provider_id}_{idx}_{endpoint_name}.json"
+        payload = _get_json(path, cache_name=cache_name, force_refresh=force_refresh)
+        audit = dict(_LAST_HTTP_AUDIT or {})
+        audit["endpoint_name"] = endpoint_name
+        endpoint_attempts.append(audit)
+
+        markets = _extract_markets(payload)
+        full_time = _select_full_time_market(markets) if markets else None
+        _debug(
+            f"provider odds pruned candidate event_id={event_id} provider_id={provider_id} "
+            f"endpoint={endpoint_name} status={audit.get('status_code')} markets={len(markets)} full_time={bool(full_time)}"
+        )
+
+        if not markets:
+            continue
+
+        score = len(markets) + (1000 if full_time else 0) + (100 if endpoint_name == "getAllOddsForEvent" else 0)
+        if score > best_score:
+            best_score = score
+            best_payload = payload if isinstance(payload, dict) else {"data": payload}
+            best_meta = {
+                "provider_odds_endpoint": path,
+                "provider_odds_endpoint_name": endpoint_name,
+                "provider_odds_market_count": len(markets),
+                "provider_odds_has_full_time": bool(full_time),
+                "provider_odds_fetch_version": _MARQ_PRUNED_ENDPOINT_VERSION,
+                "provider_odds_stop_after_success": bool(full_time and stop_on_full_time),
+                "provider_odds_request_count": len(endpoint_attempts),
+                "provider_odds_endpoint_attempts": endpoint_attempts,
+                "provider_odds_helper_version": _API_HELPER_VERSION,
+            }
+
+        if full_time and stop_on_full_time:
+            break
+
+    if isinstance(best_payload, dict):
+        output = dict(best_payload)
+        best_meta["provider_odds_request_count"] = len(endpoint_attempts)
+        best_meta["provider_odds_endpoint_attempts"] = endpoint_attempts
+        output["_corq_provider_meta"] = best_meta
+        _RUN_PROVIDER_ODDS_CACHE[key] = output
+        return output
+
+    _RUN_PROVIDER_ODDS_CACHE[key] = None
+    _debug(f"provider odds pruned missing event_id={event_id} provider_id={provider_id} attempts={len(endpoint_attempts)}")
+    return None
