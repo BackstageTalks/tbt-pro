@@ -1099,12 +1099,12 @@ def start_date(row: Dict[str, Any]) -> str:
                 dt = dt.replace(tzinfo=timezone.utc)
             else:
                 dt = dt.astimezone(timezone.utc)
-        return dt.astimezone(WEB_DISPLAY_TIMEZONE).strftime("%d.%m.%Y")
+        return dt.astimezone(WEB_DISPLAY_TIMEZONE).strftime("%d.%m.%y")
     except Exception:
         m = re.search(r"(\d{4}-\d{2}-\d{2})", text)
         if m:
             try:
-                return datetime.fromisoformat(m.group(1)).strftime("%d.%m.%Y")
+                return datetime.fromisoformat(m.group(1)).strftime("%d.%m.%y")
             except Exception:
                 return m.group(1)
         return ""
@@ -1163,6 +1163,7 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         '<div class="compact-topline">',
         (rank_badge or f'<div class="rank-num">#{rank or "—"}</div>'),
         f'<a class="brain goat-badge" href="{log_link(row)}" title="Open calculation log"><img class="card-goat-logo" src="{goat_badge_src()}" alt="AI"></a>',
+        f'<div class="compact-datetime-pill"><span class="compact-date">{esc(start_date(row))}</span><span class="compact-clock">{esc(start_time(row))}</span></div>',
         top_tag_html,
         '</div>',
         '<div class="compact-player pick-side">'
@@ -1173,7 +1174,7 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         '<div class="compact-player opp-side no-label">'
         f'<div class="compact-name-row"><span class="compact-name">{esc(o)} <span class="compact-odds inline opp">@ {fmt_odds(o_odds)}</span></span><span class="compact-rank">{esc(player_rank_display(row, "opponent"))}</span></div>'
         '</div>',
-        f'<div class="compact-match"><div class="compact-match-row"><span class="compact-time compact-datetime"><span class="compact-date">{esc(start_date(row))}</span><span class="compact-clock">{esc(start_time(row))}</span></span><span class="compact-meta">{esc(meta_line(row))}</span></div></div>',
+        f'<div class="compact-match"><div class="compact-match-row"><span class="compact-meta compact-meta-only">{esc(meta_line(row))}</span></div></div>',
         f'<div class="compact-tags bottom-notes">{note_html}</div>' if note_html else '',
         '</section>',
         render_mmx_box(row),
@@ -2253,6 +2254,13 @@ def css() -> str:
 
 /* Compact pick panel final override: reduce free space in player boxes, keep top tags unchanged, put match meta on one row. */
 .pick-main.compact-v3{padding:10px!important;gap:7px!important;min-height:0!important}.compact-v3 .compact-player{min-height:0!important;padding:8px 10px!important;justify-content:center!important}.compact-v3 .pick-side{min-height:0!important;padding-top:8px!important;padding-bottom:8px!important}.compact-player.no-label{padding-top:8px!important;padding-bottom:8px!important}.compact-label{margin-bottom:5px!important;font-size:9px!important;line-height:1!important}.compact-name-row{align-items:center!important;gap:7px!important}.compact-name{display:flex!important;align-items:center!important;gap:6px!important;min-width:0!important;font-size:13px!important;line-height:1.12!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}.compact-name .compact-odds.inline{flex:0 0 auto!important;margin-left:2px!important;transform:none!important;padding:2px 7px!important;font-size:10px!important;line-height:1.1!important}.compact-rank{font-size:11px!important;line-height:1!important;flex:0 0 auto!important}.compact-vs{height:14px!important;min-height:14px!important;margin:-1px 0!important;font-size:9px!important;line-height:1!important}.compact-match{padding:7px 9px!important;border-radius:12px!important}.compact-match-row{display:flex!important;align-items:center!important;gap:8px!important;min-width:0!important;white-space:nowrap!important;overflow:hidden!important}.compact-time{font-size:12px!important;line-height:1!important;flex:0 0 auto!important}.compact-meta{font-size:10px!important;line-height:1.15!important;margin-top:0!important;min-width:0!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}.compact-tags.bottom-notes{padding-top:4px!important;margin-top:auto!important}@media(max-width:760px){.compact-name{font-size:13px!important}.compact-match-row{gap:6px!important}.compact-meta{font-size:10px!important}}
+
+
+/* Unified date/time pill for CorQ, Audit, CloQ and Results cards. */
+.compact-datetime-pill{display:inline-flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:1px;min-width:58px;padding:3px 7px;border-radius:10px;background:rgba(15,32,54,.78);border:1px solid rgba(125,211,252,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.03);line-height:1.05;flex:0 0 auto}.compact-datetime-pill .compact-date{font-size:12px;font-weight:950;color:#e0f2fe;letter-spacing:.02em}.compact-datetime-pill .compact-clock{font-size:12px;font-weight:950;color:#dbeafe;letter-spacing:.02em}.compact-meta-only{width:100%;font-size:11px!important;line-height:1.2!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}.compact-match-row{align-items:center!important}.result-card .status-pill{display:inline-flex!important;margin-left:auto!important}.results-card .status-pill{display:inline-flex!important;margin-left:auto!important}
+/* Active filters are orange across Audit and Results; inactive filters keep the neutral style. */
+.audit-pill.active,.tag-chip.active,.result-summary-chip.active{border-color:var(--orange)!important;background:rgba(251,146,60,.24)!important;color:#fff!important;box-shadow:0 0 0 1px rgba(251,146,60,.25),0 0 18px rgba(251,146,60,.18)!important}.audit-pill.active .audit-pill-label,.audit-pill.active .audit-pill-count{color:#fff!important}
+@media(max-width:760px){.compact-datetime-pill{min-width:52px;padding:3px 6px}.compact-datetime-pill .compact-date,.compact-datetime-pill .compact-clock{font-size:11px}}
 
 """
 
@@ -3533,6 +3541,7 @@ def _result_card_pick_box(row: Dict[str, Any], rank: int) -> str:
         '<div class="pick-main compact-v3">',
         '<div class="compact-topline">',
         f'<span class="rank-num">#{rank}</span>',
+        f'<div class="compact-datetime-pill"><span class="compact-date">{esc(start_date(row))}</span><span class="compact-clock">{esc(start_time(row))}</span></div>',
         f'<span class="status-pill {status_cls}">{esc(status)}</span>',
         '</div>',
         '<div class="compact-player pick-side no-label">',
@@ -3547,8 +3556,7 @@ def _result_card_pick_box(row: Dict[str, Any], rank: int) -> str:
         f'<span class="compact-rank">{esc(player_rank_display(row, "opponent"))}</span>',
         '</div></div>',
         '<div class="compact-match"><div class="compact-match-row">',
-        f'<span class="compact-time">{esc(start_time(row))}</span>',
-        f'<span class="compact-meta">{esc(meta_line(row))}</span>',
+        f'<span class="compact-meta compact-meta-only">{esc(meta_line(row))}</span>',
         '</div></div>',
         f'<div class="compact-tags bottom-notes">{note_html}</div>' if note_html else '',
         '</div>',
