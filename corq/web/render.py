@@ -1162,8 +1162,8 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         '<section class="pick-main compact-v3">',
         '<div class="compact-topline">',
         (rank_badge or f'<div class="rank-num">#{rank or "—"}</div>'),
-        f'<a class="brain goat-badge" href="{log_link(row)}" title="Open calculation log"><img class="card-goat-logo" src="{goat_badge_src()}" alt="AI"></a>',
         f'<div class="compact-datetime-pill"><span class="compact-date">{esc(start_date(row))}</span><span class="compact-clock">{esc(start_time(row))}</span></div>',
+        f'<a class="brain goat-badge" href="{log_link(row)}" title="Open calculation log"><img class="card-goat-logo" src="{goat_badge_src()}" alt="AI"></a>',
         top_tag_html,
         '</div>',
         '<div class="compact-player pick-side">'
@@ -2257,10 +2257,10 @@ def css() -> str:
 
 
 /* Unified date/time pill for CorQ, Audit, CloQ and Results cards. */
-.compact-datetime-pill{display:inline-flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:1px;min-width:58px;padding:3px 7px;border-radius:10px;background:rgba(15,32,54,.78);border:1px solid rgba(125,211,252,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.03);line-height:1.05;flex:0 0 auto}.compact-datetime-pill .compact-date{font-size:12px;font-weight:950;color:#e0f2fe;letter-spacing:.02em}.compact-datetime-pill .compact-clock{font-size:12px;font-weight:950;color:#dbeafe;letter-spacing:.02em}.compact-meta-only{width:100%;font-size:11px!important;line-height:1.2!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}.compact-match-row{align-items:center!important}.result-card .status-pill{display:inline-flex!important;margin-left:auto!important}.results-card .status-pill{display:inline-flex!important;margin-left:auto!important}
+.compact-datetime-pill{display:inline-flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:1px;min-width:62px;padding:3px 7px;border-radius:10px;background:rgba(15,32,54,.78);border:1px solid rgba(125,211,252,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.03);line-height:1.05;flex:0 0 auto}.compact-datetime-pill .compact-date{font-size:10.5px;font-weight:900;color:#bae6fd;letter-spacing:.02em}.compact-datetime-pill .compact-clock{font-size:13.5px;font-weight:1000;color:#f8fafc;letter-spacing:.02em}.compact-meta-only{width:100%;font-size:11px!important;line-height:1.2!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}.compact-match-row{align-items:center!important}.result-card .status-pill{display:inline-flex!important;margin-left:auto!important}.results-card .status-pill{display:inline-flex!important;margin-left:auto!important}
 /* Active filters are orange across Audit and Results; inactive filters keep the neutral style. */
 .audit-pill.active,.tag-chip.active,.result-summary-chip.active{border-color:var(--orange)!important;background:rgba(251,146,60,.24)!important;color:#fff!important;box-shadow:0 0 0 1px rgba(251,146,60,.25),0 0 18px rgba(251,146,60,.18)!important}.audit-pill.active .audit-pill-label,.audit-pill.active .audit-pill-count{color:#fff!important}
-@media(max-width:760px){.compact-datetime-pill{min-width:52px;padding:3px 6px}.compact-datetime-pill .compact-date,.compact-datetime-pill .compact-clock{font-size:11px}}
+@media(max-width:760px){.compact-datetime-pill{min-width:54px;padding:3px 6px}.compact-datetime-pill .compact-date{font-size:10px}.compact-datetime-pill .compact-clock{font-size:13px}}
 
 """
 
@@ -2347,7 +2347,7 @@ AUDIT_ELO_SUPPORT_LABEL = "ELO support"
 AUDIT_SURFACE_SUPPORT_LABEL = "Surface support"
 AUDIT_MARKET_WITH_PICK_LABEL = "Market with pick"
 AUDIT_VALUE_POSITIVE_LABEL = "Value+"
-AUDIT_TWO_POSITIVE_TAGS_LABEL = "2+ positive tags"
+AUDIT_TWO_POSITIVE_TAGS_LABEL = "Positive tag"
 RESULT_LAST_3_DAYS_LABEL = "Last 3 days"
 RESULT_LAST_7_DAYS_LABEL = "Last 7 days"
 RESULT_LAST_MONTH_LABEL = "Last month"
@@ -2634,7 +2634,8 @@ def audit_positive_support_count(row: Dict[str, Any]) -> int:
 
 
 def audit_has_2plus_positive_tags(row: Dict[str, Any]) -> bool:
-    return audit_positive_support_count(row) >= 2
+    # At least one positive/support signal. Count only positive support tags.
+    return audit_positive_support_count(row) >= 1
 
 def get_existing_public_tags(row: Dict[str, Any]) -> List[str]:
     tags: List[str] = []
@@ -3542,6 +3543,7 @@ def _result_card_pick_box(row: Dict[str, Any], rank: int) -> str:
         '<div class="compact-topline">',
         f'<span class="rank-num">#{rank}</span>',
         f'<div class="compact-datetime-pill"><span class="compact-date">{esc(start_date(row))}</span><span class="compact-clock">{esc(start_time(row))}</span></div>',
+        f'<a class="brain goat-badge" href="{log_link(row)}" title="Open calculation log"><img class="card-goat-logo" src="{goat_badge_src()}" alt="AI"></a>',
         f'<span class="status-pill {status_cls}">{esc(status)}</span>',
         '</div>',
         '<div class="compact-player pick-side no-label">',
