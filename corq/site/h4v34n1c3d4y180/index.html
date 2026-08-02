@@ -35,6 +35,9 @@
 /* Unified date/time pill for CorQ, Audit, CloQ and Results cards. */
 .compact-datetime-pill{display:inline-flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:1px;min-width:62px;padding:3px 7px;border-radius:10px;background:rgba(15,32,54,.78);border:1px solid rgba(125,211,252,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.03);line-height:1.05;flex:0 0 auto}.compact-datetime-pill .compact-date{font-size:10.5px;font-weight:900;color:#bae6fd;letter-spacing:.02em}.compact-datetime-pill .compact-clock{font-size:13.5px;font-weight:1000;color:#f8fafc;letter-spacing:.02em}.compact-meta-only{width:100%;font-size:11px!important;line-height:1.2!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}.compact-match-row{align-items:center!important}.result-card .status-pill{display:inline-flex!important;margin-left:auto!important}.results-card .status-pill{display:inline-flex!important;margin-left:auto!important}
 /* Active filters are orange across Audit and Results; inactive filters keep the neutral style. */
+
+/* Final pick-card header order/style override: rank, date/time, log icon, tags. */
+.compact-topline{display:flex!important;align-items:center!important;gap:8px!important;min-height:36px!important;overflow:hidden!important}.compact-topline .rank-num{order:1!important;flex:0 0 auto!important}.compact-datetime-pill{order:2!important;flex:0 0 auto!important;align-items:flex-start!important}.compact-datetime-pill .compact-date{font-size:10px!important;line-height:1.05!important;color:#bde9ff!important;font-weight:900!important}.compact-datetime-pill .compact-clock{font-size:14px!important;line-height:1.05!important;color:#fff!important;font-weight:1000!important}.compact-topline .brain.goat-badge{order:3!important;flex:0 0 auto!important}.compact-top-tags{order:4!important;flex:1 1 auto!important;min-width:0!important}.status-pill{order:5!important}.compact-match .compact-time{display:none!important}.compact-meta-only{padding-left:0!important}
 .audit-pill.active,.tag-chip.active,.result-summary-chip.active{border-color:var(--orange)!important;background:rgba(251,146,60,.24)!important;color:#fff!important;box-shadow:0 0 0 1px rgba(251,146,60,.25),0 0 18px rgba(251,146,60,.18)!important}.audit-pill.active .audit-pill-label,.audit-pill.active .audit-pill-count{color:#fff!important}
 @media(max-width:760px){.compact-datetime-pill{min-width:54px;padding:3px 6px}.compact-datetime-pill .compact-date{font-size:10px}.compact-datetime-pill .compact-clock{font-size:13px}}
 
@@ -51,7 +54,7 @@
   <div class="hero-panel"><div class="hero-title">WHY WE DO IT</div><div class="hero-line">To replace guesswork with transparent, data-driven insights.</div></div>
 </div>
 
-<div class="grid"><article class="pick-card" data-start-ts="1785687000" data-tags="CorQ Top20|H2H Top10|Form support|ELO support|Surface support|Market with pick|Value+|Positive tag">
+<div class="grid"><article class="pick-card" data-start-ts="1785687000" data-tags="CorQ Top20|H2H Top10|Form support|ELO support|Surface support|Market with pick|Value+|Positive tag|2 positive tags">
 <section class="pick-main compact-v3">
 <div class="compact-topline">
 <div class="rank-num">#1</div>
@@ -110,7 +113,7 @@
 <div class="metric-row "><span class="metric-label">MarQ Final <span class="info info-dot" tabindex="0" role="button" aria-label="MarQ Final: final market read for the pick. It summarizes market edge, movement and CLV into a bettor-facing verdict such as Market With Pick, Market Against Pick or Neutral." data-tip="MarQ Final: final market read for the pick. It summarizes market edge, movement and CLV into a bettor-facing verdict such as Market With Pick, Market Against Pick or Neutral.">i</span></span><b>Market With Pick</b></div>
 </section>
 </article>
-<article class="pick-card" data-start-ts="1785700800" data-tags="CorQ Top20|Pick strong|Form support|ELO support|Surface support|Market with pick|Value+|Positive tag">
+<article class="pick-card" data-start-ts="1785700800" data-tags="CorQ Top20|Pick strong|Form support|ELO support|Surface support|Market with pick|Value+|Positive tag|2 positive tags">
 <section class="pick-main compact-v3">
 <div class="compact-topline">
 <div class="rank-num">#2</div>
@@ -169,7 +172,7 @@
 <div class="metric-row "><span class="metric-label">MarQ Final <span class="info info-dot" tabindex="0" role="button" aria-label="MarQ Final: final market read for the pick. It summarizes market edge, movement and CLV into a bettor-facing verdict such as Market With Pick, Market Against Pick or Neutral." data-tip="MarQ Final: final market read for the pick. It summarizes market edge, movement and CLV into a bettor-facing verdict such as Market With Pick, Market Against Pick or Neutral.">i</span></span><b>Market With Pick</b></div>
 </section>
 </article>
-<article class="pick-card" data-start-ts="1785686400" data-tags="CorQ Top20|Pick strong|Form support|ELO support|Surface support|Market with pick|Value+|Positive tag">
+<article class="pick-card" data-start-ts="1785686400" data-tags="CorQ Top20|Pick strong|Form support|ELO support|Surface support|Market with pick|Value+|Positive tag|2 positive tags">
 <section class="pick-main compact-v3">
 <div class="compact-topline">
 <div class="rank-num">#3</div>
@@ -228,7 +231,7 @@
 <div class="metric-row "><span class="metric-label">MarQ Final <span class="info info-dot" tabindex="0" role="button" aria-label="MarQ Final: final market read for the pick. It summarizes market edge, movement and CLV into a bettor-facing verdict such as Market With Pick, Market Against Pick or Neutral." data-tip="MarQ Final: final market read for the pick. It summarizes market edge, movement and CLV into a bettor-facing verdict such as Market With Pick, Market Against Pick or Neutral.">i</span></span><b>Market With Pick</b></div>
 </section>
 </article>
-<article class="pick-card" data-start-ts="1785687000" data-tags="No previous H2H matches|CorQ Top20|ELO support|Surface support|Market with pick|Positive tag">
+<article class="pick-card" data-start-ts="1785687000" data-tags="No previous H2H matches|CorQ Top20|ELO support|Surface support|Market with pick|Positive tag|2 positive tags">
 <section class="pick-main compact-v3">
 <div class="compact-topline">
 <div class="rank-num">#4</div>
@@ -288,7 +291,7 @@
 <div class="metric-row "><span class="metric-label">MarQ Final <span class="info info-dot" tabindex="0" role="button" aria-label="MarQ Final: final market read for the pick. It summarizes market edge, movement and CLV into a bettor-facing verdict such as Market With Pick, Market Against Pick or Neutral." data-tip="MarQ Final: final market read for the pick. It summarizes market edge, movement and CLV into a bettor-facing verdict such as Market With Pick, Market Against Pick or Neutral.">i</span></span><b>Market With Pick</b></div>
 </section>
 </article>
-<article class="pick-card" data-start-ts="1785692400" data-tags="No previous H2H matches|CorQ Top20|ELO support|Surface support|Market with pick|Positive tag">
+<article class="pick-card" data-start-ts="1785692400" data-tags="No previous H2H matches|CorQ Top20|ELO support|Surface support|Market with pick|Positive tag|2 positive tags">
 <section class="pick-main compact-v3">
 <div class="compact-topline">
 <div class="rank-num">#5</div>
@@ -348,7 +351,7 @@
 <div class="metric-row "><span class="metric-label">MarQ Final <span class="info info-dot" tabindex="0" role="button" aria-label="MarQ Final: final market read for the pick. It summarizes market edge, movement and CLV into a bettor-facing verdict such as Market With Pick, Market Against Pick or Neutral." data-tip="MarQ Final: final market read for the pick. It summarizes market edge, movement and CLV into a bettor-facing verdict such as Market With Pick, Market Against Pick or Neutral.">i</span></span><b>Market With Pick</b></div>
 </section>
 </article>
-<article class="pick-card" data-start-ts="1785682800" data-tags="CorQ Top20|Opp weak|Form support|ELO support|Surface support|Market with pick|Positive tag">
+<article class="pick-card" data-start-ts="1785682800" data-tags="CorQ Top20|Opp weak|Form support|ELO support|Surface support|Market with pick|Positive tag|2 positive tags">
 <section class="pick-main compact-v3">
 <div class="compact-topline">
 <div class="rank-num">#6</div>
@@ -407,7 +410,7 @@
 <div class="metric-row "><span class="metric-label">MarQ Final <span class="info info-dot" tabindex="0" role="button" aria-label="MarQ Final: final market read for the pick. It summarizes market edge, movement and CLV into a bettor-facing verdict such as Market With Pick, Market Against Pick or Neutral." data-tip="MarQ Final: final market read for the pick. It summarizes market edge, movement and CLV into a bettor-facing verdict such as Market With Pick, Market Against Pick or Neutral.">i</span></span><b>Market With Pick</b></div>
 </section>
 </article>
-<article class="pick-card" data-start-ts="1785692400" data-tags="No previous H2H matches|CorQ Top20|ELO support|Surface support|Market with pick|Positive tag">
+<article class="pick-card" data-start-ts="1785692400" data-tags="No previous H2H matches|CorQ Top20|ELO support|Surface support|Market with pick|Positive tag|2 positive tags">
 <section class="pick-main compact-v3">
 <div class="compact-topline">
 <div class="rank-num">#7</div>
