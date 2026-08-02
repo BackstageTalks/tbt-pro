@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.25,
   "latest_odds_player2": 1.57143,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-02T05:43:43.651533+00:00",
+  "latest_snapshot_time_utc": "2026-08-02T11:46:56.004383+00:00",
   "opening_odds_player1": 2.25,
   "opening_odds_player2": 1.57143,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Carolina Alves",
   "player2": "Giorgia Pedone",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "16687757",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-01T15:34:33+00:00",
       "target_date": "2026-08-02"
+    },
+    {
+      "event_id": "16687757",
+      "event_key": "2026-08-02_carolina-alves_vs_giorgia-pedone",
+      "hours_to_start": -20.21,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.25,
+      "odds_player2": 1.57143,
+      "player1": "Carolina Alves",
+      "player2": "Giorgia Pedone",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-02T11:46:56.004383+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-01T15:34:33+00:00",
+      "target_date": "2026-08-02"
     }
   ],
   "start_time_utc": "2026-08-01T15:34:33+00:00",
-  "updated_at_utc": "2026-08-02T05:43:57.964441+00:00"
+  "updated_at_utc": "2026-08-02T11:47:10.397077+00:00"
 }
