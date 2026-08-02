@@ -172,10 +172,45 @@ def lookup_player_rank(player_name: Any, rankings: Optional[Dict[str, Any]] = No
     return None
 
 
+RANK_FALLBACK_DISPLAY = "(X)"
+
+
+def _clean_rank_value(value: Any) -> Optional[int]:
+    """Return a real ranking integer or None when ranking could not be loaded.
+
+    Important project rule: missing/unloaded player rankings must never be
+    rendered as empty, None, nan, null or 0.  They are displayed as (X).
+    """
+    if value is None:
+        return None
+    if isinstance(value, bool):
+        return None
+    text = str(value).strip()
+    if not text:
+        return None
+    lowered = text.lower()
+    if lowered in {"none", "nan", "null", "undefined", "n/a", "na", "-", "—", "(x)", "x"}:
+        return None
+    if text.startswith("(") and text.endswith(")"):
+        text = text[1:-1].strip()
+        if not text or text.lower() in {"x", "none", "nan", "null", "undefined", "n/a", "na", "-", "—"}:
+            return None
+    try:
+        rank = int(float(text))
+    except Exception:
+        return None
+    if rank <= 0:
+        return None
+    return rank
+
+
 def rank_display(rank_record: Optional[Dict[str, Any]]) -> str:
-    if not rank_record or rank_record.get("rank") in (None, ""):
-        return "(X)"
-    return f"({int(rank_record['rank'])})"
+    if not isinstance(rank_record, dict):
+        return RANK_FALLBACK_DISPLAY
+    rank = _clean_rank_value(rank_record.get("rank"))
+    if rank is None:
+        return RANK_FALLBACK_DISPLAY
+    return f"({rank})"
 
 
 def enrich_row_with_ta_ranks(row: Dict[str, Any], rankings: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
