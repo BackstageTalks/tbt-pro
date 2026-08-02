@@ -1076,6 +1076,40 @@ def start_time(row: Dict[str, Any]) -> str:
         return m.group(1) if m else text
 
 
+def start_date(row: Dict[str, Any]) -> str:
+    raw = (
+        row.get("start_time_utc")
+        or row.get("match_time_utc")
+        or row.get("commence_time")
+        or row.get("start_time")
+        or row.get("match_time")
+        or row.get("start_time_display")
+        or row.get("match_time_display")
+        or ""
+    )
+    text = str(raw or "").strip()
+    if not text:
+        return ""
+    try:
+        if re.fullmatch(r"\d{10,13}", text):
+            dt = datetime.fromtimestamp(int(text[:10]), tz=timezone.utc)
+        else:
+            dt = datetime.fromisoformat(text.replace("Z", "+00:00"))
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            else:
+                dt = dt.astimezone(timezone.utc)
+        return dt.astimezone(WEB_DISPLAY_TIMEZONE).strftime("%d.%m.%Y")
+    except Exception:
+        m = re.search(r"(\d{4}-\d{2}-\d{2})", text)
+        if m:
+            try:
+                return datetime.fromisoformat(m.group(1)).strftime("%d.%m.%Y")
+            except Exception:
+                return m.group(1)
+        return ""
+
+
 def meta_line(row: Dict[str, Any]) -> str:
     bits = []
     for key in ("tournament", "category", "surface", "best_of"):
@@ -1124,7 +1158,7 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
     odds_gap_txt = as_pct(odds_gap, 1) if odds_gap is not None else "—"
     cloq_extra = ""
     html_parts = [
-        f'<article class="pick-card" data-tags="{esc(data_tags)}">',
+        f'<article class="pick-card" data-start-ts="{int(audit_match_time_utc(row).timestamp()) if audit_match_time_utc(row) else 0}" data-tags="{esc(data_tags)}">',
         '<section class="pick-main compact-v3">',
         '<div class="compact-topline">',
         (rank_badge or f'<div class="rank-num">#{rank or "—"}</div>'),
@@ -1139,9 +1173,10 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         '<div class="compact-player opp-side no-label">'
         f'<div class="compact-name-row"><span class="compact-name">{esc(o)} <span class="compact-odds inline opp">@ {fmt_odds(o_odds)}</span></span><span class="compact-rank">{esc(player_rank_display(row, "opponent"))}</span></div>'
         '</div>',
-        f'<div class="compact-match"><div class="compact-match-row"><span class="compact-time">{esc(start_time(row))}</span><span class="compact-meta">{esc(meta_line(row))}</span></div></div>',
+        f'<div class="compact-match"><div class="compact-match-row"><span class="compact-time compact-datetime"><span class="compact-date">{esc(start_date(row))}</span><span class="compact-clock">{esc(start_time(row))}</span></span><span class="compact-meta">{esc(meta_line(row))}</span></div></div>',
         f'<div class="compact-tags bottom-notes">{note_html}</div>' if note_html else '',
         '</section>',
+        render_mmx_box(row),
         '<section class="metric-box">',
         f'<div class="box-head"><span>CorQ {info_icon("corq")}</span><b>{as_pct(prob, 1)}</b></div>',
         metric_row("P EL | S-E", esc(elo_pair_display(row)), elo_pair_class(row)),
@@ -1151,7 +1186,7 @@ def render_card(row: Dict[str, Any], rank: Optional[int] = None, page: str = "co
         metric_row("P ThinQ Edge", esc(f"{pe_txt} | {pe_state}"), pe_cls),
         metric_row("S Data Depth", bar_html(stat_depth(row))),
         '</section>',
-        render_mmx_box(row),
+        
         '<section class="metric-box thinq-box">',
         f'<div class="box-head"><span>ThinQ P | C {info_icon("thinq_pc")}</span><b>{as_pct(thinq_prob(row), 1)} | {as_pct(thinq_conf(row), 1)}</b></div>',
         metric_row("P F | S-F", esc(f"{pick_form} | {pick_sform}")),
@@ -2297,6 +2332,14 @@ AUDIT_TIME_ODDS_LABEL = "Up to 2H | O>1.5"
 AUDIT_SAFE_BET_LABEL = "Safe Bet Signal"
 AUDIT_H2H_TOP10_LABEL = "H2H Top10"
 AUDIT_CLOQ_LABEL = "CloQ"
+AUDIT_OPP_WEAK_LABEL = "Opp weak"
+AUDIT_PICK_STRONG_LABEL = "Pick strong"
+AUDIT_FORM_SUPPORT_LABEL = "Form support"
+AUDIT_ELO_SUPPORT_LABEL = "ELO support"
+AUDIT_SURFACE_SUPPORT_LABEL = "Surface support"
+AUDIT_MARKET_WITH_PICK_LABEL = "Market with pick"
+AUDIT_VALUE_POSITIVE_LABEL = "Value+"
+AUDIT_TWO_POSITIVE_TAGS_LABEL = "2+ positive tags"
 RESULT_LAST_3_DAYS_LABEL = "Last 3 days"
 RESULT_LAST_7_DAYS_LABEL = "Last 7 days"
 RESULT_LAST_MONTH_LABEL = "Last month"
@@ -2379,6 +2422,9 @@ def audit_has_corq_top20(row: Dict[str, Any]) -> bool:
 def audit_has_up_to_2h_o15(row: Dict[str, Any]) -> bool:
     odds = pick_odds(row)
     if odds is None or odds <= 1.50:
+        return False
+    status = normal_status(row)
+    if status and status not in {"prematch", "pre-match", "notstarted", "not_started", "scheduled", "pending", ""}:
         return False
     dt = audit_match_time_utc(row)
     if dt is None:
@@ -2486,6 +2532,102 @@ def audit_has_cloq(row: Dict[str, Any]) -> bool:
     """
     return bool(row.get("_audit_cloq") or row.get("cloq_passed"))
 
+
+def audit_tag_text(row: Dict[str, Any]) -> str:
+    parts: List[str] = []
+    parts.extend(get_existing_public_tags(row))
+    try:
+        parts.extend(card_insights(row, notes_for_row(row), limit=8))
+    except Exception:
+        pass
+    return " | ".join(str(x) for x in parts if x).lower().replace("last 10", "l10")
+
+
+def audit_has_pick_strong(row: Dict[str, Any]) -> bool:
+    pick_form, pick_surface_form = form_records(row, "pick")
+    for record in (pick_form, pick_surface_form):
+        w, l = audit_record_pair(record)
+        if w is not None and l is not None and (w + l) >= 8 and w >= 8:
+            return True
+    return "pick strong" in audit_tag_text(row)
+
+
+def audit_has_opp_weak(row: Dict[str, Any]) -> bool:
+    opp_form, opp_surface_form = form_records(row, "opponent")
+    for record in (opp_form, opp_surface_form):
+        w, l = audit_record_pair(record)
+        if w is not None and l is not None and (w + l) >= 8 and l >= 7:
+            return True
+    return "opp weak" in audit_tag_text(row)
+
+
+def audit_has_form_support(row: Dict[str, Any]) -> bool:
+    if as_float(row.get("recent_form_edge") or row.get("short_form_edge"), 0.0) > 0:
+        return True
+    if as_float(row.get("opponent_quality_edge"), 0.0) > 0:
+        return True
+    text = audit_tag_text(row)
+    return any(token in text for token in ("pick strong", "opp weak", "form support", "form+"))
+
+
+def audit_has_surface_support(row: Dict[str, Any]) -> bool:
+    if as_float(row.get("surface_recent_form_edge"), 0.0) > 0:
+        return True
+    _, surface = elo_edges(row)
+    if surface is not None and surface > 0:
+        return True
+    return "surface support" in audit_tag_text(row)
+
+
+def audit_has_elo_support(row: Dict[str, Any]) -> bool:
+    overall, surface = elo_edges(row)
+    return bool((overall is not None and overall > 0) or (surface is not None and surface > 0))
+
+
+def audit_has_market_with_pick(row: Dict[str, Any]) -> bool:
+    text = " | ".join(str(x) for x in (
+        row.get("marq_final"),
+        row.get("marq_final_display"),
+        row.get("final_marq"),
+        row.get("market_final"),
+        row.get("marq_market_final"),
+    ) if x).lower().replace("_", " ")
+    if "market with pick" in text:
+        return True
+    marq_delta = marq_delta_pp(row)
+    return marq_delta is not None and marq_delta >= 0
+
+
+def audit_has_value_positive(row: Dict[str, Any]) -> bool:
+    for key in ("corq_value_delta_pp", "value_delta_pp", "expected_value_pct", "ev_pct"):
+        val = as_float(row.get(key))
+        if val is not None and val > 0:
+            return True
+    odds = pick_odds(row)
+    prob = probability(row)
+    if odds and prob is not None:
+        p = prob / 100.0 if prob > 1 else prob
+        return (p * odds - 1.0) > 0
+    return False
+
+
+def audit_positive_support_count(row: Dict[str, Any]) -> int:
+    checks = [
+        audit_has_pick_strong(row),
+        audit_has_opp_weak(row),
+        audit_has_form_support(row),
+        audit_has_elo_support(row),
+        audit_has_surface_support(row),
+        audit_has_market_with_pick(row),
+        audit_has_value_positive(row),
+        audit_h2h_support_score(row) > 0,
+    ]
+    return sum(1 for x in checks if x)
+
+
+def audit_has_2plus_positive_tags(row: Dict[str, Any]) -> bool:
+    return audit_positive_support_count(row) >= 2
+
 def get_existing_public_tags(row: Dict[str, Any]) -> List[str]:
     tags: List[str] = []
     for key in ("tags", "audit_tags", "audit_filter_tags", "data_notes", "notes", "flags"):
@@ -2509,6 +2651,22 @@ def audit_filter_tags_for_row(row: Dict[str, Any]) -> List[str]:
         tags.append(AUDIT_H2H_TOP10_LABEL)
     if audit_has_cloq(row):
         tags.append(AUDIT_CLOQ_LABEL)
+    if audit_has_opp_weak(row):
+        tags.append(AUDIT_OPP_WEAK_LABEL)
+    if audit_has_pick_strong(row):
+        tags.append(AUDIT_PICK_STRONG_LABEL)
+    if audit_has_form_support(row):
+        tags.append(AUDIT_FORM_SUPPORT_LABEL)
+    if audit_has_elo_support(row):
+        tags.append(AUDIT_ELO_SUPPORT_LABEL)
+    if audit_has_surface_support(row):
+        tags.append(AUDIT_SURFACE_SUPPORT_LABEL)
+    if audit_has_market_with_pick(row):
+        tags.append(AUDIT_MARKET_WITH_PICK_LABEL)
+    if audit_has_value_positive(row):
+        tags.append(AUDIT_VALUE_POSITIVE_LABEL)
+    if audit_has_2plus_positive_tags(row):
+        tags.append(AUDIT_TWO_POSITIVE_TAGS_LABEL)
     existing = row.get("audit_filter_tags")
     if isinstance(existing, list):
         tags.extend(str(x) for x in existing if x)
@@ -2533,6 +2691,8 @@ def audit_note_css(label: str) -> str:
         return "tag-chip audit-pill audit-pill-h2h"
     if label == AUDIT_CLOQ_LABEL:
         return "tag-chip audit-pill audit-pill-signal"
+    if label in {AUDIT_OPP_WEAK_LABEL, AUDIT_PICK_STRONG_LABEL, AUDIT_FORM_SUPPORT_LABEL, AUDIT_ELO_SUPPORT_LABEL, AUDIT_SURFACE_SUPPORT_LABEL, AUDIT_MARKET_WITH_PICK_LABEL, AUDIT_VALUE_POSITIVE_LABEL, AUDIT_TWO_POSITIVE_TAGS_LABEL}:
+        return "tag-chip audit-pill audit-pill-safe"
     if label in {RESULT_LAST_3_DAYS_LABEL, RESULT_LAST_7_DAYS_LABEL, RESULT_LAST_MONTH_LABEL, RESULT_THIS_YEAR_LABEL}:
         return "tag-chip audit-pill audit-pill-date"
     if label in {RESULT_MODEL_CORQ_LABEL, RESULT_MODEL_CLOQ_LABEL, RESULT_MODEL_AUDIT_LABEL}:
@@ -2550,6 +2710,22 @@ def tag_filter_script() -> str:
       .split('|')
       .map(x => x.trim())
       .filter(Boolean);
+  }
+
+  function sortVisibleCardsByTime(){
+    const gridNodes = document.querySelectorAll('.grid');
+    gridNodes.forEach(grid => {
+      const cards = Array.from(grid.querySelectorAll('.pick-card'));
+      if(!cards.length){ return; }
+      cards.sort((a,b) => {
+        const av = Number(a.getAttribute('data-start-ts') || '0');
+        const bv = Number(b.getAttribute('data-start-ts') || '0');
+        if(av === bv){ return 0; }
+        if(av === 0){ return 1; }
+        if(bv === 0){ return -1; }
+        return av - bv;
+      }).forEach(card => grid.appendChild(card));
+    });
   }
 
   function applyFilters(){
@@ -2630,8 +2806,16 @@ def render_notes_summary(rows: List[Dict[str, Any]]) -> str:
             AUDIT_CORQ_TOP20_LABEL: 0,
             AUDIT_TIME_ODDS_LABEL: 1,
             AUDIT_CLOQ_LABEL: 2,
-            AUDIT_SAFE_BET_LABEL: 3,
-            AUDIT_H2H_TOP10_LABEL: 4,
+            AUDIT_OPP_WEAK_LABEL: 3,
+            AUDIT_PICK_STRONG_LABEL: 4,
+            AUDIT_TWO_POSITIVE_TAGS_LABEL: 5,
+            AUDIT_FORM_SUPPORT_LABEL: 6,
+            AUDIT_ELO_SUPPORT_LABEL: 7,
+            AUDIT_SURFACE_SUPPORT_LABEL: 8,
+            AUDIT_MARKET_WITH_PICK_LABEL: 9,
+            AUDIT_VALUE_POSITIVE_LABEL: 10,
+            AUDIT_SAFE_BET_LABEL: 11,
+            AUDIT_H2H_TOP10_LABEL: 12,
         }.get(label, 10)
         return order, -count, label
 
@@ -3108,7 +3292,7 @@ def render_results_filter_builder(rows: List[Dict[str, Any]]) -> str:
         ("Result", ["WON", "LOST", "VOID", "PENDING"]),
         ("Model", [RESULT_MODEL_CORQ_LABEL, RESULT_MODEL_CLOQ_LABEL, RESULT_MODEL_AUDIT_LABEL]),
         ("Date", [RESULT_LAST_3_DAYS_LABEL, RESULT_LAST_7_DAYS_LABEL, RESULT_LAST_MONTH_LABEL, RESULT_THIS_YEAR_LABEL]),
-        ("Signals", [AUDIT_CORQ_TOP20_LABEL, AUDIT_TIME_ODDS_LABEL, AUDIT_CLOQ_LABEL, AUDIT_SAFE_BET_LABEL, AUDIT_H2H_TOP10_LABEL]),
+        ("Signals", [AUDIT_CORQ_TOP20_LABEL, AUDIT_TIME_ODDS_LABEL, AUDIT_CLOQ_LABEL, AUDIT_OPP_WEAK_LABEL, AUDIT_PICK_STRONG_LABEL, AUDIT_TWO_POSITIVE_TAGS_LABEL, AUDIT_FORM_SUPPORT_LABEL, AUDIT_ELO_SUPPORT_LABEL, AUDIT_MARKET_WITH_PICK_LABEL, AUDIT_VALUE_POSITIVE_LABEL, AUDIT_SAFE_BET_LABEL, AUDIT_H2H_TOP10_LABEL]),
         ("Data notes", ["No previous H2H matches", "Recent form pending"]),
     ]
 
