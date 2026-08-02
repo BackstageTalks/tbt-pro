@@ -2,6 +2,15 @@ name: CORQ Smoke Tests
 
 on:
   workflow_dispatch:
+    inputs:
+      enable_tennisapi_rankings:
+        description: "Run a small TennisApi ranking endpoint smoke test"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
   push:
     branches:
       - main
@@ -12,6 +21,10 @@ permissions:
 jobs:
   smoke:
     runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+      RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+      TENNISAPI_ATTACH_RANKINGS: ${{ github.event_name == 'workflow_dispatch' && inputs.enable_tennisapi_rankings == 'true' && '1' || '0' }}
 
     steps:
       - name: Checkout
@@ -68,6 +81,27 @@ jobs:
           from corq.ranking import rank_corq, make_all_match_view, top7_from_ranking
 
           print("CORQ imports OK")
+          PY
+
+      - name: Optional TennisApi ranking endpoint smoke
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.enable_tennisapi_rankings == 'true' }}
+        run: |
+          python - <<'PY'
+          import os
+          from thinq.loaders.rapidapi_client import RapidApiClient
+
+          if not os.getenv("RAPIDAPI_KEY"):
+              print("RAPIDAPI_KEY missing; skipping ranking endpoint call.")
+              raise SystemExit(0)
+
+          client = RapidApiClient()
+          for name, tour in [("Matteo Berrettini", "atp"), ("Jessica Pegula", "wta")]:
+              result = client.get_player_ranking(name, tour=tour)
+              print(f"ranking_smoke_player={name}")
+              print(f"ranking_smoke_status={result.get('status')}")
+              print(f"ranking_smoke_rank={result.get('rank')}")
+              print(f"ranking_smoke_points={result.get('points')}")
+              print(f"ranking_smoke_attempts={result.get('attempts', [])[:4]}")
           PY
 
       - name: Runtime sample smoke

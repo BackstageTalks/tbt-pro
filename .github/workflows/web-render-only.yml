@@ -35,6 +35,8 @@ permissions:
 
 env:
   PYTHONUNBUFFERED: "1"
+  # Render-only must never call TennisApi rankings. It only renders existing outputs.
+  TENNISAPI_ATTACH_RANKINGS: "0"
 
 concurrency:
   group: web-render-only-${{ github.ref }}

@@ -2,6 +2,15 @@ name: Daily Tennis Predictions
 
 on:
   workflow_dispatch:
+    inputs:
+      enable_tennisapi_rankings:
+        description: "Manually enable TennisApi ranking lookup for this run"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
   schedule:
     # Runs at 05:10 Europe/Bratislava, with a delayed-run guard window until 05:55.
     # Summer time: 03:10 UTC -> 05:10 CEST.
@@ -26,6 +35,9 @@ jobs:
       TG_FEED_TIMEZONE: "Europe/Bratislava"
       TG_FEED_UPCOMING_ONLY: "true"
       TG_FEED_PAST_GRACE_MINUTES: "0"
+      # Ranking endpoint usage is off by default to avoid wasting API quota.
+      # Enable only from workflow_dispatch input when doing a controlled test.
+      TENNISAPI_ATTACH_RANKINGS: ${{ github.event_name == 'workflow_dispatch' && inputs.enable_tennisapi_rankings == 'true' && '1' || '0' }}
 
     steps:
       - name: Check local run time
@@ -72,6 +84,16 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install pandas lxml html5lib beautifulsoup4 requests
+
+      - name: Show TennisApi ranking mode
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
+        run: |
+          echo "TENNISAPI_ATTACH_RANKINGS=${TENNISAPI_ATTACH_RANKINGS:-0}"
+          if [ "${TENNISAPI_ATTACH_RANKINGS:-0}" = "1" ]; then
+            echo "TennisApi ranking lookup is ENABLED for this manual run."
+          else
+            echo "TennisApi ranking lookup is disabled. No ranking API calls will be made by this switch."
+          fi
 
       - name: Run CorQ daily runtime
         if: ${{ steps.local_time.outputs.should_run == 'true' }}
