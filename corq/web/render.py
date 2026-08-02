@@ -566,21 +566,45 @@ def card_insights_html(row: Dict[str, Any], notes: Optional[List[str]] = None) -
         chips.append(f'<span class="insight-chip {cls}">{esc(text)}</span>')
     return f'<div class="card-insights chip-insights">{"".join(chips)}</div>'
 
+RANK_FALLBACK_DISPLAY = "(X)"
+
+
+def _clean_player_rank_value(value: Any) -> Optional[int]:
+    """Return a real ranking integer or None when the rank is missing/invalid.
+
+    Project rule: if ranking cannot be loaded for any player, render (X).
+    Do not leak None, nan, null, blank, 0 or other placeholder values into UI.
+    """
+    if value is None:
+        return None
+    if isinstance(value, bool):
+        return None
+    text = str(value).strip()
+    if not text:
+        return None
+    lowered = text.lower()
+    if lowered in {"none", "nan", "null", "undefined", "n/a", "na", "-", "—", "x", "(x)"}:
+        return None
+    if text.startswith("(") and text.endswith(")"):
+        text = text[1:-1].strip()
+        if not text or text.lower() in {"none", "nan", "null", "undefined", "n/a", "na", "-", "—", "x"}:
+            return None
+    try:
+        rank = int(float(text))
+    except Exception:
+        return None
+    if rank <= 0:
+        return None
+    return rank
+
+
 def player_rank_display(row: Dict[str, Any], side: str) -> str:
     keys = [f"{side}_ta_rank_display", f"{side}_rank_display", f"{side}_ta_rank", f"{side}_rank"]
     for key in keys:
-        val = row.get(key)
-        if val is None or val == "":
-            continue
-        txt = str(val).strip()
-        if txt.startswith("(") and txt.endswith(")"):
-            return txt
-        try:
-            return f"({int(float(txt))})"
-        except Exception:
-            if txt and txt.lower() != "none":
-                return f"({txt})"
-    return "(X)"
+        rank = _clean_player_rank_value(row.get(key))
+        if rank is not None:
+            return f"({rank})"
+    return RANK_FALLBACK_DISPLAY
 
 
 def add_rank(name: Any, row: Dict[str, Any], side: str) -> str:
