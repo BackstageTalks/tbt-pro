@@ -448,6 +448,10 @@ def evaluate_row(
         "date": result_row_date(out, run_date, local_tz),
         "model": model,
         "source_snapshot": source_snapshot,
+        "snapshot_source": first_value(out, "snapshot_source", default=("CORQ_DAILY" if model == "corq" else model.upper())),
+        "snapshot_type": first_value(out, "snapshot_type", default=("DAILY_CORQ_SNAPSHOT" if model == "corq" else f"DAILY_{model.upper()}_SNAPSHOT")),
+        "snapshot_functional_day": first_value(out, "snapshot_functional_day", "functional_day", default=result_row_date(out, run_date, local_tz)),
+        "snapshot_run_time": first_value(out, "snapshot_run_time", default=now_iso()),
         "match_id": out.get("match_id") or out.get("event_id") or out.get("id"),
         "pick": pick_name(out),
         "opponent": opponent_name(out),
@@ -484,6 +488,8 @@ def evaluate_row(
         "event_fetch_status": event_fetch_status,
         "match_identity": match_identity(out),
         "side_identity": side_identity(out),
+        "snapshot_id": first_value(out, "snapshot_id", default=f"{('CORQ_DAILY' if model == 'corq' else model.upper())}:{result_row_date(out, run_date, local_tz)}:{side_identity(out)}"),
+        "source_filter": first_value(out, "source_filter", default=("CorQ" if model == "corq" else model.upper())),
         "prediction_snapshot": prediction_snapshot,
     })
 
@@ -605,6 +611,36 @@ def local_yesterday(local_tz: str = "Europe/Bratislava") -> str:
     return (datetime.now(timezone.utc).date() - timedelta(days=1)).isoformat()
 
 
+FUNCTIONAL_DAY_START_HOUR = 5
+
+
+def functional_day_for_datetime(dt: Optional[datetime], local_tz: str = "Europe/Bratislava") -> str:
+    """Return the tennis functional day for a datetime.
+
+    The project day runs 05:00 -> 04:59 Europe/Bratislava. A match at
+    03:00 local time belongs to the previous functional day.
+    """
+    if dt is None:
+        dt = datetime.now(timezone.utc)
+    try:
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        if ZoneInfo is not None:
+            local_dt = dt.astimezone(ZoneInfo(local_tz))
+        else:
+            local_dt = dt.astimezone(timezone.utc)
+    except Exception:
+        local_dt = datetime.now(timezone.utc)
+    day = local_dt.date()
+    if local_dt.hour < FUNCTIONAL_DAY_START_HOUR:
+        day = day - timedelta(days=1)
+    return day.isoformat()
+
+
+def functional_day_now(local_tz: str = "Europe/Bratislava") -> str:
+    return functional_day_for_datetime(datetime.now(timezone.utc), local_tz)
+
+
 def row_start_datetime_utc(row: Dict[str, Any]) -> Optional[datetime]:
     for key in ("start_time_utc", "match_time_utc", "commence_time", "start_time", "match_time"):
         value = row.get(key)
@@ -624,17 +660,19 @@ def row_start_datetime_utc(row: Dict[str, Any]) -> Optional[datetime]:
 
 
 def result_row_date(row: Dict[str, Any], default_date: str, local_tz: str = "Europe/Bratislava") -> str:
-    explicit = row_date(row, "")
-    if explicit:
-        return explicit[:10]
+    existing_day = row.get("functional_day") or row.get("snapshot_functional_day")
+    if existing_day:
+        return str(existing_day)[:10]
     start_dt = row_start_datetime_utc(row)
     if start_dt is not None:
+        return functional_day_for_datetime(start_dt, local_tz)
+    explicit = row_date(row, "")
+    if explicit:
         try:
-            if ZoneInfo is not None:
-                return start_dt.astimezone(ZoneInfo(local_tz)).date().isoformat()
-            return start_dt.date().isoformat()
+            dt = datetime.fromisoformat(str(explicit)[:10] + "T12:00:00+00:00")
+            return functional_day_for_datetime(dt, local_tz)
         except Exception:
-            return start_dt.date().isoformat()
+            return str(explicit)[:10]
     return default_date
 
 
@@ -676,24 +714,30 @@ def merge_current_source_with_existing_results(
     existing_rows: List[Dict[str, Any]],
     settle_date: str,
 ) -> Tuple[List[Dict[str, Any]], str]:
-    """Keep today's picks visible while preserving older Results history.
+    """Merge current source rows with the historical Results ledger.
 
-    Older behavior locked CorQ Results to existing latest_results_corq.json once
-    any Results file existed. That allowed settlement of the old card, but it
-    blocked the new daily TOP7 card from being inserted as PENDING. This merge
-    makes latest Results a live ledger:
-    - current source rows are inserted first,
-    - existing rows are preserved when not duplicated,
-    - existing rows for the settlement date can still be fetched and settled.
+    Results are a ledger, not a live re-computation of whatever latest_top7.json
+    currently contains. If a row already has a prediction_snapshot, the old row
+    wins for the same side identity and only settlement fields are updated later.
+    This keeps the daily CorQ snapshot immutable for long-term yield/ROI audits.
     """
+    existing_by_side: Dict[str, Dict[str, Any]] = {side_identity(r): r for r in existing_rows or [] if isinstance(r, dict)}
     by_side: Dict[str, Dict[str, Any]] = {}
     order: List[str] = []
 
+    preserved_existing_dupes = 0
+    inserted_source = 0
     for row in source_rows or []:
         key = side_identity(row)
         if key not in by_side:
             order.append(key)
-        by_side[key] = row
+        existing_row = existing_by_side.get(key)
+        if existing_row and existing_row.get("prediction_snapshot"):
+            by_side[key] = existing_row
+            preserved_existing_dupes += 1
+        else:
+            by_side[key] = row
+            inserted_source += 1
 
     added_existing = 0
     for row in existing_rows or []:
@@ -705,7 +749,7 @@ def merge_current_source_with_existing_results(
         added_existing += 1
 
     if source_rows and existing_rows:
-        mode = f"merged_source_current_plus_existing_history:{len(source_rows)}+{added_existing}"
+        mode = f"immutable_ledger_source_plus_existing:{inserted_source}+existing:{added_existing}+preserved:{preserved_existing_dupes}"
     elif source_rows:
         mode = "source_snapshot_initial_seed"
     elif existing_rows:
@@ -714,11 +758,17 @@ def merge_current_source_with_existing_results(
         mode = "empty_no_source_or_existing"
     return [by_side[key] for key in order], mode
 
+
 def build_results_database(run_date: Optional[str] = None, output_root: Path = RESULTS_DIR, fetch_api: bool = False, settle_date: Optional[str] = None, settlement_grace_hours: float = 0.0, local_tz: str = "Europe/Bratislava") -> Dict[str, Any]:
     corq_payload, corq_rows, corq_source = load_source_rows("corq")
     cloq_payload, cloq_rows, cloq_source = load_source_rows("cloq")
     audit_payload, audit_rows, audit_source = load_source_rows("audit")
-    day = (settle_date or run_date or run_date_from_payload(corq_payload, cloq_payload, audit_payload))[:10]
+    if settle_date:
+        day = str(settle_date)[:10]
+    elif run_date:
+        day = str(run_date)[:10]
+    else:
+        day = functional_day_now(local_tz)
 
     old_corq_rows = json_rows(read_json(output_root / "latest_results_corq.json", []))
     old_cloq_rows = json_rows(read_json(output_root / "latest_results_cloq.json", []))
@@ -755,6 +805,9 @@ def build_results_database(run_date: Optional[str] = None, output_root: Path = R
             "corq": summary(corq_results),
             "cloq": summary(cloq_results),
             "audit": summary(audit_results),
+        },
+        "summary_by_snapshot_source": {
+            "CORQ_DAILY": summary([r for r in corq_results if str(r.get("snapshot_source") or "") == "CORQ_DAILY"]),
         },
         "sources": {
             "corq": corq_source,
