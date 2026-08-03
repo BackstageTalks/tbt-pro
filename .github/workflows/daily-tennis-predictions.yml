@@ -12,10 +12,10 @@ on:
           - "false"
           - "true"
   schedule:
-    # Runs at 05:10 Europe/Bratislava, with a delayed-run guard window until 05:55.
-    # Summer time: 03:10 UTC -> 05:10 CEST.
-    # Winter time: 04:10 UTC -> 05:10 CET.
-    - cron: "10 3,4 * * *"
+    # Runs at 05:45 Europe/Bratislava, with a delayed-run guard window until 06:10.
+    # Summer time: 03:45 UTC -> 05:45 CEST.
+    # Winter time: 04:45 UTC -> 05:45 CET.
+    - cron: "45 3,4 * * *"
 
 permissions:
   contents: write
@@ -55,12 +55,12 @@ jobs:
 
           # Manual runs must always execute. Scheduled runs are allowed inside
           # a safe window because GitHub runners can start several minutes late.
-          in_schedule_window = now.hour == 5 and 10 <= now.minute <= 55
+          in_schedule_window = (now.hour == 5 and now.minute >= 45) or (now.hour == 6 and now.minute <= 10)
           should_run = event_name == "workflow_dispatch" or in_schedule_window
 
           print(f"now={now.isoformat()}")
           print(f"event_name={event_name}")
-          print("target_window=05:10-05:55 Europe/Bratislava")
+          print("target_window=05:45-06:10 Europe/Bratislava")
           print(f"should_run={'true' if should_run else 'false'}")
           PY
 
@@ -242,6 +242,50 @@ jobs:
         if: ${{ steps.local_time.outputs.should_run == 'true' }}
         run: |
           python -m corq.web.render
+
+      - name: Archive daily CorQ snapshot for Results
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
+        run: |
+          python - <<'PY'
+          import json
+          import shutil
+          from datetime import datetime, timedelta
+          from pathlib import Path
+          from zoneinfo import ZoneInfo
+
+          tz = ZoneInfo("Europe/Bratislava")
+          now = datetime.now(tz)
+          functional_day = (now - timedelta(days=1)).date() if now.hour < 5 else now.date()
+          day_key = functional_day.isoformat()
+
+          snapshot_dir = Path("outputs") / "results_snapshots" / day_key
+          snapshot_dir.mkdir(parents=True, exist_ok=True)
+
+          files = {
+              "latest_all.json": Path("outputs/latest_all.json"),
+              "latest_top7.json": Path("outputs/latest_top7.json"),
+              "latest_cloq.json": Path("outputs/latest_cloq.json"),
+          }
+          copied = []
+          for name, src in files.items():
+              if src.exists():
+                  shutil.copy2(src, snapshot_dir / name)
+                  copied.append(name)
+
+          meta = {
+              "snapshot_type": "daily_corq_results_snapshot",
+              "functional_day": day_key,
+              "functional_day_start_hour": 5,
+              "timezone": "Europe/Bratislava",
+              "created_at_local": now.isoformat(),
+              "source_run": "daily-tennis-predictions",
+              "copied_files": copied,
+              "note": "Stable Results snapshot from the daily 05:45 CorQ run. Web pages may change later, but this folder preserves the run output for settlement tracking.",
+          }
+          (snapshot_dir / "snapshot_meta.json").write_text(json.dumps(meta, indent=2, ensure_ascii=False), encoding="utf-8")
+          print(f"results_snapshot_dir={snapshot_dir}")
+          print(f"results_snapshot_files={copied}")
+          PY
 
       - name: Commit generated outputs
         if: ${{ steps.local_time.outputs.should_run == 'true' }}

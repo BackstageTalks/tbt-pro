@@ -4,9 +4,14 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "Feed mode: top7 or free"
+        description: "Feed mode: top7, free or both"
         required: false
-        default: "top7"
+        default: "both"
+        type: choice
+        options:
+          - "both"
+          - "top7"
+          - "free"
       limit:
         description: "TOP7 limit"
         required: false
@@ -16,10 +21,10 @@ on:
         required: false
         default: "false"
   schedule:
-    # Target window: 06:05 Europe/Bratislava after daily predictions/render.
+    # Target window: 05:55 Europe/Bratislava after the 05:45 daily CorQ snapshot.
     # Both summer/winter UTC candidates are scheduled; the local-time guard below
     # allows only the intended local window to run.
-    - cron: "5 4,5 * * *"
+    - cron: "55 3,4 * * *"
 
 permissions:
   contents: write
@@ -45,12 +50,12 @@ jobs:
 
           event_name = os.getenv("EVENT_NAME", "")
           now = datetime.now(ZoneInfo("Europe/Bratislava"))
-          in_schedule_window = now.hour == 6 and now.minute == 5
+          in_schedule_window = now.hour == 5 and 55 <= now.minute <= 59
           should_run = event_name == "workflow_dispatch" or in_schedule_window
 
           print(f"now={now.isoformat()}")
           print(f"event_name={event_name}")
-          print("target_window=06:05 Europe/Bratislava")
+          print("target_window=05:55-05:59 Europe/Bratislava")
           print(f"should_run={'true' if should_run else 'false'}")
           PY
 
@@ -69,7 +74,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Build Telegram preview and send feed
+      - name: Build Telegram previews and send feeds
         if: ${{ steps.local_time.outputs.should_run == 'true' }}
         env:
           # Repository secrets are named TGBOT and TGCHID.
@@ -86,17 +91,27 @@ jobs:
           TG_FEED_UPCOMING_ONLY: "true"
           TG_FEED_PAST_GRACE_MINUTES: "0"
         run: |
-          MODE="${{ github.event.inputs.mode || 'top7' }}"
+          MODE="${{ github.event.inputs.mode || 'both' }}"
           LIMIT="${{ github.event.inputs.limit || '7' }}"
           INCLUDE_STARTED="${{ github.event.inputs.include_started || 'false' }}"
 
-          CMD="python corq/tg_feed.py --mode ${MODE} --limit ${LIMIT} --send"
-          if [ "${INCLUDE_STARTED}" = "true" ]; then
-            CMD="${CMD} --include-started"
-          fi
+          run_feed() {
+            local feed_mode="$1"
+            local output_file="outputs/telegram/latest_tg_${feed_mode}_message.txt"
+            local cmd="python corq/tg_feed.py --mode ${feed_mode} --limit ${LIMIT} --output ${output_file} --send"
+            if [ "${INCLUDE_STARTED}" = "true" ]; then
+              cmd="${cmd} --include-started"
+            fi
+            echo "Running: ${cmd}"
+            ${cmd}
+          }
 
-          echo "Running: ${CMD}"
-          ${CMD}
+          if [ "${MODE}" = "both" ]; then
+            run_feed top7
+            run_feed free
+          else
+            run_feed "${MODE}"
+          fi
 
       - name: Commit Telegram preview message
         if: ${{ steps.local_time.outputs.should_run == 'true' }}
