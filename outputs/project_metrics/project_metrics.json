@@ -1,26 +1,26 @@
 {
-  "generated_at": "2026-08-01T08:13:57+00:00",
+  "generated_at": "2026-08-03T07:59:05+00:00",
   "git": {
     "branch": "main",
-    "commit_count": 1058,
-    "latest_commit": "f2d2070 2026-08-01 Render web site only"
+    "commit_count": 1211,
+    "latest_commit": "2e0ca1c3 2026-08-03 Render web site only"
   },
   "totals": {
     "source": {
-      "files": 84,
-      "lines": 24641,
-      "code": 20707,
-      "blank": 3584,
-      "comment": 350,
-      "bytes": 981546
+      "files": 87,
+      "lines": 32337,
+      "code": 27217,
+      "blank": 4576,
+      "comment": 544,
+      "bytes": 1356687
     },
     "data": {
-      "files": 599,
-      "lines": 1023964,
-      "code": 1023964,
+      "files": 893,
+      "lines": 1070206,
+      "code": 1070206,
       "blank": 0,
       "comment": 0,
-      "bytes": 37695016
+      "bytes": 39227957
     },
     "other": {
       "files": 0,
@@ -31,22 +31,22 @@
       "bytes": 0
     },
     "all_tracked_text": {
-      "files": 683,
-      "lines": 1048605,
-      "code": 1044671,
-      "blank": 3584,
-      "comment": 350,
-      "bytes": 38676562
+      "files": 980,
+      "lines": 1102543,
+      "code": 1097423,
+      "blank": 4576,
+      "comment": 544,
+      "bytes": 40584644
     }
   },
   "by_extension": {
     ".json": {
-      "files": 584,
-      "lines": 981549,
-      "code": 981549,
+      "files": 878,
+      "lines": 1027791,
+      "code": 1027791,
       "blank": 0,
       "comment": 0,
-      "bytes": 28933170
+      "bytes": 30466111
     },
     ".csv": {
       "files": 15,
@@ -57,20 +57,20 @@
       "bytes": 8761846
     },
     ".py": {
-      "files": 73,
-      "lines": 23066,
-      "code": 19395,
-      "blank": 3357,
-      "comment": 314,
-      "bytes": 926683
+      "files": 75,
+      "lines": 30465,
+      "code": 25648,
+      "blank": 4315,
+      "comment": 502,
+      "bytes": 1288864
     },
     ".yml": {
-      "files": 10,
-      "lines": 1504,
-      "code": 1250,
-      "blank": 219,
-      "comment": 35,
-      "bytes": 52607
+      "files": 11,
+      "lines": 1801,
+      "code": 1507,
+      "blank": 253,
+      "comment": 41,
+      "bytes": 65567
     },
     ".css": {
       "files": 1,
@@ -84,51 +84,51 @@
   "by_top_directory": {
     "thinq": {
       "files": 33,
-      "lines": 808296,
-      "code": 807127,
-      "blank": 1079,
-      "comment": 90,
-      "bytes": 23895922
+      "lines": 809057,
+      "code": 807786,
+      "blank": 1155,
+      "comment": 116,
+      "bytes": 23927519
     },
     "data": {
-      "files": 592,
-      "lines": 223435,
-      "code": 223435,
+      "files": 886,
+      "lines": 269677,
+      "code": 269677,
       "blank": 0,
       "comment": 0,
-      "bytes": 14101944
+      "bytes": 15634885
     },
     "corq": {
-      "files": 33,
-      "lines": 9546,
-      "code": 8008,
-      "blank": 1415,
-      "comment": 123,
-      "bytes": 404720
+      "files": 34,
+      "lines": 14850,
+      "code": 12522,
+      "blank": 2109,
+      "comment": 219,
+      "bytes": 670707
     },
     "marq": {
       "files": 7,
-      "lines": 5165,
-      "code": 4302,
-      "blank": 763,
-      "comment": 100,
-      "bytes": 197040
+      "lines": 6073,
+      "code": 5041,
+      "blank": 872,
+      "comment": 160,
+      "bytes": 245073
     },
     ".github": {
-      "files": 10,
-      "lines": 1504,
-      "code": 1250,
-      "blank": 219,
-      "comment": 35,
-      "bytes": 52607
+      "files": 11,
+      "lines": 1801,
+      "code": 1507,
+      "blank": 253,
+      "comment": 41,
+      "bytes": 65567
     },
     "cloq": {
-      "files": 3,
-      "lines": 376,
-      "code": 312,
-      "blank": 63,
-      "comment": 1,
-      "bytes": 13419
+      "files": 4,
+      "lines": 802,
+      "code": 653,
+      "blank": 142,
+      "comment": 7,
+      "bytes": 29983
     },
     "tools": {
       "files": 2,
@@ -160,33 +160,55 @@
       "path": "corq/web/render.py",
       "bucket": "source",
       "ext": ".py",
-      "lines": 3110,
-      "blank": 412,
-      "comment": 40,
-      "code": 2658,
-      "bytes": 153680,
+      "lines": 4062,
+      "blank": 554,
+      "comment": 61,
+      "code": 3447,
+      "bytes": 201173,
+      "read_error": false
+    },
+    {
+      "path": "corq/render1.py",
+      "bucket": "source",
+      "ext": ".py",
+      "lines": 3829,
+      "blank": 511,
+      "comment": 50,
+      "code": 3268,
+      "bytes": 190882,
       "read_error": false
     },
     {
       "path": "marq/market_lines.py",
       "bucket": "source",
       "ext": ".py",
-      "lines": 2028,
-      "blank": 246,
-      "comment": 23,
-      "code": 1759,
-      "bytes": 87357,
+      "lines": 2179,
+      "blank": 268,
+      "comment": 39,
+      "code": 1872,
+      "bytes": 96306,
       "read_error": false
     },
     {
       "path": "marq/provider.py",
       "bucket": "source",
       "ext": ".py",
-      "lines": 1283,
-      "blank": 191,
-      "comment": 33,
-      "code": 1059,
-      "bytes": 48544,
+      "lines": 2119,
+      "blank": 305,
+      "comment": 77,
+      "code": 1737,
+      "bytes": 87026,
+      "read_error": false
+    },
+    {
+      "path": "corq/ranking.py",
+      "bucket": "source",
+      "ext": ".py",
+      "lines": 1331,
+      "blank": 190,
+      "comment": 40,
+      "code": 1101,
+      "bytes": 53734,
       "read_error": false
     },
     {
@@ -201,14 +223,25 @@
       "read_error": false
     },
     {
-      "path": "corq/ranking.py",
+      "path": "thinq/loaders/rapidapi_client.py",
       "bucket": "source",
       "ext": ".py",
-      "lines": 1075,
-      "blank": 161,
-      "comment": 26,
-      "code": 888,
-      "bytes": 40084,
+      "lines": 1114,
+      "blank": 143,
+      "comment": 20,
+      "code": 951,
+      "bytes": 47655,
+      "read_error": false
+    },
+    {
+      "path": "corq/engine.py",
+      "bucket": "source",
+      "ext": ".py",
+      "lines": 1105,
+      "blank": 130,
+      "comment": 16,
+      "code": 959,
+      "bytes": 50745,
       "read_error": false
     },
     {
@@ -223,14 +256,25 @@
       "read_error": false
     },
     {
-      "path": "thinq/loaders/rapidapi_client.py",
+      "path": "thinq/loaders/h2h_loader.py",
       "bucket": "source",
       "ext": ".py",
-      "lines": 861,
-      "blank": 113,
-      "comment": 18,
-      "code": 730,
-      "bytes": 37224,
+      "lines": 937,
+      "blank": 101,
+      "comment": 27,
+      "code": 809,
+      "bytes": 36298,
+      "read_error": false
+    },
+    {
+      "path": "corq/results_engine/builder.py",
+      "bucket": "source",
+      "ext": ".py",
+      "lines": 867,
+      "blank": 101,
+      "comment": 5,
+      "code": 761,
+      "bytes": 39576,
       "read_error": false
     },
     {
@@ -245,25 +289,14 @@
       "read_error": false
     },
     {
-      "path": "corq/engine.py",
-      "bucket": "source",
-      "ext": ".py",
-      "lines": 828,
-      "blank": 100,
-      "comment": 15,
-      "code": 713,
-      "bytes": 39613,
-      "read_error": false
-    },
-    {
       "path": "thinq/features/recent_form.py",
       "bucket": "source",
       "ext": ".py",
-      "lines": 648,
+      "lines": 684,
       "blank": 84,
-      "comment": 3,
-      "code": 561,
-      "bytes": 27041,
+      "comment": 8,
+      "code": 592,
+      "bytes": 28652,
       "read_error": false
     },
     {
@@ -289,36 +322,14 @@
       "read_error": false
     },
     {
-      "path": "thinq/loaders/h2h_loader.py",
+      "path": "corq/tg_feed.py",
       "bucket": "source",
       "ext": ".py",
-      "lines": 511,
-      "blank": 63,
-      "comment": 8,
-      "code": 440,
-      "bytes": 18240,
-      "read_error": false
-    },
-    {
-      "path": "corq/results_engine/builder.py",
-      "bucket": "source",
-      "ext": ".py",
-      "lines": 502,
-      "blank": 65,
-      "comment": 0,
-      "code": 437,
-      "bytes": 20443,
-      "read_error": false
-    },
-    {
-      "path": "corq/results_engine/results.py",
-      "bucket": "source",
-      "ext": ".py",
-      "lines": 469,
-      "blank": 66,
-      "comment": 0,
-      "code": 403,
-      "bytes": 19362,
+      "lines": 525,
+      "blank": 77,
+      "comment": 12,
+      "code": 436,
+      "bytes": 17799,
       "read_error": false
     },
     {
@@ -330,17 +341,6 @@
       "comment": 2,
       "code": 392,
       "bytes": 17242,
-      "read_error": false
-    },
-    {
-      "path": "corq/tg_feed.py",
-      "bucket": "source",
-      "ext": ".py",
-      "lines": 450,
-      "blank": 68,
-      "comment": 7,
-      "code": 375,
-      "bytes": 15248,
       "read_error": false
     },
     {
@@ -369,11 +369,11 @@
       "path": "thinq/loaders/player_resolver.py",
       "bucket": "source",
       "ext": ".py",
-      "lines": 399,
-      "blank": 67,
+      "lines": 410,
+      "blank": 70,
       "comment": 5,
-      "code": 327,
-      "bytes": 15363,
+      "code": 335,
+      "bytes": 15798,
       "read_error": false
     }
   ],
@@ -456,6 +456,17 @@
       "read_error": false
     },
     {
+      "path": "data/api_pro/rankings/tennisapi_rankings.json",
+      "bucket": "data",
+      "ext": ".json",
+      "lines": 12040,
+      "blank": 0,
+      "comment": 0,
+      "code": 12040,
+      "bytes": 345040,
+      "read_error": false
+    },
+    {
       "path": "data/history/tml/2025_challenger.csv",
       "bucket": "data",
       "ext": ".csv",
@@ -497,6 +508,39 @@
       "comment": 0,
       "code": 4346,
       "bytes": 889974,
+      "read_error": false
+    },
+    {
+      "path": "data/marq_ai/odds_snapshots/2026/2026-08-02.json",
+      "bucket": "data",
+      "ext": ".json",
+      "lines": 4240,
+      "blank": 0,
+      "comment": 0,
+      "code": 4240,
+      "bytes": 148389,
+      "read_error": false
+    },
+    {
+      "path": "data/marq_ai/odds_snapshots/latest.json",
+      "bucket": "data",
+      "ext": ".json",
+      "lines": 3460,
+      "blank": 0,
+      "comment": 0,
+      "code": 3460,
+      "bytes": 120842,
+      "read_error": false
+    },
+    {
+      "path": "data/marq_ai/odds_snapshots/2026/2026-08-03.json",
+      "bucket": "data",
+      "ext": ".json",
+      "lines": 3460,
+      "blank": 0,
+      "comment": 0,
+      "code": 3460,
+      "bytes": 120842,
       "read_error": false
     },
     {
@@ -552,50 +596,6 @@
       "comment": 0,
       "code": 2796,
       "bytes": 565244,
-      "read_error": false
-    },
-    {
-      "path": "data/history/sackmann_archive/wta/2024/wta_matches_2024.csv",
-      "bucket": "data",
-      "ext": ".csv",
-      "lines": 2690,
-      "blank": 0,
-      "comment": 0,
-      "code": 2690,
-      "bytes": 542425,
-      "read_error": false
-    },
-    {
-      "path": "data/marq_ai/odds_snapshots/2026/2026-07-31.json",
-      "bucket": "data",
-      "ext": ".json",
-      "lines": 2300,
-      "blank": 0,
-      "comment": 0,
-      "code": 2300,
-      "bytes": 80536,
-      "read_error": false
-    },
-    {
-      "path": "data/marq_ai/odds_snapshots/2026/2026-07-30.json",
-      "bucket": "data",
-      "ext": ".json",
-      "lines": 2241,
-      "blank": 0,
-      "comment": 0,
-      "code": 2241,
-      "bytes": 78342,
-      "read_error": false
-    },
-    {
-      "path": "data/history/tml/2026.csv",
-      "bucket": "data",
-      "ext": ".csv",
-      "lines": 1783,
-      "blank": 0,
-      "comment": 0,
-      "code": 1783,
-      "bytes": 379818,
       "read_error": false
     }
   ],
