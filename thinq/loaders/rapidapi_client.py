@@ -1112,3 +1112,4 @@ def fetch_daily_matches_with_odds(target_date: Optional[datetime] = None) -> Lis
         pass
     print(f"RAPIDAPI MATCHES WITH ODDS ROWS: {len(output)}")
     return output
+# 2026-08-03 note: Daily odds loader uses /event/{id}/odds/{provider}/all only.
