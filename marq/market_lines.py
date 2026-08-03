@@ -2177,3 +2177,4 @@ try:
     Bet365MarketLinesClient.fetch_match_market_lines = _disabled_bet365_fetch_match_market_lines  # type: ignore[name-defined]
 except Exception:
     pass
+# 2026-08-03 note: market_lines consumes provider.fetch_provider_odds(), which is now exact /odds/1/all only in production.

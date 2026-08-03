@@ -2117,3 +2117,236 @@ def fetch_marq_market_data(
         _debug(f"using fallback thin market player1={player1} player2={player2} odds1={odds_player1} odds2={odds_player2}")
         return fallback
     return None
+
+# ---------------------------------------------------------------------------
+# 2026-08-03 final production override: MarQ exact event odds only, no date/name feed
+# ---------------------------------------------------------------------------
+# This override is intentionally last. It prevents MarQ from falling back to the
+# legacy date odds feed and name-matching flow after exact /event/{id}/odds/1/all
+# already exists. It also keeps Bet365 and secondary odds endpoints out of Daily.
+
+_MARQ_EXACT_EVENT_ODDS_ONLY_VERSION = "2026-08-03-exact-event-odds-all-only-no-date-feed-v3"
+
+
+def _extract_context_event_id(context: Dict[str, Any]) -> Optional[str]:
+    """Return a usable TennisApi event id from row/context without guessing."""
+    for key in (
+        "event_id",
+        "match_id",
+        "tennisapi_event_id",
+        "tennisapi_id",
+        "id",
+    ):
+        value = context.get(key)
+        if value not in (None, ""):
+            text = str(value).strip()
+            if text and text.lower() not in {"none", "nan", "null", "undefined"}:
+                return text
+
+    for container_key in ("row", "match", "event", "raw"):
+        raw = context.get(container_key)
+        if isinstance(raw, dict):
+            for key in ("event_id", "match_id", "id", "eventId", "tennisapi_event_id"):
+                value = raw.get(key)
+                if value not in (None, ""):
+                    text = str(value).strip()
+                    if text and text.lower() not in {"none", "nan", "null", "undefined"}:
+                        return text
+    return None
+
+
+def _provider_odds_payload_status(event_id: str, provider_id: int = 1, force_refresh: bool = False) -> Dict[str, Any]:
+    """Small status helper used only for fallback audit fields."""
+    key = f"{event_id}:{provider_id}:production"
+    cached = _RUN_PROVIDER_ODDS_CACHE.get(key)
+    meta = cached.get("_corq_provider_meta") if isinstance(cached, dict) else None
+    if isinstance(meta, dict):
+        return {
+            "endpoint": meta.get("provider_odds_endpoint"),
+            "endpoint_name": meta.get("provider_odds_endpoint_name"),
+            "market_count": meta.get("provider_odds_market_count"),
+            "has_full_time": meta.get("provider_odds_has_full_time"),
+            "request_count": meta.get("provider_odds_request_count"),
+            "attempts": meta.get("provider_odds_endpoint_attempts"),
+            "summary": meta.get("provider_odds_endpoint_summary"),
+        }
+    return {}
+
+
+def _build_marq_from_exact_event_id(
+    event_id: str,
+    player1: str,
+    player2: str,
+    pick: Optional[str],
+    force_refresh: bool = False,
+) -> Optional[Dict[str, Any]]:
+    """Build MarQ from exact TennisApi /event/{id}/odds/1/all payload only."""
+    event_id = str(event_id or "").strip()
+    if not event_id:
+        return None
+
+    quotes = collect_market_quotes(event_id, bulk_odds=None, provider_ids=DEFAULT_PROVIDER_IDS, force_refresh=force_refresh)
+    if not quotes:
+        _debug(f"exact event odds/all returned no full-time quote event_id={event_id} player1={player1} player2={player2}")
+        return None
+
+    od1_quotes = [q.get("odds_1") for q in quotes if q.get("odds_1") is not None]
+    od2_quotes = [q.get("odds_2") for q in quotes if q.get("odds_2") is not None]
+    if not od1_quotes or not od2_quotes:
+        return None
+
+    od1 = float(median([float(x) for x in od1_quotes]))
+    od2 = float(median([float(x) for x in od2_quotes]))
+    initial1_quotes = [q.get("initial_1") for q in quotes if q.get("initial_1") is not None]
+    initial2_quotes = [q.get("initial_2") for q in quotes if q.get("initial_2") is not None]
+    change1_quotes = [q.get("change_1") for q in quotes if q.get("change_1") is not None]
+    change2_quotes = [q.get("change_2") for q in quotes if q.get("change_2") is not None]
+
+    initial1 = float(median([float(x) for x in initial1_quotes])) if initial1_quotes else od1
+    initial2 = float(median([float(x) for x in initial2_quotes])) if initial2_quotes else od2
+    change1 = float(median([float(x) for x in change1_quotes])) if change1_quotes else 0.0
+    change2 = float(median([float(x) for x in change2_quotes])) if change2_quotes else 0.0
+
+    endpoint_names = sorted({str(q.get("provider_odds_endpoint_name")) for q in quotes if q.get("provider_odds_endpoint_name")})
+    endpoint_summary: Dict[str, Any] = {}
+    request_count = 0
+    for quote in quotes:
+        if isinstance(quote.get("provider_odds_endpoint_summary"), dict):
+            endpoint_summary = quote.get("provider_odds_endpoint_summary") or {}
+        try:
+            request_count += int(quote.get("provider_odds_request_count") or 0)
+        except Exception:
+            pass
+    if request_count <= 0:
+        request_count = len(quotes)
+
+    return {
+        "source": "tennisapi_market_quality",
+        "marq_source": "tennisapi_market_quality",
+        "marq_source_quality": "EXACT_EVENT_ODDS_ALL_FULL_TIME",
+        "marq_exact_event_id_used": True,
+        "marq_name_matching_skipped": True,
+        "marq_date_feed_skipped": True,
+        "marq_fallback_reason": None,
+        "event_id": event_id,
+        "player1": player1,
+        "player2": player2,
+        "home_name": player1,
+        "away_name": player2,
+        "match_direction": "direct_exact_event_id",
+        "match_score": 1.0,
+        "pick_outcome_key": _resolve_pick_outcome_key(player1, player2, pick),
+        "market_quotes": quotes,
+        "market_quotes_source": "TennisApiPRO odds/all exact event_id",
+        "market_quote_count": len(quotes),
+        "provider_endpoint_names": endpoint_names,
+        "provider_odds_request_count": request_count,
+        "provider_odds_endpoint_summary": endpoint_summary,
+        "marq_endpoint_used": "/api/tennis/event/{event_id}/odds/1/all",
+        "marq_endpoint_name": "provider_all_odds[1]",
+        "marq_market_count": quotes[0].get("provider_odds_market_count") if quotes else None,
+        "marq_has_full_time": True,
+        "bet365_disabled": True,
+        "marq_removed_sources": [
+            "Bet365PrematchAPI",
+            "TennisApi events/odds date feed matching",
+            "TennisApi featured odds fallback",
+            "TennisApi winning-odds fallback",
+            "TennisApi event odds fallback",
+        ],
+        "odds": {
+            "od1": {"opening": initial1, "latest": od1, "current": od1, "change": change1},
+            "od2": {"opening": initial2, "latest": od2, "current": od2, "change": change2},
+        },
+        "marq_fetch_version": _MARQ_EXACT_EVENT_ODDS_ONLY_VERSION,
+    }
+
+
+def fetch_bet365_prematch_events(force_refresh: bool = False) -> List[Dict[str, Any]]:
+    """Bet365 is disabled in production Daily."""
+    _debug("Bet365 prematch events disabled in production Daily")
+    return []
+
+
+def find_bet365_event_for_match(player1: str, player2: str, date_only: str, force_refresh: bool = False) -> Optional[Dict[str, Any]]:
+    """Bet365 is disabled in production Daily."""
+    _debug("Bet365 event matching disabled in production Daily")
+    return None
+
+
+def fetch_bet365_event_markets(event_id: str, force_refresh: bool = False) -> Optional[Dict[str, Any]]:
+    """Bet365 is disabled in production Daily."""
+    _debug("Bet365 event markets disabled in production Daily")
+    return None
+
+
+def fetch_marq_market_data(
+    player1: str,
+    player2: str,
+    date_only: str,
+    pick: Optional[str] = None,
+    odds_player1: Optional[float] = None,
+    odds_player2: Optional[float] = None,
+    force_refresh: bool = False,
+    **context: Any,
+) -> Optional[Dict[str, Any]]:
+    """Production MarQ: exact event_id odds/all first, no date/name matching.
+
+    If an exact event id exists and /odds/1/all has a Full time market, that
+    payload is used directly. If exact odds are missing, MarQ falls back only to
+    already-existing row odds as THIN market. The legacy events/odds date feed,
+    name matching, secondary TennisApi endpoints and Bet365 are not called.
+    """
+    event_id = _extract_context_event_id(context)
+
+    if event_id:
+        exact_market = _build_marq_from_exact_event_id(
+            event_id=event_id,
+            player1=player1,
+            player2=player2,
+            pick=pick,
+            force_refresh=force_refresh,
+        )
+        if exact_market:
+            return exact_market
+
+        fallback = _fallback_existing_odds(player1, player2, pick, odds_player1, odds_player2)
+        status = _provider_odds_payload_status(str(event_id), 1, force_refresh=force_refresh)
+        if fallback:
+            fallback.update({
+                "marq_fetch_version": _MARQ_EXACT_EVENT_ODDS_ONLY_VERSION,
+                "bet365_disabled": True,
+                "marq_exact_event_id_used": True,
+                "marq_name_matching_skipped": True,
+                "marq_date_feed_skipped": True,
+                "marq_source_quality": "FALLBACK_EXISTING_ODDS_THIN",
+                "marq_fallback_reason": "ODDS_ALL_204_OR_NO_FULL_TIME_MARKET",
+                "marq_endpoint_used": "/api/tennis/event/{event_id}/odds/1/all",
+                "marq_endpoint_name": "provider_all_odds[1]",
+                "marq_market_count": status.get("market_count"),
+                "marq_has_full_time": status.get("has_full_time"),
+                "provider_odds_endpoint_summary": status.get("summary"),
+                "provider_odds_request_count": status.get("request_count"),
+            })
+            _debug(f"using fallback thin market after exact odds/all miss event_id={event_id} player1={player1} player2={player2}")
+            return fallback
+        return None
+
+    # No exact event id: do NOT call date odds feed/name matching. Existing odds only.
+    fallback = _fallback_existing_odds(player1, player2, pick, odds_player1, odds_player2)
+    if fallback:
+        fallback.update({
+            "marq_fetch_version": _MARQ_EXACT_EVENT_ODDS_ONLY_VERSION,
+            "bet365_disabled": True,
+            "marq_exact_event_id_used": False,
+            "marq_name_matching_skipped": True,
+            "marq_date_feed_skipped": True,
+            "marq_source_quality": "FALLBACK_EXISTING_ODDS_THIN",
+            "marq_fallback_reason": "NO_EXACT_EVENT_ID_existing_row_odds_only",
+            "marq_endpoint_used": None,
+            "marq_has_full_time": None,
+        })
+        _debug(f"using fallback thin market because no exact event_id player1={player1} player2={player2}")
+        return fallback
+    return None
+
