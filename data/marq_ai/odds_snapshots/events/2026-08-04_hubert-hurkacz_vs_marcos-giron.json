@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.53,
   "latest_odds_player2": 2.5,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-02T17:45:52.499914+00:00",
+  "latest_snapshot_time_utc": "2026-08-03T05:59:48.940919+00:00",
   "opening_odds_player1": 1.53,
   "opening_odds_player2": 2.5,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Hubert Hurkacz",
   "player2": "Marcos Giron",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "16696354",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-03T15:00:00+00:00",
       "target_date": "2026-08-04"
+    },
+    {
+      "event_id": "16696354",
+      "event_key": "2026-08-04_hubert-hurkacz_vs_marcos-giron",
+      "hours_to_start": 12.0,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.53,
+      "odds_player2": 2.5,
+      "player1": "Hubert Hurkacz",
+      "player2": "Marcos Giron",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-03T05:59:48.940919+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-03T18:00:00+00:00",
+      "target_date": "2026-08-04"
     }
   ],
-  "start_time_utc": "2026-08-03T15:00:00+00:00",
-  "updated_at_utc": "2026-08-02T17:46:45.662950+00:00"
+  "start_time_utc": "2026-08-03T18:00:00+00:00",
+  "updated_at_utc": "2026-08-03T06:00:18.811454+00:00"
 }
