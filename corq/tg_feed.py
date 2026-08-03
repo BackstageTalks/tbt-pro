@@ -19,7 +19,7 @@ OUTPUTS = ROOT / "outputs"
 DEFAULT_TOP7_PATH = OUTPUTS / "latest_top7.json"
 DEFAULT_ALL_PATH = OUTPUTS / "latest_all.json"
 DEFAULT_MESSAGE_PATH = OUTPUTS / "telegram" / "latest_tg_message.txt"
-FUNCTIONAL_DAY_START_HOUR = int(os.getenv("TG_FEED_FUNCTIONAL_DAY_START_HOUR", "5"))
+DEFAULT_RESULTS_MESSAGE_PATH = OUTPUTS / "telegram" / "latest_tg_results_message.txt"
 
 HEADER = "AI Betting by BackstageTalks"
 FOOTER = "ℹ️ Analytical preview only\n🧠 by BackstageTalks AI Engine"
@@ -117,55 +117,6 @@ def local_tz():
             pass
     offset = as_float(os.getenv("TG_FEED_TIME_OFFSET_HOURS"), 2.0)
     return timezone(timedelta(hours=offset or 0.0))
-
-
-def functional_day_date(dt: Optional[datetime] = None) -> datetime.date:
-    """Return the tennis functional day for a local datetime.
-
-    The project day starts at 05:00 Europe/Bratislava by default. Matches
-    between 00:00 and 04:59 belong to the previous functional day, so a match
-    at 03:00 on 03.08 is still part of the 02.08 pick day.
-    """
-    tz = local_tz()
-    dt = dt or datetime.now(tz)
-    if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=tz)
-    local_dt = dt.astimezone(tz)
-    if local_dt.hour < FUNCTIONAL_DAY_START_HOUR:
-        local_dt = local_dt - timedelta(days=1)
-    return local_dt.date()
-
-
-def functional_day_window(day: Optional[datetime.date] = None):
-    """Return local start/end datetimes for the functional tennis day."""
-    tz = local_tz()
-    day = day or functional_day_date()
-    start = datetime(day.year, day.month, day.day, FUNCTIONAL_DAY_START_HOUR, 0, 0, tzinfo=tz)
-    end = start + timedelta(days=1)
-    return start, end
-
-
-def row_functional_day_date(row: Dict[str, Any], now: Optional[datetime] = None) -> Optional[datetime.date]:
-    start_dt = match_start_datetime(row, now=now)
-    if start_dt is not None:
-        return functional_day_date(start_dt)
-    date_txt = row_date_text(row)
-    if date_txt:
-        try:
-            raw_date = datetime.fromisoformat(date_txt[:10]).date()
-            return raw_date
-        except Exception:
-            return None
-    return None
-
-
-def is_current_functional_day(row: Dict[str, Any], now: Optional[datetime] = None) -> bool:
-    tz = local_tz()
-    now = now or datetime.now(tz)
-    row_day = row_functional_day_date(row, now=now)
-    if row_day is None:
-        return False
-    return row_day == functional_day_date(now)
 
 
 def row_date_text(row: Dict[str, Any]) -> Optional[str]:
@@ -290,13 +241,17 @@ def pick_odds(row: Dict[str, Any]) -> Optional[float]:
 
 
 def snapshot_date(rows: List[Dict[str, Any]]) -> str:
-    tz = local_tz()
-    now = datetime.now(tz)
     for row in rows:
-        row_day = row_functional_day_date(row, now=now)
-        if row_day is not None:
-            return row_day.strftime("%d.%m.%Y")
-    return functional_day_date(now).strftime("%d.%m.%Y")
+        for key in ("snapshot_date", "date", "run_date", "match_date"):
+            value = row.get(key)
+            if value:
+                txt = str(value)[:10]
+                try:
+                    dt = datetime.fromisoformat(txt)
+                    return dt.strftime("%d.%m.%Y")
+                except Exception:
+                    pass
+    return datetime.now().strftime("%d.%m.%Y")
 
 
 def is_rejected(row: Dict[str, Any]) -> bool:
@@ -323,14 +278,7 @@ def is_doubles(row: Dict[str, Any]) -> bool:
     return "double" in text or "doubles" in text
 
 
-def valid_corq_row(
-    row: Dict[str, Any],
-    upcoming_only: bool = True,
-    functional_day_only: bool = True,
-    now: Optional[datetime] = None,
-) -> bool:
-    tz = local_tz()
-    now = now or datetime.now(tz)
+def valid_corq_row(row: Dict[str, Any], upcoming_only: bool = True) -> bool:
     if is_rejected(row) or is_doubles(row):
         return False
     if not pick_name(row) or not opponent_name(row):
@@ -341,32 +289,14 @@ def valid_corq_row(
         return False
     if probability(row) is None:
         return False
-    if functional_day_only and not is_current_functional_day(row, now=now):
-        return False
-    if upcoming_only and not is_upcoming_match(row, now=now):
+    if upcoming_only and not is_upcoming_match(row):
         return False
     return True
 
 
-def valid_rows(
-    rows: Iterable[Dict[str, Any]],
-    upcoming_only: bool = True,
-    preserve_order: bool = False,
-    functional_day_only: bool = True,
-) -> List[Dict[str, Any]]:
-    now = datetime.now(local_tz())
-    out = [
-        row
-        for row in rows
-        if valid_corq_row(
-            row,
-            upcoming_only=upcoming_only,
-            functional_day_only=functional_day_only,
-            now=now,
-        )
-    ]
-    if not preserve_order:
-        out.sort(key=lambda r: as_float(probability(r), 0.0) or 0.0, reverse=True)
+def valid_rows(rows: Iterable[Dict[str, Any]], upcoming_only: bool = True) -> List[Dict[str, Any]]:
+    out = [row for row in rows if valid_corq_row(row, upcoming_only=upcoming_only)]
+    out.sort(key=lambda r: as_float(probability(r), 0.0) or 0.0, reverse=True)
     return out
 
 
@@ -393,12 +323,7 @@ def build_top7_message(rows: List[Dict[str, Any]], limit: int = 7, upcoming_only
 
 
 def build_free_message(rows: List[Dict[str, Any]], upcoming_only: bool = True) -> str:
-    # FREE must always use the first valid CorQ pick from the source order.
-    # Do not randomize and do not re-rank by probability here. If latest_top7.json
-    # is present, this means the first valid TOP7/CorQ pick. If TOP7 is empty,
-    # load_rows_for_mode falls back to latest_all.json and this still means the
-    # first valid CorQ row from that file.
-    rows = valid_rows(rows, upcoming_only=upcoming_only, preserve_order=True)
+    rows = valid_rows(rows, upcoming_only=upcoming_only)
     date_text = snapshot_date(rows)
     lines = [HEADER, "", "🎾 FREE | CorQ", f"📅 {date_text}", ""]
     if rows:
@@ -437,9 +362,10 @@ def load_rows_for_mode(mode: str, top7_path: Path, all_path: Path) -> List[Dict[
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Telegram feed formatter/sender for CorQ")
-    parser.add_argument("--mode", choices=("top7", "free"), default=os.getenv("TG_FEED_MODE", "top7"))
+    parser.add_argument("--mode", choices=("top7", "free", "results"), default=os.getenv("TG_FEED_MODE", "top7"))
     parser.add_argument("--top7-path", default=os.getenv("TG_TOP7_PATH", str(DEFAULT_TOP7_PATH)))
     parser.add_argument("--all-path", default=os.getenv("TG_ALL_PATH", str(DEFAULT_ALL_PATH)))
+    parser.add_argument("--results-message-path", default=os.getenv("TG_RESULTS_MESSAGE_PATH", str(DEFAULT_RESULTS_MESSAGE_PATH)))
     parser.add_argument("--output", default=os.getenv("TG_MESSAGE_OUTPUT", str(DEFAULT_MESSAGE_PATH)))
     parser.add_argument("--send", action="store_true", help="Send to Telegram using env bot token and chat id")
     parser.add_argument("--chat-id", default=None, help="Telegram chat id. Defaults by mode from env.")
@@ -459,15 +385,22 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    rows = load_rows_for_mode(args.mode, Path(args.top7_path), Path(args.all_path))
     upcoming_only_env = str(os.getenv("TG_FEED_UPCOMING_ONLY", "true")).lower() not in {"0", "false", "no"}
     upcoming_only = upcoming_only_env and not args.include_started
-    sendable_rows = valid_rows(rows, upcoming_only=upcoming_only)
 
-    if args.mode == "free":
-        message = build_free_message(rows, upcoming_only=upcoming_only)
+    if args.mode == "results":
+        results_path = Path(args.results_message_path)
+        message = results_path.read_text(encoding="utf-8").strip() if results_path.exists() else ""
+        sendable_rows: List[Dict[str, Any]] = []
+        if not message:
+            message = "📊 CorQ Results\nNo previous CorQ snapshot summary available."
     else:
-        message = build_top7_message(rows, limit=args.limit, upcoming_only=upcoming_only)
+        rows = load_rows_for_mode(args.mode, Path(args.top7_path), Path(args.all_path))
+        sendable_rows = valid_rows(rows, upcoming_only=upcoming_only)
+        if args.mode == "free":
+            message = build_free_message(rows, upcoming_only=upcoming_only)
+        else:
+            message = build_top7_message(rows, limit=args.limit, upcoming_only=upcoming_only)
 
     output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -475,8 +408,11 @@ def main() -> None:
     print(message)
 
     if args.send:
-        if not sendable_rows:
+        if args.mode != "results" and not sendable_rows:
             print(f"[tg_feed] No valid upcoming rows for mode={args.mode}; Telegram send skipped.")
+            return
+        if args.mode == "results" and not message.strip():
+            print("[tg_feed] Empty CorQ results summary; Telegram send skipped.")
             return
         chat_id = args.chat_id
         if not chat_id:
