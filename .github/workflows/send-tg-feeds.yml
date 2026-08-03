@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "Feed mode: top7, free or both"
+        description: "Feed mode: top7, free, results or both"
         required: false
         default: "both"
         type: choice
@@ -12,6 +12,7 @@ on:
           - "both"
           - "top7"
           - "free"
+          - "results"
       limit:
         description: "TOP7 limit"
         required: false
@@ -90,10 +91,14 @@ jobs:
           TG_FEED_TIMEZONE: "Europe/Bratislava"
           TG_FEED_UPCOMING_ONLY: "true"
           TG_FEED_PAST_GRACE_MINUTES: "0"
+          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
         run: |
           MODE="${{ github.event.inputs.mode || 'both' }}"
           LIMIT="${{ github.event.inputs.limit || '7' }}"
           INCLUDE_STARTED="${{ github.event.inputs.include_started || 'false' }}"
+
+          echo "Settling previous CorQ daily snapshot and preparing compact TG results summary..."
+          python -m corq.results_engine.builder             --output-root outputs             --fetch-api             --settle-yesterday             --local-tz Europe/Bratislava             --settlement-grace-hours 2             --write-tg-summary
 
           run_feed() {
             local feed_mode="$1"
@@ -107,6 +112,7 @@ jobs:
           }
 
           if [ "${MODE}" = "both" ]; then
+            run_feed results
             run_feed top7
             run_feed free
           else
