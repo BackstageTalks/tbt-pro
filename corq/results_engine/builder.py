@@ -836,6 +836,87 @@ def build_results(output_root: str = "outputs", run_date: Optional[str] = None, 
     )
 
 
+# ---------------------------------------------------------------------------
+# Telegram CorQ daily snapshot result summary
+# ---------------------------------------------------------------------------
+def _format_tg_day(day: str) -> str:
+    try:
+        return datetime.fromisoformat(str(day)[:10]).strftime("%d.%m.%y")
+    except Exception:
+        return str(day or "")[:10]
+
+
+def _result_status(row: Dict[str, Any]) -> str:
+    return str(row.get("result") or row.get("result_status") or row.get("status") or "PENDING").upper().strip()
+
+
+def corq_snapshot_rows_for_day(rows: List[Dict[str, Any]], day: str) -> List[Dict[str, Any]]:
+    target = str(day or "")[:10]
+    out: List[Dict[str, Any]] = []
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        model = str(row.get("model") or "").lower()
+        source = str(row.get("snapshot_source") or row.get("source_filter") or "").upper()
+        row_day = str(row.get("snapshot_functional_day") or row.get("functional_day") or row.get("date") or "")[:10]
+        if target and row_day != target:
+            continue
+        if model == "corq" or source in {"CORQ_DAILY", "CORQ"}:
+            out.append(row)
+    return out
+
+
+def build_corq_tg_summary(rows: List[Dict[str, Any]], day: str) -> Dict[str, Any]:
+    selected = corq_snapshot_rows_for_day(rows, day)
+    won = sum(1 for r in selected if _result_status(r) in {"WON", "WIN"})
+    lost = sum(1 for r in selected if _result_status(r) in {"LOST", "LOSS"})
+    void = sum(1 for r in selected if _result_status(r) == "VOID")
+    pending = sum(1 for r in selected if _result_status(r) not in {"WON", "WIN", "LOST", "LOSS", "VOID"})
+    settled = won + lost
+    units = round(sum(float(r.get("units") or 0.0) for r in selected if r.get("units") is not None), 4)
+    roi = round(units / settled, 4) if settled else None
+    return {
+        "date": str(day)[:10],
+        "display_date": _format_tg_day(day),
+        "count": len(selected),
+        "won": won,
+        "lost": lost,
+        "void": void,
+        "pending": pending,
+        "settled": settled,
+        "units": units,
+        "roi": roi,
+    }
+
+
+def format_corq_tg_summary_message(summary_obj: Dict[str, Any]) -> str:
+    day = summary_obj.get("display_date") or _format_tg_day(str(summary_obj.get("date") or ""))
+    units = float(summary_obj.get("units") or 0.0)
+    roi = summary_obj.get("roi")
+    roi_txt = "ROI —" if roi is None else f"ROI {float(roi) * 100:+.1f}%"
+    if int(summary_obj.get("count") or 0) <= 0:
+        return f"📊 CorQ {day}\nNo previous CorQ snapshot rows found."
+    return (
+        f"📊 CorQ {day}\n"
+        f"✅{int(summary_obj.get('won') or 0)} "
+        f"❌{int(summary_obj.get('lost') or 0)} "
+        f"➖{int(summary_obj.get('void') or 0)} "
+        f"⏳{int(summary_obj.get('pending') or 0)} | "
+        f"{units:+.2f}u | {roi_txt}"
+    )
+
+
+def write_corq_tg_summary(day: str, output_root: Path = OUTPUTS) -> Dict[str, Any]:
+    results_rows = json_rows(read_json(RESULTS_DIR / "latest_results_corq.json", []))
+    summary_obj = build_corq_tg_summary(results_rows, day)
+    message = format_corq_tg_summary_message(summary_obj)
+    telegram_dir = Path(output_root) / "telegram"
+    telegram_dir.mkdir(parents=True, exist_ok=True)
+    write_json(telegram_dir / "latest_corq_results_summary.json", summary_obj)
+    (telegram_dir / "latest_tg_results_message.txt").write_text(message, encoding="utf-8")
+    return {**summary_obj, "message": message, "output": str(telegram_dir / "latest_tg_results_message.txt")}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build CorQ/CloQ/Audit results files")
     parser.add_argument("legacy_fetch_api", nargs="?", default=None, help="Backward-compatible true/false value")
@@ -847,6 +928,9 @@ def main() -> None:
     parser.add_argument("--local-tz", default="Europe/Bratislava", help="Timezone used by --settle-yesterday")
     parser.add_argument("--settlement-grace-hours", type=float, default=0.0, help="Only fetch matches after start time plus this many hours")
     parser.add_argument("--sources", default="corq,cloq,audit", help="Backward-compatible no-op")
+    parser.add_argument("--write-tg-summary", action="store_true", help="Write compact previous CorQ snapshot Telegram result summary")
+    parser.add_argument("--tg-summary-date", default=None, help="CorQ snapshot date to summarize for Telegram YYYY-MM-DD")
+    parser.add_argument("--telegram-output-root", default=None, help="Output root for outputs/telegram; defaults to --output-root")
     args = parser.parse_args()
     legacy_fetch = str(args.legacy_fetch_api or "").strip().lower() in {"1", "true", "yes", "y", "on"}
     settle_date = args.settle_date
@@ -860,6 +944,11 @@ def main() -> None:
         settlement_grace_hours=args.settlement_grace_hours,
         local_tz=args.local_tz,
     )
+    if args.write_tg_summary:
+        tg_day = args.tg_summary_date or settle_date or local_yesterday(args.local_tz)
+        tg_output_root = Path(args.telegram_output_root or args.output_root)
+        tg_summary = write_corq_tg_summary(tg_day, tg_output_root)
+        print({"telegram_corq_results_summary": tg_summary})
     print(manifest)
 
 
