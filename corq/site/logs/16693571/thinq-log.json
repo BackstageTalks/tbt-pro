@@ -11,8 +11,8 @@
   "level": "WTA 125",
   "gender": "F",
   "best_of": 3,
-  "match_start": "2026-08-03T13:10:00+00:00",
-  "start_time": "2026-08-03T13:10:00+00:00",
+  "match_start": "2026-08-03T13:20:00+00:00",
+  "start_time": "2026-08-03T13:20:00+00:00",
   "status_type": "notstarted",
   "status_code": 0,
   "is_doubles": false,
@@ -199,7 +199,7 @@
     "crowdsourcingDataDisplayEnabled": false,
     "id": 16693571,
     "slug": "teodora-kostovic-martyna-kubka",
-    "startTimestamp": 1785762600,
+    "startTimestamp": 1785763200,
     "periods": {
       "point": "Game",
       "current": "Match",
@@ -2439,11 +2439,10 @@
   "marq_ai_strength": 25,
   "marq_ai_consistency": 35,
   "marq_ai_reason": "ok",
-  "marq_event_id": "16693571",
   "marq_outcome_key": "od2",
-  "marq_source": "tennisapi_market_quality",
+  "marq_source": "fallback_existing_odds_thin_market",
   "marq_market_name": "Full time",
-  "marq_provider_count": 2,
+  "marq_provider_count": 1,
   "marq_market_spread_pct": 0.0,
   "marq_market_median_odds": 1.8333,
   "marq_outlier_count": 0,
@@ -2499,7 +2498,7 @@
     "FAIR",
     "VALUE_NEUTRAL"
   ],
-  "corq_source_rank": 57,
+  "corq_source_rank": 59,
   "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
   "top7_publishable": true,
   "eligible_for_top7": true,
@@ -2610,6 +2609,6 @@
   "top7_positive_support_count": 4,
   "top7_risk_count": 1,
   "top7_high_risk": false,
-  "corq_rank": 57,
-  "_corq_render_rank": 5
+  "corq_rank": 59,
+  "_corq_render_rank": 1
 }
