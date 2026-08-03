@@ -19,6 +19,7 @@ OUTPUTS = ROOT / "outputs"
 DEFAULT_TOP7_PATH = OUTPUTS / "latest_top7.json"
 DEFAULT_ALL_PATH = OUTPUTS / "latest_all.json"
 DEFAULT_MESSAGE_PATH = OUTPUTS / "telegram" / "latest_tg_message.txt"
+FUNCTIONAL_DAY_START_HOUR = int(os.getenv("TG_FEED_FUNCTIONAL_DAY_START_HOUR", "5"))
 
 HEADER = "AI Betting by BackstageTalks"
 FOOTER = "ℹ️ Analytical preview only\n🧠 by BackstageTalks AI Engine"
@@ -116,6 +117,55 @@ def local_tz():
             pass
     offset = as_float(os.getenv("TG_FEED_TIME_OFFSET_HOURS"), 2.0)
     return timezone(timedelta(hours=offset or 0.0))
+
+
+def functional_day_date(dt: Optional[datetime] = None) -> datetime.date:
+    """Return the tennis functional day for a local datetime.
+
+    The project day starts at 05:00 Europe/Bratislava by default. Matches
+    between 00:00 and 04:59 belong to the previous functional day, so a match
+    at 03:00 on 03.08 is still part of the 02.08 pick day.
+    """
+    tz = local_tz()
+    dt = dt or datetime.now(tz)
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=tz)
+    local_dt = dt.astimezone(tz)
+    if local_dt.hour < FUNCTIONAL_DAY_START_HOUR:
+        local_dt = local_dt - timedelta(days=1)
+    return local_dt.date()
+
+
+def functional_day_window(day: Optional[datetime.date] = None):
+    """Return local start/end datetimes for the functional tennis day."""
+    tz = local_tz()
+    day = day or functional_day_date()
+    start = datetime(day.year, day.month, day.day, FUNCTIONAL_DAY_START_HOUR, 0, 0, tzinfo=tz)
+    end = start + timedelta(days=1)
+    return start, end
+
+
+def row_functional_day_date(row: Dict[str, Any], now: Optional[datetime] = None) -> Optional[datetime.date]:
+    start_dt = match_start_datetime(row, now=now)
+    if start_dt is not None:
+        return functional_day_date(start_dt)
+    date_txt = row_date_text(row)
+    if date_txt:
+        try:
+            raw_date = datetime.fromisoformat(date_txt[:10]).date()
+            return raw_date
+        except Exception:
+            return None
+    return None
+
+
+def is_current_functional_day(row: Dict[str, Any], now: Optional[datetime] = None) -> bool:
+    tz = local_tz()
+    now = now or datetime.now(tz)
+    row_day = row_functional_day_date(row, now=now)
+    if row_day is None:
+        return False
+    return row_day == functional_day_date(now)
 
 
 def row_date_text(row: Dict[str, Any]) -> Optional[str]:
@@ -240,17 +290,13 @@ def pick_odds(row: Dict[str, Any]) -> Optional[float]:
 
 
 def snapshot_date(rows: List[Dict[str, Any]]) -> str:
+    tz = local_tz()
+    now = datetime.now(tz)
     for row in rows:
-        for key in ("snapshot_date", "date", "run_date", "match_date"):
-            value = row.get(key)
-            if value:
-                txt = str(value)[:10]
-                try:
-                    dt = datetime.fromisoformat(txt)
-                    return dt.strftime("%d.%m.%Y")
-                except Exception:
-                    pass
-    return datetime.now().strftime("%d.%m.%Y")
+        row_day = row_functional_day_date(row, now=now)
+        if row_day is not None:
+            return row_day.strftime("%d.%m.%Y")
+    return functional_day_date(now).strftime("%d.%m.%Y")
 
 
 def is_rejected(row: Dict[str, Any]) -> bool:
@@ -277,7 +323,14 @@ def is_doubles(row: Dict[str, Any]) -> bool:
     return "double" in text or "doubles" in text
 
 
-def valid_corq_row(row: Dict[str, Any], upcoming_only: bool = True) -> bool:
+def valid_corq_row(
+    row: Dict[str, Any],
+    upcoming_only: bool = True,
+    functional_day_only: bool = True,
+    now: Optional[datetime] = None,
+) -> bool:
+    tz = local_tz()
+    now = now or datetime.now(tz)
     if is_rejected(row) or is_doubles(row):
         return False
     if not pick_name(row) or not opponent_name(row):
@@ -288,7 +341,9 @@ def valid_corq_row(row: Dict[str, Any], upcoming_only: bool = True) -> bool:
         return False
     if probability(row) is None:
         return False
-    if upcoming_only and not is_upcoming_match(row):
+    if functional_day_only and not is_current_functional_day(row, now=now):
+        return False
+    if upcoming_only and not is_upcoming_match(row, now=now):
         return False
     return True
 
@@ -297,8 +352,19 @@ def valid_rows(
     rows: Iterable[Dict[str, Any]],
     upcoming_only: bool = True,
     preserve_order: bool = False,
+    functional_day_only: bool = True,
 ) -> List[Dict[str, Any]]:
-    out = [row for row in rows if valid_corq_row(row, upcoming_only=upcoming_only)]
+    now = datetime.now(local_tz())
+    out = [
+        row
+        for row in rows
+        if valid_corq_row(
+            row,
+            upcoming_only=upcoming_only,
+            functional_day_only=functional_day_only,
+            now=now,
+        )
+    ]
     if not preserve_order:
         out.sort(key=lambda r: as_float(probability(r), 0.0) or 0.0, reverse=True)
     return out
