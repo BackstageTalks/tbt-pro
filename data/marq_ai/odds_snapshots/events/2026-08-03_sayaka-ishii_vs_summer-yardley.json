@@ -4,7 +4,7 @@
   "latest_odds_player1": 13.0,
   "latest_odds_player2": 1.0125,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-03T13:31:04.351843+00:00",
+  "latest_snapshot_time_utc": "2026-08-03T18:28:23.752434+00:00",
   "opening_odds_player1": 13.0,
   "opening_odds_player2": 1.0125,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Summer Yardley",
   "player2": "Sayaka Ishii",
-  "snapshot_count": 4,
+  "snapshot_count": 5,
   "snapshots": [
     {
       "event_id": "16695635",
@@ -97,8 +97,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-02T14:31:08+00:00",
       "target_date": "2026-08-03"
+    },
+    {
+      "event_id": "16695635",
+      "event_key": "2026-08-03_sayaka-ishii_vs_summer-yardley",
+      "hours_to_start": -27.95,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 13.0,
+      "odds_player2": 1.0125,
+      "player1": "Summer Yardley",
+      "player2": "Sayaka Ishii",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-03T18:28:23.752434+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-02T14:31:08+00:00",
+      "target_date": "2026-08-03"
     }
   ],
   "start_time_utc": "2026-08-02T14:31:08+00:00",
-  "updated_at_utc": "2026-08-03T13:31:11.431689+00:00"
+  "updated_at_utc": "2026-08-03T18:28:34.310703+00:00"
 }

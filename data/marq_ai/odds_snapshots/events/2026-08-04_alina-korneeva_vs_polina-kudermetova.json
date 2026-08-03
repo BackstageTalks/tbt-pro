@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.44,
   "latest_odds_player2": 2.75,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-03T13:31:04.351843+00:00",
+  "latest_snapshot_time_utc": "2026-08-03T18:28:23.752434+00:00",
   "opening_odds_player1": 1.4,
   "opening_odds_player2": 3.0,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Alina Korneeva",
   "player2": "Polina Kudermetova",
-  "snapshot_count": 4,
+  "snapshot_count": 5,
   "snapshots": [
     {
       "event_id": "16696389",
@@ -97,8 +97,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-03T15:00:00+00:00",
       "target_date": "2026-08-04"
+    },
+    {
+      "event_id": "16696389",
+      "event_key": "2026-08-04_alina-korneeva_vs_polina-kudermetova",
+      "hours_to_start": -3.39,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.44,
+      "odds_player2": 2.75,
+      "player1": "Alina Korneeva",
+      "player2": "Polina Kudermetova",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-03T18:28:23.752434+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-03T15:05:00+00:00",
+      "target_date": "2026-08-04"
     }
   ],
-  "start_time_utc": "2026-08-03T15:00:00+00:00",
-  "updated_at_utc": "2026-08-03T13:31:38.457944+00:00"
+  "start_time_utc": "2026-08-03T15:05:00+00:00",
+  "updated_at_utc": "2026-08-03T18:29:05.232234+00:00"
 }
