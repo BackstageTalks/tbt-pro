@@ -1,6 +1,6 @@
 {
   "model_version": "2026-08-04-marq-coverage-report-v1",
-  "generated_at_utc": "2026-08-04T15:38:59.675335+00:00",
+  "generated_at_utc": "2026-08-04T16:03:53.286595+00:00",
   "input_paths": {
     "all": "outputs/latest_all.json",
     "top7": "outputs/latest_top7.json",
@@ -37,10 +37,9 @@
         "MEDIUM_CURRENT_ONLY": 42
       },
       "value_status_counts": {
-        "NO_VALUE": 55,
-        "VALUE_STRONG": 37,
-        "VALUE_PLAYABLE": 19,
-        "VALUE_NEUTRAL": 1
+        "NO_VALUE": 56,
+        "VALUE_STRONG": 39,
+        "VALUE_PLAYABLE": 17
       },
       "source_policy_counts": {
         "TENNISAPI_ONLY_EXACT_EVENT": 112
@@ -54,13 +53,13 @@
       "value_delta_pp_stats": {
         "count": 112,
         "avg": 0.0,
-        "min": -27.94,
-        "max": 27.94
+        "min": -34.15,
+        "max": 34.15
       },
       "expected_value_pct_stats": {
         "count": 112,
-        "avg": 4.5521,
-        "min": -42.79,
+        "avg": 7.9846,
+        "min": -44.38,
         "max": 233.4
       },
       "samples": {
@@ -389,45 +388,45 @@
             "identity": "16696351",
             "pick": "Jenson Brooksby",
             "opponent": "Adam Walton",
-            "odds": 1.9091,
+            "odds": 1.4,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -5.5,
-            "expected_value_pct": -5.75,
+            "value_delta_pp": -22.4,
+            "expected_value_pct": -30.8,
             "fallback_reason": null
           },
           {
             "identity": "16696353",
             "pick": "Thiago Agustin Tirante",
             "opponent": "Duncan Chan",
-            "odds": 1.1429,
+            "odds": 1.1111,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -27.94,
-            "expected_value_pct": -42.79,
+            "value_delta_pp": -34.15,
+            "expected_value_pct": -44.38,
             "fallback_reason": null
           },
           {
             "identity": "16696354",
             "pick": "Hubert Hurkacz",
             "opponent": "Marcos Giron",
-            "odds": 1.4444,
+            "odds": 1.1111,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -6.51,
-            "expected_value_pct": -17.48,
+            "value_delta_pp": -25.67,
+            "expected_value_pct": -36.52,
             "fallback_reason": null
           }
         ],
@@ -526,60 +525,75 @@
             "identity": "16696351",
             "pick": "Adam Walton",
             "opponent": "Jenson Brooksby",
-            "odds": 1.9091,
+            "odds": 3.0,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 5.5,
-            "expected_value_pct": -3.34,
+            "value_delta_pp": 22.4,
+            "expected_value_pct": 51.71,
             "fallback_reason": null
           },
           {
             "identity": "16696353",
             "pick": "Duncan Chan",
             "opponent": "Thiago Agustin Tirante",
-            "odds": 5.5,
+            "odds": 6.5,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 27.94,
-            "expected_value_pct": 174.67,
+            "value_delta_pp": 34.15,
+            "expected_value_pct": 224.61,
             "fallback_reason": null
           },
           {
             "identity": "16696354",
             "pick": "Marcos Giron",
             "opponent": "Hubert Hurkacz",
-            "odds": 2.75,
+            "odds": 6.5,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 6.51,
-            "expected_value_pct": 17.89,
+            "value_delta_pp": 25.67,
+            "expected_value_pct": 178.66,
             "fallback_reason": null
           },
           {
             "identity": "16696349",
             "pick": "Martin Damm Jr",
             "opponent": "Stefanos Tsitsipas",
-            "odds": 2.375,
+            "odds": 4.5,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
-            "market_weight": 0.22,
-            "value_delta_pp": 10.47,
-            "expected_value_pct": 19.44,
+            "market_weight": 0.3,
+            "value_delta_pp": 26.48,
+            "expected_value_pct": 126.31,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16686607",
+            "pick": "Mattia Bellucci",
+            "opponent": "Sebastián Báez",
+            "odds": 4.5,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 23.49,
+            "expected_value_pct": 104.7,
             "fallback_reason": null
           },
           {
@@ -595,21 +609,6 @@
             "market_weight": 0.22,
             "value_delta_pp": 3.59,
             "expected_value_pct": 3.15,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16686542",
-            "pick": "Daniel Merida",
-            "opponent": "Liam Draxl",
-            "odds": 1.62,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": 3.67,
-            "expected_value_pct": 0.99,
             "fallback_reason": null
           }
         ]

@@ -1,6 +1,6 @@
 # MarQ API Coverage Report
 
-Generated UTC: 2026-08-04T15:38:59.675335+00:00
+Generated UTC: 2026-08-04T16:03:53.286595+00:00
 Model: 2026-08-04-marq-coverage-report-v1
 
 ## all_audit
@@ -36,16 +36,15 @@ Rows: 112
 
 ### Value status
 
-- NO_VALUE: 55 (49.11%)
-- VALUE_STRONG: 37 (33.04%)
-- VALUE_PLAYABLE: 19 (16.96%)
-- VALUE_NEUTRAL: 1 (0.89%)
+- NO_VALUE: 56 (50.0%)
+- VALUE_STRONG: 39 (34.82%)
+- VALUE_PLAYABLE: 17 (15.18%)
 
 ### Numeric stats
 
 - CorQ market weight: `{'count': 112, 'avg': 0.2075, 'min': 0.12, 'max': 0.3}`
-- Value delta pp: `{'count': 112, 'avg': 0.0, 'min': -27.94, 'max': 27.94}`
-- Expected value pct: `{'count': 112, 'avg': 4.5521, 'min': -42.79, 'max': 233.4}`
+- Value delta pp: `{'count': 112, 'avg': 0.0, 'min': -34.15, 'max': 34.15}`
+- Expected value pct: `{'count': 112, 'avg': 7.9846, 'min': -44.38, 'max': 233.4}`
 
 ## corq_top7
 
