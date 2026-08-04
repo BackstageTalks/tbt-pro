@@ -1,6 +1,6 @@
 {
   "model_version": "2026-08-04-marq-coverage-report-v1",
-  "generated_at_utc": "2026-08-04T13:32:55.585002+00:00",
+  "generated_at_utc": "2026-08-04T14:23:56.579597+00:00",
   "input_paths": {
     "all": "outputs/latest_all.json",
     "top7": "outputs/latest_top7.json",
@@ -11,8 +11,8 @@
       "label": "all_audit",
       "total_rows": 112,
       "coverage_pct": {
-        "high_marq": 64.29,
-        "medium_current_only": 35.71,
+        "high_marq": 62.5,
+        "medium_current_only": 37.5,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
         "usable_marq_high_or_medium": 100.0
@@ -21,24 +21,24 @@
         "getAllOddsForEvent": 112
       },
       "data_status_counts": {
-        "EXACT_BETTING_ODDS_WITH_OPENING": 72,
-        "EXACT_CURRENT_ODDS_ONLY": 40
+        "EXACT_BETTING_ODDS_WITH_OPENING": 70,
+        "EXACT_CURRENT_ODDS_ONLY": 42
       },
       "confidence_counts": {
-        "HIGH": 72,
-        "MEDIUM": 40
+        "HIGH": 70,
+        "MEDIUM": 42
       },
       "movement_status_counts": {
-        "REAL_OPENING_CURRENT_AVAILABLE": 72,
-        "OPENING_EQUALS_CURRENT": 40
+        "REAL_OPENING_CURRENT_AVAILABLE": 70,
+        "OPENING_EQUALS_CURRENT": 42
       },
       "quality_tier_counts": {
-        "HIGH": 72,
-        "MEDIUM_CURRENT_ONLY": 40
+        "HIGH": 70,
+        "MEDIUM_CURRENT_ONLY": 42
       },
       "value_status_counts": {
-        "NO_VALUE": 56,
-        "VALUE_STRONG": 39,
+        "NO_VALUE": 55,
+        "VALUE_STRONG": 40,
         "VALUE_PLAYABLE": 17
       },
       "source_policy_counts": {
@@ -46,21 +46,21 @@
       },
       "market_weight_stats": {
         "count": 112,
-        "avg": 0.2096,
+        "avg": 0.2071,
         "min": 0.1,
         "max": 0.3
       },
       "value_delta_pp_stats": {
         "count": 112,
         "avg": 0.0,
-        "min": -45.49,
-        "max": 45.49
+        "min": -26.92,
+        "max": 26.92
       },
       "expected_value_pct_stats": {
         "count": 112,
-        "avg": 5.4779,
-        "min": -40.33,
-        "max": 233.4
+        "avg": 6.5503,
+        "min": -47.54,
+        "max": 312.56
       },
       "samples": {
         "thin_fallback": [],
@@ -627,8 +627,8 @@
       "label": "corq_top7",
       "total_rows": 7,
       "coverage_pct": {
-        "high_marq": 57.14,
-        "medium_current_only": 42.86,
+        "high_marq": 71.43,
+        "medium_current_only": 28.57,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
         "usable_marq_high_or_medium": 100.0
@@ -637,51 +637,67 @@
         "getAllOddsForEvent": 7
       },
       "data_status_counts": {
-        "EXACT_BETTING_ODDS_WITH_OPENING": 4,
-        "EXACT_CURRENT_ODDS_ONLY": 3
+        "EXACT_BETTING_ODDS_WITH_OPENING": 5,
+        "EXACT_CURRENT_ODDS_ONLY": 2
       },
       "confidence_counts": {
-        "HIGH": 4,
-        "MEDIUM": 3
+        "HIGH": 5,
+        "MEDIUM": 2
       },
       "movement_status_counts": {
-        "REAL_OPENING_CURRENT_AVAILABLE": 4,
-        "OPENING_EQUALS_CURRENT": 3
+        "REAL_OPENING_CURRENT_AVAILABLE": 5,
+        "OPENING_EQUALS_CURRENT": 2
       },
       "quality_tier_counts": {
-        "HIGH": 4,
-        "MEDIUM_CURRENT_ONLY": 3
+        "HIGH": 5,
+        "MEDIUM_CURRENT_ONLY": 2
       },
       "value_status_counts": {
-        "VALUE_PLAYABLE": 4,
-        "VALUE_STRONG": 3
+        "NO_VALUE": 4,
+        "VALUE_STRONG": 2,
+        "VALUE_PLAYABLE": 1
       },
       "source_policy_counts": {
         "TENNISAPI_ONLY_EXACT_EVENT": 7
       },
       "market_weight_stats": {
         "count": 7,
-        "avg": 0.2114,
+        "avg": 0.2257,
         "min": 0.12,
         "max": 0.3
       },
       "value_delta_pp_stats": {
         "count": 7,
-        "avg": 3.53,
-        "min": 1.14,
-        "max": 10.59
+        "avg": 0.1043,
+        "min": -3.54,
+        "max": 5.43
       },
       "expected_value_pct_stats": {
         "count": 7,
-        "avg": 1.4386,
-        "min": -3.07,
-        "max": 17.1
+        "avg": -4.9271,
+        "min": -10.51,
+        "max": 4.01
       },
       "samples": {
         "thin_fallback": [],
         "no_marq_or_unknown": [],
         "current_only": [],
         "real_opening": [
+          {
+            "identity": "16686609",
+            "pick": "Jack Draper",
+            "opponent": "Terence Atmane",
+            "odds": 1.44,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": -0.88,
+            "expected_value_pct": -6.76,
+            "fallback_reason": null
+          },
           {
             "identity": "16686542",
             "pick": "Daniel Merida",
@@ -698,52 +714,113 @@
             "fallback_reason": null
           },
           {
-            "identity": "16686541",
-            "pick": "Denis Shapovalov",
-            "opponent": "Zachary Svajda",
-            "odds": 1.67,
+            "identity": "16696350",
+            "pick": "Fábián Marozsán",
+            "opponent": "Shintaro Mochizuki",
+            "odds": 1.53,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 1.19,
-            "expected_value_pct": -3.07,
+            "value_delta_pp": -3.54,
+            "expected_value_pct": -10.51,
             "fallback_reason": null
           },
           {
-            "identity": "16662038",
-            "pick": "Anastasia Potapova",
-            "opponent": "Elena-Gabriela Ruse",
-            "odds": 1.73,
+            "identity": "16686608",
+            "pick": "Hamad Medjedović",
+            "opponent": "Juan Manuel Cerundolo",
+            "odds": 1.57,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 1.47,
-            "expected_value_pct": -2.6,
+            "value_delta_pp": -2.16,
+            "expected_value_pct": -8.8,
             "fallback_reason": null
           },
           {
-            "identity": "16686607",
-            "pick": "Sebastián Báez",
-            "opponent": "Mattia Bellucci",
-            "odds": 1.8,
+            "identity": "16661668",
+            "pick": "Alexander Blockx",
+            "opponent": "Jaume Munar",
+            "odds": 1.57,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": 1.75,
-            "expected_value_pct": -2.12,
+            "value_delta_pp": -2.4,
+            "expected_value_pct": -9.18,
             "fallback_reason": null
           }
         ],
-        "no_value": [],
+        "no_value": [
+          {
+            "identity": "16686609",
+            "pick": "Jack Draper",
+            "opponent": "Terence Atmane",
+            "odds": 1.44,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": -0.88,
+            "expected_value_pct": -6.76,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696350",
+            "pick": "Fábián Marozsán",
+            "opponent": "Shintaro Mochizuki",
+            "odds": 1.53,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": -3.54,
+            "expected_value_pct": -10.51,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16686608",
+            "pick": "Hamad Medjedović",
+            "opponent": "Juan Manuel Cerundolo",
+            "odds": 1.57,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": -2.16,
+            "expected_value_pct": -8.8,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16661668",
+            "pick": "Alexander Blockx",
+            "opponent": "Jaume Munar",
+            "odds": 1.57,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": -2.4,
+            "expected_value_pct": -9.18,
+            "fallback_reason": null
+          }
+        ],
         "value_strong": [
           {
             "identity": "16662018",
@@ -773,21 +850,6 @@
             "market_weight": 0.3,
             "value_delta_pp": 5.43,
             "expected_value_pct": 4.01,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16662032",
-            "pick": "Maja Chwalinska",
-            "opponent": "Talia Gibson",
-            "odds": 2.1,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": 10.59,
-            "expected_value_pct": 17.1,
             "fallback_reason": null
           }
         ]

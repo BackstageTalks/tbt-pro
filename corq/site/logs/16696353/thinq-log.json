@@ -2642,30 +2642,39 @@
     "SHORT",
     "VALUE_NEGATIVE"
   ],
-  "corq_source_rank": 59,
-  "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
+  "corq_source_rank": 58,
+  "top7_filter_mode": "PUBLISHABLE_CORQ_FIRST_DATA_HEALTH_V1",
   "top7_publishable": false,
   "eligible_for_top7": false,
   "top7_quality_reject_reasons": [
     "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
     "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
     "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH",
-    "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD"
+    "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD",
+    "REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
+    "REJECT_TOP7_EV_HARD_NEGATIVE",
+    "REJECT_TOP7_LOW_COMBINED_DATA_DEPTH"
   ],
   "top7_reject_reasons": [
     "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
     "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
     "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH",
-    "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD"
+    "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD",
+    "REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
+    "REJECT_TOP7_EV_HARD_NEGATIVE",
+    "REJECT_TOP7_LOW_COMBINED_DATA_DEPTH"
   ],
   "top7_hard_reject_reasons": [
     "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
     "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
     "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH",
-    "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD"
+    "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD",
+    "REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
+    "REJECT_TOP7_EV_HARD_NEGATIVE",
+    "REJECT_TOP7_LOW_COMBINED_DATA_DEPTH"
   ],
   "top7_primary_reject_reason": "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
-  "top7_reject_reason_count": 4,
+  "top7_reject_reason_count": 7,
   "top7_reject_summary_scope": "NON_PUBLISHABLE_ROWS_ONLY",
   "top7_status_allowed": true,
   "top7_status_type_normalized": "notstarted",
@@ -2716,7 +2725,8 @@
     "NEGATIVE_VALUE_HARD",
     "NEGATIVE_EV_HARD",
     "SHORT_NO_VALUE_COMBO",
-    "SHORT_PRICE_VALUE_GUARD_FAIL"
+    "SHORT_PRICE_VALUE_GUARD_FAIL",
+    "LOW_CONTEXT_RISK"
   ],
   "top7_risk_labels": [
     "No value",
@@ -2727,7 +2737,8 @@
     "Negative value >5pp",
     "Negative EV hard",
     "Short price + no value",
-    "Short price guard fail"
+    "Short price guard fail",
+    "Low context risk"
   ],
   "top7_risk_penalty_details": [
     {
@@ -2808,9 +2819,17 @@
       "min_value_delta_pp": -5.0,
       "min_expected_value_pct": -7.5,
       "short_price_gate_ok": false
+    },
+    {
+      "tag": "LOW_CONTEXT_RISK",
+      "penalty": 4.0,
+      "elo_unavailable": true,
+      "surface_h2h_missing": true,
+      "pick_data_depth": 0.45368,
+      "combined_data_depth": 0.54376
     }
   ],
-  "top7_risk_penalty_points": 36.5,
+  "top7_risk_penalty_points": 40.5,
   "top7_clean_bonus_points": 3.5,
   "top7_quality_score": 0.0,
   "corq_warning_flags": [
@@ -2825,7 +2844,8 @@
     "NEGATIVE_VALUE_HARD",
     "NEGATIVE_EV_HARD",
     "SHORT_NO_VALUE_COMBO",
-    "SHORT_PRICE_VALUE_GUARD_FAIL"
+    "SHORT_PRICE_VALUE_GUARD_FAIL",
+    "LOW_CONTEXT_RISK"
   ],
   "top7_support_tags": [
     "FORM_SUPPORT_PICK",
@@ -2838,8 +2858,14 @@
     "Market with pick"
   ],
   "top7_positive_support_count": 3,
-  "top7_risk_count": 9,
+  "top7_risk_count": 10,
   "top7_high_risk": true,
-  "corq_rank": 59,
+  "top7_combined_data_depth": 0.54376,
+  "top7_sets_games_data_depth": 0.3846,
+  "top7_low_context_risk": true,
+  "top7_value_delta_pp": -20.0,
+  "top7_expected_value_pct": -26.0,
+  "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
+  "corq_rank": 58,
   "_corq_render_rank": 2
 }

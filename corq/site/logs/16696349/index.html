@@ -2636,27 +2636,36 @@
     &quot;FAIR&quot;,
     &quot;VALUE_NEGATIVE&quot;
   ],
-  &quot;corq_source_rank&quot;: 92,
-  &quot;top7_filter_mode&quot;: &quot;PUBLISHABLE_CORQ_THINQ_GUARD_V1&quot;,
+  &quot;corq_source_rank&quot;: 93,
+  &quot;top7_filter_mode&quot;: &quot;PUBLISHABLE_CORQ_FIRST_DATA_HEALTH_V1&quot;,
   &quot;top7_publishable&quot;: false,
   &quot;eligible_for_top7&quot;: false,
   &quot;top7_quality_reject_reasons&quot;: [
     &quot;REJECT_TOP7_THINQ_EDGE_AGAINST_PICK&quot;,
     &quot;REJECT_TOP7_LOW_THINQ_CONFIDENCE&quot;,
-    &quot;REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH&quot;
+    &quot;REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH&quot;,
+    &quot;REJECT_TOP7_THINQ_BELOW_50_AND_NEGATIVE_VALUE&quot;,
+    &quot;REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE&quot;,
+    &quot;REJECT_TOP7_EV_HARD_NEGATIVE&quot;
   ],
   &quot;top7_reject_reasons&quot;: [
     &quot;REJECT_TOP7_THINQ_EDGE_AGAINST_PICK&quot;,
     &quot;REJECT_TOP7_LOW_THINQ_CONFIDENCE&quot;,
-    &quot;REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH&quot;
+    &quot;REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH&quot;,
+    &quot;REJECT_TOP7_THINQ_BELOW_50_AND_NEGATIVE_VALUE&quot;,
+    &quot;REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE&quot;,
+    &quot;REJECT_TOP7_EV_HARD_NEGATIVE&quot;
   ],
   &quot;top7_hard_reject_reasons&quot;: [
     &quot;REJECT_TOP7_THINQ_EDGE_AGAINST_PICK&quot;,
     &quot;REJECT_TOP7_LOW_THINQ_CONFIDENCE&quot;,
-    &quot;REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH&quot;
+    &quot;REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH&quot;,
+    &quot;REJECT_TOP7_THINQ_BELOW_50_AND_NEGATIVE_VALUE&quot;,
+    &quot;REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE&quot;,
+    &quot;REJECT_TOP7_EV_HARD_NEGATIVE&quot;
   ],
   &quot;top7_primary_reject_reason&quot;: &quot;REJECT_TOP7_THINQ_EDGE_AGAINST_PICK&quot;,
-  &quot;top7_reject_reason_count&quot;: 3,
+  &quot;top7_reject_reason_count&quot;: 6,
   &quot;top7_reject_summary_scope&quot;: &quot;NON_PUBLISHABLE_ROWS_ONLY&quot;,
   &quot;top7_status_allowed&quot;: true,
   &quot;top7_status_type_normalized&quot;: &quot;notstarted&quot;,
@@ -2704,7 +2713,8 @@
     &quot;MULTI_RISK_PICK&quot;,
     &quot;NEGATIVE_VALUE_HARD&quot;,
     &quot;NEGATIVE_EV_HARD&quot;,
-    &quot;HIGH_RISK_PICK&quot;
+    &quot;HIGH_RISK_PICK&quot;,
+    &quot;LOW_CONTEXT_RISK&quot;
   ],
   &quot;top7_risk_labels&quot;: [
     &quot;No value&quot;,
@@ -2712,7 +2722,8 @@
     &quot;Multiple risk signals&quot;,
     &quot;Negative value &gt;5pp&quot;,
     &quot;Negative EV hard&quot;,
-    &quot;High Risk&quot;
+    &quot;High Risk&quot;,
+    &quot;Low context risk&quot;
   ],
   &quot;top7_risk_penalty_details&quot;: [
     {
@@ -2752,9 +2763,17 @@
       &quot;tag&quot;: &quot;NEGATIVE_EV_HARD&quot;,
       &quot;penalty&quot;: 4.0,
       &quot;expected_value_pct&quot;: -23.33
+    },
+    {
+      &quot;tag&quot;: &quot;LOW_CONTEXT_RISK&quot;,
+      &quot;penalty&quot;: 4.0,
+      &quot;elo_unavailable&quot;: true,
+      &quot;surface_h2h_missing&quot;: true,
+      &quot;pick_data_depth&quot;: 0.43118,
+      &quot;combined_data_depth&quot;: 0.59443
     }
   ],
-  &quot;top7_risk_penalty_points&quot;: 17.5,
+  &quot;top7_risk_penalty_points&quot;: 21.5,
   &quot;top7_clean_bonus_points&quot;: 2.5,
   &quot;top7_quality_score&quot;: 0.0,
   &quot;corq_warning_flags&quot;: [
@@ -2765,7 +2784,8 @@
     &quot;MULTI_RISK_PICK&quot;,
     &quot;NEGATIVE_VALUE_HARD&quot;,
     &quot;NEGATIVE_EV_HARD&quot;,
-    &quot;HIGH_RISK_PICK&quot;
+    &quot;HIGH_RISK_PICK&quot;,
+    &quot;LOW_CONTEXT_RISK&quot;
   ],
   &quot;top7_support_tags&quot;: [
     &quot;FORM_SUPPORT_PICK&quot;,
@@ -2776,8 +2796,14 @@
     &quot;Market with pick&quot;
   ],
   &quot;top7_positive_support_count&quot;: 2,
-  &quot;top7_risk_count&quot;: 6,
+  &quot;top7_risk_count&quot;: 7,
   &quot;top7_high_risk&quot;: true,
-  &quot;corq_rank&quot;: 92,
+  &quot;top7_combined_data_depth&quot;: 0.59443,
+  &quot;top7_sets_games_data_depth&quot;: 0.7692,
+  &quot;top7_low_context_risk&quot;: true,
+  &quot;top7_value_delta_pp&quot;: -15.56,
+  &quot;top7_expected_value_pct&quot;: -23.33,
+  &quot;top7_data_health_model_version&quot;: &quot;CORQ_TOP7_DATA_HEALTH_V1&quot;,
+  &quot;corq_rank&quot;: 93,
   &quot;_corq_render_rank&quot;: 5
 }</pre></body></html>

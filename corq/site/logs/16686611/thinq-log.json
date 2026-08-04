@@ -2634,20 +2634,26 @@
     "VALUE_NEGATIVE"
   ],
   "corq_source_rank": 34,
-  "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
+  "top7_filter_mode": "PUBLISHABLE_CORQ_FIRST_DATA_HEALTH_V1",
   "top7_publishable": false,
   "eligible_for_top7": false,
   "top7_quality_reject_reasons": [
-    "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD"
+    "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD",
+    "REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
+    "REJECT_TOP7_EV_HARD_NEGATIVE"
   ],
   "top7_reject_reasons": [
-    "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD"
+    "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD",
+    "REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
+    "REJECT_TOP7_EV_HARD_NEGATIVE"
   ],
   "top7_hard_reject_reasons": [
-    "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD"
+    "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD",
+    "REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
+    "REJECT_TOP7_EV_HARD_NEGATIVE"
   ],
   "top7_primary_reject_reason": "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD",
-  "top7_reject_reason_count": 1,
+  "top7_reject_reason_count": 3,
   "top7_reject_summary_scope": "NON_PUBLISHABLE_ROWS_ONLY",
   "top7_status_allowed": true,
   "top7_status_type_normalized": "notstarted",
@@ -2815,6 +2821,12 @@
   "top7_positive_support_count": 4,
   "top7_risk_count": 8,
   "top7_high_risk": true,
+  "top7_combined_data_depth": 0.63966,
+  "top7_sets_games_data_depth": 0.4808,
+  "top7_low_context_risk": false,
+  "top7_value_delta_pp": -7.0,
+  "top7_expected_value_pct": -10.09,
+  "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
   "corq_rank": 34,
   "_corq_render_rank": 12
 }

@@ -2631,7 +2631,7 @@
     "VALUE_NEGATIVE"
   ],
   "corq_source_rank": 22,
-  "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
+  "top7_filter_mode": "PUBLISHABLE_CORQ_FIRST_DATA_HEALTH_V1",
   "top7_publishable": true,
   "eligible_for_top7": true,
   "top7_quality_reject_reasons": [],
@@ -2746,7 +2746,7 @@
   ],
   "top7_risk_penalty_points": 13.0,
   "top7_clean_bonus_points": 6.5,
-  "top7_quality_score": 77.5927,
+  "top7_quality_score": 63.5551,
   "corq_warning_flags": [
     "OPP_WEAK_FORM",
     "FORM_SUPPORT_PICK",
@@ -2775,6 +2775,16 @@
   "top7_positive_support_count": 5,
   "top7_risk_count": 4,
   "top7_high_risk": false,
-  "corq_rank": 22,
+  "top7_combined_data_depth": 0.80141,
+  "top7_sets_games_data_depth": 0.4808,
+  "top7_low_context_risk": false,
+  "top7_value_delta_pp": -4.5,
+  "top7_expected_value_pct": -6.49,
+  "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
+  "corq_rank": 1,
+  "top7_sort_rank": 1,
+  "top7_sort_primary": "CORQ_PROBABILITY_DESC",
+  "top7_sort_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
+  "top7_rank": 1,
   "_corq_render_rank": 20
 }
