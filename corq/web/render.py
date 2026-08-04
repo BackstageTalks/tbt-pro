@@ -233,7 +233,7 @@ def explanation_text(key: str) -> str:
         "thinq_input": "ThinQ Input: contribution of ThinQ to the final CorQ probability, shown in percentage points. Positive values lift CorQ, negative values reduce CorQ.",
         "marq_input": "MarQ Input: contribution of MarQ market signal to the final CorQ probability, shown in percentage points. Positive values lift CorQ, negative values reduce CorQ.",
         "corq_final": "CorQ Final: final calibrated CorQ probability after blending ThinQ model signal and MarQ market signal.",
-        "marq_delta": "MarQ Delta: difference between final CorQ and MarQ market probability, shown in percentage points. Positive means CorQ is above market, negative means below market.",
+        "marq_delta": "Model Value: model edge versus no-vig market probability, plus expected value at the current pick price. Positive values support the pick.",
         "sets_ou": "Sets o|u: recommended over/under side for total sets with line and probability. Example O2.5 47% means over 2.5 sets at 47% model probability.",
         "games_ou": "Games o|u: recommended over/under side for total games with line and probability. Example O23.5 51% means over 23.5 games at 51% model probability.",
         "tb_pct": "TB%: projected tiebreak probability. It is derived from the set/game and serve profile when available; otherwise it falls back to the configured match-shape source.",
@@ -1750,7 +1750,31 @@ def _triplet_projection_fallback(row: Dict[str, Any], family: str, side: str) ->
     return _prop_projection_from_pct(row, family, side)
 
 
+
+def _api_h2h_pm_triplet(row: Dict[str, Any], family: str) -> Optional[str]:
+    """Display real API H2H per-match values when available.
+
+    These are not betting lines and not percentages. They come from TennisAPI H2H
+    totals divided by statMatchesPlayed/matchesCount. If unavailable, return
+    None so the regular market/projection display can decide what to show.
+    """
+    if family == "aces":
+        p = as_float(row.get("api_pick_aces_per_match"))
+        o = as_float(row.get("api_opp_aces_per_match"))
+    else:
+        p = as_float(row.get("api_pick_double_faults_per_match"))
+        o = as_float(row.get("api_opp_double_faults_per_match"))
+    if p is None and o is None:
+        return None
+    total = (p or 0.0) + (o or 0.0) if p is not None and o is not None else None
+    def one(value: Optional[float]) -> str:
+        return "N/A" if value is None else f"{value:.1f}"
+    return f"{one(p)} | {one(o)} | {one(total)}"
+
 def triplet_market_display(row: Dict[str, Any], family: str) -> str:
+    api_pm = _api_h2h_pm_triplet(row, family)
+    if api_pm is not None:
+        return api_pm
     aliases = {
         "aces": (
             ("pick_aces", "p_aces", "aces_pick"),
@@ -2141,8 +2165,8 @@ def render_sets_games_box(row: Dict[str, Any]) -> str:
         metric_row("Sets o|u", esc(sets_ou_value)),
         metric_row("Games o|u", esc(games_ou_value)),
         metric_row("TB%", esc(tiebreak_pct_display(row))),
-        metric_row("Aces P | O | T", esc(triplet_market_display(row, "aces"))),
-        metric_row("DF P | O | T", esc(triplet_market_display(row, "df"))),
+        metric_row("Aces/M P | O | T", esc(triplet_market_display(row, "aces"))),
+        metric_row("DF/M P | O | T", esc(triplet_market_display(row, "df"))),
         metric_row("S Data Depth", bar_html(s_data_depth(row))),
         '</section>',
     ])
@@ -2158,8 +2182,8 @@ def render_sets_games_box(row: Dict[str, Any]) -> str:
         metric_row("Sets o|u", esc(sets_ou_value)),
         metric_row("Games o|u", esc(games_ou_value)),
         metric_row("TB%", esc(tiebreak_pct_display(row))),
-        metric_row("Aces P | O | T", esc(triplet_market_display(row, "aces"))),
-        metric_row("DF P | O | T", esc(triplet_market_display(row, "df"))),
+        metric_row("Aces/M P | O | T", esc(triplet_market_display(row, "aces"))),
+        metric_row("DF/M P | O | T", esc(triplet_market_display(row, "df"))),
         metric_row("S Data Depth", bar_html(s_data_depth(row))),
         '</section>',
     ])
@@ -2425,17 +2449,36 @@ def marq_trust_display(row: Dict[str, Any]) -> str:
     return f"{_marq_trust_label(row)} | MarQ {as_pct(weight, 0)}"
 
 
+def marq_market_read_class(row: Dict[str, Any]) -> str:
+    text = str(final_marq_display(row) or "").strip().lower().replace("_", " ")
+    if "against" in text:
+        return "bad"
+    if "with pick" in text or "support" in text:
+        return "good"
+    return "neutral"
+
+
+def marq_box_class(row: Dict[str, Any]) -> str:
+    cls = marq_market_read_class(row)
+    if cls == "bad":
+        return "metric-box small-box marq-box marq-against"
+    if cls == "good":
+        return "metric-box small-box marq-box marq-with"
+    return "metric-box small-box marq-box marq-neutral"
+
+
 def render_marq_box(row: Dict[str, Any]) -> str:
     signal = _marq_signal_display(row)
+    market_cls = marq_market_read_class(row)
     return "\n".join([
-        '<div class="metric-box small-box marq-box">',
+        f'<div class="{marq_box_class(row)}">',
         f'<div class="box-head"><span>MarQ {info_icon("marq")}</span><b>{esc(signal)}</b></div>',
         metric_row("Pick Marq", market_pct(_first_data_value(row, "marq_crowd_pick_pct", "pick_marq", "marq_pick_pct"))),
         metric_row("Opp Marq", market_pct(_first_data_value(row, "marq_crowd_opponent_pct", "opponent_marq", "opp_marq", "marq_opponent_pct"))),
-        metric_row_info("Value", esc(marq_value_ev_display(row)), "marq_delta", marq_value_ev_class(row)),
+        metric_row_info("Model Value", esc(marq_value_ev_display(row)), "marq_delta", marq_value_ev_class(row)),
         metric_row_info("Range | Move", esc(marq_open_move_display(row)), "marq_move"),
         metric_row("Trust", esc(marq_trust_display(row))),
-        metric_row("MarQ Final", esc(final_marq_display(row))),
+        metric_row("Market Read", esc(final_marq_display(row)), market_cls),
         '</div>',
     ])
 
