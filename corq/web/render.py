@@ -212,9 +212,9 @@ def explanation_text(key: str) -> str:
         "stat_data_depth": "S Data Depth shows the statistical support for the current pick.",
         "form_data_depth": "F Data Depth shows the reliability of recent form, surface form and opponent-quality data.",
         "mmx": "MMx shows the final blend between ThinQ model signal and MarQ market signal.",
-        "marq": "MarQ summarises market-facing signals: crowd split, market edge, movement, CLV and final market read.",
-        "marq_edge": "MarQ Edge is Pick Marq minus 50%. Pick Marq is the median no-vig market probability for the displayed pick across usable bookmaker quotes.",
-        "marq_move": "Range | Move: Range is opening pick odds -> latest pick odds. Move is the market direction from the implied-probability change. Stable means the move is below the configured movement threshold.",
+        "marq": "MarQ summarises market-facing signals: market probability, value versus model, price movement, data trust and final market read.",
+        "marq_edge": "Value shows the model edge versus no-vig market probability, plus expected value at the current pick price. Positive values support the pick.",
+        "marq_move": "Range | Move: opening pick odds -> current pick odds when AllOdds provides initial odds. If no opening price is available, the box shows current-only/no-open.",
         "thinq_pc": "ThinQ P | C: Probability and Confidence from the ThinQ model. P is the model win probability for the displayed pick. C is the ThinQ confidence/data-quality score used to judge how reliable the probability is.",
         "thinq_prob": "ThinQ Prob: raw ThinQ model probability for the displayed pick before the market blend. It is a model probability, not market-implied odds.",
         "p_el_s_e": "P EL | S-E: pick Elo edge and surface Elo edge versus the opponent. Displayed as overall Elo edge | surface-specific Elo edge.",
@@ -1931,6 +1931,7 @@ def mmx_mix_display(row: Dict[str, Any]) -> str:
     """Compact Model Mix label for the MMx box header."""
     thinq_weight = _first_data_value(
         row,
+        "corq_model_weight",
         "corq_thinq_weight",
         "thinq_weight",
         "model_mix_thinq_weight",
@@ -1938,6 +1939,7 @@ def mmx_mix_display(row: Dict[str, Any]) -> str:
     )
     marq_weight = _first_data_value(
         row,
+        "corq_market_weight",
         "corq_marq_weight",
         "marq_weight",
         "model_mix_marq_weight",
@@ -2237,20 +2239,205 @@ def marq_clv_display(row: Dict[str, Any]) -> str:
     return " ".join(part.capitalize() for part in status_upper.split())
 
 
+def _marq_value_status(row: Dict[str, Any]) -> str:
+    vd = as_float(_first_data_value(row, "marq_v2_value_delta_pp", "corq_value_delta_pp", "value_delta_pp"))
+    ev = as_float(_first_data_value(row, "marq_v2_expected_value_pct", "expected_value_pct", "ev_pct"))
+    if (vd is not None and vd >= 3.0) or (ev is not None and ev >= 4.0):
+        return "Value+"
+    if (vd is not None and vd >= 0.5) or (ev is not None and ev >= 1.0):
+        return "Playable"
+    if (vd is not None and vd <= -3.0) or (ev is not None and ev <= -4.0):
+        return "No value"
+    return "Neutral"
+
+
+def _marq_status_clean(value: Any, default: str = "—") -> str:
+    text = str(value or "").strip()
+    if not text or text.upper() in {"NONE", "NULL", "NAN", "UNKNOWN", "—", "-"}:
+        return default
+    text = text.replace("_", " ").strip()
+    return " ".join(part.capitalize() if not part.isupper() else part for part in text.split())
+
+
+def _marq_pick_market_probability(row: Dict[str, Any]) -> Any:
+    pick_key = str(_first_data_value(row, "pick_outcome_key", "marq_pick_outcome_key") or "od1").lower()
+    if pick_key in {"od2", "2", "away"}:
+        return _first_data_value(row, "marq_no_vig_probability_2", "marq_v2_no_vig_2", "marq_opp_no_vig_probability", "corq_market_probability")
+    return _first_data_value(row, "marq_no_vig_probability_1", "marq_v2_no_vig_1", "marq_pick_no_vig_probability", "corq_market_probability")
+
+
+def _marq_opp_market_probability(row: Dict[str, Any]) -> Any:
+    pick_key = str(_first_data_value(row, "pick_outcome_key", "marq_pick_outcome_key") or "od1").lower()
+    if pick_key in {"od2", "2", "away"}:
+        return _first_data_value(row, "marq_no_vig_probability_1", "marq_v2_no_vig_1", "marq_pick_no_vig_probability")
+    return _first_data_value(row, "marq_no_vig_probability_2", "marq_v2_no_vig_2", "marq_opp_no_vig_probability")
+
+
+def _marq_market_pair_display(row: Dict[str, Any]) -> str:
+    pick_prob = _marq_pick_market_probability(row)
+    opp_prob = _marq_opp_market_probability(row)
+    return f"{market_pct(pick_prob, 1)} | {market_pct(opp_prob, 1)}"
+
+
+def _marq_current_odds_display(row: Dict[str, Any]) -> str:
+    one = _first_data_value(row, "marq_current_odds_1", "current_odds_1", "odds_1")
+    two = _first_data_value(row, "marq_current_odds_2", "current_odds_2", "odds_2")
+    if one in (None, "") and two in (None, ""):
+        return f"{fmt_odds(pick_odds(row))} | {fmt_odds(opponent_odds(row))}"
+    return f"{fmt_odds(one)} | {fmt_odds(two)}"
+
+
+def _marq_opening_odds_display(row: Dict[str, Any]) -> str:
+    one = _first_data_value(row, "marq_opening_odds_1", "opening_odds_1", "initial_1")
+    two = _first_data_value(row, "marq_opening_odds_2", "opening_odds_2", "initial_2")
+    if one in (None, "") and two in (None, ""):
+        return "Current only"
+    return f"{fmt_odds(one)} | {fmt_odds(two)}"
+
+
+def _marq_source_display(row: Dict[str, Any]) -> str:
+    endpoint = _first_data_value(row, "marq_endpoint_name", "odds_endpoint_name")
+    if endpoint:
+        return _marq_status_clean(endpoint)
+    source = _first_data_value(row, "marq_api_source", "marq_source", "odds_source")
+    return _marq_status_clean(source, "TennisApi")
+
+
+def _marq_signal_display(row: Dict[str, Any]) -> str:
+    explicit = _first_data_value(row, "marq_v2_signal", "marq_signal", "marq_final", "marq_final_display", "final_marq")
+    if explicit not in (None, ""):
+        text = str(explicit).strip()
+        if text.upper() not in {"UNKNOWN", "NO DATA", "NONE", "NULL", "—", "-", "NEUTRAL"}:
+            return _marq_status_clean(text)
+    status = _marq_value_status(row)
+    tier = str(_first_data_value(row, "corq_marq_quality_tier") or "").upper()
+    if status == "Value+" and tier not in {"THIN_FALLBACK", "NO_MARQ"}:
+        return "Value market edge"
+    if status == "Playable":
+        return "Playable fair value"
+    if status == "No value":
+        return "No value price"
+    if tier == "THIN_FALLBACK":
+        return "Thin market data"
+    return "No clear market edge"
+
+
+def _marq_pick_outcome_key(row: Dict[str, Any]) -> str:
+    key = str(_first_data_value(row, "pick_outcome_key", "marq_pick_outcome_key") or "").strip().lower()
+    if key in {"od2", "2", "away", "player2"}:
+        return "od2"
+    side = str(_first_data_value(row, "pick_side") or "").strip().upper()
+    if side == "AWAY":
+        return "od2"
+    return "od1"
+
+
+def _marq_side_value(row: Dict[str, Any], side1_keys: Tuple[str, ...], side2_keys: Tuple[str, ...], fallback_keys: Tuple[str, ...] = ()) -> Any:
+    value = _first_data_value(row, *(side2_keys if _marq_pick_outcome_key(row) == "od2" else side1_keys))
+    if value not in (None, ""):
+        return value
+    return _first_data_value(row, *fallback_keys) if fallback_keys else None
+
+
+def marq_value_ev_display(row: Dict[str, Any]) -> str:
+    delta = _first_data_value(
+        row,
+        "marq_v2_value_delta_pp",
+        "corq_value_delta_pp",
+        "value_delta_pp",
+        "model_market_delta_pp",
+    )
+    ev = _first_data_value(
+        row,
+        "marq_v2_expected_value_pct",
+        "expected_value_pct",
+        "ev_pct",
+        "expected_value",
+    )
+    return f"{pp_display(delta, 1)} | EV {signed_market_pct(ev, 1)}"
+
+
+def marq_value_ev_class(row: Dict[str, Any]) -> str:
+    delta = as_float(_first_data_value(row, "marq_v2_value_delta_pp", "corq_value_delta_pp", "value_delta_pp", "model_market_delta_pp"))
+    ev = as_float(_first_data_value(row, "marq_v2_expected_value_pct", "expected_value_pct", "ev_pct", "expected_value"))
+    return sign_class(delta if delta is not None else ev)
+
+
+def marq_open_move_display(row: Dict[str, Any]) -> str:
+    open_odds = _marq_side_value(
+        row,
+        ("marq_opening_odds_1", "marq_initial_odds_1", "opening_1", "initial_1"),
+        ("marq_opening_odds_2", "marq_initial_odds_2", "opening_2", "initial_2"),
+        ("marq_initial_pick_odds", "move_earliest_odds", "initial_pick_odds"),
+    )
+    current_odds = _marq_side_value(
+        row,
+        ("marq_current_odds_1", "current_odds_1", "odds_1"),
+        ("marq_current_odds_2", "current_odds_2", "odds_2"),
+        ("marq_current_pick_odds", "move_latest_odds", "current_pick_odds", "pick_odds", "odds"),
+    )
+    move_signal = move_signal_display(_first_data_value(row, "marq_internal_move_signal", "marq_display_move_signal", "marq_move_signal", "market_move"))
+    movement_status = str(_first_data_value(row, "marq_v2_movement_status", "marq_movement_status") or "").upper()
+
+    open_num = as_float(open_odds)
+    current_num = as_float(current_odds)
+    if open_num is not None and current_num is not None:
+        if move_signal == "Pending" and movement_status:
+            if "CURRENT_ONLY" in movement_status:
+                move_signal = "Current Only"
+            elif "OPENING_EQUALS_CURRENT" in movement_status:
+                move_signal = "Stable"
+            elif "REAL_OPENING" in movement_status:
+                move_signal = "Real Move"
+        return f"{fmt_odds(open_num)} -> {fmt_odds(current_num)} | {move_signal}"
+    if current_num is not None:
+        return f"Current {fmt_odds(current_num)} | No open"
+    if "THIN" in movement_status:
+        return "No real movement"
+    if "CURRENT_ONLY" in movement_status:
+        return "Current only | No open"
+    return marq_range_move_display(row)
+
+
+def _marq_trust_label(row: Dict[str, Any]) -> str:
+    confidence = str(_first_data_value(row, "marq_v2_confidence", "marq_confidence") or "").strip()
+    tier = str(_first_data_value(row, "corq_marq_quality_tier", "marq_quality_tier") or "").strip()
+    data_status = str(_first_data_value(row, "marq_v2_data_status", "marq_data_status", "marq_source_quality") or "").strip()
+    combined = " ".join([confidence, tier, data_status]).upper()
+    if "HIGH" in combined or "REAL_OPENING" in combined or "WITH_OPENING" in combined:
+        return "High"
+    if "MEDIUM" in combined or "CURRENT" in combined or "EXACT" in combined:
+        return "Medium"
+    if "LOW" in combined or "THIN" in combined or "FALLBACK" in combined:
+        return "Low"
+    return confidence.title() if confidence else "—"
+
+
+def marq_trust_display(row: Dict[str, Any]) -> str:
+    weight = _first_data_value(
+        row,
+        "corq_market_weight",
+        "corq_marq_weight",
+        "marq_weight",
+        "model_mix_marq_weight",
+        "corq_model_mix_marq_weight",
+    )
+    return f"{_marq_trust_label(row)} | MarQ {as_pct(weight, 0)}"
+
+
 def render_marq_box(row: Dict[str, Any]) -> str:
-    rows = [
-        '<section class="metric-box small-box marq-box">',
-        f'<div class="box-head"><span>MarQ {info_icon("marq")}</span><b></b></div>',
+    signal = _marq_signal_display(row)
+    return "\n".join([
+        '<div class="metric-box small-box marq-box">',
+        f'<div class="box-head"><span>MarQ {info_icon("marq")}</span><b>{esc(signal)}</b></div>',
         metric_row("Pick Marq", market_pct(_first_data_value(row, "marq_crowd_pick_pct", "pick_marq", "marq_pick_pct"))),
         metric_row("Opp Marq", market_pct(_first_data_value(row, "marq_crowd_opponent_pct", "opponent_marq", "opp_marq", "marq_opponent_pct"))),
-        metric_row_info("MarQ Edge", signed_market_pct(_first_data_value(row, "marq_edge_pct", "marq_edge", "edge_pct")), "marq_edge"),
-        metric_row_info("Range | Move", esc(marq_range_move_display(row)), "marq_move"),
-    ]
-    clv_value = marq_clv_display(row)
-    rows.append(metric_row("CLV", esc(clv_value), sign_class(row.get("marq_internal_clv_pp") or row.get("marq_clv_pct"))))
-    rows.append(metric_row("MarQ Final", esc(final_marq_display(row))))
-    rows.append('</section>')
-    return "\n".join(rows)
+        metric_row_info("Value", esc(marq_value_ev_display(row)), "marq_delta", marq_value_ev_class(row)),
+        metric_row_info("Range | Move", esc(marq_open_move_display(row)), "marq_move"),
+        metric_row("Trust", esc(marq_trust_display(row))),
+        metric_row("MarQ Final", esc(final_marq_display(row))),
+        '</div>',
+    ])
 
 def render_cloq_box(row: Dict[str, Any]) -> str:
     return "\n".join([
