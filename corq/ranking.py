@@ -1613,3 +1613,256 @@ def top7_quality_score(row: Dict[str, Any]) -> float:
     raw -= max(0, int(risk.get("risk_count") or 0) - 1) * 2.5
     raw += min(int(risk.get("positive_support_count") or 0), 5) * 0.65
     return round(raw, 4)
+
+
+# ---------------------------------------------------------------------------
+# 2026-08-04 TOP7 data-health override: CorQ-first publishable shortlist
+# ---------------------------------------------------------------------------
+# Goal:
+# - CorQ TOP7 = top 7 by final CorQ probability, but only among data-healthy picks.
+# - Audit keeps everything else, including model/market conflicts.
+# - Hard reject model-value traps that can be pulled up by market support.
+# - Add combined data depth and LOW_CONTEXT_RISK for transparent auditing.
+
+try:
+    _DATA_HEALTH_BASE_TOP7_REJECT_REASONS
+except NameError:
+    _DATA_HEALTH_BASE_TOP7_REJECT_REASONS = top7_reject_reasons
+    _DATA_HEALTH_BASE_TOP7_RISK_ASSESSMENT = top7_risk_assessment
+    _DATA_HEALTH_BASE_ANNOTATE_TOP7_QUALITY = annotate_top7_quality
+
+TOP7_DATA_HEALTH_MODEL_VERSION = "CORQ_TOP7_DATA_HEALTH_V1"
+MODEL_VALUE_HARD_REJECT_PP = -7.0
+EV_HARD_REJECT_PCT = -10.0
+LOW_CONTEXT_SDATA_LIMIT = 0.55
+COMBINED_DATA_DEPTH_MIN = 0.55
+
+
+def _safe_pct_prob(value: Any, default: Optional[float] = None) -> Optional[float]:
+    num = _as_float(value, None)
+    if num is None:
+        return default
+    if num > 1.5:
+        num = num / 100.0
+    return max(0.0, min(float(num), 1.0))
+
+
+def sets_games_data_depth(row: Dict[str, Any]) -> float:
+    value = _first(
+        row,
+        [
+            "sets_games_data_depth",
+            "sets_games_s_data_depth",
+            "sets_games_stat_data_depth",
+            "sg_data_depth",
+            "ta_sets_games_data_depth",
+            "sets_games_depth",
+        ],
+        None,
+    )
+    if value is None:
+        value = _get_nested(row, "sets_games", "data_depth")
+    if value is None:
+        value = _get_nested(row, "sets_games", "s_data_depth")
+    if value is None:
+        value = _get_nested(row, "sets_games", "stat_data_depth")
+    if value is None:
+        # If Sets/Games depth is unavailable, use pick data depth as a conservative fallback
+        # so older rows are not rejected only because this new audit field is missing.
+        return pick_data_depth(row)
+    return _safe_pct_prob(value, 0.0) or 0.0
+
+
+def combined_data_depth(row: Dict[str, Any]) -> float:
+    corq_depth = pick_data_depth(row)
+    form_depth = form_data_depth(row)
+    sg_depth = sets_games_data_depth(row)
+    combined = (0.50 * corq_depth) + (0.30 * form_depth) + (0.20 * sg_depth)
+    return round(max(0.0, min(combined, 1.0)), 6)
+
+
+def _surface_h2h_missing(row: Dict[str, Any]) -> bool:
+    pick_w, opp_w, matches = surface_h2h_pick_opp_counts(row)
+    if matches > 0:
+        return False
+    text = " ".join(str(x or "") for x in (
+        _first(row, ["surface_h2h_display", "s_h2h_display", "same_surface_h2h_display"], ""),
+        _get_nested(row, "thinq", "h2h", "same_surface_status"),
+        _get_nested(row, "thinq", "h2h", "status"),
+    )).lower()
+    if "no data" in text or "missing" in text:
+        return True
+    return matches <= 0
+
+
+def low_context_risk(row: Dict[str, Any]) -> bool:
+    return bool(
+        elo_unavailable(row)
+        and _surface_h2h_missing(row)
+        and pick_data_depth(row) < LOW_CONTEXT_SDATA_LIMIT
+    )
+
+
+def _data_health_reject_reasons(row: Dict[str, Any]) -> List[str]:
+    reasons: List[str] = []
+    tq = thinq_pick_probability(row)
+    vd = value_delta_pp(row)
+    ev = expected_value_pct(row)
+    cdepth = combined_data_depth(row)
+
+    if tq < 0.50 and vd is not None and vd < 0:
+        reasons.append("REJECT_TOP7_THINQ_BELOW_50_AND_NEGATIVE_VALUE")
+    if vd is not None and vd <= MODEL_VALUE_HARD_REJECT_PP:
+        reasons.append("REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE")
+    if ev is not None and ev <= EV_HARD_REJECT_PCT:
+        reasons.append("REJECT_TOP7_EV_HARD_NEGATIVE")
+    if cdepth < COMBINED_DATA_DEPTH_MIN:
+        reasons.append("REJECT_TOP7_LOW_COMBINED_DATA_DEPTH")
+    return reasons
+
+
+def top7_reject_reasons(row: Dict[str, Any]) -> List[str]:
+    reasons = list(_DATA_HEALTH_BASE_TOP7_REJECT_REASONS(row))
+    reasons.extend(_data_health_reject_reasons(row))
+    return list(dict.fromkeys(reasons))
+
+
+for _reason in (
+    "REJECT_TOP7_THINQ_BELOW_50_AND_NEGATIVE_VALUE",
+    "REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
+    "REJECT_TOP7_EV_HARD_NEGATIVE",
+    "REJECT_TOP7_LOW_COMBINED_DATA_DEPTH",
+):
+    if _reason not in TOP7_REJECT_PRIORITY:
+        TOP7_REJECT_PRIORITY.append(_reason)
+
+
+def top7_risk_assessment(row: Dict[str, Any]) -> Dict[str, Any]:
+    base = deepcopy(_DATA_HEALTH_BASE_TOP7_RISK_ASSESSMENT(row))
+    cdepth = combined_data_depth(row)
+    base["combined_data_depth"] = cdepth
+    base["sets_games_data_depth"] = round(sets_games_data_depth(row), 6)
+    base["data_health_model_version"] = TOP7_DATA_HEALTH_MODEL_VERSION
+
+    risk_tags = list(dict.fromkeys(str(x) for x in base.get("risk_tags", []) if x))
+    risk_labels = list(dict.fromkeys(str(x) for x in base.get("risk_labels", base.get("labels", [])) if x))
+    all_tags = list(dict.fromkeys(str(x) for x in base.get("tags", []) if x))
+    all_labels = list(dict.fromkeys(str(x) for x in base.get("labels", []) if x))
+    details = list(base.get("details", [])) if isinstance(base.get("details"), list) else []
+
+    if low_context_risk(row):
+        if "LOW_CONTEXT_RISK" not in risk_tags:
+            risk_tags.append("LOW_CONTEXT_RISK")
+        if "LOW_CONTEXT_RISK" not in all_tags:
+            all_tags.append("LOW_CONTEXT_RISK")
+        if "Low context risk" not in risk_labels:
+            risk_labels.append("Low context risk")
+        if "Low context risk" not in all_labels:
+            all_labels.append("Low context risk")
+        details.append({
+            "tag": "LOW_CONTEXT_RISK",
+            "penalty": 4.0,
+            "elo_unavailable": bool(elo_unavailable(row)),
+            "surface_h2h_missing": bool(_surface_h2h_missing(row)),
+            "pick_data_depth": round(pick_data_depth(row), 6),
+            "combined_data_depth": cdepth,
+        })
+        base["penalty_points"] = round(float(base.get("penalty_points") or 0.0) + 4.0, 4)
+
+    base["risk_tags"] = risk_tags
+    base["risk_labels"] = risk_labels
+    base["tags"] = all_tags
+    base["labels"] = all_labels
+    base["details"] = details
+    base["risk_count"] = len(risk_tags)
+    base["high_risk"] = bool("HIGH_RISK_PICK" in risk_tags or base["risk_count"] >= 5 or float(base.get("penalty_points") or 0.0) >= 16.0)
+    base["bonus_points"] = round(float(base.get("bonus_points") or 0.0), 4)
+    base["penalty_points"] = round(float(base.get("penalty_points") or 0.0), 4)
+    base["net_points"] = round(base["bonus_points"] - base["penalty_points"], 4)
+    return base
+
+
+def top7_quality_score(row: Dict[str, Any]) -> float:
+    """Audit score only. TOP7 sorting is CorQ-first in sort_publishable()."""
+    cp = corq_probability(row) * 100.0
+    vd = value_delta_pp(row)
+    ev = expected_value_pct(row)
+    risk = top7_risk_assessment(row)
+    cdepth = combined_data_depth(row) * 100.0
+    raw = cp + 0.10 * cdepth
+    if vd is not None:
+        raw += max(min(vd, 8.0), -12.0) * 0.25
+    if ev is not None:
+        raw += max(min(ev, 10.0), -15.0) * 0.10
+    raw -= float(risk.get("risk_count") or 0) * 1.5
+    raw -= max(0.0, float(risk.get("penalty_points") or 0.0) - float(risk.get("bonus_points") or 0.0)) * 0.25
+    return round(raw, 4)
+
+
+def _value_sort_key(row: Dict[str, Any]) -> float:
+    value = value_delta_pp(row)
+    return -999.0 if value is None else float(value)
+
+
+def _ev_sort_key(row: Dict[str, Any]) -> float:
+    value = expected_value_pct(row)
+    return -999.0 if value is None else float(value)
+
+
+def _risk_sort_key(row: Dict[str, Any]) -> int:
+    try:
+        return int(top7_risk_assessment(row).get("risk_count") or 0)
+    except Exception:
+        return 99
+
+
+def sort_publishable(rows: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    data = [r for r in rows if r.get("top7_publishable") is True]
+    ranked = sorted(
+        data,
+        key=lambda r: (
+            corq_probability(r),
+            _value_sort_key(r),
+            _ev_sort_key(r),
+            -_risk_sort_key(r),
+            combined_data_depth(r),
+            thinq_pick_probability(r),
+            pick_data_depth(r),
+            max(pick_thinq_edge(r), 0.0),
+        ),
+        reverse=True,
+    )
+    for idx, row in enumerate(ranked, start=1):
+        row["top7_sort_rank"] = idx
+        row["top7_sort_primary"] = "CORQ_PROBABILITY_DESC"
+        row["top7_sort_model_version"] = TOP7_DATA_HEALTH_MODEL_VERSION
+    return ranked
+
+
+def annotate_top7_quality(row: Dict[str, Any]) -> Dict[str, Any]:
+    row = _DATA_HEALTH_BASE_ANNOTATE_TOP7_QUALITY(row)
+    # Base annotation may have used the older reject list. Refresh final hard gates and audit fields.
+    reasons = top7_reject_reasons(row)
+    publishable = not reasons
+    row["top7_filter_mode"] = "PUBLISHABLE_CORQ_FIRST_DATA_HEALTH_V1"
+    row["top7_publishable"] = publishable
+    row["eligible_for_top7"] = publishable
+    row["top7_quality_reject_reasons"] = reasons
+    row["top7_reject_reasons"] = reasons
+    row["top7_hard_reject_reasons"] = reasons
+    row["top7_primary_reject_reason"] = top7_primary_reject_reason(reasons)
+    row["top7_reject_reason_count"] = len(reasons)
+    row["top7_combined_data_depth"] = combined_data_depth(row)
+    row["top7_sets_games_data_depth"] = round(sets_games_data_depth(row), 6)
+    row["top7_low_context_risk"] = low_context_risk(row)
+    row["top7_value_delta_pp"] = value_delta_pp(row)
+    row["top7_expected_value_pct"] = expected_value_pct(row)
+    row["top7_quality_score"] = top7_quality_score(row) if publishable else 0.0
+    risk = top7_risk_assessment(row)
+    row["top7_risk_tags"] = risk.get("risk_tags", [])
+    row["top7_risk_labels"] = risk.get("risk_labels", risk.get("labels", []))
+    row["top7_risk_count"] = risk.get("risk_count", 0)
+    row["top7_risk_penalty_points"] = risk.get("penalty_points", 0.0)
+    row["top7_clean_bonus_points"] = risk.get("bonus_points", 0.0)
+    row["top7_data_health_model_version"] = TOP7_DATA_HEALTH_MODEL_VERSION
+    return row
