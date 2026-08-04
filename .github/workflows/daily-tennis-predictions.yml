@@ -78,6 +78,11 @@ jobs:
         run: |
           python -m corq.engine --output-root outputs
 
+      - name: Run CloQ value-first runtime
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
+        run: |
+          python -m cloq.engine --input outputs/latest_all.json --output-root outputs
+
       - name: Validate runtime outputs
         if: ${{ steps.local_time.outputs.should_run == 'true' }}
         run: |
@@ -100,12 +105,20 @@ jobs:
 
           top7 = rows(Path("outputs/latest_top7.json"))
           audit = rows(Path("outputs/latest_all.json"))
+          cloq = rows(Path("outputs/cloq/latest_cloq.json"))
+          cloq_flat = rows(Path("outputs/latest_cloq.json"))
           print(f"runtime_output_top7={len(top7)}")
           print(f"runtime_output_audit={len(audit)}")
+          print(f"runtime_output_cloq={len(cloq)}")
+          print(f"runtime_output_cloq_flat={len(cloq_flat)}")
 
-          # Do not deploy a blank website if the runtime failed to build data.
+          # Do not deploy a blank website if the runtime failed to build core data.
           if not audit:
               raise SystemExit("Runtime produced zero audit rows. Refusing to render/deploy blank site.")
+          if not Path("outputs/cloq/latest_cloq.json").exists():
+              raise SystemExit("CloQ runtime did not create outputs/cloq/latest_cloq.json")
+          if not Path("outputs/latest_cloq.json").exists():
+              raise SystemExit("CloQ runtime did not create outputs/latest_cloq.json")
           PY
 
       - name: Create immutable CorQ daily snapshot
