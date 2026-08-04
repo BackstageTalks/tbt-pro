@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-08-04T06:07:59+00:00",
-  "date": "2026-08-03",
-  "fetch_api": true,
-  "settlement_grace_hours": 2.0,
+  "generated_at": "2026-08-04T06:26:54+00:00",
+  "date": "2026-08-04",
+  "fetch_api": false,
+  "settlement_grace_hours": 0.0,
   "local_tz": "Europe/Bratislava",
-  "corq_count": 44,
+  "corq_count": 50,
   "cloq_count": 0,
-  "audit_count": 207,
+  "audit_count": 242,
   "summary": {
     "corq": {
-      "picks": 44,
-      "won": 22,
+      "picks": 50,
+      "won": 0,
       "lost": 19,
-      "pending": 1,
-      "void": 2,
-      "win_rate": 0.5366,
-      "units": -5.4138,
-      "roi": -0.132
+      "pending": 7,
+      "void": 24,
+      "win_rate": 0.0,
+      "units": -19.0,
+      "roi": -1.0
     },
     "cloq": {
       "picks": 0,
@@ -29,26 +29,26 @@
       "roi": null
     },
     "audit": {
-      "picks": 207,
-      "won": 121,
-      "lost": 67,
-      "pending": 9,
-      "void": 10,
-      "win_rate": 0.6436,
-      "units": -12.9987,
-      "roi": -0.0691
+      "picks": 242,
+      "won": 2,
+      "lost": 69,
+      "pending": 40,
+      "void": 131,
+      "win_rate": 0.0282,
+      "units": -67.79,
+      "roi": -0.9548
     }
   },
   "summary_by_snapshot_source": {
     "CORQ_DAILY": {
-      "picks": 44,
-      "won": 22,
+      "picks": 50,
+      "won": 0,
       "lost": 19,
-      "pending": 1,
-      "void": 2,
-      "win_rate": 0.5366,
-      "units": -5.4138,
-      "roi": -0.132
+      "pending": 7,
+      "void": 24,
+      "win_rate": 0.0,
+      "units": -19.0,
+      "roi": -1.0
     }
   },
   "sources": {
@@ -57,9 +57,9 @@
     "audit": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/latest_all_audit_snapshot.json"
   },
   "locks": {
-    "corq": "immutable_ledger_source_plus_existing:0+existing:37+preserved:7",
+    "corq": "immutable_ledger_source_plus_existing:6+existing:43+preserved:1",
     "cloq": "empty_no_source_or_existing",
-    "audit": "immutable_ledger_source_plus_existing:54+existing:153+preserved:54"
+    "audit": "immutable_ledger_source_plus_existing:92+existing:185+preserved:22"
   },
   "output_root": "outputs/results"
 }
