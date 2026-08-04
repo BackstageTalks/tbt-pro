@@ -17,4 +17,4 @@ It writes:
 from __future__ import annotations
 
 __all__ = ["__version__"]
-__version__ = "2026-08-04-value-first-v2"
+__version__ = "2026-08-04-value-first-v3-high-value"

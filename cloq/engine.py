@@ -97,7 +97,7 @@ def build_manifest(input_path: Path, output_rows: List[Dict[str, Any]], all_coun
         status_counts[status] = status_counts.get(status, 0) + 1
         bucket_counts[bucket] = bucket_counts.get(bucket, 0) + 1
     return {
-        "model": "CLOQ_VALUE_FIRST_V2",
+        "model": "CLOQ_VALUE_FIRST_V3_HIGH_VALUE",
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "input_path": str(input_path),
         "input_rows": all_count,
@@ -106,7 +106,7 @@ def build_manifest(input_path: Path, output_rows: List[Dict[str, Any]], all_coun
         "value_status_counts": status_counts,
         "odds_gap_bucket_counts": bucket_counts,
         "notes": [
-            "Value is the primary CloQ signal, but V2 requires playable model support to avoid pure underdog traps.",
+            "Value is the primary CloQ signal. V3 requires a playable positive edge instead of neutral/slight value.",
             "Close odds are a soft bonus only: <=15% gets +3.0, <=25% gets +1.5, <=40% is neutral.",
             "No wide-odds penalty is applied in this version.",
             "No synthetic odds, probabilities or value values are generated.",
