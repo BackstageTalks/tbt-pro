@@ -444,3 +444,258 @@ def build_corq_prediction(record: Dict[str, Any]) -> Dict[str, Any]:
         }
     )
     return out
+
+# ---------------------------------------------------------------------------
+# 2026-08-04 CorQ MarQ dynamic-weight override
+# ---------------------------------------------------------------------------
+# MarQ can no longer have one fixed influence regardless of data quality.
+# Provider V2 writes marq_data_status / marq_confidence / marq_movement_status.
+# CorQ uses those fields to decide whether MarQ is a strong market calibration
+# input, a light current-only sanity check, a thin fallback, or unavailable.
+
+_CORQ_MARQ_DYNAMIC_WEIGHT_VERSION = "2026-08-04-marq-dynamic-weight-v1"
+
+
+def _pick_outcome_key(record: Dict[str, Any]) -> str:
+    key = str(record.get("pick_outcome_key") or record.get("marq_pick_outcome_key") or "").strip().lower()
+    if key in {"od2", "2", "away"}:
+        return "od2"
+    return "od1"
+
+
+def _marq_no_vig_probability_for_pick(record: Dict[str, Any]) -> Optional[float]:
+    pick_key = _pick_outcome_key(record)
+    if pick_key == "od2":
+        value = _prob_from_any(
+            record.get("marq_no_vig_probability_2")
+            or record.get("marq_v2_no_vig_2")
+            or record.get("marq_opp_no_vig_probability")
+            or record.get("marq_no_vig_opp_probability")
+        )
+    else:
+        value = _prob_from_any(
+            record.get("marq_no_vig_probability_1")
+            or record.get("marq_v2_no_vig_1")
+            or record.get("marq_pick_no_vig_probability")
+            or record.get("marq_no_vig_pick_probability")
+        )
+    return value
+
+
+def marq_pick_probability(record: Dict[str, Any]) -> Optional[float]:
+    """Return MarQ market probability for the displayed pick in 0..1 scale.
+
+    V2 prefers TennisApi no-vig probabilities from the exact-event provider.
+    If those are missing, it falls back to legacy fields and finally to a no-vig
+    calculation from paired pick/opponent odds. It does not invent probabilities.
+    """
+    value = _marq_no_vig_probability_for_pick(record)
+    if value is not None:
+        return value
+
+    value = _first_probability(
+        record,
+        [
+            "corq_market_probability",
+            "marq_pick_probability",
+            "marq_pick_probability_pct",
+            "marq_pick_pct",
+            "marq_pick_no_vig_probability",
+            "marq_no_vig_pick_probability",
+            "marq_crowd_pick_pct",
+            "market_pick_probability",
+            "market_pick_probability_pct",
+            "market_pick_no_vig_probability",
+            "pick_no_vig_probability",
+            "pick_implied_no_vig_probability",
+        ],
+    )
+    if value is not None:
+        return value
+
+    pick_odds = as_float(record.get("pick_odds") or record.get("odds"))
+    opp_odds = as_float(record.get("opponent_odds") or record.get("opp_odds"))
+    if pick_odds and opp_odds and pick_odds > 1 and opp_odds > 1:
+        pick_imp = 1.0 / pick_odds
+        opp_imp = 1.0 / opp_odds
+        total = pick_imp + opp_imp
+        if total > 0:
+            return clamp(pick_imp / total, 0.0, 1.0)
+    return None
+
+
+def marq_quality_tier(record: Dict[str, Any], market_probability: Optional[float] = None) -> tuple[str, float, str]:
+    """Return (tier, market_weight, reason) for CorQ market calibration.
+
+    Target policy:
+    - High MarQ: 20-30% weight
+    - Medium current-only MarQ: 10-15% weight
+    - Thin fallback: 0-5% weight
+    - No MarQ: 0% weight
+    """
+    if market_probability is None:
+        return "NO_MARQ", 0.0, "no market probability available"
+
+    data_status = str(record.get("marq_data_status") or record.get("marq_source_quality") or "").upper()
+    confidence = str(record.get("marq_confidence") or "").upper()
+    movement_status = str(record.get("marq_movement_status") or "").upper()
+    source_policy = str(record.get("marq_source_policy") or "").upper()
+    fallback_reason = str(record.get("marq_fallback_reason") or "").upper()
+    exact_used = bool(record.get("marq_exact_event_id_used"))
+
+    if "FALLBACK_EXISTING_ODDS_THIN" in data_status or "THIN" in data_status or "THIN" in fallback_reason:
+        return "THIN_FALLBACK", 0.03, "thin existing-odds fallback only"
+
+    if not exact_used and "TENNISAPI_ONLY" not in source_policy:
+        return "THIN_FALLBACK", 0.03, "market odds not tied to exact TennisApi event id"
+
+    if "REAL_OPENING_CURRENT_AVAILABLE" in movement_status or "WITH_OPENING" in data_status or confidence == "HIGH":
+        return "HIGH", 0.25, "exact TennisApi odds with real opening/current market data"
+
+    if "CURRENT_ONLY" in movement_status or "CURRENT_ONLY" in data_status or "OPENING_EQUALS_CURRENT" in movement_status:
+        return "MEDIUM_CURRENT_ONLY", 0.12, "exact TennisApi current odds only, no real movement signal"
+
+    if exact_used:
+        return "MEDIUM_CURRENT_ONLY", 0.10, "exact TennisApi odds with partial MarQ data"
+
+    return "NO_MARQ", 0.0, "MarQ data quality unavailable"
+
+
+def _model_market_weights(record: Dict[str, Any], data_confidence: float, market_probability: Optional[float]) -> tuple[float, float, str]:
+    tier, base_market_weight, reason = marq_quality_tier(record, market_probability)
+    if market_probability is None or base_market_weight <= 0:
+        record["corq_marq_quality_tier"] = tier
+        record["corq_marq_weight_reason"] = reason
+        return 1.0, 0.0, "THINQ_ONLY_NO_USABLE_MARQ"
+
+    move = str(
+        record.get("marq_internal_move_signal")
+        or record.get("marq_move_signal")
+        or record.get("marq_display_move_signal")
+        or ""
+    ).upper()
+    clv = _clv_pp(record)
+
+    market_weight = float(base_market_weight)
+
+    # Only real high-quality movement may adjust MarQ weight. Current-only and
+    # thin fallback must not turn into a false 30% signal.
+    if tier == "HIGH":
+        if "AGAINST" in move or (clv is not None and clv <= -2.0):
+            market_weight += 0.05
+            reason += "; real movement/CLV against pick, market brake increased"
+        elif "TOWARD" in move or "WITH" in move or (clv is not None and clv >= 2.0):
+            market_weight -= 0.03
+            reason += "; real movement supports pick, market brake reduced"
+        market_weight = clamp(market_weight, 0.20, 0.30)
+    elif tier == "MEDIUM_CURRENT_ONLY":
+        market_weight = clamp(market_weight, 0.10, 0.15)
+    elif tier == "THIN_FALLBACK":
+        market_weight = clamp(market_weight, 0.00, 0.05)
+
+    # If ThinQ data confidence is poor, do not blindly increase MarQ. A weak
+    # model plus thin/current-only market is not stronger evidence.
+    if data_confidence < 0.55 and tier != "HIGH":
+        market_weight = min(market_weight, 0.10)
+        reason += "; low ThinQ confidence caps non-high MarQ weight"
+
+    model_weight = round(1.0 - market_weight, 4)
+    market_weight = round(market_weight, 4)
+    record["corq_marq_quality_tier"] = tier
+    record["corq_marq_weight_reason"] = reason
+    return model_weight, market_weight, f"DYNAMIC_MARQ_WEIGHT_{tier}"
+
+
+def _value_metrics_for_probability(probability: float, odds: Optional[float]) -> tuple[Optional[float], Optional[float], Optional[float]]:
+    if odds is None or odds <= 1:
+        return None, None, None
+    implied = 1.0 / odds
+    value_delta_pp = (probability - implied) * 100.0
+    expected_value_pct = (probability * odds - 1.0) * 100.0
+    return implied, value_delta_pp, expected_value_pct
+
+
+def apply_corq_market_calibration(record: Dict[str, Any]) -> Dict[str, Any]:
+    """Calibrate CorQ with dynamic MarQ weighting.
+
+    MarQ weight now depends on data quality:
+    High exact market data: 20-30%; current-only: 10-15%; thin fallback: 0-5%;
+    missing/no usable MarQ: 0%.
+    """
+    out = dict(record)
+    thinq_probability = thinq_pick_probability(out)
+    if thinq_probability is None:
+        thinq_probability = _prob_from_any(
+            out.get("corq_raw_model_probability")
+            or out.get("corq_estimated_win_probability")
+            or out.get("corq_probability")
+            or out.get("probability")
+        )
+    if thinq_probability is None:
+        thinq_probability = 0.50
+
+    data_confidence = as_float(out.get("thinq_data_confidence"), None)
+    if data_confidence is None:
+        data_confidence = as_float(out.get("thinq_confidence"), 0.0) or 0.0
+    if data_confidence > 1.0:
+        data_confidence /= 100.0
+    data_confidence = clamp(float(data_confidence or 0.0), 0.0, 1.0)
+
+    market_probability = marq_pick_probability(out)
+    model_weight, market_weight, method = _model_market_weights(out, data_confidence, market_probability)
+    if market_probability is None:
+        market_probability = thinq_probability
+
+    thinq_input = thinq_probability * model_weight
+    marq_input = market_probability * market_weight
+    calibrated = clamp(thinq_input + marq_input, 0.05, 0.95)
+    adjustment_pp = (calibrated - thinq_probability) * 100.0
+
+    odds = as_float(out.get("pick_odds") or out.get("odds"))
+    implied, value_delta_pp, expected_value_pct = _value_metrics_for_probability(calibrated, odds)
+    corq_edge = round(calibrated - implied, 4) if implied is not None else as_float(out.get("corq_edge"), 0.0) or 0.0
+
+    marq_implied, marq_value_delta_pp, marq_expected_value_pct = _value_metrics_for_probability(thinq_probability, odds)
+    if marq_implied is not None and market_probability is not None:
+        # Model-vs-market value is better represented by ThinQ/model probability
+        # against market no-vig probability, not only raw break-even.
+        marq_value_delta_pp = (thinq_probability - market_probability) * 100.0
+
+    out.update(
+        {
+            "corq_raw_model_probability": round(thinq_probability, 4),
+            "corq_raw_model_probability_pct": round(thinq_probability * 100.0, 2),
+            "corq_market_probability": round(market_probability, 4),
+            "corq_market_probability_pct": round(market_probability * 100.0, 2),
+            "corq_model_weight": round(model_weight, 4),
+            "corq_market_weight": round(market_weight, 4),
+            "corq_model_mix_label": f"ThinQ {int(round(model_weight * 100))}% / MarQ {int(round(market_weight * 100))}%",
+            "corq_thinq_input_pp": round(thinq_input * 100.0, 2),
+            "corq_marq_input_pp": round(marq_input * 100.0, 2),
+            "corq_calibrated_probability": round(calibrated, 4),
+            "corq_calibrated_probability_pct": round(calibrated * 100.0, 2),
+            "corq_market_adjustment_pp": round(adjustment_pp, 2),
+            "corq_calibration_method": method,
+            "corq_marq_dynamic_weight_version": _CORQ_MARQ_DYNAMIC_WEIGHT_VERSION,
+            "corq_marq_quality_tier": out.get("corq_marq_quality_tier"),
+            "corq_marq_weight_reason": out.get("corq_marq_weight_reason"),
+            "corq_probability": round(calibrated, 4),
+            "corq_estimated_win_probability": round(calibrated, 4),
+            "estimated_win_pct": round(calibrated * 100.0, 2),
+            "corq_score": round(calibrated, 4),
+            "probability": round(calibrated, 4),
+            "corq_edge": corq_edge,
+            "value_edge": corq_edge,
+            "edge": corq_edge,
+            "corq_value_delta_pp": round(value_delta_pp, 2) if value_delta_pp is not None else None,
+            "expected_value_pct": round(expected_value_pct, 2) if expected_value_pct is not None else None,
+            "marq_v2_model_probability": round(thinq_probability, 4),
+            "marq_v2_market_probability": round(market_probability, 4),
+            "marq_v2_value_delta_pp": round(marq_value_delta_pp, 2) if marq_value_delta_pp is not None else None,
+            "marq_v2_expected_value_pct": round(marq_expected_value_pct, 2) if marq_expected_value_pct is not None else None,
+            "marq_v2_data_status": out.get("marq_data_status") or out.get("marq_source_quality"),
+            "marq_v2_confidence": out.get("marq_confidence"),
+            "marq_v2_movement_status": out.get("marq_movement_status"),
+        }
+    )
+    return out
