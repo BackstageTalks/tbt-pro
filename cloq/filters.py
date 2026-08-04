@@ -23,6 +23,13 @@ VALUE_NEUTRAL_FLOOR_PP = -2.0
 EV_NEUTRAL_FLOOR_PCT = -3.0
 NEGATIVE_VALUE_HARD_PP = -5.0
 NEGATIVE_EV_HARD_PCT = -8.0
+MIN_CLOQ_MODEL_PROBABILITY = 0.45
+MIN_CLOQ_THINQ_EDGE = 0.0
+LONG_ODDS_LIMIT = 3.50
+LONG_ODDS_MIN_MODEL_PROBABILITY = 0.50
+LONG_ODDS_MIN_THINQ_EDGE = 0.03
+VALUE_DELTA_SCORE_CAP_PP = 8.0
+EXPECTED_VALUE_SCORE_CAP_PCT = 25.0
 
 OPEN_STATUS_TYPES = {
     "notstarted",
@@ -287,6 +294,19 @@ def cloq_reject_reasons(row: Dict[str, Any]) -> List[str]:
         reasons.append("REJECT_CLOQ_MISSING_CORQ_PROBABILITY")
     if vd is None and ev is None:
         reasons.append("REJECT_CLOQ_MISSING_VALUE_DATA")
+
+    # V2 guard: CloQ is a playable value shortlist, not a pure underdog/lottery screen.
+    # Positive value alone is not enough if the model still gives the pick a low win chance.
+    edge = thinq_edge(row)
+    if cp is not None and cp < MIN_CLOQ_MODEL_PROBABILITY:
+        reasons.append("REJECT_CLOQ_LOW_MODEL_PROBABILITY")
+    if edge < MIN_CLOQ_THINQ_EDGE:
+        reasons.append("REJECT_CLOQ_THINQ_EDGE_NOT_SUPPORTIVE")
+    if market_against_pick(row) and (cp is None or cp < 0.55):
+        reasons.append("REJECT_CLOQ_MARKET_AGAINST_LOW_MODEL_SUPPORT")
+    if odds is not None and odds >= LONG_ODDS_LIMIT and (cp is None or cp < LONG_ODDS_MIN_MODEL_PROBABILITY or edge < LONG_ODDS_MIN_THINQ_EDGE):
+        reasons.append("REJECT_CLOQ_LONG_ODDS_LOW_MODEL_SUPPORT")
+
     if odds is not None and odds < SHORT_PRICE_LIMIT and ((vd is not None and vd <= NEGATIVE_VALUE_HARD_PP) or (ev is not None and ev <= NEGATIVE_EV_HARD_PCT)):
         reasons.append("REJECT_CLOQ_SHORT_PRICE_NEGATIVE_VALUE_TRAP")
     if value_status(row) == "VALUE_NEGATIVE" and ((vd is not None and vd <= NEGATIVE_VALUE_HARD_PP) or (ev is not None and ev <= NEGATIVE_EV_HARD_PCT)):
@@ -333,6 +353,8 @@ def cloq_risk_tags(row: Dict[str, Any]) -> List[str]:
         tags.append("SHORT_PRICE")
     if market_against_pick(row):
         tags.append("MARKET_AGAINST_PICK")
+    if odds is not None and odds >= LONG_ODDS_LIMIT:
+        tags.append("LONG_ODDS_VALUE_RISK")
     if data_depth(row) < 0.45 or form_depth(row) < 0.40 or thinq_confidence(row) < 0.50:
         tags.append("LOW_DATA_CONFIDENCE")
     return list(dict.fromkeys(tags))
@@ -350,20 +372,22 @@ def cloq_score(row: Dict[str, Any]) -> float:
 
     score = 0.0
     if vd is not None:
-        score += vd * 2.2
+        # Cap upside so extreme underdog prices do not dominate CloQ only by math.
+        score += max(min(vd, VALUE_DELTA_SCORE_CAP_PP), -10.0) * 2.2
     if ev is not None:
-        score += ev * 0.35
+        score += max(min(ev, EXPECTED_VALUE_SCORE_CAP_PCT), -20.0) * 0.35
     score += close_bonus
-    score += max(cp - 0.50, 0.0) * 20.0
-    score += edge * 18.0
+    score += max(cp - 0.50, 0.0) * 26.0
+    score += max(cp - MIN_CLOQ_MODEL_PROBABILITY, 0.0) * 8.0
+    score += edge * 20.0
     score += depth * 4.0
     score += fdepth * 2.0
     score += conf * 1.5
 
     if market_with_pick(row):
-        score += 1.5
+        score += 2.0
     if market_against_pick(row):
-        score -= 2.0
+        score -= 5.0
 
     risks = cloq_risk_tags(row)
     score -= 1.0 * len(risks)
@@ -373,6 +397,8 @@ def cloq_score(row: Dict[str, Any]) -> float:
         score -= 3.0
     if "SHORT_PRICE" in risks and "VALUE_NEGATIVE" in risks:
         score -= 3.0
+    if "LONG_ODDS_VALUE_RISK" in risks:
+        score -= 4.0
     return round(score, 4)
 
 
@@ -380,7 +406,7 @@ def annotate_cloq(row: Dict[str, Any]) -> Dict[str, Any]:
     out = dict(row)
     bonus, bucket = close_odds_bonus(row)
     reasons = cloq_reject_reasons(row)
-    out["cloq_model_version"] = "CLOQ_VALUE_FIRST_V1"
+    out["cloq_model_version"] = "CLOQ_VALUE_FIRST_V2"
     out["cloq_pick"] = pick_name(row)
     out["cloq_opponent"] = opponent_name(row)
     out["cloq_pick_odds"] = pick_odds(row)
