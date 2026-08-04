@@ -2252,10 +2252,10 @@
   },
   &quot;corq_raw_model_edge&quot;: 0.1666,
   &quot;corq_confidence_factor&quot;: 0.88,
-  &quot;corq_estimated_win_probability&quot;: 0.7378,
-  &quot;estimated_win_pct&quot;: 73.78,
-  &quot;corq_score&quot;: 0.7378,
-  &quot;corq_edge&quot;: -0.2056,
+  &quot;corq_estimated_win_probability&quot;: 0.6737,
+  &quot;estimated_win_pct&quot;: 67.37,
+  &quot;corq_score&quot;: 0.6737,
+  &quot;corq_edge&quot;: -0.2697,
   &quot;corq_risk_flags&quot;: [],
   &quot;ranking_source&quot;: &quot;TENNISAPI_RANKINGS&quot;,
   &quot;ranking_status&quot;: &quot;OK&quot;,
@@ -2374,17 +2374,20 @@
   &quot;sets_games_market_source&quot;: &quot;TennisApiPRO getAllOddsForEvent&quot;,
   &quot;sets_games_raw_market_count&quot;: 3,
   &quot;sets_games_endpoint_summary&quot;: {
-    &quot;request_count&quot;: 1,
+    &quot;request_count&quot;: 3,
     &quot;status_counts&quot;: {
-      &quot;200&quot;: 1
+      &quot;404&quot;: 1,
+      &quot;200&quot;: 2
     },
     &quot;endpoint_counts&quot;: {
+      &quot;getMatchBettingOdds&quot;: 1,
+      &quot;getMatchWinningOdds&quot;: 1,
       &quot;getAllOddsForEvent&quot;: 1
     },
-    &quot;ok_count&quot;: 1,
+    &quot;ok_count&quot;: 2,
     &quot;rate_limited_count&quot;: 0,
     &quot;no_content_count&quot;: 0,
-    &quot;http_error_count&quot;: 0
+    &quot;http_error_count&quot;: 1
   },
   &quot;games_line_source&quot;: &quot;TennisApiPRO getAllOddsForEvent&quot;,
   &quot;double_faults_available&quot;: true,
@@ -2464,30 +2467,40 @@
   &quot;marq_edge_pct&quot;: 40.4,
   &quot;marq_final&quot;: &quot;Market With Pick&quot;,
   &quot;marq_final_display&quot;: &quot;Market With Pick&quot;,
+  &quot;corq_marq_quality_tier&quot;: &quot;THIN_FALLBACK&quot;,
+  &quot;corq_marq_weight_reason&quot;: &quot;market odds not tied to exact TennisApi event id&quot;,
   &quot;corq_raw_model_probability&quot;: 0.6666,
   &quot;corq_raw_model_probability_pct&quot;: 66.66,
   &quot;corq_market_probability&quot;: 0.904,
   &quot;corq_market_probability_pct&quot;: 90.4,
-  &quot;corq_model_weight&quot;: 0.7,
-  &quot;corq_market_weight&quot;: 0.3,
-  &quot;corq_model_mix_label&quot;: &quot;ThinQ 70% / MarQ 30%&quot;,
-  &quot;corq_thinq_input_pp&quot;: 46.66,
-  &quot;corq_marq_input_pp&quot;: 27.12,
-  &quot;corq_calibrated_probability&quot;: 0.7378,
-  &quot;corq_calibrated_probability_pct&quot;: 73.78,
-  &quot;corq_market_adjustment_pp&quot;: 7.12,
-  &quot;corq_calibration_method&quot;: &quot;THINQ_MARQ_MODEL_MIX&quot;,
-  &quot;corq_probability&quot;: 0.7378,
-  &quot;probability&quot;: 0.7378,
-  &quot;value_edge&quot;: -0.2056,
-  &quot;edge&quot;: -0.2056,
+  &quot;corq_model_weight&quot;: 0.97,
+  &quot;corq_market_weight&quot;: 0.03,
+  &quot;corq_model_mix_label&quot;: &quot;ThinQ 97% / MarQ 3%&quot;,
+  &quot;corq_thinq_input_pp&quot;: 64.66,
+  &quot;corq_marq_input_pp&quot;: 2.71,
+  &quot;corq_calibrated_probability&quot;: 0.6737,
+  &quot;corq_calibrated_probability_pct&quot;: 67.37,
+  &quot;corq_market_adjustment_pp&quot;: 0.71,
+  &quot;corq_calibration_method&quot;: &quot;DYNAMIC_MARQ_WEIGHT_THIN_FALLBACK&quot;,
+  &quot;corq_marq_dynamic_weight_version&quot;: &quot;2026-08-04-marq-dynamic-weight-v1&quot;,
+  &quot;corq_probability&quot;: 0.6737,
+  &quot;probability&quot;: 0.6737,
+  &quot;value_edge&quot;: -0.2697,
+  &quot;edge&quot;: -0.2697,
+  &quot;corq_value_delta_pp&quot;: -26.97,
+  &quot;expected_value_pct&quot;: -28.59,
+  &quot;marq_v2_model_probability&quot;: 0.6666,
+  &quot;marq_v2_market_probability&quot;: 0.904,
+  &quot;marq_v2_value_delta_pp&quot;: -23.74,
+  &quot;marq_v2_expected_value_pct&quot;: -29.34,
+  &quot;marq_v2_data_status&quot;: null,
+  &quot;marq_v2_confidence&quot;: null,
+  &quot;marq_v2_movement_status&quot;: null,
   &quot;raw_implied_probability&quot;: 0.943396,
   &quot;raw_implied_probability_pct&quot;: 94.34,
   &quot;break_even_probability&quot;: 0.943396,
   &quot;break_even_probability_pct&quot;: 94.34,
-  &quot;corq_value_delta_pp&quot;: -20.56,
-  &quot;expected_value&quot;: -0.217932,
-  &quot;expected_value_pct&quot;: -21.79,
+  &quot;expected_value&quot;: -0.285878,
   &quot;price_value_grade&quot;: &quot;SHORT&quot;,
   &quot;price_value_tag&quot;: &quot;VALUE_NEGATIVE&quot;,
   &quot;price_value_display&quot;: &quot;Short | No Value&quot;,
@@ -2496,7 +2509,7 @@
     &quot;SHORT&quot;,
     &quot;VALUE_NEGATIVE&quot;
   ],
-  &quot;corq_source_rank&quot;: 2,
+  &quot;corq_source_rank&quot;: 5,
   &quot;top7_filter_mode&quot;: &quot;PUBLISHABLE_CORQ_THINQ_GUARD_V1&quot;,
   &quot;top7_publishable&quot;: false,
   &quot;eligible_for_top7&quot;: false,
@@ -2518,7 +2531,7 @@
   &quot;top7_status_allowed&quot;: true,
   &quot;top7_status_type_normalized&quot;: &quot;notstarted&quot;,
   &quot;top7_status_code&quot;: 0,
-  &quot;top7_corq_probability&quot;: 0.7378,
+  &quot;top7_corq_probability&quot;: 0.6737,
   &quot;top7_pick_thinq_edge&quot;: 0.1893,
   &quot;top7_thinq_confidence&quot;: 0.88,
   &quot;top7_thinq_data_confidence&quot;: 0.88,
@@ -2538,7 +2551,7 @@
     &quot;history_match_count&quot;: 37883
   },
   &quot;low_data_risk_audit&quot;: {
-    &quot;corq_probability&quot;: 0.7378,
+    &quot;corq_probability&quot;: 0.6737,
     &quot;pick_thinq_edge&quot;: 0.1893,
     &quot;pick_data_depth&quot;: 0.886,
     &quot;form_data_depth&quot;: 0.8,
@@ -2602,12 +2615,12 @@
       &quot;tag&quot;: &quot;MARKET_WITH_PICK&quot;,
       &quot;bonus&quot;: 1.5,
       &quot;marq_edge&quot;: 40.4,
-      &quot;market_delta&quot;: 7.12
+      &quot;market_delta&quot;: 0.71
     },
     {
       &quot;tag&quot;: &quot;NO_VALUE_PRICE&quot;,
       &quot;penalty&quot;: 3.0,
-      &quot;value&quot;: -20.56
+      &quot;value&quot;: -26.97
     },
     {
       &quot;tag&quot;: &quot;SHORT_PRICE_RISK&quot;,
@@ -2622,19 +2635,19 @@
     {
       &quot;tag&quot;: &quot;NEGATIVE_VALUE_HARD&quot;,
       &quot;penalty&quot;: 5.0,
-      &quot;value_delta_pp&quot;: -20.56
+      &quot;value_delta_pp&quot;: -26.97
     },
     {
       &quot;tag&quot;: &quot;NEGATIVE_EV_HARD&quot;,
       &quot;penalty&quot;: 4.0,
-      &quot;expected_value_pct&quot;: -21.79
+      &quot;expected_value_pct&quot;: -28.59
     },
     {
       &quot;tag&quot;: &quot;SHORT_NO_VALUE_COMBO&quot;,
       &quot;penalty&quot;: 5.0,
       &quot;pick_odds&quot;: 1.06,
-      &quot;value_delta_pp&quot;: -20.56,
-      &quot;expected_value_pct&quot;: -21.79
+      &quot;value_delta_pp&quot;: -26.97,
+      &quot;expected_value_pct&quot;: -28.59
     },
     {
       &quot;tag&quot;: &quot;SHORT_PRICE_VALUE_GUARD_FAIL&quot;,
@@ -2644,8 +2657,8 @@
       &quot;pick_data_depth&quot;: 0.886,
       &quot;form_data_depth&quot;: 0.8,
       &quot;thinq_confidence&quot;: 0.88,
-      &quot;value_delta_pp&quot;: -20.56,
-      &quot;expected_value_pct&quot;: -21.79,
+      &quot;value_delta_pp&quot;: -26.97,
+      &quot;expected_value_pct&quot;: -28.59,
       &quot;min_support_count&quot;: 5,
       &quot;min_pick_data_depth&quot;: 0.75,
       &quot;min_form_data_depth&quot;: 0.7,
@@ -2690,6 +2703,6 @@
   &quot;top7_positive_support_count&quot;: 5,
   &quot;top7_risk_count&quot;: 8,
   &quot;top7_high_risk&quot;: true,
-  &quot;corq_rank&quot;: 2,
-  &quot;_corq_render_rank&quot;: 29
+  &quot;corq_rank&quot;: 5,
+  &quot;_corq_render_rank&quot;: 26
 }</pre></body></html>

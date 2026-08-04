@@ -1,0 +1,1047 @@
+{
+  "model_version": "2026-08-04-marq-coverage-report-v1",
+  "generated_at_utc": "2026-08-04T11:19:50.059866+00:00",
+  "input_paths": {
+    "all": "outputs/latest_all.json",
+    "top7": "outputs/latest_top7.json",
+    "cloq": "outputs/cloq/latest_cloq.json"
+  },
+  "sections": {
+    "all_audit": {
+      "label": "all_audit",
+      "total_rows": 114,
+      "coverage_pct": {
+        "high_marq": 0.0,
+        "medium_current_only": 0.0,
+        "thin_fallback": 100.0,
+        "no_or_unknown_marq": 0.0,
+        "usable_marq_high_or_medium": 0.0
+      },
+      "endpoint_counts": {
+        "NO_ENDPOINT": 114
+      },
+      "data_status_counts": {
+        "NO_DATA_STATUS": 114
+      },
+      "confidence_counts": {
+        "NO_CONFIDENCE": 114
+      },
+      "movement_status_counts": {
+        "NO_MOVEMENT_STATUS": 114
+      },
+      "quality_tier_counts": {
+        "THIN_FALLBACK": 114
+      },
+      "value_status_counts": {
+        "NO_VALUE": 57,
+        "VALUE_STRONG": 41,
+        "VALUE_PLAYABLE": 16
+      },
+      "source_policy_counts": {
+        "fallback_existing_odds_thin_market": 114
+      },
+      "market_weight_stats": {
+        "count": 114,
+        "avg": 0.03,
+        "min": 0.03,
+        "max": 0.03
+      },
+      "value_delta_pp_stats": {
+        "count": 114,
+        "avg": 0.0,
+        "min": -28.7,
+        "max": 28.7
+      },
+      "expected_value_pct_stats": {
+        "count": 114,
+        "avg": 4.0096,
+        "min": -39.77,
+        "max": 233.4
+      },
+      "samples": {
+        "thin_fallback": [
+          {
+            "identity": "16696371",
+            "pick": "Benjamin Bonzi",
+            "opponent": "Yannick Hanfmann",
+            "odds": 2.0,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": -2.46,
+            "expected_value_pct": -10.12,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696371",
+            "pick": "Yannick Hanfmann",
+            "opponent": "Benjamin Bonzi",
+            "odds": 1.8,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 2.46,
+            "expected_value_pct": -0.89,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16686537",
+            "pick": "Aleksandar Kovačević",
+            "opponent": "Nuno Borges",
+            "odds": 3.0,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 1.93,
+            "expected_value_pct": 1.19,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16686537",
+            "pick": "Nuno Borges",
+            "opponent": "Aleksandar Kovačević",
+            "odds": 1.4,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": -1.93,
+            "expected_value_pct": -7.22,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696337",
+            "pick": "Michael Zheng",
+            "opponent": "Miomir Kecmanović",
+            "odds": 1.67,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": -4.36,
+            "expected_value_pct": -12.43,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696337",
+            "pick": "Miomir Kecmanović",
+            "opponent": "Michael Zheng",
+            "odds": 2.2,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 4.36,
+            "expected_value_pct": 4.63,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696370",
+            "pick": "Gabriel Diallo",
+            "opponent": "Kyrian Jacquet",
+            "odds": 1.8,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": -4.55,
+            "expected_value_pct": -13.51,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696370",
+            "pick": "Kyrian Jacquet",
+            "opponent": "Gabriel Diallo",
+            "odds": 2.0,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 4.55,
+            "expected_value_pct": 3.9,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696336",
+            "pick": "Sho Shimabukuro",
+            "opponent": "Marin Čilić",
+            "odds": 2.1,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": -9.2,
+            "expected_value_pct": -24.4,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696336",
+            "pick": "Marin Čilić",
+            "opponent": "Sho Shimabukuro",
+            "odds": 1.73,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 9.2,
+            "expected_value_pct": 10.72,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696368",
+            "pick": "Aleksandar Vukić",
+            "opponent": "Daniel Altmaier",
+            "odds": 1.62,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": -12.39,
+            "expected_value_pct": -24.98,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696368",
+            "pick": "Daniel Altmaier",
+            "opponent": "Aleksandar Vukić",
+            "odds": 2.3,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 12.39,
+            "expected_value_pct": 23.49,
+            "fallback_reason": null
+          }
+        ],
+        "no_marq_or_unknown": [],
+        "current_only": [],
+        "real_opening": [],
+        "no_value": [
+          {
+            "identity": "16696371",
+            "pick": "Benjamin Bonzi",
+            "opponent": "Yannick Hanfmann",
+            "odds": 2.0,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": -2.46,
+            "expected_value_pct": -10.12,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16686537",
+            "pick": "Nuno Borges",
+            "opponent": "Aleksandar Kovačević",
+            "odds": 1.4,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": -1.93,
+            "expected_value_pct": -7.22,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696337",
+            "pick": "Michael Zheng",
+            "opponent": "Miomir Kecmanović",
+            "odds": 1.67,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": -4.36,
+            "expected_value_pct": -12.43,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696370",
+            "pick": "Gabriel Diallo",
+            "opponent": "Kyrian Jacquet",
+            "odds": 1.8,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": -4.55,
+            "expected_value_pct": -13.51,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696336",
+            "pick": "Sho Shimabukuro",
+            "opponent": "Marin Čilić",
+            "odds": 2.1,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": -9.2,
+            "expected_value_pct": -24.4,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696368",
+            "pick": "Aleksandar Vukić",
+            "opponent": "Daniel Altmaier",
+            "odds": 1.62,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": -12.39,
+            "expected_value_pct": -24.98,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16686613",
+            "pick": "Alex Michelsen",
+            "opponent": "Jan-Lennard Struff",
+            "odds": 1.33,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": -1.89,
+            "expected_value_pct": -6.89,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16686539",
+            "pick": "Corentin Moutet",
+            "opponent": "Marton Fucsovics",
+            "odds": 1.8,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": -8.83,
+            "expected_value_pct": -21.21,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16686603",
+            "pick": "Cameron Norrie",
+            "opponent": "Camilo Ugo Carabelli",
+            "odds": 1.22,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": -14.82,
+            "expected_value_pct": -22.92,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16686612",
+            "pick": "Kamil Majchrzak",
+            "opponent": "Gael Monfils",
+            "odds": 1.3,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": -24.4,
+            "expected_value_pct": -36.95,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696351",
+            "pick": "Jenson Brooksby",
+            "opponent": "Adam Walton",
+            "odds": 1.73,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": -5.41,
+            "expected_value_pct": -14.56,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696353",
+            "pick": "Thiago Agustin Tirante",
+            "opponent": "Duncan Chan",
+            "odds": 1.3,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": -22.84,
+            "expected_value_pct": -34.92,
+            "fallback_reason": null
+          }
+        ],
+        "value_strong": [
+          {
+            "identity": "16696337",
+            "pick": "Miomir Kecmanović",
+            "opponent": "Michael Zheng",
+            "odds": 2.2,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 4.36,
+            "expected_value_pct": 4.63,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696370",
+            "pick": "Kyrian Jacquet",
+            "opponent": "Gabriel Diallo",
+            "odds": 2.0,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 4.55,
+            "expected_value_pct": 3.9,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696336",
+            "pick": "Marin Čilić",
+            "opponent": "Sho Shimabukuro",
+            "odds": 1.73,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 9.2,
+            "expected_value_pct": 10.72,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696368",
+            "pick": "Daniel Altmaier",
+            "opponent": "Aleksandar Vukić",
+            "odds": 2.3,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 12.39,
+            "expected_value_pct": 23.49,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16686539",
+            "pick": "Marton Fucsovics",
+            "opponent": "Corentin Moutet",
+            "odds": 2.0,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 8.83,
+            "expected_value_pct": 12.46,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16686603",
+            "pick": "Camilo Ugo Carabelli",
+            "opponent": "Cameron Norrie",
+            "odds": 4.3333,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 14.82,
+            "expected_value_pct": 59.55,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16686612",
+            "pick": "Gael Monfils",
+            "opponent": "Kamil Majchrzak",
+            "odds": 3.5,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 24.4,
+            "expected_value_pct": 80.25,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696351",
+            "pick": "Adam Walton",
+            "opponent": "Jenson Brooksby",
+            "odds": 2.1,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 5.41,
+            "expected_value_pct": 6.28,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696353",
+            "pick": "Duncan Chan",
+            "opponent": "Thiago Agustin Tirante",
+            "odds": 3.5,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 22.84,
+            "expected_value_pct": 74.79,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696354",
+            "pick": "Marcos Giron",
+            "opponent": "Hubert Hurkacz",
+            "odds": 2.5,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 4.9,
+            "expected_value_pct": 7.25,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696349",
+            "pick": "Martin Damm Jr",
+            "opponent": "Stefanos Tsitsipas",
+            "odds": 2.63,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 13.99,
+            "expected_value_pct": 32.26,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696355",
+            "pick": "Roman Andres Burruchaga",
+            "opponent": "Alexei Popyrin",
+            "odds": 2.38,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 3.64,
+            "expected_value_pct": 3.15,
+            "fallback_reason": null
+          }
+        ]
+      },
+      "attempt_summary": {
+        "total_attempts": 114,
+        "endpoint_counts": {
+          "provider_all_odds[1]": 114
+        },
+        "status_counts": {
+          "OK": 114
+        }
+      }
+    },
+    "corq_top7": {
+      "label": "corq_top7",
+      "total_rows": 7,
+      "coverage_pct": {
+        "high_marq": 0.0,
+        "medium_current_only": 0.0,
+        "thin_fallback": 100.0,
+        "no_or_unknown_marq": 0.0,
+        "usable_marq_high_or_medium": 0.0
+      },
+      "endpoint_counts": {
+        "NO_ENDPOINT": 7
+      },
+      "data_status_counts": {
+        "NO_DATA_STATUS": 7
+      },
+      "confidence_counts": {
+        "NO_CONFIDENCE": 7
+      },
+      "movement_status_counts": {
+        "NO_MOVEMENT_STATUS": 7
+      },
+      "quality_tier_counts": {
+        "THIN_FALLBACK": 7
+      },
+      "value_status_counts": {
+        "VALUE_STRONG": 4,
+        "VALUE_PLAYABLE": 3
+      },
+      "source_policy_counts": {
+        "fallback_existing_odds_thin_market": 7
+      },
+      "market_weight_stats": {
+        "count": 7,
+        "avg": 0.03,
+        "min": 0.03,
+        "max": 0.03
+      },
+      "value_delta_pp_stats": {
+        "count": 7,
+        "avg": 4.2971,
+        "min": 1.12,
+        "max": 10.56
+      },
+      "expected_value_pct_stats": {
+        "count": 7,
+        "avg": 2.4029,
+        "min": -3.07,
+        "max": 17.1
+      },
+      "samples": {
+        "thin_fallback": [
+          {
+            "identity": "16662025",
+            "pick": "Katerina Siniakova",
+            "opponent": "Kamilla Rakhimova",
+            "odds": 1.5,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 1.12,
+            "expected_value_pct": -2.77,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16662018",
+            "pick": "Anna Kalinskaya",
+            "opponent": "McCartney Kessler",
+            "odds": 1.57,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 3.09,
+            "expected_value_pct": -0.48,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16686542",
+            "pick": "Daniel Merida",
+            "opponent": "Liam Draxl",
+            "odds": 1.67,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 5.48,
+            "expected_value_pct": 4.01,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16693572",
+            "pick": "Elizara Yaneva",
+            "opponent": "Linda Klimovičová",
+            "odds": 1.8333,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 6.81,
+            "expected_value_pct": 4.15,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16686541",
+            "pick": "Denis Shapovalov",
+            "opponent": "Zachary Svajda",
+            "odds": 1.67,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 1.24,
+            "expected_value_pct": -3.07,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16662032",
+            "pick": "Maja Chwalinska",
+            "opponent": "Talia Gibson",
+            "odds": 2.1,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 10.56,
+            "expected_value_pct": 17.1,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16686607",
+            "pick": "Sebastián Báez",
+            "opponent": "Mattia Bellucci",
+            "odds": 1.8,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 1.78,
+            "expected_value_pct": -2.12,
+            "fallback_reason": null
+          }
+        ],
+        "no_marq_or_unknown": [],
+        "current_only": [],
+        "real_opening": [],
+        "no_value": [],
+        "value_strong": [
+          {
+            "identity": "16662018",
+            "pick": "Anna Kalinskaya",
+            "opponent": "McCartney Kessler",
+            "odds": 1.57,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 3.09,
+            "expected_value_pct": -0.48,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16686542",
+            "pick": "Daniel Merida",
+            "opponent": "Liam Draxl",
+            "odds": 1.67,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 5.48,
+            "expected_value_pct": 4.01,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16693572",
+            "pick": "Elizara Yaneva",
+            "opponent": "Linda Klimovičová",
+            "odds": 1.8333,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 6.81,
+            "expected_value_pct": 4.15,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16662032",
+            "pick": "Maja Chwalinska",
+            "opponent": "Talia Gibson",
+            "odds": 2.1,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 10.56,
+            "expected_value_pct": 17.1,
+            "fallback_reason": null
+          }
+        ]
+      },
+      "attempt_summary": {
+        "total_attempts": 7,
+        "endpoint_counts": {
+          "provider_all_odds[1]": 7
+        },
+        "status_counts": {
+          "OK": 7
+        }
+      }
+    },
+    "cloq": {
+      "label": "cloq",
+      "total_rows": 4,
+      "coverage_pct": {
+        "high_marq": 0.0,
+        "medium_current_only": 0.0,
+        "thin_fallback": 100.0,
+        "no_or_unknown_marq": 0.0,
+        "usable_marq_high_or_medium": 0.0
+      },
+      "endpoint_counts": {
+        "NO_ENDPOINT": 4
+      },
+      "data_status_counts": {
+        "NO_DATA_STATUS": 4
+      },
+      "confidence_counts": {
+        "NO_CONFIDENCE": 4
+      },
+      "movement_status_counts": {
+        "NO_MOVEMENT_STATUS": 4
+      },
+      "quality_tier_counts": {
+        "THIN_FALLBACK": 4
+      },
+      "value_status_counts": {
+        "VALUE_STRONG": 4
+      },
+      "source_policy_counts": {
+        "fallback_existing_odds_thin_market": 4
+      },
+      "market_weight_stats": {
+        "count": 4,
+        "avg": 0.03,
+        "min": 0.03,
+        "max": 0.03
+      },
+      "value_delta_pp_stats": {
+        "count": 4,
+        "avg": 6.9,
+        "min": 4.75,
+        "max": 10.56
+      },
+      "expected_value_pct_stats": {
+        "count": 4,
+        "avg": 7.4575,
+        "min": 4.01,
+        "max": 17.1
+      },
+      "samples": {
+        "thin_fallback": [
+          {
+            "identity": "16662032",
+            "pick": "Maja Chwalinska",
+            "opponent": "Talia Gibson",
+            "odds": 2.1,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 10.56,
+            "expected_value_pct": 17.1,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16686542",
+            "pick": "Daniel Merida",
+            "opponent": "Liam Draxl",
+            "odds": 1.67,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 5.48,
+            "expected_value_pct": 4.01,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16693572",
+            "pick": "Elizara Yaneva",
+            "opponent": "Linda Klimovičová",
+            "odds": 1.8333,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 6.81,
+            "expected_value_pct": 4.15,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16686614",
+            "pick": "Tallon Griekspoor",
+            "opponent": "Lorenzo Sonego",
+            "odds": 1.91,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 4.75,
+            "expected_value_pct": 4.57,
+            "fallback_reason": null
+          }
+        ],
+        "no_marq_or_unknown": [],
+        "current_only": [],
+        "real_opening": [],
+        "no_value": [],
+        "value_strong": [
+          {
+            "identity": "16662032",
+            "pick": "Maja Chwalinska",
+            "opponent": "Talia Gibson",
+            "odds": 2.1,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 10.56,
+            "expected_value_pct": 17.1,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16686542",
+            "pick": "Daniel Merida",
+            "opponent": "Liam Draxl",
+            "odds": 1.67,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 5.48,
+            "expected_value_pct": 4.01,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16693572",
+            "pick": "Elizara Yaneva",
+            "opponent": "Linda Klimovičová",
+            "odds": 1.8333,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 6.81,
+            "expected_value_pct": 4.15,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16686614",
+            "pick": "Tallon Griekspoor",
+            "opponent": "Lorenzo Sonego",
+            "odds": 1.91,
+            "endpoint": "NO_ENDPOINT",
+            "data_status": "NO_DATA_STATUS",
+            "confidence": "NO_CONFIDENCE",
+            "movement_status": "NO_MOVEMENT_STATUS",
+            "tier": "THIN_FALLBACK",
+            "market_weight": 0.03,
+            "value_delta_pp": 4.75,
+            "expected_value_pct": 4.57,
+            "fallback_reason": null
+          }
+        ]
+      },
+      "attempt_summary": {
+        "total_attempts": 4,
+        "endpoint_counts": {
+          "provider_all_odds[1]": 4
+        },
+        "status_counts": {
+          "OK": 4
+        }
+      }
+    }
+  }
+}
