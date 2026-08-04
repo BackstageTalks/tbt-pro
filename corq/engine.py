@@ -816,34 +816,160 @@ def _fallback_marq_from_row(record: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-def _enrich_with_marq(record: Dict[str, Any]) -> Dict[str, Any]:
-    """Attach MARQ market-view fields to a scored match row.
+def _odds_pair_for_pick_side(record: Dict[str, Any]) -> tuple[Optional[float], Optional[float]]:
+    pick_side = str(record.get("pick_side") or "").upper()
+    if pick_side == "HOME":
+        pick_odds = _decimal_odds(_first_present(record.get("pick_odds"), record.get("odds"), record.get("odds_player1"), record.get("p1_odds"), record.get("odds1"), record.get("home_odds")))
+        opp_odds = _decimal_odds(_first_present(record.get("opponent_odds"), record.get("opp_odds"), record.get("odds_player2"), record.get("p2_odds"), record.get("odds2"), record.get("away_odds")))
+        return pick_odds, opp_odds
+    if pick_side == "AWAY":
+        pick_odds = _decimal_odds(_first_present(record.get("pick_odds"), record.get("odds"), record.get("odds_player2"), record.get("p2_odds"), record.get("odds2"), record.get("away_odds")))
+        opp_odds = _decimal_odds(_first_present(record.get("opponent_odds"), record.get("opp_odds"), record.get("odds_player1"), record.get("p1_odds"), record.get("odds1"), record.get("home_odds")))
+        return pick_odds, opp_odds
+    return (
+        _decimal_odds(_first_present(record.get("pick_odds"), record.get("odds"))),
+        _decimal_odds(_first_present(record.get("opponent_odds"), record.get("opp_odds"))),
+    )
 
-    Primary source is marq.pipeline/provider. If provider data is unavailable,
-    use the current routed odds as a minimal no-vig market view so the MarQ box
-    still has Pick/Opp/Edge data instead of all blanks.
+
+def _home_away_odds_pair(record: Dict[str, Any]) -> tuple[Optional[float], Optional[float]]:
+    home_odds = _decimal_odds(_first_present(record.get("odds_player1"), record.get("p1_odds"), record.get("odds1"), record.get("home_odds")))
+    away_odds = _decimal_odds(_first_present(record.get("odds_player2"), record.get("p2_odds"), record.get("odds2"), record.get("away_odds")))
+    if home_odds is None or away_odds is None:
+        pick_odds, opp_odds = _odds_pair_for_pick_side(record)
+        pick_side = str(record.get("pick_side") or "").upper()
+        if pick_side == "HOME":
+            return pick_odds, opp_odds
+        if pick_side == "AWAY":
+            return opp_odds, pick_odds
+    return home_odds, away_odds
+
+
+def _merge_marq_v2_market(output: Dict[str, Any], market: Dict[str, Any]) -> Dict[str, Any]:
+    """Copy TennisApi-only MarQ V2 provider data into the CorQ row.
+
+    Provider V2 returns exact-event market data with home/away no-vig odds. This
+    bridge preserves all audit fields and also fills legacy MarQ fields used by
+    rankings/render/results so the row no longer degrades to RuntimeOddsFallback.
+    """
+    for key, value in market.items():
+        if value not in (None, ""):
+            output[key] = value
+
+    pick_key = str(market.get("pick_outcome_key") or output.get("pick_outcome_key") or "od1").lower()
+    p1_prob = market.get("marq_no_vig_probability_1")
+    p2_prob = market.get("marq_no_vig_probability_2")
+    if p1_prob is None:
+        p1_prob = market.get("marq_v2_no_vig_1")
+    if p2_prob is None:
+        p2_prob = market.get("marq_v2_no_vig_2")
+
+    pick_prob = p2_prob if pick_key in {"od2", "2", "away"} else p1_prob
+    opp_prob = p1_prob if pick_key in {"od2", "2", "away"} else p2_prob
+
+    def pct(value: Any) -> Optional[float]:
+        try:
+            if value in (None, ""):
+                return None
+            number = float(value)
+            return round(number * 100.0, 4) if abs(number) <= 1.0 else round(number, 4)
+        except Exception:
+            return None
+
+    pick_pct = pct(pick_prob)
+    opp_pct = pct(opp_prob)
+    if pick_pct is not None:
+        output["marq_crowd_pick_pct"] = round(pick_pct, 1)
+        output["marq_pick_probability"] = round(pick_pct / 100.0, 6)
+        output["marq_pick_no_vig_probability"] = round(pick_pct / 100.0, 6)
+        output["market_pick_probability"] = round(pick_pct / 100.0, 6)
+        output["corq_market_probability"] = round(pick_pct / 100.0, 6)
+        output["marq_edge_pct"] = round(pick_pct - 50.0, 1)
+    if opp_pct is not None:
+        output["marq_crowd_opponent_pct"] = round(opp_pct, 1)
+        output["marq_opp_no_vig_probability"] = round(opp_pct / 100.0, 6)
+
+    # Fill display odds from provider when available, otherwise keep row odds.
+    odds_block = market.get("odds") if isinstance(market.get("odds"), dict) else {}
+    od1 = odds_block.get("od1") if isinstance(odds_block.get("od1"), dict) else {}
+    od2 = odds_block.get("od2") if isinstance(odds_block.get("od2"), dict) else {}
+    if od1.get("current") is not None:
+        output["marq_current_odds_1"] = od1.get("current")
+    if od2.get("current") is not None:
+        output["marq_current_odds_2"] = od2.get("current")
+    if od1.get("opening") is not None:
+        output["marq_opening_odds_1"] = od1.get("opening")
+    if od2.get("opening") is not None:
+        output["marq_opening_odds_2"] = od2.get("opening")
+
+    if output.get("marq_final") in (None, ""):
+        edge = _num(output.get("marq_edge_pct"))
+        if edge is not None:
+            output["marq_final"] = "Market With Pick" if edge >= 2.0 else "Market Against Pick" if edge <= -2.0 else "Neutral"
+            output["marq_final_display"] = output["marq_final"]
+
+    output.setdefault("marq_market_view", True)
+    output.setdefault("marq_provider_count", market.get("market_quote_count") or 1)
+    output.setdefault("marq_market_name", "Match winner")
+    output.setdefault("marq_quality_signal", market.get("marq_data_status") or market.get("marq_source_quality") or "TennisApi MarQ V2")
+    return output
+
+
+def _tag_thin_fallback(output: Dict[str, Any]) -> None:
+    output.setdefault("marq_api_source", "existing row odds")
+    output.setdefault("marq_source_policy", "ENGINE_THIN_FALLBACK_ONLY")
+    output.setdefault("marq_source_quality", "FALLBACK_EXISTING_ODDS_THIN")
+    output.setdefault("marq_data_status", "FALLBACK_EXISTING_ODDS_THIN")
+    output.setdefault("marq_confidence", "LOW")
+    output.setdefault("marq_movement_status", "NO_REAL_MOVEMENT_DATA_THIN_FALLBACK")
+    output.setdefault("marq_exact_event_id_used", bool(output.get("event_id") or output.get("match_id") or output.get("id")))
+    output.setdefault("marq_name_matching_skipped", True)
+    output.setdefault("marq_date_feed_skipped", True)
+    output.setdefault("marq_display_move_signal", "Current only")
+    output.setdefault("marq_internal_move_signal", "Current only")
+    output.setdefault("marq_move_signal", "Current only")
+
+
+def _enrich_with_marq(record: Dict[str, Any]) -> Dict[str, Any]:
+    """Attach TennisApi-only MarQ V2 fields to a scored match row.
+
+    The previous flow called marq.pipeline without passing exact event context,
+    so rows frequently degraded to RuntimeOddsFallback even though event ids and
+    odds endpoint attempts existed. This implementation calls marq.provider
+    directly with the full row context, preserving exact-event MarQ audit fields.
     """
     output = dict(record)
+    event_id = _first_present(output.get("event_id"), output.get("match_id"), output.get("id"))
+    home_odds, away_odds = _home_away_odds_pair(output)
+
+    market: Optional[Dict[str, Any]] = None
     try:
-        from marq.pipeline import build_marq_from_match  # type: ignore
-        marq = build_marq_from_match(
+        from marq.provider import fetch_marq_market_data  # type: ignore
+        market = fetch_marq_market_data(
             player1=str(output.get("player1") or ""),
             player2=str(output.get("player2") or ""),
             date_only=_date_only_for_marq(output),
             pick=str(output.get("pick") or output.get("player") or "") or None,
-            odds_player1=_decimal_odds(_first_present(output.get("odds_player1"), output.get("p1_odds"), output.get("odds1"), output.get("home_odds"))),
-            odds_player2=_decimal_odds(_first_present(output.get("odds_player2"), output.get("p2_odds"), output.get("odds2"), output.get("away_odds"))),
+            odds_player1=home_odds,
+            odds_player2=away_odds,
+            event_id=event_id,
+            match_id=output.get("match_id"),
+            tennisapi_event_id=output.get("tennisapi_event_id"),
+            id=output.get("id"),
+            raw=output.get("raw") if isinstance(output.get("raw"), dict) else None,
+            row=output,
         )
-        if isinstance(marq, dict):
-            output.update({k: v for k, v in marq.items() if v not in (None, "")})
     except Exception as exc:
         output.setdefault("marq_error", str(exc))
 
-    if output.get("marq_crowd_pick_pct") in (None, "") or output.get("marq_crowd_opponent_pct") in (None, ""):
+    if isinstance(market, dict) and market:
+        output = _merge_marq_v2_market(output, market)
+    else:
         fallback = _fallback_marq_from_row(output)
         if fallback:
             for key, value in fallback.items():
                 output.setdefault(key, value)
+            _tag_thin_fallback(output)
 
     if output.get("marq_edge_pct") in (None, ""):
         try:
@@ -859,6 +985,7 @@ def _enrich_with_marq(record: Dict[str, Any]) -> Dict[str, Any]:
         except Exception:
             output.setdefault("marq_final", "Pending")
 
+    # CLV snapshot enrichment is optional and must not overwrite MarQ V2 data.
     try:
         from marq.odds_snapshots import enrich_row_with_internal_marq  # type: ignore
         output = enrich_row_with_internal_marq(output)
