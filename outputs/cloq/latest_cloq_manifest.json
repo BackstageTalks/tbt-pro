@@ -1,0 +1,24 @@
+{
+  "model": "CLOQ_VALUE_FIRST_V1",
+  "created_at_utc": "2026-08-04T08:25:59.834679+00:00",
+  "input_path": "outputs/latest_all.json",
+  "input_rows": 114,
+  "output_rows": 20,
+  "top_n": 20,
+  "value_status_counts": {
+    "VALUE_POSITIVE": 19,
+    "VALUE_NEUTRAL": 1
+  },
+  "odds_gap_bucket_counts": {
+    "open_gap": 14,
+    "playable_close": 2,
+    "neutral_gap": 2,
+    "close_value": 2
+  },
+  "notes": [
+    "Value is the primary CloQ signal.",
+    "Close odds are a soft bonus only: <=15% gets +3.0, <=25% gets +1.5, <=40% is neutral.",
+    "No wide-odds penalty is applied in this version.",
+    "No synthetic odds, probabilities or value values are generated."
+  ]
+}
