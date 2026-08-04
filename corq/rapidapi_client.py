@@ -432,6 +432,109 @@ class RapidApiClient:
         return None
 
 
+    def paginated_get(
+        self,
+        path: str,
+        params: Optional[Dict[str, Any]] = None,
+        *,
+        items_keys: Iterable[str] = ("data", "items", "results", "events", "rankings", "players"),
+        max_pages: Optional[int] = None,
+    ) -> Dict[str, Any]:
+        """Fetch every page for TennisAPI list endpoints using provider-safe paging.
+
+        Provider guidance: pageSize is capped at 200. Larger values are silently
+        reduced by the API, so callers that need full coverage must request
+        pageSize=200 and iterate pageNo=1,2,3... until the payload reports no
+        more pages or returns an empty page.
+
+        This method never invents missing pages or rows. If the first page is
+        empty or an error occurs, the returned status makes that explicit.
+        """
+        base_params: Dict[str, Any] = dict(params or {})
+        base_params["pageSize"] = TENNISAPI_MAX_PAGE_SIZE
+        base_params.pop("page_size", None)
+        base_params.pop("pagesize", None)
+
+        def extract_items(payload: Any) -> List[Any]:
+            if isinstance(payload, list):
+                return list(payload)
+            if isinstance(payload, dict):
+                for key in items_keys:
+                    value = payload.get(key)
+                    if isinstance(value, list):
+                        return list(value)
+                nested = payload.get("result") or payload.get("response")
+                if isinstance(nested, dict):
+                    for key in items_keys:
+                        value = nested.get(key)
+                        if isinstance(value, list):
+                            return list(value)
+            return []
+
+        def has_next(payload: Any, items: List[Any]) -> bool:
+            if not isinstance(payload, dict):
+                return False
+            for key in ("hasNextPage", "has_next_page", "hasMore", "has_more", "nextPage", "next_page"):
+                value = payload.get(key)
+                if isinstance(value, bool):
+                    return value
+                if value not in (None, "", 0, "0", False):
+                    return True
+            meta = payload.get("meta") or payload.get("pagination") or payload.get("page")
+            if isinstance(meta, dict):
+                for key in ("hasNextPage", "has_next_page", "hasMore", "has_more", "nextPage", "next_page"):
+                    value = meta.get(key)
+                    if isinstance(value, bool):
+                        return value
+                    if value not in (None, "", 0, "0", False):
+                        return True
+                total_pages = meta.get("totalPages") or meta.get("total_pages")
+                current_page = meta.get("pageNo") or meta.get("page") or meta.get("currentPage")
+                try:
+                    return int(current_page) < int(total_pages)
+                except Exception:
+                    pass
+            # If exactly 200 rows were returned and no explicit flag is present,
+            # one more page is safe. An empty next page will stop the loop.
+            return len(items) >= TENNISAPI_MAX_PAGE_SIZE
+
+        all_items: List[Any] = []
+        pages: List[Dict[str, Any]] = []
+        page_no = 1
+        status = "OK"
+        while True:
+            if max_pages is not None and page_no > max_pages:
+                status = "MAX_PAGES_REACHED"
+                break
+            page_params = dict(base_params)
+            page_params["pageNo"] = page_no
+            payload = self.get(path, params=page_params)
+            note = self.last_get_note or "OK"
+            if payload is None:
+                status = note if page_no == 1 else "STOPPED_ON_EMPTY_OR_ERROR_PAGE"
+                pages.append({"pageNo": page_no, "status": note, "item_count": 0})
+                break
+            items = extract_items(payload)
+            all_items.extend(items)
+            pages.append({"pageNo": page_no, "status": note, "item_count": len(items)})
+            if not items:
+                status = "EMPTY_FIRST_PAGE" if page_no == 1 else "OK"
+                break
+            if not has_next(payload, items):
+                break
+            page_no += 1
+
+        return {
+            "status": status,
+            "items": all_items,
+            "pageSize": TENNISAPI_MAX_PAGE_SIZE,
+            "page_count": len(pages),
+            "item_count": len(all_items),
+            "pages": pages,
+            "source_path": path,
+        }
+
+
     def get_on_host(self, host: str, path: str, params: Optional[Dict[str, Any]] = None) -> Optional[Any]:
         """GET helper for provider modules that live on a different RapidAPI host.
 
@@ -666,9 +769,15 @@ class RapidApiClient:
             for player_id in id_values:
                 for tour_value in tour_values:
                     path = template.format(player_id=player_id, query=query, tour=str(tour_value or "").lower())
-                    payload = self.get(path)
-                    status = getattr(self, "last_get_status", None)
-                    note = getattr(self, "last_get_note", None)
+                    if re.search(r"/rankings/[^/]+$", path):
+                        page_payload = self.paginated_get(path, items_keys=("data", "items", "results", "rankings", "players"))
+                        payload = page_payload.get("items")
+                        status = page_payload.get("status")
+                        note = f"pages={page_payload.get('page_count')} items={page_payload.get('item_count')}"
+                    else:
+                        payload = self.get(path)
+                        status = getattr(self, "last_get_status", None)
+                        note = getattr(self, "last_get_note", None)
                     attempts.append(f"{path}:{status or note or 'UNKNOWN'}")
                     if not payload:
                         continue
