@@ -573,7 +573,8 @@ def _flatten_thinq_payload(record: Dict[str, Any], thinq: Dict[str, Any]) -> Non
         "ta_pick_tb_pct", "ta_opp_tb_pct", "ta_pick_tb_split", "ta_opp_tb_split",
         "ta_pick_ace_pct", "ta_opp_ace_pct", "ta_pick_df_pct", "ta_opp_df_pct",
         "ta_pick_depth", "ta_opp_depth", "ta_pick_matches", "ta_opp_matches",
-        "pick_ace_pct", "opponent_ace_pct", "pick_df_pct", "opponent_df_pct",
+        # Do not copy generic ace/DF aliases from TA here. API serve stats below
+        # must win those public fields; TA remains only ta_* fallback.
         "pick_aces_line", "opponent_aces_line", "total_aces_line", "aces_status",
     ])
 
@@ -587,40 +588,52 @@ def _flatten_thinq_payload(record: Dict[str, Any], thinq: Dict[str, Any]) -> Non
     ])
 
     # Final compatibility aliases for Sets/Games/Aces/DF render.
+    # API serve stats are the source of truth for ace/DF fields. TA profile values
+    # remain available only as a legacy fallback because TA scraping was not
+    # reliable enough for these serve metrics. Do not let stale TA aliases block
+    # fresher API fields.
     for out_key, candidates in {
-        "pick_ace_pct": ("pick_ace_pct", "ta_pick_ace_pct", "api_pick_ace_pct"),
-        "opponent_ace_pct": ("opponent_ace_pct", "ta_opp_ace_pct", "api_opp_ace_pct"),
-        "pick_df_pct": ("pick_df_pct", "ta_pick_df_pct", "api_pick_df_pct"),
-        "opponent_df_pct": ("opponent_df_pct", "ta_opp_df_pct", "api_opp_df_pct"),
-        "pick_aces_line": ("pick_aces_line", "pick_aces_projection"),
-        "opponent_aces_line": ("opponent_aces_line", "opponent_aces_projection"),
-        "total_aces_line": ("total_aces_line", "total_aces_projection"),
-        "pick_df_line": ("pick_df_line", "pick_df_projection"),
-        "opponent_df_line": ("opponent_df_line", "opponent_df_projection"),
-        "total_df_line": ("total_df_line", "total_df_projection"),
+        "pick_ace_pct": ("api_pick_ace_pct", "pick_ace_pct", "ta_pick_ace_pct"),
+        "opponent_ace_pct": ("api_opp_ace_pct", "opponent_ace_pct", "ta_opp_ace_pct"),
+        "pick_df_pct": ("api_pick_df_pct", "pick_df_pct", "ta_pick_df_pct"),
+        "opponent_df_pct": ("api_opp_df_pct", "opponent_df_pct", "ta_opp_df_pct"),
+        "pick_aces_line": ("pick_aces_projection", "pick_aces_line"),
+        "opponent_aces_line": ("opponent_aces_projection", "opponent_aces_line"),
+        "total_aces_line": ("total_aces_projection", "total_aces_line"),
+        "pick_df_line": ("pick_df_projection", "pick_df_line"),
+        "opponent_df_line": ("opponent_df_projection", "opponent_df_line"),
+        "total_df_line": ("total_df_projection", "total_df_line"),
     }.items():
-        if record.get(out_key) not in (None, ""):
-            continue
         for key in candidates:
             value = record.get(key)
             if value not in (None, ""):
                 record[out_key] = value
+                if str(key).startswith("api_") or str(key).endswith("_projection"):
+                    record[f"{out_key}_source"] = "API_SERVE_STATS"
+                elif str(key).startswith("ta_"):
+                    record[f"{out_key}_source"] = "TA_PROFILE_FALLBACK"
+                else:
+                    record[f"{out_key}_source"] = record.get(f"{out_key}_source") or "LEGACY_EXISTING"
                 break
 
-    # Data depth fallback: use TA depths first, then API serve sample availability.
+    # Data depth fallback: prefer API serve sample availability, then TA profile
+    # depth. TA depth is retained only as a legacy fallback while we migrate the
+    # Sets/Games/TA signal box away from Tennis Abstract profiles.
     if record.get("s_data_depth") in (None, "", 0, 0.0):
-        p_depth = _num(record.get("ta_pick_depth"))
-        o_depth = _num(record.get("ta_opp_depth"))
-        if p_depth is not None and o_depth is not None:
-            record["s_data_depth"] = round((p_depth + o_depth) / 2.0, 4)
+        p_matches = _num(record.get("api_pick_serve_matches"))
+        o_matches = _num(record.get("api_opp_serve_matches"))
+        if p_matches is not None and o_matches is not None and (p_matches > 0 or o_matches > 0):
+            depth = min(((p_matches + o_matches) / 52.0), 1.0)
+            record["s_data_depth"] = round(depth, 4)
             record.setdefault("sets_games_data_depth", record["s_data_depth"])
+            record.setdefault("sets_model_source", "API_SERVE_STATS_DEPTH")
         else:
-            p_matches = _num(record.get("api_pick_serve_matches"))
-            o_matches = _num(record.get("api_opp_serve_matches"))
-            if p_matches is not None and o_matches is not None and (p_matches > 0 or o_matches > 0):
-                depth = min(((p_matches + o_matches) / 52.0), 1.0)
-                record["s_data_depth"] = round(depth, 4)
+            p_depth = _num(record.get("ta_pick_depth"))
+            o_depth = _num(record.get("ta_opp_depth"))
+            if p_depth is not None and o_depth is not None:
+                record["s_data_depth"] = round((p_depth + o_depth) / 2.0, 4)
                 record.setdefault("sets_games_data_depth", record["s_data_depth"])
+                record.setdefault("sets_model_source", "TA_PROFILE_DEPTH_FALLBACK")
 
 def _enrich_with_thinq(record: Dict[str, Any], thinq_service: Any) -> Dict[str, Any]:
     safe_record = repair_candidate_side(record)
