@@ -1,6 +1,6 @@
 # MarQ API Coverage Report
 
-Generated UTC: 2026-08-04T14:23:56.579597+00:00
+Generated UTC: 2026-08-04T15:19:01.375718+00:00
 Model: 2026-08-04-marq-coverage-report-v1
 
 ## all_audit
@@ -9,8 +9,8 @@ Rows: 112
 
 ### Coverage
 
-- High MarQ: 62.5%
-- Medium current-only: 37.5%
+- High MarQ: 60.71%
+- Medium current-only: 39.29%
 - Thin fallback: 0.0%
 - No/unknown MarQ: 0.0%
 - Usable High+Medium: 100.0%
@@ -21,30 +21,30 @@ Rows: 112
 
 ### Quality tiers
 
-- HIGH: 70 (62.5%)
-- MEDIUM_CURRENT_ONLY: 42 (37.5%)
+- HIGH: 68 (60.71%)
+- MEDIUM_CURRENT_ONLY: 44 (39.29%)
 
 ### Data status
 
-- EXACT_BETTING_ODDS_WITH_OPENING: 70 (62.5%)
-- EXACT_CURRENT_ODDS_ONLY: 42 (37.5%)
+- EXACT_BETTING_ODDS_WITH_OPENING: 68 (60.71%)
+- EXACT_CURRENT_ODDS_ONLY: 44 (39.29%)
 
 ### Movement status
 
-- REAL_OPENING_CURRENT_AVAILABLE: 70 (62.5%)
-- OPENING_EQUALS_CURRENT: 42 (37.5%)
+- REAL_OPENING_CURRENT_AVAILABLE: 68 (60.71%)
+- OPENING_EQUALS_CURRENT: 44 (39.29%)
 
 ### Value status
 
 - NO_VALUE: 55 (49.11%)
-- VALUE_STRONG: 40 (35.71%)
-- VALUE_PLAYABLE: 17 (15.18%)
+- VALUE_STRONG: 39 (34.82%)
+- VALUE_PLAYABLE: 18 (16.07%)
 
 ### Numeric stats
 
-- CorQ market weight: `{'count': 112, 'avg': 0.2071, 'min': 0.1, 'max': 0.3}`
+- CorQ market weight: `{'count': 112, 'avg': 0.2046, 'min': 0.1, 'max': 0.3}`
 - Value delta pp: `{'count': 112, 'avg': 0.0, 'min': -26.92, 'max': 26.92}`
-- Expected value pct: `{'count': 112, 'avg': 6.5503, 'min': -47.54, 'max': 312.56}`
+- Expected value pct: `{'count': 112, 'avg': 4.1536, 'min': -37.73, 'max': 233.4}`
 
 ## corq_top7
 
@@ -86,8 +86,8 @@ Rows: 7
 ### Numeric stats
 
 - CorQ market weight: `{'count': 7, 'avg': 0.2257, 'min': 0.12, 'max': 0.3}`
-- Value delta pp: `{'count': 7, 'avg': 0.1043, 'min': -3.54, 'max': 5.43}`
-- Expected value pct: `{'count': 7, 'avg': -4.9271, 'min': -10.51, 'max': 4.01}`
+- Value delta pp: `{'count': 7, 'avg': -1.0129, 'min': -8.46, 'max': 3.67}`
+- Expected value pct: `{'count': 7, 'avg': -5.8529, 'min': -12.64, 'max': 0.99}`
 
 ## cloq
 

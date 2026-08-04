@@ -69,7 +69,7 @@
             "shortNameTranslation": {}
           }
         },
-        "userCount": 1365,
+        "userCount": 1488,
         "groundType": "Hardcourt outdoor",
         "tennisPoints": 1000,
         "hasPerformanceGraphFeature": false,
@@ -118,7 +118,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 11870,
+      "userCount": 11873,
       "playerTeamInfo": {
         "id": 434
       },
@@ -162,7 +162,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 4553,
+      "userCount": 4576,
       "playerTeamInfo": {
         "id": 3522
       },
@@ -2233,11 +2233,21 @@
   "match_shape": "BALANCED_STANDARD",
   "api_pick_serve_stats_status": "OK",
   "api_opp_serve_stats_status": "OK",
+  "pick_ace_pct_source": "API_SERVE_STATS",
+  "opponent_ace_pct_source": "API_SERVE_STATS",
+  "pick_df_pct_source": "API_SERVE_STATS",
+  "opponent_df_pct_source": "API_SERVE_STATS",
   "pick_aces_line": 1.5,
+  "pick_aces_line_source": "API_SERVE_STATS",
   "opponent_aces_line": 2.0,
+  "opponent_aces_line_source": "API_SERVE_STATS",
+  "total_aces_line_source": "API_SERVE_STATS",
   "pick_df_line": 2.6,
+  "pick_df_line_source": "API_SERVE_STATS",
   "opponent_df_line": 2.5,
+  "opponent_df_line_source": "API_SERVE_STATS",
   "total_df_line": 5.1,
+  "total_df_line_source": "API_SERVE_STATS",
   "s_data_depth": 0.6154,
   "sets_games_data_depth": 0.6154,
   "implied_probability": 0.6369,
@@ -2423,12 +2433,6 @@
   "total_aces_selection": "U3.5",
   "total_aces_probability": 0.5213,
   "aces_source": "TA A% + projected service points",
-  "pick_aces_line_source": "MODEL_PROJECTION_LINE",
-  "opponent_aces_line_source": "MODEL_PROJECTION_LINE",
-  "total_aces_line_source": "MODEL_PROJECTION_LINE",
-  "pick_df_line_source": "MODEL_PROJECTION_LINE",
-  "opponent_df_line_source": "MODEL_PROJECTION_LINE",
-  "total_df_line_source": "MODEL_PROJECTION_LINE",
   "best_bet": "U5.1",
   "best_bet_display": "U5.1 59%",
   "best_bet_probability": 0.5899,
@@ -2627,7 +2631,7 @@
     "FAIR",
     "VALUE_NEUTRAL"
   ],
-  "corq_source_rank": 31,
+  "corq_source_rank": 33,
   "top7_filter_mode": "PUBLISHABLE_CORQ_FIRST_DATA_HEALTH_V1",
   "top7_publishable": true,
   "eligible_for_top7": true,
@@ -2761,5 +2765,5 @@
   "top7_sort_primary": "CORQ_PROBABILITY_DESC",
   "top7_sort_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
   "top7_rank": 3,
-  "_corq_render_rank": 30
+  "_corq_render_rank": 24
 }

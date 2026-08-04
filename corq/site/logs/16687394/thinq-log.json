@@ -69,7 +69,7 @@
             "shortNameTranslation": {}
           }
         },
-        "userCount": 1365,
+        "userCount": 1488,
         "groundType": "Hardcourt outdoor",
         "tennisPoints": 1000,
         "hasPerformanceGraphFeature": false,
@@ -119,7 +119,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 6725,
+      "userCount": 6765,
       "playerTeamInfo": {
         "id": 800
       },
@@ -163,7 +163,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 8420,
+      "userCount": 8462,
       "playerTeamInfo": {
         "id": 126
       },
@@ -2272,11 +2272,21 @@
   "match_shape": "CLOSE_DECIDER_LEAN",
   "api_pick_serve_stats_status": "OK",
   "api_opp_serve_stats_status": "OK",
+  "pick_ace_pct_source": "API_SERVE_STATS",
+  "opponent_ace_pct_source": "API_SERVE_STATS",
+  "pick_df_pct_source": "API_SERVE_STATS",
+  "opponent_df_pct_source": "API_SERVE_STATS",
   "pick_aces_line": 1.0,
+  "pick_aces_line_source": "API_SERVE_STATS",
   "opponent_aces_line": 3.0,
+  "opponent_aces_line_source": "API_SERVE_STATS",
+  "total_aces_line_source": "API_SERVE_STATS",
   "pick_df_line": 6.1,
+  "pick_df_line_source": "API_SERVE_STATS",
   "opponent_df_line": 2.9,
+  "opponent_df_line_source": "API_SERVE_STATS",
   "total_df_line": 9.0,
+  "total_df_line_source": "API_SERVE_STATS",
   "s_data_depth": 0.6731,
   "sets_games_data_depth": 0.6731,
   "implied_probability": 0.5236,
@@ -2462,12 +2472,6 @@
   "total_aces_selection": "O4",
   "total_aces_probability": 0.5139,
   "aces_source": "TA A% + projected service points",
-  "pick_aces_line_source": "MODEL_PROJECTION_LINE",
-  "opponent_aces_line_source": "MODEL_PROJECTION_LINE",
-  "total_aces_line_source": "MODEL_PROJECTION_LINE",
-  "pick_df_line_source": "MODEL_PROJECTION_LINE",
-  "opponent_df_line_source": "MODEL_PROJECTION_LINE",
-  "total_df_line_source": "MODEL_PROJECTION_LINE",
   "best_bet": "U9",
   "best_bet_display": "U9 72%",
   "best_bet_probability": 0.7212,
