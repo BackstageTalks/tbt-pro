@@ -2362,9 +2362,12 @@ def fetch_marq_market_data(
 # - non-exact event discovery
 #
 # Endpoint order for an exact event id:
-# 1) getMatchBettingOdds  -> provider betting odds, preferred market schema
-# 2) getMatchWinningOdds  -> compact home/away winner odds validator/fallback
-# 3) getAllOddsForEvent   -> broad all-odds fallback for Full time market
+# 1) getAllOddsForEvent   -> primary source for Full time market, open/current odds and move
+# 2) getMatchWinningOdds  -> compact home/away current odds fallback
+#
+# getMatchBettingOdds is disabled by default because the observed production
+# path returns 404. It can be re-enabled only for debugging with
+# TENNISAPI_ENABLE_BETTING_ODDS_ENDPOINT=true.
 #
 # Wide/list endpoints are not used here, so the provider pageSize=200 rule is
 # not directly involved in this file. Other list API clients must keep
@@ -2560,10 +2563,11 @@ def fetch_provider_odds(event_id: str, provider_id: int, force_refresh: bool = F
         return _RUN_PROVIDER_ODDS_CACHE[key]
 
     endpoints = [
-        ("getMatchBettingOdds", f"/api/tennis/event/{event_id}/provider/{provider_id}/betting-odds"),
-        ("getMatchWinningOdds", f"/api/tennis/event/{event_id}/provider/{provider_id}/winning-odds"),
         ("getAllOddsForEvent", f"/api/tennis/event/{event_id}/odds/{provider_id}/all"),
+        ("getMatchWinningOdds", f"/api/tennis/event/{event_id}/provider/{provider_id}/winning-odds"),
     ]
+    if str(os.getenv("TENNISAPI_ENABLE_BETTING_ODDS_ENDPOINT", "")).strip().lower() in {"1", "true", "yes", "on"}:
+        endpoints.append(("getMatchBettingOdds", f"/api/tennis/event/{event_id}/provider/{provider_id}/betting-odds"))
     attempts: List[Dict[str, Any]] = []
 
     for endpoint_name, path in endpoints:
