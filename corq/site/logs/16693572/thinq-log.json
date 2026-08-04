@@ -14,7 +14,7 @@
   "match_start": "2026-08-04T11:05:00+00:00",
   "start_time": "2026-08-04T11:05:00+00:00",
   "status_type": "inprogress",
-  "status_code": 8,
+  "status_code": 10,
   "is_doubles": false,
   "source": "tennisapi_market_quality_v2",
   "raw": {
@@ -101,8 +101,8 @@
     },
     "customId": "djucslJEd",
     "status": {
-      "code": 8,
-      "description": "1st set",
+      "code": 10,
+      "description": "3rd set",
       "type": "inprogress"
     },
     "homeTeam": {
@@ -192,25 +192,34 @@
       }
     },
     "homeScore": {
-      "current": 0,
-      "display": 0,
-      "period1": 4,
-      "point": "40"
+      "current": 1,
+      "display": 1,
+      "period1": 6,
+      "period2": 5,
+      "period3": 0,
+      "point": "0"
     },
     "awayScore": {
-      "current": 0,
-      "display": 0,
+      "current": 1,
+      "display": 1,
       "period1": 2,
-      "point": "30"
+      "period2": 7,
+      "period3": 2,
+      "point": "0"
     },
     "time": {
-      "currentPeriodStartTimestamp": 1785841989
+      "period1": 2076,
+      "period2": 3576,
+      "currentPeriodStartTimestamp": 1785847641
     },
     "changes": {
       "changes": [
-        "awayScore.point"
+        "homeScore.point",
+        "awayScore.period3",
+        "awayScore.point",
+        "firstToServe"
       ],
-      "changeTimestamp": 1785843704
+      "changeTimestamp": 1785848331
     },
     "hasGlobalHighlights": false,
     "crowdsourcingDataDisplayEnabled": false,
@@ -226,7 +235,7 @@
       "period4": "4th set",
       "period5": "5th set"
     },
-    "lastPeriod": "period1",
+    "lastPeriod": "period3",
     "finalResultOnly": false,
     "feedLocked": false,
     "groundType": "Hardcourt outdoor",
@@ -251,16 +260,16 @@
   "odds_label_2": "2",
   "odds_direct_match_score": 1.0,
   "odds_reverse_match_score": 0.0,
-  "odds_player1": 1.25,
-  "odds_player2": 3.75,
-  "p1_odds": 1.25,
-  "p2_odds": 3.75,
-  "home_odds": 1.25,
-  "away_odds": 3.75,
-  "odds1": 1.25,
-  "odds2": 3.75,
-  "price1": 1.25,
-  "price2": 3.75,
+  "odds_player1": 4.5,
+  "odds_player2": 1.1818,
+  "p1_odds": 4.5,
+  "p2_odds": 1.1818,
+  "home_odds": 4.5,
+  "away_odds": 1.1818,
+  "odds1": 4.5,
+  "odds2": 1.1818,
+  "price1": 4.5,
+  "price2": 1.1818,
   "odds_source": "RapidAPI PRO event odds",
   "odds_endpoint": "/api/tennis/event/16693572/odds/1/all",
   "odds_status": "OK",
@@ -269,8 +278,8 @@
   ],
   "odds_pair_available": true,
   "odds_labels_confirmed": true,
-  "odds_gap_abs": 2.5,
-  "odds_gap_pct": 2.0,
+  "odds_gap_abs": 3.3182,
+  "odds_gap_pct": 2.8078,
   "home_player": "Linda Klimovičová",
   "away_player": "Elizara Yaneva",
   "pick_side": "AWAY",
@@ -279,20 +288,20 @@
   "opponent": "Linda Klimovičová",
   "odds": {
     "od1": {
-      "opening": null,
-      "latest": 1.83333,
-      "current": 1.83333,
-      "change": null
+      "opening": 1.95,
+      "latest": 6.0,
+      "current": 6.0,
+      "change": 1.0
     },
     "od2": {
-      "opening": null,
-      "latest": 1.83333,
-      "current": 1.83333,
-      "change": null
+      "opening": 1.8,
+      "latest": 1.125,
+      "current": 1.125,
+      "change": -1.0
     }
   },
-  "pick_odds": 3.75,
-  "opponent_odds": 1.25,
+  "pick_odds": 1.1818,
+  "opponent_odds": 4.5,
   "pick_is_player1": false,
   "pick_is_player2": true,
   "pick_is_home": false,
@@ -612,7 +621,7 @@
       "tiebreak_edge": 0.0009,
       "decider_edge": 0.0002,
       "confidence": 0.78,
-      "odds_gap_pct": 2.0,
+      "odds_gap_pct": 2.8078,
       "flags": [
         "MATCH_DYNAMICS_H2H_NEUTRAL"
       ]
@@ -730,7 +739,7 @@
         "tiebreak_edge": 0.0009,
         "decider_edge": 0.0002,
         "confidence": 0.78,
-        "odds_gap_pct": 2.0,
+        "odds_gap_pct": 2.8078,
         "flags": [
           "MATCH_DYNAMICS_H2H_NEUTRAL"
         ]
@@ -2050,7 +2059,7 @@
     "tiebreak_edge": 0.0009,
     "decider_edge": 0.0002,
     "confidence": 0.78,
-    "odds_gap_pct": 2.0,
+    "odds_gap_pct": 2.8078,
     "flags": [
       "MATCH_DYNAMICS_H2H_NEUTRAL"
     ]
@@ -2171,7 +2180,7 @@
   "ta_opp_status": "OK",
   "ta_scope": "last52_overall",
   "ta_surface": "hard",
-  "sets_model_source": "ModelFallback",
+  "sets_model_source": "TennisApiMarkets",
   "api_serve_stats_source": "API_PRO_TEAM_YEAR_STATS",
   "api_serve_stats_status": "OK",
   "api_pick_ace_pct": 0.89,
@@ -2250,7 +2259,7 @@
   "total_df_line": 7.2,
   "s_data_depth": 0.1923,
   "sets_games_data_depth": 0.1923,
-  "implied_probability": 0.2667,
+  "implied_probability": 0.8462,
   "pick_last10_count": 10,
   "opponent_last10_count": 10,
   "pick_surface_count": 8,
@@ -2271,10 +2280,10 @@
   },
   "corq_raw_model_edge": 0.0704,
   "corq_confidence_factor": 0.82,
-  "corq_estimated_win_probability": 0.562,
-  "estimated_win_pct": 56.2,
-  "corq_score": 0.562,
-  "corq_edge": 0.2953,
+  "corq_estimated_win_probability": 0.6302,
+  "estimated_win_pct": 63.02,
+  "corq_score": 0.6302,
+  "corq_edge": -0.216,
   "corq_risk_flags": [],
   "ranking_source": "TENNISAPI_RANKINGS",
   "ranking_status": "OK",
@@ -2349,19 +2358,19 @@
     "TA profile missing or no usable scoped stats"
   ],
   "ta_signal_score_projection": "N/A",
-  "expected_sets": 2.47,
+  "expected_sets": 2.38,
   "sets_selection": "O2.5",
-  "sets_probability": 0.47,
+  "sets_probability": 0.38,
   "sets_probability_label": "O2.5",
-  "sets_o25_probability": 0.47,
+  "sets_o25_probability": 0.38,
   "sets_o45_probability": null,
-  "most_likely_score": "2-0",
-  "most_likely_score_probability": 0.2915,
+  "most_likely_score": "0-2",
+  "most_likely_score_probability": 0.5363,
   "score_probabilities": {
-    "2-0": 0.2915,
-    "2-1": 0.235,
-    "1-2": 0.235,
-    "0-2": 0.2385
+    "0-2": 0.5363,
+    "1-2": 0.32,
+    "2-1": 0.06,
+    "2-0": 0.0837
   },
   "score_basis": "player1_vs_player2",
   "sets_source": "Model",
@@ -2369,44 +2378,56 @@
   "first_set_player2_odds": null,
   "first_set_player1_probability": null,
   "first_set_player2_probability": null,
-  "expected_games": 23.1,
-  "projected_total_games": 23.1,
-  "games_line": 23.0,
-  "total_games_line": 23.0,
-  "games_pick": "Over 23",
-  "games_selection": "O23",
-  "games_probability": 0.5135,
+  "expected_games": 21.5,
+  "projected_total_games": 21.5,
+  "games_line": 21.5,
+  "total_games_line": 21.5,
+  "games_pick": "Over 21.5",
+  "games_selection": "O21.5",
+  "games_probability": 0.5,
   "games_model_source": "ModelFallback",
   "games_data_quality": "C+",
-  "best_total_selection": "O23",
-  "best_total_probability": 0.5135,
+  "best_total_selection": "O21.5",
+  "best_total_probability": 0.5,
   "games_over_odds": null,
   "games_under_odds": null,
-  "games_over_probability": 0.5135,
-  "games_under_probability": 0.4865,
+  "games_over_probability": 0.5,
+  "games_under_probability": 0.5,
   "tie_break_yes_odds": null,
   "tie_break_no_odds": null,
   "tie_break_selection": null,
   "tiebreak_selection": null,
   "tie_break_probability": null,
   "tb_probability": null,
-  "sets_games_market_source": null,
-  "sets_games_raw_market_count": null,
-  "sets_games_endpoint_summary": null,
+  "sets_games_market_source": "TennisApiPRO getAllOddsForEvent",
+  "sets_games_raw_market_count": 1,
+  "sets_games_endpoint_summary": {
+    "request_count": 1,
+    "status_counts": {
+      "200": 1
+    },
+    "endpoint_counts": {
+      "getAllOddsForEvent": 1
+    },
+    "ok_count": 1,
+    "rate_limited_count": 0,
+    "no_content_count": 0,
+    "http_error_count": 0
+  },
   "double_faults_available": true,
-  "df_pick": 3.2,
-  "df_opponent": 3.5,
-  "df_total": 6.7,
+  "df_pick": 3.0,
+  "df_opponent": 3.3,
+  "df_total": 6.3,
   "df_source": "TA/Sackmann DF% + games_line",
   "pick_df_side": "Under",
   "pick_df_selection": "U3.4",
-  "pick_df_probability": 0.5609,
+  "pick_df_probability": 0.62,
   "opponent_df_side": "Under",
   "opponent_df_selection": "U3.8",
-  "opponent_df_probability": 0.5704,
+  "opponent_df_probability": 0.6356,
   "total_df_side": "Under",
   "total_df_selection": "U7.2",
-  "total_df_probability": 0.594,
+  "total_df_probability": 0.6799,
   "pick_aces_line_source": "MODEL_PROJECTION_LINE",
   "opponent_aces_line_source": "MODEL_PROJECTION_LINE",
   "total_aces_line_source": "MODEL_PROJECTION_LINE",
@@ -2414,8 +2435,8 @@
   "opponent_df_line_source": "MODEL_PROJECTION_LINE",
   "total_df_line_source": "MODEL_PROJECTION_LINE",
   "best_bet": "U7.2",
-  "best_bet_display": "U7.2 59%",
-  "best_bet_probability": 0.594,
+  "best_bet_display": "U7.2 68%",
+  "best_bet_probability": 0.6799,
   "best_bet_market": "Total DF",
   "sets_games_value_candidates": [],
   "value_bet": null,
@@ -2426,9 +2447,9 @@
   "marq_source": "tennisapi_market_quality_v2",
   "marq_api_source": "TennisApi RapidAPI",
   "marq_source_policy": "TENNISAPI_ONLY_EXACT_EVENT",
-  "marq_source_quality": "EXACT_CURRENT_ODDS_ONLY",
-  "marq_data_status": "EXACT_CURRENT_ODDS_ONLY",
-  "marq_confidence": "MEDIUM",
+  "marq_source_quality": "EXACT_BETTING_ODDS_WITH_OPENING",
+  "marq_data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+  "marq_confidence": "HIGH",
   "marq_exact_event_id_used": true,
   "marq_name_matching_skipped": true,
   "marq_date_feed_skipped": true,
@@ -2442,69 +2463,54 @@
       "event_id": "16693572",
       "provider_id": 1,
       "provider_name": "provider_1",
-      "provider_odds_endpoint": "/api/tennis/event/16693572/provider/1/winning-odds",
-      "provider_odds_endpoint_name": "getMatchWinningOdds",
+      "provider_odds_endpoint": "/api/tennis/event/16693572/odds/1/all",
+      "provider_odds_endpoint_name": "getAllOddsForEvent",
       "source": "TennisApiPRO",
       "bookmaker": "provider_1",
-      "market_name": "Match winning odds",
-      "market_group": "home/away",
+      "market_name": "Full time",
+      "market_group": "Home/Away",
       "market_period": "Match",
-      "market_id": null,
+      "market_id": 1,
       "source_id": null,
-      "odds_1": 1.83333,
-      "odds_2": 1.83333,
-      "initial_1": null,
-      "initial_2": null,
-      "opening_1": null,
-      "opening_2": null,
-      "change_1": null,
-      "change_2": null,
-      "choice_source_id_1": 23699165,
-      "choice_source_id_2": 23699166,
-      "winning_home_expected": 55,
-      "winning_home_actual": 62,
-      "winning_away_expected": 55,
-      "winning_away_actual": 50,
-      "marq_v2_no_vig_1": 0.5,
-      "marq_v2_no_vig_2": 0.5,
-      "marq_v2_overround": 1.0909110743837718,
-      "marq_v2_movement_status": "CURRENT_ONLY_NO_REAL_OPENING",
+      "odds_1": 6.0,
+      "odds_2": 1.125,
+      "initial_1": 1.95,
+      "initial_2": 1.8,
+      "opening_1": 1.95,
+      "opening_2": 1.8,
+      "change_1": 1.0,
+      "change_2": -1.0,
+      "choice_source_id_1": 1832876165,
+      "choice_source_id_2": 1832876160,
+      "marq_v2_no_vig_1": 0.15789473684210525,
+      "marq_v2_no_vig_2": 0.8421052631578947,
+      "marq_v2_overround": 1.0555555555555556,
+      "marq_v2_movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
       "provider_odds_market_count": 1,
       "provider_odds_has_full_time": true,
       "provider_odds_fetch_version": "2026-08-04-tennisapi-only-marq-v2",
       "provider_odds_endpoint_summary": {
-        "request_count": 2,
+        "request_count": 1,
         "status_counts": {
-          "404": 1,
           "200": 1
         },
         "endpoint_counts": {
-          "getMatchBettingOdds": 1,
-          "getMatchWinningOdds": 1
+          "getAllOddsForEvent": 1
         },
         "ok_count": 1,
         "rate_limited_count": 0,
         "no_content_count": 0,
-        "http_error_count": 1
+        "http_error_count": 0
       },
-      "provider_odds_request_count": 2,
+      "provider_odds_request_count": 1,
       "provider_odds_endpoint_attempts": [
         {
-          "path": "/api/tennis/event/16693572/provider/1/betting-odds",
-          "status_code": 404,
-          "ok": false,
-          "note": "HTTP_ERROR",
-          "endpoint_name": "getMatchBettingOdds",
-          "market_count": 0,
-          "has_match_winner_quote": false
-        },
-        {
-          "path": "/api/tennis/event/16693572/provider/1/winning-odds",
+          "path": "/api/tennis/event/16693572/odds/1/all",
           "status_code": 200,
           "ok": true,
           "note": "OK",
-          "endpoint_name": "getMatchWinningOdds",
-          "market_count": 0,
+          "endpoint_name": "getAllOddsForEvent",
+          "market_count": 1,
           "has_match_winner_quote": true
         }
       ]
@@ -2513,59 +2519,55 @@
   "market_quotes_source": "TennisApi exact-event MarQ V2 endpoints",
   "market_quote_count": 1,
   "provider_endpoint_names": [
-    "getMatchWinningOdds"
+    "getAllOddsForEvent"
   ],
-  "provider_odds_request_count": 2,
+  "provider_odds_request_count": 1,
   "provider_odds_endpoint_summary": {
-    "request_count": 2,
+    "request_count": 1,
     "status_counts": {
-      "404": 1,
       "200": 1
     },
     "endpoint_counts": {
-      "getMatchBettingOdds": 1,
-      "getMatchWinningOdds": 1
+      "getAllOddsForEvent": 1
     },
     "ok_count": 1,
     "rate_limited_count": 0,
     "no_content_count": 0,
-    "http_error_count": 1
+    "http_error_count": 0
   },
   "provider_odds_endpoint_attempts": [
     {
-      "path": "/api/tennis/event/16693572/provider/1/betting-odds",
-      "status_code": 404,
-      "ok": false,
-      "note": "HTTP_ERROR",
-      "endpoint_name": "getMatchBettingOdds",
-      "market_count": 0,
-      "has_match_winner_quote": false
-    },
-    {
-      "path": "/api/tennis/event/16693572/provider/1/winning-odds",
+      "path": "/api/tennis/event/16693572/odds/1/all",
       "status_code": 200,
       "ok": true,
       "note": "OK",
-      "endpoint_name": "getMatchWinningOdds",
-      "market_count": 0,
+      "endpoint_name": "getAllOddsForEvent",
+      "market_count": 1,
       "has_match_winner_quote": true
     }
   ],
-  "marq_endpoint_used": "/api/tennis/event/16693572/provider/1/winning-odds",
-  "marq_endpoint_name": "getMatchWinningOdds",
+  "marq_endpoint_used": "/api/tennis/event/16693572/odds/1/all",
+  "marq_endpoint_name": "getAllOddsForEvent",
   "marq_market_count": 1,
   "marq_has_full_time": true,
-  "marq_current_odds_1": 1.83333,
-  "marq_current_odds_2": 1.83333,
-  "marq_no_vig_probability_1": 0.5,
-  "marq_no_vig_probability_2": 0.5,
-  "marq_overround": 1.090911,
-  "marq_movement_status": "CURRENT_ONLY_NO_REAL_OPENING",
-  "marq_internal_move_signal": "Current only",
-  "marq_display_move_signal": "Current only",
-  "marq_move_signal": "Current only",
-  "marq_move_direction": "Unknown",
-  "marq_move_latest_odds": 1.83333,
+  "marq_current_odds_1": 6.0,
+  "marq_current_odds_2": 1.125,
+  "marq_opening_odds_1": 1.95,
+  "marq_opening_odds_2": 1.8,
+  "marq_change_1": 1.0,
+  "marq_change_2": -1.0,
+  "marq_no_vig_probability_1": 0.157895,
+  "marq_no_vig_probability_2": 0.842105,
+  "marq_overround": 1.055556,
+  "marq_movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+  "marq_internal_move_signal": "Toward pick",
+  "marq_display_move_signal": "Toward pick",
+  "marq_move_signal": "Toward pick",
+  "marq_move_direction": "Toward",
+  "marq_move_pct": 37.5,
+  "marq_move_range": "1.8 -> 1.125",
+  "marq_move_earliest_odds": 1.8,
+  "marq_move_latest_odds": 1.125,
   "bet365_disabled": true,
   "tennis_live_disabled": true,
   "marq_removed_sources": [
@@ -2575,88 +2577,94 @@
     "non-exact event discovery for MARQ"
   ],
   "marq_fetch_version": "2026-08-04-tennisapi-only-marq-v2",
-  "marq_crowd_pick_pct": 50.0,
-  "marq_pick_probability": 0.5,
-  "marq_pick_no_vig_probability": 0.5,
-  "market_pick_probability": 0.5,
-  "corq_market_probability": 0.5,
-  "marq_edge_pct": 0.0,
-  "marq_crowd_opponent_pct": 50.0,
-  "marq_opp_no_vig_probability": 0.5,
-  "marq_final": "Neutral",
-  "marq_final_display": "Neutral",
+  "marq_crowd_pick_pct": 84.2,
+  "marq_pick_probability": 0.842105,
+  "marq_pick_no_vig_probability": 0.842105,
+  "market_pick_probability": 0.842105,
+  "corq_market_probability": 0.8421,
+  "marq_edge_pct": 34.2,
+  "marq_crowd_opponent_pct": 15.8,
+  "marq_opp_no_vig_probability": 0.157895,
+  "marq_final": "Market With Pick",
+  "marq_final_display": "Market With Pick",
   "marq_market_view": true,
   "marq_provider_count": 1,
   "marq_market_name": "Match winner",
-  "marq_quality_signal": "EXACT_CURRENT_ODDS_ONLY",
-  "corq_marq_quality_tier": "MEDIUM_CURRENT_ONLY",
-  "corq_marq_weight_reason": "exact TennisApi current odds only, no real movement signal",
+  "marq_quality_signal": "EXACT_BETTING_ODDS_WITH_OPENING",
+  "corq_marq_quality_tier": "HIGH",
+  "corq_marq_weight_reason": "exact TennisApi odds with real opening/current market data; real movement supports pick, market brake reduced",
   "corq_raw_model_probability": 0.5704,
   "corq_raw_model_probability_pct": 57.04,
-  "corq_market_probability_pct": 50.0,
-  "corq_model_weight": 0.88,
-  "corq_market_weight": 0.12,
-  "corq_model_mix_label": "ThinQ 88% / MarQ 12%",
-  "corq_thinq_input_pp": 50.2,
-  "corq_marq_input_pp": 6.0,
-  "corq_calibrated_probability": 0.562,
-  "corq_calibrated_probability_pct": 56.2,
-  "corq_market_adjustment_pp": -0.84,
-  "corq_calibration_method": "DYNAMIC_MARQ_WEIGHT_MEDIUM_CURRENT_ONLY",
+  "corq_market_probability_pct": 84.21,
+  "corq_model_weight": 0.78,
+  "corq_market_weight": 0.22,
+  "corq_model_mix_label": "ThinQ 78% / MarQ 22%",
+  "corq_thinq_input_pp": 44.49,
+  "corq_marq_input_pp": 18.53,
+  "corq_calibrated_probability": 0.6302,
+  "corq_calibrated_probability_pct": 63.02,
+  "corq_market_adjustment_pp": 5.98,
+  "corq_calibration_method": "DYNAMIC_MARQ_WEIGHT_HIGH",
   "corq_marq_dynamic_weight_version": "2026-08-04-marq-dynamic-weight-v1",
-  "corq_probability": 0.562,
-  "probability": 0.562,
-  "value_edge": 0.2953,
-  "edge": 0.2953,
-  "corq_value_delta_pp": 29.53,
-  "expected_value_pct": 110.75,
+  "corq_probability": 0.6302,
+  "probability": 0.6302,
+  "value_edge": -0.216,
+  "edge": -0.216,
+  "corq_value_delta_pp": -21.6,
+  "expected_value_pct": -25.52,
   "marq_v2_model_probability": 0.5704,
-  "marq_v2_market_probability": 0.5,
-  "marq_v2_value_delta_pp": 7.04,
-  "marq_v2_expected_value_pct": 113.9,
-  "marq_v2_data_status": "EXACT_CURRENT_ODDS_ONLY",
-  "marq_v2_confidence": "MEDIUM",
-  "marq_v2_movement_status": "CURRENT_ONLY_NO_REAL_OPENING",
-  "raw_implied_probability": 0.266667,
-  "raw_implied_probability_pct": 26.67,
-  "break_even_probability": 0.266667,
-  "break_even_probability_pct": 26.67,
-  "expected_value": 1.1075,
-  "price_value_grade": "LONG_RISK",
-  "price_value_tag": "VALUE_POSITIVE",
-  "price_value_display": "Long Risk | Value+",
+  "marq_v2_market_probability": 0.8421,
+  "marq_v2_value_delta_pp": -27.17,
+  "marq_v2_expected_value_pct": -32.59,
+  "marq_v2_data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+  "marq_v2_confidence": "HIGH",
+  "marq_v2_movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+  "raw_implied_probability": 0.846167,
+  "raw_implied_probability_pct": 84.62,
+  "break_even_probability": 0.846167,
+  "break_even_probability_pct": 84.62,
+  "expected_value": -0.25523,
+  "price_value_grade": "SHORT",
+  "price_value_tag": "VALUE_NEGATIVE",
+  "price_value_display": "Short | No Value",
   "price_value_status": "OK",
   "price_value_tags": [
-    "LONG_RISK",
-    "VALUE_POSITIVE"
+    "SHORT",
+    "VALUE_NEGATIVE"
   ],
-  "corq_source_rank": 59,
+  "corq_source_rank": 31,
   "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
   "top7_publishable": false,
   "eligible_for_top7": false,
   "top7_quality_reject_reasons": [
-    "REJECT_TOP7_STATUS_NOT_PREMATCH"
+    "REJECT_TOP7_STATUS_NOT_PREMATCH",
+    "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
+    "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD"
   ],
   "top7_reject_reasons": [
-    "REJECT_TOP7_STATUS_NOT_PREMATCH"
+    "REJECT_TOP7_STATUS_NOT_PREMATCH",
+    "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
+    "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD"
   ],
   "top7_hard_reject_reasons": [
-    "REJECT_TOP7_STATUS_NOT_PREMATCH"
+    "REJECT_TOP7_STATUS_NOT_PREMATCH",
+    "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
+    "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD"
   ],
   "top7_primary_reject_reason": "REJECT_TOP7_STATUS_NOT_PREMATCH",
-  "top7_reject_reason_count": 1,
+  "top7_reject_reason_count": 3,
   "top7_reject_summary_scope": "NON_PUBLISHABLE_ROWS_ONLY",
   "top7_status_allowed": false,
   "top7_status_type_normalized": "inprogress",
-  "top7_status_code": 8,
-  "top7_corq_probability": 0.562,
+  "top7_status_code": 10,
+  "top7_corq_probability": 0.6302,
   "top7_pick_thinq_edge": 0.0859,
   "top7_thinq_confidence": 0.84,
   "top7_thinq_data_confidence": 0.84,
   "top7_thinq_pick_probability": 0.5704,
   "pick_data_depth": 0.9005,
   "stat_data_depth": 0.9005,
-  "top7_pick_odds": 3.75,
+  "top7_pick_odds": 1.1818,
   "top7_match_date_local": "2026-08-04",
   "recent_form_reason": "",
   "recent_form_sample_audit": {
@@ -2669,7 +2677,7 @@
     "history_match_count": 37883
   },
   "low_data_risk_audit": {
-    "corq_probability": 0.562,
+    "corq_probability": 0.6302,
     "pick_thinq_edge": 0.0859,
     "pick_data_depth": 0.9005,
     "form_data_depth": 0.85,
@@ -2687,10 +2695,24 @@
     "odds_available": true
   },
   "top7_risk_tags": [
-    "MARKET_STRONG_AGAINST_PICK"
+    "NO_VALUE_PRICE",
+    "SHORT_PRICE_RISK",
+    "MULTI_RISK_PICK",
+    "NEGATIVE_VALUE_HARD",
+    "NEGATIVE_EV_HARD",
+    "SHORT_NO_VALUE_COMBO",
+    "SHORT_PRICE_VALUE_GUARD_FAIL",
+    "HIGH_RISK_PICK"
   ],
   "top7_risk_labels": [
-    "Market strongly against pick"
+    "No value",
+    "Short price",
+    "Multiple risk signals",
+    "Negative value >5pp",
+    "Negative EV hard",
+    "Short price + no value",
+    "Short price guard fail",
+    "High Risk"
   ],
   "top7_risk_penalty_details": [
     {
@@ -2721,24 +2743,64 @@
       "surface_elo": 0.0303
     },
     {
-      "tag": "VALUE_POSITIVE",
+      "tag": "MARKET_WITH_PICK",
       "bonus": 1.5,
-      "value": 29.53
+      "marq_edge": 34.2,
+      "market_delta": 5.98
     },
     {
-      "tag": "MARKET_STRONG_AGAINST_PICK",
+      "tag": "NO_VALUE_PRICE",
       "penalty": 3.0,
-      "pick_odds": 3.75,
-      "opponent_odds": 1.25
+      "value": -21.6
     },
     {
-      "tag": "VALUE_POSITIVE_CONFIRMED",
-      "bonus": 2.5,
-      "value_delta_pp": 29.53
+      "tag": "SHORT_PRICE_RISK",
+      "penalty": 2.0,
+      "pick_odds": 1.1818
+    },
+    {
+      "tag": "MULTI_RISK_PICK",
+      "penalty": 3.0,
+      "risk_count": 2
+    },
+    {
+      "tag": "NEGATIVE_VALUE_HARD",
+      "penalty": 5.0,
+      "value_delta_pp": -21.6
+    },
+    {
+      "tag": "NEGATIVE_EV_HARD",
+      "penalty": 4.0,
+      "expected_value_pct": -25.52
+    },
+    {
+      "tag": "SHORT_NO_VALUE_COMBO",
+      "penalty": 5.0,
+      "pick_odds": 1.1818,
+      "value_delta_pp": -21.6,
+      "expected_value_pct": -25.52
+    },
+    {
+      "tag": "SHORT_PRICE_VALUE_GUARD_FAIL",
+      "penalty": 8.0,
+      "is_short_price": true,
+      "support_count": 6,
+      "pick_data_depth": 0.9005,
+      "form_data_depth": 0.85,
+      "thinq_confidence": 0.84,
+      "value_delta_pp": -21.6,
+      "expected_value_pct": -25.52,
+      "min_support_count": 5,
+      "min_pick_data_depth": 0.75,
+      "min_form_data_depth": 0.7,
+      "min_thinq_confidence": 0.75,
+      "min_value_delta_pp": -5.0,
+      "min_expected_value_pct": -7.5,
+      "short_price_gate_ok": false
     }
   ],
-  "top7_risk_penalty_points": 3.0,
-  "top7_clean_bonus_points": 10.0,
+  "top7_risk_penalty_points": 30.0,
+  "top7_clean_bonus_points": 7.5,
   "top7_quality_score": 0.0,
   "corq_warning_flags": [
     "OPP_WEAK_FORM",
@@ -2746,9 +2808,15 @@
     "SURFACE_SUPPORT_PICK",
     "THINQ_EDGE_SUPPORT_PICK",
     "ELO_SUPPORT_PICK",
-    "VALUE_POSITIVE",
-    "MARKET_STRONG_AGAINST_PICK",
-    "VALUE_POSITIVE_CONFIRMED"
+    "MARKET_WITH_PICK",
+    "NO_VALUE_PRICE",
+    "SHORT_PRICE_RISK",
+    "MULTI_RISK_PICK",
+    "NEGATIVE_VALUE_HARD",
+    "NEGATIVE_EV_HARD",
+    "SHORT_NO_VALUE_COMBO",
+    "SHORT_PRICE_VALUE_GUARD_FAIL",
+    "HIGH_RISK_PICK"
   ],
   "top7_support_tags": [
     "OPP_WEAK_FORM",
@@ -2756,8 +2824,7 @@
     "SURFACE_SUPPORT_PICK",
     "THINQ_EDGE_SUPPORT_PICK",
     "ELO_SUPPORT_PICK",
-    "VALUE_POSITIVE",
-    "VALUE_POSITIVE_CONFIRMED"
+    "MARKET_WITH_PICK"
   ],
   "top7_support_labels": [
     "Opp weak",
@@ -2765,12 +2832,11 @@
     "Surface support",
     "ThinQ edge support",
     "ELO support",
-    "Value+",
-    "Value positive"
+    "Market with pick"
   ],
-  "top7_positive_support_count": 7,
-  "top7_risk_count": 1,
-  "top7_high_risk": false,
-  "corq_rank": 59,
+  "top7_positive_support_count": 6,
+  "top7_risk_count": 8,
+  "top7_high_risk": true,
+  "corq_rank": 31,
   "_corq_render_rank": 35
 }
