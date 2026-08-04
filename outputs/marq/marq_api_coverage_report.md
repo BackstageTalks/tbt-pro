@@ -1,6 +1,6 @@
 # MarQ API Coverage Report
 
-Generated UTC: 2026-08-04T15:19:01.375718+00:00
+Generated UTC: 2026-08-04T15:38:59.675335+00:00
 Model: 2026-08-04-marq-coverage-report-v1
 
 ## all_audit
@@ -9,8 +9,8 @@ Rows: 112
 
 ### Coverage
 
-- High MarQ: 60.71%
-- Medium current-only: 39.29%
+- High MarQ: 62.5%
+- Medium current-only: 37.5%
 - Thin fallback: 0.0%
 - No/unknown MarQ: 0.0%
 - Usable High+Medium: 100.0%
@@ -21,30 +21,31 @@ Rows: 112
 
 ### Quality tiers
 
-- HIGH: 68 (60.71%)
-- MEDIUM_CURRENT_ONLY: 44 (39.29%)
+- HIGH: 70 (62.5%)
+- MEDIUM_CURRENT_ONLY: 42 (37.5%)
 
 ### Data status
 
-- EXACT_BETTING_ODDS_WITH_OPENING: 68 (60.71%)
-- EXACT_CURRENT_ODDS_ONLY: 44 (39.29%)
+- EXACT_BETTING_ODDS_WITH_OPENING: 70 (62.5%)
+- EXACT_CURRENT_ODDS_ONLY: 42 (37.5%)
 
 ### Movement status
 
-- REAL_OPENING_CURRENT_AVAILABLE: 68 (60.71%)
-- OPENING_EQUALS_CURRENT: 44 (39.29%)
+- REAL_OPENING_CURRENT_AVAILABLE: 70 (62.5%)
+- OPENING_EQUALS_CURRENT: 42 (37.5%)
 
 ### Value status
 
 - NO_VALUE: 55 (49.11%)
-- VALUE_STRONG: 39 (34.82%)
-- VALUE_PLAYABLE: 18 (16.07%)
+- VALUE_STRONG: 37 (33.04%)
+- VALUE_PLAYABLE: 19 (16.96%)
+- VALUE_NEUTRAL: 1 (0.89%)
 
 ### Numeric stats
 
-- CorQ market weight: `{'count': 112, 'avg': 0.2046, 'min': 0.1, 'max': 0.3}`
-- Value delta pp: `{'count': 112, 'avg': 0.0, 'min': -26.92, 'max': 26.92}`
-- Expected value pct: `{'count': 112, 'avg': 4.1536, 'min': -37.73, 'max': 233.4}`
+- CorQ market weight: `{'count': 112, 'avg': 0.2075, 'min': 0.12, 'max': 0.3}`
+- Value delta pp: `{'count': 112, 'avg': 0.0, 'min': -27.94, 'max': 27.94}`
+- Expected value pct: `{'count': 112, 'avg': 4.5521, 'min': -42.79, 'max': 233.4}`
 
 ## corq_top7
 
@@ -85,9 +86,9 @@ Rows: 7
 
 ### Numeric stats
 
-- CorQ market weight: `{'count': 7, 'avg': 0.2257, 'min': 0.12, 'max': 0.3}`
-- Value delta pp: `{'count': 7, 'avg': -1.0129, 'min': -8.46, 'max': 3.67}`
-- Expected value pct: `{'count': 7, 'avg': -5.8529, 'min': -12.64, 'max': 0.99}`
+- CorQ market weight: `{'count': 7, 'avg': 0.2371, 'min': 0.12, 'max': 0.3}`
+- Value delta pp: `{'count': 7, 'avg': -0.3171, 'min': -3.59, 'max': 3.67}`
+- Expected value pct: `{'count': 7, 'avg': -5.6243, 'min': -11.04, 'max': 0.99}`
 
 ## cloq
 
