@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.44444,
   "latest_odds_player2": 2.625,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-03T18:28:23.752434+00:00",
+  "latest_snapshot_time_utc": "2026-08-04T05:34:38.393510+00:00",
   "opening_odds_player1": 1.44444,
   "opening_odds_player2": 2.625,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Maxim Mrva",
   "player2": "Nicolas Kicker",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "16700218",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-03T12:00:00+00:00",
       "target_date": "2026-08-04"
+    },
+    {
+      "event_id": "16700218",
+      "event_key": "2026-08-04_maxim-mrva_vs_nicolas-kicker",
+      "hours_to_start": -17.58,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.44444,
+      "odds_player2": 2.625,
+      "player1": "Maxim Mrva",
+      "player2": "Nicolas Kicker",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-04T05:34:38.393510+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-03T12:00:00+00:00",
+      "target_date": "2026-08-04"
     }
   ],
   "start_time_utc": "2026-08-03T12:00:00+00:00",
-  "updated_at_utc": "2026-08-03T18:28:53.156632+00:00"
+  "updated_at_utc": "2026-08-04T05:34:39.875644+00:00"
 }
