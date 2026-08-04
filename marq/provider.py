@@ -2350,3 +2350,477 @@ def fetch_marq_market_data(
         return fallback
     return None
 
+
+# ---------------------------------------------------------------------------
+# 2026-08-04 final override: TennisApi-only MARQ V2
+# ---------------------------------------------------------------------------
+# Production MARQ now uses only tennisapi1.p.rapidapi.com exact-event endpoints.
+# Removed from production MARQ:
+# - Bet365 prematch API
+# - Tennis Live API / recent odds on different host
+# - date feed and fuzzy name matching
+# - non-exact event discovery
+#
+# Endpoint order for an exact event id:
+# 1) getMatchBettingOdds  -> provider betting odds, preferred market schema
+# 2) getMatchWinningOdds  -> compact home/away winner odds validator/fallback
+# 3) getAllOddsForEvent   -> broad all-odds fallback for Full time market
+#
+# Wide/list endpoints are not used here, so the provider pageSize=200 rule is
+# not directly involved in this file. Other list API clients must keep
+# pageSize <= 200 and paginate via pageNo.
+
+_MARQ_TENNISAPI_ONLY_V2_VERSION = "2026-08-04-tennisapi-only-marq-v2"
+
+
+def _marq_v2_decimal(value: Any) -> Optional[float]:
+    return _fractional_to_decimal(value)
+
+
+def _marq_v2_payload_market_count(payload: Any) -> int:
+    try:
+        return len(_extract_markets(payload))
+    except Exception:
+        return 0
+
+
+def _marq_v2_no_vig(odds_1: Optional[float], odds_2: Optional[float]) -> Tuple[Optional[float], Optional[float], Optional[float]]:
+    try:
+        if odds_1 is None or odds_2 is None or odds_1 <= 1 or odds_2 <= 1:
+            return None, None, None
+        p1 = 1.0 / float(odds_1)
+        p2 = 1.0 / float(odds_2)
+        overround = p1 + p2
+        if overround <= 0:
+            return None, None, None
+        return p1 / overround, p2 / overround, overround
+    except Exception:
+        return None, None, None
+
+
+def _marq_v2_movement_status(opening_1: Optional[float], opening_2: Optional[float], current_1: Optional[float], current_2: Optional[float]) -> str:
+    if opening_1 is None or opening_2 is None:
+        return "CURRENT_ONLY_NO_REAL_OPENING"
+    if current_1 is None or current_2 is None:
+        return "CURRENT_ODDS_MISSING"
+    if abs(float(opening_1) - float(current_1)) < 1e-9 and abs(float(opening_2) - float(current_2)) < 1e-9:
+        return "OPENING_EQUALS_CURRENT"
+    return "REAL_OPENING_CURRENT_AVAILABLE"
+
+
+def _marq_v2_move_for_pick(opening: Optional[float], current: Optional[float]) -> Dict[str, Any]:
+    if opening is None or current is None or opening <= 1 or current <= 1:
+        return {
+            "move_signal": "Current only",
+            "move_direction": "Unknown",
+            "move_pct": None,
+            "move_range": None,
+            "move_earliest_odds": opening,
+            "move_latest_odds": current,
+        }
+    move_pct = round(abs((float(current) - float(opening)) / float(opening)) * 100.0, 1)
+    if move_pct < 0.05:
+        signal = "Stable"
+        direction = "Stable"
+    elif float(current) < float(opening):
+        signal = "Toward pick"
+        direction = "Toward"
+    else:
+        signal = "Against pick"
+        direction = "Against"
+    return {
+        "move_signal": signal,
+        "move_direction": direction,
+        "move_pct": move_pct,
+        "move_range": f"{round(float(opening), 4)} -> {round(float(current), 4)}",
+        "move_earliest_odds": round(float(opening), 4),
+        "move_latest_odds": round(float(current), 4),
+    }
+
+
+def _marq_v2_quote_from_betting_payload(payload: Any, event_id: str, provider_id: int, endpoint_name: str, path: str) -> Optional[Dict[str, Any]]:
+    markets = _extract_markets(payload)
+    market = _select_full_time_market(markets)
+    if not market:
+        return None
+    extracted = _extract_choice_markets(market)
+    odds_1 = extracted.get("odds_1")
+    odds_2 = extracted.get("odds_2")
+    if odds_1 is None or odds_2 is None:
+        return None
+    initial_1 = extracted.get("initial_1")
+    initial_2 = extracted.get("initial_2")
+    p1_nv, p2_nv, overround = _marq_v2_no_vig(odds_1, odds_2)
+    return {
+        "event_id": str(event_id),
+        "provider_id": int(provider_id),
+        "provider_name": f"provider_{provider_id}",
+        "provider_odds_endpoint": path,
+        "provider_odds_endpoint_name": endpoint_name,
+        "source": "TennisApiPRO",
+        "bookmaker": f"provider_{provider_id}",
+        "market_name": market.get("marketName") or market.get("name") or "Full time",
+        "market_group": market.get("marketGroup"),
+        "market_period": market.get("marketPeriod"),
+        "market_id": market.get("marketId"),
+        "source_id": market.get("sourceId"),
+        "odds_1": odds_1,
+        "odds_2": odds_2,
+        "initial_1": initial_1,
+        "initial_2": initial_2,
+        "opening_1": initial_1,
+        "opening_2": initial_2,
+        "change_1": extracted.get("change_1"),
+        "change_2": extracted.get("change_2"),
+        "choice_source_id_1": extracted.get("choice_source_id_1"),
+        "choice_source_id_2": extracted.get("choice_source_id_2"),
+        "marq_v2_no_vig_1": p1_nv,
+        "marq_v2_no_vig_2": p2_nv,
+        "marq_v2_overround": overround,
+        "marq_v2_movement_status": _marq_v2_movement_status(initial_1, initial_2, odds_1, odds_2),
+        "provider_odds_market_count": len(markets),
+        "provider_odds_has_full_time": True,
+        "provider_odds_fetch_version": _MARQ_TENNISAPI_ONLY_V2_VERSION,
+    }
+
+
+def _marq_v2_quote_from_winning_payload(payload: Any, event_id: str, provider_id: int, endpoint_name: str, path: str) -> Optional[Dict[str, Any]]:
+    if not isinstance(payload, dict):
+        return None
+    home = payload.get("home") if isinstance(payload.get("home"), dict) else None
+    away = payload.get("away") if isinstance(payload.get("away"), dict) else None
+    if not isinstance(home, dict) or not isinstance(away, dict):
+        # Some API responses wrap payload under data/result.
+        for key in ("data", "result", "results"):
+            nested = payload.get(key)
+            if isinstance(nested, dict):
+                quote = _marq_v2_quote_from_winning_payload(nested, event_id, provider_id, endpoint_name, path)
+                if quote:
+                    return quote
+        return None
+    odds_1 = _marq_v2_decimal(home.get("fractionalValue") or home.get("decimalValue") or home.get("value") or home.get("odds"))
+    odds_2 = _marq_v2_decimal(away.get("fractionalValue") or away.get("decimalValue") or away.get("value") or away.get("odds"))
+    if odds_1 is None or odds_2 is None:
+        return None
+    p1_nv, p2_nv, overround = _marq_v2_no_vig(odds_1, odds_2)
+    return {
+        "event_id": str(event_id),
+        "provider_id": int(provider_id),
+        "provider_name": f"provider_{provider_id}",
+        "provider_odds_endpoint": path,
+        "provider_odds_endpoint_name": endpoint_name,
+        "source": "TennisApiPRO",
+        "bookmaker": f"provider_{provider_id}",
+        "market_name": "Match winning odds",
+        "market_group": "home/away",
+        "market_period": "Match",
+        "market_id": None,
+        "source_id": None,
+        "odds_1": odds_1,
+        "odds_2": odds_2,
+        "initial_1": None,
+        "initial_2": None,
+        "opening_1": None,
+        "opening_2": None,
+        "change_1": None,
+        "change_2": None,
+        "choice_source_id_1": home.get("id"),
+        "choice_source_id_2": away.get("id"),
+        "winning_home_expected": home.get("expected"),
+        "winning_home_actual": home.get("actual"),
+        "winning_away_expected": away.get("expected"),
+        "winning_away_actual": away.get("actual"),
+        "marq_v2_no_vig_1": p1_nv,
+        "marq_v2_no_vig_2": p2_nv,
+        "marq_v2_overround": overround,
+        "marq_v2_movement_status": "CURRENT_ONLY_NO_REAL_OPENING",
+        "provider_odds_market_count": 1,
+        "provider_odds_has_full_time": True,
+        "provider_odds_fetch_version": _MARQ_TENNISAPI_ONLY_V2_VERSION,
+    }
+
+
+def _marq_v2_quote_from_payload(payload: Any, event_id: str, provider_id: int, endpoint_name: str, path: str) -> Optional[Dict[str, Any]]:
+    if endpoint_name == "getMatchWinningOdds":
+        return _marq_v2_quote_from_winning_payload(payload, event_id, provider_id, endpoint_name, path)
+    return _marq_v2_quote_from_betting_payload(payload, event_id, provider_id, endpoint_name, path)
+
+
+def fetch_provider_odds(event_id: str, provider_id: int, force_refresh: bool = False) -> Optional[Dict[str, Any]]:
+    """Fetch TennisApi-only exact-event odds for MarQ V2.
+
+    The returned payload is the first endpoint that provides a parseable match
+    winner quote. The raw payload is preserved, and audit metadata records every
+    exact-event attempt.
+    """
+    event_id = str(event_id or "").strip()
+    provider_id = int(provider_id)
+    key = f"{event_id}:{provider_id}:tennisapi_only_marq_v2"
+    if key in _RUN_PROVIDER_ODDS_CACHE and not force_refresh:
+        return _RUN_PROVIDER_ODDS_CACHE[key]
+
+    endpoints = [
+        ("getMatchBettingOdds", f"/api/tennis/event/{event_id}/provider/{provider_id}/betting-odds"),
+        ("getMatchWinningOdds", f"/api/tennis/event/{event_id}/provider/{provider_id}/winning-odds"),
+        ("getAllOddsForEvent", f"/api/tennis/event/{event_id}/odds/{provider_id}/all"),
+    ]
+    attempts: List[Dict[str, Any]] = []
+
+    for endpoint_name, path in endpoints:
+        cache_name = f"tennisapi_marq_v2_{endpoint_name}_{event_id}_{provider_id}.json"
+        payload = _get_json(path, cache_name=cache_name, force_refresh=force_refresh)
+        http_audit = dict(_LAST_HTTP_AUDIT or {})
+        http_audit["endpoint_name"] = endpoint_name
+        http_audit["path"] = path
+        http_audit["market_count"] = _marq_v2_payload_market_count(payload)
+        quote = _marq_v2_quote_from_payload(payload, event_id, provider_id, endpoint_name, path)
+        http_audit["has_match_winner_quote"] = bool(quote)
+        attempts.append(http_audit)
+        if isinstance(payload, dict) and quote:
+            output = dict(payload)
+            output["_corq_provider_meta"] = {
+                "provider_odds_endpoint": path,
+                "provider_odds_endpoint_name": endpoint_name,
+                "provider_odds_market_count": http_audit.get("market_count"),
+                "provider_odds_has_full_time": True,
+                "provider_odds_fetch_version": _MARQ_TENNISAPI_ONLY_V2_VERSION,
+                "provider_odds_request_count": len(attempts),
+                "provider_odds_endpoint_attempts": attempts,
+                "provider_odds_endpoint_summary": summarize_provider_endpoint_attempts(attempts),
+                "provider_odds_helper_version": _API_HELPER_VERSION,
+                "provider_odds_source_policy": "TENNISAPI_ONLY_EXACT_EVENT",
+                "provider_odds_removed_sources": [
+                    "Bet365PrematchAPI",
+                    "TennisLiveAPI",
+                    "TennisApi date odds feed name matching",
+                    "non-exact event discovery for MARQ",
+                ],
+            }
+            _RUN_PROVIDER_ODDS_CACHE[key] = output
+            _debug(f"MarQ V2 endpoint selected event_id={event_id} endpoint={endpoint_name} path={path}")
+            return output
+
+    _RUN_PROVIDER_ODDS_CACHE[key] = None
+    _debug(f"MarQ V2 no exact-event match winner quote event_id={event_id} provider_id={provider_id}")
+    return None
+
+
+def _quote_from_payload(payload: Any, event_id: str, provider_id: Optional[int], provider_name: Optional[str] = None) -> Optional[Dict[str, Any]]:
+    """Compatibility quote selector used by collect_market_quotes()."""
+    provider = int(provider_id or DEFAULT_PROVIDER_IDS[0])
+    meta = payload.get("_corq_provider_meta") if isinstance(payload, dict) else None
+    if not isinstance(meta, dict):
+        meta = {}
+    endpoint_name = str(meta.get("provider_odds_endpoint_name") or "getAllOddsForEvent")
+    path = str(meta.get("provider_odds_endpoint") or "")
+    quote = _marq_v2_quote_from_payload(payload, str(event_id), provider, endpoint_name, path)
+    if quote:
+        quote["provider_name"] = provider_name or quote.get("provider_name")
+        quote["bookmaker"] = provider_name or quote.get("bookmaker")
+        quote["provider_odds_endpoint_summary"] = meta.get("provider_odds_endpoint_summary")
+        quote["provider_odds_request_count"] = meta.get("provider_odds_request_count")
+        quote["provider_odds_endpoint_attempts"] = meta.get("provider_odds_endpoint_attempts")
+        quote["provider_odds_fetch_version"] = _MARQ_TENNISAPI_ONLY_V2_VERSION
+    return quote
+
+
+def _build_marq_from_exact_event_id(
+    event_id: str,
+    player1: str,
+    player2: str,
+    pick: Optional[str],
+    force_refresh: bool = False,
+) -> Optional[Dict[str, Any]]:
+    """Build MarQ V2 from exact TennisApi event id only."""
+    event_id = str(event_id or "").strip()
+    if not event_id:
+        return None
+
+    quotes = collect_market_quotes(event_id, bulk_odds=None, provider_ids=DEFAULT_PROVIDER_IDS, force_refresh=force_refresh)
+    if not quotes:
+        _debug(f"MarQ V2 exact TennisApi endpoints returned no quote event_id={event_id}")
+        return None
+
+    od1_quotes = [float(q.get("odds_1")) for q in quotes if q.get("odds_1") is not None]
+    od2_quotes = [float(q.get("odds_2")) for q in quotes if q.get("odds_2") is not None]
+    if not od1_quotes or not od2_quotes:
+        return None
+
+    od1 = float(median(od1_quotes))
+    od2 = float(median(od2_quotes))
+    initial1_values = [float(q.get("initial_1")) for q in quotes if q.get("initial_1") is not None]
+    initial2_values = [float(q.get("initial_2")) for q in quotes if q.get("initial_2") is not None]
+    change1_values = [float(q.get("change_1")) for q in quotes if q.get("change_1") is not None]
+    change2_values = [float(q.get("change_2")) for q in quotes if q.get("change_2") is not None]
+    initial1 = float(median(initial1_values)) if initial1_values else None
+    initial2 = float(median(initial2_values)) if initial2_values else None
+    change1 = float(median(change1_values)) if change1_values else None
+    change2 = float(median(change2_values)) if change2_values else None
+    pick_key = _resolve_pick_outcome_key(player1, player2, pick)
+    pick_opening = initial1 if pick_key == "od1" else initial2
+    pick_current = od1 if pick_key == "od1" else od2
+    move = _marq_v2_move_for_pick(pick_opening, pick_current)
+    movement_status = _marq_v2_movement_status(initial1, initial2, od1, od2)
+    p1_nv, p2_nv, overround = _marq_v2_no_vig(od1, od2)
+    endpoint_names = sorted({str(q.get("provider_odds_endpoint_name")) for q in quotes if q.get("provider_odds_endpoint_name")})
+    endpoint_summary: Dict[str, Any] = {}
+    endpoint_attempts: List[Dict[str, Any]] = []
+    request_count = 0
+    for quote in quotes:
+        if isinstance(quote.get("provider_odds_endpoint_summary"), dict):
+            endpoint_summary = quote.get("provider_odds_endpoint_summary") or {}
+        if isinstance(quote.get("provider_odds_endpoint_attempts"), list):
+            endpoint_attempts = quote.get("provider_odds_endpoint_attempts") or []
+        try:
+            request_count += int(quote.get("provider_odds_request_count") or 0)
+        except Exception:
+            pass
+    if request_count <= 0:
+        request_count = len(quotes)
+
+    if movement_status == "REAL_OPENING_CURRENT_AVAILABLE":
+        confidence = "HIGH"
+        data_status = "EXACT_BETTING_ODDS_WITH_OPENING"
+    elif movement_status in {"OPENING_EQUALS_CURRENT", "CURRENT_ONLY_NO_REAL_OPENING"}:
+        confidence = "MEDIUM"
+        data_status = "EXACT_CURRENT_ODDS_ONLY"
+    else:
+        confidence = "MEDIUM"
+        data_status = "EXACT_ODDS_PARTIAL_MOVEMENT"
+
+    return {
+        "source": "tennisapi_market_quality_v2",
+        "marq_source": "tennisapi_market_quality_v2",
+        "marq_api_source": "TennisApi RapidAPI",
+        "marq_source_policy": "TENNISAPI_ONLY_EXACT_EVENT",
+        "marq_source_quality": data_status,
+        "marq_data_status": data_status,
+        "marq_confidence": confidence,
+        "marq_exact_event_id_used": True,
+        "marq_name_matching_skipped": True,
+        "marq_date_feed_skipped": True,
+        "marq_fallback_reason": None,
+        "event_id": event_id,
+        "player1": player1,
+        "player2": player2,
+        "home_name": player1,
+        "away_name": player2,
+        "match_direction": "direct_exact_event_id",
+        "match_score": 1.0,
+        "pick_outcome_key": pick_key,
+        "market_quotes": quotes,
+        "market_quotes_source": "TennisApi exact-event MarQ V2 endpoints",
+        "market_quote_count": len(quotes),
+        "provider_endpoint_names": endpoint_names,
+        "provider_odds_request_count": request_count,
+        "provider_odds_endpoint_summary": endpoint_summary,
+        "provider_odds_endpoint_attempts": endpoint_attempts,
+        "marq_endpoint_used": quotes[0].get("provider_odds_endpoint") if quotes else None,
+        "marq_endpoint_name": quotes[0].get("provider_odds_endpoint_name") if quotes else None,
+        "marq_market_count": quotes[0].get("provider_odds_market_count") if quotes else None,
+        "marq_has_full_time": True,
+        "marq_current_odds_1": round(od1, 5),
+        "marq_current_odds_2": round(od2, 5),
+        "marq_opening_odds_1": round(initial1, 5) if initial1 is not None else None,
+        "marq_opening_odds_2": round(initial2, 5) if initial2 is not None else None,
+        "marq_change_1": change1,
+        "marq_change_2": change2,
+        "marq_no_vig_probability_1": round(p1_nv, 6) if p1_nv is not None else None,
+        "marq_no_vig_probability_2": round(p2_nv, 6) if p2_nv is not None else None,
+        "marq_overround": round(overround, 6) if overround is not None else None,
+        "marq_movement_status": movement_status,
+        "marq_internal_move_signal": move.get("move_signal"),
+        "marq_display_move_signal": move.get("move_signal"),
+        "marq_move_signal": move.get("move_signal"),
+        "marq_move_direction": move.get("move_direction"),
+        "marq_move_pct": move.get("move_pct"),
+        "marq_move_range": move.get("move_range"),
+        "marq_move_earliest_odds": move.get("move_earliest_odds"),
+        "marq_move_latest_odds": move.get("move_latest_odds"),
+        "bet365_disabled": True,
+        "tennis_live_disabled": True,
+        "marq_removed_sources": [
+            "Bet365PrematchAPI",
+            "TennisLiveAPI",
+            "TennisApi events/odds date feed matching",
+            "non-exact event discovery for MARQ",
+        ],
+        "odds": {
+            "od1": {"opening": initial1, "latest": od1, "current": od1, "change": change1},
+            "od2": {"opening": initial2, "latest": od2, "current": od2, "change": change2},
+        },
+        "marq_fetch_version": _MARQ_TENNISAPI_ONLY_V2_VERSION,
+    }
+
+
+def fetch_marq_market_data(
+    player1: str,
+    player2: str,
+    date_only: str,
+    pick: Optional[str] = None,
+    odds_player1: Optional[float] = None,
+    odds_player2: Optional[float] = None,
+    force_refresh: bool = False,
+    **context: Any,
+) -> Optional[Dict[str, Any]]:
+    """Production MarQ V2: TennisApi-only, exact event id only.
+
+    No Bet365, no Tennis Live API, no date odds feed and no fuzzy name matching.
+    Existing row odds are allowed only as a clearly marked THIN fallback.
+    """
+    event_id = _extract_context_event_id(context)
+    if event_id:
+        exact_market = _build_marq_from_exact_event_id(
+            event_id=event_id,
+            player1=player1,
+            player2=player2,
+            pick=pick,
+            force_refresh=force_refresh,
+        )
+        if exact_market:
+            return exact_market
+        fallback = _fallback_existing_odds(player1, player2, pick, odds_player1, odds_player2)
+        if fallback:
+            fallback.update({
+                "marq_fetch_version": _MARQ_TENNISAPI_ONLY_V2_VERSION,
+                "marq_api_source": "existing row odds",
+                "marq_source_policy": "TENNISAPI_ONLY_EXACT_EVENT_THEN_THIN_FALLBACK",
+                "marq_source_quality": "FALLBACK_EXISTING_ODDS_THIN",
+                "marq_data_status": "FALLBACK_EXISTING_ODDS_THIN",
+                "marq_confidence": "LOW",
+                "marq_exact_event_id_used": True,
+                "marq_name_matching_skipped": True,
+                "marq_date_feed_skipped": True,
+                "marq_fallback_reason": "TENNISAPI_EXACT_EVENT_ODDS_UNAVAILABLE",
+                "marq_movement_status": "NO_REAL_MOVEMENT_DATA_THIN_FALLBACK",
+                "marq_display_move_signal": "Current only",
+                "marq_internal_move_signal": "Current only",
+                "marq_move_signal": "Current only",
+                "bet365_disabled": True,
+                "tennis_live_disabled": True,
+            })
+            return fallback
+        return None
+
+    fallback = _fallback_existing_odds(player1, player2, pick, odds_player1, odds_player2)
+    if fallback:
+        fallback.update({
+            "marq_fetch_version": _MARQ_TENNISAPI_ONLY_V2_VERSION,
+            "marq_api_source": "existing row odds",
+            "marq_source_policy": "NO_EXACT_EVENT_ID_THIN_FALLBACK_ONLY",
+            "marq_source_quality": "FALLBACK_EXISTING_ODDS_THIN",
+            "marq_data_status": "FALLBACK_EXISTING_ODDS_THIN",
+            "marq_confidence": "LOW",
+            "marq_exact_event_id_used": False,
+            "marq_name_matching_skipped": True,
+            "marq_date_feed_skipped": True,
+            "marq_fallback_reason": "NO_EXACT_EVENT_ID_existing_row_odds_only",
+            "marq_movement_status": "NO_REAL_MOVEMENT_DATA_THIN_FALLBACK",
+            "marq_display_move_signal": "Current only",
+            "marq_internal_move_signal": "Current only",
+            "marq_move_signal": "Current only",
+            "bet365_disabled": True,
+            "tennis_live_disabled": True,
+        })
+        return fallback
+    return None
