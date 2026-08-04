@@ -1,17 +1,16 @@
 {
   "model": "CLOQ_VALUE_FIRST_V3_HIGH_VALUE",
-  "created_at_utc": "2026-08-04T11:19:49.659197+00:00",
+  "created_at_utc": "2026-08-04T11:50:52.877214+00:00",
   "input_path": "outputs/latest_all.json",
   "input_rows": 114,
-  "output_rows": 4,
+  "output_rows": 2,
   "top_n": 20,
   "value_status_counts": {
-    "VALUE_POSITIVE": 4
+    "VALUE_POSITIVE": 2
   },
   "odds_gap_bucket_counts": {
-    "playable_close": 1,
     "neutral_gap": 1,
-    "close_value": 2
+    "close_value": 1
   },
   "notes": [
     "Value is the primary CloQ signal. V3 requires a playable positive edge instead of neutral/slight value.",
