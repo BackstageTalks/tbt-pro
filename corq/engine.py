@@ -12,6 +12,7 @@ import argparse
 import importlib
 import inspect
 import json
+import os
 import re
 import traceback
 import unicodedata
@@ -503,6 +504,13 @@ def _flatten_thinq_payload(record: Dict[str, Any], thinq: Dict[str, Any]) -> Non
         "s_data_depth", "sets_games_data_depth", "sets_model_source",
         "api_serve_stats_source", "api_serve_stats_status", "api_pick_serve_stats_status", "api_opp_serve_stats_status",
         "api_pick_ace_pct", "api_opp_ace_pct", "api_pick_df_pct", "api_opp_df_pct",
+        "api_pick_aces_total", "api_opp_aces_total", "api_pick_double_faults_total", "api_opp_double_faults_total",
+        "api_pick_aces_per_match", "api_opp_aces_per_match", "api_pick_double_faults_per_match", "api_opp_double_faults_per_match",
+        "api_pick_stat_matches_played", "api_opp_stat_matches_played",
+        "api_pick_return_pts_win_pct", "api_opp_return_pts_win_pct",
+        "api_pick_first_serve_pct", "api_opp_first_serve_pct",
+        "api_pick_winning_first_serve_pct", "api_opp_winning_first_serve_pct",
+        "api_pick_winning_second_serve_pct", "api_opp_winning_second_serve_pct",
         "api_pick_serve_matches", "api_opp_serve_matches", "api_pick_serve_attempts", "api_opp_serve_attempts",
         "api_pick_serve_scope", "api_opp_serve_scope", "api_pick_serve_year", "api_opp_serve_year",
         "pick_ace_pct", "opponent_ace_pct", "pick_df_pct", "opponent_df_pct", "pick_tb_pct", "opponent_tb_pct",
@@ -581,6 +589,13 @@ def _flatten_thinq_payload(record: Dict[str, Any], thinq: Dict[str, Any]) -> Non
     _copy_many(record, api_stats, [
         "api_serve_stats_source", "api_serve_stats_status", "api_pick_serve_stats_status", "api_opp_serve_stats_status",
         "api_pick_ace_pct", "api_opp_ace_pct", "api_pick_df_pct", "api_opp_df_pct",
+        "api_pick_aces_total", "api_opp_aces_total", "api_pick_double_faults_total", "api_opp_double_faults_total",
+        "api_pick_aces_per_match", "api_opp_aces_per_match", "api_pick_double_faults_per_match", "api_opp_double_faults_per_match",
+        "api_pick_stat_matches_played", "api_opp_stat_matches_played",
+        "api_pick_return_pts_win_pct", "api_opp_return_pts_win_pct",
+        "api_pick_first_serve_pct", "api_opp_first_serve_pct",
+        "api_pick_winning_first_serve_pct", "api_opp_winning_first_serve_pct",
+        "api_pick_winning_second_serve_pct", "api_opp_winning_second_serve_pct",
         "api_pick_serve_matches", "api_opp_serve_matches", "api_pick_serve_attempts", "api_opp_serve_attempts",
         "api_pick_serve_scope", "api_opp_serve_scope", "api_pick_serve_year", "api_opp_serve_year",
         "pick_aces_projection", "opponent_aces_projection", "total_aces_projection",
@@ -634,6 +649,152 @@ def _flatten_thinq_payload(record: Dict[str, Any], thinq: Dict[str, Any]) -> Non
                 record["s_data_depth"] = round((p_depth + o_depth) / 2.0, 4)
                 record.setdefault("sets_games_data_depth", record["s_data_depth"])
                 record.setdefault("sets_model_source", "TA_PROFILE_DEPTH_FALLBACK")
+
+
+def _tour_type_token(record: Dict[str, Any]) -> Optional[str]:
+    """Return atp/wta only from explicit API metadata, never guessed from names."""
+    raw = _raw_dict(record)
+    values = [
+        record.get("tour_type"), record.get("gender"), record.get("category"), record.get("level"),
+        _nested_get(raw, "homeTeam", "gender"), _nested_get(raw, "awayTeam", "gender"),
+        _nested_get(raw, "tournament", "category", "name"),
+        _nested_get(raw, "tournament", "uniqueTournament", "category", "name"),
+    ]
+    for value in values:
+        text = str(value or "").strip().lower()
+        if not text:
+            continue
+        if "wta" in text or text in {"women", "female", "womens", "ladies"}:
+            return "wta"
+        if "atp" in text or text in {"men", "male", "mens"}:
+            return "atp"
+    return None
+
+
+def _surface_token_for_h2h(record: Dict[str, Any]) -> Optional[str]:
+    surface = str(record.get("surface") or record.get("surface_raw") or "").strip().lower()
+    if not surface:
+        return None
+    if "clay" in surface:
+        return "clay"
+    if "grass" in surface:
+        return "grass"
+    if "carpet" in surface:
+        return "carpet"
+    if "hard" in surface:
+        return "hard"
+    return None
+
+
+def _side_map_value(stats: Dict[str, Any], side: str, key: str) -> Any:
+    prefix = "player1" if side == "HOME" else "player2"
+    return stats.get(f"{prefix}_{key}")
+
+
+def _apply_api_h2h_stats_to_record(record: Dict[str, Any], stats: Dict[str, Any]) -> Dict[str, Any]:
+    """Attach TennisAPI H2H stats without fabricating missing values.
+
+    Aces and double faults from the endpoint are totals/per-match, not
+    percentages. Therefore this function writes explicit *_total and
+    *_per_match fields and does NOT populate *_ace_pct / *_df_pct unless a real
+    percentage exists in the API payload.
+    """
+    if not isinstance(stats, dict):
+        return record
+    record["api_serve_stats"] = stats
+    for key, value in stats.items():
+        if key.startswith("api_"):
+            record[key] = value
+
+    pick_side = str(record.get("pick_side") or "HOME").upper()
+    opp_side = str(record.get("opponent_side") or ("AWAY" if pick_side == "HOME" else "HOME")).upper()
+    if pick_side not in {"HOME", "AWAY"}:
+        pick_side = "HOME"
+    if opp_side not in {"HOME", "AWAY"}:
+        opp_side = "AWAY" if pick_side == "HOME" else "HOME"
+
+    side_fields = {
+        "aces_total": "aces_total",
+        "double_faults_total": "double_faults_total",
+        "aces_per_match": "aces_per_match",
+        "double_faults_per_match": "double_faults_per_match",
+        "stat_matches_played": "stat_matches_played",
+        "first_serve_pct": "first_serve_pct",
+        "winning_first_serve_pct": "winning_first_serve_pct",
+        "winning_second_serve_pct": "winning_second_serve_pct",
+        "return_pts_win_pct": "return_pts_win_pct",
+        "breakpoints_won_pct": "breakpoints_won_pct",
+        "tiebreak_won": "tiebreak_won",
+        "tiebreak_count": "tiebreak_count",
+        "sets_won": "sets_won",
+        "games_won": "games_won",
+        "matches_won": "matches_won",
+    }
+    for out_suffix, src_key in side_fields.items():
+        pick_val = _side_map_value(stats, pick_side, src_key)
+        opp_val = _side_map_value(stats, opp_side, src_key)
+        if pick_val not in (None, ""):
+            record[f"api_pick_{out_suffix}"] = pick_val
+        if opp_val not in (None, ""):
+            record[f"api_opp_{out_suffix}"] = opp_val
+
+    # Compatibility fields for s_data_depth only. These are sample counts, not fake percentages.
+    if record.get("api_pick_stat_matches_played") not in (None, ""):
+        record["api_pick_serve_matches"] = record.get("api_pick_stat_matches_played")
+    if record.get("api_opp_stat_matches_played") not in (None, ""):
+        record["api_opp_serve_matches"] = record.get("api_opp_stat_matches_played")
+
+    record["api_serve_stats_status"] = stats.get("api_serve_stats_status") or record.get("api_serve_stats_status")
+    record["api_serve_stats_source"] = stats.get("api_serve_stats_source") or "TENNISAPI_H2H_STATS"
+    return record
+
+
+def _enrich_with_api_h2h_stats(record: Dict[str, Any], client: Any, request_state: Optional[Dict[str, int]] = None) -> Dict[str, Any]:
+    """Fetch TennisAPI H2H serve/return stats as primary source.
+
+    Provider note: keep daily H2H stats requests capped. No values are estimated
+    when the cap, IDs, names or tour type are missing.
+    """
+    if client is None:
+        record["api_serve_stats_status"] = "CLIENT_UNAVAILABLE"
+        record["api_serve_stats_source"] = "TENNISAPI_H2H_STATS"
+        return record
+    state = request_state if isinstance(request_state, dict) else {"count": 0}
+    try:
+        max_requests = int(os.getenv("TENNISAPI_H2H_STATS_MAX_REQUESTS", "200"))
+    except Exception:
+        max_requests = 200
+    max_requests = max(0, min(max_requests, 200))
+    if state.get("count", 0) >= max_requests:
+        record["api_serve_stats_status"] = "REQUEST_CAP_REACHED"
+        record["api_serve_stats_source"] = "TENNISAPI_H2H_STATS"
+        record["api_h2h_request_cap"] = max_requests
+        return record
+
+    tour = _tour_type_token(record)
+    if not tour:
+        record["api_serve_stats_status"] = "MISSING_TOUR_TYPE"
+        record["api_serve_stats_source"] = "TENNISAPI_H2H_STATS"
+        return record
+
+    raw = _raw_dict(record)
+    p1 = record.get("player1")
+    p2 = record.get("player2")
+    p1_id = _first_present(record.get("player1_id"), record.get("player1Id"), _raw_team_id(record, "HOME"))
+    p2_id = _first_present(record.get("player2_id"), record.get("player2Id"), _raw_team_id(record, "AWAY"))
+    surface = _surface_token_for_h2h(record)
+
+    stats: Dict[str, Any]
+    state["count"] = int(state.get("count", 0)) + 1
+    try:
+        if p1_id not in (None, "") and p2_id not in (None, ""):
+            stats = client.get_h2h_stats_by_ids(tour, p1_id, p2_id, surface=surface)
+        else:
+            stats = client.get_h2h_stats_by_names(tour, str(p1 or ""), str(p2 or ""), surface=surface)
+    except Exception as exc:
+        stats = {"api_serve_stats_status": f"ERROR:{exc}", "api_serve_stats_source": "TENNISAPI_H2H_STATS"}
+    record["api_h2h_stats_request_no"] = state.get("count")
+    return _apply_api_h2h_stats_to_record(record, stats)
 
 def _enrich_with_thinq(record: Dict[str, Any], thinq_service: Any) -> Dict[str, Any]:
     safe_record = repair_candidate_side(record)
@@ -1180,10 +1341,18 @@ def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", ru
     candidates = [repair_candidate_side(candidate) for candidate in raw_candidates]
     thinq_service = _load_thinq_service()
     tennisapi_rankings = _load_tennisapi_rankings_info(output_root)
+    try:
+        from corq.rapidapi_client import RapidApiClient  # type: ignore
+        api_h2h_client = RapidApiClient()
+    except Exception as exc:
+        api_h2h_client = None
+        print(f"TENNISAPI H2H STATS CLIENT UNAVAILABLE: {exc}")
+    api_h2h_request_state = {"count": 0}
 
     scored: List[Dict[str, Any]] = []
     for candidate in candidates:
         enriched = _enrich_with_thinq(candidate, thinq_service)
+        enriched = _enrich_with_api_h2h_stats(enriched, api_h2h_client, api_h2h_request_state)
         prediction = build_corq_prediction(enriched)
         prediction = _enrich_with_tennisapi_ranking_info(prediction, tennisapi_rankings)
         prediction = _enrich_with_ta_profile_context(prediction)
