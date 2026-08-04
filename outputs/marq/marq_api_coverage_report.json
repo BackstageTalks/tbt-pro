@@ -1,6 +1,6 @@
 {
   "model_version": "2026-08-04-marq-coverage-report-v1",
-  "generated_at_utc": "2026-08-04T13:08:51.684751+00:00",
+  "generated_at_utc": "2026-08-04T13:32:55.585002+00:00",
   "input_paths": {
     "all": "outputs/latest_all.json",
     "top7": "outputs/latest_top7.json",
@@ -11,8 +11,8 @@
       "label": "all_audit",
       "total_rows": 112,
       "coverage_pct": {
-        "high_marq": 66.07,
-        "medium_current_only": 33.93,
+        "high_marq": 64.29,
+        "medium_current_only": 35.71,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
         "usable_marq_high_or_medium": 100.0
@@ -21,20 +21,20 @@
         "getAllOddsForEvent": 112
       },
       "data_status_counts": {
-        "EXACT_BETTING_ODDS_WITH_OPENING": 74,
-        "EXACT_CURRENT_ODDS_ONLY": 38
+        "EXACT_BETTING_ODDS_WITH_OPENING": 72,
+        "EXACT_CURRENT_ODDS_ONLY": 40
       },
       "confidence_counts": {
-        "HIGH": 74,
-        "MEDIUM": 38
+        "HIGH": 72,
+        "MEDIUM": 40
       },
       "movement_status_counts": {
-        "REAL_OPENING_CURRENT_AVAILABLE": 74,
-        "OPENING_EQUALS_CURRENT": 38
+        "REAL_OPENING_CURRENT_AVAILABLE": 72,
+        "OPENING_EQUALS_CURRENT": 40
       },
       "quality_tier_counts": {
-        "HIGH": 74,
-        "MEDIUM_CURRENT_ONLY": 38
+        "HIGH": 72,
+        "MEDIUM_CURRENT_ONLY": 40
       },
       "value_status_counts": {
         "NO_VALUE": 56,
@@ -46,20 +46,20 @@
       },
       "market_weight_stats": {
         "count": 112,
-        "avg": 0.2121,
+        "avg": 0.2096,
         "min": 0.1,
         "max": 0.3
       },
       "value_delta_pp_stats": {
         "count": 112,
-        "avg": -0.0018,
-        "min": -32.26,
-        "max": 32.26
+        "avg": 0.0,
+        "min": -45.49,
+        "max": 45.49
       },
       "expected_value_pct_stats": {
         "count": 112,
-        "avg": 5.4091,
-        "min": -37.73,
+        "avg": 5.4779,
+        "min": -40.33,
         "max": 233.4
       },
       "samples": {
