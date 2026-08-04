@@ -2148,11 +2148,15 @@
     &quot;ta_signal_score_projection&quot;: &quot;N/A&quot;
   },
   &quot;api_serve_stats&quot;: {
-    &quot;api_serve_stats_status&quot;: &quot;NOT_FOUND&quot;,
+    &quot;api_serve_stats_status&quot;: &quot;PRIMARY_NOT_FOUND_FALLBACK_RATE_LIMIT&quot;,
     &quot;api_serve_stats_source&quot;: &quot;TENNISAPI_H2H_STATS&quot;,
     &quot;api_h2h_source_host&quot;: &quot;tennis-api-atp-wta-itf.p.rapidapi.com&quot;,
-    &quot;api_h2h_source_path&quot;: &quot;/tennis/v2/extend/api/wta/h2h/stats/188493/410231&quot;,
-    &quot;api_h2h_surface&quot;: &quot;hard&quot;
+    &quot;api_h2h_source_path&quot;: &quot;/tennis/v2/ms-api/h2h/stats/wta/Marcelina%20Podlinska/Vendula%20Valdmannova&quot;,
+    &quot;api_h2h_surface&quot;: &quot;hard&quot;,
+    &quot;api_h2h_fallback_status&quot;: &quot;RATE_LIMIT&quot;,
+    &quot;api_h2h_resolution&quot;: &quot;NOT_FOUND&quot;,
+    &quot;api_h2h_primary_status&quot;: &quot;NOT_FOUND&quot;,
+    &quot;api_h2h_primary_path&quot;: &quot;/tennis/v2/extend/api/wta/h2h/stats/188493/410231&quot;
   },
   &quot;edges&quot;: {
     &quot;overall_elo_edge&quot;: 0.0,
@@ -2174,7 +2178,7 @@
   &quot;ta_surface&quot;: &quot;hard&quot;,
   &quot;sets_model_source&quot;: &quot;TennisApiMarkets&quot;,
   &quot;api_serve_stats_source&quot;: &quot;TENNISAPI_H2H_STATS&quot;,
-  &quot;api_serve_stats_status&quot;: &quot;NOT_FOUND&quot;,
+  &quot;api_serve_stats_status&quot;: &quot;PRIMARY_NOT_FOUND_FALLBACK_RATE_LIMIT&quot;,
   &quot;api_pick_ace_pct&quot;: 2.1,
   &quot;api_opp_ace_pct&quot;: 0.0,
   &quot;api_pick_df_pct&quot;: 4.9,
@@ -2251,8 +2255,12 @@
   &quot;sets_games_data_depth&quot;: 0.0769,
   &quot;api_h2h_stats_request_no&quot;: 180,
   &quot;api_h2h_source_host&quot;: &quot;tennis-api-atp-wta-itf.p.rapidapi.com&quot;,
-  &quot;api_h2h_source_path&quot;: &quot;/tennis/v2/extend/api/wta/h2h/stats/188493/410231&quot;,
+  &quot;api_h2h_source_path&quot;: &quot;/tennis/v2/ms-api/h2h/stats/wta/Marcelina%20Podlinska/Vendula%20Valdmannova&quot;,
   &quot;api_h2h_surface&quot;: &quot;hard&quot;,
+  &quot;api_h2h_fallback_status&quot;: &quot;RATE_LIMIT&quot;,
+  &quot;api_h2h_resolution&quot;: &quot;NOT_FOUND&quot;,
+  &quot;api_h2h_primary_status&quot;: &quot;NOT_FOUND&quot;,
+  &quot;api_h2h_primary_path&quot;: &quot;/tennis/v2/extend/api/wta/h2h/stats/188493/410231&quot;,
   &quot;implied_probability&quot;: 0.875,
   &quot;pick_last10_count&quot;: 10,
   &quot;opponent_last10_count&quot;: 10,
@@ -2626,7 +2634,7 @@
     &quot;SHORT&quot;,
     &quot;VALUE_NEGATIVE&quot;
   ],
-  &quot;corq_source_rank&quot;: 56,
+  &quot;corq_source_rank&quot;: 58,
   &quot;top7_filter_mode&quot;: &quot;PUBLISHABLE_CORQ_FIRST_DATA_HEALTH_V1&quot;,
   &quot;top7_publishable&quot;: false,
   &quot;eligible_for_top7&quot;: false,
@@ -2856,6 +2864,6 @@
   &quot;top7_value_delta_pp&quot;: -29.79,
   &quot;top7_expected_value_pct&quot;: -34.04,
   &quot;top7_data_health_model_version&quot;: &quot;CORQ_TOP7_DATA_HEALTH_V1&quot;,
-  &quot;corq_rank&quot;: 56,
+  &quot;corq_rank&quot;: 58,
   &quot;_corq_render_rank&quot;: 34
 }</pre></body></html>

@@ -11,8 +11,8 @@
   "level": "ATP",
   "gender": "M",
   "best_of": 3,
-  "match_start": "2026-08-04T16:10:00+00:00",
-  "start_time": "2026-08-04T16:10:00+00:00",
+  "match_start": "2026-08-04T16:30:00+00:00",
+  "start_time": "2026-08-04T16:30:00+00:00",
   "status_type": "notstarted",
   "status_code": 0,
   "is_doubles": false,
@@ -206,7 +206,7 @@
     "crowdsourcingDataDisplayEnabled": false,
     "id": 16696355,
     "slug": "roman-andres-burruchaga-alexei-popyrin",
-    "startTimestamp": 1785859800,
+    "startTimestamp": 1785861000,
     "periods": {
       "point": "Game",
       "current": "Match",
@@ -2123,11 +2123,15 @@
     "ta_signal_score_projection": "N/A"
   },
   "api_serve_stats": {
-    "api_serve_stats_status": "NOT_FOUND",
+    "api_serve_stats_status": "PRIMARY_NOT_FOUND_FALLBACK_RATE_LIMIT",
     "api_serve_stats_source": "TENNISAPI_H2H_STATS",
     "api_h2h_source_host": "tennis-api-atp-wta-itf.p.rapidapi.com",
-    "api_h2h_source_path": "/tennis/v2/extend/api/atp/h2h/stats/128552/287181",
-    "api_h2h_surface": "hard"
+    "api_h2h_source_path": "/tennis/v2/ms-api/h2h/stats/atp/Alexei%20Popyrin/Roman%20Andres%20Burruchaga",
+    "api_h2h_surface": "hard",
+    "api_h2h_fallback_status": "RATE_LIMIT",
+    "api_h2h_resolution": "NOT_FOUND",
+    "api_h2h_primary_status": "NOT_FOUND",
+    "api_h2h_primary_path": "/tennis/v2/extend/api/atp/h2h/stats/128552/287181"
   },
   "edges": {
     "overall_elo_edge": 0.0124,
@@ -2149,7 +2153,7 @@
   "ta_surface": "hard",
   "sets_model_source": "TennisApiMarkets",
   "api_serve_stats_source": "TENNISAPI_H2H_STATS",
-  "api_serve_stats_status": "NOT_FOUND",
+  "api_serve_stats_status": "PRIMARY_NOT_FOUND_FALLBACK_RATE_LIMIT",
   "api_pick_ace_pct": 11.22,
   "api_opp_ace_pct": 3.2,
   "api_pick_df_pct": 1.49,
@@ -2235,10 +2239,14 @@
   "total_df_line_source": "API_SERVE_STATS",
   "s_data_depth": 0.3462,
   "sets_games_data_depth": 0.3462,
-  "api_h2h_stats_request_no": 41,
+  "api_h2h_stats_request_no": 43,
   "api_h2h_source_host": "tennis-api-atp-wta-itf.p.rapidapi.com",
-  "api_h2h_source_path": "/tennis/v2/extend/api/atp/h2h/stats/128552/287181",
+  "api_h2h_source_path": "/tennis/v2/ms-api/h2h/stats/atp/Alexei%20Popyrin/Roman%20Andres%20Burruchaga",
   "api_h2h_surface": "hard",
+  "api_h2h_fallback_status": "RATE_LIMIT",
+  "api_h2h_resolution": "NOT_FOUND",
+  "api_h2h_primary_status": "NOT_FOUND",
+  "api_h2h_primary_path": "/tennis/v2/extend/api/atp/h2h/stats/128552/287181",
   "implied_probability": 0.6369,
   "pick_last10_count": 10,
   "opponent_last10_count": 10,
@@ -2620,7 +2628,7 @@
     "FAIR",
     "VALUE_NEGATIVE"
   ],
-  "corq_source_rank": 55,
+  "corq_source_rank": 57,
   "top7_filter_mode": "PUBLISHABLE_CORQ_FIRST_DATA_HEALTH_V1",
   "top7_publishable": true,
   "eligible_for_top7": true,
@@ -2770,10 +2778,9 @@
   "top7_value_delta_pp": -5.95,
   "top7_expected_value_pct": -9.35,
   "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
-  "corq_rank": 7,
-  "top7_sort_rank": 7,
+  "corq_rank": 57,
+  "top7_sort_rank": 8,
   "top7_sort_primary": "CORQ_PROBABILITY_DESC",
   "top7_sort_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
-  "top7_rank": 7,
-  "_corq_render_rank": 2
+  "_corq_render_rank": 20
 }

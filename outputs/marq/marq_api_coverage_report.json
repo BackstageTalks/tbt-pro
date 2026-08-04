@@ -1,6 +1,6 @@
 {
   "model_version": "2026-08-04-marq-coverage-report-v1",
-  "generated_at_utc": "2026-08-04T16:03:53.286595+00:00",
+  "generated_at_utc": "2026-08-04T17:02:01.606261+00:00",
   "input_paths": {
     "all": "outputs/latest_all.json",
     "top7": "outputs/latest_top7.json",
@@ -11,8 +11,8 @@
       "label": "all_audit",
       "total_rows": 112,
       "coverage_pct": {
-        "high_marq": 62.5,
-        "medium_current_only": 37.5,
+        "high_marq": 66.07,
+        "medium_current_only": 33.93,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
         "usable_marq_high_or_medium": 100.0
@@ -21,46 +21,46 @@
         "getAllOddsForEvent": 112
       },
       "data_status_counts": {
-        "EXACT_BETTING_ODDS_WITH_OPENING": 70,
-        "EXACT_CURRENT_ODDS_ONLY": 42
+        "EXACT_BETTING_ODDS_WITH_OPENING": 74,
+        "EXACT_CURRENT_ODDS_ONLY": 38
       },
       "confidence_counts": {
-        "HIGH": 70,
-        "MEDIUM": 42
+        "HIGH": 74,
+        "MEDIUM": 38
       },
       "movement_status_counts": {
-        "REAL_OPENING_CURRENT_AVAILABLE": 70,
-        "OPENING_EQUALS_CURRENT": 42
+        "REAL_OPENING_CURRENT_AVAILABLE": 74,
+        "OPENING_EQUALS_CURRENT": 38
       },
       "quality_tier_counts": {
-        "HIGH": 70,
-        "MEDIUM_CURRENT_ONLY": 42
+        "HIGH": 74,
+        "MEDIUM_CURRENT_ONLY": 38
       },
       "value_status_counts": {
-        "NO_VALUE": 56,
-        "VALUE_STRONG": 39,
-        "VALUE_PLAYABLE": 17
+        "NO_VALUE": 55,
+        "VALUE_STRONG": 41,
+        "VALUE_PLAYABLE": 16
       },
       "source_policy_counts": {
         "TENNISAPI_ONLY_EXACT_EVENT": 112
       },
       "market_weight_stats": {
         "count": 112,
-        "avg": 0.2075,
+        "avg": 0.2125,
         "min": 0.12,
         "max": 0.3
       },
       "value_delta_pp_stats": {
         "count": 112,
         "avg": 0.0,
-        "min": -34.15,
-        "max": 34.15
+        "min": -49.31,
+        "max": 49.31
       },
       "expected_value_pct_stats": {
         "count": 112,
-        "avg": 7.9846,
-        "min": -44.38,
-        "max": 233.4
+        "avg": 54.9232,
+        "min": -50.24,
+        "max": 4979.29
       },
       "samples": {
         "thin_fallback": [],
@@ -395,38 +395,38 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -22.4,
+            "value_delta_pp": -18.75,
             "expected_value_pct": -30.8,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16696353",
-            "pick": "Thiago Agustin Tirante",
-            "opponent": "Duncan Chan",
-            "odds": 1.1111,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.22,
-            "value_delta_pp": -34.15,
-            "expected_value_pct": -44.38,
             "fallback_reason": null
           },
           {
             "identity": "16696354",
             "pick": "Hubert Hurkacz",
             "opponent": "Marcos Giron",
-            "odds": 1.1111,
+            "odds": 1.5333,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -25.67,
-            "expected_value_pct": -36.52,
+            "value_delta_pp": -6.54,
+            "expected_value_pct": -12.45,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696349",
+            "pick": "Stefanos Tsitsipas",
+            "opponent": "Martin Damm Jr",
+            "odds": 1.001,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": -49.31,
+            "expected_value_pct": -50.24,
             "fallback_reason": null
           }
         ],
@@ -532,7 +532,7 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 22.4,
+            "value_delta_pp": 18.75,
             "expected_value_pct": 51.71,
             "fallback_reason": null
           },
@@ -540,75 +540,75 @@
             "identity": "16696353",
             "pick": "Duncan Chan",
             "opponent": "Thiago Agustin Tirante",
-            "odds": 6.5,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": 34.15,
-            "expected_value_pct": 224.61,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16696354",
-            "pick": "Marcos Giron",
-            "opponent": "Hubert Hurkacz",
-            "odds": 6.5,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": 25.67,
-            "expected_value_pct": 178.66,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16696349",
-            "pick": "Martin Damm Jr",
-            "opponent": "Stefanos Tsitsipas",
-            "odds": 4.5,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": 26.48,
-            "expected_value_pct": 126.31,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16686607",
-            "pick": "Mattia Bellucci",
-            "opponent": "Sebastián Báez",
-            "odds": 4.5,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": 23.49,
-            "expected_value_pct": 104.7,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16696355",
-            "pick": "Roman Andres Burruchaga",
-            "opponent": "Alexei Popyrin",
-            "odds": 2.38,
+            "odds": 2.3,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": 3.59,
-            "expected_value_pct": 3.15,
+            "value_delta_pp": -10.24,
+            "expected_value_pct": 14.86,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696353",
+            "pick": "Thiago Agustin Tirante",
+            "opponent": "Duncan Chan",
+            "odds": 1.6154,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 10.24,
+            "expected_value_pct": -19.13,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696354",
+            "pick": "Marcos Giron",
+            "opponent": "Hubert Hurkacz",
+            "odds": 2.5,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 6.54,
+            "expected_value_pct": 7.25,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16696349",
+            "pick": "Martin Damm Jr",
+            "opponent": "Stefanos Tsitsipas",
+            "odds": 101.0,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 49.31,
+            "expected_value_pct": 4979.29,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16686607",
+            "pick": "Mattia Bellucci",
+            "opponent": "Sebastián Báez",
+            "odds": 21.0,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 36.78,
+            "expected_value_pct": 855.29,
             "fallback_reason": null
           }
         ]
@@ -668,14 +668,14 @@
       },
       "value_delta_pp_stats": {
         "count": 7,
-        "avg": -0.3171,
-        "min": -3.59,
+        "avg": 0.1129,
+        "min": -3.54,
         "max": 3.67
       },
       "expected_value_pct_stats": {
         "count": 7,
-        "avg": -5.6243,
-        "min": -11.04,
+        "avg": -4.8886,
+        "min": -10.51,
         "max": 0.99
       },
       "samples": {
@@ -744,18 +744,18 @@
             "fallback_reason": null
           },
           {
-            "identity": "16696355",
-            "pick": "Alexei Popyrin",
-            "opponent": "Roman Andres Burruchaga",
-            "odds": 1.57,
+            "identity": "16686541",
+            "pick": "Denis Shapovalov",
+            "opponent": "Zachary Svajda",
+            "odds": 1.62,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": -3.59,
-            "expected_value_pct": -11.04,
+            "value_delta_pp": -0.58,
+            "expected_value_pct": -5.89,
             "fallback_reason": null
           }
         ],
@@ -806,18 +806,18 @@
             "fallback_reason": null
           },
           {
-            "identity": "16696355",
-            "pick": "Alexei Popyrin",
-            "opponent": "Roman Andres Burruchaga",
-            "odds": 1.57,
+            "identity": "16686541",
+            "pick": "Denis Shapovalov",
+            "opponent": "Zachary Svajda",
+            "odds": 1.62,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": -3.59,
-            "expected_value_pct": -11.04,
+            "value_delta_pp": -0.58,
+            "expected_value_pct": -5.89,
             "fallback_reason": null
           }
         ],

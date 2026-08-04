@@ -11,8 +11,8 @@
   &quot;level&quot;: &quot;ATP&quot;,
   &quot;gender&quot;: &quot;M&quot;,
   &quot;best_of&quot;: 3,
-  &quot;match_start&quot;: &quot;2026-08-04T16:10:00+00:00&quot;,
-  &quot;start_time&quot;: &quot;2026-08-04T16:10:00+00:00&quot;,
+  &quot;match_start&quot;: &quot;2026-08-04T16:30:00+00:00&quot;,
+  &quot;start_time&quot;: &quot;2026-08-04T16:30:00+00:00&quot;,
   &quot;status_type&quot;: &quot;notstarted&quot;,
   &quot;status_code&quot;: 0,
   &quot;is_doubles&quot;: false,
@@ -206,7 +206,7 @@
     &quot;crowdsourcingDataDisplayEnabled&quot;: false,
     &quot;id&quot;: 16696355,
     &quot;slug&quot;: &quot;roman-andres-burruchaga-alexei-popyrin&quot;,
-    &quot;startTimestamp&quot;: 1785859800,
+    &quot;startTimestamp&quot;: 1785861000,
     &quot;periods&quot;: {
       &quot;point&quot;: &quot;Game&quot;,
       &quot;current&quot;: &quot;Match&quot;,
@@ -2123,11 +2123,15 @@
     &quot;ta_signal_score_projection&quot;: &quot;N/A&quot;
   },
   &quot;api_serve_stats&quot;: {
-    &quot;api_serve_stats_status&quot;: &quot;NOT_FOUND&quot;,
+    &quot;api_serve_stats_status&quot;: &quot;PRIMARY_NOT_FOUND_FALLBACK_RATE_LIMIT&quot;,
     &quot;api_serve_stats_source&quot;: &quot;TENNISAPI_H2H_STATS&quot;,
     &quot;api_h2h_source_host&quot;: &quot;tennis-api-atp-wta-itf.p.rapidapi.com&quot;,
-    &quot;api_h2h_source_path&quot;: &quot;/tennis/v2/extend/api/atp/h2h/stats/128552/287181&quot;,
-    &quot;api_h2h_surface&quot;: &quot;hard&quot;
+    &quot;api_h2h_source_path&quot;: &quot;/tennis/v2/ms-api/h2h/stats/atp/Alexei%20Popyrin/Roman%20Andres%20Burruchaga&quot;,
+    &quot;api_h2h_surface&quot;: &quot;hard&quot;,
+    &quot;api_h2h_fallback_status&quot;: &quot;RATE_LIMIT&quot;,
+    &quot;api_h2h_resolution&quot;: &quot;NOT_FOUND&quot;,
+    &quot;api_h2h_primary_status&quot;: &quot;NOT_FOUND&quot;,
+    &quot;api_h2h_primary_path&quot;: &quot;/tennis/v2/extend/api/atp/h2h/stats/128552/287181&quot;
   },
   &quot;edges&quot;: {
     &quot;overall_elo_edge&quot;: 0.0124,
@@ -2149,7 +2153,7 @@
   &quot;ta_surface&quot;: &quot;hard&quot;,
   &quot;sets_model_source&quot;: &quot;TennisApiMarkets&quot;,
   &quot;api_serve_stats_source&quot;: &quot;TENNISAPI_H2H_STATS&quot;,
-  &quot;api_serve_stats_status&quot;: &quot;NOT_FOUND&quot;,
+  &quot;api_serve_stats_status&quot;: &quot;PRIMARY_NOT_FOUND_FALLBACK_RATE_LIMIT&quot;,
   &quot;api_pick_ace_pct&quot;: 11.22,
   &quot;api_opp_ace_pct&quot;: 3.2,
   &quot;api_pick_df_pct&quot;: 1.49,
@@ -2235,10 +2239,14 @@
   &quot;total_df_line_source&quot;: &quot;API_SERVE_STATS&quot;,
   &quot;s_data_depth&quot;: 0.3462,
   &quot;sets_games_data_depth&quot;: 0.3462,
-  &quot;api_h2h_stats_request_no&quot;: 41,
+  &quot;api_h2h_stats_request_no&quot;: 43,
   &quot;api_h2h_source_host&quot;: &quot;tennis-api-atp-wta-itf.p.rapidapi.com&quot;,
-  &quot;api_h2h_source_path&quot;: &quot;/tennis/v2/extend/api/atp/h2h/stats/128552/287181&quot;,
+  &quot;api_h2h_source_path&quot;: &quot;/tennis/v2/ms-api/h2h/stats/atp/Alexei%20Popyrin/Roman%20Andres%20Burruchaga&quot;,
   &quot;api_h2h_surface&quot;: &quot;hard&quot;,
+  &quot;api_h2h_fallback_status&quot;: &quot;RATE_LIMIT&quot;,
+  &quot;api_h2h_resolution&quot;: &quot;NOT_FOUND&quot;,
+  &quot;api_h2h_primary_status&quot;: &quot;NOT_FOUND&quot;,
+  &quot;api_h2h_primary_path&quot;: &quot;/tennis/v2/extend/api/atp/h2h/stats/128552/287181&quot;,
   &quot;implied_probability&quot;: 0.6369,
   &quot;pick_last10_count&quot;: 10,
   &quot;opponent_last10_count&quot;: 10,
@@ -2620,7 +2628,7 @@
     &quot;FAIR&quot;,
     &quot;VALUE_NEGATIVE&quot;
   ],
-  &quot;corq_source_rank&quot;: 55,
+  &quot;corq_source_rank&quot;: 57,
   &quot;top7_filter_mode&quot;: &quot;PUBLISHABLE_CORQ_FIRST_DATA_HEALTH_V1&quot;,
   &quot;top7_publishable&quot;: true,
   &quot;eligible_for_top7&quot;: true,
@@ -2770,10 +2778,9 @@
   &quot;top7_value_delta_pp&quot;: -5.95,
   &quot;top7_expected_value_pct&quot;: -9.35,
   &quot;top7_data_health_model_version&quot;: &quot;CORQ_TOP7_DATA_HEALTH_V1&quot;,
-  &quot;corq_rank&quot;: 7,
-  &quot;top7_sort_rank&quot;: 7,
+  &quot;corq_rank&quot;: 57,
+  &quot;top7_sort_rank&quot;: 8,
   &quot;top7_sort_primary&quot;: &quot;CORQ_PROBABILITY_DESC&quot;,
   &quot;top7_sort_model_version&quot;: &quot;CORQ_TOP7_DATA_HEALTH_V1&quot;,
-  &quot;top7_rank&quot;: 7,
-  &quot;_corq_render_rank&quot;: 2
+  &quot;_corq_render_rank&quot;: 20
 }</pre></body></html>

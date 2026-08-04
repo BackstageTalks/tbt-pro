@@ -2114,11 +2114,15 @@
     "ta_signal_score_projection": "N/A"
   },
   "api_serve_stats": {
-    "api_serve_stats_status": "NOT_FOUND",
+    "api_serve_stats_status": "PRIMARY_NOT_FOUND_FALLBACK_RATE_LIMIT",
     "api_serve_stats_source": "TENNISAPI_H2H_STATS",
     "api_h2h_source_host": "tennis-api-atp-wta-itf.p.rapidapi.com",
-    "api_h2h_source_path": "/tennis/v2/extend/api/wta/h2h/stats/179146/233214",
-    "api_h2h_surface": "hard"
+    "api_h2h_source_path": "/tennis/v2/ms-api/h2h/stats/wta/Anna%20Kalinskaya/McCartney%20Kessler",
+    "api_h2h_surface": "hard",
+    "api_h2h_fallback_status": "RATE_LIMIT",
+    "api_h2h_resolution": "NOT_FOUND",
+    "api_h2h_primary_status": "NOT_FOUND",
+    "api_h2h_primary_path": "/tennis/v2/extend/api/wta/h2h/stats/179146/233214"
   },
   "edges": {
     "overall_elo_edge": 0.07,
@@ -2140,7 +2144,7 @@
   "ta_surface": "hard",
   "sets_model_source": "TennisApiMarkets",
   "api_serve_stats_source": "TENNISAPI_H2H_STATS",
-  "api_serve_stats_status": "NOT_FOUND",
+  "api_serve_stats_status": "PRIMARY_NOT_FOUND_FALLBACK_RATE_LIMIT",
   "api_pick_ace_pct": 2.03,
   "api_opp_ace_pct": 2.78,
   "api_pick_df_pct": 3.36,
@@ -2229,8 +2233,12 @@
   "sets_games_data_depth": 0.6154,
   "api_h2h_stats_request_no": 151,
   "api_h2h_source_host": "tennis-api-atp-wta-itf.p.rapidapi.com",
-  "api_h2h_source_path": "/tennis/v2/extend/api/wta/h2h/stats/179146/233214",
+  "api_h2h_source_path": "/tennis/v2/ms-api/h2h/stats/wta/Anna%20Kalinskaya/McCartney%20Kessler",
   "api_h2h_surface": "hard",
+  "api_h2h_fallback_status": "RATE_LIMIT",
+  "api_h2h_resolution": "NOT_FOUND",
+  "api_h2h_primary_status": "NOT_FOUND",
+  "api_h2h_primary_path": "/tennis/v2/extend/api/wta/h2h/stats/179146/233214",
   "implied_probability": 0.6369,
   "pick_last10_count": 10,
   "opponent_last10_count": 10,
@@ -2612,7 +2620,7 @@
     "FAIR",
     "VALUE_NEUTRAL"
   ],
-  "corq_source_rank": 33,
+  "corq_source_rank": 32,
   "top7_filter_mode": "PUBLISHABLE_CORQ_FIRST_DATA_HEALTH_V1",
   "top7_publishable": true,
   "eligible_for_top7": true,
@@ -2746,5 +2754,5 @@
   "top7_sort_primary": "CORQ_PROBABILITY_DESC",
   "top7_sort_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
   "top7_rank": 3,
-  "_corq_render_rank": 24
+  "_corq_render_rank": 15
 }

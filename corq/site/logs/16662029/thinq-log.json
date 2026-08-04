@@ -11,8 +11,8 @@
   "level": "WTA",
   "gender": "F",
   "best_of": 3,
-  "match_start": "2026-08-04T17:20:00+00:00",
-  "start_time": "2026-08-04T17:20:00+00:00",
+  "match_start": "2026-08-04T17:50:00+00:00",
+  "start_time": "2026-08-04T17:50:00+00:00",
   "status_type": "notstarted",
   "status_code": 0,
   "is_doubles": false,
@@ -205,7 +205,7 @@
     "crowdsourcingDataDisplayEnabled": false,
     "id": 16662029,
     "slug": "antonia-ruzic-madison-keys",
-    "startTimestamp": 1785864000,
+    "startTimestamp": 1785865800,
     "periods": {
       "point": "Game",
       "current": "Match",
@@ -2118,11 +2118,15 @@
     "ta_signal_score_projection": "N/A"
   },
   "api_serve_stats": {
-    "api_serve_stats_status": "NOT_FOUND",
+    "api_serve_stats_status": "PRIMARY_NOT_FOUND_FALLBACK_RATE_LIMIT",
     "api_serve_stats_source": "TENNISAPI_H2H_STATS",
     "api_h2h_source_host": "tennis-api-atp-wta-itf.p.rapidapi.com",
-    "api_h2h_source_path": "/tennis/v2/extend/api/wta/h2h/stats/316468/35424",
-    "api_h2h_surface": "hard"
+    "api_h2h_source_path": "/tennis/v2/ms-api/h2h/stats/wta/Antonia%20Ru%C5%BEi%C4%87/Madison%20Keys",
+    "api_h2h_surface": "hard",
+    "api_h2h_fallback_status": "RATE_LIMIT",
+    "api_h2h_resolution": "NOT_FOUND",
+    "api_h2h_primary_status": "NOT_FOUND",
+    "api_h2h_primary_path": "/tennis/v2/extend/api/wta/h2h/stats/316468/35424"
   },
   "edges": {
     "overall_elo_edge": 0.07,
@@ -2144,7 +2148,7 @@
   "ta_surface": "hard",
   "sets_model_source": "TennisApiMarkets",
   "api_serve_stats_source": "TENNISAPI_H2H_STATS",
-  "api_serve_stats_status": "NOT_FOUND",
+  "api_serve_stats_status": "PRIMARY_NOT_FOUND_FALLBACK_RATE_LIMIT",
   "api_pick_ace_pct": 4.6,
   "api_opp_ace_pct": 1.7,
   "api_pick_df_pct": 4.9,
@@ -2231,10 +2235,14 @@
   "total_df_line_source": "API_SERVE_STATS",
   "s_data_depth": 0.6346,
   "sets_games_data_depth": 0.6346,
-  "api_h2h_stats_request_no": 140,
+  "api_h2h_stats_request_no": 146,
   "api_h2h_source_host": "tennis-api-atp-wta-itf.p.rapidapi.com",
-  "api_h2h_source_path": "/tennis/v2/extend/api/wta/h2h/stats/316468/35424",
+  "api_h2h_source_path": "/tennis/v2/ms-api/h2h/stats/wta/Antonia%20Ru%C5%BEi%C4%87/Madison%20Keys",
   "api_h2h_surface": "hard",
+  "api_h2h_fallback_status": "RATE_LIMIT",
+  "api_h2h_resolution": "NOT_FOUND",
+  "api_h2h_primary_status": "NOT_FOUND",
+  "api_h2h_primary_path": "/tennis/v2/extend/api/wta/h2h/stats/316468/35424",
   "implied_probability": 0.8333,
   "pick_last10_count": 10,
   "opponent_last10_count": 10,
@@ -2823,5 +2831,5 @@
   "top7_expected_value_pct": -20.31,
   "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
   "corq_rank": 13,
-  "_corq_render_rank": 11
+  "_corq_render_rank": 5
 }

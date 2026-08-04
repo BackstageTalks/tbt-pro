@@ -11,8 +11,8 @@
   "level": "ATP",
   "gender": "M",
   "best_of": 3,
-  "match_start": "2026-08-04T18:30:00+00:00",
-  "start_time": "2026-08-04T18:30:00+00:00",
+  "match_start": "2026-08-04T19:00:00+00:00",
+  "start_time": "2026-08-04T19:00:00+00:00",
   "status_type": "notstarted",
   "status_code": 0,
   "is_doubles": false,
@@ -208,7 +208,7 @@
     "crowdsourcingDataDisplayEnabled": false,
     "id": 16696350,
     "slug": "shintaro-mochizuki-fabian-marozsan",
-    "startTimestamp": 1785868200,
+    "startTimestamp": 1785870000,
     "periods": {
       "point": "Game",
       "current": "Match",
@@ -2125,11 +2125,15 @@
     "ta_signal_score_projection": "N/A"
   },
   "api_serve_stats": {
-    "api_serve_stats_status": "NOT_FOUND",
+    "api_serve_stats_status": "PRIMARY_NOT_FOUND_FALLBACK_RATE_LIMIT",
     "api_serve_stats_source": "TENNISAPI_H2H_STATS",
     "api_h2h_source_host": "tennis-api-atp-wta-itf.p.rapidapi.com",
-    "api_h2h_source_path": "/tennis/v2/extend/api/atp/h2h/stats/298795/218259",
-    "api_h2h_surface": "hard"
+    "api_h2h_source_path": "/tennis/v2/ms-api/h2h/stats/atp/Shintaro%20Mochizuki/F%C3%A1bi%C3%A1n%20Marozs%C3%A1n",
+    "api_h2h_surface": "hard",
+    "api_h2h_fallback_status": "RATE_LIMIT",
+    "api_h2h_resolution": "NOT_FOUND",
+    "api_h2h_primary_status": "NOT_FOUND",
+    "api_h2h_primary_path": "/tennis/v2/extend/api/atp/h2h/stats/298795/218259"
   },
   "edges": {
     "overall_elo_edge": 0.07,
@@ -2151,7 +2155,7 @@
   "ta_surface": "hard",
   "sets_model_source": "TennisApiMarkets",
   "api_serve_stats_source": "TENNISAPI_H2H_STATS",
-  "api_serve_stats_status": "NOT_FOUND",
+  "api_serve_stats_status": "PRIMARY_NOT_FOUND_FALLBACK_RATE_LIMIT",
   "api_pick_ace_pct": 4.17,
   "api_opp_ace_pct": 2.44,
   "api_pick_df_pct": 1.73,
@@ -2240,8 +2244,12 @@
   "sets_games_data_depth": 0.6154,
   "api_h2h_stats_request_no": 66,
   "api_h2h_source_host": "tennis-api-atp-wta-itf.p.rapidapi.com",
-  "api_h2h_source_path": "/tennis/v2/extend/api/atp/h2h/stats/298795/218259",
+  "api_h2h_source_path": "/tennis/v2/ms-api/h2h/stats/atp/Shintaro%20Mochizuki/F%C3%A1bi%C3%A1n%20Marozs%C3%A1n",
   "api_h2h_surface": "hard",
+  "api_h2h_fallback_status": "RATE_LIMIT",
+  "api_h2h_resolution": "NOT_FOUND",
+  "api_h2h_primary_status": "NOT_FOUND",
+  "api_h2h_primary_path": "/tennis/v2/extend/api/atp/h2h/stats/298795/218259",
   "implied_probability": 0.6536,
   "pick_last10_count": 10,
   "opponent_last10_count": 10,
@@ -2752,5 +2760,5 @@
   "top7_sort_primary": "CORQ_PROBABILITY_DESC",
   "top7_sort_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
   "top7_rank": 5,
-  "_corq_render_rank": 20
+  "_corq_render_rank": 12
 }

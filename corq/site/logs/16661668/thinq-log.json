@@ -11,8 +11,8 @@
   "level": "ATP",
   "gender": "M",
   "best_of": 3,
-  "match_start": "2026-08-04T18:30:00+00:00",
-  "start_time": "2026-08-04T18:30:00+00:00",
+  "match_start": "2026-08-04T19:00:00+00:00",
+  "start_time": "2026-08-04T19:00:00+00:00",
   "status_type": "notstarted",
   "status_code": 0,
   "is_doubles": false,
@@ -206,7 +206,7 @@
     "crowdsourcingDataDisplayEnabled": false,
     "id": 16661668,
     "slug": "alexander-blockx-jaume-munar",
-    "startTimestamp": 1785868200,
+    "startTimestamp": 1785870000,
     "periods": {
       "point": "Game",
       "current": "Match",
@@ -2123,11 +2123,15 @@
     "ta_signal_score_projection": "N/A"
   },
   "api_serve_stats": {
-    "api_serve_stats_status": "NOT_FOUND",
+    "api_serve_stats_status": "PRIMARY_NOT_FOUND_FALLBACK_RATE_LIMIT",
     "api_serve_stats_source": "TENNISAPI_H2H_STATS",
     "api_h2h_source_host": "tennis-api-atp-wta-itf.p.rapidapi.com",
-    "api_h2h_source_path": "/tennis/v2/extend/api/atp/h2h/stats/126356/390214",
-    "api_h2h_surface": "hard"
+    "api_h2h_source_path": "/tennis/v2/ms-api/h2h/stats/atp/Jaume%20Munar/Alexander%20Blockx",
+    "api_h2h_surface": "hard",
+    "api_h2h_fallback_status": "RATE_LIMIT",
+    "api_h2h_resolution": "NOT_FOUND",
+    "api_h2h_primary_status": "NOT_FOUND",
+    "api_h2h_primary_path": "/tennis/v2/extend/api/atp/h2h/stats/126356/390214"
   },
   "edges": {
     "overall_elo_edge": 0.07,
@@ -2149,7 +2153,7 @@
   "ta_surface": "hard",
   "sets_model_source": "TennisApiMarkets",
   "api_serve_stats_source": "TENNISAPI_H2H_STATS",
-  "api_serve_stats_status": "NOT_FOUND",
+  "api_serve_stats_status": "PRIMARY_NOT_FOUND_FALLBACK_RATE_LIMIT",
   "api_pick_ace_pct": 7.77,
   "api_opp_ace_pct": 6.65,
   "api_pick_df_pct": 1.77,
@@ -2238,8 +2242,12 @@
   "sets_games_data_depth": 0.5577,
   "api_h2h_stats_request_no": 62,
   "api_h2h_source_host": "tennis-api-atp-wta-itf.p.rapidapi.com",
-  "api_h2h_source_path": "/tennis/v2/extend/api/atp/h2h/stats/126356/390214",
+  "api_h2h_source_path": "/tennis/v2/ms-api/h2h/stats/atp/Jaume%20Munar/Alexander%20Blockx",
   "api_h2h_surface": "hard",
+  "api_h2h_fallback_status": "RATE_LIMIT",
+  "api_h2h_resolution": "NOT_FOUND",
+  "api_h2h_primary_status": "NOT_FOUND",
+  "api_h2h_primary_path": "/tennis/v2/extend/api/atp/h2h/stats/126356/390214",
   "implied_probability": 0.5988,
   "pick_last10_count": 10,
   "opponent_last10_count": 10,
@@ -2621,7 +2629,7 @@
     "FAIR",
     "VALUE_NEGATIVE"
   ],
-  "corq_source_rank": 57,
+  "corq_source_rank": 59,
   "top7_filter_mode": "PUBLISHABLE_CORQ_FIRST_DATA_HEALTH_V1",
   "top7_publishable": true,
   "eligible_for_top7": true,
@@ -2737,9 +2745,9 @@
   "top7_value_delta_pp": -2.19,
   "top7_expected_value_pct": -3.66,
   "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
-  "corq_rank": 57,
-  "top7_sort_rank": 8,
+  "corq_rank": 59,
+  "top7_sort_rank": 9,
   "top7_sort_primary": "CORQ_PROBABILITY_DESC",
   "top7_sort_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
-  "_corq_render_rank": 19
+  "_corq_render_rank": 11
 }
