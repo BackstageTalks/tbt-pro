@@ -1,0 +1,214 @@
+name: Update ELO Data
+
+on:
+  workflow_dispatch:
+    inputs:
+      force_refresh:
+        description: "Force refresh/build ELO cache"
+        required: false
+        default: "true"
+      run_reason:
+        description: "Optional audit note"
+        required: false
+        default: "manual"
+  workflow_run:
+    workflows:
+      - Update TA Profiles
+    types:
+      - completed
+    branches:
+      - main
+  schedule:
+    # Safety standalone run in case workflow_run from TA is delayed/missed.
+    # 04:15 UTC Tuesday = 06:15 Europe/Bratislava during summer time.
+    # In winter this is 05:15 Europe/Bratislava Tuesday.
+    - cron: "15 4 * * 2"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-elo-data
+  cancel-in-progress: false
+
+jobs:
+  update-elo-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Check trigger policy
+        id: trigger_policy
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          WORKFLOW_RUN_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import os
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+
+          event_name = os.getenv("EVENT_NAME", "")
+          conclusion = os.getenv("WORKFLOW_RUN_CONCLUSION", "")
+          now = datetime.now(ZoneInfo("Europe/Bratislava"))
+
+          should_run = True
+          reason = event_name
+
+          if event_name == "workflow_run":
+              # TA also runs on Thu/Fri. ELO should refresh automatically only from the Tuesday TA run.
+              should_run = conclusion == "success" and now.weekday() == 1
+              reason = f"workflow_run_after_ta conclusion={conclusion} local_weekday={now.weekday()}"
+          elif event_name == "schedule":
+              should_run = now.weekday() == 1
+              reason = f"scheduled_tuesday_guard local_weekday={now.weekday()}"
+          elif event_name == "workflow_dispatch":
+              should_run = True
+              reason = "manual_dispatch"
+
+          print(f"now={now.isoformat()}")
+          print(f"event_name={event_name}")
+          print(f"reason={reason}")
+          print(f"should_run={'true' if should_run else 'false'}")
+          PY
+
+      - name: Stop when trigger is not eligible
+        if: ${{ steps.trigger_policy.outputs.should_run != 'true' }}
+        run: |
+          echo "Skipping ELO update: trigger policy did not allow this run."
+
+      - name: Checkout repository
+        if: ${{ steps.trigger_policy.outputs.should_run == 'true' }}
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        if: ${{ steps.trigger_policy.outputs.should_run == 'true' }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        if: ${{ steps.trigger_policy.outputs.should_run == 'true' }}
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pandas lxml html5lib beautifulsoup4 requests
+
+      - name: Build ELO cache
+        if: ${{ steps.trigger_policy.outputs.should_run == 'true' }}
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+          ELO_FORCE_REFRESH: ${{ github.event.inputs.force_refresh || 'true' }}
+        run: |
+          set -euo pipefail
+          echo "ELO_FORCE_REFRESH=${ELO_FORCE_REFRESH}"
+
+          run_and_validate() {
+            local label="$1"
+            shift
+            echo "Trying ELO update command: ${label}"
+            if "$@"; then
+              echo "ELO command succeeded: ${label}"
+              return 0
+            fi
+            echo "ELO command failed: ${label}"
+            return 1
+          }
+
+          if [ -f tools/update_elo_data.py ]; then
+            run_and_validate "tools/update_elo_data.py" python tools/update_elo_data.py
+          elif [ -f tools/update-elo-data.py ]; then
+            run_and_validate "tools/update-elo-data.py" python tools/update-elo-data.py
+          elif [ -f thinq/loaders/elo_loader.py ]; then
+            if python thinq/loaders/elo_loader.py --help >/tmp/elo_help.txt 2>&1; then
+              if grep -qi -- "--refresh\|--force" /tmp/elo_help.txt; then
+                python thinq/loaders/elo_loader.py --refresh || python thinq/loaders/elo_loader.py --force-refresh || python thinq/loaders/elo_loader.py
+              else
+                python thinq/loaders/elo_loader.py
+              fi
+            else
+              python thinq/loaders/elo_loader.py
+            fi
+          else
+            echo "No known ELO update entrypoint found."
+            echo "Expected one of: tools/update_elo_data.py, tools/update-elo-data.py, thinq/loaders/elo_loader.py"
+            exit 1
+          fi
+
+      - name: Validate ELO cache
+        if: ${{ steps.trigger_policy.outputs.should_run == 'true' }}
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+
+          candidates = [
+              Path("thinq/data/elo/elo_index.json"),
+              Path("thinq/data/elo_index.json"),
+              Path("data/elo/elo_index.json"),
+              Path("data/elo_index.json"),
+              Path("outputs/elo/elo_index.json"),
+          ]
+          existing = [p for p in candidates if p.exists()]
+          print("ELO cache candidate files:")
+          for p in candidates:
+              print(f"- {p}: {'FOUND' if p.exists() else 'missing'}")
+
+          # Loader validation is the source of truth for the daily runtime.
+          try:
+              from thinq.loaders.elo_loader import load_elo_index, build_elo_context
+              idx = load_elo_index()
+              print("elo_index_size=", len(idx))
+              print("elo_context_sample=", build_elo_context("Frances Tiafoe", "Terence Atmane", "Hard"))
+              if len(idx) <= 0:
+                  raise SystemExit("ELO loader returned an empty index")
+          except Exception as exc:
+              raise SystemExit(f"ELO validation failed: {exc}")
+          PY
+
+      - name: Commit ELO cache
+        if: ${{ steps.trigger_policy.outputs.should_run == 'true' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add thinq/data/elo thinq/data/elo_index.json data/elo data/elo_index.json outputs/elo 2>/dev/null || true
+
+          if git diff --cached --quiet; then
+            echo "No ELO cache changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Update ELO cache"
+          if git push; then
+            echo "ELO cache pushed."
+            exit 0
+          fi
+
+          echo "Push rejected, preserving ELO cache and retrying on latest main..."
+          tmp_dir="$(mktemp -d)"
+          mkdir -p "$tmp_dir"
+          cp -a thinq/data/elo "$tmp_dir/thinq_data_elo" 2>/dev/null || true
+          cp -a thinq/data/elo_index.json "$tmp_dir/thinq_data_elo_index.json" 2>/dev/null || true
+          cp -a data/elo "$tmp_dir/data_elo" 2>/dev/null || true
+          cp -a data/elo_index.json "$tmp_dir/data_elo_index.json" 2>/dev/null || true
+          cp -a outputs/elo "$tmp_dir/outputs_elo" 2>/dev/null || true
+
+          git fetch origin main
+          git reset --hard origin/main
+
+          mkdir -p thinq/data data outputs
+          [ -d "$tmp_dir/thinq_data_elo" ] && mkdir -p thinq/data && cp -a "$tmp_dir/thinq_data_elo" thinq/data/elo
+          [ -f "$tmp_dir/thinq_data_elo_index.json" ] && cp -a "$tmp_dir/thinq_data_elo_index.json" thinq/data/elo_index.json
+          [ -d "$tmp_dir/data_elo" ] && cp -a "$tmp_dir/data_elo" data/elo
+          [ -f "$tmp_dir/data_elo_index.json" ] && cp -a "$tmp_dir/data_elo_index.json" data/elo_index.json
+          [ -d "$tmp_dir/outputs_elo" ] && cp -a "$tmp_dir/outputs_elo" outputs/elo
+
+          git add thinq/data/elo thinq/data/elo_index.json data/elo data/elo_index.json outputs/elo 2>/dev/null || true
+
+          if git diff --cached --quiet; then
+            echo "No ELO cache changes after reset."
+            exit 0
+          fi
+
+          git commit -m "Update ELO cache"
+          git push
