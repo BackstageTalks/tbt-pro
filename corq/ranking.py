@@ -1329,3 +1329,287 @@ def annotate_top7_quality(row: Dict[str, Any]) -> Dict[str, Any]:
     row["corq_warning_flags"] = flags
     return row
 
+
+# ============================================================
+# Value-aware TOP7 override V3
+# ============================================================
+# Goal:
+# - CorQ remains important, but a bad price must not be overpowered by raw win%.
+# - Negative value below -5pp gets a stronger ranking penalty.
+# - Short price + no value is treated as a stacked price risk.
+# - Odds below 1.50 can pass TOP7 only with very strong support, strong data depth,
+#   and without extreme negative value.
+# - TOP7 sorting should prefer value-neutral/value-positive rows over pure short favourites.
+try:
+    _VALUE_AWARE_BASE_TOP7_REJECT_REASONS
+except NameError:
+    _VALUE_AWARE_BASE_TOP7_REJECT_REASONS = top7_reject_reasons
+    _VALUE_AWARE_BASE_TOP7_RISK_ASSESSMENT = top7_risk_assessment
+
+VALUE_AWARE_MODEL_VERSION = "VALUE_AWARE_TOP7_V3"
+VALUE_NEGATIVE_HARD_PP = -5.0
+VALUE_NEGATIVE_EXTREME_EV_PCT = -8.0
+SHORT_PRICE_LIMIT = 1.50
+SHORT_PRICE_MIN_SUPPORT_COUNT = 5
+SHORT_PRICE_MIN_PICK_DEPTH = 0.75
+SHORT_PRICE_MIN_FORM_DEPTH = 0.70
+SHORT_PRICE_MIN_THINQ_CONFIDENCE = 0.75
+SHORT_PRICE_MIN_VALUE_DELTA_PP = -5.0
+SHORT_PRICE_MIN_EXPECTED_VALUE_PCT = -7.5
+
+
+def value_delta_pp(row: Dict[str, Any]) -> Optional[float]:
+    """Return CorQ value delta in percentage points when available.
+
+    Positive means model probability is above the raw break-even price.
+    Negative means the price is worse than the CorQ probability.
+    """
+    value = _risk_support_first_float(
+        row,
+        "corq_value_delta_pp",
+        "value_delta_pp",
+        "prediction_snapshot.value.corq_value_delta_pp",
+    )
+    if value is not None:
+        return float(value)
+    odds = pick_odds_value(row)
+    cp = corq_probability(row)
+    if odds and odds > 0 and cp is not None:
+        return round((cp - (1.0 / odds)) * 100.0, 4)
+    return None
+
+
+def expected_value_pct(row: Dict[str, Any]) -> Optional[float]:
+    """Return expected value percentage when available or computable."""
+    value = _risk_support_first_float(
+        row,
+        "expected_value_pct",
+        "ev_pct",
+        "prediction_snapshot.value.expected_value_pct",
+    )
+    if value is not None:
+        return float(value)
+    odds = pick_odds_value(row)
+    cp = corq_probability(row)
+    if odds and odds > 0 and cp is not None:
+        return round((cp * odds - 1.0) * 100.0, 4)
+    return None
+
+
+def _value_aware_positive_support_count_from_base(base: Dict[str, Any]) -> int:
+    tags = base.get("support_tags")
+    if isinstance(tags, list):
+        return len({str(x) for x in tags if x})
+    count = _as_float(base.get("positive_support_count"), None)
+    return int(count or 0)
+
+
+def _short_price_gate_audit(row: Dict[str, Any], base_risk: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    base_risk = base_risk or _VALUE_AWARE_BASE_TOP7_RISK_ASSESSMENT(row)
+    odds = pick_odds_value(row)
+    vd = value_delta_pp(row)
+    ev = expected_value_pct(row)
+    support_count = _value_aware_positive_support_count_from_base(base_risk)
+    depth = pick_data_depth(row)
+    fdepth = form_data_depth(row)
+    conf = thinq_confidence(row)
+    checks = {
+        "is_short_price": bool(odds is not None and odds < SHORT_PRICE_LIMIT),
+        "support_count": support_count,
+        "pick_data_depth": round(depth, 6),
+        "form_data_depth": round(fdepth, 6),
+        "thinq_confidence": round(conf, 6),
+        "value_delta_pp": vd,
+        "expected_value_pct": ev,
+        "min_support_count": SHORT_PRICE_MIN_SUPPORT_COUNT,
+        "min_pick_data_depth": SHORT_PRICE_MIN_PICK_DEPTH,
+        "min_form_data_depth": SHORT_PRICE_MIN_FORM_DEPTH,
+        "min_thinq_confidence": SHORT_PRICE_MIN_THINQ_CONFIDENCE,
+        "min_value_delta_pp": SHORT_PRICE_MIN_VALUE_DELTA_PP,
+        "min_expected_value_pct": SHORT_PRICE_MIN_EXPECTED_VALUE_PCT,
+    }
+    ok = True
+    if checks["is_short_price"]:
+        ok = (
+            support_count >= SHORT_PRICE_MIN_SUPPORT_COUNT
+            and depth >= SHORT_PRICE_MIN_PICK_DEPTH
+            and fdepth >= SHORT_PRICE_MIN_FORM_DEPTH
+            and conf >= SHORT_PRICE_MIN_THINQ_CONFIDENCE
+            and (vd is None or vd >= SHORT_PRICE_MIN_VALUE_DELTA_PP)
+            and (ev is None or ev >= SHORT_PRICE_MIN_EXPECTED_VALUE_PCT)
+        )
+    checks["short_price_gate_ok"] = ok
+    return checks
+
+
+def _append_unique_value_risk(
+    base: Dict[str, Any],
+    *,
+    tag: str,
+    label: str,
+    penalty: float,
+    **extra: Any,
+) -> None:
+    tags = base.setdefault("tags", [])
+    labels = base.setdefault("labels", [])
+    risk_tags = base.setdefault("risk_tags", [])
+    risk_labels = base.setdefault("risk_labels", [])
+    details = base.setdefault("details", [])
+    if tag not in risk_tags:
+        risk_tags.append(tag)
+    if tag not in tags:
+        tags.append(tag)
+    if label not in risk_labels:
+        risk_labels.append(label)
+    if label not in labels:
+        labels.append(label)
+    payload = {"tag": tag, "penalty": penalty}
+    payload.update(extra)
+    details.append(payload)
+    base["penalty_points"] = round(float(base.get("penalty_points") or 0.0) + penalty, 4)
+    base["net_points"] = round(float(base.get("bonus_points") or 0.0) - float(base.get("penalty_points") or 0.0), 4)
+
+
+def _append_unique_value_support(
+    base: Dict[str, Any],
+    *,
+    tag: str,
+    label: str,
+    bonus: float,
+    **extra: Any,
+) -> None:
+    tags = base.setdefault("tags", [])
+    labels = base.setdefault("labels", [])
+    support_tags = base.setdefault("support_tags", [])
+    support_labels = base.setdefault("support_labels", [])
+    details = base.setdefault("details", [])
+    if tag not in support_tags:
+        support_tags.append(tag)
+    if tag not in tags:
+        tags.append(tag)
+    if label not in support_labels:
+        support_labels.append(label)
+    if label not in labels:
+        labels.append(label)
+    payload = {"tag": tag, "bonus": bonus}
+    payload.update(extra)
+    details.append(payload)
+    base["bonus_points"] = round(float(base.get("bonus_points") or 0.0) + bonus, 4)
+    base["net_points"] = round(float(base.get("bonus_points") or 0.0) - float(base.get("penalty_points") or 0.0), 4)
+
+
+def top7_reject_reasons(row: Dict[str, Any]) -> List[str]:
+    reasons = list(_VALUE_AWARE_BASE_TOP7_REJECT_REASONS(row))
+    base_risk = _VALUE_AWARE_BASE_TOP7_RISK_ASSESSMENT(row)
+    audit = _short_price_gate_audit(row, base_risk)
+    if audit.get("is_short_price") and not audit.get("short_price_gate_ok"):
+        reasons.append("REJECT_TOP7_SHORT_PRICE_VALUE_GUARD")
+    return list(dict.fromkeys(reasons))
+
+
+if "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD" not in TOP7_REJECT_PRIORITY:
+    TOP7_REJECT_PRIORITY.append("REJECT_TOP7_SHORT_PRICE_VALUE_GUARD")
+
+
+def top7_risk_assessment(row: Dict[str, Any]) -> Dict[str, Any]:
+    base = deepcopy(_VALUE_AWARE_BASE_TOP7_RISK_ASSESSMENT(row))
+    vd = value_delta_pp(row)
+    ev = expected_value_pct(row)
+    p_odds = pick_odds_value(row)
+    audit = _short_price_gate_audit(row, base)
+
+    # Positive or neutral value should have a real sorting advantage over pure short favourites.
+    if vd is not None and vd >= 0:
+        _append_unique_value_support(base, tag="VALUE_POSITIVE_CONFIRMED", label="Value positive", bonus=2.5, value_delta_pp=vd)
+    elif vd is not None and vd >= -2.0:
+        _append_unique_value_support(base, tag="VALUE_NEUTRAL_PRICE", label="Value neutral", bonus=1.25, value_delta_pp=vd)
+
+    # Existing NO_VALUE_PRICE stays, but deeper negative value now matters more.
+    if vd is not None and vd <= VALUE_NEGATIVE_HARD_PP:
+        _append_unique_value_risk(base, tag="NEGATIVE_VALUE_HARD", label="Negative value >5pp", penalty=5.0, value_delta_pp=vd)
+    if ev is not None and ev <= VALUE_NEGATIVE_EXTREME_EV_PCT:
+        _append_unique_value_risk(base, tag="NEGATIVE_EV_HARD", label="Negative EV hard", penalty=4.0, expected_value_pct=ev)
+
+    # Short price and no-value together should be stronger than two independent weak warnings.
+    no_value = (vd is not None and vd < -2.0) or (ev is not None and ev < -3.0)
+    if p_odds is not None and p_odds < SHORT_PRICE_LIMIT and no_value:
+        _append_unique_value_risk(
+            base,
+            tag="SHORT_NO_VALUE_COMBO",
+            label="Short price + no value",
+            penalty=5.0,
+            pick_odds=p_odds,
+            value_delta_pp=vd,
+            expected_value_pct=ev,
+        )
+
+    # Publishability guard audit is also shown as risk if it fails.
+    if audit.get("is_short_price") and not audit.get("short_price_gate_ok"):
+        _append_unique_value_risk(
+            base,
+            tag="SHORT_PRICE_VALUE_GUARD_FAIL",
+            label="Short price guard fail",
+            penalty=8.0,
+            **audit,
+        )
+
+    risk_tags = list(dict.fromkeys(str(x) for x in base.get("risk_tags", []) if x))
+    support_tags = list(dict.fromkeys(str(x) for x in base.get("support_tags", []) if x))
+    base["risk_tags"] = risk_tags
+    base["support_tags"] = support_tags
+    base["positive_support_count"] = len(support_tags)
+    base["risk_count"] = len(risk_tags)
+    base["high_risk"] = bool("HIGH_RISK_PICK" in risk_tags or base["risk_count"] >= 5 or float(base.get("penalty_points") or 0.0) >= 16.0)
+    if base["high_risk"] and "HIGH_RISK_PICK" not in risk_tags:
+        risk_tags.append("HIGH_RISK_PICK")
+        labels = base.setdefault("risk_labels", [])
+        if "High Risk" not in labels:
+            labels.append("High Risk")
+        all_labels = base.setdefault("labels", [])
+        if "High Risk" not in all_labels:
+            all_labels.append("High Risk")
+        all_tags = base.setdefault("tags", [])
+        if "HIGH_RISK_PICK" not in all_tags:
+            all_tags.append("HIGH_RISK_PICK")
+        base["risk_count"] = len(risk_tags)
+    base["value_delta_pp"] = vd
+    base["expected_value_pct"] = ev
+    base["short_price_gate_audit"] = audit
+    base["value_aware_model_version"] = VALUE_AWARE_MODEL_VERSION
+    base["penalty_points"] = round(float(base.get("penalty_points") or 0.0), 4)
+    base["bonus_points"] = round(float(base.get("bonus_points") or 0.0), 4)
+    base["net_points"] = round(float(base.get("bonus_points") or 0.0) - float(base.get("penalty_points") or 0.0), 4)
+    return base
+
+
+def top7_quality_score(row: Dict[str, Any]) -> float:
+    cp = corq_probability(row) * 100.0
+    depth = pick_data_depth(row) * 100.0
+    edge = max(pick_thinq_edge(row), 0.0) * 100.0
+    conf = thinq_confidence(row) * 100.0
+    risk = top7_risk_assessment(row)
+    vd = value_delta_pp(row)
+    ev = expected_value_pct(row)
+
+    # CorQ is still the largest component, but value now directly affects quality.
+    confidence_weighted_edge = (conf / 100.0) * edge
+    raw = cp + 0.22 * depth + 0.22 * edge + 0.08 * confidence_weighted_edge
+
+    # Prefer value-neutral/value-positive rows. Punish deep negative price quality.
+    if vd is not None:
+        if vd >= 0:
+            raw += min(vd, 8.0) * 0.65
+        elif vd >= -2.0:
+            raw += 0.75
+        elif vd <= VALUE_NEGATIVE_HARD_PP:
+            raw += vd * 0.85  # vd is negative, so this subtracts.
+        else:
+            raw += vd * 0.35
+    if ev is not None and ev <= VALUE_NEGATIVE_EXTREME_EV_PCT:
+        raw -= min(abs(ev) - abs(VALUE_NEGATIVE_EXTREME_EV_PCT), 8.0) * 0.45
+
+    raw -= float(risk.get("penalty_points") or 0.0)
+    raw += float(risk.get("bonus_points") or 0.0)
+    raw -= max(0, int(risk.get("risk_count") or 0) - 1) * 2.5
+    raw += min(int(risk.get("positive_support_count") or 0), 5) * 0.65
+    return round(raw, 4)
