@@ -69,7 +69,7 @@
             "shortNameTranslation": {}
           }
         },
-        "userCount": 3359,
+        "userCount": 3588,
         "groundType": "Hardcourt outdoor",
         "tennisPoints": 1000,
         "hasPerformanceGraphFeature": false,
@@ -120,7 +120,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 4933,
+      "userCount": 4944,
       "playerTeamInfo": {
         "id": 4322
       },
@@ -162,7 +162,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 5902,
+      "userCount": 5922,
       "playerTeamInfo": {
         "id": 2549
       },
@@ -2551,13 +2551,17 @@
     "OPP_STRONG_FORM",
     "NO_VALUE_PRICE",
     "MULTI_RISK_PICK",
-    "HIGH_RISK_PICK"
+    "HIGH_RISK_PICK",
+    "NEGATIVE_VALUE_HARD",
+    "NEGATIVE_EV_HARD"
   ],
   "top7_risk_labels": [
     "Opp strong",
     "No value",
     "Multiple risk signals",
-    "High Risk"
+    "High Risk",
+    "Negative value >5pp",
+    "Negative EV hard"
   ],
   "top7_risk_penalty_details": [
     {
@@ -2593,9 +2597,19 @@
       "penalty": 4.0,
       "risk_count": 2,
       "penalty_before_high_risk": 11.0
+    },
+    {
+      "tag": "NEGATIVE_VALUE_HARD",
+      "penalty": 5.0,
+      "value_delta_pp": -6.79
+    },
+    {
+      "tag": "NEGATIVE_EV_HARD",
+      "penalty": 4.0,
+      "expected_value_pct": -11.75
     }
   ],
-  "top7_risk_penalty_points": 15.0,
+  "top7_risk_penalty_points": 24.0,
   "top7_clean_bonus_points": 2.5,
   "top7_quality_score": 0.0,
   "corq_warning_flags": [
@@ -2604,7 +2618,9 @@
     "MARKET_WITH_PICK",
     "NO_VALUE_PRICE",
     "MULTI_RISK_PICK",
-    "HIGH_RISK_PICK"
+    "HIGH_RISK_PICK",
+    "NEGATIVE_VALUE_HARD",
+    "NEGATIVE_EV_HARD"
   ],
   "top7_support_tags": [
     "ELO_SUPPORT_PICK",
@@ -2615,7 +2631,7 @@
     "Market with pick"
   ],
   "top7_positive_support_count": 2,
-  "top7_risk_count": 4,
+  "top7_risk_count": 6,
   "top7_high_risk": true,
   "corq_rank": 90,
   "_corq_render_rank": 11

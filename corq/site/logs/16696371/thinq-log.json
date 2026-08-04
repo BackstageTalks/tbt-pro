@@ -70,7 +70,7 @@
             "shortNameTranslation": {}
           }
         },
-        "userCount": 3359,
+        "userCount": 3588,
         "groundType": "Hardcourt outdoor",
         "tennisPoints": 1000,
         "hasPerformanceGraphFeature": false,
@@ -122,7 +122,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 5846,
+      "userCount": 5877,
       "playerTeamInfo": {
         "id": 375
       },
@@ -166,7 +166,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 7324,
+      "userCount": 7365,
       "playerTeamInfo": {
         "id": 212
       },
@@ -2611,27 +2611,35 @@
       "bonus": 1.5,
       "marq_edge": 2.6,
       "market_delta": -0.74
+    },
+    {
+      "tag": "VALUE_NEUTRAL_PRICE",
+      "bonus": 1.25,
+      "value_delta_pp": -1.24
     }
   ],
   "top7_risk_penalty_points": 0.0,
-  "top7_clean_bonus_points": 3.5,
+  "top7_clean_bonus_points": 4.75,
   "top7_quality_score": 0.0,
   "corq_warning_flags": [
     "THINQ_EDGE_SUPPORT_PICK",
     "ELO_SUPPORT_PICK",
-    "MARKET_WITH_PICK"
+    "MARKET_WITH_PICK",
+    "VALUE_NEUTRAL_PRICE"
   ],
   "top7_support_tags": [
     "THINQ_EDGE_SUPPORT_PICK",
     "ELO_SUPPORT_PICK",
-    "MARKET_WITH_PICK"
+    "MARKET_WITH_PICK",
+    "VALUE_NEUTRAL_PRICE"
   ],
   "top7_support_labels": [
     "ThinQ edge support",
     "ELO support",
-    "Market with pick"
+    "Market with pick",
+    "Value neutral"
   ],
-  "top7_positive_support_count": 3,
+  "top7_positive_support_count": 4,
   "top7_risk_count": 0,
   "top7_high_risk": false,
   "corq_rank": 70,

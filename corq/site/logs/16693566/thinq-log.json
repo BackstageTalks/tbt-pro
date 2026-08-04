@@ -2548,12 +2548,18 @@
   "top7_risk_tags": [
     "NO_VALUE_PRICE",
     "LOW_DATA_CONFIDENCE",
-    "MULTI_RISK_PICK"
+    "MULTI_RISK_PICK",
+    "NEGATIVE_VALUE_HARD",
+    "NEGATIVE_EV_HARD",
+    "HIGH_RISK_PICK"
   ],
   "top7_risk_labels": [
     "No value",
     "Low data confidence",
-    "Multiple risk signals"
+    "Multiple risk signals",
+    "Negative value >5pp",
+    "Negative EV hard",
+    "High Risk"
   ],
   "top7_risk_penalty_details": [
     {
@@ -2588,9 +2594,19 @@
       "tag": "MULTI_RISK_PICK",
       "penalty": 3.0,
       "risk_count": 2
+    },
+    {
+      "tag": "NEGATIVE_VALUE_HARD",
+      "penalty": 5.0,
+      "value_delta_pp": -10.4
+    },
+    {
+      "tag": "NEGATIVE_EV_HARD",
+      "penalty": 4.0,
+      "expected_value_pct": -15.6
     }
   ],
-  "top7_risk_penalty_points": 8.5,
+  "top7_risk_penalty_points": 17.5,
   "top7_clean_bonus_points": 3.5,
   "top7_quality_score": 0.0,
   "corq_warning_flags": [
@@ -2599,7 +2615,10 @@
     "MARKET_WITH_PICK",
     "NO_VALUE_PRICE",
     "LOW_DATA_CONFIDENCE",
-    "MULTI_RISK_PICK"
+    "MULTI_RISK_PICK",
+    "NEGATIVE_VALUE_HARD",
+    "NEGATIVE_EV_HARD",
+    "HIGH_RISK_PICK"
   ],
   "top7_support_tags": [
     "SURFACE_SUPPORT_PICK",
@@ -2612,8 +2631,8 @@
     "Market with pick"
   ],
   "top7_positive_support_count": 3,
-  "top7_risk_count": 3,
-  "top7_high_risk": false,
+  "top7_risk_count": 6,
+  "top7_high_risk": true,
   "corq_rank": 60,
   "_corq_render_rank": 8
 }

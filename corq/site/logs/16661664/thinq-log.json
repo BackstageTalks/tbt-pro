@@ -69,7 +69,7 @@
             "shortNameTranslation": {}
           }
         },
-        "userCount": 3359,
+        "userCount": 3588,
         "groundType": "Hardcourt outdoor",
         "tennisPoints": 1000,
         "hasPerformanceGraphFeature": false,
@@ -120,7 +120,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 15006,
+      "userCount": 15021,
       "playerTeamInfo": {
         "id": 3050
       },
@@ -164,7 +164,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 4965,
+      "userCount": 5035,
       "playerTeamInfo": {
         "id": 2652
       },
@@ -2175,10 +2175,10 @@
   "opponent_ace_pct": 4.33,
   "pick_df_pct": null,
   "opponent_df_pct": 3.91,
-  "total_aces_line": 8.0,
-  "pick_aces_projection": 4.9,
-  "opponent_aces_projection": 2.9,
-  "total_aces_projection": 7.8,
+  "total_aces_line": 7.5,
+  "pick_aces_projection": 4.7,
+  "opponent_aces_projection": 2.8,
+  "total_aces_projection": 7.4,
   "pick_df_projection": 0.7,
   "opponent_df_projection": 3.0,
   "total_df_projection": 3.7,
@@ -2228,7 +2228,7 @@
   "match_shape": "BALANCED_STANDARD",
   "api_pick_serve_stats_status": "OK",
   "api_opp_serve_stats_status": "OK",
-  "pick_aces_line": 5.0,
+  "pick_aces_line": 4.5,
   "opponent_aces_line": 3.0,
   "pick_df_line": 0.7,
   "opponent_df_line": 3.0,
@@ -2334,41 +2334,41 @@
     "TA profile missing or no usable scoped stats"
   ],
   "ta_signal_score_projection": "N/A",
-  "expected_sets": 2.38,
+  "expected_sets": 2.33,
   "sets_selection": "O2.5",
-  "sets_probability": 0.38,
+  "sets_probability": 0.326,
   "sets_probability_label": "O2.5",
-  "sets_o25_probability": 0.38,
+  "sets_o25_probability": 0.326,
   "sets_o45_probability": null,
   "most_likely_score": "2-0",
-  "most_likely_score_probability": 0.5363,
+  "most_likely_score_probability": 0.583,
   "score_probabilities": {
-    "2-0": 0.5363,
-    "2-1": 0.3148,
-    "1-2": 0.0652,
-    "0-2": 0.0837
+    "2-0": 0.583,
+    "2-1": 0.27,
+    "1-2": 0.056,
+    "0-2": 0.091
   },
   "score_basis": "player1_vs_player2",
   "sets_source": "Model",
-  "first_set_player1_odds": null,
-  "first_set_player2_odds": null,
-  "first_set_player1_probability": null,
-  "first_set_player2_probability": null,
-  "expected_games": 21.5,
-  "projected_total_games": 21.5,
-  "games_line": 21.5,
-  "total_games_line": 21.5,
-  "games_pick": "Over 21.5",
-  "games_selection": "O21.5",
-  "games_probability": 0.5,
-  "games_model_source": "ModelFallback",
+  "first_set_player1_odds": 1.22222,
+  "first_set_player2_odds": 4.33333,
+  "first_set_player1_probability": 0.78000018000018,
+  "first_set_player2_probability": 0.21999981999982002,
+  "expected_games": 20.5,
+  "projected_total_games": 20.5,
+  "games_line": 20.5,
+  "total_games_line": 20.5,
+  "games_pick": "Under 20.5",
+  "games_selection": "U20.5",
+  "games_probability": 0.5147057634082753,
+  "games_model_source": "TennisApiMarkets",
   "games_data_quality": "C+",
-  "best_total_selection": "O21.5",
-  "best_total_probability": 0.5,
-  "games_over_odds": null,
-  "games_under_odds": null,
-  "games_over_probability": 0.5,
-  "games_under_probability": 0.5,
+  "best_total_selection": "U20.5",
+  "best_total_probability": 0.5147057634082753,
+  "games_over_odds": 1.90909,
+  "games_under_odds": 1.8,
+  "games_over_probability": 0.4853,
+  "games_under_probability": 0.5147,
   "tie_break_yes_odds": null,
   "tie_break_no_odds": null,
   "tie_break_selection": null,
@@ -2376,7 +2376,7 @@
   "tie_break_probability": null,
   "tb_probability": null,
   "sets_games_market_source": "TennisApiPRO getAllOddsForEvent",
-  "sets_games_raw_market_count": 1,
+  "sets_games_raw_market_count": 3,
   "sets_games_endpoint_summary": {
     "request_count": 1,
     "status_counts": {
@@ -2390,19 +2390,20 @@
     "no_content_count": 0,
     "http_error_count": 0
   },
+  "games_line_source": "TennisApiPRO getAllOddsForEvent",
   "double_faults_available": false,
-  "pick_aces": 4.9,
-  "opponent_aces": 2.9,
-  "total_aces": 7.8,
-  "pick_aces_side": "Under",
-  "pick_aces_selection": "U5",
-  "pick_aces_probability": 0.522,
+  "pick_aces": 4.7,
+  "opponent_aces": 2.8,
+  "total_aces": 7.4,
+  "pick_aces_side": "Over",
+  "pick_aces_selection": "O4.5",
+  "pick_aces_probability": 0.5371,
   "opponent_aces_side": "Under",
   "opponent_aces_selection": "U3",
-  "opponent_aces_probability": 0.5248,
+  "opponent_aces_probability": 0.5538,
   "total_aces_side": "Under",
-  "total_aces_selection": "U8",
-  "total_aces_probability": 0.5316,
+  "total_aces_selection": "U7.5",
+  "total_aces_probability": 0.5114,
   "aces_source": "TA A% + projected service points",
   "pick_aces_line_source": "MODEL_PROJECTION_LINE",
   "opponent_aces_line_source": "MODEL_PROJECTION_LINE",
@@ -2411,8 +2412,8 @@
   "opponent_df_line_source": "MODEL_PROJECTION_LINE",
   "total_df_line_source": "MODEL_PROJECTION_LINE",
   "best_bet": "O2.5",
-  "best_bet_display": "O2.5 38%",
-  "best_bet_probability": 0.38,
+  "best_bet_display": "O2.5 33%",
+  "best_bet_probability": 0.326,
   "best_bet_market": "Sets",
   "sets_games_value_candidates": [],
   "value_bet": null,
@@ -2491,16 +2492,19 @@
   "top7_publishable": false,
   "eligible_for_top7": false,
   "top7_quality_reject_reasons": [
-    "REJECT_TOP7_LOW_ODDS_UNDER_1_40"
+    "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
+    "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD"
   ],
   "top7_reject_reasons": [
-    "REJECT_TOP7_LOW_ODDS_UNDER_1_40"
+    "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
+    "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD"
   ],
   "top7_hard_reject_reasons": [
-    "REJECT_TOP7_LOW_ODDS_UNDER_1_40"
+    "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
+    "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD"
   ],
   "top7_primary_reject_reason": "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
-  "top7_reject_reason_count": 1,
+  "top7_reject_reason_count": 2,
   "top7_reject_summary_scope": "NON_PUBLISHABLE_ROWS_ONLY",
   "top7_status_allowed": true,
   "top7_status_type_normalized": "notstarted",
@@ -2545,12 +2549,22 @@
   "top7_risk_tags": [
     "NO_VALUE_PRICE",
     "SHORT_PRICE_RISK",
-    "MULTI_RISK_PICK"
+    "MULTI_RISK_PICK",
+    "NEGATIVE_VALUE_HARD",
+    "NEGATIVE_EV_HARD",
+    "SHORT_NO_VALUE_COMBO",
+    "SHORT_PRICE_VALUE_GUARD_FAIL",
+    "HIGH_RISK_PICK"
   ],
   "top7_risk_labels": [
     "No value",
     "Short price",
-    "Multiple risk signals"
+    "Multiple risk signals",
+    "Negative value >5pp",
+    "Negative EV hard",
+    "Short price + no value",
+    "Short price guard fail",
+    "High Risk"
   ],
   "top7_risk_penalty_details": [
     {
@@ -2589,9 +2603,44 @@
       "tag": "MULTI_RISK_PICK",
       "penalty": 3.0,
       "risk_count": 2
+    },
+    {
+      "tag": "NEGATIVE_VALUE_HARD",
+      "penalty": 5.0,
+      "value_delta_pp": -18.13
+    },
+    {
+      "tag": "NEGATIVE_EV_HARD",
+      "penalty": 4.0,
+      "expected_value_pct": -20.67
+    },
+    {
+      "tag": "SHORT_NO_VALUE_COMBO",
+      "penalty": 5.0,
+      "pick_odds": 1.14,
+      "value_delta_pp": -18.13,
+      "expected_value_pct": -20.67
+    },
+    {
+      "tag": "SHORT_PRICE_VALUE_GUARD_FAIL",
+      "penalty": 8.0,
+      "is_short_price": true,
+      "support_count": 4,
+      "pick_data_depth": 0.841,
+      "form_data_depth": 0.7,
+      "thinq_confidence": 0.88,
+      "value_delta_pp": -18.13,
+      "expected_value_pct": -20.67,
+      "min_support_count": 5,
+      "min_pick_data_depth": 0.75,
+      "min_form_data_depth": 0.7,
+      "min_thinq_confidence": 0.75,
+      "min_value_delta_pp": -5.0,
+      "min_expected_value_pct": -7.5,
+      "short_price_gate_ok": false
     }
   ],
-  "top7_risk_penalty_points": 8.0,
+  "top7_risk_penalty_points": 30.0,
   "top7_clean_bonus_points": 4.5,
   "top7_quality_score": 0.0,
   "corq_warning_flags": [
@@ -2601,7 +2650,12 @@
     "MARKET_WITH_PICK",
     "NO_VALUE_PRICE",
     "SHORT_PRICE_RISK",
-    "MULTI_RISK_PICK"
+    "MULTI_RISK_PICK",
+    "NEGATIVE_VALUE_HARD",
+    "NEGATIVE_EV_HARD",
+    "SHORT_NO_VALUE_COMBO",
+    "SHORT_PRICE_VALUE_GUARD_FAIL",
+    "HIGH_RISK_PICK"
   ],
   "top7_support_tags": [
     "FORM_SUPPORT_PICK",
@@ -2616,8 +2670,8 @@
     "Market with pick"
   ],
   "top7_positive_support_count": 4,
-  "top7_risk_count": 3,
-  "top7_high_risk": false,
+  "top7_risk_count": 8,
+  "top7_high_risk": true,
   "corq_rank": 8,
   "_corq_render_rank": 37
 }

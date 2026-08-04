@@ -69,7 +69,7 @@
             "shortNameTranslation": {}
           }
         },
-        "userCount": 3359,
+        "userCount": 3588,
         "groundType": "Hardcourt outdoor",
         "tennisPoints": 1000,
         "hasPerformanceGraphFeature": false,
@@ -121,7 +121,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 7792,
+      "userCount": 7845,
       "playerTeamInfo": {
         "id": 5333
       },
@@ -166,7 +166,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 11261,
+      "userCount": 11291,
       "playerTeamInfo": {
         "id": 54
       },
@@ -2594,12 +2594,14 @@
   "top7_risk_tags": [
     "NO_VALUE_PRICE",
     "SHORT_PRICE_RISK",
-    "MULTI_RISK_PICK"
+    "MULTI_RISK_PICK",
+    "SHORT_NO_VALUE_COMBO"
   ],
   "top7_risk_labels": [
     "No value",
     "Short price",
-    "Multiple risk signals"
+    "Multiple risk signals",
+    "Short price + no value"
   ],
   "top7_risk_penalty_details": [
     {
@@ -2655,9 +2657,16 @@
       "tag": "MULTI_RISK_PICK",
       "penalty": 3.0,
       "risk_count": 2
+    },
+    {
+      "tag": "SHORT_NO_VALUE_COMBO",
+      "penalty": 5.0,
+      "pick_odds": 1.33,
+      "value_delta_pp": -4.61,
+      "expected_value_pct": -6.13
     }
   ],
-  "top7_risk_penalty_points": 8.0,
+  "top7_risk_penalty_points": 13.0,
   "top7_clean_bonus_points": 8.5,
   "top7_quality_score": 0.0,
   "corq_warning_flags": [
@@ -2670,7 +2679,8 @@
     "MARKET_WITH_PICK",
     "NO_VALUE_PRICE",
     "SHORT_PRICE_RISK",
-    "MULTI_RISK_PICK"
+    "MULTI_RISK_PICK",
+    "SHORT_NO_VALUE_COMBO"
   ],
   "top7_support_tags": [
     "H2H_SUPPORT_PICK",
@@ -2691,7 +2701,7 @@
     "Market with pick"
   ],
   "top7_positive_support_count": 7,
-  "top7_risk_count": 3,
+  "top7_risk_count": 4,
   "top7_high_risk": false,
   "corq_rank": 7,
   "_corq_render_rank": 44,

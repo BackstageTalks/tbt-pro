@@ -69,7 +69,7 @@
             "shortNameTranslation": {}
           }
         },
-        "userCount": 3359,
+        "userCount": 3588,
         "groundType": "Hardcourt outdoor",
         "tennisPoints": 1000,
         "hasPerformanceGraphFeature": false,
@@ -120,7 +120,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 5260,
+      "userCount": 5266,
       "playerTeamInfo": {
         "id": 5055
       },
@@ -165,7 +165,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 43018,
+      "userCount": 43066,
       "playerTeamInfo": {
         "id": 125
       },
@@ -2500,21 +2500,24 @@
     "SHORT",
     "VALUE_NEGATIVE"
   ],
-  "corq_source_rank": 12,
+  "corq_source_rank": 11,
   "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
   "top7_publishable": false,
   "eligible_for_top7": false,
   "top7_quality_reject_reasons": [
-    "REJECT_TOP7_LOW_ODDS_UNDER_1_40"
+    "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
+    "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD"
   ],
   "top7_reject_reasons": [
-    "REJECT_TOP7_LOW_ODDS_UNDER_1_40"
+    "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
+    "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD"
   ],
   "top7_hard_reject_reasons": [
-    "REJECT_TOP7_LOW_ODDS_UNDER_1_40"
+    "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
+    "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD"
   ],
   "top7_primary_reject_reason": "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
-  "top7_reject_reason_count": 1,
+  "top7_reject_reason_count": 2,
   "top7_reject_summary_scope": "NON_PUBLISHABLE_ROWS_ONLY",
   "top7_status_allowed": true,
   "top7_status_type_normalized": "notstarted",
@@ -2559,12 +2562,22 @@
   "top7_risk_tags": [
     "NO_VALUE_PRICE",
     "SHORT_PRICE_RISK",
-    "MULTI_RISK_PICK"
+    "MULTI_RISK_PICK",
+    "NEGATIVE_VALUE_HARD",
+    "NEGATIVE_EV_HARD",
+    "SHORT_NO_VALUE_COMBO",
+    "SHORT_PRICE_VALUE_GUARD_FAIL",
+    "HIGH_RISK_PICK"
   ],
   "top7_risk_labels": [
     "No value",
     "Short price",
-    "Multiple risk signals"
+    "Multiple risk signals",
+    "Negative value >5pp",
+    "Negative EV hard",
+    "Short price + no value",
+    "Short price guard fail",
+    "High Risk"
   ],
   "top7_risk_penalty_details": [
     {
@@ -2603,9 +2616,44 @@
       "tag": "MULTI_RISK_PICK",
       "penalty": 3.0,
       "risk_count": 2
+    },
+    {
+      "tag": "NEGATIVE_VALUE_HARD",
+      "penalty": 5.0,
+      "value_delta_pp": -10.44
+    },
+    {
+      "tag": "NEGATIVE_EV_HARD",
+      "penalty": 4.0,
+      "expected_value_pct": -13.36
+    },
+    {
+      "tag": "SHORT_NO_VALUE_COMBO",
+      "penalty": 5.0,
+      "pick_odds": 1.28,
+      "value_delta_pp": -10.44,
+      "expected_value_pct": -13.36
+    },
+    {
+      "tag": "SHORT_PRICE_VALUE_GUARD_FAIL",
+      "penalty": 8.0,
+      "is_short_price": true,
+      "support_count": 4,
+      "pick_data_depth": 0.89725,
+      "form_data_depth": 0.825,
+      "thinq_confidence": 0.88,
+      "value_delta_pp": -10.44,
+      "expected_value_pct": -13.36,
+      "min_support_count": 5,
+      "min_pick_data_depth": 0.75,
+      "min_form_data_depth": 0.7,
+      "min_thinq_confidence": 0.75,
+      "min_value_delta_pp": -5.0,
+      "min_expected_value_pct": -7.5,
+      "short_price_gate_ok": false
     }
   ],
-  "top7_risk_penalty_points": 8.0,
+  "top7_risk_penalty_points": 30.0,
   "top7_clean_bonus_points": 4.5,
   "top7_quality_score": 0.0,
   "corq_warning_flags": [
@@ -2615,7 +2663,12 @@
     "MARKET_WITH_PICK",
     "NO_VALUE_PRICE",
     "SHORT_PRICE_RISK",
-    "MULTI_RISK_PICK"
+    "MULTI_RISK_PICK",
+    "NEGATIVE_VALUE_HARD",
+    "NEGATIVE_EV_HARD",
+    "SHORT_NO_VALUE_COMBO",
+    "SHORT_PRICE_VALUE_GUARD_FAIL",
+    "HIGH_RISK_PICK"
   ],
   "top7_support_tags": [
     "FORM_SUPPORT_PICK",
@@ -2630,8 +2683,8 @@
     "Market with pick"
   ],
   "top7_positive_support_count": 4,
-  "top7_risk_count": 3,
-  "top7_high_risk": false,
-  "corq_rank": 12,
+  "top7_risk_count": 8,
+  "top7_high_risk": true,
+  "corq_rank": 11,
   "_corq_render_rank": 26
 }

@@ -69,7 +69,7 @@
             "shortNameTranslation": {}
           }
         },
-        "userCount": 3359,
+        "userCount": 3588,
         "groundType": "Hardcourt outdoor",
         "tennisPoints": 1000,
         "hasPerformanceGraphFeature": false,
@@ -120,7 +120,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 3953,
+      "userCount": 3940,
       "playerTeamInfo": {
         "id": 4324
       },
@@ -164,7 +164,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 8515,
+      "userCount": 8559,
       "playerTeamInfo": {
         "id": 2861
       },
@@ -2503,7 +2503,7 @@
     "FAIR",
     "VALUE_NEGATIVE"
   ],
-  "corq_source_rank": 43,
+  "corq_source_rank": 44,
   "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
   "top7_publishable": true,
   "eligible_for_top7": true,
@@ -2554,10 +2554,14 @@
     "odds_available": true
   },
   "top7_risk_tags": [
-    "NO_VALUE_PRICE"
+    "NO_VALUE_PRICE",
+    "NEGATIVE_VALUE_HARD",
+    "NEGATIVE_EV_HARD"
   ],
   "top7_risk_labels": [
-    "No value"
+    "No value",
+    "Negative value >5pp",
+    "Negative EV hard"
   ],
   "top7_risk_penalty_details": [
     {
@@ -2581,16 +2585,28 @@
       "tag": "NO_VALUE_PRICE",
       "penalty": 3.0,
       "value": -5.82
+    },
+    {
+      "tag": "NEGATIVE_VALUE_HARD",
+      "penalty": 5.0,
+      "value_delta_pp": -5.82
+    },
+    {
+      "tag": "NEGATIVE_EV_HARD",
+      "penalty": 4.0,
+      "expected_value_pct": -8.9
     }
   ],
-  "top7_risk_penalty_points": 3.0,
+  "top7_risk_penalty_points": 12.0,
   "top7_clean_bonus_points": 3.5,
-  "top7_quality_score": 88.2594,
+  "top7_quality_score": 65.4215,
   "corq_warning_flags": [
     "THINQ_EDGE_SUPPORT_PICK",
     "ELO_SUPPORT_PICK",
     "MARKET_WITH_PICK",
-    "NO_VALUE_PRICE"
+    "NO_VALUE_PRICE",
+    "NEGATIVE_VALUE_HARD",
+    "NEGATIVE_EV_HARD"
   ],
   "top7_support_tags": [
     "THINQ_EDGE_SUPPORT_PICK",
@@ -2603,8 +2619,8 @@
     "Market with pick"
   ],
   "top7_positive_support_count": 3,
-  "top7_risk_count": 1,
+  "top7_risk_count": 3,
   "top7_high_risk": false,
-  "corq_rank": 43,
+  "corq_rank": 44,
   "_corq_render_rank": 36
 }

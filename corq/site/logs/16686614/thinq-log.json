@@ -68,7 +68,7 @@
             "shortNameTranslation": {}
           }
         },
-        "userCount": 3359,
+        "userCount": 3588,
         "groundType": "Hardcourt outdoor",
         "tennisPoints": 1000,
         "hasPerformanceGraphFeature": false,
@@ -119,7 +119,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 22291,
+      "userCount": 22324,
       "playerTeamInfo": {
         "id": 129
       },
@@ -163,7 +163,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 13815,
+      "userCount": 13843,
       "playerTeamInfo": {
         "id": 292
       },
@@ -2488,7 +2488,7 @@
     "FAIR",
     "VALUE_NEUTRAL"
   ],
-  "corq_source_rank": 78,
+  "corq_source_rank": 77,
   "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
   "top7_publishable": true,
   "eligible_for_top7": true,
@@ -2586,11 +2586,16 @@
       "tag": "MULTI_RISK_PICK",
       "penalty": 3.0,
       "risk_count": 2
+    },
+    {
+      "tag": "VALUE_POSITIVE_CONFIRMED",
+      "bonus": 2.5,
+      "value_delta_pp": 0.97
     }
   ],
   "top7_risk_penalty_points": 9.5,
-  "top7_clean_bonus_points": 4.5,
-  "top7_quality_score": 71.3052,
+  "top7_clean_bonus_points": 7.0,
+  "top7_quality_score": 70.7707,
   "corq_warning_flags": [
     "SURFACE_H2H_AGAINST_PICK",
     "PICK_WEAK_FORM",
@@ -2598,23 +2603,26 @@
     "THINQ_EDGE_SUPPORT_PICK",
     "ELO_SUPPORT_PICK",
     "VALUE_POSITIVE",
-    "MULTI_RISK_PICK"
+    "MULTI_RISK_PICK",
+    "VALUE_POSITIVE_CONFIRMED"
   ],
   "top7_support_tags": [
     "SURFACE_SUPPORT_PICK",
     "THINQ_EDGE_SUPPORT_PICK",
     "ELO_SUPPORT_PICK",
-    "VALUE_POSITIVE"
+    "VALUE_POSITIVE",
+    "VALUE_POSITIVE_CONFIRMED"
   ],
   "top7_support_labels": [
     "Surface support",
     "ThinQ edge support",
     "ELO support",
-    "Value+"
+    "Value+",
+    "Value positive"
   ],
-  "top7_positive_support_count": 4,
+  "top7_positive_support_count": 5,
   "top7_risk_count": 3,
   "top7_high_risk": false,
-  "corq_rank": 78,
+  "corq_rank": 77,
   "_corq_render_rank": 31
 }

@@ -2534,10 +2534,14 @@
     "odds_available": true
   },
   "top7_risk_tags": [
-    "NO_VALUE_PRICE"
+    "NO_VALUE_PRICE",
+    "NEGATIVE_VALUE_HARD",
+    "NEGATIVE_EV_HARD"
   ],
   "top7_risk_labels": [
-    "No value"
+    "No value",
+    "Negative value >5pp",
+    "Negative EV hard"
   ],
   "top7_risk_penalty_details": [
     {
@@ -2566,17 +2570,29 @@
       "tag": "NO_VALUE_PRICE",
       "penalty": 3.0,
       "value": -7.32
+    },
+    {
+      "tag": "NEGATIVE_VALUE_HARD",
+      "penalty": 5.0,
+      "value_delta_pp": -7.32
+    },
+    {
+      "tag": "NEGATIVE_EV_HARD",
+      "penalty": 4.0,
+      "expected_value_pct": -11.22
     }
   ],
-  "top7_risk_penalty_points": 3.0,
+  "top7_risk_penalty_points": 12.0,
   "top7_clean_bonus_points": 4.5,
-  "top7_quality_score": 87.6246,
+  "top7_quality_score": 62.4721,
   "corq_warning_flags": [
     "SURFACE_SUPPORT_PICK",
     "THINQ_EDGE_SUPPORT_PICK",
     "ELO_SUPPORT_PICK",
     "MARKET_WITH_PICK",
-    "NO_VALUE_PRICE"
+    "NO_VALUE_PRICE",
+    "NEGATIVE_VALUE_HARD",
+    "NEGATIVE_EV_HARD"
   ],
   "top7_support_tags": [
     "SURFACE_SUPPORT_PICK",
@@ -2591,7 +2607,7 @@
     "Market with pick"
   ],
   "top7_positive_support_count": 4,
-  "top7_risk_count": 1,
+  "top7_risk_count": 3,
   "top7_high_risk": false,
   "corq_rank": 52,
   "_corq_render_rank": 3

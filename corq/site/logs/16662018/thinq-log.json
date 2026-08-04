@@ -2575,18 +2575,24 @@
     {
       "tag": "CLEAN_MODEL_SUPPORT",
       "bonus": 3.0
+    },
+    {
+      "tag": "VALUE_NEUTRAL_PRICE",
+      "bonus": 1.25,
+      "value_delta_pp": -1.23
     }
   ],
   "top7_risk_penalty_points": 0.0,
-  "top7_clean_bonus_points": 8.5,
-  "top7_quality_score": 101.3642,
+  "top7_clean_bonus_points": 9.75,
+  "top7_quality_score": 100.216,
   "corq_warning_flags": [
     "FORM_SUPPORT_PICK",
     "SURFACE_SUPPORT_PICK",
     "THINQ_EDGE_SUPPORT_PICK",
     "ELO_SUPPORT_PICK",
     "MARKET_WITH_PICK",
-    "CLEAN_MODEL_SUPPORT"
+    "CLEAN_MODEL_SUPPORT",
+    "VALUE_NEUTRAL_PRICE"
   ],
   "top7_support_tags": [
     "FORM_SUPPORT_PICK",
@@ -2594,7 +2600,8 @@
     "THINQ_EDGE_SUPPORT_PICK",
     "ELO_SUPPORT_PICK",
     "MARKET_WITH_PICK",
-    "CLEAN_MODEL_SUPPORT"
+    "CLEAN_MODEL_SUPPORT",
+    "VALUE_NEUTRAL_PRICE"
   ],
   "top7_support_labels": [
     "Form support",
@@ -2602,9 +2609,10 @@
     "ThinQ edge support",
     "ELO support",
     "Market with pick",
-    "Clean model support"
+    "Clean model support",
+    "Value neutral"
   ],
-  "top7_positive_support_count": 6,
+  "top7_positive_support_count": 7,
   "top7_risk_count": 0,
   "top7_high_risk": false,
   "corq_rank": 1,

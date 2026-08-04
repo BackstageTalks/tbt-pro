@@ -2584,14 +2584,18 @@
     &quot;NO_VALUE_PRICE&quot;,
     &quot;LOW_DATA_CONFIDENCE&quot;,
     &quot;MULTI_RISK_PICK&quot;,
-    &quot;HIGH_RISK_PICK&quot;
+    &quot;HIGH_RISK_PICK&quot;,
+    &quot;NEGATIVE_VALUE_HARD&quot;,
+    &quot;NEGATIVE_EV_HARD&quot;
   ],
   &quot;top7_risk_labels&quot;: [
     &quot;Opp strong&quot;,
     &quot;No value&quot;,
     &quot;Low data confidence&quot;,
     &quot;Multiple risk signals&quot;,
-    &quot;High Risk&quot;
+    &quot;High Risk&quot;,
+    &quot;Negative value &gt;5pp&quot;,
+    &quot;Negative EV hard&quot;
   ],
   &quot;top7_risk_penalty_details&quot;: [
     {
@@ -2639,9 +2643,19 @@
       &quot;penalty&quot;: 4.0,
       &quot;risk_count&quot;: 3,
       &quot;penalty_before_high_risk&quot;: 13.5
+    },
+    {
+      &quot;tag&quot;: &quot;NEGATIVE_VALUE_HARD&quot;,
+      &quot;penalty&quot;: 5.0,
+      &quot;value_delta_pp&quot;: -7.61
+    },
+    {
+      &quot;tag&quot;: &quot;NEGATIVE_EV_HARD&quot;,
+      &quot;penalty&quot;: 4.0,
+      &quot;expected_value_pct&quot;: -12.33
     }
   ],
-  &quot;top7_risk_penalty_points&quot;: 17.5,
+  &quot;top7_risk_penalty_points&quot;: 26.5,
   &quot;top7_clean_bonus_points&quot;: 3.5,
   &quot;top7_quality_score&quot;: 0.0,
   &quot;corq_warning_flags&quot;: [
@@ -2652,7 +2666,9 @@
     &quot;NO_VALUE_PRICE&quot;,
     &quot;LOW_DATA_CONFIDENCE&quot;,
     &quot;MULTI_RISK_PICK&quot;,
-    &quot;HIGH_RISK_PICK&quot;
+    &quot;HIGH_RISK_PICK&quot;,
+    &quot;NEGATIVE_VALUE_HARD&quot;,
+    &quot;NEGATIVE_EV_HARD&quot;
   ],
   &quot;top7_support_tags&quot;: [
     &quot;H2H_SUPPORT_PICK&quot;,
@@ -2665,7 +2681,7 @@
     &quot;Market with pick&quot;
   ],
   &quot;top7_positive_support_count&quot;: 3,
-  &quot;top7_risk_count&quot;: 5,
+  &quot;top7_risk_count&quot;: 7,
   &quot;top7_high_risk&quot;: true,
   &quot;corq_rank&quot;: 71,
   &quot;_corq_render_rank&quot;: 47,

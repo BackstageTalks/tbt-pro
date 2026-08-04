@@ -2497,13 +2497,19 @@
   ],
   &quot;corq_source_rank&quot;: 65,
   &quot;top7_filter_mode&quot;: &quot;PUBLISHABLE_CORQ_THINQ_GUARD_V1&quot;,
-  &quot;top7_publishable&quot;: true,
-  &quot;eligible_for_top7&quot;: true,
-  &quot;top7_quality_reject_reasons&quot;: [],
-  &quot;top7_reject_reasons&quot;: [],
-  &quot;top7_hard_reject_reasons&quot;: [],
-  &quot;top7_primary_reject_reason&quot;: null,
-  &quot;top7_reject_reason_count&quot;: 0,
+  &quot;top7_publishable&quot;: false,
+  &quot;eligible_for_top7&quot;: false,
+  &quot;top7_quality_reject_reasons&quot;: [
+    &quot;REJECT_TOP7_SHORT_PRICE_VALUE_GUARD&quot;
+  ],
+  &quot;top7_reject_reasons&quot;: [
+    &quot;REJECT_TOP7_SHORT_PRICE_VALUE_GUARD&quot;
+  ],
+  &quot;top7_hard_reject_reasons&quot;: [
+    &quot;REJECT_TOP7_SHORT_PRICE_VALUE_GUARD&quot;
+  ],
+  &quot;top7_primary_reject_reason&quot;: &quot;REJECT_TOP7_SHORT_PRICE_VALUE_GUARD&quot;,
+  &quot;top7_reject_reason_count&quot;: 1,
   &quot;top7_reject_summary_scope&quot;: &quot;NON_PUBLISHABLE_ROWS_ONLY&quot;,
   &quot;top7_status_allowed&quot;: true,
   &quot;top7_status_type_normalized&quot;: &quot;notstarted&quot;,
@@ -2550,14 +2556,22 @@
     &quot;NO_VALUE_PRICE&quot;,
     &quot;SHORT_PRICE_RISK&quot;,
     &quot;MULTI_RISK_PICK&quot;,
-    &quot;HIGH_RISK_PICK&quot;
+    &quot;HIGH_RISK_PICK&quot;,
+    &quot;NEGATIVE_VALUE_HARD&quot;,
+    &quot;NEGATIVE_EV_HARD&quot;,
+    &quot;SHORT_NO_VALUE_COMBO&quot;,
+    &quot;SHORT_PRICE_VALUE_GUARD_FAIL&quot;
   ],
   &quot;top7_risk_labels&quot;: [
     &quot;ELO against pick&quot;,
     &quot;No value&quot;,
     &quot;Short price&quot;,
     &quot;Multiple risk signals&quot;,
-    &quot;High Risk&quot;
+    &quot;High Risk&quot;,
+    &quot;Negative value &gt;5pp&quot;,
+    &quot;Negative EV hard&quot;,
+    &quot;Short price + no value&quot;,
+    &quot;Short price guard fail&quot;
   ],
   &quot;top7_risk_penalty_details&quot;: [
     {
@@ -2619,11 +2633,46 @@
       &quot;penalty&quot;: 4.0,
       &quot;risk_count&quot;: 3,
       &quot;penalty_before_high_risk&quot;: 10.0
+    },
+    {
+      &quot;tag&quot;: &quot;NEGATIVE_VALUE_HARD&quot;,
+      &quot;penalty&quot;: 5.0,
+      &quot;value_delta_pp&quot;: -16.36
+    },
+    {
+      &quot;tag&quot;: &quot;NEGATIVE_EV_HARD&quot;,
+      &quot;penalty&quot;: 4.0,
+      &quot;expected_value_pct&quot;: -22.9
+    },
+    {
+      &quot;tag&quot;: &quot;SHORT_NO_VALUE_COMBO&quot;,
+      &quot;penalty&quot;: 5.0,
+      &quot;pick_odds&quot;: 1.4,
+      &quot;value_delta_pp&quot;: -16.36,
+      &quot;expected_value_pct&quot;: -22.9
+    },
+    {
+      &quot;tag&quot;: &quot;SHORT_PRICE_VALUE_GUARD_FAIL&quot;,
+      &quot;penalty&quot;: 8.0,
+      &quot;is_short_price&quot;: true,
+      &quot;support_count&quot;: 6,
+      &quot;pick_data_depth&quot;: 0.88925,
+      &quot;form_data_depth&quot;: 0.825,
+      &quot;thinq_confidence&quot;: 0.84,
+      &quot;value_delta_pp&quot;: -16.36,
+      &quot;expected_value_pct&quot;: -22.9,
+      &quot;min_support_count&quot;: 5,
+      &quot;min_pick_data_depth&quot;: 0.75,
+      &quot;min_form_data_depth&quot;: 0.7,
+      &quot;min_thinq_confidence&quot;: 0.75,
+      &quot;min_value_delta_pp&quot;: -5.0,
+      &quot;min_expected_value_pct&quot;: -7.5,
+      &quot;short_price_gate_ok&quot;: false
     }
   ],
-  &quot;top7_risk_penalty_points&quot;: 14.0,
+  &quot;top7_risk_penalty_points&quot;: 36.0,
   &quot;top7_clean_bonus_points&quot;: 7.5,
-  &quot;top7_quality_score&quot;: 65.9081,
+  &quot;top7_quality_score&quot;: 0.0,
   &quot;corq_warning_flags&quot;: [
     &quot;PICK_STRONG_FORM&quot;,
     &quot;FORM_SUPPORT_PICK&quot;,
@@ -2635,7 +2684,11 @@
     &quot;NO_VALUE_PRICE&quot;,
     &quot;SHORT_PRICE_RISK&quot;,
     &quot;MULTI_RISK_PICK&quot;,
-    &quot;HIGH_RISK_PICK&quot;
+    &quot;HIGH_RISK_PICK&quot;,
+    &quot;NEGATIVE_VALUE_HARD&quot;,
+    &quot;NEGATIVE_EV_HARD&quot;,
+    &quot;SHORT_NO_VALUE_COMBO&quot;,
+    &quot;SHORT_PRICE_VALUE_GUARD_FAIL&quot;
   ],
   &quot;top7_support_tags&quot;: [
     &quot;PICK_STRONG_FORM&quot;,
@@ -2654,7 +2707,7 @@
     &quot;Market with pick&quot;
   ],
   &quot;top7_positive_support_count&quot;: 6,
-  &quot;top7_risk_count&quot;: 5,
+  &quot;top7_risk_count&quot;: 9,
   &quot;top7_high_risk&quot;: true,
   &quot;corq_rank&quot;: 65,
   &quot;_corq_render_rank&quot;: 10

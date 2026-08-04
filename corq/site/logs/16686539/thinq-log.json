@@ -69,7 +69,7 @@
             "shortNameTranslation": {}
           }
         },
-        "userCount": 3359,
+        "userCount": 3588,
         "groundType": "Hardcourt outdoor",
         "tennisPoints": 1000,
         "hasPerformanceGraphFeature": false,
@@ -121,7 +121,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 7944,
+      "userCount": 7969,
       "playerTeamInfo": {
         "id": 35
       },
@@ -165,7 +165,7 @@
         "slug": "tennis",
         "id": 5
       },
-      "userCount": 10886,
+      "userCount": 10935,
       "playerTeamInfo": {
         "id": 180
       },
@@ -2528,7 +2528,7 @@
     "FAIR",
     "VALUE_POSITIVE"
   ],
-  "corq_source_rank": 75,
+  "corq_source_rank": 74,
   "top7_filter_mode": "PUBLISHABLE_CORQ_THINQ_GUARD_V1",
   "top7_publishable": false,
   "eligible_for_top7": false,
@@ -2659,10 +2659,15 @@
       "penalty": 4.0,
       "risk_count": 3,
       "penalty_before_high_risk": 13.0
+    },
+    {
+      "tag": "VALUE_POSITIVE_CONFIRMED",
+      "bonus": 2.5,
+      "value_delta_pp": 3.58
     }
   ],
   "top7_risk_penalty_points": 17.0,
-  "top7_clean_bonus_points": 7.5,
+  "top7_clean_bonus_points": 10.0,
   "top7_quality_score": 0.0,
   "corq_warning_flags": [
     "SURFACE_H2H_AGAINST_PICK",
@@ -2675,7 +2680,8 @@
     "MARKET_AGAINST_PICK",
     "VALUE_POSITIVE",
     "MULTI_RISK_PICK",
-    "HIGH_RISK_PICK"
+    "HIGH_RISK_PICK",
+    "VALUE_POSITIVE_CONFIRMED"
   ],
   "top7_support_tags": [
     "OPP_WEAK_FORM",
@@ -2683,7 +2689,8 @@
     "SURFACE_SUPPORT_PICK",
     "THINQ_EDGE_SUPPORT_PICK",
     "ELO_SUPPORT_PICK",
-    "VALUE_POSITIVE"
+    "VALUE_POSITIVE",
+    "VALUE_POSITIVE_CONFIRMED"
   ],
   "top7_support_labels": [
     "Opp weak",
@@ -2691,11 +2698,12 @@
     "Surface support",
     "ThinQ edge support",
     "ELO support",
-    "Value+"
+    "Value+",
+    "Value positive"
   ],
-  "top7_positive_support_count": 6,
+  "top7_positive_support_count": 7,
   "top7_risk_count": 5,
   "top7_high_risk": true,
-  "corq_rank": 75,
+  "corq_rank": 74,
   "_corq_render_rank": 43
 }

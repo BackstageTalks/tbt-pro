@@ -2555,18 +2555,24 @@
       "tag": "VALUE_POSITIVE",
       "bonus": 1.5,
       "value": 0.22
+    },
+    {
+      "tag": "VALUE_POSITIVE_CONFIRMED",
+      "bonus": 2.5,
+      "value_delta_pp": 0.22
     }
   ],
   "top7_risk_penalty_points": 0.0,
-  "top7_clean_bonus_points": 7.5,
-  "top7_quality_score": 90.5547,
+  "top7_clean_bonus_points": 10.0,
+  "top7_quality_score": 90.3578,
   "corq_warning_flags": [
     "OPP_WEAK_FORM",
     "FORM_SUPPORT_PICK",
     "SURFACE_SUPPORT_PICK",
     "THINQ_EDGE_SUPPORT_PICK",
     "ELO_SUPPORT_PICK",
-    "VALUE_POSITIVE"
+    "VALUE_POSITIVE",
+    "VALUE_POSITIVE_CONFIRMED"
   ],
   "top7_support_tags": [
     "OPP_WEAK_FORM",
@@ -2574,7 +2580,8 @@
     "SURFACE_SUPPORT_PICK",
     "THINQ_EDGE_SUPPORT_PICK",
     "ELO_SUPPORT_PICK",
-    "VALUE_POSITIVE"
+    "VALUE_POSITIVE",
+    "VALUE_POSITIVE_CONFIRMED"
   ],
   "top7_support_labels": [
     "Opp weak",
@@ -2582,12 +2589,13 @@
     "Surface support",
     "ThinQ edge support",
     "ELO support",
-    "Value+"
+    "Value+",
+    "Value positive"
   ],
-  "top7_positive_support_count": 6,
+  "top7_positive_support_count": 7,
   "top7_risk_count": 0,
   "top7_high_risk": false,
-  "corq_rank": 6,
-  "top7_rank": 6,
+  "corq_rank": 5,
+  "top7_rank": 5,
   "_corq_render_rank": 6
 }

@@ -2606,11 +2606,16 @@
       "penalty": 4.0,
       "risk_count": 3,
       "penalty_before_high_risk": 11.5
+    },
+    {
+      "tag": "VALUE_POSITIVE_CONFIRMED",
+      "bonus": 2.5,
+      "value_delta_pp": 4.9
     }
   ],
   "top7_risk_penalty_points": 15.5,
-  "top7_clean_bonus_points": 4.5,
-  "top7_quality_score": 61.5681,
+  "top7_clean_bonus_points": 7.0,
+  "top7_quality_score": 62.4487,
   "corq_warning_flags": [
     "SURFACE_H2H_AGAINST_PICK",
     "SURFACE_SUPPORT_PICK",
@@ -2620,21 +2625,24 @@
     "VALUE_POSITIVE",
     "MMX_MODEL_MARKET_CONFLICT",
     "MULTI_RISK_PICK",
-    "HIGH_RISK_PICK"
+    "HIGH_RISK_PICK",
+    "VALUE_POSITIVE_CONFIRMED"
   ],
   "top7_support_tags": [
     "SURFACE_SUPPORT_PICK",
     "THINQ_EDGE_SUPPORT_PICK",
     "ELO_SUPPORT_PICK",
-    "VALUE_POSITIVE"
+    "VALUE_POSITIVE",
+    "VALUE_POSITIVE_CONFIRMED"
   ],
   "top7_support_labels": [
     "Surface support",
     "ThinQ edge support",
     "ELO support",
-    "Value+"
+    "Value+",
+    "Value positive"
   ],
-  "top7_positive_support_count": 4,
+  "top7_positive_support_count": 5,
   "top7_risk_count": 5,
   "top7_high_risk": true,
   "corq_rank": 84,

@@ -70,7 +70,7 @@
             &quot;shortNameTranslation&quot;: {}
           }
         },
-        &quot;userCount&quot;: 3359,
+        &quot;userCount&quot;: 3588,
         &quot;groundType&quot;: &quot;Hardcourt outdoor&quot;,
         &quot;tennisPoints&quot;: 1000,
         &quot;hasPerformanceGraphFeature&quot;: false,
@@ -121,7 +121,7 @@
         &quot;slug&quot;: &quot;tennis&quot;,
         &quot;id&quot;: 5
       },
-      &quot;userCount&quot;: 2890,
+      &quot;userCount&quot;: 2892,
       &quot;playerTeamInfo&quot;: {
         &quot;id&quot;: 4500
       },
@@ -165,7 +165,7 @@
         &quot;slug&quot;: &quot;tennis&quot;,
         &quot;id&quot;: 5
       },
-      &quot;userCount&quot;: 53188,
+      &quot;userCount&quot;: 53228,
       &quot;playerTeamInfo&quot;: {
         &quot;id&quot;: 11
       },
@@ -2566,12 +2566,18 @@
   &quot;top7_risk_tags&quot;: [
     &quot;NO_VALUE_PRICE&quot;,
     &quot;LOW_DATA_CONFIDENCE&quot;,
-    &quot;MULTI_RISK_PICK&quot;
+    &quot;MULTI_RISK_PICK&quot;,
+    &quot;NEGATIVE_VALUE_HARD&quot;,
+    &quot;NEGATIVE_EV_HARD&quot;,
+    &quot;HIGH_RISK_PICK&quot;
   ],
   &quot;top7_risk_labels&quot;: [
     &quot;No value&quot;,
     &quot;Low data confidence&quot;,
-    &quot;Multiple risk signals&quot;
+    &quot;Multiple risk signals&quot;,
+    &quot;Negative value &gt;5pp&quot;,
+    &quot;Negative EV hard&quot;,
+    &quot;High Risk&quot;
   ],
   &quot;top7_risk_penalty_details&quot;: [
     {
@@ -2601,9 +2607,19 @@
       &quot;tag&quot;: &quot;MULTI_RISK_PICK&quot;,
       &quot;penalty&quot;: 3.0,
       &quot;risk_count&quot;: 2
+    },
+    {
+      &quot;tag&quot;: &quot;NEGATIVE_VALUE_HARD&quot;,
+      &quot;penalty&quot;: 5.0,
+      &quot;value_delta_pp&quot;: -9.21
+    },
+    {
+      &quot;tag&quot;: &quot;NEGATIVE_EV_HARD&quot;,
+      &quot;penalty&quot;: 4.0,
+      &quot;expected_value_pct&quot;: -14.47
     }
   ],
-  &quot;top7_risk_penalty_points&quot;: 8.5,
+  &quot;top7_risk_penalty_points&quot;: 17.5,
   &quot;top7_clean_bonus_points&quot;: 2.5,
   &quot;top7_quality_score&quot;: 0.0,
   &quot;corq_warning_flags&quot;: [
@@ -2611,7 +2627,10 @@
     &quot;MARKET_WITH_PICK&quot;,
     &quot;NO_VALUE_PRICE&quot;,
     &quot;LOW_DATA_CONFIDENCE&quot;,
-    &quot;MULTI_RISK_PICK&quot;
+    &quot;MULTI_RISK_PICK&quot;,
+    &quot;NEGATIVE_VALUE_HARD&quot;,
+    &quot;NEGATIVE_EV_HARD&quot;,
+    &quot;HIGH_RISK_PICK&quot;
   ],
   &quot;top7_support_tags&quot;: [
     &quot;FORM_SUPPORT_PICK&quot;,
@@ -2622,8 +2641,8 @@
     &quot;Market with pick&quot;
   ],
   &quot;top7_positive_support_count&quot;: 2,
-  &quot;top7_risk_count&quot;: 3,
-  &quot;top7_high_risk&quot;: false,
+  &quot;top7_risk_count&quot;: 6,
+  &quot;top7_high_risk&quot;: true,
   &quot;corq_rank&quot;: 69,
   &quot;_corq_render_rank&quot;: 15
 }</pre></body></html>

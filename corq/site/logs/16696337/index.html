@@ -70,7 +70,7 @@
             &quot;shortNameTranslation&quot;: {}
           }
         },
-        &quot;userCount&quot;: 3359,
+        &quot;userCount&quot;: 3588,
         &quot;groundType&quot;: &quot;Hardcourt outdoor&quot;,
         &quot;tennisPoints&quot;: 1000,
         &quot;hasPerformanceGraphFeature&quot;: false,
@@ -122,7 +122,7 @@
         &quot;slug&quot;: &quot;tennis&quot;,
         &quot;id&quot;: 5
       },
-      &quot;userCount&quot;: 2594,
+      &quot;userCount&quot;: 2651,
       &quot;playerTeamInfo&quot;: {
         &quot;id&quot;: 5270
       },
@@ -166,7 +166,7 @@
         &quot;slug&quot;: &quot;tennis&quot;,
         &quot;id&quot;: 5
       },
-      &quot;userCount&quot;: 11320,
+      &quot;userCount&quot;: 11347,
       &quot;playerTeamInfo&quot;: {
         &quot;id&quot;: 159
       },
@@ -2528,7 +2528,7 @@
     &quot;FAIR&quot;,
     &quot;VALUE_NEGATIVE&quot;
   ],
-  &quot;corq_source_rank&quot;: 74,
+  &quot;corq_source_rank&quot;: 73,
   &quot;top7_filter_mode&quot;: &quot;PUBLISHABLE_CORQ_THINQ_GUARD_V1&quot;,
   &quot;top7_publishable&quot;: false,
   &quot;eligible_for_top7&quot;: false,
@@ -2585,10 +2585,14 @@
     &quot;odds_available&quot;: true
   },
   &quot;top7_risk_tags&quot;: [
-    &quot;NO_VALUE_PRICE&quot;
+    &quot;NO_VALUE_PRICE&quot;,
+    &quot;NEGATIVE_VALUE_HARD&quot;,
+    &quot;NEGATIVE_EV_HARD&quot;
   ],
   &quot;top7_risk_labels&quot;: [
-    &quot;No value&quot;
+    &quot;No value&quot;,
+    &quot;Negative value &gt;5pp&quot;,
+    &quot;Negative EV hard&quot;
   ],
   &quot;top7_risk_penalty_details&quot;: [
     {
@@ -2622,9 +2626,19 @@
       &quot;tag&quot;: &quot;NO_VALUE_PRICE&quot;,
       &quot;penalty&quot;: 3.0,
       &quot;value&quot;: -6.13
+    },
+    {
+      &quot;tag&quot;: &quot;NEGATIVE_VALUE_HARD&quot;,
+      &quot;penalty&quot;: 5.0,
+      &quot;value_delta_pp&quot;: -6.13
+    },
+    {
+      &quot;tag&quot;: &quot;NEGATIVE_EV_HARD&quot;,
+      &quot;penalty&quot;: 4.0,
+      &quot;expected_value_pct&quot;: -10.24
     }
   ],
-  &quot;top7_risk_penalty_points&quot;: 3.0,
+  &quot;top7_risk_penalty_points&quot;: 12.0,
   &quot;top7_clean_bonus_points&quot;: 5.5,
   &quot;top7_quality_score&quot;: 0.0,
   &quot;corq_warning_flags&quot;: [
@@ -2633,7 +2647,9 @@
     &quot;THINQ_EDGE_SUPPORT_PICK&quot;,
     &quot;ELO_SUPPORT_PICK&quot;,
     &quot;MARKET_WITH_PICK&quot;,
-    &quot;NO_VALUE_PRICE&quot;
+    &quot;NO_VALUE_PRICE&quot;,
+    &quot;NEGATIVE_VALUE_HARD&quot;,
+    &quot;NEGATIVE_EV_HARD&quot;
   ],
   &quot;top7_support_tags&quot;: [
     &quot;FORM_SUPPORT_PICK&quot;,
@@ -2650,8 +2666,8 @@
     &quot;Market with pick&quot;
   ],
   &quot;top7_positive_support_count&quot;: 5,
-  &quot;top7_risk_count&quot;: 1,
+  &quot;top7_risk_count&quot;: 3,
   &quot;top7_high_risk&quot;: false,
-  &quot;corq_rank&quot;: 74,
+  &quot;corq_rank&quot;: 73,
   &quot;_corq_render_rank&quot;: 51
 }</pre></body></html>
