@@ -121,6 +121,11 @@ jobs:
               raise SystemExit("CloQ runtime did not create outputs/latest_cloq.json")
           PY
 
+      - name: Build MarQ API coverage report
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
+        run: |
+          python tools/marq_coverage_report.py --output-root outputs
+
       - name: Create immutable CorQ daily snapshot
         if: ${{ steps.local_time.outputs.should_run == 'true' }}
         run: |
