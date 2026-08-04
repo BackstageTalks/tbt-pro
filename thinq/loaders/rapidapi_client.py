@@ -48,6 +48,8 @@ except Exception:
 
 LOCAL_TZ = ZoneInfo("Europe/Bratislava")
 _DAILY_ODDS_BY_DATE_CACHE: Dict[str, List[Dict[str, Any]]] = {}
+TENNISAPI_MAX_PAGE_SIZE = 200
+
 
 
 class RapidApiError(RuntimeError):
@@ -354,8 +356,33 @@ class RapidApiClient:
     def headers(self) -> Dict[str, str]:
         return {"x-rapidapi-key": str(self.api_key), "x-rapidapi-host": str(self.host)}
 
+    def _sanitize_params(self, params: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+        """Apply provider paging rule: pageSize must never exceed 200.
+
+        Mail from TennisApi provider says requests above pageSize=200 are
+        automatically cut to 200. Keeping the request explicit avoids silent
+        partial data. Pagination must use pageNo=1,2,3... in callers that need
+        more than one page.
+        """
+        clean = dict(params or {})
+        for key in ("pageSize", "page_size", "pagesize"):
+            if key not in clean:
+                continue
+            try:
+                value = int(float(clean.get(key)))
+            except Exception:
+                value = TENNISAPI_MAX_PAGE_SIZE
+            if value > TENNISAPI_MAX_PAGE_SIZE:
+                print(f"RAPIDAPI PAGE SIZE CLAMP key={key} requested={value} capped={TENNISAPI_MAX_PAGE_SIZE}")
+                value = TENNISAPI_MAX_PAGE_SIZE
+            if value <= 0:
+                value = TENNISAPI_MAX_PAGE_SIZE
+            clean[key] = value
+        return clean
+
     def get(self, path: str, params: Optional[Dict[str, Any]] = None) -> Optional[Any]:
         url = f"https://{self.host}{path}"
+        params = self._sanitize_params(params)
         attempts = 2
         self.last_get_path = path
         self.last_get_status = None
@@ -650,14 +677,17 @@ class RapidApiClient:
     def get_event_odds(self, event_id: Any, match: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
         """Fetch and normalize match-winner odds for one event.
 
-        Production Daily runtime is intentionally strict now:
-        - use only /api/tennis/event/{event_id}/odds/{provider}/all
-        - do not call featured odds, provider winning-odds, basic event odds,
-          date-batch odds fallback, or RapidAPI operation-name paths.
+        Production Daily runtime uses TennisApi exact-event odds only.
+        Endpoint order mirrors MarQ V2 cleanup:
+        1. /api/tennis/event/{event_id}/odds/{provider}/all
+           Preferred because it can include initialFractionalValue for open/move.
+        2. /api/tennis/event/{event_id}/provider/{provider}/winning-odds
+           Current-only fallback.
 
-        Reason: latest endpoint audit showed odds/{provider}/all is the only
-        useful TennisApi PRO odds endpoint in Daily, while the removed fallbacks
-        produced 204/404 noise and unnecessary request pressure.
+        The observed betting-odds path returns 404 in production logs, so it is
+        disabled by default and can be enabled only with
+        TENNISAPI_ENABLE_BETTING_ODDS_ENDPOINT=true. No Bet365, no Tennis Live,
+        no date/name fuzzy matching and no date-batch odds fallback are used.
         """
         self.last_odds_attempts = []
         self.last_odds_status = "MISSING"
@@ -671,41 +701,47 @@ class RapidApiClient:
         event_id_text = str(event_id)
 
         for provider in self._provider_ids_for_odds():
-            name = f"provider_all_odds[{provider}]"
-            path = f"/api/tennis/event/{event_id_text}/odds/{provider}/all"
-            self.last_odds_request_count += 1
-            payload = self.get(path)
-            status = getattr(self, "last_get_status", None)
-            note = getattr(self, "last_get_note", None)
-
-            if not payload:
-                self._record_odds_endpoint_stat(name, status, note, useful=False)
-                self.last_odds_attempts.append(f"{name}:NO_PAYLOAD:{status or note or 'UNKNOWN'}")
-                continue
-
-            normalized = normalize_winner_odds_payload(payload)
-            if not normalized:
-                self._record_odds_endpoint_stat(name, status, note or "NO_WINNER_MARKET", useful=False)
-                self.last_odds_attempts.append(f"{name}:NO_WINNER_MARKET:{status or note or 'UNKNOWN'}")
-                continue
-
-            self._record_odds_endpoint_stat(name, status, note or "OK", useful=True)
-            normalized["odds_endpoint"] = path
-            normalized["odds_endpoint_name"] = name
-            normalized["odds_source"] = normalized.get("odds_source") or f"RapidAPI PRO {name}"
-            normalized["odds_status"] = "OK"
-            normalized["odds_attempts"] = list(self.last_odds_attempts) + [f"{name}:OK"]
-            normalized["odds_request_count"] = self.last_odds_request_count
-            normalized["odds_removed_fallbacks"] = [
-                "/api/tennis/event/{event_id}/odds",
-                "/api/tennis/event/{event_id}/odds/{provider}/featured",
-                "/api/tennis/event/{event_id}/provider/{provider}/winning-odds",
-                "/api/tennis/events/odds/{day}/{month}/{year}",
+            endpoint_candidates = [
+                (f"provider_all_odds[{provider}]", f"/api/tennis/event/{event_id_text}/odds/{provider}/all"),
+                (f"provider_winning_odds[{provider}]", f"/api/tennis/event/{event_id_text}/provider/{provider}/winning-odds"),
             ]
-            self.last_odds_attempts = normalized["odds_attempts"]
-            self.last_odds_status = "OK"
-            self.last_odds_endpoint = path
-            return normalized
+            if str(os.getenv("TENNISAPI_ENABLE_BETTING_ODDS_ENDPOINT", "")).strip().lower() in {"1", "true", "yes", "on"}:
+                endpoint_candidates.append((f"provider_betting_odds[{provider}]", f"/api/tennis/event/{event_id_text}/provider/{provider}/betting-odds"))
+            for name, path in endpoint_candidates:
+                self.last_odds_request_count += 1
+                payload = self.get(path)
+                status = getattr(self, "last_get_status", None)
+                note = getattr(self, "last_get_note", None)
+
+                if not payload:
+                    self._record_odds_endpoint_stat(name, status, note, useful=False)
+                    self.last_odds_attempts.append(f"{name}:NO_PAYLOAD:{status or note or 'UNKNOWN'}")
+                    continue
+
+                normalized = normalize_winner_odds_payload(payload)
+                if not normalized:
+                    self._record_odds_endpoint_stat(name, status, note or "NO_WINNER_MARKET", useful=False)
+                    self.last_odds_attempts.append(f"{name}:NO_WINNER_MARKET:{status or note or 'UNKNOWN'}")
+                    continue
+
+                self._record_odds_endpoint_stat(name, status, note or "OK", useful=True)
+                normalized["odds_endpoint"] = path
+                normalized["odds_endpoint_name"] = name
+                normalized["odds_source"] = normalized.get("odds_source") or f"RapidAPI PRO {name}"
+                normalized["odds_status"] = "OK"
+                normalized["odds_attempts"] = list(self.last_odds_attempts) + [f"{name}:OK"]
+                normalized["odds_request_count"] = self.last_odds_request_count
+                normalized["odds_removed_fallbacks"] = [
+                    "Bet365PrematchAPI",
+                    "TennisLiveAPI",
+                    "/api/tennis/events/odds/{day}/{month}/{year}",
+                    "date/name fuzzy matching",
+                    "non-exact event discovery for odds",
+                ]
+                self.last_odds_attempts = normalized["odds_attempts"]
+                self.last_odds_status = "OK"
+                self.last_odds_endpoint = path
+                return normalized
 
         self.last_odds_status = "NO_ODDS_ALL_ONLY"
         return None
