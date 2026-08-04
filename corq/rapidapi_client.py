@@ -645,6 +645,8 @@ class RapidApiClient:
         player1_id: Any,
         player2_id: Any,
         surface: Optional[str] = None,
+        player1_name: Optional[str] = None,
+        player2_name: Optional[str] = None,
     ) -> Dict[str, Any]:
         tour = str(tour_type or "").strip().lower()
         if tour not in {"atp", "wta"}:
@@ -657,15 +659,39 @@ class RapidApiClient:
         if surface:
             params["surface"] = str(surface).lower().replace("hardcourt", "hard")
         payload = self.get_on_host(host, path, params=params or None)
+        primary_status = self.last_get_note or "NO_DATA"
         if not payload:
+            # The provider ID endpoint may return 404 for event-side IDs even
+            # when name-based MatchStat H2H stats are available. Try the
+            # documented name-based endpoint before declaring the data missing.
+            if str(player1_name or "").strip() and str(player2_name or "").strip():
+                fallback = self.get_h2h_stats_by_names(tour, str(player1_name), str(player2_name), surface=surface)
+                fallback_status = str(fallback.get("api_serve_stats_status") or "NO_DATA")
+                fallback["api_h2h_primary_status"] = primary_status
+                fallback["api_h2h_primary_path"] = path
+                fallback["api_h2h_fallback_status"] = fallback_status
+                if fallback_status == "OK":
+                    fallback["api_h2h_resolution"] = "NAME_ENDPOINT"
+                    return fallback
+                fallback["api_serve_stats_status"] = "NOT_FOUND_BOTH_ENDPOINTS" if primary_status == "NOT_FOUND" and fallback_status == "NOT_FOUND" else f"PRIMARY_{primary_status}_FALLBACK_{fallback_status}"
+                fallback["api_h2h_resolution"] = "NOT_FOUND"
+                return fallback
             return {
-                "api_serve_stats_status": self.last_get_note or "NO_DATA",
+                "api_serve_stats_status": primary_status,
                 "api_serve_stats_source": "TENNISAPI_H2H_STATS",
                 "api_h2h_source_host": host,
                 "api_h2h_source_path": path,
                 "api_h2h_surface": surface,
+                "api_h2h_primary_status": primary_status,
+                "api_h2h_primary_path": path,
+                "api_h2h_resolution": "NOT_FOUND",
             }
-        return self._normalize_h2h_stats_payload(payload, source_path=path, source_host=host, surface=surface)
+        result = self._normalize_h2h_stats_payload(payload, source_path=path, source_host=host, surface=surface)
+        result["api_h2h_primary_status"] = "OK"
+        result["api_h2h_primary_path"] = path
+        result["api_h2h_fallback_status"] = "NOT_TRIED"
+        result["api_h2h_resolution"] = "ID_ENDPOINT"
+        return result
 
     def get_h2h_stats_by_names(
         self,
@@ -689,14 +715,17 @@ class RapidApiClient:
             params["surface"] = str(surface).lower().replace("hardcourt", "hard")
         payload = self.get_on_host(host, path, params=params or None)
         if not payload:
+            status = self.last_get_note or "NO_DATA"
             return {
-                "api_serve_stats_status": self.last_get_note or "NO_DATA",
+                "api_serve_stats_status": status,
                 "api_serve_stats_source": "TENNISAPI_H2H_STATS",
                 "api_h2h_source_host": host,
                 "api_h2h_source_path": path,
                 "api_h2h_surface": surface,
+                "api_h2h_fallback_status": status,
+                "api_h2h_resolution": "NOT_FOUND",
             }
-        return self._normalize_h2h_stats_payload(
+        result = self._normalize_h2h_stats_payload(
             payload,
             source_path=path,
             source_host=host,
@@ -704,6 +733,9 @@ class RapidApiClient:
             player2_name=player2_name,
             surface=surface,
         )
+        result["api_h2h_fallback_status"] = "OK"
+        result.setdefault("api_h2h_resolution", "NAME_ENDPOINT")
+        return result
 
 
     def _ranking_endpoint_templates(self) -> List[str]:

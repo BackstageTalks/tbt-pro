@@ -598,6 +598,7 @@ def _flatten_thinq_payload(record: Dict[str, Any], thinq: Dict[str, Any]) -> Non
         "api_pick_winning_second_serve_pct", "api_opp_winning_second_serve_pct",
         "api_pick_serve_matches", "api_opp_serve_matches", "api_pick_serve_attempts", "api_opp_serve_attempts",
         "api_pick_serve_scope", "api_opp_serve_scope", "api_pick_serve_year", "api_opp_serve_year",
+        "api_h2h_primary_status", "api_h2h_primary_path", "api_h2h_fallback_status", "api_h2h_resolution",
         "pick_aces_projection", "opponent_aces_projection", "total_aces_projection",
         "pick_df_projection", "opponent_df_projection", "total_df_projection", "aces_status", "df_status",
     ])
@@ -788,7 +789,14 @@ def _enrich_with_api_h2h_stats(record: Dict[str, Any], client: Any, request_stat
     state["count"] = int(state.get("count", 0)) + 1
     try:
         if p1_id not in (None, "") and p2_id not in (None, ""):
-            stats = client.get_h2h_stats_by_ids(tour, p1_id, p2_id, surface=surface)
+            stats = client.get_h2h_stats_by_ids(
+                tour,
+                p1_id,
+                p2_id,
+                surface=surface,
+                player1_name=str(p1 or ""),
+                player2_name=str(p2 or ""),
+            )
         else:
             stats = client.get_h2h_stats_by_names(tour, str(p1 or ""), str(p2 or ""), surface=surface)
     except Exception as exc:
