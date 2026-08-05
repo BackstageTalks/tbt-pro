@@ -1363,9 +1363,49 @@ def _snapshot_rows(rows: List[Dict[str, Any]], *, snapshot_type: str, context: D
     return out
 
 
-def _write_json_if_missing(path: Path, rows: List[Dict[str, Any]]) -> None:
+SNAPSHOT_REQUIRED_FIELDS = (
+    "snapshot_id",
+    "snapshot_type",
+    "snapshot_source",
+    "snapshot_rank",
+    "snapshot_date",
+    "betting_day",
+    "betting_day_start_local",
+    "betting_day_end_local",
+    "snapshot_created_at_utc",
+    "results_status",
+)
+
+
+def _rows_missing_snapshot_metadata(rows: List[Dict[str, Any]]) -> bool:
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        for key in SNAPSHOT_REQUIRED_FIELDS:
+            if row.get(key) in (None, ""):
+                return True
+    return False
+
+
+def _write_snapshot_json(path: Path, rows: List[Dict[str, Any]], *, snapshot_type: str, context: Dict[str, str]) -> None:
+    """Write immutable snapshot rows, repairing only missing metadata if needed.
+
+    The pick list and market/model fields remain immutable. If an older dated
+    snapshot exists without metadata, enrich existing rows in place so Results
+    and Telegram can identify the morning snapshot safely.
+    """
     if path.exists():
-        print(f"Immutable snapshot exists, preserving first file: {path}")
+        try:
+            existing_payload = json.loads(path.read_text(encoding="utf-8"))
+            existing_rows = existing_payload if isinstance(existing_payload, list) else []
+        except Exception:
+            existing_rows = []
+        if existing_rows and _rows_missing_snapshot_metadata(existing_rows):
+            repaired_rows = _snapshot_rows(existing_rows, snapshot_type=snapshot_type, context=context)
+            path.write_text(json.dumps(repaired_rows, ensure_ascii=False, indent=2), encoding="utf-8")
+            print(f"Repaired missing snapshot metadata without changing picks: {path}")
+        else:
+            print(f"Immutable snapshot exists, preserving first file: {path}")
         return
     path.write_text(json.dumps(rows, ensure_ascii=False, indent=2), encoding="utf-8")
 
@@ -1386,8 +1426,8 @@ def _write_results_foundation_snapshots(
     all_path = root / f"{day}_all_audit_snapshot.json"
     top7_snapshot_rows = _snapshot_rows(top7_rows, snapshot_type="CORQ_TOP7", context=context)
     all_snapshot_rows = _snapshot_rows(all_rows, snapshot_type="ALL_AUDIT", context=context)
-    _write_json_if_missing(top7_path, top7_snapshot_rows)
-    _write_json_if_missing(all_path, all_snapshot_rows)
+    _write_snapshot_json(top7_path, top7_snapshot_rows, snapshot_type="CORQ_TOP7", context=context)
+    _write_snapshot_json(all_path, all_snapshot_rows, snapshot_type="ALL_AUDIT", context=context)
     latest_root = Path(output_root) / "snapshots"
     latest_root.mkdir(parents=True, exist_ok=True)
     # latest_* points to the immutable dated snapshot for the current betting day.
