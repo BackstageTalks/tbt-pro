@@ -16,7 +16,8 @@ import os
 import re
 import traceback
 import unicodedata
-from datetime import date, datetime, timezone
+from datetime import date, datetime, time, timedelta, timezone
+from zoneinfo import ZoneInfo
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -1316,30 +1317,101 @@ def _enrich_with_price_value(record: Dict[str, Any]) -> Dict[str, Any]:
     record["price_value_tags"] = tags
     return record
 
+def _betting_day_context(run_date: Optional[str] = None) -> Dict[str, str]:
+    """Return the Europe/Bratislava betting day window: 06:00 to 06:00.
+
+    Matches after midnight but before 06:00 local time belong to the previous
+    betting day. This is used for immutable morning snapshots and Results.
+    """
+    tz = ZoneInfo("Europe/Bratislava")
+    if run_date:
+        base_day = datetime.fromisoformat(str(run_date)[:10]).date()
+    else:
+        now = datetime.now(tz)
+        base_day = now.date() - timedelta(days=1) if now.hour < 6 else now.date()
+    start_local = datetime.combine(base_day, time(hour=6), tzinfo=tz)
+    end_local = start_local + timedelta(days=1)
+    return {
+        "betting_day": base_day.isoformat(),
+        "snapshot_date": base_day.isoformat(),
+        "betting_day_start_local": start_local.isoformat(),
+        "betting_day_end_local": end_local.isoformat(),
+        "timezone": "Europe/Bratislava",
+    }
+
+
+def _snapshot_rows(rows: List[Dict[str, Any]], *, snapshot_type: str, context: Dict[str, str]) -> List[Dict[str, Any]]:
+    out: List[Dict[str, Any]] = []
+    snapshot_id = f"{snapshot_type}_{context['betting_day']}"
+    created_at = datetime.now(timezone.utc).isoformat()
+    for idx, row in enumerate(rows or [], start=1):
+        if not isinstance(row, dict):
+            continue
+        item = dict(row)
+        item.setdefault("snapshot_id", snapshot_id)
+        item.setdefault("snapshot_type", snapshot_type)
+        item.setdefault("snapshot_source", "CORQ_DAILY")
+        item.setdefault("snapshot_rank", idx)
+        item.setdefault("snapshot_date", context["snapshot_date"])
+        item.setdefault("betting_day", context["betting_day"])
+        item.setdefault("betting_day_start_local", context["betting_day_start_local"])
+        item.setdefault("betting_day_end_local", context["betting_day_end_local"])
+        item.setdefault("snapshot_timezone", context["timezone"])
+        item.setdefault("snapshot_created_at_utc", created_at)
+        item.setdefault("results_status", "PENDING")
+        out.append(item)
+    return out
+
+
+def _write_json_if_missing(path: Path, rows: List[Dict[str, Any]]) -> None:
+    if path.exists():
+        print(f"Immutable snapshot exists, preserving first file: {path}")
+        return
+    path.write_text(json.dumps(rows, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
 def _write_results_foundation_snapshots(
     all_rows: List[Dict[str, Any]],
     top7_rows: List[Dict[str, Any]],
     run_date: Optional[str],
     output_root: str,
 ) -> Dict[str, str]:
-    """Store immutable daily snapshots for future Results evaluation."""
-    day = (run_date or date.today().isoformat())[:10]
+    """Store immutable morning snapshots for future Results evaluation."""
+    context = _betting_day_context(run_date)
+    day = context["betting_day"]
     year = day[:4]
     root = Path(output_root) / "snapshots" / year
     root.mkdir(parents=True, exist_ok=True)
     top7_path = root / f"{day}_corq_top7_snapshot.json"
     all_path = root / f"{day}_all_audit_snapshot.json"
-    top7_path.write_text(json.dumps(top7_rows, ensure_ascii=False, indent=2), encoding="utf-8")
-    all_path.write_text(json.dumps(all_rows, ensure_ascii=False, indent=2), encoding="utf-8")
+    top7_snapshot_rows = _snapshot_rows(top7_rows, snapshot_type="CORQ_TOP7", context=context)
+    all_snapshot_rows = _snapshot_rows(all_rows, snapshot_type="ALL_AUDIT", context=context)
+    _write_json_if_missing(top7_path, top7_snapshot_rows)
+    _write_json_if_missing(all_path, all_snapshot_rows)
     latest_root = Path(output_root) / "snapshots"
     latest_root.mkdir(parents=True, exist_ok=True)
-    (latest_root / "latest_corq_top7_snapshot.json").write_text(json.dumps(top7_rows, ensure_ascii=False, indent=2), encoding="utf-8")
-    (latest_root / "latest_all_audit_snapshot.json").write_text(json.dumps(all_rows, ensure_ascii=False, indent=2), encoding="utf-8")
+    # latest_* points to the immutable dated snapshot for the current betting day.
+    (latest_root / "latest_corq_top7_snapshot.json").write_text(top7_path.read_text(encoding="utf-8"), encoding="utf-8")
+    (latest_root / "latest_all_audit_snapshot.json").write_text(all_path.read_text(encoding="utf-8"), encoding="utf-8")
+    manifest_path = latest_root / "latest_corq_top7_snapshot_manifest.json"
+    manifest_path.write_text(json.dumps({
+        **context,
+        "snapshot_source": "CORQ_DAILY",
+        "snapshot_type": "CORQ_TOP7",
+        "policy": "immutable_first_snapshot_wins_0600_betting_day",
+        "dated_snapshot": str(top7_path),
+        "latest_snapshot": str(latest_root / "latest_corq_top7_snapshot.json"),
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+    }, ensure_ascii=False, indent=2), encoding="utf-8")
     return {
         "corq_top7_snapshot": str(top7_path),
         "all_audit_snapshot": str(all_path),
         "latest_corq_top7_snapshot": str(latest_root / "latest_corq_top7_snapshot.json"),
         "latest_all_audit_snapshot": str(latest_root / "latest_all_audit_snapshot.json"),
+        "latest_corq_top7_snapshot_manifest": str(manifest_path),
+        "betting_day": day,
+        "betting_day_start_local": context["betting_day_start_local"],
+        "betting_day_end_local": context["betting_day_end_local"],
     }
 
 
@@ -1381,7 +1453,10 @@ def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", ru
         "runtime": "corq_daily_side_safe",
         "started_at_utc": started_at,
         "finished_at_utc": datetime.now(timezone.utc).isoformat(),
-        "run_date": run_date or date.today().isoformat(),
+        "run_date": run_date or _betting_day_context().get("betting_day") or date.today().isoformat(),
+        "betting_day": snapshot_paths.get("betting_day"),
+        "betting_day_start_local": snapshot_paths.get("betting_day_start_local"),
+        "betting_day_end_local": snapshot_paths.get("betting_day_end_local"),
         "input_path": input_path,
         "candidate_count": len(candidates),
         "scored_count": len(scored),
