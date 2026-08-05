@@ -2,11 +2,10 @@ name: Daily Tennis Predictions
 
 on:
   workflow_dispatch:
-  schedule:
-    # Runs at 05:45 Europe/Bratislava, with a delayed-run guard window until 06:25.
-    # Summer time: 03:45 UTC -> 05:45 CEST.
-    # Winter time: 04:45 UTC -> 05:45 CET.
-    - cron: "45 3,4 * * *"
+  repository_dispatch:
+    types:
+      - daily-tennis-predictions
+      - corq-daily-snapshot
 
 permissions:
   contents: write
@@ -41,21 +40,22 @@ jobs:
           event_name = os.getenv("EVENT_NAME", "")
           now = datetime.now(ZoneInfo("Europe/Bratislava"))
 
-          # Manual runs must always execute. Scheduled runs are allowed inside
-          # a safe window because GitHub runners can start several minutes late.
-          in_schedule_window = (now.hour == 5 and now.minute >= 45) or (now.hour == 6 and now.minute <= 25)
-          should_run = event_name == "workflow_dispatch" or in_schedule_window
+          # All production runs are started by an external Cron through
+          # workflow_dispatch or repository_dispatch. GitHub Actions no longer
+          # owns the schedule, so do not apply an internal time-window gate.
+          should_run = event_name in {"workflow_dispatch", "repository_dispatch"}
 
           print(f"now={now.isoformat()}")
           print(f"event_name={event_name}")
-          print("target_window=05:45-06:25 Europe/Bratislava")
+          print("trigger_policy=external_cron_or_manual_dispatch")
+          print("betting_day_policy=Europe/Bratislava 06:00-06:00")
           print(f"should_run={'true' if should_run else 'false'}")
           PY
 
       - name: Stop outside scheduled window
         if: ${{ steps.local_time.outputs.should_run != 'true' }}
         run: |
-          echo "Outside production window. Skipping daily prediction run."
+          echo "Unsupported trigger. External Cron must use workflow_dispatch or repository_dispatch."
 
       - name: Checkout
         if: ${{ steps.local_time.outputs.should_run == 'true' }}
@@ -72,6 +72,14 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install pandas lxml html5lib beautifulsoup4 requests
+
+      - name: Evaluate previous CorQ snapshot results
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
+        run: |
+          # This runs before today's CorQ runtime so the Telegram/results layer can
+          # settle yesterday's immutable morning snapshot from the committed outputs.
+          # The new snapshot is created later in this workflow and then inserted as Pending.
+          python -m corq.results_engine.results --output-root outputs --local-tz Europe/Bratislava
 
       - name: Run CorQ daily runtime
         if: ${{ steps.local_time.outputs.should_run == 'true' }}
@@ -143,30 +151,58 @@ jobs:
 
           tz = ZoneInfo("Europe/Bratislava")
           now = datetime.now(tz)
-          functional_day = (now.date() - timedelta(days=1)).isoformat() if now.hour < 5 else now.date().isoformat()
+          betting_day_date = (now.date() - timedelta(days=1)) if now.hour < 6 else now.date()
+          betting_day = betting_day_date.isoformat()
+          betting_day_start = datetime.combine(betting_day_date, datetime.min.time(), tzinfo=tz).replace(hour=6)
+          betting_day_end = betting_day_start + timedelta(days=1)
 
-          snapshot_dir = root / "snapshots" / "corq_daily" / functional_day[:4] / functional_day[5:7]
+          snapshot_dir = root / "snapshots" / "corq_daily" / betting_day[:4] / betting_day[5:7]
           snapshot_dir.mkdir(parents=True, exist_ok=True)
-          dated_snapshot = snapshot_dir / f"{functional_day}_corq_daily_snapshot.json"
+          dated_snapshot = snapshot_dir / f"{betting_day}_corq_daily_snapshot.json"
           latest_snapshot = root / "snapshots" / "latest_corq_top7_snapshot.json"
           latest_snapshot.parent.mkdir(parents=True, exist_ok=True)
+
+          rows = json.loads(source.read_text(encoding="utf-8"))
+          if not isinstance(rows, list):
+              raise SystemExit("outputs/latest_top7.json is not a list; cannot create CorQ daily snapshot")
+          enriched = []
+          snapshot_id = f"CORQ_TOP7_{betting_day}"
+          for idx, row in enumerate(rows, start=1):
+              if not isinstance(row, dict):
+                  continue
+              item = dict(row)
+              item.setdefault("snapshot_id", snapshot_id)
+              item.setdefault("snapshot_type", "CORQ_TOP7")
+              item.setdefault("snapshot_source", "CORQ_DAILY")
+              item.setdefault("snapshot_rank", idx)
+              item.setdefault("snapshot_date", betting_day)
+              item.setdefault("betting_day", betting_day)
+              item.setdefault("betting_day_start_local", betting_day_start.isoformat())
+              item.setdefault("betting_day_end_local", betting_day_end.isoformat())
+              item.setdefault("snapshot_created_at_utc", datetime.now(timezone.utc).isoformat())
+              item.setdefault("results_status", "PENDING")
+              enriched.append(item)
 
           if dated_snapshot.exists():
               print(f"CorQ daily snapshot already exists and will not be overwritten: {dated_snapshot}")
           else:
-              shutil.copyfile(source, dated_snapshot)
+              dated_snapshot.write_text(json.dumps(enriched, indent=2, ensure_ascii=False), encoding="utf-8")
               print(f"Created CorQ daily snapshot: {dated_snapshot}")
 
           shutil.copyfile(dated_snapshot, latest_snapshot)
           manifest = {
               "generated_at": datetime.now(timezone.utc).isoformat(),
-              "functional_day": functional_day,
+              "functional_day": betting_day,
+              "betting_day": betting_day,
+              "betting_day_start_local": betting_day_start.isoformat(),
+              "betting_day_end_local": betting_day_end.isoformat(),
+              "timezone": "Europe/Bratislava",
               "snapshot_source": "CORQ_DAILY",
               "snapshot_type": "DAILY_CORQ_SNAPSHOT",
               "source_file": str(source),
               "dated_snapshot": str(dated_snapshot),
               "latest_snapshot": str(latest_snapshot),
-              "policy": "immutable_first_snapshot_wins",
+              "policy": "immutable_first_snapshot_wins_0600_betting_day",
           }
           (root / "snapshots" / "latest_corq_top7_snapshot_manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8")
           print(json.dumps(manifest, indent=2))
