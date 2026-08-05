@@ -1,0 +1,162 @@
+name: send-tg-feeds
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Feed mode: top7, free, results or both"
+        required: false
+        default: "both"
+        type: choice
+        options:
+          - "both"
+          - "top7"
+          - "free"
+          - "results"
+      limit:
+        description: "TOP7 limit"
+        required: false
+        default: "7"
+      include_started:
+        description: "Include already started matches: true/false"
+        required: false
+        default: "false"
+  repository_dispatch:
+    types:
+      - send-tg-feeds
+      - corq-tg-feeds
+
+permissions:
+  contents: write
+
+concurrency:
+  group: send-tg-feeds
+  cancel-in-progress: false
+
+jobs:
+  send-tg-feeds:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check local run time
+        id: local_time
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import os
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+
+          event_name = os.getenv("EVENT_NAME", "")
+          now = datetime.now(ZoneInfo("Europe/Bratislava"))
+          # Telegram feed workflow is triggered by external Cron after the
+          # daily CorQ snapshot workflow has finished. GitHub Actions does not
+          # own the schedule and must not block a valid external dispatch.
+          should_run = event_name in {"workflow_dispatch", "repository_dispatch"}
+
+          print(f"now={now.isoformat()}")
+          print(f"event_name={event_name}")
+          print("trigger_policy=external_cron_or_manual_dispatch")
+          print("message_order=results -> top7 -> free")
+          print("betting_day_policy=Europe/Bratislava 06:00-06:00")
+          print(f"should_run={'true' if should_run else 'false'}")
+          PY
+
+      - name: Stop outside scheduled window
+        if: ${{ steps.local_time.outputs.should_run != 'true' }}
+        run: |
+          echo "Unsupported trigger. External Cron must use workflow_dispatch or repository_dispatch."
+
+      - name: Checkout
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build Telegram previews and send feeds
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
+        env:
+          # Repository secrets are named TGBOT and TGCHID.
+          TGBOT: ${{ secrets.TGBOT }}
+          TGCHID: ${{ secrets.TGCHID }}
+          # Also map them to the canonical names accepted by tg_feed.py.
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TGBOT }}
+          TG_BOT_TOKEN: ${{ secrets.TGBOT }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TGCHID }}
+          TG_CHAT_ID: ${{ secrets.TGCHID }}
+          TG_TOP7_CHAT_ID: ${{ secrets.TGCHID }}
+          TELEGRAM_TOP7_CHAT_ID: ${{ secrets.TGCHID }}
+          TG_FEED_TIMEZONE: "Europe/Bratislava"
+          TG_FEED_UPCOMING_ONLY: "true"
+          TG_FEED_PAST_GRACE_MINUTES: "0"
+          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+        run: |
+          MODE="${{ github.event.inputs.mode || 'both' }}"
+          LIMIT="${{ github.event.inputs.limit || '7' }}"
+          INCLUDE_STARTED="${{ github.event.inputs.include_started || 'false' }}"
+
+          echo "Settling previous completed CorQ betting-day snapshot and preparing detailed TG results list..."
+          python -m corq.results_engine.builder             --output-root outputs             --fetch-api             --settle-yesterday             --local-tz Europe/Bratislava             --settlement-grace-hours 2             --write-tg-summary
+
+          run_feed() {
+            local feed_mode="$1"
+            local output_file="outputs/telegram/latest_tg_${feed_mode}_message.txt"
+            local cmd="python corq/tg_feed.py --mode ${feed_mode} --limit ${LIMIT} --output ${output_file} --send"
+            if [ "${INCLUDE_STARTED}" = "true" ]; then
+              cmd="${cmd} --include-started"
+            fi
+            echo "Running: ${cmd}"
+            ${cmd}
+          }
+
+          if [ "${MODE}" = "both" ]; then
+            run_feed results
+            run_feed top7
+            run_feed free
+          else
+            run_feed "${MODE}"
+          fi
+
+      - name: Commit Telegram preview message
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add outputs/telegram || true
+
+          if git diff --cached --quiet; then
+            echo "No Telegram preview changes"
+            exit 0
+          fi
+
+          git commit -m "Update Telegram feed preview"
+          if git push; then
+            echo "Telegram preview pushed."
+            exit 0
+          fi
+
+          echo "Push rejected, preserving Telegram preview and retrying on latest main..."
+          tmp_dir="$(mktemp -d)"
+          mkdir -p "$tmp_dir"
+          cp -a outputs/telegram "$tmp_dir/telegram" 2>/dev/null || true
+
+          git fetch origin main
+          git reset --hard origin/main
+
+          mkdir -p outputs
+          rm -rf outputs/telegram
+          [ -d "$tmp_dir/telegram" ] && cp -a "$tmp_dir/telegram" outputs/telegram
+
+          git add outputs/telegram || true
+          if git diff --cached --quiet; then
+            echo "No Telegram preview changes after reset."
+            exit 0
+          fi
+
+          git commit -m "Update Telegram feed preview"
+          git push
