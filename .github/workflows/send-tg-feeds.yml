@@ -21,11 +21,10 @@ on:
         description: "Include already started matches: true/false"
         required: false
         default: "false"
-  schedule:
-    # Target window: 05:55 Europe/Bratislava after the 05:45 daily CorQ snapshot.
-    # Both summer/winter UTC candidates are scheduled; the local-time guard below
-    # allows only the intended local window to run.
-    - cron: "55 3,4 * * *"
+  repository_dispatch:
+    types:
+      - send-tg-feeds
+      - corq-tg-feeds
 
 permissions:
   contents: write
@@ -51,19 +50,23 @@ jobs:
 
           event_name = os.getenv("EVENT_NAME", "")
           now = datetime.now(ZoneInfo("Europe/Bratislava"))
-          in_schedule_window = now.hour == 5 and 55 <= now.minute <= 59
-          should_run = event_name == "workflow_dispatch" or in_schedule_window
+          # Telegram feed workflow is triggered by external Cron after the
+          # daily CorQ snapshot workflow has finished. GitHub Actions does not
+          # own the schedule and must not block a valid external dispatch.
+          should_run = event_name in {"workflow_dispatch", "repository_dispatch"}
 
           print(f"now={now.isoformat()}")
           print(f"event_name={event_name}")
-          print("target_window=05:55-05:59 Europe/Bratislava")
+          print("trigger_policy=external_cron_or_manual_dispatch")
+          print("message_order=results -> top7 -> free")
+          print("betting_day_policy=Europe/Bratislava 06:00-06:00")
           print(f"should_run={'true' if should_run else 'false'}")
           PY
 
       - name: Stop outside scheduled window
         if: ${{ steps.local_time.outputs.should_run != 'true' }}
         run: |
-          echo "Outside Telegram feed window. Skipping send-tg-feeds run."
+          echo "Unsupported trigger. External Cron must use workflow_dispatch or repository_dispatch."
 
       - name: Checkout
         if: ${{ steps.local_time.outputs.should_run == 'true' }}
@@ -97,7 +100,7 @@ jobs:
           LIMIT="${{ github.event.inputs.limit || '7' }}"
           INCLUDE_STARTED="${{ github.event.inputs.include_started || 'false' }}"
 
-          echo "Settling previous CorQ daily snapshot and preparing compact TG results summary..."
+          echo "Settling previous completed CorQ betting-day snapshot and preparing compact TG results summary..."
           python -m corq.results_engine.builder             --output-root outputs             --fetch-api             --settle-yesterday             --local-tz Europe/Bratislava             --settlement-grace-hours 2             --write-tg-summary
 
           run_feed() {
