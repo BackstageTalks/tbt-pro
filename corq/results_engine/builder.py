@@ -450,8 +450,12 @@ def evaluate_row(
         "source_snapshot": source_snapshot,
         "snapshot_source": first_value(out, "snapshot_source", default=("CORQ_DAILY" if model == "corq" else model.upper())),
         "snapshot_type": first_value(out, "snapshot_type", default=("DAILY_CORQ_SNAPSHOT" if model == "corq" else f"DAILY_{model.upper()}_SNAPSHOT")),
-        "snapshot_functional_day": first_value(out, "snapshot_functional_day", "functional_day", default=result_row_date(out, run_date, local_tz)),
-        "snapshot_run_time": first_value(out, "snapshot_run_time", default=now_iso()),
+        "snapshot_functional_day": first_value(out, "snapshot_functional_day", "functional_day", "betting_day", "snapshot_date", default=result_row_date(out, run_date, local_tz)),
+        "snapshot_date": first_value(out, "snapshot_date", "betting_day", default=result_row_date(out, run_date, local_tz)),
+        "betting_day": first_value(out, "betting_day", "snapshot_date", "functional_day", "snapshot_functional_day", default=result_row_date(out, run_date, local_tz)),
+        "betting_day_start_local": first_value(out, "betting_day_start_local"),
+        "betting_day_end_local": first_value(out, "betting_day_end_local"),
+        "snapshot_run_time": first_value(out, "snapshot_run_time", "snapshot_created_at_utc", default=now_iso()),
         "match_id": out.get("match_id") or out.get("event_id") or out.get("id"),
         "pick": pick_name(out),
         "opponent": opponent_name(out),
@@ -606,18 +610,27 @@ def rebuild_indexes(output_root: Path = RESULTS_DIR) -> None:
 
 
 def local_yesterday(local_tz: str = "Europe/Bratislava") -> str:
+    """Return the previous completed betting day in local time.
+
+    Betting day is 06:00 -> 06:00. If called before 06:00, today's current
+    betting day is still yesterday, so the previous completed betting day is
+    two calendar dates back.
+    """
     if ZoneInfo is not None:
-        return (datetime.now(ZoneInfo(local_tz)).date() - timedelta(days=1)).isoformat()
-    return (datetime.now(timezone.utc).date() - timedelta(days=1)).isoformat()
+        now_local = datetime.now(ZoneInfo(local_tz))
+    else:
+        now_local = datetime.now(timezone.utc)
+    current_betting_day = now_local.date() - timedelta(days=1) if now_local.hour < FUNCTIONAL_DAY_START_HOUR else now_local.date()
+    return (current_betting_day - timedelta(days=1)).isoformat()
 
 
-FUNCTIONAL_DAY_START_HOUR = 5
+FUNCTIONAL_DAY_START_HOUR = 6
 
 
 def functional_day_for_datetime(dt: Optional[datetime], local_tz: str = "Europe/Bratislava") -> str:
     """Return the tennis functional day for a datetime.
 
-    The project day runs 05:00 -> 04:59 Europe/Bratislava. A match at
+    The project betting day runs 06:00 -> 05:59 Europe/Bratislava. A match at
     03:00 local time belongs to the previous functional day.
     """
     if dt is None:
@@ -660,7 +673,7 @@ def row_start_datetime_utc(row: Dict[str, Any]) -> Optional[datetime]:
 
 
 def result_row_date(row: Dict[str, Any], default_date: str, local_tz: str = "Europe/Bratislava") -> str:
-    existing_day = row.get("functional_day") or row.get("snapshot_functional_day")
+    existing_day = row.get("betting_day") or row.get("snapshot_date") or row.get("functional_day") or row.get("snapshot_functional_day")
     if existing_day:
         return str(existing_day)[:10]
     start_dt = row_start_datetime_utc(row)
@@ -858,7 +871,7 @@ def corq_snapshot_rows_for_day(rows: List[Dict[str, Any]], day: str) -> List[Dic
             continue
         model = str(row.get("model") or "").lower()
         source = str(row.get("snapshot_source") or row.get("source_filter") or "").upper()
-        row_day = str(row.get("snapshot_functional_day") or row.get("functional_day") or row.get("date") or "")[:10]
+        row_day = str(row.get("betting_day") or row.get("snapshot_date") or row.get("snapshot_functional_day") or row.get("functional_day") or row.get("date") or "")[:10]
         if target and row_day != target:
             continue
         if model == "corq" or source in {"CORQ_DAILY", "CORQ"}:
