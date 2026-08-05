@@ -1001,12 +1001,14 @@ def format_corq_tg_summary_message(summary_obj: Dict[str, Any]) -> str:
         status = _result_status(row)
         icon = _result_icon(status)
         pick = _short_tg_name(pick_name(row))
-        opp = _short_tg_name(opponent_name(row))
         odds = _fmt_tg_odds(pick_odds(row))
         time_txt = _fmt_tg_time(row)
-        score_txt = _fmt_tg_score(row, status)
         unit_txt = _fmt_tg_units(row.get("units"), status)
-        lines.append(f"{idx}. {icon} {pick} | {time_txt} | {odds} | vs {opp} | {score_txt}{unit_txt}")
+        if status == "PENDING":
+            unit_txt = " | Pending"
+        # Keep Results compact: original numbering + status icon + pick + time + odds + units.
+        # No opponent and no set/score details in the Telegram Results message.
+        lines.append(f"{number_emoji(idx)} {icon} {pick} | {time_txt} | {odds}{unit_txt}")
     lines.extend([
         "",
         f"✅{int(summary_obj.get('won') or 0)} "
