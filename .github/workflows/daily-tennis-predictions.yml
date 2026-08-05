@@ -162,29 +162,64 @@ jobs:
           latest_snapshot = root / "snapshots" / "latest_corq_top7_snapshot.json"
           latest_snapshot.parent.mkdir(parents=True, exist_ok=True)
 
-          rows = json.loads(source.read_text(encoding="utf-8"))
-          if not isinstance(rows, list):
-              raise SystemExit("outputs/latest_top7.json is not a list; cannot create CorQ daily snapshot")
-          enriched = []
-          snapshot_id = f"CORQ_TOP7_{betting_day}"
-          for idx, row in enumerate(rows, start=1):
-              if not isinstance(row, dict):
-                  continue
-              item = dict(row)
-              item.setdefault("snapshot_id", snapshot_id)
-              item.setdefault("snapshot_type", "CORQ_TOP7")
-              item.setdefault("snapshot_source", "CORQ_DAILY")
-              item.setdefault("snapshot_rank", idx)
-              item.setdefault("snapshot_date", betting_day)
-              item.setdefault("betting_day", betting_day)
-              item.setdefault("betting_day_start_local", betting_day_start.isoformat())
-              item.setdefault("betting_day_end_local", betting_day_end.isoformat())
-              item.setdefault("snapshot_created_at_utc", datetime.now(timezone.utc).isoformat())
-              item.setdefault("results_status", "PENDING")
-              enriched.append(item)
+          def enrich_snapshot_rows(rows, *, source_label):
+              if not isinstance(rows, list):
+                  raise SystemExit(f"{source_label} is not a list; cannot create CorQ daily snapshot")
+              enriched_rows = []
+              snapshot_id = f"CORQ_TOP7_{betting_day}"
+              created_at = datetime.now(timezone.utc).isoformat()
+              for idx, row in enumerate(rows, start=1):
+                  if not isinstance(row, dict):
+                      continue
+                  item = dict(row)
+                  item.setdefault("snapshot_id", snapshot_id)
+                  item.setdefault("snapshot_type", "CORQ_TOP7")
+                  item.setdefault("snapshot_source", "CORQ_DAILY")
+                  item.setdefault("snapshot_rank", idx)
+                  item.setdefault("snapshot_date", betting_day)
+                  item.setdefault("betting_day", betting_day)
+                  item.setdefault("betting_day_start_local", betting_day_start.isoformat())
+                  item.setdefault("betting_day_end_local", betting_day_end.isoformat())
+                  item.setdefault("snapshot_timezone", "Europe/Bratislava")
+                  item.setdefault("snapshot_created_at_utc", created_at)
+                  item.setdefault("results_status", "PENDING")
+                  enriched_rows.append(item)
+              return enriched_rows
+
+          def missing_snapshot_metadata(rows):
+              required = (
+                  "snapshot_id",
+                  "snapshot_type",
+                  "snapshot_source",
+                  "snapshot_rank",
+                  "snapshot_date",
+                  "betting_day",
+                  "betting_day_start_local",
+                  "betting_day_end_local",
+                  "snapshot_created_at_utc",
+                  "results_status",
+              )
+              for row in rows or []:
+                  if not isinstance(row, dict):
+                      continue
+                  for key in required:
+                      if row.get(key) in (None, ""):
+                          return True
+              return False
+
+          source_rows = json.loads(source.read_text(encoding="utf-8"))
+          enriched = enrich_snapshot_rows(source_rows, source_label=str(source))
 
           if dated_snapshot.exists():
-              print(f"CorQ daily snapshot already exists and will not be overwritten: {dated_snapshot}")
+              existing_rows = json.loads(dated_snapshot.read_text(encoding="utf-8"))
+              if not isinstance(existing_rows, list):
+                  raise SystemExit(f"Existing CorQ daily snapshot is not a list: {dated_snapshot}")
+              if missing_snapshot_metadata(existing_rows):
+                  repaired = enrich_snapshot_rows(existing_rows, source_label=str(dated_snapshot))
+                  dated_snapshot.write_text(json.dumps(repaired, indent=2, ensure_ascii=False), encoding="utf-8")
+                  print(f"Repaired missing snapshot metadata without changing picks: {dated_snapshot}")
+              else:
+                  print(f"CorQ daily snapshot already exists and will not be overwritten: {dated_snapshot}")
           else:
               dated_snapshot.write_text(json.dumps(enriched, indent=2, ensure_ascii=False), encoding="utf-8")
               print(f"Created CorQ daily snapshot: {dated_snapshot}")
