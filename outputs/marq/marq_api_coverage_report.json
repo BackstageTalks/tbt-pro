@@ -1,6 +1,6 @@
 {
   "model_version": "2026-08-04-marq-coverage-report-v1",
-  "generated_at_utc": "2026-08-05T06:44:57.926007+00:00",
+  "generated_at_utc": "2026-08-05T10:31:54.963003+00:00",
   "input_paths": {
     "all": "outputs/latest_all.json",
     "top7": "outputs/latest_top7.json",
@@ -11,8 +11,8 @@
       "label": "all_audit",
       "total_rows": 104,
       "coverage_pct": {
-        "high_marq": 36.54,
-        "medium_current_only": 63.46,
+        "high_marq": 65.38,
+        "medium_current_only": 34.62,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
         "usable_marq_high_or_medium": 100.0
@@ -21,46 +21,45 @@
         "getAllOddsForEvent": 104
       },
       "data_status_counts": {
-        "EXACT_CURRENT_ODDS_ONLY": 66,
-        "EXACT_BETTING_ODDS_WITH_OPENING": 38
+        "EXACT_BETTING_ODDS_WITH_OPENING": 68,
+        "EXACT_CURRENT_ODDS_ONLY": 36
       },
       "confidence_counts": {
-        "MEDIUM": 66,
-        "HIGH": 38
+        "HIGH": 68,
+        "MEDIUM": 36
       },
       "movement_status_counts": {
-        "OPENING_EQUALS_CURRENT": 66,
-        "REAL_OPENING_CURRENT_AVAILABLE": 38
+        "REAL_OPENING_CURRENT_AVAILABLE": 68,
+        "OPENING_EQUALS_CURRENT": 36
       },
       "quality_tier_counts": {
-        "MEDIUM_CURRENT_ONLY": 66,
-        "HIGH": 38
+        "HIGH": 68,
+        "MEDIUM_CURRENT_ONLY": 36
       },
       "value_status_counts": {
-        "NO_VALUE": 51,
+        "NO_VALUE": 54,
         "VALUE_STRONG": 40,
-        "VALUE_PLAYABLE": 7,
-        "VALUE_UNKNOWN": 6
+        "VALUE_PLAYABLE": 10
       },
       "source_policy_counts": {
         "TENNISAPI_ONLY_EXACT_EVENT": 104
       },
       "market_weight_stats": {
         "count": 104,
-        "avg": 0.1712,
+        "avg": 0.2115,
         "min": 0.12,
         "max": 0.3
       },
       "value_delta_pp_stats": {
-        "count": 98,
+        "count": 104,
         "avg": 0.0,
         "min": -26.82,
         "max": 26.82
       },
       "expected_value_pct_stats": {
-        "count": 98,
-        "avg": 12.115,
-        "min": -35.49,
+        "count": 104,
+        "avg": 12.2227,
+        "min": -49.25,
         "max": 219.8
       },
       "samples": {
@@ -359,30 +358,30 @@
             "identity": "16661658",
             "pick": "Nuno Borges",
             "opponent": "Tomas Martin Etcheverry",
-            "odds": 1.53,
+            "odds": 1.44,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -6.45,
-            "expected_value_pct": -14.96,
+            "value_delta_pp": -10.05,
+            "expected_value_pct": -19.96,
             "fallback_reason": null
           },
           {
             "identity": "16661651",
             "pick": "Stefanos Tsitsipas",
             "opponent": "Joao Fonseca",
-            "odds": 2.1,
+            "odds": 2.2,
             "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": -4.93,
-            "expected_value_pct": -15.5,
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": -2.97,
+            "expected_value_pct": -11.6,
             "fallback_reason": null
           },
           {
@@ -419,15 +418,15 @@
             "identity": "16661643",
             "pick": "Zizou Bergs",
             "opponent": "Sebastián Báez",
-            "odds": 1.53,
+            "odds": 1.67,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
-            "market_weight": 0.22,
-            "value_delta_pp": -5.25,
-            "expected_value_pct": -13.13,
+            "market_weight": 0.3,
+            "value_delta_pp": -0.19,
+            "expected_value_pct": -5.38,
             "fallback_reason": null
           }
         ],
@@ -511,45 +510,15 @@
             "identity": "16661658",
             "pick": "Tomas Martin Etcheverry",
             "opponent": "Nuno Borges",
-            "odds": 2.5,
+            "odds": 2.75,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 6.45,
-            "expected_value_pct": 11.05,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16661651",
-            "pick": "Joao Fonseca",
-            "opponent": "Stefanos Tsitsipas",
-            "odds": 1.73,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": 4.93,
-            "expected_value_pct": 3.38,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16661643",
-            "pick": "Sebastián Báez",
-            "opponent": "Zizou Bergs",
-            "odds": 2.5,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": 5.25,
-            "expected_value_pct": 8.05,
+            "value_delta_pp": 10.05,
+            "expected_value_pct": 22.15,
             "fallback_reason": null
           },
           {
@@ -571,15 +540,15 @@
             "identity": "16661669",
             "pick": "Jenson Brooksby",
             "opponent": "Ben Shelton",
-            "odds": 4.0,
+            "odds": 3.5,
             "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": 12.61,
-            "expected_value_pct": 45.68,
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": 9.34,
+            "expected_value_pct": 27.47,
             "fallback_reason": null
           },
           {
@@ -611,6 +580,36 @@
             "value_delta_pp": 12.15,
             "expected_value_pct": 43.84,
             "fallback_reason": null
+          },
+          {
+            "identity": "16661671",
+            "pick": "Ignacio Buse",
+            "opponent": "Cameron Norrie",
+            "odds": 2.75,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 6.9,
+            "expected_value_pct": 13.49,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16661652",
+            "pick": "Tallon Griekspoor",
+            "opponent": "Alexander Zverev",
+            "odds": 7.0,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 17.72,
+            "expected_value_pct": 119.1,
+            "fallback_reason": null
           }
         ]
       },
@@ -628,8 +627,8 @@
       "label": "corq_top7",
       "total_rows": 7,
       "coverage_pct": {
-        "high_marq": 28.57,
-        "medium_current_only": 71.43,
+        "high_marq": 100.0,
+        "medium_current_only": 0.0,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
         "usable_marq_high_or_medium": 100.0
@@ -638,46 +637,42 @@
         "getAllOddsForEvent": 7
       },
       "data_status_counts": {
-        "EXACT_CURRENT_ODDS_ONLY": 5,
-        "EXACT_BETTING_ODDS_WITH_OPENING": 2
+        "EXACT_BETTING_ODDS_WITH_OPENING": 7
       },
       "confidence_counts": {
-        "MEDIUM": 5,
-        "HIGH": 2
+        "HIGH": 7
       },
       "movement_status_counts": {
-        "OPENING_EQUALS_CURRENT": 5,
-        "REAL_OPENING_CURRENT_AVAILABLE": 2
+        "REAL_OPENING_CURRENT_AVAILABLE": 7
       },
       "quality_tier_counts": {
-        "MEDIUM_CURRENT_ONLY": 5,
-        "HIGH": 2
+        "HIGH": 7
       },
       "value_status_counts": {
-        "VALUE_STRONG": 3,
         "NO_VALUE": 3,
-        "VALUE_PLAYABLE": 1
+        "VALUE_PLAYABLE": 2,
+        "VALUE_STRONG": 2
       },
       "source_policy_counts": {
         "TENNISAPI_ONLY_EXACT_EVENT": 7
       },
       "market_weight_stats": {
         "count": 7,
-        "avg": 0.16,
-        "min": 0.12,
+        "avg": 0.2657,
+        "min": 0.22,
         "max": 0.3
       },
       "value_delta_pp_stats": {
         "count": 7,
-        "avg": 4.0171,
-        "min": -3.01,
-        "max": 19.16
+        "avg": 2.2,
+        "min": -1.43,
+        "max": 6.9
       },
       "expected_value_pct_stats": {
         "count": 7,
-        "avg": 3.4114,
-        "min": -8.99,
-        "max": 40.21
+        "avg": -1.7971,
+        "min": -7.28,
+        "max": 3.28
       },
       "samples": {
         "thin_fallback": [],
@@ -685,18 +680,18 @@
         "current_only": [],
         "real_opening": [
           {
-            "identity": "16662045",
-            "pick": "Barbora Krejčiková",
-            "opponent": "Liudmila Samsonova",
+            "identity": "16661654",
+            "pick": "Raphael Collignon",
+            "opponent": "Alexei Popyrin",
             "odds": 1.5,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": 0.29,
-            "expected_value_pct": -4.04,
+            "market_weight": 0.22,
+            "value_delta_pp": 2.49,
+            "expected_value_pct": -0.75,
             "fallback_reason": null
           },
           {
@@ -713,24 +708,84 @@
             "value_delta_pp": -0.16,
             "expected_value_pct": -5.34,
             "fallback_reason": null
-          }
-        ],
-        "no_value": [
+          },
           {
             "identity": "16662045",
             "pick": "Barbora Krejčiková",
             "opponent": "Liudmila Samsonova",
-            "odds": 1.5,
+            "odds": 1.62,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 0.29,
-            "expected_value_pct": -4.04,
+            "value_delta_pp": 6.9,
+            "expected_value_pct": 3.28,
             "fallback_reason": null
           },
+          {
+            "identity": "16662054",
+            "pick": "Maria Sakkari",
+            "opponent": "Zeynep Sönmez",
+            "odds": 1.53,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": -1.43,
+            "expected_value_pct": -7.28,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16661644",
+            "pick": "Karen Khachanov",
+            "opponent": "Terence Atmane",
+            "odds": 1.67,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 4.82,
+            "expected_value_pct": 2.99,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16661651",
+            "pick": "Joao Fonseca",
+            "opponent": "Stefanos Tsitsipas",
+            "odds": 1.67,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": 2.97,
+            "expected_value_pct": -0.1,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16661643",
+            "pick": "Zizou Bergs",
+            "opponent": "Sebastián Báez",
+            "odds": 1.67,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": -0.19,
+            "expected_value_pct": -5.38,
+            "fallback_reason": null
+          }
+        ],
+        "no_value": [
           {
             "identity": "16661670",
             "pick": "Valentin Vacherot",
@@ -750,62 +805,62 @@
             "identity": "16662054",
             "pick": "Maria Sakkari",
             "opponent": "Zeynep Sönmez",
-            "odds": 1.5,
+            "odds": 1.53,
             "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": -3.01,
-            "expected_value_pct": -8.99,
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": -1.43,
+            "expected_value_pct": -7.28,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16661643",
+            "pick": "Zizou Bergs",
+            "opponent": "Sebastián Báez",
+            "odds": 1.67,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": -0.19,
+            "expected_value_pct": -5.38,
             "fallback_reason": null
           }
         ],
         "value_strong": [
           {
-            "identity": "16661654",
-            "pick": "Raphael Collignon",
-            "opponent": "Alexei Popyrin",
-            "odds": 1.53,
+            "identity": "16662045",
+            "pick": "Barbora Krejčiková",
+            "opponent": "Liudmila Samsonova",
+            "odds": 1.62,
             "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": 4.05,
-            "expected_value_pct": 1.1,
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 6.9,
+            "expected_value_pct": 3.28,
             "fallback_reason": null
           },
           {
-            "identity": "16661651",
-            "pick": "Joao Fonseca",
-            "opponent": "Stefanos Tsitsipas",
-            "odds": 1.73,
+            "identity": "16661644",
+            "pick": "Karen Khachanov",
+            "opponent": "Terence Atmane",
+            "odds": 1.67,
             "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": 4.93,
-            "expected_value_pct": 3.38,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16661657",
-            "pick": "Francisco Cerundolo",
-            "opponent": "Alex Michelsen",
-            "odds": 2.38,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": 19.16,
-            "expected_value_pct": 40.21,
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 4.82,
+            "expected_value_pct": 2.99,
             "fallback_reason": null
           }
         ]
@@ -822,55 +877,55 @@
     },
     "cloq": {
       "label": "cloq",
-      "total_rows": 3,
+      "total_rows": 2,
       "coverage_pct": {
-        "high_marq": 33.33,
-        "medium_current_only": 66.67,
+        "high_marq": 50.0,
+        "medium_current_only": 50.0,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
         "usable_marq_high_or_medium": 100.0
       },
       "endpoint_counts": {
-        "getAllOddsForEvent": 3
+        "getAllOddsForEvent": 2
       },
       "data_status_counts": {
-        "EXACT_CURRENT_ODDS_ONLY": 2,
+        "EXACT_CURRENT_ODDS_ONLY": 1,
         "EXACT_BETTING_ODDS_WITH_OPENING": 1
       },
       "confidence_counts": {
-        "MEDIUM": 2,
+        "MEDIUM": 1,
         "HIGH": 1
       },
       "movement_status_counts": {
-        "OPENING_EQUALS_CURRENT": 2,
+        "OPENING_EQUALS_CURRENT": 1,
         "REAL_OPENING_CURRENT_AVAILABLE": 1
       },
       "quality_tier_counts": {
-        "MEDIUM_CURRENT_ONLY": 2,
+        "MEDIUM_CURRENT_ONLY": 1,
         "HIGH": 1
       },
       "value_status_counts": {
-        "VALUE_STRONG": 3
+        "VALUE_STRONG": 2
       },
       "source_policy_counts": {
-        "TENNISAPI_ONLY_EXACT_EVENT": 3
+        "TENNISAPI_ONLY_EXACT_EVENT": 2
       },
       "market_weight_stats": {
-        "count": 3,
-        "avg": 0.18,
+        "count": 2,
+        "avg": 0.21,
         "min": 0.12,
         "max": 0.3
       },
       "value_delta_pp_stats": {
-        "count": 3,
-        "avg": 9.8333,
-        "min": 4.93,
+        "count": 2,
+        "avg": 12.285,
+        "min": 5.41,
         "max": 19.16
       },
       "expected_value_pct_stats": {
-        "count": 3,
-        "avg": 16.4733,
-        "min": 3.38,
+        "count": 2,
+        "avg": 23.02,
+        "min": 5.83,
         "max": 40.21
       },
       "samples": {
@@ -912,21 +967,6 @@
             "fallback_reason": null
           },
           {
-            "identity": "16661651",
-            "pick": "Joao Fonseca",
-            "opponent": "Stefanos Tsitsipas",
-            "odds": 1.73,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": 4.93,
-            "expected_value_pct": 3.38,
-            "fallback_reason": null
-          },
-          {
             "identity": "16661663",
             "pick": "Arthur Rinderknech",
             "opponent": "Miomir Kecmanović",
@@ -944,12 +984,12 @@
         ]
       },
       "attempt_summary": {
-        "total_attempts": 3,
+        "total_attempts": 2,
         "endpoint_counts": {
-          "getAllOddsForEvent": 3
+          "getAllOddsForEvent": 2
         },
         "status_counts": {
-          "200": 3
+          "200": 2
         }
       }
     }
