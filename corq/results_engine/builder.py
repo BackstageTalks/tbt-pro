@@ -850,7 +850,7 @@ def build_results(output_root: str = "outputs", run_date: Optional[str] = None, 
 
 
 # ---------------------------------------------------------------------------
-# Telegram CorQ daily snapshot result summary
+# Telegram CorQ daily snapshot result list
 # ---------------------------------------------------------------------------
 def _format_tg_day(day: str) -> str:
     try:
@@ -860,7 +860,91 @@ def _format_tg_day(day: str) -> str:
 
 
 def _result_status(row: Dict[str, Any]) -> str:
-    return str(row.get("result") or row.get("result_status") or row.get("status") or "PENDING").upper().strip()
+    raw = str(row.get("result") or row.get("result_status") or row.get("status") or "PENDING").upper().strip()
+    if raw == "WIN":
+        return "WON"
+    if raw == "LOSS":
+        return "LOST"
+    if raw not in {"WON", "LOST", "VOID", "PENDING"}:
+        return "PENDING"
+    return raw
+
+
+def _result_icon(status: str) -> str:
+    return {
+        "WON": "✅",
+        "LOST": "❌",
+        "VOID": "➖",
+        "PENDING": "⏳",
+    }.get(status, "⏳")
+
+
+def _short_tg_name(name: Any) -> str:
+    clean = " ".join(str(name or "").split()).strip()
+    if not clean:
+        return "—"
+    parts = clean.split()
+    return parts[-1] if len(parts) > 1 else parts[0]
+
+
+def _fmt_tg_odds(value: Any) -> str:
+    num = as_float(value, None)
+    return f"{num:.2f}" if num is not None and num > 1.0 else "—"
+
+
+def _fmt_tg_units(value: Any, status: str) -> str:
+    if status == "PENDING":
+        return ""
+    num = as_float(value, None)
+    if num is None:
+        return ""
+    return f" | {num:+.2f}u"
+
+
+def _fmt_tg_score(row: Dict[str, Any], status: str) -> str:
+    if status == "PENDING":
+        return "Pending"
+    if status == "VOID":
+        score = str(row.get("final_score") or row.get("score") or "VOID").strip()
+        return score if score else "VOID"
+    score = str(row.get("final_score") or row.get("score") or "").strip()
+    winner = str(row.get("winner") or "").strip()
+    if score:
+        return score
+    if winner:
+        return f"Winner: {_short_tg_name(winner)}"
+    return status.title()
+
+
+def _fmt_tg_time(row: Dict[str, Any]) -> str:
+    for key in ("match_start", "start_time", "start_time_utc", "match_time_utc", "match_time"):
+        raw = row.get(key)
+        if not raw:
+            continue
+        try:
+            txt = str(raw).replace("Z", "+00:00")
+            dt = datetime.fromisoformat(txt)
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            if ZoneInfo is not None:
+                dt = dt.astimezone(ZoneInfo("Europe/Bratislava"))
+            return dt.strftime("%H:%M")
+        except Exception:
+            pass
+    txt = str(row.get("time") or "").strip()
+    if txt:
+        m = re.search(r"(\d{1,2}:\d{2})", txt)
+        if m:
+            return m.group(1)
+    return "—"
+
+
+def _tg_row_sort_key(row: Dict[str, Any]) -> Tuple[int, int, str]:
+    for key in ("snapshot_rank", "top7_rank", "top7_sort_rank", "corq_rank", "rank"):
+        val = as_float(row.get(key), None)
+        if val is not None:
+            return (0, int(val), str(row.get("match_id") or row.get("id") or ""))
+    return (1, 999, str(row.get("match_id") or row.get("id") or ""))
 
 
 def corq_snapshot_rows_for_day(rows: List[Dict[str, Any]], day: str) -> List[Dict[str, Any]]:
@@ -876,15 +960,15 @@ def corq_snapshot_rows_for_day(rows: List[Dict[str, Any]], day: str) -> List[Dic
             continue
         if model == "corq" or source in {"CORQ_DAILY", "CORQ"}:
             out.append(row)
-    return out
+    return sorted(out, key=_tg_row_sort_key)
 
 
 def build_corq_tg_summary(rows: List[Dict[str, Any]], day: str) -> Dict[str, Any]:
     selected = corq_snapshot_rows_for_day(rows, day)
-    won = sum(1 for r in selected if _result_status(r) in {"WON", "WIN"})
-    lost = sum(1 for r in selected if _result_status(r) in {"LOST", "LOSS"})
+    won = sum(1 for r in selected if _result_status(r) == "WON")
+    lost = sum(1 for r in selected if _result_status(r) == "LOST")
     void = sum(1 for r in selected if _result_status(r) == "VOID")
-    pending = sum(1 for r in selected if _result_status(r) not in {"WON", "WIN", "LOST", "LOSS", "VOID"})
+    pending = sum(1 for r in selected if _result_status(r) == "PENDING")
     settled = won + lost
     units = round(sum(float(r.get("units") or 0.0) for r in selected if r.get("units") is not None), 4)
     roi = round(units / settled, 4) if settled else None
@@ -899,24 +983,39 @@ def build_corq_tg_summary(rows: List[Dict[str, Any]], day: str) -> Dict[str, Any
         "settled": settled,
         "units": units,
         "roi": roi,
+        "rows": selected,
     }
 
 
 def format_corq_tg_summary_message(summary_obj: Dict[str, Any]) -> str:
     day = summary_obj.get("display_date") or _format_tg_day(str(summary_obj.get("date") or ""))
+    rows = [r for r in summary_obj.get("rows") or [] if isinstance(r, dict)]
     units = float(summary_obj.get("units") or 0.0)
     roi = summary_obj.get("roi")
     roi_txt = "ROI —" if roi is None else f"ROI {float(roi) * 100:+.1f}%"
-    if int(summary_obj.get("count") or 0) <= 0:
-        return f"📊 CorQ {day}\nNo previous CorQ snapshot rows found."
-    return (
-        f"📊 CorQ {day}\n"
+    lines = [f"📊 CorQ RESULTS | {day}", ""]
+    if not rows:
+        lines.append("No previous CorQ snapshot rows found.")
+        return "\n".join(lines)
+    for idx, row in enumerate(rows, 1):
+        status = _result_status(row)
+        icon = _result_icon(status)
+        pick = _short_tg_name(pick_name(row))
+        opp = _short_tg_name(opponent_name(row))
+        odds = _fmt_tg_odds(pick_odds(row))
+        time_txt = _fmt_tg_time(row)
+        score_txt = _fmt_tg_score(row, status)
+        unit_txt = _fmt_tg_units(row.get("units"), status)
+        lines.append(f"{idx}. {icon} {pick} | {time_txt} | {odds} | vs {opp} | {score_txt}{unit_txt}")
+    lines.extend([
+        "",
         f"✅{int(summary_obj.get('won') or 0)} "
         f"❌{int(summary_obj.get('lost') or 0)} "
         f"➖{int(summary_obj.get('void') or 0)} "
         f"⏳{int(summary_obj.get('pending') or 0)} | "
-        f"{units:+.2f}u | {roi_txt}"
-    )
+        f"{units:+.2f}u | {roi_txt}",
+    ])
+    return "\n".join(lines)
 
 
 def write_corq_tg_summary(day: str, output_root: Path = OUTPUTS) -> Dict[str, Any]:
@@ -925,10 +1024,25 @@ def write_corq_tg_summary(day: str, output_root: Path = OUTPUTS) -> Dict[str, An
     message = format_corq_tg_summary_message(summary_obj)
     telegram_dir = Path(output_root) / "telegram"
     telegram_dir.mkdir(parents=True, exist_ok=True)
-    write_json(telegram_dir / "latest_corq_results_summary.json", summary_obj)
+    json_summary = dict(summary_obj)
+    json_summary["rows"] = [
+        {
+            "match_id": r.get("match_id") or r.get("event_id") or r.get("id"),
+            "pick": pick_name(r),
+            "opponent": opponent_name(r),
+            "pick_odds": pick_odds(r),
+            "status": _result_status(r),
+            "icon": _result_icon(_result_status(r)),
+            "score": r.get("final_score") or r.get("score"),
+            "winner": r.get("winner"),
+            "units": r.get("units"),
+            "snapshot_rank": r.get("snapshot_rank") or r.get("top7_rank") or r.get("corq_rank"),
+        }
+        for r in summary_obj.get("rows") or []
+    ]
+    write_json(telegram_dir / "latest_corq_results_summary.json", json_summary)
     (telegram_dir / "latest_tg_results_message.txt").write_text(message, encoding="utf-8")
-    return {**summary_obj, "message": message, "output": str(telegram_dir / "latest_tg_results_message.txt")}
-
+    return {**json_summary, "message": message, "output": str(telegram_dir / "latest_tg_results_message.txt")}
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build CorQ/CloQ/Audit results files")
@@ -941,7 +1055,7 @@ def main() -> None:
     parser.add_argument("--local-tz", default="Europe/Bratislava", help="Timezone used by --settle-yesterday")
     parser.add_argument("--settlement-grace-hours", type=float, default=0.0, help="Only fetch matches after start time plus this many hours")
     parser.add_argument("--sources", default="corq,cloq,audit", help="Backward-compatible no-op")
-    parser.add_argument("--write-tg-summary", action="store_true", help="Write compact previous CorQ snapshot Telegram result summary")
+    parser.add_argument("--write-tg-summary", action="store_true", help="Write previous CorQ snapshot Telegram result list with per-match status icons")
     parser.add_argument("--tg-summary-date", default=None, help="CorQ snapshot date to summarize for Telegram YYYY-MM-DD")
     parser.add_argument("--telegram-output-root", default=None, help="Output root for outputs/telegram; defaults to --output-root")
     args = parser.parse_args()
