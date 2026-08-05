@@ -16,7 +16,7 @@ from typing import Any, Dict, Iterable, List, Optional
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUTS = ROOT / "outputs"
-DEFAULT_TOP7_PATH = OUTPUTS / "latest_top7.json"
+DEFAULT_TOP7_PATH = OUTPUTS / "snapshots" / "latest_corq_top7_snapshot.json"
 DEFAULT_ALL_PATH = OUTPUTS / "latest_all.json"
 DEFAULT_MESSAGE_PATH = OUTPUTS / "telegram" / "latest_tg_message.txt"
 DEFAULT_RESULTS_MESSAGE_PATH = OUTPUTS / "telegram" / "latest_tg_results_message.txt"
@@ -120,7 +120,7 @@ def local_tz():
 
 
 def row_date_text(row: Dict[str, Any]) -> Optional[str]:
-    for key in ("snapshot_date", "date", "run_date", "match_date", "start_date"):
+    for key in ("betting_day", "snapshot_date", "snapshot_functional_day", "functional_day", "date", "run_date", "match_date", "start_date"):
         value = row.get(key)
         if value:
             txt = str(value).strip()
@@ -173,7 +173,15 @@ def match_start_datetime(row: Dict[str, Any], now: Optional[datetime] = None) ->
     date_txt = row_date_text(row) or now.date().isoformat()
     try:
         base = datetime.fromisoformat(date_txt[:10]).date()
-        return datetime(base.year, base.month, base.day, int(m.group(1)), int(m.group(2)), tzinfo=tz)
+        hour = int(m.group(1))
+        minute = int(m.group(2))
+        # Betting day is 06:00 -> 06:00 Europe/Bratislava. If a snapshot row
+        # only has HH:MM and the time is before 06:00, assign it to the next
+        # calendar date inside the betting day. Example: betting_day 2026-08-05
+        # and 03:00 means 2026-08-06 03:00 local.
+        if (row.get("betting_day") or row.get("snapshot_date")) and hour < 6:
+            base = base + timedelta(days=1)
+        return datetime(base.year, base.month, base.day, hour, minute, tzinfo=tz)
     except Exception:
         return None
 
@@ -242,7 +250,7 @@ def pick_odds(row: Dict[str, Any]) -> Optional[float]:
 
 def snapshot_date(rows: List[Dict[str, Any]]) -> str:
     for row in rows:
-        for key in ("snapshot_date", "date", "run_date", "match_date"):
+        for key in ("betting_day", "snapshot_date", "snapshot_functional_day", "functional_day", "date", "run_date", "match_date"):
             value = row.get(key)
             if value:
                 txt = str(value)[:10]
@@ -351,10 +359,17 @@ def send_telegram(message: str, bot_token: str, chat_id: str) -> None:
 
 
 def load_rows_for_mode(mode: str, top7_path: Path, all_path: Path) -> List[Dict[str, Any]]:
+    # TOP7/FREE Telegram must use the immutable morning CorQ snapshot by
+    # default. If a manual caller overrides --top7-path or the snapshot is not
+    # available yet, fall back to outputs/latest_top7.json, then to ALL only for
+    # FREE. Live CorQ may change later during the day; the snapshot must not.
     top7 = json_rows(read_json(top7_path, []))
+    if not top7 and top7_path != OUTPUTS / "latest_top7.json":
+        top7 = json_rows(read_json(OUTPUTS / "latest_top7.json", []))
     if mode == "top7":
         return top7
-    # FREE prefers CorQ TOP7, then falls back to ALL if TOP7 is empty.
+    # FREE prefers the same immutable CorQ TOP7 snapshot, then falls back to ALL
+    # if TOP7 is empty.
     if top7:
         return top7
     return json_rows(read_json(all_path, []))
