@@ -100,7 +100,7 @@ jobs:
           LIMIT="${{ github.event.inputs.limit || '7' }}"
           INCLUDE_STARTED="${{ github.event.inputs.include_started || 'false' }}"
 
-          echo "Settling previous completed CorQ betting-day snapshot and preparing compact TG results summary..."
+          echo "Settling previous completed CorQ betting-day snapshot and preparing detailed TG results list..."
           python -m corq.results_engine.builder             --output-root outputs             --fetch-api             --settle-yesterday             --local-tz Europe/Bratislava             --settlement-grace-hours 2             --write-tg-summary
 
           run_feed() {
