@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.53333,
   "latest_odds_player2": 2.375,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-05T12:28:12.118076+00:00",
+  "latest_snapshot_time_utc": "2026-08-05T18:11:58.024640+00:00",
   "opening_odds_player1": 1.53333,
   "opening_odds_player2": 2.375,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Laura Samson",
   "player2": "Mona Barthel",
-  "snapshot_count": 4,
+  "snapshot_count": 5,
   "snapshots": [
     {
       "event_id": "16693569",
@@ -97,8 +97,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-04T12:45:00+00:00",
       "target_date": "2026-08-05"
+    },
+    {
+      "event_id": "16693569",
+      "event_key": "2026-08-05_laura-samson_vs_mona-barthel",
+      "hours_to_start": -29.45,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.53333,
+      "odds_player2": 2.375,
+      "player1": "Laura Samson",
+      "player2": "Mona Barthel",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-05T18:11:58.024640+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-04T12:45:00+00:00",
+      "target_date": "2026-08-05"
     }
   ],
   "start_time_utc": "2026-08-04T12:45:00+00:00",
-  "updated_at_utc": "2026-08-05T12:28:27.205738+00:00"
+  "updated_at_utc": "2026-08-05T18:12:18.191350+00:00"
 }
