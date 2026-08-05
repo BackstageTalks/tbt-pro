@@ -1,50 +1,50 @@
 {
-  "generated_at": "2026-08-04T17:02:03+00:00",
-  "date": "2026-08-04",
+  "generated_at": "2026-08-05T06:45:00+00:00",
+  "date": "2026-08-05",
   "fetch_api": false,
   "settlement_grace_hours": 0.0,
   "local_tz": "Europe/Bratislava",
-  "corq_count": 50,
-  "cloq_count": 29,
-  "audit_count": 242,
+  "corq_count": 57,
+  "cloq_count": 32,
+  "audit_count": 292,
   "summary": {
     "corq": {
-      "picks": 50,
+      "picks": 57,
       "won": 0,
       "lost": 19,
-      "pending": 6,
+      "pending": 13,
       "void": 25,
       "win_rate": 0.0,
       "units": -19.0,
       "roi": -1.0
     },
     "cloq": {
-      "picks": 29,
+      "picks": 32,
       "won": 0,
       "lost": 3,
-      "pending": 24,
+      "pending": 27,
       "void": 2,
       "win_rate": 0.0,
       "units": -3.0,
       "roi": -1.0
     },
     "audit": {
-      "picks": 242,
-      "won": 0,
-      "lost": 70,
-      "pending": 33,
+      "picks": 292,
+      "won": 6,
+      "lost": 72,
+      "pending": 75,
       "void": 139,
-      "win_rate": 0.0,
-      "units": -70.0,
-      "roi": -1.0
+      "win_rate": 0.0769,
+      "units": -69.46,
+      "roi": -0.8905
     }
   },
   "summary_by_snapshot_source": {
     "CORQ_DAILY": {
-      "picks": 50,
+      "picks": 57,
       "won": 0,
       "lost": 19,
-      "pending": 6,
+      "pending": 13,
       "void": 25,
       "win_rate": 0.0,
       "units": -19.0,
@@ -57,9 +57,9 @@
     "audit": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/latest_all_audit_snapshot.json"
   },
   "locks": {
-    "corq": "immutable_ledger_source_plus_existing:0+existing:43+preserved:7",
-    "cloq": "immutable_ledger_source_plus_existing:0+existing:28+preserved:1",
-    "audit": "immutable_ledger_source_plus_existing:56+existing:186+preserved:56"
+    "corq": "immutable_ledger_source_plus_existing:7+existing:50+preserved:0",
+    "cloq": "immutable_ledger_source_plus_existing:3+existing:29+preserved:0",
+    "audit": "immutable_ledger_source_plus_existing:102+existing:240+preserved:2"
   },
   "output_root": "outputs/results"
 }
