@@ -13,8 +13,8 @@
   &quot;best_of&quot;: 3,
   &quot;match_start&quot;: &quot;2026-08-05T09:00:00+00:00&quot;,
   &quot;start_time&quot;: &quot;2026-08-05T09:00:00+00:00&quot;,
-  &quot;status_type&quot;: &quot;inprogress&quot;,
-  &quot;status_code&quot;: 8,
+  &quot;status_type&quot;: &quot;finished&quot;,
+  &quot;status_code&quot;: 100,
   &quot;is_doubles&quot;: false,
   &quot;source&quot;: &quot;tennisapi_market_quality_v2&quot;,
   &quot;raw&quot;: {
@@ -102,10 +102,11 @@
     },
     &quot;customId&quot;: &quot;RZqsHifb&quot;,
     &quot;status&quot;: {
-      &quot;code&quot;: 8,
-      &quot;description&quot;: &quot;1st set&quot;,
-      &quot;type&quot;: &quot;inprogress&quot;
+      &quot;code&quot;: 100,
+      &quot;description&quot;: &quot;Ended&quot;,
+      &quot;type&quot;: &quot;finished&quot;
     },
+    &quot;winnerCode&quot;: 2,
     &quot;homeTeam&quot;: {
       &quot;name&quot;: &quot;Katarzyna Kawa&quot;,
       &quot;slug&quot;: &quot;kawa-katarzyna&quot;,
@@ -192,27 +193,35 @@
       }
     },
     &quot;homeScore&quot;: {
-      &quot;current&quot;: 0,
-      &quot;display&quot;: 0,
+      &quot;current&quot;: 1,
+      &quot;display&quot;: 1,
       &quot;period1&quot;: 5,
-      &quot;point&quot;: &quot;0&quot;
+      &quot;period2&quot;: 6,
+      &quot;period3&quot;: 1,
+      &quot;point&quot;: &quot;15&quot;,
+      &quot;normaltime&quot;: 1
     },
     &quot;awayScore&quot;: {
-      &quot;current&quot;: 0,
-      &quot;display&quot;: 0,
-      &quot;period1&quot;: 5,
-      &quot;point&quot;: &quot;0&quot;
+      &quot;current&quot;: 2,
+      &quot;display&quot;: 2,
+      &quot;period1&quot;: 7,
+      &quot;period2&quot;: 2,
+      &quot;period3&quot;: 6,
+      &quot;point&quot;: &quot;40&quot;,
+      &quot;normaltime&quot;: 2
     },
     &quot;time&quot;: {
-      &quot;currentPeriodStartTimestamp&quot;: 1785921041
+      &quot;period1&quot;: 3011,
+      &quot;period2&quot;: 2331,
+      &quot;period3&quot;: 2240,
+      &quot;currentPeriodStartTimestamp&quot;: 1785926383
     },
     &quot;changes&quot;: {
       &quot;changes&quot;: [
-        &quot;homeScore.period1&quot;,
-        &quot;homeScore.point&quot;,
-        &quot;firstToServe&quot;
+        &quot;time.currentPeriodStart&quot;,
+        &quot;time.period3&quot;
       ],
-      &quot;changeTimestamp&quot;: 1785923541
+      &quot;changeTimestamp&quot;: 1785928638
     },
     &quot;hasGlobalHighlights&quot;: false,
     &quot;crowdsourcingDataDisplayEnabled&quot;: false,
@@ -228,7 +237,6 @@
       &quot;period4&quot;: &quot;4th set&quot;,
       &quot;period5&quot;: &quot;5th set&quot;
     },
-    &quot;lastPeriod&quot;: &quot;period1&quot;,
     &quot;finalResultOnly&quot;: false,
     &quot;feedLocked&quot;: false,
     &quot;groundType&quot;: &quot;Hardcourt outdoor&quot;,
@@ -253,16 +261,16 @@
   &quot;odds_label_2&quot;: &quot;2&quot;,
   &quot;odds_direct_match_score&quot;: 1.0,
   &quot;odds_reverse_match_score&quot;: 0.0,
-  &quot;odds_player1&quot;: 1.3333,
-  &quot;odds_player2&quot;: 3.25,
-  &quot;p1_odds&quot;: 1.3333,
-  &quot;p2_odds&quot;: 3.25,
-  &quot;home_odds&quot;: 1.3333,
-  &quot;away_odds&quot;: 3.25,
-  &quot;odds1&quot;: 1.3333,
-  &quot;odds2&quot;: 3.25,
-  &quot;price1&quot;: 1.3333,
-  &quot;price2&quot;: 3.25,
+  &quot;odds_player1&quot;: 1.2857,
+  &quot;odds_player2&quot;: 3.5,
+  &quot;p1_odds&quot;: 1.2857,
+  &quot;p2_odds&quot;: 3.5,
+  &quot;home_odds&quot;: 1.2857,
+  &quot;away_odds&quot;: 3.5,
+  &quot;odds1&quot;: 1.2857,
+  &quot;odds2&quot;: 3.5,
+  &quot;price1&quot;: 1.2857,
+  &quot;price2&quot;: 3.5,
   &quot;odds_source&quot;: &quot;RapidAPI PRO event odds&quot;,
   &quot;odds_endpoint&quot;: &quot;/api/tennis/event/16662187/odds/1/all&quot;,
   &quot;odds_status&quot;: &quot;OK&quot;,
@@ -271,8 +279,8 @@
   ],
   &quot;odds_pair_available&quot;: true,
   &quot;odds_labels_confirmed&quot;: true,
-  &quot;odds_gap_abs&quot;: 1.9167,
-  &quot;odds_gap_pct&quot;: 1.4376,
+  &quot;odds_gap_abs&quot;: 2.2143,
+  &quot;odds_gap_pct&quot;: 1.7223,
   &quot;home_player&quot;: &quot;Katarzyna Kawa&quot;,
   &quot;away_player&quot;: &quot;Justina Mikulskyte&quot;,
   &quot;pick_side&quot;: &quot;HOME&quot;,
@@ -281,20 +289,20 @@
   &quot;opponent&quot;: &quot;Justina Mikulskyte&quot;,
   &quot;odds&quot;: {
     &quot;od1&quot;: {
-      &quot;opening&quot;: 1.25,
-      &quot;latest&quot;: 1.5,
-      &quot;current&quot;: 1.5,
-      &quot;change&quot;: 1.0
+      &quot;opening&quot;: 1.28571,
+      &quot;latest&quot;: 1.28571,
+      &quot;current&quot;: 1.28571,
+      &quot;change&quot;: 0.0
     },
     &quot;od2&quot;: {
-      &quot;opening&quot;: 3.75,
-      &quot;latest&quot;: 2.5,
-      &quot;current&quot;: 2.5,
-      &quot;change&quot;: -1.0
+      &quot;opening&quot;: 3.5,
+      &quot;latest&quot;: 3.5,
+      &quot;current&quot;: 3.5,
+      &quot;change&quot;: 0.0
     }
   },
-  &quot;pick_odds&quot;: 1.3333,
-  &quot;opponent_odds&quot;: 3.25,
+  &quot;pick_odds&quot;: 1.2857,
+  &quot;opponent_odds&quot;: 3.5,
   &quot;pick_is_player1&quot;: true,
   &quot;pick_is_player2&quot;: false,
   &quot;pick_is_home&quot;: true,
@@ -322,9 +330,9 @@
   &quot;thinq&quot;: {
     &quot;available&quot;: true,
     &quot;error&quot;: null,
-    &quot;confidence&quot;: 0.84,
-    &quot;thinq_data_confidence&quot;: 0.84,
-    &quot;thinq_data_confidence_pct&quot;: 84.0,
+    &quot;confidence&quot;: 0.7475,
+    &quot;thinq_data_confidence&quot;: 0.7475,
+    &quot;thinq_data_confidence_pct&quot;: 74.75,
     &quot;thinq_side&quot;: {
       &quot;player1_home&quot;: &quot;Katarzyna Kawa&quot;,
       &quot;player2_away&quot;: &quot;Justina Mikulskyte&quot;,
@@ -391,20 +399,214 @@
       &quot;h2h_missing_surface_matches&quot;: 0,
       &quot;edge&quot;: 0.0,
       &quot;confidence&quot;: 0.0,
-      &quot;reason&quot;: &quot;No API H2H events returned&quot;,
-      &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/h2h&quot;,
+      &quot;reason&quot;: &quot;empty_status_404&quot;,
+      &quot;endpoint&quot;: null,
       &quot;params&quot;: null,
       &quot;endpoint_attempts&quot;: [
         {
           &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/h2h&quot;,
           &quot;params&quot;: {},
-          &quot;status_code&quot;: 200,
-          &quot;ok&quot;: true,
-          &quot;error&quot;: null
+          &quot;status_code&quot;: 429,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;429 Client Error: Too Many Requests for url: https://tennisapi1.p.rapidapi.com/api/tennis/event/RZqsHifb/h2h&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/h2h/history&quot;,
+          &quot;params&quot;: {},
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/h2h/summary&quot;,
+          &quot;params&quot;: {},
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/head-to-head&quot;,
+          &quot;params&quot;: {},
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/head-to-head/history&quot;,
+          &quot;params&quot;: {},
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/head-to-head/summary&quot;,
+          &quot;params&quot;: {},
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/h2h&quot;,
+          &quot;params&quot;: {},
+          &quot;status_code&quot;: 204,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_204&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/h2h/history&quot;,
+          &quot;params&quot;: {},
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/h2h/summary&quot;,
+          &quot;params&quot;: {},
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/head-to-head&quot;,
+          &quot;params&quot;: {},
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/head-to-head/history&quot;,
+          &quot;params&quot;: {},
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/head-to-head/summary&quot;,
+          &quot;params&quot;: {},
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+          &quot;params&quot;: {
+            &quot;id&quot;: 16662187
+          },
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+          &quot;params&quot;: {
+            &quot;id&quot;: 16662187
+          },
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+          &quot;params&quot;: {
+            &quot;eventId&quot;: 16662187
+          },
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+          &quot;params&quot;: {
+            &quot;eventId&quot;: 16662187
+          },
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+          &quot;params&quot;: {
+            &quot;player1Id&quot;: 42492,
+            &quot;player2Id&quot;: 137932
+          },
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+          &quot;params&quot;: {
+            &quot;player1Id&quot;: 42492,
+            &quot;player2Id&quot;: 137932
+          },
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+          &quot;params&quot;: {
+            &quot;homeTeamId&quot;: 42492,
+            &quot;awayTeamId&quot;: 137932
+          },
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+          &quot;params&quot;: {
+            &quot;homeTeamId&quot;: 42492,
+            &quot;awayTeamId&quot;: 137932
+          },
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+          &quot;params&quot;: {
+            &quot;id&quot;: 42492,
+            &quot;secondId&quot;: 137932
+          },
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+          &quot;params&quot;: {
+            &quot;id&quot;: 42492,
+            &quot;secondId&quot;: 137932
+          },
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/head-to-head/42492/137932&quot;,
+          &quot;params&quot;: {},
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/team/42492/versus/137932/matches&quot;,
+          &quot;params&quot;: {},
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
+        },
+        {
+          &quot;endpoint&quot;: &quot;/api/tennis/player/42492/versus/137932/matches&quot;,
+          &quot;params&quot;: {},
+          &quot;status_code&quot;: 404,
+          &quot;ok&quot;: false,
+          &quot;error&quot;: &quot;empty_status_404&quot;
         }
       ],
-      &quot;api_status_code&quot;: 200,
-      &quot;api_error&quot;: null,
+      &quot;api_status_code&quot;: 404,
+      &quot;api_error&quot;: &quot;empty_status_404&quot;,
       &quot;cache_path&quot;: &quot;data/h2h_cache/2026/h2h_RZqsHifb.json&quot;,
       &quot;requested_event_id&quot;: 16662187,
       &quot;requested_event_custom_id&quot;: &quot;RZqsHifb&quot;,
@@ -413,40 +615,40 @@
     },
     &quot;recent_form&quot;: {
       &quot;status&quot;: &quot;OK&quot;,
-      &quot;source&quot;: &quot;rapidapi_team_last_matches&quot;,
+      &quot;source&quot;: &quot;local_history&quot;,
       &quot;surface&quot;: &quot;Hard&quot;,
       &quot;level&quot;: &quot;WTA 125&quot;,
       &quot;pick&quot;: {
         &quot;player&quot;: &quot;Katarzyna Kawa&quot;,
         &quot;normalized_player&quot;: &quot;katarzyna kawa&quot;,
-        &quot;total_history_matches&quot;: 27,
+        &quot;total_history_matches&quot;: 22,
         &quot;last5&quot;: {
           &quot;count&quot;: 5,
           &quot;wins&quot;: 2,
           &quot;losses&quot;: 3,
           &quot;record&quot;: &quot;2-3&quot;,
           &quot;win_pct&quot;: 0.4,
-          &quot;avg_opponent_rank&quot;: null,
-          &quot;last_match_date&quot;: &quot;2026-08-03&quot;
+          &quot;avg_opponent_rank&quot;: 102.2,
+          &quot;last_match_date&quot;: &quot;2026-04-10&quot;
         },
         &quot;last10&quot;: {
           &quot;count&quot;: 10,
-          &quot;wins&quot;: 6,
-          &quot;losses&quot;: 4,
-          &quot;record&quot;: &quot;6-4&quot;,
-          &quot;win_pct&quot;: 0.6,
-          &quot;avg_opponent_rank&quot;: null,
-          &quot;last_match_date&quot;: &quot;2026-08-03&quot;
+          &quot;wins&quot;: 4,
+          &quot;losses&quot;: 6,
+          &quot;record&quot;: &quot;4-6&quot;,
+          &quot;win_pct&quot;: 0.4,
+          &quot;avg_opponent_rank&quot;: 128.9,
+          &quot;last_match_date&quot;: &quot;2026-04-10&quot;
         },
         &quot;surface&quot;: &quot;Hard&quot;,
         &quot;surface_last10&quot;: {
-          &quot;count&quot;: 2,
+          &quot;count&quot;: 4,
           &quot;wins&quot;: 1,
-          &quot;losses&quot;: 1,
-          &quot;record&quot;: &quot;1-1&quot;,
-          &quot;win_pct&quot;: 0.5,
-          &quot;avg_opponent_rank&quot;: null,
-          &quot;last_match_date&quot;: &quot;2026-08-03&quot;
+          &quot;losses&quot;: 3,
+          &quot;record&quot;: &quot;1-3&quot;,
+          &quot;win_pct&quot;: 0.25,
+          &quot;avg_opponent_rank&quot;: 114.2,
+          &quot;last_match_date&quot;: &quot;2025-10-27&quot;
         },
         &quot;level&quot;: &quot;WTA 125&quot;,
         &quot;level_last10&quot;: {
@@ -457,44 +659,39 @@
           &quot;win_pct&quot;: null,
           &quot;avg_opponent_rank&quot;: null,
           &quot;last_match_date&quot;: null
-        },
-        &quot;api_status&quot;: &quot;OK&quot;,
-        &quot;api_event_count&quot;: 30,
-        &quot;api_usable_match_count&quot;: 27,
-        &quot;api_endpoint&quot;: &quot;https://tennisapi1.p.rapidapi.com/api/tennis/player/42492/events/previous/0&quot;,
-        &quot;api_cache_path&quot;: &quot;data/api_pro/team_last_matches/42492_last_0.json&quot;
+        }
       },
       &quot;opponent&quot;: {
         &quot;player&quot;: &quot;Justina Mikulskyte&quot;,
         &quot;normalized_player&quot;: &quot;justina mikulskyte&quot;,
-        &quot;total_history_matches&quot;: 19,
+        &quot;total_history_matches&quot;: 1,
         &quot;last5&quot;: {
-          &quot;count&quot;: 5,
-          &quot;wins&quot;: 2,
-          &quot;losses&quot;: 3,
-          &quot;record&quot;: &quot;2-3&quot;,
-          &quot;win_pct&quot;: 0.4,
-          &quot;avg_opponent_rank&quot;: null,
-          &quot;last_match_date&quot;: &quot;2026-08-04&quot;
+          &quot;count&quot;: 1,
+          &quot;wins&quot;: 0,
+          &quot;losses&quot;: 1,
+          &quot;record&quot;: &quot;0-1&quot;,
+          &quot;win_pct&quot;: 0.0,
+          &quot;avg_opponent_rank&quot;: 366.0,
+          &quot;last_match_date&quot;: &quot;2025-02-24&quot;
         },
         &quot;last10&quot;: {
-          &quot;count&quot;: 10,
-          &quot;wins&quot;: 6,
-          &quot;losses&quot;: 4,
-          &quot;record&quot;: &quot;6-4&quot;,
-          &quot;win_pct&quot;: 0.6,
-          &quot;avg_opponent_rank&quot;: null,
-          &quot;last_match_date&quot;: &quot;2026-08-04&quot;
+          &quot;count&quot;: 1,
+          &quot;wins&quot;: 0,
+          &quot;losses&quot;: 1,
+          &quot;record&quot;: &quot;0-1&quot;,
+          &quot;win_pct&quot;: 0.0,
+          &quot;avg_opponent_rank&quot;: 366.0,
+          &quot;last_match_date&quot;: &quot;2025-02-24&quot;
         },
         &quot;surface&quot;: &quot;Hard&quot;,
         &quot;surface_last10&quot;: {
-          &quot;count&quot;: 8,
-          &quot;wins&quot;: 6,
-          &quot;losses&quot;: 2,
-          &quot;record&quot;: &quot;6-2&quot;,
-          &quot;win_pct&quot;: 0.75,
-          &quot;avg_opponent_rank&quot;: null,
-          &quot;last_match_date&quot;: &quot;2026-08-04&quot;
+          &quot;count&quot;: 1,
+          &quot;wins&quot;: 0,
+          &quot;losses&quot;: 1,
+          &quot;record&quot;: &quot;0-1&quot;,
+          &quot;win_pct&quot;: 0.0,
+          &quot;avg_opponent_rank&quot;: 366.0,
+          &quot;last_match_date&quot;: &quot;2025-02-24&quot;
         },
         &quot;level&quot;: &quot;WTA 125&quot;,
         &quot;level_last10&quot;: {
@@ -505,66 +702,64 @@
           &quot;win_pct&quot;: null,
           &quot;avg_opponent_rank&quot;: null,
           &quot;last_match_date&quot;: null
-        },
-        &quot;api_status&quot;: &quot;OK&quot;,
-        &quot;api_event_count&quot;: 30,
-        &quot;api_usable_match_count&quot;: 19,
-        &quot;api_endpoint&quot;: &quot;https://tennisapi1.p.rapidapi.com/api/tennis/player/137932/events/previous/0&quot;,
-        &quot;api_cache_path&quot;: &quot;data/api_pro/team_last_matches/137932_last_0.json&quot;
+        }
       },
       &quot;pick_last5_record&quot;: &quot;2-3&quot;,
-      &quot;opponent_last5_record&quot;: &quot;2-3&quot;,
-      &quot;pick_last10_record&quot;: &quot;6-4&quot;,
-      &quot;opponent_last10_record&quot;: &quot;6-4&quot;,
-      &quot;pick_last10_win_pct&quot;: 0.6,
-      &quot;opponent_last10_win_pct&quot;: 0.6,
-      &quot;pick_surface_record&quot;: &quot;1-1&quot;,
-      &quot;opponent_surface_record&quot;: &quot;6-2&quot;,
-      &quot;pick_surface_last10_win_pct&quot;: 0.5,
-      &quot;opponent_surface_last10_win_pct&quot;: 0.75,
-      &quot;raw_recent_form_edge&quot;: 0.0,
-      &quot;raw_short_form_edge&quot;: 0.0,
-      &quot;raw_surface_recent_form_edge&quot;: -0.0175,
-      &quot;raw_opponent_quality_edge&quot;: 0.0,
+      &quot;opponent_last5_record&quot;: &quot;0-1&quot;,
+      &quot;pick_last10_record&quot;: &quot;4-6&quot;,
+      &quot;opponent_last10_record&quot;: &quot;0-1&quot;,
+      &quot;pick_last10_win_pct&quot;: 0.4,
+      &quot;opponent_last10_win_pct&quot;: 0.0,
+      &quot;pick_surface_record&quot;: &quot;1-3&quot;,
+      &quot;opponent_surface_record&quot;: &quot;0-1&quot;,
+      &quot;pick_surface_last10_win_pct&quot;: 0.25,
+      &quot;opponent_surface_last10_win_pct&quot;: 0.0,
+      &quot;raw_recent_form_edge&quot;: 0.032,
+      &quot;raw_short_form_edge&quot;: 0.02,
+      &quot;raw_surface_recent_form_edge&quot;: 0.0175,
+      &quot;raw_opponent_quality_edge&quot;: 0.0237,
       &quot;recent_form_edge&quot;: 0.0,
       &quot;short_form_edge&quot;: 0.0,
-      &quot;surface_recent_form_edge&quot;: -0.0175,
+      &quot;surface_recent_form_edge&quot;: 0.0,
       &quot;opponent_quality_edge&quot;: 0.0,
       &quot;effective_recent_form_edge&quot;: 0.0,
       &quot;effective_short_form_edge&quot;: 0.0,
-      &quot;effective_surface_recent_form_edge&quot;: -0.0175,
+      &quot;effective_surface_recent_form_edge&quot;: 0.0,
       &quot;effective_opponent_quality_edge&quot;: 0.0,
-      &quot;form_confidence&quot;: 0.8,
-      &quot;form_data_depth&quot;: 0.8,
-      &quot;recent_form_freshness_status&quot;: &quot;API_CURRENT&quot;,
+      &quot;form_confidence&quot;: 0.35,
+      &quot;form_data_depth&quot;: 0.35,
+      &quot;recent_form_freshness_status&quot;: &quot;LOCAL_STALE&quot;,
       &quot;pick_local_last_match_date&quot;: &quot;2026-04-10&quot;,
       &quot;opponent_local_last_match_date&quot;: &quot;2025-02-24&quot;,
       &quot;pick_local_days_old&quot;: 117,
       &quot;opponent_local_days_old&quot;: 527,
-      &quot;pick_api_last10_record&quot;: &quot;6-4&quot;,
-      &quot;opponent_api_last10_record&quot;: &quot;6-4&quot;,
-      &quot;pick_api_surface_record&quot;: &quot;1-1&quot;,
-      &quot;opponent_api_surface_record&quot;: &quot;6-2&quot;,
-      &quot;pick_api_last_match_date&quot;: &quot;2026-08-03&quot;,
-      &quot;opponent_api_last_match_date&quot;: &quot;2026-08-04&quot;,
-      &quot;pick_api_status&quot;: &quot;OK&quot;,
-      &quot;opponent_api_status&quot;: &quot;OK&quot;,
-      &quot;pick_api_event_count&quot;: 30,
-      &quot;opponent_api_event_count&quot;: 30,
-      &quot;pick_api_usable_match_count&quot;: 27,
-      &quot;opponent_api_usable_match_count&quot;: 19,
+      &quot;pick_api_last10_record&quot;: null,
+      &quot;opponent_api_last10_record&quot;: null,
+      &quot;pick_api_surface_record&quot;: null,
+      &quot;opponent_api_surface_record&quot;: null,
+      &quot;pick_api_last_match_date&quot;: null,
+      &quot;opponent_api_last_match_date&quot;: null,
+      &quot;pick_api_status&quot;: &quot;RATE_LIMITED&quot;,
+      &quot;opponent_api_status&quot;: &quot;RATE_LIMITED&quot;,
+      &quot;pick_api_event_count&quot;: 0,
+      &quot;opponent_api_event_count&quot;: 0,
+      &quot;pick_api_usable_match_count&quot;: 0,
+      &quot;opponent_api_usable_match_count&quot;: 0,
       &quot;recent_form_sample_audit&quot;: {
         &quot;status&quot;: &quot;OK&quot;,
         &quot;reason&quot;: &quot;&quot;,
         &quot;pick_last10_count&quot;: 10,
-        &quot;opponent_last10_count&quot;: 10,
-        &quot;pick_surface_count&quot;: 2,
-        &quot;opponent_surface_count&quot;: 8,
-        &quot;pick_total_history_matches&quot;: 27,
-        &quot;opponent_total_history_matches&quot;: 19
+        &quot;opponent_last10_count&quot;: 1,
+        &quot;pick_surface_count&quot;: 4,
+        &quot;opponent_surface_count&quot;: 1,
+        &quot;pick_total_history_matches&quot;: 22,
+        &quot;opponent_total_history_matches&quot;: 1
       },
       &quot;flags&quot;: [
         &quot;OPPONENT_QUALITY_THIN_DATA&quot;,
+        &quot;RECENT_FORM_NEUTRAL&quot;,
+        &quot;RECENT_FORM_STALE_LOCAL_HISTORY&quot;,
+        &quot;RECENT_FORM_THIN_SAMPLE&quot;,
         &quot;SURFACE_RECENT_FORM_THIN_SAMPLE&quot;
       ],
       &quot;history_status&quot;: {
@@ -602,20 +797,20 @@
       &quot;opponent&quot;: &quot;Justina Mikulskyte&quot;,
       &quot;surface&quot;: &quot;Hard&quot;,
       &quot;best_of&quot;: 3,
-      &quot;composite_edge&quot;: 0.0423,
-      &quot;closeness_index&quot;: 0.4535,
+      &quot;composite_edge&quot;: 0.044,
+      &quot;closeness_index&quot;: 0.4433,
       &quot;match_shape&quot;: &quot;BALANCED_STANDARD&quot;,
       &quot;projected_sets&quot;: 2.38,
       &quot;projected_games&quot;: 24.5,
-      &quot;tiebreak_probability&quot;: 0.3616,
-      &quot;decider_probability&quot;: 0.3833,
-      &quot;straight_sets_probability&quot;: 0.6167,
-      &quot;sets_edge&quot;: 0.0033,
-      &quot;games_edge&quot;: 0.0048,
-      &quot;tiebreak_edge&quot;: 0.0014,
-      &quot;decider_edge&quot;: -0.0003,
+      &quot;tiebreak_probability&quot;: 0.3598,
+      &quot;decider_probability&quot;: 0.3796,
+      &quot;straight_sets_probability&quot;: 0.6204,
+      &quot;sets_edge&quot;: 0.0035,
+      &quot;games_edge&quot;: 0.0051,
+      &quot;tiebreak_edge&quot;: 0.0015,
+      &quot;decider_edge&quot;: -0.0004,
       &quot;confidence&quot;: 0.78,
-      &quot;odds_gap_pct&quot;: 1.4376,
+      &quot;odds_gap_pct&quot;: 1.7223,
       &quot;flags&quot;: [
         &quot;MATCH_DYNAMICS_H2H_NEUTRAL&quot;
       ]
@@ -627,43 +822,46 @@
       &quot;pick_side&quot;: &quot;HOME&quot;,
       &quot;opponent&quot;: &quot;Justina Mikulskyte&quot;,
       &quot;opponent_side&quot;: &quot;AWAY&quot;,
-      &quot;pick_probability&quot;: 0.6153,
-      &quot;pick_probability_pct&quot;: 61.53,
-      &quot;opponent_probability&quot;: 0.3847,
-      &quot;opponent_probability_pct&quot;: 38.47,
+      &quot;pick_probability&quot;: 0.5963,
+      &quot;pick_probability_pct&quot;: 59.63,
+      &quot;opponent_probability&quot;: 0.4037,
+      &quot;opponent_probability_pct&quot;: 40.37,
       &quot;winner&quot;: &quot;Katarzyna Kawa&quot;,
       &quot;winner_side&quot;: &quot;HOME&quot;,
-      &quot;winner_probability&quot;: 0.6153,
-      &quot;winner_probability_pct&quot;: 61.53,
+      &quot;winner_probability&quot;: 0.5963,
+      &quot;winner_probability_pct&quot;: 59.63,
       &quot;loser&quot;: &quot;Justina Mikulskyte&quot;,
       &quot;loser_side&quot;: &quot;AWAY&quot;,
-      &quot;edge&quot;: 0.1406,
-      &quot;winner_edge&quot;: 0.1153,
-      &quot;confidence&quot;: 0.82,
+      &quot;edge&quot;: 0.1586,
+      &quot;winner_edge&quot;: 0.0963,
+      &quot;confidence&quot;: 0.6075,
       &quot;components&quot;: {
         &quot;overall_elo_edge&quot;: 0.07,
         &quot;surface_elo_edge&quot;: 0.08,
         &quot;h2h_edge&quot;: 0.0,
         &quot;recent_form_edge&quot;: 0.0,
         &quot;short_form_edge&quot;: 0.0,
-        &quot;surface_recent_form_edge&quot;: -0.0175,
+        &quot;surface_recent_form_edge&quot;: 0.0,
         &quot;opponent_quality_edge&quot;: 0.0,
-        &quot;sets_edge&quot;: 0.0033,
-        &quot;games_edge&quot;: 0.0048
+        &quot;sets_edge&quot;: 0.0035,
+        &quot;games_edge&quot;: 0.0051
       },
       &quot;form_family_edge&quot;: 0.0,
-      &quot;sets_games_edge&quot;: 0.0081,
+      &quot;sets_games_edge&quot;: 0.0086,
       &quot;display&quot;: {
         &quot;winner&quot;: &quot;Katarzyna Kawa&quot;,
-        &quot;probability&quot;: &quot;61.5%&quot;,
-        &quot;pick_probability&quot;: &quot;61.5%&quot;,
-        &quot;edge&quot;: &quot;+14.1%&quot;,
-        &quot;confidence&quot;: &quot;82.0%&quot;
+        &quot;probability&quot;: &quot;59.6%&quot;,
+        &quot;pick_probability&quot;: &quot;59.6%&quot;,
+        &quot;edge&quot;: &quot;+15.9%&quot;,
+        &quot;confidence&quot;: &quot;60.8%&quot;
       },
       &quot;flags&quot;: [
         &quot;MATCH_DYNAMICS_H2H_NEUTRAL&quot;,
         &quot;NO_H2H_DATA&quot;,
         &quot;OPPONENT_QUALITY_THIN_DATA&quot;,
+        &quot;RECENT_FORM_NEUTRAL&quot;,
+        &quot;RECENT_FORM_STALE_LOCAL_HISTORY&quot;,
+        &quot;RECENT_FORM_THIN_SAMPLE&quot;,
         &quot;SURFACE_RECENT_FORM_THIN_SAMPLE&quot;
       ]
     },
@@ -674,43 +872,46 @@
       &quot;pick_side&quot;: &quot;HOME&quot;,
       &quot;opponent&quot;: &quot;Justina Mikulskyte&quot;,
       &quot;opponent_side&quot;: &quot;AWAY&quot;,
-      &quot;pick_probability&quot;: 0.6153,
-      &quot;pick_probability_pct&quot;: 61.53,
-      &quot;opponent_probability&quot;: 0.3847,
-      &quot;opponent_probability_pct&quot;: 38.47,
+      &quot;pick_probability&quot;: 0.5963,
+      &quot;pick_probability_pct&quot;: 59.63,
+      &quot;opponent_probability&quot;: 0.4037,
+      &quot;opponent_probability_pct&quot;: 40.37,
       &quot;winner&quot;: &quot;Katarzyna Kawa&quot;,
       &quot;winner_side&quot;: &quot;HOME&quot;,
-      &quot;winner_probability&quot;: 0.6153,
-      &quot;winner_probability_pct&quot;: 61.53,
+      &quot;winner_probability&quot;: 0.5963,
+      &quot;winner_probability_pct&quot;: 59.63,
       &quot;loser&quot;: &quot;Justina Mikulskyte&quot;,
       &quot;loser_side&quot;: &quot;AWAY&quot;,
-      &quot;edge&quot;: 0.1406,
-      &quot;winner_edge&quot;: 0.1153,
-      &quot;confidence&quot;: 0.82,
+      &quot;edge&quot;: 0.1586,
+      &quot;winner_edge&quot;: 0.0963,
+      &quot;confidence&quot;: 0.6075,
       &quot;components&quot;: {
         &quot;overall_elo_edge&quot;: 0.07,
         &quot;surface_elo_edge&quot;: 0.08,
         &quot;h2h_edge&quot;: 0.0,
         &quot;recent_form_edge&quot;: 0.0,
         &quot;short_form_edge&quot;: 0.0,
-        &quot;surface_recent_form_edge&quot;: -0.0175,
+        &quot;surface_recent_form_edge&quot;: 0.0,
         &quot;opponent_quality_edge&quot;: 0.0,
-        &quot;sets_edge&quot;: 0.0033,
-        &quot;games_edge&quot;: 0.0048
+        &quot;sets_edge&quot;: 0.0035,
+        &quot;games_edge&quot;: 0.0051
       },
       &quot;form_family_edge&quot;: 0.0,
-      &quot;sets_games_edge&quot;: 0.0081,
+      &quot;sets_games_edge&quot;: 0.0086,
       &quot;display&quot;: {
         &quot;winner&quot;: &quot;Katarzyna Kawa&quot;,
-        &quot;probability&quot;: &quot;61.5%&quot;,
-        &quot;pick_probability&quot;: &quot;61.5%&quot;,
-        &quot;edge&quot;: &quot;+14.1%&quot;,
-        &quot;confidence&quot;: &quot;82.0%&quot;
+        &quot;probability&quot;: &quot;59.6%&quot;,
+        &quot;pick_probability&quot;: &quot;59.6%&quot;,
+        &quot;edge&quot;: &quot;+15.9%&quot;,
+        &quot;confidence&quot;: &quot;60.8%&quot;
       },
       &quot;flags&quot;: [
         &quot;MATCH_DYNAMICS_H2H_NEUTRAL&quot;,
         &quot;NO_H2H_DATA&quot;,
         &quot;OPPONENT_QUALITY_THIN_DATA&quot;,
+        &quot;RECENT_FORM_NEUTRAL&quot;,
+        &quot;RECENT_FORM_STALE_LOCAL_HISTORY&quot;,
+        &quot;RECENT_FORM_THIN_SAMPLE&quot;,
         &quot;SURFACE_RECENT_FORM_THIN_SAMPLE&quot;
       ]
     },
@@ -722,20 +923,20 @@
         &quot;opponent&quot;: &quot;Justina Mikulskyte&quot;,
         &quot;surface&quot;: &quot;Hard&quot;,
         &quot;best_of&quot;: 3,
-        &quot;composite_edge&quot;: 0.0423,
-        &quot;closeness_index&quot;: 0.4535,
+        &quot;composite_edge&quot;: 0.044,
+        &quot;closeness_index&quot;: 0.4433,
         &quot;match_shape&quot;: &quot;BALANCED_STANDARD&quot;,
         &quot;projected_sets&quot;: 2.38,
         &quot;projected_games&quot;: 24.5,
-        &quot;tiebreak_probability&quot;: 0.3616,
-        &quot;decider_probability&quot;: 0.3833,
-        &quot;straight_sets_probability&quot;: 0.6167,
-        &quot;sets_edge&quot;: 0.0033,
-        &quot;games_edge&quot;: 0.0048,
-        &quot;tiebreak_edge&quot;: 0.0014,
-        &quot;decider_edge&quot;: -0.0003,
+        &quot;tiebreak_probability&quot;: 0.3598,
+        &quot;decider_probability&quot;: 0.3796,
+        &quot;straight_sets_probability&quot;: 0.6204,
+        &quot;sets_edge&quot;: 0.0035,
+        &quot;games_edge&quot;: 0.0051,
+        &quot;tiebreak_edge&quot;: 0.0015,
+        &quot;decider_edge&quot;: -0.0004,
         &quot;confidence&quot;: 0.78,
-        &quot;odds_gap_pct&quot;: 1.4376,
+        &quot;odds_gap_pct&quot;: 1.7223,
         &quot;flags&quot;: [
           &quot;MATCH_DYNAMICS_H2H_NEUTRAL&quot;
         ]
@@ -758,22 +959,216 @@
         &quot;sample_cap&quot;: 0.0,
         &quot;sample_quality&quot;: &quot;NO_SAMPLE&quot;,
         &quot;confidence&quot;: 0.0,
-        &quot;reason&quot;: &quot;No API H2H events returned&quot;,
+        &quot;reason&quot;: &quot;empty_status_404&quot;,
         &quot;h2h_summary_source&quot;: &quot;summary_unusable_orientation_unknown&quot;,
         &quot;h2h_summary_usable&quot;: false,
-        &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/h2h&quot;,
+        &quot;endpoint&quot;: null,
         &quot;params&quot;: null,
         &quot;endpoint_attempts&quot;: [
           {
             &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/h2h&quot;,
             &quot;params&quot;: {},
-            &quot;status_code&quot;: 200,
-            &quot;ok&quot;: true,
-            &quot;error&quot;: null
+            &quot;status_code&quot;: 429,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;429 Client Error: Too Many Requests for url: https://tennisapi1.p.rapidapi.com/api/tennis/event/RZqsHifb/h2h&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/h2h/history&quot;,
+            &quot;params&quot;: {},
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/h2h/summary&quot;,
+            &quot;params&quot;: {},
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/head-to-head&quot;,
+            &quot;params&quot;: {},
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/head-to-head/history&quot;,
+            &quot;params&quot;: {},
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/head-to-head/summary&quot;,
+            &quot;params&quot;: {},
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/h2h&quot;,
+            &quot;params&quot;: {},
+            &quot;status_code&quot;: 204,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_204&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/h2h/history&quot;,
+            &quot;params&quot;: {},
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/h2h/summary&quot;,
+            &quot;params&quot;: {},
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/head-to-head&quot;,
+            &quot;params&quot;: {},
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/head-to-head/history&quot;,
+            &quot;params&quot;: {},
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/head-to-head/summary&quot;,
+            &quot;params&quot;: {},
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+            &quot;params&quot;: {
+              &quot;id&quot;: 16662187
+            },
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+            &quot;params&quot;: {
+              &quot;id&quot;: 16662187
+            },
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+            &quot;params&quot;: {
+              &quot;eventId&quot;: 16662187
+            },
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+            &quot;params&quot;: {
+              &quot;eventId&quot;: 16662187
+            },
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+            &quot;params&quot;: {
+              &quot;player1Id&quot;: 42492,
+              &quot;player2Id&quot;: 137932
+            },
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+            &quot;params&quot;: {
+              &quot;player1Id&quot;: 42492,
+              &quot;player2Id&quot;: 137932
+            },
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+            &quot;params&quot;: {
+              &quot;homeTeamId&quot;: 42492,
+              &quot;awayTeamId&quot;: 137932
+            },
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+            &quot;params&quot;: {
+              &quot;homeTeamId&quot;: 42492,
+              &quot;awayTeamId&quot;: 137932
+            },
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+            &quot;params&quot;: {
+              &quot;id&quot;: 42492,
+              &quot;secondId&quot;: 137932
+            },
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+            &quot;params&quot;: {
+              &quot;id&quot;: 42492,
+              &quot;secondId&quot;: 137932
+            },
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/head-to-head/42492/137932&quot;,
+            &quot;params&quot;: {},
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/team/42492/versus/137932/matches&quot;,
+            &quot;params&quot;: {},
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
+          },
+          {
+            &quot;endpoint&quot;: &quot;/api/tennis/player/42492/versus/137932/matches&quot;,
+            &quot;params&quot;: {},
+            &quot;status_code&quot;: 404,
+            &quot;ok&quot;: false,
+            &quot;error&quot;: &quot;empty_status_404&quot;
           }
         ],
-        &quot;api_status_code&quot;: 200,
-        &quot;api_error&quot;: null,
+        &quot;api_status_code&quot;: 404,
+        &quot;api_error&quot;: &quot;empty_status_404&quot;,
         &quot;cache_path&quot;: &quot;data/h2h_cache/2026/h2h_RZqsHifb.json&quot;,
         &quot;requested_event_id&quot;: 16662187,
         &quot;requested_event_custom_id&quot;: &quot;RZqsHifb&quot;,
@@ -782,40 +1177,40 @@
       },
       &quot;recent_form&quot;: {
         &quot;status&quot;: &quot;OK&quot;,
-        &quot;source&quot;: &quot;rapidapi_team_last_matches&quot;,
+        &quot;source&quot;: &quot;local_history&quot;,
         &quot;surface&quot;: &quot;Hard&quot;,
         &quot;level&quot;: &quot;WTA 125&quot;,
         &quot;pick&quot;: {
           &quot;player&quot;: &quot;Katarzyna Kawa&quot;,
           &quot;normalized_player&quot;: &quot;katarzyna kawa&quot;,
-          &quot;total_history_matches&quot;: 27,
+          &quot;total_history_matches&quot;: 22,
           &quot;last5&quot;: {
             &quot;count&quot;: 5,
             &quot;wins&quot;: 2,
             &quot;losses&quot;: 3,
             &quot;record&quot;: &quot;2-3&quot;,
             &quot;win_pct&quot;: 0.4,
-            &quot;avg_opponent_rank&quot;: null,
-            &quot;last_match_date&quot;: &quot;2026-08-03&quot;
+            &quot;avg_opponent_rank&quot;: 102.2,
+            &quot;last_match_date&quot;: &quot;2026-04-10&quot;
           },
           &quot;last10&quot;: {
             &quot;count&quot;: 10,
-            &quot;wins&quot;: 6,
-            &quot;losses&quot;: 4,
-            &quot;record&quot;: &quot;6-4&quot;,
-            &quot;win_pct&quot;: 0.6,
-            &quot;avg_opponent_rank&quot;: null,
-            &quot;last_match_date&quot;: &quot;2026-08-03&quot;
+            &quot;wins&quot;: 4,
+            &quot;losses&quot;: 6,
+            &quot;record&quot;: &quot;4-6&quot;,
+            &quot;win_pct&quot;: 0.4,
+            &quot;avg_opponent_rank&quot;: 128.9,
+            &quot;last_match_date&quot;: &quot;2026-04-10&quot;
           },
           &quot;surface&quot;: &quot;Hard&quot;,
           &quot;surface_last10&quot;: {
-            &quot;count&quot;: 2,
+            &quot;count&quot;: 4,
             &quot;wins&quot;: 1,
-            &quot;losses&quot;: 1,
-            &quot;record&quot;: &quot;1-1&quot;,
-            &quot;win_pct&quot;: 0.5,
-            &quot;avg_opponent_rank&quot;: null,
-            &quot;last_match_date&quot;: &quot;2026-08-03&quot;
+            &quot;losses&quot;: 3,
+            &quot;record&quot;: &quot;1-3&quot;,
+            &quot;win_pct&quot;: 0.25,
+            &quot;avg_opponent_rank&quot;: 114.2,
+            &quot;last_match_date&quot;: &quot;2025-10-27&quot;
           },
           &quot;level&quot;: &quot;WTA 125&quot;,
           &quot;level_last10&quot;: {
@@ -826,44 +1221,39 @@
             &quot;win_pct&quot;: null,
             &quot;avg_opponent_rank&quot;: null,
             &quot;last_match_date&quot;: null
-          },
-          &quot;api_status&quot;: &quot;OK&quot;,
-          &quot;api_event_count&quot;: 30,
-          &quot;api_usable_match_count&quot;: 27,
-          &quot;api_endpoint&quot;: &quot;https://tennisapi1.p.rapidapi.com/api/tennis/player/42492/events/previous/0&quot;,
-          &quot;api_cache_path&quot;: &quot;data/api_pro/team_last_matches/42492_last_0.json&quot;
+          }
         },
         &quot;opponent&quot;: {
           &quot;player&quot;: &quot;Justina Mikulskyte&quot;,
           &quot;normalized_player&quot;: &quot;justina mikulskyte&quot;,
-          &quot;total_history_matches&quot;: 19,
+          &quot;total_history_matches&quot;: 1,
           &quot;last5&quot;: {
-            &quot;count&quot;: 5,
-            &quot;wins&quot;: 2,
-            &quot;losses&quot;: 3,
-            &quot;record&quot;: &quot;2-3&quot;,
-            &quot;win_pct&quot;: 0.4,
-            &quot;avg_opponent_rank&quot;: null,
-            &quot;last_match_date&quot;: &quot;2026-08-04&quot;
+            &quot;count&quot;: 1,
+            &quot;wins&quot;: 0,
+            &quot;losses&quot;: 1,
+            &quot;record&quot;: &quot;0-1&quot;,
+            &quot;win_pct&quot;: 0.0,
+            &quot;avg_opponent_rank&quot;: 366.0,
+            &quot;last_match_date&quot;: &quot;2025-02-24&quot;
           },
           &quot;last10&quot;: {
-            &quot;count&quot;: 10,
-            &quot;wins&quot;: 6,
-            &quot;losses&quot;: 4,
-            &quot;record&quot;: &quot;6-4&quot;,
-            &quot;win_pct&quot;: 0.6,
-            &quot;avg_opponent_rank&quot;: null,
-            &quot;last_match_date&quot;: &quot;2026-08-04&quot;
+            &quot;count&quot;: 1,
+            &quot;wins&quot;: 0,
+            &quot;losses&quot;: 1,
+            &quot;record&quot;: &quot;0-1&quot;,
+            &quot;win_pct&quot;: 0.0,
+            &quot;avg_opponent_rank&quot;: 366.0,
+            &quot;last_match_date&quot;: &quot;2025-02-24&quot;
           },
           &quot;surface&quot;: &quot;Hard&quot;,
           &quot;surface_last10&quot;: {
-            &quot;count&quot;: 8,
-            &quot;wins&quot;: 6,
-            &quot;losses&quot;: 2,
-            &quot;record&quot;: &quot;6-2&quot;,
-            &quot;win_pct&quot;: 0.75,
-            &quot;avg_opponent_rank&quot;: null,
-            &quot;last_match_date&quot;: &quot;2026-08-04&quot;
+            &quot;count&quot;: 1,
+            &quot;wins&quot;: 0,
+            &quot;losses&quot;: 1,
+            &quot;record&quot;: &quot;0-1&quot;,
+            &quot;win_pct&quot;: 0.0,
+            &quot;avg_opponent_rank&quot;: 366.0,
+            &quot;last_match_date&quot;: &quot;2025-02-24&quot;
           },
           &quot;level&quot;: &quot;WTA 125&quot;,
           &quot;level_last10&quot;: {
@@ -874,66 +1264,64 @@
             &quot;win_pct&quot;: null,
             &quot;avg_opponent_rank&quot;: null,
             &quot;last_match_date&quot;: null
-          },
-          &quot;api_status&quot;: &quot;OK&quot;,
-          &quot;api_event_count&quot;: 30,
-          &quot;api_usable_match_count&quot;: 19,
-          &quot;api_endpoint&quot;: &quot;https://tennisapi1.p.rapidapi.com/api/tennis/player/137932/events/previous/0&quot;,
-          &quot;api_cache_path&quot;: &quot;data/api_pro/team_last_matches/137932_last_0.json&quot;
+          }
         },
         &quot;pick_last5_record&quot;: &quot;2-3&quot;,
-        &quot;opponent_last5_record&quot;: &quot;2-3&quot;,
-        &quot;pick_last10_record&quot;: &quot;6-4&quot;,
-        &quot;opponent_last10_record&quot;: &quot;6-4&quot;,
-        &quot;pick_last10_win_pct&quot;: 0.6,
-        &quot;opponent_last10_win_pct&quot;: 0.6,
-        &quot;pick_surface_record&quot;: &quot;1-1&quot;,
-        &quot;opponent_surface_record&quot;: &quot;6-2&quot;,
-        &quot;pick_surface_last10_win_pct&quot;: 0.5,
-        &quot;opponent_surface_last10_win_pct&quot;: 0.75,
-        &quot;raw_recent_form_edge&quot;: 0.0,
-        &quot;raw_short_form_edge&quot;: 0.0,
-        &quot;raw_surface_recent_form_edge&quot;: -0.0175,
-        &quot;raw_opponent_quality_edge&quot;: 0.0,
+        &quot;opponent_last5_record&quot;: &quot;0-1&quot;,
+        &quot;pick_last10_record&quot;: &quot;4-6&quot;,
+        &quot;opponent_last10_record&quot;: &quot;0-1&quot;,
+        &quot;pick_last10_win_pct&quot;: 0.4,
+        &quot;opponent_last10_win_pct&quot;: 0.0,
+        &quot;pick_surface_record&quot;: &quot;1-3&quot;,
+        &quot;opponent_surface_record&quot;: &quot;0-1&quot;,
+        &quot;pick_surface_last10_win_pct&quot;: 0.25,
+        &quot;opponent_surface_last10_win_pct&quot;: 0.0,
+        &quot;raw_recent_form_edge&quot;: 0.032,
+        &quot;raw_short_form_edge&quot;: 0.02,
+        &quot;raw_surface_recent_form_edge&quot;: 0.0175,
+        &quot;raw_opponent_quality_edge&quot;: 0.0237,
         &quot;recent_form_edge&quot;: 0.0,
         &quot;short_form_edge&quot;: 0.0,
-        &quot;surface_recent_form_edge&quot;: -0.0175,
+        &quot;surface_recent_form_edge&quot;: 0.0,
         &quot;opponent_quality_edge&quot;: 0.0,
         &quot;effective_recent_form_edge&quot;: 0.0,
         &quot;effective_short_form_edge&quot;: 0.0,
-        &quot;effective_surface_recent_form_edge&quot;: -0.0175,
+        &quot;effective_surface_recent_form_edge&quot;: 0.0,
         &quot;effective_opponent_quality_edge&quot;: 0.0,
-        &quot;form_confidence&quot;: 0.8,
-        &quot;form_data_depth&quot;: 0.8,
-        &quot;recent_form_freshness_status&quot;: &quot;API_CURRENT&quot;,
+        &quot;form_confidence&quot;: 0.35,
+        &quot;form_data_depth&quot;: 0.35,
+        &quot;recent_form_freshness_status&quot;: &quot;LOCAL_STALE&quot;,
         &quot;pick_local_last_match_date&quot;: &quot;2026-04-10&quot;,
         &quot;opponent_local_last_match_date&quot;: &quot;2025-02-24&quot;,
         &quot;pick_local_days_old&quot;: 117,
         &quot;opponent_local_days_old&quot;: 527,
-        &quot;pick_api_last10_record&quot;: &quot;6-4&quot;,
-        &quot;opponent_api_last10_record&quot;: &quot;6-4&quot;,
-        &quot;pick_api_surface_record&quot;: &quot;1-1&quot;,
-        &quot;opponent_api_surface_record&quot;: &quot;6-2&quot;,
-        &quot;pick_api_last_match_date&quot;: &quot;2026-08-03&quot;,
-        &quot;opponent_api_last_match_date&quot;: &quot;2026-08-04&quot;,
-        &quot;pick_api_status&quot;: &quot;OK&quot;,
-        &quot;opponent_api_status&quot;: &quot;OK&quot;,
-        &quot;pick_api_event_count&quot;: 30,
-        &quot;opponent_api_event_count&quot;: 30,
-        &quot;pick_api_usable_match_count&quot;: 27,
-        &quot;opponent_api_usable_match_count&quot;: 19,
+        &quot;pick_api_last10_record&quot;: null,
+        &quot;opponent_api_last10_record&quot;: null,
+        &quot;pick_api_surface_record&quot;: null,
+        &quot;opponent_api_surface_record&quot;: null,
+        &quot;pick_api_last_match_date&quot;: null,
+        &quot;opponent_api_last_match_date&quot;: null,
+        &quot;pick_api_status&quot;: &quot;RATE_LIMITED&quot;,
+        &quot;opponent_api_status&quot;: &quot;RATE_LIMITED&quot;,
+        &quot;pick_api_event_count&quot;: 0,
+        &quot;opponent_api_event_count&quot;: 0,
+        &quot;pick_api_usable_match_count&quot;: 0,
+        &quot;opponent_api_usable_match_count&quot;: 0,
         &quot;recent_form_sample_audit&quot;: {
           &quot;status&quot;: &quot;OK&quot;,
           &quot;reason&quot;: &quot;&quot;,
           &quot;pick_last10_count&quot;: 10,
-          &quot;opponent_last10_count&quot;: 10,
-          &quot;pick_surface_count&quot;: 2,
-          &quot;opponent_surface_count&quot;: 8,
-          &quot;pick_total_history_matches&quot;: 27,
-          &quot;opponent_total_history_matches&quot;: 19
+          &quot;opponent_last10_count&quot;: 1,
+          &quot;pick_surface_count&quot;: 4,
+          &quot;opponent_surface_count&quot;: 1,
+          &quot;pick_total_history_matches&quot;: 22,
+          &quot;opponent_total_history_matches&quot;: 1
         },
         &quot;flags&quot;: [
           &quot;OPPONENT_QUALITY_THIN_DATA&quot;,
+          &quot;RECENT_FORM_NEUTRAL&quot;,
+          &quot;RECENT_FORM_STALE_LOCAL_HISTORY&quot;,
+          &quot;RECENT_FORM_THIN_SAMPLE&quot;,
           &quot;SURFACE_RECENT_FORM_THIN_SAMPLE&quot;
         ],
         &quot;history_status&quot;: {
@@ -991,43 +1379,46 @@
         &quot;pick_side&quot;: &quot;HOME&quot;,
         &quot;opponent&quot;: &quot;Justina Mikulskyte&quot;,
         &quot;opponent_side&quot;: &quot;AWAY&quot;,
-        &quot;pick_probability&quot;: 0.6153,
-        &quot;pick_probability_pct&quot;: 61.53,
-        &quot;opponent_probability&quot;: 0.3847,
-        &quot;opponent_probability_pct&quot;: 38.47,
+        &quot;pick_probability&quot;: 0.5963,
+        &quot;pick_probability_pct&quot;: 59.63,
+        &quot;opponent_probability&quot;: 0.4037,
+        &quot;opponent_probability_pct&quot;: 40.37,
         &quot;winner&quot;: &quot;Katarzyna Kawa&quot;,
         &quot;winner_side&quot;: &quot;HOME&quot;,
-        &quot;winner_probability&quot;: 0.6153,
-        &quot;winner_probability_pct&quot;: 61.53,
+        &quot;winner_probability&quot;: 0.5963,
+        &quot;winner_probability_pct&quot;: 59.63,
         &quot;loser&quot;: &quot;Justina Mikulskyte&quot;,
         &quot;loser_side&quot;: &quot;AWAY&quot;,
-        &quot;edge&quot;: 0.1406,
-        &quot;winner_edge&quot;: 0.1153,
-        &quot;confidence&quot;: 0.82,
+        &quot;edge&quot;: 0.1586,
+        &quot;winner_edge&quot;: 0.0963,
+        &quot;confidence&quot;: 0.6075,
         &quot;components&quot;: {
           &quot;overall_elo_edge&quot;: 0.07,
           &quot;surface_elo_edge&quot;: 0.08,
           &quot;h2h_edge&quot;: 0.0,
           &quot;recent_form_edge&quot;: 0.0,
           &quot;short_form_edge&quot;: 0.0,
-          &quot;surface_recent_form_edge&quot;: -0.0175,
+          &quot;surface_recent_form_edge&quot;: 0.0,
           &quot;opponent_quality_edge&quot;: 0.0,
-          &quot;sets_edge&quot;: 0.0033,
-          &quot;games_edge&quot;: 0.0048
+          &quot;sets_edge&quot;: 0.0035,
+          &quot;games_edge&quot;: 0.0051
         },
         &quot;form_family_edge&quot;: 0.0,
-        &quot;sets_games_edge&quot;: 0.0081,
+        &quot;sets_games_edge&quot;: 0.0086,
         &quot;display&quot;: {
           &quot;winner&quot;: &quot;Katarzyna Kawa&quot;,
-          &quot;probability&quot;: &quot;61.5%&quot;,
-          &quot;pick_probability&quot;: &quot;61.5%&quot;,
-          &quot;edge&quot;: &quot;+14.1%&quot;,
-          &quot;confidence&quot;: &quot;82.0%&quot;
+          &quot;probability&quot;: &quot;59.6%&quot;,
+          &quot;pick_probability&quot;: &quot;59.6%&quot;,
+          &quot;edge&quot;: &quot;+15.9%&quot;,
+          &quot;confidence&quot;: &quot;60.8%&quot;
         },
         &quot;flags&quot;: [
           &quot;MATCH_DYNAMICS_H2H_NEUTRAL&quot;,
           &quot;NO_H2H_DATA&quot;,
           &quot;OPPONENT_QUALITY_THIN_DATA&quot;,
+          &quot;RECENT_FORM_NEUTRAL&quot;,
+          &quot;RECENT_FORM_STALE_LOCAL_HISTORY&quot;,
+          &quot;RECENT_FORM_THIN_SAMPLE&quot;,
           &quot;SURFACE_RECENT_FORM_THIN_SAMPLE&quot;
         ]
       },
@@ -1104,14 +1495,14 @@
         &quot;api_serve_stats_status&quot;: &quot;OK&quot;,
         &quot;api_pick_serve_stats_status&quot;: &quot;OK&quot;,
         &quot;api_opp_serve_stats_status&quot;: &quot;OK&quot;,
-        &quot;api_pick_ace_pct&quot;: 0.92,
-        &quot;api_opp_ace_pct&quot;: 2.43,
-        &quot;api_pick_df_pct&quot;: 5.98,
-        &quot;api_opp_df_pct&quot;: 3.95,
-        &quot;api_pick_serve_matches&quot;: 4,
-        &quot;api_opp_serve_matches&quot;: 3,
-        &quot;api_pick_serve_attempts&quot;: 435,
-        &quot;api_opp_serve_attempts&quot;: 329,
+        &quot;api_pick_ace_pct&quot;: 1.29,
+        &quot;api_opp_ace_pct&quot;: 2.33,
+        &quot;api_pick_df_pct&quot;: 5.51,
+        &quot;api_opp_df_pct&quot;: 3.96,
+        &quot;api_pick_serve_matches&quot;: 5,
+        &quot;api_opp_serve_matches&quot;: 4,
+        &quot;api_pick_serve_attempts&quot;: 544,
+        &quot;api_opp_serve_attempts&quot;: 429,
         &quot;api_pick_serve_scope&quot;: &quot;surface&quot;,
         &quot;api_opp_serve_scope&quot;: &quot;surface&quot;,
         &quot;api_pick_serve_year&quot;: 2026,
@@ -1120,12 +1511,12 @@
         &quot;api_opp_serve_cache_path&quot;: &quot;data/api_pro/team_year_stats/137932_2026.json&quot;,
         &quot;api_pick_serve_api_status&quot;: 200,
         &quot;api_opp_serve_api_status&quot;: 200,
-        &quot;pick_aces_projection&quot;: 0.7,
+        &quot;pick_aces_projection&quot;: 1.0,
         &quot;opponent_aces_projection&quot;: 1.8,
-        &quot;total_aces_projection&quot;: 2.5,
-        &quot;pick_df_projection&quot;: 4.5,
+        &quot;total_aces_projection&quot;: 2.8,
+        &quot;pick_df_projection&quot;: 4.2,
         &quot;opponent_df_projection&quot;: 3.0,
-        &quot;total_df_projection&quot;: 7.5,
+        &quot;total_df_projection&quot;: 7.2,
         &quot;aces_status&quot;: &quot;OK&quot;,
         &quot;df_status&quot;: &quot;OK&quot;
       }
@@ -1137,42 +1528,45 @@
       &quot;h2h_edge&quot;: 0.0,
       &quot;recent_form_edge&quot;: 0.0,
       &quot;short_form_edge&quot;: 0.0,
-      &quot;surface_recent_form_edge&quot;: -0.0175,
+      &quot;surface_recent_form_edge&quot;: 0.0,
       &quot;opponent_quality_edge&quot;: 0.0,
-      &quot;sets_edge&quot;: 0.0033,
-      &quot;games_edge&quot;: 0.0048
+      &quot;sets_edge&quot;: 0.0035,
+      &quot;games_edge&quot;: 0.0051
     },
     &quot;flags&quot;: [
       &quot;MATCH_DYNAMICS_H2H_NEUTRAL&quot;,
       &quot;NO_H2H_DATA&quot;,
       &quot;OPPONENT_QUALITY_THIN_DATA&quot;,
+      &quot;RECENT_FORM_NEUTRAL&quot;,
+      &quot;RECENT_FORM_STALE_LOCAL_HISTORY&quot;,
+      &quot;RECENT_FORM_THIN_SAMPLE&quot;,
       &quot;SURFACE_RECENT_FORM_THIN_SAMPLE&quot;
     ],
     &quot;thinq_available&quot;: true,
     &quot;thinq_probability_status&quot;: &quot;OK&quot;,
     &quot;thinq_model_version&quot;: &quot;THINQ_PROBABILITY_V1&quot;,
-    &quot;thinq_pick_probability&quot;: 0.6153,
-    &quot;thinq_pick_probability_pct&quot;: 61.53,
-    &quot;thinq_probability&quot;: 0.6153,
-    &quot;thinq_probability_pct&quot;: 61.53,
+    &quot;thinq_pick_probability&quot;: 0.5963,
+    &quot;thinq_pick_probability_pct&quot;: 59.63,
+    &quot;thinq_probability&quot;: 0.5963,
+    &quot;thinq_probability_pct&quot;: 59.63,
     &quot;thinq_winner&quot;: &quot;Katarzyna Kawa&quot;,
     &quot;thinq_winner_side&quot;: &quot;HOME&quot;,
-    &quot;thinq_winner_probability&quot;: 0.6153,
-    &quot;thinq_winner_probability_pct&quot;: 61.53,
-    &quot;thinq_edge&quot;: 0.1406,
-    &quot;thinq_probability_confidence&quot;: 0.82,
+    &quot;thinq_winner_probability&quot;: 0.5963,
+    &quot;thinq_winner_probability_pct&quot;: 59.63,
+    &quot;thinq_edge&quot;: 0.1586,
+    &quot;thinq_probability_confidence&quot;: 0.6075,
     &quot;thinq_probability_components&quot;: {
       &quot;overall_elo_edge&quot;: 0.07,
       &quot;surface_elo_edge&quot;: 0.08,
       &quot;h2h_edge&quot;: 0.0,
       &quot;recent_form_edge&quot;: 0.0,
       &quot;short_form_edge&quot;: 0.0,
-      &quot;surface_recent_form_edge&quot;: -0.0175,
+      &quot;surface_recent_form_edge&quot;: 0.0,
       &quot;opponent_quality_edge&quot;: 0.0,
-      &quot;sets_edge&quot;: 0.0033,
-      &quot;games_edge&quot;: 0.0048
+      &quot;sets_edge&quot;: 0.0035,
+      &quot;games_edge&quot;: 0.0051
     },
-    &quot;thinq_confidence&quot;: 0.84,
+    &quot;thinq_confidence&quot;: 0.7475,
     &quot;thinq_selected_elo_type&quot;: &quot;hard_elo&quot;,
     &quot;thinq_elo_pick&quot;: 1486.7,
     &quot;thinq_elo_opponent&quot;: 1373.1,
@@ -1203,54 +1597,248 @@
     &quot;thinq_h2h_sample_cap&quot;: 0.0,
     &quot;thinq_h2h_sample_quality&quot;: &quot;NO_SAMPLE&quot;,
     &quot;thinq_h2h_confidence&quot;: 0.0,
-    &quot;thinq_h2h_endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/h2h&quot;,
+    &quot;thinq_h2h_endpoint&quot;: null,
     &quot;thinq_h2h_params&quot;: null,
     &quot;thinq_h2h_endpoint_attempts&quot;: [
       {
         &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/h2h&quot;,
         &quot;params&quot;: {},
-        &quot;status_code&quot;: 200,
-        &quot;ok&quot;: true,
-        &quot;error&quot;: null
+        &quot;status_code&quot;: 429,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;429 Client Error: Too Many Requests for url: https://tennisapi1.p.rapidapi.com/api/tennis/event/RZqsHifb/h2h&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/h2h/history&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/h2h/summary&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/head-to-head&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/head-to-head/history&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/head-to-head/summary&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/h2h&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 204,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_204&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/h2h/history&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/h2h/summary&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/head-to-head&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/head-to-head/history&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/head-to-head/summary&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+        &quot;params&quot;: {
+          &quot;id&quot;: 16662187
+        },
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+        &quot;params&quot;: {
+          &quot;id&quot;: 16662187
+        },
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+        &quot;params&quot;: {
+          &quot;eventId&quot;: 16662187
+        },
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+        &quot;params&quot;: {
+          &quot;eventId&quot;: 16662187
+        },
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+        &quot;params&quot;: {
+          &quot;player1Id&quot;: 42492,
+          &quot;player2Id&quot;: 137932
+        },
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+        &quot;params&quot;: {
+          &quot;player1Id&quot;: 42492,
+          &quot;player2Id&quot;: 137932
+        },
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+        &quot;params&quot;: {
+          &quot;homeTeamId&quot;: 42492,
+          &quot;awayTeamId&quot;: 137932
+        },
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+        &quot;params&quot;: {
+          &quot;homeTeamId&quot;: 42492,
+          &quot;awayTeamId&quot;: 137932
+        },
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+        &quot;params&quot;: {
+          &quot;id&quot;: 42492,
+          &quot;secondId&quot;: 137932
+        },
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+        &quot;params&quot;: {
+          &quot;id&quot;: 42492,
+          &quot;secondId&quot;: 137932
+        },
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/head-to-head/42492/137932&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/team/42492/versus/137932/matches&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/player/42492/versus/137932/matches&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
       }
     ],
-    &quot;thinq_h2h_api_status_code&quot;: 200,
-    &quot;thinq_h2h_api_error&quot;: null,
+    &quot;thinq_h2h_api_status_code&quot;: 404,
+    &quot;thinq_h2h_api_error&quot;: &quot;empty_status_404&quot;,
     &quot;thinq_h2h_cache_path&quot;: &quot;data/h2h_cache/2026/h2h_RZqsHifb.json&quot;,
     &quot;thinq_h2h_requested_event_id&quot;: 16662187,
     &quot;thinq_h2h_requested_event_custom_id&quot;: &quot;RZqsHifb&quot;,
     &quot;thinq_recent_form_edge&quot;: 0.0,
     &quot;thinq_short_form_edge&quot;: 0.0,
-    &quot;thinq_surface_recent_form_edge&quot;: -0.0175,
+    &quot;thinq_surface_recent_form_edge&quot;: 0.0,
     &quot;thinq_opponent_quality_edge&quot;: 0.0,
-    &quot;thinq_sets_edge&quot;: 0.0033,
-    &quot;thinq_games_edge&quot;: 0.0048,
+    &quot;thinq_sets_edge&quot;: 0.0035,
+    &quot;thinq_games_edge&quot;: 0.0051,
     &quot;thinq_projected_sets&quot;: 2.38,
     &quot;thinq_projected_games&quot;: 24.5,
-    &quot;thinq_tiebreak_probability&quot;: 0.3616,
-    &quot;thinq_decider_probability&quot;: 0.3833,
-    &quot;thinq_straight_sets_probability&quot;: 0.6167,
+    &quot;thinq_tiebreak_probability&quot;: 0.3598,
+    &quot;thinq_decider_probability&quot;: 0.3796,
+    &quot;thinq_straight_sets_probability&quot;: 0.6204,
     &quot;thinq_match_shape&quot;: &quot;BALANCED_STANDARD&quot;,
     &quot;thinq_match_dynamics_confidence&quot;: 0.78,
-    &quot;thinq_form_confidence&quot;: 0.8,
-    &quot;recent_form_source&quot;: &quot;rapidapi_team_last_matches&quot;,
-    &quot;recent_form_freshness_status&quot;: &quot;API_CURRENT&quot;,
+    &quot;thinq_form_confidence&quot;: 0.35,
+    &quot;recent_form_source&quot;: &quot;local_history&quot;,
+    &quot;recent_form_freshness_status&quot;: &quot;LOCAL_STALE&quot;,
     &quot;pick_local_last_match_date&quot;: &quot;2026-04-10&quot;,
     &quot;opponent_local_last_match_date&quot;: &quot;2025-02-24&quot;,
     &quot;pick_local_days_old&quot;: 117,
     &quot;opponent_local_days_old&quot;: 527,
-    &quot;pick_api_last10_record&quot;: &quot;6-4&quot;,
-    &quot;opponent_api_last10_record&quot;: &quot;6-4&quot;,
-    &quot;pick_api_surface_record&quot;: &quot;1-1&quot;,
-    &quot;opponent_api_surface_record&quot;: &quot;6-2&quot;,
-    &quot;pick_api_last_match_date&quot;: &quot;2026-08-03&quot;,
-    &quot;opponent_api_last_match_date&quot;: &quot;2026-08-04&quot;,
-    &quot;pick_api_status&quot;: &quot;OK&quot;,
-    &quot;opponent_api_status&quot;: &quot;OK&quot;,
-    &quot;pick_api_event_count&quot;: 30,
-    &quot;opponent_api_event_count&quot;: 30,
-    &quot;pick_api_usable_match_count&quot;: 27,
-    &quot;opponent_api_usable_match_count&quot;: 19,
+    &quot;pick_api_last10_record&quot;: null,
+    &quot;opponent_api_last10_record&quot;: null,
+    &quot;pick_api_surface_record&quot;: null,
+    &quot;opponent_api_surface_record&quot;: null,
+    &quot;pick_api_last_match_date&quot;: null,
+    &quot;opponent_api_last_match_date&quot;: null,
+    &quot;pick_api_status&quot;: &quot;RATE_LIMITED&quot;,
+    &quot;opponent_api_status&quot;: &quot;RATE_LIMITED&quot;,
+    &quot;pick_api_event_count&quot;: 0,
+    &quot;opponent_api_event_count&quot;: 0,
+    &quot;pick_api_usable_match_count&quot;: 0,
+    &quot;opponent_api_usable_match_count&quot;: 0,
     &quot;ta_context&quot;: {
       &quot;ta_status&quot;: &quot;OK&quot;,
       &quot;ta_pick_status&quot;: &quot;OK&quot;,
@@ -1407,14 +1995,14 @@
       &quot;api_serve_stats_status&quot;: &quot;OK&quot;,
       &quot;api_pick_serve_stats_status&quot;: &quot;OK&quot;,
       &quot;api_opp_serve_stats_status&quot;: &quot;OK&quot;,
-      &quot;api_pick_ace_pct&quot;: 0.92,
-      &quot;api_opp_ace_pct&quot;: 2.43,
-      &quot;api_pick_df_pct&quot;: 5.98,
-      &quot;api_opp_df_pct&quot;: 3.95,
-      &quot;api_pick_serve_matches&quot;: 4,
-      &quot;api_opp_serve_matches&quot;: 3,
-      &quot;api_pick_serve_attempts&quot;: 435,
-      &quot;api_opp_serve_attempts&quot;: 329,
+      &quot;api_pick_ace_pct&quot;: 1.29,
+      &quot;api_opp_ace_pct&quot;: 2.33,
+      &quot;api_pick_df_pct&quot;: 5.51,
+      &quot;api_opp_df_pct&quot;: 3.96,
+      &quot;api_pick_serve_matches&quot;: 5,
+      &quot;api_opp_serve_matches&quot;: 4,
+      &quot;api_pick_serve_attempts&quot;: 544,
+      &quot;api_opp_serve_attempts&quot;: 429,
       &quot;api_pick_serve_scope&quot;: &quot;surface&quot;,
       &quot;api_opp_serve_scope&quot;: &quot;surface&quot;,
       &quot;api_pick_serve_year&quot;: 2026,
@@ -1423,33 +2011,33 @@
       &quot;api_opp_serve_cache_path&quot;: &quot;data/api_pro/team_year_stats/137932_2026.json&quot;,
       &quot;api_pick_serve_api_status&quot;: 200,
       &quot;api_opp_serve_api_status&quot;: 200,
-      &quot;pick_aces_projection&quot;: 0.7,
+      &quot;pick_aces_projection&quot;: 1.0,
       &quot;opponent_aces_projection&quot;: 1.8,
-      &quot;total_aces_projection&quot;: 2.5,
-      &quot;pick_df_projection&quot;: 4.5,
+      &quot;total_aces_projection&quot;: 2.8,
+      &quot;pick_df_projection&quot;: 4.2,
       &quot;opponent_df_projection&quot;: 3.0,
-      &quot;total_df_projection&quot;: 7.5,
+      &quot;total_df_projection&quot;: 7.2,
       &quot;aces_status&quot;: &quot;OK&quot;,
       &quot;df_status&quot;: &quot;OK&quot;
     },
     &quot;api_serve_stats_source&quot;: &quot;API_PRO_TEAM_YEAR_STATS&quot;,
     &quot;api_serve_stats_status&quot;: &quot;OK&quot;,
-    &quot;api_pick_ace_pct&quot;: 0.92,
-    &quot;api_opp_ace_pct&quot;: 2.43,
-    &quot;api_pick_df_pct&quot;: 5.98,
-    &quot;api_opp_df_pct&quot;: 3.95,
-    &quot;api_pick_serve_matches&quot;: 4,
-    &quot;api_opp_serve_matches&quot;: 3,
-    &quot;api_pick_serve_attempts&quot;: 435,
-    &quot;api_opp_serve_attempts&quot;: 329,
+    &quot;api_pick_ace_pct&quot;: 1.29,
+    &quot;api_opp_ace_pct&quot;: 2.33,
+    &quot;api_pick_df_pct&quot;: 5.51,
+    &quot;api_opp_df_pct&quot;: 3.96,
+    &quot;api_pick_serve_matches&quot;: 5,
+    &quot;api_opp_serve_matches&quot;: 4,
+    &quot;api_pick_serve_attempts&quot;: 544,
+    &quot;api_opp_serve_attempts&quot;: 429,
     &quot;api_pick_serve_scope&quot;: &quot;surface&quot;,
     &quot;api_opp_serve_scope&quot;: &quot;surface&quot;,
     &quot;api_pick_serve_year&quot;: 2026,
     &quot;api_opp_serve_year&quot;: 2026,
-    &quot;pick_ace_pct&quot;: 0.92,
-    &quot;opponent_ace_pct&quot;: 2.43,
-    &quot;pick_df_pct&quot;: 5.98,
-    &quot;opponent_df_pct&quot;: 3.95,
+    &quot;pick_ace_pct&quot;: 1.29,
+    &quot;opponent_ace_pct&quot;: 2.33,
+    &quot;pick_df_pct&quot;: 5.51,
+    &quot;opponent_df_pct&quot;: 3.96,
     &quot;pick_tb_pct&quot;: null,
     &quot;opponent_tb_pct&quot;: null,
     &quot;tb_probability&quot;: null,
@@ -1468,13 +2056,13 @@
     &quot;sets_model_source&quot;: &quot;ModelFallback&quot;,
     &quot;pick_aces_line&quot;: null,
     &quot;opponent_aces_line&quot;: null,
-    &quot;total_aces_line&quot;: 2.5,
-    &quot;pick_aces_projection&quot;: 0.7,
+    &quot;total_aces_line&quot;: 2.8,
+    &quot;pick_aces_projection&quot;: 1.0,
     &quot;opponent_aces_projection&quot;: 1.8,
-    &quot;total_aces_projection&quot;: 2.5,
-    &quot;pick_df_projection&quot;: 4.5,
+    &quot;total_aces_projection&quot;: 2.8,
+    &quot;pick_df_projection&quot;: 4.2,
     &quot;opponent_df_projection&quot;: 3.0,
-    &quot;total_df_projection&quot;: 7.5,
+    &quot;total_df_projection&quot;: 7.2,
     &quot;aces_status&quot;: &quot;OK&quot;,
     &quot;ta_scope&quot;: &quot;last52_overall&quot;,
     &quot;ta_surface&quot;: &quot;hard&quot;,
@@ -1525,6 +2113,9 @@
       &quot;MATCH_DYNAMICS_H2H_NEUTRAL&quot;,
       &quot;NO_H2H_DATA&quot;,
       &quot;OPPONENT_QUALITY_THIN_DATA&quot;,
+      &quot;RECENT_FORM_NEUTRAL&quot;,
+      &quot;RECENT_FORM_STALE_LOCAL_HISTORY&quot;,
+      &quot;RECENT_FORM_THIN_SAMPLE&quot;,
       &quot;SURFACE_RECENT_FORM_THIN_SAMPLE&quot;
     ],
     &quot;thinq_source_status&quot;: {
@@ -1542,7 +2133,7 @@
   &quot;thinq_service_import_diagnostics&quot;: [],
   &quot;thinq_available&quot;: true,
   &quot;thinq_error&quot;: null,
-  &quot;thinq_confidence&quot;: 0.84,
+  &quot;thinq_confidence&quot;: 0.7475,
   &quot;thinq_edges&quot;: {
     &quot;overall_elo_edge&quot;: 0.07,
     &quot;surface_elo_edge&quot;: 0.08,
@@ -1550,17 +2141,20 @@
     &quot;h2h_edge&quot;: 0.0,
     &quot;recent_form_edge&quot;: 0.0,
     &quot;short_form_edge&quot;: 0.0,
-    &quot;surface_recent_form_edge&quot;: -0.0175,
+    &quot;surface_recent_form_edge&quot;: 0.0,
     &quot;opponent_quality_edge&quot;: 0.0,
     &quot;ranking_context_edge&quot;: 0.02,
     &quot;market_sanity_edge&quot;: 0.0,
-    &quot;sets_edge&quot;: 0.0033,
-    &quot;games_edge&quot;: 0.0048
+    &quot;sets_edge&quot;: 0.0035,
+    &quot;games_edge&quot;: 0.0051
   },
   &quot;thinq_flags&quot;: [
     &quot;MATCH_DYNAMICS_H2H_NEUTRAL&quot;,
     &quot;NO_H2H_DATA&quot;,
     &quot;OPPONENT_QUALITY_THIN_DATA&quot;,
+    &quot;RECENT_FORM_NEUTRAL&quot;,
+    &quot;RECENT_FORM_STALE_LOCAL_HISTORY&quot;,
+    &quot;RECENT_FORM_THIN_SAMPLE&quot;,
     &quot;SURFACE_RECENT_FORM_THIN_SAMPLE&quot;
   ],
   &quot;thinq_elo_status&quot;: &quot;OK&quot;,
@@ -1570,8 +2164,8 @@
   &quot;thinq_history_file_count&quot;: 15,
   &quot;thinq_match_dynamics_status&quot;: &quot;OK&quot;,
   &quot;thinq_probability_layer_status&quot;: &quot;OK&quot;,
-  &quot;thinq_data_confidence&quot;: 0.84,
-  &quot;thinq_data_confidence_pct&quot;: 84.0,
+  &quot;thinq_data_confidence&quot;: 0.7475,
+  &quot;thinq_data_confidence_pct&quot;: 74.75,
   &quot;thinq_side&quot;: {
     &quot;player1_home&quot;: &quot;Katarzyna Kawa&quot;,
     &quot;player2_away&quot;: &quot;Justina Mikulskyte&quot;,
@@ -1597,68 +2191,71 @@
     &quot;pick_side&quot;: &quot;HOME&quot;,
     &quot;opponent&quot;: &quot;Justina Mikulskyte&quot;,
     &quot;opponent_side&quot;: &quot;AWAY&quot;,
-    &quot;pick_probability&quot;: 0.6153,
-    &quot;pick_probability_pct&quot;: 61.53,
-    &quot;opponent_probability&quot;: 0.3847,
-    &quot;opponent_probability_pct&quot;: 38.47,
+    &quot;pick_probability&quot;: 0.5963,
+    &quot;pick_probability_pct&quot;: 59.63,
+    &quot;opponent_probability&quot;: 0.4037,
+    &quot;opponent_probability_pct&quot;: 40.37,
     &quot;winner&quot;: &quot;Katarzyna Kawa&quot;,
     &quot;winner_side&quot;: &quot;HOME&quot;,
-    &quot;winner_probability&quot;: 0.6153,
-    &quot;winner_probability_pct&quot;: 61.53,
+    &quot;winner_probability&quot;: 0.5963,
+    &quot;winner_probability_pct&quot;: 59.63,
     &quot;loser&quot;: &quot;Justina Mikulskyte&quot;,
     &quot;loser_side&quot;: &quot;AWAY&quot;,
-    &quot;edge&quot;: 0.1406,
-    &quot;winner_edge&quot;: 0.1153,
-    &quot;confidence&quot;: 0.82,
+    &quot;edge&quot;: 0.1586,
+    &quot;winner_edge&quot;: 0.0963,
+    &quot;confidence&quot;: 0.6075,
     &quot;components&quot;: {
       &quot;overall_elo_edge&quot;: 0.07,
       &quot;surface_elo_edge&quot;: 0.08,
       &quot;h2h_edge&quot;: 0.0,
       &quot;recent_form_edge&quot;: 0.0,
       &quot;short_form_edge&quot;: 0.0,
-      &quot;surface_recent_form_edge&quot;: -0.0175,
+      &quot;surface_recent_form_edge&quot;: 0.0,
       &quot;opponent_quality_edge&quot;: 0.0,
-      &quot;sets_edge&quot;: 0.0033,
-      &quot;games_edge&quot;: 0.0048
+      &quot;sets_edge&quot;: 0.0035,
+      &quot;games_edge&quot;: 0.0051
     },
     &quot;form_family_edge&quot;: 0.0,
-    &quot;sets_games_edge&quot;: 0.0081,
+    &quot;sets_games_edge&quot;: 0.0086,
     &quot;display&quot;: {
       &quot;winner&quot;: &quot;Katarzyna Kawa&quot;,
-      &quot;probability&quot;: &quot;61.5%&quot;,
-      &quot;pick_probability&quot;: &quot;61.5%&quot;,
-      &quot;edge&quot;: &quot;+14.1%&quot;,
-      &quot;confidence&quot;: &quot;82.0%&quot;
+      &quot;probability&quot;: &quot;59.6%&quot;,
+      &quot;pick_probability&quot;: &quot;59.6%&quot;,
+      &quot;edge&quot;: &quot;+15.9%&quot;,
+      &quot;confidence&quot;: &quot;60.8%&quot;
     },
     &quot;flags&quot;: [
       &quot;MATCH_DYNAMICS_H2H_NEUTRAL&quot;,
       &quot;NO_H2H_DATA&quot;,
       &quot;OPPONENT_QUALITY_THIN_DATA&quot;,
+      &quot;RECENT_FORM_NEUTRAL&quot;,
+      &quot;RECENT_FORM_STALE_LOCAL_HISTORY&quot;,
+      &quot;RECENT_FORM_THIN_SAMPLE&quot;,
       &quot;SURFACE_RECENT_FORM_THIN_SAMPLE&quot;
     ]
   },
   &quot;thinq_probability_status&quot;: &quot;OK&quot;,
   &quot;thinq_model_version&quot;: &quot;THINQ_PROBABILITY_V1&quot;,
-  &quot;thinq_pick_probability&quot;: 0.6153,
-  &quot;thinq_pick_probability_pct&quot;: 61.53,
-  &quot;thinq_probability&quot;: 0.6153,
-  &quot;thinq_probability_pct&quot;: 61.53,
+  &quot;thinq_pick_probability&quot;: 0.5963,
+  &quot;thinq_pick_probability_pct&quot;: 59.63,
+  &quot;thinq_probability&quot;: 0.5963,
+  &quot;thinq_probability_pct&quot;: 59.63,
   &quot;thinq_winner&quot;: &quot;Katarzyna Kawa&quot;,
   &quot;thinq_winner_side&quot;: &quot;HOME&quot;,
-  &quot;thinq_winner_probability&quot;: 0.6153,
-  &quot;thinq_winner_probability_pct&quot;: 61.53,
-  &quot;thinq_edge&quot;: 0.1406,
-  &quot;thinq_probability_confidence&quot;: 0.82,
+  &quot;thinq_winner_probability&quot;: 0.5963,
+  &quot;thinq_winner_probability_pct&quot;: 59.63,
+  &quot;thinq_edge&quot;: 0.1586,
+  &quot;thinq_probability_confidence&quot;: 0.6075,
   &quot;thinq_probability_components&quot;: {
     &quot;overall_elo_edge&quot;: 0.07,
     &quot;surface_elo_edge&quot;: 0.08,
     &quot;h2h_edge&quot;: 0.0,
     &quot;recent_form_edge&quot;: 0.0,
     &quot;short_form_edge&quot;: 0.0,
-    &quot;surface_recent_form_edge&quot;: -0.0175,
+    &quot;surface_recent_form_edge&quot;: 0.0,
     &quot;opponent_quality_edge&quot;: 0.0,
-    &quot;sets_edge&quot;: 0.0033,
-    &quot;games_edge&quot;: 0.0048
+    &quot;sets_edge&quot;: 0.0035,
+    &quot;games_edge&quot;: 0.0051
   },
   &quot;thinq_selected_elo_type&quot;: &quot;hard_elo&quot;,
   &quot;thinq_elo_pick&quot;: 1486.7,
@@ -1690,36 +2287,230 @@
   &quot;thinq_h2h_sample_cap&quot;: 0.0,
   &quot;thinq_h2h_sample_quality&quot;: &quot;NO_SAMPLE&quot;,
   &quot;thinq_h2h_confidence&quot;: 0.0,
-  &quot;thinq_h2h_endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/h2h&quot;,
+  &quot;thinq_h2h_endpoint&quot;: null,
   &quot;thinq_h2h_params&quot;: null,
   &quot;thinq_h2h_endpoint_attempts&quot;: [
     {
       &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/h2h&quot;,
       &quot;params&quot;: {},
-      &quot;status_code&quot;: 200,
-      &quot;ok&quot;: true,
-      &quot;error&quot;: null
+      &quot;status_code&quot;: 429,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;429 Client Error: Too Many Requests for url: https://tennisapi1.p.rapidapi.com/api/tennis/event/RZqsHifb/h2h&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/h2h/history&quot;,
+      &quot;params&quot;: {},
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/h2h/summary&quot;,
+      &quot;params&quot;: {},
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/head-to-head&quot;,
+      &quot;params&quot;: {},
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/head-to-head/history&quot;,
+      &quot;params&quot;: {},
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/head-to-head/summary&quot;,
+      &quot;params&quot;: {},
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/h2h&quot;,
+      &quot;params&quot;: {},
+      &quot;status_code&quot;: 204,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_204&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/h2h/history&quot;,
+      &quot;params&quot;: {},
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/h2h/summary&quot;,
+      &quot;params&quot;: {},
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/head-to-head&quot;,
+      &quot;params&quot;: {},
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/head-to-head/history&quot;,
+      &quot;params&quot;: {},
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/head-to-head/summary&quot;,
+      &quot;params&quot;: {},
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+      &quot;params&quot;: {
+        &quot;id&quot;: 16662187
+      },
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+      &quot;params&quot;: {
+        &quot;id&quot;: 16662187
+      },
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+      &quot;params&quot;: {
+        &quot;eventId&quot;: 16662187
+      },
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+      &quot;params&quot;: {
+        &quot;eventId&quot;: 16662187
+      },
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+      &quot;params&quot;: {
+        &quot;player1Id&quot;: 42492,
+        &quot;player2Id&quot;: 137932
+      },
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+      &quot;params&quot;: {
+        &quot;player1Id&quot;: 42492,
+        &quot;player2Id&quot;: 137932
+      },
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+      &quot;params&quot;: {
+        &quot;homeTeamId&quot;: 42492,
+        &quot;awayTeamId&quot;: 137932
+      },
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+      &quot;params&quot;: {
+        &quot;homeTeamId&quot;: 42492,
+        &quot;awayTeamId&quot;: 137932
+      },
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+      &quot;params&quot;: {
+        &quot;id&quot;: 42492,
+        &quot;secondId&quot;: 137932
+      },
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+      &quot;params&quot;: {
+        &quot;id&quot;: 42492,
+        &quot;secondId&quot;: 137932
+      },
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/head-to-head/42492/137932&quot;,
+      &quot;params&quot;: {},
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/team/42492/versus/137932/matches&quot;,
+      &quot;params&quot;: {},
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
+    },
+    {
+      &quot;endpoint&quot;: &quot;/api/tennis/player/42492/versus/137932/matches&quot;,
+      &quot;params&quot;: {},
+      &quot;status_code&quot;: 404,
+      &quot;ok&quot;: false,
+      &quot;error&quot;: &quot;empty_status_404&quot;
     }
   ],
-  &quot;thinq_h2h_api_status_code&quot;: 200,
-  &quot;thinq_h2h_api_error&quot;: null,
+  &quot;thinq_h2h_api_status_code&quot;: 404,
+  &quot;thinq_h2h_api_error&quot;: &quot;empty_status_404&quot;,
   &quot;thinq_h2h_cache_path&quot;: &quot;data/h2h_cache/2026/h2h_RZqsHifb.json&quot;,
   &quot;thinq_h2h_requested_event_id&quot;: 16662187,
   &quot;thinq_h2h_requested_event_custom_id&quot;: &quot;RZqsHifb&quot;,
   &quot;thinq_recent_form_edge&quot;: 0.0,
   &quot;thinq_short_form_edge&quot;: 0.0,
-  &quot;thinq_surface_recent_form_edge&quot;: -0.0175,
+  &quot;thinq_surface_recent_form_edge&quot;: 0.0,
   &quot;thinq_opponent_quality_edge&quot;: 0.0,
-  &quot;thinq_sets_edge&quot;: 0.0033,
-  &quot;thinq_games_edge&quot;: 0.0048,
+  &quot;thinq_sets_edge&quot;: 0.0035,
+  &quot;thinq_games_edge&quot;: 0.0051,
   &quot;thinq_projected_sets&quot;: 2.38,
   &quot;thinq_projected_games&quot;: 24.5,
-  &quot;thinq_tiebreak_probability&quot;: 0.3616,
-  &quot;thinq_decider_probability&quot;: 0.3833,
-  &quot;thinq_straight_sets_probability&quot;: 0.6167,
+  &quot;thinq_tiebreak_probability&quot;: 0.3598,
+  &quot;thinq_decider_probability&quot;: 0.3796,
+  &quot;thinq_straight_sets_probability&quot;: 0.6204,
   &quot;thinq_match_shape&quot;: &quot;BALANCED_STANDARD&quot;,
   &quot;thinq_match_dynamics_confidence&quot;: 0.78,
-  &quot;thinq_form_confidence&quot;: 0.8,
+  &quot;thinq_form_confidence&quot;: 0.35,
   &quot;thinq_ta_context&quot;: {
     &quot;ta_status&quot;: &quot;OK&quot;,
     &quot;ta_pick_status&quot;: &quot;OK&quot;,
@@ -1838,20 +2629,214 @@
     &quot;h2h_missing_surface_matches&quot;: 0,
     &quot;edge&quot;: 0.0,
     &quot;confidence&quot;: 0.0,
-    &quot;reason&quot;: &quot;No API H2H events returned&quot;,
-    &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/h2h&quot;,
+    &quot;reason&quot;: &quot;empty_status_404&quot;,
+    &quot;endpoint&quot;: null,
     &quot;params&quot;: null,
     &quot;endpoint_attempts&quot;: [
       {
         &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/h2h&quot;,
         &quot;params&quot;: {},
-        &quot;status_code&quot;: 200,
-        &quot;ok&quot;: true,
-        &quot;error&quot;: null
+        &quot;status_code&quot;: 429,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;429 Client Error: Too Many Requests for url: https://tennisapi1.p.rapidapi.com/api/tennis/event/RZqsHifb/h2h&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/h2h/history&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/h2h/summary&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/head-to-head&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/head-to-head/history&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/event/RZqsHifb/head-to-head/summary&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/h2h&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 204,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_204&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/h2h/history&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/h2h/summary&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/head-to-head&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/head-to-head/history&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/event/16662187/head-to-head/summary&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+        &quot;params&quot;: {
+          &quot;id&quot;: 16662187
+        },
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+        &quot;params&quot;: {
+          &quot;id&quot;: 16662187
+        },
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+        &quot;params&quot;: {
+          &quot;eventId&quot;: 16662187
+        },
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+        &quot;params&quot;: {
+          &quot;eventId&quot;: 16662187
+        },
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+        &quot;params&quot;: {
+          &quot;player1Id&quot;: 42492,
+          &quot;player2Id&quot;: 137932
+        },
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+        &quot;params&quot;: {
+          &quot;player1Id&quot;: 42492,
+          &quot;player2Id&quot;: 137932
+        },
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+        &quot;params&quot;: {
+          &quot;homeTeamId&quot;: 42492,
+          &quot;awayTeamId&quot;: 137932
+        },
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+        &quot;params&quot;: {
+          &quot;homeTeamId&quot;: 42492,
+          &quot;awayTeamId&quot;: 137932
+        },
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadHistory&quot;,
+        &quot;params&quot;: {
+          &quot;id&quot;: 42492,
+          &quot;secondId&quot;: 137932
+        },
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/getHeadToHeadSummary&quot;,
+        &quot;params&quot;: {
+          &quot;id&quot;: 42492,
+          &quot;secondId&quot;: 137932
+        },
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/head-to-head/42492/137932&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/team/42492/versus/137932/matches&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
+      },
+      {
+        &quot;endpoint&quot;: &quot;/api/tennis/player/42492/versus/137932/matches&quot;,
+        &quot;params&quot;: {},
+        &quot;status_code&quot;: 404,
+        &quot;ok&quot;: false,
+        &quot;error&quot;: &quot;empty_status_404&quot;
       }
     ],
-    &quot;api_status_code&quot;: 200,
-    &quot;api_error&quot;: null,
+    &quot;api_status_code&quot;: 404,
+    &quot;api_error&quot;: &quot;empty_status_404&quot;,
     &quot;cache_path&quot;: &quot;data/h2h_cache/2026/h2h_RZqsHifb.json&quot;,
     &quot;requested_event_id&quot;: 16662187,
     &quot;requested_event_custom_id&quot;: &quot;RZqsHifb&quot;,
@@ -1860,40 +2845,40 @@
   },
   &quot;recent_form&quot;: {
     &quot;status&quot;: &quot;OK&quot;,
-    &quot;source&quot;: &quot;rapidapi_team_last_matches&quot;,
+    &quot;source&quot;: &quot;local_history&quot;,
     &quot;surface&quot;: &quot;Hard&quot;,
     &quot;level&quot;: &quot;WTA 125&quot;,
     &quot;pick&quot;: {
       &quot;player&quot;: &quot;Katarzyna Kawa&quot;,
       &quot;normalized_player&quot;: &quot;katarzyna kawa&quot;,
-      &quot;total_history_matches&quot;: 27,
+      &quot;total_history_matches&quot;: 22,
       &quot;last5&quot;: {
         &quot;count&quot;: 5,
         &quot;wins&quot;: 2,
         &quot;losses&quot;: 3,
         &quot;record&quot;: &quot;2-3&quot;,
         &quot;win_pct&quot;: 0.4,
-        &quot;avg_opponent_rank&quot;: null,
-        &quot;last_match_date&quot;: &quot;2026-08-03&quot;
+        &quot;avg_opponent_rank&quot;: 102.2,
+        &quot;last_match_date&quot;: &quot;2026-04-10&quot;
       },
       &quot;last10&quot;: {
         &quot;count&quot;: 10,
-        &quot;wins&quot;: 6,
-        &quot;losses&quot;: 4,
-        &quot;record&quot;: &quot;6-4&quot;,
-        &quot;win_pct&quot;: 0.6,
-        &quot;avg_opponent_rank&quot;: null,
-        &quot;last_match_date&quot;: &quot;2026-08-03&quot;
+        &quot;wins&quot;: 4,
+        &quot;losses&quot;: 6,
+        &quot;record&quot;: &quot;4-6&quot;,
+        &quot;win_pct&quot;: 0.4,
+        &quot;avg_opponent_rank&quot;: 128.9,
+        &quot;last_match_date&quot;: &quot;2026-04-10&quot;
       },
       &quot;surface&quot;: &quot;Hard&quot;,
       &quot;surface_last10&quot;: {
-        &quot;count&quot;: 2,
+        &quot;count&quot;: 4,
         &quot;wins&quot;: 1,
-        &quot;losses&quot;: 1,
-        &quot;record&quot;: &quot;1-1&quot;,
-        &quot;win_pct&quot;: 0.5,
-        &quot;avg_opponent_rank&quot;: null,
-        &quot;last_match_date&quot;: &quot;2026-08-03&quot;
+        &quot;losses&quot;: 3,
+        &quot;record&quot;: &quot;1-3&quot;,
+        &quot;win_pct&quot;: 0.25,
+        &quot;avg_opponent_rank&quot;: 114.2,
+        &quot;last_match_date&quot;: &quot;2025-10-27&quot;
       },
       &quot;level&quot;: &quot;WTA 125&quot;,
       &quot;level_last10&quot;: {
@@ -1904,44 +2889,39 @@
         &quot;win_pct&quot;: null,
         &quot;avg_opponent_rank&quot;: null,
         &quot;last_match_date&quot;: null
-      },
-      &quot;api_status&quot;: &quot;OK&quot;,
-      &quot;api_event_count&quot;: 30,
-      &quot;api_usable_match_count&quot;: 27,
-      &quot;api_endpoint&quot;: &quot;https://tennisapi1.p.rapidapi.com/api/tennis/player/42492/events/previous/0&quot;,
-      &quot;api_cache_path&quot;: &quot;data/api_pro/team_last_matches/42492_last_0.json&quot;
+      }
     },
     &quot;opponent&quot;: {
       &quot;player&quot;: &quot;Justina Mikulskyte&quot;,
       &quot;normalized_player&quot;: &quot;justina mikulskyte&quot;,
-      &quot;total_history_matches&quot;: 19,
+      &quot;total_history_matches&quot;: 1,
       &quot;last5&quot;: {
-        &quot;count&quot;: 5,
-        &quot;wins&quot;: 2,
-        &quot;losses&quot;: 3,
-        &quot;record&quot;: &quot;2-3&quot;,
-        &quot;win_pct&quot;: 0.4,
-        &quot;avg_opponent_rank&quot;: null,
-        &quot;last_match_date&quot;: &quot;2026-08-04&quot;
+        &quot;count&quot;: 1,
+        &quot;wins&quot;: 0,
+        &quot;losses&quot;: 1,
+        &quot;record&quot;: &quot;0-1&quot;,
+        &quot;win_pct&quot;: 0.0,
+        &quot;avg_opponent_rank&quot;: 366.0,
+        &quot;last_match_date&quot;: &quot;2025-02-24&quot;
       },
       &quot;last10&quot;: {
-        &quot;count&quot;: 10,
-        &quot;wins&quot;: 6,
-        &quot;losses&quot;: 4,
-        &quot;record&quot;: &quot;6-4&quot;,
-        &quot;win_pct&quot;: 0.6,
-        &quot;avg_opponent_rank&quot;: null,
-        &quot;last_match_date&quot;: &quot;2026-08-04&quot;
+        &quot;count&quot;: 1,
+        &quot;wins&quot;: 0,
+        &quot;losses&quot;: 1,
+        &quot;record&quot;: &quot;0-1&quot;,
+        &quot;win_pct&quot;: 0.0,
+        &quot;avg_opponent_rank&quot;: 366.0,
+        &quot;last_match_date&quot;: &quot;2025-02-24&quot;
       },
       &quot;surface&quot;: &quot;Hard&quot;,
       &quot;surface_last10&quot;: {
-        &quot;count&quot;: 8,
-        &quot;wins&quot;: 6,
-        &quot;losses&quot;: 2,
-        &quot;record&quot;: &quot;6-2&quot;,
-        &quot;win_pct&quot;: 0.75,
-        &quot;avg_opponent_rank&quot;: null,
-        &quot;last_match_date&quot;: &quot;2026-08-04&quot;
+        &quot;count&quot;: 1,
+        &quot;wins&quot;: 0,
+        &quot;losses&quot;: 1,
+        &quot;record&quot;: &quot;0-1&quot;,
+        &quot;win_pct&quot;: 0.0,
+        &quot;avg_opponent_rank&quot;: 366.0,
+        &quot;last_match_date&quot;: &quot;2025-02-24&quot;
       },
       &quot;level&quot;: &quot;WTA 125&quot;,
       &quot;level_last10&quot;: {
@@ -1952,66 +2932,64 @@
         &quot;win_pct&quot;: null,
         &quot;avg_opponent_rank&quot;: null,
         &quot;last_match_date&quot;: null
-      },
-      &quot;api_status&quot;: &quot;OK&quot;,
-      &quot;api_event_count&quot;: 30,
-      &quot;api_usable_match_count&quot;: 19,
-      &quot;api_endpoint&quot;: &quot;https://tennisapi1.p.rapidapi.com/api/tennis/player/137932/events/previous/0&quot;,
-      &quot;api_cache_path&quot;: &quot;data/api_pro/team_last_matches/137932_last_0.json&quot;
+      }
     },
     &quot;pick_last5_record&quot;: &quot;2-3&quot;,
-    &quot;opponent_last5_record&quot;: &quot;2-3&quot;,
-    &quot;pick_last10_record&quot;: &quot;6-4&quot;,
-    &quot;opponent_last10_record&quot;: &quot;6-4&quot;,
-    &quot;pick_last10_win_pct&quot;: 0.6,
-    &quot;opponent_last10_win_pct&quot;: 0.6,
-    &quot;pick_surface_record&quot;: &quot;1-1&quot;,
-    &quot;opponent_surface_record&quot;: &quot;6-2&quot;,
-    &quot;pick_surface_last10_win_pct&quot;: 0.5,
-    &quot;opponent_surface_last10_win_pct&quot;: 0.75,
-    &quot;raw_recent_form_edge&quot;: 0.0,
-    &quot;raw_short_form_edge&quot;: 0.0,
-    &quot;raw_surface_recent_form_edge&quot;: -0.0175,
-    &quot;raw_opponent_quality_edge&quot;: 0.0,
+    &quot;opponent_last5_record&quot;: &quot;0-1&quot;,
+    &quot;pick_last10_record&quot;: &quot;4-6&quot;,
+    &quot;opponent_last10_record&quot;: &quot;0-1&quot;,
+    &quot;pick_last10_win_pct&quot;: 0.4,
+    &quot;opponent_last10_win_pct&quot;: 0.0,
+    &quot;pick_surface_record&quot;: &quot;1-3&quot;,
+    &quot;opponent_surface_record&quot;: &quot;0-1&quot;,
+    &quot;pick_surface_last10_win_pct&quot;: 0.25,
+    &quot;opponent_surface_last10_win_pct&quot;: 0.0,
+    &quot;raw_recent_form_edge&quot;: 0.032,
+    &quot;raw_short_form_edge&quot;: 0.02,
+    &quot;raw_surface_recent_form_edge&quot;: 0.0175,
+    &quot;raw_opponent_quality_edge&quot;: 0.0237,
     &quot;recent_form_edge&quot;: 0.0,
     &quot;short_form_edge&quot;: 0.0,
-    &quot;surface_recent_form_edge&quot;: -0.0175,
+    &quot;surface_recent_form_edge&quot;: 0.0,
     &quot;opponent_quality_edge&quot;: 0.0,
     &quot;effective_recent_form_edge&quot;: 0.0,
     &quot;effective_short_form_edge&quot;: 0.0,
-    &quot;effective_surface_recent_form_edge&quot;: -0.0175,
+    &quot;effective_surface_recent_form_edge&quot;: 0.0,
     &quot;effective_opponent_quality_edge&quot;: 0.0,
-    &quot;form_confidence&quot;: 0.8,
-    &quot;form_data_depth&quot;: 0.8,
-    &quot;recent_form_freshness_status&quot;: &quot;API_CURRENT&quot;,
+    &quot;form_confidence&quot;: 0.35,
+    &quot;form_data_depth&quot;: 0.35,
+    &quot;recent_form_freshness_status&quot;: &quot;LOCAL_STALE&quot;,
     &quot;pick_local_last_match_date&quot;: &quot;2026-04-10&quot;,
     &quot;opponent_local_last_match_date&quot;: &quot;2025-02-24&quot;,
     &quot;pick_local_days_old&quot;: 117,
     &quot;opponent_local_days_old&quot;: 527,
-    &quot;pick_api_last10_record&quot;: &quot;6-4&quot;,
-    &quot;opponent_api_last10_record&quot;: &quot;6-4&quot;,
-    &quot;pick_api_surface_record&quot;: &quot;1-1&quot;,
-    &quot;opponent_api_surface_record&quot;: &quot;6-2&quot;,
-    &quot;pick_api_last_match_date&quot;: &quot;2026-08-03&quot;,
-    &quot;opponent_api_last_match_date&quot;: &quot;2026-08-04&quot;,
-    &quot;pick_api_status&quot;: &quot;OK&quot;,
-    &quot;opponent_api_status&quot;: &quot;OK&quot;,
-    &quot;pick_api_event_count&quot;: 30,
-    &quot;opponent_api_event_count&quot;: 30,
-    &quot;pick_api_usable_match_count&quot;: 27,
-    &quot;opponent_api_usable_match_count&quot;: 19,
+    &quot;pick_api_last10_record&quot;: null,
+    &quot;opponent_api_last10_record&quot;: null,
+    &quot;pick_api_surface_record&quot;: null,
+    &quot;opponent_api_surface_record&quot;: null,
+    &quot;pick_api_last_match_date&quot;: null,
+    &quot;opponent_api_last_match_date&quot;: null,
+    &quot;pick_api_status&quot;: &quot;RATE_LIMITED&quot;,
+    &quot;opponent_api_status&quot;: &quot;RATE_LIMITED&quot;,
+    &quot;pick_api_event_count&quot;: 0,
+    &quot;opponent_api_event_count&quot;: 0,
+    &quot;pick_api_usable_match_count&quot;: 0,
+    &quot;opponent_api_usable_match_count&quot;: 0,
     &quot;recent_form_sample_audit&quot;: {
       &quot;status&quot;: &quot;OK&quot;,
       &quot;reason&quot;: &quot;&quot;,
       &quot;pick_last10_count&quot;: 10,
-      &quot;opponent_last10_count&quot;: 10,
-      &quot;pick_surface_count&quot;: 2,
-      &quot;opponent_surface_count&quot;: 8,
-      &quot;pick_total_history_matches&quot;: 27,
-      &quot;opponent_total_history_matches&quot;: 19
+      &quot;opponent_last10_count&quot;: 1,
+      &quot;pick_surface_count&quot;: 4,
+      &quot;opponent_surface_count&quot;: 1,
+      &quot;pick_total_history_matches&quot;: 22,
+      &quot;opponent_total_history_matches&quot;: 1
     },
     &quot;flags&quot;: [
       &quot;OPPONENT_QUALITY_THIN_DATA&quot;,
+      &quot;RECENT_FORM_NEUTRAL&quot;,
+      &quot;RECENT_FORM_STALE_LOCAL_HISTORY&quot;,
+      &quot;RECENT_FORM_THIN_SAMPLE&quot;,
       &quot;SURFACE_RECENT_FORM_THIN_SAMPLE&quot;
     ],
     &quot;history_status&quot;: {
@@ -2049,20 +3027,20 @@
     &quot;opponent&quot;: &quot;Justina Mikulskyte&quot;,
     &quot;surface&quot;: &quot;Hard&quot;,
     &quot;best_of&quot;: 3,
-    &quot;composite_edge&quot;: 0.0423,
-    &quot;closeness_index&quot;: 0.4535,
+    &quot;composite_edge&quot;: 0.044,
+    &quot;closeness_index&quot;: 0.4433,
     &quot;match_shape&quot;: &quot;BALANCED_STANDARD&quot;,
     &quot;projected_sets&quot;: 2.38,
     &quot;projected_games&quot;: 24.5,
-    &quot;tiebreak_probability&quot;: 0.3616,
-    &quot;decider_probability&quot;: 0.3833,
-    &quot;straight_sets_probability&quot;: 0.6167,
-    &quot;sets_edge&quot;: 0.0033,
-    &quot;games_edge&quot;: 0.0048,
-    &quot;tiebreak_edge&quot;: 0.0014,
-    &quot;decider_edge&quot;: -0.0003,
+    &quot;tiebreak_probability&quot;: 0.3598,
+    &quot;decider_probability&quot;: 0.3796,
+    &quot;straight_sets_probability&quot;: 0.6204,
+    &quot;sets_edge&quot;: 0.0035,
+    &quot;games_edge&quot;: 0.0051,
+    &quot;tiebreak_edge&quot;: 0.0015,
+    &quot;decider_edge&quot;: -0.0004,
     &quot;confidence&quot;: 0.78,
-    &quot;odds_gap_pct&quot;: 1.4376,
+    &quot;odds_gap_pct&quot;: 1.7223,
     &quot;flags&quot;: [
       &quot;MATCH_DYNAMICS_H2H_NEUTRAL&quot;
     ]
@@ -2153,12 +3131,12 @@
     &quot;h2h_edge&quot;: 0.0,
     &quot;recent_form_edge&quot;: 0.0,
     &quot;short_form_edge&quot;: 0.0,
-    &quot;surface_recent_form_edge&quot;: -0.0175,
+    &quot;surface_recent_form_edge&quot;: 0.0,
     &quot;opponent_quality_edge&quot;: 0.0,
-    &quot;sets_edge&quot;: 0.0033,
-    &quot;games_edge&quot;: 0.0048
+    &quot;sets_edge&quot;: 0.0035,
+    &quot;games_edge&quot;: 0.0051
   },
-  &quot;confidence&quot;: 0.84,
+  &quot;confidence&quot;: 0.7475,
   &quot;ta_status&quot;: &quot;OK&quot;,
   &quot;ta_pick_status&quot;: &quot;OK&quot;,
   &quot;ta_opp_status&quot;: &quot;FETCH_FAILED&quot;,
@@ -2167,32 +3145,32 @@
   &quot;sets_model_source&quot;: &quot;TennisApiMarkets&quot;,
   &quot;api_serve_stats_source&quot;: &quot;TENNISAPI_H2H_STATS&quot;,
   &quot;api_serve_stats_status&quot;: &quot;PRIMARY_NOT_FOUND_FALLBACK_RATE_LIMIT&quot;,
-  &quot;api_pick_ace_pct&quot;: 0.92,
-  &quot;api_opp_ace_pct&quot;: 2.43,
-  &quot;api_pick_df_pct&quot;: 5.98,
-  &quot;api_opp_df_pct&quot;: 3.95,
-  &quot;api_pick_serve_matches&quot;: 4,
-  &quot;api_opp_serve_matches&quot;: 3,
-  &quot;api_pick_serve_attempts&quot;: 435,
-  &quot;api_opp_serve_attempts&quot;: 329,
+  &quot;api_pick_ace_pct&quot;: 1.29,
+  &quot;api_opp_ace_pct&quot;: 2.33,
+  &quot;api_pick_df_pct&quot;: 5.51,
+  &quot;api_opp_df_pct&quot;: 3.96,
+  &quot;api_pick_serve_matches&quot;: 5,
+  &quot;api_opp_serve_matches&quot;: 4,
+  &quot;api_pick_serve_attempts&quot;: 544,
+  &quot;api_opp_serve_attempts&quot;: 429,
   &quot;api_pick_serve_scope&quot;: &quot;surface&quot;,
   &quot;api_opp_serve_scope&quot;: &quot;surface&quot;,
   &quot;api_pick_serve_year&quot;: 2026,
   &quot;api_opp_serve_year&quot;: 2026,
-  &quot;pick_ace_pct&quot;: null,
-  &quot;opponent_ace_pct&quot;: 2.43,
-  &quot;pick_df_pct&quot;: 5.98,
-  &quot;opponent_df_pct&quot;: 3.95,
-  &quot;total_aces_line&quot;: null,
-  &quot;pick_aces_projection&quot;: 0.7,
-  &quot;opponent_aces_projection&quot;: 1.8,
-  &quot;total_aces_projection&quot;: 2.5,
-  &quot;pick_df_projection&quot;: 4.5,
+  &quot;pick_ace_pct&quot;: 1.29,
+  &quot;opponent_ace_pct&quot;: 2.33,
+  &quot;pick_df_pct&quot;: 5.51,
+  &quot;opponent_df_pct&quot;: 3.96,
+  &quot;total_aces_line&quot;: 2.5,
+  &quot;pick_aces_projection&quot;: 0.9,
+  &quot;opponent_aces_projection&quot;: 1.6,
+  &quot;total_aces_projection&quot;: 2.4,
+  &quot;pick_df_projection&quot;: 4.2,
   &quot;opponent_df_projection&quot;: 3.0,
-  &quot;total_df_projection&quot;: 7.5,
+  &quot;total_df_projection&quot;: 7.2,
   &quot;ace_status&quot;: &quot;OK&quot;,
   &quot;df_status&quot;: &quot;OK&quot;,
-  &quot;aces_status&quot;: &quot;MISSING_ACE_PCT&quot;,
+  &quot;aces_status&quot;: &quot;OK&quot;,
   &quot;overall_pick_elo&quot;: 1659.3,
   &quot;overall_opponent_elo&quot;: 1404.4,
   &quot;surface_pick_elo&quot;: 1486.7,
@@ -2207,32 +3185,32 @@
   &quot;elo_edge&quot;: 0.08,
   &quot;selected_elo_type&quot;: &quot;hard_elo&quot;,
   &quot;pick_last5_record&quot;: &quot;2-3&quot;,
-  &quot;opponent_last5_record&quot;: &quot;2-3&quot;,
-  &quot;pick_last10_record&quot;: &quot;6-4&quot;,
-  &quot;opponent_last10_record&quot;: &quot;6-4&quot;,
-  &quot;pick_surface_record&quot;: &quot;1-1&quot;,
-  &quot;opponent_surface_record&quot;: &quot;6-2&quot;,
-  &quot;pick_last10_win_pct&quot;: 0.6,
-  &quot;opponent_last10_win_pct&quot;: 0.6,
-  &quot;pick_surface_last10_win_pct&quot;: 0.5,
-  &quot;opponent_surface_last10_win_pct&quot;: 0.75,
+  &quot;opponent_last5_record&quot;: &quot;0-1&quot;,
+  &quot;pick_last10_record&quot;: &quot;4-6&quot;,
+  &quot;opponent_last10_record&quot;: &quot;0-1&quot;,
+  &quot;pick_surface_record&quot;: &quot;1-3&quot;,
+  &quot;opponent_surface_record&quot;: &quot;0-1&quot;,
+  &quot;pick_last10_win_pct&quot;: 0.4,
+  &quot;opponent_last10_win_pct&quot;: 0.0,
+  &quot;pick_surface_last10_win_pct&quot;: 0.25,
+  &quot;opponent_surface_last10_win_pct&quot;: 0.0,
   &quot;recent_form_edge&quot;: 0.0,
   &quot;short_form_edge&quot;: 0.0,
-  &quot;surface_recent_form_edge&quot;: -0.0175,
+  &quot;surface_recent_form_edge&quot;: 0.0,
   &quot;opponent_quality_edge&quot;: 0.0,
-  &quot;form_confidence&quot;: 0.8,
-  &quot;form_data_depth&quot;: 0.8,
+  &quot;form_confidence&quot;: 0.35,
+  &quot;form_data_depth&quot;: 0.35,
   &quot;status&quot;: &quot;OK&quot;,
   &quot;recent_form_status&quot;: &quot;OK&quot;,
   &quot;projected_sets&quot;: 2.38,
   &quot;projected_games&quot;: 24.5,
   &quot;tiebreak_probability&quot;: null,
-  &quot;decider_probability&quot;: 0.3833,
-  &quot;straight_sets_probability&quot;: 0.6167,
-  &quot;sets_edge&quot;: 0.0033,
-  &quot;games_edge&quot;: 0.0048,
-  &quot;tiebreak_edge&quot;: 0.0014,
-  &quot;decider_edge&quot;: -0.0003,
+  &quot;decider_probability&quot;: 0.3796,
+  &quot;straight_sets_probability&quot;: 0.6204,
+  &quot;sets_edge&quot;: 0.0035,
+  &quot;games_edge&quot;: 0.0051,
+  &quot;tiebreak_edge&quot;: 0.0015,
+  &quot;decider_edge&quot;: -0.0004,
   &quot;match_shape&quot;: &quot;BALANCED_STANDARD&quot;,
   &quot;api_pick_serve_stats_status&quot;: &quot;OK&quot;,
   &quot;api_opp_serve_stats_status&quot;: &quot;OK&quot;,
@@ -2240,19 +3218,19 @@
   &quot;opponent_ace_pct_source&quot;: &quot;API_SERVE_STATS&quot;,
   &quot;pick_df_pct_source&quot;: &quot;API_SERVE_STATS&quot;,
   &quot;opponent_df_pct_source&quot;: &quot;API_SERVE_STATS&quot;,
-  &quot;pick_aces_line&quot;: null,
+  &quot;pick_aces_line&quot;: 1.0,
   &quot;pick_aces_line_source&quot;: &quot;API_SERVE_STATS&quot;,
-  &quot;opponent_aces_line&quot;: null,
+  &quot;opponent_aces_line&quot;: 1.5,
   &quot;opponent_aces_line_source&quot;: &quot;API_SERVE_STATS&quot;,
   &quot;total_aces_line_source&quot;: &quot;API_SERVE_STATS&quot;,
-  &quot;pick_df_line&quot;: 4.5,
+  &quot;pick_df_line&quot;: 4.2,
   &quot;pick_df_line_source&quot;: &quot;API_SERVE_STATS&quot;,
   &quot;opponent_df_line&quot;: 3.0,
   &quot;opponent_df_line_source&quot;: &quot;API_SERVE_STATS&quot;,
-  &quot;total_df_line&quot;: 7.5,
+  &quot;total_df_line&quot;: 7.2,
   &quot;total_df_line_source&quot;: &quot;API_SERVE_STATS&quot;,
-  &quot;s_data_depth&quot;: 0.1346,
-  &quot;sets_games_data_depth&quot;: 0.1346,
+  &quot;s_data_depth&quot;: 0.1731,
+  &quot;sets_games_data_depth&quot;: 0.1731,
   &quot;api_h2h_stats_request_no&quot;: 167,
   &quot;api_h2h_source_host&quot;: &quot;tennis-api-atp-wta-itf.p.rapidapi.com&quot;,
   &quot;api_h2h_source_path&quot;: &quot;/tennis/v2/ms-api/h2h/stats/wta/Katarzyna%20Kawa/Justina%20Mikulskyte&quot;,
@@ -2261,31 +3239,31 @@
   &quot;api_h2h_resolution&quot;: &quot;NOT_FOUND&quot;,
   &quot;api_h2h_primary_status&quot;: &quot;NOT_FOUND&quot;,
   &quot;api_h2h_primary_path&quot;: &quot;/tennis/v2/extend/api/wta/h2h/stats/42492/137932&quot;,
-  &quot;implied_probability&quot;: 0.75,
+  &quot;implied_probability&quot;: 0.7778,
   &quot;pick_last10_count&quot;: 10,
-  &quot;opponent_last10_count&quot;: 10,
-  &quot;pick_surface_count&quot;: 2,
-  &quot;opponent_surface_count&quot;: 8,
+  &quot;opponent_last10_count&quot;: 1,
+  &quot;pick_surface_count&quot;: 4,
+  &quot;opponent_surface_count&quot;: 1,
   &quot;corq_model_version&quot;: &quot;CORQ_V1_THINQ_PRIMARY_PROBABILITY&quot;,
   &quot;corq_probability_source&quot;: &quot;THINQ_PICK_PROBABILITY&quot;,
-  &quot;corq_thinq_probability&quot;: 0.6153,
+  &quot;corq_thinq_probability&quot;: 0.5963,
   &quot;corq_components&quot;: {
     &quot;overall_elo_component&quot;: 0.07,
     &quot;surface_elo_component&quot;: 0.08,
     &quot;recent_form_component&quot;: 0.0,
-    &quot;surface_recent_form_component&quot;: -0.0175,
+    &quot;surface_recent_form_component&quot;: 0.0,
     &quot;opponent_quality_component&quot;: 0.0,
     &quot;h2h_component&quot;: 0.0,
     &quot;ranking_context_component&quot;: 0.02,
     &quot;market_sanity_component&quot;: 0.0,
-    &quot;context_component&quot;: 0.0081
+    &quot;context_component&quot;: 0.0086
   },
-  &quot;corq_raw_model_edge&quot;: 0.1153,
-  &quot;corq_confidence_factor&quot;: 0.82,
-  &quot;corq_estimated_win_probability&quot;: 0.6182,
-  &quot;estimated_win_pct&quot;: 61.82,
-  &quot;corq_score&quot;: 0.6182,
-  &quot;corq_edge&quot;: -0.1318,
+  &quot;corq_raw_model_edge&quot;: 0.0963,
+  &quot;corq_confidence_factor&quot;: 0.6075,
+  &quot;corq_estimated_win_probability&quot;: 0.6125,
+  &quot;estimated_win_pct&quot;: 61.25,
+  &quot;corq_score&quot;: 0.6125,
+  &quot;corq_edge&quot;: -0.1653,
   &quot;corq_risk_flags&quot;: [],
   &quot;ranking_source&quot;: &quot;TENNISAPI_RANKINGS&quot;,
   &quot;ranking_status&quot;: &quot;OK&quot;,
@@ -2360,19 +3338,19 @@
     &quot;TA profile missing or no usable scoped stats&quot;
   ],
   &quot;ta_signal_score_projection&quot;: &quot;N/A&quot;,
-  &quot;expected_sets&quot;: 2.42,
+  &quot;expected_sets&quot;: 2.38,
   &quot;sets_selection&quot;: &quot;O2.5&quot;,
-  &quot;sets_probability&quot;: 0.42,
+  &quot;sets_probability&quot;: 0.38,
   &quot;sets_probability_label&quot;: &quot;O2.5&quot;,
-  &quot;sets_o25_probability&quot;: 0.42,
+  &quot;sets_o25_probability&quot;: 0.38,
   &quot;sets_o45_probability&quot;: null,
   &quot;most_likely_score&quot;: &quot;2-0&quot;,
-  &quot;most_likely_score_probability&quot;: 0.4205,
+  &quot;most_likely_score_probability&quot;: 0.5363,
   &quot;score_probabilities&quot;: {
-    &quot;2-0&quot;: 0.4205,
-    &quot;2-1&quot;: 0.2625,
-    &quot;1-2&quot;: 0.1575,
-    &quot;0-2&quot;: 0.1595
+    &quot;2-0&quot;: 0.5363,
+    &quot;2-1&quot;: 0.2779,
+    &quot;1-2&quot;: 0.1021,
+    &quot;0-2&quot;: 0.0837
   },
   &quot;score_basis&quot;: &quot;player1_vs_player2&quot;,
   &quot;sets_source&quot;: &quot;Model&quot;,
@@ -2380,21 +3358,21 @@
   &quot;first_set_player2_odds&quot;: null,
   &quot;first_set_player1_probability&quot;: null,
   &quot;first_set_player2_probability&quot;: null,
-  &quot;expected_games&quot;: 22.4,
-  &quot;projected_total_games&quot;: 22.4,
-  &quot;games_line&quot;: 22.5,
-  &quot;total_games_line&quot;: 22.5,
-  &quot;games_pick&quot;: &quot;Under 22.5&quot;,
-  &quot;games_selection&quot;: &quot;U22.5&quot;,
-  &quot;games_probability&quot;: 0.5135,
+  &quot;expected_games&quot;: 21.8,
+  &quot;projected_total_games&quot;: 21.8,
+  &quot;games_line&quot;: 22.0,
+  &quot;total_games_line&quot;: 22.0,
+  &quot;games_pick&quot;: &quot;Under 22&quot;,
+  &quot;games_selection&quot;: &quot;U22&quot;,
+  &quot;games_probability&quot;: 0.527,
   &quot;games_model_source&quot;: &quot;ModelFallback&quot;,
   &quot;games_data_quality&quot;: &quot;C+&quot;,
-  &quot;best_total_selection&quot;: &quot;U22.5&quot;,
-  &quot;best_total_probability&quot;: 0.5135,
+  &quot;best_total_selection&quot;: &quot;U22&quot;,
+  &quot;best_total_probability&quot;: 0.527,
   &quot;games_over_odds&quot;: null,
   &quot;games_under_odds&quot;: null,
-  &quot;games_over_probability&quot;: 0.4865,
-  &quot;games_under_probability&quot;: 0.5135,
+  &quot;games_over_probability&quot;: 0.473,
+  &quot;games_under_probability&quot;: 0.527,
   &quot;tie_break_yes_odds&quot;: null,
   &quot;tie_break_no_odds&quot;: null,
   &quot;tie_break_selection&quot;: null,
@@ -2417,22 +3395,35 @@
     &quot;http_error_count&quot;: 0
   },
   &quot;double_faults_available&quot;: true,
-  &quot;df_pick&quot;: 4.2,
+  &quot;df_pick&quot;: 3.7,
   &quot;df_opponent&quot;: 2.7,
-  &quot;df_total&quot;: 6.9,
+  &quot;df_total&quot;: 6.4,
   &quot;df_source&quot;: &quot;TA/Sackmann DF% + games_line&quot;,
   &quot;pick_df_side&quot;: &quot;Under&quot;,
-  &quot;pick_df_selection&quot;: &quot;U4.5&quot;,
-  &quot;pick_df_probability&quot;: 0.5953,
+  &quot;pick_df_selection&quot;: &quot;U4.2&quot;,
+  &quot;pick_df_probability&quot;: 0.6293,
   &quot;opponent_df_side&quot;: &quot;Under&quot;,
   &quot;opponent_df_selection&quot;: &quot;U3&quot;,
-  &quot;opponent_df_probability&quot;: 0.5709,
+  &quot;opponent_df_probability&quot;: 0.589,
   &quot;total_df_side&quot;: &quot;Under&quot;,
-  &quot;total_df_selection&quot;: &quot;U7.5&quot;,
-  &quot;total_df_probability&quot;: 0.6186,
-  &quot;best_bet&quot;: &quot;U7.5&quot;,
-  &quot;best_bet_display&quot;: &quot;U7.5 62%&quot;,
-  &quot;best_bet_probability&quot;: 0.6186,
+  &quot;total_df_selection&quot;: &quot;U7.2&quot;,
+  &quot;total_df_probability&quot;: 0.6548,
+  &quot;pick_aces&quot;: 0.9,
+  &quot;opponent_aces&quot;: 1.6,
+  &quot;total_aces&quot;: 2.4,
+  &quot;pick_aces_side&quot;: &quot;Under&quot;,
+  &quot;pick_aces_selection&quot;: &quot;U1&quot;,
+  &quot;pick_aces_probability&quot;: 0.5278,
+  &quot;opponent_aces_side&quot;: &quot;Over&quot;,
+  &quot;opponent_aces_selection&quot;: &quot;O1.5&quot;,
+  &quot;opponent_aces_probability&quot;: 0.5162,
+  &quot;total_aces_side&quot;: &quot;Under&quot;,
+  &quot;total_aces_selection&quot;: &quot;U2.5&quot;,
+  &quot;total_aces_probability&quot;: 0.5079,
+  &quot;aces_source&quot;: &quot;TA A% + projected service points&quot;,
+  &quot;best_bet&quot;: &quot;U7.2&quot;,
+  &quot;best_bet_display&quot;: &quot;U7.2 65%&quot;,
+  &quot;best_bet_probability&quot;: 0.6548,
   &quot;best_bet_market&quot;: &quot;Total DF&quot;,
   &quot;sets_games_value_candidates&quot;: [],
   &quot;value_bet&quot;: null,
@@ -2443,9 +3434,9 @@
   &quot;marq_source&quot;: &quot;tennisapi_market_quality_v2&quot;,
   &quot;marq_api_source&quot;: &quot;TennisApi RapidAPI&quot;,
   &quot;marq_source_policy&quot;: &quot;TENNISAPI_ONLY_EXACT_EVENT&quot;,
-  &quot;marq_source_quality&quot;: &quot;EXACT_BETTING_ODDS_WITH_OPENING&quot;,
-  &quot;marq_data_status&quot;: &quot;EXACT_BETTING_ODDS_WITH_OPENING&quot;,
-  &quot;marq_confidence&quot;: &quot;HIGH&quot;,
+  &quot;marq_source_quality&quot;: &quot;EXACT_CURRENT_ODDS_ONLY&quot;,
+  &quot;marq_data_status&quot;: &quot;EXACT_CURRENT_ODDS_ONLY&quot;,
+  &quot;marq_confidence&quot;: &quot;MEDIUM&quot;,
   &quot;marq_exact_event_id_used&quot;: true,
   &quot;marq_name_matching_skipped&quot;: true,
   &quot;marq_date_feed_skipped&quot;: true,
@@ -2468,20 +3459,20 @@
       &quot;market_period&quot;: &quot;Match&quot;,
       &quot;market_id&quot;: 1,
       &quot;source_id&quot;: null,
-      &quot;odds_1&quot;: 1.5,
-      &quot;odds_2&quot;: 2.5,
-      &quot;initial_1&quot;: 1.25,
-      &quot;initial_2&quot;: 3.75,
-      &quot;opening_1&quot;: 1.25,
-      &quot;opening_2&quot;: 3.75,
-      &quot;change_1&quot;: 1.0,
-      &quot;change_2&quot;: -1.0,
-      &quot;choice_source_id_1&quot;: 1840025770,
-      &quot;choice_source_id_2&quot;: 1840025768,
-      &quot;marq_v2_no_vig_1&quot;: 0.625,
-      &quot;marq_v2_no_vig_2&quot;: 0.375,
-      &quot;marq_v2_overround&quot;: 1.0666666666666667,
-      &quot;marq_v2_movement_status&quot;: &quot;REAL_OPENING_CURRENT_AVAILABLE&quot;,
+      &quot;odds_1&quot;: 1.28571,
+      &quot;odds_2&quot;: 3.5,
+      &quot;initial_1&quot;: 1.28571,
+      &quot;initial_2&quot;: 3.5,
+      &quot;opening_1&quot;: 1.28571,
+      &quot;opening_2&quot;: 3.5,
+      &quot;change_1&quot;: 0.0,
+      &quot;change_2&quot;: 0.0,
+      &quot;choice_source_id_1&quot;: 1838974393,
+      &quot;choice_source_id_2&quot;: 1838974780,
+      &quot;marq_v2_no_vig_1&quot;: 0.7313439385169599,
+      &quot;marq_v2_no_vig_2&quot;: 0.2686560614830401,
+      &quot;marq_v2_overround&quot;: 1.063494656093298,
+      &quot;marq_v2_movement_status&quot;: &quot;OPENING_EQUALS_CURRENT&quot;,
       &quot;provider_odds_market_count&quot;: 1,
       &quot;provider_odds_has_full_time&quot;: true,
       &quot;provider_odds_fetch_version&quot;: &quot;2026-08-04-tennisapi-only-marq-v2&quot;,
@@ -2546,24 +3537,24 @@
   &quot;marq_endpoint_name&quot;: &quot;getAllOddsForEvent&quot;,
   &quot;marq_market_count&quot;: 1,
   &quot;marq_has_full_time&quot;: true,
-  &quot;marq_current_odds_1&quot;: 1.5,
-  &quot;marq_current_odds_2&quot;: 2.5,
-  &quot;marq_opening_odds_1&quot;: 1.25,
-  &quot;marq_opening_odds_2&quot;: 3.75,
-  &quot;marq_change_1&quot;: 1.0,
-  &quot;marq_change_2&quot;: -1.0,
-  &quot;marq_no_vig_probability_1&quot;: 0.625,
-  &quot;marq_no_vig_probability_2&quot;: 0.375,
-  &quot;marq_overround&quot;: 1.066667,
-  &quot;marq_movement_status&quot;: &quot;REAL_OPENING_CURRENT_AVAILABLE&quot;,
-  &quot;marq_internal_move_signal&quot;: &quot;Against pick&quot;,
-  &quot;marq_display_move_signal&quot;: &quot;Against pick&quot;,
-  &quot;marq_move_signal&quot;: &quot;Against pick&quot;,
-  &quot;marq_move_direction&quot;: &quot;Against&quot;,
-  &quot;marq_move_pct&quot;: 20.0,
-  &quot;marq_move_range&quot;: &quot;1.25 -&gt; 1.5&quot;,
-  &quot;marq_move_earliest_odds&quot;: 1.25,
-  &quot;marq_move_latest_odds&quot;: 1.5,
+  &quot;marq_current_odds_1&quot;: 1.28571,
+  &quot;marq_current_odds_2&quot;: 3.5,
+  &quot;marq_opening_odds_1&quot;: 1.28571,
+  &quot;marq_opening_odds_2&quot;: 3.5,
+  &quot;marq_change_1&quot;: 0.0,
+  &quot;marq_change_2&quot;: 0.0,
+  &quot;marq_no_vig_probability_1&quot;: 0.731344,
+  &quot;marq_no_vig_probability_2&quot;: 0.268656,
+  &quot;marq_overround&quot;: 1.063495,
+  &quot;marq_movement_status&quot;: &quot;OPENING_EQUALS_CURRENT&quot;,
+  &quot;marq_internal_move_signal&quot;: &quot;Stable&quot;,
+  &quot;marq_display_move_signal&quot;: &quot;Stable&quot;,
+  &quot;marq_move_signal&quot;: &quot;Stable&quot;,
+  &quot;marq_move_direction&quot;: &quot;Stable&quot;,
+  &quot;marq_move_pct&quot;: 0.0,
+  &quot;marq_move_range&quot;: &quot;1.2857 -&gt; 1.2857&quot;,
+  &quot;marq_move_earliest_odds&quot;: 1.2857,
+  &quot;marq_move_latest_odds&quot;: 1.2857,
   &quot;bet365_disabled&quot;: true,
   &quot;tennis_live_disabled&quot;: true,
   &quot;marq_removed_sources&quot;: [
@@ -2573,53 +3564,53 @@
     &quot;non-exact event discovery for MARQ&quot;
   ],
   &quot;marq_fetch_version&quot;: &quot;2026-08-04-tennisapi-only-marq-v2&quot;,
-  &quot;marq_crowd_pick_pct&quot;: 62.5,
-  &quot;marq_pick_probability&quot;: 0.625,
-  &quot;marq_pick_no_vig_probability&quot;: 0.625,
-  &quot;market_pick_probability&quot;: 0.625,
-  &quot;corq_market_probability&quot;: 0.625,
-  &quot;marq_edge_pct&quot;: 12.5,
-  &quot;marq_crowd_opponent_pct&quot;: 37.5,
-  &quot;marq_opp_no_vig_probability&quot;: 0.375,
+  &quot;marq_crowd_pick_pct&quot;: 73.1,
+  &quot;marq_pick_probability&quot;: 0.731344,
+  &quot;marq_pick_no_vig_probability&quot;: 0.731344,
+  &quot;market_pick_probability&quot;: 0.731344,
+  &quot;corq_market_probability&quot;: 0.7313,
+  &quot;marq_edge_pct&quot;: 23.1,
+  &quot;marq_crowd_opponent_pct&quot;: 26.9,
+  &quot;marq_opp_no_vig_probability&quot;: 0.268656,
   &quot;marq_final&quot;: &quot;Market With Pick&quot;,
   &quot;marq_final_display&quot;: &quot;Market With Pick&quot;,
   &quot;marq_market_view&quot;: true,
   &quot;marq_provider_count&quot;: 1,
   &quot;marq_market_name&quot;: &quot;Match winner&quot;,
-  &quot;marq_quality_signal&quot;: &quot;EXACT_BETTING_ODDS_WITH_OPENING&quot;,
-  &quot;corq_marq_quality_tier&quot;: &quot;HIGH&quot;,
-  &quot;corq_marq_weight_reason&quot;: &quot;exact TennisApi odds with real opening/current market data; real movement/CLV against pick, market brake increased&quot;,
-  &quot;corq_raw_model_probability&quot;: 0.6153,
-  &quot;corq_raw_model_probability_pct&quot;: 61.53,
-  &quot;corq_market_probability_pct&quot;: 62.5,
-  &quot;corq_model_weight&quot;: 0.7,
-  &quot;corq_market_weight&quot;: 0.3,
-  &quot;corq_model_mix_label&quot;: &quot;ThinQ 70% / MarQ 30%&quot;,
-  &quot;corq_thinq_input_pp&quot;: 43.07,
-  &quot;corq_marq_input_pp&quot;: 18.75,
-  &quot;corq_calibrated_probability&quot;: 0.6182,
-  &quot;corq_calibrated_probability_pct&quot;: 61.82,
-  &quot;corq_market_adjustment_pp&quot;: 0.29,
-  &quot;corq_calibration_method&quot;: &quot;DYNAMIC_MARQ_WEIGHT_HIGH&quot;,
+  &quot;marq_quality_signal&quot;: &quot;EXACT_CURRENT_ODDS_ONLY&quot;,
+  &quot;corq_marq_quality_tier&quot;: &quot;MEDIUM_CURRENT_ONLY&quot;,
+  &quot;corq_marq_weight_reason&quot;: &quot;exact TennisApi current odds only, no real movement signal&quot;,
+  &quot;corq_raw_model_probability&quot;: 0.5963,
+  &quot;corq_raw_model_probability_pct&quot;: 59.63,
+  &quot;corq_market_probability_pct&quot;: 73.13,
+  &quot;corq_model_weight&quot;: 0.88,
+  &quot;corq_market_weight&quot;: 0.12,
+  &quot;corq_model_mix_label&quot;: &quot;ThinQ 88% / MarQ 12%&quot;,
+  &quot;corq_thinq_input_pp&quot;: 52.47,
+  &quot;corq_marq_input_pp&quot;: 8.78,
+  &quot;corq_calibrated_probability&quot;: 0.6125,
+  &quot;corq_calibrated_probability_pct&quot;: 61.25,
+  &quot;corq_market_adjustment_pp&quot;: 1.62,
+  &quot;corq_calibration_method&quot;: &quot;DYNAMIC_MARQ_WEIGHT_MEDIUM_CURRENT_ONLY&quot;,
   &quot;corq_marq_dynamic_weight_version&quot;: &quot;2026-08-04-marq-dynamic-weight-v1&quot;,
-  &quot;corq_probability&quot;: 0.6182,
-  &quot;probability&quot;: 0.6182,
-  &quot;value_edge&quot;: -0.1318,
-  &quot;edge&quot;: -0.1318,
-  &quot;corq_value_delta_pp&quot;: -13.18,
-  &quot;expected_value_pct&quot;: -17.58,
-  &quot;marq_v2_model_probability&quot;: 0.6153,
-  &quot;marq_v2_market_probability&quot;: 0.625,
-  &quot;marq_v2_value_delta_pp&quot;: -0.97,
-  &quot;marq_v2_expected_value_pct&quot;: -17.96,
-  &quot;marq_v2_data_status&quot;: &quot;EXACT_BETTING_ODDS_WITH_OPENING&quot;,
-  &quot;marq_v2_confidence&quot;: &quot;HIGH&quot;,
-  &quot;marq_v2_movement_status&quot;: &quot;REAL_OPENING_CURRENT_AVAILABLE&quot;,
-  &quot;raw_implied_probability&quot;: 0.750019,
-  &quot;raw_implied_probability_pct&quot;: 75.0,
-  &quot;break_even_probability&quot;: 0.750019,
-  &quot;break_even_probability_pct&quot;: 75.0,
-  &quot;expected_value&quot;: -0.175754,
+  &quot;corq_probability&quot;: 0.6125,
+  &quot;probability&quot;: 0.6125,
+  &quot;value_edge&quot;: -0.1653,
+  &quot;edge&quot;: -0.1653,
+  &quot;corq_value_delta_pp&quot;: -16.53,
+  &quot;expected_value_pct&quot;: -21.25,
+  &quot;marq_v2_model_probability&quot;: 0.5963,
+  &quot;marq_v2_market_probability&quot;: 0.7313,
+  &quot;marq_v2_value_delta_pp&quot;: -13.5,
+  &quot;marq_v2_expected_value_pct&quot;: -23.33,
+  &quot;marq_v2_data_status&quot;: &quot;EXACT_CURRENT_ODDS_ONLY&quot;,
+  &quot;marq_v2_confidence&quot;: &quot;MEDIUM&quot;,
+  &quot;marq_v2_movement_status&quot;: &quot;OPENING_EQUALS_CURRENT&quot;,
+  &quot;raw_implied_probability&quot;: 0.777786,
+  &quot;raw_implied_probability_pct&quot;: 77.78,
+  &quot;break_even_probability&quot;: 0.777786,
+  &quot;break_even_probability_pct&quot;: 77.78,
+  &quot;expected_value&quot;: -0.212509,
   &quot;price_value_grade&quot;: &quot;SHORT&quot;,
   &quot;price_value_tag&quot;: &quot;VALUE_NEGATIVE&quot;,
   &quot;price_value_display&quot;: &quot;Short | No Value&quot;,
@@ -2628,70 +3619,76 @@
     &quot;SHORT&quot;,
     &quot;VALUE_NEGATIVE&quot;
   ],
-  &quot;corq_source_rank&quot;: 46,
+  &quot;corq_source_rank&quot;: 49,
   &quot;top7_filter_mode&quot;: &quot;PUBLISHABLE_CORQ_FIRST_DATA_HEALTH_V1&quot;,
   &quot;top7_publishable&quot;: false,
   &quot;eligible_for_top7&quot;: false,
   &quot;top7_quality_reject_reasons&quot;: [
     &quot;REJECT_TOP7_STATUS_NOT_PREMATCH&quot;,
     &quot;REJECT_TOP7_LOW_ODDS_UNDER_1_40&quot;,
+    &quot;REJECT_TOP7_LOW_FORM_DATA_DEPTH&quot;,
     &quot;REJECT_TOP7_SHORT_PRICE_VALUE_GUARD&quot;,
     &quot;REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE&quot;,
-    &quot;REJECT_TOP7_EV_HARD_NEGATIVE&quot;
+    &quot;REJECT_TOP7_EV_HARD_NEGATIVE&quot;,
+    &quot;REJECT_TOP7_LOW_COMBINED_DATA_DEPTH&quot;
   ],
   &quot;top7_reject_reasons&quot;: [
     &quot;REJECT_TOP7_STATUS_NOT_PREMATCH&quot;,
     &quot;REJECT_TOP7_LOW_ODDS_UNDER_1_40&quot;,
+    &quot;REJECT_TOP7_LOW_FORM_DATA_DEPTH&quot;,
     &quot;REJECT_TOP7_SHORT_PRICE_VALUE_GUARD&quot;,
     &quot;REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE&quot;,
-    &quot;REJECT_TOP7_EV_HARD_NEGATIVE&quot;
+    &quot;REJECT_TOP7_EV_HARD_NEGATIVE&quot;,
+    &quot;REJECT_TOP7_LOW_COMBINED_DATA_DEPTH&quot;
   ],
   &quot;top7_hard_reject_reasons&quot;: [
     &quot;REJECT_TOP7_STATUS_NOT_PREMATCH&quot;,
     &quot;REJECT_TOP7_LOW_ODDS_UNDER_1_40&quot;,
+    &quot;REJECT_TOP7_LOW_FORM_DATA_DEPTH&quot;,
     &quot;REJECT_TOP7_SHORT_PRICE_VALUE_GUARD&quot;,
     &quot;REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE&quot;,
-    &quot;REJECT_TOP7_EV_HARD_NEGATIVE&quot;
+    &quot;REJECT_TOP7_EV_HARD_NEGATIVE&quot;,
+    &quot;REJECT_TOP7_LOW_COMBINED_DATA_DEPTH&quot;
   ],
   &quot;top7_primary_reject_reason&quot;: &quot;REJECT_TOP7_STATUS_NOT_PREMATCH&quot;,
-  &quot;top7_reject_reason_count&quot;: 5,
+  &quot;top7_reject_reason_count&quot;: 7,
   &quot;top7_reject_summary_scope&quot;: &quot;NON_PUBLISHABLE_ROWS_ONLY&quot;,
   &quot;top7_status_allowed&quot;: false,
-  &quot;top7_status_type_normalized&quot;: &quot;inprogress&quot;,
-  &quot;top7_status_code&quot;: 8,
-  &quot;top7_corq_probability&quot;: 0.6182,
-  &quot;top7_pick_thinq_edge&quot;: 0.1406,
-  &quot;top7_thinq_confidence&quot;: 0.84,
-  &quot;top7_thinq_data_confidence&quot;: 0.84,
-  &quot;top7_thinq_pick_probability&quot;: 0.6153,
-  &quot;pick_data_depth&quot;: 0.878,
-  &quot;stat_data_depth&quot;: 0.878,
-  &quot;top7_pick_odds&quot;: 1.3333,
+  &quot;top7_status_type_normalized&quot;: &quot;finished&quot;,
+  &quot;top7_status_code&quot;: 100,
+  &quot;top7_corq_probability&quot;: 0.6125,
+  &quot;top7_pick_thinq_edge&quot;: 0.1586,
+  &quot;top7_thinq_confidence&quot;: 0.7475,
+  &quot;top7_thinq_data_confidence&quot;: 0.7475,
+  &quot;top7_thinq_pick_probability&quot;: 0.5963,
+  &quot;pick_data_depth&quot;: 0.657,
+  &quot;stat_data_depth&quot;: 0.657,
+  &quot;top7_pick_odds&quot;: 1.2857,
   &quot;top7_match_date_local&quot;: &quot;2026-08-05&quot;,
   &quot;recent_form_reason&quot;: &quot;&quot;,
   &quot;recent_form_sample_audit&quot;: {
     &quot;status&quot;: &quot;OK&quot;,
     &quot;reason&quot;: &quot;&quot;,
     &quot;pick_last10_count&quot;: 10.0,
-    &quot;opponent_last10_count&quot;: 10.0,
-    &quot;pick_surface_count&quot;: 2.0,
-    &quot;opponent_surface_count&quot;: 8.0,
+    &quot;opponent_last10_count&quot;: 1.0,
+    &quot;pick_surface_count&quot;: 4.0,
+    &quot;opponent_surface_count&quot;: 1.0,
     &quot;history_match_count&quot;: 37883
   },
   &quot;low_data_risk_audit&quot;: {
-    &quot;corq_probability&quot;: 0.6182,
-    &quot;pick_thinq_edge&quot;: 0.1406,
-    &quot;pick_data_depth&quot;: 0.878,
-    &quot;form_data_depth&quot;: 0.8,
-    &quot;thinq_confidence&quot;: 0.84,
+    &quot;corq_probability&quot;: 0.6125,
+    &quot;pick_thinq_edge&quot;: 0.1586,
+    &quot;pick_data_depth&quot;: 0.657,
+    &quot;form_data_depth&quot;: 0.35,
+    &quot;thinq_confidence&quot;: 0.7475,
     &quot;elo_coverage_missing&quot;: false,
     &quot;recent_form&quot;: {
       &quot;status&quot;: &quot;OK&quot;,
       &quot;reason&quot;: &quot;&quot;,
       &quot;pick_last10_count&quot;: 10.0,
-      &quot;opponent_last10_count&quot;: 10.0,
-      &quot;pick_surface_count&quot;: 2.0,
-      &quot;opponent_surface_count&quot;: 8.0,
+      &quot;opponent_last10_count&quot;: 1.0,
+      &quot;pick_surface_count&quot;: 4.0,
+      &quot;opponent_surface_count&quot;: 1.0,
       &quot;history_match_count&quot;: 37883
     },
     &quot;odds_available&quot;: true
@@ -2699,28 +3696,30 @@
   &quot;top7_risk_tags&quot;: [
     &quot;NO_VALUE_PRICE&quot;,
     &quot;SHORT_PRICE_RISK&quot;,
+    &quot;LOW_DATA_CONFIDENCE&quot;,
     &quot;MULTI_RISK_PICK&quot;,
+    &quot;HIGH_RISK_PICK&quot;,
     &quot;NEGATIVE_VALUE_HARD&quot;,
     &quot;NEGATIVE_EV_HARD&quot;,
     &quot;SHORT_NO_VALUE_COMBO&quot;,
-    &quot;SHORT_PRICE_VALUE_GUARD_FAIL&quot;,
-    &quot;HIGH_RISK_PICK&quot;
+    &quot;SHORT_PRICE_VALUE_GUARD_FAIL&quot;
   ],
   &quot;top7_risk_labels&quot;: [
     &quot;No value&quot;,
     &quot;Short price&quot;,
+    &quot;Low data confidence&quot;,
     &quot;Multiple risk signals&quot;,
+    &quot;High Risk&quot;,
     &quot;Negative value &gt;5pp&quot;,
     &quot;Negative EV hard&quot;,
     &quot;Short price + no value&quot;,
-    &quot;Short price guard fail&quot;,
-    &quot;High Risk&quot;
+    &quot;Short price guard fail&quot;
   ],
   &quot;top7_risk_penalty_details&quot;: [
     {
       &quot;tag&quot;: &quot;THINQ_EDGE_SUPPORT_PICK&quot;,
       &quot;bonus&quot;: 1.0,
-      &quot;thinq_edge&quot;: 0.1406
+      &quot;thinq_edge&quot;: 0.1586
     },
     {
       &quot;tag&quot;: &quot;ELO_SUPPORT_PICK&quot;,
@@ -2731,51 +3730,64 @@
     {
       &quot;tag&quot;: &quot;MARKET_WITH_PICK&quot;,
       &quot;bonus&quot;: 1.5,
-      &quot;marq_edge&quot;: 12.5,
-      &quot;market_delta&quot;: 0.29
+      &quot;marq_edge&quot;: 23.1,
+      &quot;market_delta&quot;: 1.62
     },
     {
       &quot;tag&quot;: &quot;NO_VALUE_PRICE&quot;,
       &quot;penalty&quot;: 3.0,
-      &quot;value&quot;: -13.18
+      &quot;value&quot;: -16.53
     },
     {
       &quot;tag&quot;: &quot;SHORT_PRICE_RISK&quot;,
       &quot;penalty&quot;: 2.0,
-      &quot;pick_odds&quot;: 1.3333
+      &quot;pick_odds&quot;: 1.2857
+    },
+    {
+      &quot;tag&quot;: &quot;LOW_DATA_CONFIDENCE&quot;,
+      &quot;penalty&quot;: 2.5,
+      &quot;pick_data_depth&quot;: 0.657,
+      &quot;form_data_depth&quot;: 0.35,
+      &quot;thinq_confidence&quot;: 0.7475
     },
     {
       &quot;tag&quot;: &quot;MULTI_RISK_PICK&quot;,
       &quot;penalty&quot;: 3.0,
-      &quot;risk_count&quot;: 2
+      &quot;risk_count&quot;: 3
+    },
+    {
+      &quot;tag&quot;: &quot;HIGH_RISK_PICK&quot;,
+      &quot;penalty&quot;: 4.0,
+      &quot;risk_count&quot;: 3,
+      &quot;penalty_before_high_risk&quot;: 10.5
     },
     {
       &quot;tag&quot;: &quot;NEGATIVE_VALUE_HARD&quot;,
       &quot;penalty&quot;: 5.0,
-      &quot;value_delta_pp&quot;: -13.18
+      &quot;value_delta_pp&quot;: -16.53
     },
     {
       &quot;tag&quot;: &quot;NEGATIVE_EV_HARD&quot;,
       &quot;penalty&quot;: 4.0,
-      &quot;expected_value_pct&quot;: -17.58
+      &quot;expected_value_pct&quot;: -21.25
     },
     {
       &quot;tag&quot;: &quot;SHORT_NO_VALUE_COMBO&quot;,
       &quot;penalty&quot;: 5.0,
-      &quot;pick_odds&quot;: 1.3333,
-      &quot;value_delta_pp&quot;: -13.18,
-      &quot;expected_value_pct&quot;: -17.58
+      &quot;pick_odds&quot;: 1.2857,
+      &quot;value_delta_pp&quot;: -16.53,
+      &quot;expected_value_pct&quot;: -21.25
     },
     {
       &quot;tag&quot;: &quot;SHORT_PRICE_VALUE_GUARD_FAIL&quot;,
       &quot;penalty&quot;: 8.0,
       &quot;is_short_price&quot;: true,
       &quot;support_count&quot;: 3,
-      &quot;pick_data_depth&quot;: 0.878,
-      &quot;form_data_depth&quot;: 0.8,
-      &quot;thinq_confidence&quot;: 0.84,
-      &quot;value_delta_pp&quot;: -13.18,
-      &quot;expected_value_pct&quot;: -17.58,
+      &quot;pick_data_depth&quot;: 0.657,
+      &quot;form_data_depth&quot;: 0.35,
+      &quot;thinq_confidence&quot;: 0.7475,
+      &quot;value_delta_pp&quot;: -16.53,
+      &quot;expected_value_pct&quot;: -21.25,
       &quot;min_support_count&quot;: 5,
       &quot;min_pick_data_depth&quot;: 0.75,
       &quot;min_form_data_depth&quot;: 0.7,
@@ -2785,7 +3797,7 @@
       &quot;short_price_gate_ok&quot;: false
     }
   ],
-  &quot;top7_risk_penalty_points&quot;: 30.0,
+  &quot;top7_risk_penalty_points&quot;: 36.5,
   &quot;top7_clean_bonus_points&quot;: 3.5,
   &quot;top7_quality_score&quot;: 0.0,
   &quot;corq_warning_flags&quot;: [
@@ -2794,12 +3806,13 @@
     &quot;MARKET_WITH_PICK&quot;,
     &quot;NO_VALUE_PRICE&quot;,
     &quot;SHORT_PRICE_RISK&quot;,
+    &quot;LOW_DATA_CONFIDENCE&quot;,
     &quot;MULTI_RISK_PICK&quot;,
+    &quot;HIGH_RISK_PICK&quot;,
     &quot;NEGATIVE_VALUE_HARD&quot;,
     &quot;NEGATIVE_EV_HARD&quot;,
     &quot;SHORT_NO_VALUE_COMBO&quot;,
-    &quot;SHORT_PRICE_VALUE_GUARD_FAIL&quot;,
-    &quot;HIGH_RISK_PICK&quot;
+    &quot;SHORT_PRICE_VALUE_GUARD_FAIL&quot;
   ],
   &quot;top7_support_tags&quot;: [
     &quot;THINQ_EDGE_SUPPORT_PICK&quot;,
@@ -2812,14 +3825,14 @@
     &quot;Market with pick&quot;
   ],
   &quot;top7_positive_support_count&quot;: 3,
-  &quot;top7_risk_count&quot;: 8,
+  &quot;top7_risk_count&quot;: 9,
   &quot;top7_high_risk&quot;: true,
-  &quot;top7_combined_data_depth&quot;: 0.70592,
-  &quot;top7_sets_games_data_depth&quot;: 0.1346,
+  &quot;top7_combined_data_depth&quot;: 0.46812,
+  &quot;top7_sets_games_data_depth&quot;: 0.1731,
   &quot;top7_low_context_risk&quot;: false,
-  &quot;top7_value_delta_pp&quot;: -13.18,
-  &quot;top7_expected_value_pct&quot;: -17.58,
+  &quot;top7_value_delta_pp&quot;: -16.53,
+  &quot;top7_expected_value_pct&quot;: -21.25,
   &quot;top7_data_health_model_version&quot;: &quot;CORQ_TOP7_DATA_HEALTH_V1&quot;,
-  &quot;corq_rank&quot;: 46,
+  &quot;corq_rank&quot;: 49,
   &quot;_corq_render_rank&quot;: 42
 }</pre></body></html>

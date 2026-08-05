@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-08-05T10:31:57+00:00",
+  "generated_at": "2026-08-05T12:23:59+00:00",
   "date": "2026-08-05",
   "fetch_api": false,
   "settlement_grace_hours": 0.0,
   "local_tz": "Europe/Bratislava",
   "corq_count": 57,
-  "cloq_count": 32,
+  "cloq_count": 33,
   "audit_count": 292,
   "summary": {
     "corq": {
@@ -19,10 +19,10 @@
       "roi": -1.0
     },
     "cloq": {
-      "picks": 32,
+      "picks": 33,
       "won": 0,
       "lost": 3,
-      "pending": 27,
+      "pending": 28,
       "void": 2,
       "win_rate": 0.0,
       "units": -3.0,
@@ -58,7 +58,7 @@
   },
   "locks": {
     "corq": "immutable_ledger_source_plus_existing:0+existing:50+preserved:7",
-    "cloq": "immutable_ledger_source_plus_existing:0+existing:30+preserved:2",
+    "cloq": "immutable_ledger_source_plus_existing:1+existing:31+preserved:1",
     "audit": "immutable_ledger_source_plus_existing:52+existing:240+preserved:52"
   },
   "output_root": "outputs/results"
