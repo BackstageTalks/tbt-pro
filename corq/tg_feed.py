@@ -319,7 +319,8 @@ def format_row(row: Dict[str, Any], prefix: str) -> str:
 
 
 def build_top7_message(rows: List[Dict[str, Any]], limit: int = 7, upcoming_only: bool = True) -> str:
-    rows = valid_rows(rows, upcoming_only=upcoming_only)[:limit]
+    # TOP7 is an immutable daily snapshot. Do not drop already-started rows.
+    rows = valid_rows(rows, upcoming_only=False)[:limit]
     date_text = snapshot_date(rows)
     lines = [HEADER, "", "🎾 TOP7 | CorQ", f"📅 {date_text}", ""]
     if rows:
@@ -411,11 +412,11 @@ def main() -> None:
             message = "📊 CorQ Results\nNo previous CorQ snapshot summary available."
     else:
         rows = load_rows_for_mode(args.mode, Path(args.top7_path), Path(args.all_path))
-        sendable_rows = valid_rows(rows, upcoming_only=upcoming_only)
+        sendable_rows = valid_rows(rows, upcoming_only=(upcoming_only if args.mode == "free" else False))
         if args.mode == "free":
             message = build_free_message(rows, upcoming_only=upcoming_only)
         else:
-            message = build_top7_message(rows, limit=args.limit, upcoming_only=upcoming_only)
+            message = build_top7_message(rows, limit=args.limit, upcoming_only=False)
 
     output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
