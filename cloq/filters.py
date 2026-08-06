@@ -1,19 +1,21 @@
-"""Simple CloQ filters.
+"""CloQ High-Confidence Price model.
 
-CloQ rules in this version:
-- pick odds >= 1.70
-- odds gap <= 20%, calculated against the smaller of pick/opponent odds
-- prediction data is required
-- value data is informational only; negative/missing value does not reject
-- prematch singles only
+Concept:
+- Find the highest available price that still looks like a realistic 50/50+ pick.
+- Prefer odds >= 1.90, but reject blind underdogs.
+- Require prediction data and objective supporting evidence such as ELO, H2H,
+  surface/form, opponent weakness, market support, or high data depth.
+- Value is still shown, but the model is driven by price + probability + evidence.
 """
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, Iterable, List, Optional, Tuple
 
-MODEL_VERSION = "CLOQ_SIMPLE_PREDICTION_V6"
+MODEL_VERSION = "CLOQ_HIGH_CONFIDENCE_PRICE_V1"
 MIN_PICK_ODDS = 1.70
-MAX_ODDS_GAP_PCT = 0.20
+PREFERRED_PICK_ODDS = 1.90
+MAX_PICK_ODDS = 2.80
+MIN_REALISTIC_PROBABILITY = 0.50
 
 OPEN_STATUS_TYPES = {
     "", "notstarted", "not_started", "scheduled", "open", "prematch",
@@ -124,9 +126,6 @@ def expected_value_pct(row: Dict[str, Any]) -> Optional[float]:
 
 
 def odds_gap_pct(row: Dict[str, Any]) -> Optional[float]:
-    explicit = as_float(first_present(row, "odds_gap_pct", "cloq_odds_gap_pct"), None)
-    if explicit is not None:
-        return explicit
     p = pick_odds(row)
     o = opponent_odds(row)
     if not p or not o:
@@ -135,19 +134,6 @@ def odds_gap_pct(row: Dict[str, Any]) -> Optional[float]:
     if base <= 0:
         return None
     return round(abs(p - o) / base, 6)
-
-
-def close_odds_bonus(row: Dict[str, Any]) -> Tuple[float, str]:
-    gap = odds_gap_pct(row)
-    if gap is None:
-        return 0.0, "missing_gap"
-    if gap <= 0.05:
-        return 3.0, "very_close"
-    if gap <= 0.10:
-        return 2.0, "close"
-    if gap <= MAX_ODDS_GAP_PCT:
-        return 1.0, "playable_close"
-    return 0.0, "wide_gap"
 
 
 def status_type(row: Dict[str, Any]) -> str:
@@ -195,30 +181,175 @@ def market_text(row: Dict[str, Any]) -> str:
 
 
 def market_with_pick(row: Dict[str, Any]) -> bool:
-    return "market with pick" in market_text(row)
+    text = market_text(row)
+    return "market with pick" in text or "with pick" in text
 
 
 def market_against_pick(row: Dict[str, Any]) -> bool:
-    return "market against pick" in market_text(row)
+    text = market_text(row)
+    return "market against pick" in text or "against pick" in text
 
 
-def value_status(row: Dict[str, Any]) -> str:
-    vd = value_delta_pp(row)
-    ev = expected_value_pct(row)
-    if vd is None and ev is None:
-        return "NO_VALUE_DATA"
-    if (vd is not None and vd < 0) or (ev is not None and ev < 0):
-        return "VALUE_NEGATIVE_INFO"
-    if (vd is not None and vd > 0) or (ev is not None and ev > 0):
-        return "VALUE_POSITIVE_INFO"
-    return "VALUE_NEUTRAL_INFO"
+def _edge(row: Dict[str, Any], *keys: str) -> Optional[float]:
+    vals = [as_float(first_present(row, key), None) for key in keys]
+    vals = [v for v in vals if v is not None]
+    if not vals:
+        return None
+    # If probabilities/ratios are 0-1, convert to pp-like scale for scoring.
+    v = max(vals, key=lambda x: abs(x))
+    if abs(v) <= 1.0:
+        v *= 100.0
+    return v
+
+
+def elo_edge(row: Dict[str, Any]) -> Optional[float]:
+    return _edge(row, "elo_edge", "pick_elo_edge", "overall_elo_edge", "surface_elo_edge", "elo_delta", "elo_diff")
+
+
+def h2h_edge(row: Dict[str, Any]) -> Optional[float]:
+    explicit = _edge(row, "h2h_edge", "h2h_pick_edge", "h2h_win_edge", "h2h_delta")
+    if explicit is not None:
+        return explicit
+    pick_w = as_float(first_present(row, "h2h_pick_wins", "pick_h2h_wins", "h2h.wins"), None)
+    opp_w = as_float(first_present(row, "h2h_opp_wins", "h2h_opponent_wins", "opp_h2h_wins", "h2h.losses"), None)
+    if pick_w is not None and opp_w is not None:
+        return pick_w - opp_w
+    return None
+
+
+def form_edge(row: Dict[str, Any]) -> Optional[float]:
+    return _edge(row, "recent_form_edge", "short_form_edge", "form_edge", "l10_edge", "opponent_quality_edge")
+
+
+def surface_edge(row: Dict[str, Any]) -> Optional[float]:
+    return _edge(row, "surface_recent_form_edge", "surface_edge", "surface_elo_edge", "surface_form_edge")
+
+
+def data_depth(row: Dict[str, Any]) -> float:
+    vals = [
+        as_float(first_present(row, "combined_data_depth", "top7_combined_data_depth", "data_depth"), None),
+        as_float(first_present(row, "pick_data_depth", "top7_pick_data_depth"), None),
+        as_float(first_present(row, "thinq_data_confidence", "top7_thinq_confidence", "confidence"), None),
+    ]
+    vals = [v for v in vals if v is not None]
+    if not vals:
+        return 0.0
+    avg = sum(vals) / len(vals)
+    if avg > 1.5:
+        avg /= 100.0
+    return max(0.0, min(1.0, avg))
+
+
+def _tag_blob(row: Dict[str, Any]) -> str:
+    parts: List[str] = []
+    for key in ("tags", "audit_tags", "public_notes", "technical_flags", "corq_warning_flags", "top7_risk_tags", "top7_support_tags"):
+        value = row.get(key)
+        if isinstance(value, list):
+            parts.extend(str(x) for x in value if x)
+        elif isinstance(value, str) and value.strip():
+            parts.append(value)
+    parts.append(market_text(row))
+    return " | ".join(parts).lower().replace("_", " ")
+
+
+def _has(row: Dict[str, Any], *tokens: str) -> bool:
+    text = _tag_blob(row)
+    return any(tok.lower() in text for tok in tokens)
+
+
+def evidence_score(row: Dict[str, Any]) -> float:
+    score = 0.0
+    details = evidence_details(row)
+    for item in details:
+        score += float(item.get("points") or 0.0)
+    return round(score, 3)
+
+
+def evidence_details(row: Dict[str, Any]) -> List[Dict[str, Any]]:
+    details: List[Dict[str, Any]] = []
+    ee = elo_edge(row)
+    he = h2h_edge(row)
+    fe = form_edge(row)
+    se = surface_edge(row)
+    depth = data_depth(row)
+
+    if ee is not None:
+        if ee >= 35: details.append({"tag": "ELO_STRONG", "points": 3.0, "value": ee})
+        elif ee >= 15: details.append({"tag": "ELO_EDGE", "points": 1.5, "value": ee})
+        elif ee <= -35: details.append({"tag": "ELO_AGAINST", "points": -3.0, "value": ee})
+        elif ee <= -15: details.append({"tag": "ELO_WEAK", "points": -1.5, "value": ee})
+    if he is not None:
+        if he >= 2: details.append({"tag": "H2H_STRONG", "points": 3.0, "value": he})
+        elif he > 0: details.append({"tag": "H2H_EDGE", "points": 1.5, "value": he})
+        elif he <= -2: details.append({"tag": "H2H_AGAINST", "points": -3.0, "value": he})
+        elif he < 0: details.append({"tag": "H2H_WEAK", "points": -1.5, "value": he})
+    if fe is not None:
+        if fe >= 15: details.append({"tag": "FORM_STRONG", "points": 2.0, "value": fe})
+        elif fe > 0: details.append({"tag": "FORM_EDGE", "points": 1.0, "value": fe})
+        elif fe <= -15: details.append({"tag": "FORM_AGAINST", "points": -2.0, "value": fe})
+    if se is not None:
+        if se >= 15: details.append({"tag": "SURFACE_STRONG", "points": 2.0, "value": se})
+        elif se > 0: details.append({"tag": "SURFACE_EDGE", "points": 1.0, "value": se})
+        elif se <= -15: details.append({"tag": "SURFACE_AGAINST", "points": -2.0, "value": se})
+
+    if _has(row, "pick strong"):
+        details.append({"tag": "PICK_STRONG", "points": 2.0})
+    if _has(row, "opp weak", "opponent weak"):
+        details.append({"tag": "OPP_WEAK", "points": 2.0})
+    if market_with_pick(row):
+        details.append({"tag": "MARKET_WITH_PICK", "points": 2.0})
+    if market_against_pick(row):
+        details.append({"tag": "MARKET_AGAINST_PICK", "points": -3.0})
+    if _has(row, "opp strong", "opponent strong"):
+        details.append({"tag": "OPP_STRONG", "points": -3.0})
+    if _has(row, "pick weak"):
+        details.append({"tag": "PICK_WEAK", "points": -3.0})
+    if depth >= 0.70:
+        details.append({"tag": "HIGH_DATA_DEPTH", "points": 1.5, "value": round(depth, 3)})
+    elif depth and depth < 0.35:
+        details.append({"tag": "LOW_DATA_DEPTH", "points": -2.0, "value": round(depth, 3)})
+    return details
+
+
+def price_bucket(row: Dict[str, Any]) -> str:
+    odds = pick_odds(row) or 0.0
+    if odds >= 2.40:
+        return "HIGH_PRICE_2_40_PLUS"
+    if odds >= 2.10:
+        return "VALUE_PRICE_2_10_2_39"
+    if odds >= 1.90:
+        return "TARGET_PRICE_1_90_2_09"
+    if odds >= 1.70:
+        return "FALLBACK_PRICE_1_70_1_89"
+    return "TOO_LOW"
+
+
+def required_evidence(row: Dict[str, Any]) -> float:
+    odds = pick_odds(row) or 0.0
+    if odds >= 2.40:
+        return 7.0
+    if odds >= 2.10:
+        return 5.0
+    if odds >= 1.90:
+        return 3.0
+    return 2.0
+
+
+def probability_margin_pp(row: Dict[str, Any]) -> Optional[float]:
+    cp = corq_probability(row)
+    be = break_even_probability(row)
+    if cp is None or be is None:
+        return None
+    return round((cp - be) * 100.0, 4)
 
 
 def cloq_reject_reasons(row: Dict[str, Any]) -> List[str]:
     reasons: List[str] = []
     odds = pick_odds(row)
-    gap = odds_gap_pct(row)
     cp = corq_probability(row)
+    evs = evidence_score(row)
+    req = required_evidence(row)
+    margin = probability_margin_pp(row)
 
     if not is_prematch(row):
         reasons.append("REJECT_CLOQ_STATUS_NOT_PREMATCH")
@@ -228,51 +359,43 @@ def cloq_reject_reasons(row: Dict[str, Any]) -> List[str]:
         reasons.append("REJECT_CLOQ_MISSING_PICK_ODDS")
     elif odds < MIN_PICK_ODDS:
         reasons.append("REJECT_CLOQ_ODDS_UNDER_1_70")
-    if gap is None:
-        reasons.append("REJECT_CLOQ_MISSING_ODDS_GAP")
-    elif gap > MAX_ODDS_GAP_PCT:
-        reasons.append("REJECT_CLOQ_ODDS_GAP_OVER_20")
+    elif odds > MAX_PICK_ODDS and evs < 8.0:
+        reasons.append("REJECT_CLOQ_PRICE_TOO_HIGH_WITHOUT_STRONG_EVIDENCE")
     if cp is None:
         reasons.append("REJECT_CLOQ_MISSING_PREDICTION_DATA")
+    elif cp < MIN_REALISTIC_PROBABILITY:
+        reasons.append("REJECT_CLOQ_MODEL_PROB_UNDER_50")
+    if evs < req:
+        reasons.append("REJECT_CLOQ_INSUFFICIENT_EVIDENCE")
+    if margin is not None and margin < -4.0 and evs < req + 2.0:
+        reasons.append("REJECT_CLOQ_PRICE_PROBABILITY_TOO_WEAK")
     return list(dict.fromkeys(reasons))
 
 
 def cloq_support_tags(row: Dict[str, Any]) -> List[str]:
-    tags: List[str] = []
-    vd = value_delta_pp(row)
-    ev = expected_value_pct(row)
-    bonus, bucket = close_odds_bonus(row)
-    if vd is None and ev is None:
-        tags.append("NO_VALUE_DATA")
-    else:
-        if vd is not None and vd > 0:
-            tags.append("VALUE_DELTA_POSITIVE_INFO")
-        if ev is not None and ev > 0:
-            tags.append("EXPECTED_VALUE_POSITIVE_INFO")
-        if vd is not None and vd < 0:
-            tags.append("VALUE_DELTA_NEGATIVE_INFO")
-        if ev is not None and ev < 0:
-            tags.append("EXPECTED_VALUE_NEGATIVE_INFO")
-    if market_with_pick(row):
-        tags.append("MARKET_WITH_PICK")
-    if market_against_pick(row):
-        tags.append("MARKET_AGAINST_PICK_INFO")
-    if bonus > 0:
-        tags.append(bucket.upper())
+    tags = [price_bucket(row)]
+    margin = probability_margin_pp(row)
+    if margin is not None:
+        if margin >= 4.0:
+            tags.append("PROBABILITY_BUFFER_STRONG")
+        elif margin >= 0.0:
+            tags.append("PROBABILITY_OVER_BREAK_EVEN")
+    for item in evidence_details(row):
+        if float(item.get("points") or 0.0) > 0:
+            tags.append(str(item.get("tag")))
     return list(dict.fromkeys(tags))
 
 
 def cloq_risk_tags(row: Dict[str, Any]) -> List[str]:
     tags: List[str] = []
-    if value_status(row) == "NO_VALUE_DATA":
-        tags.append("NO_VALUE_DATA")
-    if "NEGATIVE" in value_status(row):
-        tags.append("NEGATIVE_VALUE_INFO")
-    if market_against_pick(row):
-        tags.append("MARKET_AGAINST_PICK")
-    gap = odds_gap_pct(row)
-    if gap is not None and gap > 0.10:
-        tags.append("ODDS_GAP_NEAR_LIMIT")
+    margin = probability_margin_pp(row)
+    if margin is not None and margin < 0:
+        tags.append("PROBABILITY_UNDER_BREAK_EVEN_INFO")
+    if pick_odds(row) and pick_odds(row) >= 2.40:
+        tags.append("HIGH_PRICE_RISK")
+    for item in evidence_details(row):
+        if float(item.get("points") or 0.0) < 0:
+            tags.append(str(item.get("tag")))
     return list(dict.fromkeys(tags))
 
 
@@ -280,61 +403,69 @@ def cloq_decision(row: Dict[str, Any]) -> str:
     reasons = cloq_reject_reasons(row)
     if reasons:
         return "CLOQ_REJECTED"
-    if value_status(row) == "NO_VALUE_DATA":
-        return "CLOQ_NO_VALUE_DATA"
-    if cloq_risk_tags(row):
-        return "CLOQ_PREDICTION_INFO"
-    return "CLOQ_CLEAN"
+    odds = pick_odds(row) or 0.0
+    if odds >= PREFERRED_PICK_ODDS:
+        return "CLOQ_HIGH_CONFIDENCE_PRICE"
+    return "CLOQ_PRICE_FALLBACK"
 
 
 def cloq_score(row: Dict[str, Any]) -> float:
-    cp = corq_probability(row) or 0.0
-    vd = value_delta_pp(row)
-    ev = expected_value_pct(row)
-    gap = odds_gap_pct(row)
     odds = pick_odds(row) or 0.0
-    close_bonus, _ = close_odds_bonus(row)
+    cp = corq_probability(row) or 0.0
+    margin = probability_margin_pp(row)
+    margin = margin if margin is not None else -8.0
+    evs = evidence_score(row)
+    depth = data_depth(row)
 
-    score = cp * 100.0
-    if vd is not None:
-        score += vd * 0.5
-    if ev is not None:
-        score += ev * 0.1
-    score += close_bonus * 2.0
-    score += min(max(odds - MIN_PICK_ODDS, 0.0), 1.0)
-    if gap is not None:
-        score += max(0.0, MAX_ODDS_GAP_PCT - gap) * 20.0
+    # Price sweet spot: reward 1.90-2.30 most, allow 1.70-1.89 as fallback.
+    if odds >= 2.40:
+        price_points = 5.0
+    elif odds >= 2.10:
+        price_points = 7.0
+    elif odds >= 1.90:
+        price_points = 6.0
+    elif odds >= 1.70:
+        price_points = 2.0
+    else:
+        price_points = -20.0
+
+    score = 0.0
+    score += price_points
+    score += max(min(margin, 12.0), -8.0) * 1.4
+    score += evs * 2.0
+    score += cp * 20.0
+    score += depth * 4.0
     if market_with_pick(row):
-        score += 1.0
+        score += 3.0
     if market_against_pick(row):
-        score -= 1.0
+        score -= 5.0
+    if odds > MAX_PICK_ODDS:
+        score -= (odds - MAX_PICK_ODDS) * 8.0
     return round(score, 4)
 
 
 def annotate_cloq(row: Dict[str, Any]) -> Dict[str, Any]:
     out = dict(row)
-    bonus, bucket = close_odds_bonus(row)
     reasons = cloq_reject_reasons(row)
-    decision = cloq_decision(row)
-    supports = cloq_support_tags(row)
-    risks = cloq_risk_tags(row)
     out["cloq_model_version"] = MODEL_VERSION
-    out["cloq_policy"] = "odds>=1.70,odds_gap<=20pct_using_min_odds,prediction_data_required,value_info_only"
+    out["cloq_policy"] = "highest_realistic_price_50_50_plus_with_evidence"
     out["cloq_pick"] = pick_name(row)
     out["cloq_opponent"] = opponent_name(row)
     out["cloq_pick_odds"] = pick_odds(row)
     out["cloq_opponent_odds"] = opponent_odds(row)
     out["cloq_corq_probability"] = corq_probability(row)
     out["cloq_break_even_probability"] = break_even_probability(row)
+    out["cloq_probability_margin_pp"] = probability_margin_pp(row)
     out["cloq_value_delta_pp"] = value_delta_pp(row)
     out["cloq_expected_value_pct"] = expected_value_pct(row)
-    out["cloq_value_status"] = value_status(row)
-    out["cloq_decision"] = decision
-    out["cloq_odds_gap_pct"] = odds_gap_pct(row)
-    out["cloq_odds_gap_group"] = bucket
-    out["cloq_close_bonus"] = bonus
-    out["cloq_support_tags"] = supports
-    out["cloq_risk_tags"] = risks
+    out["cloq_evidence_score"] = evidence_score(row)
+    out["cloq_required_evidence_score"] = required_evidence(row)
+    out["cloq_evidence_details"] = evidence_details(row)
+    out["cloq_price_bucket"] = price_bucket(row)
+    out["cloq_data_depth"] = data_depth(row)
+    out["cloq_decision"] = cloq_decision(row)
+    out["cloq_support_tags"] = cloq_support_tags(row)
+    out["cloq_risk_tags"] = cloq_risk_tags(row)
     out["cloq_reject_reasons"] = reasons
     out["cloq_publishable"] = not reasons
     out["cloq_score"] = cloq_score(row) if not reasons else -9999.0
