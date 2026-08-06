@@ -1,68 +1,41 @@
 """Value-first CloQ filters and scoring helpers.
 
-CloQ uses real fields already produced by the CorQ daily runtime. It does not
-invent probabilities, odds, value or market data. Missing values stay missing
-and are exposed as reject reasons or audit fields.
-
-Design intent for V1:
-- Value is the first-class signal.
-- Close odds are a soft bonus only, not a hard 15% gate.
-- No penalty is applied for wide odds gap in this phase.
-- Short favourites with clearly negative value are blocked from CloQ shortlist.
+CloQ is intentionally stricter than CorQ TOP7. It only uses real upstream
+fields from the CorQ daily runtime. Missing odds, probability or value data stay
+missing and become reject reasons. No synthetic value is created.
 """
-
 from __future__ import annotations
 
-from datetime import datetime, timezone
+import re
 from typing import Any, Dict, List, Optional, Tuple
 
-MIN_PICK_ODDS = 1.40
-SHORT_PRICE_LIMIT = 1.50
-VALUE_POSITIVE_PP = 0.0
-VALUE_NEUTRAL_FLOOR_PP = -2.0
-EV_NEUTRAL_FLOOR_PCT = -3.0
-NEGATIVE_VALUE_HARD_PP = -5.0
-NEGATIVE_EV_HARD_PCT = -8.0
-MIN_CLOQ_MODEL_PROBABILITY = 0.45
-MIN_CLOQ_THINQ_EDGE = 0.0
-LONG_ODDS_LIMIT = 3.50
-LONG_ODDS_MIN_MODEL_PROBABILITY = 0.50
-LONG_ODDS_MIN_THINQ_EDGE = 0.03
-MIN_CLOQ_VALUE_DELTA_PP = 1.00
-MIN_CLOQ_EXPECTED_VALUE_PCT = 1.50
-HIGH_VALUE_DELTA_PP = 4.00
+MODEL_VERSION = "CLOQ_VALUE_FIRST_V4_CLEAN_VALUE"
+
+# Core CloQ policy.
+MIN_PICK_ODDS = 1.70
+PREFERRED_ODDS_MAX = 2.40
+MAX_PICK_ODDS = 3.00
+MIN_CLOQ_VALUE_DELTA_PP = 3.00
+MIN_CLOQ_EXPECTED_VALUE_PCT = 3.00
+HIGH_VALUE_DELTA_PP = 5.00
 HIGH_EXPECTED_VALUE_PCT = 6.00
+MIN_CLOQ_MODEL_PROBABILITY = 0.48
+MIN_CLOQ_THINQ_EDGE = 0.00
+MIN_DATA_DEPTH = 0.50
+MIN_FORM_DEPTH = 0.45
+MIN_CONFIDENCE = 0.50
 VALUE_DELTA_SCORE_CAP_PP = 12.0
-EXPECTED_VALUE_SCORE_CAP_PCT = 35.0
+EXPECTED_VALUE_SCORE_CAP_PCT = 30.0
 
 OPEN_STATUS_TYPES = {
-    "notstarted",
-    "not_started",
-    "scheduled",
-    "open",
-    "prematch",
-    "pre-match",
-    "upcoming",
-    "pending",
-    "",
+    "", "notstarted", "not_started", "scheduled", "open", "prematch",
+    "pre-match", "upcoming", "pending",
 }
 
 BLOCKED_STATUS_TYPES = {
-    "finished",
-    "ended",
-    "complete",
-    "completed",
-    "inprogress",
-    "in_progress",
-    "live",
-    "started",
-    "cancelled",
-    "canceled",
-    "postponed",
-    "retired",
-    "walkover",
-    "interrupted",
-    "suspended",
+    "finished", "ended", "complete", "completed", "inprogress",
+    "in_progress", "live", "started", "cancelled", "canceled",
+    "postponed", "retired", "walkover", "interrupted", "suspended",
 }
 
 
@@ -108,11 +81,11 @@ def first_present(row: Dict[str, Any], *keys: str) -> Any:
 
 
 def pick_name(row: Dict[str, Any]) -> str:
-    return str(first_present(row, "pick", "cloq_pick", "player", "player1", "home") or "—")
+    return str(first_present(row, "pick", "cloq_pick", "player", "player1", "home") or "—").strip()
 
 
 def opponent_name(row: Dict[str, Any]) -> str:
-    return str(first_present(row, "opponent", "opp", "player2", "away") or "—")
+    return str(first_present(row, "opponent", "opp", "player2", "away") or "—").strip()
 
 
 def pick_odds(row: Dict[str, Any]) -> Optional[float]:
@@ -208,12 +181,12 @@ def close_odds_bonus(row: Dict[str, Any]) -> Tuple[float, str]:
     if gap is None:
         return 0.0, "unknown"
     if gap <= 0.15:
-        return 3.0, "close_value"
+        return 2.0, "close_value"
     if gap <= 0.25:
-        return 1.5, "playable_close"
+        return 1.0, "playable_close"
     if gap <= 0.40:
         return 0.0, "neutral_gap"
-    return 0.0, "open_gap"
+    return -1.0, "open_gap"
 
 
 def status_type(row: Dict[str, Any]) -> str:
@@ -250,75 +223,103 @@ def is_prematch(row: Dict[str, Any]) -> bool:
 def is_doubles(row: Dict[str, Any]) -> bool:
     if row.get("is_doubles") is True:
         return True
-    text = " ".join(str(first_present(row, key) or "") for key in ("match_type", "type", "event_type", "category"))
+    text = " ".join(str(first_present(row, key) or "") for key in ("match_type", "type", "event_type", "category", "competition", "tournament"))
     return "double" in text.lower()
 
 
-def market_with_pick(row: Dict[str, Any]) -> bool:
-    text = " | ".join(str(first_present(row, key) or "") for key in (
-        "marq_final", "marq_final_display", "final_marq", "market_final", "marq_market_final"
+def market_text(row: Dict[str, Any]) -> str:
+    return " | ".join(str(first_present(row, key) or "") for key in (
+        "marq_final", "marq_final_display", "final_marq", "market_final", "marq_market_final", "market_read"
     )).lower().replace("_", " ")
-    return "market with pick" in text
+
+
+def market_with_pick(row: Dict[str, Any]) -> bool:
+    return "market with pick" in market_text(row)
 
 
 def market_against_pick(row: Dict[str, Any]) -> bool:
-    text = " | ".join(str(first_present(row, key) or "") for key in (
-        "marq_final", "marq_final_display", "final_marq", "market_final", "marq_market_final"
-    )).lower().replace("_", " ")
-    return "market against pick" in text
+    return "market against pick" in market_text(row)
+
+
+def _stringify_tag_value(value: Any) -> List[str]:
+    if value in (None, "", "—", "-"):
+        return []
+    if isinstance(value, list):
+        out: List[str] = []
+        for item in value:
+            out.extend(_stringify_tag_value(item))
+        return out
+    if isinstance(value, dict):
+        out: List[str] = []
+        for item in value.values():
+            out.extend(_stringify_tag_value(item))
+        return out
+    return [str(value)]
+
+
+def tag_text(row: Dict[str, Any]) -> str:
+    values: List[str] = []
+    for key in (
+        "tags", "flags", "support_tags", "risk_tags", "warnings", "model_tags", "top7_tags",
+        "pick_tags", "opponent_tags", "form_tags", "data_notes", "notes",
+    ):
+        values.extend(_stringify_tag_value(row.get(key)))
+    return " | ".join(values).lower().replace("_", " ")
+
+
+def pick_strong(row: Dict[str, Any]) -> bool:
+    text = tag_text(row)
+    return bool(re.search(r"\bpick\s+strong\b", text)) or bool(re.search(r"\bp\s+strong\b", text))
+
+
+def opponent_strong(row: Dict[str, Any]) -> bool:
+    text = tag_text(row)
+    return bool(re.search(r"\bopp\s+strong\b", text)) or bool(re.search(r"\bopponent\s+strong\b", text)) or bool(re.search(r"\bo\s+strong\b", text))
+
+
+def form_support(row: Dict[str, Any]) -> bool:
+    text = tag_text(row)
+    return "form support" in text or "pick strong" in text
 
 
 def value_status(row: Dict[str, Any]) -> str:
     vd = value_delta_pp(row)
     ev = expected_value_pct(row)
-    if vd is not None and vd >= VALUE_POSITIVE_PP:
-        return "VALUE_POSITIVE"
-    if ev is not None and ev >= 0:
-        return "VALUE_POSITIVE"
-    if (vd is not None and vd >= VALUE_NEUTRAL_FLOOR_PP) and (ev is None or ev >= EV_NEUTRAL_FLOOR_PCT):
-        return "VALUE_NEUTRAL"
+    if (vd is not None and vd >= HIGH_VALUE_DELTA_PP) or (ev is not None and ev >= HIGH_EXPECTED_VALUE_PCT):
+        return "VALUE_HIGH"
+    if (vd is not None and vd >= MIN_CLOQ_VALUE_DELTA_PP) or (ev is not None and ev >= MIN_CLOQ_EXPECTED_VALUE_PCT):
+        return "VALUE_PLAYABLE"
+    if (vd is not None and vd > 0) or (ev is not None and ev > 0):
+        return "VALUE_THIN"
     return "VALUE_NEGATIVE"
 
 
-def cloq_reject_reasons(row: Dict[str, Any]) -> List[str]:
-    reasons: List[str] = []
+def cloq_risk_tags(row: Dict[str, Any]) -> List[str]:
+    tags: List[str] = []
     odds = pick_odds(row)
-    cp = corq_probability(row)
     vd = value_delta_pp(row)
     ev = expected_value_pct(row)
-    if not is_prematch(row):
-        reasons.append("REJECT_CLOQ_STATUS_NOT_PREMATCH")
-    if is_doubles(row):
-        reasons.append("REJECT_CLOQ_DOUBLES")
-    if odds is None:
-        reasons.append("REJECT_CLOQ_MISSING_PICK_ODDS")
-    elif odds < MIN_PICK_ODDS:
-        reasons.append("REJECT_CLOQ_ODDS_UNDER_1_40")
-    if cp is None:
-        reasons.append("REJECT_CLOQ_MISSING_CORQ_PROBABILITY")
-    if vd is None and ev is None:
-        reasons.append("REJECT_CLOQ_MISSING_VALUE_DATA")
-
-    # V3 guard: CloQ should be a real value shortlist, not a list of slight
-    # edges, neutral prices or mathematical underdog traps.
-    edge = thinq_edge(row)
-    has_playable_value = (vd is not None and vd >= MIN_CLOQ_VALUE_DELTA_PP) or (ev is not None and ev >= MIN_CLOQ_EXPECTED_VALUE_PCT)
-    if not has_playable_value:
-        reasons.append("REJECT_CLOQ_VALUE_EDGE_TOO_SMALL")
-    if cp is not None and cp < MIN_CLOQ_MODEL_PROBABILITY:
-        reasons.append("REJECT_CLOQ_LOW_MODEL_PROBABILITY")
-    if edge < MIN_CLOQ_THINQ_EDGE:
-        reasons.append("REJECT_CLOQ_THINQ_EDGE_NOT_SUPPORTIVE")
-    if market_against_pick(row) and (cp is None or cp < 0.55):
-        reasons.append("REJECT_CLOQ_MARKET_AGAINST_LOW_MODEL_SUPPORT")
-    if odds is not None and odds >= LONG_ODDS_LIMIT and (cp is None or cp < LONG_ODDS_MIN_MODEL_PROBABILITY or edge < LONG_ODDS_MIN_THINQ_EDGE or not market_with_pick(row)):
-        reasons.append("REJECT_CLOQ_LONG_ODDS_LOW_MODEL_SUPPORT")
-
-    if odds is not None and odds < SHORT_PRICE_LIMIT and ((vd is not None and vd <= NEGATIVE_VALUE_HARD_PP) or (ev is not None and ev <= NEGATIVE_EV_HARD_PCT)):
-        reasons.append("REJECT_CLOQ_SHORT_PRICE_NEGATIVE_VALUE_TRAP")
-    if value_status(row) == "VALUE_NEGATIVE" and ((vd is not None and vd <= NEGATIVE_VALUE_HARD_PP) or (ev is not None and ev <= NEGATIVE_EV_HARD_PCT)):
-        reasons.append("REJECT_CLOQ_HARD_NEGATIVE_VALUE")
-    return list(dict.fromkeys(reasons))
+    if value_status(row) in {"VALUE_THIN", "VALUE_NEGATIVE"}:
+        tags.append(value_status(row))
+    if odds is not None and odds < MIN_PICK_ODDS:
+        tags.append("LOW_ODDS_UNDER_1_70")
+    if odds is not None and odds > PREFERRED_ODDS_MAX:
+        tags.append("ABOVE_PREFERRED_ODDS_RANGE")
+    if odds is not None and odds > MAX_PICK_ODDS:
+        tags.append("LONG_ODDS_RISK")
+    if vd is not None and vd < MIN_CLOQ_VALUE_DELTA_PP:
+        tags.append("LOW_VALUE_DELTA")
+    if ev is not None and ev < MIN_CLOQ_EXPECTED_VALUE_PCT:
+        tags.append("LOW_EXPECTED_VALUE")
+    if market_against_pick(row):
+        tags.append("MARKET_AGAINST_PICK")
+    if opponent_strong(row):
+        tags.append("OPP_STRONG")
+    if pick_strong(row) and opponent_strong(row):
+        tags.append("STRENGTH_CONFLICT")
+    if data_depth(row) < MIN_DATA_DEPTH or form_depth(row) < MIN_FORM_DEPTH or thinq_confidence(row) < MIN_CONFIDENCE:
+        tags.append("LOW_DATA_CONFIDENCE")
+    return list(dict.fromkeys(tags))
 
 
 def cloq_support_tags(row: Dict[str, Any]) -> List[str]:
@@ -328,43 +329,88 @@ def cloq_support_tags(row: Dict[str, Any]) -> List[str]:
     edge = thinq_edge(row)
     cp = corq_probability(row)
     close_bonus, bucket = close_odds_bonus(row)
-    if vd is not None and vd >= 0:
-        tags.append("VALUE_DELTA_POSITIVE")
-    if ev is not None and ev >= 0:
-        tags.append("EXPECTED_VALUE_POSITIVE")
-    if value_status(row) == "VALUE_NEUTRAL":
-        tags.append("VALUE_NEUTRAL")
+    if vd is not None and vd >= MIN_CLOQ_VALUE_DELTA_PP:
+        tags.append("VALUE_DELTA_PLAYABLE")
+    if vd is not None and vd >= HIGH_VALUE_DELTA_PP:
+        tags.append("VALUE_DELTA_HIGH")
+    if ev is not None and ev >= MIN_CLOQ_EXPECTED_VALUE_PCT:
+        tags.append("EXPECTED_VALUE_PLAYABLE")
+    if ev is not None and ev >= HIGH_EXPECTED_VALUE_PCT:
+        tags.append("EXPECTED_VALUE_HIGH")
     if edge > 0:
         tags.append("THINQ_EDGE_SUPPORT")
     if cp is not None and cp >= 0.55:
         tags.append("CORQ_PROB_SUPPORT")
     if market_with_pick(row):
         tags.append("MARKET_WITH_PICK")
+    if pick_strong(row):
+        tags.append("PICK_STRONG")
+    if form_support(row):
+        tags.append("FORM_SUPPORT")
     if close_bonus > 0:
         tags.append(bucket.upper())
     return list(dict.fromkeys(tags))
 
 
-def cloq_risk_tags(row: Dict[str, Any]) -> List[str]:
-    tags: List[str] = []
+def cloq_reject_reasons(row: Dict[str, Any]) -> List[str]:
+    reasons: List[str] = []
     odds = pick_odds(row)
+    cp = corq_probability(row)
     vd = value_delta_pp(row)
     ev = expected_value_pct(row)
-    if value_status(row) == "VALUE_NEGATIVE":
-        tags.append("VALUE_NEGATIVE")
-    if vd is not None and vd <= NEGATIVE_VALUE_HARD_PP:
-        tags.append("NEGATIVE_VALUE_HARD")
-    if ev is not None and ev <= NEGATIVE_EV_HARD_PCT:
-        tags.append("NEGATIVE_EV_HARD")
-    if odds is not None and odds < SHORT_PRICE_LIMIT:
-        tags.append("SHORT_PRICE")
+    edge = thinq_edge(row)
+
+    if not is_prematch(row):
+        reasons.append("REJECT_CLOQ_STATUS_NOT_PREMATCH")
+    if is_doubles(row):
+        reasons.append("REJECT_CLOQ_DOUBLES")
+    if odds is None:
+        reasons.append("REJECT_CLOQ_MISSING_PICK_ODDS")
+    elif odds < MIN_PICK_ODDS:
+        reasons.append("REJECT_CLOQ_ODDS_UNDER_1_70")
+    elif odds > MAX_PICK_ODDS:
+        reasons.append("REJECT_CLOQ_ODDS_OVER_3_00")
+    if cp is None:
+        reasons.append("REJECT_CLOQ_MISSING_CORQ_PROBABILITY")
+    elif cp < MIN_CLOQ_MODEL_PROBABILITY:
+        reasons.append("REJECT_CLOQ_MODEL_PROBABILITY_UNDER_48")
+    if vd is None and ev is None:
+        reasons.append("REJECT_CLOQ_MISSING_VALUE_DATA")
+    else:
+        has_value_delta = vd is not None and vd >= MIN_CLOQ_VALUE_DELTA_PP
+        has_expected_value = ev is not None and ev >= MIN_CLOQ_EXPECTED_VALUE_PCT
+        if not (has_value_delta or has_expected_value):
+            reasons.append("REJECT_CLOQ_LOW_VALUE")
+    if edge < MIN_CLOQ_THINQ_EDGE:
+        reasons.append("REJECT_CLOQ_NEGATIVE_THINQ_EDGE")
     if market_against_pick(row):
-        tags.append("MARKET_AGAINST_PICK")
-    if odds is not None and odds >= LONG_ODDS_LIMIT:
-        tags.append("LONG_ODDS_VALUE_RISK")
-    if data_depth(row) < 0.45 or form_depth(row) < 0.40 or thinq_confidence(row) < 0.50:
-        tags.append("LOW_DATA_CONFIDENCE")
-    return list(dict.fromkeys(tags))
+        reasons.append("REJECT_CLOQ_MARKET_AGAINST_PICK")
+    if opponent_strong(row):
+        reasons.append("REJECT_CLOQ_OPP_STRONG")
+    if pick_strong(row) and opponent_strong(row):
+        reasons.append("REJECT_CLOQ_STRENGTH_CONFLICT")
+    if data_depth(row) < MIN_DATA_DEPTH:
+        reasons.append("REJECT_CLOQ_LOW_DATA_DEPTH")
+    if thinq_confidence(row) < MIN_CONFIDENCE:
+        reasons.append("REJECT_CLOQ_LOW_THINQ_CONFIDENCE")
+
+    return list(dict.fromkeys(reasons))
+
+
+def cloq_decision(row: Dict[str, Any]) -> str:
+    reasons = cloq_reject_reasons(row)
+    risks = cloq_risk_tags(row)
+    if reasons:
+        if "REJECT_CLOQ_OPP_STRONG" in reasons or "REJECT_CLOQ_STRENGTH_CONFLICT" in reasons:
+            return "CLOQ_CONFLICT"
+        if any(reason in reasons for reason in ("REJECT_CLOQ_LOW_VALUE", "REJECT_CLOQ_ODDS_UNDER_1_70")):
+            return "CLOQ_REJECTED_VALUE_GATE"
+        return "CLOQ_REJECTED"
+    if risks:
+        return "CLOQ_VALUE_RISK"
+    if value_status(row) == "VALUE_HIGH" and market_with_pick(row):
+        return "CLOQ_CLEAN_HIGH_VALUE"
+    return "CLOQ_CLEAN"
 
 
 def cloq_score(row: Dict[str, Any]) -> float:
@@ -376,35 +422,34 @@ def cloq_score(row: Dict[str, Any]) -> float:
     fdepth = form_depth(row)
     conf = thinq_confidence(row)
     close_bonus, _ = close_odds_bonus(row)
+    odds = pick_odds(row) or 0.0
 
     score = 0.0
     if vd is not None:
-        score += max(min(vd, VALUE_DELTA_SCORE_CAP_PP), -10.0) * 2.6
+        score += min(max(vd, -10.0), VALUE_DELTA_SCORE_CAP_PP) * 3.0
     if ev is not None:
-        score += max(min(ev, EXPECTED_VALUE_SCORE_CAP_PCT), -20.0) * 0.45
+        score += min(max(ev, -15.0), EXPECTED_VALUE_SCORE_CAP_PCT) * 0.8
+    score += edge * 60.0
+    score += cp * 8.0
+    score += depth * 4.0
+    score += fdepth * 2.0
+    score += conf * 2.0
     score += close_bonus
-    score += max(cp - 0.50, 0.0) * 24.0
-    score += max(cp - MIN_CLOQ_MODEL_PROBABILITY, 0.0) * 8.0
-    score += max(edge, 0.0) * 18.0
-    score += depth * 3.0
-    score += fdepth * 1.5
-    score += conf * 1.0
-
     if market_with_pick(row):
+        score += 4.0
+    if pick_strong(row):
         score += 2.0
-    if market_against_pick(row):
-        score -= 5.0
-
-    risks = cloq_risk_tags(row)
-    score -= 1.0 * len(risks)
-    if "NEGATIVE_VALUE_HARD" in risks:
-        score -= 4.0
-    if "NEGATIVE_EV_HARD" in risks:
-        score -= 3.0
-    if "SHORT_PRICE" in risks and "VALUE_NEGATIVE" in risks:
-        score -= 3.0
-    if "LONG_ODDS_VALUE_RISK" in risks:
-        score -= 4.0
+    if MIN_PICK_ODDS <= odds <= PREFERRED_ODDS_MAX:
+        score += 2.0
+    if odds > PREFERRED_ODDS_MAX:
+        score -= 2.0
+    for risk in cloq_risk_tags(row):
+        if risk in {"OPP_STRONG", "STRENGTH_CONFLICT"}:
+            score -= 12.0
+        elif risk in {"LOW_DATA_CONFIDENCE", "MARKET_AGAINST_PICK"}:
+            score -= 8.0
+        else:
+            score -= 4.0
     return round(score, 4)
 
 
@@ -412,7 +457,11 @@ def annotate_cloq(row: Dict[str, Any]) -> Dict[str, Any]:
     out = dict(row)
     bonus, bucket = close_odds_bonus(row)
     reasons = cloq_reject_reasons(row)
-    out["cloq_model_version"] = "CLOQ_VALUE_FIRST_V3_HIGH_VALUE"
+    supports = cloq_support_tags(row)
+    risks = cloq_risk_tags(row)
+    decision = cloq_decision(row)
+    out["cloq_model_version"] = MODEL_VERSION
+    out["cloq_policy"] = "odds>=1.70,value>=3pp_or_EV>=3pct,no_opp_strong,no_market_against,no_forced_count"
     out["cloq_pick"] = pick_name(row)
     out["cloq_opponent"] = opponent_name(row)
     out["cloq_pick_odds"] = pick_odds(row)
@@ -422,11 +471,12 @@ def annotate_cloq(row: Dict[str, Any]) -> Dict[str, Any]:
     out["cloq_value_delta_pp"] = value_delta_pp(row)
     out["cloq_expected_value_pct"] = expected_value_pct(row)
     out["cloq_value_status"] = value_status(row)
+    out["cloq_decision"] = decision
     out["cloq_odds_gap_pct"] = odds_gap_pct(row)
     out["cloq_odds_gap_bucket"] = bucket
     out["cloq_close_bonus"] = bonus
-    out["cloq_support_tags"] = cloq_support_tags(row)
-    out["cloq_risk_tags"] = cloq_risk_tags(row)
+    out["cloq_support_tags"] = supports
+    out["cloq_risk_tags"] = risks
     out["cloq_reject_reasons"] = reasons
     out["cloq_publishable"] = not reasons
     out["cloq_score"] = cloq_score(row) if not reasons else -9999.0
@@ -434,4 +484,4 @@ def annotate_cloq(row: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def match_identity(row: Dict[str, Any]) -> str:
-    return str(first_present(row, "match_key", "event_id", "match_id", "id") or "|".join(sorted([pick_name(row).lower(), opponent_name(row).lower()])))
+    return str(first_present(row, "match_key", "event_id", "match_id", "id") or "".join(sorted([pick_name(row).lower(), opponent_name(row).lower()])))
