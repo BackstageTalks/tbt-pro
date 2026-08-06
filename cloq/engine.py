@@ -1,4 +1,4 @@
-"""Build clean value-first CloQ output from CorQ ALL rows.
+"""Build simple CloQ output from CorQ ALL rows.
 
 Usage:
     python -m cloq.engine --input outputs/latest_all.json --output-root outputs
@@ -7,9 +7,7 @@ Outputs:
     outputs/cloq/latest_cloq.json
     outputs/latest_cloq.json
     outputs/cloq/latest_cloq_manifest.json
-
-This engine reads only real upstream fields. It does not call APIs and does not
-create synthetic odds, probabilities or value fields.
+    outputs/cloq/latest_cloq_audit.json
 """
 from __future__ import annotations
 
@@ -20,12 +18,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
 
-from cloq.filters import (
-    MODEL_VERSION,
-    annotate_cloq,
-    cloq_score,
-    match_identity,
-)
+from cloq.filters import MODEL_VERSION, annotate_cloq, match_identity
 
 DEFAULT_TOP_N = 7
 DEFAULT_MIN_PUBLISH_ROWS = 3
@@ -81,145 +74,50 @@ def _num(value: Any, default: float = -9999.0) -> float:
         return default
 
 
-def _has_any(row: Dict[str, Any], names: Iterable[str]) -> bool:
-    values = set(str(x) for x in (row.get("cloq_reject_reasons") or [])) | set(str(x) for x in (row.get("cloq_risk_tags") or []))
-    return any(name in values for name in names)
-
-
-def _backup_tier(row: Dict[str, Any]) -> str:
-    """Classify non-clean CloQ rows that can still be published as best-available picks.
-
-    This does not invent data. It only relaxes the hard clean filter into clearly
-    labelled tiers so CloQ can publish up to a small card even when no perfectly
-    clean value exists.
-    """
-    odds = _num(row.get("cloq_pick_odds"), 0.0)
-    vd = _num(row.get("cloq_value_delta_pp"), -9999.0)
-    ev = _num(row.get("cloq_expected_value_pct"), -9999.0)
-    reasons = set(str(x) for x in (row.get("cloq_reject_reasons") or []))
-
-    hard_blocks = {
-        "REJECT_CLOQ_STATUS_NOT_PREMATCH",
-        "REJECT_CLOQ_DOUBLES",
-        "REJECT_CLOQ_MISSING_PICK_ODDS",
-        "REJECT_CLOQ_MISSING_CORQ_PROBABILITY",
-        "REJECT_CLOQ_MISSING_VALUE_DATA",
-        "REJECT_CLOQ_ODDS_UNDER_1_70",
-        "REJECT_CLOQ_ODDS_OVER_3_00",
-        "REJECT_CLOQ_MARKET_AGAINST_PICK",
-        "REJECT_CLOQ_NEGATIVE_THINQ_EDGE",
-        "REJECT_CLOQ_LOW_DATA_DEPTH",
-        "REJECT_CLOQ_LOW_THINQ_CONFIDENCE",
-    }
-    if reasons & hard_blocks:
-        return ""
-    if not (1.70 <= odds <= 3.00):
-        return ""
-
-    # Tier B: playable value, no strong-opponent conflict.
-    if not _has_any(row, {"OPP_STRONG", "STRENGTH_CONFLICT", "REJECT_CLOQ_OPP_STRONG", "REJECT_CLOQ_STRENGTH_CONFLICT"}):
-        if vd >= 2.0 or ev >= 2.0:
-            return "CLOQ_PLAYABLE_BACKUP"
-
-    # Tier C: risk-labelled fallback. Must have stronger value to compensate,
-    # and it stays explicitly marked as risk, not clean.
-    if vd >= 4.0 or ev >= 5.0:
-        return "CLOQ_RISK_BACKUP"
-    return ""
-
-
-def _publish_sort_key(row: Dict[str, Any]) -> tuple:
-    tier = str(row.get("cloq_publish_tier") or "")
-    tier_rank = {
-        "CLOQ_CLEAN": 3,
-        "CLOQ_CLEAN_HIGH_VALUE": 3,
-        "CLOQ_PLAYABLE_BACKUP": 2,
-        "CLOQ_RISK_BACKUP": 1,
-    }.get(tier, 0)
+def _sort_key(row: Dict[str, Any]) -> tuple:
+    value_group = {
+        "VALUE_POSITIVE": 3,
+        "VALUE_NON_NEGATIVE": 2,
+        "NO_VALUE_DATA": 1,
+    }.get(str(row.get("cloq_value_status") or ""), 0)
     return (
-        tier_rank,
-        float(row.get("cloq_score") or -9999.0),
+        value_group,
+        _num(row.get("cloq_score")),
         _num(row.get("cloq_value_delta_pp")),
         _num(row.get("cloq_expected_value_pct")),
+        -_num(row.get("cloq_odds_gap_pct"), 9.0),
         _num(row.get("cloq_pick_odds"), 0.0),
     )
 
 
 def build_cloq_rows(all_rows: Iterable[Dict[str, Any]], top_n: int = DEFAULT_TOP_N, min_publish_rows: int = DEFAULT_MIN_PUBLISH_ROWS) -> List[Dict[str, Any]]:
     annotated = [annotate_cloq(row) for row in all_rows if isinstance(row, dict)]
-
-    clean: List[Dict[str, Any]] = []
-    backups: List[Dict[str, Any]] = []
-    for row in annotated:
-        row = dict(row)
-        if row.get("cloq_publishable") is True:
-            row["cloq_publish_tier"] = str(row.get("cloq_decision") or "CLOQ_CLEAN")
-            row["cloq_original_publishable"] = True
-            clean.append(row)
-            continue
-        tier = _backup_tier(row)
-        if tier:
-            row["cloq_publish_tier"] = tier
-            row["cloq_original_publishable"] = False
-            row["cloq_publishable"] = True
-            row["cloq_selected_reason"] = "best_available_value_backup_not_clean"
-            # Keep the original reject reasons for transparency, but move them to
-            # slot-level warnings so the UI/log can show why the row is not clean.
-            row["cloq_backup_warning_reasons"] = list(row.get("cloq_reject_reasons") or [])
-            row["cloq_score"] = max(cloq_score(row), 0.0)
-            backups.append(row)
-
-    clean = sorted(dedupe_best_by_match(clean), key=_publish_sort_key, reverse=True)
-    output = clean[: max(int(top_n or DEFAULT_TOP_N), 0)]
-
-    if len(output) < min_publish_rows:
-        existing_matches = {match_identity(row) for row in output}
-        backup_sorted = sorted(dedupe_best_by_match(backups), key=_publish_sort_key, reverse=True)
-        for row in backup_sorted:
-            if len(output) >= min_publish_rows or len(output) >= max(int(top_n or DEFAULT_TOP_N), 0):
-                break
-            if match_identity(row) in existing_matches:
-                continue
-            output.append(row)
-            existing_matches.add(match_identity(row))
-
-    output = sorted(output, key=_publish_sort_key, reverse=True)[: max(int(top_n or DEFAULT_TOP_N), 0)]
+    publishable = [row for row in annotated if row.get("cloq_publishable") is True]
+    publishable = dedupe_best_by_match(publishable)
+    publishable = sorted(publishable, key=_sort_key, reverse=True)
+    limit = max(int(top_n or DEFAULT_TOP_N), 0)
+    output = publishable[:limit]
     for idx, row in enumerate(output, start=1):
         row["cloq_rank"] = idx
         row["cloq_selected"] = True
-        row["cloq_score"] = cloq_score(row) if row.get("cloq_original_publishable") is True else row.get("cloq_score")
+        if row.get("cloq_value_status") == "NO_VALUE_DATA":
+            row["cloq_publish_tier"] = "CLOQ_NO_VALUE_DATA"
+        elif row.get("cloq_risk_tags"):
+            row["cloq_publish_tier"] = "CLOQ_VALUE_INFO"
+        else:
+            row["cloq_publish_tier"] = "CLOQ_CLEAN"
     return output
 
 
 def build_cloq_audit_rows(all_rows: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    annotated = []
-    for row in all_rows:
-        if not isinstance(row, dict):
-            continue
-        item = annotate_cloq(row)
-        if item.get("cloq_publishable") is True:
-            item["cloq_publish_tier"] = str(item.get("cloq_decision") or "CLOQ_CLEAN")
-            item["cloq_original_publishable"] = True
-        else:
-            tier = _backup_tier(item)
-            if tier:
-                item["cloq_publish_tier"] = tier
-                item["cloq_original_publishable"] = False
-        annotated.append(item)
-    return sorted(
-        annotated,
-        key=lambda row: (
-            bool(row.get("cloq_publish_tier")),
-            _publish_sort_key(row),
-        ),
-        reverse=True,
-    )
+    annotated = [annotate_cloq(row) for row in all_rows if isinstance(row, dict)]
+    return sorted(annotated, key=lambda row: (bool(row.get("cloq_publishable")), _sort_key(row)), reverse=True)
 
 
 def build_manifest(input_path: Path, output_rows: List[Dict[str, Any]], audit_rows: List[Dict[str, Any]], all_count: int, top_n: int, min_publish_rows: int = DEFAULT_MIN_PUBLISH_ROWS) -> Dict[str, Any]:
     value_status_counts = Counter(str(row.get("cloq_value_status") or "UNKNOWN") for row in audit_rows)
     decision_counts = Counter(str(row.get("cloq_decision") or "UNKNOWN") for row in audit_rows)
-    publish_tier_counts = Counter(str(row.get("cloq_publish_tier") or "NOT_PUBLISHABLE") for row in audit_rows)
+    tier_counts = Counter(str(row.get("cloq_publish_tier") or "NOT_SELECTED") for row in output_rows)
     reject_counts: Counter[str] = Counter()
     risk_counts: Counter[str] = Counter()
     support_counts: Counter[str] = Counter()
@@ -238,25 +136,22 @@ def build_manifest(input_path: Path, output_rows: List[Dict[str, Any]], audit_ro
         "min_publish_rows": min_publish_rows,
         "policy": {
             "odds_min": 1.70,
-            "odds_preferred_max": 2.40,
-            "odds_max": 3.00,
-            "min_value_delta_pp": 3.00,
-            "min_expected_value_pct": 3.00,
-            "opp_strong": "hard_reject",
-            "market_against_pick": "hard_reject",
-            "forced_count": "min_3_best_available_with_explicit_tier_labels",
+            "odds_gap_max_pct": 0.20,
+            "odds_gap_formula": "abs(pick_odds-opponent_odds)/min(pick_odds,opponent_odds)",
+            "negative_value": "reject_if_value_delta_or_EV_is_negative",
+            "missing_value": "allow_with_NO_VALUE_DATA_if_all_other_rules_pass",
+            "forced_count": False,
         },
+        "selected_tier_counts": dict(tier_counts),
         "decision_counts": dict(decision_counts),
-        "publish_tier_counts": dict(publish_tier_counts),
         "value_status_counts": dict(value_status_counts),
         "reject_reason_counts": dict(reject_counts),
         "risk_tag_counts": dict(risk_counts),
         "support_tag_counts": dict(support_counts),
         "notes": [
-            "CloQ is value-first: publishable rows need odds >=1.70 and value_delta >=3pp or EV >=3%.",
-            "Opp strong and strength conflict are hard rejects for clean CloQ.",
-            "Market against pick is a hard reject; market with pick is a score bonus.",
-            "Clean CloQ remains strict, but the published card can fill up to 3 best-available value backups with explicit tier labels.",
+            "CloQ uses one simple rule-set: odds >=1.70, odds gap <=20%, no negative value.",
+            "Odds gap is calculated against the smaller odds to keep the rule conservative.",
+            "Missing value is not fabricated and is labelled NO_VALUE_DATA when other rules pass.",
             "No synthetic odds, probabilities or value values are generated.",
         ],
     }
@@ -282,7 +177,6 @@ def run(input_path: Optional[str] = None, output_root: str = "outputs", top_n: i
         "rows": len(cloq_rows),
         "audit_rows": len(audit_rows),
         "input_rows": len(all_rows),
-        "min_publish_rows": min_publish_rows,
         "latest_cloq": str(latest_nested),
         "latest_cloq_flat": str(latest_flat),
         "latest_cloq_audit": str(audit_path),
@@ -291,11 +185,11 @@ def run(input_path: Optional[str] = None, output_root: str = "outputs", top_n: i
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Build clean value-first CloQ output")
+    parser = argparse.ArgumentParser(description="Build simple CloQ output")
     parser.add_argument("--input", dest="input_path", default=None, help="Input ALL JSON path, default outputs/latest_all.json")
     parser.add_argument("--output-root", default="outputs", help="Output root directory")
     parser.add_argument("--top-n", type=int, default=DEFAULT_TOP_N, help="Maximum number of CloQ rows to publish")
-    parser.add_argument("--min-publish-rows", type=int, default=DEFAULT_MIN_PUBLISH_ROWS, help="Minimum best-available CloQ rows to publish if enough real candidates exist")
+    parser.add_argument("--min-publish-rows", type=int, default=DEFAULT_MIN_PUBLISH_ROWS, help="Reserved for compatibility")
     args = parser.parse_args()
     result = run(input_path=args.input_path, output_root=args.output_root, top_n=args.top_n, min_publish_rows=args.min_publish_rows)
     print(json.dumps(result, ensure_ascii=False, indent=2))
