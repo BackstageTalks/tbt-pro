@@ -4284,6 +4284,591 @@ def render_cards_page(title: str, active: str, rows: List[Dict[str, Any]], manif
     summary = render_notes_summary(rows) if page in {"corq", "cloq", "all"} else ""
     return page_shell(title, active, summary + cards, manifest)
 
+
+# ============================================================
+# Audit filter/time/odds override V3
+# ============================================================
+# Fixes audit pill filtering, adds pick odds buckets, and sorts audit cards by
+# match start time. This block is intentionally placed before main().
+
+try:
+    _AUDIT_FILTER_V3_BASE_AUDIT_FILTER_TAGS_FOR_ROW
+except NameError:
+    _AUDIT_FILTER_V3_BASE_AUDIT_FILTER_TAGS_FOR_ROW = audit_filter_tags_for_row
+    _AUDIT_FILTER_V3_BASE_AUDIT_NOTE_CSS = audit_note_css
+
+AUDIT_PICK_ODDS_UNDER_170_LABEL = "Pick odds <1.70"
+AUDIT_PICK_ODDS_OVER_170_LABEL = "Pick odds >=1.70"
+AUDIT_SORT_TIME_LABEL = "Sorted by time"
+
+
+def _audit_v3_datetime_from_text(value: Any, assume_local: bool = False) -> Optional[datetime]:
+    if not value:
+        return None
+    if isinstance(value, datetime):
+        dt = value
+    else:
+        text = str(value or "").strip()
+        if not text or text in {"—", "-"}:
+            return None
+        try:
+            if re.fullmatch(r"\d{10,13}", text):
+                dt = datetime.fromtimestamp(int(text[:10]), tz=timezone.utc)
+            else:
+                # Accept common API ISO strings and page-render strings.
+                raw = text.replace("Z", "+00:00")
+                dt = datetime.fromisoformat(raw)
+        except Exception:
+            return None
+    if dt.tzinfo is None:
+        tz = ZoneInfo("Europe/Bratislava") if assume_local else timezone.utc
+        dt = dt.replace(tzinfo=tz)
+    return dt.astimezone(timezone.utc)
+
+
+def audit_parse_datetime_utc(value: Any) -> Optional[datetime]:
+    return _audit_v3_datetime_from_text(value, assume_local=False)
+
+
+def audit_match_time_utc(row: Dict[str, Any]) -> Optional[datetime]:
+    # Prefer exact UTC/API datetime fields.
+    for key in (
+        "match_time_utc", "start_time_utc", "commence_time", "start_time",
+        "match_time", "event_start_time", "scheduled_at", "scheduled_time",
+    ):
+        dt = _audit_v3_datetime_from_text(row.get(key), assume_local=False)
+        if dt is not None:
+            return dt
+
+    # Some rows carry date and local time separately. Treat those as Europe/Bratislava.
+    date_value = _first_data_value(row, "match_date", "date", "start_date")
+    time_value = _first_data_value(row, "start_time_local", "match_time_local", "time", "start_hour")
+    if date_value and time_value:
+        date_text = str(date_value).strip()[:10]
+        time_text = str(time_value).strip()
+        dt = _audit_v3_datetime_from_text(f"{date_text}T{time_text}", assume_local=True)
+        if dt is not None:
+            return dt
+
+    for parent in ("market", "event", "raw", "match"):
+        ctx = row.get(parent)
+        if isinstance(ctx, dict):
+            for key in ("commence_time", "start_time_utc", "start_time", "match_time_utc", "scheduled_at"):
+                dt = _audit_v3_datetime_from_text(ctx.get(key), assume_local=False)
+                if dt is not None:
+                    return dt
+    return None
+
+
+def audit_has_up_to_2h_o15(row: Dict[str, Any]) -> bool:
+    odds = pick_odds(row)
+    if odds is None or odds <= 1.50:
+        return False
+    status = normal_status(row)
+    if status and status not in {"prematch", "pre-match", "notstarted", "not_started", "scheduled", "pending", "open", ""}:
+        return False
+    dt = audit_match_time_utc(row)
+    if dt is None:
+        return False
+    now = datetime.now(timezone.utc)
+    return now <= dt <= now + timedelta(hours=2)
+
+
+def audit_has_pick_odds_under_170(row: Dict[str, Any]) -> bool:
+    odds = pick_odds(row)
+    return odds is not None and odds < 1.70
+
+
+def audit_has_pick_odds_over_170(row: Dict[str, Any]) -> bool:
+    odds = pick_odds(row)
+    return odds is not None and odds >= 1.70
+
+
+def audit_positive_support_count(row: Dict[str, Any]) -> int:
+    # Count positive support only. Risk/warning tags are intentionally excluded.
+    checks = [
+        audit_has_pick_strong(row),
+        audit_has_opp_weak(row),
+        audit_has_form_support(row),
+        audit_has_elo_support(row),
+        audit_has_surface_support(row),
+        audit_has_market_with_pick(row),
+        audit_has_value_positive(row),
+        audit_h2h_support_score(row) > 0,
+    ]
+    return sum(1 for x in checks if x)
+
+
+def audit_has_positive_tag(row: Dict[str, Any]) -> bool:
+    return audit_positive_support_count(row) >= 1
+
+
+def audit_has_2plus_positive_tags(row: Dict[str, Any]) -> bool:
+    return audit_positive_support_count(row) >= 2
+
+
+def audit_filter_tags_for_row(row: Dict[str, Any]) -> List[str]:
+    tags = list(_AUDIT_FILTER_V3_BASE_AUDIT_FILTER_TAGS_FOR_ROW(row))
+    if audit_has_positive_tag(row):
+        tags.append(AUDIT_POSITIVE_TAG_LABEL)
+    if audit_has_2plus_positive_tags(row):
+        tags.append(AUDIT_TWO_POSITIVE_TAGS_LABEL)
+    if audit_has_pick_odds_under_170(row):
+        tags.append(AUDIT_PICK_ODDS_UNDER_170_LABEL)
+    if audit_has_pick_odds_over_170(row):
+        tags.append(AUDIT_PICK_ODDS_OVER_170_LABEL)
+    dt = audit_match_time_utc(row)
+    if dt is not None:
+        tags.append(AUDIT_SORT_TIME_LABEL)
+    out: List[str] = []
+    seen = set()
+    for tag in tags:
+        t = str(tag or "").strip()
+        if t and t not in seen:
+            out.append(t)
+            seen.add(t)
+    return out
+
+
+def audit_note_css(label: str) -> str:
+    if label in {AUDIT_PICK_ODDS_UNDER_170_LABEL, AUDIT_PICK_ODDS_OVER_170_LABEL, AUDIT_SORT_TIME_LABEL}:
+        return "tag-chip audit-pill audit-pill-signal"
+    if label in {AUDIT_POSITIVE_TAG_LABEL, AUDIT_TWO_POSITIVE_TAGS_LABEL}:
+        return "tag-chip audit-pill audit-pill-safe"
+    return _AUDIT_FILTER_V3_BASE_AUDIT_NOTE_CSS(label)
+
+
+def _audit_v3_time_sort_key(row: Dict[str, Any]) -> tuple:
+    dt = audit_match_time_utc(row)
+    if dt is None:
+        return (1, 9999999999, audit_corq_rank(row) or 9999)
+    return (0, int(dt.timestamp()), audit_corq_rank(row) or 9999)
+
+
+def tag_filter_script() -> str:
+    return """
+<script>
+(function(){
+  const active = new Set();
+
+  function getCardTags(card){
+    return (card.getAttribute('data-tags') || '')
+      .split('|')
+      .map(x => x.trim())
+      .filter(Boolean);
+  }
+
+  function sortVisibleCardsByTime(){
+    document.querySelectorAll('.grid').forEach(grid => {
+      const cards = Array.from(grid.querySelectorAll('.pick-card'));
+      if(!cards.length){ return; }
+      cards.sort((a,b) => {
+        const av = Number(a.getAttribute('data-start-ts') || '0');
+        const bv = Number(b.getAttribute('data-start-ts') || '0');
+        const aa = av > 0 ? av : 9999999999;
+        const bb = bv > 0 ? bv : 9999999999;
+        return aa - bb;
+      });
+      cards.forEach(card => grid.appendChild(card));
+    });
+  }
+
+  function applyFilters(){
+    document.querySelectorAll('[data-filter]').forEach(chip => {
+      const tag = chip.dataset.filter || '';
+      chip.classList.toggle('active', active.has(tag));
+    });
+
+    document.querySelectorAll('.pick-card,.result-row,.result-card').forEach(card => {
+      const tags = getCardTags(card);
+      const show = Array.from(active).every(tag => tags.includes(tag));
+      card.style.display = (!active.size || show) ? '' : 'none';
+    });
+
+    document.querySelectorAll('.clear-filter').forEach(x => {
+      x.style.display = active.size ? 'inline-flex' : 'none';
+    });
+
+    sortVisibleCardsByTime();
+  }
+
+  document.addEventListener('click', function(e){
+    const clear = e.target.closest('.clear-filter');
+    if(clear){
+      active.clear();
+      applyFilters();
+      return;
+    }
+
+    const chip = e.target.closest('[data-filter]');
+    if(chip){
+      const tag = chip.dataset.filter;
+      if(!tag){ return; }
+      if(active.has(tag)){ active.delete(tag); }
+      else{ active.add(tag); }
+      applyFilters();
+    }
+  });
+
+  sortVisibleCardsByTime();
+})();
+</script>"""
+
+
+def render_cards_page(title: str, active: str, rows: List[Dict[str, Any]], manifest: Dict[str, Any], page: str = "corq", dedupe: bool = False) -> str:
+    rows = dedupe_matches(rows) if dedupe else rows
+    for idx, row in enumerate(rows):
+        if isinstance(row, dict):
+            row["_corq_render_rank"] = idx + 1
+    mark_audit_h2h_top10(rows)
+    ensure_logs(rows)
+    if page == "all":
+        rows = sorted(rows, key=_audit_v3_time_sort_key)
+    if not rows:
+        cards = '<div class="empty">No rows available.</div>'
+    else:
+        cards = '<div class="grid">' + "\n".join(render_card(r, i + 1, page=page) for i, r in enumerate(rows)) + '</div>'
+    summary = render_notes_summary(rows) if page in {"corq", "cloq", "all"} else ""
+    return page_shell(title, active, summary + cards, manifest)
+
+
+# ============================================================
+# Audit mandatory filter panel override V4
+# ============================================================
+# Ensures key Audit filters are always visible in the Data Notes Summary,
+# not only when they happen to appear in Counter.most_common ordering.
+
+try:
+    AUDIT_PICK_ODDS_UNDER_170_LABEL
+except NameError:
+    AUDIT_PICK_ODDS_UNDER_170_LABEL = "Pick odds <1.70"
+    AUDIT_PICK_ODDS_OVER_170_LABEL = "Pick odds >=1.70"
+    AUDIT_SORT_TIME_LABEL = "Sorted by time"
+
+
+def audit_has_pick_odds_under_170(row: Dict[str, Any]) -> bool:
+    odds = pick_odds(row)
+    return odds is not None and odds < 1.70
+
+
+def audit_has_pick_odds_over_170(row: Dict[str, Any]) -> bool:
+    odds = pick_odds(row)
+    return odds is not None and odds >= 1.70
+
+
+try:
+    _AUDIT_FILTER_V4_BASE_AUDIT_FILTER_TAGS_FOR_ROW
+except NameError:
+    _AUDIT_FILTER_V4_BASE_AUDIT_FILTER_TAGS_FOR_ROW = audit_filter_tags_for_row
+    _AUDIT_FILTER_V4_BASE_AUDIT_NOTE_CSS = audit_note_css
+
+
+def audit_filter_tags_for_row(row: Dict[str, Any]) -> List[str]:
+    tags = list(_AUDIT_FILTER_V4_BASE_AUDIT_FILTER_TAGS_FOR_ROW(row))
+    if audit_has_pick_odds_under_170(row):
+        tags.append(AUDIT_PICK_ODDS_UNDER_170_LABEL)
+    if audit_has_pick_odds_over_170(row):
+        tags.append(AUDIT_PICK_ODDS_OVER_170_LABEL)
+    dt = audit_match_time_utc(row)
+    if dt is not None:
+        tags.append(AUDIT_SORT_TIME_LABEL)
+    if audit_has_positive_tag(row):
+        tags.append(AUDIT_POSITIVE_TAG_LABEL)
+    if audit_has_2plus_positive_tags(row):
+        tags.append(AUDIT_TWO_POSITIVE_TAGS_LABEL)
+    out: List[str] = []
+    seen = set()
+    for tag in tags:
+        t = str(tag or "").strip()
+        if t and t not in seen:
+            out.append(t)
+            seen.add(t)
+    return out
+
+
+def audit_note_css(label: str) -> str:
+    if label in {AUDIT_PICK_ODDS_UNDER_170_LABEL, AUDIT_PICK_ODDS_OVER_170_LABEL, AUDIT_SORT_TIME_LABEL, AUDIT_TIME_ODDS_LABEL}:
+        return "tag-chip audit-pill audit-pill-signal"
+    if label in {AUDIT_POSITIVE_TAG_LABEL, AUDIT_TWO_POSITIVE_TAGS_LABEL}:
+        return "tag-chip audit-pill audit-pill-safe"
+    return _AUDIT_FILTER_V4_BASE_AUDIT_NOTE_CSS(label)
+
+
+def render_notes_summary(rows: List[Dict[str, Any]]) -> str:
+    mark_audit_h2h_top10(rows)
+    counts = Counter()
+    missing_breakdown = Counter()
+
+    for row in rows:
+        row_notes = notes_for_row(row)
+        row_audit_tags = audit_filter_tags_for_row(row)
+        for note in row_notes + row_audit_tags:
+            counts[note] += 1
+        if "Missing odds" in row_notes:
+            reason = str(row.get("odds_missing_reason_group") or row.get("no_odds_reason") or "Unknown")
+            reason = reason.replace("_", " ").title()
+            missing_breakdown[reason] += 1
+
+    # Force the important controls to the front and keep them visible even if zero.
+    mandatory_order = [
+        AUDIT_TIME_ODDS_LABEL,
+        AUDIT_PICK_ODDS_UNDER_170_LABEL,
+        AUDIT_PICK_ODDS_OVER_170_LABEL,
+        AUDIT_POSITIVE_TAG_LABEL,
+        AUDIT_TWO_POSITIVE_TAGS_LABEL,
+        AUDIT_OPP_WEAK_LABEL,
+        AUDIT_PICK_STRONG_LABEL,
+        AUDIT_MARKET_WITH_PICK_LABEL,
+        AUDIT_VALUE_POSITIVE_LABEL,
+        AUDIT_CLOQ_LABEL,
+        AUDIT_H2H_TOP10_LABEL,
+        AUDIT_TWO_RISK_TAGS_LABEL if 'AUDIT_TWO_RISK_TAGS_LABEL' in globals() else "2+ risk tags",
+        AUDIT_NO_VALUE_LABEL if 'AUDIT_NO_VALUE_LABEL' in globals() else "No value",
+        AUDIT_HIGH_RISK_LABEL if 'AUDIT_HIGH_RISK_LABEL' in globals() else "High Risk",
+        AUDIT_SHORT_PRICE_LABEL if 'AUDIT_SHORT_PRICE_LABEL' in globals() else "Short price",
+    ]
+
+    items: List[Tuple[str, int]] = []
+    seen_labels = set()
+    for label in mandatory_order:
+        if not label or label in seen_labels:
+            continue
+        items.append((label, counts.get(label, 0)))
+        seen_labels.add(label)
+
+    def rest_key(item: Tuple[str, int]) -> Tuple[int, str]:
+        label, count = item
+        return (-count, label)
+
+    for label, count in sorted(counts.items(), key=rest_key):
+        if label not in seen_labels:
+            items.append((label, count))
+            seen_labels.add(label)
+
+    tags = "".join(
+        f'<span class="{audit_note_css(k)}" data-filter="{esc(k)}"><span class="audit-pill-count">{v}</span> <span class="audit-pill-label">{esc(k)}</span></span>'
+        for k, v in items
+    )
+    clear = '<span class="clear-filter tag-chip audit-pill audit-pill-clear">Clear filter</span>'
+
+    breakdown = ""
+    if missing_breakdown:
+        breakdown_items = "".join(f'<span class="note">{v} {esc(k)}</span>' for k, v in missing_breakdown.most_common())
+        breakdown = f'<div class="summary-panel"><div class="summary-title">Missing odds breakdown</div><div class="tag-list">{breakdown_items}</div></div>'
+
+    return f'<div class="summary-panel data-notes-summary"><div class="summary-title">Data notes summary</div><div class="tag-list data-notes-pills">{tags}{clear}</div></div>{breakdown}'
+
+
+# ============================================================
+# Audit filter hard-fix override V5
+# ============================================================
+# Fixes chip filtering by using normalized tag keys, adds a dedicated
+# "1 positive tag" filter, and keeps "Positive tag" as 1+ positive support.
+
+AUDIT_ONE_POSITIVE_TAG_LABEL = "1 positive tag"
+
+try:
+    _AUDIT_FILTER_V5_BASE_AUDIT_FILTER_TAGS_FOR_ROW
+except NameError:
+    _AUDIT_FILTER_V5_BASE_AUDIT_FILTER_TAGS_FOR_ROW = audit_filter_tags_for_row
+    _AUDIT_FILTER_V5_BASE_AUDIT_NOTE_CSS = audit_note_css
+
+
+def audit_has_1_positive_tag(row: Dict[str, Any]) -> bool:
+    return audit_positive_support_count(row) == 1
+
+
+def audit_filter_tags_for_row(row: Dict[str, Any]) -> List[str]:
+    tags = list(_AUDIT_FILTER_V5_BASE_AUDIT_FILTER_TAGS_FOR_ROW(row))
+    if audit_has_positive_tag(row):
+        tags.append(AUDIT_POSITIVE_TAG_LABEL)
+    if audit_has_1_positive_tag(row):
+        tags.append(AUDIT_ONE_POSITIVE_TAG_LABEL)
+    if audit_has_2plus_positive_tags(row):
+        tags.append(AUDIT_TWO_POSITIVE_TAGS_LABEL)
+    if 'AUDIT_PICK_ODDS_UNDER_170_LABEL' in globals() and audit_has_pick_odds_under_170(row):
+        tags.append(AUDIT_PICK_ODDS_UNDER_170_LABEL)
+    if 'AUDIT_PICK_ODDS_OVER_170_LABEL' in globals() and audit_has_pick_odds_over_170(row):
+        tags.append(AUDIT_PICK_ODDS_OVER_170_LABEL)
+    dt = audit_match_time_utc(row)
+    if dt is not None and 'AUDIT_SORT_TIME_LABEL' in globals():
+        tags.append(AUDIT_SORT_TIME_LABEL)
+    out: List[str] = []
+    seen = set()
+    for tag in tags:
+        t = str(tag or "").strip()
+        if t and t not in seen:
+            out.append(t)
+            seen.add(t)
+    return out
+
+
+def audit_note_css(label: str) -> str:
+    if label in {AUDIT_POSITIVE_TAG_LABEL, AUDIT_ONE_POSITIVE_TAG_LABEL, AUDIT_TWO_POSITIVE_TAGS_LABEL}:
+        return "tag-chip audit-pill audit-pill-safe"
+    return _AUDIT_FILTER_V5_BASE_AUDIT_NOTE_CSS(label)
+
+
+def _audit_v5_summary_order(label: str) -> int:
+    order = {
+        AUDIT_TIME_ODDS_LABEL: 0,
+        globals().get('AUDIT_PICK_ODDS_UNDER_170_LABEL', 'Pick odds <1.70'): 1,
+        globals().get('AUDIT_PICK_ODDS_OVER_170_LABEL', 'Pick odds >=1.70'): 2,
+        AUDIT_POSITIVE_TAG_LABEL: 3,
+        AUDIT_ONE_POSITIVE_TAG_LABEL: 4,
+        AUDIT_TWO_POSITIVE_TAGS_LABEL: 5,
+        AUDIT_OPP_WEAK_LABEL: 6,
+        AUDIT_PICK_STRONG_LABEL: 7,
+        AUDIT_FORM_SUPPORT_LABEL: 8,
+        AUDIT_ELO_SUPPORT_LABEL: 9,
+        AUDIT_SURFACE_SUPPORT_LABEL: 10,
+        AUDIT_MARKET_WITH_PICK_LABEL: 11,
+        AUDIT_VALUE_POSITIVE_LABEL: 12,
+        AUDIT_CLOQ_LABEL: 13,
+        AUDIT_H2H_TOP10_LABEL: 14,
+        globals().get('AUDIT_TWO_RISK_TAGS_LABEL', '2+ risk tags'): 15,
+        globals().get('AUDIT_NO_VALUE_LABEL', 'No value'): 16,
+        globals().get('AUDIT_HIGH_RISK_LABEL', 'High Risk'): 17,
+        globals().get('AUDIT_SHORT_PRICE_LABEL', 'Short price'): 18,
+    }
+    return order.get(label, 100)
+
+
+def render_notes_summary(rows: List[Dict[str, Any]]) -> str:
+    mark_audit_h2h_top10(rows)
+    counts = Counter()
+    missing_breakdown = Counter()
+    for row in rows:
+        row_notes = notes_for_row(row)
+        row_audit_tags = audit_filter_tags_for_row(row)
+        for note in row_notes + row_audit_tags:
+            counts[note] += 1
+        if "Missing odds" in row_notes:
+            reason = str(row.get("odds_missing_reason_group") or row.get("no_odds_reason") or "Unknown")
+            missing_breakdown[reason.replace("_", " ").title()] += 1
+
+    mandatory = [
+        AUDIT_TIME_ODDS_LABEL,
+        globals().get('AUDIT_PICK_ODDS_UNDER_170_LABEL', 'Pick odds <1.70'),
+        globals().get('AUDIT_PICK_ODDS_OVER_170_LABEL', 'Pick odds >=1.70'),
+        AUDIT_POSITIVE_TAG_LABEL,
+        AUDIT_ONE_POSITIVE_TAG_LABEL,
+        AUDIT_TWO_POSITIVE_TAGS_LABEL,
+        AUDIT_OPP_WEAK_LABEL,
+        AUDIT_PICK_STRONG_LABEL,
+        AUDIT_FORM_SUPPORT_LABEL,
+        AUDIT_ELO_SUPPORT_LABEL,
+        AUDIT_SURFACE_SUPPORT_LABEL,
+        AUDIT_MARKET_WITH_PICK_LABEL,
+        AUDIT_VALUE_POSITIVE_LABEL,
+        AUDIT_CLOQ_LABEL,
+        AUDIT_H2H_TOP10_LABEL,
+        globals().get('AUDIT_TWO_RISK_TAGS_LABEL', '2+ risk tags'),
+        globals().get('AUDIT_NO_VALUE_LABEL', 'No value'),
+        globals().get('AUDIT_HIGH_RISK_LABEL', 'High Risk'),
+        globals().get('AUDIT_SHORT_PRICE_LABEL', 'Short price'),
+    ]
+    items: List[Tuple[str, int]] = []
+    seen = set()
+    for label in mandatory:
+        if label and label not in seen:
+            items.append((label, counts.get(label, 0)))
+            seen.add(label)
+    rest = [(k, v) for k, v in counts.items() if k not in seen]
+    rest.sort(key=lambda kv: (_audit_v5_summary_order(kv[0]), -kv[1], kv[0]))
+    items.extend(rest)
+
+    tags = "".join(
+        f'<span class="{audit_note_css(k)}" data-filter="{esc(k)}" data-filter-key="{esc(k.lower().strip())}"><span class="audit-pill-count">{v}</span> <span class="audit-pill-label">{esc(k)}</span></span>'
+        for k, v in items
+    )
+    clear = '<span class="clear-filter tag-chip audit-pill audit-pill-clear">Clear filter</span>'
+    counter = '<span class="tag-chip audit-pill audit-pill-note audit-filter-counter" data-filter-counter></span>'
+    breakdown = ""
+    if missing_breakdown:
+        items_html = "".join(f'<span class="note">{v} {esc(k)}</span>' for k, v in missing_breakdown.most_common())
+        breakdown = f'<div class="summary-panel"><div class="summary-title">Missing odds breakdown</div><div class="tag-list">{items_html}</div></div>'
+    return f'<div class="summary-panel data-notes-summary"><div class="summary-title">Data notes summary</div><div class="tag-list data-notes-pills">{tags}{clear}{counter}</div></div>{breakdown}'
+
+
+def tag_filter_script() -> str:
+    return """
+<script>
+(function(){
+  const active = new Map();
+  const norm = value => String(value || '').trim().toLowerCase();
+
+  function getCardTags(card){
+    return (card.getAttribute('data-tags') || '')
+      .split('|')
+      .map(norm)
+      .filter(Boolean);
+  }
+
+  function sortVisibleCardsByTime(){
+    document.querySelectorAll('.grid').forEach(grid => {
+      const cards = Array.from(grid.querySelectorAll('.pick-card'));
+      if(!cards.length){ return; }
+      cards.sort((a,b) => {
+        const av = Number(a.getAttribute('data-start-ts') || '0');
+        const bv = Number(b.getAttribute('data-start-ts') || '0');
+        const aa = av > 0 ? av : 9999999999;
+        const bb = bv > 0 ? bv : 9999999999;
+        return aa - bb;
+      });
+      cards.forEach(card => grid.appendChild(card));
+    });
+  }
+
+  function applyFilters(){
+    document.querySelectorAll('[data-filter]').forEach(chip => {
+      const key = norm(chip.dataset.filterKey || chip.dataset.filter || '');
+      chip.classList.toggle('active', active.has(key));
+    });
+
+    let total = 0;
+    let visible = 0;
+    const wanted = Array.from(active.keys());
+    document.querySelectorAll('.pick-card,.result-row,.result-card').forEach(card => {
+      total += 1;
+      const tags = getCardTags(card);
+      const show = wanted.every(tag => tags.includes(tag));
+      card.style.setProperty('display', (!wanted.length || show) ? '' : 'none', 'important');
+      if(!wanted.length || show){ visible += 1; }
+    });
+
+    document.querySelectorAll('.clear-filter').forEach(x => {
+      x.style.display = wanted.length ? 'inline-flex' : 'none';
+    });
+    document.querySelectorAll('[data-filter-counter]').forEach(x => {
+      x.textContent = wanted.length ? `${visible}/${total} visible` : '';
+      x.style.display = wanted.length ? 'inline-flex' : 'none';
+    });
+    sortVisibleCardsByTime();
+  }
+
+  document.addEventListener('click', function(e){
+    const clear = e.target.closest('.clear-filter');
+    if(clear){
+      active.clear();
+      applyFilters();
+      return;
+    }
+    const chip = e.target.closest('[data-filter]');
+    if(chip){
+      const raw = chip.dataset.filter || '';
+      const key = norm(chip.dataset.filterKey || raw);
+      if(!key){ return; }
+      if(active.has(key)){ active.delete(key); }
+      else{ active.set(key, raw); }
+      applyFilters();
+      e.preventDefault();
+    }
+  });
+  sortVisibleCardsByTime();
+})();
+</script>"""
+
 def main() -> None:
     render_all()
 
