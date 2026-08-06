@@ -11,7 +11,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
-MODEL_VERSION = "CLOQ_HIGH_CONFIDENCE_PRICE_V1"
+MODEL_VERSION = "CLOQ_HIGH_CONFIDENCE_PRICE_V2"
 MIN_PICK_ODDS = 1.70
 PREFERRED_PICK_ODDS = 1.90
 MAX_PICK_ODDS = 2.80
@@ -344,12 +344,17 @@ def probability_margin_pp(row: Dict[str, Any]) -> Optional[float]:
 
 
 def cloq_reject_reasons(row: Dict[str, Any]) -> List[str]:
+    """Hard gate only on objective availability/basic realism.
+
+    V1 was too strict because it rejected candidates when evidence fields were
+    absent or named differently in upstream data. V2 keeps only hard blockers as
+    rejects and moves evidence weakness into risk tags and score penalties. This
+    lets CloQ still rank 7 daily candidates from the available pool.
+    """
     reasons: List[str] = []
     odds = pick_odds(row)
     cp = corq_probability(row)
     evs = evidence_score(row)
-    req = required_evidence(row)
-    margin = probability_margin_pp(row)
 
     if not is_prematch(row):
         reasons.append("REJECT_CLOQ_STATUS_NOT_PREMATCH")
@@ -359,16 +364,12 @@ def cloq_reject_reasons(row: Dict[str, Any]) -> List[str]:
         reasons.append("REJECT_CLOQ_MISSING_PICK_ODDS")
     elif odds < MIN_PICK_ODDS:
         reasons.append("REJECT_CLOQ_ODDS_UNDER_1_70")
-    elif odds > MAX_PICK_ODDS and evs < 8.0:
-        reasons.append("REJECT_CLOQ_PRICE_TOO_HIGH_WITHOUT_STRONG_EVIDENCE")
+    elif odds > MAX_PICK_ODDS and evs < 5.0:
+        reasons.append("REJECT_CLOQ_PRICE_TOO_HIGH_WITHOUT_EVIDENCE")
     if cp is None:
         reasons.append("REJECT_CLOQ_MISSING_PREDICTION_DATA")
     elif cp < MIN_REALISTIC_PROBABILITY:
         reasons.append("REJECT_CLOQ_MODEL_PROB_UNDER_50")
-    if evs < req:
-        reasons.append("REJECT_CLOQ_INSUFFICIENT_EVIDENCE")
-    if margin is not None and margin < -4.0 and evs < req + 2.0:
-        reasons.append("REJECT_CLOQ_PRICE_PROBABILITY_TOO_WEAK")
     return list(dict.fromkeys(reasons))
 
 
@@ -389,8 +390,12 @@ def cloq_support_tags(row: Dict[str, Any]) -> List[str]:
 def cloq_risk_tags(row: Dict[str, Any]) -> List[str]:
     tags: List[str] = []
     margin = probability_margin_pp(row)
+    evs = evidence_score(row)
+    req = required_evidence(row)
     if margin is not None and margin < 0:
         tags.append("PROBABILITY_UNDER_BREAK_EVEN_INFO")
+    if evs < req:
+        tags.append("INSUFFICIENT_EVIDENCE_INFO")
     if pick_odds(row) and pick_odds(row) >= 2.40:
         tags.append("HIGH_PRICE_RISK")
     for item in evidence_details(row):
@@ -433,6 +438,8 @@ def cloq_score(row: Dict[str, Any]) -> float:
     score += price_points
     score += max(min(margin, 12.0), -8.0) * 1.4
     score += evs * 2.0
+    shortfall = max(0.0, required_evidence(row) - evs)
+    score -= shortfall * 3.0
     score += cp * 20.0
     score += depth * 4.0
     if market_with_pick(row):
@@ -448,7 +455,7 @@ def annotate_cloq(row: Dict[str, Any]) -> Dict[str, Any]:
     out = dict(row)
     reasons = cloq_reject_reasons(row)
     out["cloq_model_version"] = MODEL_VERSION
-    out["cloq_policy"] = "highest_realistic_price_50_50_plus_with_evidence"
+    out["cloq_policy"] = "highest_realistic_price_50_50_plus_evidence_scored_not_hard_rejected"
     out["cloq_pick"] = pick_name(row)
     out["cloq_opponent"] = opponent_name(row)
     out["cloq_pick_odds"] = pick_odds(row)
