@@ -2619,15 +2619,21 @@
     &quot;FAIR&quot;,
     &quot;VALUE_NEGATIVE&quot;
   ],
-  &quot;corq_source_rank&quot;: 37,
-  &quot;top7_filter_mode&quot;: &quot;PUBLISHABLE_CORQ_FIRST_DATA_HEALTH_V1&quot;,
-  &quot;top7_publishable&quot;: true,
-  &quot;eligible_for_top7&quot;: true,
-  &quot;top7_quality_reject_reasons&quot;: [],
-  &quot;top7_reject_reasons&quot;: [],
-  &quot;top7_hard_reject_reasons&quot;: [],
-  &quot;top7_primary_reject_reason&quot;: null,
-  &quot;top7_reject_reason_count&quot;: 0,
+  &quot;corq_source_rank&quot;: 38,
+  &quot;top7_filter_mode&quot;: &quot;PUBLISHABLE_VALUE_FIRST_LOW_ODDS_GATE_V4&quot;,
+  &quot;top7_publishable&quot;: false,
+  &quot;eligible_for_top7&quot;: false,
+  &quot;top7_quality_reject_reasons&quot;: [
+    &quot;REJECT_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE&quot;
+  ],
+  &quot;top7_reject_reasons&quot;: [
+    &quot;REJECT_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE&quot;
+  ],
+  &quot;top7_hard_reject_reasons&quot;: [
+    &quot;REJECT_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE&quot;
+  ],
+  &quot;top7_primary_reject_reason&quot;: &quot;REJECT_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE&quot;,
+  &quot;top7_reject_reason_count&quot;: 1,
   &quot;top7_reject_summary_scope&quot;: &quot;NON_PUBLISHABLE_ROWS_ONLY&quot;,
   &quot;top7_status_allowed&quot;: true,
   &quot;top7_status_type_normalized&quot;: &quot;notstarted&quot;,
@@ -2670,10 +2676,12 @@
     &quot;odds_available&quot;: true
   },
   &quot;top7_risk_tags&quot;: [
-    &quot;NO_VALUE_PRICE&quot;
+    &quot;NO_VALUE_PRICE&quot;,
+    &quot;LOW_ODDS_FAVORITE_SORT_PENALTY&quot;
   ],
   &quot;top7_risk_labels&quot;: [
-    &quot;No value&quot;
+    &quot;No value&quot;,
+    &quot;Short price penalty&quot;
   ],
   &quot;top7_risk_penalty_details&quot;: [
     {
@@ -2697,29 +2705,46 @@
       &quot;tag&quot;: &quot;NO_VALUE_PRICE&quot;,
       &quot;penalty&quot;: 3.0,
       &quot;value&quot;: -3.99
+    },
+    {
+      &quot;tag&quot;: &quot;LOW_ODDS_FAVORITE_SORT_PENALTY&quot;,
+      &quot;penalty&quot;: 10.0,
+      &quot;odds&quot;: 1.5,
+      &quot;value_delta_pp&quot;: -3.99,
+      &quot;expected_value_pct&quot;: -5.98
+    },
+    {
+      &quot;tag&quot;: &quot;VALUE_FIRST_MARKET_WITH_PICK&quot;,
+      &quot;bonus&quot;: 2.0
     }
   ],
-  &quot;top7_risk_penalty_points&quot;: 3.0,
-  &quot;top7_clean_bonus_points&quot;: 3.5,
-  &quot;top7_quality_score&quot;: 68.0216,
+  &quot;top7_risk_penalty_points&quot;: 13.0,
+  &quot;top7_clean_bonus_points&quot;: 5.5,
+  &quot;top7_quality_score&quot;: 0.0,
   &quot;corq_warning_flags&quot;: [
     &quot;THINQ_EDGE_SUPPORT_PICK&quot;,
     &quot;ELO_SUPPORT_PICK&quot;,
     &quot;MARKET_WITH_PICK&quot;,
-    &quot;NO_VALUE_PRICE&quot;
+    &quot;NO_VALUE_PRICE&quot;,
+    &quot;LOW_ODDS_FAVORITE_SORT_PENALTY&quot;,
+    &quot;VALUE_FIRST_MARKET_WITH_PICK&quot;,
+    &quot;NEGATIVE_VALUE&quot;,
+    &quot;LOW_ODDS_REJECTED_NEEDS_VALUE&quot;,
+    &quot;STACKED_RISK&quot;
   ],
   &quot;top7_support_tags&quot;: [
     &quot;THINQ_EDGE_SUPPORT_PICK&quot;,
     &quot;ELO_SUPPORT_PICK&quot;,
-    &quot;MARKET_WITH_PICK&quot;
+    &quot;MARKET_WITH_PICK&quot;,
+    &quot;VALUE_FIRST_MARKET_WITH_PICK&quot;
   ],
   &quot;top7_support_labels&quot;: [
     &quot;ThinQ edge support&quot;,
     &quot;ELO support&quot;,
     &quot;Market with pick&quot;
   ],
-  &quot;top7_positive_support_count&quot;: 3,
-  &quot;top7_risk_count&quot;: 1,
+  &quot;top7_positive_support_count&quot;: 4,
+  &quot;top7_risk_count&quot;: 2,
   &quot;top7_high_risk&quot;: false,
   &quot;top7_combined_data_depth&quot;: 0.84371,
   &quot;top7_sets_games_data_depth&quot;: 0.6923,
@@ -2727,10 +2752,25 @@
   &quot;top7_value_delta_pp&quot;: -3.99,
   &quot;top7_expected_value_pct&quot;: -5.98,
   &quot;top7_data_health_model_version&quot;: &quot;CORQ_TOP7_DATA_HEALTH_V1&quot;,
-  &quot;corq_rank&quot;: 3,
-  &quot;top7_sort_rank&quot;: 3,
-  &quot;top7_sort_primary&quot;: &quot;CORQ_PROBABILITY_DESC&quot;,
-  &quot;top7_sort_model_version&quot;: &quot;CORQ_TOP7_DATA_HEALTH_V1&quot;,
-  &quot;top7_rank&quot;: 3,
+  &quot;corq_top7_sort_score&quot;: 0.0,
+  &quot;corq_value_gate_status&quot;: &quot;NEGATIVE_VALUE&quot;,
+  &quot;corq_low_odds_gate_status&quot;: &quot;LOW_ODDS_REJECTED_NEEDS_VALUE&quot;,
+  &quot;corq_risk_penalty&quot;: 13.0,
+  &quot;corq_market_support_bonus&quot;: 4.0,
+  &quot;corq_top7_reject_reasons&quot;: [
+    &quot;REJECT_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE&quot;
+  ],
+  &quot;corq_rank_audit_tags&quot;: [
+    &quot;NEGATIVE_VALUE&quot;,
+    &quot;LOW_ODDS_REJECTED_NEEDS_VALUE&quot;,
+    &quot;MARKET_WITH_PICK&quot;,
+    &quot;MARKET_AGAINST_PICK&quot;,
+    &quot;HIGH_DATA_DEPTH&quot;,
+    &quot;STACKED_RISK&quot;,
+    &quot;NO_VALUE_PRICE&quot;,
+    &quot;LOW_ODDS_FAVORITE_SORT_PENALTY&quot;
+  ],
+  &quot;top7_value_first_model_version&quot;: &quot;CORQ_TOP7_VALUE_FIRST_V4&quot;,
+  &quot;corq_rank&quot;: 38,
   &quot;_corq_render_rank&quot;: 10
 }</pre></body></html>

@@ -1,54 +1,54 @@
 {
-  "generated_at": "2026-08-06T10:32:39+00:00",
-  "date": "4.8.2026",
-  "fetch_api": true,
-  "settlement_grace_hours": 2.0,
+  "generated_at": "2026-08-06T14:47:38+00:00",
+  "date": "2026-08-06",
+  "fetch_api": false,
+  "settlement_grace_hours": 0.0,
   "local_tz": "Europe/Bratislava",
   "corq_count": 64,
-  "cloq_count": 35,
+  "cloq_count": 37,
   "audit_count": 314,
   "summary": {
     "corq": {
       "picks": 64,
-      "won": 29,
+      "won": 0,
       "lost": 26,
       "pending": 7,
-      "void": 2,
-      "win_rate": 0.5273,
-      "units": -8.0472,
-      "roi": -0.1463
+      "void": 31,
+      "win_rate": 0.0,
+      "units": -26.0,
+      "roi": -1.0
     },
     "cloq": {
-      "picks": 35,
-      "won": 14,
+      "picks": 37,
+      "won": 0,
       "lost": 19,
-      "pending": 2,
-      "void": 0,
-      "win_rate": 0.4242,
-      "units": -3.7017,
-      "roi": -0.1122
+      "pending": 4,
+      "void": 14,
+      "win_rate": 0.0,
+      "units": -19.0,
+      "roi": -1.0
     },
     "audit": {
       "picks": 314,
-      "won": 182,
+      "won": 0,
       "lost": 106,
       "pending": 14,
-      "void": 12,
-      "win_rate": 0.6319,
-      "units": -26.1868,
-      "roi": -0.0909
+      "void": 194,
+      "win_rate": 0.0,
+      "units": -106.0,
+      "roi": -1.0
     }
   },
   "summary_by_snapshot_source": {
     "CORQ_DAILY": {
       "picks": 64,
-      "won": 29,
+      "won": 0,
       "lost": 26,
       "pending": 7,
-      "void": 2,
-      "win_rate": 0.5273,
-      "units": -8.0472,
-      "roi": -0.1463
+      "void": 31,
+      "win_rate": 0.0,
+      "units": -26.0,
+      "roi": -1.0
     }
   },
   "sources": {
@@ -58,7 +58,7 @@
   },
   "locks": {
     "corq": "immutable_ledger_source_plus_existing:0+existing:57+preserved:7",
-    "cloq": "immutable_ledger_source_plus_existing:0+existing:34+preserved:1",
+    "cloq": "immutable_ledger_source_plus_existing:1+existing:33+preserved:3",
     "audit": "immutable_ledger_source_plus_existing:27+existing:287+preserved:27"
   },
   "output_root": "outputs/results"

@@ -2645,8 +2645,8 @@
     &quot;FAIR&quot;,
     &quot;VALUE_NEUTRAL&quot;
   ],
-  &quot;corq_source_rank&quot;: 41,
-  &quot;top7_filter_mode&quot;: &quot;PUBLISHABLE_CORQ_FIRST_DATA_HEALTH_V1&quot;,
+  &quot;corq_source_rank&quot;: 40,
+  &quot;top7_filter_mode&quot;: &quot;PUBLISHABLE_VALUE_FIRST_LOW_ODDS_GATE_V4&quot;,
   &quot;top7_publishable&quot;: false,
   &quot;eligible_for_top7&quot;: false,
   &quot;top7_quality_reject_reasons&quot;: [
@@ -2786,10 +2786,14 @@
       &quot;tag&quot;: &quot;VALUE_POSITIVE_CONFIRMED&quot;,
       &quot;bonus&quot;: 2.5,
       &quot;value_delta_pp&quot;: 0.04
+    },
+    {
+      &quot;tag&quot;: &quot;VALUE_FIRST_MARKET_WITH_PICK&quot;,
+      &quot;bonus&quot;: 2.0
     }
   ],
   &quot;top7_risk_penalty_points&quot;: 17.0,
-  &quot;top7_clean_bonus_points&quot;: 11.5,
+  &quot;top7_clean_bonus_points&quot;: 13.5,
   &quot;top7_quality_score&quot;: 0.0,
   &quot;corq_warning_flags&quot;: [
     &quot;H2H_STRONG_AGAINST_PICK&quot;,
@@ -2804,7 +2808,9 @@
     &quot;VALUE_POSITIVE&quot;,
     &quot;MULTI_RISK_PICK&quot;,
     &quot;HIGH_RISK_PICK&quot;,
-    &quot;VALUE_POSITIVE_CONFIRMED&quot;
+    &quot;VALUE_POSITIVE_CONFIRMED&quot;,
+    &quot;VALUE_FIRST_MARKET_WITH_PICK&quot;,
+    &quot;STACKED_RISK&quot;
   ],
   &quot;top7_support_tags&quot;: [
     &quot;PICK_STRONG_FORM&quot;,
@@ -2814,7 +2820,8 @@
     &quot;ELO_SUPPORT_PICK&quot;,
     &quot;MARKET_WITH_PICK&quot;,
     &quot;VALUE_POSITIVE&quot;,
-    &quot;VALUE_POSITIVE_CONFIRMED&quot;
+    &quot;VALUE_POSITIVE_CONFIRMED&quot;,
+    &quot;VALUE_FIRST_MARKET_WITH_PICK&quot;
   ],
   &quot;top7_support_labels&quot;: [
     &quot;Pick strong&quot;,
@@ -2826,7 +2833,7 @@
     &quot;Value+&quot;,
     &quot;Value positive&quot;
   ],
-  &quot;top7_positive_support_count&quot;: 8,
+  &quot;top7_positive_support_count&quot;: 9,
   &quot;top7_risk_count&quot;: 5,
   &quot;top7_high_risk&quot;: true,
   &quot;top7_combined_data_depth&quot;: 0.81695,
@@ -2835,6 +2842,26 @@
   &quot;top7_value_delta_pp&quot;: 0.04,
   &quot;top7_expected_value_pct&quot;: 0.07,
   &quot;top7_data_health_model_version&quot;: &quot;CORQ_TOP7_DATA_HEALTH_V1&quot;,
-  &quot;corq_rank&quot;: 41,
+  &quot;corq_top7_sort_score&quot;: 0.0,
+  &quot;corq_value_gate_status&quot;: &quot;POSITIVE_VALUE&quot;,
+  &quot;corq_low_odds_gate_status&quot;: &quot;NOT_LOW_ODDS&quot;,
+  &quot;corq_risk_penalty&quot;: 17.0,
+  &quot;corq_market_support_bonus&quot;: 4.0,
+  &quot;corq_top7_reject_reasons&quot;: [
+    &quot;REJECT_TOP7_STATUS_NOT_PREMATCH&quot;
+  ],
+  &quot;corq_rank_audit_tags&quot;: [
+    &quot;POSITIVE_VALUE&quot;,
+    &quot;MARKET_WITH_PICK&quot;,
+    &quot;HIGH_DATA_DEPTH&quot;,
+    &quot;STACKED_RISK&quot;,
+    &quot;H2H_STRONG_AGAINST_PICK&quot;,
+    &quot;MODEL_SUPPORT_H2H_DISAGREE&quot;,
+    &quot;SURFACE_H2H_AGAINST_PICK&quot;,
+    &quot;MULTI_RISK_PICK&quot;,
+    &quot;HIGH_RISK_PICK&quot;
+  ],
+  &quot;top7_value_first_model_version&quot;: &quot;CORQ_TOP7_VALUE_FIRST_V4&quot;,
+  &quot;corq_rank&quot;: 40,
   &quot;_corq_render_rank&quot;: 25
 }</pre></body></html>

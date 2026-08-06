@@ -2136,45 +2136,12 @@
     &quot;ta_signal_score_projection&quot;: &quot;N/A&quot;
   },
   &quot;api_serve_stats&quot;: {
+    &quot;api_serve_stats_status&quot;: &quot;PRIMARY_NOT_FOUND_FALLBACK_RATE_LIMIT&quot;,
     &quot;api_serve_stats_source&quot;: &quot;TENNISAPI_H2H_STATS&quot;,
-    &quot;api_serve_stats_status&quot;: &quot;PRIMARY_NOT_FOUND_FALLBACK_NO_PLAYER_STATS&quot;,
     &quot;api_h2h_source_host&quot;: &quot;tennis-api-atp-wta-itf.p.rapidapi.com&quot;,
     &quot;api_h2h_source_path&quot;: &quot;/tennis/v2/ms-api/h2h/stats/atp/Titouan%20Droguet/Felix%20Auger-Aliassime&quot;,
     &quot;api_h2h_surface&quot;: &quot;hard&quot;,
-    &quot;api_h2h_matches_count&quot;: null,
-    &quot;raw&quot;: {
-      &quot;statusCode&quot;: 404,
-      &quot;message&quot;: &quot;No such player&quot;
-    },
-    &quot;player1_name&quot;: &quot;Titouan Droguet&quot;,
-    &quot;player1_stat_matches_played&quot;: null,
-    &quot;player1_aces_total&quot;: null,
-    &quot;player1_double_faults_total&quot;: null,
-    &quot;player1_first_serve_pct&quot;: null,
-    &quot;player1_winning_first_serve_pct&quot;: null,
-    &quot;player1_winning_second_serve_pct&quot;: null,
-    &quot;player1_return_pts_win_pct&quot;: null,
-    &quot;player1_breakpoints_won_pct&quot;: null,
-    &quot;player1_tiebreak_won&quot;: null,
-    &quot;player1_tiebreak_count&quot;: null,
-    &quot;player1_sets_won&quot;: null,
-    &quot;player1_games_won&quot;: null,
-    &quot;player1_matches_won&quot;: null,
-    &quot;player2_name&quot;: &quot;Felix Auger-Aliassime&quot;,
-    &quot;player2_stat_matches_played&quot;: null,
-    &quot;player2_aces_total&quot;: null,
-    &quot;player2_double_faults_total&quot;: null,
-    &quot;player2_first_serve_pct&quot;: null,
-    &quot;player2_winning_first_serve_pct&quot;: null,
-    &quot;player2_winning_second_serve_pct&quot;: null,
-    &quot;player2_return_pts_win_pct&quot;: null,
-    &quot;player2_breakpoints_won_pct&quot;: null,
-    &quot;player2_tiebreak_won&quot;: null,
-    &quot;player2_tiebreak_count&quot;: null,
-    &quot;player2_sets_won&quot;: null,
-    &quot;player2_games_won&quot;: null,
-    &quot;player2_matches_won&quot;: null,
-    &quot;api_h2h_fallback_status&quot;: &quot;NO_PLAYER_STATS&quot;,
+    &quot;api_h2h_fallback_status&quot;: &quot;RATE_LIMIT&quot;,
     &quot;api_h2h_resolution&quot;: &quot;NOT_FOUND&quot;,
     &quot;api_h2h_primary_status&quot;: &quot;NOT_FOUND&quot;,
     &quot;api_h2h_primary_path&quot;: &quot;/tennis/v2/extend/api/atp/h2h/stats/243925/192013&quot;
@@ -2199,7 +2166,7 @@
   &quot;ta_surface&quot;: &quot;hard&quot;,
   &quot;sets_model_source&quot;: &quot;TennisApiMarkets&quot;,
   &quot;api_serve_stats_source&quot;: &quot;TENNISAPI_H2H_STATS&quot;,
-  &quot;api_serve_stats_status&quot;: &quot;PRIMARY_NOT_FOUND_FALLBACK_NO_PLAYER_STATS&quot;,
+  &quot;api_serve_stats_status&quot;: &quot;PRIMARY_NOT_FOUND_FALLBACK_RATE_LIMIT&quot;,
   &quot;api_pick_ace_pct&quot;: 11.43,
   &quot;api_opp_ace_pct&quot;: 9.7,
   &quot;api_pick_df_pct&quot;: 2.66,
@@ -2289,8 +2256,7 @@
   &quot;api_h2h_source_host&quot;: &quot;tennis-api-atp-wta-itf.p.rapidapi.com&quot;,
   &quot;api_h2h_source_path&quot;: &quot;/tennis/v2/ms-api/h2h/stats/atp/Titouan%20Droguet/Felix%20Auger-Aliassime&quot;,
   &quot;api_h2h_surface&quot;: &quot;hard&quot;,
-  &quot;api_h2h_matches_count&quot;: null,
-  &quot;api_h2h_fallback_status&quot;: &quot;NO_PLAYER_STATS&quot;,
+  &quot;api_h2h_fallback_status&quot;: &quot;RATE_LIMIT&quot;,
   &quot;api_h2h_resolution&quot;: &quot;NOT_FOUND&quot;,
   &quot;api_h2h_primary_status&quot;: &quot;NOT_FOUND&quot;,
   &quot;api_h2h_primary_path&quot;: &quot;/tennis/v2/extend/api/atp/h2h/stats/243925/192013&quot;,
@@ -2676,7 +2642,7 @@
     &quot;VALUE_NEGATIVE&quot;
   ],
   &quot;corq_source_rank&quot;: 11,
-  &quot;top7_filter_mode&quot;: &quot;PUBLISHABLE_CORQ_FIRST_DATA_HEALTH_V1&quot;,
+  &quot;top7_filter_mode&quot;: &quot;PUBLISHABLE_VALUE_FIRST_LOW_ODDS_GATE_V4&quot;,
   &quot;top7_publishable&quot;: false,
   &quot;eligible_for_top7&quot;: false,
   &quot;top7_quality_reject_reasons&quot;: [
@@ -2684,24 +2650,27 @@
     &quot;REJECT_TOP7_LOW_ODDS_UNDER_1_40&quot;,
     &quot;REJECT_TOP7_SHORT_PRICE_VALUE_GUARD&quot;,
     &quot;REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE&quot;,
-    &quot;REJECT_TOP7_EV_HARD_NEGATIVE&quot;
+    &quot;REJECT_TOP7_EV_HARD_NEGATIVE&quot;,
+    &quot;REJECT_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE&quot;
   ],
   &quot;top7_reject_reasons&quot;: [
     &quot;REJECT_TOP7_STATUS_NOT_PREMATCH&quot;,
     &quot;REJECT_TOP7_LOW_ODDS_UNDER_1_40&quot;,
     &quot;REJECT_TOP7_SHORT_PRICE_VALUE_GUARD&quot;,
     &quot;REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE&quot;,
-    &quot;REJECT_TOP7_EV_HARD_NEGATIVE&quot;
+    &quot;REJECT_TOP7_EV_HARD_NEGATIVE&quot;,
+    &quot;REJECT_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE&quot;
   ],
   &quot;top7_hard_reject_reasons&quot;: [
     &quot;REJECT_TOP7_STATUS_NOT_PREMATCH&quot;,
     &quot;REJECT_TOP7_LOW_ODDS_UNDER_1_40&quot;,
     &quot;REJECT_TOP7_SHORT_PRICE_VALUE_GUARD&quot;,
     &quot;REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE&quot;,
-    &quot;REJECT_TOP7_EV_HARD_NEGATIVE&quot;
+    &quot;REJECT_TOP7_EV_HARD_NEGATIVE&quot;,
+    &quot;REJECT_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE&quot;
   ],
   &quot;top7_primary_reject_reason&quot;: &quot;REJECT_TOP7_STATUS_NOT_PREMATCH&quot;,
-  &quot;top7_reject_reason_count&quot;: 5,
+  &quot;top7_reject_reason_count&quot;: 6,
   &quot;top7_reject_summary_scope&quot;: &quot;NON_PUBLISHABLE_ROWS_ONLY&quot;,
   &quot;top7_status_allowed&quot;: false,
   &quot;top7_status_type_normalized&quot;: &quot;canceled&quot;,
@@ -2751,7 +2720,8 @@
     &quot;NEGATIVE_EV_HARD&quot;,
     &quot;SHORT_NO_VALUE_COMBO&quot;,
     &quot;SHORT_PRICE_VALUE_GUARD_FAIL&quot;,
-    &quot;HIGH_RISK_PICK&quot;
+    &quot;HIGH_RISK_PICK&quot;,
+    &quot;LOW_ODDS_FAVORITE_SORT_PENALTY&quot;
   ],
   &quot;top7_risk_labels&quot;: [
     &quot;No value&quot;,
@@ -2761,7 +2731,8 @@
     &quot;Negative EV hard&quot;,
     &quot;Short price + no value&quot;,
     &quot;Short price guard fail&quot;,
-    &quot;High Risk&quot;
+    &quot;High Risk&quot;,
+    &quot;Short price penalty&quot;
   ],
   &quot;top7_risk_penalty_details&quot;: [
     {
@@ -2830,10 +2801,21 @@
       &quot;min_value_delta_pp&quot;: -5.0,
       &quot;min_expected_value_pct&quot;: -7.5,
       &quot;short_price_gate_ok&quot;: false
+    },
+    {
+      &quot;tag&quot;: &quot;LOW_ODDS_FAVORITE_SORT_PENALTY&quot;,
+      &quot;penalty&quot;: 10.0,
+      &quot;odds&quot;: 1.22,
+      &quot;value_delta_pp&quot;: -12.96,
+      &quot;expected_value_pct&quot;: -15.81
+    },
+    {
+      &quot;tag&quot;: &quot;VALUE_FIRST_MARKET_WITH_PICK&quot;,
+      &quot;bonus&quot;: 2.0
     }
   ],
-  &quot;top7_risk_penalty_points&quot;: 30.0,
-  &quot;top7_clean_bonus_points&quot;: 3.5,
+  &quot;top7_risk_penalty_points&quot;: 40.0,
+  &quot;top7_clean_bonus_points&quot;: 5.5,
   &quot;top7_quality_score&quot;: 0.0,
   &quot;corq_warning_flags&quot;: [
     &quot;THINQ_EDGE_SUPPORT_PICK&quot;,
@@ -2846,20 +2828,26 @@
     &quot;NEGATIVE_EV_HARD&quot;,
     &quot;SHORT_NO_VALUE_COMBO&quot;,
     &quot;SHORT_PRICE_VALUE_GUARD_FAIL&quot;,
-    &quot;HIGH_RISK_PICK&quot;
+    &quot;HIGH_RISK_PICK&quot;,
+    &quot;LOW_ODDS_FAVORITE_SORT_PENALTY&quot;,
+    &quot;VALUE_FIRST_MARKET_WITH_PICK&quot;,
+    &quot;NEGATIVE_VALUE&quot;,
+    &quot;LOW_ODDS_REJECTED_NEEDS_VALUE&quot;,
+    &quot;STACKED_RISK&quot;
   ],
   &quot;top7_support_tags&quot;: [
     &quot;THINQ_EDGE_SUPPORT_PICK&quot;,
     &quot;ELO_SUPPORT_PICK&quot;,
-    &quot;MARKET_WITH_PICK&quot;
+    &quot;MARKET_WITH_PICK&quot;,
+    &quot;VALUE_FIRST_MARKET_WITH_PICK&quot;
   ],
   &quot;top7_support_labels&quot;: [
     &quot;ThinQ edge support&quot;,
     &quot;ELO support&quot;,
     &quot;Market with pick&quot;
   ],
-  &quot;top7_positive_support_count&quot;: 3,
-  &quot;top7_risk_count&quot;: 8,
+  &quot;top7_positive_support_count&quot;: 4,
+  &quot;top7_risk_count&quot;: 9,
   &quot;top7_high_risk&quot;: true,
   &quot;top7_combined_data_depth&quot;: 0.74338,
   &quot;top7_sets_games_data_depth&quot;: 0.8269,
@@ -2867,6 +2855,37 @@
   &quot;top7_value_delta_pp&quot;: -12.96,
   &quot;top7_expected_value_pct&quot;: -15.81,
   &quot;top7_data_health_model_version&quot;: &quot;CORQ_TOP7_DATA_HEALTH_V1&quot;,
+  &quot;corq_top7_sort_score&quot;: 0.0,
+  &quot;corq_value_gate_status&quot;: &quot;NEGATIVE_VALUE&quot;,
+  &quot;corq_low_odds_gate_status&quot;: &quot;LOW_ODDS_REJECTED_NEEDS_VALUE&quot;,
+  &quot;corq_risk_penalty&quot;: 40.0,
+  &quot;corq_market_support_bonus&quot;: 4.0,
+  &quot;corq_top7_reject_reasons&quot;: [
+    &quot;REJECT_TOP7_STATUS_NOT_PREMATCH&quot;,
+    &quot;REJECT_TOP7_LOW_ODDS_UNDER_1_40&quot;,
+    &quot;REJECT_TOP7_SHORT_PRICE_VALUE_GUARD&quot;,
+    &quot;REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE&quot;,
+    &quot;REJECT_TOP7_EV_HARD_NEGATIVE&quot;,
+    &quot;REJECT_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE&quot;
+  ],
+  &quot;corq_rank_audit_tags&quot;: [
+    &quot;NEGATIVE_VALUE&quot;,
+    &quot;LOW_ODDS_REJECTED_NEEDS_VALUE&quot;,
+    &quot;MARKET_WITH_PICK&quot;,
+    &quot;MARKET_AGAINST_PICK&quot;,
+    &quot;HIGH_DATA_DEPTH&quot;,
+    &quot;STACKED_RISK&quot;,
+    &quot;NO_VALUE_PRICE&quot;,
+    &quot;SHORT_PRICE_RISK&quot;,
+    &quot;MULTI_RISK_PICK&quot;,
+    &quot;NEGATIVE_VALUE_HARD&quot;,
+    &quot;NEGATIVE_EV_HARD&quot;,
+    &quot;SHORT_NO_VALUE_COMBO&quot;,
+    &quot;SHORT_PRICE_VALUE_GUARD_FAIL&quot;,
+    &quot;HIGH_RISK_PICK&quot;,
+    &quot;LOW_ODDS_FAVORITE_SORT_PENALTY&quot;
+  ],
+  &quot;top7_value_first_model_version&quot;: &quot;CORQ_TOP7_VALUE_FIRST_V4&quot;,
   &quot;corq_rank&quot;: 11,
   &quot;_corq_render_rank&quot;: 21
 }</pre></body></html>

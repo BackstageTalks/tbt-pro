@@ -2627,8 +2627,8 @@
     "FAIR",
     "VALUE_NEUTRAL"
   ],
-  "corq_source_rank": 48,
-  "top7_filter_mode": "PUBLISHABLE_CORQ_FIRST_DATA_HEALTH_V1",
+  "corq_source_rank": 47,
+  "top7_filter_mode": "PUBLISHABLE_VALUE_FIRST_LOW_ODDS_GATE_V4",
   "top7_publishable": true,
   "eligible_for_top7": true,
   "top7_quality_reject_reasons": [],
@@ -2727,11 +2727,15 @@
       "tag": "VALUE_POSITIVE_CONFIRMED",
       "bonus": 2.5,
       "value_delta_pp": 1.03
+    },
+    {
+      "tag": "VALUE_FIRST_MARKET_WITH_PICK",
+      "bonus": 2.0
     }
   ],
   "top7_risk_penalty_points": 5.0,
-  "top7_clean_bonus_points": 10.5,
-  "top7_quality_score": 64.6767,
+  "top7_clean_bonus_points": 12.5,
+  "top7_quality_score": 46.9047,
   "corq_warning_flags": [
     "OPP_STRONG_FORM",
     "PICK_STRONG_FORM",
@@ -2740,7 +2744,8 @@
     "ELO_SUPPORT_PICK",
     "MARKET_WITH_PICK",
     "VALUE_POSITIVE",
-    "VALUE_POSITIVE_CONFIRMED"
+    "VALUE_POSITIVE_CONFIRMED",
+    "VALUE_FIRST_MARKET_WITH_PICK"
   ],
   "top7_support_tags": [
     "PICK_STRONG_FORM",
@@ -2749,7 +2754,8 @@
     "ELO_SUPPORT_PICK",
     "MARKET_WITH_PICK",
     "VALUE_POSITIVE",
-    "VALUE_POSITIVE_CONFIRMED"
+    "VALUE_POSITIVE_CONFIRMED",
+    "VALUE_FIRST_MARKET_WITH_PICK"
   ],
   "top7_support_labels": [
     "Pick strong",
@@ -2760,7 +2766,7 @@
     "Value+",
     "Value positive"
   ],
-  "top7_positive_support_count": 7,
+  "top7_positive_support_count": 8,
   "top7_risk_count": 1,
   "top7_high_risk": false,
   "top7_combined_data_depth": 0.691125,
@@ -2769,11 +2775,23 @@
   "top7_value_delta_pp": 1.03,
   "top7_expected_value_pct": 1.78,
   "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
-  "corq_rank": 5,
-  "top7_sort_rank": 5,
-  "top7_sort_primary": "CORQ_PROBABILITY_DESC",
-  "top7_sort_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
-  "top7_rank": 5,
+  "corq_top7_sort_score": 46.9047,
+  "corq_value_gate_status": "POSITIVE_VALUE",
+  "corq_low_odds_gate_status": "NOT_LOW_ODDS",
+  "corq_risk_penalty": 5.0,
+  "corq_market_support_bonus": 4.0,
+  "corq_top7_reject_reasons": [],
+  "corq_rank_audit_tags": [
+    "POSITIVE_VALUE",
+    "MARKET_WITH_PICK",
+    "OPP_STRONG_FORM"
+  ],
+  "top7_value_first_model_version": "CORQ_TOP7_VALUE_FIRST_V4",
+  "corq_rank": 4,
+  "top7_sort_rank": 4,
+  "top7_sort_primary": "VALUE_FIRST_SCORE_DESC",
+  "top7_sort_model_version": "CORQ_TOP7_VALUE_FIRST_V4",
+  "top7_rank": 4,
   "_audit_cloq": true,
   "_corq_render_rank": 6
 }

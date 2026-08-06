@@ -2146,45 +2146,12 @@
     &quot;ta_signal_score_projection&quot;: &quot;N/A&quot;
   },
   &quot;api_serve_stats&quot;: {
+    &quot;api_serve_stats_status&quot;: &quot;PRIMARY_NOT_FOUND_FALLBACK_RATE_LIMIT&quot;,
     &quot;api_serve_stats_source&quot;: &quot;TENNISAPI_H2H_STATS&quot;,
-    &quot;api_serve_stats_status&quot;: &quot;PRIMARY_NOT_FOUND_FALLBACK_NO_PLAYER_STATS&quot;,
     &quot;api_h2h_source_host&quot;: &quot;tennis-api-atp-wta-itf.p.rapidapi.com&quot;,
     &quot;api_h2h_source_path&quot;: &quot;/tennis/v2/ms-api/h2h/stats/atp/Titouan%20Droguet/Jaime%20Faria&quot;,
     &quot;api_h2h_surface&quot;: &quot;hard&quot;,
-    &quot;api_h2h_matches_count&quot;: null,
-    &quot;raw&quot;: {
-      &quot;statusCode&quot;: 404,
-      &quot;message&quot;: &quot;No stats&quot;
-    },
-    &quot;player1_name&quot;: &quot;Titouan Droguet&quot;,
-    &quot;player1_stat_matches_played&quot;: null,
-    &quot;player1_aces_total&quot;: null,
-    &quot;player1_double_faults_total&quot;: null,
-    &quot;player1_first_serve_pct&quot;: null,
-    &quot;player1_winning_first_serve_pct&quot;: null,
-    &quot;player1_winning_second_serve_pct&quot;: null,
-    &quot;player1_return_pts_win_pct&quot;: null,
-    &quot;player1_breakpoints_won_pct&quot;: null,
-    &quot;player1_tiebreak_won&quot;: null,
-    &quot;player1_tiebreak_count&quot;: null,
-    &quot;player1_sets_won&quot;: null,
-    &quot;player1_games_won&quot;: null,
-    &quot;player1_matches_won&quot;: null,
-    &quot;player2_name&quot;: &quot;Jaime Faria&quot;,
-    &quot;player2_stat_matches_played&quot;: null,
-    &quot;player2_aces_total&quot;: null,
-    &quot;player2_double_faults_total&quot;: null,
-    &quot;player2_first_serve_pct&quot;: null,
-    &quot;player2_winning_first_serve_pct&quot;: null,
-    &quot;player2_winning_second_serve_pct&quot;: null,
-    &quot;player2_return_pts_win_pct&quot;: null,
-    &quot;player2_breakpoints_won_pct&quot;: null,
-    &quot;player2_tiebreak_won&quot;: null,
-    &quot;player2_tiebreak_count&quot;: null,
-    &quot;player2_sets_won&quot;: null,
-    &quot;player2_games_won&quot;: null,
-    &quot;player2_matches_won&quot;: null,
-    &quot;api_h2h_fallback_status&quot;: &quot;NO_PLAYER_STATS&quot;,
+    &quot;api_h2h_fallback_status&quot;: &quot;RATE_LIMIT&quot;,
     &quot;api_h2h_resolution&quot;: &quot;NOT_FOUND&quot;,
     &quot;api_h2h_primary_status&quot;: &quot;NOT_FOUND&quot;,
     &quot;api_h2h_primary_path&quot;: &quot;/tennis/v2/extend/api/atp/h2h/stats/243925/341818&quot;
@@ -2209,7 +2176,7 @@
   &quot;ta_surface&quot;: &quot;hard&quot;,
   &quot;sets_model_source&quot;: &quot;TennisApiMarkets&quot;,
   &quot;api_serve_stats_source&quot;: &quot;TENNISAPI_H2H_STATS&quot;,
-  &quot;api_serve_stats_status&quot;: &quot;PRIMARY_NOT_FOUND_FALLBACK_NO_PLAYER_STATS&quot;,
+  &quot;api_serve_stats_status&quot;: &quot;PRIMARY_NOT_FOUND_FALLBACK_RATE_LIMIT&quot;,
   &quot;api_pick_ace_pct&quot;: 9.7,
   &quot;api_opp_ace_pct&quot;: 5.47,
   &quot;api_pick_df_pct&quot;: 1.54,
@@ -2300,8 +2267,7 @@
   &quot;api_h2h_source_host&quot;: &quot;tennis-api-atp-wta-itf.p.rapidapi.com&quot;,
   &quot;api_h2h_source_path&quot;: &quot;/tennis/v2/ms-api/h2h/stats/atp/Titouan%20Droguet/Jaime%20Faria&quot;,
   &quot;api_h2h_surface&quot;: &quot;hard&quot;,
-  &quot;api_h2h_matches_count&quot;: null,
-  &quot;api_h2h_fallback_status&quot;: &quot;NO_PLAYER_STATS&quot;,
+  &quot;api_h2h_fallback_status&quot;: &quot;RATE_LIMIT&quot;,
   &quot;api_h2h_resolution&quot;: &quot;NOT_FOUND&quot;,
   &quot;api_h2h_primary_status&quot;: &quot;NOT_FOUND&quot;,
   &quot;api_h2h_primary_path&quot;: &quot;/tennis/v2/extend/api/atp/h2h/stats/243925/341818&quot;,
@@ -2686,7 +2652,7 @@
     &quot;VALUE_POSITIVE&quot;
   ],
   &quot;corq_source_rank&quot;: 56,
-  &quot;top7_filter_mode&quot;: &quot;PUBLISHABLE_CORQ_FIRST_DATA_HEALTH_V1&quot;,
+  &quot;top7_filter_mode&quot;: &quot;PUBLISHABLE_VALUE_FIRST_LOW_ODDS_GATE_V4&quot;,
   &quot;top7_publishable&quot;: false,
   &quot;eligible_for_top7&quot;: false,
   &quot;top7_quality_reject_reasons&quot;: [
@@ -2799,10 +2765,24 @@
       &quot;tag&quot;: &quot;VALUE_POSITIVE_CONFIRMED&quot;,
       &quot;bonus&quot;: 2.5,
       &quot;value_delta_pp&quot;: 10.25
+    },
+    {
+      &quot;tag&quot;: &quot;VALUE_FIRST_MARKET_WITH_PICK&quot;,
+      &quot;bonus&quot;: 2.0
+    },
+    {
+      &quot;tag&quot;: &quot;VALUE_FIRST_STRONG_DELTA&quot;,
+      &quot;bonus&quot;: 2.0,
+      &quot;value_delta_pp&quot;: 10.25
+    },
+    {
+      &quot;tag&quot;: &quot;VALUE_FIRST_STRONG_EV&quot;,
+      &quot;bonus&quot;: 2.0,
+      &quot;expected_value_pct&quot;: 23.58
     }
   ],
   &quot;top7_risk_penalty_points&quot;: 9.0,
-  &quot;top7_clean_bonus_points&quot;: 8.0,
+  &quot;top7_clean_bonus_points&quot;: 14.0,
   &quot;top7_quality_score&quot;: 0.0,
   &quot;corq_warning_flags&quot;: [
     &quot;FORM_SUPPORT_PICK&quot;,
@@ -2813,7 +2793,12 @@
     &quot;VALUE_POSITIVE&quot;,
     &quot;MMX_MODEL_MARKET_CONFLICT&quot;,
     &quot;MULTI_RISK_PICK&quot;,
-    &quot;VALUE_POSITIVE_CONFIRMED&quot;
+    &quot;VALUE_POSITIVE_CONFIRMED&quot;,
+    &quot;VALUE_FIRST_MARKET_WITH_PICK&quot;,
+    &quot;VALUE_FIRST_STRONG_DELTA&quot;,
+    &quot;VALUE_FIRST_STRONG_EV&quot;,
+    &quot;HIGH_RISK_PICK&quot;,
+    &quot;STACKED_RISK&quot;
   ],
   &quot;top7_support_tags&quot;: [
     &quot;FORM_SUPPORT_PICK&quot;,
@@ -2821,7 +2806,10 @@
     &quot;THINQ_EDGE_SUPPORT_PICK&quot;,
     &quot;ELO_SUPPORT_PICK&quot;,
     &quot;VALUE_POSITIVE&quot;,
-    &quot;VALUE_POSITIVE_CONFIRMED&quot;
+    &quot;VALUE_POSITIVE_CONFIRMED&quot;,
+    &quot;VALUE_FIRST_MARKET_WITH_PICK&quot;,
+    &quot;VALUE_FIRST_STRONG_DELTA&quot;,
+    &quot;VALUE_FIRST_STRONG_EV&quot;
   ],
   &quot;top7_support_labels&quot;: [
     &quot;Form support&quot;,
@@ -2829,17 +2817,38 @@
     &quot;ThinQ edge support&quot;,
     &quot;ELO support&quot;,
     &quot;Value+&quot;,
-    &quot;Value positive&quot;
+    &quot;Value positive&quot;,
+    &quot;Market with pick&quot;,
+    &quot;Strong value delta&quot;,
+    &quot;Strong EV&quot;
   ],
-  &quot;top7_positive_support_count&quot;: 6,
+  &quot;top7_positive_support_count&quot;: 9,
   &quot;top7_risk_count&quot;: 3,
-  &quot;top7_high_risk&quot;: false,
+  &quot;top7_high_risk&quot;: true,
   &quot;top7_combined_data_depth&quot;: 0.721885,
   &quot;top7_sets_games_data_depth&quot;: 0.6538,
   &quot;top7_low_context_risk&quot;: false,
   &quot;top7_value_delta_pp&quot;: 10.25,
   &quot;top7_expected_value_pct&quot;: 23.58,
   &quot;top7_data_health_model_version&quot;: &quot;CORQ_TOP7_DATA_HEALTH_V1&quot;,
+  &quot;corq_top7_sort_score&quot;: 0.0,
+  &quot;corq_value_gate_status&quot;: &quot;STRONG_VALUE&quot;,
+  &quot;corq_low_odds_gate_status&quot;: &quot;NOT_LOW_ODDS&quot;,
+  &quot;corq_risk_penalty&quot;: 9.0,
+  &quot;corq_market_support_bonus&quot;: 4.0,
+  &quot;corq_top7_reject_reasons&quot;: [
+    &quot;REJECT_TOP7_STATUS_NOT_PREMATCH&quot;
+  ],
+  &quot;corq_rank_audit_tags&quot;: [
+    &quot;STRONG_VALUE&quot;,
+    &quot;MARKET_WITH_PICK&quot;,
+    &quot;MARKET_AGAINST_PICK&quot;,
+    &quot;HIGH_DATA_DEPTH&quot;,
+    &quot;STACKED_RISK&quot;,
+    &quot;MMX_MODEL_MARKET_CONFLICT&quot;,
+    &quot;MULTI_RISK_PICK&quot;
+  ],
+  &quot;top7_value_first_model_version&quot;: &quot;CORQ_TOP7_VALUE_FIRST_V4&quot;,
   &quot;corq_rank&quot;: 56,
   &quot;_corq_render_rank&quot;: 18
 }</pre></body></html>

@@ -1,10 +1,10 @@
 {
   "model": "CLOQ_HIGH_CONFIDENCE_PRICE_V2",
-  "created_at_utc": "2026-08-06T13:09:42.899371+00:00",
+  "created_at_utc": "2026-08-06T14:47:35.483209+00:00",
   "input_path": "outputs/latest_all.json",
   "input_rows": 54,
   "audit_rows": 54,
-  "output_rows": 3,
+  "output_rows": 4,
   "top_n": 7,
   "min_publish_rows": 7,
   "policy": {
@@ -23,53 +23,53 @@
     "forced_count": "top_n_7_from_basic_publishable_pool_evidence_is_scored_not_hard_gate"
   },
   "selected_tier_counts": {
-    "CLOQ_PRICE_FALLBACK": 1,
+    "CLOQ_PRICE_FALLBACK": 2,
     "CLOQ_HIGH_CONFIDENCE_PRICE": 2
   },
   "decision_counts": {
-    "CLOQ_PRICE_FALLBACK": 1,
+    "CLOQ_PRICE_FALLBACK": 2,
     "CLOQ_HIGH_CONFIDENCE_PRICE": 2,
-    "CLOQ_REJECTED": 51
+    "CLOQ_REJECTED": 50
   },
   "price_bucket_counts": {
-    "FALLBACK_PRICE_1_70_1_89": 3,
-    "VALUE_PRICE_2_10_2_39": 9,
-    "TARGET_PRICE_1_90_2_09": 1,
-    "HIGH_PRICE_2_40_PLUS": 17,
-    "TOO_LOW": 24
+    "FALLBACK_PRICE_1_70_1_89": 4,
+    "VALUE_PRICE_2_10_2_39": 6,
+    "TARGET_PRICE_1_90_2_09": 3,
+    "HIGH_PRICE_2_40_PLUS": 18,
+    "TOO_LOW": 23
   },
   "reject_reason_counts": {
+    "REJECT_CLOQ_STATUS_NOT_PREMATCH": 34,
     "REJECT_CLOQ_MODEL_PROB_UNDER_50": 27,
-    "REJECT_CLOQ_STATUS_NOT_PREMATCH": 26,
-    "REJECT_CLOQ_PRICE_TOO_HIGH_WITHOUT_EVIDENCE": 15,
-    "REJECT_CLOQ_ODDS_UNDER_1_70": 24
+    "REJECT_CLOQ_PRICE_TOO_HIGH_WITHOUT_EVIDENCE": 16,
+    "REJECT_CLOQ_ODDS_UNDER_1_70": 23
   },
   "risk_tag_counts": {
     "OPP_STRONG": 9,
     "INSUFFICIENT_EVIDENCE_INFO": 29,
     "MARKET_AGAINST_PICK": 27,
     "ELO_WEAK": 2,
-    "PROBABILITY_UNDER_BREAK_EVEN_INFO": 32,
+    "PROBABILITY_UNDER_BREAK_EVEN_INFO": 29,
     "ELO_AGAINST": 23,
     "PICK_WEAK": 3,
-    "HIGH_PRICE_RISK": 17
+    "HIGH_PRICE_RISK": 18
   },
   "support_tag_counts": {
-    "FALLBACK_PRICE_1_70_1_89": 3,
-    "PROBABILITY_OVER_BREAK_EVEN": 5,
+    "FALLBACK_PRICE_1_70_1_89": 4,
+    "PROBABILITY_OVER_BREAK_EVEN": 7,
     "ELO_STRONG": 23,
     "FORM_EDGE": 27,
     "SURFACE_EDGE": 26,
-    "PICK_STRONG": 9,
     "MARKET_WITH_PICK": 27,
     "HIGH_DATA_DEPTH": 50,
-    "VALUE_PRICE_2_10_2_39": 9,
-    "PROBABILITY_BUFFER_STRONG": 17,
-    "TARGET_PRICE_1_90_2_09": 1,
+    "PICK_STRONG": 9,
+    "VALUE_PRICE_2_10_2_39": 6,
+    "PROBABILITY_BUFFER_STRONG": 18,
+    "TARGET_PRICE_1_90_2_09": 3,
     "ELO_EDGE": 2,
-    "HIGH_PRICE_2_40_PLUS": 17,
+    "HIGH_PRICE_2_40_PLUS": 18,
     "OPP_WEAK": 3,
-    "TOO_LOW": 24
+    "TOO_LOW": 23
   },
   "notes": [
     "CloQ now targets higher realistic prices, especially odds >= 1.90.",
