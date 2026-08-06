@@ -4971,6 +4971,427 @@ def render_results_page(manifest: Dict[str, Any]) -> str:
     ]
     return page_shell('Results', RESULTS_PATH, '\n'.join(body), manifest)
 
+
+# ============================================================
+# Results 14-day calendar range override V1
+# ============================================================
+# Default Results load = today + previous 13 days in Europe/Bratislava.
+# Cards and all bottom stats are computed from this filtered range only.
+# Calendar inputs are styled to match the page and show the selected default range.
+
+RESULTS_DEFAULT_RANGE_DAYS = 14
+RESULTS_RANGE_TZ = "Europe/Bratislava"
+
+try:
+    _RESULTS_RANGE_BASE_FILTER_BUILDER
+except NameError:
+    _RESULTS_RANGE_BASE_FILTER_BUILDER = render_results_filter_builder
+
+
+def _results_local_today() -> date:
+    return datetime.now(ZoneInfo(RESULTS_RANGE_TZ)).date()
+
+
+def results_default_date_range() -> Tuple[date, date]:
+    end = _results_local_today()
+    start = end - timedelta(days=RESULTS_DEFAULT_RANGE_DAYS - 1)
+    return start, end
+
+
+def result_row_local_date(row: Dict[str, Any]) -> Optional[date]:
+    dt = result_row_date_value(row)
+    if dt is None:
+        return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(ZoneInfo(RESULTS_RANGE_TZ)).date()
+
+
+def result_in_date_range(row: Dict[str, Any], start: date, end: date) -> bool:
+    d = result_row_local_date(row)
+    return d is not None and start <= d <= end
+
+
+def filter_results_date_range(rows: List[Dict[str, Any]], start: date, end: date) -> List[Dict[str, Any]]:
+    return [r for r in rows or [] if result_in_date_range(r, start, end)]
+
+
+def render_results_calendar_filter(start: date, end: date, total_count: int, loaded_count: int) -> str:
+    range_label = f"{start.strftime('%d.%m.%y')} - {end.strftime('%d.%m.%y')}"
+    return f"""
+<div class="results-range-panel summary-panel">
+  <div class="summary-title">Results date range</div>
+  <div class="result-filter-help">Default loaded range is today + previous 13 days in Europe/Bratislava. Cards and all stats below are calculated only from this loaded range.</div>
+  <div class="result-filter-row results-calendar-row">
+    <label class="result-filter-group results-calendar-group">
+      <span class="result-filter-group-title">From</span>
+      <input class="results-date-input" type="date" value="{esc(start.isoformat())}" aria-label="Results from date" />
+    </label>
+    <label class="result-filter-group results-calendar-group">
+      <span class="result-filter-group-title">To</span>
+      <input class="results-date-input" type="date" value="{esc(end.isoformat())}" aria-label="Results to date" />
+    </label>
+    <span class="tag-chip audit-pill audit-pill-date"><span class="audit-pill-count">{loaded_count}</span> <span class="audit-pill-label">loaded / {total_count} total</span></span>
+    <span class="tag-chip audit-pill audit-pill-signal"><span class="audit-pill-label">{esc(range_label)}</span></span>
+  </div>
+</div>"""
+
+
+def _results_calendar_css_block() -> str:
+    return """
+<style>
+.results-range-panel{margin-bottom:12px}.results-calendar-row{align-items:center}.results-calendar-group{gap:8px}.results-date-input{appearance:auto;background:#071629;color:#f8fafc;border:1px solid rgba(96,165,250,.45);border-radius:10px;padding:8px 10px;font-weight:900;font-size:13px;outline:none;color-scheme:dark;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}.results-date-input:focus{border-color:#fb923c;box-shadow:0 0 0 2px rgba(251,146,60,.22)}
+</style>"""
+
+
+def render_results_filter_builder(rows: List[Dict[str, Any]], total_count: Optional[int] = None) -> str:
+    start, end = results_default_date_range()
+    total = len(rows or []) if total_count is None else int(total_count)
+    calendar = render_results_calendar_filter(start, end, total, len(rows or []))
+    return _results_calendar_css_block() + calendar + _RESULTS_RANGE_BASE_FILTER_BUILDER(rows)
+
+
+def render_results_page(manifest: Dict[str, Any]) -> str:
+    corq_all = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_corq.json', []))
+    cloq_all = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_cloq.json', []))
+    audit_all = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_audit.json', []))
+    all_combined = corq_all + cloq_all + audit_all
+
+    start, end = results_default_date_range()
+    corq = filter_results_date_range(corq_all, start, end)
+    cloq = filter_results_date_range(cloq_all, start, end)
+    audit_rows = filter_results_date_range(audit_all, start, end)
+    combined = corq + cloq + audit_rows
+
+    mark_audit_h2h_top10(combined)
+    body = [
+        _result_css_block(),
+        render_results_filter_builder(combined, total_count=len(all_combined)),
+        render_results_card_section(corq, 'CorQ TOP7 Results'),
+        render_results_card_section(cloq, 'CloQ Results'),
+        render_results_card_section(audit_rows, 'Audit Results', limit=80),
+        depth_analysis(combined),
+        sets_games_audit(combined),
+        tag_analysis(combined),
+    ]
+    return page_shell('Results', RESULTS_PATH, '\n'.join(body), manifest)
+
+
+# ============================================================
+# Results dynamic calendar recompute override V2
+# ============================================================
+# Client-side date range recalculates visible cards, section summaries and tag
+# stats. The DOM keeps all Results rows so changing the calendar does not need a
+# new render run. Default selected range remains today + previous 13 days.
+
+RESULTS_DYNAMIC_DEFAULT_DAYS = 14
+RESULTS_DYNAMIC_TZ = "Europe/Bratislava"
+
+
+def _results_dynamic_today() -> date:
+    return datetime.now(ZoneInfo(RESULTS_DYNAMIC_TZ)).date()
+
+
+def results_default_date_range() -> Tuple[date, date]:
+    end = _results_dynamic_today()
+    start = end - timedelta(days=RESULTS_DYNAMIC_DEFAULT_DAYS - 1)
+    return start, end
+
+
+def result_row_local_date(row: Dict[str, Any]) -> Optional[date]:
+    dt = result_row_date_value(row)
+    if dt is None:
+        return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(ZoneInfo(RESULTS_DYNAMIC_TZ)).date()
+
+
+def result_row_local_date_iso(row: Dict[str, Any]) -> str:
+    d = result_row_local_date(row)
+    return d.isoformat() if d is not None else ""
+
+
+def render_results_calendar_filter(start: date, end: date, total_count: int) -> str:
+    range_label = f"{start.strftime('%d.%m.%y')} - {end.strftime('%d.%m.%y')}"
+    return f"""
+<div class="results-range-panel summary-panel" data-results-range-panel>
+  <div class="summary-title">Results date range</div>
+  <div class="result-filter-help">Default view is today + previous 13 days in Europe/Bratislava. Changing dates recalculates visible cards, section totals and tag stats directly in the browser.</div>
+  <div class="result-filter-row results-calendar-row">
+    <label class="result-filter-group results-calendar-group">
+      <span class="result-filter-group-title">From</span>
+      <input id="results-date-from" class="results-date-input" type="date" value="{esc(start.isoformat())}" aria-label="Results from date" />
+    </label>
+    <label class="result-filter-group results-calendar-group">
+      <span class="result-filter-group-title">To</span>
+      <input id="results-date-to" class="results-date-input" type="date" value="{esc(end.isoformat())}" aria-label="Results to date" />
+    </label>
+    <button type="button" class="tag-chip audit-pill audit-pill-date results-range-btn" data-range-days="7">Last 7d</button>
+    <button type="button" class="tag-chip audit-pill audit-pill-date results-range-btn" data-range-days="14">Last 14d</button>
+    <button type="button" class="tag-chip audit-pill audit-pill-date results-range-btn" data-range-days="30">Last 30d</button>
+    <button type="button" class="tag-chip audit-pill audit-pill-note results-range-btn" data-range-all="1">All</button>
+    <span class="tag-chip audit-pill audit-pill-signal" data-results-range-count><span class="audit-pill-count">0</span> <span class="audit-pill-label">visible / {total_count} total</span></span>
+    <span class="tag-chip audit-pill audit-pill-signal"><span class="audit-pill-label">{esc(range_label)}</span></span>
+  </div>
+</div>"""
+
+
+def _results_calendar_css_block() -> str:
+    return """
+<style>
+.results-range-panel{margin-bottom:12px}.results-calendar-row{align-items:center}.results-calendar-group{gap:8px}.results-date-input{appearance:auto;background:#071629;color:#f8fafc;border:1px solid rgba(96,165,250,.45);border-radius:10px;padding:8px 10px;font-weight:900;font-size:13px;outline:none;color-scheme:dark;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}.results-date-input:focus{border-color:#fb923c;box-shadow:0 0 0 2px rgba(251,146,60,.22)}.results-range-btn{cursor:pointer}.results-range-btn.active{border-color:#fb923c!important;background:rgba(251,146,60,.24)!important;color:#fff!important}
+</style>"""
+
+
+def render_results_filter_builder(rows: List[Dict[str, Any]], total_count: Optional[int] = None) -> str:
+    start, end = results_default_date_range()
+    total = len(rows or []) if total_count is None else int(total_count)
+    calendar = render_results_calendar_filter(start, end, total)
+    return _results_calendar_css_block() + calendar + _RESULTS_RANGE_BASE_FILTER_BUILDER(rows)
+
+
+def render_result_card(row: Dict[str, Any], rank: int, model_title: str = '') -> str:
+    tags = result_tags(row)
+    data_tags = '|'.join(tags)
+    st = result_status(row)
+    units = as_float(row.get('units'), 0.0) or 0.0
+    odds = pick_odds(row) or 0.0
+    date_iso = result_row_local_date_iso(row)
+    model = result_model_filter_tag(row, model_title) or model_title or ''
+    return "\n".join([
+        f'<div class="result-card tag-analysis-row" data-tags="{esc(data_tags)}" data-result="{esc(st)}" data-model="{esc(model)}" data-section="{esc(model_title)}" data-date="{esc(date_iso)}" data-units="{units:.4f}" data-odds="{odds:.4f}">',
+        _result_card_pick_box(row, rank),
+        _result_mmx_box(row),
+        _result_corq_box(row),
+        _result_thinq_box(row),
+        _result_sets_games_box(row),
+        render_marq_box(row),
+        _result_status_box(row),
+        '</div>',
+    ])
+
+
+def _result_section_header(rows: List[Dict[str, Any]], title: str) -> str:
+    s = summarize_results(rows)
+    avg = '—' if s.get('avg_odds') is None else f'{s["avg_odds"]:.2f}'
+    return "\n".join([
+        f'<div class="result-section-head" data-section-head="{esc(title)}">',
+        f'<div class="result-section-title">{esc(title)}</div>',
+        '<div class="result-section-stats">',
+        f'<span class="result-stat-pill" data-stat="picks">Picks {s["picks"]}</span>',
+        f'<span class="result-stat-pill" data-stat="wl">W-L {s["won"]}-{s["lost"]}</span>',
+        f'<span class="result-stat-pill" data-stat="pending">Pending {s["pending"]}</span>',
+        f'<span class="result-stat-pill" data-stat="win">Win {s["win_pct"]:.1f}%</span>',
+        f'<span class="result-stat-pill" data-stat="units">Units {s["units"]:+.2f}u</span>',
+        f'<span class="result-stat-pill" data-stat="roi">ROI {s["roi"]:+.1f}%</span>',
+        f'<span class="result-stat-pill" data-stat="avg">Avg odds {avg}</span>',
+        '</div></div>',
+    ])
+
+
+def render_results_card_section(rows: List[Dict[str, Any]], title: str, limit: Optional[int] = None) -> str:
+    rows_sorted = sorted(rows or [], key=result_card_sort_key)
+    # Keep all rows in DOM. Date range JS handles visibility and recalculates stats.
+    if not rows_sorted:
+        cards = '<div class="empty">No results available.</div>'
+    else:
+        cards = '<div class="results-card-grid">' + '\n'.join(render_result_card(r, i + 1, title) for i, r in enumerate(rows_sorted)) + '</div>'
+    return f'<section class="result-section" data-result-section="{esc(title)}">{_result_section_header(rows_sorted, title)}{cards}</section>'
+
+
+def tag_analysis(rows: List[Dict[str, Any]]) -> str:
+    tag_rows = _results_tag_stats_rows(rows)
+    body = []
+    for tag, a in tag_rows:
+        decided = int(a["won"] + a["lost"])
+        winp = a["won"] / decided * 100 if decided else 0.0
+        avg = sum(a["odds"]) / len(a["odds"]) if a["odds"] else None
+        avg_txt = "—" if avg is None else f"{avg:.2f}"
+        decided_txt = f"{decided}/{a['count']}"
+        body.append(
+            f'<tr class="result-row tag-analysis-row" data-tags="{esc(tag)}">'
+            f'<td><span class="{audit_note_css(tag)}" data-filter="{esc(tag)}">{esc(tag)}</span></td>'
+            f'<td>{a["count"]}</td><td>{a["won"]}-{a["lost"]}-{a["void"]}-{a["pending"]}</td>'
+            f'<td>{decided_txt}</td><td><b>{winp:.1f}%</b></td><td>{a["units"]:+.2f}u</td><td>{esc(avg_txt)}</td></tr>'
+        )
+    rows_html = ''.join(body) if body else '<tr><td colspan="7">No tag data yet.</td></tr>'
+    return (
+        '<div class="results-panel tag-stats-panel" data-tag-stats-panel>'
+        f'<div class="summary-title">{RESULTS_TAG_STATS_TITLE}</div>'
+        '<div class="result-filter-help">Sorted by decided winrate from best to worst. This table updates when the date range changes.</div>'
+        '<div class="table-wrap"><table class="results-table"><thead><tr>'
+        '<th>Tag</th><th>Total</th><th>W-L-V-P</th><th>Decided</th><th>Winrate</th><th>Units</th><th>Avg odds</th>'
+        '</tr></thead><tbody id="results-tag-stats-body">' + rows_html + '</tbody></table></div>'
+        '<span class="clear-filter tag-chip audit-pill audit-pill-clear">Clear filter</span></div>'
+    )
+
+
+def _results_dynamic_script() -> str:
+    return """
+<script>
+(function(){
+  const fromInput = document.getElementById('results-date-from');
+  const toInput = document.getElementById('results-date-to');
+  if(!fromInput || !toInput){ return; }
+  const cards = Array.from(document.querySelectorAll('.result-card'));
+  const total = cards.length;
+  const countPill = document.querySelector('[data-results-range-count] .audit-pill-count');
+  const countLabel = document.querySelector('[data-results-range-count] .audit-pill-label');
+
+  function parseDate(v){ return String(v || '').slice(0,10); }
+  function inRange(card){
+    const d = parseDate(card.dataset.date);
+    if(!d){ return false; }
+    const from = parseDate(fromInput.value);
+    const to = parseDate(toInput.value);
+    return (!from || d >= from) && (!to || d <= to);
+  }
+  function num(v){ const n = Number(v || 0); return Number.isFinite(n) ? n : 0; }
+  function fmtPct(v){ return `${v.toFixed(1)}%`; }
+  function fmtUnits(v){ return `${v >= 0 ? '+' : ''}${v.toFixed(2)}u`; }
+
+  function computeSummary(list){
+    const s = {picks:0, won:0, lost:0, void:0, pending:0, units:0, odds:[]};
+    list.forEach(card => {
+      s.picks += 1;
+      const st = (card.dataset.result || 'PENDING').toUpperCase();
+      if(st === 'WON') s.won += 1;
+      else if(st === 'LOST') s.lost += 1;
+      else if(st === 'VOID') s.void += 1;
+      else s.pending += 1;
+      s.units += num(card.dataset.units);
+      const o = num(card.dataset.odds);
+      if(o > 1) s.odds.push(o);
+    });
+    const decided = s.won + s.lost;
+    s.win = decided ? (s.won / decided * 100) : 0;
+    s.roi = decided ? (s.units / decided * 100) : 0;
+    s.avg = s.odds.length ? (s.odds.reduce((a,b)=>a+b,0) / s.odds.length) : null;
+    return s;
+  }
+
+  function updateSectionStats(){
+    document.querySelectorAll('[data-result-section]').forEach(section => {
+      const head = section.querySelector('[data-section-head]');
+      if(!head){ return; }
+      const visible = Array.from(section.querySelectorAll('.result-card')).filter(c => c.style.display !== 'none');
+      const s = computeSummary(visible);
+      const set = (key, value) => { const el = head.querySelector(`[data-stat="${key}"]`); if(el) el.textContent = value; };
+      set('picks', `Picks ${s.picks}`);
+      set('wl', `W-L ${s.won}-${s.lost}`);
+      set('pending', `Pending ${s.pending}`);
+      set('win', `Win ${fmtPct(s.win)}`);
+      set('units', `Units ${fmtUnits(s.units)}`);
+      set('roi', `ROI ${s.roi >= 0 ? '+' : ''}${s.roi.toFixed(1)}%`);
+      set('avg', `Avg odds ${s.avg === null ? '—' : s.avg.toFixed(2)}`);
+    });
+  }
+
+  function tagStatsFromVisible(){
+    const agg = new Map();
+    const visible = cards.filter(c => c.style.display !== 'none');
+    visible.forEach(card => {
+      const tags = (card.dataset.tags || '').split('|').map(x => x.trim()).filter(Boolean);
+      const st = (card.dataset.result || 'PENDING').toUpperCase();
+      tags.forEach(tag => {
+        if(!agg.has(tag)) agg.set(tag, {tag, count:0, won:0, lost:0, void:0, pending:0, units:0, odds:[]});
+        const a = agg.get(tag);
+        a.count += 1;
+        if(st === 'WON') a.won += 1;
+        else if(st === 'LOST') a.lost += 1;
+        else if(st === 'VOID') a.void += 1;
+        else a.pending += 1;
+        a.units += num(card.dataset.units);
+        const o = num(card.dataset.odds);
+        if(o > 1) a.odds.push(o);
+      });
+    });
+    const rows = Array.from(agg.values()).sort((a,b) => {
+      const ad = a.won + a.lost, bd = b.won + b.lost;
+      const aw = ad ? a.won / ad : -1, bw = bd ? b.won / bd : -1;
+      if(bw !== aw) return bw - aw;
+      if(bd !== ad) return bd - ad;
+      if(b.units !== a.units) return b.units - a.units;
+      return a.tag.localeCompare(b.tag);
+    });
+    const tbody = document.getElementById('results-tag-stats-body');
+    if(!tbody){ return; }
+    if(!rows.length){ tbody.innerHTML = '<tr><td colspan="7">No tag data in selected range.</td></tr>'; return; }
+    tbody.innerHTML = rows.map(a => {
+      const decided = a.won + a.lost;
+      const win = decided ? a.won / decided * 100 : 0;
+      const avg = a.odds.length ? (a.odds.reduce((x,y)=>x+y,0)/a.odds.length).toFixed(2) : '—';
+      const units = `${a.units >= 0 ? '+' : ''}${a.units.toFixed(2)}u`;
+      return `<tr class="result-row tag-analysis-row" data-tags="${a.tag.replace(/"/g,'&quot;')}"><td><span class="tag-chip audit-pill" data-filter="${a.tag.replace(/"/g,'&quot;')}">${a.tag}</span></td><td>${a.count}</td><td>${a.won}-${a.lost}-${a.void}-${a.pending}</td><td>${decided}/${a.count}</td><td><b>${win.toFixed(1)}%</b></td><td>${units}</td><td>${avg}</td></tr>`;
+    }).join('');
+  }
+
+  function applyDateRange(){
+    let visible = 0;
+    cards.forEach(card => {
+      const show = inRange(card);
+      card.style.display = show ? '' : 'none';
+      if(show) visible += 1;
+    });
+    if(countPill) countPill.textContent = String(visible);
+    if(countLabel) countLabel.textContent = `visible / ${total} total`;
+    updateSectionStats();
+    tagStatsFromVisible();
+  }
+
+  function setLastDays(days){
+    const to = new Date();
+    const from = new Date();
+    from.setDate(to.getDate() - days + 1);
+    const iso = d => d.toISOString().slice(0,10);
+    fromInput.value = iso(from);
+    toInput.value = iso(to);
+    document.querySelectorAll('[data-range-days]').forEach(b => b.classList.toggle('active', Number(b.dataset.rangeDays) === days));
+    applyDateRange();
+  }
+
+  fromInput.addEventListener('change', applyDateRange);
+  toInput.addEventListener('change', applyDateRange);
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('[data-range-days],[data-range-all]');
+    if(!btn) return;
+    if(btn.dataset.rangeAll){
+      const dates = cards.map(c => parseDate(c.dataset.date)).filter(Boolean).sort();
+      if(dates.length){ fromInput.value = dates[0]; toInput.value = dates[dates.length-1]; }
+      document.querySelectorAll('[data-range-days]').forEach(b => b.classList.remove('active'));
+      applyDateRange();
+      return;
+    }
+    const days = Number(btn.dataset.rangeDays || 14);
+    setLastDays(days);
+  });
+  document.querySelectorAll('[data-range-days="14"]').forEach(b => b.classList.add('active'));
+  applyDateRange();
+})();
+</script>"""
+
+
+def render_results_page(manifest: Dict[str, Any]) -> str:
+    corq = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_corq.json', []))
+    cloq = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_cloq.json', []))
+    audit_rows = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_audit.json', []))
+    combined = corq + cloq + audit_rows
+    mark_audit_h2h_top10(combined)
+    start, end = results_default_date_range()
+    body = [
+        _result_css_block(),
+        render_results_filter_builder(combined, total_count=len(combined)),
+        render_results_card_section(corq, 'CorQ TOP7 Results'),
+        render_results_card_section(cloq, 'CloQ Results'),
+        render_results_card_section(audit_rows, 'Audit Results'),
+        depth_analysis(combined),
+        sets_games_audit(combined),
+        tag_analysis(combined),
+        _results_dynamic_script(),
+    ]
+    return page_shell('Results', RESULTS_PATH, '\n'.join(body), manifest)
+
 def main() -> None:
     render_all()
 
