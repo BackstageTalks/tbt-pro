@@ -1,6 +1,6 @@
 {
   "model": "CLOQ_SIMPLE_PREDICTION_V6",
-  "created_at_utc": "2026-08-06T07:36:38.289152+00:00",
+  "created_at_utc": "2026-08-06T07:48:02.793396+00:00",
   "input_path": "outputs/latest_all.json",
   "input_rows": 54,
   "audit_rows": 54,
@@ -9,7 +9,7 @@
   "min_publish_rows": 3,
   "policy": {
     "odds_min": 1.7,
-    "odds_gap_max_pct": 0.15,
+    "odds_gap_max_pct": 0.2,
     "odds_gap_formula": "abs(pick_odds-opponent_odds)/min(pick_odds,opponent_odds)",
     "value_data": "informational_only_not_filter",
     "prediction_data": "required",
@@ -28,7 +28,7 @@
   },
   "reject_reason_counts": {
     "REJECT_CLOQ_STATUS_NOT_PREMATCH": 26,
-    "REJECT_CLOQ_ODDS_GAP_OVER_15": 52,
+    "REJECT_CLOQ_ODDS_GAP_OVER_20": 52,
     "REJECT_CLOQ_ODDS_UNDER_1_70": 24
   },
   "risk_tag_counts": {
@@ -46,7 +46,7 @@
     "MARKET_WITH_PICK": 27
   },
   "notes": [
-    "CloQ uses one simple rule-set: odds >=1.70, odds gap <=15%, prediction data required.",
+    "CloQ uses one simple rule-set: odds >=1.70, odds gap <=20%, prediction data required.",
     "Odds gap is calculated against the smaller odds to keep the rule conservative.",
     "Value data is not used as a filter; missing or negative value is shown as info only.",
     "No synthetic odds, probabilities or value values are generated."
