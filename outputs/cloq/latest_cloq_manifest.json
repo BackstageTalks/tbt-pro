@@ -1,6 +1,6 @@
 {
-  "model": "CLOQ_SIMPLE_VALUE_V5",
-  "created_at_utc": "2026-08-06T07:07:54.203748+00:00",
+  "model": "CLOQ_SIMPLE_PREDICTION_V6",
+  "created_at_utc": "2026-08-06T07:36:38.289152+00:00",
   "input_path": "outputs/latest_all.json",
   "input_rows": 54,
   "audit_rows": 54,
@@ -9,47 +9,46 @@
   "min_publish_rows": 3,
   "policy": {
     "odds_min": 1.7,
-    "odds_gap_max_pct": 0.2,
+    "odds_gap_max_pct": 0.15,
     "odds_gap_formula": "abs(pick_odds-opponent_odds)/min(pick_odds,opponent_odds)",
-    "negative_value": "reject_if_value_delta_or_EV_is_negative",
-    "missing_value": "allow_with_NO_VALUE_DATA_if_all_other_rules_pass",
+    "value_data": "informational_only_not_filter",
+    "prediction_data": "required",
     "forced_count": false
   },
   "selected_tier_counts": {
     "CLOQ_VALUE_INFO": 1
   },
   "decision_counts": {
-    "CLOQ_VALUE_INFO": 1,
-    "CLOQ_REJECTED": 53
+    "CLOQ_PREDICTION_INFO": 2,
+    "CLOQ_REJECTED": 52
   },
   "value_status_counts": {
-    "VALUE_POSITIVE": 19,
-    "VALUE_NON_NEGATIVE": 3,
-    "VALUE_NEGATIVE": 32
+    "VALUE_POSITIVE_INFO": 22,
+    "VALUE_NEGATIVE_INFO": 32
   },
   "reject_reason_counts": {
     "REJECT_CLOQ_STATUS_NOT_PREMATCH": 26,
-    "REJECT_CLOQ_ODDS_GAP_OVER_20": 52,
-    "REJECT_CLOQ_ODDS_UNDER_1_70": 24,
-    "REJECT_CLOQ_NEGATIVE_VALUE": 32
+    "REJECT_CLOQ_ODDS_GAP_OVER_15": 52,
+    "REJECT_CLOQ_ODDS_UNDER_1_70": 24
   },
   "risk_tag_counts": {
     "MARKET_AGAINST_PICK": 27,
-    "ODDS_GAP_NEAR_LIMIT": 54
+    "ODDS_GAP_NEAR_LIMIT": 54,
+    "NEGATIVE_VALUE_INFO": 32
   },
   "support_tag_counts": {
-    "VALUE_DELTA_NON_NEGATIVE": 22,
-    "EXPECTED_VALUE_NON_NEGATIVE": 22,
-    "EXPECTED_VALUE_POSITIVE": 19,
+    "VALUE_DELTA_POSITIVE_INFO": 22,
+    "EXPECTED_VALUE_POSITIVE_INFO": 22,
     "MARKET_AGAINST_PICK_INFO": 27,
     "PLAYABLE_CLOSE": 2,
-    "VALUE_DELTA_POSITIVE": 18,
+    "VALUE_DELTA_NEGATIVE_INFO": 32,
+    "EXPECTED_VALUE_NEGATIVE_INFO": 32,
     "MARKET_WITH_PICK": 27
   },
   "notes": [
-    "CloQ uses one simple rule-set: odds >=1.70, odds gap <=20%, no negative value.",
+    "CloQ uses one simple rule-set: odds >=1.70, odds gap <=15%, prediction data required.",
     "Odds gap is calculated against the smaller odds to keep the rule conservative.",
-    "Missing value is not fabricated and is labelled NO_VALUE_DATA when other rules pass.",
+    "Value data is not used as a filter; missing or negative value is shown as info only.",
     "No synthetic odds, probabilities or value values are generated."
   ]
 }
