@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.1,
   "latest_odds_player2": 1.66667,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-05T18:11:58.024640+00:00",
+  "latest_snapshot_time_utc": "2026-08-06T05:35:47.204781+00:00",
   "opening_odds_player1": 2.1,
   "opening_odds_player2": 1.66667,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Ida Wobker",
   "player2": "Xinxin Yao",
-  "snapshot_count": 4,
+  "snapshot_count": 5,
   "snapshots": [
     {
       "event_id": "16724261",
@@ -97,8 +97,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-05T12:36:15+00:00",
       "target_date": "2026-08-06"
+    },
+    {
+      "event_id": "16724261",
+      "event_key": "2026-08-06_ida-wobker_vs_xinxin-yao",
+      "hours_to_start": -16.99,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.1,
+      "odds_player2": 1.66667,
+      "player1": "Ida Wobker",
+      "player2": "Xinxin Yao",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-06T05:35:47.204781+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-05T12:36:15+00:00",
+      "target_date": "2026-08-06"
     }
   ],
   "start_time_utc": "2026-08-05T12:36:15+00:00",
-  "updated_at_utc": "2026-08-05T18:13:07.285912+00:00"
+  "updated_at_utc": "2026-08-06T05:36:14.775108+00:00"
 }

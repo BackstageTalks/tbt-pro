@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.25,
   "latest_odds_player2": 1.57143,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-05T18:11:58.024640+00:00",
+  "latest_snapshot_time_utc": "2026-08-06T05:35:47.204781+00:00",
   "opening_odds_player1": 2.25,
   "opening_odds_player2": 1.57143,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Clarissa Blomqvist",
   "player2": "Alice Soulie",
-  "snapshot_count": 4,
+  "snapshot_count": 5,
   "snapshots": [
     {
       "event_id": "16723930",
@@ -97,8 +97,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-05T13:06:49+00:00",
       "target_date": "2026-08-06"
+    },
+    {
+      "event_id": "16723930",
+      "event_key": "2026-08-06_alice-soulie_vs_clarissa-blomqvist",
+      "hours_to_start": -16.48,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.25,
+      "odds_player2": 1.57143,
+      "player1": "Clarissa Blomqvist",
+      "player2": "Alice Soulie",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-06T05:35:47.204781+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-05T13:06:49+00:00",
+      "target_date": "2026-08-06"
     }
   ],
   "start_time_utc": "2026-08-05T13:06:49+00:00",
-  "updated_at_utc": "2026-08-05T18:13:10.037896+00:00"
+  "updated_at_utc": "2026-08-06T05:36:20.016649+00:00"
 }

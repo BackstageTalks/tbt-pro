@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.57143,
   "latest_odds_player2": 2.25,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-05T18:11:58.024640+00:00",
+  "latest_snapshot_time_utc": "2026-08-06T05:35:47.204781+00:00",
   "opening_odds_player1": 1.57143,
   "opening_odds_player2": 2.25,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Pyotr Nesterov",
   "player2": "Sebastian Sorger",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "16661827",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-05T13:55:00+00:00",
       "target_date": "2026-08-06"
+    },
+    {
+      "event_id": "16661827",
+      "event_key": "2026-08-06_pyotr-nesterov_vs_sebastian-sorger",
+      "hours_to_start": -15.68,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.57143,
+      "odds_player2": 2.25,
+      "player1": "Pyotr Nesterov",
+      "player2": "Sebastian Sorger",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-06T05:35:47.204781+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-05T13:55:00+00:00",
+      "target_date": "2026-08-06"
     }
   ],
   "start_time_utc": "2026-08-05T13:55:00+00:00",
-  "updated_at_utc": "2026-08-05T18:13:24.598024+00:00"
+  "updated_at_utc": "2026-08-06T05:37:03.207806+00:00"
 }
