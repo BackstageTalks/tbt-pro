@@ -59,46 +59,56 @@
 </div>
 <script>
 (function(){
-  const active = new Set();
+  const active = new Map();
+  const norm = value => String(value || '').trim().toLowerCase();
 
   function getCardTags(card){
     return (card.getAttribute('data-tags') || '')
       .split('|')
-      .map(x => x.trim())
+      .map(norm)
       .filter(Boolean);
   }
 
   function sortVisibleCardsByTime(){
-    const gridNodes = document.querySelectorAll('.grid');
-    gridNodes.forEach(grid => {
+    document.querySelectorAll('.grid').forEach(grid => {
       const cards = Array.from(grid.querySelectorAll('.pick-card'));
       if(!cards.length){ return; }
       cards.sort((a,b) => {
         const av = Number(a.getAttribute('data-start-ts') || '0');
         const bv = Number(b.getAttribute('data-start-ts') || '0');
-        if(av === bv){ return 0; }
-        if(av === 0){ return 1; }
-        if(bv === 0){ return -1; }
-        return av - bv;
-      }).forEach(card => grid.appendChild(card));
+        const aa = av > 0 ? av : 9999999999;
+        const bb = bv > 0 ? bv : 9999999999;
+        return aa - bb;
+      });
+      cards.forEach(card => grid.appendChild(card));
     });
   }
 
   function applyFilters(){
-    document.querySelectorAll('.tag-chip,[data-filter]').forEach(x => {
-      const tag = x.dataset.filter;
-      if(tag){ x.classList.toggle('active', active.has(tag)); }
+    document.querySelectorAll('[data-filter]').forEach(chip => {
+      const key = norm(chip.dataset.filterKey || chip.dataset.filter || '');
+      chip.classList.toggle('active', active.has(key));
     });
 
-    document.querySelectorAll('.pick-card,.result-row').forEach(card => {
+    let total = 0;
+    let visible = 0;
+    const wanted = Array.from(active.keys());
+    document.querySelectorAll('.pick-card,.result-row,.result-card').forEach(card => {
+      total += 1;
       const tags = getCardTags(card);
-      const show = Array.from(active).every(tag => tags.includes(tag));
-      card.style.display = (!active.size || show) ? '' : 'none';
+      const show = wanted.every(tag => tags.includes(tag));
+      card.style.setProperty('display', (!wanted.length || show) ? '' : 'none', 'important');
+      if(!wanted.length || show){ visible += 1; }
     });
 
     document.querySelectorAll('.clear-filter').forEach(x => {
-      x.style.display = active.size ? 'inline-flex' : 'none';
+      x.style.display = wanted.length ? 'inline-flex' : 'none';
     });
+    document.querySelectorAll('[data-filter-counter]').forEach(x => {
+      x.textContent = wanted.length ? `${visible}/${total} visible` : '';
+      x.style.display = wanted.length ? 'inline-flex' : 'none';
+    });
+    sortVisibleCardsByTime();
   }
 
   document.addEventListener('click', function(e){
@@ -108,15 +118,17 @@
       applyFilters();
       return;
     }
-
     const chip = e.target.closest('[data-filter]');
     if(chip){
-      const tag = chip.dataset.filter;
-      if(!tag){ return; }
-      if(active.has(tag)){ active.delete(tag); }
-      else{ active.add(tag); }
+      const raw = chip.dataset.filter || '';
+      const key = norm(chip.dataset.filterKey || raw);
+      if(!key){ return; }
+      if(active.has(key)){ active.delete(key); }
+      else{ active.set(key, raw); }
       applyFilters();
+      e.preventDefault();
     }
   });
+  sortVisibleCardsByTime();
 })();
 </script></body></html>
