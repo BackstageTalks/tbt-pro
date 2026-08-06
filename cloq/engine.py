@@ -136,7 +136,7 @@ def build_manifest(input_path: Path, output_rows: List[Dict[str, Any]], audit_ro
         "min_publish_rows": min_publish_rows,
         "policy": {
             "odds_min": 1.70,
-            "odds_gap_max_pct": 0.15,
+            "odds_gap_max_pct": 0.20,
             "odds_gap_formula": "abs(pick_odds-opponent_odds)/min(pick_odds,opponent_odds)",
             "value_data": "informational_only_not_filter",
             "prediction_data": "required",
@@ -149,7 +149,7 @@ def build_manifest(input_path: Path, output_rows: List[Dict[str, Any]], audit_ro
         "risk_tag_counts": dict(risk_counts),
         "support_tag_counts": dict(support_counts),
         "notes": [
-            "CloQ uses one simple rule-set: odds >=1.70, odds gap <=15%, prediction data required.",
+            "CloQ uses one simple rule-set: odds >=1.70, odds gap <=20%, prediction data required.",
             "Odds gap is calculated against the smaller odds to keep the rule conservative.",
             "Value data is not used as a filter; missing or negative value is shown as info only.",
             "No synthetic odds, probabilities or value values are generated.",

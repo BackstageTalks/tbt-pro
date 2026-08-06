@@ -2,7 +2,7 @@
 
 CloQ rules in this version:
 - pick odds >= 1.70
-- odds gap <= 15%, calculated against the smaller of pick/opponent odds
+- odds gap <= 20%, calculated against the smaller of pick/opponent odds
 - prediction data is required
 - value data is informational only; negative/missing value does not reject
 - prematch singles only
@@ -13,7 +13,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 MODEL_VERSION = "CLOQ_SIMPLE_PREDICTION_V6"
 MIN_PICK_ODDS = 1.70
-MAX_ODDS_GAP_PCT = 0.15
+MAX_ODDS_GAP_PCT = 0.20
 
 OPEN_STATUS_TYPES = {
     "", "notstarted", "not_started", "scheduled", "open", "prematch",
@@ -231,7 +231,7 @@ def cloq_reject_reasons(row: Dict[str, Any]) -> List[str]:
     if gap is None:
         reasons.append("REJECT_CLOQ_MISSING_ODDS_GAP")
     elif gap > MAX_ODDS_GAP_PCT:
-        reasons.append("REJECT_CLOQ_ODDS_GAP_OVER_15")
+        reasons.append("REJECT_CLOQ_ODDS_GAP_OVER_20")
     if cp is None:
         reasons.append("REJECT_CLOQ_MISSING_PREDICTION_DATA")
     return list(dict.fromkeys(reasons))
@@ -319,7 +319,7 @@ def annotate_cloq(row: Dict[str, Any]) -> Dict[str, Any]:
     supports = cloq_support_tags(row)
     risks = cloq_risk_tags(row)
     out["cloq_model_version"] = MODEL_VERSION
-    out["cloq_policy"] = "odds>=1.70,odds_gap<=15pct_using_min_odds,prediction_data_required,value_info_only"
+    out["cloq_policy"] = "odds>=1.70,odds_gap<=20pct_using_min_odds,prediction_data_required,value_info_only"
     out["cloq_pick"] = pick_name(row)
     out["cloq_opponent"] = opponent_name(row)
     out["cloq_pick_odds"] = pick_odds(row)
