@@ -1,20 +1,68 @@
 {
-  "model": "CLOQ_VALUE_FIRST_V3_HIGH_VALUE",
-  "created_at_utc": "2026-08-06T04:41:12.413115+00:00",
+  "model": "CLOQ_VALUE_FIRST_V4_CLEAN_VALUE",
+  "created_at_utc": "2026-08-06T06:11:03.094670+00:00",
   "input_path": "outputs/latest_all.json",
   "input_rows": 54,
-  "output_rows": 1,
-  "top_n": 20,
-  "value_status_counts": {
-    "VALUE_POSITIVE": 1
+  "audit_rows": 54,
+  "output_rows": 0,
+  "top_n": 7,
+  "policy": {
+    "odds_min": 1.7,
+    "odds_preferred_max": 2.4,
+    "odds_max": 3.0,
+    "min_value_delta_pp": 3.0,
+    "min_expected_value_pct": 3.0,
+    "opp_strong": "hard_reject",
+    "market_against_pick": "hard_reject",
+    "forced_count": false
   },
-  "odds_gap_bucket_counts": {
-    "playable_close": 1
+  "decision_counts": {
+    "CLOQ_REJECTED": 19,
+    "CLOQ_REJECTED_VALUE_GATE": 35
+  },
+  "value_status_counts": {
+    "VALUE_HIGH": 18,
+    "VALUE_PLAYABLE": 1,
+    "VALUE_THIN": 3,
+    "VALUE_NEGATIVE": 32
+  },
+  "reject_reason_counts": {
+    "REJECT_CLOQ_STATUS_NOT_PREMATCH": 26,
+    "REJECT_CLOQ_ODDS_OVER_3_00": 13,
+    "REJECT_CLOQ_MODEL_PROBABILITY_UNDER_48": 26,
+    "REJECT_CLOQ_MARKET_AGAINST_PICK": 27,
+    "REJECT_CLOQ_LOW_DATA_DEPTH": 4,
+    "REJECT_CLOQ_NEGATIVE_THINQ_EDGE": 26,
+    "REJECT_CLOQ_LOW_VALUE": 35,
+    "REJECT_CLOQ_ODDS_UNDER_1_70": 24
+  },
+  "risk_tag_counts": {
+    "ABOVE_PREFERRED_ODDS_RANGE": 17,
+    "LONG_ODDS_RISK": 13,
+    "MARKET_AGAINST_PICK": 27,
+    "LOW_DATA_CONFIDENCE": 4,
+    "LOW_VALUE_DELTA": 36,
+    "VALUE_THIN": 3,
+    "LOW_EXPECTED_VALUE": 35,
+    "LOW_ODDS_UNDER_1_70": 24,
+    "VALUE_NEGATIVE": 32
+  },
+  "support_tag_counts": {
+    "VALUE_DELTA_PLAYABLE": 18,
+    "VALUE_DELTA_HIGH": 15,
+    "EXPECTED_VALUE_PLAYABLE": 19,
+    "EXPECTED_VALUE_HIGH": 18,
+    "THINQ_EDGE_SUPPORT": 26,
+    "PLAYABLE_CLOSE": 4,
+    "CLOSE_VALUE": 2,
+    "CORQ_PROB_SUPPORT": 22,
+    "MARKET_WITH_PICK": 27
   },
   "notes": [
-    "Value is the primary CloQ signal. V3 requires a playable positive edge instead of neutral/slight value.",
-    "Close odds are a soft bonus only: <=15% gets +3.0, <=25% gets +1.5, <=40% is neutral.",
-    "No wide-odds penalty is applied in this version.",
+    "CloQ is value-first: publishable rows need odds >=1.70 and value_delta >=3pp or EV >=3%.",
+    "Opp strong and strength conflict are hard rejects for clean CloQ.",
+    "Market against pick is a hard reject; market with pick is a score bonus.",
+    "No forced count: CloQ may output zero rows if no clean value exists.",
     "No synthetic odds, probabilities or value values are generated."
   ]
 }
