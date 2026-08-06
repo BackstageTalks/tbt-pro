@@ -133,7 +133,7 @@ def build_manifest(input_path: Path, output_rows: List[Dict[str, Any]], audit_ro
                 "2.10-2.39": 5,
                 "2.40+": 7,
             },
-            "forced_count": "no_fake_rows_but_top_n_7_if_enough_candidates_pass",
+            "forced_count": "top_n_7_from_basic_publishable_pool_evidence_is_scored_not_hard_gate",
         },
         "selected_tier_counts": dict(tier_counts),
         "decision_counts": dict(decision_counts),
@@ -143,7 +143,7 @@ def build_manifest(input_path: Path, output_rows: List[Dict[str, Any]], audit_ro
         "support_tag_counts": dict(support_counts),
         "notes": [
             "CloQ now targets higher realistic prices, especially odds >= 1.90.",
-            "A pick must be a 50/50+ model pick and have enough evidence for its price bucket.",
+            "A pick must be a 50/50+ model pick; evidence weakness is scored and tagged, not used as a hard blocker.",
             "Evidence comes from ELO, H2H, form/surface, market support, opponent weakness, and data depth.",
             "No synthetic odds, probabilities or evidence values are generated.",
         ],
