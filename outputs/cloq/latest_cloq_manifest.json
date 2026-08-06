@@ -1,72 +1,55 @@
 {
-  "model": "CLOQ_VALUE_FIRST_V4_CLEAN_VALUE",
-  "created_at_utc": "2026-08-06T06:52:37.667708+00:00",
+  "model": "CLOQ_SIMPLE_VALUE_V5",
+  "created_at_utc": "2026-08-06T07:07:54.203748+00:00",
   "input_path": "outputs/latest_all.json",
   "input_rows": 54,
   "audit_rows": 54,
-  "output_rows": 0,
+  "output_rows": 1,
   "top_n": 7,
   "min_publish_rows": 3,
   "policy": {
     "odds_min": 1.7,
-    "odds_preferred_max": 2.4,
-    "odds_max": 3.0,
-    "min_value_delta_pp": 3.0,
-    "min_expected_value_pct": 3.0,
-    "opp_strong": "hard_reject",
-    "market_against_pick": "hard_reject",
-    "forced_count": "min_3_best_available_with_explicit_tier_labels"
+    "odds_gap_max_pct": 0.2,
+    "odds_gap_formula": "abs(pick_odds-opponent_odds)/min(pick_odds,opponent_odds)",
+    "negative_value": "reject_if_value_delta_or_EV_is_negative",
+    "missing_value": "allow_with_NO_VALUE_DATA_if_all_other_rules_pass",
+    "forced_count": false
+  },
+  "selected_tier_counts": {
+    "CLOQ_VALUE_INFO": 1
   },
   "decision_counts": {
-    "CLOQ_REJECTED": 19,
-    "CLOQ_REJECTED_VALUE_GATE": 35
-  },
-  "publish_tier_counts": {
-    "NOT_PUBLISHABLE": 54
+    "CLOQ_VALUE_INFO": 1,
+    "CLOQ_REJECTED": 53
   },
   "value_status_counts": {
-    "VALUE_HIGH": 18,
-    "VALUE_PLAYABLE": 1,
-    "VALUE_THIN": 3,
+    "VALUE_POSITIVE": 19,
+    "VALUE_NON_NEGATIVE": 3,
     "VALUE_NEGATIVE": 32
   },
   "reject_reason_counts": {
     "REJECT_CLOQ_STATUS_NOT_PREMATCH": 26,
-    "REJECT_CLOQ_ODDS_OVER_3_00": 13,
-    "REJECT_CLOQ_MODEL_PROBABILITY_UNDER_48": 26,
-    "REJECT_CLOQ_MARKET_AGAINST_PICK": 27,
-    "REJECT_CLOQ_LOW_DATA_DEPTH": 4,
-    "REJECT_CLOQ_NEGATIVE_THINQ_EDGE": 26,
-    "REJECT_CLOQ_LOW_VALUE": 35,
-    "REJECT_CLOQ_ODDS_UNDER_1_70": 24
+    "REJECT_CLOQ_ODDS_GAP_OVER_20": 52,
+    "REJECT_CLOQ_ODDS_UNDER_1_70": 24,
+    "REJECT_CLOQ_NEGATIVE_VALUE": 32
   },
   "risk_tag_counts": {
-    "ABOVE_PREFERRED_ODDS_RANGE": 17,
-    "LONG_ODDS_RISK": 13,
     "MARKET_AGAINST_PICK": 27,
-    "LOW_DATA_CONFIDENCE": 4,
-    "LOW_VALUE_DELTA": 36,
-    "VALUE_THIN": 3,
-    "LOW_EXPECTED_VALUE": 35,
-    "LOW_ODDS_UNDER_1_70": 24,
-    "VALUE_NEGATIVE": 32
+    "ODDS_GAP_NEAR_LIMIT": 54
   },
   "support_tag_counts": {
-    "VALUE_DELTA_PLAYABLE": 18,
-    "VALUE_DELTA_HIGH": 15,
-    "EXPECTED_VALUE_PLAYABLE": 19,
-    "EXPECTED_VALUE_HIGH": 18,
-    "THINQ_EDGE_SUPPORT": 26,
-    "PLAYABLE_CLOSE": 4,
-    "CLOSE_VALUE": 2,
-    "CORQ_PROB_SUPPORT": 22,
+    "VALUE_DELTA_NON_NEGATIVE": 22,
+    "EXPECTED_VALUE_NON_NEGATIVE": 22,
+    "EXPECTED_VALUE_POSITIVE": 19,
+    "MARKET_AGAINST_PICK_INFO": 27,
+    "PLAYABLE_CLOSE": 2,
+    "VALUE_DELTA_POSITIVE": 18,
     "MARKET_WITH_PICK": 27
   },
   "notes": [
-    "CloQ is value-first: publishable rows need odds >=1.70 and value_delta >=3pp or EV >=3%.",
-    "Opp strong and strength conflict are hard rejects for clean CloQ.",
-    "Market against pick is a hard reject; market with pick is a score bonus.",
-    "Clean CloQ remains strict, but the published card can fill up to 3 best-available value backups with explicit tier labels.",
+    "CloQ uses one simple rule-set: odds >=1.70, odds gap <=20%, no negative value.",
+    "Odds gap is calculated against the smaller odds to keep the rule conservative.",
+    "Missing value is not fabricated and is labelled NO_VALUE_DATA when other rules pass.",
     "No synthetic odds, probabilities or value values are generated."
   ]
 }
