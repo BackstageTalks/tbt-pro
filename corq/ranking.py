@@ -1866,3 +1866,381 @@ def annotate_top7_quality(row: Dict[str, Any]) -> Dict[str, Any]:
     row["top7_clean_bonus_points"] = risk.get("bonus_points", 0.0)
     row["top7_data_health_model_version"] = TOP7_DATA_HEALTH_MODEL_VERSION
     return row
+
+# ============================================================
+# Value-first TOP7 final override V4
+# ============================================================
+# This final block intentionally overrides the earlier CorQ-first sorter.
+# Goal: TOP7 = best value/risk bets, not simply highest raw win probability.
+# - odds <= 1.55 need value >= +4pp or EV >= +4%
+# - odds <= 1.55 get a ranking penalty unless value/risk/market/data are clean
+# - sorting is value-first, EV-second, risk/data/market next, raw CorQ last
+# - no forced fallback fill: if only 4 rows pass, TOP7 publishes 4 rows
+
+try:
+    _VALUE_FIRST_V4_BASE_TOP7_REJECT_REASONS
+except NameError:
+    _VALUE_FIRST_V4_BASE_TOP7_REJECT_REASONS = top7_reject_reasons
+    _VALUE_FIRST_V4_BASE_TOP7_RISK_ASSESSMENT = top7_risk_assessment
+    _VALUE_FIRST_V4_BASE_ANNOTATE_TOP7_QUALITY = annotate_top7_quality
+
+TOP7_VALUE_FIRST_MODEL_VERSION = "CORQ_TOP7_VALUE_FIRST_V4"
+LOW_ODDS_FAVORITE_LIMIT = 1.55
+LOW_ODDS_MIN_VALUE_DELTA_PP = 4.0
+LOW_ODDS_MIN_EXPECTED_VALUE_PCT = 4.0
+LOW_ODDS_SORT_PENALTY = 10.0
+LOW_ODDS_EXEMPT_MIN_VALUE_DELTA_PP = 5.0
+LOW_ODDS_EXEMPT_MIN_EXPECTED_VALUE_PCT = 6.0
+LOW_ODDS_EXEMPT_MIN_COMBINED_DEPTH = 0.70
+
+
+def _vf4_clamp(value: float, low: float, high: float) -> float:
+    return max(low, min(high, value))
+
+
+def _vf4_market_text(row: Dict[str, Any]) -> str:
+    return " | ".join(
+        str(x)
+        for x in (
+            row.get("marq_final"),
+            row.get("marq_final_display"),
+            row.get("final_marq"),
+            row.get("market_final"),
+            row.get("marq_market_final"),
+            row.get("marq_v2_signal"),
+            row.get("marq_signal"),
+        )
+        if x
+    ).lower().replace("_", " ")
+
+
+def _vf4_market_with_pick(row: Dict[str, Any]) -> bool:
+    txt = _vf4_market_text(row)
+    if "market with pick" in txt or "with pick" in txt or "value market edge" in txt:
+        return True
+    vd = value_delta_pp(row)
+    ev = expected_value_pct(row)
+    return bool((vd is not None and vd >= 3.0) or (ev is not None and ev >= 3.0))
+
+
+def _vf4_market_against_pick(row: Dict[str, Any]) -> bool:
+    txt = _vf4_market_text(row)
+    if "market against pick" in txt or "against pick" in txt or "no value price" in txt:
+        return True
+    vd = value_delta_pp(row)
+    ev = expected_value_pct(row)
+    return bool((vd is not None and vd <= -2.0) or (ev is not None and ev <= -3.0))
+
+
+def _vf4_low_odds_value_ok(row: Dict[str, Any]) -> bool:
+    vd = value_delta_pp(row)
+    ev = expected_value_pct(row)
+    return bool(
+        (vd is not None and vd >= LOW_ODDS_MIN_VALUE_DELTA_PP)
+        or (ev is not None and ev >= LOW_ODDS_MIN_EXPECTED_VALUE_PCT)
+    )
+
+
+def _vf4_low_odds_exempt(row: Dict[str, Any], risk: Optional[Dict[str, Any]] = None) -> bool:
+    risk = risk or top7_risk_assessment(row)
+    vd = value_delta_pp(row)
+    ev = expected_value_pct(row)
+    strong_value = bool(
+        (vd is not None and vd >= LOW_ODDS_EXEMPT_MIN_VALUE_DELTA_PP)
+        or (ev is not None and ev >= LOW_ODDS_EXEMPT_MIN_EXPECTED_VALUE_PCT)
+    )
+    clean_risk = int(risk.get("risk_count") or 0) == 0 and not _vf4_market_against_pick(row)
+    market_support = _vf4_market_with_pick(row)
+    high_depth = combined_data_depth(row) >= LOW_ODDS_EXEMPT_MIN_COMBINED_DEPTH
+    return bool(strong_value and clean_risk and market_support and high_depth)
+
+
+def _vf4_low_odds_gate_status(row: Dict[str, Any]) -> str:
+    odds = pick_odds_value(row)
+    if odds is None:
+        return "NO_PICK_ODDS"
+    if odds > LOW_ODDS_FAVORITE_LIMIT:
+        return "NOT_LOW_ODDS"
+    if _vf4_low_odds_value_ok(row):
+        return "LOW_ODDS_VALUE_OK"
+    return "LOW_ODDS_REJECTED_NEEDS_VALUE"
+
+
+def _vf4_value_gate_status(row: Dict[str, Any]) -> str:
+    vd = value_delta_pp(row)
+    ev = expected_value_pct(row)
+    if vd is None and ev is None:
+        return "NO_VALUE_DATA"
+    if (vd is not None and vd >= 4.0) or (ev is not None and ev >= 4.0):
+        return "STRONG_VALUE"
+    if (vd is not None and vd > 0) or (ev is not None and ev > 0):
+        return "POSITIVE_VALUE"
+    if (vd is not None and vd < 0) or (ev is not None and ev < 0):
+        return "NEGATIVE_VALUE"
+    return "NEUTRAL_VALUE"
+
+
+def _vf4_market_bonus(row: Dict[str, Any]) -> float:
+    if _vf4_market_with_pick(row):
+        return 4.0
+    if _vf4_market_against_pick(row):
+        return -4.0
+    return 0.0
+
+
+def _vf4_rank_audit_tags(row: Dict[str, Any], risk: Optional[Dict[str, Any]] = None) -> List[str]:
+    risk = risk or top7_risk_assessment(row)
+    tags: List[str] = []
+    vstatus = _vf4_value_gate_status(row)
+    lstatus = _vf4_low_odds_gate_status(row)
+    tags.append(vstatus)
+    if lstatus != "NOT_LOW_ODDS":
+        tags.append(lstatus)
+    if _vf4_market_with_pick(row):
+        tags.append("MARKET_WITH_PICK")
+    if _vf4_market_against_pick(row):
+        tags.append("MARKET_AGAINST_PICK")
+    if combined_data_depth(row) >= LOW_ODDS_EXEMPT_MIN_COMBINED_DEPTH:
+        tags.append("HIGH_DATA_DEPTH")
+    if int(risk.get("risk_count") or 0) >= 2:
+        tags.append("STACKED_RISK")
+    for tag in risk.get("risk_tags") or []:
+        if tag:
+            tags.append(str(tag))
+    out: List[str] = []
+    seen = set()
+    for tag in tags:
+        t = str(tag or "").strip()
+        if t and t not in seen:
+            out.append(t)
+            seen.add(t)
+    return out
+
+
+def top7_reject_reasons(row: Dict[str, Any]) -> List[str]:
+    reasons = list(_VALUE_FIRST_V4_BASE_TOP7_REJECT_REASONS(row))
+    odds = pick_odds_value(row)
+    if odds is not None and odds <= LOW_ODDS_FAVORITE_LIMIT and not _vf4_low_odds_value_ok(row):
+        reasons.append("REJECT_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE")
+    return list(dict.fromkeys(reasons))
+
+
+if "REJECT_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE" not in TOP7_REJECT_PRIORITY:
+    TOP7_REJECT_PRIORITY.append("REJECT_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE")
+
+
+def top7_risk_assessment(row: Dict[str, Any]) -> Dict[str, Any]:
+    base = deepcopy(_VALUE_FIRST_V4_BASE_TOP7_RISK_ASSESSMENT(row))
+    odds = pick_odds_value(row)
+    vd = value_delta_pp(row)
+    ev = expected_value_pct(row)
+
+    base["value_first_model_version"] = TOP7_VALUE_FIRST_MODEL_VERSION
+    base["value_delta_pp"] = vd
+    base["expected_value_pct"] = ev
+    base["market_support_bonus"] = _vf4_market_bonus(row)
+    base["low_odds_gate_status"] = _vf4_low_odds_gate_status(row)
+    base["value_gate_status"] = _vf4_value_gate_status(row)
+
+    if odds is not None and odds <= LOW_ODDS_FAVORITE_LIMIT:
+        exempt = _vf4_low_odds_exempt(row, base)
+        base["low_odds_penalty_exempt"] = exempt
+        base["low_odds_penalty_points"] = 0.0 if exempt else LOW_ODDS_SORT_PENALTY
+        if not exempt:
+            _append_unique_value_risk(
+                base,
+                tag="LOW_ODDS_FAVORITE_SORT_PENALTY",
+                label="Short price penalty",
+                penalty=LOW_ODDS_SORT_PENALTY,
+                odds=odds,
+                value_delta_pp=vd,
+                expected_value_pct=ev,
+            )
+    else:
+        base["low_odds_penalty_exempt"] = True
+        base["low_odds_penalty_points"] = 0.0
+
+    if _vf4_market_with_pick(row):
+        _append_unique_value_support(
+            base,
+            tag="VALUE_FIRST_MARKET_WITH_PICK",
+            label="Market with pick",
+            bonus=2.0,
+        )
+    if vd is not None and vd >= 4.0:
+        _append_unique_value_support(
+            base,
+            tag="VALUE_FIRST_STRONG_DELTA",
+            label="Strong value delta",
+            bonus=2.0,
+            value_delta_pp=vd,
+        )
+    if ev is not None and ev >= 4.0:
+        _append_unique_value_support(
+            base,
+            tag="VALUE_FIRST_STRONG_EV",
+            label="Strong EV",
+            bonus=2.0,
+            expected_value_pct=ev,
+        )
+
+    base["risk_count"] = len(base.get("risk_tags") or [])
+    base["positive_support_count"] = len(base.get("support_tags") or [])
+    base["high_risk"] = bool(base.get("high_risk")) or int(base.get("risk_count") or 0) >= 3
+    return base
+
+
+def top7_quality_score(row: Dict[str, Any]) -> float:
+    """Value-first TOP7 sort score.
+
+    The score intentionally puts model-vs-price value before raw CorQ probability.
+    Raw CorQ remains in the score, but only as a later/tie-break style factor.
+    """
+    risk = top7_risk_assessment(row)
+    vd = value_delta_pp(row)
+    ev = expected_value_pct(row)
+    cp = corq_probability(row) * 100.0
+    cdepth = combined_data_depth(row) * 100.0
+    pdepth = pick_data_depth(row) * 100.0
+    conf = thinq_confidence(row) * 100.0
+    edge = max(pick_thinq_edge(row), 0.0) * 100.0
+    market_bonus = _vf4_market_bonus(row)
+    penalty = float(risk.get("penalty_points") or 0.0)
+    bonus = float(risk.get("bonus_points") or 0.0)
+
+    raw = 0.0
+    raw += _vf4_clamp(vd if vd is not None else -3.0, -12.0, 14.0) * 4.0
+    raw += _vf4_clamp(ev if ev is not None else -4.0, -18.0, 28.0) * 1.15
+    raw += market_bonus
+    raw += cdepth * 0.18
+    raw += pdepth * 0.08
+    raw += conf * 0.04
+    raw += edge * 0.20
+    raw += cp * 0.18
+    raw -= penalty
+    raw += bonus * 0.50
+    raw -= max(0, int(risk.get("risk_count") or 0) - 1) * 2.0
+    return round(raw, 4)
+
+
+def sort_publishable(rows: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    data = [r for r in rows if r.get("top7_publishable") is True]
+    ranked = sorted(
+        data,
+        key=lambda r: (
+            top7_quality_score(r),
+            value_delta_pp(r) if value_delta_pp(r) is not None else -999.0,
+            expected_value_pct(r) if expected_value_pct(r) is not None else -999.0,
+            -int(top7_risk_assessment(r).get("risk_count") or 0),
+            combined_data_depth(r),
+            _vf4_market_bonus(r),
+            pick_data_depth(r),
+            thinq_confidence(r),
+            corq_probability(r),
+        ),
+        reverse=True,
+    )
+    for idx, row in enumerate(ranked, start=1):
+        row["top7_sort_rank"] = idx
+        row["top7_sort_primary"] = "VALUE_FIRST_SCORE_DESC"
+        row["top7_sort_model_version"] = TOP7_VALUE_FIRST_MODEL_VERSION
+        row["corq_top7_sort_score"] = top7_quality_score(row)
+    return ranked
+
+
+def annotate_top7_quality(row: Dict[str, Any]) -> Dict[str, Any]:
+    row = _VALUE_FIRST_V4_BASE_ANNOTATE_TOP7_QUALITY(row)
+    reasons = top7_reject_reasons(row)
+    publishable = not reasons
+    risk = top7_risk_assessment(row)
+
+    row["top7_filter_mode"] = "PUBLISHABLE_VALUE_FIRST_LOW_ODDS_GATE_V4"
+    row["top7_publishable"] = publishable
+    row["eligible_for_top7"] = publishable
+    row["top7_quality_reject_reasons"] = reasons
+    row["top7_reject_reasons"] = reasons
+    row["top7_hard_reject_reasons"] = reasons
+    row["top7_primary_reject_reason"] = top7_primary_reject_reason(reasons)
+    row["top7_reject_reason_count"] = len(reasons)
+
+    row["top7_value_delta_pp"] = value_delta_pp(row)
+    row["top7_expected_value_pct"] = expected_value_pct(row)
+    row["top7_combined_data_depth"] = combined_data_depth(row)
+    row["top7_sets_games_data_depth"] = round(sets_games_data_depth(row), 6)
+    row["top7_low_context_risk"] = low_context_risk(row)
+
+    row["top7_risk_tags"] = risk.get("risk_tags", [])
+    row["top7_risk_labels"] = risk.get("risk_labels", risk.get("labels", []))
+    row["top7_support_tags"] = risk.get("support_tags", [])
+    row["top7_support_labels"] = risk.get("support_labels", [])
+    row["top7_positive_support_count"] = risk.get("positive_support_count", 0)
+    row["top7_risk_count"] = risk.get("risk_count", 0)
+    row["top7_high_risk"] = risk.get("high_risk", False)
+    row["top7_risk_penalty_details"] = risk.get("details", [])
+    row["top7_risk_penalty_points"] = risk.get("penalty_points", 0.0)
+    row["top7_clean_bonus_points"] = risk.get("bonus_points", 0.0)
+
+    row["corq_top7_sort_score"] = top7_quality_score(row) if publishable else 0.0
+    row["corq_value_gate_status"] = _vf4_value_gate_status(row)
+    row["corq_low_odds_gate_status"] = _vf4_low_odds_gate_status(row)
+    row["corq_risk_penalty"] = risk.get("penalty_points", 0.0)
+    row["corq_market_support_bonus"] = _vf4_market_bonus(row)
+    row["corq_top7_reject_reasons"] = reasons
+    row["corq_rank_audit_tags"] = _vf4_rank_audit_tags(row, risk)
+    row["top7_value_first_model_version"] = TOP7_VALUE_FIRST_MODEL_VERSION
+    row["top7_quality_score"] = row["corq_top7_sort_score"]
+
+    flags = row.get("corq_warning_flags")
+    if not isinstance(flags, list):
+        flags = []
+    for tag in row.get("corq_rank_audit_tags") or []:
+        if tag not in flags and ("RISK" in tag or "REJECT" in tag or "NEGATIVE" in tag or "LOW_ODDS" in tag):
+            flags.append(tag)
+    row["corq_warning_flags"] = flags
+    return row
+
+
+def select_top7(rows: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> List[Dict[str, Any]]:
+    """Select up to top_n publishable rows only.
+
+    No soft fallback fill. If only 4 rows pass the gates, TOP7 publishes 4 rows.
+    """
+    annotated = annotate_rows(rows)
+    publishable = sort_publishable(annotated)
+    selected: List[Dict[str, Any]] = []
+    seen_matches = set()
+    _append_unique_selection(selected, publishable, seen_matches, top_n)
+    for idx, row in enumerate(selected, start=1):
+        row["top7_rank"] = idx
+        row["corq_rank"] = idx
+    return selected
+
+
+def rank_predictions(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    all_rows = annotate_rows(list(predictions or []))
+    top7 = select_top7(all_rows, top_n=top_n)
+    return all_rows, top7
+
+
+def build_all_and_top7(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    return rank_predictions(predictions, top_n=top_n)
+
+
+def build_rankings(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    return rank_predictions(predictions, top_n=top_n)
+
+
+def apply_ranking(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    return rank_predictions(predictions, top_n=top_n)
+
+
+def evaluate_eligibility(row: Dict[str, Any]) -> Dict[str, Any]:
+    return annotate_top7_quality(row)
+
+
+def is_publishable(row: Dict[str, Any]) -> bool:
+    return not top7_reject_reasons(row)
+
+
+def top7_from_ranking(ranked: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT, *args: Any, **kwargs: Any) -> List[Dict[str, Any]]:
+    return select_top7(ranked, top_n=top_n)
