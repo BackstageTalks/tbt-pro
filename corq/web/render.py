@@ -5392,6 +5392,144 @@ def render_results_page(manifest: Dict[str, Any]) -> str:
     ]
     return page_shell('Results', RESULTS_PATH, '\n'.join(body), manifest)
 
+
+# ============================================================
+# Results size-safe 14-day render override V3
+# ============================================================
+# GitHub rejects individual files over 100 MB. Full dynamic Results rendering
+# kept all historical cards in the HTML and could exceed that limit. This final
+# override renders only the default rolling 14-day window into HTML so the site
+# stays publishable. Calendar controls remain visible as the selected range UI;
+# wider historical exploration should be added later via paginated/lazy JSON.
+
+RESULTS_SIZE_SAFE_DEFAULT_DAYS = 14
+RESULTS_SIZE_SAFE_TZ = "Europe/Bratislava"
+
+
+def _results_size_safe_today() -> date:
+    return datetime.now(ZoneInfo(RESULTS_SIZE_SAFE_TZ)).date()
+
+
+def results_default_date_range() -> Tuple[date, date]:
+    end = _results_size_safe_today()
+    start = end - timedelta(days=RESULTS_SIZE_SAFE_DEFAULT_DAYS - 1)
+    return start, end
+
+
+def result_row_local_date(row: Dict[str, Any]) -> Optional[date]:
+    dt = result_row_date_value(row)
+    if dt is None:
+        return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(ZoneInfo(RESULTS_SIZE_SAFE_TZ)).date()
+
+
+def result_row_local_date_iso(row: Dict[str, Any]) -> str:
+    d = result_row_local_date(row)
+    return d.isoformat() if d is not None else ""
+
+
+def result_in_date_range(row: Dict[str, Any], start: date, end: date) -> bool:
+    d = result_row_local_date(row)
+    return d is not None and start <= d <= end
+
+
+def filter_results_date_range(rows: List[Dict[str, Any]], start: date, end: date) -> List[Dict[str, Any]]:
+    return [r for r in rows or [] if result_in_date_range(r, start, end)]
+
+
+def render_results_calendar_filter(start: date, end: date, total_count: int, loaded_count: int) -> str:
+    range_label = f"{start.strftime('%d.%m.%y')} - {end.strftime('%d.%m.%y')}"
+    return f"""
+<div class="results-range-panel summary-panel" data-results-range-panel>
+  <div class="summary-title">Results date range</div>
+  <div class="result-filter-help">Rendered range is today + previous 13 days in Europe/Bratislava. This keeps the generated HTML below GitHub's file-size limit. Wider historical analysis should be rendered later through a paginated/lazy Results view.</div>
+  <div class="result-filter-row results-calendar-row">
+    <label class="result-filter-group results-calendar-group">
+      <span class="result-filter-group-title">From</span>
+      <input class="results-date-input" type="date" value="{esc(start.isoformat())}" aria-label="Results from date" readonly />
+    </label>
+    <label class="result-filter-group results-calendar-group">
+      <span class="result-filter-group-title">To</span>
+      <input class="results-date-input" type="date" value="{esc(end.isoformat())}" aria-label="Results to date" readonly />
+    </label>
+    <span class="tag-chip audit-pill audit-pill-signal"><span class="audit-pill-count">{loaded_count}</span> <span class="audit-pill-label">loaded / {total_count} total</span></span>
+    <span class="tag-chip audit-pill audit-pill-signal"><span class="audit-pill-label">{esc(range_label)}</span></span>
+  </div>
+</div>"""
+
+
+def _results_calendar_css_block() -> str:
+    return """
+<style>
+.results-range-panel{margin-bottom:12px}.results-calendar-row{align-items:center}.results-calendar-group{gap:8px}.results-date-input{appearance:auto;background:#071629;color:#f8fafc;border:1px solid rgba(96,165,250,.45);border-radius:10px;padding:8px 10px;font-weight:900;font-size:13px;outline:none;color-scheme:dark;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}.results-date-input:focus{border-color:#fb923c;box-shadow:0 0 0 2px rgba(251,146,60,.22)}
+</style>"""
+
+
+def render_results_filter_builder(rows: List[Dict[str, Any]], total_count: Optional[int] = None) -> str:
+    start, end = results_default_date_range()
+    total = len(rows or []) if total_count is None else int(total_count)
+    return _results_calendar_css_block() + render_results_calendar_filter(start, end, total, len(rows or [])) + _RESULTS_RANGE_BASE_FILTER_BUILDER(rows)
+
+
+def render_result_card(row: Dict[str, Any], rank: int, model_title: str = '') -> str:
+    tags = result_tags(row)
+    data_tags = '|'.join(tags)
+    st = result_status(row)
+    units = as_float(row.get('units'), 0.0) or 0.0
+    odds = pick_odds(row) or 0.0
+    date_iso = result_row_local_date_iso(row)
+    model = result_model_filter_tag(row, model_title) or model_title or ''
+    return "\n".join([
+        f'<div class="result-card tag-analysis-row" data-tags="{esc(data_tags)}" data-result="{esc(st)}" data-model="{esc(model)}" data-section="{esc(model_title)}" data-date="{esc(date_iso)}" data-units="{units:.4f}" data-odds="{odds:.4f}">',
+        _result_card_pick_box(row, rank),
+        _result_mmx_box(row),
+        _result_corq_box(row),
+        _result_thinq_box(row),
+        _result_sets_games_box(row),
+        render_marq_box(row),
+        _result_status_box(row),
+        '</div>',
+    ])
+
+
+def render_results_card_section(rows: List[Dict[str, Any]], title: str, limit: Optional[int] = None) -> str:
+    rows_sorted = sorted(rows or [], key=result_card_sort_key)
+    if limit is not None:
+        rows_sorted = rows_sorted[:limit]
+    if not rows_sorted:
+        cards = '<div class="empty">No results available in selected range.</div>'
+    else:
+        cards = '<div class="results-card-grid">' + '\n'.join(render_result_card(r, i + 1, title) for i, r in enumerate(rows_sorted)) + '</div>'
+    return f'<section class="result-section" data-result-section="{esc(title)}">{_result_section_header(rows_sorted, title)}{cards}</section>'
+
+
+def render_results_page(manifest: Dict[str, Any]) -> str:
+    corq_all = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_corq.json', []))
+    cloq_all = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_cloq.json', []))
+    audit_all = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_audit.json', []))
+    all_combined = corq_all + cloq_all + audit_all
+
+    start, end = results_default_date_range()
+    corq = filter_results_date_range(corq_all, start, end)
+    cloq = filter_results_date_range(cloq_all, start, end)
+    audit_rows = filter_results_date_range(audit_all, start, end)
+    combined = corq + cloq + audit_rows
+
+    mark_audit_h2h_top10(combined)
+    body = [
+        _result_css_block(),
+        render_results_filter_builder(combined, total_count=len(all_combined)),
+        render_results_card_section(corq, 'CorQ TOP7 Results'),
+        render_results_card_section(cloq, 'CloQ Results'),
+        render_results_card_section(audit_rows, 'Audit Results', limit=80),
+        depth_analysis(combined),
+        sets_games_audit(combined),
+        tag_analysis(combined),
+    ]
+    return page_shell('Results', RESULTS_PATH, '\n'.join(body), manifest)
+
 def main() -> None:
     render_all()
 
