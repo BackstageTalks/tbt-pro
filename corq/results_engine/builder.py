@@ -879,6 +879,11 @@ def _result_icon(status: str) -> str:
     }.get(status, "⏳")
 
 
+def number_emoji(index: int) -> str:
+    emojis = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟"]
+    return emojis[index - 1] if 1 <= index <= len(emojis) else f"{index}."
+
+
 def _short_tg_name(name: Any) -> str:
     clean = " ".join(str(name or "").split()).strip()
     if not clean:
