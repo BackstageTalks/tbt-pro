@@ -1,0 +1,132 @@
+name: CloQ Value Run
+
+on:
+  workflow_dispatch:
+    inputs:
+      input_path:
+        description: "Input ALL JSON path"
+        required: false
+        default: "outputs/latest_all.json"
+      output_root:
+        description: "Output root"
+        required: false
+        default: "outputs"
+      top_n:
+        description: "Maximum CloQ rows to publish"
+        required: false
+        default: "7"
+  repository_dispatch:
+    types:
+      - cloq-run
+      - cloq-value-run
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cloq-value-run
+  cancel-in-progress: false
+
+jobs:
+  cloq-value-run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate CloQ files
+        run: |
+          python -m py_compile cloq/__init__.py cloq/engine.py cloq/filters.py
+
+      - name: Build CloQ value output
+        env:
+          INPUT_PATH: ${{ github.event.inputs.input_path || 'outputs/latest_all.json' }}
+          OUTPUT_ROOT: ${{ github.event.inputs.output_root || 'outputs' }}
+          TOP_N: ${{ github.event.inputs.top_n || '7' }}
+        run: |
+          set -euo pipefail
+          echo "CloQ input: ${INPUT_PATH}"
+          echo "CloQ output root: ${OUTPUT_ROOT}"
+          echo "CloQ top_n: ${TOP_N}"
+
+          if [ ! -f "${INPUT_PATH}" ]; then
+            echo "Missing CloQ input file: ${INPUT_PATH}"
+            echo "Run Daily Tennis Predictions first, or pass a valid input_path."
+            exit 1
+          fi
+
+          python -m cloq.engine --input "${INPUT_PATH}" --output-root "${OUTPUT_ROOT}" --top-n "${TOP_N}"
+
+      - name: Validate CloQ outputs
+        env:
+          OUTPUT_ROOT: ${{ github.event.inputs.output_root || 'outputs' }}
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          import os
+
+          root = Path(os.getenv("OUTPUT_ROOT", "outputs"))
+          required = [
+              root / "cloq" / "latest_cloq.json",
+              root / "latest_cloq.json",
+              root / "cloq" / "latest_cloq_manifest.json",
+              root / "cloq" / "latest_cloq_audit.json",
+          ]
+          for path in required:
+              if not path.exists():
+                  raise SystemExit(f"Missing CloQ output: {path}")
+              json.loads(path.read_text(encoding="utf-8"))
+              print(f"OK {path} bytes={path.stat().st_size}")
+          PY
+
+      - name: Commit CloQ outputs
+        env:
+          OUTPUT_ROOT: ${{ github.event.inputs.output_root || 'outputs' }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add "${OUTPUT_ROOT}/cloq" "${OUTPUT_ROOT}/latest_cloq.json" || true
+
+          if git diff --cached --quiet; then
+            echo "No CloQ output changes"
+            exit 0
+          fi
+
+          git commit -m "Update CloQ value output"
+          if git push; then
+            echo "CloQ output pushed."
+            exit 0
+          fi
+
+          echo "Push rejected, preserving CloQ outputs and retrying on latest main..."
+          tmp_dir="$(mktemp -d)"
+          mkdir -p "$tmp_dir"
+          cp -a "${OUTPUT_ROOT}/cloq" "$tmp_dir/cloq" 2>/dev/null || true
+          cp -a "${OUTPUT_ROOT}/latest_cloq.json" "$tmp_dir/latest_cloq.json" 2>/dev/null || true
+
+          git fetch origin main
+          git reset --hard origin/main
+
+          mkdir -p "${OUTPUT_ROOT}"
+          rm -rf "${OUTPUT_ROOT}/cloq"
+          [ -d "$tmp_dir/cloq" ] && cp -a "$tmp_dir/cloq" "${OUTPUT_ROOT}/cloq"
+          [ -f "$tmp_dir/latest_cloq.json" ] && cp -a "$tmp_dir/latest_cloq.json" "${OUTPUT_ROOT}/latest_cloq.json"
+
+          git add "${OUTPUT_ROOT}/cloq" "${OUTPUT_ROOT}/latest_cloq.json" || true
+          if git diff --cached --quiet; then
+            echo "No CloQ output changes after reset."
+            exit 0
+          fi
+
+          git commit -m "Update CloQ value output"
+          git push
