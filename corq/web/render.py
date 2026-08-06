@@ -4869,6 +4869,108 @@ def tag_filter_script() -> str:
 })();
 </script>"""
 
+
+# ============================================================
+# Results tag stats full override V1
+# ============================================================
+# Appends a complete tag stats table to the bottom of Results and sorts it by
+# decided winrate from best to worst. Includes all current Audit/Results tags.
+
+RESULTS_TAG_STATS_TITLE = "Tag Stats by Winrate"
+
+
+def _results_tag_stats_rows(rows: List[Dict[str, Any]]) -> List[Tuple[str, Dict[str, Any]]]:
+    agg: Dict[str, Dict[str, Any]] = defaultdict(lambda: {
+        "count": 0,
+        "won": 0,
+        "lost": 0,
+        "void": 0,
+        "pending": 0,
+        "units": 0.0,
+        "odds": [],
+    })
+    for row in rows or []:
+        for tag in result_tags(row):
+            t = str(tag or "").strip()
+            if not t:
+                continue
+            a = agg[t]
+            a["count"] += 1
+            st = result_status(row)
+            if st == "WON":
+                a["won"] += 1
+            elif st == "LOST":
+                a["lost"] += 1
+            elif st == "VOID":
+                a["void"] += 1
+            else:
+                a["pending"] += 1
+            a["units"] += as_float(row.get("units"), 0.0) or 0.0
+            od = pick_odds(row)
+            if od:
+                a["odds"].append(od)
+    def sort_key(item: Tuple[str, Dict[str, Any]]) -> Tuple[float, int, float, int, str]:
+        tag, a = item
+        decided = int(a["won"] + a["lost"])
+        winrate = (a["won"] / decided) if decided else -1.0
+        units = float(a.get("units") or 0.0)
+        # Decided tags first, then best winrate, then sample size, then units.
+        return (winrate, decided, units, int(a["count"]), tag)
+    return sorted(agg.items(), key=sort_key, reverse=True)
+
+
+def tag_analysis(rows: List[Dict[str, Any]]) -> str:
+    tag_rows = _results_tag_stats_rows(rows)
+    if not tag_rows:
+        return '<div class="results-panel"><div class="summary-title">Tag Stats by Winrate</div><div class="empty">No tag data yet.</div></div>'
+    body = []
+    for tag, a in tag_rows:
+        decided = int(a["won"] + a["lost"])
+        winp = a["won"] / decided * 100 if decided else 0.0
+        avg = sum(a["odds"]) / len(a["odds"]) if a["odds"] else None
+        avg_txt = "—" if avg is None else f"{avg:.2f}"
+        decided_txt = f"{decided}/{a['count']}"
+        body.append(
+            f'<tr class="result-row tag-analysis-row" data-tags="{esc(tag)}">'
+            f'<td><span class="{audit_note_css(tag)}" data-filter="{esc(tag)}">{esc(tag)}</span></td>'
+            f'<td>{a["count"]}</td>'
+            f'<td>{a["won"]}-{a["lost"]}-{a["void"]}-{a["pending"]}</td>'
+            f'<td>{decided_txt}</td>'
+            f'<td><b>{winp:.1f}%</b></td>'
+            f'<td>{a["units"]:+.2f}u</td>'
+            f'<td>{esc(avg_txt)}</td>'
+            f'</tr>'
+        )
+    return (
+        '<div class="results-panel tag-stats-panel">'
+        f'<div class="summary-title">{RESULTS_TAG_STATS_TITLE}</div>'
+        '<div class="result-filter-help">Sorted by decided winrate from best to worst. W-L-V-P = Won, Lost, Void, Pending.</div>'
+        '<div class="table-wrap"><table class="results-table"><thead><tr>'
+        '<th>Tag</th><th>Total</th><th>W-L-V-P</th><th>Decided</th><th>Winrate</th><th>Units</th><th>Avg odds</th>'
+        '</tr></thead><tbody>' + ''.join(body) + '</tbody></table></div>'
+        '<span class="clear-filter tag-chip audit-pill audit-pill-clear">Clear filter</span>'
+        '</div>'
+    )
+
+
+def render_results_page(manifest: Dict[str, Any]) -> str:
+    corq = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_corq.json', []))
+    cloq = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_cloq.json', []))
+    audit_rows = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_audit.json', []))
+    combined = corq + cloq + audit_rows
+    mark_audit_h2h_top10(combined)
+    body = [
+        _result_css_block(),
+        render_results_filter_builder(combined),
+        render_results_card_section(corq, 'CorQ TOP7 Results'),
+        render_results_card_section(cloq, 'CloQ Results'),
+        render_results_card_section(audit_rows, 'Audit Results', limit=80),
+        depth_analysis(combined),
+        sets_games_audit(combined),
+        tag_analysis(combined),
+    ]
+    return page_shell('Results', RESULTS_PATH, '\n'.join(body), manifest)
+
 def main() -> None:
     render_all()
 
