@@ -136,10 +136,10 @@ def build_manifest(input_path: Path, output_rows: List[Dict[str, Any]], audit_ro
         "min_publish_rows": min_publish_rows,
         "policy": {
             "odds_min": 1.70,
-            "odds_gap_max_pct": 0.20,
+            "odds_gap_max_pct": 0.15,
             "odds_gap_formula": "abs(pick_odds-opponent_odds)/min(pick_odds,opponent_odds)",
-            "negative_value": "reject_if_value_delta_or_EV_is_negative",
-            "missing_value": "allow_with_NO_VALUE_DATA_if_all_other_rules_pass",
+            "value_data": "informational_only_not_filter",
+            "prediction_data": "required",
             "forced_count": False,
         },
         "selected_tier_counts": dict(tier_counts),
@@ -149,9 +149,9 @@ def build_manifest(input_path: Path, output_rows: List[Dict[str, Any]], audit_ro
         "risk_tag_counts": dict(risk_counts),
         "support_tag_counts": dict(support_counts),
         "notes": [
-            "CloQ uses one simple rule-set: odds >=1.70, odds gap <=20%, no negative value.",
+            "CloQ uses one simple rule-set: odds >=1.70, odds gap <=15%, prediction data required.",
             "Odds gap is calculated against the smaller odds to keep the rule conservative.",
-            "Missing value is not fabricated and is labelled NO_VALUE_DATA when other rules pass.",
+            "Value data is not used as a filter; missing or negative value is shown as info only.",
             "No synthetic odds, probabilities or value values are generated.",
         ],
     }
