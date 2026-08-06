@@ -1,0 +1,91 @@
+name: Manual Results Settlement
+
+on:
+  workflow_dispatch:
+    inputs:
+      settle_date:
+        description: "Specific betting-day date to settle, YYYY-MM-DD. Empty = yesterday in Europe/Bratislava."
+        required: false
+        default: ""
+      settlement_grace_hours:
+        description: "Only settle matches after start time plus this many hours."
+        required: false
+        default: "2"
+      write_tg_summary:
+        description: "Write outputs/telegram/latest_tg_results_message.txt"
+        required: false
+        type: choice
+        options:
+          - "true"
+          - "false"
+        default: "true"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: manual-results-settlement
+  cancel-in-progress: false
+
+jobs:
+  settle:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+      RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+      TG_FEED_TIMEZONE: "Europe/Bratislava"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pandas lxml html5lib beautifulsoup4 requests
+
+      - name: Settle selected betting day
+        run: |
+          set -euo pipefail
+          SETTLE_DATE="${{ github.event.inputs.settle_date }}"
+          GRACE="${{ github.event.inputs.settlement_grace_hours || '2' }}"
+          WRITE_TG="${{ github.event.inputs.write_tg_summary || 'true' }}"
+
+          CMD=(python -m corq.results_engine.builder --output-root outputs --fetch-api --local-tz Europe/Bratislava --settlement-grace-hours "$GRACE")
+          if [ -n "$SETTLE_DATE" ]; then
+            CMD+=(--settle-date "$SETTLE_DATE")
+            if [ "$WRITE_TG" = "true" ]; then
+              CMD+=(--write-tg-summary --tg-summary-date "$SETTLE_DATE")
+            fi
+          else
+            CMD+=(--settle-yesterday)
+            if [ "$WRITE_TG" = "true" ]; then
+              CMD+=(--write-tg-summary)
+            fi
+          fi
+
+          echo "Running: ${CMD[*]}"
+          "${CMD[@]}"
+
+      - name: Render web after settlement
+        run: |
+          python corq/web/render.py
+
+      - name: Commit results and site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add outputs corq/site || true
+          if git diff --cached --quiet; then
+            echo "No settlement/render changes to commit."
+          else
+            git commit -m "Manual results settlement"
+            git push
+          fi
