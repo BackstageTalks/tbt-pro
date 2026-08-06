@@ -1,6 +1,6 @@
 {
   "model": "CLOQ_HIGH_CONFIDENCE_PRICE_V2",
-  "created_at_utc": "2026-08-06T12:41:54.421070+00:00",
+  "created_at_utc": "2026-08-06T13:09:42.899371+00:00",
   "input_path": "outputs/latest_all.json",
   "input_rows": 54,
   "audit_rows": 54,
@@ -20,7 +20,7 @@
       "2.10-2.39": 5,
       "2.40+": 7
     },
-    "forced_count": "no_fake_rows_but_top_n_7_if_enough_candidates_pass"
+    "forced_count": "top_n_7_from_basic_publishable_pool_evidence_is_scored_not_hard_gate"
   },
   "selected_tier_counts": {
     "CLOQ_PRICE_FALLBACK": 1,
@@ -73,7 +73,7 @@
   },
   "notes": [
     "CloQ now targets higher realistic prices, especially odds >= 1.90.",
-    "A pick must be a 50/50+ model pick and have enough evidence for its price bucket.",
+    "A pick must be a 50/50+ model pick; evidence weakness is scored and tagged, not used as a hard blocker.",
     "Evidence comes from ELO, H2H, form/surface, market support, opponent weakness, and data depth.",
     "No synthetic odds, probabilities or evidence values are generated."
   ]
