@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-07T11:49:38+00:00",
-  "date": "2026-08-07",
-  "fetch_api": false,
-  "settlement_grace_hours": 0.0,
+  "generated_at": "2026-08-07T12:00:58+00:00",
+  "date": "2026-08-03",
+  "fetch_api": true,
+  "settlement_grace_hours": 2.0,
   "local_tz": "Europe/Bratislava",
   "corq_count": 65,
   "cloq_count": 38,
@@ -10,45 +10,45 @@
   "summary": {
     "corq": {
       "picks": 65,
-      "won": 29,
-      "lost": 28,
-      "pending": 8,
+      "won": 34,
+      "lost": 30,
+      "pending": 1,
       "void": 0,
-      "win_rate": 0.5088,
-      "units": -10.0472,
-      "roi": -0.1763
+      "win_rate": 0.5312,
+      "units": -8.6258,
+      "roi": -0.1348
     },
     "cloq": {
       "picks": 38,
-      "won": 14,
-      "lost": 19,
-      "pending": 5,
+      "won": 17,
+      "lost": 20,
+      "pending": 1,
       "void": 0,
-      "win_rate": 0.4242,
-      "units": -3.7017,
-      "roi": -0.1122
+      "win_rate": 0.4595,
+      "units": -2.1717,
+      "roi": -0.0587
     },
     "audit": {
       "picks": 331,
-      "won": 188,
-      "lost": 111,
-      "pending": 25,
+      "won": 200,
+      "lost": 113,
+      "pending": 11,
       "void": 7,
-      "win_rate": 0.6288,
-      "units": -28.6968,
-      "roi": -0.096
+      "win_rate": 0.639,
+      "units": -25.0973,
+      "roi": -0.0802
     }
   },
   "summary_by_snapshot_source": {
     "CORQ_DAILY": {
       "picks": 65,
-      "won": 29,
-      "lost": 28,
-      "pending": 8,
+      "won": 34,
+      "lost": 30,
+      "pending": 1,
       "void": 0,
-      "win_rate": 0.5088,
-      "units": -10.0472,
-      "roi": -0.1763
+      "win_rate": 0.5312,
+      "units": -8.6258,
+      "roi": -0.1348
     }
   },
   "sources": {
