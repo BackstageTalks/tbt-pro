@@ -75,11 +75,33 @@ jobs:
           set -euo pipefail
           echo "[verify] pwd=$(pwd)"
           echo "[verify] corq/site tree preview"
-          find corq/site -maxdepth 3 -type f | sort | sed -n '1,80p' || true
-          test -f corq/site/index.html
-          test -f corq/site/results/index.html
-          test -f corq/site/history/index.html
-          echo "[verify] required site files exist"
+          find corq/site -maxdepth 3 -type f | sort | sed -n '1,120p' || true
+          python - <<'PY'
+          from pathlib import Path
+          try:
+              from corq.web.paths import TOP7_PATH, ALL_PATH, RESULTS_PATH, CLOQ_PATH, THINQ_PATH
+          except Exception:
+              TOP7_PATH = "h4v34n1c3d4y180"
+              CLOQ_PATH = "h4v34n1c3d4y181"
+              ALL_PATH = "h4v34n1c3d4y182"
+              RESULTS_PATH = "h4v34n1c3d4y183"
+              THINQ_PATH = "h4v34n1c3d4y186"
+          required = [
+              Path("corq/site/index.html"),
+              Path("corq/site") / TOP7_PATH / "index.html",
+              Path("corq/site") / ALL_PATH / "index.html",
+              Path("corq/site") / RESULTS_PATH / "index.html",
+              Path("corq/site") / CLOQ_PATH / "index.html",
+              Path("corq/site/history/index.html"),
+          ]
+          missing = [str(p) for p in required if not p.is_file()]
+          if missing:
+              print("[verify] missing required files:")
+              for item in missing:
+                  print(" -", item)
+              raise SystemExit(1)
+          print("[verify] required site files exist")
+          PY
 
       - name: Inspect generated site before cleanup
         run: |
