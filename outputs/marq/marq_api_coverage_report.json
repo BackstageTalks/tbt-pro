@@ -1,6 +1,6 @@
 {
   "model_version": "2026-08-04-marq-coverage-report-v1",
-  "generated_at_utc": "2026-08-07T11:49:35.987177+00:00",
+  "generated_at_utc": "2026-08-07T12:35:16.892077+00:00",
   "input_paths": {
     "all": "outputs/latest_all.json",
     "top7": "outputs/latest_top7.json",
@@ -11,8 +11,8 @@
       "label": "all_audit",
       "total_rows": 36,
       "coverage_pct": {
-        "high_marq": 88.89,
-        "medium_current_only": 11.11,
+        "high_marq": 94.44,
+        "medium_current_only": 5.56,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
         "usable_marq_high_or_medium": 100.0
@@ -21,20 +21,20 @@
         "getAllOddsForEvent": 36
       },
       "data_status_counts": {
-        "EXACT_BETTING_ODDS_WITH_OPENING": 32,
-        "EXACT_CURRENT_ODDS_ONLY": 4
+        "EXACT_BETTING_ODDS_WITH_OPENING": 34,
+        "EXACT_CURRENT_ODDS_ONLY": 2
       },
       "confidence_counts": {
-        "HIGH": 32,
-        "MEDIUM": 4
+        "HIGH": 34,
+        "MEDIUM": 2
       },
       "movement_status_counts": {
-        "REAL_OPENING_CURRENT_AVAILABLE": 32,
-        "OPENING_EQUALS_CURRENT": 4
+        "REAL_OPENING_CURRENT_AVAILABLE": 34,
+        "OPENING_EQUALS_CURRENT": 2
       },
       "quality_tier_counts": {
-        "HIGH": 32,
-        "MEDIUM_CURRENT_ONLY": 4
+        "HIGH": 34,
+        "MEDIUM_CURRENT_ONLY": 2
       },
       "value_status_counts": {
         "NO_VALUE": 19,
@@ -46,19 +46,19 @@
       },
       "market_weight_stats": {
         "count": 36,
-        "avg": 0.2444,
+        "avg": 0.2522,
         "min": 0.12,
         "max": 0.3
       },
       "value_delta_pp_stats": {
         "count": 36,
         "avg": 0.0,
-        "min": -20.54,
-        "max": 20.54
+        "min": -32.73,
+        "max": 32.73
       },
       "expected_value_pct_stats": {
         "count": 36,
-        "avg": 6.8153,
+        "avg": 6.795,
         "min": -28.72,
         "max": 201.2
       },
@@ -625,57 +625,52 @@
     },
     "corq_top7": {
       "label": "corq_top7",
-      "total_rows": 3,
+      "total_rows": 4,
       "coverage_pct": {
-        "high_marq": 66.67,
-        "medium_current_only": 33.33,
+        "high_marq": 100.0,
+        "medium_current_only": 0.0,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
         "usable_marq_high_or_medium": 100.0
       },
       "endpoint_counts": {
-        "getAllOddsForEvent": 3
+        "getAllOddsForEvent": 4
       },
       "data_status_counts": {
-        "EXACT_BETTING_ODDS_WITH_OPENING": 2,
-        "EXACT_CURRENT_ODDS_ONLY": 1
+        "EXACT_BETTING_ODDS_WITH_OPENING": 4
       },
       "confidence_counts": {
-        "HIGH": 2,
-        "MEDIUM": 1
+        "HIGH": 4
       },
       "movement_status_counts": {
-        "REAL_OPENING_CURRENT_AVAILABLE": 2,
-        "OPENING_EQUALS_CURRENT": 1
+        "REAL_OPENING_CURRENT_AVAILABLE": 4
       },
       "quality_tier_counts": {
-        "HIGH": 2,
-        "MEDIUM_CURRENT_ONLY": 1
+        "HIGH": 4
       },
       "value_status_counts": {
-        "NO_VALUE": 2,
-        "VALUE_STRONG": 1
+        "NO_VALUE": 4
       },
       "source_policy_counts": {
-        "TENNISAPI_ONLY_EXACT_EVENT": 3
+        "TENNISAPI_ONLY_EXACT_EVENT": 4
       },
       "market_weight_stats": {
-        "count": 3,
-        "avg": 0.2133,
-        "min": 0.12,
+        "count": 4,
+        "avg": 0.26,
+        "min": 0.22,
         "max": 0.3
       },
       "value_delta_pp_stats": {
-        "count": 3,
-        "avg": -0.6,
-        "min": -10.07,
-        "max": 8.08
+        "count": 4,
+        "avg": -7.6325,
+        "min": -11.44,
+        "max": 0.19
       },
       "expected_value_pct_stats": {
-        "count": 3,
-        "avg": -5.2833,
-        "min": -20.5,
-        "max": 8.84
+        "count": 4,
+        "avg": -16.025,
+        "min": -21.97,
+        "max": -4.19
       },
       "samples": {
         "thin_fallback": [],
@@ -695,6 +690,36 @@
             "market_weight": 0.3,
             "value_delta_pp": 0.19,
             "expected_value_pct": -4.19,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16662068",
+            "pick": "Naomi Osaka",
+            "opponent": "Elise Mertens",
+            "odds": 1.4,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": -9.21,
+            "expected_value_pct": -17.44,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16661621",
+            "pick": "Hubert Hurkacz",
+            "opponent": "Botic Van de Zandschulp",
+            "odds": 1.44,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": -11.44,
+            "expected_value_pct": -21.97,
             "fallback_reason": null
           },
           {
@@ -730,6 +755,36 @@
             "fallback_reason": null
           },
           {
+            "identity": "16662068",
+            "pick": "Naomi Osaka",
+            "opponent": "Elise Mertens",
+            "odds": 1.4,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": -9.21,
+            "expected_value_pct": -17.44,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16661621",
+            "pick": "Hubert Hurkacz",
+            "opponent": "Botic Van de Zandschulp",
+            "odds": 1.44,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": -11.44,
+            "expected_value_pct": -21.97,
+            "fallback_reason": null
+          },
+          {
             "identity": "16661618",
             "pick": "Tallon Griekspoor",
             "opponent": "Matteo Arnaldi",
@@ -745,82 +800,52 @@
             "fallback_reason": null
           }
         ],
-        "value_strong": [
-          {
-            "identity": "16662191",
-            "pick": "Vendula Valdmannova",
-            "opponent": "Carol Young-suh Lee",
-            "odds": 2.0,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": 8.08,
-            "expected_value_pct": 8.84,
-            "fallback_reason": null
-          }
-        ]
+        "value_strong": []
       },
       "attempt_summary": {
-        "total_attempts": 3,
+        "total_attempts": 4,
         "endpoint_counts": {
-          "getAllOddsForEvent": 3
+          "getAllOddsForEvent": 4
         },
         "status_counts": {
-          "200": 3
+          "200": 4
         }
       }
     },
     "cloq": {
       "label": "cloq",
-      "total_rows": 1,
+      "total_rows": 0,
       "coverage_pct": {
         "high_marq": 0.0,
-        "medium_current_only": 100.0,
+        "medium_current_only": 0.0,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
-        "usable_marq_high_or_medium": 100.0
+        "usable_marq_high_or_medium": 0.0
       },
-      "endpoint_counts": {
-        "getAllOddsForEvent": 1
-      },
-      "data_status_counts": {
-        "EXACT_CURRENT_ODDS_ONLY": 1
-      },
-      "confidence_counts": {
-        "MEDIUM": 1
-      },
-      "movement_status_counts": {
-        "OPENING_EQUALS_CURRENT": 1
-      },
-      "quality_tier_counts": {
-        "MEDIUM_CURRENT_ONLY": 1
-      },
-      "value_status_counts": {
-        "VALUE_STRONG": 1
-      },
-      "source_policy_counts": {
-        "TENNISAPI_ONLY_EXACT_EVENT": 1
-      },
+      "endpoint_counts": {},
+      "data_status_counts": {},
+      "confidence_counts": {},
+      "movement_status_counts": {},
+      "quality_tier_counts": {},
+      "value_status_counts": {},
+      "source_policy_counts": {},
       "market_weight_stats": {
-        "count": 1,
-        "avg": 0.12,
-        "min": 0.12,
-        "max": 0.12
+        "count": 0,
+        "avg": null,
+        "min": null,
+        "max": null
       },
       "value_delta_pp_stats": {
-        "count": 1,
-        "avg": 8.08,
-        "min": 8.08,
-        "max": 8.08
+        "count": 0,
+        "avg": null,
+        "min": null,
+        "max": null
       },
       "expected_value_pct_stats": {
-        "count": 1,
-        "avg": 8.84,
-        "min": 8.84,
-        "max": 8.84
+        "count": 0,
+        "avg": null,
+        "min": null,
+        "max": null
       },
       "samples": {
         "thin_fallback": [],
@@ -828,32 +853,12 @@
         "current_only": [],
         "real_opening": [],
         "no_value": [],
-        "value_strong": [
-          {
-            "identity": "16662191",
-            "pick": "Vendula Valdmannova",
-            "opponent": "Carol Young-suh Lee",
-            "odds": 2.0,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": 8.08,
-            "expected_value_pct": 8.84,
-            "fallback_reason": null
-          }
-        ]
+        "value_strong": []
       },
       "attempt_summary": {
-        "total_attempts": 1,
-        "endpoint_counts": {
-          "getAllOddsForEvent": 1
-        },
-        "status_counts": {
-          "200": 1
-        }
+        "total_attempts": 0,
+        "endpoint_counts": {},
+        "status_counts": {}
       }
     }
   }

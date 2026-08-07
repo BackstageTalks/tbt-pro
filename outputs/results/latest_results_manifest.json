@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-07T12:00:58+00:00",
-  "date": "2026-08-03",
-  "fetch_api": true,
-  "settlement_grace_hours": 2.0,
+  "generated_at": "2026-08-07T12:35:19+00:00",
+  "date": "2026-08-07",
+  "fetch_api": false,
+  "settlement_grace_hours": 0.0,
   "local_tz": "Europe/Bratislava",
   "corq_count": 65,
   "cloq_count": 38,
@@ -53,12 +53,12 @@
   },
   "sources": {
     "corq": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/latest_corq_top7_snapshot.json",
-    "cloq": "/home/runner/work/tbt-pro/tbt-pro/outputs/cloq/latest_cloq.json",
+    "cloq": "",
     "audit": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/latest_all_audit_snapshot.json"
   },
   "locks": {
     "corq": "immutable_ledger_source_plus_existing:0+existing:64+preserved:1",
-    "cloq": "immutable_ledger_source_plus_existing:0+existing:37+preserved:1",
+    "cloq": "existing_results_only_no_source_rows",
     "audit": "immutable_ledger_source_plus_existing:18+existing:313+preserved:18"
   },
   "output_root": "outputs/results"
