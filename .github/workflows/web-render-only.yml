@@ -35,8 +35,8 @@ permissions:
 
 env:
   PYTHONUNBUFFERED: "1"
-  # Render-only must never call TennisApi rankings. It only renders existing outputs.
   TENNISAPI_ATTACH_RANKINGS: "0"
+  CORQ_RENDER_ENABLE_LOGS: "0"
 
 concurrency:
   group: web-render-only-${{ github.ref }}
@@ -46,6 +46,7 @@ jobs:
   render-web:
     name: Render web only
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -53,92 +54,81 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.11"
 
-      - name: Show available runtime data
+      - name: Install Python dependencies
         run: |
-          echo "Repository root: $PWD"
-          echo "Outputs:"
-          find outputs -maxdepth 2 -type f 2>/dev/null | sort | head -80 || true
-          echo "Web files:"
-          find corq/web -maxdepth 3 -type f 2>/dev/null | sort | head -80 || true
-
-      - name: Validate web renderer imports
-        run: |
-          python -m py_compile corq/web/render.py
-          python - <<'PY'
-          import importlib
-          mod = importlib.import_module("corq.web.render")
-          print("render module OK:", mod.__file__)
-          PY
+          python -m pip install --upgrade pip
+          python -m pip install pandas lxml html5lib beautifulsoup4 requests
 
       - name: Render web site from existing outputs
         run: |
+          set -euo pipefail
           python -m corq.web.render
 
       - name: Verify rendered site
         run: |
+          set -euo pipefail
+          echo "[verify] pwd=$(pwd)"
+          echo "[verify] corq/site tree preview"
+          find corq/site -maxdepth 3 -type f | sort | sed -n '1,80p' || true
           test -f corq/site/index.html
-          test -d corq/site/logs
-          echo "Rendered files:"
-          find corq/site -maxdepth 3 -type f | sort | head -120
+          test -f corq/site/results/index.html
+          test -f corq/site/history/index.html
+          echo "[verify] required site files exist"
 
-      - name: Commit generated site
-        if: ${{ github.event_name == 'push' || inputs.commit_site == 'true' }}
+      - name: Inspect generated site before cleanup
         run: |
+          set -euo pipefail
+          echo "[site] top-level size"
+          du -sh corq/site || true
+          echo "[site] file count"
+          find corq/site -type f | wc -l || true
+          echo "[site] largest files before cleanup"
+          find corq/site -type f -printf '%s %p\n' | sort -nr | head -30 || true
+
+      - name: Keep Pages artifact small
+        run: |
+          set -euo pipefail
+          rm -rf corq/site/logs || true
+          find corq/site -type f \( -name "*.log" -o -name "*.tmp" -o -name "*.bak" \) -delete || true
+          find corq/site -type f -name "*.json" -size +5M -print -delete || true
+          find corq/site -type f -size +95M -print -delete || true
+          echo "[site] size after cleanup"
+          du -sh corq/site || true
+          echo "[site] largest files after cleanup"
+          find corq/site -type f -printf '%s %p\n' | sort -nr | head -30 || true
+
+      - name: Commit rendered site
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.commit_site == 'true' }}
+        run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          # Generated site files can change in parallel workflows. Do not rebase
-          # over generated files after rendering because corq/site/render_manifest.json
-          # is expected to conflict often. If push is rejected, keep this job's
-          # freshly rendered site, reset to origin/main, restore the generated
-          # site, then commit again.
           git add corq/site
           if git diff --cached --quiet; then
-            echo "No web changes to commit."
-            exit 0
+            echo "No corq/site changes to commit."
+          else
+            git commit -m "Render web site"
+            git push
           fi
 
-          git commit -m "Render web site only"
-          if git push; then
-            echo "Generated site pushed."
-            exit 0
-          fi
-
-          echo "Push rejected, preserving rendered site and retrying on latest main..."
-          tmp_dir="$(mktemp -d)"
-          cp -a corq/site "$tmp_dir/site"
-          git fetch origin main
-          git reset --hard origin/main
-          rm -rf corq/site
-          mkdir -p corq
-          cp -a "$tmp_dir/site" corq/site
-          git add corq/site
-          if git diff --cached --quiet; then
-            echo "No generated site changes after reset."
-            exit 0
-          fi
-          git commit -m "Render web site only"
-          git push
-
-      - name: Configure GitHub Pages
-        if: ${{ github.event_name == 'push' || inputs.deploy_pages == 'true' }}
+      - name: Configure Pages
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.deploy_pages == 'true' }}
         uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
-        if: ${{ github.event_name == 'push' || inputs.deploy_pages == 'true' }}
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.deploy_pages == 'true' }}
         uses: actions/upload-pages-artifact@v3
         with:
           path: corq/site
 
       - name: Deploy to GitHub Pages
-        if: ${{ github.event_name == 'push' || inputs.deploy_pages == 'true' }}
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.deploy_pages == 'true' }}
         id: deployment
         uses: actions/deploy-pages@v4
+        timeout-minutes: 20
