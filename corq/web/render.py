@@ -3,6 +3,7 @@ from __future__ import annotations
 import base64
 import html
 import json
+import os
 import re
 import shutil
 from collections import Counter, defaultdict
@@ -1184,11 +1185,29 @@ def meta_line(row: Dict[str, Any]) -> str:
     return " · ".join(bits) if bits else "—"
 
 
+def render_logs_enabled() -> bool:
+    """Return whether heavy per-match log pages should be rendered.
+
+    Default is OFF because generated log pages and JSON dumps can make the
+    GitHub Pages artifact too large and slow to deploy. Enable only for manual
+    debugging by setting CORQ_RENDER_ENABLE_LOGS=1.
+    """
+    return os.getenv("CORQ_RENDER_ENABLE_LOGS", "0").strip().lower() in {"1", "true", "yes", "on"}
+
+
 def log_link(row: Dict[str, Any]) -> str:
+    if not render_logs_enabled():
+        return "javascript:void(0)"
     return f'../logs/{esc(match_key(row))}/index.html'
 
 
 def ensure_logs(rows: List[Dict[str, Any]]) -> None:
+    if not render_logs_enabled():
+        # Keep the rendered site small and remove stale log pages from previous
+        # renders so web-render-only can deploy reliably.
+        if LOGS_DIR.exists():
+            shutil.rmtree(LOGS_DIR, ignore_errors=True)
+        return
     LOGS_DIR.mkdir(parents=True, exist_ok=True)
     for row in rows:
         key = match_key(row)
@@ -5529,6 +5548,171 @@ def render_results_page(manifest: Dict[str, Any]) -> str:
         tag_analysis(combined),
     ]
     return page_shell('Results', RESULTS_PATH, '\n'.join(body), manifest)
+
+
+# ============================================================
+# Results History split override V4
+# ============================================================
+# Keep Results fast and size-safe: main Results page renders only the rolling
+# 14-day window. Older rows are moved into a lightweight History index plus
+# one small daily detail file per date. No full-history DOM is rendered.
+
+HISTORY_PATH = "history"
+
+try:
+    _nav_items_list = list(NAV_ITEMS)
+except Exception:
+    _nav_items_list = []
+if not any((isinstance(x, (list, tuple)) and len(x) > 1 and str(x[1]).strip('/') == HISTORY_PATH) or (isinstance(x, dict) and str(x.get('path') or '').strip('/') == HISTORY_PATH) for x in _nav_items_list):
+    _nav_items_list.append(("History", HISTORY_PATH, "history"))
+    NAV_ITEMS = _nav_items_list
+
+
+def _history_all_result_rows() -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]], List[Dict[str, Any]]]:
+    corq_all = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_corq.json', []))
+    cloq_all = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_cloq.json', []))
+    audit_all = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_audit.json', []))
+    return corq_all, cloq_all, audit_all
+
+
+def _history_row_date_iso(row: Dict[str, Any]) -> str:
+    d = result_row_local_date(row)
+    return d.isoformat() if d is not None else "unknown"
+
+
+def _history_day_rows(rows: List[Dict[str, Any]], day_iso: str) -> List[Dict[str, Any]]:
+    return [r for r in rows or [] if _history_row_date_iso(r) == day_iso]
+
+
+def _history_rows_before_window(rows: List[Dict[str, Any]], start: date) -> List[Dict[str, Any]]:
+    out: List[Dict[str, Any]] = []
+    for row in rows or []:
+        d = result_row_local_date(row)
+        if d is not None and d < start:
+            out.append(row)
+    return out
+
+
+def _history_day_summary(day_iso: str, rows: List[Dict[str, Any]], corq_rows: List[Dict[str, Any]], cloq_rows: List[Dict[str, Any]], audit_rows: List[Dict[str, Any]]) -> str:
+    summary = summarize_results(rows)
+    decided = summary.get('won', 0) + summary.get('lost', 0)
+    avg = '—' if summary.get('avg_odds') is None else f"{summary['avg_odds']:.2f}"
+    try:
+        display_day = datetime.fromisoformat(day_iso).strftime('%d.%m.%y')
+    except Exception:
+        display_day = day_iso
+    return "\n".join([
+        '<div class="summary-panel history-day-row">',
+        f'  <div class="summary-title"><a href="{esc(day_iso)}.html">{esc(display_day)}</a></div>',
+        '  <div class="tag-list">',
+        f'    <span class="tag-chip">Total {summary["picks"]}</span>',
+        f'    <span class="tag-chip">CorQ {len(corq_rows)}</span>',
+        f'    <span class="tag-chip">CloQ {len(cloq_rows)}</span>',
+        f'    <span class="tag-chip">Audit {len(audit_rows)}</span>',
+        f'    <span class="tag-chip">W-L {summary["won"]}-{summary["lost"]}</span>',
+        f'    <span class="tag-chip">Pending {summary["pending"]}</span>',
+        f'    <span class="tag-chip">Decided {decided}/{summary["picks"]}</span>',
+        f'    <span class="tag-chip">Win {summary["win_pct"]:.1f}%</span>',
+        f'    <span class="tag-chip">Units {summary["units"]:+.2f}u</span>',
+        f'    <span class="tag-chip">ROI {summary["roi"]:+.1f}%</span>',
+        f'    <span class="tag-chip">Avg odds {esc(avg)}</span>',
+        '  </div>',
+        '</div>',
+    ])
+
+
+def render_results_history_index(manifest: Dict[str, Any]) -> str:
+    corq_all, cloq_all, audit_all = _history_all_result_rows()
+    all_rows = corq_all + cloq_all + audit_all
+    start, end = results_default_date_range()
+    history_rows = _history_rows_before_window(all_rows, start)
+    days = sorted({_history_row_date_iso(r) for r in history_rows if _history_row_date_iso(r) != 'unknown'}, reverse=True)
+    body: List[str] = [
+        _result_css_block(),
+        '<div class="summary-panel">',
+        '<div class="summary-title">History</div>',
+        f'<div class="hero-line">Archive contains rows older than the active Results window ({esc(start.isoformat())} to {esc(end.isoformat())}). Main Results stays limited to the latest 14 days for speed and Pages deploy safety.</div>',
+        '</div>',
+    ]
+    if not days:
+        body.append('<div class="empty">No historical result days older than the current 14-day window.</div>')
+    else:
+        for day in days:
+            c = _history_day_rows(corq_all, day)
+            cl = _history_day_rows(cloq_all, day)
+            a = _history_day_rows(audit_all, day)
+            body.append(_history_day_summary(day, c + cl + a, c, cl, a))
+    return page_shell('History', HISTORY_PATH, '\n'.join(body), manifest)
+
+
+def render_results_history_day(manifest: Dict[str, Any], day_iso: str) -> str:
+    corq_all, cloq_all, audit_all = _history_all_result_rows()
+    corq = _history_day_rows(corq_all, day_iso)
+    cloq = _history_day_rows(cloq_all, day_iso)
+    audit_rows = _history_day_rows(audit_all, day_iso)
+    combined = corq + cloq + audit_rows
+    mark_audit_h2h_top10(combined)
+    try:
+        display_day = datetime.fromisoformat(day_iso).strftime('%d.%m.%y')
+    except Exception:
+        display_day = day_iso
+    body = [
+        _result_css_block(),
+        '<div class="summary-panel">',
+        f'<div class="summary-title">History | {esc(display_day)}</div>',
+        '<div class="tag-list"><a class="tag-chip" href="index.html">Back to History</a><a class="tag-chip" href="../' + esc(RESULTS_PATH) + '/">Latest 14 days</a></div>',
+        '</div>',
+        render_results_card_section(corq, 'CorQ TOP7 Results'),
+        render_results_card_section(cloq, 'CloQ Results'),
+        render_results_card_section(audit_rows, 'Audit Results', limit=120),
+        depth_analysis(combined),
+        sets_games_audit(combined),
+        tag_analysis(combined),
+    ]
+    return page_shell(f'History {display_day}', HISTORY_PATH, '\n'.join(body), manifest)
+
+
+_ORIGINAL_RENDER_ALL_FOR_HISTORY = render_all
+
+def render_all() -> None:
+    SITE_DIR.mkdir(parents=True, exist_ok=True)
+    manifest = read_json(OUTPUTS / "latest_manifest.json", {})
+    top7 = json_rows(read_json(OUTPUTS / "latest_top7.json", []))
+    all_rows = json_rows(read_json(OUTPUTS / "latest_all.json", []))
+    cloq = json_rows(read_json(OUTPUTS / "cloq" / "latest_cloq.json", []))
+    if not cloq:
+        cloq = json_rows(read_json(OUTPUTS / "latest_cloq.json", []))
+    mark_audit_cloq_rows(all_rows, cloq)
+    all_rows_for_audit = sort_rows_by_match_time(all_rows)
+    ensure_logs(top7 + all_rows_for_audit + cloq)
+
+    write_text(SITE_DIR / "index.html", page_shell("CorQ", "root", '<script>location.href="' + esc(TOP7_PATH) + '/"</script>', manifest))
+    write_text(SITE_DIR / TOP7_PATH / "index.html", render_cards_page("CorQ", TOP7_PATH, top7, manifest, page="corq"))
+    write_text(SITE_DIR / ALL_PATH / "index.html", render_cards_page("Audit", ALL_PATH, all_rows_for_audit, manifest, page="all", dedupe=True))
+    write_text(SITE_DIR / CLOQ_PATH / "index.html", render_cards_page("CloQ", CLOQ_PATH, cloq, manifest, page="cloq"))
+    write_text(SITE_DIR / THINQ_PATH / "index.html", render_cards_page("ThinQ", THINQ_PATH, all_rows_for_audit, manifest, page="all", dedupe=True))
+    write_text(SITE_DIR / RESULTS_PATH / "index.html", render_results_page(manifest))
+    write_text(SITE_DIR / HISTORY_PATH / "index.html", render_results_history_index(manifest))
+
+    corq_all, cloq_all, audit_all = _history_all_result_rows()
+    start, _end = results_default_date_range()
+    history_rows = _history_rows_before_window(corq_all + cloq_all + audit_all, start)
+    for day in sorted({_history_row_date_iso(r) for r in history_rows if _history_row_date_iso(r) != 'unknown'}, reverse=True):
+        write_text(SITE_DIR / HISTORY_PATH / f"{day}.html", render_results_history_day(manifest, day))
+
+    write_text(SITE_DIR / CORQ_RSS_PATH, rss_items(top7, "CorQ TOP7"))
+    write_text(SITE_DIR / CLOQ_RSS_PATH, rss_items(cloq, "CloQ"))
+    write_text(SITE_DIR / THINQ_RSS_PATH, rss_items(all_rows_for_audit[:20], "ThinQ"))
+    render_manifest = {
+        "rendered_at": datetime.now(tz=timezone.utc).isoformat(),
+        "top7_count": len(top7),
+        "all_count": len(all_rows_for_audit),
+        "cloq_count": len(cloq),
+        "history_path": HISTORY_PATH,
+        "site_root": str(SITE_DIR),
+    }
+    write_text(SITE_DIR / "render_manifest.json", json.dumps(render_manifest, ensure_ascii=False, indent=2))
+    print(f"Rendered site: top7={len(top7)} all={len(all_rows_for_audit)} cloq={len(cloq)} history={HISTORY_PATH} root={SITE_DIR}")
 
 def main() -> None:
     render_all()
