@@ -2630,7 +2630,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 17,
-    "top7_filter_mode": "CORQ_TOP7_BALANCED_FORCE7_V6_ODDS140",
+    "top7_filter_mode": "CORQ_TOP7_RANK_CAP_PRICE_GAP_V7",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "top7_quality_reject_reasons": [
@@ -2758,7 +2758,7 @@
     ],
     "top7_risk_penalty_points": 25.0,
     "top7_clean_bonus_points": 6.5,
-    "top7_quality_score": 82.14016666666667,
+    "top7_quality_score": 83.14016666666667,
     "corq_warning_flags": [
       "OPP_STRONG_FORM",
       "SURFACE_SUPPORT_PICK",
@@ -2794,26 +2794,29 @@
     "top7_value_delta_pp": -2.86,
     "top7_expected_value_pct": -4.29,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
-    "top7_selection_model_version": "CORQ_TOP7_BALANCED_FORCE7_V6_ODDS140",
+    "top7_selection_model_version": "CORQ_TOP7_RANK_CAP_PRICE_GAP_V7",
     "corq_top7_selectable": true,
-    "corq_top7_sort_score": 82.14016666666667,
+    "corq_top7_sort_score": 83.14016666666667,
     "corq_top7_tier": "CORQ_CLEAN",
+    "corq_rank_cap": 4,
+    "corq_rank_cap_reasons": [],
+    "corq_top4_eligible": true,
+    "corq_probability_gap_pp": -2.856666666666663,
+    "corq_ev_pct_for_ranking": -4.29,
+    "corq_market_move_against": false,
     "corq_top7_reject_reasons": [],
     "corq_top7_fatal_reject_reasons": [],
     "corq_top7_soft_penalty_reasons": [],
-    "corq_top7_audit_note": "balanced_force7_v6_soft_penalties_not_hard_rejects",
-    "corq_v6_min_odds": 1.4,
-    "corq_v6_min_data_depth_target": 0.7,
-    "corq_v6_min_confidence_target": 0.65,
-    "corq_v6_value_soft_floor": -5.0,
+    "corq_top7_audit_note": "rank_cap_v7_top4_quality_floor_fallback_5_7",
     "corq_rank_audit_tags": [
-      "CORQ_TOP7_BALANCED_FORCE7_V6_ODDS140",
+      "CORQ_TOP7_RANK_CAP_PRICE_GAP_V7",
       "CORQ_CLEAN"
     ],
     "corq_rank": 1,
     "top7_rank": 1,
     "corq_top7_forced_rank_selection": true,
-    "top7_selection_count_target": 7
+    "top7_selection_count_target": 7,
+    "corq_top7_selection_pass": "top4_quality"
   },
   {
     "match_id": 16662068,
@@ -5450,7 +5453,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 21,
-    "top7_filter_mode": "CORQ_TOP7_BALANCED_FORCE7_V6_ODDS140",
+    "top7_filter_mode": "CORQ_TOP7_RANK_CAP_PRICE_GAP_V7",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "top7_quality_reject_reasons": [
@@ -5638,7 +5641,7 @@
     ],
     "top7_risk_penalty_points": 46.5,
     "top7_clean_bonus_points": 6.5,
-    "top7_quality_score": 54.19592857142857,
+    "top7_quality_score": 23.195928571428567,
     "corq_warning_flags": [
       "H2H_SUPPORT_PICK",
       "SURFACE_H2H_AGAINST_PICK",
@@ -5655,11 +5658,10 @@
       "SHORT_PRICE_VALUE_GUARD_FAIL",
       "LOW_ODDS_FAVORITE_SORT_PENALTY",
       "VALUE_FIRST_MARKET_WITH_PICK",
-      "CORQ_LOW_EDGE",
-      "SOFT_REJECT_TOP7_SHORT_PRICE_VALUE_GUARD",
-      "SOFT_REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
-      "SOFT_REJECT_TOP7_EV_HARD_NEGATIVE",
-      "SOFT_PENALTY_VALUE_DELTA_UNDER_MINUS_5"
+      "CORQ_RISK_FALLBACK",
+      "CAP_CAP_SHORT_ODDS_145_WEAK_GAP",
+      "CAP_CAP_EV_UNDER_MINUS_12",
+      "CAP_CAP_PROB_GAP_UNDER_MINUS_10PP"
     ],
     "top7_support_tags": [
       "H2H_SUPPORT_PICK",
@@ -5683,35 +5685,44 @@
     "top7_value_delta_pp": -10.43,
     "top7_expected_value_pct": -14.6,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
-    "top7_selection_model_version": "CORQ_TOP7_BALANCED_FORCE7_V6_ODDS140",
+    "top7_selection_model_version": "CORQ_TOP7_RANK_CAP_PRICE_GAP_V7",
     "corq_top7_selectable": true,
-    "corq_top7_sort_score": 54.19592857142857,
-    "corq_top7_tier": "CORQ_LOW_EDGE",
+    "corq_top7_sort_score": 23.195928571428567,
+    "corq_top7_tier": "CORQ_RISK_FALLBACK",
+    "corq_rank_cap": 6,
+    "corq_rank_cap_reasons": [
+      "CAP_SHORT_ODDS_145_WEAK_GAP",
+      "CAP_EV_UNDER_MINUS_12",
+      "CAP_PROB_GAP_UNDER_MINUS_10PP"
+    ],
+    "corq_top4_eligible": false,
+    "corq_probability_gap_pp": -10.42857142857143,
+    "corq_ev_pct_for_ranking": -14.6,
+    "corq_market_move_against": false,
     "corq_top7_reject_reasons": [],
     "corq_top7_fatal_reject_reasons": [],
     "corq_top7_soft_penalty_reasons": [
       "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD",
       "REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
       "REJECT_TOP7_EV_HARD_NEGATIVE",
-      "PENALTY_VALUE_DELTA_UNDER_MINUS_5"
+      "PENALTY_VALUE_DELTA_UNDER_MINUS_5",
+      "CAP_SHORT_ODDS_145_WEAK_GAP",
+      "CAP_EV_UNDER_MINUS_12",
+      "CAP_PROB_GAP_UNDER_MINUS_10PP"
     ],
-    "corq_top7_audit_note": "balanced_force7_v6_soft_penalties_not_hard_rejects",
-    "corq_v6_min_odds": 1.4,
-    "corq_v6_min_data_depth_target": 0.7,
-    "corq_v6_min_confidence_target": 0.65,
-    "corq_v6_value_soft_floor": -5.0,
+    "corq_top7_audit_note": "rank_cap_v7_top4_quality_floor_fallback_5_7",
     "corq_rank_audit_tags": [
-      "CORQ_TOP7_BALANCED_FORCE7_V6_ODDS140",
-      "CORQ_LOW_EDGE",
-      "PENALTY_REJECT_TOP7_SHORT_PRICE_VALUE_GUARD",
-      "PENALTY_REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
-      "PENALTY_REJECT_TOP7_EV_HARD_NEGATIVE",
-      "PENALTY_PENALTY_VALUE_DELTA_UNDER_MINUS_5"
+      "CORQ_TOP7_RANK_CAP_PRICE_GAP_V7",
+      "CORQ_RISK_FALLBACK",
+      "RANKCAP_CAP_SHORT_ODDS_145_WEAK_GAP",
+      "RANKCAP_CAP_EV_UNDER_MINUS_12",
+      "RANKCAP_CAP_PROB_GAP_UNDER_MINUS_10PP"
     ],
     "corq_rank": 2,
     "top7_rank": 2,
     "corq_top7_forced_rank_selection": true,
-    "top7_selection_count_target": 7
+    "top7_selection_count_target": 7,
+    "corq_top7_selection_pass": "top4_quality"
   },
   {
     "match_id": 16661621,
@@ -8343,7 +8354,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 25,
-    "top7_filter_mode": "CORQ_TOP7_BALANCED_FORCE7_V6_ODDS140",
+    "top7_filter_mode": "CORQ_TOP7_RANK_CAP_PRICE_GAP_V7",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "top7_quality_reject_reasons": [
@@ -8516,7 +8527,7 @@
     ],
     "top7_risk_penalty_points": 40.0,
     "top7_clean_bonus_points": 6.5,
-    "top7_quality_score": 46.84711111111112,
+    "top7_quality_score": 15.847111111111118,
     "corq_warning_flags": [
       "FORM_SUPPORT_PICK",
       "THINQ_EDGE_SUPPORT_PICK",
@@ -8532,11 +8543,10 @@
       "HIGH_RISK_PICK",
       "LOW_ODDS_FAVORITE_SORT_PENALTY",
       "VALUE_FIRST_MARKET_WITH_PICK",
-      "CORQ_RISK",
-      "SOFT_REJECT_TOP7_SHORT_PRICE_VALUE_GUARD",
-      "SOFT_REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
-      "SOFT_REJECT_TOP7_EV_HARD_NEGATIVE",
-      "SOFT_PENALTY_VALUE_DELTA_UNDER_MINUS_5"
+      "CORQ_RISK_FALLBACK",
+      "CAP_CAP_SHORT_ODDS_145_WEAK_GAP",
+      "CAP_CAP_EV_UNDER_MINUS_12",
+      "CAP_CAP_PROB_GAP_UNDER_MINUS_10PP"
     ],
     "top7_support_tags": [
       "FORM_SUPPORT_PICK",
@@ -8560,35 +8570,44 @@
     "top7_value_delta_pp": -11.82,
     "top7_expected_value_pct": -17.03,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
-    "top7_selection_model_version": "CORQ_TOP7_BALANCED_FORCE7_V6_ODDS140",
+    "top7_selection_model_version": "CORQ_TOP7_RANK_CAP_PRICE_GAP_V7",
     "corq_top7_selectable": true,
-    "corq_top7_sort_score": 46.84711111111112,
-    "corq_top7_tier": "CORQ_RISK",
+    "corq_top7_sort_score": 15.847111111111118,
+    "corq_top7_tier": "CORQ_RISK_FALLBACK",
+    "corq_rank_cap": 6,
+    "corq_rank_cap_reasons": [
+      "CAP_SHORT_ODDS_145_WEAK_GAP",
+      "CAP_EV_UNDER_MINUS_12",
+      "CAP_PROB_GAP_UNDER_MINUS_10PP"
+    ],
+    "corq_top4_eligible": false,
+    "corq_probability_gap_pp": -11.824444444444438,
+    "corq_ev_pct_for_ranking": -17.03,
+    "corq_market_move_against": false,
     "corq_top7_reject_reasons": [],
     "corq_top7_fatal_reject_reasons": [],
     "corq_top7_soft_penalty_reasons": [
       "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD",
       "REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
       "REJECT_TOP7_EV_HARD_NEGATIVE",
-      "PENALTY_VALUE_DELTA_UNDER_MINUS_5"
+      "PENALTY_VALUE_DELTA_UNDER_MINUS_5",
+      "CAP_SHORT_ODDS_145_WEAK_GAP",
+      "CAP_EV_UNDER_MINUS_12",
+      "CAP_PROB_GAP_UNDER_MINUS_10PP"
     ],
-    "corq_top7_audit_note": "balanced_force7_v6_soft_penalties_not_hard_rejects",
-    "corq_v6_min_odds": 1.4,
-    "corq_v6_min_data_depth_target": 0.7,
-    "corq_v6_min_confidence_target": 0.65,
-    "corq_v6_value_soft_floor": -5.0,
+    "corq_top7_audit_note": "rank_cap_v7_top4_quality_floor_fallback_5_7",
     "corq_rank_audit_tags": [
-      "CORQ_TOP7_BALANCED_FORCE7_V6_ODDS140",
-      "CORQ_RISK",
-      "PENALTY_REJECT_TOP7_SHORT_PRICE_VALUE_GUARD",
-      "PENALTY_REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
-      "PENALTY_REJECT_TOP7_EV_HARD_NEGATIVE",
-      "PENALTY_PENALTY_VALUE_DELTA_UNDER_MINUS_5"
+      "CORQ_TOP7_RANK_CAP_PRICE_GAP_V7",
+      "CORQ_RISK_FALLBACK",
+      "RANKCAP_CAP_SHORT_ODDS_145_WEAK_GAP",
+      "RANKCAP_CAP_EV_UNDER_MINUS_12",
+      "RANKCAP_CAP_PROB_GAP_UNDER_MINUS_10PP"
     ],
     "corq_rank": 3,
     "top7_rank": 3,
     "corq_top7_forced_rank_selection": true,
-    "top7_selection_count_target": 7
+    "top7_selection_count_target": 7,
+    "corq_top7_selection_pass": "top4_quality"
   },
   {
     "match_id": 16661618,
@@ -11221,7 +11240,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 27,
-    "top7_filter_mode": "CORQ_TOP7_BALANCED_FORCE7_V6_ODDS140",
+    "top7_filter_mode": "CORQ_TOP7_RANK_CAP_PRICE_GAP_V7",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "top7_quality_reject_reasons": [
@@ -11346,7 +11365,7 @@
     ],
     "top7_risk_penalty_points": 22.0,
     "top7_clean_bonus_points": 6.5,
-    "top7_quality_score": 46.738339869281035,
+    "top7_quality_score": 15.738339869281035,
     "corq_warning_flags": [
       "SURFACE_SUPPORT_PICK",
       "THINQ_EDGE_SUPPORT_PICK",
@@ -11358,10 +11377,11 @@
       "LOW_ODDS_FAVORITE_SORT_PENALTY",
       "VALUE_FIRST_MARKET_WITH_PICK",
       "HIGH_RISK_PICK",
-      "CORQ_RISK",
-      "SOFT_REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
-      "SOFT_REJECT_TOP7_EV_HARD_NEGATIVE",
-      "SOFT_PENALTY_VALUE_DELTA_UNDER_MINUS_5"
+      "CORQ_RISK_FALLBACK",
+      "CAP_CAP_SHORT_ODDS_155_WEAK_GAP",
+      "CAP_CAP_SHORT_PRICE_CORQ_UNDER_56",
+      "CAP_CAP_EV_UNDER_MINUS_12",
+      "CAP_CAP_PROB_GAP_UNDER_MINUS_10PP"
     ],
     "top7_support_tags": [
       "SURFACE_SUPPORT_PICK",
@@ -11385,32 +11405,45 @@
     "top7_value_delta_pp": -11.18,
     "top7_expected_value_pct": -17.1,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
-    "top7_selection_model_version": "CORQ_TOP7_BALANCED_FORCE7_V6_ODDS140",
+    "top7_selection_model_version": "CORQ_TOP7_RANK_CAP_PRICE_GAP_V7",
     "corq_top7_selectable": true,
-    "corq_top7_sort_score": 46.738339869281035,
-    "corq_top7_tier": "CORQ_RISK",
+    "corq_top7_sort_score": 15.738339869281035,
+    "corq_top7_tier": "CORQ_RISK_FALLBACK",
+    "corq_rank_cap": 6,
+    "corq_rank_cap_reasons": [
+      "CAP_SHORT_ODDS_155_WEAK_GAP",
+      "CAP_SHORT_PRICE_CORQ_UNDER_56",
+      "CAP_EV_UNDER_MINUS_12",
+      "CAP_PROB_GAP_UNDER_MINUS_10PP"
+    ],
+    "corq_top4_eligible": false,
+    "corq_probability_gap_pp": -11.179477124183013,
+    "corq_ev_pct_for_ranking": -17.1,
+    "corq_market_move_against": false,
     "corq_top7_reject_reasons": [],
     "corq_top7_fatal_reject_reasons": [],
     "corq_top7_soft_penalty_reasons": [
       "REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
       "REJECT_TOP7_EV_HARD_NEGATIVE",
-      "PENALTY_VALUE_DELTA_UNDER_MINUS_5"
+      "PENALTY_VALUE_DELTA_UNDER_MINUS_5",
+      "CAP_SHORT_ODDS_155_WEAK_GAP",
+      "CAP_SHORT_PRICE_CORQ_UNDER_56",
+      "CAP_EV_UNDER_MINUS_12",
+      "CAP_PROB_GAP_UNDER_MINUS_10PP"
     ],
-    "corq_top7_audit_note": "balanced_force7_v6_soft_penalties_not_hard_rejects",
-    "corq_v6_min_odds": 1.4,
-    "corq_v6_min_data_depth_target": 0.7,
-    "corq_v6_min_confidence_target": 0.65,
-    "corq_v6_value_soft_floor": -5.0,
+    "corq_top7_audit_note": "rank_cap_v7_top4_quality_floor_fallback_5_7",
     "corq_rank_audit_tags": [
-      "CORQ_TOP7_BALANCED_FORCE7_V6_ODDS140",
-      "CORQ_RISK",
-      "PENALTY_REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
-      "PENALTY_REJECT_TOP7_EV_HARD_NEGATIVE",
-      "PENALTY_PENALTY_VALUE_DELTA_UNDER_MINUS_5"
+      "CORQ_TOP7_RANK_CAP_PRICE_GAP_V7",
+      "CORQ_RISK_FALLBACK",
+      "RANKCAP_CAP_SHORT_ODDS_155_WEAK_GAP",
+      "RANKCAP_CAP_SHORT_PRICE_CORQ_UNDER_56",
+      "RANKCAP_CAP_EV_UNDER_MINUS_12",
+      "RANKCAP_CAP_PROB_GAP_UNDER_MINUS_10PP"
     ],
     "corq_rank": 4,
     "top7_rank": 4,
     "corq_top7_forced_rank_selection": true,
-    "top7_selection_count_target": 7
+    "top7_selection_count_target": 7,
+    "corq_top7_selection_pass": "top4_quality"
   }
 ]

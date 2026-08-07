@@ -1,6 +1,6 @@
 {
   "model_version": "2026-08-04-marq-coverage-report-v1",
-  "generated_at_utc": "2026-08-07T12:35:16.892077+00:00",
+  "generated_at_utc": "2026-08-07T14:07:29.087496+00:00",
   "input_paths": {
     "all": "outputs/latest_all.json",
     "top7": "outputs/latest_top7.json",
@@ -11,8 +11,8 @@
       "label": "all_audit",
       "total_rows": 36,
       "coverage_pct": {
-        "high_marq": 94.44,
-        "medium_current_only": 5.56,
+        "high_marq": 88.89,
+        "medium_current_only": 11.11,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
         "usable_marq_high_or_medium": 100.0
@@ -21,20 +21,20 @@
         "getAllOddsForEvent": 36
       },
       "data_status_counts": {
-        "EXACT_BETTING_ODDS_WITH_OPENING": 34,
-        "EXACT_CURRENT_ODDS_ONLY": 2
+        "EXACT_BETTING_ODDS_WITH_OPENING": 32,
+        "EXACT_CURRENT_ODDS_ONLY": 4
       },
       "confidence_counts": {
-        "HIGH": 34,
-        "MEDIUM": 2
+        "HIGH": 32,
+        "MEDIUM": 4
       },
       "movement_status_counts": {
-        "REAL_OPENING_CURRENT_AVAILABLE": 34,
-        "OPENING_EQUALS_CURRENT": 2
+        "REAL_OPENING_CURRENT_AVAILABLE": 32,
+        "OPENING_EQUALS_CURRENT": 4
       },
       "quality_tier_counts": {
-        "HIGH": 34,
-        "MEDIUM_CURRENT_ONLY": 2
+        "HIGH": 32,
+        "MEDIUM_CURRENT_ONLY": 4
       },
       "value_status_counts": {
         "NO_VALUE": 19,
@@ -46,19 +46,19 @@
       },
       "market_weight_stats": {
         "count": 36,
-        "avg": 0.2522,
+        "avg": 0.2444,
         "min": 0.12,
         "max": 0.3
       },
       "value_delta_pp_stats": {
         "count": 36,
         "avg": 0.0,
-        "min": -32.73,
-        "max": 32.73
+        "min": -20.54,
+        "max": 20.54
       },
       "expected_value_pct_stats": {
         "count": 36,
-        "avg": 6.795,
+        "avg": 6.8103,
         "min": -28.72,
         "max": 201.2
       },
