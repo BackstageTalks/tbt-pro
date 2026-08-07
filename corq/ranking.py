@@ -2889,3 +2889,417 @@ def is_publishable(row: Dict[str, Any]) -> bool:
 
 def top7_from_ranking(ranked: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT, *args: Any, **kwargs: Any) -> List[Dict[str, Any]]:
     return select_top7(ranked, top_n=top_n)
+
+# ============================================================
+# CorQ TOP7 rank-cap override V7
+# ============================================================
+# Goal: keep 7 ranked picks when enough technical candidates exist, but stop
+# weak short-price picks from occupying the top ranks. This is ranking control,
+# not a hard narrowing filter.
+
+CORQ_TOP7_SELECTION_MODEL_VERSION = "CORQ_TOP7_RANK_CAP_PRICE_GAP_V7"
+CORQ_TOP7_TARGET_COUNT_V7 = 7
+CORQ_SHORT_PRICE_THRESHOLD_V7 = 1.60
+CORQ_MAX_SHORT_PRICE_PICKS_V7 = 4
+
+
+def _corq_v7_implied_probability(odds: Optional[float]) -> Optional[float]:
+    if odds is None or odds <= 1.0:
+        return None
+    return 1.0 / odds
+
+
+def _corq_v7_probability_gap_pp(row: Dict[str, Any]) -> Optional[float]:
+    odds = pick_odds_value(row)
+    implied = _corq_v7_implied_probability(odds)
+    if implied is None:
+        return None
+    return (corq_probability(row) - implied) * 100.0
+
+
+def _corq_v7_market_move_against(row: Dict[str, Any]) -> bool:
+    vals: List[str] = []
+    for key in (
+        "marq_move",
+        "market_move",
+        "move",
+        "marq_v2_movement_status",
+        "marq_range_move",
+    ):
+        if row.get(key) is not None:
+            vals.append(str(row.get(key)))
+    for key in ("marq", "market", "prediction_snapshot"):
+        val = row.get(key)
+        if isinstance(val, dict):
+            for subkey in ("move", "movement", "range_move", "final"):
+                if val.get(subkey) is not None:
+                    vals.append(str(val.get(subkey)))
+            nested = val.get("marq") if isinstance(val.get("marq"), dict) else None
+            if nested:
+                for subkey in ("move", "movement", "range_move", "final"):
+                    if nested.get(subkey) is not None:
+                        vals.append(str(nested.get(subkey)))
+    text = " | ".join(vals).lower()
+    return "against pick" in text or "against_pick" in text
+
+
+def _corq_v7_has_text(row: Dict[str, Any], needles: Sequence[str]) -> bool:
+    parts: List[str] = []
+    for key in (
+        "corq_warning_flags",
+        "corq_rank_audit_tags",
+        "support_tags",
+        "risk_tags",
+        "tags",
+        "warnings",
+        "thinq_tags",
+        "market_tags",
+        "data_notes",
+    ):
+        val = row.get(key)
+        if isinstance(val, list):
+            parts.extend(str(x) for x in val)
+        elif val is not None:
+            parts.append(str(val))
+    hay = " | ".join(parts).lower()
+    return any(str(n).lower() in hay for n in needles)
+
+
+def _corq_v7_ev(row: Dict[str, Any]) -> Optional[float]:
+    ev = expected_value_pct(row)
+    if ev is not None:
+        return ev
+    for key in ("expected_value", "ev", "model_ev"):
+        val = _as_float(row.get(key), None)
+        if val is not None:
+            # Some fields are decimal, some are already percent.
+            return float(val) * 100.0 if abs(float(val)) <= 1.0 else float(val)
+    return None
+
+
+def _corq_v7_data_depth(row: Dict[str, Any]) -> float:
+    try:
+        return _corq_v6_depth(row)
+    except Exception:
+        vals = [
+            _as_float(row.get("combined_data_depth"), None),
+            _as_float(row.get("pick_data_depth"), None),
+            _as_float(row.get("data_depth"), None),
+        ]
+        vals = [float(v) for v in vals if v is not None]
+        return max(vals) if vals else 0.0
+
+
+def _corq_v7_price_gap_penalty(row: Dict[str, Any]) -> float:
+    gap = _corq_v7_probability_gap_pp(row)
+    if gap is None:
+        return -6.0
+    if gap >= 0.0:
+        return 8.0
+    if gap >= -3.0:
+        return 3.0
+    if gap >= -6.0:
+        return -3.0
+    if gap >= -10.0:
+        return -8.0
+    return -14.0
+
+
+def _corq_v7_ev_penalty(row: Dict[str, Any]) -> float:
+    ev = _corq_v7_ev(row)
+    if ev is None:
+        return -1.5
+    if ev >= 0.0:
+        return 3.0
+    if ev >= -5.0:
+        return -2.0
+    if ev >= -12.0:
+        return -6.0
+    if ev >= -18.0:
+        return -10.0
+    return -14.0
+
+
+def _corq_v7_rank_cap(row: Dict[str, Any]) -> Tuple[int, List[str]]:
+    """Return the best allowed rank bucket for a row.
+
+    4 means allowed in the top four. 5/6/7 mean the row is mainly fallback
+    material and should not jump above that rank unless there are not enough
+    better candidates.
+    """
+    cap = 4
+    reasons: List[str] = []
+    odds = pick_odds_value(row)
+    prob = corq_probability(row)
+    thinq_prob = _as_float(row.get("top7_thinq_pick_probability"), None)
+    if thinq_prob is None:
+        thinq_prob = _as_float(row.get("thinq_pick_probability"), None)
+    if thinq_prob is None:
+        nested = row.get("prediction_snapshot")
+        if isinstance(nested, dict):
+            th = nested.get("thinq")
+            if isinstance(th, dict):
+                thinq_prob = _as_float(th.get("pick_probability"), None)
+    gap = _corq_v7_probability_gap_pp(row)
+    ev = _corq_v7_ev(row)
+    depth = _corq_v7_data_depth(row)
+
+    if odds is not None and odds <= 1.45:
+        if not (prob >= 0.66 or (gap is not None and gap >= -5.0)):
+            cap = max(cap, 5)
+            reasons.append("CAP_SHORT_ODDS_145_WEAK_GAP")
+    elif odds is not None and odds <= 1.55:
+        if not (prob >= 0.59 or (gap is not None and gap >= -7.0)):
+            cap = max(cap, 5)
+            reasons.append("CAP_SHORT_ODDS_155_WEAK_GAP")
+
+    if odds is not None and odds < 1.60 and prob < 0.56:
+        cap = max(cap, 6)
+        reasons.append("CAP_SHORT_PRICE_CORQ_UNDER_56")
+
+    if ev is not None and ev < -18.0:
+        cap = max(cap, 6)
+        reasons.append("CAP_EV_UNDER_MINUS_18")
+    elif ev is not None and ev < -12.0:
+        cap = max(cap, 5)
+        reasons.append("CAP_EV_UNDER_MINUS_12")
+
+    if gap is not None and gap < -10.0:
+        cap = max(cap, 6)
+        reasons.append("CAP_PROB_GAP_UNDER_MINUS_10PP")
+    elif gap is not None and gap < -7.0:
+        cap = max(cap, 5)
+        reasons.append("CAP_PROB_GAP_UNDER_MINUS_7PP")
+
+    if _corq_v7_market_move_against(row):
+        cap = max(cap, 5)
+        reasons.append("CAP_MARKET_MOVE_AGAINST")
+
+    if _corq_v7_has_text(row, ["opp strong", "opponent strong"]):
+        cap = max(cap, 5)
+        reasons.append("CAP_OPP_STRONG")
+
+    if depth < 0.60:
+        cap = max(cap, 5)
+        reasons.append("CAP_DATA_DEPTH_UNDER_60")
+
+    # Enough underlying model strength can keep a row in top four despite one
+    # soft weakness.
+    strong_model = prob >= 0.62 and (thinq_prob is None or thinq_prob >= 0.60)
+    playable_price = odds is not None and odds >= 1.70 and prob >= 0.54 and thinq_confidence(row) >= 0.75
+    acceptable_gap = gap is not None and gap >= -5.0
+    if cap > 4 and (strong_model or playable_price or acceptable_gap):
+        # Relax only one level so severe issues still stay lower.
+        cap = max(4, cap - 1)
+        reasons.append("CAP_RELAXED_BY_MODEL_SUPPORT")
+
+    return cap, reasons
+
+
+def _corq_v7_score(row: Dict[str, Any]) -> float:
+    # Start from V6 score, then strengthen price/gap and movement controls.
+    try:
+        score = _corq_v6_score(row)
+    except Exception:
+        score = corq_probability(row) * 100.0 + thinq_confidence(row) * 10.0
+
+    score += _corq_v7_price_gap_penalty(row)
+    score += _corq_v7_ev_penalty(row)
+
+    if _corq_v7_market_move_against(row):
+        score -= 6.0
+    if _corq_v7_has_text(row, ["market with pick"]):
+        # Smaller than before; side support alone should not overpower bad gap.
+        score += 2.0
+    if _corq_v7_has_text(row, ["opp strong", "opponent strong"]):
+        score -= 5.0
+    if _corq_v7_data_depth(row) < 0.60:
+        score -= 4.0
+
+    cap, reasons = _corq_v7_rank_cap(row)
+    if cap >= 5:
+        score -= 3.0
+    if cap >= 6:
+        score -= 4.0
+    if cap >= 7:
+        score -= 4.0
+
+    return float(score)
+
+
+def annotate_top7_quality(row: Dict[str, Any]) -> Dict[str, Any]:
+    try:
+        row = _VALUE_FIRST_V4_BASE_ANNOTATE_TOP7_QUALITY(row)
+    except Exception:
+        pass
+
+    try:
+        fatal = _corq_v6_fatal_reasons(row)
+    except Exception:
+        fatal = list(top7_reject_reasons(row) or [])
+    try:
+        soft = _corq_v6_soft_reasons(row)
+    except Exception:
+        soft = []
+
+    selectable = not fatal
+    score = _corq_v7_score(row) if selectable else -9999.0
+    cap, cap_reasons = _corq_v7_rank_cap(row) if selectable else (99, ["NOT_SELECTABLE"])
+
+    if selectable and cap <= 4 and score >= 68:
+        tier = "CORQ_CLEAN"
+    elif selectable and score >= 58:
+        tier = "CORQ_PLAYABLE"
+    elif selectable and score >= 48:
+        tier = "CORQ_LOW_EDGE"
+    elif selectable:
+        tier = "CORQ_RISK_FALLBACK"
+    else:
+        tier = "CORQ_NOT_SELECTABLE"
+
+    row["top7_filter_mode"] = CORQ_TOP7_SELECTION_MODEL_VERSION
+    row["top7_selection_model_version"] = CORQ_TOP7_SELECTION_MODEL_VERSION
+    row["top7_publishable"] = selectable
+    row["eligible_for_top7"] = selectable
+    row["corq_top7_selectable"] = selectable
+    row["corq_top7_sort_score"] = score
+    row["top7_quality_score"] = score
+    row["corq_top7_tier"] = tier
+    row["corq_rank_cap"] = cap
+    row["corq_rank_cap_reasons"] = cap_reasons
+    row["corq_top4_eligible"] = bool(selectable and cap <= 4)
+    row["corq_probability_gap_pp"] = _corq_v7_probability_gap_pp(row)
+    row["corq_ev_pct_for_ranking"] = _corq_v7_ev(row)
+    row["corq_market_move_against"] = _corq_v7_market_move_against(row)
+    row["corq_top7_reject_reasons"] = fatal
+    row["corq_top7_fatal_reject_reasons"] = fatal
+    row["corq_top7_soft_penalty_reasons"] = list(dict.fromkeys(list(soft) + cap_reasons))
+    row["corq_top7_audit_note"] = "rank_cap_v7_top4_quality_floor_fallback_5_7"
+
+    flags = row.get("corq_warning_flags")
+    if not isinstance(flags, list):
+        flags = []
+    for tag in [tier] + [f"CAP_{r}" for r in cap_reasons]:
+        if tag not in flags:
+            flags.append(tag)
+    row["corq_warning_flags"] = flags
+
+    audit = row.get("corq_rank_audit_tags")
+    if not isinstance(audit, list):
+        audit = []
+    for tag in [CORQ_TOP7_SELECTION_MODEL_VERSION, tier] + [f"RANKCAP_{r}" for r in cap_reasons]:
+        if tag not in audit:
+            audit.append(tag)
+    row["corq_rank_audit_tags"] = audit
+    return row
+
+
+def sort_publishable(rows: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    candidates = [r for r in rows if r.get("corq_top7_selectable") is True or r.get("top7_publishable") is True]
+    return sorted(
+        candidates,
+        key=lambda r: (
+            float(r.get("corq_top7_sort_score") or r.get("top7_quality_score") or 0.0),
+            -(int(r.get("corq_rank_cap") or 99)),
+            corq_probability(r),
+            thinq_confidence(r),
+            pick_odds_value(r) or 0.0,
+        ),
+        reverse=True,
+    )
+
+
+def select_top7(rows: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> List[Dict[str, Any]]:
+    annotated = annotate_rows(list(rows or []))
+    ranked = sort_publishable(annotated)
+    target = int(top_n or CORQ_TOP7_TARGET_COUNT_V7)
+
+    long_available = sum(1 for r in ranked if (pick_odds_value(r) or 0.0) >= CORQ_SHORT_PRICE_THRESHOLD_V7)
+    short_limit = CORQ_MAX_SHORT_PRICE_PICKS_V7 if long_available >= max(1, target - CORQ_MAX_SHORT_PRICE_PICKS_V7) else target
+
+    selected: List[Dict[str, Any]] = []
+    seen = set()
+    short_count = 0
+
+    def can_take(row: Dict[str, Any], rank_pos: int, strict_caps: bool = True) -> bool:
+        nonlocal short_count
+        key = _corq_v6_match_key(row) if "_corq_v6_match_key" in globals() else str(id(row))
+        if key in seen:
+            return False
+        odds = pick_odds_value(row)
+        is_short = odds is not None and odds < CORQ_SHORT_PRICE_THRESHOLD_V7
+        if is_short and short_count >= short_limit:
+            return False
+        cap = int(row.get("corq_rank_cap") or 99)
+        if strict_caps and rank_pos <= 4 and cap > 4:
+            return False
+        return True
+
+    # First pass: protect top four with quality floor.
+    for row in ranked:
+        if len(selected) >= min(4, target):
+            break
+        rank_pos = len(selected) + 1
+        if not can_take(row, rank_pos, strict_caps=True):
+            continue
+        key = _corq_v6_match_key(row) if "_corq_v6_match_key" in globals() else str(id(row))
+        seen.add(key)
+        if (pick_odds_value(row) or 0.0) < CORQ_SHORT_PRICE_THRESHOLD_V7:
+            short_count += 1
+        selected.append(row)
+
+    # Second pass: fill fallback ranks 5-7, allowing capped rows but respecting
+    # short-price diversity when possible.
+    for row in ranked:
+        if len(selected) >= target:
+            break
+        rank_pos = len(selected) + 1
+        if not can_take(row, rank_pos, strict_caps=False):
+            continue
+        key = _corq_v6_match_key(row) if "_corq_v6_match_key" in globals() else str(id(row))
+        seen.add(key)
+        if (pick_odds_value(row) or 0.0) < CORQ_SHORT_PRICE_THRESHOLD_V7:
+            short_count += 1
+        selected.append(row)
+
+    # Last-resort fill to avoid returning fewer picks when valid candidates exist.
+    for row in ranked:
+        if len(selected) >= target:
+            break
+        key = _corq_v6_match_key(row) if "_corq_v6_match_key" in globals() else str(id(row))
+        if key in seen:
+            continue
+        seen.add(key)
+        selected.append(row)
+
+    for idx, row in enumerate(selected, start=1):
+        row["top7_rank"] = idx
+        row["corq_rank"] = idx
+        row["top7_publishable"] = True
+        row["eligible_for_top7"] = True
+        row["corq_top7_forced_rank_selection"] = True
+        row["top7_selection_count_target"] = target
+        row["corq_top7_selection_pass"] = "top4_quality" if idx <= 4 else "fallback_5_7"
+    return selected
+
+
+def rank_predictions(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    all_rows = annotate_rows(list(predictions or []))
+    top7 = select_top7(all_rows, top_n=top_n)
+    return all_rows, top7
+
+
+def build_all_and_top7(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    return rank_predictions(predictions, top_n=top_n)
+
+
+def build_rankings(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    return rank_predictions(predictions, top_n=top_n)
+
+
+def apply_ranking(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    return rank_predictions(predictions, top_n=top_n)
+
+
+def top7_from_ranking(ranked: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT, *args: Any, **kwargs: Any) -> List[Dict[str, Any]]:
+    return select_top7(ranked, top_n=top_n)
