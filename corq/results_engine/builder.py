@@ -94,23 +94,82 @@ def snapshot_score(row: Dict[str, Any]) -> Tuple[str, Optional[int], Optional[in
     return "", None, None, False
 
 
+VOID_STATUS_WORDS = {
+    "ABANDON",
+    "ABANDONED",
+    "CANCEL",
+    "CANCELED",
+    "CANCELLED",
+    "NO_CONTEST",
+    "POSTPONED",
+    "RET",
+    "RETIRED",
+    "RETIREMENT",
+    "SCR",
+    "SCRATCH",
+    "VOID",
+    "WALKOVER",
+    "WO",
+}
+
+EVENT_STATUS_VOID_WORDS = {
+    "abandoned",
+    "canceled",
+    "cancelled",
+    "postponed",
+    "retired",
+    "walkover",
+    "void",
+}
+
+
+def _status_tokens(value: Any) -> List[str]:
+    text = str(value or "").upper().replace("-", "_")
+    return [tok for tok in re.split(r"[^A-Z0-9_]+", text) if tok]
+
+
 def is_void_status(*values: Any) -> bool:
-    text = " ".join(str(v or "") for v in values).upper()
-    void_tokens = (
-        "RET", "RETIRED", "RETIREMENT", "SCR", "SCRATCH", "WALKOVER", "WO",
-        "ABANDON", "CANCEL", "CANCELED", "CANCELLED", "VOID", "POSTPONED",
-    )
-    return any(token in text for token in void_tokens)
+    """Return True only for explicit void/retirement/cancel tokens.
+
+    Previous implementation used broad substring matching (for example ``RET``
+    anywhere in combined status/winner/score text). That made settlement too
+    fragile and also allowed an old result_status/status value of VOID to block
+    winner-based re-settlement before the winner was compared to the pick.
+    """
+    for value in values:
+        for tok in _status_tokens(value):
+            if tok in VOID_STATUS_WORDS:
+                return True
+    return False
+
+
+def _event_status_is_void(status: Any) -> bool:
+    return str(status or "").strip().lower() in EVENT_STATUS_VOID_WORDS
+
+
+def _score_indicates_void(score: Any) -> bool:
+    return is_void_status(score)
 
 
 def result_from_winner(row: Dict[str, Any], winner: str, status: str) -> Tuple[str, Optional[float]]:
-    if is_void_status(status, winner, row.get("score"), row.get("final_score")):
-        return "VOID", 0.0
-    if winner:
-        if normalize_name(winner) == normalize_name(pick_name(row)):
+    score = row.get("score") or row.get("final_score")
+    pick = pick_name(row)
+    void_by_event_status = _event_status_is_void(status)
+    void_by_score = _score_indicates_void(score)
+
+    # If a real finished winner is available and the score does not explicitly
+    # indicate retirement/walkover/cancel, settle by winner first. This fixes
+    # historical rows where existing result/status was VOID even though winner
+    # and final score clearly identify the match winner.
+    if winner and not void_by_score:
+        if normalize_name(winner) == normalize_name(pick):
             odds = pick_odds(row)
             return "WON", round((odds or 1.0) - 1.0, 4) if odds else None
         return "LOST", -1.0
+
+    if void_by_event_status or void_by_score:
+        return "VOID", 0.0
+
     explicit = str(row.get("result") or row.get("result_status") or "").upper()
     if explicit in {"WON", "WIN"}:
         odds = pick_odds(row)
@@ -118,8 +177,6 @@ def result_from_winner(row: Dict[str, Any], winner: str, status: str) -> Tuple[s
     if explicit in {"LOST", "LOSS"}:
         return "LOST", -1.0
     if explicit == "VOID":
-        return "VOID", 0.0
-    if status in {"cancelled", "canceled", "postponed", "walkover", "retired", "abandoned"}:
         return "VOID", 0.0
     return "PENDING", None
 
