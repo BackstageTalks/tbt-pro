@@ -3110,7 +3110,7 @@ def render_cards_page(title: str, active: str, rows: List[Dict[str, Any]], manif
     if not rows:
         cards = '<div class="empty">No rows available.</div>'
     else:
-        cards = '<div class="grid">' + "\n".join(render_card(r, i + 1, page=page) for i, r in enumerate(rows)) + '</div>'
+        cards = f'<div class="grid" data-page="{esc(page)}">' + "\n".join(render_card(r, i + 1, page=page) for i, r in enumerate(rows)) + '</div>'
     summary = render_notes_summary(rows) if page == "all" else ""
     # Audit page: summary first, then cards. This makes the filter pills usable as the main control panel.
     body = summary + cards if page == "all" else cards
@@ -4297,7 +4297,7 @@ def render_cards_page(title: str, active: str, rows: List[Dict[str, Any]], manif
     if not rows:
         cards = '<div class="empty">No rows available.</div>'
     else:
-        cards = '<div class="grid">' + "\n".join(render_card(r, i + 1, page=page) for i, r in enumerate(rows)) + '</div>'
+        cards = f'<div class="grid" data-page="{esc(page)}">' + "\n".join(render_card(r, i + 1, page=page) for i, r in enumerate(rows)) + '</div>'
     # CorQ, CloQ and Audit now share the same tag filter panel. Results has its
     # own result_filter_builder, which also uses audit_filter_tags_for_row().
     summary = render_notes_summary(rows) if page in {"corq", "cloq", "all"} else ""
@@ -4479,6 +4479,9 @@ def tag_filter_script() -> str:
 
   function sortVisibleCardsByTime(){
     document.querySelectorAll('.grid').forEach(grid => {
+      if((grid.getAttribute('data-page') || '') !== 'all'){
+        return;
+      }
       const cards = Array.from(grid.querySelectorAll('.pick-card'));
       if(!cards.length){ return; }
       cards.sort((a,b) => {
@@ -4546,7 +4549,7 @@ def render_cards_page(title: str, active: str, rows: List[Dict[str, Any]], manif
     if not rows:
         cards = '<div class="empty">No rows available.</div>'
     else:
-        cards = '<div class="grid">' + "\n".join(render_card(r, i + 1, page=page) for i, r in enumerate(rows)) + '</div>'
+        cards = f'<div class="grid" data-page="{esc(page)}">' + "\n".join(render_card(r, i + 1, page=page) for i, r in enumerate(rows)) + '</div>'
     summary = render_notes_summary(rows) if page in {"corq", "cloq", "all"} else ""
     return page_shell(title, active, summary + cards, manifest)
 
@@ -4826,6 +4829,9 @@ def tag_filter_script() -> str:
 
   function sortVisibleCardsByTime(){
     document.querySelectorAll('.grid').forEach(grid => {
+      if((grid.getAttribute('data-page') || '') !== 'all'){
+        return;
+      }
       const cards = Array.from(grid.querySelectorAll('.pick-card'));
       if(!cards.length){ return; }
       cards.sort((a,b) => {
@@ -5713,6 +5719,12 @@ def render_all() -> None:
     }
     write_text(SITE_DIR / "render_manifest.json", json.dumps(render_manifest, ensure_ascii=False, indent=2))
     print(f"Rendered site: top7={len(top7)} all={len(all_rows_for_audit)} cloq={len(cloq)} history={HISTORY_PATH} root={SITE_DIR}")
+
+# ============================================================
+# CorQ TOP7 visual rank-order override V1
+# ============================================================
+# CorQ/CloQ cards must preserve model rank order. Audit may still sort by start time.
+
 
 def main() -> None:
     render_all()
