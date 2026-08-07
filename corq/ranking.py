@@ -2545,8 +2545,8 @@ def top7_from_ranking(ranked: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAU
 # enough valid candidates, without swinging to either extreme. Only true hard
 # blockers reject. Everything else becomes a transparent score adjustment.
 
-CORQ_TOP7_SELECTION_MODEL_VERSION = "CORQ_TOP7_BALANCED_FORCE7_V6"
-CORQ_MIN_PICK_ODDS_V6 = 1.45
+CORQ_TOP7_SELECTION_MODEL_VERSION = "CORQ_TOP7_BALANCED_FORCE7_V6_ODDS140"
+CORQ_MIN_PICK_ODDS_V6 = 1.40
 CORQ_MIN_PROBABILITY_V6 = 0.50
 CORQ_MIN_DATA_DEPTH_TARGET_V6 = 0.70
 CORQ_MIN_CONFIDENCE_TARGET_V6 = 0.65
@@ -2574,7 +2574,7 @@ def _corq_v6_fatal_reasons(row: Dict[str, Any]) -> List[str]:
         if "REJECT_TOP7_MISSING_ODDS" not in reasons:
             reasons.append("REJECT_TOP7_MISSING_ODDS")
     elif odds < CORQ_MIN_PICK_ODDS_V6:
-        reasons.append("REJECT_TOP7_ODDS_UNDER_1_45")
+        reasons.append("REJECT_TOP7_ODDS_UNDER_1_40")
 
     if corq_probability(row) < CORQ_MIN_PROBABILITY_V6:
         reasons.append("REJECT_TOP7_CORQ_BELOW_50")
@@ -2698,8 +2698,10 @@ def _corq_v6_score(row: Dict[str, Any]) -> float:
 
     # Price preference: avoid very low odds, reward useful price zone, do not chase blind long odds.
     if odds is not None:
-        if odds < 1.45:
+        if odds < 1.40:
             score -= 100.0
+        elif odds < 1.45:
+            score -= 8.0
         elif odds < 1.55:
             score -= 6.0
         elif odds < 1.70:
