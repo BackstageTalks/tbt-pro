@@ -1,6 +1,6 @@
 {
   "model_version": "2026-08-04-marq-coverage-report-v1",
-  "generated_at_utc": "2026-08-07T10:03:47.514375+00:00",
+  "generated_at_utc": "2026-08-07T11:49:35.987177+00:00",
   "input_paths": {
     "all": "outputs/latest_all.json",
     "top7": "outputs/latest_top7.json",
@@ -11,8 +11,8 @@
       "label": "all_audit",
       "total_rows": 36,
       "coverage_pct": {
-        "high_marq": 83.33,
-        "medium_current_only": 16.67,
+        "high_marq": 88.89,
+        "medium_current_only": 11.11,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
         "usable_marq_high_or_medium": 100.0
@@ -21,20 +21,20 @@
         "getAllOddsForEvent": 36
       },
       "data_status_counts": {
-        "EXACT_BETTING_ODDS_WITH_OPENING": 30,
-        "EXACT_CURRENT_ODDS_ONLY": 6
+        "EXACT_BETTING_ODDS_WITH_OPENING": 32,
+        "EXACT_CURRENT_ODDS_ONLY": 4
       },
       "confidence_counts": {
-        "HIGH": 30,
-        "MEDIUM": 6
+        "HIGH": 32,
+        "MEDIUM": 4
       },
       "movement_status_counts": {
-        "REAL_OPENING_CURRENT_AVAILABLE": 30,
-        "OPENING_EQUALS_CURRENT": 6
+        "REAL_OPENING_CURRENT_AVAILABLE": 32,
+        "OPENING_EQUALS_CURRENT": 4
       },
       "quality_tier_counts": {
-        "HIGH": 30,
-        "MEDIUM_CURRENT_ONLY": 6
+        "HIGH": 32,
+        "MEDIUM_CURRENT_ONLY": 4
       },
       "value_status_counts": {
         "NO_VALUE": 19,
@@ -46,8 +46,8 @@
       },
       "market_weight_stats": {
         "count": 36,
-        "avg": 0.2356,
-        "min": 0.1,
+        "avg": 0.2444,
+        "min": 0.12,
         "max": 0.3
       },
       "value_delta_pp_stats": {
@@ -58,8 +58,8 @@
       },
       "expected_value_pct_stats": {
         "count": 36,
-        "avg": 6.6908,
-        "min": -27.72,
+        "avg": 6.8153,
+        "min": -28.72,
         "max": 201.2
       },
       "samples": {
@@ -218,33 +218,33 @@
             "fallback_reason": null
           },
           {
-            "identity": "16661621",
-            "pick": "Botic Van de Zandschulp",
-            "opponent": "Hubert Hurkacz",
-            "odds": 2.75,
+            "identity": "16661618",
+            "pick": "Tallon Griekspoor",
+            "opponent": "Matteo Arnaldi",
+            "odds": 1.53,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": 11.44,
-            "expected_value_pct": 25.98,
+            "value_delta_pp": -10.07,
+            "expected_value_pct": -20.5,
             "fallback_reason": null
           },
           {
-            "identity": "16661621",
-            "pick": "Hubert Hurkacz",
-            "opponent": "Botic Van de Zandschulp",
-            "odds": 1.44,
+            "identity": "16661618",
+            "pick": "Matteo Arnaldi",
+            "opponent": "Tallon Griekspoor",
+            "odds": 2.5,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": -11.44,
-            "expected_value_pct": -21.97,
+            "value_delta_pp": 10.07,
+            "expected_value_pct": 20.1,
             "fallback_reason": null
           }
         ],
@@ -328,15 +328,15 @@
             "identity": "16661618",
             "pick": "Tallon Griekspoor",
             "opponent": "Matteo Arnaldi",
-            "odds": 1.57,
+            "odds": 1.53,
             "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": -8.32,
-            "expected_value_pct": -18.47,
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": -10.07,
+            "expected_value_pct": -20.5,
             "fallback_reason": null
           },
           {
@@ -495,15 +495,15 @@
             "identity": "16661618",
             "pick": "Matteo Arnaldi",
             "opponent": "Tallon Griekspoor",
-            "odds": 2.38,
+            "odds": 2.5,
             "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": 8.32,
-            "expected_value_pct": 14.41,
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 10.07,
+            "expected_value_pct": 20.1,
             "fallback_reason": null
           },
           {
@@ -625,59 +625,126 @@
     },
     "corq_top7": {
       "label": "corq_top7",
-      "total_rows": 1,
+      "total_rows": 3,
       "coverage_pct": {
-        "high_marq": 0.0,
-        "medium_current_only": 100.0,
+        "high_marq": 66.67,
+        "medium_current_only": 33.33,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
         "usable_marq_high_or_medium": 100.0
       },
       "endpoint_counts": {
-        "getAllOddsForEvent": 1
+        "getAllOddsForEvent": 3
       },
       "data_status_counts": {
+        "EXACT_BETTING_ODDS_WITH_OPENING": 2,
         "EXACT_CURRENT_ODDS_ONLY": 1
       },
       "confidence_counts": {
+        "HIGH": 2,
         "MEDIUM": 1
       },
       "movement_status_counts": {
+        "REAL_OPENING_CURRENT_AVAILABLE": 2,
         "OPENING_EQUALS_CURRENT": 1
       },
       "quality_tier_counts": {
+        "HIGH": 2,
         "MEDIUM_CURRENT_ONLY": 1
       },
       "value_status_counts": {
+        "NO_VALUE": 2,
         "VALUE_STRONG": 1
       },
       "source_policy_counts": {
-        "TENNISAPI_ONLY_EXACT_EVENT": 1
+        "TENNISAPI_ONLY_EXACT_EVENT": 3
       },
       "market_weight_stats": {
-        "count": 1,
-        "avg": 0.12,
+        "count": 3,
+        "avg": 0.2133,
         "min": 0.12,
-        "max": 0.12
+        "max": 0.3
       },
       "value_delta_pp_stats": {
-        "count": 1,
-        "avg": 8.08,
-        "min": 8.08,
+        "count": 3,
+        "avg": -0.6,
+        "min": -10.07,
         "max": 8.08
       },
       "expected_value_pct_stats": {
-        "count": 1,
-        "avg": 8.84,
-        "min": 8.84,
+        "count": 3,
+        "avg": -5.2833,
+        "min": -20.5,
         "max": 8.84
       },
       "samples": {
         "thin_fallback": [],
         "no_marq_or_unknown": [],
         "current_only": [],
-        "real_opening": [],
-        "no_value": [],
+        "real_opening": [
+          {
+            "identity": "16662071",
+            "pick": "Iva Jović",
+            "opponent": "Alina Korneeva",
+            "odds": 1.5,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 0.19,
+            "expected_value_pct": -4.19,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16661618",
+            "pick": "Tallon Griekspoor",
+            "opponent": "Matteo Arnaldi",
+            "odds": 1.53,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": -10.07,
+            "expected_value_pct": -20.5,
+            "fallback_reason": null
+          }
+        ],
+        "no_value": [
+          {
+            "identity": "16662071",
+            "pick": "Iva Jović",
+            "opponent": "Alina Korneeva",
+            "odds": 1.5,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 0.19,
+            "expected_value_pct": -4.19,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16661618",
+            "pick": "Tallon Griekspoor",
+            "opponent": "Matteo Arnaldi",
+            "odds": 1.53,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": -10.07,
+            "expected_value_pct": -20.5,
+            "fallback_reason": null
+          }
+        ],
         "value_strong": [
           {
             "identity": "16662191",
@@ -697,12 +764,12 @@
         ]
       },
       "attempt_summary": {
-        "total_attempts": 1,
+        "total_attempts": 3,
         "endpoint_counts": {
-          "getAllOddsForEvent": 1
+          "getAllOddsForEvent": 3
         },
         "status_counts": {
-          "200": 1
+          "200": 3
         }
       }
     },

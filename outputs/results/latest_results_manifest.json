@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-07T10:03:50+00:00",
+  "generated_at": "2026-08-07T11:49:38+00:00",
   "date": "2026-08-07",
   "fetch_api": false,
   "settlement_grace_hours": 0.0,
@@ -10,45 +10,45 @@
   "summary": {
     "corq": {
       "picks": 65,
-      "won": 0,
-      "lost": 26,
+      "won": 29,
+      "lost": 28,
       "pending": 8,
-      "void": 31,
-      "win_rate": 0.0,
-      "units": -26.0,
-      "roi": -1.0
+      "void": 0,
+      "win_rate": 0.5088,
+      "units": -10.0472,
+      "roi": -0.1763
     },
     "cloq": {
       "picks": 38,
-      "won": 0,
+      "won": 14,
       "lost": 19,
       "pending": 5,
-      "void": 14,
-      "win_rate": 0.0,
-      "units": -19.0,
-      "roi": -1.0
+      "void": 0,
+      "win_rate": 0.4242,
+      "units": -3.7017,
+      "roi": -0.1122
     },
     "audit": {
       "picks": 331,
-      "won": 5,
-      "lost": 107,
+      "won": 188,
+      "lost": 111,
       "pending": 25,
-      "void": 194,
-      "win_rate": 0.0446,
-      "units": -105.13,
-      "roi": -0.9387
+      "void": 7,
+      "win_rate": 0.6288,
+      "units": -28.6968,
+      "roi": -0.096
     }
   },
   "summary_by_snapshot_source": {
     "CORQ_DAILY": {
       "picks": 65,
-      "won": 0,
-      "lost": 26,
+      "won": 29,
+      "lost": 28,
       "pending": 8,
-      "void": 31,
-      "win_rate": 0.0,
-      "units": -26.0,
-      "roi": -1.0
+      "void": 0,
+      "win_rate": 0.5088,
+      "units": -10.0472,
+      "roi": -0.1763
     }
   },
   "sources": {
@@ -57,9 +57,9 @@
     "audit": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/latest_all_audit_snapshot.json"
   },
   "locks": {
-    "corq": "immutable_ledger_source_plus_existing:1+existing:64+preserved:0",
-    "cloq": "immutable_ledger_source_plus_existing:1+existing:37+preserved:0",
-    "audit": "immutable_ledger_source_plus_existing:35+existing:313+preserved:1"
+    "corq": "immutable_ledger_source_plus_existing:0+existing:64+preserved:1",
+    "cloq": "immutable_ledger_source_plus_existing:0+existing:37+preserved:1",
+    "audit": "immutable_ledger_source_plus_existing:18+existing:313+preserved:18"
   },
   "output_root": "outputs/results"
 }

@@ -12,8 +12,8 @@
     "level": "WTA 125",
     "gender": "F",
     "best_of": 3,
-    "match_start": "2026-08-07T11:10:00+00:00",
-    "start_time": "2026-08-07T11:10:00+00:00",
+    "match_start": "2026-08-07T11:50:00+00:00",
+    "start_time": "2026-08-07T11:50:00+00:00",
     "status_type": "notstarted",
     "status_code": 0,
     "is_doubles": false,
@@ -65,7 +65,7 @@
               "shortNameTranslation": {}
             }
           },
-          "userCount": 208,
+          "userCount": 219,
           "groundType": "Hardcourt outdoor",
           "tennisPoints": 125,
           "hasPerformanceGraphFeature": false,
@@ -115,7 +115,7 @@
           "slug": "tennis",
           "id": 5
         },
-        "userCount": 749,
+        "userCount": 794,
         "playerTeamInfo": {
           "id": 5490
         },
@@ -157,7 +157,7 @@
           "slug": "tennis",
           "id": 5
         },
-        "userCount": 661,
+        "userCount": 728,
         "playerTeamInfo": {
           "id": 12742
         },
@@ -199,7 +199,7 @@
       "crowdsourcingDataDisplayEnabled": false,
       "id": 16662191,
       "slug": "vendula-valdmannova-carol-young-suh-lee",
-      "startTimestamp": 1786101000,
+      "startTimestamp": 1786103400,
       "periods": {
         "point": "Game",
         "current": "Match",
@@ -2607,8 +2607,8 @@
       "FAIR",
       "VALUE_POSITIVE"
     ],
-    "corq_source_rank": 28,
-    "top7_filter_mode": "PUBLISHABLE_VALUE_FIRST_LOW_ODDS_GATE_V4",
+    "corq_source_rank": 29,
+    "top7_filter_mode": "CORQ_TOP7_BALANCED_FORCE7_V6",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "top7_quality_reject_reasons": [],
@@ -2742,7 +2742,7 @@
     ],
     "top7_risk_penalty_points": 15.5,
     "top7_clean_bonus_points": 14.0,
-    "top7_quality_score": 46.3836,
+    "top7_quality_score": 83.39349999999999,
     "corq_warning_flags": [
       "OPP_STRONG_FORM",
       "PICK_STRONG_FORM",
@@ -2757,7 +2757,8 @@
       "VALUE_POSITIVE_CONFIRMED",
       "VALUE_FIRST_MARKET_WITH_PICK",
       "VALUE_FIRST_STRONG_EV",
-      "STACKED_RISK"
+      "CORQ_PLAYABLE",
+      "SOFT_PENALTY_MARKET_AGAINST_PICK"
     ],
     "top7_support_tags": [
       "PICK_STRONG_FORM",
@@ -2790,28 +2791,29 @@
     "top7_value_delta_pp": 3.45,
     "top7_expected_value_pct": 6.9,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
-    "corq_top7_sort_score": 46.3836,
-    "corq_value_gate_status": "STRONG_VALUE",
-    "corq_low_odds_gate_status": "NOT_LOW_ODDS",
-    "corq_risk_penalty": 15.5,
-    "corq_market_support_bonus": 4.0,
+    "top7_selection_model_version": "CORQ_TOP7_BALANCED_FORCE7_V6",
+    "corq_top7_selectable": true,
+    "corq_top7_sort_score": 83.39349999999999,
+    "corq_top7_tier": "CORQ_PLAYABLE",
     "corq_top7_reject_reasons": [],
-    "corq_rank_audit_tags": [
-      "STRONG_VALUE",
-      "MARKET_WITH_PICK",
-      "MARKET_AGAINST_PICK",
-      "HIGH_DATA_DEPTH",
-      "STACKED_RISK",
-      "OPP_STRONG_FORM",
-      "MULTI_RISK_PICK",
-      "HIGH_RISK_PICK"
+    "corq_top7_fatal_reject_reasons": [],
+    "corq_top7_soft_penalty_reasons": [
+      "PENALTY_MARKET_AGAINST_PICK"
     ],
-    "top7_value_first_model_version": "CORQ_TOP7_VALUE_FIRST_V4",
+    "corq_top7_audit_note": "balanced_force7_v6_soft_penalties_not_hard_rejects",
+    "corq_v6_min_odds": 1.45,
+    "corq_v6_min_data_depth_target": 0.7,
+    "corq_v6_min_confidence_target": 0.65,
+    "corq_v6_value_soft_floor": -5.0,
+    "corq_rank_audit_tags": [
+      "CORQ_TOP7_BALANCED_FORCE7_V6",
+      "CORQ_PLAYABLE",
+      "PENALTY_PENALTY_MARKET_AGAINST_PICK"
+    ],
     "corq_rank": 1,
-    "top7_sort_rank": 1,
-    "top7_sort_primary": "VALUE_FIRST_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_VALUE_FIRST_V4",
     "top7_rank": 1,
+    "corq_top7_forced_rank_selection": true,
+    "top7_selection_count_target": 7,
     "cloq_model_version": "CLOQ_HIGH_CONFIDENCE_PRICE_V2",
     "cloq_policy": "highest_realistic_price_50_50_plus_evidence_scored_not_hard_rejected",
     "cloq_pick": "Vendula Valdmannova",

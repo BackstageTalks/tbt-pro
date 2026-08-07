@@ -1,6 +1,6 @@
 {
   "model": "CLOQ_HIGH_CONFIDENCE_PRICE_V2",
-  "created_at_utc": "2026-08-07T10:03:47.308860+00:00",
+  "created_at_utc": "2026-08-07T11:49:35.773817+00:00",
   "input_path": "outputs/latest_all.json",
   "input_rows": 36,
   "audit_rows": 36,
@@ -31,14 +31,14 @@
   },
   "price_bucket_counts": {
     "TARGET_PRICE_1_90_2_09": 1,
-    "VALUE_PRICE_2_10_2_39": 2,
-    "HIGH_PRICE_2_40_PLUS": 15,
+    "VALUE_PRICE_2_10_2_39": 1,
+    "HIGH_PRICE_2_40_PLUS": 16,
     "FALLBACK_PRICE_1_70_1_89": 2,
     "TOO_LOW": 16
   },
   "reject_reason_counts": {
+    "REJECT_CLOQ_STATUS_NOT_PREMATCH": 16,
     "REJECT_CLOQ_MODEL_PROB_UNDER_50": 18,
-    "REJECT_CLOQ_STATUS_NOT_PREMATCH": 14,
     "REJECT_CLOQ_PRICE_TOO_HIGH_WITHOUT_EVIDENCE": 9,
     "REJECT_CLOQ_ODDS_UNDER_1_70": 16
   },
@@ -46,9 +46,9 @@
     "INSUFFICIENT_EVIDENCE_INFO": 19,
     "MARKET_AGAINST_PICK": 18,
     "OPP_STRONG": 10,
-    "ELO_AGAINST": 15,
     "PROBABILITY_UNDER_BREAK_EVEN_INFO": 21,
-    "HIGH_PRICE_RISK": 15,
+    "ELO_AGAINST": 15,
+    "HIGH_PRICE_RISK": 16,
     "ELO_WEAK": 2,
     "PICK_WEAK": 1
   },
@@ -60,9 +60,9 @@
     "SURFACE_EDGE": 18,
     "PICK_STRONG": 10,
     "HIGH_DATA_DEPTH": 34,
-    "VALUE_PRICE_2_10_2_39": 2,
+    "VALUE_PRICE_2_10_2_39": 1,
+    "HIGH_PRICE_2_40_PLUS": 16,
     "PROBABILITY_BUFFER_STRONG": 8,
-    "HIGH_PRICE_2_40_PLUS": 15,
     "FALLBACK_PRICE_1_70_1_89": 2,
     "ELO_STRONG": 15,
     "MARKET_WITH_PICK": 18,
