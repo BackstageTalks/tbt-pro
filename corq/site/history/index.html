@@ -105,6 +105,9 @@
 
   function sortVisibleCardsByTime(){
     document.querySelectorAll('.grid').forEach(grid => {
+      if((grid.getAttribute('data-page') || '') !== 'all'){
+        return;
+      }
       const cards = Array.from(grid.querySelectorAll('.pick-card'));
       if(!cards.length){ return; }
       cards.sort((a,b) => {
