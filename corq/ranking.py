@@ -2244,3 +2244,296 @@ def is_publishable(row: Dict[str, Any]) -> bool:
 
 def top7_from_ranking(ranked: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT, *args: Any, **kwargs: Any) -> List[Dict[str, Any]]:
     return select_top7(ranked, top_n=top_n)
+
+# ============================================================
+# CorQ TOP7 forced ranking override V5
+# ============================================================
+# Purpose:
+# - TOP7 must be a ranking from the available daily pool, not an over-hard gate.
+# - Keep hard rejects only for technical impossibilities.
+# - Treat value, low odds, market/risk warnings, data depth and confidence as
+#   score penalties or audit tags, not as reasons to publish only 1-2 picks.
+
+CORQ_TOP7_SELECTION_MODEL_VERSION = "CORQ_TOP7_FORCE7_RANKING_V5"
+CORQ_TOP7_FORCE_COUNT = 7
+
+_CORQ_V5_FATAL_REJECTS = {
+    "REJECT_TOP7_NOT_TODAY_MATCH",
+    "REJECT_TOP7_STATUS_NOT_PREMATCH",
+    "REJECT_TOP7_MISSING_ODDS",
+    "REJECT_TOP7_DOUBLES",
+    "REJECT_TOP7_INVALID_SIDE_ORIENTATION",
+    "REJECT_TOP7_ODDS_ORIENTATION_UNCONFIRMED_EXTREME",
+}
+
+
+def _corq_v5_match_key(row: Dict[str, Any]) -> str:
+    for key in (
+        "match_key",
+        "event_key",
+        "match_id",
+        "event_id",
+        "id",
+        "fixture_id",
+        "api_match_id",
+    ):
+        val = row.get(key)
+        if val is not None and str(val).strip():
+            return f"{key}:{val}"
+    p1 = str(row.get("player") or row.get("pick_name") or row.get("pick") or "").strip().lower()
+    p2 = str(row.get("opponent") or row.get("opp_name") or row.get("opponent_name") or "").strip().lower()
+    start = str(row.get("match_time_utc") or row.get("start_time_utc") or row.get("scheduled_at") or row.get("match_time") or "").strip()
+    tournament = str(row.get("tournament") or row.get("competition") or "").strip().lower()
+    return f"fallback:{start}:{tournament}:{p1}:{p2}"
+
+
+def _corq_v5_has_text(row: Dict[str, Any], needles: Sequence[str]) -> bool:
+    hay_parts: List[str] = []
+    for key in (
+        "corq_warning_flags",
+        "corq_rank_audit_tags",
+        "support_tags",
+        "risk_tags",
+        "tags",
+        "warnings",
+        "thinq_tags",
+        "market_tags",
+    ):
+        val = row.get(key)
+        if isinstance(val, list):
+            hay_parts.extend(str(x) for x in val)
+        elif val is not None:
+            hay_parts.append(str(val))
+    hay = " | ".join(hay_parts).lower()
+    return any(str(n).lower() in hay for n in needles)
+
+
+def _corq_v5_numeric(row: Dict[str, Any], keys: Sequence[str], default: float = 0.0) -> float:
+    for key in keys:
+        val = _as_float(row.get(key), None)
+        if val is not None:
+            return float(val)
+    return float(default)
+
+
+def _corq_v5_fatal_reasons(row: Dict[str, Any]) -> List[str]:
+    reasons = list(top7_reject_reasons(row) or [])
+    return [r for r in reasons if r in _CORQ_V5_FATAL_REJECTS]
+
+
+def _corq_v5_soft_reasons(row: Dict[str, Any]) -> List[str]:
+    reasons = list(top7_reject_reasons(row) or [])
+    return [r for r in reasons if r not in _CORQ_V5_FATAL_REJECTS]
+
+
+def _corq_v5_probability_margin_pp(row: Dict[str, Any], odds: Optional[float]) -> Optional[float]:
+    prob = corq_probability(row)
+    if odds is None or odds <= 1.0:
+        return None
+    implied = 1.0 / odds
+    return (prob - implied) * 100.0
+
+
+def _corq_v5_score(row: Dict[str, Any]) -> float:
+    odds = pick_odds_value(row)
+    prob = corq_probability(row)
+    conf = thinq_confidence(row)
+    vd = value_delta_pp(row)
+    ev = expected_value_pct(row)
+    margin = _corq_v5_probability_margin_pp(row, odds)
+    base_quality = 0.0
+    try:
+        base_quality = float(top7_quality_score(row) or 0.0)
+    except Exception:
+        base_quality = 0.0
+
+    score = 0.0
+    score += base_quality * 0.35
+    score += prob * 100.0 * 0.75
+    score += conf * 12.0
+
+    if odds is not None:
+        if odds >= 1.90:
+            score += 10.0
+        elif odds >= 1.70:
+            score += 6.0
+        elif odds >= 1.55:
+            score += 2.0
+        else:
+            score -= 6.0
+        # Avoid letting very high price alone dominate ranking.
+        if odds > 2.80:
+            score -= min(12.0, (odds - 2.80) * 8.0)
+
+    if margin is not None:
+        score += max(-18.0, min(18.0, margin * 1.1))
+
+    if vd is not None:
+        score += max(-14.0, min(14.0, vd * 0.9))
+    if ev is not None:
+        score += max(-14.0, min(14.0, ev * 0.65))
+
+    combined_depth = _corq_v5_numeric(row, [
+        "combined_data_depth",
+        "data_depth_combined",
+        "pick_combined_data_depth",
+        "model_data_depth",
+    ], 0.0)
+    pick_depth = _corq_v5_numeric(row, ["pick_data_depth", "data_depth", "thinq_pick_data_depth"], 0.0)
+    form_depth = _corq_v5_numeric(row, ["form_data_depth", "pick_form_data_depth"], 0.0)
+    score += combined_depth * 10.0 + pick_depth * 7.0 + form_depth * 4.0
+
+    if _corq_v5_has_text(row, ["market with pick", "market_with_pick", "value_first_market_with_pick"]):
+        score += 5.0
+    if _corq_v5_has_text(row, ["pick strong", "opp weak", "surface support", "elo support", "form support"]):
+        score += 4.0
+    if _corq_v5_has_text(row, ["market against", "market_against"]):
+        score -= 9.0
+    if _corq_v5_has_text(row, ["opp strong", "high risk", "2+ risk", "risk_backup"]):
+        score -= 8.0
+    if _corq_v5_has_text(row, ["no value", "negative value"]):
+        score -= 5.0
+
+    # Previous hard rejects become soft penalties except technical fatal reasons.
+    soft = _corq_v5_soft_reasons(row)
+    soft_penalty = {
+        "REJECT_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE": 8.0,
+        "REJECT_TOP7_LOW_ODDS_UNDER_1_40": 12.0,
+        "REJECT_TOP7_CORQ_BELOW_50": 10.0,
+        "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK": 8.0,
+        "REJECT_TOP7_LOW_PICK_DATA_DEPTH": 6.0,
+        "REJECT_TOP7_LOW_THINQ_CONFIDENCE": 6.0,
+        "REJECT_TOP7_LOW_FORM_DATA_DEPTH": 4.0,
+        "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH": 4.0,
+    }
+    score -= sum(soft_penalty.get(r, 3.0) for r in soft)
+    return float(score)
+
+
+def _corq_v5_tier(row: Dict[str, Any], score: float) -> str:
+    odds = pick_odds_value(row)
+    soft = set(_corq_v5_soft_reasons(row))
+    risky = bool(soft) or _corq_v5_has_text(row, ["market against", "opp strong", "high risk", "no value"])
+    if not risky and odds is not None and odds >= 1.70 and score >= 55:
+        return "CORQ_CLEAN"
+    if score >= 45:
+        return "CORQ_PLAYABLE"
+    if score >= 34:
+        return "CORQ_LOW_EDGE"
+    return "CORQ_RISK"
+
+
+def annotate_top7_quality(row: Dict[str, Any]) -> Dict[str, Any]:
+    # Keep the existing annotation first, then reinterpret non-fatal rejects as
+    # audit/potential penalties instead of final blockers.
+    try:
+        row = _VALUE_FIRST_V4_BASE_ANNOTATE_TOP7_QUALITY(row)
+    except Exception:
+        pass
+    try:
+        prior = deepcopy(row)
+        row = globals().get("_VALUE_FIRST_V4_BASE_ANNOTATE_TOP7_QUALITY", lambda x: x)(row)
+    except Exception:
+        row = prior if "prior" in locals() else row
+
+    fatal = _corq_v5_fatal_reasons(row)
+    soft = _corq_v5_soft_reasons(row)
+    selectable = not fatal
+    score = _corq_v5_score(row) if selectable else -9999.0
+    tier = _corq_v5_tier(row, score) if selectable else "CORQ_NOT_SELECTABLE"
+
+    row["top7_filter_mode"] = CORQ_TOP7_SELECTION_MODEL_VERSION
+    row["top7_selection_model_version"] = CORQ_TOP7_SELECTION_MODEL_VERSION
+    row["top7_publishable"] = selectable
+    row["eligible_for_top7"] = selectable
+    row["corq_top7_selectable"] = selectable
+    row["corq_top7_sort_score"] = score
+    row["top7_quality_score"] = score
+    row["corq_top7_tier"] = tier
+    row["corq_top7_fatal_reject_reasons"] = fatal
+    row["corq_top7_soft_penalty_reasons"] = soft
+    row["corq_top7_reject_reasons"] = fatal
+    row["corq_top7_audit_note"] = "soft_rejects_are_score_penalties_not_publish_blockers"
+
+    flags = row.get("corq_warning_flags")
+    if not isinstance(flags, list):
+        flags = []
+    for tag in [tier] + [f"SOFT_{r}" for r in soft] + [f"FATAL_{r}" for r in fatal]:
+        if tag not in flags:
+            flags.append(tag)
+    row["corq_warning_flags"] = flags
+
+    audit = row.get("corq_rank_audit_tags")
+    if not isinstance(audit, list):
+        audit = []
+    for tag in [CORQ_TOP7_SELECTION_MODEL_VERSION, tier] + [f"PENALTY_{r}" for r in soft]:
+        if tag not in audit:
+            audit.append(tag)
+    row["corq_rank_audit_tags"] = audit
+    return row
+
+
+def sort_publishable(rows: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    candidates = [r for r in rows if r.get("corq_top7_selectable") is True or r.get("top7_publishable") is True]
+    return sorted(
+        candidates,
+        key=lambda r: (
+            float(r.get("corq_top7_sort_score") or r.get("top7_quality_score") or 0.0),
+            value_delta_pp(r) if value_delta_pp(r) is not None else -999.0,
+            expected_value_pct(r) if expected_value_pct(r) is not None else -999.0,
+            corq_probability(r),
+            thinq_confidence(r),
+            pick_odds_value(r) or 0.0,
+        ),
+        reverse=True,
+    )
+
+
+def select_top7(rows: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> List[Dict[str, Any]]:
+    annotated = annotate_rows(list(rows or []))
+    ranked = sort_publishable(annotated)
+    selected: List[Dict[str, Any]] = []
+    seen = set()
+    for row in ranked:
+        key = _corq_v5_match_key(row)
+        if key in seen:
+            continue
+        seen.add(key)
+        selected.append(row)
+        if len(selected) >= int(top_n or CORQ_TOP7_FORCE_COUNT):
+            break
+
+    for idx, row in enumerate(selected, start=1):
+        row["top7_rank"] = idx
+        row["corq_rank"] = idx
+        row["top7_publishable"] = True
+        row["eligible_for_top7"] = True
+        row["corq_top7_forced_rank_selection"] = True
+        row["top7_selection_count_target"] = int(top_n or CORQ_TOP7_FORCE_COUNT)
+    return selected
+
+
+def rank_predictions(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    all_rows = annotate_rows(list(predictions or []))
+    top7 = select_top7(all_rows, top_n=top_n)
+    return all_rows, top7
+
+
+def build_all_and_top7(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    return rank_predictions(predictions, top_n=top_n)
+
+
+def build_rankings(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    return rank_predictions(predictions, top_n=top_n)
+
+
+def apply_ranking(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    return rank_predictions(predictions, top_n=top_n)
+
+
+def is_publishable(row: Dict[str, Any]) -> bool:
+    return not _corq_v5_fatal_reasons(row)
+
+
+def top7_from_ranking(ranked: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT, *args: Any, **kwargs: Any) -> List[Dict[str, Any]]:
+    return select_top7(ranked, top_n=top_n)
