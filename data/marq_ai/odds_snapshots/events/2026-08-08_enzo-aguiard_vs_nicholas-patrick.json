@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.0303,
   "latest_odds_player2": 10.0,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-08T03:58:38.304607+00:00",
+  "latest_snapshot_time_utc": "2026-08-08T11:12:46.753525+00:00",
   "opening_odds_player1": 1.0303,
   "opening_odds_player2": 10.0,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Enzo Aguiard",
   "player2": "Nicholas Patrick",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "16746742",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-07T14:00:00+00:00",
       "target_date": "2026-08-08"
+    },
+    {
+      "event_id": "16746742",
+      "event_key": "2026-08-08_enzo-aguiard_vs_nicholas-patrick",
+      "hours_to_start": -21.21,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.0303,
+      "odds_player2": 10.0,
+      "player1": "Enzo Aguiard",
+      "player2": "Nicholas Patrick",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-08T11:12:46.753525+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-07T14:00:00+00:00",
+      "target_date": "2026-08-08"
     }
   ],
   "start_time_utc": "2026-08-07T14:00:00+00:00",
-  "updated_at_utc": "2026-08-08T03:58:53.606525+00:00"
+  "updated_at_utc": "2026-08-08T11:13:23.361511+00:00"
 }
