@@ -70,26 +70,70 @@ def fmt_pct(value: Any) -> str:
     return f"{num:.1f}%"
 
 
+def _first_text(row: Dict[str, Any], keys: Iterable[str]) -> str:
+    for key in keys:
+        value = row.get(key)
+        if value is None:
+            continue
+        txt = str(value).strip()
+        if txt and txt.lower() not in {"none", "null", "nan", "—", "-"}:
+            return txt
+    return ""
+
+
 def pick_name(row: Dict[str, Any]) -> str:
-    return str(
-        row.get("pick")
-        or row.get("cloq_pick")
-        or row.get("player")
-        or row.get("player1")
-        or row.get("home")
-        or ""
-    ).strip()
+    # Support both old rows and newer CorQ/TOP7 snapshot exports.
+    direct = _first_text(row, (
+        "pick",
+        "top7_pick",
+        "corq_pick",
+        "selected_pick",
+        "selection",
+        "selected_player",
+        "predicted_winner",
+        "winner_pick",
+        "cloq_pick",
+        "player",
+        "player_name",
+        "player1",
+        "home",
+    ))
+    if direct:
+        return direct
+    snap = row.get("prediction_snapshot")
+    if isinstance(snap, dict):
+        for section in ("corq", "top7", "pick", "selection"):
+            obj = snap.get(section)
+            if isinstance(obj, dict):
+                nested = _first_text(obj, ("pick", "player", "name", "selection", "predicted_winner"))
+                if nested:
+                    return nested
+    return ""
 
 
 def opponent_name(row: Dict[str, Any]) -> str:
-    return str(
-        row.get("opponent")
-        or row.get("opp")
-        or row.get("player2")
-        or row.get("away")
-        or ""
-    ).strip()
-
+    direct = _first_text(row, (
+        "opponent",
+        "opponent_name",
+        "opp",
+        "top7_opponent",
+        "corq_opponent",
+        "other_player",
+        "player2",
+        "away",
+    ))
+    if direct:
+        return direct
+    snap = row.get("prediction_snapshot")
+    if isinstance(snap, dict):
+        for section in ("corq", "top7", "opponent"):
+            obj = snap.get(section)
+            if isinstance(obj, dict):
+                nested = _first_text(obj, ("opponent", "opponent_name", "opp", "player2", "away", "name"))
+                if nested:
+                    return nested
+    # Do not block TOP7 Telegram if opponent is missing in a compact snapshot.
+    return "TBD"
 
 def short_name(name: str) -> str:
     clean = " ".join(str(name or "").split()).strip()
@@ -201,16 +245,24 @@ def start_time(row: Dict[str, Any]) -> str:
     for key in (
         "start_time_utc",
         "match_time_utc",
+        "scheduled_time_utc",
+        "event_time_utc",
+        "start_at_utc",
         "start_time",
         "match_time",
+        "scheduled_time",
+        "event_time",
+        "start_at",
         "start_time_display",
         "match_time_display",
+        "time_local",
+        "local_time",
     ):
         dt = parse_datetime_value(row.get(key), tz, assume_utc=key.endswith("_utc"))
         if dt is not None:
             return dt.strftime("%H:%M")
 
-    raw = row.get("time") or ""
+    raw = row.get("time") or row.get("match_time_label") or row.get("time_label") or ""
     txt = str(raw).strip()
     if not txt:
         return "—"
@@ -221,10 +273,13 @@ def start_time(row: Dict[str, Any]) -> str:
 def probability(row: Dict[str, Any]) -> Optional[float]:
     for key in (
         "top7_corq_probability",
+        "top7_pick_probability",
         "corq_final",
         "corq_final_probability",
         "corq_probability",
         "corq_estimated_win_probability",
+        "pick_probability",
+        "predicted_probability",
         "win_probability",
         "estimated_win_probability",
         "probability",
@@ -236,12 +291,13 @@ def probability(row: Dict[str, Any]) -> Optional[float]:
 
     snap = row.get("prediction_snapshot")
     if isinstance(snap, dict):
-        corq = snap.get("corq")
-        if isinstance(corq, dict):
-            for key in ("probability", "calibrated_probability", "raw_model_probability"):
-                val = as_float(corq.get(key))
-                if val is not None:
-                    return val / 100.0 if val > 1.0 else val
+        for section in ("corq", "top7", "model"):
+            obj = snap.get(section)
+            if isinstance(obj, dict):
+                for key in ("probability", "pick_probability", "calibrated_probability", "raw_model_probability", "win_probability"):
+                    val = as_float(obj.get(key))
+                    if val is not None:
+                        return val / 100.0 if val > 1.0 else val
     return None
 
 
@@ -249,15 +305,29 @@ def pick_odds(row: Dict[str, Any]) -> Optional[float]:
     for key in (
         "top7_pick_odds",
         "pick_odds",
-        "cloq_pick_odds",
+        "corq_pick_odds",
+        "selected_pick_odds",
         "selected_odds",
-        "odds_decimal",
+        "market_odds",
+        "closing_odds",
+        "current_odds",
         "decimal_odds",
+        "odds_decimal",
+        "cloq_pick_odds",
         "odds",
     ):
         val = as_float(row.get(key))
         if val is not None and val > 1.0:
             return val
+    snap = row.get("prediction_snapshot")
+    if isinstance(snap, dict):
+        for section in ("corq", "top7", "market"):
+            obj = snap.get(section)
+            if isinstance(obj, dict):
+                for key in ("pick_odds", "odds", "decimal_odds", "selected_odds"):
+                    val = as_float(obj.get(key))
+                    if val is not None and val > 1.0:
+                        return val
     return None
 
 
@@ -322,11 +392,18 @@ def top7_like_rows(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
 
 def is_rejected(row: Dict[str, Any]) -> bool:
-    if row.get("top7_publishable") is False or row.get("eligible_for_top7") is False:
-        return True
     status = str(row.get("status") or row.get("match_status") or "").upper()
     if status in {"REJECTED", "CANCELLED", "CANCELED", "POSTPONED"}:
         return True
+
+    # Important: compact TOP7 snapshots can carry legacy boolean fields that are
+    # False even though the row was already written into latest_top7/snapshot.
+    # Do not let these legacy booleans invalidate the Telegram feed when the row
+    # has a rank or TOP7-like source. Hard reject statuses/reasons still apply.
+    if not is_top7_like_row(row):
+        if row.get("top7_publishable") is False or row.get("eligible_for_top7") is False:
+            return True
+
     flags: List[str] = []
     for key in ("reject_reasons", "top7_quality_reject_reasons", "risk_flags", "flags"):
         val = row.get(key)
@@ -334,7 +411,7 @@ def is_rejected(row: Dict[str, Any]) -> bool:
             flags.extend(str(x).upper() for x in val if x)
         elif isinstance(val, str) and val:
             flags.append(val.upper())
-    return any(flag.startswith("REJECT") for flag in flags)
+    return any(flag.startswith("REJECT_FATAL") or flag in {"REJECT", "REJECTED"} for flag in flags)
 
 
 def is_doubles(row: Dict[str, Any]) -> bool:
@@ -345,20 +422,27 @@ def is_doubles(row: Dict[str, Any]) -> bool:
     return "double" in text or "doubles" in text
 
 
-def valid_corq_row(row: Dict[str, Any], upcoming_only: bool = True) -> bool:
-    if is_rejected(row) or is_doubles(row):
-        return False
-    if not pick_name(row) or not opponent_name(row):
-        return False
+def invalid_corq_reason(row: Dict[str, Any], upcoming_only: bool = True) -> str:
+    if is_rejected(row):
+        return "rejected"
+    if is_doubles(row):
+        return "doubles"
+    if not pick_name(row):
+        return "missing_pick"
+    # Opponent is allowed to be TBD for compact TOP7 snapshots.
     if start_time(row) == "—":
-        return False
+        return "missing_time"
     if pick_odds(row) is None:
-        return False
+        return "missing_odds"
     if probability(row) is None:
-        return False
+        return "missing_probability"
     if upcoming_only and not is_upcoming_match(row):
-        return False
-    return True
+        return "not_upcoming"
+    return ""
+
+
+def valid_corq_row(row: Dict[str, Any], upcoming_only: bool = True) -> bool:
+    return invalid_corq_reason(row, upcoming_only=upcoming_only) == ""
 
 
 def _rank_value(row: Dict[str, Any]) -> Optional[float]:
@@ -430,7 +514,12 @@ def send_telegram(message: str, bot_token: str, chat_id: str) -> None:
 
 
 def _describe_rows(label: str, rows: List[Dict[str, Any]]) -> str:
-    return f"{label}: raw={len(rows)} valid={len(valid_rows(rows, upcoming_only=False))} current={rows_look_current(rows)}"
+    reason_counts = {}
+    for row in rows or []:
+        reason = invalid_corq_reason(row, upcoming_only=False) or "valid"
+        reason_counts[reason] = reason_counts.get(reason, 0) + 1
+    reasons = ",".join(f"{k}:{v}" for k, v in sorted(reason_counts.items())) or "none"
+    return f"{label}: raw={len(rows)} valid={len(valid_rows(rows, upcoming_only=False))} current={rows_look_current(rows)} reasons={reasons}"
 
 
 def load_rows_for_mode(mode: str, top7_path: Path, all_path: Path) -> List[Dict[str, Any]]:
