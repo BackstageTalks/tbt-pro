@@ -4,7 +4,7 @@
   "latest_odds_player1": 3.75,
   "latest_odds_player2": 1.25,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-07T17:35:44.991292+00:00",
+  "latest_snapshot_time_utc": "2026-08-08T03:58:38.304607+00:00",
   "opening_odds_player1": 3.75,
   "opening_odds_player2": 1.25,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Lorenzo Giustino",
   "player2": "Jerome Kym",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "16661538",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-07T12:00:00+00:00",
       "target_date": "2026-08-08"
+    },
+    {
+      "event_id": "16661538",
+      "event_key": "2026-08-08_jerome-kym_vs_lorenzo-giustino",
+      "hours_to_start": -15.98,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 3.75,
+      "odds_player2": 1.25,
+      "player1": "Lorenzo Giustino",
+      "player2": "Jerome Kym",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-08T03:58:38.304607+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-07T12:00:00+00:00",
+      "target_date": "2026-08-08"
     }
   ],
   "start_time_utc": "2026-08-07T12:00:00+00:00",
-  "updated_at_utc": "2026-08-07T17:36:18.515836+00:00"
+  "updated_at_utc": "2026-08-08T03:58:40.230025+00:00"
 }

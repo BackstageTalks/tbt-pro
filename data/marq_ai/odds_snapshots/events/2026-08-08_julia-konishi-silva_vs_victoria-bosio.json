@@ -4,7 +4,7 @@
   "latest_odds_player1": 8.5,
   "latest_odds_player2": 1.05,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-07T17:35:44.991292+00:00",
+  "latest_snapshot_time_utc": "2026-08-08T03:58:38.304607+00:00",
   "opening_odds_player1": 8.5,
   "opening_odds_player2": 1.05,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Julia Konishi Silva",
   "player2": "Victoria Bosio",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "16736307",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-07T14:01:48+00:00",
       "target_date": "2026-08-08"
+    },
+    {
+      "event_id": "16736307",
+      "event_key": "2026-08-08_julia-konishi-silva_vs_victoria-bosio",
+      "hours_to_start": -13.95,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 8.5,
+      "odds_player2": 1.05,
+      "player1": "Julia Konishi Silva",
+      "player2": "Victoria Bosio",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-08T03:58:38.304607+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-07T14:01:48+00:00",
+      "target_date": "2026-08-08"
     }
   ],
   "start_time_utc": "2026-08-07T14:01:48+00:00",
-  "updated_at_utc": "2026-08-07T17:36:32.662464+00:00"
+  "updated_at_utc": "2026-08-08T03:58:54.395186+00:00"
 }
