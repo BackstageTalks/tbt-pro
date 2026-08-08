@@ -73,7 +73,7 @@ def _sort_key(row: Dict[str, Any]) -> tuple:
     return (
         _num(row.get("cloq_score")),
         bucket_rank,
-        _num(row.get("cloq_thinq_probability"), 0.0),
+        _num(row.get("cloq_primary_probability"), 0.0),
         _num(row.get("cloq_model_gap_pp")),
         _num(row.get("cloq_evidence_score")),
         _num(row.get("cloq_data_depth"), 0.0),
@@ -85,8 +85,7 @@ def build_cloq_rows(all_rows: Iterable[Dict[str, Any]], top_n: int = DEFAULT_TOP
     annotated = [annotate_cloq(row) for row in all_rows if isinstance(row, dict)]
     publishable = [row for row in annotated if row.get("cloq_publishable") is True]
     publishable = sorted(dedupe_best_by_match(publishable), key=_sort_key, reverse=True)
-    limit = max(int(top_n or DEFAULT_TOP_N), 0)
-    output = publishable[:limit]
+    output = publishable[: max(int(top_n or DEFAULT_TOP_N), 0)]
     for idx, row in enumerate(output, start=1):
         row["cloq_rank"] = idx
         row["cloq_selected"] = True
@@ -129,8 +128,10 @@ def build_manifest(input_path: Path, output_rows: List[Dict[str, Any]], audit_ro
                 "1.90-2.20": "extended",
                 "2.20-2.50": "high_variance_requires_more_support",
             },
-            "required_inputs": ["pick", "opponent", "odds", "ThinQ probability", "CorQ probability", "MarQ probability or market read", "data depth"],
-            "underdog_policy": "Allowed only with stronger ThinQ/MarQ/depth/support; otherwise rejected as random underdog.",
+            "required_minimum": "pick/opponent/odds/prematch/non-doubles/primary probability >= 50%/reasonable depth or support",
+            "primary_probability": "ThinQ when available, otherwise CorQ",
+            "marq_policy": "MarQ probability or market read is used for support/risk, but missing MarQ is not allowed to create synthetic data.",
+            "underdog_policy": "Allowed only with stronger model/depth/support; otherwise rejected as random underdog.",
             "no_fake_data": True,
             "forced_count": False,
         },
@@ -143,8 +144,8 @@ def build_manifest(input_path: Path, output_rows: List[Dict[str, Any]], audit_ro
         "notes": [
             "CloQ scans the full ALL pool, not only CorQ TOP7.",
             "CloQ targets odds >= 1.70 and <= 2.50.",
-            "Higher odds require higher ThinQ/MarQ/depth/support thresholds.",
-            "Rows without required probability/depth/market data are rejected with explicit reasons.",
+            "Higher odds require stronger model/depth/support scoring.",
+            "Rows without required core data are rejected with explicit reasons.",
         ],
     }
 
@@ -165,8 +166,7 @@ def run(input_path: Optional[str] = None, output_root: str = "outputs", top_n: i
     write_json(latest_nested, cloq_rows)
     write_json(latest_flat, cloq_rows)
     write_json(audit_path, audit_rows)
-    manifest = build_manifest(input_file, cloq_rows, audit_rows, len(all_rows), top_n)
-    write_json(manifest_path, manifest)
+    write_json(manifest_path, build_manifest(input_file, cloq_rows, audit_rows, len(all_rows), top_n))
 
     return {
         "rows": len(cloq_rows),

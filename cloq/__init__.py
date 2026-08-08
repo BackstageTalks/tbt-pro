@@ -1,4 +1,4 @@
-"""CloQ high-confidence price model package.
+"""CloQ high-odds data-covered model package.
 
 CloQ is intentionally separate from CorQ:
 - CorQ ranks overall prediction quality and final model probability.
@@ -10,4 +10,4 @@ from __future__ import annotations
 
 __all__ = ["__version__"]
 
-__version__ = "2026-08-08-high-confidence-price-v3"
+__version__ = "2026-08-08-high-odds-data-covered-v4"
