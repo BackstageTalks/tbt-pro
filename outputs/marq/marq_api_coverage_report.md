@@ -1,6 +1,6 @@
 # MarQ API Coverage Report
 
-Generated UTC: 2026-08-08T05:47:50.877875+00:00
+Generated UTC: 2026-08-08T07:54:13.076120+00:00
 Model: 2026-08-04-marq-coverage-report-v1
 
 ## all_audit
@@ -44,7 +44,7 @@ Rows: 26
 
 - CorQ market weight: `{'count': 26, 'avg': 0.2277, 'min': 0.12, 'max': 0.3}`
 - Value delta pp: `{'count': 26, 'avg': 0.0, 'min': -16.18, 'max': 16.18}`
-- Expected value pct: `{'count': 26, 'avg': 0.0838, 'min': -27.2, 'max': 44.0}`
+- Expected value pct: `{'count': 26, 'avg': 0.1427, 'min': -27.2, 'max': 44.0}`
 
 ## corq_top7
 
@@ -85,8 +85,8 @@ Rows: 4
 ### Numeric stats
 
 - CorQ market weight: `{'count': 4, 'avg': 0.195, 'min': 0.12, 'max': 0.22}`
-- Value delta pp: `{'count': 4, 'avg': -5.725, 'min': -9.87, 'max': 0.68}`
-- Expected value pct: `{'count': 4, 'avg': -13.8725, 'min': -19.71, 'max': -3.6}`
+- Value delta pp: `{'count': 4, 'avg': -5.7175, 'min': -9.87, 'max': 0.68}`
+- Expected value pct: `{'count': 4, 'avg': -13.7425, 'min': -19.8, 'max': -3.6}`
 
 ## cloq
 

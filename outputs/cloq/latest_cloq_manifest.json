@@ -1,6 +1,6 @@
 {
   "model": "CLOQ_HIGH_CONFIDENCE_PRICE_V2",
-  "created_at_utc": "2026-08-08T05:47:50.710082+00:00",
+  "created_at_utc": "2026-08-08T07:54:12.919377+00:00",
   "input_path": "outputs/latest_all.json",
   "input_rows": 26,
   "audit_rows": 26,
@@ -27,8 +27,8 @@
     "CLOQ_REJECTED": 26
   },
   "price_bucket_counts": {
-    "VALUE_PRICE_2_10_2_39": 4,
-    "HIGH_PRICE_2_40_PLUS": 9,
+    "VALUE_PRICE_2_10_2_39": 3,
+    "HIGH_PRICE_2_40_PLUS": 10,
     "FALLBACK_PRICE_1_70_1_89": 2,
     "TOO_LOW": 11
   },
@@ -44,18 +44,18 @@
     "MARKET_AGAINST_PICK": 13,
     "PROBABILITY_UNDER_BREAK_EVEN_INFO": 16,
     "ELO_WEAK": 3,
-    "HIGH_PRICE_RISK": 9,
+    "HIGH_PRICE_RISK": 10,
     "OPP_STRONG": 4
   },
   "support_tag_counts": {
-    "VALUE_PRICE_2_10_2_39": 4,
+    "VALUE_PRICE_2_10_2_39": 3,
     "PROBABILITY_OVER_BREAK_EVEN": 2,
     "FORM_EDGE": 12,
     "PICK_STRONG": 4,
     "HIGH_DATA_DEPTH": 22,
     "SURFACE_EDGE": 13,
+    "HIGH_PRICE_2_40_PLUS": 10,
     "PROBABILITY_BUFFER_STRONG": 8,
-    "HIGH_PRICE_2_40_PLUS": 9,
     "ELO_EDGE": 3,
     "FALLBACK_PRICE_1_70_1_89": 2,
     "MARKET_WITH_PICK": 13,
