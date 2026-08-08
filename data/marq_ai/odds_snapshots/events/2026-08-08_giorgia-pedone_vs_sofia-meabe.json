@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.0125,
   "latest_odds_player2": 13.0,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-08T11:12:46.753525+00:00",
+  "latest_snapshot_time_utc": "2026-08-08T17:14:14.197807+00:00",
   "opening_odds_player1": 1.0125,
   "opening_odds_player2": 13.0,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Giorgia Pedone",
   "player2": "Sofia Meabe",
-  "snapshot_count": 5,
+  "snapshot_count": 6,
   "snapshots": [
     {
       "event_id": "16736312",
@@ -118,8 +118,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-07T12:43:03+00:00",
       "target_date": "2026-08-08"
+    },
+    {
+      "event_id": "16736312",
+      "event_key": "2026-08-08_giorgia-pedone_vs_sofia-meabe",
+      "hours_to_start": -28.52,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.0125,
+      "odds_player2": 13.0,
+      "player1": "Giorgia Pedone",
+      "player2": "Sofia Meabe",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-08T17:14:14.197807+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-07T12:43:03+00:00",
+      "target_date": "2026-08-08"
     }
   ],
   "start_time_utc": "2026-08-07T12:43:03+00:00",
-  "updated_at_utc": "2026-08-08T11:13:15.544445+00:00"
+  "updated_at_utc": "2026-08-08T17:14:35.331975+00:00"
 }

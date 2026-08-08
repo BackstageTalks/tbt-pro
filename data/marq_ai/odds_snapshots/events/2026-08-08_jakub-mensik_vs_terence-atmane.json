@@ -1,10 +1,10 @@
 {
   "event_id": "16661631",
   "event_key": "2026-08-08_jakub-mensik_vs_terence-atmane",
-  "latest_odds_player1": 3.0,
-  "latest_odds_player2": 1.4,
+  "latest_odds_player1": 2.75,
+  "latest_odds_player2": 1.44,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-06T12:31:11.814858+00:00",
+  "latest_snapshot_time_utc": "2026-08-08T17:14:14.197807+00:00",
   "opening_odds_player1": 3.4,
   "opening_odds_player2": 1.33,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Terence Atmane",
   "player2": "Jakub Menšik",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "16661631",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-07T16:30:00+00:00",
       "target_date": "2026-08-08"
+    },
+    {
+      "event_id": "16661631",
+      "event_key": "2026-08-08_jakub-mensik_vs_terence-atmane",
+      "hours_to_start": -18.65,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.75,
+      "odds_player2": 1.44,
+      "player1": "Terence Atmane",
+      "player2": "Jakub Menšik",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-08T17:14:14.197807+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-07T22:35:00+00:00",
+      "target_date": "2026-08-08"
     }
   ],
-  "start_time_utc": "2026-08-07T16:30:00+00:00",
-  "updated_at_utc": "2026-08-06T12:32:48.893430+00:00"
+  "start_time_utc": "2026-08-07T22:35:00+00:00",
+  "updated_at_utc": "2026-08-08T17:14:15.568420+00:00"
 }
