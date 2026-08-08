@@ -1,4 +1,4 @@
-"""Build CloQ High-Confidence Price output from CorQ ALL rows."""
+"""Build CloQ high-odds data-covered output from CorQ ALL rows."""
 from __future__ import annotations
 
 import argparse
@@ -10,8 +10,7 @@ from typing import Any, Dict, Iterable, List, Optional
 
 from cloq.filters import MODEL_VERSION, annotate_cloq, match_identity
 
-DEFAULT_TOP_N = 7
-DEFAULT_MIN_PUBLISH_ROWS = 7
+DEFAULT_TOP_N = 10
 
 
 def json_rows(obj: Any) -> List[Dict[str, Any]]:
@@ -67,22 +66,22 @@ def _num(value: Any, default: float = -9999.0) -> float:
 def _sort_key(row: Dict[str, Any]) -> tuple:
     bucket = str(row.get("cloq_price_bucket") or "")
     bucket_rank = {
-        "VALUE_PRICE_2_10_2_39": 4,
-        "TARGET_PRICE_1_90_2_09": 3,
-        "HIGH_PRICE_2_40_PLUS": 2,
-        "FALLBACK_PRICE_1_70_1_89": 1,
+        "EXTENDED_1_90_2_20": 4,
+        "PRIME_1_70_1_90": 3,
+        "HIGH_VARIANCE_2_20_2_50": 2,
     }.get(bucket, 0)
     return (
         _num(row.get("cloq_score")),
         bucket_rank,
+        _num(row.get("cloq_thinq_probability"), 0.0),
+        _num(row.get("cloq_model_gap_pp")),
         _num(row.get("cloq_evidence_score")),
-        _num(row.get("cloq_probability_margin_pp")),
+        _num(row.get("cloq_data_depth"), 0.0),
         _num(row.get("cloq_pick_odds"), 0.0),
-        _num(row.get("cloq_corq_probability"), 0.0),
     )
 
 
-def build_cloq_rows(all_rows: Iterable[Dict[str, Any]], top_n: int = DEFAULT_TOP_N, min_publish_rows: int = DEFAULT_MIN_PUBLISH_ROWS) -> List[Dict[str, Any]]:
+def build_cloq_rows(all_rows: Iterable[Dict[str, Any]], top_n: int = DEFAULT_TOP_N) -> List[Dict[str, Any]]:
     annotated = [annotate_cloq(row) for row in all_rows if isinstance(row, dict)]
     publishable = [row for row in annotated if row.get("cloq_publishable") is True]
     publishable = sorted(dedupe_best_by_match(publishable), key=_sort_key, reverse=True)
@@ -91,7 +90,8 @@ def build_cloq_rows(all_rows: Iterable[Dict[str, Any]], top_n: int = DEFAULT_TOP
     for idx, row in enumerate(output, start=1):
         row["cloq_rank"] = idx
         row["cloq_selected"] = True
-        row["cloq_publish_tier"] = str(row.get("cloq_decision") or "CLOQ_HCP")
+        row["cloq_publish_tier"] = str(row.get("cloq_decision") or "CLOQ_SELECTED")
+        row["cloq_selected_reason"] = "top_high_odds_data_covered_candidate"
     return output
 
 
@@ -100,7 +100,7 @@ def build_cloq_audit_rows(all_rows: Iterable[Dict[str, Any]]) -> List[Dict[str, 
     return sorted(annotated, key=lambda row: (bool(row.get("cloq_publishable")), _sort_key(row)), reverse=True)
 
 
-def build_manifest(input_path: Path, output_rows: List[Dict[str, Any]], audit_rows: List[Dict[str, Any]], all_count: int, top_n: int, min_publish_rows: int = DEFAULT_MIN_PUBLISH_ROWS) -> Dict[str, Any]:
+def build_manifest(input_path: Path, output_rows: List[Dict[str, Any]], audit_rows: List[Dict[str, Any]], all_count: int, top_n: int) -> Dict[str, Any]:
     decision_counts = Counter(str(row.get("cloq_decision") or "UNKNOWN") for row in audit_rows)
     tier_counts = Counter(str(row.get("cloq_publish_tier") or "NOT_SELECTED") for row in output_rows)
     reject_counts: Counter[str] = Counter()
@@ -111,6 +111,7 @@ def build_manifest(input_path: Path, output_rows: List[Dict[str, Any]], audit_ro
         reject_counts.update(row.get("cloq_reject_reasons") or [])
         risk_counts.update(row.get("cloq_risk_tags") or [])
         support_counts.update(row.get("cloq_support_tags") or [])
+
     return {
         "model": MODEL_VERSION,
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
@@ -119,21 +120,19 @@ def build_manifest(input_path: Path, output_rows: List[Dict[str, Any]], audit_ro
         "audit_rows": len(audit_rows),
         "output_rows": len(output_rows),
         "top_n": top_n,
-        "min_publish_rows": min_publish_rows,
         "policy": {
-            "concept": "highest realistic price that is still a 50/50+ pick with evidence",
+            "concept": "Top higher-odds data-covered winner candidates, not random underdogs.",
             "min_odds": 1.70,
-            "preferred_odds": 1.90,
-            "max_odds_without_very_strong_evidence": 2.80,
-            "prediction_data": "required",
-            "minimum_model_probability": "50%",
-            "evidence_thresholds": {
-                "1.70-1.89": 2,
-                "1.90-2.09": 3,
-                "2.10-2.39": 5,
-                "2.40+": 7,
+            "max_odds": 2.50,
+            "odds_bands": {
+                "1.70-1.90": "prime",
+                "1.90-2.20": "extended",
+                "2.20-2.50": "high_variance_requires_more_support",
             },
-            "forced_count": "top_n_7_from_basic_publishable_pool_evidence_is_scored_not_hard_gate",
+            "required_inputs": ["pick", "opponent", "odds", "ThinQ probability", "CorQ probability", "MarQ probability or market read", "data depth"],
+            "underdog_policy": "Allowed only with stronger ThinQ/MarQ/depth/support; otherwise rejected as random underdog.",
+            "no_fake_data": True,
+            "forced_count": False,
         },
         "selected_tier_counts": dict(tier_counts),
         "decision_counts": dict(decision_counts),
@@ -142,30 +141,33 @@ def build_manifest(input_path: Path, output_rows: List[Dict[str, Any]], audit_ro
         "risk_tag_counts": dict(risk_counts),
         "support_tag_counts": dict(support_counts),
         "notes": [
-            "CloQ now targets higher realistic prices, especially odds >= 1.90.",
-            "A pick must be a 50/50+ model pick; evidence weakness is scored and tagged, not used as a hard blocker.",
-            "Evidence comes from ELO, H2H, form/surface, market support, opponent weakness, and data depth.",
-            "No synthetic odds, probabilities or evidence values are generated.",
+            "CloQ scans the full ALL pool, not only CorQ TOP7.",
+            "CloQ targets odds >= 1.70 and <= 2.50.",
+            "Higher odds require higher ThinQ/MarQ/depth/support thresholds.",
+            "Rows without required probability/depth/market data are rejected with explicit reasons.",
         ],
     }
 
 
-def run(input_path: Optional[str] = None, output_root: str = "outputs", top_n: int = DEFAULT_TOP_N, min_publish_rows: int = DEFAULT_MIN_PUBLISH_ROWS) -> Dict[str, Any]:
+def run(input_path: Optional[str] = None, output_root: str = "outputs", top_n: int = DEFAULT_TOP_N) -> Dict[str, Any]:
     root = Path(output_root)
     input_file = Path(input_path) if input_path else root / "latest_all.json"
     all_rows = json_rows(read_json(input_file, []))
     audit_rows = build_cloq_audit_rows(all_rows)
-    cloq_rows = build_cloq_rows(all_rows, top_n=top_n, min_publish_rows=min_publish_rows)
+    cloq_rows = build_cloq_rows(all_rows, top_n=top_n)
+
     cloq_dir = root / "cloq"
     latest_nested = cloq_dir / "latest_cloq.json"
     latest_flat = root / "latest_cloq.json"
     audit_path = cloq_dir / "latest_cloq_audit.json"
     manifest_path = cloq_dir / "latest_cloq_manifest.json"
+
     write_json(latest_nested, cloq_rows)
     write_json(latest_flat, cloq_rows)
     write_json(audit_path, audit_rows)
-    manifest = build_manifest(input_file, cloq_rows, audit_rows, len(all_rows), top_n, min_publish_rows=min_publish_rows)
+    manifest = build_manifest(input_file, cloq_rows, audit_rows, len(all_rows), top_n)
     write_json(manifest_path, manifest)
+
     return {
         "rows": len(cloq_rows),
         "audit_rows": len(audit_rows),
@@ -178,13 +180,12 @@ def run(input_path: Optional[str] = None, output_root: str = "outputs", top_n: i
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Build CloQ High-Confidence Price output")
+    parser = argparse.ArgumentParser(description="Build CloQ high-odds data-covered output")
     parser.add_argument("--input", dest="input_path", default=None, help="Input ALL JSON path, default outputs/latest_all.json")
     parser.add_argument("--output-root", default="outputs", help="Output root directory")
     parser.add_argument("--top-n", type=int, default=DEFAULT_TOP_N, help="Maximum number of CloQ rows to publish")
-    parser.add_argument("--min-publish-rows", type=int, default=DEFAULT_MIN_PUBLISH_ROWS, help="Reserved for compatibility")
     args = parser.parse_args()
-    result = run(input_path=args.input_path, output_root=args.output_root, top_n=args.top_n, min_publish_rows=args.min_publish_rows)
+    result = run(input_path=args.input_path, output_root=args.output_root, top_n=args.top_n)
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
 
