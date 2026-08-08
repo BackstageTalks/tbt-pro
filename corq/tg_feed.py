@@ -220,6 +220,9 @@ def start_time(row: Dict[str, Any]) -> str:
 
 def probability(row: Dict[str, Any]) -> Optional[float]:
     for key in (
+        "top7_corq_probability",
+        "corq_final",
+        "corq_final_probability",
         "corq_probability",
         "corq_estimated_win_probability",
         "win_probability",
@@ -229,12 +232,22 @@ def probability(row: Dict[str, Any]) -> Optional[float]:
     ):
         val = as_float(row.get(key))
         if val is not None:
-            return val
+            return val / 100.0 if val > 1.0 else val
+
+    snap = row.get("prediction_snapshot")
+    if isinstance(snap, dict):
+        corq = snap.get("corq")
+        if isinstance(corq, dict):
+            for key in ("probability", "calibrated_probability", "raw_model_probability"):
+                val = as_float(corq.get(key))
+                if val is not None:
+                    return val / 100.0 if val > 1.0 else val
     return None
 
 
 def pick_odds(row: Dict[str, Any]) -> Optional[float]:
     for key in (
+        "top7_pick_odds",
         "pick_odds",
         "cloq_pick_odds",
         "selected_odds",
@@ -302,9 +315,20 @@ def valid_corq_row(row: Dict[str, Any], upcoming_only: bool = True) -> bool:
     return True
 
 
+def _rank_value(row: Dict[str, Any]) -> Optional[float]:
+    for key in ("top7_rank", "corq_rank", "snapshot_rank", "rank"):
+        val = as_float(row.get(key))
+        if val is not None and val > 0:
+            return val
+    return None
+
+
 def valid_rows(rows: Iterable[Dict[str, Any]], upcoming_only: bool = True) -> List[Dict[str, Any]]:
     out = [row for row in rows if valid_corq_row(row, upcoming_only=upcoming_only)]
-    out.sort(key=lambda r: as_float(probability(r), 0.0) or 0.0, reverse=True)
+    if any(_rank_value(r) is not None for r in out):
+        out.sort(key=lambda r: (_rank_value(r) or 9999, -(as_float(probability(r), 0.0) or 0.0)))
+    else:
+        out.sort(key=lambda r: as_float(probability(r), 0.0) or 0.0, reverse=True)
     return out
 
 
@@ -424,8 +448,11 @@ def main() -> None:
     print(message)
 
     if args.send:
-        if args.mode != "results" and not sendable_rows:
+        if args.mode == "free" and not sendable_rows:
             print(f"[tg_feed] No valid upcoming rows for mode={args.mode}; Telegram send skipped.")
+            return
+        if args.mode == "top7" and "No valid upcoming CorQ picks" in message:
+            print(f"[tg_feed] No valid TOP7 rows for mode={args.mode}; Telegram send skipped.")
             return
         if args.mode == "results" and not message.strip():
             print("[tg_feed] Empty CorQ results summary; Telegram send skipped.")
