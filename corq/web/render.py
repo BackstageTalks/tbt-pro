@@ -2667,6 +2667,7 @@ AUDIT_VALUE_POSITIVE_LABEL = "Value+"
 AUDIT_POSITIVE_TAG_LABEL = "Positive tag"
 AUDIT_TWO_POSITIVE_TAGS_LABEL = "2 positive tags"
 RESULT_LAST_3_DAYS_LABEL = "Last 3 days"
+RESULT_LAST_24H_LABEL = "L24h"
 RESULT_LAST_7_DAYS_LABEL = "Last 7 days"
 RESULT_LAST_MONTH_LABEL = "Last month"
 RESULT_THIS_YEAR_LABEL = "This year"
@@ -3244,6 +3245,10 @@ def result_date_filter_tags(row: Dict[str, Any]) -> List[str]:
     d = dt.date()
     tags: List[str] = []
 
+    # Rolling range based on UTC timestamp where available.
+    if dt >= datetime.now(timezone.utc) - timedelta(hours=24):
+        tags.append(RESULT_LAST_24H_LABEL)
+
     # Inclusive ranges. Example: Last 7 days means today plus the previous 6 days.
     if today - timedelta(days=2) <= d <= today:
         tags.append(RESULT_LAST_3_DAYS_LABEL)
@@ -3432,6 +3437,7 @@ def render_results_table(rows: List[Dict[str, Any]], title: str, limit: Optional
         RESULT_MODEL_CORQ_LABEL: 0,
         RESULT_MODEL_CLOQ_LABEL: 1,
         RESULT_MODEL_AUDIT_LABEL: 2,
+        RESULT_LAST_24H_LABEL: 9,
         RESULT_LAST_3_DAYS_LABEL: 10,
         RESULT_LAST_7_DAYS_LABEL: 11,
         RESULT_LAST_MONTH_LABEL: 12,
@@ -3626,7 +3632,7 @@ def render_results_filter_builder(rows: List[Dict[str, Any]]) -> str:
     groups = [
         ("Result", ["WON", "LOST", "VOID", "PENDING"]),
         ("Model", [RESULT_MODEL_CORQ_LABEL, RESULT_MODEL_CLOQ_LABEL, RESULT_MODEL_AUDIT_LABEL]),
-        ("Date", [RESULT_LAST_3_DAYS_LABEL, RESULT_LAST_7_DAYS_LABEL, RESULT_LAST_MONTH_LABEL, RESULT_THIS_YEAR_LABEL]),
+        ("Date", [RESULT_LAST_24H_LABEL, RESULT_LAST_3_DAYS_LABEL, RESULT_LAST_7_DAYS_LABEL, RESULT_LAST_MONTH_LABEL, RESULT_THIS_YEAR_LABEL]),
         ("Signals", [AUDIT_CORQ_TOP20_LABEL, AUDIT_TIME_ODDS_LABEL, AUDIT_CLOQ_LABEL, AUDIT_OPP_WEAK_LABEL, AUDIT_PICK_STRONG_LABEL, AUDIT_POSITIVE_TAG_LABEL, AUDIT_TWO_POSITIVE_TAGS_LABEL, AUDIT_FORM_SUPPORT_LABEL, AUDIT_ELO_SUPPORT_LABEL, AUDIT_MARKET_WITH_PICK_LABEL, AUDIT_VALUE_POSITIVE_LABEL, AUDIT_SAFE_BET_LABEL, AUDIT_H2H_TOP10_LABEL]),
         ("Data notes", ["No previous H2H matches", "Recent form pending"]),
     ]
