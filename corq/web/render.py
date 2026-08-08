@@ -3217,24 +3217,89 @@ def summary_cards_html(summary: Dict[str, Any], title: str) -> str:
 
 
 def result_row_date_value(row: Dict[str, Any]) -> Optional[datetime]:
-    for key in ("date", "snapshot_date", "run_date", "match_date", "start_time_utc", "match_time_utc", "start_time", "match_time"):
-        value = row.get(key)
-        if not value:
-            continue
-        raw = str(value).strip()
+    """Best timestamp for Results filtering.
+
+    Important for L24h: prefer real datetime fields before date-only fields.
+    The old logic checked "date" first, so a row from yesterday with
+    start_time after the rolling 24h cutoff was reduced to yesterday 00:00 UTC
+    and incorrectly missed the L24h filter.
+    """
+
+    def _parse_dt(value: Any, assume_local: bool = False) -> Optional[datetime]:
+        raw = str(value or "").strip()
+        if not raw:
+            return None
         try:
-            if re.fullmatch(r"\d{4}-\d{2}-\d{2}", raw[:10]):
-                return datetime.fromisoformat(raw[:10]).replace(tzinfo=timezone.utc)
-            if raw.endswith("Z"):
-                raw = raw[:-1] + "+00:00"
-            dt = datetime.fromisoformat(raw)
+            # Epoch seconds or milliseconds.
+            if re.fullmatch(r"\d{10,13}", raw):
+                ts = int(raw[:10])
+                return datetime.fromtimestamp(ts, tz=timezone.utc)
+            normalized = raw.replace("Z", "+00:00")
+            dt = datetime.fromisoformat(normalized)
             if dt.tzinfo is None:
-                dt = dt.replace(tzinfo=timezone.utc)
+                dt = dt.replace(tzinfo=WEB_DISPLAY_TIMEZONE if assume_local else timezone.utc)
             return dt.astimezone(timezone.utc)
         except Exception:
-            continue
-    return None
+            return None
 
+    # 1) Prefer fields that should contain a full timestamp.
+    for key in (
+        "result_time_utc",
+        "settled_at_utc",
+        "settled_time_utc",
+        "completed_at_utc",
+        "finished_at_utc",
+        "end_time_utc",
+        "start_time_utc",
+        "match_time_utc",
+        "result_time",
+        "settled_at",
+        "settled_time",
+        "completed_at",
+        "finished_at",
+        "end_time",
+        "start_time",
+        "match_time",
+    ):
+        dt = _parse_dt(row.get(key), assume_local=not key.endswith("_utc"))
+        if dt is not None:
+            return dt
+
+    # 2) If only date + HH:MM exists, combine them in Europe/Bratislava.
+    date_value = None
+    for key in ("date", "snapshot_date", "run_date", "match_date", "top7_match_date_local", "start_date"):
+        value = row.get(key)
+        if value:
+            raw = str(value).strip()
+            if re.fullmatch(r"\d{4}-\d{2}-\d{2}", raw[:10]):
+                date_value = raw[:10]
+                break
+    if date_value:
+        time_value = None
+        for key in ("time", "start_time_display", "match_time_display", "local_time"):
+            value = row.get(key)
+            if value:
+                m = re.search(r"(\d{1,2}):(\d{2})", str(value))
+                if m:
+                    time_value = f"{int(m.group(1)):02d}:{int(m.group(2)):02d}:00"
+                    break
+        if time_value:
+            try:
+                local_dt = datetime.fromisoformat(f"{date_value}T{time_value}").replace(tzinfo=WEB_DISPLAY_TIMEZONE)
+                return local_dt.astimezone(timezone.utc)
+            except Exception:
+                pass
+
+    # 3) Last resort for date-only rows. This cannot be exact for L24h, but
+    # keeping the date makes existing Last 3/7/month filters work.
+    if date_value:
+        try:
+            local_midnight = datetime.fromisoformat(date_value).replace(tzinfo=WEB_DISPLAY_TIMEZONE)
+            return local_midnight.astimezone(timezone.utc)
+        except Exception:
+            pass
+
+    return None
 
 def result_date_filter_tags(row: Dict[str, Any]) -> List[str]:
     dt = result_row_date_value(row)
