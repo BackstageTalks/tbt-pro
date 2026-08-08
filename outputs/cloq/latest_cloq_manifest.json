@@ -1,71 +1,92 @@
 {
-  "model": "CLOQ_HIGH_CONFIDENCE_PRICE_V2",
-  "created_at_utc": "2026-08-08T07:54:12.919377+00:00",
+  "model": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
+  "created_at_utc": "2026-08-08T11:12:43.763411+00:00",
   "input_path": "outputs/latest_all.json",
   "input_rows": 26,
   "audit_rows": 26,
   "output_rows": 0,
   "top_n": 7,
-  "min_publish_rows": 7,
   "policy": {
-    "concept": "highest realistic price that is still a 50/50+ pick with evidence",
+    "concept": "Top higher-odds data-covered winner candidates, not random underdogs.",
     "min_odds": 1.7,
-    "preferred_odds": 1.9,
-    "max_odds_without_very_strong_evidence": 2.8,
-    "prediction_data": "required",
-    "minimum_model_probability": "50%",
-    "evidence_thresholds": {
-      "1.70-1.89": 2,
-      "1.90-2.09": 3,
-      "2.10-2.39": 5,
-      "2.40+": 7
+    "max_odds": 2.5,
+    "odds_bands": {
+      "1.70-1.90": "prime",
+      "1.90-2.20": "extended",
+      "2.20-2.50": "high_variance_requires_more_support"
     },
-    "forced_count": "top_n_7_from_basic_publishable_pool_evidence_is_scored_not_hard_gate"
+    "required_inputs": [
+      "pick",
+      "opponent",
+      "odds",
+      "ThinQ probability",
+      "CorQ probability",
+      "MarQ probability or market read",
+      "data depth"
+    ],
+    "underdog_policy": "Allowed only with stronger ThinQ/MarQ/depth/support; otherwise rejected as random underdog.",
+    "no_fake_data": true,
+    "forced_count": false
   },
   "selected_tier_counts": {},
   "decision_counts": {
     "CLOQ_REJECTED": 26
   },
   "price_bucket_counts": {
-    "VALUE_PRICE_2_10_2_39": 3,
-    "HIGH_PRICE_2_40_PLUS": 10,
-    "FALLBACK_PRICE_1_70_1_89": 2,
-    "TOO_LOW": 11
+    "EXTENDED_1_90_2_20": 2,
+    "PRIME_1_70_1_90": 2,
+    "HIGH_VARIANCE_2_20_2_50": 3,
+    "TOO_LOW": 11,
+    "TOO_HIGH": 8
   },
   "reject_reason_counts": {
-    "REJECT_CLOQ_MODEL_PROB_UNDER_50": 13,
-    "REJECT_CLOQ_STATUS_NOT_PREMATCH": 16,
-    "REJECT_CLOQ_PRICE_TOO_HIGH_WITHOUT_EVIDENCE": 5,
-    "REJECT_CLOQ_ODDS_UNDER_1_70": 11
+    "CLOQ_REJECT_STATUS_NOT_PREMATCH": 16,
+    "CLOQ_REJECT_MARQ_AGAINST": 13,
+    "CLOQ_REJECT_RANDOM_UNDERDOG": 13,
+    "CLOQ_REJECT_MARKET_AGAINST_WEAK_THINQ": 13,
+    "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM": 24,
+    "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE": 21,
+    "CLOQ_REJECT_ODDS_UNDER_1_70": 11,
+    "CLOQ_REJECT_LOW_DATA_DEPTH": 19,
+    "CLOQ_REJECT_NOT_ENOUGH_SUPPORT_TAGS": 19,
+    "CLOQ_REJECT_ODDS_OVER_2_50": 8
   },
   "risk_tag_counts": {
-    "INSUFFICIENT_EVIDENCE_INFO": 13,
-    "ELO_AGAINST": 8,
+    "MARQ_AGAINST": 13,
+    "ELO_AGAINST": 11,
     "MARKET_AGAINST_PICK": 13,
-    "PROBABILITY_UNDER_BREAK_EVEN_INFO": 16,
-    "ELO_WEAK": 3,
-    "HIGH_PRICE_RISK": 10,
+    "THINQ_AGAINST": 13,
+    "PROBABILITY_UNDER_BREAK_EVEN_INFO": 15,
+    "SURFACE_AGAINST": 8,
+    "HIGH_VARIANCE_PRICE_BAND": 11,
     "OPP_STRONG": 4
   },
   "support_tag_counts": {
-    "VALUE_PRICE_2_10_2_39": 3,
+    "EXTENDED_1_90_2_20": 2,
+    "PROBABILITY_BUFFER_STRONG": 9,
+    "THINQ_LIGHT_SUPPORT": 5,
+    "FORM_LIGHT_SUPPORT": 12,
+    "SURFACE_SUPPORT": 8,
+    "DATA_COVERED_STRONG": 20,
     "PROBABILITY_OVER_BREAK_EVEN": 2,
-    "FORM_EDGE": 12,
-    "PICK_STRONG": 4,
-    "HIGH_DATA_DEPTH": 22,
-    "SURFACE_EDGE": 13,
-    "HIGH_PRICE_2_40_PLUS": 10,
-    "PROBABILITY_BUFFER_STRONG": 8,
-    "ELO_EDGE": 3,
-    "FALLBACK_PRICE_1_70_1_89": 2,
+    "DATA_COVERED": 6,
+    "PRIME_1_70_1_90": 2,
+    "MARQ_SUPPORT": 3,
+    "ELO_SUPPORT": 11,
+    "SURFACE_LIGHT_SUPPORT": 5,
     "MARKET_WITH_PICK": 13,
-    "ELO_STRONG": 8,
-    "TOO_LOW": 11
+    "HIGH_VARIANCE_2_20_2_50": 3,
+    "PICK_STRONG": 4,
+    "TOO_LOW": 11,
+    "THINQ_STRONG_SUPPORT": 5,
+    "MARQ_STRONG_SUPPORT": 10,
+    "THINQ_SUPPORT": 1,
+    "TOO_HIGH": 8
   },
   "notes": [
-    "CloQ now targets higher realistic prices, especially odds >= 1.90.",
-    "A pick must be a 50/50+ model pick; evidence weakness is scored and tagged, not used as a hard blocker.",
-    "Evidence comes from ELO, H2H, form/surface, market support, opponent weakness, and data depth.",
-    "No synthetic odds, probabilities or evidence values are generated."
+    "CloQ scans the full ALL pool, not only CorQ TOP7.",
+    "CloQ targets odds >= 1.70 and <= 2.50.",
+    "Higher odds require higher ThinQ/MarQ/depth/support thresholds.",
+    "Rows without required probability/depth/market data are rejected with explicit reasons."
   ]
 }
