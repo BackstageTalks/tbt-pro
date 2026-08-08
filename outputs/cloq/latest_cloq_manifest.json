@@ -1,6 +1,6 @@
 {
-  "model": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-  "created_at_utc": "2026-08-08T11:12:43.763411+00:00",
+  "model": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+  "created_at_utc": "2026-08-08T11:28:23.938917+00:00",
   "input_path": "outputs/latest_all.json",
   "input_rows": 26,
   "audit_rows": 26,
@@ -15,16 +15,10 @@
       "1.90-2.20": "extended",
       "2.20-2.50": "high_variance_requires_more_support"
     },
-    "required_inputs": [
-      "pick",
-      "opponent",
-      "odds",
-      "ThinQ probability",
-      "CorQ probability",
-      "MarQ probability or market read",
-      "data depth"
-    ],
-    "underdog_policy": "Allowed only with stronger ThinQ/MarQ/depth/support; otherwise rejected as random underdog.",
+    "required_minimum": "pick/opponent/odds/prematch/non-doubles/primary probability >= 50%/reasonable depth or support",
+    "primary_probability": "ThinQ when available, otherwise CorQ",
+    "marq_policy": "MarQ probability or market read is used for support/risk, but missing MarQ is not allowed to create synthetic data.",
+    "underdog_policy": "Allowed only with stronger model/depth/support; otherwise rejected as random underdog.",
     "no_fake_data": true,
     "forced_count": false
   },
@@ -41,12 +35,12 @@
   },
   "reject_reason_counts": {
     "CLOQ_REJECT_STATUS_NOT_PREMATCH": 16,
-    "CLOQ_REJECT_MARQ_AGAINST": 13,
     "CLOQ_REJECT_RANDOM_UNDERDOG": 13,
-    "CLOQ_REJECT_MARKET_AGAINST_WEAK_THINQ": 13,
-    "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM": 24,
-    "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE": 21,
+    "CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE": 13,
+    "CLOQ_REJECT_MARKET_AGAINST_WEAK_MODEL": 13,
+    "CLOQ_REJECT_MODEL_BELOW_50": 13,
     "CLOQ_REJECT_ODDS_UNDER_1_70": 11,
+    "CLOQ_REJECT_MODEL_BELOW_BAND_MINIMUM": 11,
     "CLOQ_REJECT_LOW_DATA_DEPTH": 19,
     "CLOQ_REJECT_NOT_ENOUGH_SUPPORT_TAGS": 19,
     "CLOQ_REJECT_ODDS_OVER_2_50": 8
@@ -55,7 +49,7 @@
     "MARQ_AGAINST": 13,
     "ELO_AGAINST": 11,
     "MARKET_AGAINST_PICK": 13,
-    "THINQ_AGAINST": 13,
+    "MODEL_AGAINST": 13,
     "PROBABILITY_UNDER_BREAK_EVEN_INFO": 15,
     "SURFACE_AGAINST": 8,
     "HIGH_VARIANCE_PRICE_BAND": 11,
@@ -64,7 +58,7 @@
   "support_tag_counts": {
     "EXTENDED_1_90_2_20": 2,
     "PROBABILITY_BUFFER_STRONG": 9,
-    "THINQ_LIGHT_SUPPORT": 5,
+    "MODEL_LIGHT_SUPPORT": 7,
     "FORM_LIGHT_SUPPORT": 12,
     "SURFACE_SUPPORT": 8,
     "DATA_COVERED_STRONG": 20,
@@ -78,15 +72,15 @@
     "HIGH_VARIANCE_2_20_2_50": 3,
     "PICK_STRONG": 4,
     "TOO_LOW": 11,
-    "THINQ_STRONG_SUPPORT": 5,
+    "MODEL_STRONG_SUPPORT": 5,
     "MARQ_STRONG_SUPPORT": 10,
-    "THINQ_SUPPORT": 1,
+    "MODEL_SUPPORT": 1,
     "TOO_HIGH": 8
   },
   "notes": [
     "CloQ scans the full ALL pool, not only CorQ TOP7.",
     "CloQ targets odds >= 1.70 and <= 2.50.",
-    "Higher odds require higher ThinQ/MarQ/depth/support thresholds.",
-    "Rows without required probability/depth/market data are rejected with explicit reasons."
+    "Higher odds require stronger model/depth/support scoring.",
+    "Rows without required core data are rejected with explicit reasons."
   ]
 }

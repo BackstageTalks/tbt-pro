@@ -2855,12 +2855,13 @@
       "RANKCAP_NOT_SELECTABLE"
     ],
     "corq_rank": 25,
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Thiago Agustin Tirante",
     "cloq_opponent": "Alexei Popyrin",
     "cloq_pick_odds": 2.1,
     "cloq_opponent_odds": 1.73,
+    "cloq_primary_probability": 0.5398,
     "cloq_thinq_probability": 0.5398,
     "cloq_marq_probability": 0.451697,
     "cloq_corq_probability": 0.5134,
@@ -2868,41 +2869,41 @@
     "cloq_model_gap_pp": 6.361,
     "cloq_value_delta_pp": 3.72,
     "cloq_expected_value_pct": 7.81,
-    "cloq_evidence_score": -3.25,
+    "cloq_evidence_score": -2.325,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_LIGHT_SUPPORT",
+        "tag": "MODEL_LIGHT_SUPPORT",
         "points": 1.0,
         "value": 0.5398
       },
       {
         "tag": "MARQ_AGAINST",
-        "points": -3.0,
+        "points": -2.5,
         "value": 0.4517
       },
       {
         "tag": "ELO_AGAINST",
-        "points": -2.5,
+        "points": -2.0,
         "value": -37.0
       },
       {
         "tag": "FORM_LIGHT_SUPPORT",
-        "points": 0.75,
+        "points": 0.675,
         "value": 1.6
       },
       {
         "tag": "SURFACE_SUPPORT",
-        "points": 1.5,
+        "points": 1.2,
         "value": 3.5000000000000004
       },
       {
         "tag": "MARKET_AGAINST_PICK",
-        "points": -3.0,
+        "points": -2.5,
         "value": null
       },
       {
         "tag": "DATA_COVERED_STRONG",
-        "points": 2.0,
+        "points": 1.8,
         "value": 0.8677
       }
     ],
@@ -2910,17 +2911,16 @@
     "cloq_data_depth": 0.8677075,
     "cloq_thresholds": {
       "bucket": "EXTENDED_1_90_2_20",
-      "min_thinq": 0.53,
-      "min_marq": 0.52,
-      "min_depth": 0.55,
-      "min_gap_pp": -3.0,
-      "min_support_tags": 2
+      "min_primary": 0.515,
+      "min_depth": 0.5,
+      "min_gap_pp": -5.0,
+      "min_support_tags": 1
     },
     "cloq_decision": "CLOQ_REJECTED",
     "cloq_support_tags": [
       "EXTENDED_1_90_2_20",
       "PROBABILITY_BUFFER_STRONG",
-      "THINQ_LIGHT_SUPPORT",
+      "MODEL_LIGHT_SUPPORT",
       "FORM_LIGHT_SUPPORT",
       "SURFACE_SUPPORT",
       "DATA_COVERED_STRONG"
@@ -2932,9 +2932,9 @@
     ],
     "cloq_reject_reasons": [
       "CLOQ_REJECT_STATUS_NOT_PREMATCH",
-      "CLOQ_REJECT_MARQ_AGAINST",
       "CLOQ_REJECT_RANDOM_UNDERDOG",
-      "CLOQ_REJECT_MARKET_AGAINST_WEAK_THINQ"
+      "CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE",
+      "CLOQ_REJECT_MARKET_AGAINST_WEAK_MODEL"
     ],
     "cloq_publishable": false,
     "cloq_score": -9999.0
@@ -5752,12 +5752,13 @@
       "RANKCAP_NOT_SELECTABLE"
     ],
     "corq_rank": 28,
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Casper Ruud",
     "cloq_opponent": "Joao Fonseca",
     "cloq_pick_odds": 2.1,
     "cloq_opponent_odds": 1.73,
+    "cloq_primary_probability": 0.4794,
     "cloq_thinq_probability": 0.4794,
     "cloq_marq_probability": 0.451697,
     "cloq_corq_probability": 0.4711,
@@ -5765,26 +5766,26 @@
     "cloq_model_gap_pp": 0.321,
     "cloq_value_delta_pp": -0.51,
     "cloq_expected_value_pct": -1.07,
-    "cloq_evidence_score": -11.5,
+    "cloq_evidence_score": -10.0,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_AGAINST",
+        "tag": "MODEL_AGAINST",
         "points": -4.0,
         "value": 0.4794
       },
       {
         "tag": "MARQ_AGAINST",
-        "points": -3.0,
+        "points": -2.5,
         "value": 0.4517
       },
       {
         "tag": "ELO_AGAINST",
-        "points": -2.5,
+        "points": -2.0,
         "value": -32.1
       },
       {
         "tag": "MARKET_AGAINST_PICK",
-        "points": -3.0,
+        "points": -2.5,
         "value": null
       },
       {
@@ -5797,11 +5798,10 @@
     "cloq_data_depth": 0.73754,
     "cloq_thresholds": {
       "bucket": "EXTENDED_1_90_2_20",
-      "min_thinq": 0.53,
-      "min_marq": 0.52,
-      "min_depth": 0.55,
-      "min_gap_pp": -3.0,
-      "min_support_tags": 2
+      "min_primary": 0.515,
+      "min_depth": 0.5,
+      "min_gap_pp": -5.0,
+      "min_support_tags": 1
     },
     "cloq_decision": "CLOQ_REJECTED",
     "cloq_support_tags": [
@@ -5810,17 +5810,17 @@
       "DATA_COVERED"
     ],
     "cloq_risk_tags": [
-      "THINQ_AGAINST",
+      "MODEL_AGAINST",
       "MARQ_AGAINST",
       "ELO_AGAINST",
       "MARKET_AGAINST_PICK"
     ],
     "cloq_reject_reasons": [
       "CLOQ_REJECT_STATUS_NOT_PREMATCH",
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
-      "CLOQ_REJECT_MARQ_AGAINST",
+      "CLOQ_REJECT_MODEL_BELOW_50",
       "CLOQ_REJECT_RANDOM_UNDERDOG",
-      "CLOQ_REJECT_MARKET_AGAINST_WEAK_THINQ"
+      "CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE",
+      "CLOQ_REJECT_MARKET_AGAINST_WEAK_MODEL"
     ],
     "cloq_publishable": false,
     "cloq_score": -9999.0
@@ -8691,12 +8691,13 @@
       "RANKCAP_NOT_SELECTABLE"
     ],
     "corq_rank": 23,
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Joao Fonseca",
     "cloq_opponent": "Casper Ruud",
     "cloq_pick_odds": 1.73,
     "cloq_opponent_odds": 2.1,
+    "cloq_primary_probability": 0.5206,
     "cloq_thinq_probability": 0.5206,
     "cloq_marq_probability": 0.548303,
     "cloq_corq_probability": 0.5267,
@@ -8704,36 +8705,36 @@
     "cloq_model_gap_pp": -5.7435,
     "cloq_value_delta_pp": -5.13,
     "cloq_expected_value_pct": -8.88,
-    "cloq_evidence_score": 8.75,
+    "cloq_evidence_score": 7.615,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_LIGHT_SUPPORT",
+        "tag": "MODEL_LIGHT_SUPPORT",
         "points": 1.0,
         "value": 0.5206
       },
       {
         "tag": "MARQ_SUPPORT",
-        "points": 1.5,
+        "points": 1.2,
         "value": 0.5483
       },
       {
         "tag": "ELO_SUPPORT",
-        "points": 2.5,
+        "points": 2.0,
         "value": 32.1
       },
       {
         "tag": "FORM_LIGHT_SUPPORT",
-        "points": 0.75,
+        "points": 0.675,
         "value": 1.0
       },
       {
         "tag": "SURFACE_LIGHT_SUPPORT",
-        "points": 0.5,
+        "points": 0.54,
         "value": 2.67
       },
       {
         "tag": "MARKET_WITH_PICK",
-        "points": 1.5,
+        "points": 1.2,
         "value": null
       },
       {
@@ -8746,16 +8747,15 @@
     "cloq_data_depth": 0.73754,
     "cloq_thresholds": {
       "bucket": "PRIME_1_70_1_90",
-      "min_thinq": 0.515,
-      "min_marq": 0.5,
-      "min_depth": 0.5,
-      "min_gap_pp": -5.0,
-      "min_support_tags": 1
+      "min_primary": 0.505,
+      "min_depth": 0.45,
+      "min_gap_pp": -6.0,
+      "min_support_tags": 0
     },
     "cloq_decision": "CLOQ_REJECTED",
     "cloq_support_tags": [
       "PRIME_1_70_1_90",
-      "THINQ_LIGHT_SUPPORT",
+      "MODEL_LIGHT_SUPPORT",
       "MARQ_SUPPORT",
       "ELO_SUPPORT",
       "FORM_LIGHT_SUPPORT",
@@ -8767,8 +8767,7 @@
       "PROBABILITY_UNDER_BREAK_EVEN_INFO"
     ],
     "cloq_reject_reasons": [
-      "CLOQ_REJECT_STATUS_NOT_PREMATCH",
-      "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE"
+      "CLOQ_REJECT_STATUS_NOT_PREMATCH"
     ],
     "cloq_publishable": false,
     "cloq_score": -9999.0
@@ -11609,12 +11608,13 @@
       "RANKCAP_NOT_SELECTABLE"
     ],
     "corq_rank": 26,
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Alexei Popyrin",
     "cloq_opponent": "Thiago Agustin Tirante",
     "cloq_pick_odds": 1.73,
     "cloq_opponent_odds": 2.1,
+    "cloq_primary_probability": 0.4602,
     "cloq_thinq_probability": 0.4602,
     "cloq_marq_probability": 0.548303,
     "cloq_corq_probability": 0.4796,
@@ -11622,36 +11622,36 @@
     "cloq_model_gap_pp": -11.7835,
     "cloq_value_delta_pp": -9.84,
     "cloq_expected_value_pct": -17.03,
-    "cloq_evidence_score": 2.0,
+    "cloq_evidence_score": 1.0,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_AGAINST",
+        "tag": "MODEL_AGAINST",
         "points": -4.0,
         "value": 0.4602
       },
       {
         "tag": "MARQ_SUPPORT",
-        "points": 1.5,
+        "points": 1.2,
         "value": 0.5483
       },
       {
         "tag": "ELO_SUPPORT",
-        "points": 2.5,
+        "points": 2.0,
         "value": 37.0
       },
       {
         "tag": "SURFACE_AGAINST",
-        "points": -1.5,
+        "points": -1.2,
         "value": -3.5000000000000004
       },
       {
         "tag": "MARKET_WITH_PICK",
-        "points": 1.5,
+        "points": 1.2,
         "value": null
       },
       {
         "tag": "DATA_COVERED_STRONG",
-        "points": 2.0,
+        "points": 1.8,
         "value": 0.8677
       }
     ],
@@ -11659,11 +11659,10 @@
     "cloq_data_depth": 0.8677075,
     "cloq_thresholds": {
       "bucket": "PRIME_1_70_1_90",
-      "min_thinq": 0.515,
-      "min_marq": 0.5,
-      "min_depth": 0.5,
-      "min_gap_pp": -5.0,
-      "min_support_tags": 1
+      "min_primary": 0.505,
+      "min_depth": 0.45,
+      "min_gap_pp": -6.0,
+      "min_support_tags": 0
     },
     "cloq_decision": "CLOQ_REJECTED",
     "cloq_support_tags": [
@@ -11675,13 +11674,12 @@
     ],
     "cloq_risk_tags": [
       "PROBABILITY_UNDER_BREAK_EVEN_INFO",
-      "THINQ_AGAINST",
+      "MODEL_AGAINST",
       "SURFACE_AGAINST"
     ],
     "cloq_reject_reasons": [
       "CLOQ_REJECT_STATUS_NOT_PREMATCH",
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
-      "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE"
+      "CLOQ_REJECT_MODEL_BELOW_50"
     ],
     "cloq_publishable": false,
     "cloq_score": -9999.0
@@ -14521,12 +14519,13 @@
       "RANKCAP_NOT_SELECTABLE"
     ],
     "corq_rank": 32,
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Learner Tien",
     "cloq_opponent": "Tommy Paul",
     "cloq_pick_odds": 2.5,
     "cloq_opponent_odds": 1.53,
+    "cloq_primary_probability": 0.49,
     "cloq_thinq_probability": 0.49,
     "cloq_marq_probability": 0.379653,
     "cloq_corq_probability": 0.4569,
@@ -14534,36 +14533,36 @@
     "cloq_model_gap_pp": 9.0,
     "cloq_value_delta_pp": 5.69,
     "cloq_expected_value_pct": 14.22,
-    "cloq_evidence_score": -5.0,
+    "cloq_evidence_score": -4.66,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_AGAINST",
+        "tag": "MODEL_AGAINST",
         "points": -4.0,
         "value": 0.49
       },
       {
         "tag": "MARQ_AGAINST",
-        "points": -3.0,
+        "points": -2.5,
         "value": 0.3797
       },
       {
         "tag": "ELO_SUPPORT",
-        "points": 2.5,
+        "points": 2.0,
         "value": 16.3
       },
       {
         "tag": "SURFACE_LIGHT_SUPPORT",
-        "points": 0.5,
+        "points": 0.54,
         "value": 1.3599999999999999
       },
       {
         "tag": "MARKET_AGAINST_PICK",
-        "points": -3.0,
+        "points": -2.5,
         "value": null
       },
       {
         "tag": "DATA_COVERED_STRONG",
-        "points": 2.0,
+        "points": 1.8,
         "value": 0.7795
       }
     ],
@@ -14571,11 +14570,10 @@
     "cloq_data_depth": 0.7795325,
     "cloq_thresholds": {
       "bucket": "HIGH_VARIANCE_2_20_2_50",
-      "min_thinq": 0.55,
-      "min_marq": 0.54,
-      "min_depth": 0.65,
-      "min_gap_pp": 0.0,
-      "min_support_tags": 3
+      "min_primary": 0.53,
+      "min_depth": 0.55,
+      "min_gap_pp": -3.0,
+      "min_support_tags": 2
     },
     "cloq_decision": "CLOQ_REJECTED",
     "cloq_support_tags": [
@@ -14587,16 +14585,16 @@
     ],
     "cloq_risk_tags": [
       "HIGH_VARIANCE_PRICE_BAND",
-      "THINQ_AGAINST",
+      "MODEL_AGAINST",
       "MARQ_AGAINST",
       "MARKET_AGAINST_PICK"
     ],
     "cloq_reject_reasons": [
       "CLOQ_REJECT_STATUS_NOT_PREMATCH",
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
-      "CLOQ_REJECT_MARQ_AGAINST",
+      "CLOQ_REJECT_MODEL_BELOW_50",
       "CLOQ_REJECT_RANDOM_UNDERDOG",
-      "CLOQ_REJECT_MARKET_AGAINST_WEAK_THINQ"
+      "CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE",
+      "CLOQ_REJECT_MARKET_AGAINST_WEAK_MODEL"
     ],
     "cloq_publishable": false,
     "cloq_score": -9999.0
@@ -17424,12 +17422,13 @@
       "RANKCAP_NOT_SELECTABLE"
     ],
     "corq_rank": 33,
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Luciano Darderi",
     "cloq_opponent": "Nuno Borges",
     "cloq_pick_odds": 2.5,
     "cloq_opponent_odds": 1.53,
+    "cloq_primary_probability": 0.4758,
     "cloq_thinq_probability": 0.4758,
     "cloq_marq_probability": 0.379653,
     "cloq_corq_probability": 0.447,
@@ -17437,36 +17436,36 @@
     "cloq_model_gap_pp": 7.58,
     "cloq_value_delta_pp": 4.7,
     "cloq_expected_value_pct": 11.75,
-    "cloq_evidence_score": -12.0,
+    "cloq_evidence_score": -10.4,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_AGAINST",
+        "tag": "MODEL_AGAINST",
         "points": -4.0,
         "value": 0.4758
       },
       {
         "tag": "MARQ_AGAINST",
-        "points": -3.0,
+        "points": -2.5,
         "value": 0.3797
       },
       {
         "tag": "ELO_AGAINST",
-        "points": -2.5,
+        "points": -2.0,
         "value": -38.4
       },
       {
         "tag": "SURFACE_AGAINST",
-        "points": -1.5,
+        "points": -1.2,
         "value": -3.2
       },
       {
         "tag": "MARKET_AGAINST_PICK",
-        "points": -3.0,
+        "points": -2.5,
         "value": null
       },
       {
         "tag": "DATA_COVERED_STRONG",
-        "points": 2.0,
+        "points": 1.8,
         "value": 0.7908
       }
     ],
@@ -17474,11 +17473,10 @@
     "cloq_data_depth": 0.7907599999999999,
     "cloq_thresholds": {
       "bucket": "HIGH_VARIANCE_2_20_2_50",
-      "min_thinq": 0.55,
-      "min_marq": 0.54,
-      "min_depth": 0.65,
-      "min_gap_pp": 0.0,
-      "min_support_tags": 3
+      "min_primary": 0.53,
+      "min_depth": 0.55,
+      "min_gap_pp": -3.0,
+      "min_support_tags": 2
     },
     "cloq_decision": "CLOQ_REJECTED",
     "cloq_support_tags": [
@@ -17488,17 +17486,17 @@
     ],
     "cloq_risk_tags": [
       "HIGH_VARIANCE_PRICE_BAND",
-      "THINQ_AGAINST",
+      "MODEL_AGAINST",
       "MARQ_AGAINST",
       "ELO_AGAINST",
       "SURFACE_AGAINST",
       "MARKET_AGAINST_PICK"
     ],
     "cloq_reject_reasons": [
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
-      "CLOQ_REJECT_MARQ_AGAINST",
+      "CLOQ_REJECT_MODEL_BELOW_50",
       "CLOQ_REJECT_RANDOM_UNDERDOG",
-      "CLOQ_REJECT_MARKET_AGAINST_WEAK_THINQ"
+      "CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE",
+      "CLOQ_REJECT_MARKET_AGAINST_WEAK_MODEL"
     ],
     "cloq_publishable": false,
     "cloq_score": -9999.0
@@ -20357,12 +20355,13 @@
       "RANKCAP_NOT_SELECTABLE"
     ],
     "corq_rank": 30,
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Marta Kostyuk",
     "cloq_opponent": "Iga Swiatek",
     "cloq_pick_odds": 2.2,
     "cloq_opponent_odds": 1.67,
+    "cloq_primary_probability": 0.4722,
     "cloq_thinq_probability": 0.4722,
     "cloq_marq_probability": 0.431525,
     "cloq_corq_probability": 0.4673,
@@ -20370,46 +20369,46 @@
     "cloq_model_gap_pp": 1.7655,
     "cloq_value_delta_pp": 1.28,
     "cloq_expected_value_pct": 2.81,
-    "cloq_evidence_score": -9.75,
+    "cloq_evidence_score": -8.525,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_AGAINST",
+        "tag": "MODEL_AGAINST",
         "points": -4.0,
         "value": 0.4722
       },
       {
         "tag": "MARQ_AGAINST",
-        "points": -3.0,
+        "points": -2.5,
         "value": 0.4315
       },
       {
         "tag": "ELO_AGAINST",
-        "points": -2.5,
+        "points": -2.0,
         "value": -46.7
       },
       {
         "tag": "FORM_LIGHT_SUPPORT",
-        "points": 0.75,
+        "points": 0.675,
         "value": 0.8
       },
       {
         "tag": "SURFACE_AGAINST",
-        "points": -1.5,
+        "points": -1.2,
         "value": -3.8899999999999997
       },
       {
         "tag": "MARKET_AGAINST_PICK",
-        "points": -3.0,
+        "points": -2.5,
         "value": null
       },
       {
         "tag": "PICK_STRONG",
-        "points": 1.5,
+        "points": 1.2,
         "value": null
       },
       {
         "tag": "DATA_COVERED_STRONG",
-        "points": 2.0,
+        "points": 1.8,
         "value": 0.8677
       }
     ],
@@ -20417,11 +20416,10 @@
     "cloq_data_depth": 0.8677075,
     "cloq_thresholds": {
       "bucket": "HIGH_VARIANCE_2_20_2_50",
-      "min_thinq": 0.55,
-      "min_marq": 0.54,
-      "min_depth": 0.65,
-      "min_gap_pp": 0.0,
-      "min_support_tags": 3
+      "min_primary": 0.53,
+      "min_depth": 0.55,
+      "min_gap_pp": -3.0,
+      "min_support_tags": 2
     },
     "cloq_decision": "CLOQ_REJECTED",
     "cloq_support_tags": [
@@ -20433,17 +20431,17 @@
     ],
     "cloq_risk_tags": [
       "HIGH_VARIANCE_PRICE_BAND",
-      "THINQ_AGAINST",
+      "MODEL_AGAINST",
       "MARQ_AGAINST",
       "ELO_AGAINST",
       "SURFACE_AGAINST",
       "MARKET_AGAINST_PICK"
     ],
     "cloq_reject_reasons": [
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
-      "CLOQ_REJECT_MARQ_AGAINST",
+      "CLOQ_REJECT_MODEL_BELOW_50",
       "CLOQ_REJECT_RANDOM_UNDERDOG",
-      "CLOQ_REJECT_MARKET_AGAINST_WEAK_THINQ"
+      "CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE",
+      "CLOQ_REJECT_MARKET_AGAINST_WEAK_MODEL"
     ],
     "cloq_publishable": false,
     "cloq_score": -9999.0
@@ -23296,12 +23294,13 @@
     "corq_top7_forced_rank_selection": true,
     "top7_selection_count_target": 7,
     "corq_top7_selection_pass": "top4_quality",
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Jessica Pegula",
     "cloq_opponent": "Diana Shnaider",
     "cloq_pick_odds": 1.4,
     "cloq_opponent_odds": 3.0,
+    "cloq_primary_probability": 0.6886,
     "cloq_thinq_probability": 0.6886,
     "cloq_marq_probability": 0.681818,
     "cloq_corq_probability": 0.6871,
@@ -23309,46 +23308,46 @@
     "cloq_model_gap_pp": -2.5686,
     "cloq_value_delta_pp": -2.72,
     "cloq_expected_value_pct": -3.81,
-    "cloq_evidence_score": 15.25,
+    "cloq_evidence_score": 13.075,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_STRONG_SUPPORT",
+        "tag": "MODEL_STRONG_SUPPORT",
         "points": 3.0,
         "value": 0.6886
       },
       {
         "tag": "MARQ_STRONG_SUPPORT",
-        "points": 2.5,
+        "points": 2.0,
         "value": 0.6818
       },
       {
         "tag": "ELO_SUPPORT",
-        "points": 2.5,
+        "points": 2.0,
         "value": 229.5
       },
       {
         "tag": "FORM_LIGHT_SUPPORT",
-        "points": 0.75,
+        "points": 0.675,
         "value": 2.4
       },
       {
         "tag": "SURFACE_SUPPORT",
-        "points": 1.5,
+        "points": 1.2,
         "value": 8.0
       },
       {
         "tag": "MARKET_WITH_PICK",
-        "points": 1.5,
+        "points": 1.2,
         "value": null
       },
       {
         "tag": "PICK_STRONG",
-        "points": 1.5,
+        "points": 1.2,
         "value": null
       },
       {
         "tag": "DATA_COVERED_STRONG",
-        "points": 2.0,
+        "points": 1.8,
         "value": 0.8717
       }
     ],
@@ -23356,8 +23355,7 @@
     "cloq_data_depth": 0.87170875,
     "cloq_thresholds": {
       "bucket": "OUT_OF_RANGE",
-      "min_thinq": 1.0,
-      "min_marq": 1.0,
+      "min_primary": 1.0,
       "min_depth": 1.0,
       "min_gap_pp": 999.0,
       "min_support_tags": 99
@@ -23365,7 +23363,7 @@
     "cloq_decision": "CLOQ_REJECTED",
     "cloq_support_tags": [
       "TOO_LOW",
-      "THINQ_STRONG_SUPPORT",
+      "MODEL_STRONG_SUPPORT",
       "MARQ_STRONG_SUPPORT",
       "ELO_SUPPORT",
       "FORM_LIGHT_SUPPORT",
@@ -23379,9 +23377,8 @@
     ],
     "cloq_reject_reasons": [
       "CLOQ_REJECT_ODDS_UNDER_1_70",
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
+      "CLOQ_REJECT_MODEL_BELOW_BAND_MINIMUM",
       "CLOQ_REJECT_LOW_DATA_DEPTH",
-      "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE",
       "CLOQ_REJECT_NOT_ENOUGH_SUPPORT_TAGS"
     ],
     "cloq_publishable": false,
@@ -26328,12 +26325,13 @@
       "RANKCAP_NOT_SELECTABLE"
     ],
     "corq_rank": 4,
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Coco Gauff",
     "cloq_opponent": "Maria Sakkari",
     "cloq_pick_odds": 1.25,
     "cloq_opponent_odds": 4.0,
+    "cloq_primary_probability": 0.667,
     "cloq_thinq_probability": 0.667,
     "cloq_marq_probability": 0.761905,
     "cloq_corq_probability": 0.6879,
@@ -26341,36 +26339,36 @@
     "cloq_model_gap_pp": -13.3,
     "cloq_value_delta_pp": -11.21,
     "cloq_expected_value_pct": -14.01,
-    "cloq_evidence_score": 13.0,
+    "cloq_evidence_score": 11.2,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_STRONG_SUPPORT",
+        "tag": "MODEL_STRONG_SUPPORT",
         "points": 3.0,
         "value": 0.667
       },
       {
         "tag": "MARQ_STRONG_SUPPORT",
-        "points": 2.5,
+        "points": 2.0,
         "value": 0.7619
       },
       {
         "tag": "ELO_SUPPORT",
-        "points": 2.5,
+        "points": 2.0,
         "value": 226.8
       },
       {
         "tag": "SURFACE_SUPPORT",
-        "points": 1.5,
+        "points": 1.2,
         "value": 8.0
       },
       {
         "tag": "MARKET_WITH_PICK",
-        "points": 1.5,
+        "points": 1.2,
         "value": null
       },
       {
         "tag": "DATA_COVERED_STRONG",
-        "points": 2.0,
+        "points": 1.8,
         "value": 0.8507
       }
     ],
@@ -26378,8 +26376,7 @@
     "cloq_data_depth": 0.8507100000000001,
     "cloq_thresholds": {
       "bucket": "OUT_OF_RANGE",
-      "min_thinq": 1.0,
-      "min_marq": 1.0,
+      "min_primary": 1.0,
       "min_depth": 1.0,
       "min_gap_pp": 999.0,
       "min_support_tags": 99
@@ -26387,7 +26384,7 @@
     "cloq_decision": "CLOQ_REJECTED",
     "cloq_support_tags": [
       "TOO_LOW",
-      "THINQ_STRONG_SUPPORT",
+      "MODEL_STRONG_SUPPORT",
       "MARQ_STRONG_SUPPORT",
       "ELO_SUPPORT",
       "SURFACE_SUPPORT",
@@ -26400,9 +26397,8 @@
     "cloq_reject_reasons": [
       "CLOQ_REJECT_STATUS_NOT_PREMATCH",
       "CLOQ_REJECT_ODDS_UNDER_1_70",
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
+      "CLOQ_REJECT_MODEL_BELOW_BAND_MINIMUM",
       "CLOQ_REJECT_LOW_DATA_DEPTH",
-      "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE",
       "CLOQ_REJECT_NOT_ENOUGH_SUPPORT_TAGS"
     ],
     "cloq_publishable": false,
@@ -29281,12 +29277,13 @@
       "RANKCAP_NOT_SELECTABLE"
     ],
     "corq_rank": 9,
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Jakub Menšik",
     "cloq_opponent": "Terence Atmane",
     "cloq_pick_odds": 1.44,
     "cloq_opponent_odds": 2.75,
+    "cloq_primary_probability": 0.6564,
     "cloq_thinq_probability": 0.6564,
     "cloq_marq_probability": 0.656325,
     "cloq_corq_probability": 0.6564,
@@ -29294,41 +29291,41 @@
     "cloq_model_gap_pp": -3.8044,
     "cloq_value_delta_pp": -3.8,
     "cloq_expected_value_pct": -5.48,
-    "cloq_evidence_score": 13.75,
+    "cloq_evidence_score": 11.875,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_STRONG_SUPPORT",
+        "tag": "MODEL_STRONG_SUPPORT",
         "points": 3.0,
         "value": 0.6564
       },
       {
         "tag": "MARQ_STRONG_SUPPORT",
-        "points": 2.5,
+        "points": 2.0,
         "value": 0.6563
       },
       {
         "tag": "ELO_SUPPORT",
-        "points": 2.5,
+        "points": 2.0,
         "value": 215.3
       },
       {
         "tag": "FORM_LIGHT_SUPPORT",
-        "points": 0.75,
+        "points": 0.675,
         "value": 1.6
       },
       {
         "tag": "SURFACE_SUPPORT",
-        "points": 1.5,
+        "points": 1.2,
         "value": 8.0
       },
       {
         "tag": "MARKET_WITH_PICK",
-        "points": 1.5,
+        "points": 1.2,
         "value": null
       },
       {
         "tag": "DATA_COVERED_STRONG",
-        "points": 2.0,
+        "points": 1.8,
         "value": 0.8812
       }
     ],
@@ -29336,8 +29333,7 @@
     "cloq_data_depth": 0.8811675,
     "cloq_thresholds": {
       "bucket": "OUT_OF_RANGE",
-      "min_thinq": 1.0,
-      "min_marq": 1.0,
+      "min_primary": 1.0,
       "min_depth": 1.0,
       "min_gap_pp": 999.0,
       "min_support_tags": 99
@@ -29345,7 +29341,7 @@
     "cloq_decision": "CLOQ_REJECTED",
     "cloq_support_tags": [
       "TOO_LOW",
-      "THINQ_STRONG_SUPPORT",
+      "MODEL_STRONG_SUPPORT",
       "MARQ_STRONG_SUPPORT",
       "ELO_SUPPORT",
       "FORM_LIGHT_SUPPORT",
@@ -29359,9 +29355,8 @@
     "cloq_reject_reasons": [
       "CLOQ_REJECT_STATUS_NOT_PREMATCH",
       "CLOQ_REJECT_ODDS_UNDER_1_70",
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
+      "CLOQ_REJECT_MODEL_BELOW_BAND_MINIMUM",
       "CLOQ_REJECT_LOW_DATA_DEPTH",
-      "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE",
       "CLOQ_REJECT_NOT_ENOUGH_SUPPORT_TAGS"
     ],
     "cloq_publishable": false,
@@ -32297,12 +32292,13 @@
       "RANKCAP_NOT_SELECTABLE"
     ],
     "corq_rank": 7,
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Belinda Bencic",
     "cloq_opponent": "Taylor Townsend",
     "cloq_pick_odds": 1.3,
     "cloq_opponent_odds": 3.5,
+    "cloq_primary_probability": 0.6505,
     "cloq_thinq_probability": 0.6505,
     "cloq_marq_probability": 0.729167,
     "cloq_corq_probability": 0.6678,
@@ -32310,41 +32306,41 @@
     "cloq_model_gap_pp": -11.8731,
     "cloq_value_delta_pp": -10.14,
     "cloq_expected_value_pct": -13.19,
-    "cloq_evidence_score": 13.75,
+    "cloq_evidence_score": 11.875,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_STRONG_SUPPORT",
+        "tag": "MODEL_STRONG_SUPPORT",
         "points": 3.0,
         "value": 0.6505
       },
       {
         "tag": "MARQ_STRONG_SUPPORT",
-        "points": 2.5,
+        "points": 2.0,
         "value": 0.7292
       },
       {
         "tag": "ELO_SUPPORT",
-        "points": 2.5,
+        "points": 2.0,
         "value": 160.8
       },
       {
         "tag": "FORM_LIGHT_SUPPORT",
-        "points": 0.75,
+        "points": 0.675,
         "value": 1.0
       },
       {
         "tag": "SURFACE_SUPPORT",
-        "points": 1.5,
+        "points": 1.2,
         "value": 8.0
       },
       {
         "tag": "MARKET_WITH_PICK",
-        "points": 1.5,
+        "points": 1.2,
         "value": null
       },
       {
         "tag": "DATA_COVERED_STRONG",
-        "points": 2.0,
+        "points": 1.8,
         "value": 0.8364
       }
     ],
@@ -32352,8 +32348,7 @@
     "cloq_data_depth": 0.83644625,
     "cloq_thresholds": {
       "bucket": "OUT_OF_RANGE",
-      "min_thinq": 1.0,
-      "min_marq": 1.0,
+      "min_primary": 1.0,
       "min_depth": 1.0,
       "min_gap_pp": 999.0,
       "min_support_tags": 99
@@ -32361,7 +32356,7 @@
     "cloq_decision": "CLOQ_REJECTED",
     "cloq_support_tags": [
       "TOO_LOW",
-      "THINQ_STRONG_SUPPORT",
+      "MODEL_STRONG_SUPPORT",
       "MARQ_STRONG_SUPPORT",
       "ELO_SUPPORT",
       "FORM_LIGHT_SUPPORT",
@@ -32375,9 +32370,8 @@
     "cloq_reject_reasons": [
       "CLOQ_REJECT_STATUS_NOT_PREMATCH",
       "CLOQ_REJECT_ODDS_UNDER_1_70",
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
+      "CLOQ_REJECT_MODEL_BELOW_BAND_MINIMUM",
       "CLOQ_REJECT_LOW_DATA_DEPTH",
-      "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE",
       "CLOQ_REJECT_NOT_ENOUGH_SUPPORT_TAGS"
     ],
     "cloq_publishable": false,
@@ -35301,12 +35295,13 @@
       "RANKCAP_NOT_SELECTABLE"
     ],
     "corq_rank": 13,
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Naomi Osaka",
     "cloq_opponent": "Elise Mertens",
     "cloq_pick_odds": 1.4,
     "cloq_opponent_odds": 3.0,
+    "cloq_primary_probability": 0.5972,
     "cloq_thinq_probability": 0.5972,
     "cloq_marq_probability": 0.681818,
     "cloq_corq_probability": 0.6158,
@@ -35314,36 +35309,36 @@
     "cloq_model_gap_pp": -11.7086,
     "cloq_value_delta_pp": -9.85,
     "cloq_expected_value_pct": -13.79,
-    "cloq_evidence_score": 13.0,
+    "cloq_evidence_score": 11.2,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_STRONG_SUPPORT",
+        "tag": "MODEL_STRONG_SUPPORT",
         "points": 3.0,
         "value": 0.5972
       },
       {
         "tag": "MARQ_STRONG_SUPPORT",
-        "points": 2.5,
+        "points": 2.0,
         "value": 0.6818
       },
       {
         "tag": "ELO_SUPPORT",
-        "points": 2.5,
+        "points": 2.0,
         "value": 69.0
       },
       {
         "tag": "SURFACE_SUPPORT",
-        "points": 1.5,
+        "points": 1.2,
         "value": 5.75
       },
       {
         "tag": "MARKET_WITH_PICK",
-        "points": 1.5,
+        "points": 1.2,
         "value": null
       },
       {
         "tag": "DATA_COVERED_STRONG",
-        "points": 2.0,
+        "points": 1.8,
         "value": 0.8316
       }
     ],
@@ -35351,8 +35346,7 @@
     "cloq_data_depth": 0.83163625,
     "cloq_thresholds": {
       "bucket": "OUT_OF_RANGE",
-      "min_thinq": 1.0,
-      "min_marq": 1.0,
+      "min_primary": 1.0,
       "min_depth": 1.0,
       "min_gap_pp": 999.0,
       "min_support_tags": 99
@@ -35360,7 +35354,7 @@
     "cloq_decision": "CLOQ_REJECTED",
     "cloq_support_tags": [
       "TOO_LOW",
-      "THINQ_STRONG_SUPPORT",
+      "MODEL_STRONG_SUPPORT",
       "MARQ_STRONG_SUPPORT",
       "ELO_SUPPORT",
       "SURFACE_SUPPORT",
@@ -35373,9 +35367,8 @@
     "cloq_reject_reasons": [
       "CLOQ_REJECT_STATUS_NOT_PREMATCH",
       "CLOQ_REJECT_ODDS_UNDER_1_70",
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
+      "CLOQ_REJECT_MODEL_BELOW_BAND_MINIMUM",
       "CLOQ_REJECT_LOW_DATA_DEPTH",
-      "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE",
       "CLOQ_REJECT_NOT_ENOUGH_SUPPORT_TAGS"
     ],
     "cloq_publishable": false,
@@ -38267,12 +38260,13 @@
     "corq_top7_forced_rank_selection": true,
     "top7_selection_count_target": 7,
     "corq_top7_selection_pass": "top4_quality",
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Brandon Nakashima",
     "cloq_opponent": "Arthur Rinderknech",
     "cloq_pick_odds": 1.44,
     "cloq_opponent_odds": 2.75,
+    "cloq_primary_probability": 0.5576,
     "cloq_thinq_probability": 0.5576,
     "cloq_marq_probability": 0.656325,
     "cloq_corq_probability": 0.5793,
@@ -38280,41 +38274,41 @@
     "cloq_model_gap_pp": -13.6844,
     "cloq_value_delta_pp": -11.51,
     "cloq_expected_value_pct": -16.58,
-    "cloq_evidence_score": 11.75,
+    "cloq_evidence_score": 10.215,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_SUPPORT",
+        "tag": "MODEL_SUPPORT",
         "points": 2.0,
         "value": 0.5576
       },
       {
         "tag": "MARQ_STRONG_SUPPORT",
-        "points": 2.5,
+        "points": 2.0,
         "value": 0.6563
       },
       {
         "tag": "ELO_SUPPORT",
-        "points": 2.5,
+        "points": 2.0,
         "value": 31.7
       },
       {
         "tag": "FORM_LIGHT_SUPPORT",
-        "points": 0.75,
+        "points": 0.675,
         "value": 1.6
       },
       {
         "tag": "SURFACE_LIGHT_SUPPORT",
-        "points": 0.5,
+        "points": 0.54,
         "value": 2.64
       },
       {
         "tag": "MARKET_WITH_PICK",
-        "points": 1.5,
+        "points": 1.2,
         "value": null
       },
       {
         "tag": "DATA_COVERED_STRONG",
-        "points": 2.0,
+        "points": 1.8,
         "value": 0.8222
       }
     ],
@@ -38322,8 +38316,7 @@
     "cloq_data_depth": 0.8221775,
     "cloq_thresholds": {
       "bucket": "OUT_OF_RANGE",
-      "min_thinq": 1.0,
-      "min_marq": 1.0,
+      "min_primary": 1.0,
       "min_depth": 1.0,
       "min_gap_pp": 999.0,
       "min_support_tags": 99
@@ -38331,7 +38324,7 @@
     "cloq_decision": "CLOQ_REJECTED",
     "cloq_support_tags": [
       "TOO_LOW",
-      "THINQ_SUPPORT",
+      "MODEL_SUPPORT",
       "MARQ_STRONG_SUPPORT",
       "ELO_SUPPORT",
       "FORM_LIGHT_SUPPORT",
@@ -38344,9 +38337,8 @@
     ],
     "cloq_reject_reasons": [
       "CLOQ_REJECT_ODDS_UNDER_1_70",
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
+      "CLOQ_REJECT_MODEL_BELOW_BAND_MINIMUM",
       "CLOQ_REJECT_LOW_DATA_DEPTH",
-      "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE",
       "CLOQ_REJECT_NOT_ENOUGH_SUPPORT_TAGS"
     ],
     "cloq_publishable": false,
@@ -41193,12 +41185,13 @@
     "corq_top7_forced_rank_selection": true,
     "top7_selection_count_target": 7,
     "corq_top7_selection_pass": "top4_quality",
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Iga Swiatek",
     "cloq_opponent": "Marta Kostyuk",
     "cloq_pick_odds": 1.67,
     "cloq_opponent_odds": 2.2,
+    "cloq_primary_probability": 0.5278,
     "cloq_thinq_probability": 0.5278,
     "cloq_marq_probability": 0.568475,
     "cloq_corq_probability": 0.5327,
@@ -41206,41 +41199,41 @@
     "cloq_model_gap_pp": -7.1002,
     "cloq_value_delta_pp": -6.61,
     "cloq_expected_value_pct": -11.04,
-    "cloq_evidence_score": 7.5,
+    "cloq_evidence_score": 6.4,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_LIGHT_SUPPORT",
+        "tag": "MODEL_LIGHT_SUPPORT",
         "points": 1.0,
         "value": 0.5278
       },
       {
         "tag": "MARQ_SUPPORT",
-        "points": 1.5,
+        "points": 1.2,
         "value": 0.5685
       },
       {
         "tag": "ELO_SUPPORT",
-        "points": 2.5,
+        "points": 2.0,
         "value": 46.7
       },
       {
         "tag": "SURFACE_SUPPORT",
-        "points": 1.5,
+        "points": 1.2,
         "value": 3.8899999999999997
       },
       {
         "tag": "MARKET_WITH_PICK",
-        "points": 1.5,
+        "points": 1.2,
         "value": null
       },
       {
         "tag": "OPP_STRONG",
-        "points": -2.5,
+        "points": -2.0,
         "value": null
       },
       {
         "tag": "DATA_COVERED_STRONG",
-        "points": 2.0,
+        "points": 1.8,
         "value": 0.8677
       }
     ],
@@ -41248,8 +41241,7 @@
     "cloq_data_depth": 0.8677075,
     "cloq_thresholds": {
       "bucket": "OUT_OF_RANGE",
-      "min_thinq": 1.0,
-      "min_marq": 1.0,
+      "min_primary": 1.0,
       "min_depth": 1.0,
       "min_gap_pp": 999.0,
       "min_support_tags": 99
@@ -41257,7 +41249,7 @@
     "cloq_decision": "CLOQ_REJECTED",
     "cloq_support_tags": [
       "TOO_LOW",
-      "THINQ_LIGHT_SUPPORT",
+      "MODEL_LIGHT_SUPPORT",
       "MARQ_SUPPORT",
       "ELO_SUPPORT",
       "SURFACE_SUPPORT",
@@ -41270,9 +41262,8 @@
     ],
     "cloq_reject_reasons": [
       "CLOQ_REJECT_ODDS_UNDER_1_70",
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
+      "CLOQ_REJECT_MODEL_BELOW_BAND_MINIMUM",
       "CLOQ_REJECT_LOW_DATA_DEPTH",
-      "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE",
       "CLOQ_REJECT_NOT_ENOUGH_SUPPORT_TAGS"
     ],
     "cloq_publishable": false,
@@ -44144,12 +44135,13 @@
     "corq_top7_forced_rank_selection": true,
     "top7_selection_count_target": 7,
     "corq_top7_selection_pass": "top4_quality",
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Nuno Borges",
     "cloq_opponent": "Luciano Darderi",
     "cloq_pick_odds": 1.53,
     "cloq_opponent_odds": 2.5,
+    "cloq_primary_probability": 0.5242,
     "cloq_thinq_probability": 0.5242,
     "cloq_marq_probability": 0.620347,
     "cloq_corq_probability": 0.5454,
@@ -44157,41 +44149,41 @@
     "cloq_model_gap_pp": -12.9395,
     "cloq_value_delta_pp": -10.82,
     "cloq_expected_value_pct": -16.55,
-    "cloq_evidence_score": 11.75,
+    "cloq_evidence_score": 9.875,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_LIGHT_SUPPORT",
+        "tag": "MODEL_LIGHT_SUPPORT",
         "points": 1.0,
         "value": 0.5242
       },
       {
         "tag": "MARQ_STRONG_SUPPORT",
-        "points": 2.5,
+        "points": 2.0,
         "value": 0.6203
       },
       {
         "tag": "ELO_SUPPORT",
-        "points": 2.5,
+        "points": 2.0,
         "value": 38.4
       },
       {
         "tag": "FORM_LIGHT_SUPPORT",
-        "points": 0.75,
+        "points": 0.675,
         "value": 1.0
       },
       {
         "tag": "SURFACE_SUPPORT",
-        "points": 1.5,
+        "points": 1.2,
         "value": 3.2
       },
       {
         "tag": "MARKET_WITH_PICK",
-        "points": 1.5,
+        "points": 1.2,
         "value": null
       },
       {
         "tag": "DATA_COVERED_STRONG",
-        "points": 2.0,
+        "points": 1.8,
         "value": 0.7908
       }
     ],
@@ -44199,8 +44191,7 @@
     "cloq_data_depth": 0.7907599999999999,
     "cloq_thresholds": {
       "bucket": "OUT_OF_RANGE",
-      "min_thinq": 1.0,
-      "min_marq": 1.0,
+      "min_primary": 1.0,
       "min_depth": 1.0,
       "min_gap_pp": 999.0,
       "min_support_tags": 99
@@ -44208,7 +44199,7 @@
     "cloq_decision": "CLOQ_REJECTED",
     "cloq_support_tags": [
       "TOO_LOW",
-      "THINQ_LIGHT_SUPPORT",
+      "MODEL_LIGHT_SUPPORT",
       "MARQ_STRONG_SUPPORT",
       "ELO_SUPPORT",
       "FORM_LIGHT_SUPPORT",
@@ -44221,9 +44212,8 @@
     ],
     "cloq_reject_reasons": [
       "CLOQ_REJECT_ODDS_UNDER_1_70",
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
+      "CLOQ_REJECT_MODEL_BELOW_BAND_MINIMUM",
       "CLOQ_REJECT_LOW_DATA_DEPTH",
-      "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE",
       "CLOQ_REJECT_NOT_ENOUGH_SUPPORT_TAGS"
     ],
     "cloq_publishable": false,
@@ -47167,12 +47157,13 @@
       "RANKCAP_NOT_SELECTABLE"
     ],
     "corq_rank": 19,
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Alexandra Eala",
     "cloq_opponent": "Catherine McNally",
     "cloq_pick_odds": 1.4,
     "cloq_opponent_odds": 3.0,
+    "cloq_primary_probability": 0.52,
     "cloq_thinq_probability": 0.52,
     "cloq_marq_probability": 0.681818,
     "cloq_corq_probability": 0.5394,
@@ -47180,36 +47171,36 @@
     "cloq_model_gap_pp": -19.4286,
     "cloq_value_delta_pp": -17.49,
     "cloq_expected_value_pct": -24.48,
-    "cloq_evidence_score": 8.75,
+    "cloq_evidence_score": 7.615,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_LIGHT_SUPPORT",
+        "tag": "MODEL_LIGHT_SUPPORT",
         "points": 1.0,
         "value": 0.52
       },
       {
         "tag": "MARQ_STRONG_SUPPORT",
-        "points": 2.5,
+        "points": 2.0,
         "value": 0.6818
       },
       {
         "tag": "FORM_LIGHT_SUPPORT",
-        "points": 0.75,
+        "points": 0.675,
         "value": 1.6
       },
       {
         "tag": "SURFACE_LIGHT_SUPPORT",
-        "points": 0.5,
+        "points": 0.54,
         "value": 1.4000000000000001
       },
       {
         "tag": "MARKET_WITH_PICK",
-        "points": 1.5,
+        "points": 1.2,
         "value": null
       },
       {
         "tag": "PICK_STRONG",
-        "points": 1.5,
+        "points": 1.2,
         "value": null
       },
       {
@@ -47222,8 +47213,7 @@
     "cloq_data_depth": 0.6336537499999999,
     "cloq_thresholds": {
       "bucket": "OUT_OF_RANGE",
-      "min_thinq": 1.0,
-      "min_marq": 1.0,
+      "min_primary": 1.0,
       "min_depth": 1.0,
       "min_gap_pp": 999.0,
       "min_support_tags": 99
@@ -47231,7 +47221,7 @@
     "cloq_decision": "CLOQ_REJECTED",
     "cloq_support_tags": [
       "TOO_LOW",
-      "THINQ_LIGHT_SUPPORT",
+      "MODEL_LIGHT_SUPPORT",
       "MARQ_STRONG_SUPPORT",
       "FORM_LIGHT_SUPPORT",
       "SURFACE_LIGHT_SUPPORT",
@@ -47245,9 +47235,8 @@
     "cloq_reject_reasons": [
       "CLOQ_REJECT_STATUS_NOT_PREMATCH",
       "CLOQ_REJECT_ODDS_UNDER_1_70",
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
+      "CLOQ_REJECT_MODEL_BELOW_BAND_MINIMUM",
       "CLOQ_REJECT_LOW_DATA_DEPTH",
-      "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE",
       "CLOQ_REJECT_NOT_ENOUGH_SUPPORT_TAGS"
     ],
     "cloq_publishable": false,
@@ -50107,12 +50096,13 @@
       "RANKCAP_NOT_SELECTABLE"
     ],
     "corq_rank": 20,
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Tommy Paul",
     "cloq_opponent": "Learner Tien",
     "cloq_pick_odds": 1.53,
     "cloq_opponent_odds": 2.5,
+    "cloq_primary_probability": 0.51,
     "cloq_thinq_probability": 0.51,
     "cloq_marq_probability": 0.620347,
     "cloq_corq_probability": 0.5343,
@@ -50120,31 +50110,36 @@
     "cloq_model_gap_pp": -14.3595,
     "cloq_value_delta_pp": -11.93,
     "cloq_expected_value_pct": -18.25,
-    "cloq_evidence_score": 4.25,
+    "cloq_evidence_score": 4.675,
     "cloq_evidence_details": [
       {
+        "tag": "MODEL_LIGHT_SUPPORT",
+        "points": 1.0,
+        "value": 0.51
+      },
+      {
         "tag": "MARQ_STRONG_SUPPORT",
-        "points": 2.5,
+        "points": 2.0,
         "value": 0.6203
       },
       {
         "tag": "ELO_AGAINST",
-        "points": -2.5,
+        "points": -2.0,
         "value": -16.3
       },
       {
         "tag": "FORM_LIGHT_SUPPORT",
-        "points": 0.75,
+        "points": 0.675,
         "value": 1.0
       },
       {
         "tag": "MARKET_WITH_PICK",
-        "points": 1.5,
+        "points": 1.2,
         "value": null
       },
       {
         "tag": "DATA_COVERED_STRONG",
-        "points": 2.0,
+        "points": 1.8,
         "value": 0.7795
       }
     ],
@@ -50152,8 +50147,7 @@
     "cloq_data_depth": 0.7795325,
     "cloq_thresholds": {
       "bucket": "OUT_OF_RANGE",
-      "min_thinq": 1.0,
-      "min_marq": 1.0,
+      "min_primary": 1.0,
       "min_depth": 1.0,
       "min_gap_pp": 999.0,
       "min_support_tags": 99
@@ -50161,6 +50155,7 @@
     "cloq_decision": "CLOQ_REJECTED",
     "cloq_support_tags": [
       "TOO_LOW",
+      "MODEL_LIGHT_SUPPORT",
       "MARQ_STRONG_SUPPORT",
       "FORM_LIGHT_SUPPORT",
       "MARKET_WITH_PICK",
@@ -50173,9 +50168,8 @@
     "cloq_reject_reasons": [
       "CLOQ_REJECT_STATUS_NOT_PREMATCH",
       "CLOQ_REJECT_ODDS_UNDER_1_70",
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
+      "CLOQ_REJECT_MODEL_BELOW_BAND_MINIMUM",
       "CLOQ_REJECT_LOW_DATA_DEPTH",
-      "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE",
       "CLOQ_REJECT_NOT_ENOUGH_SUPPORT_TAGS"
     ],
     "cloq_publishable": false,
@@ -53077,12 +53071,13 @@
       "RANKCAP_NOT_SELECTABLE"
     ],
     "corq_rank": 24,
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Carol Young-suh Lee",
     "cloq_opponent": "Gabriela Knutson",
     "cloq_pick_odds": 1.4444,
     "cloq_opponent_odds": 2.625,
+    "cloq_primary_probability": 0.5056,
     "cloq_thinq_probability": 0.5056,
     "cloq_marq_probability": 0.645052,
     "cloq_corq_probability": 0.5223,
@@ -53090,31 +53085,36 @@
     "cloq_model_gap_pp": -18.6729,
     "cloq_value_delta_pp": -17.0,
     "cloq_expected_value_pct": -24.56,
-    "cloq_evidence_score": 7.75,
+    "cloq_evidence_score": 7.615,
     "cloq_evidence_details": [
       {
+        "tag": "MODEL_LIGHT_SUPPORT",
+        "points": 1.0,
+        "value": 0.5056
+      },
+      {
         "tag": "MARQ_STRONG_SUPPORT",
-        "points": 2.5,
+        "points": 2.0,
         "value": 0.6451
       },
       {
         "tag": "FORM_LIGHT_SUPPORT",
-        "points": 0.75,
+        "points": 0.675,
         "value": 0.8
       },
       {
         "tag": "SURFACE_LIGHT_SUPPORT",
-        "points": 0.5,
+        "points": 0.54,
         "value": 0.7000000000000001
       },
       {
         "tag": "MARKET_WITH_PICK",
-        "points": 1.5,
+        "points": 1.2,
         "value": null
       },
       {
         "tag": "PICK_STRONG",
-        "points": 1.5,
+        "points": 1.2,
         "value": null
       },
       {
@@ -53127,8 +53127,7 @@
     "cloq_data_depth": 0.6306125,
     "cloq_thresholds": {
       "bucket": "OUT_OF_RANGE",
-      "min_thinq": 1.0,
-      "min_marq": 1.0,
+      "min_primary": 1.0,
       "min_depth": 1.0,
       "min_gap_pp": 999.0,
       "min_support_tags": 99
@@ -53136,6 +53135,7 @@
     "cloq_decision": "CLOQ_REJECTED",
     "cloq_support_tags": [
       "TOO_LOW",
+      "MODEL_LIGHT_SUPPORT",
       "MARQ_STRONG_SUPPORT",
       "FORM_LIGHT_SUPPORT",
       "SURFACE_LIGHT_SUPPORT",
@@ -53148,9 +53148,8 @@
     ],
     "cloq_reject_reasons": [
       "CLOQ_REJECT_ODDS_UNDER_1_70",
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
+      "CLOQ_REJECT_MODEL_BELOW_BAND_MINIMUM",
       "CLOQ_REJECT_LOW_DATA_DEPTH",
-      "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE",
       "CLOQ_REJECT_NOT_ENOUGH_SUPPORT_TAGS"
     ],
     "cloq_publishable": false,
@@ -55983,12 +55982,13 @@
       "RANKCAP_NOT_SELECTABLE"
     ],
     "corq_rank": 27,
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Gabriela Knutson",
     "cloq_opponent": "Carol Young-suh Lee",
     "cloq_pick_odds": 2.625,
     "cloq_opponent_odds": 1.4444,
+    "cloq_primary_probability": 0.4944,
     "cloq_thinq_probability": 0.4944,
     "cloq_marq_probability": 0.354948,
     "cloq_corq_probability": 0.4777,
@@ -55996,26 +55996,26 @@
     "cloq_model_gap_pp": 11.3448,
     "cloq_value_delta_pp": 9.67,
     "cloq_expected_value_pct": 25.4,
-    "cloq_evidence_score": -11.5,
+    "cloq_evidence_score": -10.0,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_AGAINST",
+        "tag": "MODEL_AGAINST",
         "points": -4.0,
         "value": 0.4944
       },
       {
         "tag": "MARQ_AGAINST",
-        "points": -3.0,
+        "points": -2.5,
         "value": 0.3549
       },
       {
         "tag": "MARKET_AGAINST_PICK",
-        "points": -3.0,
+        "points": -2.5,
         "value": null
       },
       {
         "tag": "OPP_STRONG",
-        "points": -2.5,
+        "points": -2.0,
         "value": null
       },
       {
@@ -56028,8 +56028,7 @@
     "cloq_data_depth": 0.6306125,
     "cloq_thresholds": {
       "bucket": "OUT_OF_RANGE",
-      "min_thinq": 1.0,
-      "min_marq": 1.0,
+      "min_primary": 1.0,
       "min_depth": 1.0,
       "min_gap_pp": 999.0,
       "min_support_tags": 99
@@ -56042,20 +56041,19 @@
     ],
     "cloq_risk_tags": [
       "HIGH_VARIANCE_PRICE_BAND",
-      "THINQ_AGAINST",
+      "MODEL_AGAINST",
       "MARQ_AGAINST",
       "MARKET_AGAINST_PICK",
       "OPP_STRONG"
     ],
     "cloq_reject_reasons": [
       "CLOQ_REJECT_ODDS_OVER_2_50",
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
-      "CLOQ_REJECT_MARQ_AGAINST",
+      "CLOQ_REJECT_MODEL_BELOW_50",
       "CLOQ_REJECT_LOW_DATA_DEPTH",
-      "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE",
       "CLOQ_REJECT_NOT_ENOUGH_SUPPORT_TAGS",
       "CLOQ_REJECT_RANDOM_UNDERDOG",
-      "CLOQ_REJECT_MARKET_AGAINST_WEAK_THINQ"
+      "CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE",
+      "CLOQ_REJECT_MARKET_AGAINST_WEAK_MODEL"
     ],
     "cloq_publishable": false,
     "cloq_score": -9999.0
@@ -58938,12 +58936,13 @@
       "RANKCAP_NOT_SELECTABLE"
     ],
     "corq_rank": 31,
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Catherine McNally",
     "cloq_opponent": "Alexandra Eala",
     "cloq_pick_odds": 3.0,
     "cloq_opponent_odds": 1.4,
+    "cloq_primary_probability": 0.48,
     "cloq_thinq_probability": 0.48,
     "cloq_marq_probability": 0.318182,
     "cloq_corq_probability": 0.4606,
@@ -58951,26 +58950,26 @@
     "cloq_model_gap_pp": 14.6667,
     "cloq_value_delta_pp": 12.73,
     "cloq_expected_value_pct": 38.18,
-    "cloq_evidence_score": -11.5,
+    "cloq_evidence_score": -10.0,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_AGAINST",
+        "tag": "MODEL_AGAINST",
         "points": -4.0,
         "value": 0.48
       },
       {
         "tag": "MARQ_AGAINST",
-        "points": -3.0,
+        "points": -2.5,
         "value": 0.3182
       },
       {
         "tag": "MARKET_AGAINST_PICK",
-        "points": -3.0,
+        "points": -2.5,
         "value": null
       },
       {
         "tag": "OPP_STRONG",
-        "points": -2.5,
+        "points": -2.0,
         "value": null
       },
       {
@@ -58983,8 +58982,7 @@
     "cloq_data_depth": 0.6336537499999999,
     "cloq_thresholds": {
       "bucket": "OUT_OF_RANGE",
-      "min_thinq": 1.0,
-      "min_marq": 1.0,
+      "min_primary": 1.0,
       "min_depth": 1.0,
       "min_gap_pp": 999.0,
       "min_support_tags": 99
@@ -58997,7 +58995,7 @@
     ],
     "cloq_risk_tags": [
       "HIGH_VARIANCE_PRICE_BAND",
-      "THINQ_AGAINST",
+      "MODEL_AGAINST",
       "MARQ_AGAINST",
       "MARKET_AGAINST_PICK",
       "OPP_STRONG"
@@ -59005,13 +59003,12 @@
     "cloq_reject_reasons": [
       "CLOQ_REJECT_STATUS_NOT_PREMATCH",
       "CLOQ_REJECT_ODDS_OVER_2_50",
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
-      "CLOQ_REJECT_MARQ_AGAINST",
+      "CLOQ_REJECT_MODEL_BELOW_50",
       "CLOQ_REJECT_LOW_DATA_DEPTH",
-      "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE",
       "CLOQ_REJECT_NOT_ENOUGH_SUPPORT_TAGS",
       "CLOQ_REJECT_RANDOM_UNDERDOG",
-      "CLOQ_REJECT_MARKET_AGAINST_WEAK_THINQ"
+      "CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE",
+      "CLOQ_REJECT_MARKET_AGAINST_WEAK_MODEL"
     ],
     "cloq_publishable": false,
     "cloq_score": -9999.0
@@ -61837,12 +61834,13 @@
       "RANKCAP_NOT_SELECTABLE"
     ],
     "corq_rank": 36,
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Arthur Rinderknech",
     "cloq_opponent": "Brandon Nakashima",
     "cloq_pick_odds": 2.75,
     "cloq_opponent_odds": 1.44,
+    "cloq_primary_probability": 0.4424,
     "cloq_thinq_probability": 0.4424,
     "cloq_marq_probability": 0.343675,
     "cloq_corq_probability": 0.4128,
@@ -61850,31 +61848,31 @@
     "cloq_model_gap_pp": 7.8764,
     "cloq_value_delta_pp": 4.92,
     "cloq_expected_value_pct": 13.52,
-    "cloq_evidence_score": -10.5,
+    "cloq_evidence_score": -9.2,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_AGAINST",
+        "tag": "MODEL_AGAINST",
         "points": -4.0,
         "value": 0.4424
       },
       {
         "tag": "MARQ_AGAINST",
-        "points": -3.0,
+        "points": -2.5,
         "value": 0.3437
       },
       {
         "tag": "ELO_AGAINST",
-        "points": -2.5,
+        "points": -2.0,
         "value": -31.7
       },
       {
         "tag": "MARKET_AGAINST_PICK",
-        "points": -3.0,
+        "points": -2.5,
         "value": null
       },
       {
         "tag": "DATA_COVERED_STRONG",
-        "points": 2.0,
+        "points": 1.8,
         "value": 0.8222
       }
     ],
@@ -61882,8 +61880,7 @@
     "cloq_data_depth": 0.8221775,
     "cloq_thresholds": {
       "bucket": "OUT_OF_RANGE",
-      "min_thinq": 1.0,
-      "min_marq": 1.0,
+      "min_primary": 1.0,
       "min_depth": 1.0,
       "min_gap_pp": 999.0,
       "min_support_tags": 99
@@ -61896,20 +61893,19 @@
     ],
     "cloq_risk_tags": [
       "HIGH_VARIANCE_PRICE_BAND",
-      "THINQ_AGAINST",
+      "MODEL_AGAINST",
       "MARQ_AGAINST",
       "ELO_AGAINST",
       "MARKET_AGAINST_PICK"
     ],
     "cloq_reject_reasons": [
       "CLOQ_REJECT_ODDS_OVER_2_50",
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
-      "CLOQ_REJECT_MARQ_AGAINST",
+      "CLOQ_REJECT_MODEL_BELOW_50",
       "CLOQ_REJECT_LOW_DATA_DEPTH",
-      "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE",
       "CLOQ_REJECT_NOT_ENOUGH_SUPPORT_TAGS",
       "CLOQ_REJECT_RANDOM_UNDERDOG",
-      "CLOQ_REJECT_MARKET_AGAINST_WEAK_THINQ"
+      "CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE",
+      "CLOQ_REJECT_MARKET_AGAINST_WEAK_MODEL"
     ],
     "cloq_publishable": false,
     "cloq_score": -9999.0
@@ -64793,12 +64789,13 @@
       "RANKCAP_NOT_SELECTABLE"
     ],
     "corq_rank": 38,
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Elise Mertens",
     "cloq_opponent": "Naomi Osaka",
     "cloq_pick_odds": 3.0,
     "cloq_opponent_odds": 1.4,
+    "cloq_primary_probability": 0.4028,
     "cloq_thinq_probability": 0.4028,
     "cloq_marq_probability": 0.318182,
     "cloq_corq_probability": 0.3774,
@@ -64806,41 +64803,41 @@
     "cloq_model_gap_pp": 6.9467,
     "cloq_value_delta_pp": 4.41,
     "cloq_expected_value_pct": 13.22,
-    "cloq_evidence_score": -11.25,
+    "cloq_evidence_score": -9.725,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_AGAINST",
+        "tag": "MODEL_AGAINST",
         "points": -4.0,
         "value": 0.4028
       },
       {
         "tag": "MARQ_AGAINST",
-        "points": -3.0,
+        "points": -2.5,
         "value": 0.3182
       },
       {
         "tag": "ELO_AGAINST",
-        "points": -2.5,
+        "points": -2.0,
         "value": -69.0
       },
       {
         "tag": "FORM_LIGHT_SUPPORT",
-        "points": 0.75,
+        "points": 0.675,
         "value": 1.0
       },
       {
         "tag": "SURFACE_AGAINST",
-        "points": -1.5,
+        "points": -1.2,
         "value": -5.75
       },
       {
         "tag": "MARKET_AGAINST_PICK",
-        "points": -3.0,
+        "points": -2.5,
         "value": null
       },
       {
         "tag": "DATA_COVERED_STRONG",
-        "points": 2.0,
+        "points": 1.8,
         "value": 0.8316
       }
     ],
@@ -64848,8 +64845,7 @@
     "cloq_data_depth": 0.83163625,
     "cloq_thresholds": {
       "bucket": "OUT_OF_RANGE",
-      "min_thinq": 1.0,
-      "min_marq": 1.0,
+      "min_primary": 1.0,
       "min_depth": 1.0,
       "min_gap_pp": 999.0,
       "min_support_tags": 99
@@ -64863,7 +64859,7 @@
     ],
     "cloq_risk_tags": [
       "HIGH_VARIANCE_PRICE_BAND",
-      "THINQ_AGAINST",
+      "MODEL_AGAINST",
       "MARQ_AGAINST",
       "ELO_AGAINST",
       "SURFACE_AGAINST",
@@ -64872,13 +64868,12 @@
     "cloq_reject_reasons": [
       "CLOQ_REJECT_STATUS_NOT_PREMATCH",
       "CLOQ_REJECT_ODDS_OVER_2_50",
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
-      "CLOQ_REJECT_MARQ_AGAINST",
+      "CLOQ_REJECT_MODEL_BELOW_50",
       "CLOQ_REJECT_LOW_DATA_DEPTH",
-      "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE",
       "CLOQ_REJECT_NOT_ENOUGH_SUPPORT_TAGS",
       "CLOQ_REJECT_RANDOM_UNDERDOG",
-      "CLOQ_REJECT_MARKET_AGAINST_WEAK_THINQ"
+      "CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE",
+      "CLOQ_REJECT_MARKET_AGAINST_WEAK_MODEL"
     ],
     "cloq_publishable": false,
     "cloq_score": -9999.0
@@ -67760,12 +67755,13 @@
       "RANKCAP_NOT_SELECTABLE"
     ],
     "corq_rank": 44,
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Taylor Townsend",
     "cloq_opponent": "Belinda Bencic",
     "cloq_pick_odds": 3.5,
     "cloq_opponent_odds": 1.3,
+    "cloq_primary_probability": 0.3495,
     "cloq_thinq_probability": 0.3495,
     "cloq_marq_probability": 0.270833,
     "cloq_corq_probability": 0.3259,
@@ -67773,36 +67769,36 @@
     "cloq_model_gap_pp": 6.3786,
     "cloq_value_delta_pp": 4.02,
     "cloq_expected_value_pct": 14.07,
-    "cloq_evidence_score": -12.0,
+    "cloq_evidence_score": -10.4,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_AGAINST",
+        "tag": "MODEL_AGAINST",
         "points": -4.0,
         "value": 0.3495
       },
       {
         "tag": "MARQ_AGAINST",
-        "points": -3.0,
+        "points": -2.5,
         "value": 0.2708
       },
       {
         "tag": "ELO_AGAINST",
-        "points": -2.5,
+        "points": -2.0,
         "value": -160.8
       },
       {
         "tag": "SURFACE_AGAINST",
-        "points": -1.5,
+        "points": -1.2,
         "value": -8.0
       },
       {
         "tag": "MARKET_AGAINST_PICK",
-        "points": -3.0,
+        "points": -2.5,
         "value": null
       },
       {
         "tag": "DATA_COVERED_STRONG",
-        "points": 2.0,
+        "points": 1.8,
         "value": 0.8364
       }
     ],
@@ -67810,8 +67806,7 @@
     "cloq_data_depth": 0.83644625,
     "cloq_thresholds": {
       "bucket": "OUT_OF_RANGE",
-      "min_thinq": 1.0,
-      "min_marq": 1.0,
+      "min_primary": 1.0,
       "min_depth": 1.0,
       "min_gap_pp": 999.0,
       "min_support_tags": 99
@@ -67824,7 +67819,7 @@
     ],
     "cloq_risk_tags": [
       "HIGH_VARIANCE_PRICE_BAND",
-      "THINQ_AGAINST",
+      "MODEL_AGAINST",
       "MARQ_AGAINST",
       "ELO_AGAINST",
       "SURFACE_AGAINST",
@@ -67833,13 +67828,12 @@
     "cloq_reject_reasons": [
       "CLOQ_REJECT_STATUS_NOT_PREMATCH",
       "CLOQ_REJECT_ODDS_OVER_2_50",
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
-      "CLOQ_REJECT_MARQ_AGAINST",
+      "CLOQ_REJECT_MODEL_BELOW_50",
       "CLOQ_REJECT_LOW_DATA_DEPTH",
-      "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE",
       "CLOQ_REJECT_NOT_ENOUGH_SUPPORT_TAGS",
       "CLOQ_REJECT_RANDOM_UNDERDOG",
-      "CLOQ_REJECT_MARKET_AGAINST_WEAK_THINQ"
+      "CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE",
+      "CLOQ_REJECT_MARKET_AGAINST_WEAK_MODEL"
     ],
     "cloq_publishable": false,
     "cloq_score": -9999.0
@@ -70669,12 +70663,13 @@
       "RANKCAP_NOT_SELECTABLE"
     ],
     "corq_rank": 42,
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Terence Atmane",
     "cloq_opponent": "Jakub Menšik",
     "cloq_pick_odds": 2.75,
     "cloq_opponent_odds": 1.44,
+    "cloq_primary_probability": 0.3436,
     "cloq_thinq_probability": 0.3436,
     "cloq_marq_probability": 0.343675,
     "cloq_corq_probability": 0.3436,
@@ -70682,36 +70677,36 @@
     "cloq_model_gap_pp": -2.0036,
     "cloq_value_delta_pp": -2.0,
     "cloq_expected_value_pct": -5.51,
-    "cloq_evidence_score": -12.0,
+    "cloq_evidence_score": -10.4,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_AGAINST",
+        "tag": "MODEL_AGAINST",
         "points": -4.0,
         "value": 0.3436
       },
       {
         "tag": "MARQ_AGAINST",
-        "points": -3.0,
+        "points": -2.5,
         "value": 0.3437
       },
       {
         "tag": "ELO_AGAINST",
-        "points": -2.5,
+        "points": -2.0,
         "value": -215.3
       },
       {
         "tag": "SURFACE_AGAINST",
-        "points": -1.5,
+        "points": -1.2,
         "value": -8.0
       },
       {
         "tag": "MARKET_AGAINST_PICK",
-        "points": -3.0,
+        "points": -2.5,
         "value": null
       },
       {
         "tag": "DATA_COVERED_STRONG",
-        "points": 2.0,
+        "points": 1.8,
         "value": 0.8812
       }
     ],
@@ -70719,8 +70714,7 @@
     "cloq_data_depth": 0.8811675,
     "cloq_thresholds": {
       "bucket": "OUT_OF_RANGE",
-      "min_thinq": 1.0,
-      "min_marq": 1.0,
+      "min_primary": 1.0,
       "min_depth": 1.0,
       "min_gap_pp": 999.0,
       "min_support_tags": 99
@@ -70733,7 +70727,7 @@
     "cloq_risk_tags": [
       "PROBABILITY_UNDER_BREAK_EVEN_INFO",
       "HIGH_VARIANCE_PRICE_BAND",
-      "THINQ_AGAINST",
+      "MODEL_AGAINST",
       "MARQ_AGAINST",
       "ELO_AGAINST",
       "SURFACE_AGAINST",
@@ -70742,13 +70736,12 @@
     "cloq_reject_reasons": [
       "CLOQ_REJECT_STATUS_NOT_PREMATCH",
       "CLOQ_REJECT_ODDS_OVER_2_50",
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
-      "CLOQ_REJECT_MARQ_AGAINST",
+      "CLOQ_REJECT_MODEL_BELOW_50",
       "CLOQ_REJECT_LOW_DATA_DEPTH",
-      "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE",
       "CLOQ_REJECT_NOT_ENOUGH_SUPPORT_TAGS",
       "CLOQ_REJECT_RANDOM_UNDERDOG",
-      "CLOQ_REJECT_MARKET_AGAINST_WEAK_THINQ"
+      "CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE",
+      "CLOQ_REJECT_MARKET_AGAINST_WEAK_MODEL"
     ],
     "cloq_publishable": false,
     "cloq_score": -9999.0
@@ -73633,12 +73626,13 @@
       "RANKCAP_NOT_SELECTABLE"
     ],
     "corq_rank": 47,
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Maria Sakkari",
     "cloq_opponent": "Coco Gauff",
     "cloq_pick_odds": 4.0,
     "cloq_opponent_odds": 1.25,
+    "cloq_primary_probability": 0.333,
     "cloq_thinq_probability": 0.333,
     "cloq_marq_probability": 0.238095,
     "cloq_corq_probability": 0.3045,
@@ -73646,36 +73640,36 @@
     "cloq_model_gap_pp": 8.3,
     "cloq_value_delta_pp": 5.45,
     "cloq_expected_value_pct": 21.8,
-    "cloq_evidence_score": -12.0,
+    "cloq_evidence_score": -10.4,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_AGAINST",
+        "tag": "MODEL_AGAINST",
         "points": -4.0,
         "value": 0.333
       },
       {
         "tag": "MARQ_AGAINST",
-        "points": -3.0,
+        "points": -2.5,
         "value": 0.2381
       },
       {
         "tag": "ELO_AGAINST",
-        "points": -2.5,
+        "points": -2.0,
         "value": -226.8
       },
       {
         "tag": "SURFACE_AGAINST",
-        "points": -1.5,
+        "points": -1.2,
         "value": -8.0
       },
       {
         "tag": "MARKET_AGAINST_PICK",
-        "points": -3.0,
+        "points": -2.5,
         "value": null
       },
       {
         "tag": "DATA_COVERED_STRONG",
-        "points": 2.0,
+        "points": 1.8,
         "value": 0.8507
       }
     ],
@@ -73683,8 +73677,7 @@
     "cloq_data_depth": 0.8507100000000001,
     "cloq_thresholds": {
       "bucket": "OUT_OF_RANGE",
-      "min_thinq": 1.0,
-      "min_marq": 1.0,
+      "min_primary": 1.0,
       "min_depth": 1.0,
       "min_gap_pp": 999.0,
       "min_support_tags": 99
@@ -73697,7 +73690,7 @@
     ],
     "cloq_risk_tags": [
       "HIGH_VARIANCE_PRICE_BAND",
-      "THINQ_AGAINST",
+      "MODEL_AGAINST",
       "MARQ_AGAINST",
       "ELO_AGAINST",
       "SURFACE_AGAINST",
@@ -73706,13 +73699,12 @@
     "cloq_reject_reasons": [
       "CLOQ_REJECT_STATUS_NOT_PREMATCH",
       "CLOQ_REJECT_ODDS_OVER_2_50",
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
-      "CLOQ_REJECT_MARQ_AGAINST",
+      "CLOQ_REJECT_MODEL_BELOW_50",
       "CLOQ_REJECT_LOW_DATA_DEPTH",
-      "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE",
       "CLOQ_REJECT_NOT_ENOUGH_SUPPORT_TAGS",
       "CLOQ_REJECT_RANDOM_UNDERDOG",
-      "CLOQ_REJECT_MARKET_AGAINST_WEAK_THINQ"
+      "CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE",
+      "CLOQ_REJECT_MARKET_AGAINST_WEAK_MODEL"
     ],
     "cloq_publishable": false,
     "cloq_score": -9999.0
@@ -76551,12 +76543,13 @@
       "RANKCAP_NOT_SELECTABLE"
     ],
     "corq_rank": 46,
-    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V3",
-    "cloq_policy": "odds_1_70_to_2_50_data_covered_thinq_marq_depth_no_random_underdogs",
+    "cloq_model_version": "CLOQ_HIGH_ODDS_DATA_COVERED_V4",
+    "cloq_policy": "odds_1_70_to_2_50_data_covered_primary_model_marq_depth_no_random_underdogs",
     "cloq_pick": "Diana Shnaider",
     "cloq_opponent": "Jessica Pegula",
     "cloq_pick_odds": 3.0,
     "cloq_opponent_odds": 1.4,
+    "cloq_primary_probability": 0.3114,
     "cloq_thinq_probability": 0.3114,
     "cloq_marq_probability": 0.318182,
     "cloq_corq_probability": 0.3134,
@@ -76564,41 +76557,41 @@
     "cloq_model_gap_pp": -2.1933,
     "cloq_value_delta_pp": -1.99,
     "cloq_expected_value_pct": -5.98,
-    "cloq_evidence_score": -14.5,
+    "cloq_evidence_score": -12.4,
     "cloq_evidence_details": [
       {
-        "tag": "THINQ_AGAINST",
+        "tag": "MODEL_AGAINST",
         "points": -4.0,
         "value": 0.3114
       },
       {
         "tag": "MARQ_AGAINST",
-        "points": -3.0,
+        "points": -2.5,
         "value": 0.3182
       },
       {
         "tag": "ELO_AGAINST",
-        "points": -2.5,
+        "points": -2.0,
         "value": -229.5
       },
       {
         "tag": "SURFACE_AGAINST",
-        "points": -1.5,
+        "points": -1.2,
         "value": -8.0
       },
       {
         "tag": "MARKET_AGAINST_PICK",
-        "points": -3.0,
-        "value": null
-      },
-      {
-        "tag": "OPP_STRONG",
         "points": -2.5,
         "value": null
       },
       {
+        "tag": "OPP_STRONG",
+        "points": -2.0,
+        "value": null
+      },
+      {
         "tag": "DATA_COVERED_STRONG",
-        "points": 2.0,
+        "points": 1.8,
         "value": 0.8717
       }
     ],
@@ -76606,8 +76599,7 @@
     "cloq_data_depth": 0.87170875,
     "cloq_thresholds": {
       "bucket": "OUT_OF_RANGE",
-      "min_thinq": 1.0,
-      "min_marq": 1.0,
+      "min_primary": 1.0,
       "min_depth": 1.0,
       "min_gap_pp": 999.0,
       "min_support_tags": 99
@@ -76620,7 +76612,7 @@
     "cloq_risk_tags": [
       "PROBABILITY_UNDER_BREAK_EVEN_INFO",
       "HIGH_VARIANCE_PRICE_BAND",
-      "THINQ_AGAINST",
+      "MODEL_AGAINST",
       "MARQ_AGAINST",
       "ELO_AGAINST",
       "SURFACE_AGAINST",
@@ -76629,13 +76621,12 @@
     ],
     "cloq_reject_reasons": [
       "CLOQ_REJECT_ODDS_OVER_2_50",
-      "CLOQ_REJECT_THINQ_BELOW_BAND_MINIMUM",
-      "CLOQ_REJECT_MARQ_AGAINST",
+      "CLOQ_REJECT_MODEL_BELOW_50",
       "CLOQ_REJECT_LOW_DATA_DEPTH",
-      "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE",
       "CLOQ_REJECT_NOT_ENOUGH_SUPPORT_TAGS",
       "CLOQ_REJECT_RANDOM_UNDERDOG",
-      "CLOQ_REJECT_MARKET_AGAINST_WEAK_THINQ"
+      "CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE",
+      "CLOQ_REJECT_MARKET_AGAINST_WEAK_MODEL"
     ],
     "cloq_publishable": false,
     "cloq_score": -9999.0
