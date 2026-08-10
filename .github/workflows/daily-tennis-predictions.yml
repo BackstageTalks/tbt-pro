@@ -9,8 +9,6 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 concurrency:
   group: daily-tennis-predictions
@@ -19,12 +17,14 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     env:
       PYTHONPATH: ${{ github.workspace }}
       RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
       TG_FEED_TIMEZONE: "Europe/Bratislava"
       TG_FEED_UPCOMING_ONLY: "true"
       TG_FEED_PAST_GRACE_MINUTES: "0"
+      CORQ_PRESERVE_LATEST_TOP7_ON_EMPTY: "true"
 
     steps:
       - name: Check local run time
@@ -120,9 +120,64 @@ jobs:
           print(f"runtime_output_cloq={len(cloq)}")
           print(f"runtime_output_cloq_flat={len(cloq_flat)}")
 
+          manifest_path = Path("outputs/latest_manifest.json")
+          manifest = {}
+          if manifest_path.exists():
+              manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+
+          manifest_top7_count = manifest.get("top7_count")
+          print(f"runtime_manifest_top7_count={manifest_top7_count}")
+          print(f"runtime_manifest_betting_day={manifest.get('betting_day')}")
+          print(f"runtime_manifest_window={manifest.get('betting_day_start_local')} -> {manifest.get('betting_day_end_local')}")
+
           # Do not deploy a blank website if the runtime failed to build core data.
           if not audit:
               raise SystemExit("Runtime produced zero audit rows. Refusing to render/deploy blank site.")
+
+          # Protect the latest public TOP7 and snapshot pipeline. A late/manual run
+          # that sees only finished matches must not create/commit a blank TOP7 run.
+          if manifest_top7_count == 0 or not top7:
+              raise SystemExit("Runtime produced zero TOP7 rows. Refusing to render/snapshot/deploy blank TOP7; keeping last valid committed output.")
+
+          # Enforce Audit/TOP7 betting-day consistency: every audit row must be inside
+          # the same Europe/Bratislava 06:00 -> 06:00 window persisted by corq.engine.
+          try:
+              from datetime import datetime
+              from zoneinfo import ZoneInfo
+
+              start_local = datetime.fromisoformat(str(manifest.get("betting_day_start_local")))
+              end_local = datetime.fromisoformat(str(manifest.get("betting_day_end_local")))
+              tz = ZoneInfo("Europe/Bratislava")
+              outside_window = []
+              status_counts = {}
+              for row in audit:
+                  status_key = str(row.get("status_type") or row.get("match_status_type") or "unknown").lower()
+                  status_counts[status_key] = status_counts.get(status_key, 0) + 1
+                  raw_start = row.get("match_start") or row.get("start_time") or row.get("start_time_utc") or row.get("match_time_utc")
+                  if not raw_start:
+                      continue
+                  dt = datetime.fromisoformat(str(raw_start).replace("Z", "+00:00"))
+                  if dt.tzinfo is None:
+                      dt = dt.replace(tzinfo=tz)
+                  dt_local = dt.astimezone(tz)
+                  if dt_local < start_local or dt_local >= end_local:
+                      outside_window.append({
+                          "event_id": row.get("event_id") or row.get("match_id") or row.get("id"),
+                          "pick": row.get("pick"),
+                          "start_local": dt_local.isoformat(),
+                      })
+              print(f"runtime_audit_status_counts={status_counts}")
+              print(f"runtime_audit_outside_betting_window={len(outside_window)}")
+              if outside_window:
+                  print("runtime_audit_outside_betting_window_sample=", outside_window[:8])
+                  raise SystemExit("Audit rows outside the 06:00-06:00 Europe/Bratislava betting-day window. Refusing deploy.")
+              if status_counts and set(status_counts.keys()).issubset({"finished", "ended", "complete", "completed"}):
+                  raise SystemExit("Audit output contains only completed matches. Refusing deploy because this indicates a stale/wrong candidate window.")
+          except SystemExit:
+              raise
+          except Exception as exc:
+              raise SystemExit(f"Could not validate audit betting-day window: {exc}")
+
           if not Path("outputs/cloq/latest_cloq.json").exists():
               raise SystemExit("CloQ runtime did not create outputs/cloq/latest_cloq.json")
           if not Path("outputs/latest_cloq.json").exists():
@@ -207,7 +262,16 @@ jobs:
                           return True
               return False
 
+          manifest_path = root / "latest_manifest.json"
+          if manifest_path.exists():
+              manifest_payload = json.loads(manifest_path.read_text(encoding="utf-8"))
+              if manifest_payload.get("top7_count") == 0:
+                  raise SystemExit("latest_manifest.json reports top7_count=0; refusing to create an empty CorQ daily snapshot")
+
           source_rows = json.loads(source.read_text(encoding="utf-8"))
+          if not isinstance(source_rows, list) or not source_rows:
+              raise SystemExit("outputs/latest_top7.json is empty; refusing to create an empty CorQ daily snapshot")
+
           enriched = enrich_snapshot_rows(source_rows, source_label=str(source))
 
           if dated_snapshot.exists():
@@ -361,6 +425,32 @@ jobs:
         run: |
           python -m corq.web.render
 
+      - name: Inspect generated site before cleanup
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
+        run: |
+          set -euo pipefail
+          echo "[site] top-level size"
+          du -sh corq/site || true
+          echo "[site] file count"
+          find corq/site -type f | wc -l || true
+          echo "[site] largest files before cleanup"
+          find corq/site -type f -printf '%s %p\n' | sort -nr | head -30 || true
+
+      - name: Keep Pages artifact small
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
+        run: |
+          set -euo pipefail
+          # Pages deployment can time out when the uploaded artifact is too large.
+          # Keep the committed and deployed site focused on generated public pages.
+          rm -rf corq/site/logs || true
+          find corq/site -type f \( -name "*.log" -o -name "*.tmp" -o -name "*.bak" \) -delete || true
+          find corq/site -type f -name "*.json" -size +5M -print -delete || true
+          find corq/site -type f -size +95M -print -delete || true
+          echo "[site] size after cleanup"
+          du -sh corq/site || true
+          echo "[site] largest files after cleanup"
+          find corq/site -type f -printf '%s %p\n' | sort -nr | head -30 || true
+
       - name: Commit generated outputs
         if: ${{ steps.local_time.outputs.should_run == 'true' }}
         run: |
@@ -402,12 +492,8 @@ jobs:
           git commit -m "Update daily tennis predictions"
           git push
 
-      - name: Upload Pages artifact
+      - name: Pages deploy handled by Web Render Only
         if: ${{ steps.local_time.outputs.should_run == 'true' }}
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: corq/site
-
-      - name: Deploy to GitHub Pages
-        if: ${{ steps.local_time.outputs.should_run == 'true' }}
-        uses: actions/deploy-pages@v4
+        run: |
+          echo "Daily run updates outputs and rendered site files only."
+          echo "GitHub Pages deployment is handled by .github/workflows/web-render-only.yml."
