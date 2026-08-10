@@ -99,17 +99,23 @@ def parse_category_ids() -> List[int]:
 
 
 def target_betting_day(now: Optional[datetime] = None) -> datetime:
-    """Return the calendar day that the daily prediction run should fetch.
+    """Return the local calendar date used for TennisAPI event fetches.
 
-    Daily Tennis Predictions now runs around 05:10 Europe/Bratislava to catch
-    early matches. The previous implementation subtracted one day before 06:00,
-    which made the 05:10 production run fetch yesterday's tennis calendar and
-    could produce zero candidates. For prediction generation we need today's
-    local tennis calendar.
+    Important distinction:
+    - When ``now`` is passed explicitly, the caller is iterating a concrete
+      fetch date. In that case environment variables must not override it.
+    - When ``now`` is omitted, manual backfills may still use CORQ_TARGET_DATE,
+      TENNISAPI_TARGET_DATE or RUN_DATE.
 
-    If a different date is needed for a manual backfill, pass target_date from
-    the caller or use CORQ_TARGET_DATE / TENNISAPI_TARGET_DATE in the fetcher.
+    This prevents a 06:00 -> 06:00 betting-day run from fetching the same
+    calendar date twice when the window spans two provider calendar dates.
     """
+    if now is not None:
+        current = now
+        if current.tzinfo is None:
+            current = current.replace(tzinfo=LOCAL_TZ)
+        return current.astimezone(LOCAL_TZ)
+
     explicit = os.getenv("CORQ_TARGET_DATE") or os.getenv("TENNISAPI_TARGET_DATE") or os.getenv("RUN_DATE")
     if explicit:
         try:
@@ -117,7 +123,8 @@ def target_betting_day(now: Optional[datetime] = None) -> datetime:
             return parsed.replace(tzinfo=LOCAL_TZ)
         except Exception:
             pass
-    current = now or datetime.now(LOCAL_TZ)
+
+    current = datetime.now(LOCAL_TZ)
     if current.tzinfo is None:
         current = current.replace(tzinfo=LOCAL_TZ)
     return current.astimezone(LOCAL_TZ)
@@ -1441,6 +1448,7 @@ def fetch_daily_matches_with_odds(target_date: Optional[datetime] = None) -> Lis
     client = RapidApiClient()
     window_start_local, window_end_local, betting_day = _betting_day_window_for_corq(target_date)
     fetch_dates = _fetch_dates_for_betting_window(window_start_local, window_end_local)
+    print("RAPIDAPI FETCH CALENDAR DATES: " + ", ".join(d.strftime("%Y-%m-%d") for d in fetch_dates))
 
     raw_events: List[Dict[str, Any]] = []
     for fetch_date in fetch_dates:
