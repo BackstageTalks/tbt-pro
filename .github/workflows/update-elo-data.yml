@@ -142,11 +142,9 @@ jobs:
           import json
 
           candidates = [
-              Path("thinq/data/elo/elo_index.json"),
-              Path("thinq/data/elo_index.json"),
-              Path("data/elo/elo_index.json"),
-              Path("data/elo_index.json"),
-              Path("outputs/elo/elo_index.json"),
+              Path("thinq/data/elo/elo_cache.json"),
+              Path("thinq/data/elo/ta_elo_ratings.json"),
+              Path("thinq/data/elo/elo_last_refresh.json"),
           ]
           existing = [p for p in candidates if p.exists()]
           print("ELO cache candidate files:")
@@ -171,7 +169,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add thinq/data/elo thinq/data/elo_index.json data/elo data/elo_index.json outputs/elo 2>/dev/null || true
+          git rm -r --ignore-unmatch data/elo data/elo_index.json outputs/elo thinq/data/elo_index.json 2>/dev/null || true
+          git add thinq/data/elo 2>/dev/null || true
 
           if git diff --cached --quiet; then
             echo "No ELO cache changes to commit."
@@ -188,22 +187,15 @@ jobs:
           tmp_dir="$(mktemp -d)"
           mkdir -p "$tmp_dir"
           cp -a thinq/data/elo "$tmp_dir/thinq_data_elo" 2>/dev/null || true
-          cp -a thinq/data/elo_index.json "$tmp_dir/thinq_data_elo_index.json" 2>/dev/null || true
-          cp -a data/elo "$tmp_dir/data_elo" 2>/dev/null || true
-          cp -a data/elo_index.json "$tmp_dir/data_elo_index.json" 2>/dev/null || true
-          cp -a outputs/elo "$tmp_dir/outputs_elo" 2>/dev/null || true
 
           git fetch origin main
           git reset --hard origin/main
 
-          mkdir -p thinq/data data outputs
-          [ -d "$tmp_dir/thinq_data_elo" ] && mkdir -p thinq/data && cp -a "$tmp_dir/thinq_data_elo" thinq/data/elo
-          [ -f "$tmp_dir/thinq_data_elo_index.json" ] && cp -a "$tmp_dir/thinq_data_elo_index.json" thinq/data/elo_index.json
-          [ -d "$tmp_dir/data_elo" ] && cp -a "$tmp_dir/data_elo" data/elo
-          [ -f "$tmp_dir/data_elo_index.json" ] && cp -a "$tmp_dir/data_elo_index.json" data/elo_index.json
-          [ -d "$tmp_dir/outputs_elo" ] && cp -a "$tmp_dir/outputs_elo" outputs/elo
+          mkdir -p thinq/data
+          [ -d "$tmp_dir/thinq_data_elo" ] && cp -a "$tmp_dir/thinq_data_elo" thinq/data/elo
 
-          git add thinq/data/elo thinq/data/elo_index.json data/elo data/elo_index.json outputs/elo 2>/dev/null || true
+          git rm -r --ignore-unmatch data/elo data/elo_index.json outputs/elo thinq/data/elo_index.json 2>/dev/null || true
+          git add thinq/data/elo 2>/dev/null || true
 
           if git diff --cached --quiet; then
             echo "No ELO cache changes after reset."
