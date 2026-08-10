@@ -1,6 +1,6 @@
 {
   "model_version": "2026-08-04-marq-coverage-report-v1",
-  "generated_at_utc": "2026-08-09T06:29:35.882204+00:00",
+  "generated_at_utc": "2026-08-10T06:08:55.772853+00:00",
   "input_paths": {
     "all": "outputs/latest_all.json",
     "top7": "outputs/latest_top7.json",
@@ -9,53 +9,58 @@
   "sections": {
     "all_audit": {
       "label": "all_audit",
-      "total_rows": 16,
+      "total_rows": 8,
       "coverage_pct": {
-        "high_marq": 100.0,
-        "medium_current_only": 0.0,
+        "high_marq": 75.0,
+        "medium_current_only": 25.0,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
         "usable_marq_high_or_medium": 100.0
       },
       "endpoint_counts": {
-        "getAllOddsForEvent": 16
+        "getAllOddsForEvent": 8
       },
       "data_status_counts": {
-        "EXACT_BETTING_ODDS_WITH_OPENING": 16
+        "EXACT_BETTING_ODDS_WITH_OPENING": 6,
+        "EXACT_CURRENT_ODDS_ONLY": 2
       },
       "confidence_counts": {
-        "HIGH": 16
+        "HIGH": 6,
+        "MEDIUM": 2
       },
       "movement_status_counts": {
-        "REAL_OPENING_CURRENT_AVAILABLE": 16
+        "REAL_OPENING_CURRENT_AVAILABLE": 6,
+        "OPENING_EQUALS_CURRENT": 2
       },
       "quality_tier_counts": {
-        "HIGH": 16
+        "HIGH": 6,
+        "MEDIUM_CURRENT_ONLY": 2
       },
       "value_status_counts": {
-        "NO_VALUE": 9,
-        "VALUE_STRONG": 7
+        "NO_VALUE": 4,
+        "VALUE_STRONG": 3,
+        "VALUE_PLAYABLE": 1
       },
       "source_policy_counts": {
-        "TENNISAPI_ONLY_EXACT_EVENT": 16
+        "TENNISAPI_ONLY_EXACT_EVENT": 8
       },
       "market_weight_stats": {
-        "count": 16,
-        "avg": 0.26,
-        "min": 0.22,
+        "count": 8,
+        "avg": 0.225,
+        "min": 0.12,
         "max": 0.3
       },
       "value_delta_pp_stats": {
-        "count": 16,
+        "count": 8,
         "avg": 0.0,
-        "min": -15.95,
-        "max": 15.95
+        "min": -9.75,
+        "max": 9.75
       },
       "expected_value_pct_stats": {
-        "count": 16,
-        "avg": 3.9519,
-        "min": -23.76,
-        "max": 82.16
+        "count": 8,
+        "avg": -1.6638,
+        "min": -24.76,
+        "max": 27.36
       },
       "samples": {
         "thin_fallback": [],
@@ -63,570 +68,263 @@
         "current_only": [],
         "real_opening": [
           {
-            "identity": "16661619",
-            "pick": "Jiri Lehečka",
-            "opponent": "Rafael Jodar",
+            "identity": "16661642",
+            "pick": "Joao Fonseca",
+            "opponent": "Ben Shelton",
             "odds": 2.1,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
-            "market_weight": 0.22,
-            "value_delta_pp": -0.08,
-            "expected_value_pct": -5.31,
+            "market_weight": 0.3,
+            "value_delta_pp": 2.52,
+            "expected_value_pct": 0.15,
             "fallback_reason": null
           },
           {
-            "identity": "16661619",
-            "pick": "Rafael Jodar",
-            "opponent": "Jiri Lehečka",
+            "identity": "16661642",
+            "pick": "Ben Shelton",
+            "opponent": "Joao Fonseca",
             "odds": 1.73,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": 0.08,
-            "expected_value_pct": -5.01,
+            "market_weight": 0.22,
+            "value_delta_pp": -2.52,
+            "expected_value_pct": -9.5,
             "fallback_reason": null
           },
           {
-            "identity": "16661641",
-            "pick": "Arthur Fils",
-            "opponent": "Cameron Norrie",
-            "odds": 1.4,
+            "identity": "16661635",
+            "pick": "Botic Van de Zandschulp",
+            "opponent": "Jakub Menšik",
+            "odds": 3.4,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 9.34,
+            "expected_value_pct": 27.36,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16661635",
+            "pick": "Jakub Menšik",
+            "opponent": "Botic Van de Zandschulp",
+            "odds": 1.33,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -3.12,
-            "expected_value_pct": -8.92,
+            "value_delta_pp": -9.34,
+            "expected_value_pct": -16.82,
             "fallback_reason": null
           },
           {
-            "identity": "16661641",
-            "pick": "Cameron Norrie",
-            "opponent": "Arthur Fils",
-            "odds": 3.0,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": 3.12,
-            "expected_value_pct": 4.82,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16661636",
-            "pick": "Tallon Griekspoor",
-            "opponent": "Daniel Merida",
-            "odds": 1.8,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": -5.89,
-            "expected_value_pct": -15.87,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16661636",
-            "pick": "Daniel Merida",
-            "opponent": "Tallon Griekspoor",
+            "identity": "16662007",
+            "pick": "Alexandra Eala",
+            "opponent": "Belinda Bencic",
             "odds": 2.0,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
-            "market_weight": 0.22,
-            "value_delta_pp": 5.89,
-            "expected_value_pct": 6.52,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16661639",
-            "pick": "Learner Tien",
-            "opponent": "Thiago Agustin Tirante",
-            "odds": 1.4,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": -7.89,
-            "expected_value_pct": -15.59,
+            "value_delta_pp": -9.75,
+            "expected_value_pct": -24.76,
             "fallback_reason": null
           },
           {
-            "identity": "16661639",
-            "pick": "Thiago Agustin Tirante",
-            "opponent": "Learner Tien",
-            "odds": 3.0,
+            "identity": "16662007",
+            "pick": "Belinda Bencic",
+            "opponent": "Alexandra Eala",
+            "odds": 1.8,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": 7.89,
-            "expected_value_pct": 19.13,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16662015",
-            "pick": "Aryna Sabalenka",
-            "opponent": "Ekaterina Alexandrova",
-            "odds": 1.14,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.22,
-            "value_delta_pp": -15.95,
-            "expected_value_pct": -23.76,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16662015",
-            "pick": "Ekaterina Alexandrova",
-            "opponent": "Aryna Sabalenka",
-            "odds": 5.5,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": 15.95,
-            "expected_value_pct": 82.16,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16662019",
-            "pick": "Elina Svitolina",
-            "opponent": "Amanda Anisimova",
-            "odds": 1.62,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.22,
-            "value_delta_pp": 6.54,
-            "expected_value_pct": 5.64,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16662019",
-            "pick": "Amanda Anisimova",
-            "opponent": "Elina Svitolina",
-            "odds": 2.3,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": -6.54,
-            "expected_value_pct": -19.98,
+            "value_delta_pp": 9.75,
+            "expected_value_pct": 12.28,
             "fallback_reason": null
           }
         ],
         "no_value": [
           {
-            "identity": "16661619",
-            "pick": "Jiri Lehečka",
-            "opponent": "Rafael Jodar",
-            "odds": 2.1,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.22,
-            "value_delta_pp": -0.08,
-            "expected_value_pct": -5.31,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16661619",
-            "pick": "Rafael Jodar",
-            "opponent": "Jiri Lehečka",
+            "identity": "16661642",
+            "pick": "Ben Shelton",
+            "opponent": "Joao Fonseca",
             "odds": 1.73,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": 0.08,
-            "expected_value_pct": -5.01,
+            "market_weight": 0.22,
+            "value_delta_pp": -2.52,
+            "expected_value_pct": -9.5,
             "fallback_reason": null
           },
           {
-            "identity": "16661641",
-            "pick": "Arthur Fils",
-            "opponent": "Cameron Norrie",
-            "odds": 1.4,
+            "identity": "16661635",
+            "pick": "Jakub Menšik",
+            "opponent": "Botic Van de Zandschulp",
+            "odds": 1.33,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -3.12,
-            "expected_value_pct": -8.92,
+            "value_delta_pp": -9.34,
+            "expected_value_pct": -16.82,
             "fallback_reason": null
           },
           {
-            "identity": "16661636",
-            "pick": "Tallon Griekspoor",
-            "opponent": "Daniel Merida",
-            "odds": 1.8,
+            "identity": "16662024",
+            "pick": "Naomi Osaka",
+            "opponent": "Leylah Fernandez",
+            "odds": 1.36,
             "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": -5.89,
-            "expected_value_pct": -15.87,
+            "data_status": "EXACT_CURRENT_ODDS_ONLY",
+            "confidence": "MEDIUM",
+            "movement_status": "OPENING_EQUALS_CURRENT",
+            "tier": "MEDIUM_CURRENT_ONLY",
+            "market_weight": 0.12,
+            "value_delta_pp": -3.86,
+            "expected_value_pct": -9.8,
             "fallback_reason": null
           },
           {
-            "identity": "16661639",
-            "pick": "Learner Tien",
-            "opponent": "Thiago Agustin Tirante",
-            "odds": 1.4,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": -7.89,
-            "expected_value_pct": -15.59,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16662015",
-            "pick": "Aryna Sabalenka",
-            "opponent": "Ekaterina Alexandrova",
-            "odds": 1.14,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.22,
-            "value_delta_pp": -15.95,
-            "expected_value_pct": -23.76,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16662019",
-            "pick": "Amanda Anisimova",
-            "opponent": "Elina Svitolina",
-            "odds": 2.3,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": -6.54,
-            "expected_value_pct": -19.98,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16662020",
-            "pick": "Elena Rybakina",
-            "opponent": "Liudmila Samsonova",
-            "odds": 1.28,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.22,
-            "value_delta_pp": -12.53,
-            "expected_value_pct": -20.61,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16662005",
-            "pick": "Coco Gauff",
-            "opponent": "Alina Korneeva",
-            "odds": 1.28,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": -10.82,
-            "expected_value_pct": -18.43,
-            "fallback_reason": null
-          }
-        ],
-        "value_strong": [
-          {
-            "identity": "16661641",
-            "pick": "Cameron Norrie",
-            "opponent": "Arthur Fils",
-            "odds": 3.0,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": 3.12,
-            "expected_value_pct": 4.82,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16661636",
-            "pick": "Daniel Merida",
-            "opponent": "Tallon Griekspoor",
+            "identity": "16662007",
+            "pick": "Alexandra Eala",
+            "opponent": "Belinda Bencic",
             "odds": 2.0,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
-            "market_weight": 0.22,
-            "value_delta_pp": 5.89,
-            "expected_value_pct": 6.52,
+            "market_weight": 0.3,
+            "value_delta_pp": -9.75,
+            "expected_value_pct": -24.76,
             "fallback_reason": null
-          },
+          }
+        ],
+        "value_strong": [
           {
-            "identity": "16661639",
-            "pick": "Thiago Agustin Tirante",
-            "opponent": "Learner Tien",
-            "odds": 3.0,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.22,
-            "value_delta_pp": 7.89,
-            "expected_value_pct": 19.13,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16662015",
-            "pick": "Ekaterina Alexandrova",
-            "opponent": "Aryna Sabalenka",
-            "odds": 5.5,
+            "identity": "16661635",
+            "pick": "Botic Van de Zandschulp",
+            "opponent": "Jakub Menšik",
+            "odds": 3.4,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 15.95,
-            "expected_value_pct": 82.16,
+            "value_delta_pp": 9.34,
+            "expected_value_pct": 27.36,
             "fallback_reason": null
           },
           {
-            "identity": "16662019",
-            "pick": "Elina Svitolina",
-            "opponent": "Amanda Anisimova",
-            "odds": 1.62,
+            "identity": "16662024",
+            "pick": "Leylah Fernandez",
+            "opponent": "Naomi Osaka",
+            "odds": 3.2,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_CURRENT_ODDS_ONLY",
+            "confidence": "MEDIUM",
+            "movement_status": "OPENING_EQUALS_CURRENT",
+            "tier": "MEDIUM_CURRENT_ONLY",
+            "market_weight": 0.12,
+            "value_delta_pp": 3.86,
+            "expected_value_pct": 7.78,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16662007",
+            "pick": "Belinda Bencic",
+            "opponent": "Alexandra Eala",
+            "odds": 1.8,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": 6.54,
-            "expected_value_pct": 5.64,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16662020",
-            "pick": "Liudmila Samsonova",
-            "opponent": "Elena Rybakina",
-            "odds": 3.75,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": 12.53,
-            "expected_value_pct": 42.43,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16662005",
-            "pick": "Alina Korneeva",
-            "opponent": "Coco Gauff",
-            "odds": 3.75,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.22,
-            "value_delta_pp": 10.82,
-            "expected_value_pct": 36.01,
+            "value_delta_pp": 9.75,
+            "expected_value_pct": 12.28,
             "fallback_reason": null
           }
         ]
       },
       "attempt_summary": {
-        "total_attempts": 16,
+        "total_attempts": 8,
         "endpoint_counts": {
-          "getAllOddsForEvent": 16
+          "getAllOddsForEvent": 8
         },
         "status_counts": {
-          "200": 16
+          "200": 8
         }
       }
     },
     "corq_top7": {
       "label": "corq_top7",
-      "total_rows": 2,
+      "total_rows": 0,
       "coverage_pct": {
-        "high_marq": 100.0,
+        "high_marq": 0.0,
         "medium_current_only": 0.0,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
-        "usable_marq_high_or_medium": 100.0
+        "usable_marq_high_or_medium": 0.0
       },
-      "endpoint_counts": {
-        "getAllOddsForEvent": 2
-      },
-      "data_status_counts": {
-        "EXACT_BETTING_ODDS_WITH_OPENING": 2
-      },
-      "confidence_counts": {
-        "HIGH": 2
-      },
-      "movement_status_counts": {
-        "REAL_OPENING_CURRENT_AVAILABLE": 2
-      },
-      "quality_tier_counts": {
-        "HIGH": 2
-      },
-      "value_status_counts": {
-        "VALUE_STRONG": 1,
-        "NO_VALUE": 1
-      },
-      "source_policy_counts": {
-        "TENNISAPI_ONLY_EXACT_EVENT": 2
-      },
+      "endpoint_counts": {},
+      "data_status_counts": {},
+      "confidence_counts": {},
+      "movement_status_counts": {},
+      "quality_tier_counts": {},
+      "value_status_counts": {},
+      "source_policy_counts": {},
       "market_weight_stats": {
-        "count": 2,
-        "avg": 0.26,
-        "min": 0.22,
-        "max": 0.3
+        "count": 0,
+        "avg": null,
+        "min": null,
+        "max": null
       },
       "value_delta_pp_stats": {
-        "count": 2,
-        "avg": -1.0,
-        "min": -7.89,
-        "max": 5.89
+        "count": 0,
+        "avg": null,
+        "min": null,
+        "max": null
       },
       "expected_value_pct_stats": {
-        "count": 2,
-        "avg": -4.535,
-        "min": -15.59,
-        "max": 6.52
+        "count": 0,
+        "avg": null,
+        "min": null,
+        "max": null
       },
       "samples": {
         "thin_fallback": [],
         "no_marq_or_unknown": [],
         "current_only": [],
-        "real_opening": [
-          {
-            "identity": "16661636",
-            "pick": "Daniel Merida",
-            "opponent": "Tallon Griekspoor",
-            "odds": 2.0,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.22,
-            "value_delta_pp": 5.89,
-            "expected_value_pct": 6.52,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16661639",
-            "pick": "Learner Tien",
-            "opponent": "Thiago Agustin Tirante",
-            "odds": 1.4,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": -7.89,
-            "expected_value_pct": -15.59,
-            "fallback_reason": null
-          }
-        ],
-        "no_value": [
-          {
-            "identity": "16661639",
-            "pick": "Learner Tien",
-            "opponent": "Thiago Agustin Tirante",
-            "odds": 1.4,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": -7.89,
-            "expected_value_pct": -15.59,
-            "fallback_reason": null
-          }
-        ],
-        "value_strong": [
-          {
-            "identity": "16661636",
-            "pick": "Daniel Merida",
-            "opponent": "Tallon Griekspoor",
-            "odds": 2.0,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.22,
-            "value_delta_pp": 5.89,
-            "expected_value_pct": 6.52,
-            "fallback_reason": null
-          }
-        ]
+        "real_opening": [],
+        "no_value": [],
+        "value_strong": []
       },
       "attempt_summary": {
-        "total_attempts": 2,
-        "endpoint_counts": {
-          "getAllOddsForEvent": 2
-        },
-        "status_counts": {
-          "200": 2
-        }
+        "total_attempts": 0,
+        "endpoint_counts": {},
+        "status_counts": {}
       }
     },
     "cloq": {
