@@ -1081,10 +1081,119 @@ def dedupe_events(events: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return output
 
 
+def _side_token(value: Any) -> str:
+    return normalize_name(value or "")
+
+
+def _participant_name(item: Any) -> Optional[str]:
+    if not isinstance(item, dict):
+        return _team_name(item)
+    for key in (
+        "team",
+        "player",
+        "participant",
+        "competitor",
+        "athlete",
+        "person",
+        "entity",
+    ):
+        name = _team_name(item.get(key))
+        if name:
+            return name
+    return _team_name(item)
+
+
+def _participant_side(item: Dict[str, Any]) -> str:
+    values: List[Any] = []
+    for key in ("side", "homeAway", "home_away", "position", "type", "role", "qualifier", "designation"):
+        values.append(item.get(key))
+    for key in ("isHome", "home", "is_home"):
+        if item.get(key) is True:
+            return "home"
+    for key in ("isAway", "away", "is_away"):
+        if item.get(key) is True:
+            return "away"
+    text = _side_token(" ".join(str(v or "") for v in values))
+    if text in {"home", "player 1", "player1", "competitor 1", "competitor1", "p1", "1"}:
+        return "home"
+    if text in {"away", "player 2", "player2", "competitor 2", "competitor2", "p2", "2"}:
+        return "away"
+    return ""
+
+
+def _participants_from_event(event: Dict[str, Any]) -> List[Dict[str, Any]]:
+    out: List[Dict[str, Any]] = []
+    for key in (
+        "participants",
+        "competitors",
+        "contestants",
+        "teams",
+        "players",
+        "opponents",
+        "sides",
+    ):
+        value = event.get(key)
+        if isinstance(value, list):
+            out.extend(item for item in value if isinstance(item, dict))
+    for parent_key in ("event", "match", "fixture", "game"):
+        parent = event.get(parent_key)
+        if isinstance(parent, dict):
+            for key in ("participants", "competitors", "teams", "players", "opponents"):
+                value = parent.get(key)
+                if isinstance(value, list):
+                    out.extend(item for item in value if isinstance(item, dict))
+    return out
+
+
 def event_players(event: Dict[str, Any]) -> Tuple[Optional[str], Optional[str]]:
-    home = event.get("homeTeam") or event.get("home_team") or event.get("home") or event.get("player1") or event.get("participant1")
-    away = event.get("awayTeam") or event.get("away_team") or event.get("away") or event.get("player2") or event.get("participant2")
-    return _team_name(home), _team_name(away)
+    home = (
+        event.get("homeTeam")
+        or event.get("home_team")
+        or event.get("home")
+        or event.get("player1")
+        or event.get("participant1")
+        or event.get("competitor1")
+        or event.get("team1")
+    )
+    away = (
+        event.get("awayTeam")
+        or event.get("away_team")
+        or event.get("away")
+        or event.get("player2")
+        or event.get("participant2")
+        or event.get("competitor2")
+        or event.get("team2")
+    )
+
+    home_name = _team_name(home)
+    away_name = _team_name(away)
+    if home_name and away_name:
+        return home_name, away_name
+
+    participants = _participants_from_event(event)
+    side_home: Optional[str] = None
+    side_away: Optional[str] = None
+    ordered: List[str] = []
+    for item in participants:
+        name = _participant_name(item)
+        if not name:
+            continue
+        side = _participant_side(item)
+        if side == "home" and side_home is None:
+            side_home = name
+        elif side == "away" and side_away is None:
+            side_away = name
+        if name not in ordered:
+            ordered.append(name)
+
+    home_name = home_name or side_home
+    away_name = away_name or side_away
+    if home_name and away_name:
+        return home_name, away_name
+    if len(ordered) >= 2:
+        return ordered[0], ordered[1]
+
+    return home_name, away_name
 
 
 def is_doubles_name(name: Any) -> bool:
@@ -1444,6 +1553,47 @@ def _fetch_dates_for_betting_window(start_local: datetime, end_local: datetime) 
         dates.append(datetime.combine(current, datetime.min.time(), tzinfo=LOCAL_TZ))
         current = current + timedelta(days=1)
     return dates
+
+def _raw_event_diagnostic_bucket(event: Dict[str, Any]) -> str:
+    player1, player2 = event_players(event)
+    if not player1 or not player2:
+        keys = sorted(str(k) for k in event.keys())[:18]
+        return "missing_players keys=" + ",".join(keys)
+    normalized = normalize_event_for_corq(event)
+    if not isinstance(normalized, dict):
+        return "normalize_failed"
+    if _event_start_datetime_utc(normalized) is None:
+        return "missing_start"
+    if normalized.get("is_doubles"):
+        return "doubles"
+    return "ok_normalized"
+
+
+def _print_loader_coverage(raw_events: List[Dict[str, Any]], normalized: List[Dict[str, Any]]) -> None:
+    try:
+        from collections import Counter
+        buckets = Counter(_raw_event_diagnostic_bucket(e) for e in raw_events if isinstance(e, dict))
+        print("RAPIDAPI NORMALIZATION COVERAGE:")
+        for key, count in buckets.most_common(12):
+            print(f"  {count:4d} {key}")
+        shown = 0
+        for event in raw_events:
+            if not isinstance(event, dict):
+                continue
+            if _raw_event_diagnostic_bucket(event).startswith("missing_players"):
+                print("RAPIDAPI MISSING PLAYERS SAMPLE:", {
+                    "id": event.get("id") or event.get("event_id") or event.get("match_id"),
+                    "keys": sorted(str(k) for k in event.keys())[:20],
+                    "tournament": _team_name(event.get("tournament")),
+                    "status": event.get("status"),
+                    "startTimestamp": event.get("startTimestamp") or event.get("start_timestamp"),
+                })
+                shown += 1
+                if shown >= 3:
+                    break
+    except Exception as exc:
+        print(f"RAPIDAPI NORMALIZATION COVERAGE ERROR: {exc}")
+
 def fetch_daily_matches_with_odds(target_date: Optional[datetime] = None) -> List[Dict[str, Any]]:
     client = RapidApiClient()
     window_start_local, window_end_local, betting_day = _betting_day_window_for_corq(target_date)
@@ -1457,6 +1607,7 @@ def fetch_daily_matches_with_odds(target_date: Optional[datetime] = None) -> Lis
 
     matches_before_window = [item for item in (normalize_event_for_corq(event) for event in raw_events) if isinstance(item, dict)]
     print(f"RAPIDAPI NORMALIZED EVENTS BEFORE WINDOW: {len(matches_before_window)}")
+    _print_loader_coverage(raw_events, matches_before_window)
     print(f"RAPIDAPI BETTING DAY WINDOW LOCAL: {window_start_local.isoformat()} -> {window_end_local.isoformat()}")
 
     matches: List[Dict[str, Any]] = []
@@ -1488,6 +1639,16 @@ def fetch_daily_matches_with_odds(target_date: Optional[datetime] = None) -> Lis
     print(f"RAPIDAPI SKIPPED AFTER BETTING DAY WINDOW: {skipped_after_window}")
     print(f"RAPIDAPI SKIPPED MISSING START TIME: {skipped_missing_start}")
     print(f"RAPIDAPI MATCHES IN BETTING DAY WINDOW: {len(matches)}")
+    for sample in matches[:8]:
+        print(
+            "RAPIDAPI WINDOW MATCH:",
+            sample.get("event_id") or sample.get("match_id") or sample.get("id"),
+            sample.get("player1"),
+            "vs",
+            sample.get("player2"),
+            sample.get("match_start") or sample.get("start_time"),
+            sample.get("status_type"),
+        )
 
     output: List[Dict[str, Any]] = []
 
