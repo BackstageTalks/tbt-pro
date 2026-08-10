@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.0303,
   "latest_odds_player2": 10.0,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-10T04:18:59.189768+00:00",
+  "latest_snapshot_time_utc": "2026-08-10T11:35:14.493978+00:00",
   "opening_odds_player1": 1.0303,
   "opening_odds_player2": 10.0,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Eliz Maloney",
   "player2": "Lois Newberry",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "16764495",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-09T12:38:47+00:00",
       "target_date": "2026-08-10"
+    },
+    {
+      "event_id": "16764495",
+      "event_key": "2026-08-10_eliz-maloney_vs_lois-newberry",
+      "hours_to_start": -22.94,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.0303,
+      "odds_player2": 10.0,
+      "player1": "Eliz Maloney",
+      "player2": "Lois Newberry",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-10T11:35:14.493978+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-09T12:38:47+00:00",
+      "target_date": "2026-08-10"
     }
   ],
   "start_time_utc": "2026-08-09T12:38:47+00:00",
-  "updated_at_utc": "2026-08-10T04:19:04.531182+00:00"
+  "updated_at_utc": "2026-08-10T11:35:20.194248+00:00"
 }
