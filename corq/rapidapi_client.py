@@ -1391,23 +1391,116 @@ def orient_odds_to_match(match: Dict[str, Any], odds: Dict[str, Any]) -> Tuple[A
     return p1, p2, "DIRECT_OR_LABEL_UNKNOWN", round(direct_score, 4), round(reverse_score, 4)
 
 
+
+
+def _betting_day_window_for_corq(target_date: Optional[datetime] = None) -> Tuple[datetime, datetime, str]:
+    """Return the CorQ betting-day window in Europe/Bratislava.
+
+    Daily CorQ predictions are intentionally based on a 06:00 -> 06:00 local
+    betting day so morning runs do not republish matches that started shortly
+    after midnight.
+    """
+    if target_date is None:
+        local_ref = datetime.now(LOCAL_TZ)
+        betting_day = local_ref.date()
+        if local_ref.time() < datetime.strptime("06:00", "%H:%M").time():
+            betting_day = betting_day - timedelta(days=1)
+    else:
+        if target_date.tzinfo is None:
+            local_ref = target_date.replace(tzinfo=timezone.utc).astimezone(LOCAL_TZ)
+        else:
+            local_ref = target_date.astimezone(LOCAL_TZ)
+        betting_day = local_ref.date()
+    start_local = datetime.combine(betting_day, datetime.strptime("06:00", "%H:%M").time(), tzinfo=LOCAL_TZ)
+    end_local = start_local + timedelta(days=1)
+    return start_local, end_local, betting_day.isoformat()
+
+
+def _event_start_datetime_utc(match: Dict[str, Any]) -> Optional[datetime]:
+    for key in ("match_start", "start_time", "start_time_utc", "match_time_utc", "commence_time"):
+        dt = parse_datetime(match.get(key))
+        if dt is not None:
+            return dt.astimezone(timezone.utc)
+    raw = match.get("raw") if isinstance(match.get("raw"), dict) else {}
+    for key in ("startTimestamp", "start_timestamp"):
+        dt = parse_datetime(raw.get(key))
+        if dt is not None:
+            return dt.astimezone(timezone.utc)
+    return None
+
+
+def _fetch_dates_for_betting_window(start_local: datetime, end_local: datetime) -> List[datetime]:
+    dates: List[datetime] = []
+    current = start_local.date()
+    last = end_local.date()
+    while current <= last:
+        dates.append(datetime.combine(current, datetime.min.time(), tzinfo=LOCAL_TZ))
+        current = current + timedelta(days=1)
+    return dates
 def fetch_daily_matches_with_odds(target_date: Optional[datetime] = None) -> List[Dict[str, Any]]:
     client = RapidApiClient()
-    raw_events = client.get_events_for_date(target_date)
-    matches = [item for item in (normalize_event_for_corq(event) for event in raw_events) if isinstance(item, dict)]
-    print(f"RAPIDAPI NORMALIZED MATCHES BEFORE ODDS: {len(matches)}")
+    window_start_local, window_end_local, betting_day = _betting_day_window_for_corq(target_date)
+    fetch_dates = _fetch_dates_for_betting_window(window_start_local, window_end_local)
+
+    raw_events: List[Dict[str, Any]] = []
+    for fetch_date in fetch_dates:
+        raw_events.extend(client.get_events_for_date(fetch_date))
+    raw_events = dedupe_events(raw_events)
+
+    matches_before_window = [item for item in (normalize_event_for_corq(event) for event in raw_events) if isinstance(item, dict)]
+    print(f"RAPIDAPI NORMALIZED EVENTS BEFORE WINDOW: {len(matches_before_window)}")
+    print(f"RAPIDAPI BETTING DAY WINDOW LOCAL: {window_start_local.isoformat()} -> {window_end_local.isoformat()}")
+
+    matches: List[Dict[str, Any]] = []
+    skipped_before_window = 0
+    skipped_after_window = 0
+    skipped_missing_start = 0
+    start_utc = window_start_local.astimezone(timezone.utc)
+    end_utc = window_end_local.astimezone(timezone.utc)
+
+    for match in matches_before_window:
+        match_start_utc = _event_start_datetime_utc(match)
+        if match_start_utc is None:
+            skipped_missing_start += 1
+            continue
+        if match_start_utc < start_utc:
+            skipped_before_window += 1
+            continue
+        if match_start_utc >= end_utc:
+            skipped_after_window += 1
+            continue
+        row = dict(match)
+        row["betting_day"] = betting_day
+        row["betting_day_start_local"] = window_start_local.isoformat()
+        row["betting_day_end_local"] = window_end_local.isoformat()
+        row["betting_day_timezone"] = "Europe/Bratislava"
+        matches.append(row)
+
+    print(f"RAPIDAPI SKIPPED BEFORE BETTING DAY WINDOW: {skipped_before_window}")
+    print(f"RAPIDAPI SKIPPED AFTER BETTING DAY WINDOW: {skipped_after_window}")
+    print(f"RAPIDAPI SKIPPED MISSING START TIME: {skipped_missing_start}")
+    print(f"RAPIDAPI MATCHES IN BETTING DAY WINDOW: {len(matches)}")
+
     output: List[Dict[str, Any]] = []
 
     attach_rankings = str(os.getenv("TENNISAPI_ATTACH_RANKINGS", "0")).strip().lower() in {"1", "true", "yes", "y", "on"}
 
+    doubles_skipped_before_odds = 0
+    singles_odds_attempted = 0
+    singles_with_winner_odds = 0
+    singles_missing_winner_odds = 0
+
     for match in matches:
         if match.get("is_doubles"):
+            doubles_skipped_before_odds += 1
             continue
         if attach_rankings:
             match = client.attach_rankings_to_match(match)
+        singles_odds_attempted += 1
         odds = client.get_event_odds(match.get("event_id"), match=match)
         row = dict(match)
         if odds:
+            singles_with_winner_odds += 1
             p1, p2, direction, direct_score, reverse_score = orient_odds_to_match(match, odds)
             row.update({
                 "odds_matching_direction": direction,
@@ -1442,6 +1535,7 @@ def fetch_daily_matches_with_odds(target_date: Optional[datetime] = None) -> Lis
                 row["odds_gap_abs"] = round(gap, 4)
                 row["odds_gap_pct"] = round(gap / max(min(float(p1), float(p2)), 0.0001), 4)
         else:
+            singles_missing_winner_odds += 1
             row.update({
                 "odds_pair_available": False,
                 "odds_labels_confirmed": False,
@@ -1459,6 +1553,10 @@ def fetch_daily_matches_with_odds(target_date: Optional[datetime] = None) -> Lis
                 print(f"  {endpoint_name}: {endpoint_stats}")
     except Exception:
         pass
-    print(f"RAPIDAPI MATCHES WITH ODDS ROWS: {len(output)}")
+    print(f"RAPIDAPI DOUBLES SKIPPED BEFORE ODDS: {doubles_skipped_before_odds}")
+    print(f"RAPIDAPI SINGLES ODDS ATTEMPTED: {singles_odds_attempted}")
+    print(f"RAPIDAPI SINGLES WITH WINNER ODDS: {singles_with_winner_odds}")
+    print(f"RAPIDAPI SINGLES MISSING WINNER ODDS: {singles_missing_winner_odds}")
+    print(f"RAPIDAPI SINGLES ROWS RETURNED: {len(output)}")
     return output
 # 2026-08-03 note: Daily odds loader uses /event/{id}/odds/{provider}/all only.
