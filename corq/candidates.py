@@ -5,6 +5,14 @@ Canonical side-safe version:
 - player2 is always AWAY/API second side
 - candidate rows are HOME and AWAY sides
 - pick/opponent are derived from pick_side, never manually trusted
+
+Important runtime policy:
+- CORQ must use the CORQ-owned RapidAPI/TennisAPI loader first.
+- The CORQ loader applies the project betting-day window:
+  Europe/Bratislava 06:00 -> 06:00 next day.
+- Older ThinQ loaders may still exist, but they are fallback only. They must not
+  be the primary source for CORQ daily ALL/Audit/TOP7 rows because they can drift
+  from the 06:00 betting-day policy.
 """
 
 from __future__ import annotations
@@ -15,7 +23,21 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
 
 from corq.sides import AWAY, HOME, derive_side_record, repair_candidate_side
-from thinq.loaders.rapidapi_client import fetch_daily_matches_with_odds
+
+# Prefer the CORQ-owned loader. This is the loader that carries the 06:00 -> 06:00
+# Europe/Bratislava betting-day policy and TennisAPI pageSize=200 pagination.
+# Keep fallbacks for older repo snapshots, but do not make ThinQ the primary
+# CORQ match source anymore.
+try:  # preferred current repo path
+    from corq.corq_rapidapi_client import fetch_daily_matches_with_odds  # type: ignore
+    CORQ_CANDIDATE_LOADER_SOURCE = "corq.corq_rapidapi_client"
+except Exception:  # pragma: no cover - legacy fallback
+    try:
+        from corq.rapidapi_client import fetch_daily_matches_with_odds  # type: ignore
+        CORQ_CANDIDATE_LOADER_SOURCE = "corq.rapidapi_client"
+    except Exception:  # pragma: no cover - last-resort legacy fallback
+        from thinq.loaders.rapidapi_client import fetch_daily_matches_with_odds  # type: ignore
+        CORQ_CANDIDATE_LOADER_SOURCE = "thinq.loaders.rapidapi_client"
 
 
 def load_json_candidates(path: Optional[str] = None, include_default_paths: bool = False) -> List[Dict[str, Any]]:
@@ -36,7 +58,7 @@ def load_json_candidates(path: Optional[str] = None, include_default_paths: bool
     raw_matches = payload.get("matches") or payload.get("events") or payload.get("data") if isinstance(payload, dict) else payload
     if not isinstance(raw_matches, list):
         return []
-    rows = []
+    rows: List[Dict[str, Any]] = []
     for item in raw_matches:
         if isinstance(item, dict):
             row = dict(item)
@@ -77,13 +99,18 @@ def expand_match_sides(matches: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]
 def load_candidates(path: Optional[str] = None) -> List[Dict[str, Any]]:
     if path:
         return expand_match_sides(load_json_candidates(path=path, include_default_paths=False))
+
     try:
+        print(f"CORQ CANDIDATE LOADER SOURCE: {CORQ_CANDIDATE_LOADER_SOURCE}")
         matches = fetch_daily_matches_with_odds()
     except Exception as exc:
         print(f"RAPIDAPI LOADER ERROR: {exc}")
         matches = []
+
     if matches:
         return expand_match_sides(matches)
+
     if os.getenv("CORQ_ALLOW_LOCAL_FALLBACK", "0").strip().lower() in {"1", "true", "yes", "y"}:
         return expand_match_sides(load_json_candidates(path=None, include_default_paths=True))
+
     return []
