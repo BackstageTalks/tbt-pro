@@ -64,6 +64,13 @@ def _env_int(name: str, default: int) -> int:
         return default
 
 
+def _env_bool(name: str, default: bool = False) -> bool:
+    raw = os.getenv(name)
+    if raw is None:
+        return default
+    return str(raw).strip().lower() in {"1", "true", "yes", "y", "on"}
+
+
 def _as_list(value: Any) -> List[Any]:
     if isinstance(value, list):
         return value
@@ -655,6 +662,13 @@ class RapidApiClient:
         player1_name: Optional[str] = None,
         player2_name: Optional[str] = None,
     ) -> Dict[str, Any]:
+        if not _env_bool("TENNISAPI_H2H_STATS_ENABLED", False):
+            return {
+                "api_serve_stats_status": "H2H_STATS_DISABLED",
+                "api_serve_stats_source": "TENNISAPI_H2H_STATS",
+                "api_h2h_resolution": "DISABLED",
+                "api_h2h_disabled_reason": "TENNISAPI_H2H_STATS_ENABLED is not enabled",
+            }
         tour = str(tour_type or "").strip().lower()
         if tour not in {"atp", "wta"}:
             return {"api_serve_stats_status": "MISSING_TOUR_TYPE", "api_serve_stats_source": "TENNISAPI_H2H_STATS"}
@@ -668,10 +682,19 @@ class RapidApiClient:
         payload = self.get_on_host(host, path, params=params or None)
         primary_status = self.last_get_note or "NO_DATA"
         if not payload:
-            # The provider ID endpoint may return 404 for event-side IDs even
-            # when name-based MatchStat H2H stats are available. Try the
-            # documented name-based endpoint before declaring the data missing.
             if str(player1_name or "").strip() and str(player2_name or "").strip():
+                if not _env_bool("TENNISAPI_H2H_NAME_FALLBACK_ENABLED", False):
+                    return {
+                        "api_serve_stats_status": f"PRIMARY_{primary_status}_NAME_FALLBACK_DISABLED",
+                        "api_serve_stats_source": "TENNISAPI_H2H_STATS",
+                        "api_h2h_source_host": host,
+                        "api_h2h_source_path": path,
+                        "api_h2h_surface": surface,
+                        "api_h2h_primary_status": primary_status,
+                        "api_h2h_primary_path": path,
+                        "api_h2h_fallback_status": "DISABLED",
+                        "api_h2h_resolution": "ID_ENDPOINT_ONLY",
+                    }
                 fallback = self.get_h2h_stats_by_names(tour, str(player1_name), str(player2_name), surface=surface)
                 fallback_status = str(fallback.get("api_serve_stats_status") or "NO_DATA")
                 fallback["api_h2h_primary_status"] = primary_status
@@ -707,6 +730,13 @@ class RapidApiClient:
         player2_name: str,
         surface: Optional[str] = None,
     ) -> Dict[str, Any]:
+        if not _env_bool("TENNISAPI_H2H_NAME_FALLBACK_ENABLED", False):
+            return {
+                "api_serve_stats_status": "H2H_NAME_FALLBACK_DISABLED",
+                "api_serve_stats_source": "TENNISAPI_H2H_STATS",
+                "api_h2h_resolution": "DISABLED",
+                "api_h2h_disabled_reason": "TENNISAPI_H2H_NAME_FALLBACK_ENABLED is not enabled",
+            }
         tour = str(tour_type or "").strip().lower()
         if tour not in {"atp", "wta"}:
             return {"api_serve_stats_status": "MISSING_TOUR_TYPE", "api_serve_stats_source": "TENNISAPI_H2H_STATS"}
@@ -741,44 +771,8 @@ class RapidApiClient:
             surface=surface,
         )
         result["api_h2h_fallback_status"] = "OK"
-        result.setdefault("api_h2h_resolution", "NAME_ENDPOINT")
+        result["api_h2h_resolution"] = "NAME_ENDPOINT"
         return result
-
-
-    def _ranking_endpoint_templates(self) -> List[str]:
-        """Return TennisApi ranking endpoint templates.
-
-        The default order is deliberately narrow and can be overridden without
-        a code change using TENNISAPI_RANKING_ENDPOINTS. Supported placeholders:
-        {player_id}, {query}, {tour}. Unknown/empty responses are ignored.
-        """
-        raw = os.getenv("TENNISAPI_RANKING_ENDPOINTS", "")
-        if raw.strip():
-            templates = [part.strip() for part in raw.split(",") if part.strip()]
-            if templates:
-                return templates
-        return [
-            "/api/tennis/player/{player_id}/rankings",
-            "/api/tennis/player/{player_id}/ranking",
-            "/api/tennis/search/{query}",
-            "/api/tennis/rankings/{tour}",
-        ]
-
-    def _candidate_player_ids(self, player_name: str, identity: Optional[Dict[str, Any]] = None) -> List[str]:
-        ids: List[str] = []
-        if isinstance(identity, dict):
-            for key in ("rapidapi_id", "external_player_key", "player_id", "id"):
-                value = identity.get(key)
-                if value not in (None, ""):
-                    ids.append(str(value))
-        out: List[str] = []
-        seen = set()
-        for value in ids:
-            key = str(value).strip()
-            if key and key not in seen:
-                out.append(key)
-                seen.add(key)
-        return out
 
     def get_player_ranking(self, player_name: str, tour: Optional[str] = None, identity: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Fetch current TennisApi ranking for one player.
