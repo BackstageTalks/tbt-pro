@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-MODEL_VERSION = "CLOQ_HIGH_ODDS_DATA_COVERED_V4"
+MODEL_VERSION = "CLOQ_HIGH_ODDS_DATA_COVERED_V5_AUDIT_CLEANUP"
 MIN_PICK_ODDS = 1.70
 MAX_PICK_ODDS = 2.50
 
@@ -28,9 +28,17 @@ BLOCKED_STATUS_TYPES = {"finished", "ended", "complete", "completed", "inprogres
 MISSING_VALUES = {None, "", "—", "-", "N/A", "NA", "None", "none", "null"}
 
 
+def is_missing_value(value: Any) -> bool:
+    """Return True for configured missing sentinels without crashing on dict/list values."""
+    try:
+        return value in MISSING_VALUES
+    except TypeError:
+        return False
+
+
 def as_float(value: Any, default: Optional[float] = None) -> Optional[float]:
     try:
-        if value in MISSING_VALUES:
+        if is_missing_value(value):
             return default
         return float(str(value).strip().replace("%", "").replace(",", "."))
     except Exception:
@@ -56,11 +64,11 @@ def first_present(row: Dict[str, Any], *keys: str) -> Any:
                     ok = False
                     break
                 cur = cur.get(part)
-            if ok and cur not in MISSING_VALUES:
+            if ok and not is_missing_value(cur):
                 return cur
         else:
             value = row.get(key)
-            if value not in MISSING_VALUES:
+            if not is_missing_value(value):
                 return value
     return None
 
@@ -404,12 +412,22 @@ def cloq_reject_reasons(row: Dict[str, Any]) -> List[str]:
         reasons.append("CLOQ_REJECT_STATUS_NOT_PREMATCH")
     if is_doubles(row):
         reasons.append("CLOQ_REJECT_DOUBLES")
+    odds_out_of_cloq_range = False
     if odds is None:
         reasons.append("CLOQ_REJECT_MISSING_PICK_ODDS")
+        odds_out_of_cloq_range = True
     elif odds < MIN_PICK_ODDS:
         reasons.append("CLOQ_REJECT_ODDS_UNDER_1_70")
+        odds_out_of_cloq_range = True
     elif odds > MAX_PICK_ODDS:
         reasons.append("CLOQ_REJECT_ODDS_OVER_2_50")
+        odds_out_of_cloq_range = True
+
+    # Audit cleanup: when the price is outside the CloQ model range, do not add
+    # secondary threshold/support/depth blockers based on an out-of-range band.
+    # The row is already non-publishable for the decisive reason above.
+    if odds_out_of_cloq_range:
+        return list(dict.fromkeys(reasons))
 
     if pp is None:
         reasons.append("CLOQ_REJECT_MISSING_PREDICTION_DATA")
@@ -425,7 +443,7 @@ def cloq_reject_reasons(row: Dict[str, Any]) -> List[str]:
 
     has_market_read = market_with_pick(row) or market_neutral(row) or market_against_pick(row)
     if mp is None and not has_market_read:
-        reasons.append("CLOQ_REJECT_MISSING_MARQ")
+        reasons.append("CLOQ_INFO_MISSING_MARQ")
 
     if depth <= 0:
         reasons.append("CLOQ_REJECT_MISSING_DATA_DEPTH")
@@ -446,13 +464,22 @@ def cloq_reject_reasons(row: Dict[str, Any]) -> List[str]:
             reasons.append("CLOQ_REJECT_NOT_ENOUGH_SUPPORT_TAGS")
 
     if odds is not None and opp_odds is not None and odds >= opp_odds:
-        if pp is None or pp < 0.54 or depth < 0.50 or positive_support_count < 1:
+        # Higher-priced pick is allowed only when the model has positive support,
+        # enough data depth and at least one positive support tag. MarQ against is
+        # a risk/info signal when the model is still above the protected floor.
+        if pp is None or pp < 0.52 or depth < 0.50 or positive_support_count < 1:
             reasons.append("CLOQ_REJECT_RANDOM_UNDERDOG")
         if mp is not None and mp < 0.50 and not market_with_pick(row):
-            reasons.append("CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE")
+            if pp is None or pp < 0.52:
+                reasons.append("CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE")
+            else:
+                reasons.append("CLOQ_INFO_UNDERDOG_MARKET_NOT_SUPPORTIVE")
 
-    if market_against_pick(row) and (pp is None or pp < 0.56):
-        reasons.append("CLOQ_REJECT_MARKET_AGAINST_WEAK_MODEL")
+    if market_against_pick(row):
+        if pp is None or pp < 0.52:
+            reasons.append("CLOQ_REJECT_MARKET_AGAINST_WEAK_MODEL")
+        else:
+            reasons.append("CLOQ_INFO_MARKET_AGAINST_PICK")
 
     if _has(row, "opp strong", "opponent strong", "opp_strong") and _has(row, "pick weak", "pick_weak"):
         reasons.append("CLOQ_REJECT_OPP_STRONG_PICK_WEAK")
