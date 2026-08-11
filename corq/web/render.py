@@ -5797,6 +5797,181 @@ def render_all() -> None:
 # CorQ/CloQ cards must preserve model rank order. Audit may still sort by start time.
 
 
+
+# ============================================================
+# Results lazy-load card chunks override V5
+# ============================================================
+# Main Results and History day pages now write card HTML into small chunk files
+# under corq/site/assets/results_lazy/. The page shell stays lightweight and
+# loads chunks on demand. This prevents one very large Results index.html file
+# while preserving the existing Python card renderer and visual design.
+
+RESULTS_LAZY_CHUNK_SIZE = int(os.getenv("RESULTS_LAZY_CHUNK_SIZE", "20") or "20")
+RESULTS_LAZY_ASSET_DIRNAME = "results_lazy"
+RESULTS_LAZY_ASSET_DIR = ASSET_DIR / RESULTS_LAZY_ASSET_DIRNAME
+
+
+def _lazy_slug(value: str) -> str:
+    slug = re.sub(r"[^a-zA-Z0-9_-]+", "_", str(value or "section")).strip("_").lower()
+    return slug or "section"
+
+
+def _lazy_section_meta(rows: List[Dict[str, Any]], title: str) -> str:
+    return _result_section_header(rows, title)
+
+
+def _write_results_lazy_chunks(rows: List[Dict[str, Any]], title: str, scope: str, limit: Optional[int] = None) -> List[str]:
+    RESULTS_LAZY_ASSET_DIR.mkdir(parents=True, exist_ok=True)
+    rows_sorted = sorted(rows or [], key=result_card_sort_key)
+    if limit is not None:
+        rows_sorted = rows_sorted[:limit]
+    section_slug = _lazy_slug(f"{scope}_{title}")
+    files: List[str] = []
+    if not rows_sorted:
+        fname = f"{section_slug}_001.html"
+        write_text(RESULTS_LAZY_ASSET_DIR / fname, '<div class="empty">No results available in selected range.</div>')
+        return [f"../assets/{RESULTS_LAZY_ASSET_DIRNAME}/{fname}"]
+    chunk_size = max(1, int(RESULTS_LAZY_CHUNK_SIZE or 20))
+    for chunk_idx in range(0, len(rows_sorted), chunk_size):
+        chunk = rows_sorted[chunk_idx:chunk_idx + chunk_size]
+        cards = '<div class="results-card-grid">' + '\n'.join(
+            render_result_card(row, chunk_idx + local_idx + 1, title)
+            for local_idx, row in enumerate(chunk)
+        ) + '</div>'
+        fname = f"{section_slug}_{(chunk_idx // chunk_size) + 1:03d}.html"
+        write_text(RESULTS_LAZY_ASSET_DIR / fname, cards)
+        files.append(f"../assets/{RESULTS_LAZY_ASSET_DIRNAME}/{fname}")
+    return files
+
+
+def _render_results_lazy_section(rows: List[Dict[str, Any]], title: str, scope: str, limit: Optional[int] = None) -> str:
+    rows_sorted = sorted(rows or [], key=result_card_sort_key)
+    if limit is not None:
+        rows_sorted = rows_sorted[:limit]
+    chunk_urls = _write_results_lazy_chunks(rows, title, scope, limit=limit)
+    payload = html.escape(json.dumps(chunk_urls, ensure_ascii=False), quote=True)
+    section_id = _lazy_slug(f"lazy_{scope}_{title}")
+    count = len(rows_sorted)
+    return "\n".join([
+        f'<section class="result-section results-lazy-section" data-result-section="{esc(title)}" data-results-lazy-section="1">',
+        _lazy_section_meta(rows_sorted, title),
+        f'<div id="{esc(section_id)}" class="results-lazy-root" data-chunks="{payload}" data-loaded="0" data-total="{len(chunk_urls)}">',
+        f'  <div class="empty results-lazy-placeholder">Loading {esc(title)} cards...</div>',
+        '</div>',
+        f'<div class="tag-list results-lazy-controls"><button class="tag-chip results-lazy-load-more" type="button" data-target="{esc(section_id)}">Load more {esc(title)} cards</button><span class="tag-chip">{count} rows | chunks {len(chunk_urls)}</span></div>',
+        '</section>',
+    ])
+
+
+def _results_lazy_css_block() -> str:
+    return """
+<style>
+.results-lazy-root{min-height:80px}.results-lazy-placeholder{border:1px dashed rgba(148,163,184,.35);border-radius:14px;padding:16px;color:#94a3b8;background:rgba(15,23,42,.45)}.results-lazy-controls{margin-top:10px}.results-lazy-load-more{cursor:pointer}.results-lazy-load-more[disabled]{opacity:.45;cursor:not-allowed}
+</style>"""
+
+
+def _results_lazy_script_block() -> str:
+    return """
+<script>
+(function(){
+  async function loadNext(root, allRemaining){
+    if(!root) return;
+    let chunks=[];
+    try{ chunks=JSON.parse(root.getAttribute('data-chunks')||'[]'); }catch(e){ chunks=[]; }
+    let loaded=parseInt(root.getAttribute('data-loaded')||'0',10)||0;
+    const total=chunks.length;
+    const placeholder=root.querySelector('.results-lazy-placeholder');
+    if(placeholder) placeholder.remove();
+    const limit=allRemaining ? total : Math.min(total, loaded+1);
+    while(loaded<limit){
+      const url=chunks[loaded];
+      try{
+        const res=await fetch(url,{cache:'no-cache'});
+        const html=await res.text();
+        root.insertAdjacentHTML('beforeend', html);
+      }catch(e){
+        root.insertAdjacentHTML('beforeend','<div class="empty">Failed to load result chunk.</div>');
+        break;
+      }
+      loaded++;
+      root.setAttribute('data-loaded', String(loaded));
+    }
+    document.querySelectorAll('[data-target="'+root.id+'"]').forEach(function(btn){
+      if(loaded>=total){ btn.disabled=true; btn.textContent='All cards loaded'; }
+    });
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.results-lazy-root').forEach(function(root){ loadNext(root,false); });
+    document.querySelectorAll('.results-lazy-load-more').forEach(function(btn){
+      btn.addEventListener('click', function(){ loadNext(document.getElementById(btn.getAttribute('data-target')), true); });
+    });
+  });
+})();
+</script>"""
+
+
+def render_results_card_section(rows: List[Dict[str, Any]], title: str, limit: Optional[int] = None) -> str:
+    return _render_results_lazy_section(rows, title, "results_default", limit=limit)
+
+
+def render_results_page(manifest: Dict[str, Any]) -> str:
+    corq_all = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_corq.json', []))
+    cloq_all = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_cloq.json', []))
+    audit_all = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_audit.json', []))
+    all_combined = corq_all + cloq_all + audit_all
+
+    start, end = results_default_date_range()
+    corq = filter_results_date_range(corq_all, start, end)
+    cloq = filter_results_date_range(cloq_all, start, end)
+    audit_rows = filter_results_date_range(audit_all, start, end)
+    combined = corq + cloq + audit_rows
+
+    mark_audit_h2h_top10(combined)
+    body = [
+        _result_css_block(),
+        _results_lazy_css_block(),
+        render_results_filter_builder(combined, total_count=len(all_combined)),
+        _render_results_lazy_section(corq, 'CorQ TOP7 Results', 'results_latest'),
+        _render_results_lazy_section(cloq, 'CloQ Results', 'results_latest'),
+        _render_results_lazy_section(audit_rows, 'Audit Results', 'results_latest', limit=80),
+        depth_analysis(combined),
+        sets_games_audit(combined),
+        tag_analysis(combined),
+        _results_lazy_script_block(),
+    ]
+    return page_shell('Results', RESULTS_PATH, '\n'.join(body), manifest)
+
+
+def render_results_history_day(manifest: Dict[str, Any], day_iso: str) -> str:
+    corq_all, cloq_all, audit_all = _history_all_result_rows()
+    corq = _history_day_rows(corq_all, day_iso)
+    cloq = _history_day_rows(cloq_all, day_iso)
+    audit_rows = _history_day_rows(audit_all, day_iso)
+    combined = corq + cloq + audit_rows
+    mark_audit_h2h_top10(combined)
+    try:
+        display_day = datetime.fromisoformat(day_iso).strftime('%d.%m.%y')
+    except Exception:
+        display_day = day_iso
+    scope = f"history_{day_iso}"
+    body = [
+        _result_css_block(),
+        _results_lazy_css_block(),
+        '<div class="summary-panel">',
+        f'<div class="summary-title">History | {esc(display_day)}</div>',
+        '<div class="tag-list"><a class="tag-chip" href="index.html">Back to History</a><a class="tag-chip" href="../' + esc(RESULTS_PATH) + '/">Latest 14 days</a></div>',
+        '</div>',
+        _render_results_lazy_section(corq, 'CorQ TOP7 Results', scope),
+        _render_results_lazy_section(cloq, 'CloQ Results', scope),
+        _render_results_lazy_section(audit_rows, 'Audit Results', scope, limit=120),
+        depth_analysis(combined),
+        sets_games_audit(combined),
+        tag_analysis(combined),
+        _results_lazy_script_block(),
+    ]
+    return page_shell(f'History {display_day}', HISTORY_PATH, '\n'.join(body), manifest)
+
+
 def main() -> None:
     render_all()
 
