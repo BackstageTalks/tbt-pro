@@ -17,9 +17,11 @@ from typing import Any, Dict, Iterable, List, Optional
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUTS = ROOT / "outputs"
 DEFAULT_TOP7_PATH = OUTPUTS / "snapshots" / "latest_corq_top7_snapshot.json"
+DEFAULT_CLOQ_PATH = OUTPUTS / "cloq" / "latest_cloq.json"
 DEFAULT_ALL_PATH = OUTPUTS / "latest_all.json"
 DEFAULT_MESSAGE_PATH = OUTPUTS / "telegram" / "latest_tg_message.txt"
 DEFAULT_RESULTS_MESSAGE_PATH = OUTPUTS / "telegram" / "latest_tg_results_message.txt"
+DEFAULT_CLOQ_RESULTS_MESSAGE_PATH = OUTPUTS / "telegram" / "latest_tg_cloq_results_message.txt"
 
 HEADER = "AI Betting by BackstageTalks"
 FOOTER = "ℹ️ Analytical preview only\n🧠 by BackstageTalks AI Engine"
@@ -497,6 +499,72 @@ def build_free_message(rows: List[Dict[str, Any]], upcoming_only: bool = True) -
     lines.extend(["", FOOTER])
     return "\n".join(lines)
 
+def build_cloq_message(rows: List[Dict[str, Any]], limit: int = 10, upcoming_only: bool = True) -> str:
+    rows = valid_rows(rows, upcoming_only=upcoming_only)[:limit]
+    date_text = snapshot_date(rows)
+    lines = [HEADER, "", "🎾 TOP10 | CloQ", f"📅 {date_text}", ""]
+    if rows:
+        lines.extend(format_row(row, number_emoji(idx)) for idx, row in enumerate(rows, 1))
+    else:
+        lines.append("No valid upcoming CloQ picks available today.")
+    lines.extend(["", FOOTER])
+    return "\n".join(lines)
+
+def result_status(row: Dict[str, Any]) -> str:
+    for key in ("settlement_status", "result_status", "status", "outcome"):
+        txt = str(row.get(key) or "").strip().lower()
+        if txt in {"won", "win", "w"}:
+            return "won"
+        if txt in {"lost", "loss", "l"}:
+            return "lost"
+        if txt in {"void", "push", "cancelled", "canceled"}:
+            return "void"
+        if txt in {"pending", "notstarted", "inprogress", "live"}:
+            return "pending"
+    if row.get("won") is True:
+        return "won"
+    if row.get("lost") is True:
+        return "lost"
+    return "pending"
+
+def result_units(row: Dict[str, Any]) -> float:
+    for key in ("units", "profit_units", "pnl_units", "result_units", "settlement_units"):
+        val = as_float(row.get(key))
+        if val is not None:
+            return float(val)
+    st = result_status(row)
+    odds = pick_odds(row) or 0.0
+    if st == "won" and odds > 1.0:
+        return odds - 1.0
+    if st == "lost":
+        return -1.0
+    return 0.0
+
+def build_results_summary_message(rows: List[Dict[str, Any]], model_label: str) -> str:
+    rows = rows or []
+    date_text = snapshot_date(rows)
+    counts = {"won": 0, "lost": 0, "void": 0, "pending": 0}
+    units = 0.0
+    for row in rows:
+        st = result_status(row)
+        counts[st if st in counts else "pending"] += 1
+        units += result_units(row)
+    decided = counts["won"] + counts["lost"]
+    win_rate = (counts["won"] / decided * 100.0) if decided else 0.0
+    lines = [HEADER, "", f"📊 Results | {model_label}", f"📅 {date_text}", ""]
+    if rows:
+        lines.append(f"✅ W {counts['won']} | ❌ L {counts['lost']} | ⏳ P {counts['pending']} | ↩️ V {counts['void']}")
+        lines.append(f"📈 Win {win_rate:.1f}% | Units {units:+.2f}u")
+        lines.append("")
+        for idx, row in enumerate(rows[:10], 1):
+            st = result_status(row)
+            icon = {"won": "✅", "lost": "❌", "void": "↩️", "pending": "⏳"}.get(st, "⏳")
+            lines.append(f"{number_emoji(idx)} {short_name(pick_name(row))} | {icon} | {fmt_odds(pick_odds(row))} | {result_units(row):+.2f}u")
+    else:
+        lines.append(f"No {model_label} results summary available yet.")
+    lines.extend(["", FOOTER])
+    return "\n".join(lines)
+
 
 def send_telegram(message: str, bot_token: str, chat_id: str) -> None:
     url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
@@ -579,12 +647,37 @@ def load_rows_for_mode(mode: str, top7_path: Path, all_path: Path) -> List[Dict[
 
     return all_rows_raw
 
+
+def load_cloq_rows(cloq_path: Path, all_path: Path) -> List[Dict[str, Any]]:
+    sources: List[tuple[str, List[Dict[str, Any]]]] = []
+    sources.append((str(cloq_path), json_rows(read_json(cloq_path, []))))
+    latest_flat = OUTPUTS / "latest_cloq.json"
+    if cloq_path != latest_flat:
+        sources.append((str(latest_flat), json_rows(read_json(latest_flat, []))))
+    latest_nested = OUTPUTS / "cloq" / "latest_cloq.json"
+    if cloq_path != latest_nested and latest_nested != latest_flat:
+        sources.append((str(latest_nested), json_rows(read_json(latest_nested, []))))
+    for label, rows in sources:
+        print(f"[tg_feed] CloQ source check | {_describe_rows(label, rows)}")
+        if valid_rows(rows, upcoming_only=False):
+            print(f"[tg_feed] CloQ source selected: {label}")
+            return rows
+    all_rows = json_rows(read_json(all_path, []))
+    fallback = [r for r in all_rows if str(r.get("cloq_passed") or r.get("is_cloq") or "").lower() in {"1", "true", "yes"}]
+    if fallback:
+        print(f"[tg_feed] CloQ source selected: {all_path} filtered cloq")
+        return fallback
+    print("[tg_feed] CloQ source selected: empty, no valid rows found")
+    return []
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Telegram feed formatter/sender for CorQ")
-    parser.add_argument("--mode", choices=("top7", "free", "results"), default=os.getenv("TG_FEED_MODE", "top7"))
+    parser.add_argument("--mode", choices=("cloq", "top7", "free", "results", "cloq-results"), default=os.getenv("TG_FEED_MODE", "top7"))
     parser.add_argument("--top7-path", default=os.getenv("TG_TOP7_PATH", str(DEFAULT_TOP7_PATH)))
+    parser.add_argument("--cloq-path", default=os.getenv("TG_CLOQ_PATH", str(DEFAULT_CLOQ_PATH)))
     parser.add_argument("--all-path", default=os.getenv("TG_ALL_PATH", str(DEFAULT_ALL_PATH)))
     parser.add_argument("--results-message-path", default=os.getenv("TG_RESULTS_MESSAGE_PATH", str(DEFAULT_RESULTS_MESSAGE_PATH)))
+    parser.add_argument("--cloq-results-message-path", default=os.getenv("TG_CLOQ_RESULTS_MESSAGE_PATH", str(DEFAULT_CLOQ_RESULTS_MESSAGE_PATH)))
     parser.add_argument("--output", default=os.getenv("TG_MESSAGE_OUTPUT", str(DEFAULT_MESSAGE_PATH)))
     parser.add_argument("--send", action="store_true", help="Send to Telegram using env bot token and chat id")
     parser.add_argument("--chat-id", default=None, help="Telegram chat id. Defaults by mode from env.")
@@ -612,7 +705,19 @@ def main() -> None:
         message = results_path.read_text(encoding="utf-8").strip() if results_path.exists() else ""
         sendable_rows: List[Dict[str, Any]] = []
         if not message:
-            message = "📊 CorQ Results\nNo previous CorQ snapshot summary available."
+            corq_results = json_rows(read_json(OUTPUTS / "results" / "latest_results_corq.json", []))
+            message = build_results_summary_message(corq_results, "CorQ")
+    elif args.mode == "cloq-results":
+        results_path = Path(args.cloq_results_message_path)
+        message = results_path.read_text(encoding="utf-8").strip() if results_path.exists() else ""
+        sendable_rows = []
+        if not message:
+            cloq_results = json_rows(read_json(OUTPUTS / "results" / "latest_results_cloq.json", []))
+            message = build_results_summary_message(cloq_results, "CloQ")
+    elif args.mode == "cloq":
+        rows = load_cloq_rows(Path(args.cloq_path), Path(args.all_path))
+        sendable_rows = valid_rows(rows, upcoming_only=upcoming_only)
+        message = build_cloq_message(rows, limit=max(args.limit, 10), upcoming_only=upcoming_only)
     else:
         rows = load_rows_for_mode(args.mode, Path(args.top7_path), Path(args.all_path))
         sendable_rows = valid_rows(rows, upcoming_only=(upcoming_only if args.mode == "free" else False))
@@ -627,13 +732,13 @@ def main() -> None:
     print(message)
 
     if args.send:
-        if args.mode == "free" and not sendable_rows:
+        if args.mode in {"free", "cloq"} and not sendable_rows:
             print(f"[tg_feed] No valid upcoming rows for mode={args.mode}; Telegram send skipped.")
             return
         if args.mode == "top7" and "No valid upcoming CorQ picks" in message:
             print(f"[tg_feed] No valid TOP7 rows for mode={args.mode}; Telegram send skipped.")
             return
-        if args.mode == "results" and not message.strip():
+        if args.mode in {"results", "cloq-results"} and not message.strip():
             print("[tg_feed] Empty CorQ results summary; Telegram send skipped.")
             return
         chat_id = args.chat_id
