@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.0,
   "latest_odds_player2": 1.72727,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-11T04:06:25.661888+00:00",
+  "latest_snapshot_time_utc": "2026-08-11T17:44:07.497574+00:00",
   "opening_odds_player1": 2.0,
   "opening_odds_player2": 1.72727,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Kenta Kawada",
   "player2": "Haru Kawanak",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "16749273",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-10T23:00:00+00:00",
       "target_date": "2026-08-11"
+    },
+    {
+      "event_id": "16749273",
+      "event_key": "2026-08-11_haru-kawanak_vs_kenta-kawada",
+      "hours_to_start": -18.74,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.0,
+      "odds_player2": 1.72727,
+      "player1": "Kenta Kawada",
+      "player2": "Haru Kawanak",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-11T17:44:07.497574+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-10T23:00:00+00:00",
+      "target_date": "2026-08-11"
     }
   ],
   "start_time_utc": "2026-08-10T23:00:00+00:00",
-  "updated_at_utc": "2026-08-11T04:06:41.241422+00:00"
+  "updated_at_utc": "2026-08-11T17:44:22.613483+00:00"
 }
