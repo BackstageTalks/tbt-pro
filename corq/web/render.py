@@ -6162,7 +6162,7 @@ def _results_range_filter_panel(payload: Dict[str, Any]) -> str:
     return "\n".join([
         '<div class="summary-panel result-filter-builder results-range-panel">',
         '<div class="summary-title">Results range</div>',
-        '<div class="result-filter-help">Default is Last 3 days. Wider ranges load full analytic cards progressively from reusable day chunks.</div>',
+        '<div class="result-filter-help">Default: Last 3 days. Wider ranges load full analytic cards progressively.</div>',
         '<div class="tag-list results-range-buttons">' + ''.join(buttons) + '</div>',
         f'<div id="results-range-label" class="result-filter-help">{esc(active_payload.get("rangeLabel", ""))}</div>',
         f'<div id="results-range-loaded" class="result-filter-help">{esc(active_payload.get("loadedLabel", ""))}</div>',
@@ -6195,7 +6195,7 @@ def _results_range_section(section_key: str, title: str, payload: Dict[str, Any]
 
 
 def _results_range_script_block(payload: Dict[str, Any]) -> str:
-    payload_text = html.escape(json.dumps(payload, ensure_ascii=False), quote=False)
+    payload_text = json.dumps(payload, ensure_ascii=False).replace('</', r'<\/')
     return f"""
 <script type="application/json" id="results-range-payload">{payload_text}</script>
 <script>
