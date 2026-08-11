@@ -167,32 +167,104 @@ def _parse_match_datetime(value: Any) -> Optional[datetime]:
         return None
 
 
-def _match_date_local(row: Dict[str, Any]) -> Optional[str]:
+def _match_datetime_utc(row: Dict[str, Any]) -> Optional[datetime]:
     raw = row.get("raw") if isinstance(row.get("raw"), dict) else {}
     candidates = [
         row.get("match_start"),
         row.get("start_time"),
+        row.get("start_time_utc"),
+        row.get("match_time_utc"),
+        row.get("scheduled_at"),
         row.get("startTimestamp"),
         row.get("start_timestamp"),
-        row.get("date"),
         raw.get("startTimestamp"),
         raw.get("start_time"),
+        raw.get("start_timestamp"),
     ]
     for value in candidates:
         dt = _parse_match_datetime(value)
-        if dt is None:
-            # Some rows can already carry YYYY-MM-DD date strings.
-            txt = str(value or "").strip()
-            if len(txt) >= 10 and txt[4:5] == "-":
-                return txt[:10]
-            continue
+        if dt is not None:
+            return dt.astimezone(timezone.utc)
+    return None
+
+
+def _match_date_local(row: Dict[str, Any]) -> Optional[str]:
+    dt = _match_datetime_utc(row)
+    if dt is not None:
         if ZoneInfo is not None:
             dt = dt.astimezone(ZoneInfo(BRATISLAVA_TZ))
         return dt.date().isoformat()
+
+    raw = row.get("raw") if isinstance(row.get("raw"), dict) else {}
+    for value in (row.get("date"), raw.get("date")):
+        txt = str(value or "").strip()
+        if len(txt) >= 10 and txt[4:5] == "-":
+            return txt[:10]
+    return None
+
+
+def _parse_local_window(value: Any) -> Optional[datetime]:
+    if value in (None, ""):
+        return None
+    try:
+        text = str(value).strip().replace("Z", "+00:00")
+        dt = datetime.fromisoformat(text)
+        if dt.tzinfo is None:
+            if ZoneInfo is not None:
+                dt = dt.replace(tzinfo=ZoneInfo(BRATISLAVA_TZ))
+            else:
+                dt = dt.replace(tzinfo=timezone.utc)
+        if ZoneInfo is not None:
+            return dt.astimezone(ZoneInfo(BRATISLAVA_TZ))
+        return dt
+    except Exception:
+        return None
+
+
+def _betting_day_for_match(row: Dict[str, Any]) -> Optional[str]:
+    dt = _match_datetime_utc(row)
+    if dt is None or ZoneInfo is None:
+        return None
+    local = dt.astimezone(ZoneInfo(BRATISLAVA_TZ))
+    # Project day runs from 06:00 local to 06:00 next day.
+    day = local.date()
+    if local.hour < 6:
+        from datetime import timedelta
+        day = day - timedelta(days=1)
+    return day.isoformat()
+
+
+def _in_row_betting_day_window(row: Dict[str, Any]) -> Optional[bool]:
+    """Return True/False when explicit 06:00 betting-day window metadata exists.
+
+    None means the row does not carry enough window metadata and the caller should
+    fall back to the legacy local-calendar date check.
+    """
+    dt_utc = _match_datetime_utc(row)
+    if dt_utc is None or ZoneInfo is None:
+        return None
+
+    start_local = _parse_local_window(row.get("betting_day_start_local"))
+    end_local = _parse_local_window(row.get("betting_day_end_local"))
+    if start_local is not None and end_local is not None:
+        match_local = dt_utc.astimezone(ZoneInfo(BRATISLAVA_TZ))
+        return start_local <= match_local < end_local
+
+    row_betting_day = row.get("betting_day") or row.get("snapshot_date") or row.get("functional_day")
+    if row_betting_day:
+        return str(row_betting_day)[:10] == _betting_day_for_match(row)
+
     return None
 
 
 def is_today_match(row: Dict[str, Any]) -> bool:
+    # Prefer explicit betting-day metadata from the CorQ loader. This keeps both
+    # Audit and TOP7 aligned to the project window 06:00 -> 06:00 Europe/Bratislava
+    # instead of the plain local calendar day.
+    in_window = _in_row_betting_day_window(row)
+    if in_window is not None:
+        return bool(in_window)
+
     match_day = _match_date_local(row)
     if match_day is None:
         # Keep undated rows in ALL, but TOP7 will still be protected by status/odds/data guards.
@@ -3303,3 +3375,333 @@ def apply_ranking(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFA
 
 def top7_from_ranking(ranked: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT, *args: Any, **kwargs: Any) -> List[Dict[str, Any]]:
     return select_top7(ranked, top_n=top_n)
+
+# ============================================================
+# CorQ TOP7 audit cleanup override V8
+# ============================================================
+# Purpose:
+# - Keep TOP7 as a ranked daily shortlist when enough technically valid rows exist.
+# - Separate true hard/technical blockers from soft ranking penalties.
+# - Stop ALL diagnostics from looking like every row is rejected when TOP7 exists.
+# - Deduplicate reject/penalty audit lists consistently.
+
+CORQ_TOP7_AUDIT_CLEANUP_MODEL_VERSION = "CORQ_TOP7_AUDIT_CLEANUP_V8"
+
+try:
+    _CORQ_V8_BASE_TOP7_REJECT_REASONS
+except NameError:
+    _CORQ_V8_BASE_TOP7_REJECT_REASONS = top7_reject_reasons
+    _CORQ_V8_BASE_ANNOTATE_TOP7_QUALITY = annotate_top7_quality
+
+_CORQ_V8_TECHNICAL_HARD_REJECTS = {
+    "REJECT_TOP7_NOT_TODAY_MATCH",
+    "REJECT_TOP7_STATUS_NOT_PREMATCH",
+    "REJECT_TOP7_MISSING_ODDS",
+    "REJECT_TOP7_DOUBLES",
+    "REJECT_TOP7_INVALID_SIDE_ORIENTATION",
+    "REJECT_TOP7_ODDS_ORIENTATION_UNCONFIRMED_EXTREME",
+}
+
+_CORQ_V8_DISABLED_SOFT_GATES = {
+    "REJECT_TOP7_CORQ_BELOW_50",
+    "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
+    "REJECT_TOP7_LOW_PICK_DATA_DEPTH",
+    "REJECT_TOP7_LOW_THINQ_CONFIDENCE",
+    "REJECT_TOP7_LOW_FORM_DATA_DEPTH",
+    "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH",
+    "REJECT_TOP7_LOW_COMBINED_DATA_DEPTH",
+    "REJECT_TOP7_THINQ_BELOW_50_AND_NEGATIVE_VALUE",
+    "REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
+    "REJECT_TOP7_EV_HARD_NEGATIVE",
+    "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD",
+    "REJECT_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE",
+    "REJECT_TOP7_LOW_ODDS_UNDER_1_40",
+}
+
+
+def _corq_v8_unique(values: Iterable[Any]) -> List[str]:
+    out: List[str] = []
+    seen = set()
+    for value in values or []:
+        if value is None:
+            continue
+        text = str(value).strip()
+        if not text or text in seen:
+            continue
+        out.append(text)
+        seen.add(text)
+    return out
+
+
+def _corq_v8_legacy_reject_reasons(row: Dict[str, Any]) -> List[str]:
+    try:
+        return _corq_v8_unique(_CORQ_V8_BASE_TOP7_REJECT_REASONS(row) or [])
+    except Exception:
+        return _corq_v8_unique(row.get("top7_quality_reject_reasons") or row.get("top7_reject_reasons") or [])
+
+
+def _corq_v8_hard_reject_reasons(row: Dict[str, Any]) -> List[str]:
+    legacy = _corq_v8_legacy_reject_reasons(row)
+    hard = [reason for reason in legacy if reason in _CORQ_V8_TECHNICAL_HARD_REJECTS]
+    return _corq_v8_unique(hard)
+
+
+def _corq_v8_soft_penalty_reasons(row: Dict[str, Any], legacy: Optional[Sequence[str]] = None, hard: Optional[Sequence[str]] = None) -> List[str]:
+    legacy_list = _corq_v8_unique(legacy if legacy is not None else _corq_v8_legacy_reject_reasons(row))
+    hard_set = set(_corq_v8_unique(hard if hard is not None else _corq_v8_hard_reject_reasons(row)))
+    soft: List[str] = []
+    for reason in legacy_list:
+        if reason in hard_set:
+            continue
+        if reason in _CORQ_V8_DISABLED_SOFT_GATES or reason.startswith("REJECT_TOP7_"):
+            soft.append(reason.replace("REJECT_TOP7_", "PENALTY_TOP7_", 1))
+        else:
+            soft.append(reason)
+    for reason in row.get("corq_rank_cap_reasons") or []:
+        if reason and reason != "OK":
+            soft.append(f"RANKCAP_{reason}")
+    if _vf4_market_against_pick(row) if "_vf4_market_against_pick" in globals() else False:
+        soft.append("PENALTY_MARKET_AGAINST_PICK")
+    if low_context_risk(row) if "low_context_risk" in globals() else False:
+        soft.append("PENALTY_LOW_CONTEXT_RISK")
+    return _corq_v8_unique(soft)
+
+
+def top7_reject_reasons(row: Dict[str, Any]) -> List[str]:
+    """Final V8 reject list: only true technical blockers.
+
+    Model/value/risk/data-depth issues are deliberately moved into
+    corq_top7_soft_penalty_reasons so a daily TOP7 can still be ranked from the
+    available technically valid pool.
+    """
+    return _corq_v8_hard_reject_reasons(row)
+
+
+def is_publishable(row: Dict[str, Any]) -> bool:
+    return not top7_reject_reasons(row)
+
+
+def annotate_top7_quality(row: Dict[str, Any]) -> Dict[str, Any]:
+    try:
+        row = _CORQ_V8_BASE_ANNOTATE_TOP7_QUALITY(row)
+    except Exception:
+        pass
+
+    legacy = _corq_v8_legacy_reject_reasons(row)
+    hard = _corq_v8_hard_reject_reasons(row)
+    soft = _corq_v8_soft_penalty_reasons(row, legacy=legacy, hard=hard)
+    selectable = not hard
+
+    # Re-score after hard/soft split. Older annotation may have set -9999
+    # because CorQ/value/model warnings were still treated as hard rejects.
+    try:
+        score = _corq_v7_score(row) if selectable and "_corq_v7_score" in globals() else top7_quality_score(row)
+    except Exception:
+        score = float(row.get("corq_top7_sort_score") or row.get("top7_quality_score") or 0.0)
+    if not selectable:
+        score = -9999.0
+
+    try:
+        cap, cap_reasons = _corq_v7_rank_cap(row) if selectable and "_corq_v7_rank_cap" in globals() else (99, [])
+    except Exception:
+        cap, cap_reasons = (99, [])
+    cap_reasons = _corq_v8_unique(cap_reasons)
+
+    if selectable and int(cap or 99) <= 4 and score >= 68:
+        tier = "CORQ_CLEAN"
+    elif selectable and score >= 58:
+        tier = "CORQ_PLAYABLE"
+    elif selectable and score >= 48:
+        tier = "CORQ_LOW_EDGE"
+    elif selectable:
+        tier = "CORQ_RISK_FALLBACK"
+    else:
+        tier = "CORQ_NOT_SELECTABLE"
+
+    # Final hard reject fields. These are the only fields that summaries should
+    # count as true rejects.
+    row["top7_filter_mode"] = CORQ_TOP7_AUDIT_CLEANUP_MODEL_VERSION
+    row["top7_selection_model_version"] = CORQ_TOP7_AUDIT_CLEANUP_MODEL_VERSION
+    row["top7_reject_summary_scope"] = "HARD_TECHNICAL_BLOCKERS_ONLY"
+    row["top7_quality_reject_reasons"] = hard
+    row["top7_reject_reasons"] = hard
+    row["top7_hard_reject_reasons"] = hard
+    row["top7_primary_reject_reason"] = top7_primary_reject_reason(hard)
+    row["top7_reject_reason_count"] = len(hard)
+
+    # Compatibility fields for existing render/Telegram logic.
+    row["top7_publishable"] = selectable
+    row["eligible_for_top7"] = selectable
+    row["corq_top7_selectable"] = selectable
+    row["corq_top7_reject_reasons"] = hard
+    row["corq_top7_fatal_reject_reasons"] = hard
+    row["corq_top7_soft_penalty_reasons"] = _corq_v8_unique(soft + [f"RANKCAP_{r}" for r in cap_reasons])
+    row["corq_top7_legacy_reject_reasons"] = legacy
+    row["corq_top7_audit_note"] = "v8_hard_rejects_only_soft_penalties_separated"
+
+    row["corq_top7_sort_score"] = score
+    row["top7_quality_score"] = score
+    row["corq_top7_tier"] = tier
+    row["corq_rank_cap"] = cap
+    row["corq_rank_cap_reasons"] = cap_reasons
+    row["corq_top4_eligible"] = bool(selectable and int(cap or 99) <= 4)
+    try:
+        row["corq_probability_gap_pp"] = _corq_v7_probability_gap_pp(row)
+    except Exception:
+        pass
+    try:
+        row["corq_ev_pct_for_ranking"] = _corq_v7_ev(row)
+    except Exception:
+        pass
+    try:
+        row["corq_market_move_against"] = _corq_v7_market_move_against(row)
+    except Exception:
+        pass
+
+    flags = row.get("corq_warning_flags")
+    if not isinstance(flags, list):
+        flags = []
+    for tag in [tier] + row.get("corq_top7_soft_penalty_reasons", []):
+        if tag and tag not in flags:
+            flags.append(tag)
+    row["corq_warning_flags"] = _corq_v8_unique(flags)
+
+    audit = row.get("corq_rank_audit_tags")
+    if not isinstance(audit, list):
+        audit = []
+    for tag in [CORQ_TOP7_AUDIT_CLEANUP_MODEL_VERSION, tier] + [f"RANKCAP_{r}" for r in cap_reasons]:
+        if tag and tag not in audit:
+            audit.append(tag)
+    row["corq_rank_audit_tags"] = _corq_v8_unique(audit)
+    return row
+
+
+def sort_publishable(rows: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    candidates = [
+        r for r in rows
+        if isinstance(r, dict)
+        and (r.get("corq_top7_selectable") is True or r.get("top7_publishable") is True)
+    ]
+    return sorted(
+        candidates,
+        key=lambda r: (
+            float(r.get("corq_top7_sort_score") or r.get("top7_quality_score") or 0.0),
+            -(int(r.get("corq_rank_cap") or 99)),
+            corq_probability(r),
+            thinq_confidence(r),
+            pick_odds_value(r) or 0.0,
+        ),
+        reverse=True,
+    )
+
+
+def select_top7(rows: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> List[Dict[str, Any]]:
+    annotated = annotate_rows(list(rows or []))
+    ranked = sort_publishable(annotated)
+    target = int(top_n or CORQ_TOP7_TARGET_COUNT_V7)
+
+    long_available = sum(1 for r in ranked if (pick_odds_value(r) or 0.0) >= CORQ_SHORT_PRICE_THRESHOLD_V7)
+    short_limit = CORQ_MAX_SHORT_PRICE_PICKS_V7 if long_available >= max(1, target - CORQ_MAX_SHORT_PRICE_PICKS_V7) else target
+
+    selected: List[Dict[str, Any]] = []
+    seen = set()
+    short_count = 0
+
+    def row_key(row: Dict[str, Any]) -> str:
+        if "_corq_v6_match_key" in globals():
+            return _corq_v6_match_key(row)
+        return _match_identity_key(row) if "_match_identity_key" in globals() else str(id(row))
+
+    def can_take(row: Dict[str, Any], rank_pos: int, strict_caps: bool = True) -> bool:
+        key = row_key(row)
+        if key in seen:
+            return False
+        odds = pick_odds_value(row)
+        is_short = odds is not None and odds < CORQ_SHORT_PRICE_THRESHOLD_V7
+        if is_short and short_count >= short_limit:
+            return False
+        cap = int(row.get("corq_rank_cap") or 99)
+        if strict_caps and rank_pos <= 4 and cap > 4:
+            return False
+        return True
+
+    # First pass: protect top four with the rank-cap quality floor.
+    for row in ranked:
+        if len(selected) >= min(4, target):
+            break
+        rank_pos = len(selected) + 1
+        if not can_take(row, rank_pos, strict_caps=True):
+            continue
+        key = row_key(row)
+        seen.add(key)
+        if (pick_odds_value(row) or 0.0) < CORQ_SHORT_PRICE_THRESHOLD_V7:
+            short_count += 1
+        selected.append(row)
+
+    # Second pass: fill ranks 5-7, allowing capped but technically valid rows.
+    for row in ranked:
+        if len(selected) >= target:
+            break
+        rank_pos = len(selected) + 1
+        if not can_take(row, rank_pos, strict_caps=False):
+            continue
+        key = row_key(row)
+        seen.add(key)
+        if (pick_odds_value(row) or 0.0) < CORQ_SHORT_PRICE_THRESHOLD_V7:
+            short_count += 1
+        selected.append(row)
+
+    # Last-resort fill: still only technically valid/selectable rows.
+    for row in ranked:
+        if len(selected) >= target:
+            break
+        key = row_key(row)
+        if key in seen:
+            continue
+        seen.add(key)
+        selected.append(row)
+
+    for idx, row in enumerate(selected, start=1):
+        row["top7_rank"] = idx
+        row["corq_rank"] = idx
+        row["top7_publishable"] = True
+        row["eligible_for_top7"] = True
+        row["corq_top7_selectable"] = True
+        row["corq_top7_forced_rank_selection"] = True
+        row["top7_selection_count_target"] = target
+        row["corq_top7_selection_pass"] = "top4_quality" if idx <= 4 else "fallback_5_7"
+        row["top7_quality_reject_reasons"] = []
+        row["top7_reject_reasons"] = []
+        row["top7_hard_reject_reasons"] = []
+        row["top7_primary_reject_reason"] = None
+        row["top7_reject_reason_count"] = 0
+        row["corq_top7_reject_reasons"] = []
+        row["corq_top7_fatal_reject_reasons"] = []
+    return selected
+
+
+def rank_predictions(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    all_rows = annotate_rows(list(predictions or []))
+    top7 = select_top7(all_rows, top_n=top_n)
+    return all_rows, top7
+
+
+def build_all_and_top7(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    return rank_predictions(predictions, top_n=top_n)
+
+
+def build_rankings(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    return rank_predictions(predictions, top_n=top_n)
+
+
+def apply_ranking(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    return rank_predictions(predictions, top_n=top_n)
+
+
+def evaluate_eligibility(row: Dict[str, Any]) -> Dict[str, Any]:
+    return annotate_top7_quality(row)
+
+
+def top7_from_ranking(ranked: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT, *args: Any, **kwargs: Any) -> List[Dict[str, Any]]:
+    return select_top7(ranked, top_n=top_n)
+
