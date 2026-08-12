@@ -1,6 +1,6 @@
 {
   "model_version": "2026-08-04-marq-coverage-report-v1",
-  "generated_at_utc": "2026-08-12T04:53:42.281798+00:00",
+  "generated_at_utc": "2026-08-12T05:56:04.536943+00:00",
   "input_paths": {
     "all": "outputs/latest_all.json",
     "top7": "outputs/latest_top7.json",
@@ -11,8 +11,8 @@
       "label": "all_audit",
       "total_rows": 62,
       "coverage_pct": {
-        "high_marq": 3.23,
-        "medium_current_only": 51.61,
+        "high_marq": 9.68,
+        "medium_current_only": 45.16,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 45.16,
         "usable_marq_high_or_medium": 54.84
@@ -22,30 +22,30 @@
         "NO_ENDPOINT": 28
       },
       "data_status_counts": {
-        "EXACT_CURRENT_ODDS_ONLY": 32,
+        "EXACT_CURRENT_ODDS_ONLY": 28,
         "NO_DATA_STATUS": 28,
-        "EXACT_BETTING_ODDS_WITH_OPENING": 2
+        "EXACT_BETTING_ODDS_WITH_OPENING": 6
       },
       "confidence_counts": {
-        "MEDIUM": 32,
+        "MEDIUM": 28,
         "NO_CONFIDENCE": 28,
-        "HIGH": 2
+        "HIGH": 6
       },
       "movement_status_counts": {
-        "OPENING_EQUALS_CURRENT": 32,
+        "OPENING_EQUALS_CURRENT": 28,
         "NO_MOVEMENT_STATUS": 28,
-        "REAL_OPENING_CURRENT_AVAILABLE": 2
+        "REAL_OPENING_CURRENT_AVAILABLE": 6
       },
       "quality_tier_counts": {
-        "MEDIUM_CURRENT_ONLY": 32,
+        "MEDIUM_CURRENT_ONLY": 28,
         "NO_MARQ": 28,
-        "HIGH": 2
+        "HIGH": 6
       },
       "value_status_counts": {
         "VALUE_UNKNOWN": 28,
         "NO_VALUE": 19,
-        "VALUE_STRONG": 13,
-        "VALUE_PLAYABLE": 2
+        "VALUE_STRONG": 14,
+        "VALUE_PLAYABLE": 1
       },
       "source_policy_counts": {
         "TENNISAPI_ONLY_EXACT_EVENT": 34,
@@ -53,7 +53,7 @@
       },
       "market_weight_stats": {
         "count": 62,
-        "avg": 0.0703,
+        "avg": 0.0794,
         "min": 0.0,
         "max": 0.3
       },
@@ -65,7 +65,7 @@
       },
       "expected_value_pct_stats": {
         "count": 34,
-        "avg": -3.6594,
+        "avg": -3.825,
         "min": -36.43,
         "max": 42.2
       },
@@ -256,6 +256,36 @@
         "current_only": [],
         "real_opening": [
           {
+            "identity": "16661633",
+            "pick": "Rafael Jodar",
+            "opponent": "Brandon Nakashima",
+            "odds": 1.44,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": -3.94,
+            "expected_value_pct": -11.17,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16661633",
+            "pick": "Brandon Nakashima",
+            "opponent": "Rafael Jodar",
+            "odds": 2.75,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": 3.94,
+            "expected_value_pct": 5.35,
+            "fallback_reason": null
+          },
+          {
             "identity": "16662011",
             "pick": "Elina Svitolina",
             "opponent": "Iga Swiatek",
@@ -284,6 +314,36 @@
             "value_delta_pp": -15.58,
             "expected_value_pct": -26.36,
             "fallback_reason": null
+          },
+          {
+            "identity": "16662009",
+            "pick": "Coco Gauff",
+            "opponent": "Elena Rybakina",
+            "odds": 1.73,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": -7.49,
+            "expected_value_pct": -18.1,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16662009",
+            "pick": "Elena Rybakina",
+            "opponent": "Coco Gauff",
+            "odds": 2.1,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 7.49,
+            "expected_value_pct": 10.59,
+            "fallback_reason": null
           }
         ],
         "no_value": [
@@ -291,15 +351,15 @@
             "identity": "16661633",
             "pick": "Rafael Jodar",
             "opponent": "Brandon Nakashima",
-            "odds": 1.4,
+            "odds": 1.44,
             "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": -6.49,
-            "expected_value_pct": -13.63,
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": -3.94,
+            "expected_value_pct": -11.17,
             "fallback_reason": null
           },
           {
@@ -426,15 +486,15 @@
             "identity": "16662009",
             "pick": "Coco Gauff",
             "opponent": "Elena Rybakina",
-            "odds": 1.91,
+            "odds": 1.73,
             "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": -2.59,
-            "expected_value_pct": -9.45,
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": -7.49,
+            "expected_value_pct": -18.1,
             "fallback_reason": null
           },
           {
@@ -473,15 +533,15 @@
             "identity": "16661633",
             "pick": "Brandon Nakashima",
             "opponent": "Rafael Jodar",
-            "odds": 3.0,
+            "odds": 2.75,
             "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": 6.49,
-            "expected_value_pct": 14.93,
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": 3.94,
+            "expected_value_pct": 5.35,
             "fallback_reason": null
           },
           {
@@ -560,6 +620,21 @@
             "fallback_reason": null
           },
           {
+            "identity": "16662009",
+            "pick": "Elena Rybakina",
+            "opponent": "Coco Gauff",
+            "odds": 2.1,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 7.49,
+            "expected_value_pct": 10.59,
+            "fallback_reason": null
+          },
+          {
             "identity": "16784139",
             "pick": "Polina Kudermetova",
             "opponent": "Carol Young-suh Lee",
@@ -633,21 +708,6 @@
             "value_delta_pp": 3.57,
             "expected_value_pct": 0.55,
             "fallback_reason": null
-          },
-          {
-            "identity": "16796167",
-            "pick": "Mananchaya Sawangkaew",
-            "opponent": "Lanlana Tararudee",
-            "odds": 2.2,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": 4.23,
-            "expected_value_pct": 2.45,
-            "fallback_reason": null
           }
         ]
       },
@@ -694,7 +754,8 @@
         "HIGH": 1
       },
       "value_status_counts": {
-        "VALUE_STRONG": 7
+        "VALUE_STRONG": 6,
+        "VALUE_PLAYABLE": 1
       },
       "source_policy_counts": {
         "TENNISAPI_ONLY_EXACT_EVENT": 7
@@ -707,15 +768,15 @@
       },
       "value_delta_pp_stats": {
         "count": 7,
-        "avg": 12.6143,
-        "min": 9.31,
-        "max": 15.58
+        "avg": 9.7714,
+        "min": 0.6,
+        "max": 13.98
       },
       "expected_value_pct_stats": {
         "count": 7,
-        "avg": 21.0843,
-        "min": 8.18,
-        "max": 42.2
+        "avg": 11.6343,
+        "min": -6.38,
+        "max": 19.26
       },
       "samples": {
         "thin_fallback": [],
@@ -723,18 +784,18 @@
         "current_only": [],
         "real_opening": [
           {
-            "identity": "16662011",
-            "pick": "Elina Svitolina",
-            "opponent": "Iga Swiatek",
-            "odds": 3.0,
+            "identity": "16662009",
+            "pick": "Elena Rybakina",
+            "opponent": "Coco Gauff",
+            "odds": 2.1,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 15.58,
-            "expected_value_pct": 42.2,
+            "value_delta_pp": 7.49,
+            "expected_value_pct": 10.59,
             "fallback_reason": null
           }
         ],
@@ -816,33 +877,18 @@
             "fallback_reason": null
           },
           {
-            "identity": "16661634",
-            "pick": "Learner Tien",
-            "opponent": "Ben Shelton",
-            "odds": 2.63,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": 12.41,
-            "expected_value_pct": 28.16,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16662011",
-            "pick": "Elina Svitolina",
-            "opponent": "Iga Swiatek",
-            "odds": 3.0,
+            "identity": "16662009",
+            "pick": "Elena Rybakina",
+            "opponent": "Coco Gauff",
+            "odds": 2.1,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 15.58,
-            "expected_value_pct": 42.2,
+            "value_delta_pp": 7.49,
+            "expected_value_pct": 10.59,
             "fallback_reason": null
           }
         ]
@@ -861,8 +907,8 @@
       "label": "cloq",
       "total_rows": 5,
       "coverage_pct": {
-        "high_marq": 0.0,
-        "medium_current_only": 100.0,
+        "high_marq": 20.0,
+        "medium_current_only": 80.0,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
         "usable_marq_high_or_medium": 100.0
@@ -871,20 +917,23 @@
         "getAllOddsForEvent": 5
       },
       "data_status_counts": {
-        "EXACT_CURRENT_ODDS_ONLY": 5
+        "EXACT_CURRENT_ODDS_ONLY": 4,
+        "EXACT_BETTING_ODDS_WITH_OPENING": 1
       },
       "confidence_counts": {
-        "MEDIUM": 5
+        "MEDIUM": 4,
+        "HIGH": 1
       },
       "movement_status_counts": {
-        "OPENING_EQUALS_CURRENT": 5
+        "OPENING_EQUALS_CURRENT": 4,
+        "REAL_OPENING_CURRENT_AVAILABLE": 1
       },
       "quality_tier_counts": {
-        "MEDIUM_CURRENT_ONLY": 5
+        "MEDIUM_CURRENT_ONLY": 4,
+        "HIGH": 1
       },
       "value_status_counts": {
-        "VALUE_STRONG": 3,
-        "VALUE_PLAYABLE": 1,
+        "VALUE_STRONG": 4,
         "NO_VALUE": 1
       },
       "source_policy_counts": {
@@ -892,19 +941,19 @@
       },
       "market_weight_stats": {
         "count": 5,
-        "avg": 0.12,
+        "avg": 0.156,
         "min": 0.12,
-        "max": 0.12
+        "max": 0.3
       },
       "value_delta_pp_stats": {
         "count": 5,
-        "avg": 7.96,
+        "avg": 8.94,
         "min": 0.19,
         "max": 13.05
       },
       "expected_value_pct_stats": {
         "count": 5,
-        "avg": 9.254,
+        "avg": 11.282,
         "min": -7.01,
         "max": 19.26
       },
@@ -912,7 +961,23 @@
         "thin_fallback": [],
         "no_marq_or_unknown": [],
         "current_only": [],
-        "real_opening": [],
+        "real_opening": [
+          {
+            "identity": "16662009",
+            "pick": "Elena Rybakina",
+            "opponent": "Coco Gauff",
+            "odds": 2.1,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 7.49,
+            "expected_value_pct": 10.59,
+            "fallback_reason": null
+          }
+        ],
         "no_value": [
           {
             "identity": "16784130",
@@ -944,6 +1009,21 @@
             "market_weight": 0.12,
             "value_delta_pp": 13.05,
             "expected_value_pct": 15.23,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16662009",
+            "pick": "Elena Rybakina",
+            "opponent": "Coco Gauff",
+            "odds": 2.1,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 7.49,
+            "expected_value_pct": 10.59,
             "fallback_reason": null
           },
           {

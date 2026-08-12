@@ -248,16 +248,16 @@
     "odds_label_2": "2",
     "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
-    "odds_player1": 1.4,
-    "odds_player2": 3.0,
-    "p1_odds": 1.4,
-    "p2_odds": 3.0,
-    "home_odds": 1.4,
-    "away_odds": 3.0,
-    "odds1": 1.4,
-    "odds2": 3.0,
-    "price1": 1.4,
-    "price2": 3.0,
+    "odds_player1": 1.44,
+    "odds_player2": 2.75,
+    "p1_odds": 1.44,
+    "p2_odds": 2.75,
+    "home_odds": 1.44,
+    "away_odds": 2.75,
+    "odds1": 1.44,
+    "odds2": 2.75,
+    "price1": 1.44,
+    "price2": 2.75,
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16661633/odds/1/all",
     "odds_status": "OK",
@@ -266,8 +266,8 @@
     ],
     "odds_pair_available": true,
     "odds_labels_confirmed": true,
-    "odds_gap_abs": 1.6,
-    "odds_gap_pct": 1.1429,
+    "odds_gap_abs": 1.31,
+    "odds_gap_pct": 0.9097,
     "home_player": "Rafael Jodar",
     "away_player": "Brandon Nakashima",
     "pick_side": "HOME",
@@ -277,19 +277,19 @@
     "odds": {
       "od1": {
         "opening": 1.4,
-        "latest": 1.4,
-        "current": 1.4,
-        "change": 0.0
+        "latest": 1.44,
+        "current": 1.44,
+        "change": 1.0
       },
       "od2": {
         "opening": 3.0,
-        "latest": 3.0,
-        "current": 3.0,
-        "change": 0.0
+        "latest": 2.75,
+        "current": 2.75,
+        "change": -1.0
       }
     },
-    "pick_odds": 1.4,
-    "opponent_odds": 3.0,
+    "pick_odds": 1.44,
+    "opponent_odds": 2.75,
     "pick_is_player1": true,
     "pick_is_player2": false,
     "pick_is_home": true,
@@ -610,7 +610,7 @@
         "tiebreak_edge": 0.0013,
         "decider_edge": -0.0001,
         "confidence": 0.78,
-        "odds_gap_pct": 1.1429,
+        "odds_gap_pct": 0.9097,
         "flags": [
           "MATCH_DYNAMICS_H2H_NEUTRAL"
         ]
@@ -730,7 +730,7 @@
           "tiebreak_edge": 0.0013,
           "decider_edge": -0.0001,
           "confidence": 0.78,
-          "odds_gap_pct": 1.1429,
+          "odds_gap_pct": 0.9097,
           "flags": [
             "MATCH_DYNAMICS_H2H_NEUTRAL"
           ]
@@ -2057,7 +2057,7 @@
       "tiebreak_edge": 0.0013,
       "decider_edge": -0.0001,
       "confidence": 0.78,
-      "odds_gap_pct": 1.1429,
+      "odds_gap_pct": 0.9097,
       "flags": [
         "MATCH_DYNAMICS_H2H_NEUTRAL"
       ]
@@ -2246,7 +2246,7 @@
     "api_h2h_stats_request_no": 1,
     "api_h2h_resolution": "DISABLED",
     "api_h2h_disabled_reason": "TENNISAPI_H2H_STATS_ENABLED is not enabled",
-    "implied_probability": 0.7143,
+    "implied_probability": 0.6944,
     "pick_last10_count": 10,
     "opponent_last10_count": 10,
     "pick_surface_count": 9,
@@ -2267,10 +2267,10 @@
     },
     "corq_raw_model_edge": 0.1169,
     "corq_confidence_factor": 0.82,
-    "corq_estimated_win_probability": 0.6247,
-    "estimated_win_pct": 62.47,
-    "corq_score": 0.6247,
-    "corq_edge": -0.0896,
+    "corq_estimated_win_probability": 0.6287,
+    "estimated_win_pct": 62.87,
+    "corq_score": 0.6287,
+    "corq_edge": -0.0657,
     "corq_risk_flags": [],
     "ranking_source": "TENNISAPI_RANKINGS",
     "ranking_status": "OK",
@@ -2345,26 +2345,26 @@
       "TA profile missing or no usable scoped stats"
     ],
     "ta_signal_score_projection": "N/A",
-    "expected_sets": 2.42,
+    "expected_sets": 2.43,
     "sets_selection": "O2.5",
-    "sets_probability": 0.4206,
+    "sets_probability": 0.4295,
     "sets_probability_label": "O2.5",
-    "sets_o25_probability": 0.4206,
+    "sets_o25_probability": 0.4295,
     "sets_o45_probability": null,
     "most_likely_score": "2-0",
-    "most_likely_score_probability": 0.4532,
+    "most_likely_score_probability": 0.4284,
     "score_probabilities": {
-      "2-0": 0.4532,
-      "2-1": 0.2868,
-      "1-2": 0.1338,
-      "0-2": 0.1261
+      "2-0": 0.4284,
+      "2-1": 0.2819,
+      "1-2": 0.1476,
+      "0-2": 0.142
     },
     "score_basis": "player1_vs_player2",
     "sets_source": "Model",
-    "first_set_player1_odds": 1.5,
-    "first_set_player2_odds": 2.625,
-    "first_set_player1_probability": 0.6363636363636365,
-    "first_set_player2_probability": 0.3636363636363637,
+    "first_set_player1_odds": 1.53333,
+    "first_set_player2_odds": 2.5,
+    "first_set_player1_probability": 0.6198352230043165,
+    "first_set_player2_probability": 0.3801647769956835,
     "expected_games": 22.5,
     "projected_total_games": 22.5,
     "games_line": 22.5,
@@ -2430,8 +2430,8 @@
     "total_aces_probability": 0.5349,
     "aces_source": "TA A% + projected service points",
     "best_bet": "O2.5",
-    "best_bet_display": "O2.5 42%",
-    "best_bet_probability": 0.4206,
+    "best_bet_display": "O2.5 43%",
+    "best_bet_probability": 0.4295,
     "best_bet_market": "Sets",
     "sets_games_value_candidates": [],
     "value_bet": null,
@@ -2442,9 +2442,9 @@
     "marq_source": "tennisapi_market_quality_v2",
     "marq_api_source": "TennisApi RapidAPI",
     "marq_source_policy": "TENNISAPI_ONLY_EXACT_EVENT",
-    "marq_source_quality": "EXACT_CURRENT_ODDS_ONLY",
-    "marq_data_status": "EXACT_CURRENT_ODDS_ONLY",
-    "marq_confidence": "MEDIUM",
+    "marq_source_quality": "EXACT_BETTING_ODDS_WITH_OPENING",
+    "marq_data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+    "marq_confidence": "HIGH",
     "marq_exact_event_id_used": true,
     "marq_name_matching_skipped": true,
     "marq_date_feed_skipped": true,
@@ -2467,20 +2467,20 @@
         "market_period": "Match",
         "market_id": 1,
         "source_id": 199428808,
-        "odds_1": 1.4,
-        "odds_2": 3.0,
+        "odds_1": 1.44,
+        "odds_2": 2.75,
         "initial_1": 1.4,
         "initial_2": 3.0,
         "opening_1": 1.4,
         "opening_2": 3.0,
-        "change_1": 0.0,
-        "change_2": 0.0,
+        "change_1": 1.0,
+        "change_2": -1.0,
         "choice_source_id_1": 1889598252,
         "choice_source_id_2": 1889598328,
-        "marq_v2_no_vig_1": 0.6818181818181818,
-        "marq_v2_no_vig_2": 0.3181818181818181,
-        "marq_v2_overround": 1.0476190476190477,
-        "marq_v2_movement_status": "OPENING_EQUALS_CURRENT",
+        "marq_v2_no_vig_1": 0.6563245823389022,
+        "marq_v2_no_vig_2": 0.3436754176610979,
+        "marq_v2_overround": 1.058080808080808,
+        "marq_v2_movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
         "provider_odds_market_count": 3,
         "provider_odds_has_full_time": true,
         "provider_odds_fetch_version": "2026-08-04-tennisapi-only-marq-v2",
@@ -2545,24 +2545,24 @@
     "marq_endpoint_name": "getAllOddsForEvent",
     "marq_market_count": 3,
     "marq_has_full_time": true,
-    "marq_current_odds_1": 1.4,
-    "marq_current_odds_2": 3.0,
+    "marq_current_odds_1": 1.44,
+    "marq_current_odds_2": 2.75,
     "marq_opening_odds_1": 1.4,
     "marq_opening_odds_2": 3.0,
-    "marq_change_1": 0.0,
-    "marq_change_2": 0.0,
-    "marq_no_vig_probability_1": 0.681818,
-    "marq_no_vig_probability_2": 0.318182,
-    "marq_overround": 1.047619,
-    "marq_movement_status": "OPENING_EQUALS_CURRENT",
-    "marq_internal_move_signal": "Stable",
-    "marq_display_move_signal": "Stable",
-    "marq_move_signal": "Stable",
-    "marq_move_direction": "Stable",
-    "marq_move_pct": 0.0,
-    "marq_move_range": "1.4 -> 1.4",
+    "marq_change_1": 1.0,
+    "marq_change_2": -1.0,
+    "marq_no_vig_probability_1": 0.656325,
+    "marq_no_vig_probability_2": 0.343675,
+    "marq_overround": 1.058081,
+    "marq_movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+    "marq_internal_move_signal": "Against pick",
+    "marq_display_move_signal": "Against pick",
+    "marq_move_signal": "Against pick",
+    "marq_move_direction": "Against",
+    "marq_move_pct": 2.9,
+    "marq_move_range": "1.4 -> 1.44",
     "marq_move_earliest_odds": 1.4,
-    "marq_move_latest_odds": 1.4,
+    "marq_move_latest_odds": 1.44,
     "bet365_disabled": true,
     "tennis_live_disabled": true,
     "marq_removed_sources": [
@@ -2572,53 +2572,53 @@
       "non-exact event discovery for MARQ"
     ],
     "marq_fetch_version": "2026-08-04-tennisapi-only-marq-v2",
-    "marq_crowd_pick_pct": 68.2,
-    "marq_pick_probability": 0.681818,
-    "marq_pick_no_vig_probability": 0.681818,
-    "market_pick_probability": 0.681818,
-    "corq_market_probability": 0.6818,
-    "marq_edge_pct": 18.2,
-    "marq_crowd_opponent_pct": 31.8,
-    "marq_opp_no_vig_probability": 0.318182,
+    "marq_crowd_pick_pct": 65.6,
+    "marq_pick_probability": 0.656325,
+    "marq_pick_no_vig_probability": 0.656325,
+    "market_pick_probability": 0.656325,
+    "corq_market_probability": 0.6563,
+    "marq_edge_pct": 15.6,
+    "marq_crowd_opponent_pct": 34.4,
+    "marq_opp_no_vig_probability": 0.343675,
     "marq_final": "Market With Pick",
     "marq_final_display": "Market With Pick",
     "marq_market_view": true,
     "marq_provider_count": 1,
     "marq_market_name": "Match winner",
-    "marq_quality_signal": "EXACT_CURRENT_ODDS_ONLY",
-    "corq_marq_quality_tier": "MEDIUM_CURRENT_ONLY",
-    "corq_marq_weight_reason": "exact TennisApi current odds only, no real movement signal",
+    "marq_quality_signal": "EXACT_BETTING_ODDS_WITH_OPENING",
+    "corq_marq_quality_tier": "HIGH",
+    "corq_marq_weight_reason": "exact TennisApi odds with real opening/current market data; real movement/CLV against pick, market brake increased",
     "corq_raw_model_probability": 0.6169,
     "corq_raw_model_probability_pct": 61.69,
-    "corq_market_probability_pct": 68.18,
-    "corq_model_weight": 0.88,
-    "corq_market_weight": 0.12,
-    "corq_model_mix_label": "ThinQ 88% / MarQ 12%",
-    "corq_thinq_input_pp": 54.29,
-    "corq_marq_input_pp": 8.18,
-    "corq_calibrated_probability": 0.6247,
-    "corq_calibrated_probability_pct": 62.47,
-    "corq_market_adjustment_pp": 0.78,
-    "corq_calibration_method": "DYNAMIC_MARQ_WEIGHT_MEDIUM_CURRENT_ONLY",
+    "corq_market_probability_pct": 65.63,
+    "corq_model_weight": 0.7,
+    "corq_market_weight": 0.3,
+    "corq_model_mix_label": "ThinQ 70% / MarQ 30%",
+    "corq_thinq_input_pp": 43.18,
+    "corq_marq_input_pp": 19.69,
+    "corq_calibrated_probability": 0.6287,
+    "corq_calibrated_probability_pct": 62.87,
+    "corq_market_adjustment_pp": 1.18,
+    "corq_calibration_method": "DYNAMIC_MARQ_WEIGHT_HIGH",
     "corq_marq_dynamic_weight_version": "2026-08-04-marq-dynamic-weight-v1",
-    "corq_probability": 0.6247,
-    "probability": 0.6247,
-    "value_edge": -0.0896,
-    "edge": -0.0896,
-    "corq_value_delta_pp": -8.96,
-    "expected_value_pct": -12.54,
+    "corq_probability": 0.6287,
+    "probability": 0.6287,
+    "value_edge": -0.0657,
+    "edge": -0.0657,
+    "corq_value_delta_pp": -6.57,
+    "expected_value_pct": -9.47,
     "marq_v2_model_probability": 0.6169,
-    "marq_v2_market_probability": 0.6818,
-    "marq_v2_value_delta_pp": -6.49,
-    "marq_v2_expected_value_pct": -13.63,
-    "marq_v2_data_status": "EXACT_CURRENT_ODDS_ONLY",
-    "marq_v2_confidence": "MEDIUM",
-    "marq_v2_movement_status": "OPENING_EQUALS_CURRENT",
-    "raw_implied_probability": 0.714286,
-    "raw_implied_probability_pct": 71.43,
-    "break_even_probability": 0.714286,
-    "break_even_probability_pct": 71.43,
-    "expected_value": -0.12542,
+    "marq_v2_market_probability": 0.6563,
+    "marq_v2_value_delta_pp": -3.94,
+    "marq_v2_expected_value_pct": -11.17,
+    "marq_v2_data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+    "marq_v2_confidence": "HIGH",
+    "marq_v2_movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+    "raw_implied_probability": 0.694444,
+    "raw_implied_probability_pct": 69.44,
+    "break_even_probability": 0.694444,
+    "break_even_probability_pct": 69.44,
+    "expected_value": -0.094672,
     "price_value_grade": "SHORT",
     "price_value_tag": "VALUE_NEGATIVE",
     "price_value_display": "Short | No Value",
@@ -2628,7 +2628,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 11,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "top7_quality_reject_reasons": [],
@@ -2640,14 +2640,14 @@
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
     "top7_status_code": 0,
-    "top7_corq_probability": 0.6247,
+    "top7_corq_probability": 0.6287,
     "top7_pick_thinq_edge": 0.1425,
     "top7_thinq_confidence": 0.84,
     "top7_thinq_data_confidence": 0.84,
     "top7_thinq_pick_probability": 0.6169,
     "pick_data_depth": 0.9005,
     "stat_data_depth": 0.9005,
-    "top7_pick_odds": 1.4,
+    "top7_pick_odds": 1.44,
     "top7_match_date_local": "2026-08-13",
     "recent_form_reason": "",
     "recent_form_sample_audit": {
@@ -2660,7 +2660,7 @@
       "history_match_count": 37883
     },
     "low_data_risk_audit": {
-      "corq_probability": 0.6247,
+      "corq_probability": 0.6287,
       "pick_thinq_edge": 0.1425,
       "pick_data_depth": 0.9005,
       "form_data_depth": 0.85,
@@ -2733,18 +2733,18 @@
       {
         "tag": "MARKET_WITH_PICK",
         "bonus": 1.5,
-        "marq_edge": 18.2,
-        "market_delta": 0.78
+        "marq_edge": 15.6,
+        "market_delta": 1.18
       },
       {
         "tag": "NO_VALUE_PRICE",
         "penalty": 3.0,
-        "value": -8.96
+        "value": -6.57
       },
       {
         "tag": "SHORT_PRICE_RISK",
         "penalty": 2.0,
-        "pick_odds": 1.4
+        "pick_odds": 1.44
       },
       {
         "tag": "MULTI_RISK_PICK",
@@ -2760,19 +2760,19 @@
       {
         "tag": "NEGATIVE_VALUE_HARD",
         "penalty": 5.0,
-        "value_delta_pp": -8.96
+        "value_delta_pp": -6.57
       },
       {
         "tag": "NEGATIVE_EV_HARD",
         "penalty": 4.0,
-        "expected_value_pct": -12.54
+        "expected_value_pct": -9.47
       },
       {
         "tag": "SHORT_NO_VALUE_COMBO",
         "penalty": 5.0,
-        "pick_odds": 1.4,
-        "value_delta_pp": -8.96,
-        "expected_value_pct": -12.54
+        "pick_odds": 1.44,
+        "value_delta_pp": -6.57,
+        "expected_value_pct": -9.47
       },
       {
         "tag": "SHORT_PRICE_VALUE_GUARD_FAIL",
@@ -2782,8 +2782,8 @@
         "pick_data_depth": 0.9005,
         "form_data_depth": 0.85,
         "thinq_confidence": 0.84,
-        "value_delta_pp": -8.96,
-        "expected_value_pct": -12.54,
+        "value_delta_pp": -6.57,
+        "expected_value_pct": -9.47,
         "min_support_count": 5,
         "min_pick_data_depth": 0.75,
         "min_form_data_depth": 0.7,
@@ -2795,9 +2795,9 @@
       {
         "tag": "LOW_ODDS_FAVORITE_SORT_PENALTY",
         "penalty": 10.0,
-        "odds": 1.4,
-        "value_delta_pp": -8.96,
-        "expected_value_pct": -12.54
+        "odds": 1.44,
+        "value_delta_pp": -6.57,
+        "expected_value_pct": -9.47
       },
       {
         "tag": "VALUE_FIRST_MARKET_WITH_PICK",
@@ -2806,7 +2806,7 @@
     ],
     "top7_risk_penalty_points": 49.0,
     "top7_clean_bonus_points": 8.5,
-    "top7_quality_score": 39.44592857142858,
+    "top7_quality_score": 47.10461111111111,
     "corq_warning_flags": [
       "OPP_STRONG_FORM",
       "PICK_STRONG_FORM",
@@ -2824,20 +2824,15 @@
       "SHORT_PRICE_VALUE_GUARD_FAIL",
       "LOW_ODDS_FAVORITE_SORT_PENALTY",
       "VALUE_FIRST_MARKET_WITH_PICK",
-      "CORQ_RISK_FALLBACK",
+      "CORQ_LOW_EDGE",
       "CAP_CAP_SHORT_ODDS_145_WEAK_GAP",
-      "CAP_CAP_EV_UNDER_MINUS_12",
-      "CAP_CAP_PROB_GAP_UNDER_MINUS_7PP",
       "CAP_CAP_RELAXED_BY_MODEL_SUPPORT",
       "PENALTY_TOP7_SHORT_PRICE_VALUE_GUARD",
-      "PENALTY_TOP7_MODEL_VALUE_HARD_NEGATIVE",
-      "PENALTY_TOP7_EV_HARD_NEGATIVE",
       "PENALTY_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE",
       "RANKCAP_CAP_SHORT_ODDS_145_WEAK_GAP",
-      "RANKCAP_CAP_EV_UNDER_MINUS_12",
-      "RANKCAP_CAP_PROB_GAP_UNDER_MINUS_7PP",
       "RANKCAP_CAP_RELAXED_BY_MODEL_SUPPORT",
-      "PENALTY_MARKET_AGAINST_PICK"
+      "PENALTY_MARKET_AGAINST_PICK",
+      "CORQ_RISK_FALLBACK"
     ],
     "top7_support_tags": [
       "PICK_STRONG_FORM",
@@ -2860,53 +2855,47 @@
     "top7_combined_data_depth": 0.90525,
     "top7_sets_games_data_depth": 1.0,
     "top7_low_context_risk": false,
-    "top7_value_delta_pp": -8.96,
-    "top7_expected_value_pct": -12.54,
+    "top7_value_delta_pp": -6.57,
+    "top7_expected_value_pct": -9.47,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
     "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
     "corq_top7_selectable": true,
-    "corq_top7_sort_score": 39.44592857142858,
+    "corq_top7_sort_score": 47.10461111111111,
     "corq_top7_tier": "CORQ_RISK_FALLBACK",
     "corq_rank_cap": 4,
     "corq_rank_cap_reasons": [
       "CAP_SHORT_ODDS_145_WEAK_GAP",
-      "CAP_EV_UNDER_MINUS_12",
-      "CAP_PROB_GAP_UNDER_MINUS_7PP",
       "CAP_RELAXED_BY_MODEL_SUPPORT"
     ],
     "corq_top4_eligible": true,
-    "corq_probability_gap_pp": -8.958571428571426,
-    "corq_ev_pct_for_ranking": -12.54,
+    "corq_probability_gap_pp": -6.574444444444438,
+    "corq_ev_pct_for_ranking": -9.47,
     "corq_market_move_against": false,
     "corq_top7_reject_reasons": [],
     "corq_top7_fatal_reject_reasons": [],
     "corq_top7_soft_penalty_reasons": [
       "PENALTY_TOP7_SHORT_PRICE_VALUE_GUARD",
-      "PENALTY_TOP7_MODEL_VALUE_HARD_NEGATIVE",
-      "PENALTY_TOP7_EV_HARD_NEGATIVE",
       "PENALTY_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE",
       "RANKCAP_CAP_SHORT_ODDS_145_WEAK_GAP",
-      "RANKCAP_CAP_EV_UNDER_MINUS_12",
-      "RANKCAP_CAP_PROB_GAP_UNDER_MINUS_7PP",
       "RANKCAP_CAP_RELAXED_BY_MODEL_SUPPORT",
       "PENALTY_MARKET_AGAINST_PICK"
     ],
     "corq_top7_audit_note": "v8_hard_rejects_only_soft_penalties_separated",
     "corq_rank_audit_tags": [
       "CORQ_TOP7_RANK_CAP_PRICE_GAP_V7",
-      "CORQ_RISK_FALLBACK",
+      "CORQ_LOW_EDGE",
       "RANKCAP_CAP_SHORT_ODDS_145_WEAK_GAP",
-      "RANKCAP_CAP_EV_UNDER_MINUS_12",
-      "RANKCAP_CAP_PROB_GAP_UNDER_MINUS_7PP",
       "RANKCAP_CAP_RELAXED_BY_MODEL_SUPPORT",
-      "CORQ_TOP7_AUDIT_CLEANUP_V8"
+      "CORQ_TOP7_AUDIT_CLEANUP_V8",
+      "CORQ_RISK_FALLBACK"
     ],
     "corq_top7_legacy_reject_reasons": [
       "REJECT_TOP7_SHORT_PRICE_VALUE_GUARD",
-      "REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
-      "REJECT_TOP7_EV_HARD_NEGATIVE",
       "REJECT_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.6287,
+    "top7_probability_guard_passed": true,
     "corq_rank": 11
   },
   {
@@ -3158,16 +3147,16 @@
     "odds_label_2": "2",
     "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
-    "odds_player1": 1.4,
-    "odds_player2": 3.0,
-    "p1_odds": 1.4,
-    "p2_odds": 3.0,
-    "home_odds": 1.4,
-    "away_odds": 3.0,
-    "odds1": 1.4,
-    "odds2": 3.0,
-    "price1": 1.4,
-    "price2": 3.0,
+    "odds_player1": 1.44,
+    "odds_player2": 2.75,
+    "p1_odds": 1.44,
+    "p2_odds": 2.75,
+    "home_odds": 1.44,
+    "away_odds": 2.75,
+    "odds1": 1.44,
+    "odds2": 2.75,
+    "price1": 1.44,
+    "price2": 2.75,
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16661633/odds/1/all",
     "odds_status": "OK",
@@ -3176,8 +3165,8 @@
     ],
     "odds_pair_available": true,
     "odds_labels_confirmed": true,
-    "odds_gap_abs": 1.6,
-    "odds_gap_pct": 1.1429,
+    "odds_gap_abs": 1.31,
+    "odds_gap_pct": 0.9097,
     "home_player": "Rafael Jodar",
     "away_player": "Brandon Nakashima",
     "pick_side": "AWAY",
@@ -3187,19 +3176,19 @@
     "odds": {
       "od1": {
         "opening": 1.4,
-        "latest": 1.4,
-        "current": 1.4,
-        "change": 0.0
+        "latest": 1.44,
+        "current": 1.44,
+        "change": 1.0
       },
       "od2": {
         "opening": 3.0,
-        "latest": 3.0,
-        "current": 3.0,
-        "change": 0.0
+        "latest": 2.75,
+        "current": 2.75,
+        "change": -1.0
       }
     },
-    "pick_odds": 3.0,
-    "opponent_odds": 1.4,
+    "pick_odds": 2.75,
+    "opponent_odds": 1.44,
     "pick_is_player1": false,
     "pick_is_player2": true,
     "pick_is_home": false,
@@ -3520,7 +3509,7 @@
         "tiebreak_edge": -0.0013,
         "decider_edge": 0.0001,
         "confidence": 0.78,
-        "odds_gap_pct": 1.1429,
+        "odds_gap_pct": 0.9097,
         "flags": [
           "MATCH_DYNAMICS_H2H_NEUTRAL"
         ]
@@ -3640,7 +3629,7 @@
           "tiebreak_edge": -0.0013,
           "decider_edge": 0.0001,
           "confidence": 0.78,
-          "odds_gap_pct": 1.1429,
+          "odds_gap_pct": 0.9097,
           "flags": [
             "MATCH_DYNAMICS_H2H_NEUTRAL"
           ]
@@ -4967,7 +4956,7 @@
       "tiebreak_edge": -0.0013,
       "decider_edge": 0.0001,
       "confidence": 0.78,
-      "odds_gap_pct": 1.1429,
+      "odds_gap_pct": 0.9097,
       "flags": [
         "MATCH_DYNAMICS_H2H_NEUTRAL"
       ]
@@ -5156,7 +5145,7 @@
     "api_h2h_stats_request_no": 2,
     "api_h2h_resolution": "DISABLED",
     "api_h2h_disabled_reason": "TENNISAPI_H2H_STATS_ENABLED is not enabled",
-    "implied_probability": 0.3333,
+    "implied_probability": 0.3636,
     "pick_last10_count": 10,
     "opponent_last10_count": 10,
     "pick_surface_count": 8,
@@ -5177,10 +5166,10 @@
     },
     "corq_raw_model_edge": -0.1169,
     "corq_confidence_factor": 0.82,
-    "corq_estimated_win_probability": 0.3753,
-    "estimated_win_pct": 37.53,
-    "corq_score": 0.3753,
-    "corq_edge": 0.042,
+    "corq_estimated_win_probability": 0.3744,
+    "estimated_win_pct": 37.44,
+    "corq_score": 0.3744,
+    "corq_edge": 0.0108,
     "corq_risk_flags": [],
     "ranking_source": "TENNISAPI_RANKINGS",
     "ranking_status": "OK",
@@ -5255,26 +5244,26 @@
       "TA profile missing or no usable scoped stats"
     ],
     "ta_signal_score_projection": "N/A",
-    "expected_sets": 2.42,
+    "expected_sets": 2.43,
     "sets_selection": "O2.5",
-    "sets_probability": 0.4206,
+    "sets_probability": 0.4295,
     "sets_probability_label": "O2.5",
-    "sets_o25_probability": 0.4206,
+    "sets_o25_probability": 0.4295,
     "sets_o45_probability": null,
     "most_likely_score": "2-0",
-    "most_likely_score_probability": 0.4532,
+    "most_likely_score_probability": 0.4284,
     "score_probabilities": {
-      "2-0": 0.4532,
-      "2-1": 0.2868,
-      "1-2": 0.1338,
-      "0-2": 0.1261
+      "2-0": 0.4284,
+      "2-1": 0.2819,
+      "1-2": 0.1476,
+      "0-2": 0.142
     },
     "score_basis": "player1_vs_player2",
     "sets_source": "Model",
-    "first_set_player1_odds": 1.5,
-    "first_set_player2_odds": 2.625,
-    "first_set_player1_probability": 0.6363636363636365,
-    "first_set_player2_probability": 0.3636363636363637,
+    "first_set_player1_odds": 1.53333,
+    "first_set_player2_odds": 2.5,
+    "first_set_player1_probability": 0.6198352230043165,
+    "first_set_player2_probability": 0.3801647769956835,
     "expected_games": 22.5,
     "projected_total_games": 22.5,
     "games_line": 22.5,
@@ -5340,8 +5329,8 @@
     "total_aces_probability": 0.5349,
     "aces_source": "TA A% + projected service points",
     "best_bet": "O2.5",
-    "best_bet_display": "O2.5 42%",
-    "best_bet_probability": 0.4206,
+    "best_bet_display": "O2.5 43%",
+    "best_bet_probability": 0.4295,
     "best_bet_market": "Sets",
     "sets_games_value_candidates": [],
     "value_bet": null,
@@ -5352,9 +5341,9 @@
     "marq_source": "tennisapi_market_quality_v2",
     "marq_api_source": "TennisApi RapidAPI",
     "marq_source_policy": "TENNISAPI_ONLY_EXACT_EVENT",
-    "marq_source_quality": "EXACT_CURRENT_ODDS_ONLY",
-    "marq_data_status": "EXACT_CURRENT_ODDS_ONLY",
-    "marq_confidence": "MEDIUM",
+    "marq_source_quality": "EXACT_BETTING_ODDS_WITH_OPENING",
+    "marq_data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+    "marq_confidence": "HIGH",
     "marq_exact_event_id_used": true,
     "marq_name_matching_skipped": true,
     "marq_date_feed_skipped": true,
@@ -5377,20 +5366,20 @@
         "market_period": "Match",
         "market_id": 1,
         "source_id": 199428808,
-        "odds_1": 1.4,
-        "odds_2": 3.0,
+        "odds_1": 1.44,
+        "odds_2": 2.75,
         "initial_1": 1.4,
         "initial_2": 3.0,
         "opening_1": 1.4,
         "opening_2": 3.0,
-        "change_1": 0.0,
-        "change_2": 0.0,
+        "change_1": 1.0,
+        "change_2": -1.0,
         "choice_source_id_1": 1889598252,
         "choice_source_id_2": 1889598328,
-        "marq_v2_no_vig_1": 0.6818181818181818,
-        "marq_v2_no_vig_2": 0.3181818181818181,
-        "marq_v2_overround": 1.0476190476190477,
-        "marq_v2_movement_status": "OPENING_EQUALS_CURRENT",
+        "marq_v2_no_vig_1": 0.6563245823389022,
+        "marq_v2_no_vig_2": 0.3436754176610979,
+        "marq_v2_overround": 1.058080808080808,
+        "marq_v2_movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
         "provider_odds_market_count": 3,
         "provider_odds_has_full_time": true,
         "provider_odds_fetch_version": "2026-08-04-tennisapi-only-marq-v2",
@@ -5455,24 +5444,24 @@
     "marq_endpoint_name": "getAllOddsForEvent",
     "marq_market_count": 3,
     "marq_has_full_time": true,
-    "marq_current_odds_1": 1.4,
-    "marq_current_odds_2": 3.0,
+    "marq_current_odds_1": 1.44,
+    "marq_current_odds_2": 2.75,
     "marq_opening_odds_1": 1.4,
     "marq_opening_odds_2": 3.0,
-    "marq_change_1": 0.0,
-    "marq_change_2": 0.0,
-    "marq_no_vig_probability_1": 0.681818,
-    "marq_no_vig_probability_2": 0.318182,
-    "marq_overround": 1.047619,
-    "marq_movement_status": "OPENING_EQUALS_CURRENT",
-    "marq_internal_move_signal": "Stable",
-    "marq_display_move_signal": "Stable",
-    "marq_move_signal": "Stable",
-    "marq_move_direction": "Stable",
-    "marq_move_pct": 0.0,
-    "marq_move_range": "3.0 -> 3.0",
+    "marq_change_1": 1.0,
+    "marq_change_2": -1.0,
+    "marq_no_vig_probability_1": 0.656325,
+    "marq_no_vig_probability_2": 0.343675,
+    "marq_overround": 1.058081,
+    "marq_movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+    "marq_internal_move_signal": "Toward pick",
+    "marq_display_move_signal": "Toward pick",
+    "marq_move_signal": "Toward pick",
+    "marq_move_direction": "Toward",
+    "marq_move_pct": 8.3,
+    "marq_move_range": "3.0 -> 2.75",
     "marq_move_earliest_odds": 3.0,
-    "marq_move_latest_odds": 3.0,
+    "marq_move_latest_odds": 2.75,
     "bet365_disabled": true,
     "tennis_live_disabled": true,
     "marq_removed_sources": [
@@ -5482,82 +5471,88 @@
       "non-exact event discovery for MARQ"
     ],
     "marq_fetch_version": "2026-08-04-tennisapi-only-marq-v2",
-    "marq_crowd_pick_pct": 31.8,
-    "marq_pick_probability": 0.318182,
-    "marq_pick_no_vig_probability": 0.318182,
-    "market_pick_probability": 0.318182,
-    "corq_market_probability": 0.3182,
-    "marq_edge_pct": -18.2,
-    "marq_crowd_opponent_pct": 68.2,
-    "marq_opp_no_vig_probability": 0.681818,
+    "marq_crowd_pick_pct": 34.4,
+    "marq_pick_probability": 0.343675,
+    "marq_pick_no_vig_probability": 0.343675,
+    "market_pick_probability": 0.343675,
+    "corq_market_probability": 0.3437,
+    "marq_edge_pct": -15.6,
+    "marq_crowd_opponent_pct": 65.6,
+    "marq_opp_no_vig_probability": 0.656325,
     "marq_final": "Market Against Pick",
     "marq_final_display": "Market Against Pick",
     "marq_market_view": true,
     "marq_provider_count": 1,
     "marq_market_name": "Match winner",
-    "marq_quality_signal": "EXACT_CURRENT_ODDS_ONLY",
-    "corq_marq_quality_tier": "MEDIUM_CURRENT_ONLY",
-    "corq_marq_weight_reason": "exact TennisApi current odds only, no real movement signal",
+    "marq_quality_signal": "EXACT_BETTING_ODDS_WITH_OPENING",
+    "corq_marq_quality_tier": "HIGH",
+    "corq_marq_weight_reason": "exact TennisApi odds with real opening/current market data; real movement supports pick, market brake reduced",
     "corq_raw_model_probability": 0.3831,
     "corq_raw_model_probability_pct": 38.31,
-    "corq_market_probability_pct": 31.82,
-    "corq_model_weight": 0.88,
-    "corq_market_weight": 0.12,
-    "corq_model_mix_label": "ThinQ 88% / MarQ 12%",
-    "corq_thinq_input_pp": 33.71,
-    "corq_marq_input_pp": 3.82,
-    "corq_calibrated_probability": 0.3753,
-    "corq_calibrated_probability_pct": 37.53,
-    "corq_market_adjustment_pp": -0.78,
-    "corq_calibration_method": "DYNAMIC_MARQ_WEIGHT_MEDIUM_CURRENT_ONLY",
+    "corq_market_probability_pct": 34.37,
+    "corq_model_weight": 0.78,
+    "corq_market_weight": 0.22,
+    "corq_model_mix_label": "ThinQ 78% / MarQ 22%",
+    "corq_thinq_input_pp": 29.88,
+    "corq_marq_input_pp": 7.56,
+    "corq_calibrated_probability": 0.3744,
+    "corq_calibrated_probability_pct": 37.44,
+    "corq_market_adjustment_pp": -0.87,
+    "corq_calibration_method": "DYNAMIC_MARQ_WEIGHT_HIGH",
     "corq_marq_dynamic_weight_version": "2026-08-04-marq-dynamic-weight-v1",
-    "corq_probability": 0.3753,
-    "probability": 0.3753,
-    "value_edge": 0.042,
-    "edge": 0.042,
-    "corq_value_delta_pp": 4.2,
-    "expected_value_pct": 12.59,
+    "corq_probability": 0.3744,
+    "probability": 0.3744,
+    "value_edge": 0.0108,
+    "edge": 0.0108,
+    "corq_value_delta_pp": 1.08,
+    "expected_value_pct": 2.96,
     "marq_v2_model_probability": 0.3831,
-    "marq_v2_market_probability": 0.3182,
-    "marq_v2_value_delta_pp": 6.49,
-    "marq_v2_expected_value_pct": 14.93,
-    "marq_v2_data_status": "EXACT_CURRENT_ODDS_ONLY",
-    "marq_v2_confidence": "MEDIUM",
-    "marq_v2_movement_status": "OPENING_EQUALS_CURRENT",
-    "raw_implied_probability": 0.333333,
-    "raw_implied_probability_pct": 33.33,
-    "break_even_probability": 0.333333,
-    "break_even_probability_pct": 33.33,
-    "expected_value": 0.1259,
+    "marq_v2_market_probability": 0.3437,
+    "marq_v2_value_delta_pp": 3.94,
+    "marq_v2_expected_value_pct": 5.35,
+    "marq_v2_data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+    "marq_v2_confidence": "HIGH",
+    "marq_v2_movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+    "raw_implied_probability": 0.363636,
+    "raw_implied_probability_pct": 36.36,
+    "break_even_probability": 0.363636,
+    "break_even_probability_pct": 36.36,
+    "expected_value": 0.0296,
     "price_value_grade": "LONG_RISK",
-    "price_value_tag": "VALUE_POSITIVE",
-    "price_value_display": "Long Risk | Value+",
+    "price_value_tag": "VALUE_NEUTRAL",
+    "price_value_display": "Long Risk | Neutral",
     "price_value_status": "OK",
     "price_value_tags": [
       "LONG_RISK",
-      "VALUE_POSITIVE"
+      "VALUE_NEUTRAL"
     ],
     "corq_source_rank": 52,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "top7_publishable": true,
-    "eligible_for_top7": true,
-    "top7_quality_reject_reasons": [],
-    "top7_reject_reasons": [],
-    "top7_hard_reject_reasons": [],
-    "top7_primary_reject_reason": null,
-    "top7_reject_reason_count": 0,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
+    "top7_publishable": false,
+    "eligible_for_top7": false,
+    "top7_quality_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_hard_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_reject_reason_count": 1,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
     "top7_status_code": 0,
-    "top7_corq_probability": 0.3753,
+    "top7_corq_probability": 0.3744,
     "top7_pick_thinq_edge": -0.1425,
     "top7_thinq_confidence": 0.84,
     "top7_thinq_data_confidence": 0.84,
     "top7_thinq_pick_probability": 0.3831,
     "pick_data_depth": 0.9005,
     "stat_data_depth": 0.9005,
-    "top7_pick_odds": 3.0,
+    "top7_pick_odds": 2.75,
     "top7_match_date_local": "2026-08-13",
     "recent_form_reason": "",
     "recent_form_sample_audit": {
@@ -5570,7 +5565,7 @@
       "history_match_count": 37883
     },
     "low_data_risk_audit": {
-      "corq_probability": 0.3753,
+      "corq_probability": 0.3744,
       "pick_thinq_edge": -0.1425,
       "pick_data_depth": 0.9005,
       "form_data_depth": 0.85,
@@ -5591,7 +5586,6 @@
       "OPP_STRONG_FORM",
       "ELO_AGAINST_PICK",
       "MARKET_AGAINST_PICK",
-      "MARKET_STRONG_AGAINST_PICK",
       "MULTI_RISK_PICK",
       "HIGH_RISK_PICK"
     ],
@@ -5599,7 +5593,6 @@
       "Opp strong",
       "ELO against pick",
       "Market against pick",
-      "Market strongly against pick",
       "Multiple risk signals",
       "High Risk"
     ],
@@ -5625,70 +5618,46 @@
       {
         "tag": "MARKET_AGAINST_PICK",
         "penalty": 3.5,
-        "marq_edge": -18.2,
-        "market_delta": -0.78
+        "marq_edge": -15.6,
+        "market_delta": -0.87
       },
       {
         "tag": "VALUE_POSITIVE",
         "bonus": 1.5,
-        "value": 4.2
-      },
-      {
-        "tag": "MARKET_STRONG_AGAINST_PICK",
-        "penalty": 3.0,
-        "pick_odds": 3.0,
-        "opponent_odds": 1.4
+        "value": 1.08
       },
       {
         "tag": "MULTI_RISK_PICK",
         "penalty": 3.0,
-        "risk_count": 4
+        "risk_count": 3
       },
       {
         "tag": "HIGH_RISK_PICK",
         "penalty": 4.0,
-        "risk_count": 4,
-        "penalty_before_high_risk": 16.5
+        "risk_count": 3,
+        "penalty_before_high_risk": 13.5
       },
       {
         "tag": "VALUE_POSITIVE_CONFIRMED",
         "bonus": 2.5,
-        "value_delta_pp": 4.2
-      },
-      {
-        "tag": "VALUE_FIRST_MARKET_WITH_PICK",
-        "bonus": 2.0
-      },
-      {
-        "tag": "VALUE_FIRST_STRONG_DELTA",
-        "bonus": 2.0,
-        "value_delta_pp": 4.2
-      },
-      {
-        "tag": "VALUE_FIRST_STRONG_EV",
-        "bonus": 2.0,
-        "expected_value_pct": 12.59
+        "value_delta_pp": 1.08
       }
     ],
-    "top7_risk_penalty_points": 20.5,
-    "top7_clean_bonus_points": 12.0,
-    "top7_quality_score": 69.96283333333335,
+    "top7_risk_penalty_points": 17.5,
+    "top7_clean_bonus_points": 6.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "OPP_STRONG_FORM",
       "PICK_STRONG_FORM",
       "ELO_AGAINST_PICK",
       "MARKET_AGAINST_PICK",
       "VALUE_POSITIVE",
-      "MARKET_STRONG_AGAINST_PICK",
       "MULTI_RISK_PICK",
       "HIGH_RISK_PICK",
       "VALUE_POSITIVE_CONFIRMED",
-      "VALUE_FIRST_MARKET_WITH_PICK",
-      "VALUE_FIRST_STRONG_DELTA",
-      "VALUE_FIRST_STRONG_EV",
       "CORQ_NOT_SELECTABLE",
       "CAP_NOT_SELECTABLE",
-      "CORQ_CLEAN",
+      "CORQ_PLAYABLE",
       "PENALTY_TOP7_CORQ_BELOW_50",
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
       "RANKCAP_NOT_SELECTABLE",
@@ -5697,37 +5666,31 @@
     "top7_support_tags": [
       "PICK_STRONG_FORM",
       "VALUE_POSITIVE",
-      "VALUE_POSITIVE_CONFIRMED",
-      "VALUE_FIRST_MARKET_WITH_PICK",
-      "VALUE_FIRST_STRONG_DELTA",
-      "VALUE_FIRST_STRONG_EV"
+      "VALUE_POSITIVE_CONFIRMED"
     ],
     "top7_support_labels": [
       "Pick strong",
       "Value+",
-      "Value positive",
-      "Market with pick",
-      "Strong value delta",
-      "Strong EV"
+      "Value positive"
     ],
-    "top7_positive_support_count": 6,
-    "top7_risk_count": 6,
+    "top7_positive_support_count": 3,
+    "top7_risk_count": 5,
     "top7_high_risk": true,
     "top7_combined_data_depth": 0.90525,
     "top7_sets_games_data_depth": 1.0,
     "top7_low_context_risk": false,
-    "top7_value_delta_pp": 4.2,
-    "top7_expected_value_pct": 12.59,
+    "top7_value_delta_pp": 1.08,
+    "top7_expected_value_pct": 2.96,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
     "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "corq_top7_selectable": true,
-    "corq_top7_sort_score": 69.96283333333335,
-    "corq_top7_tier": "CORQ_CLEAN",
+    "corq_top7_selectable": false,
+    "corq_top7_sort_score": 60.57463636363636,
+    "corq_top7_tier": "CORQ_PLAYABLE",
     "corq_rank_cap": 4,
     "corq_rank_cap_reasons": [],
     "corq_top4_eligible": true,
-    "corq_probability_gap_pp": 4.196666666666671,
-    "corq_ev_pct_for_ranking": 12.59,
+    "corq_probability_gap_pp": 1.0763636363636364,
+    "corq_ev_pct_for_ranking": 2.96,
     "corq_market_move_against": false,
     "corq_top7_reject_reasons": [],
     "corq_top7_fatal_reject_reasons": [],
@@ -5743,12 +5706,15 @@
       "CORQ_NOT_SELECTABLE",
       "RANKCAP_NOT_SELECTABLE",
       "CORQ_TOP7_AUDIT_CLEANUP_V8",
-      "CORQ_CLEAN"
+      "CORQ_PLAYABLE"
     ],
     "corq_top7_legacy_reject_reasons": [
       "REJECT_TOP7_CORQ_BELOW_50",
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.3744,
+    "top7_probability_guard_passed": false,
     "corq_rank": 52
   },
   {
@@ -8374,14 +8340,20 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 39,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "top7_publishable": true,
-    "eligible_for_top7": true,
-    "top7_quality_reject_reasons": [],
-    "top7_reject_reasons": [],
-    "top7_hard_reject_reasons": [],
-    "top7_primary_reject_reason": null,
-    "top7_reject_reason_count": 0,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
+    "top7_publishable": false,
+    "eligible_for_top7": false,
+    "top7_quality_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_hard_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_reject_reason_count": 1,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -8469,7 +8441,7 @@
     ],
     "top7_risk_penalty_points": 3.5,
     "top7_clean_bonus_points": 11.0,
-    "top7_quality_score": 94.6631711026616,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "H2H_SUPPORT_PICK",
       "MARKET_AGAINST_PICK",
@@ -8512,7 +8484,7 @@
     "top7_expected_value_pct": 24.24,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
     "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "corq_top7_selectable": true,
+    "corq_top7_selectable": false,
     "corq_top7_sort_score": 94.6631711026616,
     "corq_top7_tier": "CORQ_CLEAN",
     "corq_rank_cap": 4,
@@ -8541,11 +8513,10 @@
       "REJECT_TOP7_CORQ_BELOW_50",
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK"
     ],
-    "corq_rank": 6,
-    "top7_rank": 6,
-    "corq_top7_forced_rank_selection": true,
-    "top7_selection_count_target": 7,
-    "corq_top7_selection_pass": "fallback_5_7"
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.4724,
+    "top7_probability_guard_passed": false,
+    "corq_rank": 39
   },
   {
     "match_id": 16661634,
@@ -11170,7 +11141,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 24,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "top7_quality_reject_reasons": [],
@@ -11381,6 +11352,9 @@
       "REJECT_TOP7_EV_HARD_NEGATIVE",
       "REJECT_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.5276,
+    "top7_probability_guard_passed": true,
     "corq_rank": 24
   },
   {
@@ -14003,7 +13977,7 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 1,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "top7_quality_reject_reasons": [],
@@ -14180,7 +14154,7 @@
     "top7_value_delta_pp": 8.05,
     "top7_expected_value_pct": 13.42,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
-    "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_selection_model_version": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "corq_top7_selectable": true,
     "corq_top7_sort_score": 123.51827998440031,
     "corq_top7_tier": "CORQ_CLEAN",
@@ -14200,11 +14174,11 @@
       "CORQ_TOP7_AUDIT_CLEANUP_V8"
     ],
     "corq_top7_legacy_reject_reasons": [],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.6805,
+    "top7_probability_guard_passed": true,
     "corq_rank": 1,
-    "top7_rank": 1,
-    "corq_top7_forced_rank_selection": true,
-    "top7_selection_count_target": 7,
-    "corq_top7_selection_pass": "top4_quality"
+    "top7_rank": 1
   },
   {
     "match_id": 16784132,
@@ -16826,14 +16800,20 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 62,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "top7_publishable": true,
-    "eligible_for_top7": true,
-    "top7_quality_reject_reasons": [],
-    "top7_reject_reasons": [],
-    "top7_hard_reject_reasons": [],
-    "top7_primary_reject_reason": null,
-    "top7_reject_reason_count": 0,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
+    "top7_publishable": false,
+    "eligible_for_top7": false,
+    "top7_quality_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_hard_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_reject_reason_count": 1,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -16957,7 +16937,7 @@
     ],
     "top7_risk_penalty_points": 33.5,
     "top7_clean_bonus_points": 1.5,
-    "top7_quality_score": -1.5625,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "PICK_WEAK_FORM",
       "OPP_STRONG_FORM",
@@ -16998,7 +16978,7 @@
     "top7_expected_value_pct": -32.9,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
     "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "corq_top7_selectable": true,
+    "corq_top7_selectable": false,
     "corq_top7_sort_score": -1.5625,
     "corq_top7_tier": "CORQ_RISK_FALLBACK",
     "corq_rank_cap": 6,
@@ -17040,6 +17020,9 @@
       "REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
       "REJECT_TOP7_EV_HARD_NEGATIVE"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.3195,
+    "top7_probability_guard_passed": false,
     "corq_rank": 62
   },
   {
@@ -19670,7 +19653,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 2,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "top7_quality_reject_reasons": [],
@@ -19840,7 +19823,7 @@
     "top7_value_delta_pp": -4.63,
     "top7_expected_value_pct": -6.48,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
-    "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_selection_model_version": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "corq_top7_selectable": true,
     "corq_top7_sort_score": 62.04842857142857,
     "corq_top7_tier": "CORQ_PLAYABLE",
@@ -19866,7 +19849,11 @@
     "corq_top7_legacy_reject_reasons": [
       "REJECT_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE"
     ],
-    "corq_rank": 2
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.668,
+    "top7_probability_guard_passed": true,
+    "corq_rank": 2,
+    "top7_rank": 7
   },
   {
     "match_id": 16784161,
@@ -22496,14 +22483,20 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 61,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "top7_publishable": true,
-    "eligible_for_top7": true,
-    "top7_quality_reject_reasons": [],
-    "top7_reject_reasons": [],
-    "top7_hard_reject_reasons": [],
-    "top7_primary_reject_reason": null,
-    "top7_reject_reason_count": 0,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
+    "top7_publishable": false,
+    "eligible_for_top7": false,
+    "top7_quality_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_hard_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_reject_reason_count": 1,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -22604,7 +22597,7 @@
     ],
     "top7_risk_penalty_points": 19.5,
     "top7_clean_bonus_points": 1.5,
-    "top7_quality_score": 27.351636363636374,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "ELO_AGAINST_PICK",
       "MARKET_AGAINST_PICK",
@@ -22638,7 +22631,7 @@
     "top7_expected_value_pct": -8.7,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
     "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "corq_top7_selectable": true,
+    "corq_top7_selectable": false,
     "corq_top7_sort_score": 27.351636363636374,
     "corq_top7_tier": "CORQ_RISK_FALLBACK",
     "corq_rank_cap": 4,
@@ -22669,6 +22662,9 @@
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_THINQ_BELOW_50_AND_NEGATIVE_VALUE"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.332,
+    "top7_probability_guard_passed": false,
     "corq_rank": 61
   },
   {
@@ -25291,15 +25287,21 @@
       "FAIR",
       "VALUE_NEGATIVE"
     ],
-    "corq_source_rank": 34,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "top7_publishable": true,
-    "eligible_for_top7": true,
-    "top7_quality_reject_reasons": [],
-    "top7_reject_reasons": [],
-    "top7_hard_reject_reasons": [],
-    "top7_primary_reject_reason": null,
-    "top7_reject_reason_count": 0,
+    "corq_source_rank": 35,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
+    "top7_publishable": false,
+    "eligible_for_top7": false,
+    "top7_quality_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_hard_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_reject_reason_count": 1,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -25403,7 +25405,7 @@
     ],
     "top7_risk_penalty_points": 15.5,
     "top7_clean_bonus_points": 3.5,
-    "top7_quality_score": 48.916543083128175,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "FORM_SUPPORT_PICK",
       "SURFACE_SUPPORT_PICK",
@@ -25442,7 +25444,7 @@
     "top7_expected_value_pct": -7.68,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
     "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "corq_top7_selectable": true,
+    "corq_top7_selectable": false,
     "corq_top7_sort_score": 48.916543083128175,
     "corq_top7_tier": "CORQ_LOW_EDGE",
     "corq_rank_cap": 4,
@@ -25473,7 +25475,10 @@
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_THINQ_BELOW_50_AND_NEGATIVE_VALUE"
     ],
-    "corq_rank": 34
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.4836,
+    "top7_probability_guard_passed": false,
+    "corq_rank": 35
   },
   {
     "match_id": 16784130,
@@ -28095,8 +28100,8 @@
       "FAIR",
       "VALUE_NEGATIVE"
     ],
-    "corq_source_rank": 29,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "corq_source_rank": 28,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "top7_quality_reject_reasons": [],
@@ -28227,7 +28232,10 @@
       "CORQ_TOP7_AUDIT_CLEANUP_V8"
     ],
     "corq_top7_legacy_reject_reasons": [],
-    "corq_rank": 29
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.5164,
+    "top7_probability_guard_passed": true,
+    "corq_rank": 28
   },
   {
     "match_id": 16784159,
@@ -30844,14 +30852,20 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 60,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "top7_publishable": true,
-    "eligible_for_top7": true,
-    "top7_quality_reject_reasons": [],
-    "top7_reject_reasons": [],
-    "top7_hard_reject_reasons": [],
-    "top7_primary_reject_reason": null,
-    "top7_reject_reason_count": 0,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
+    "top7_publishable": false,
+    "eligible_for_top7": false,
+    "top7_quality_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_hard_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_reject_reason_count": 1,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -30972,7 +30986,7 @@
     ],
     "top7_risk_penalty_points": 20.5,
     "top7_clean_bonus_points": 10.0,
-    "top7_quality_score": 66.22457142857144,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "OPP_STRONG_FORM",
       "ELO_AGAINST_PICK",
@@ -31017,7 +31031,7 @@
     "top7_expected_value_pct": 17.95,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
     "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "corq_top7_selectable": true,
+    "corq_top7_selectable": false,
     "corq_top7_sort_score": 66.22457142857144,
     "corq_top7_tier": "CORQ_PLAYABLE",
     "corq_rank_cap": 4,
@@ -31046,6 +31060,9 @@
       "REJECT_TOP7_CORQ_BELOW_50",
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.337,
+    "top7_probability_guard_passed": false,
     "corq_rank": 60
   },
   {
@@ -33663,7 +33680,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 3,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "top7_quality_reject_reasons": [],
@@ -33936,6 +33953,9 @@
       "REJECT_TOP7_EV_HARD_NEGATIVE",
       "REJECT_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.663,
+    "top7_probability_guard_passed": true,
     "corq_rank": 3
   },
   {
@@ -36377,21 +36397,24 @@
     "marq_v2_confidence": null,
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
-    "corq_source_rank": 35,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "corq_source_rank": 36,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_primary_reject_reason": "REJECT_TOP7_MISSING_ODDS",
-    "top7_reject_reason_count": 1,
+    "top7_reject_reason_count": 2,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -36456,7 +36479,7 @@
     ],
     "top7_risk_penalty_points": 2.5,
     "top7_clean_bonus_points": 1.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "MARKET_WITH_PICK",
       "LOW_DATA_CONFIDENCE",
@@ -36517,7 +36540,10 @@
       "REJECT_TOP7_MISSING_ODDS",
       "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
     ],
-    "corq_rank": 35
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.483,
+    "top7_probability_guard_passed": false,
+    "corq_rank": 36
   },
   {
     "match_id": 16796176,
@@ -38958,8 +38984,8 @@
     "marq_v2_confidence": null,
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
-    "corq_source_rank": 28,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "corq_source_rank": 27,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
@@ -39052,7 +39078,7 @@
     ],
     "top7_risk_penalty_points": 2.5,
     "top7_clean_bonus_points": 4.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "FORM_SUPPORT_PICK",
       "SURFACE_SUPPORT_PICK",
@@ -39116,7 +39142,10 @@
       "REJECT_TOP7_MISSING_ODDS",
       "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
     ],
-    "corq_rank": 28
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.517,
+    "top7_probability_guard_passed": false,
+    "corq_rank": 27
   },
   {
     "match_id": 16796000,
@@ -41742,14 +41771,20 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 58,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "top7_publishable": true,
-    "eligible_for_top7": true,
-    "top7_quality_reject_reasons": [],
-    "top7_reject_reasons": [],
-    "top7_hard_reject_reasons": [],
-    "top7_primary_reject_reason": null,
-    "top7_reject_reason_count": 0,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
+    "top7_publishable": false,
+    "eligible_for_top7": false,
+    "top7_quality_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_hard_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_reject_reason_count": 1,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -41862,7 +41897,7 @@
     ],
     "top7_risk_penalty_points": 24.5,
     "top7_clean_bonus_points": 2.5,
-    "top7_quality_score": 1.6495000000000033,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "FORM_SUPPORT_PICK",
       "ELO_AGAINST_PICK",
@@ -41904,7 +41939,7 @@
     "top7_expected_value_pct": -30.28,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
     "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "corq_top7_selectable": true,
+    "corq_top7_selectable": false,
     "corq_top7_sort_score": 1.6495000000000033,
     "corq_top7_tier": "CORQ_RISK_FALLBACK",
     "corq_rank_cap": 6,
@@ -41946,6 +41981,9 @@
       "REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
       "REJECT_TOP7_EV_HARD_NEGATIVE"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.3486,
+    "top7_probability_guard_passed": false,
     "corq_rank": 58
   },
   {
@@ -44572,7 +44610,7 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 5,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "top7_quality_reject_reasons": [],
@@ -44732,7 +44770,7 @@
     "top7_value_delta_pp": 7.25,
     "top7_expected_value_pct": 12.52,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
-    "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_selection_model_version": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "corq_top7_selectable": true,
     "corq_top7_sort_score": 122.21451522607539,
     "corq_top7_tier": "CORQ_CLEAN",
@@ -44752,11 +44790,11 @@
       "CORQ_TOP7_AUDIT_CLEANUP_V8"
     ],
     "corq_top7_legacy_reject_reasons": [],
-    "corq_rank": 2,
-    "top7_rank": 2,
-    "corq_top7_forced_rank_selection": true,
-    "top7_selection_count_target": 7,
-    "corq_top7_selection_pass": "top4_quality"
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.6514,
+    "top7_probability_guard_passed": true,
+    "corq_rank": 5,
+    "top7_rank": 2
   },
   {
     "match_id": 16799575,
@@ -47192,7 +47230,7 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 10,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
@@ -47281,7 +47319,7 @@
     ],
     "top7_risk_penalty_points": 0.0,
     "top7_clean_bonus_points": 5.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "H2H_SUPPORT_PICK",
       "FORM_SUPPORT_PICK",
@@ -47344,6 +47382,9 @@
     "corq_top7_legacy_reject_reasons": [
       "REJECT_TOP7_MISSING_ODDS"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.635,
+    "top7_probability_guard_passed": false,
     "corq_rank": 10
   },
   {
@@ -49780,20 +49821,23 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 53,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_primary_reject_reason": "REJECT_TOP7_MISSING_ODDS",
-    "top7_reject_reason_count": 1,
+    "top7_reject_reason_count": 2,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -49862,7 +49906,7 @@
     ],
     "top7_risk_penalty_points": 2.0,
     "top7_clean_bonus_points": 2.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "SURFACE_SUPPORT_PICK",
       "ELO_AGAINST_PICK",
@@ -49923,6 +49967,9 @@
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_MISSING_ODDS"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.365,
+    "top7_probability_guard_passed": false,
     "corq_rank": 53
   },
   {
@@ -52347,20 +52394,23 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 41,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_primary_reject_reason": "REJECT_TOP7_MISSING_ODDS",
-    "top7_reject_reason_count": 1,
+    "top7_reject_reason_count": 2,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -52430,7 +52480,7 @@
     ],
     "top7_risk_penalty_points": 2.0,
     "top7_clean_bonus_points": 2.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "ELO_SUPPORT_PICK",
       "ELO_AGAINST_PICK",
@@ -52491,6 +52541,9 @@
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_MISSING_ODDS"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.4671,
+    "top7_probability_guard_passed": false,
     "corq_rank": 41
   },
   {
@@ -54915,7 +54968,7 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 22,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
@@ -55008,7 +55061,7 @@
     ],
     "top7_risk_penalty_points": 2.0,
     "top7_clean_bonus_points": 4.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "SURFACE_SUPPORT_PICK",
       "THINQ_EDGE_SUPPORT_PICK",
@@ -55069,6 +55122,9 @@
     "corq_top7_legacy_reject_reasons": [
       "REJECT_TOP7_MISSING_ODDS"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.5329,
+    "top7_probability_guard_passed": false,
     "corq_rank": 22
   },
   {
@@ -57510,20 +57566,23 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 57,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_primary_reject_reason": "REJECT_TOP7_MISSING_ODDS",
-    "top7_reject_reason_count": 1,
+    "top7_reject_reason_count": 2,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -57587,7 +57646,7 @@
     ],
     "top7_risk_penalty_points": 2.0,
     "top7_clean_bonus_points": 1.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "ELO_AGAINST_PICK",
       "MARKET_WITH_PICK",
@@ -57645,6 +57704,9 @@
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_MISSING_ODDS"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.3498,
+    "top7_probability_guard_passed": false,
     "corq_rank": 57
   },
   {
@@ -60086,7 +60148,7 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 6,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
@@ -60164,7 +60226,7 @@
     ],
     "top7_risk_penalty_points": 0.0,
     "top7_clean_bonus_points": 3.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "THINQ_EDGE_SUPPORT_PICK",
       "ELO_SUPPORT_PICK",
@@ -60221,6 +60283,9 @@
     "corq_top7_legacy_reject_reasons": [
       "REJECT_TOP7_MISSING_ODDS"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.6502,
+    "top7_probability_guard_passed": false,
     "corq_rank": 6
   },
   {
@@ -62663,8 +62728,8 @@
     "marq_v2_confidence": null,
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
-    "corq_source_rank": 27,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "corq_source_rank": 26,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
@@ -62763,7 +62828,7 @@
     ],
     "top7_risk_penalty_points": 2.5,
     "top7_clean_bonus_points": 6.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "PICK_STRONG_FORM",
       "FORM_SUPPORT_PICK",
@@ -62830,7 +62895,10 @@
       "REJECT_TOP7_MISSING_ODDS",
       "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
     ],
-    "corq_rank": 27
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.5178,
+    "top7_probability_guard_passed": false,
+    "corq_rank": 26
   },
   {
     "match_id": 16799912,
@@ -65272,21 +65340,24 @@
     "marq_v2_confidence": null,
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
-    "corq_source_rank": 36,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "corq_source_rank": 37,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_primary_reject_reason": "REJECT_TOP7_MISSING_ODDS",
-    "top7_reject_reason_count": 1,
+    "top7_reject_reason_count": 2,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -65374,7 +65445,7 @@
     ],
     "top7_risk_penalty_points": 14.5,
     "top7_clean_bonus_points": 1.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "OPP_STRONG_FORM",
       "MARKET_WITH_PICK",
@@ -65438,7 +65509,10 @@
       "REJECT_TOP7_MISSING_ODDS",
       "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
     ],
-    "corq_rank": 36
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.4822,
+    "top7_probability_guard_passed": false,
+    "corq_rank": 37
   },
   {
     "match_id": 16800021,
@@ -67864,20 +67938,23 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 50,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_primary_reject_reason": "REJECT_TOP7_MISSING_ODDS",
-    "top7_reject_reason_count": 1,
+    "top7_reject_reason_count": 2,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -67951,7 +68028,7 @@
     ],
     "top7_risk_penalty_points": 2.0,
     "top7_clean_bonus_points": 3.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "FORM_SUPPORT_PICK",
       "SURFACE_SUPPORT_PICK",
@@ -68015,6 +68092,9 @@
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_MISSING_ODDS"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.3836,
+    "top7_probability_guard_passed": false,
     "corq_rank": 50
   },
   {
@@ -70441,7 +70521,7 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 13,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
@@ -70519,7 +70599,7 @@
     ],
     "top7_risk_penalty_points": 0.0,
     "top7_clean_bonus_points": 3.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "THINQ_EDGE_SUPPORT_PICK",
       "ELO_SUPPORT_PICK",
@@ -70576,6 +70656,9 @@
     "corq_top7_legacy_reject_reasons": [
       "REJECT_TOP7_MISSING_ODDS"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.6164,
+    "top7_probability_guard_passed": false,
     "corq_rank": 13
   },
   {
@@ -72996,20 +73079,23 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 56,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_primary_reject_reason": "REJECT_TOP7_MISSING_ODDS",
-    "top7_reject_reason_count": 1,
+    "top7_reject_reason_count": 2,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -73088,7 +73174,7 @@
     ],
     "top7_risk_penalty_points": 9.0,
     "top7_clean_bonus_points": 1.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "PICK_WEAK_FORM",
       "ELO_AGAINST_PICK",
@@ -73149,6 +73235,9 @@
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_MISSING_ODDS"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.3592,
+    "top7_probability_guard_passed": false,
     "corq_rank": 56
   },
   {
@@ -75569,7 +75658,7 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 7,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
@@ -75663,7 +75752,7 @@
     ],
     "top7_risk_penalty_points": 0.0,
     "top7_clean_bonus_points": 7.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "OPP_WEAK_FORM",
       "FORM_SUPPORT_PICK",
@@ -75729,6 +75818,9 @@
     "corq_top7_legacy_reject_reasons": [
       "REJECT_TOP7_MISSING_ODDS"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.6408,
+    "top7_probability_guard_passed": false,
     "corq_rank": 7
   },
   {
@@ -78158,21 +78250,24 @@
     "marq_v2_confidence": null,
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
-    "corq_source_rank": 33,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "corq_source_rank": 34,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_primary_reject_reason": "REJECT_TOP7_MISSING_ODDS",
-    "top7_reject_reason_count": 1,
+    "top7_reject_reason_count": 2,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -78270,7 +78365,7 @@
     ],
     "top7_risk_penalty_points": 18.5,
     "top7_clean_bonus_points": 1.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "OPP_STRONG_FORM",
       "MARKET_WITH_PICK",
@@ -78340,7 +78435,10 @@
       "REJECT_TOP7_MISSING_ODDS",
       "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
     ],
-    "corq_rank": 33
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.4848,
+    "top7_probability_guard_passed": false,
+    "corq_rank": 34
   },
   {
     "match_id": 16800331,
@@ -80769,8 +80867,8 @@
     "marq_v2_confidence": null,
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
-    "corq_source_rank": 30,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "corq_source_rank": 29,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
@@ -80879,7 +80977,7 @@
     ],
     "top7_risk_penalty_points": 6.5,
     "top7_clean_bonus_points": 6.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "PICK_STRONG_FORM",
       "FORM_SUPPORT_PICK",
@@ -80952,7 +81050,10 @@
       "REJECT_TOP7_MISSING_ODDS",
       "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
     ],
-    "corq_rank": 30
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.5152,
+    "top7_probability_guard_passed": false,
+    "corq_rank": 29
   },
   {
     "match_id": 16800145,
@@ -83379,20 +83480,23 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 54,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_primary_reject_reason": "REJECT_TOP7_MISSING_ODDS",
-    "top7_reject_reason_count": 1,
+    "top7_reject_reason_count": 2,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -83461,7 +83565,7 @@
     ],
     "top7_risk_penalty_points": 2.0,
     "top7_clean_bonus_points": 2.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "SURFACE_SUPPORT_PICK",
       "ELO_AGAINST_PICK",
@@ -83522,6 +83626,9 @@
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_MISSING_ODDS"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.3642,
+    "top7_probability_guard_passed": false,
     "corq_rank": 54
   },
   {
@@ -85949,7 +86056,7 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 9,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
@@ -86027,7 +86134,7 @@
     ],
     "top7_risk_penalty_points": 0.0,
     "top7_clean_bonus_points": 3.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "THINQ_EDGE_SUPPORT_PICK",
       "ELO_SUPPORT_PICK",
@@ -86084,6 +86191,9 @@
     "corq_top7_legacy_reject_reasons": [
       "REJECT_TOP7_MISSING_ODDS"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.6358,
+    "top7_probability_guard_passed": false,
     "corq_rank": 9
   },
   {
@@ -88710,14 +88820,20 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 48,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "top7_publishable": true,
-    "eligible_for_top7": true,
-    "top7_quality_reject_reasons": [],
-    "top7_reject_reasons": [],
-    "top7_hard_reject_reasons": [],
-    "top7_primary_reject_reason": null,
-    "top7_reject_reason_count": 0,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
+    "top7_publishable": false,
+    "eligible_for_top7": false,
+    "top7_quality_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_hard_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_reject_reason_count": 1,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -88835,7 +88951,7 @@
     ],
     "top7_risk_penalty_points": 16.0,
     "top7_clean_bonus_points": 11.0,
-    "top7_quality_score": 84.77633333333334,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "SURFACE_H2H_AGAINST_PICK",
       "SURFACE_SUPPORT_PICK",
@@ -88882,7 +88998,7 @@
     "top7_expected_value_pct": 28.19,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
     "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "corq_top7_selectable": true,
+    "corq_top7_selectable": false,
     "corq_top7_sort_score": 84.77633333333334,
     "corq_top7_tier": "CORQ_CLEAN",
     "corq_rank_cap": 4,
@@ -88911,11 +89027,10 @@
       "REJECT_TOP7_CORQ_BELOW_50",
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK"
     ],
-    "corq_rank": 7,
-    "top7_rank": 7,
-    "corq_top7_forced_rank_selection": true,
-    "top7_selection_count_target": 7,
-    "corq_top7_selection_pass": "fallback_5_7"
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.4273,
+    "top7_probability_guard_passed": false,
+    "corq_rank": 48
   },
   {
     "match_id": 16662011,
@@ -91541,7 +91656,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 16,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "top7_quality_reject_reasons": [],
@@ -91809,6 +91924,9 @@
       "REJECT_TOP7_EV_HARD_NEGATIVE",
       "REJECT_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.5603,
+    "top7_probability_guard_passed": true,
     "corq_rank": 16
   },
   {
@@ -92059,16 +92177,16 @@
     "odds_label_2": "2",
     "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
-    "odds_player1": 1.91,
-    "odds_player2": 1.91,
-    "p1_odds": 1.91,
-    "p2_odds": 1.91,
-    "home_odds": 1.91,
-    "away_odds": 1.91,
-    "odds1": 1.91,
-    "odds2": 1.91,
-    "price1": 1.91,
-    "price2": 1.91,
+    "odds_player1": 1.73,
+    "odds_player2": 2.1,
+    "p1_odds": 1.73,
+    "p2_odds": 2.1,
+    "home_odds": 1.73,
+    "away_odds": 2.1,
+    "odds1": 1.73,
+    "odds2": 2.1,
+    "price1": 1.73,
+    "price2": 2.1,
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16662009/odds/1/all",
     "odds_status": "OK",
@@ -92077,8 +92195,8 @@
     ],
     "odds_pair_available": true,
     "odds_labels_confirmed": true,
-    "odds_gap_abs": 0.0,
-    "odds_gap_pct": 0.0,
+    "odds_gap_abs": 0.37,
+    "odds_gap_pct": 0.2139,
     "home_player": "Coco Gauff",
     "away_player": "Elena Rybakina",
     "pick_side": "HOME",
@@ -92088,19 +92206,19 @@
     "odds": {
       "od1": {
         "opening": 1.91,
-        "latest": 1.91,
-        "current": 1.91,
-        "change": 0.0
+        "latest": 1.73,
+        "current": 1.73,
+        "change": -1.0
       },
       "od2": {
         "opening": 1.91,
-        "latest": 1.91,
-        "current": 1.91,
-        "change": 0.0
+        "latest": 2.1,
+        "current": 2.1,
+        "change": 1.0
       }
     },
-    "pick_odds": 1.91,
-    "opponent_odds": 1.91,
+    "pick_odds": 1.73,
+    "opponent_odds": 2.1,
     "pick_is_player1": true,
     "pick_is_player2": false,
     "pick_is_home": true,
@@ -92410,19 +92528,19 @@
         "surface": "Hard",
         "best_of": 3,
         "composite_edge": -0.0203,
-        "closeness_index": 0.8815,
+        "closeness_index": 0.7959,
         "match_shape": "CLOSE_DECIDER_LEAN",
-        "projected_sets": 2.54,
-        "projected_games": 26.0,
-        "tiebreak_probability": 0.4387,
-        "decider_probability": 0.5373,
-        "straight_sets_probability": 0.4627,
-        "sets_edge": 0.0005,
-        "games_edge": -0.0005,
-        "tiebreak_edge": -0.0013,
-        "decider_edge": -0.0012,
+        "projected_sets": 2.51,
+        "projected_games": 25.7,
+        "tiebreak_probability": 0.4233,
+        "decider_probability": 0.5065,
+        "straight_sets_probability": 0.4935,
+        "sets_edge": 0.0001,
+        "games_edge": -0.0009,
+        "tiebreak_edge": -0.0012,
+        "decider_edge": -0.0009,
         "confidence": 0.78,
-        "odds_gap_pct": 0.0,
+        "odds_gap_pct": 0.2139,
         "flags": []
       },
       "thinq_probability_layer": {
@@ -92432,18 +92550,18 @@
         "pick_side": "HOME",
         "opponent": "Elena Rybakina",
         "opponent_side": "AWAY",
-        "pick_probability": 0.4741,
-        "pick_probability_pct": 47.41,
-        "opponent_probability": 0.5259,
-        "opponent_probability_pct": 52.59,
+        "pick_probability": 0.4734,
+        "pick_probability_pct": 47.34,
+        "opponent_probability": 0.5266,
+        "opponent_probability_pct": 52.66,
         "winner": "Elena Rybakina",
         "winner_side": "AWAY",
-        "winner_probability": 0.5259,
-        "winner_probability_pct": 52.59,
+        "winner_probability": 0.5266,
+        "winner_probability_pct": 52.66,
         "loser": "Coco Gauff",
         "loser_side": "HOME",
-        "edge": -0.0294,
-        "winner_edge": 0.0259,
+        "edge": -0.0302,
+        "winner_edge": 0.0266,
         "confidence": 0.88,
         "components": {
           "overall_elo_edge": -0.0192,
@@ -92453,16 +92571,16 @@
           "short_form_edge": 0.0,
           "surface_recent_form_edge": 0.0078,
           "opponent_quality_edge": 0.0,
-          "sets_edge": 0.0005,
-          "games_edge": -0.0005
+          "sets_edge": 0.0001,
+          "games_edge": -0.0009
         },
         "form_family_edge": 0.0104,
-        "sets_games_edge": 0.0,
+        "sets_games_edge": -0.0008,
         "display": {
           "winner": "Elena Rybakina",
-          "probability": "52.6%",
-          "pick_probability": "47.4%",
-          "edge": "-2.9%",
+          "probability": "52.7%",
+          "pick_probability": "47.3%",
+          "edge": "-3.0%",
           "confidence": "88.0%"
         },
         "flags": [
@@ -92476,18 +92594,18 @@
         "pick_side": "HOME",
         "opponent": "Elena Rybakina",
         "opponent_side": "AWAY",
-        "pick_probability": 0.4741,
-        "pick_probability_pct": 47.41,
-        "opponent_probability": 0.5259,
-        "opponent_probability_pct": 52.59,
+        "pick_probability": 0.4734,
+        "pick_probability_pct": 47.34,
+        "opponent_probability": 0.5266,
+        "opponent_probability_pct": 52.66,
         "winner": "Elena Rybakina",
         "winner_side": "AWAY",
-        "winner_probability": 0.5259,
-        "winner_probability_pct": 52.59,
+        "winner_probability": 0.5266,
+        "winner_probability_pct": 52.66,
         "loser": "Coco Gauff",
         "loser_side": "HOME",
-        "edge": -0.0294,
-        "winner_edge": 0.0259,
+        "edge": -0.0302,
+        "winner_edge": 0.0266,
         "confidence": 0.88,
         "components": {
           "overall_elo_edge": -0.0192,
@@ -92497,16 +92615,16 @@
           "short_form_edge": 0.0,
           "surface_recent_form_edge": 0.0078,
           "opponent_quality_edge": 0.0,
-          "sets_edge": 0.0005,
-          "games_edge": -0.0005
+          "sets_edge": 0.0001,
+          "games_edge": -0.0009
         },
         "form_family_edge": 0.0104,
-        "sets_games_edge": 0.0,
+        "sets_games_edge": -0.0008,
         "display": {
           "winner": "Elena Rybakina",
-          "probability": "52.6%",
-          "pick_probability": "47.4%",
-          "edge": "-2.9%",
+          "probability": "52.7%",
+          "pick_probability": "47.3%",
+          "edge": "-3.0%",
           "confidence": "88.0%"
         },
         "flags": [
@@ -92522,19 +92640,19 @@
           "surface": "Hard",
           "best_of": 3,
           "composite_edge": -0.0203,
-          "closeness_index": 0.8815,
+          "closeness_index": 0.7959,
           "match_shape": "CLOSE_DECIDER_LEAN",
-          "projected_sets": 2.54,
-          "projected_games": 26.0,
-          "tiebreak_probability": 0.4387,
-          "decider_probability": 0.5373,
-          "straight_sets_probability": 0.4627,
-          "sets_edge": 0.0005,
-          "games_edge": -0.0005,
-          "tiebreak_edge": -0.0013,
-          "decider_edge": -0.0012,
+          "projected_sets": 2.51,
+          "projected_games": 25.7,
+          "tiebreak_probability": 0.4233,
+          "decider_probability": 0.5065,
+          "straight_sets_probability": 0.4935,
+          "sets_edge": 0.0001,
+          "games_edge": -0.0009,
+          "tiebreak_edge": -0.0012,
+          "decider_edge": -0.0009,
           "confidence": 0.78,
-          "odds_gap_pct": 0.0,
+          "odds_gap_pct": 0.2139,
           "flags": []
         },
         "h2h": {
@@ -92795,18 +92913,18 @@
           "pick_side": "HOME",
           "opponent": "Elena Rybakina",
           "opponent_side": "AWAY",
-          "pick_probability": 0.4741,
-          "pick_probability_pct": 47.41,
-          "opponent_probability": 0.5259,
-          "opponent_probability_pct": 52.59,
+          "pick_probability": 0.4734,
+          "pick_probability_pct": 47.34,
+          "opponent_probability": 0.5266,
+          "opponent_probability_pct": 52.66,
           "winner": "Elena Rybakina",
           "winner_side": "AWAY",
-          "winner_probability": 0.5259,
-          "winner_probability_pct": 52.59,
+          "winner_probability": 0.5266,
+          "winner_probability_pct": 52.66,
           "loser": "Coco Gauff",
           "loser_side": "HOME",
-          "edge": -0.0294,
-          "winner_edge": 0.0259,
+          "edge": -0.0302,
+          "winner_edge": 0.0266,
           "confidence": 0.88,
           "components": {
             "overall_elo_edge": -0.0192,
@@ -92816,16 +92934,16 @@
             "short_form_edge": 0.0,
             "surface_recent_form_edge": 0.0078,
             "opponent_quality_edge": 0.0,
-            "sets_edge": 0.0005,
-            "games_edge": -0.0005
+            "sets_edge": 0.0001,
+            "games_edge": -0.0009
           },
           "form_family_edge": 0.0104,
-          "sets_games_edge": 0.0,
+          "sets_games_edge": -0.0008,
           "display": {
             "winner": "Elena Rybakina",
-            "probability": "52.6%",
-            "pick_probability": "47.4%",
-            "edge": "-2.9%",
+            "probability": "52.7%",
+            "pick_probability": "47.3%",
+            "edge": "-3.0%",
             "confidence": "88.0%"
           },
           "flags": [
@@ -92921,12 +93039,12 @@
           "api_opp_serve_cache_path": "data/api_pro/team_year_stats/186312_2026.json",
           "api_pick_serve_api_status": 200,
           "api_opp_serve_api_status": 200,
-          "pick_aces_projection": 1.9,
-          "opponent_aces_projection": 5.9,
-          "total_aces_projection": 7.8,
-          "pick_df_projection": 6.3,
+          "pick_aces_projection": 1.8,
+          "opponent_aces_projection": 5.8,
+          "total_aces_projection": 7.6,
+          "pick_df_projection": 6.2,
           "opponent_df_projection": 2.2,
-          "total_df_projection": 8.5,
+          "total_df_projection": 8.4,
           "aces_status": "OK",
           "df_status": "OK"
         }
@@ -92940,8 +93058,8 @@
         "short_form_edge": 0.0,
         "surface_recent_form_edge": 0.0078,
         "opponent_quality_edge": 0.0,
-        "sets_edge": 0.0005,
-        "games_edge": -0.0005
+        "sets_edge": 0.0001,
+        "games_edge": -0.0009
       },
       "flags": [
         "OPPONENT_QUALITY_THIN_DATA"
@@ -92949,15 +93067,15 @@
       "thinq_available": true,
       "thinq_probability_status": "OK",
       "thinq_model_version": "THINQ_PROBABILITY_V1",
-      "thinq_pick_probability": 0.4741,
-      "thinq_pick_probability_pct": 47.41,
-      "thinq_probability": 0.4741,
-      "thinq_probability_pct": 47.41,
+      "thinq_pick_probability": 0.4734,
+      "thinq_pick_probability_pct": 47.34,
+      "thinq_probability": 0.4734,
+      "thinq_probability_pct": 47.34,
       "thinq_winner": "Elena Rybakina",
       "thinq_winner_side": "AWAY",
-      "thinq_winner_probability": 0.5259,
-      "thinq_winner_probability_pct": 52.59,
-      "thinq_edge": -0.0294,
+      "thinq_winner_probability": 0.5266,
+      "thinq_winner_probability_pct": 52.66,
+      "thinq_edge": -0.0302,
       "thinq_probability_confidence": 0.88,
       "thinq_probability_components": {
         "overall_elo_edge": -0.0192,
@@ -92967,8 +93085,8 @@
         "short_form_edge": 0.0,
         "surface_recent_form_edge": 0.0078,
         "opponent_quality_edge": 0.0,
-        "sets_edge": 0.0005,
-        "games_edge": -0.0005
+        "sets_edge": 0.0001,
+        "games_edge": -0.0009
       },
       "thinq_confidence": 0.88,
       "thinq_selected_elo_type": "hard_elo",
@@ -93023,13 +93141,13 @@
       "thinq_short_form_edge": 0.0,
       "thinq_surface_recent_form_edge": 0.0078,
       "thinq_opponent_quality_edge": 0.0,
-      "thinq_sets_edge": 0.0005,
-      "thinq_games_edge": -0.0005,
-      "thinq_projected_sets": 2.54,
-      "thinq_projected_games": 26.0,
-      "thinq_tiebreak_probability": 0.4387,
-      "thinq_decider_probability": 0.5373,
-      "thinq_straight_sets_probability": 0.4627,
+      "thinq_sets_edge": 0.0001,
+      "thinq_games_edge": -0.0009,
+      "thinq_projected_sets": 2.51,
+      "thinq_projected_games": 25.7,
+      "thinq_tiebreak_probability": 0.4233,
+      "thinq_decider_probability": 0.5065,
+      "thinq_straight_sets_probability": 0.4935,
       "thinq_match_shape": "CLOSE_DECIDER_LEAN",
       "thinq_match_dynamics_confidence": 0.78,
       "thinq_form_confidence": 0.85,
@@ -93223,12 +93341,12 @@
         "api_opp_serve_cache_path": "data/api_pro/team_year_stats/186312_2026.json",
         "api_pick_serve_api_status": 200,
         "api_opp_serve_api_status": 200,
-        "pick_aces_projection": 1.9,
-        "opponent_aces_projection": 5.9,
-        "total_aces_projection": 7.8,
-        "pick_df_projection": 6.3,
+        "pick_aces_projection": 1.8,
+        "opponent_aces_projection": 5.8,
+        "total_aces_projection": 7.6,
+        "pick_df_projection": 6.2,
         "opponent_df_projection": 2.2,
-        "total_df_projection": 8.5,
+        "total_df_projection": 8.4,
         "aces_status": "OK",
         "df_status": "OK"
       },
@@ -93268,13 +93386,13 @@
       "sets_model_source": "ModelFallback",
       "pick_aces_line": null,
       "opponent_aces_line": null,
-      "total_aces_line": 7.8,
-      "pick_aces_projection": 1.9,
-      "opponent_aces_projection": 5.9,
-      "total_aces_projection": 7.8,
-      "pick_df_projection": 6.3,
+      "total_aces_line": 7.6,
+      "pick_aces_projection": 1.8,
+      "opponent_aces_projection": 5.8,
+      "total_aces_projection": 7.6,
+      "pick_df_projection": 6.2,
       "opponent_df_projection": 2.2,
-      "total_df_projection": 8.5,
+      "total_df_projection": 8.4,
       "aces_status": "OK",
       "ta_scope": "last52_overall",
       "ta_surface": "hard",
@@ -93351,8 +93469,8 @@
       "opponent_quality_edge": 0.0,
       "ranking_context_edge": -0.002,
       "market_sanity_edge": 0.0,
-      "sets_edge": 0.0005,
-      "games_edge": -0.0005
+      "sets_edge": 0.0001,
+      "games_edge": -0.0009
     },
     "thinq_flags": [
       "OPPONENT_QUALITY_THIN_DATA"
@@ -93391,18 +93509,18 @@
       "pick_side": "HOME",
       "opponent": "Elena Rybakina",
       "opponent_side": "AWAY",
-      "pick_probability": 0.4741,
-      "pick_probability_pct": 47.41,
-      "opponent_probability": 0.5259,
-      "opponent_probability_pct": 52.59,
+      "pick_probability": 0.4734,
+      "pick_probability_pct": 47.34,
+      "opponent_probability": 0.5266,
+      "opponent_probability_pct": 52.66,
       "winner": "Elena Rybakina",
       "winner_side": "AWAY",
-      "winner_probability": 0.5259,
-      "winner_probability_pct": 52.59,
+      "winner_probability": 0.5266,
+      "winner_probability_pct": 52.66,
       "loser": "Coco Gauff",
       "loser_side": "HOME",
-      "edge": -0.0294,
-      "winner_edge": 0.0259,
+      "edge": -0.0302,
+      "winner_edge": 0.0266,
       "confidence": 0.88,
       "components": {
         "overall_elo_edge": -0.0192,
@@ -93412,16 +93530,16 @@
         "short_form_edge": 0.0,
         "surface_recent_form_edge": 0.0078,
         "opponent_quality_edge": 0.0,
-        "sets_edge": 0.0005,
-        "games_edge": -0.0005
+        "sets_edge": 0.0001,
+        "games_edge": -0.0009
       },
       "form_family_edge": 0.0104,
-      "sets_games_edge": 0.0,
+      "sets_games_edge": -0.0008,
       "display": {
         "winner": "Elena Rybakina",
-        "probability": "52.6%",
-        "pick_probability": "47.4%",
-        "edge": "-2.9%",
+        "probability": "52.7%",
+        "pick_probability": "47.3%",
+        "edge": "-3.0%",
         "confidence": "88.0%"
       },
       "flags": [
@@ -93430,15 +93548,15 @@
     },
     "thinq_probability_status": "OK",
     "thinq_model_version": "THINQ_PROBABILITY_V1",
-    "thinq_pick_probability": 0.4741,
-    "thinq_pick_probability_pct": 47.41,
-    "thinq_probability": 0.4741,
-    "thinq_probability_pct": 47.41,
+    "thinq_pick_probability": 0.4734,
+    "thinq_pick_probability_pct": 47.34,
+    "thinq_probability": 0.4734,
+    "thinq_probability_pct": 47.34,
     "thinq_winner": "Elena Rybakina",
     "thinq_winner_side": "AWAY",
-    "thinq_winner_probability": 0.5259,
-    "thinq_winner_probability_pct": 52.59,
-    "thinq_edge": -0.0294,
+    "thinq_winner_probability": 0.5266,
+    "thinq_winner_probability_pct": 52.66,
+    "thinq_edge": -0.0302,
     "thinq_probability_confidence": 0.88,
     "thinq_probability_components": {
       "overall_elo_edge": -0.0192,
@@ -93448,8 +93566,8 @@
       "short_form_edge": 0.0,
       "surface_recent_form_edge": 0.0078,
       "opponent_quality_edge": 0.0,
-      "sets_edge": 0.0005,
-      "games_edge": -0.0005
+      "sets_edge": 0.0001,
+      "games_edge": -0.0009
     },
     "thinq_selected_elo_type": "hard_elo",
     "thinq_elo_pick": 2043.3,
@@ -93503,13 +93621,13 @@
     "thinq_short_form_edge": 0.0,
     "thinq_surface_recent_form_edge": 0.0078,
     "thinq_opponent_quality_edge": 0.0,
-    "thinq_sets_edge": 0.0005,
-    "thinq_games_edge": -0.0005,
-    "thinq_projected_sets": 2.54,
-    "thinq_projected_games": 26.0,
-    "thinq_tiebreak_probability": 0.4387,
-    "thinq_decider_probability": 0.5373,
-    "thinq_straight_sets_probability": 0.4627,
+    "thinq_sets_edge": 0.0001,
+    "thinq_games_edge": -0.0009,
+    "thinq_projected_sets": 2.51,
+    "thinq_projected_games": 25.7,
+    "thinq_tiebreak_probability": 0.4233,
+    "thinq_decider_probability": 0.5065,
+    "thinq_straight_sets_probability": 0.4935,
     "thinq_match_shape": "CLOSE_DECIDER_LEAN",
     "thinq_match_dynamics_confidence": 0.78,
     "thinq_form_confidence": 0.85,
@@ -93844,19 +93962,19 @@
       "surface": "Hard",
       "best_of": 3,
       "composite_edge": -0.0203,
-      "closeness_index": 0.8815,
+      "closeness_index": 0.7959,
       "match_shape": "CLOSE_DECIDER_LEAN",
-      "projected_sets": 2.54,
-      "projected_games": 26.0,
-      "tiebreak_probability": 0.4387,
-      "decider_probability": 0.5373,
-      "straight_sets_probability": 0.4627,
-      "sets_edge": 0.0005,
-      "games_edge": -0.0005,
-      "tiebreak_edge": -0.0013,
-      "decider_edge": -0.0012,
+      "projected_sets": 2.51,
+      "projected_games": 25.7,
+      "tiebreak_probability": 0.4233,
+      "decider_probability": 0.5065,
+      "straight_sets_probability": 0.4935,
+      "sets_edge": 0.0001,
+      "games_edge": -0.0009,
+      "tiebreak_edge": -0.0012,
+      "decider_edge": -0.0009,
       "confidence": 0.78,
-      "odds_gap_pct": 0.0,
+      "odds_gap_pct": 0.2139,
       "flags": []
     },
     "ta_context": {
@@ -93942,8 +94060,8 @@
       "short_form_edge": 0.0,
       "surface_recent_form_edge": 0.0078,
       "opponent_quality_edge": 0.0,
-      "sets_edge": 0.0005,
-      "games_edge": -0.0005
+      "sets_edge": 0.0001,
+      "games_edge": -0.0009
     },
     "confidence": 0.88,
     "ta_status": "OK",
@@ -93974,9 +94092,9 @@
     "pick_aces_projection": 1.6,
     "opponent_aces_projection": 5.1,
     "total_aces_projection": 6.7,
-    "pick_df_projection": 6.3,
+    "pick_df_projection": 6.2,
     "opponent_df_projection": 2.2,
-    "total_df_projection": 8.5,
+    "total_df_projection": 8.4,
     "ace_status": "OK",
     "df_status": "OK",
     "aces_status": "OK",
@@ -94011,15 +94129,15 @@
     "form_data_depth": 0.85,
     "status": "OK",
     "recent_form_status": "OK",
-    "projected_sets": 2.54,
-    "projected_games": 26.0,
+    "projected_sets": 2.51,
+    "projected_games": 25.7,
     "tiebreak_probability": null,
-    "decider_probability": 0.5373,
-    "straight_sets_probability": 0.4627,
-    "sets_edge": 0.0005,
-    "games_edge": -0.0005,
-    "tiebreak_edge": -0.0013,
-    "decider_edge": -0.0012,
+    "decider_probability": 0.5065,
+    "straight_sets_probability": 0.4935,
+    "sets_edge": 0.0001,
+    "games_edge": -0.0009,
+    "tiebreak_edge": -0.0012,
+    "decider_edge": -0.0009,
     "match_shape": "CLOSE_DECIDER_LEAN",
     "api_pick_serve_stats_status": "OK",
     "api_opp_serve_stats_status": "OK",
@@ -94032,25 +94150,25 @@
     "opponent_aces_line": 5.0,
     "opponent_aces_line_source": "API_SERVE_STATS",
     "total_aces_line_source": "API_SERVE_STATS",
-    "pick_df_line": 6.3,
+    "pick_df_line": 6.2,
     "pick_df_line_source": "API_SERVE_STATS",
     "opponent_df_line": 2.2,
     "opponent_df_line_source": "API_SERVE_STATS",
-    "total_df_line": 8.5,
+    "total_df_line": 8.4,
     "total_df_line_source": "API_SERVE_STATS",
     "s_data_depth": 1.0,
     "sets_games_data_depth": 1.0,
     "api_h2h_stats_request_no": 35,
     "api_h2h_resolution": "DISABLED",
     "api_h2h_disabled_reason": "TENNISAPI_H2H_STATS_ENABLED is not enabled",
-    "implied_probability": 0.5236,
+    "implied_probability": 0.578,
     "pick_last10_count": 10,
     "opponent_last10_count": 10,
     "pick_surface_count": 4,
     "opponent_surface_count": 9,
     "corq_model_version": "CORQ_V1_THINQ_PRIMARY_PROBABILITY",
     "corq_probability_source": "THINQ_PICK_PROBABILITY",
-    "corq_thinq_probability": 0.4741,
+    "corq_thinq_probability": 0.4734,
     "corq_components": {
       "overall_elo_component": -0.0192,
       "surface_elo_component": -0.0509,
@@ -94060,14 +94178,14 @@
       "h2h_component": 0.0225,
       "ranking_context_component": -0.002,
       "market_sanity_component": 0.0,
-      "context_component": 0.0
+      "context_component": -0.0008
     },
-    "corq_raw_model_edge": -0.0259,
+    "corq_raw_model_edge": -0.0266,
     "corq_confidence_factor": 0.88,
-    "corq_estimated_win_probability": 0.4772,
-    "estimated_win_pct": 47.72,
-    "corq_score": 0.4772,
-    "corq_edge": -0.0464,
+    "corq_estimated_win_probability": 0.4899,
+    "estimated_win_pct": 48.99,
+    "corq_score": 0.4899,
+    "corq_edge": -0.0882,
     "corq_risk_flags": [],
     "ranking_source": "TENNISAPI_RANKINGS",
     "ranking_status": "OK",
@@ -94142,41 +94260,41 @@
       "TA profile missing or no usable scoped stats"
     ],
     "ta_signal_score_projection": "N/A",
-    "expected_sets": 2.48,
+    "expected_sets": 2.46,
     "sets_selection": "O2.5",
-    "sets_probability": 0.484,
+    "sets_probability": 0.4633,
     "sets_probability_label": "O2.5",
-    "sets_o25_probability": 0.484,
+    "sets_o25_probability": 0.4633,
     "sets_o45_probability": null,
     "most_likely_score": "2-0",
-    "most_likely_score_probability": 0.2838,
+    "most_likely_score_probability": 0.3257,
     "score_probabilities": {
-      "2-0": 0.2838,
-      "2-1": 0.242,
-      "1-2": 0.242,
-      "0-2": 0.2322
+      "2-0": 0.3257,
+      "2-1": 0.254,
+      "1-2": 0.2093,
+      "0-2": 0.211
     },
     "score_basis": "player1_vs_player2",
     "sets_source": "Model",
-    "first_set_player1_odds": 1.90909,
-    "first_set_player2_odds": 1.90909,
-    "first_set_player1_probability": 0.5,
-    "first_set_player2_probability": 0.5,
+    "first_set_player1_odds": 1.8,
+    "first_set_player2_odds": 2.0,
+    "first_set_player1_probability": 0.5263157894736842,
+    "first_set_player2_probability": 0.47368421052631576,
     "expected_games": 22.5,
     "projected_total_games": 22.5,
     "games_line": 22.5,
     "total_games_line": 22.5,
     "games_pick": "Under 22.5",
     "games_selection": "U22.5",
-    "games_probability": 0.5147057634082753,
+    "games_probability": 0.5365857584773842,
     "games_model_source": "TennisApiMarkets",
     "games_data_quality": "C+",
     "best_total_selection": "U22.5",
-    "best_total_probability": 0.5147057634082753,
-    "games_over_odds": 1.90909,
-    "games_under_odds": 1.8,
-    "games_over_probability": 0.4853,
-    "games_under_probability": 0.5147,
+    "best_total_probability": 0.5365857584773842,
+    "games_over_odds": 2.0,
+    "games_under_odds": 1.72727,
+    "games_over_probability": 0.4634,
+    "games_under_probability": 0.5366,
     "tie_break_yes_odds": null,
     "tie_break_no_odds": null,
     "tie_break_selection": null,
@@ -94205,14 +94323,14 @@
     "df_total": 7.4,
     "df_source": "TA/Sackmann DF% + games_line",
     "pick_df_side": "Under",
-    "pick_df_selection": "U6.3",
-    "pick_df_probability": 0.7221,
+    "pick_df_selection": "U6.2",
+    "pick_df_probability": 0.6993,
     "opponent_df_side": "Under",
     "opponent_df_selection": "U2.2",
     "opponent_df_probability": 0.5796,
     "total_df_side": "Under",
-    "total_df_selection": "U8.5",
-    "total_df_probability": 0.7148,
+    "total_df_selection": "U8.4",
+    "total_df_probability": 0.6982,
     "pick_aces": 1.6,
     "opponent_aces": 5.1,
     "total_aces": 6.7,
@@ -94226,9 +94344,9 @@
     "total_aces_selection": "O6.5",
     "total_aces_probability": 0.5329,
     "aces_source": "TA A% + projected service points",
-    "best_bet": "U6.3",
-    "best_bet_display": "U6.3 72%",
-    "best_bet_probability": 0.7221,
+    "best_bet": "U6.2",
+    "best_bet_display": "U6.2 70%",
+    "best_bet_probability": 0.6993,
     "best_bet_market": "Pick DF",
     "sets_games_value_candidates": [],
     "value_bet": null,
@@ -94239,9 +94357,9 @@
     "marq_source": "tennisapi_market_quality_v2",
     "marq_api_source": "TennisApi RapidAPI",
     "marq_source_policy": "TENNISAPI_ONLY_EXACT_EVENT",
-    "marq_source_quality": "EXACT_CURRENT_ODDS_ONLY",
-    "marq_data_status": "EXACT_CURRENT_ODDS_ONLY",
-    "marq_confidence": "MEDIUM",
+    "marq_source_quality": "EXACT_BETTING_ODDS_WITH_OPENING",
+    "marq_data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+    "marq_confidence": "HIGH",
     "marq_exact_event_id_used": true,
     "marq_name_matching_skipped": true,
     "marq_date_feed_skipped": true,
@@ -94264,20 +94382,20 @@
         "market_period": "Match",
         "market_id": 1,
         "source_id": 199441216,
-        "odds_1": 1.91,
-        "odds_2": 1.91,
+        "odds_1": 1.73,
+        "odds_2": 2.1,
         "initial_1": 1.91,
         "initial_2": 1.91,
         "opening_1": 1.91,
         "opening_2": 1.91,
-        "change_1": 0.0,
-        "change_2": 0.0,
+        "change_1": -1.0,
+        "change_2": 1.0,
         "choice_source_id_1": 1891318424,
         "choice_source_id_2": 1891318468,
-        "marq_v2_no_vig_1": 0.5,
-        "marq_v2_no_vig_2": 0.5,
-        "marq_v2_overround": 1.0471204188481675,
-        "marq_v2_movement_status": "OPENING_EQUALS_CURRENT",
+        "marq_v2_no_vig_1": 0.5483028720626633,
+        "marq_v2_no_vig_2": 0.4516971279373368,
+        "marq_v2_overround": 1.054225158271401,
+        "marq_v2_movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
         "provider_odds_market_count": 3,
         "provider_odds_has_full_time": true,
         "provider_odds_fetch_version": "2026-08-04-tennisapi-only-marq-v2",
@@ -94342,24 +94460,24 @@
     "marq_endpoint_name": "getAllOddsForEvent",
     "marq_market_count": 3,
     "marq_has_full_time": true,
-    "marq_current_odds_1": 1.91,
-    "marq_current_odds_2": 1.91,
+    "marq_current_odds_1": 1.73,
+    "marq_current_odds_2": 2.1,
     "marq_opening_odds_1": 1.91,
     "marq_opening_odds_2": 1.91,
-    "marq_change_1": 0.0,
-    "marq_change_2": 0.0,
-    "marq_no_vig_probability_1": 0.5,
-    "marq_no_vig_probability_2": 0.5,
-    "marq_overround": 1.04712,
-    "marq_movement_status": "OPENING_EQUALS_CURRENT",
-    "marq_internal_move_signal": "Stable",
-    "marq_display_move_signal": "Stable",
-    "marq_move_signal": "Stable",
-    "marq_move_direction": "Stable",
-    "marq_move_pct": 0.0,
-    "marq_move_range": "1.91 -> 1.91",
+    "marq_change_1": -1.0,
+    "marq_change_2": 1.0,
+    "marq_no_vig_probability_1": 0.548303,
+    "marq_no_vig_probability_2": 0.451697,
+    "marq_overround": 1.054225,
+    "marq_movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+    "marq_internal_move_signal": "Toward pick",
+    "marq_display_move_signal": "Toward pick",
+    "marq_move_signal": "Toward pick",
+    "marq_move_direction": "Toward",
+    "marq_move_pct": 9.4,
+    "marq_move_range": "1.91 -> 1.73",
     "marq_move_earliest_odds": 1.91,
-    "marq_move_latest_odds": 1.91,
+    "marq_move_latest_odds": 1.73,
     "bet365_disabled": true,
     "tennis_live_disabled": true,
     "marq_removed_sources": [
@@ -94369,53 +94487,53 @@
       "non-exact event discovery for MARQ"
     ],
     "marq_fetch_version": "2026-08-04-tennisapi-only-marq-v2",
-    "marq_crowd_pick_pct": 50.0,
-    "marq_pick_probability": 0.5,
-    "marq_pick_no_vig_probability": 0.5,
-    "market_pick_probability": 0.5,
-    "corq_market_probability": 0.5,
-    "marq_edge_pct": 0.0,
-    "marq_crowd_opponent_pct": 50.0,
-    "marq_opp_no_vig_probability": 0.5,
-    "marq_final": "Neutral",
-    "marq_final_display": "Neutral",
+    "marq_crowd_pick_pct": 54.8,
+    "marq_pick_probability": 0.548303,
+    "marq_pick_no_vig_probability": 0.548303,
+    "market_pick_probability": 0.548303,
+    "corq_market_probability": 0.5483,
+    "marq_edge_pct": 4.8,
+    "marq_crowd_opponent_pct": 45.2,
+    "marq_opp_no_vig_probability": 0.451697,
+    "marq_final": "Market With Pick",
+    "marq_final_display": "Market With Pick",
     "marq_market_view": true,
     "marq_provider_count": 1,
     "marq_market_name": "Match winner",
-    "marq_quality_signal": "EXACT_CURRENT_ODDS_ONLY",
-    "corq_marq_quality_tier": "MEDIUM_CURRENT_ONLY",
-    "corq_marq_weight_reason": "exact TennisApi current odds only, no real movement signal",
-    "corq_raw_model_probability": 0.4741,
-    "corq_raw_model_probability_pct": 47.41,
-    "corq_market_probability_pct": 50.0,
-    "corq_model_weight": 0.88,
-    "corq_market_weight": 0.12,
-    "corq_model_mix_label": "ThinQ 88% / MarQ 12%",
-    "corq_thinq_input_pp": 41.72,
-    "corq_marq_input_pp": 6.0,
-    "corq_calibrated_probability": 0.4772,
-    "corq_calibrated_probability_pct": 47.72,
-    "corq_market_adjustment_pp": 0.31,
-    "corq_calibration_method": "DYNAMIC_MARQ_WEIGHT_MEDIUM_CURRENT_ONLY",
+    "marq_quality_signal": "EXACT_BETTING_ODDS_WITH_OPENING",
+    "corq_marq_quality_tier": "HIGH",
+    "corq_marq_weight_reason": "exact TennisApi odds with real opening/current market data; real movement supports pick, market brake reduced",
+    "corq_raw_model_probability": 0.4734,
+    "corq_raw_model_probability_pct": 47.34,
+    "corq_market_probability_pct": 54.83,
+    "corq_model_weight": 0.78,
+    "corq_market_weight": 0.22,
+    "corq_model_mix_label": "ThinQ 78% / MarQ 22%",
+    "corq_thinq_input_pp": 36.93,
+    "corq_marq_input_pp": 12.06,
+    "corq_calibrated_probability": 0.4899,
+    "corq_calibrated_probability_pct": 48.99,
+    "corq_market_adjustment_pp": 1.65,
+    "corq_calibration_method": "DYNAMIC_MARQ_WEIGHT_HIGH",
     "corq_marq_dynamic_weight_version": "2026-08-04-marq-dynamic-weight-v1",
-    "corq_probability": 0.4772,
-    "probability": 0.4772,
-    "value_edge": -0.0464,
-    "edge": -0.0464,
-    "corq_value_delta_pp": -4.64,
-    "expected_value_pct": -8.85,
-    "marq_v2_model_probability": 0.4741,
-    "marq_v2_market_probability": 0.5,
-    "marq_v2_value_delta_pp": -2.59,
-    "marq_v2_expected_value_pct": -9.45,
-    "marq_v2_data_status": "EXACT_CURRENT_ODDS_ONLY",
-    "marq_v2_confidence": "MEDIUM",
-    "marq_v2_movement_status": "OPENING_EQUALS_CURRENT",
-    "raw_implied_probability": 0.52356,
-    "raw_implied_probability_pct": 52.36,
-    "break_even_probability": 0.52356,
-    "break_even_probability_pct": 52.36,
-    "expected_value": -0.088548,
+    "corq_probability": 0.4899,
+    "probability": 0.4899,
+    "value_edge": -0.0882,
+    "edge": -0.0882,
+    "corq_value_delta_pp": -8.81,
+    "expected_value_pct": -15.25,
+    "marq_v2_model_probability": 0.4734,
+    "marq_v2_market_probability": 0.5483,
+    "marq_v2_value_delta_pp": -7.49,
+    "marq_v2_expected_value_pct": -18.1,
+    "marq_v2_data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+    "marq_v2_confidence": "HIGH",
+    "marq_v2_movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+    "raw_implied_probability": 0.578035,
+    "raw_implied_probability_pct": 57.8,
+    "break_even_probability": 0.578035,
+    "break_even_probability_pct": 57.8,
+    "expected_value": -0.152473,
     "price_value_grade": "FAIR",
     "price_value_tag": "VALUE_NEGATIVE",
     "price_value_display": "Fair | No Value",
@@ -94424,27 +94542,33 @@
       "FAIR",
       "VALUE_NEGATIVE"
     ],
-    "corq_source_rank": 37,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "top7_publishable": true,
-    "eligible_for_top7": true,
-    "top7_quality_reject_reasons": [],
-    "top7_reject_reasons": [],
-    "top7_hard_reject_reasons": [],
-    "top7_primary_reject_reason": null,
-    "top7_reject_reason_count": 0,
+    "corq_source_rank": 33,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
+    "top7_publishable": false,
+    "eligible_for_top7": false,
+    "top7_quality_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_hard_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_reject_reason_count": 1,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
     "top7_status_code": 0,
-    "top7_corq_probability": 0.4772,
-    "top7_pick_thinq_edge": -0.0294,
+    "top7_corq_probability": 0.4899,
+    "top7_pick_thinq_edge": -0.0302,
     "top7_thinq_confidence": 0.88,
     "top7_thinq_data_confidence": 0.88,
-    "top7_thinq_pick_probability": 0.4741,
+    "top7_thinq_pick_probability": 0.4734,
     "pick_data_depth": 0.9085,
     "stat_data_depth": 0.9085,
-    "top7_pick_odds": 1.91,
+    "top7_pick_odds": 1.73,
     "top7_match_date_local": "2026-08-13",
     "recent_form_reason": "",
     "recent_form_sample_audit": {
@@ -94457,8 +94581,8 @@
       "history_match_count": 37883
     },
     "low_data_risk_audit": {
-      "corq_probability": 0.4772,
-      "pick_thinq_edge": -0.0294,
+      "corq_probability": 0.4899,
+      "pick_thinq_edge": -0.0302,
       "pick_data_depth": 0.9085,
       "form_data_depth": 0.85,
       "thinq_confidence": 0.88,
@@ -94480,6 +94604,7 @@
       "NO_VALUE_PRICE",
       "MULTI_RISK_PICK",
       "HIGH_RISK_PICK",
+      "NEGATIVE_VALUE_HARD",
       "NEGATIVE_EV_HARD"
     ],
     "top7_risk_labels": [
@@ -94488,6 +94613,7 @@
       "No value",
       "Multiple risk signals",
       "High Risk",
+      "Negative value >5pp",
       "Negative EV hard"
     ],
     "top7_risk_penalty_details": [
@@ -94534,13 +94660,13 @@
       {
         "tag": "MARKET_WITH_PICK",
         "bonus": 1.5,
-        "marq_edge": 0.0,
-        "market_delta": 0.31
+        "marq_edge": 4.8,
+        "market_delta": 1.65
       },
       {
         "tag": "NO_VALUE_PRICE",
         "penalty": 3.0,
-        "value": -4.64
+        "value": -8.81
       },
       {
         "tag": "MULTI_RISK_PICK",
@@ -94554,14 +94680,23 @@
         "penalty_before_high_risk": 13.0
       },
       {
+        "tag": "NEGATIVE_VALUE_HARD",
+        "penalty": 5.0,
+        "value_delta_pp": -8.81
+      },
+      {
         "tag": "NEGATIVE_EV_HARD",
         "penalty": 4.0,
-        "expected_value_pct": -8.85
+        "expected_value_pct": -15.25
+      },
+      {
+        "tag": "VALUE_FIRST_MARKET_WITH_PICK",
+        "bonus": 2.0
       }
     ],
-    "top7_risk_penalty_points": 21.0,
-    "top7_clean_bonus_points": 7.3,
-    "top7_quality_score": 47.780086387434565,
+    "top7_risk_penalty_points": 26.0,
+    "top7_clean_bonus_points": 9.3,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "H2H_SUPPORT_PICK",
       "SURFACE_H2H_SUPPORT_PICK",
@@ -94574,16 +94709,21 @@
       "NO_VALUE_PRICE",
       "MULTI_RISK_PICK",
       "HIGH_RISK_PICK",
+      "NEGATIVE_VALUE_HARD",
       "NEGATIVE_EV_HARD",
+      "VALUE_FIRST_MARKET_WITH_PICK",
       "CORQ_NOT_SELECTABLE",
       "CAP_NOT_SELECTABLE",
-      "CORQ_LOW_EDGE",
+      "CORQ_RISK_FALLBACK",
       "PENALTY_TOP7_CORQ_BELOW_50",
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
       "PENALTY_TOP7_THINQ_BELOW_50_AND_NEGATIVE_VALUE",
+      "PENALTY_TOP7_MODEL_VALUE_HARD_NEGATIVE",
+      "PENALTY_TOP7_EV_HARD_NEGATIVE",
       "RANKCAP_NOT_SELECTABLE",
       "PENALTY_MARKET_AGAINST_PICK",
-      "CORQ_RISK_FALLBACK"
+      "RANKCAP_CAP_EV_UNDER_MINUS_12",
+      "RANKCAP_CAP_PROB_GAP_UNDER_MINUS_7PP"
     ],
     "top7_support_tags": [
       "H2H_SUPPORT_PICK",
@@ -94591,7 +94731,8 @@
       "PICK_STRONG_FORM",
       "FORM_SUPPORT_PICK",
       "SURFACE_SUPPORT_PICK",
-      "MARKET_WITH_PICK"
+      "MARKET_WITH_PICK",
+      "VALUE_FIRST_MARKET_WITH_PICK"
     ],
     "top7_support_labels": [
       "H2H supports pick",
@@ -94601,24 +94742,27 @@
       "Surface support",
       "Market with pick"
     ],
-    "top7_positive_support_count": 6,
-    "top7_risk_count": 6,
+    "top7_positive_support_count": 7,
+    "top7_risk_count": 7,
     "top7_high_risk": true,
     "top7_combined_data_depth": 0.90925,
     "top7_sets_games_data_depth": 1.0,
     "top7_low_context_risk": false,
-    "top7_value_delta_pp": -4.64,
-    "top7_expected_value_pct": -8.85,
+    "top7_value_delta_pp": -8.81,
+    "top7_expected_value_pct": -15.25,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
     "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "corq_top7_selectable": true,
-    "corq_top7_sort_score": 47.780086387434565,
+    "corq_top7_selectable": false,
+    "corq_top7_sort_score": 27.492245664739883,
     "corq_top7_tier": "CORQ_RISK_FALLBACK",
-    "corq_rank_cap": 4,
-    "corq_rank_cap_reasons": [],
-    "corq_top4_eligible": true,
-    "corq_probability_gap_pp": -4.636020942408376,
-    "corq_ev_pct_for_ranking": -8.85,
+    "corq_rank_cap": 5,
+    "corq_rank_cap_reasons": [
+      "CAP_EV_UNDER_MINUS_12",
+      "CAP_PROB_GAP_UNDER_MINUS_7PP"
+    ],
+    "corq_top4_eligible": false,
+    "corq_probability_gap_pp": -8.81346820809249,
+    "corq_ev_pct_for_ranking": -15.25,
     "corq_market_move_against": false,
     "corq_top7_reject_reasons": [],
     "corq_top7_fatal_reject_reasons": [],
@@ -94626,8 +94770,12 @@
       "PENALTY_TOP7_CORQ_BELOW_50",
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
       "PENALTY_TOP7_THINQ_BELOW_50_AND_NEGATIVE_VALUE",
+      "PENALTY_TOP7_MODEL_VALUE_HARD_NEGATIVE",
+      "PENALTY_TOP7_EV_HARD_NEGATIVE",
       "RANKCAP_NOT_SELECTABLE",
-      "PENALTY_MARKET_AGAINST_PICK"
+      "PENALTY_MARKET_AGAINST_PICK",
+      "RANKCAP_CAP_EV_UNDER_MINUS_12",
+      "RANKCAP_CAP_PROB_GAP_UNDER_MINUS_7PP"
     ],
     "corq_top7_audit_note": "v8_hard_rejects_only_soft_penalties_separated",
     "corq_rank_audit_tags": [
@@ -94635,15 +94783,21 @@
       "CORQ_NOT_SELECTABLE",
       "RANKCAP_NOT_SELECTABLE",
       "CORQ_TOP7_AUDIT_CLEANUP_V8",
-      "CORQ_LOW_EDGE",
-      "CORQ_RISK_FALLBACK"
+      "CORQ_RISK_FALLBACK",
+      "RANKCAP_CAP_EV_UNDER_MINUS_12",
+      "RANKCAP_CAP_PROB_GAP_UNDER_MINUS_7PP"
     ],
     "corq_top7_legacy_reject_reasons": [
       "REJECT_TOP7_CORQ_BELOW_50",
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
-      "REJECT_TOP7_THINQ_BELOW_50_AND_NEGATIVE_VALUE"
+      "REJECT_TOP7_THINQ_BELOW_50_AND_NEGATIVE_VALUE",
+      "REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
+      "REJECT_TOP7_EV_HARD_NEGATIVE"
     ],
-    "corq_rank": 37
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.4899,
+    "top7_probability_guard_passed": false,
+    "corq_rank": 33
   },
   {
     "match_id": 16662009,
@@ -94893,16 +95047,16 @@
     "odds_label_2": "2",
     "odds_direct_match_score": 1.0,
     "odds_reverse_match_score": 0.0,
-    "odds_player1": 1.91,
-    "odds_player2": 1.91,
-    "p1_odds": 1.91,
-    "p2_odds": 1.91,
-    "home_odds": 1.91,
-    "away_odds": 1.91,
-    "odds1": 1.91,
-    "odds2": 1.91,
-    "price1": 1.91,
-    "price2": 1.91,
+    "odds_player1": 1.73,
+    "odds_player2": 2.1,
+    "p1_odds": 1.73,
+    "p2_odds": 2.1,
+    "home_odds": 1.73,
+    "away_odds": 2.1,
+    "odds1": 1.73,
+    "odds2": 2.1,
+    "price1": 1.73,
+    "price2": 2.1,
     "odds_source": "RapidAPI PRO event odds",
     "odds_endpoint": "/api/tennis/event/16662009/odds/1/all",
     "odds_status": "OK",
@@ -94911,8 +95065,8 @@
     ],
     "odds_pair_available": true,
     "odds_labels_confirmed": true,
-    "odds_gap_abs": 0.0,
-    "odds_gap_pct": 0.0,
+    "odds_gap_abs": 0.37,
+    "odds_gap_pct": 0.2139,
     "home_player": "Coco Gauff",
     "away_player": "Elena Rybakina",
     "pick_side": "AWAY",
@@ -94922,19 +95076,19 @@
     "odds": {
       "od1": {
         "opening": 1.91,
-        "latest": 1.91,
-        "current": 1.91,
-        "change": 0.0
+        "latest": 1.73,
+        "current": 1.73,
+        "change": -1.0
       },
       "od2": {
         "opening": 1.91,
-        "latest": 1.91,
-        "current": 1.91,
-        "change": 0.0
+        "latest": 2.1,
+        "current": 2.1,
+        "change": 1.0
       }
     },
-    "pick_odds": 1.91,
-    "opponent_odds": 1.91,
+    "pick_odds": 2.1,
+    "opponent_odds": 1.73,
     "pick_is_player1": false,
     "pick_is_player2": true,
     "pick_is_home": false,
@@ -95244,19 +95398,19 @@
         "surface": "Hard",
         "best_of": 3,
         "composite_edge": 0.0203,
-        "closeness_index": 0.8815,
+        "closeness_index": 0.7959,
         "match_shape": "CLOSE_DECIDER_LEAN",
-        "projected_sets": 2.54,
-        "projected_games": 26.0,
-        "tiebreak_probability": 0.4387,
-        "decider_probability": 0.5373,
-        "straight_sets_probability": 0.4627,
-        "sets_edge": -0.0005,
-        "games_edge": 0.0005,
-        "tiebreak_edge": 0.0013,
-        "decider_edge": 0.0012,
+        "projected_sets": 2.51,
+        "projected_games": 25.7,
+        "tiebreak_probability": 0.4233,
+        "decider_probability": 0.5065,
+        "straight_sets_probability": 0.4935,
+        "sets_edge": -0.0001,
+        "games_edge": 0.0009,
+        "tiebreak_edge": 0.0012,
+        "decider_edge": 0.0009,
         "confidence": 0.78,
-        "odds_gap_pct": 0.0,
+        "odds_gap_pct": 0.2139,
         "flags": []
       },
       "thinq_probability_layer": {
@@ -95266,18 +95420,18 @@
         "pick_side": "AWAY",
         "opponent": "Coco Gauff",
         "opponent_side": "HOME",
-        "pick_probability": 0.5259,
-        "pick_probability_pct": 52.59,
-        "opponent_probability": 0.4741,
-        "opponent_probability_pct": 47.41,
+        "pick_probability": 0.5266,
+        "pick_probability_pct": 52.66,
+        "opponent_probability": 0.4734,
+        "opponent_probability_pct": 47.34,
         "winner": "Elena Rybakina",
         "winner_side": "AWAY",
-        "winner_probability": 0.5259,
-        "winner_probability_pct": 52.59,
+        "winner_probability": 0.5266,
+        "winner_probability_pct": 52.66,
         "loser": "Coco Gauff",
         "loser_side": "HOME",
-        "edge": 0.0294,
-        "winner_edge": 0.0259,
+        "edge": 0.0302,
+        "winner_edge": 0.0266,
         "confidence": 0.88,
         "components": {
           "overall_elo_edge": 0.0192,
@@ -95287,16 +95441,16 @@
           "short_form_edge": 0.0,
           "surface_recent_form_edge": -0.0078,
           "opponent_quality_edge": 0.0,
-          "sets_edge": -0.0005,
-          "games_edge": 0.0005
+          "sets_edge": -0.0001,
+          "games_edge": 0.0009
         },
         "form_family_edge": -0.0104,
-        "sets_games_edge": 0.0,
+        "sets_games_edge": 0.0008,
         "display": {
           "winner": "Elena Rybakina",
-          "probability": "52.6%",
-          "pick_probability": "52.6%",
-          "edge": "+2.9%",
+          "probability": "52.7%",
+          "pick_probability": "52.7%",
+          "edge": "+3.0%",
           "confidence": "88.0%"
         },
         "flags": [
@@ -95310,18 +95464,18 @@
         "pick_side": "AWAY",
         "opponent": "Coco Gauff",
         "opponent_side": "HOME",
-        "pick_probability": 0.5259,
-        "pick_probability_pct": 52.59,
-        "opponent_probability": 0.4741,
-        "opponent_probability_pct": 47.41,
+        "pick_probability": 0.5266,
+        "pick_probability_pct": 52.66,
+        "opponent_probability": 0.4734,
+        "opponent_probability_pct": 47.34,
         "winner": "Elena Rybakina",
         "winner_side": "AWAY",
-        "winner_probability": 0.5259,
-        "winner_probability_pct": 52.59,
+        "winner_probability": 0.5266,
+        "winner_probability_pct": 52.66,
         "loser": "Coco Gauff",
         "loser_side": "HOME",
-        "edge": 0.0294,
-        "winner_edge": 0.0259,
+        "edge": 0.0302,
+        "winner_edge": 0.0266,
         "confidence": 0.88,
         "components": {
           "overall_elo_edge": 0.0192,
@@ -95331,16 +95485,16 @@
           "short_form_edge": 0.0,
           "surface_recent_form_edge": -0.0078,
           "opponent_quality_edge": 0.0,
-          "sets_edge": -0.0005,
-          "games_edge": 0.0005
+          "sets_edge": -0.0001,
+          "games_edge": 0.0009
         },
         "form_family_edge": -0.0104,
-        "sets_games_edge": 0.0,
+        "sets_games_edge": 0.0008,
         "display": {
           "winner": "Elena Rybakina",
-          "probability": "52.6%",
-          "pick_probability": "52.6%",
-          "edge": "+2.9%",
+          "probability": "52.7%",
+          "pick_probability": "52.7%",
+          "edge": "+3.0%",
           "confidence": "88.0%"
         },
         "flags": [
@@ -95356,19 +95510,19 @@
           "surface": "Hard",
           "best_of": 3,
           "composite_edge": 0.0203,
-          "closeness_index": 0.8815,
+          "closeness_index": 0.7959,
           "match_shape": "CLOSE_DECIDER_LEAN",
-          "projected_sets": 2.54,
-          "projected_games": 26.0,
-          "tiebreak_probability": 0.4387,
-          "decider_probability": 0.5373,
-          "straight_sets_probability": 0.4627,
-          "sets_edge": -0.0005,
-          "games_edge": 0.0005,
-          "tiebreak_edge": 0.0013,
-          "decider_edge": 0.0012,
+          "projected_sets": 2.51,
+          "projected_games": 25.7,
+          "tiebreak_probability": 0.4233,
+          "decider_probability": 0.5065,
+          "straight_sets_probability": 0.4935,
+          "sets_edge": -0.0001,
+          "games_edge": 0.0009,
+          "tiebreak_edge": 0.0012,
+          "decider_edge": 0.0009,
           "confidence": 0.78,
-          "odds_gap_pct": 0.0,
+          "odds_gap_pct": 0.2139,
           "flags": []
         },
         "h2h": {
@@ -95629,18 +95783,18 @@
           "pick_side": "AWAY",
           "opponent": "Coco Gauff",
           "opponent_side": "HOME",
-          "pick_probability": 0.5259,
-          "pick_probability_pct": 52.59,
-          "opponent_probability": 0.4741,
-          "opponent_probability_pct": 47.41,
+          "pick_probability": 0.5266,
+          "pick_probability_pct": 52.66,
+          "opponent_probability": 0.4734,
+          "opponent_probability_pct": 47.34,
           "winner": "Elena Rybakina",
           "winner_side": "AWAY",
-          "winner_probability": 0.5259,
-          "winner_probability_pct": 52.59,
+          "winner_probability": 0.5266,
+          "winner_probability_pct": 52.66,
           "loser": "Coco Gauff",
           "loser_side": "HOME",
-          "edge": 0.0294,
-          "winner_edge": 0.0259,
+          "edge": 0.0302,
+          "winner_edge": 0.0266,
           "confidence": 0.88,
           "components": {
             "overall_elo_edge": 0.0192,
@@ -95650,16 +95804,16 @@
             "short_form_edge": 0.0,
             "surface_recent_form_edge": -0.0078,
             "opponent_quality_edge": 0.0,
-            "sets_edge": -0.0005,
-            "games_edge": 0.0005
+            "sets_edge": -0.0001,
+            "games_edge": 0.0009
           },
           "form_family_edge": -0.0104,
-          "sets_games_edge": 0.0,
+          "sets_games_edge": 0.0008,
           "display": {
             "winner": "Elena Rybakina",
-            "probability": "52.6%",
-            "pick_probability": "52.6%",
-            "edge": "+2.9%",
+            "probability": "52.7%",
+            "pick_probability": "52.7%",
+            "edge": "+3.0%",
             "confidence": "88.0%"
           },
           "flags": [
@@ -95755,12 +95909,12 @@
           "api_opp_serve_cache_path": "data/api_pro/team_year_stats/264983_2026.json",
           "api_pick_serve_api_status": 200,
           "api_opp_serve_api_status": 200,
-          "pick_aces_projection": 5.9,
-          "opponent_aces_projection": 1.9,
-          "total_aces_projection": 7.8,
+          "pick_aces_projection": 5.8,
+          "opponent_aces_projection": 1.8,
+          "total_aces_projection": 7.6,
           "pick_df_projection": 2.2,
-          "opponent_df_projection": 6.3,
-          "total_df_projection": 8.5,
+          "opponent_df_projection": 6.2,
+          "total_df_projection": 8.4,
           "aces_status": "OK",
           "df_status": "OK"
         }
@@ -95774,8 +95928,8 @@
         "short_form_edge": 0.0,
         "surface_recent_form_edge": -0.0078,
         "opponent_quality_edge": 0.0,
-        "sets_edge": -0.0005,
-        "games_edge": 0.0005
+        "sets_edge": -0.0001,
+        "games_edge": 0.0009
       },
       "flags": [
         "OPPONENT_QUALITY_THIN_DATA"
@@ -95783,15 +95937,15 @@
       "thinq_available": true,
       "thinq_probability_status": "OK",
       "thinq_model_version": "THINQ_PROBABILITY_V1",
-      "thinq_pick_probability": 0.5259,
-      "thinq_pick_probability_pct": 52.59,
-      "thinq_probability": 0.5259,
-      "thinq_probability_pct": 52.59,
+      "thinq_pick_probability": 0.5266,
+      "thinq_pick_probability_pct": 52.66,
+      "thinq_probability": 0.5266,
+      "thinq_probability_pct": 52.66,
       "thinq_winner": "Elena Rybakina",
       "thinq_winner_side": "AWAY",
-      "thinq_winner_probability": 0.5259,
-      "thinq_winner_probability_pct": 52.59,
-      "thinq_edge": 0.0294,
+      "thinq_winner_probability": 0.5266,
+      "thinq_winner_probability_pct": 52.66,
+      "thinq_edge": 0.0302,
       "thinq_probability_confidence": 0.88,
       "thinq_probability_components": {
         "overall_elo_edge": 0.0192,
@@ -95801,8 +95955,8 @@
         "short_form_edge": 0.0,
         "surface_recent_form_edge": -0.0078,
         "opponent_quality_edge": 0.0,
-        "sets_edge": -0.0005,
-        "games_edge": 0.0005
+        "sets_edge": -0.0001,
+        "games_edge": 0.0009
       },
       "thinq_confidence": 0.88,
       "thinq_selected_elo_type": "hard_elo",
@@ -95857,13 +96011,13 @@
       "thinq_short_form_edge": 0.0,
       "thinq_surface_recent_form_edge": -0.0078,
       "thinq_opponent_quality_edge": 0.0,
-      "thinq_sets_edge": -0.0005,
-      "thinq_games_edge": 0.0005,
-      "thinq_projected_sets": 2.54,
-      "thinq_projected_games": 26.0,
-      "thinq_tiebreak_probability": 0.4387,
-      "thinq_decider_probability": 0.5373,
-      "thinq_straight_sets_probability": 0.4627,
+      "thinq_sets_edge": -0.0001,
+      "thinq_games_edge": 0.0009,
+      "thinq_projected_sets": 2.51,
+      "thinq_projected_games": 25.7,
+      "thinq_tiebreak_probability": 0.4233,
+      "thinq_decider_probability": 0.5065,
+      "thinq_straight_sets_probability": 0.4935,
       "thinq_match_shape": "CLOSE_DECIDER_LEAN",
       "thinq_match_dynamics_confidence": 0.78,
       "thinq_form_confidence": 0.85,
@@ -96057,12 +96211,12 @@
         "api_opp_serve_cache_path": "data/api_pro/team_year_stats/264983_2026.json",
         "api_pick_serve_api_status": 200,
         "api_opp_serve_api_status": 200,
-        "pick_aces_projection": 5.9,
-        "opponent_aces_projection": 1.9,
-        "total_aces_projection": 7.8,
+        "pick_aces_projection": 5.8,
+        "opponent_aces_projection": 1.8,
+        "total_aces_projection": 7.6,
         "pick_df_projection": 2.2,
-        "opponent_df_projection": 6.3,
-        "total_df_projection": 8.5,
+        "opponent_df_projection": 6.2,
+        "total_df_projection": 8.4,
         "aces_status": "OK",
         "df_status": "OK"
       },
@@ -96102,13 +96256,13 @@
       "sets_model_source": "ModelFallback",
       "pick_aces_line": null,
       "opponent_aces_line": null,
-      "total_aces_line": 7.8,
-      "pick_aces_projection": 5.9,
-      "opponent_aces_projection": 1.9,
-      "total_aces_projection": 7.8,
+      "total_aces_line": 7.6,
+      "pick_aces_projection": 5.8,
+      "opponent_aces_projection": 1.8,
+      "total_aces_projection": 7.6,
       "pick_df_projection": 2.2,
-      "opponent_df_projection": 6.3,
-      "total_df_projection": 8.5,
+      "opponent_df_projection": 6.2,
+      "total_df_projection": 8.4,
       "aces_status": "OK",
       "ta_scope": "last52_overall",
       "ta_surface": "hard",
@@ -96185,8 +96339,8 @@
       "opponent_quality_edge": 0.0,
       "ranking_context_edge": 0.002,
       "market_sanity_edge": 0.0,
-      "sets_edge": -0.0005,
-      "games_edge": 0.0005
+      "sets_edge": -0.0001,
+      "games_edge": 0.0009
     },
     "thinq_flags": [
       "OPPONENT_QUALITY_THIN_DATA"
@@ -96225,18 +96379,18 @@
       "pick_side": "AWAY",
       "opponent": "Coco Gauff",
       "opponent_side": "HOME",
-      "pick_probability": 0.5259,
-      "pick_probability_pct": 52.59,
-      "opponent_probability": 0.4741,
-      "opponent_probability_pct": 47.41,
+      "pick_probability": 0.5266,
+      "pick_probability_pct": 52.66,
+      "opponent_probability": 0.4734,
+      "opponent_probability_pct": 47.34,
       "winner": "Elena Rybakina",
       "winner_side": "AWAY",
-      "winner_probability": 0.5259,
-      "winner_probability_pct": 52.59,
+      "winner_probability": 0.5266,
+      "winner_probability_pct": 52.66,
       "loser": "Coco Gauff",
       "loser_side": "HOME",
-      "edge": 0.0294,
-      "winner_edge": 0.0259,
+      "edge": 0.0302,
+      "winner_edge": 0.0266,
       "confidence": 0.88,
       "components": {
         "overall_elo_edge": 0.0192,
@@ -96246,16 +96400,16 @@
         "short_form_edge": 0.0,
         "surface_recent_form_edge": -0.0078,
         "opponent_quality_edge": 0.0,
-        "sets_edge": -0.0005,
-        "games_edge": 0.0005
+        "sets_edge": -0.0001,
+        "games_edge": 0.0009
       },
       "form_family_edge": -0.0104,
-      "sets_games_edge": 0.0,
+      "sets_games_edge": 0.0008,
       "display": {
         "winner": "Elena Rybakina",
-        "probability": "52.6%",
-        "pick_probability": "52.6%",
-        "edge": "+2.9%",
+        "probability": "52.7%",
+        "pick_probability": "52.7%",
+        "edge": "+3.0%",
         "confidence": "88.0%"
       },
       "flags": [
@@ -96264,15 +96418,15 @@
     },
     "thinq_probability_status": "OK",
     "thinq_model_version": "THINQ_PROBABILITY_V1",
-    "thinq_pick_probability": 0.5259,
-    "thinq_pick_probability_pct": 52.59,
-    "thinq_probability": 0.5259,
-    "thinq_probability_pct": 52.59,
+    "thinq_pick_probability": 0.5266,
+    "thinq_pick_probability_pct": 52.66,
+    "thinq_probability": 0.5266,
+    "thinq_probability_pct": 52.66,
     "thinq_winner": "Elena Rybakina",
     "thinq_winner_side": "AWAY",
-    "thinq_winner_probability": 0.5259,
-    "thinq_winner_probability_pct": 52.59,
-    "thinq_edge": 0.0294,
+    "thinq_winner_probability": 0.5266,
+    "thinq_winner_probability_pct": 52.66,
+    "thinq_edge": 0.0302,
     "thinq_probability_confidence": 0.88,
     "thinq_probability_components": {
       "overall_elo_edge": 0.0192,
@@ -96282,8 +96436,8 @@
       "short_form_edge": 0.0,
       "surface_recent_form_edge": -0.0078,
       "opponent_quality_edge": 0.0,
-      "sets_edge": -0.0005,
-      "games_edge": 0.0005
+      "sets_edge": -0.0001,
+      "games_edge": 0.0009
     },
     "thinq_selected_elo_type": "hard_elo",
     "thinq_elo_pick": 2104.4,
@@ -96337,13 +96491,13 @@
     "thinq_short_form_edge": 0.0,
     "thinq_surface_recent_form_edge": -0.0078,
     "thinq_opponent_quality_edge": 0.0,
-    "thinq_sets_edge": -0.0005,
-    "thinq_games_edge": 0.0005,
-    "thinq_projected_sets": 2.54,
-    "thinq_projected_games": 26.0,
-    "thinq_tiebreak_probability": 0.4387,
-    "thinq_decider_probability": 0.5373,
-    "thinq_straight_sets_probability": 0.4627,
+    "thinq_sets_edge": -0.0001,
+    "thinq_games_edge": 0.0009,
+    "thinq_projected_sets": 2.51,
+    "thinq_projected_games": 25.7,
+    "thinq_tiebreak_probability": 0.4233,
+    "thinq_decider_probability": 0.5065,
+    "thinq_straight_sets_probability": 0.4935,
     "thinq_match_shape": "CLOSE_DECIDER_LEAN",
     "thinq_match_dynamics_confidence": 0.78,
     "thinq_form_confidence": 0.85,
@@ -96678,19 +96832,19 @@
       "surface": "Hard",
       "best_of": 3,
       "composite_edge": 0.0203,
-      "closeness_index": 0.8815,
+      "closeness_index": 0.7959,
       "match_shape": "CLOSE_DECIDER_LEAN",
-      "projected_sets": 2.54,
-      "projected_games": 26.0,
-      "tiebreak_probability": 0.4387,
-      "decider_probability": 0.5373,
-      "straight_sets_probability": 0.4627,
-      "sets_edge": -0.0005,
-      "games_edge": 0.0005,
-      "tiebreak_edge": 0.0013,
-      "decider_edge": 0.0012,
+      "projected_sets": 2.51,
+      "projected_games": 25.7,
+      "tiebreak_probability": 0.4233,
+      "decider_probability": 0.5065,
+      "straight_sets_probability": 0.4935,
+      "sets_edge": -0.0001,
+      "games_edge": 0.0009,
+      "tiebreak_edge": 0.0012,
+      "decider_edge": 0.0009,
       "confidence": 0.78,
-      "odds_gap_pct": 0.0,
+      "odds_gap_pct": 0.2139,
       "flags": []
     },
     "ta_context": {
@@ -96776,8 +96930,8 @@
       "short_form_edge": 0.0,
       "surface_recent_form_edge": -0.0078,
       "opponent_quality_edge": 0.0,
-      "sets_edge": -0.0005,
-      "games_edge": 0.0005
+      "sets_edge": -0.0001,
+      "games_edge": 0.0009
     },
     "confidence": 0.88,
     "ta_status": "OK",
@@ -96809,8 +96963,8 @@
     "opponent_aces_projection": 1.6,
     "total_aces_projection": 6.7,
     "pick_df_projection": 2.2,
-    "opponent_df_projection": 6.3,
-    "total_df_projection": 8.5,
+    "opponent_df_projection": 6.2,
+    "total_df_projection": 8.4,
     "ace_status": "OK",
     "df_status": "OK",
     "aces_status": "OK",
@@ -96845,15 +96999,15 @@
     "form_data_depth": 0.85,
     "status": "OK",
     "recent_form_status": "OK",
-    "projected_sets": 2.54,
-    "projected_games": 26.0,
+    "projected_sets": 2.51,
+    "projected_games": 25.7,
     "tiebreak_probability": null,
-    "decider_probability": 0.5373,
-    "straight_sets_probability": 0.4627,
-    "sets_edge": -0.0005,
-    "games_edge": 0.0005,
-    "tiebreak_edge": 0.0013,
-    "decider_edge": 0.0012,
+    "decider_probability": 0.5065,
+    "straight_sets_probability": 0.4935,
+    "sets_edge": -0.0001,
+    "games_edge": 0.0009,
+    "tiebreak_edge": 0.0012,
+    "decider_edge": 0.0009,
     "match_shape": "CLOSE_DECIDER_LEAN",
     "api_pick_serve_stats_status": "OK",
     "api_opp_serve_stats_status": "OK",
@@ -96868,23 +97022,23 @@
     "total_aces_line_source": "API_SERVE_STATS",
     "pick_df_line": 2.2,
     "pick_df_line_source": "API_SERVE_STATS",
-    "opponent_df_line": 6.3,
+    "opponent_df_line": 6.2,
     "opponent_df_line_source": "API_SERVE_STATS",
-    "total_df_line": 8.5,
+    "total_df_line": 8.4,
     "total_df_line_source": "API_SERVE_STATS",
     "s_data_depth": 1.0,
     "sets_games_data_depth": 1.0,
     "api_h2h_stats_request_no": 36,
     "api_h2h_resolution": "DISABLED",
     "api_h2h_disabled_reason": "TENNISAPI_H2H_STATS_ENABLED is not enabled",
-    "implied_probability": 0.5236,
+    "implied_probability": 0.4762,
     "pick_last10_count": 10,
     "opponent_last10_count": 10,
     "pick_surface_count": 9,
     "opponent_surface_count": 4,
     "corq_model_version": "CORQ_V1_THINQ_PRIMARY_PROBABILITY",
     "corq_probability_source": "THINQ_PICK_PROBABILITY",
-    "corq_thinq_probability": 0.5259,
+    "corq_thinq_probability": 0.5266,
     "corq_components": {
       "overall_elo_component": 0.0192,
       "surface_elo_component": 0.0509,
@@ -96894,14 +97048,14 @@
       "h2h_component": -0.0225,
       "ranking_context_component": 0.002,
       "market_sanity_component": 0.0,
-      "context_component": 0.0
+      "context_component": 0.0008
     },
-    "corq_raw_model_edge": 0.0259,
+    "corq_raw_model_edge": 0.0266,
     "corq_confidence_factor": 0.88,
-    "corq_estimated_win_probability": 0.5228,
-    "estimated_win_pct": 52.28,
-    "corq_score": 0.5228,
-    "corq_edge": -0.0008,
+    "corq_estimated_win_probability": 0.5041,
+    "estimated_win_pct": 50.41,
+    "corq_score": 0.5041,
+    "corq_edge": 0.0279,
     "corq_risk_flags": [],
     "ranking_source": "TENNISAPI_RANKINGS",
     "ranking_status": "OK",
@@ -96976,41 +97130,41 @@
       "TA profile missing or no usable scoped stats"
     ],
     "ta_signal_score_projection": "N/A",
-    "expected_sets": 2.48,
+    "expected_sets": 2.46,
     "sets_selection": "O2.5",
-    "sets_probability": 0.484,
+    "sets_probability": 0.4633,
     "sets_probability_label": "O2.5",
-    "sets_o25_probability": 0.484,
+    "sets_o25_probability": 0.4633,
     "sets_o45_probability": null,
     "most_likely_score": "2-0",
-    "most_likely_score_probability": 0.2838,
+    "most_likely_score_probability": 0.3257,
     "score_probabilities": {
-      "2-0": 0.2838,
-      "2-1": 0.242,
-      "1-2": 0.242,
-      "0-2": 0.2322
+      "2-0": 0.3257,
+      "2-1": 0.254,
+      "1-2": 0.2093,
+      "0-2": 0.211
     },
     "score_basis": "player1_vs_player2",
     "sets_source": "Model",
-    "first_set_player1_odds": 1.90909,
-    "first_set_player2_odds": 1.90909,
-    "first_set_player1_probability": 0.5,
-    "first_set_player2_probability": 0.5,
+    "first_set_player1_odds": 1.8,
+    "first_set_player2_odds": 2.0,
+    "first_set_player1_probability": 0.5263157894736842,
+    "first_set_player2_probability": 0.47368421052631576,
     "expected_games": 22.5,
     "projected_total_games": 22.5,
     "games_line": 22.5,
     "total_games_line": 22.5,
     "games_pick": "Under 22.5",
     "games_selection": "U22.5",
-    "games_probability": 0.5147057634082753,
+    "games_probability": 0.5365857584773842,
     "games_model_source": "TennisApiMarkets",
     "games_data_quality": "C+",
     "best_total_selection": "U22.5",
-    "best_total_probability": 0.5147057634082753,
-    "games_over_odds": 1.90909,
-    "games_under_odds": 1.8,
-    "games_over_probability": 0.4853,
-    "games_under_probability": 0.5147,
+    "best_total_probability": 0.5365857584773842,
+    "games_over_odds": 2.0,
+    "games_under_odds": 1.72727,
+    "games_over_probability": 0.4634,
+    "games_under_probability": 0.5366,
     "tie_break_yes_odds": null,
     "tie_break_no_odds": null,
     "tie_break_selection": null,
@@ -97042,11 +97196,11 @@
     "pick_df_selection": "U2.2",
     "pick_df_probability": 0.5796,
     "opponent_df_side": "Under",
-    "opponent_df_selection": "U6.3",
-    "opponent_df_probability": 0.7221,
+    "opponent_df_selection": "U6.2",
+    "opponent_df_probability": 0.6993,
     "total_df_side": "Under",
-    "total_df_selection": "U8.5",
-    "total_df_probability": 0.7148,
+    "total_df_selection": "U8.4",
+    "total_df_probability": 0.6982,
     "pick_aces": 5.1,
     "opponent_aces": 1.6,
     "total_aces": 6.7,
@@ -97060,9 +97214,9 @@
     "total_aces_selection": "O6.5",
     "total_aces_probability": 0.5329,
     "aces_source": "TA A% + projected service points",
-    "best_bet": "U6.3",
-    "best_bet_display": "U6.3 72%",
-    "best_bet_probability": 0.7221,
+    "best_bet": "U6.2",
+    "best_bet_display": "U6.2 70%",
+    "best_bet_probability": 0.6993,
     "best_bet_market": "Opp DF",
     "sets_games_value_candidates": [],
     "value_bet": null,
@@ -97073,9 +97227,9 @@
     "marq_source": "tennisapi_market_quality_v2",
     "marq_api_source": "TennisApi RapidAPI",
     "marq_source_policy": "TENNISAPI_ONLY_EXACT_EVENT",
-    "marq_source_quality": "EXACT_CURRENT_ODDS_ONLY",
-    "marq_data_status": "EXACT_CURRENT_ODDS_ONLY",
-    "marq_confidence": "MEDIUM",
+    "marq_source_quality": "EXACT_BETTING_ODDS_WITH_OPENING",
+    "marq_data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+    "marq_confidence": "HIGH",
     "marq_exact_event_id_used": true,
     "marq_name_matching_skipped": true,
     "marq_date_feed_skipped": true,
@@ -97098,20 +97252,20 @@
         "market_period": "Match",
         "market_id": 1,
         "source_id": 199441216,
-        "odds_1": 1.91,
-        "odds_2": 1.91,
+        "odds_1": 1.73,
+        "odds_2": 2.1,
         "initial_1": 1.91,
         "initial_2": 1.91,
         "opening_1": 1.91,
         "opening_2": 1.91,
-        "change_1": 0.0,
-        "change_2": 0.0,
+        "change_1": -1.0,
+        "change_2": 1.0,
         "choice_source_id_1": 1891318424,
         "choice_source_id_2": 1891318468,
-        "marq_v2_no_vig_1": 0.5,
-        "marq_v2_no_vig_2": 0.5,
-        "marq_v2_overround": 1.0471204188481675,
-        "marq_v2_movement_status": "OPENING_EQUALS_CURRENT",
+        "marq_v2_no_vig_1": 0.5483028720626633,
+        "marq_v2_no_vig_2": 0.4516971279373368,
+        "marq_v2_overround": 1.054225158271401,
+        "marq_v2_movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
         "provider_odds_market_count": 3,
         "provider_odds_has_full_time": true,
         "provider_odds_fetch_version": "2026-08-04-tennisapi-only-marq-v2",
@@ -97176,24 +97330,24 @@
     "marq_endpoint_name": "getAllOddsForEvent",
     "marq_market_count": 3,
     "marq_has_full_time": true,
-    "marq_current_odds_1": 1.91,
-    "marq_current_odds_2": 1.91,
+    "marq_current_odds_1": 1.73,
+    "marq_current_odds_2": 2.1,
     "marq_opening_odds_1": 1.91,
     "marq_opening_odds_2": 1.91,
-    "marq_change_1": 0.0,
-    "marq_change_2": 0.0,
-    "marq_no_vig_probability_1": 0.5,
-    "marq_no_vig_probability_2": 0.5,
-    "marq_overround": 1.04712,
-    "marq_movement_status": "OPENING_EQUALS_CURRENT",
-    "marq_internal_move_signal": "Stable",
-    "marq_display_move_signal": "Stable",
-    "marq_move_signal": "Stable",
-    "marq_move_direction": "Stable",
-    "marq_move_pct": 0.0,
-    "marq_move_range": "1.91 -> 1.91",
+    "marq_change_1": -1.0,
+    "marq_change_2": 1.0,
+    "marq_no_vig_probability_1": 0.548303,
+    "marq_no_vig_probability_2": 0.451697,
+    "marq_overround": 1.054225,
+    "marq_movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+    "marq_internal_move_signal": "Against pick",
+    "marq_display_move_signal": "Against pick",
+    "marq_move_signal": "Against pick",
+    "marq_move_direction": "Against",
+    "marq_move_pct": 9.9,
+    "marq_move_range": "1.91 -> 2.1",
     "marq_move_earliest_odds": 1.91,
-    "marq_move_latest_odds": 1.91,
+    "marq_move_latest_odds": 2.1,
     "bet365_disabled": true,
     "tennis_live_disabled": true,
     "marq_removed_sources": [
@@ -97203,53 +97357,53 @@
       "non-exact event discovery for MARQ"
     ],
     "marq_fetch_version": "2026-08-04-tennisapi-only-marq-v2",
-    "marq_crowd_pick_pct": 50.0,
-    "marq_pick_probability": 0.5,
-    "marq_pick_no_vig_probability": 0.5,
-    "market_pick_probability": 0.5,
-    "corq_market_probability": 0.5,
-    "marq_edge_pct": 0.0,
-    "marq_crowd_opponent_pct": 50.0,
-    "marq_opp_no_vig_probability": 0.5,
-    "marq_final": "Neutral",
-    "marq_final_display": "Neutral",
+    "marq_crowd_pick_pct": 45.2,
+    "marq_pick_probability": 0.451697,
+    "marq_pick_no_vig_probability": 0.451697,
+    "market_pick_probability": 0.451697,
+    "corq_market_probability": 0.4517,
+    "marq_edge_pct": -4.8,
+    "marq_crowd_opponent_pct": 54.8,
+    "marq_opp_no_vig_probability": 0.548303,
+    "marq_final": "Market Against Pick",
+    "marq_final_display": "Market Against Pick",
     "marq_market_view": true,
     "marq_provider_count": 1,
     "marq_market_name": "Match winner",
-    "marq_quality_signal": "EXACT_CURRENT_ODDS_ONLY",
-    "corq_marq_quality_tier": "MEDIUM_CURRENT_ONLY",
-    "corq_marq_weight_reason": "exact TennisApi current odds only, no real movement signal",
-    "corq_raw_model_probability": 0.5259,
-    "corq_raw_model_probability_pct": 52.59,
-    "corq_market_probability_pct": 50.0,
-    "corq_model_weight": 0.88,
-    "corq_market_weight": 0.12,
-    "corq_model_mix_label": "ThinQ 88% / MarQ 12%",
-    "corq_thinq_input_pp": 46.28,
-    "corq_marq_input_pp": 6.0,
-    "corq_calibrated_probability": 0.5228,
-    "corq_calibrated_probability_pct": 52.28,
-    "corq_market_adjustment_pp": -0.31,
-    "corq_calibration_method": "DYNAMIC_MARQ_WEIGHT_MEDIUM_CURRENT_ONLY",
+    "marq_quality_signal": "EXACT_BETTING_ODDS_WITH_OPENING",
+    "corq_marq_quality_tier": "HIGH",
+    "corq_marq_weight_reason": "exact TennisApi odds with real opening/current market data; real movement/CLV against pick, market brake increased",
+    "corq_raw_model_probability": 0.5266,
+    "corq_raw_model_probability_pct": 52.66,
+    "corq_market_probability_pct": 45.17,
+    "corq_model_weight": 0.7,
+    "corq_market_weight": 0.3,
+    "corq_model_mix_label": "ThinQ 70% / MarQ 30%",
+    "corq_thinq_input_pp": 36.86,
+    "corq_marq_input_pp": 13.55,
+    "corq_calibrated_probability": 0.5041,
+    "corq_calibrated_probability_pct": 50.41,
+    "corq_market_adjustment_pp": -2.25,
+    "corq_calibration_method": "DYNAMIC_MARQ_WEIGHT_HIGH",
     "corq_marq_dynamic_weight_version": "2026-08-04-marq-dynamic-weight-v1",
-    "corq_probability": 0.5228,
-    "probability": 0.5228,
-    "value_edge": -0.0008,
-    "edge": -0.0008,
-    "corq_value_delta_pp": -0.08,
-    "expected_value_pct": -0.15,
-    "marq_v2_model_probability": 0.5259,
-    "marq_v2_market_probability": 0.5,
-    "marq_v2_value_delta_pp": 2.59,
-    "marq_v2_expected_value_pct": 0.45,
-    "marq_v2_data_status": "EXACT_CURRENT_ODDS_ONLY",
-    "marq_v2_confidence": "MEDIUM",
-    "marq_v2_movement_status": "OPENING_EQUALS_CURRENT",
-    "raw_implied_probability": 0.52356,
-    "raw_implied_probability_pct": 52.36,
-    "break_even_probability": 0.52356,
-    "break_even_probability_pct": 52.36,
-    "expected_value": -0.001452,
+    "corq_probability": 0.5041,
+    "probability": 0.5041,
+    "value_edge": 0.0279,
+    "edge": 0.0279,
+    "corq_value_delta_pp": 2.79,
+    "expected_value_pct": 5.86,
+    "marq_v2_model_probability": 0.5266,
+    "marq_v2_market_probability": 0.4517,
+    "marq_v2_value_delta_pp": 7.49,
+    "marq_v2_expected_value_pct": 10.59,
+    "marq_v2_data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+    "marq_v2_confidence": "HIGH",
+    "marq_v2_movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+    "raw_implied_probability": 0.47619,
+    "raw_implied_probability_pct": 47.62,
+    "break_even_probability": 0.47619,
+    "break_even_probability_pct": 47.62,
+    "expected_value": 0.05861,
     "price_value_grade": "FAIR",
     "price_value_tag": "VALUE_NEUTRAL",
     "price_value_display": "Fair | Neutral",
@@ -97258,8 +97412,8 @@
       "FAIR",
       "VALUE_NEUTRAL"
     ],
-    "corq_source_rank": 26,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "corq_source_rank": 31,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "top7_quality_reject_reasons": [],
@@ -97271,14 +97425,14 @@
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
     "top7_status_code": 0,
-    "top7_corq_probability": 0.5228,
-    "top7_pick_thinq_edge": 0.0294,
+    "top7_corq_probability": 0.5041,
+    "top7_pick_thinq_edge": 0.0302,
     "top7_thinq_confidence": 0.88,
     "top7_thinq_data_confidence": 0.88,
-    "top7_thinq_pick_probability": 0.5259,
+    "top7_thinq_pick_probability": 0.5266,
     "pick_data_depth": 0.9085,
     "stat_data_depth": 0.9085,
-    "top7_pick_odds": 1.91,
+    "top7_pick_odds": 2.1,
     "top7_match_date_local": "2026-08-13",
     "recent_form_reason": "",
     "recent_form_sample_audit": {
@@ -97291,8 +97445,8 @@
       "history_match_count": 37883
     },
     "low_data_risk_audit": {
-      "corq_probability": 0.5228,
-      "pick_thinq_edge": 0.0294,
+      "corq_probability": 0.5041,
+      "pick_thinq_edge": 0.0302,
       "pick_data_depth": 0.9085,
       "form_data_depth": 0.85,
       "thinq_confidence": 0.88,
@@ -97311,12 +97465,14 @@
     "top7_risk_tags": [
       "SURFACE_H2H_AGAINST_PICK",
       "OPP_STRONG_FORM",
+      "MARKET_AGAINST_PICK",
       "MULTI_RISK_PICK",
       "HIGH_RISK_PICK"
     ],
     "top7_risk_labels": [
       "Surface H2H against pick",
       "Opp strong",
+      "Market against pick",
       "Multiple risk signals",
       "High Risk"
     ],
@@ -97342,7 +97498,7 @@
       {
         "tag": "THINQ_EDGE_SUPPORT_PICK",
         "bonus": 1.0,
-        "thinq_edge": 0.0294
+        "thinq_edge": 0.0302
       },
       {
         "tag": "ELO_SUPPORT_PICK",
@@ -97351,70 +97507,103 @@
         "surface_elo": 0.0509
       },
       {
+        "tag": "MARKET_AGAINST_PICK",
+        "penalty": 3.5,
+        "marq_edge": -4.8,
+        "market_delta": -2.25
+      },
+      {
+        "tag": "VALUE_POSITIVE",
+        "bonus": 1.5,
+        "value": 2.79
+      },
+      {
         "tag": "MULTI_RISK_PICK",
         "penalty": 3.0,
-        "risk_count": 2
+        "risk_count": 3
       },
       {
         "tag": "HIGH_RISK_PICK",
         "penalty": 4.0,
-        "risk_count": 2,
-        "penalty_before_high_risk": 10.5
+        "risk_count": 3,
+        "penalty_before_high_risk": 14.0
       },
       {
-        "tag": "VALUE_NEUTRAL_PRICE",
-        "bonus": 1.25,
-        "value_delta_pp": -0.08
+        "tag": "VALUE_POSITIVE_CONFIRMED",
+        "bonus": 2.5,
+        "value_delta_pp": 2.79
+      },
+      {
+        "tag": "VALUE_FIRST_MARKET_WITH_PICK",
+        "bonus": 2.0
+      },
+      {
+        "tag": "VALUE_FIRST_STRONG_EV",
+        "bonus": 2.0,
+        "expected_value_pct": 5.86
       }
     ],
-    "top7_risk_penalty_points": 14.5,
-    "top7_clean_bonus_points": 5.25,
-    "top7_quality_score": 78.79008638743456,
+    "top7_risk_penalty_points": 18.0,
+    "top7_clean_bonus_points": 12.0,
+    "top7_quality_score": 89.31611904761904,
     "corq_warning_flags": [
       "SURFACE_H2H_AGAINST_PICK",
       "OPP_STRONG_FORM",
       "PICK_STRONG_FORM",
       "THINQ_EDGE_SUPPORT_PICK",
       "ELO_SUPPORT_PICK",
+      "MARKET_AGAINST_PICK",
+      "VALUE_POSITIVE",
       "MULTI_RISK_PICK",
       "HIGH_RISK_PICK",
-      "VALUE_NEUTRAL_PRICE",
-      "CORQ_CLEAN"
+      "VALUE_POSITIVE_CONFIRMED",
+      "VALUE_FIRST_MARKET_WITH_PICK",
+      "VALUE_FIRST_STRONG_EV",
+      "CORQ_CLEAN",
+      "PENALTY_MARKET_AGAINST_PICK"
     ],
     "top7_support_tags": [
       "PICK_STRONG_FORM",
       "THINQ_EDGE_SUPPORT_PICK",
       "ELO_SUPPORT_PICK",
-      "VALUE_NEUTRAL_PRICE"
+      "VALUE_POSITIVE",
+      "VALUE_POSITIVE_CONFIRMED",
+      "VALUE_FIRST_MARKET_WITH_PICK",
+      "VALUE_FIRST_STRONG_EV"
     ],
     "top7_support_labels": [
       "Pick strong",
       "ThinQ edge support",
       "ELO support",
-      "Value neutral"
+      "Value+",
+      "Value positive",
+      "Market with pick",
+      "Strong EV"
     ],
-    "top7_positive_support_count": 4,
-    "top7_risk_count": 4,
+    "top7_positive_support_count": 7,
+    "top7_risk_count": 5,
     "top7_high_risk": true,
     "top7_combined_data_depth": 0.90925,
     "top7_sets_games_data_depth": 1.0,
     "top7_low_context_risk": false,
-    "top7_value_delta_pp": -0.08,
-    "top7_expected_value_pct": -0.15,
+    "top7_value_delta_pp": 2.79,
+    "top7_expected_value_pct": 5.86,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
-    "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_selection_model_version": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "corq_top7_selectable": true,
-    "corq_top7_sort_score": 78.79008638743456,
+    "corq_top7_sort_score": 89.31611904761904,
     "corq_top7_tier": "CORQ_CLEAN",
     "corq_rank_cap": 4,
     "corq_rank_cap_reasons": [],
     "corq_top4_eligible": true,
-    "corq_probability_gap_pp": -0.07602094240837243,
-    "corq_ev_pct_for_ranking": -0.15,
+    "corq_probability_gap_pp": 2.790952380952383,
+    "corq_ev_pct_for_ranking": 5.86,
     "corq_market_move_against": false,
     "corq_top7_reject_reasons": [],
     "corq_top7_fatal_reject_reasons": [],
-    "corq_top7_soft_penalty_reasons": [],
+    "corq_top7_soft_penalty_reasons": [
+      "PENALTY_MARKET_AGAINST_PICK"
+    ],
     "corq_top7_audit_note": "v8_hard_rejects_only_soft_penalties_separated",
     "corq_rank_audit_tags": [
       "CORQ_TOP7_RANK_CAP_PRICE_GAP_V7",
@@ -97422,7 +97611,11 @@
       "CORQ_TOP7_AUDIT_CLEANUP_V8"
     ],
     "corq_top7_legacy_reject_reasons": [],
-    "corq_rank": 26
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.5041,
+    "top7_probability_guard_passed": true,
+    "corq_rank": 31,
+    "top7_rank": 6
   },
   {
     "match_id": 16784139,
@@ -100041,14 +100234,20 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 40,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "top7_publishable": true,
-    "eligible_for_top7": true,
-    "top7_quality_reject_reasons": [],
-    "top7_reject_reasons": [],
-    "top7_hard_reject_reasons": [],
-    "top7_primary_reject_reason": null,
-    "top7_reject_reason_count": 0,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
+    "top7_publishable": false,
+    "eligible_for_top7": false,
+    "top7_quality_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_hard_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_reject_reason_count": 1,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -100162,7 +100361,7 @@
     ],
     "top7_risk_penalty_points": 17.0,
     "top7_clean_bonus_points": 7.5,
-    "top7_quality_score": 3.9345,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "PICK_STRONG_FORM",
       "FORM_SUPPORT_PICK",
@@ -100211,7 +100410,7 @@
     "top7_expected_value_pct": -23.74,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
     "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "corq_top7_selectable": true,
+    "corq_top7_selectable": false,
     "corq_top7_sort_score": 3.9345,
     "corq_top7_tier": "CORQ_RISK_FALLBACK",
     "corq_rank_cap": 6,
@@ -100253,6 +100452,9 @@
       "REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
       "REJECT_TOP7_EV_HARD_NEGATIVE"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.4721,
+    "top7_probability_guard_passed": false,
     "corq_rank": 40
   },
   {
@@ -102872,7 +103074,7 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 23,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "top7_quality_reject_reasons": [],
@@ -103038,7 +103240,7 @@
     "top7_value_delta_pp": 7.34,
     "top7_expected_value_pct": 16.14,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
-    "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_selection_model_version": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "corq_top7_selectable": true,
     "corq_top7_sort_score": 100.77704545454546,
     "corq_top7_tier": "CORQ_CLEAN",
@@ -103060,11 +103262,11 @@
       "CORQ_TOP7_AUDIT_CLEANUP_V8"
     ],
     "corq_top7_legacy_reject_reasons": [],
-    "corq_rank": 5,
-    "top7_rank": 5,
-    "corq_top7_forced_rank_selection": true,
-    "top7_selection_count_target": 7,
-    "corq_top7_selection_pass": "fallback_5_7"
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.5279,
+    "top7_probability_guard_passed": true,
+    "corq_rank": 23,
+    "top7_rank": 5
   },
   {
     "match_id": 16784137,
@@ -105682,14 +105884,20 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 59,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "top7_publishable": true,
-    "eligible_for_top7": true,
-    "top7_quality_reject_reasons": [],
-    "top7_reject_reasons": [],
-    "top7_hard_reject_reasons": [],
-    "top7_primary_reject_reason": null,
-    "top7_reject_reason_count": 0,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
+    "top7_publishable": false,
+    "eligible_for_top7": false,
+    "top7_quality_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_hard_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_reject_reason_count": 1,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -105797,7 +106005,7 @@
     ],
     "top7_risk_penalty_points": 24.5,
     "top7_clean_bonus_points": 1.5,
-    "top7_quality_score": 1.739545454545464,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "ELO_AGAINST_PICK",
       "MARKET_AGAINST_PICK",
@@ -105836,7 +106044,7 @@
     "top7_expected_value_pct": -24.87,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
     "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "corq_top7_selectable": true,
+    "corq_top7_selectable": false,
     "corq_top7_sort_score": 1.739545454545464,
     "corq_top7_tier": "CORQ_RISK_FALLBACK",
     "corq_rank_cap": 6,
@@ -105878,6 +106086,9 @@
       "REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
       "REJECT_TOP7_EV_HARD_NEGATIVE"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.3415,
+    "top7_probability_guard_passed": false,
     "corq_rank": 59
   },
   {
@@ -108496,7 +108707,7 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 4,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "top7_quality_reject_reasons": [],
@@ -108639,7 +108850,7 @@
     "top7_value_delta_pp": 3.95,
     "top7_expected_value_pct": 6.37,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
-    "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_selection_model_version": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "corq_top7_selectable": true,
     "corq_top7_sort_score": 112.37828797820971,
     "corq_top7_tier": "CORQ_CLEAN",
@@ -108659,11 +108870,11 @@
       "CORQ_TOP7_AUDIT_CLEANUP_V8"
     ],
     "corq_top7_legacy_reject_reasons": [],
-    "corq_rank": 3,
-    "top7_rank": 3,
-    "corq_top7_forced_rank_selection": true,
-    "top7_selection_count_target": 7,
-    "corq_top7_selection_pass": "top4_quality"
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.6585,
+    "top7_probability_guard_passed": true,
+    "corq_rank": 4,
+    "top7_rank": 3
   },
   {
     "match_id": 16784135,
@@ -111286,14 +111497,20 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 32,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "top7_publishable": true,
-    "eligible_for_top7": true,
-    "top7_quality_reject_reasons": [],
-    "top7_reject_reasons": [],
-    "top7_hard_reject_reasons": [],
-    "top7_primary_reject_reason": null,
-    "top7_reject_reason_count": 0,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
+    "top7_publishable": false,
+    "eligible_for_top7": false,
+    "top7_quality_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_hard_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_reject_reason_count": 1,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -111412,7 +111629,7 @@
     ],
     "top7_risk_penalty_points": 9.0,
     "top7_clean_bonus_points": 15.0,
-    "top7_quality_score": 75.77763636363638,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "OPP_WEAK_FORM",
       "FORM_SUPPORT_PICK",
@@ -111469,7 +111686,7 @@
     "top7_expected_value_pct": 35.08,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
     "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "corq_top7_selectable": true,
+    "corq_top7_selectable": false,
     "corq_top7_sort_score": 75.77763636363638,
     "corq_top7_tier": "CORQ_CLEAN",
     "corq_rank_cap": 4,
@@ -111505,6 +111722,9 @@
       "REJECT_TOP7_CORQ_BELOW_50",
       "REJECT_TOP7_ELO_UNAVAILABLE_LOW_DEPTH"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.4912,
+    "top7_probability_guard_passed": false,
     "corq_rank": 32
   },
   {
@@ -114127,8 +114347,8 @@
       "SHORT",
       "VALUE_NEGATIVE"
     ],
-    "corq_source_rank": 31,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "corq_source_rank": 30,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "top7_quality_reject_reasons": [],
@@ -114398,7 +114618,10 @@
       "REJECT_TOP7_EV_HARD_NEGATIVE",
       "REJECT_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE"
     ],
-    "corq_rank": 31
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.5088,
+    "top7_probability_guard_passed": true,
+    "corq_rank": 30
   },
   {
     "match_id": 16784141,
@@ -117017,7 +117240,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 25,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "top7_quality_reject_reasons": [],
@@ -117189,6 +117412,9 @@
       "REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
       "REJECT_TOP7_EV_HARD_NEGATIVE"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.5258,
+    "top7_probability_guard_passed": true,
     "corq_rank": 25
   },
   {
@@ -119808,14 +120034,20 @@
       "VALUE_NEUTRAL"
     ],
     "corq_source_rank": 38,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "top7_publishable": true,
-    "eligible_for_top7": true,
-    "top7_quality_reject_reasons": [],
-    "top7_reject_reasons": [],
-    "top7_hard_reject_reasons": [],
-    "top7_primary_reject_reason": null,
-    "top7_reject_reason_count": 0,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
+    "top7_publishable": false,
+    "eligible_for_top7": false,
+    "top7_quality_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_hard_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_reject_reason_count": 1,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -119898,7 +120130,7 @@
     ],
     "top7_risk_penalty_points": 8.5,
     "top7_clean_bonus_points": 2.25,
-    "top7_quality_score": 65.32761904761904,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "SURFACE_SUPPORT_PICK",
       "ELO_AGAINST_PICK",
@@ -119933,7 +120165,7 @@
     "top7_expected_value_pct": -0.42,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
     "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "corq_top7_selectable": true,
+    "corq_top7_selectable": false,
     "corq_top7_sort_score": 65.32761904761904,
     "corq_top7_tier": "CORQ_PLAYABLE",
     "corq_rank_cap": 4,
@@ -119964,6 +120196,9 @@
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_THINQ_BELOW_50_AND_NEGATIVE_VALUE"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.4742,
+    "top7_probability_guard_passed": false,
     "corq_rank": 38
   },
   {
@@ -122585,14 +122820,20 @@
       "VALUE_NEUTRAL"
     ],
     "corq_source_rank": 46,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "top7_publishable": true,
-    "eligible_for_top7": true,
-    "top7_quality_reject_reasons": [],
-    "top7_reject_reasons": [],
-    "top7_hard_reject_reasons": [],
-    "top7_primary_reject_reason": null,
-    "top7_reject_reason_count": 0,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
+    "top7_publishable": false,
+    "eligible_for_top7": false,
+    "top7_quality_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_hard_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_reject_reason_count": 1,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -122690,7 +122931,7 @@
     ],
     "top7_risk_penalty_points": 14.5,
     "top7_clean_bonus_points": 3.05,
-    "top7_quality_score": 62.34761111111111,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "H2H_SUPPORT_PICK",
       "SURFACE_H2H_SUPPORT_PICK",
@@ -122728,7 +122969,7 @@
     "top7_expected_value_pct": -0.41,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
     "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "corq_top7_selectable": true,
+    "corq_top7_selectable": false,
     "corq_top7_sort_score": 62.34761111111111,
     "corq_top7_tier": "CORQ_PLAYABLE",
     "corq_rank_cap": 4,
@@ -122759,6 +123000,9 @@
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_THINQ_BELOW_50_AND_NEGATIVE_VALUE"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.4426,
+    "top7_probability_guard_passed": false,
     "corq_rank": 46
   },
   {
@@ -125380,7 +125624,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 17,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "top7_quality_reject_reasons": [],
@@ -125601,6 +125845,9 @@
       "REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
       "REJECT_TOP7_EV_HARD_NEGATIVE"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.5574,
+    "top7_probability_guard_passed": true,
     "corq_rank": 17
   },
   {
@@ -128215,7 +128462,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 20,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "top7_quality_reject_reasons": [],
@@ -128431,6 +128678,9 @@
       "REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
       "REJECT_TOP7_EV_HARD_NEGATIVE"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.5394,
+    "top7_probability_guard_passed": true,
     "corq_rank": 20
   },
   {
@@ -131045,14 +131295,20 @@
       "VALUE_NEUTRAL"
     ],
     "corq_source_rank": 43,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "top7_publishable": true,
-    "eligible_for_top7": true,
-    "top7_quality_reject_reasons": [],
-    "top7_reject_reasons": [],
-    "top7_hard_reject_reasons": [],
-    "top7_primary_reject_reason": null,
-    "top7_reject_reason_count": 0,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
+    "top7_publishable": false,
+    "eligible_for_top7": false,
+    "top7_quality_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_hard_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_reject_reason_count": 1,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -131169,7 +131425,7 @@
     ],
     "top7_risk_penalty_points": 17.5,
     "top7_clean_bonus_points": 6.8,
-    "top7_quality_score": 75.53554545454547,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "H2H_SUPPORT_PICK",
       "SURFACE_H2H_SUPPORT_PICK",
@@ -131213,7 +131469,7 @@
     "top7_expected_value_pct": 1.33,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
     "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "corq_top7_selectable": true,
+    "corq_top7_selectable": false,
     "corq_top7_sort_score": 75.53554545454547,
     "corq_top7_tier": "CORQ_CLEAN",
     "corq_rank_cap": 4,
@@ -131242,6 +131498,9 @@
       "REJECT_TOP7_CORQ_BELOW_50",
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.4606,
+    "top7_probability_guard_passed": false,
     "corq_rank": 43
   },
   {
@@ -133873,14 +134132,20 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 44,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "top7_publishable": true,
-    "eligible_for_top7": true,
-    "top7_quality_reject_reasons": [],
-    "top7_reject_reasons": [],
-    "top7_hard_reject_reasons": [],
-    "top7_primary_reject_reason": null,
-    "top7_reject_reason_count": 0,
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
+    "top7_publishable": false,
+    "eligible_for_top7": false,
+    "top7_quality_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_hard_reject_reasons": [
+      "REJECT_TOP7_CORQ_BELOW_50"
+    ],
+    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_reject_reason_count": 1,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -134004,7 +134269,7 @@
     ],
     "top7_risk_penalty_points": 26.0,
     "top7_clean_bonus_points": 6.5,
-    "top7_quality_score": 1.8174999999999955,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "OPP_STRONG_FORM",
       "PICK_STRONG_FORM",
@@ -134051,7 +134316,7 @@
     "top7_expected_value_pct": -24.83,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
     "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
-    "corq_top7_selectable": true,
+    "corq_top7_selectable": false,
     "corq_top7_sort_score": 1.8174999999999955,
     "corq_top7_tier": "CORQ_RISK_FALLBACK",
     "corq_rank_cap": 6,
@@ -134093,6 +134358,9 @@
       "REJECT_TOP7_MODEL_VALUE_HARD_NEGATIVE",
       "REJECT_TOP7_EV_HARD_NEGATIVE"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.451,
+    "top7_probability_guard_passed": false,
     "corq_rank": 44
   },
   {
@@ -136724,7 +136992,7 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 19,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "top7_quality_reject_reasons": [],
@@ -136915,7 +137183,7 @@
     "top7_value_delta_pp": 7.28,
     "top7_expected_value_pct": 15.29,
     "top7_data_health_model_version": "CORQ_TOP7_DATA_HEALTH_V1",
-    "top7_selection_model_version": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_selection_model_version": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "corq_top7_selectable": true,
     "corq_top7_sort_score": 103.75011904761905,
     "corq_top7_tier": "CORQ_CLEAN",
@@ -136937,11 +137205,11 @@
       "CORQ_TOP7_AUDIT_CLEANUP_V8"
     ],
     "corq_top7_legacy_reject_reasons": [],
-    "corq_rank": 4,
-    "top7_rank": 4,
-    "corq_top7_forced_rank_selection": true,
-    "top7_selection_count_target": 7,
-    "corq_top7_selection_pass": "top4_quality"
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.549,
+    "top7_probability_guard_passed": true,
+    "corq_rank": 19,
+    "top7_rank": 4
   },
   {
     "match_id": 16799780,
@@ -139365,7 +139633,7 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 21,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
@@ -139443,7 +139711,7 @@
     ],
     "top7_risk_penalty_points": 0.0,
     "top7_clean_bonus_points": 3.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "THINQ_EDGE_SUPPORT_PICK",
       "ELO_SUPPORT_PICK",
@@ -139500,6 +139768,9 @@
     "corq_top7_legacy_reject_reasons": [
       "REJECT_TOP7_MISSING_ODDS"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.5346,
+    "top7_probability_guard_passed": false,
     "corq_rank": 21
   },
   {
@@ -141924,20 +142195,23 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 42,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_primary_reject_reason": "REJECT_TOP7_MISSING_ODDS",
-    "top7_reject_reason_count": 1,
+    "top7_reject_reason_count": 2,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -142017,7 +142291,7 @@
     ],
     "top7_risk_penalty_points": 2.0,
     "top7_clean_bonus_points": 4.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "FORM_SUPPORT_PICK",
       "SURFACE_SUPPORT_PICK",
@@ -142084,6 +142358,9 @@
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_MISSING_ODDS"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.4654,
+    "top7_probability_guard_passed": false,
     "corq_rank": 42
   },
   {
@@ -144507,20 +144784,23 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 49,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_primary_reject_reason": "REJECT_TOP7_MISSING_ODDS",
-    "top7_reject_reason_count": 1,
+    "top7_reject_reason_count": 2,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -144595,7 +144875,7 @@
     ],
     "top7_risk_penalty_points": 2.0,
     "top7_clean_bonus_points": 4.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "PICK_STRONG_FORM",
       "SURFACE_SUPPORT_PICK",
@@ -144659,6 +144939,9 @@
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_MISSING_ODDS"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.4146,
+    "top7_probability_guard_passed": false,
     "corq_rank": 49
   },
   {
@@ -147082,7 +147365,7 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 14,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
@@ -147170,7 +147453,7 @@
     ],
     "top7_risk_penalty_points": 5.0,
     "top7_clean_bonus_points": 3.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "OPP_STRONG_FORM",
       "THINQ_EDGE_SUPPORT_PICK",
@@ -147228,6 +147511,9 @@
     "corq_top7_legacy_reject_reasons": [
       "REJECT_TOP7_MISSING_ODDS"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.5854,
+    "top7_probability_guard_passed": false,
     "corq_rank": 14
   },
   {
@@ -149864,7 +150150,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 12,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
@@ -149995,7 +150281,7 @@
     ],
     "top7_risk_penalty_points": 18.5,
     "top7_clean_bonus_points": 9.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "SURFACE_H2H_AGAINST_PICK",
       "OPP_WEAK_FORM",
@@ -150073,6 +150359,9 @@
       "REJECT_TOP7_STATUS_NOT_PREMATCH",
       "REJECT_TOP7_LOW_ODDS_FAVORITE_VALUE_GATE"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.6245,
+    "top7_probability_guard_passed": false,
     "corq_rank": 12
   },
   {
@@ -152709,20 +152998,23 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 51,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_STATUS_NOT_PREMATCH"
+      "REJECT_TOP7_STATUS_NOT_PREMATCH",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_reject_reasons": [
-      "REJECT_TOP7_STATUS_NOT_PREMATCH"
+      "REJECT_TOP7_STATUS_NOT_PREMATCH",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_STATUS_NOT_PREMATCH"
+      "REJECT_TOP7_STATUS_NOT_PREMATCH",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_primary_reject_reason": "REJECT_TOP7_STATUS_NOT_PREMATCH",
-    "top7_reject_reason_count": 1,
+    "top7_reject_reason_count": 2,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": false,
     "top7_status_type_normalized": "suspended",
@@ -152830,7 +153122,7 @@
     ],
     "top7_risk_penalty_points": 19.5,
     "top7_clean_bonus_points": 1.8,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "H2H_SUPPORT_PICK",
       "SURFACE_H2H_SUPPORT_PICK",
@@ -152901,6 +153193,9 @@
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_THINQ_BELOW_50_AND_NEGATIVE_VALUE"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.3755,
+    "top7_probability_guard_passed": false,
     "corq_rank": 51
   },
   {
@@ -155331,7 +155626,7 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 15,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
@@ -155420,7 +155715,7 @@
     ],
     "top7_risk_penalty_points": 0.0,
     "top7_clean_bonus_points": 6.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "PICK_STRONG_FORM",
       "FORM_SUPPORT_PICK",
@@ -155483,6 +155778,9 @@
     "corq_top7_legacy_reject_reasons": [
       "REJECT_TOP7_MISSING_ODDS"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.5622,
+    "top7_probability_guard_passed": false,
     "corq_rank": 15
   },
   {
@@ -157913,20 +158211,23 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 47,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_primary_reject_reason": "REJECT_TOP7_MISSING_ODDS",
-    "top7_reject_reason_count": 1,
+    "top7_reject_reason_count": 2,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -158013,7 +158314,7 @@
     ],
     "top7_risk_penalty_points": 14.0,
     "top7_clean_bonus_points": 1.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "OPP_STRONG_FORM",
       "ELO_AGAINST_PICK",
@@ -158074,6 +158375,9 @@
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_MISSING_ODDS"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.4378,
+    "top7_probability_guard_passed": false,
     "corq_rank": 47
   },
   {
@@ -160495,7 +160799,7 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 8,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
@@ -160584,7 +160888,7 @@
     ],
     "top7_risk_penalty_points": 0.0,
     "top7_clean_bonus_points": 6.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "PICK_STRONG_FORM",
       "FORM_SUPPORT_PICK",
@@ -160647,6 +160951,9 @@
     "corq_top7_legacy_reject_reasons": [
       "REJECT_TOP7_MISSING_ODDS"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.6374,
+    "top7_probability_guard_passed": false,
     "corq_rank": 8
   },
   {
@@ -163068,20 +163375,23 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 55,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_primary_reject_reason": "REJECT_TOP7_MISSING_ODDS",
-    "top7_reject_reason_count": 1,
+    "top7_reject_reason_count": 2,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -163168,7 +163478,7 @@
     ],
     "top7_risk_penalty_points": 14.0,
     "top7_clean_bonus_points": 1.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "OPP_STRONG_FORM",
       "ELO_AGAINST_PICK",
@@ -163229,6 +163539,9 @@
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_MISSING_ODDS"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.3626,
+    "top7_probability_guard_passed": false,
     "corq_rank": 55
   },
   {
@@ -165649,20 +165962,23 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 45,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_MISSING_ODDS"
+      "REJECT_TOP7_MISSING_ODDS",
+      "REJECT_TOP7_CORQ_BELOW_50"
     ],
     "top7_primary_reject_reason": "REJECT_TOP7_MISSING_ODDS",
-    "top7_reject_reason_count": 1,
+    "top7_reject_reason_count": 2,
     "top7_reject_summary_scope": "HARD_TECHNICAL_BLOCKERS_ONLY",
     "top7_status_allowed": true,
     "top7_status_type_normalized": "notstarted",
@@ -165726,7 +166042,7 @@
     ],
     "top7_risk_penalty_points": 2.0,
     "top7_clean_bonus_points": 1.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "ELO_AGAINST_PICK",
       "MARKET_WITH_PICK",
@@ -165784,6 +166100,9 @@
       "REJECT_TOP7_THINQ_EDGE_AGAINST_PICK",
       "REJECT_TOP7_MISSING_ODDS"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.443,
+    "top7_probability_guard_passed": false,
     "corq_rank": 45
   },
   {
@@ -168204,7 +168523,7 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 18,
-    "top7_filter_mode": "CORQ_TOP7_AUDIT_CLEANUP_V8",
+    "top7_filter_mode": "CORQ_TOP7_PROBABILITY_GUARD_V9",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "top7_quality_reject_reasons": [
@@ -168287,7 +168606,7 @@
     ],
     "top7_risk_penalty_points": 0.0,
     "top7_clean_bonus_points": 4.5,
-    "top7_quality_score": -9999.0,
+    "top7_quality_score": 0.0,
     "corq_warning_flags": [
       "SURFACE_SUPPORT_PICK",
       "THINQ_EDGE_SUPPORT_PICK",
@@ -168347,6 +168666,9 @@
     "corq_top7_legacy_reject_reasons": [
       "REJECT_TOP7_MISSING_ODDS"
     ],
+    "top7_probability_guard_min": 0.5,
+    "top7_probability_guard_prob": 0.557,
+    "top7_probability_guard_passed": false,
     "corq_rank": 18
   }
 ]
