@@ -1,13 +1,24 @@
 {
   "model": "CLOQ_HIGH_ODDS_DATA_COVERED_V5_AUDIT_CLEANUP",
-  "created_at_utc": "2026-08-12T10:21:34.167488+00:00",
+  "created_at_utc": "2026-08-12T12:27:45.819119+00:00",
   "input_path": "outputs/latest_all.json",
   "input_rows": 64,
   "audit_rows": 64,
-  "output_rows": 10,
-  "top_n": 10,
+  "output_rows": 7,
+  "top_n": 7,
+  "corq_overlap": {
+    "enabled": true,
+    "source_paths": [
+      "outputs/latest_top7.json",
+      "outputs/snapshots/latest_corq_top7_snapshot.json"
+    ],
+    "corq_match_key_count": 10,
+    "audit_rows_excluded_by_corq_overlap": 20,
+    "publishable_rows_excluded_by_corq_overlap": 4,
+    "policy": "CloQ excludes matches already covered by CorQ TOP7/snapshot."
+  },
   "policy": {
-    "concept": "Top higher-odds data-covered winner candidates, not random underdogs.",
+    "concept": "Top higher-odds data-covered winner candidates, excluding CorQ overlap.",
     "min_odds": 1.7,
     "max_odds": 2.5,
     "odds_bands": {
@@ -23,15 +34,16 @@
     "forced_count": false
   },
   "selected_tier_counts": {
-    "CLOQ_PRIME": 6,
-    "CLOQ_EXTENDED": 3,
+    "CLOQ_PRIME": 4,
+    "CLOQ_EXTENDED": 2,
     "CLOQ_HIGH_VARIANCE": 1
   },
   "decision_counts": {
-    "CLOQ_PRIME": 6,
-    "CLOQ_EXTENDED": 3,
-    "CLOQ_HIGH_VARIANCE": 2,
-    "CLOQ_REJECTED": 53
+    "CLOQ_PRIME": 4,
+    "CLOQ_EXTENDED": 2,
+    "CLOQ_HIGH_VARIANCE": 1,
+    "CLOQ_REJECTED_CORQ_OVERLAP": 20,
+    "CLOQ_REJECTED": 37
   },
   "price_bucket_counts": {
     "PRIME_1_70_1_90": 10,
@@ -43,6 +55,7 @@
   "reject_reason_counts": {
     "CLOQ_INFO_UNDERDOG_MARKET_NOT_SUPPORTIVE": 5,
     "CLOQ_INFO_MARKET_AGAINST_PICK": 5,
+    "CLOQ_SKIP_ALREADY_IN_CORQ": 20,
     "CLOQ_REJECT_RANDOM_UNDERDOG": 16,
     "CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE": 15,
     "CLOQ_REJECT_MODEL_BELOW_50": 18,
@@ -57,32 +70,33 @@
     "PROBABILITY_UNDER_BREAK_EVEN_INFO": 38,
     "MARQ_AGAINST": 26,
     "MARKET_AGAINST_PICK": 25,
-    "ELO_AGAINST": 26,
     "HIGH_VARIANCE_PRICE_BAND": 19,
+    "CORQ_OVERLAP": 20,
+    "ELO_AGAINST": 26,
     "MODEL_AGAINST": 32,
     "SURFACE_AGAINST": 20,
     "FORM_AGAINST": 4
   },
   "support_tag_counts": {
     "PRIME_1_70_1_90": 10,
-    "PROBABILITY_BUFFER_STRONG": 15,
-    "MODEL_STRONG_SUPPORT": 15,
-    "MARQ_SUPPORT": 12,
-    "ELO_SUPPORT": 26,
-    "SURFACE_SUPPORT": 20,
-    "MARKET_WITH_PICK": 27,
-    "DATA_COVERED_STRONG": 36,
     "PROBABILITY_OVER_BREAK_EVEN": 9,
+    "MODEL_SUPPORT": 5,
     "MARQ_LIGHT_SUPPORT": 6,
+    "ELO_SUPPORT": 26,
+    "SURFACE_LIGHT_SUPPORT": 12,
     "MARKET_NEUTRAL": 10,
     "DATA_COVERED": 28,
-    "MODEL_SUPPORT": 5,
-    "SURFACE_LIGHT_SUPPORT": 12,
     "MODEL_LIGHT_SUPPORT": 12,
+    "SURFACE_SUPPORT": 20,
+    "DATA_COVERED_STRONG": 36,
     "EXTENDED_1_90_2_20": 11,
+    "PROBABILITY_BUFFER_STRONG": 15,
+    "MARQ_SUPPORT": 12,
     "FORM_LIGHT_SUPPORT": 24,
+    "MARKET_WITH_PICK": 27,
     "ELO_LIGHT_SUPPORT": 2,
     "HIGH_VARIANCE_2_20_2_50": 9,
+    "MODEL_STRONG_SUPPORT": 15,
     "FORM_SUPPORT": 4,
     "TOO_LOW": 24,
     "MARQ_STRONG_SUPPORT": 16,
@@ -92,6 +106,7 @@
     "CloQ scans the full ALL pool, not only CorQ TOP7.",
     "CloQ targets odds >= 1.70 and <= 2.50.",
     "Higher odds require stronger model/depth/support scoring.",
-    "Rows without required core data are rejected with explicit reasons."
+    "Rows without required core data are rejected with explicit reasons.",
+    "Matches already in CorQ are visible in audit but excluded from public CloQ output."
   ]
 }
