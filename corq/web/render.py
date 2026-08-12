@@ -6355,6 +6355,272 @@ def render_results_history_day(manifest: Dict[str, Any], day_iso: str) -> str:
     return page_shell(f'History {display_day}', HISTORY_PATH, '\n'.join(body), manifest)
 
 
+
+# ============================================================
+# Results stats + lazy-load final override V7
+# ============================================================
+# Goals:
+# - default Results range is Last 3 days
+# - full analytic result cards are preserved
+# - each lazy chunk is small, so Results chunks do not become multi-MB blobs
+# - stats are computed from exactly the active date range/preset
+# - top and bottom range controls are rendered
+# - old results_lazy files are cleaned before render
+
+RESULTS_DEFAULT_RANGE_KEY = "d3"
+RESULTS_DAY_CHUNK_SIZE = int(os.getenv("RESULTS_DAY_CHUNK_SIZE", "6") or "6")
+RESULTS_RANGE_INITIAL_CHUNKS = int(os.getenv("RESULTS_RANGE_INITIAL_CHUNKS", "2") or "2")
+RESULTS_RANGE_BATCH_CHUNKS = int(os.getenv("RESULTS_RANGE_BATCH_CHUNKS", "3") or "3")
+RESULTS_RANGE_PRESETS = [
+    {"key": "l24h", "label": "L24h", "days": None, "hours": 24},
+    {"key": "d3", "label": "Last 3 days", "days": 3, "hours": None},
+    {"key": "week", "label": "Last week", "days": 7, "hours": None},
+    {"key": "week2", "label": "Last 2 weeks", "days": 14, "hours": None},
+    {"key": "month", "label": "Last month", "days": 31, "hours": None},
+    {"key": "m3", "label": "Last 3 months", "days": 92, "hours": None},
+    {"key": "year", "label": "Last year", "days": 365, "hours": None},
+]
+
+
+def _results_v7_range_summary_html(corq: List[Dict[str, Any]], cloq: List[Dict[str, Any]], audit_rows: List[Dict[str, Any]], label: str) -> str:
+    def one(title: str, rows: List[Dict[str, Any]]) -> str:
+        s = summarize_results(rows)
+        avg = "—" if s.get("avg_odds") is None else f"{s['avg_odds']:.2f}"
+        decided = int(s.get("won", 0) + s.get("lost", 0))
+        return "".join([
+            '<div class="hero-panel results-live-summary-card">',
+            f'<div class="hero-title">{esc(title)}</div>',
+            f'<div class="hero-line"><b>{int(s["picks"])}</b> picks | W-L-V-P {int(s["won"])}-{int(s["lost"])}-{int(s["void"])}-{int(s["pending"])}</div>',
+            f'<div class="hero-line">Decided {decided} | Win {float(s["win_pct"]):.1f}% | Units {float(s["units"]):+.2f}u | ROI {float(s["roi"]):+.1f}%</div>',
+            f'<div class="hero-line">Avg odds {esc(avg)} | Range {esc(label)}</div>',
+            '</div>',
+        ])
+    return ''.join([
+        '<div class="hero results-live-summary" id="results-live-summary">',
+        one('CorQ TOP7', corq),
+        one('CloQ', cloq),
+        one('Audit', audit_rows),
+        '</div>',
+    ])
+
+
+def _write_result_day_chunks(rows: List[Dict[str, Any]], title: str, day_iso: str) -> List[str]:
+    """Write small full-card lazy chunks for one model/section/day."""
+    RESULTS_LAZY_ASSET_DIR.mkdir(parents=True, exist_ok=True)
+    section = _results_section_key(title)
+    rows_sorted = sorted(rows or [], key=result_card_sort_key)
+    chunk_size = max(1, int(RESULTS_DAY_CHUNK_SIZE or 6))
+    urls: List[str] = []
+    if not rows_sorted:
+        fname = _result_day_chunk_filename(section, day_iso, 1)
+        write_text(RESULTS_LAZY_ASSET_DIR / fname, '<div class="empty">No results available in selected range.</div>')
+        return [f"../assets/{RESULTS_LAZY_ASSET_DIRNAME}/{fname}"]
+    for chunk_idx in range(0, len(rows_sorted), chunk_size):
+        chunk = rows_sorted[chunk_idx:chunk_idx + chunk_size]
+        cards = '<div class="grid results-card-grid">' + '\n'.join(
+            render_result_card(row, chunk_idx + local_idx + 1, title)
+            for local_idx, row in enumerate(chunk)
+        ) + '</div>'
+        fname = _result_day_chunk_filename(section, day_iso, (chunk_idx // chunk_size) + 1)
+        write_text(RESULTS_LAZY_ASSET_DIR / fname, cards)
+        urls.append(f"../assets/{RESULTS_LAZY_ASSET_DIRNAME}/{fname}")
+    return urls
+
+
+def _results_range_payload(corq_all: List[Dict[str, Any]], cloq_all: List[Dict[str, Any]], audit_all: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """Build range payload. All stats here use exactly the rows in the range."""
+    payload: Dict[str, Any] = {"default": RESULTS_DEFAULT_RANGE_KEY, "ranges": {}}
+    total_archive = len(corq_all) + len(cloq_all) + len(audit_all)
+    for preset in RESULTS_RANGE_PRESETS:
+        key = preset["key"]
+        corq = _results_rows_for_preset(corq_all, key)
+        cloq = _results_rows_for_preset(cloq_all, key)
+        audit_rows = _results_rows_for_preset(audit_all, key)
+        combined = corq + cloq + audit_rows
+        mark_audit_h2h_top10(combined)
+        start_dt, end_dt = _results_range_bounds(key)
+        range_label = f"{start_dt.strftime('%d.%m.%y %H:%M')} - {end_dt.strftime('%d.%m.%y %H:%M')}"
+        payload["ranges"][key] = {
+            "label": preset["label"],
+            "rangeLabel": range_label,
+            "loadedLabel": f"{len(combined)} rows in {preset['label']} | total archive {total_archive} rows | cards load in chunks of {RESULTS_DAY_CHUNK_SIZE}",
+            "summary": _results_v7_range_summary_html(corq, cloq, audit_rows, preset["label"]),
+            "sections": {
+                "corq": {
+                    "title": "CorQ TOP7 Results",
+                    "meta": _result_section_header(corq, "CorQ TOP7 Results"),
+                    "chunks": _range_chunk_urls(corq_all, "CorQ TOP7 Results", key),
+                },
+                "cloq": {
+                    "title": "CloQ Results",
+                    "meta": _result_section_header(cloq, "CloQ Results"),
+                    "chunks": _range_chunk_urls(cloq_all, "CloQ Results", key),
+                },
+                "audit": {
+                    "title": "Audit Results",
+                    "meta": _result_section_header(audit_rows, "Audit Results"),
+                    "chunks": _range_chunk_urls(audit_all, "Audit Results", key),
+                },
+            },
+            "stats": {
+                "depth": depth_analysis(combined),
+                "sets": sets_games_audit(combined),
+                "tags": tag_analysis(combined),
+            },
+        }
+    return payload
+
+
+def _results_range_filter_panel(payload: Dict[str, Any], placement: str = "top") -> str:
+    active = str(payload.get("default") or RESULTS_DEFAULT_RANGE_KEY)
+    buttons = []
+    for preset in RESULTS_RANGE_PRESETS:
+        key = preset["key"]
+        cls = "tag-chip audit-pill audit-pill-date results-range-btn"
+        if key == active:
+            cls += " active"
+        buttons.append(f'<button type="button" class="{cls}" data-range-key="{esc(key)}">{esc(preset["label"])}</button>')
+    active_payload = payload.get("ranges", {}).get(active, {})
+    return "\n".join([
+        f'<div class="summary-panel result-filter-builder results-range-panel results-range-panel-{esc(placement)}">',
+        f'<div class="summary-title">Results range</div>',
+        '<div class="result-filter-help">Default: Last 3 days. Wider ranges load full analytic cards progressively, without simplifying card content.</div>',
+        '<div class="tag-list results-range-buttons">' + ''.join(buttons) + '</div>',
+        f'<div class="results-range-label result-filter-help">{esc(active_payload.get("rangeLabel", ""))}</div>',
+        f'<div class="results-range-loaded result-filter-help">{esc(active_payload.get("loadedLabel", ""))}</div>',
+        '</div>',
+    ])
+
+
+def _results_range_css_block() -> str:
+    return """
+<style>
+.results-range-buttons{gap:8px}.results-range-btn{cursor:pointer}.results-range-btn.active{border-color:var(--orange)!important;background:rgba(251,146,60,.24)!important;color:#fff!important;box-shadow:0 0 0 1px rgba(251,146,60,.25),0 0 18px rgba(251,146,60,.18)!important}.results-range-section-meta{margin-bottom:10px}.results-lazy-load-more{cursor:pointer}.results-lazy-load-more[disabled]{opacity:.45;cursor:not-allowed}.results-range-stats{margin-top:14px}.results-lazy-placeholder{border:1px dashed rgba(148,163,184,.35);border-radius:14px;padding:16px;color:#94a3b8;background:rgba(15,23,42,.45)}.results-live-summary{grid-template-columns:1fr 1fr 1fr}.results-live-summary-card b{color:#fff}.results-range-panel-bottom{margin-top:18px}@media(max-width:960px){.results-live-summary{grid-template-columns:1fr}}
+</style>"""
+
+
+def _results_range_section(section_key: str, title: str, payload: Dict[str, Any]) -> str:
+    active = str(payload.get("default") or RESULTS_DEFAULT_RANGE_KEY)
+    section = payload.get("ranges", {}).get(active, {}).get("sections", {}).get(section_key, {})
+    chunks = section.get("chunks", [])
+    root_id = f"results-range-root-{section_key}"
+    chunk_payload = html.escape(json.dumps(chunks, ensure_ascii=False), quote=True)
+    return "\n".join([
+        f'<section class="results-lazy-section" data-section="{esc(section_key)}">',
+        f'<div class="results-range-section-meta" data-section-meta="{esc(section_key)}">{section.get("meta", _result_section_header([], title))}</div>',
+        f'<div id="{esc(root_id)}" class="results-lazy-root" data-section="{esc(section_key)}" data-chunks="{chunk_payload}" data-loaded="0">',
+        f'  <div class="results-lazy-placeholder">Loading {esc(title)} cards...</div>',
+        '</div>',
+        f'<div class="tag-list results-lazy-controls"><button class="tag-chip results-lazy-load-more" type="button" data-target="{esc(root_id)}">Load more {esc(title)} cards</button><span class="tag-chip results-lazy-counter" data-counter-for="{esc(root_id)}">0 / {len(chunks)} chunks</span></div>',
+        '</section>',
+    ])
+
+
+def _results_range_script_block(payload: Dict[str, Any]) -> str:
+    payload_text = json.dumps(payload, ensure_ascii=False).replace('</', r'<\/')
+    return f"""
+<script type="application/json" id="results-range-payload">{payload_text}</script>
+<script>
+(function(){{
+  const initialChunks = {max(1, int(RESULTS_RANGE_INITIAL_CHUNKS or 2))};
+  const batchChunks = {max(1, int(RESULTS_RANGE_BATCH_CHUNKS or 3))};
+  function getPayload(){{
+    const node=document.getElementById('results-range-payload');
+    if(!node) return {{default:'d3', ranges:{{}}}};
+    try{{ return JSON.parse(node.textContent||'{{}}'); }}catch(e){{ return {{default:'d3', ranges:{{}}}}; }}
+  }}
+  function setChunks(root, chunks){{
+    root.setAttribute('data-chunks', JSON.stringify(chunks||[]));
+    root.setAttribute('data-loaded','0');
+    root.innerHTML='<div class="results-lazy-placeholder">Loading result cards...</div>';
+    document.querySelectorAll('[data-counter-for="'+root.id+'"]').forEach(function(c){{ c.textContent='0 / '+(chunks||[]).length+' chunks'; }});
+    document.querySelectorAll('[data-target="'+root.id+'"]').forEach(function(btn){{ btn.disabled=false; btn.textContent='Load more cards'; }});
+  }}
+  async function loadNext(root, count){{
+    if(!root) return;
+    let chunks=[];
+    try{{ chunks=JSON.parse(root.getAttribute('data-chunks')||'[]'); }}catch(e){{ chunks=[]; }}
+    let loaded=parseInt(root.getAttribute('data-loaded')||'0',10)||0;
+    const total=chunks.length;
+    const placeholder=root.querySelector('.results-lazy-placeholder');
+    if(placeholder) placeholder.remove();
+    const target=Math.min(total, loaded + Math.max(1, count||1));
+    while(loaded<target){{
+      const url=chunks[loaded];
+      try{{
+        const res=await fetch(url,{{cache:'no-cache'}});
+        const html=await res.text();
+        root.insertAdjacentHTML('beforeend', html);
+      }}catch(e){{
+        root.insertAdjacentHTML('beforeend','<div class="empty">Failed to load result chunk.</div>');
+        break;
+      }}
+      loaded++;
+      root.setAttribute('data-loaded', String(loaded));
+    }}
+    document.querySelectorAll('[data-counter-for="'+root.id+'"]').forEach(function(c){{ c.textContent=loaded+' / '+total+' chunks'; }});
+    document.querySelectorAll('[data-target="'+root.id+'"]').forEach(function(btn){{ if(loaded>=total){{ btn.disabled=true; btn.textContent='All cards loaded'; }} }});
+  }}
+  function applyRange(key){{
+    const payload=getPayload();
+    const range=(payload.ranges||{{}})[key] || (payload.ranges||{{}})[payload.default];
+    if(!range) return;
+    document.querySelectorAll('.results-range-btn').forEach(function(btn){{ btn.classList.toggle('active', btn.getAttribute('data-range-key')===key); }});
+    document.querySelectorAll('.results-range-label').forEach(function(el){{ el.textContent=range.rangeLabel||''; }});
+    document.querySelectorAll('.results-range-loaded').forEach(function(el){{ el.textContent=range.loadedLabel||''; }});
+    const summary=document.getElementById('results-range-summary'); if(summary) summary.innerHTML=range.summary||'';
+    ['corq','cloq','audit'].forEach(function(sectionKey){{
+      const section=(range.sections||{{}})[sectionKey]||{{meta:'',chunks:[]}};
+      document.querySelectorAll('[data-section-meta="'+sectionKey+'"]').forEach(function(meta){{ meta.innerHTML=section.meta||''; }});
+      document.querySelectorAll('.results-lazy-root[data-section="'+sectionKey+'"]').forEach(function(root){{ setChunks(root, section.chunks||[]); loadNext(root, initialChunks); }});
+    }});
+    const stats=range.stats||{{}};
+    const depth=document.getElementById('results-range-depth'); if(depth) depth.innerHTML=stats.depth||'';
+    const sets=document.getElementById('results-range-sets'); if(sets) sets.innerHTML=stats.sets||'';
+    const tags=document.getElementById('results-range-tags'); if(tags) tags.innerHTML=stats.tags||'';
+  }}
+  document.addEventListener('DOMContentLoaded', function(){{
+    const payload=getPayload();
+    document.querySelectorAll('.results-range-btn').forEach(function(btn){{ btn.addEventListener('click', function(){{ applyRange(btn.getAttribute('data-range-key')||payload.default||'d3'); }}); }});
+    document.querySelectorAll('.results-lazy-load-more').forEach(function(btn){{ btn.addEventListener('click', function(){{ loadNext(document.getElementById(btn.getAttribute('data-target')), batchChunks); }}); }});
+    applyRange(payload.default||'d3');
+  }});
+}})();
+</script>"""
+
+
+def render_results_page(manifest: Dict[str, Any]) -> str:
+    if RESULTS_LAZY_ASSET_DIR.exists():
+        shutil.rmtree(RESULTS_LAZY_ASSET_DIR, ignore_errors=True)
+    RESULTS_LAZY_ASSET_DIR.mkdir(parents=True, exist_ok=True)
+    corq_all = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_corq.json', []))
+    cloq_all = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_cloq.json', []))
+    audit_all = json_rows(read_json(OUTPUTS / 'results' / 'latest_results_audit.json', []))
+    all_combined = corq_all + cloq_all + audit_all
+    mark_audit_h2h_top10(all_combined)
+    payload = _results_range_payload(corq_all, cloq_all, audit_all)
+    active = payload.get('default', RESULTS_DEFAULT_RANGE_KEY)
+    active_payload = payload.get('ranges', {}).get(active, {})
+    active_stats = active_payload.get('stats', {})
+    active_rows = _results_rows_for_preset(all_combined, str(active))
+    body = [
+        _result_css_block(),
+        _results_lazy_css_block(),
+        _results_range_css_block(),
+        _results_range_filter_panel(payload, 'top'),
+        f'<div id="results-range-summary">{active_payload.get("summary", "")}</div>',
+        render_results_filter_builder(active_rows, total_count=len(all_combined)),
+        _results_range_section('corq', 'CorQ TOP7 Results', payload),
+        _results_range_section('cloq', 'CloQ Results', payload),
+        _results_range_section('audit', 'Audit Results', payload),
+        f'<div id="results-range-depth" class="results-range-stats">{active_stats.get("depth", "")}</div>',
+        f'<div id="results-range-sets" class="results-range-stats">{active_stats.get("sets", "")}</div>',
+        f'<div id="results-range-tags" class="results-range-stats">{active_stats.get("tags", "")}</div>',
+        _results_range_filter_panel(payload, 'bottom'),
+        _results_range_script_block(payload),
+    ]
+    return page_shell('Results', RESULTS_PATH, '\n'.join(body), manifest)
+
 def main() -> None:
     render_all()
 
