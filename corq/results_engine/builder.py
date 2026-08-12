@@ -907,7 +907,7 @@ def build_results(output_root: str = "outputs", run_date: Optional[str] = None, 
 
 
 # ---------------------------------------------------------------------------
-# Telegram CorQ daily snapshot result list
+# Telegram daily snapshot result lists (CorQ + CloQ)
 # ---------------------------------------------------------------------------
 def _format_tg_day(day: str) -> str:
     try:
@@ -954,28 +954,21 @@ def _fmt_tg_odds(value: Any) -> str:
     return f"{num:.2f}" if num is not None and num > 1.0 else "—"
 
 
-def _fmt_tg_units(value: Any, status: str) -> str:
+def _fmt_tg_units(value: Any, status: str, row: Optional[Dict[str, Any]] = None) -> str:
     if status == "PENDING":
-        return ""
+        return " | Pending"
+    if status == "VOID":
+        return " | +0.00u"
     num = as_float(value, None)
+    if num is None and row is not None:
+        odds = pick_odds(row)
+        if status == "WON" and odds and odds > 1.0:
+            num = float(odds) - 1.0
+        elif status == "LOST":
+            num = -1.0
     if num is None:
         return ""
     return f" | {num:+.2f}u"
-
-
-def _fmt_tg_score(row: Dict[str, Any], status: str) -> str:
-    if status == "PENDING":
-        return "Pending"
-    if status == "VOID":
-        score = str(row.get("final_score") or row.get("score") or "VOID").strip()
-        return score if score else "VOID"
-    score = str(row.get("final_score") or row.get("score") or "").strip()
-    winner = str(row.get("winner") or "").strip()
-    if score:
-        return score
-    if winner:
-        return f"Winner: {_short_tg_name(winner)}"
-    return status.title()
 
 
 def _fmt_tg_time(row: Dict[str, Any]) -> str:
@@ -1002,41 +995,72 @@ def _fmt_tg_time(row: Dict[str, Any]) -> str:
 
 
 def _tg_row_sort_key(row: Dict[str, Any]) -> Tuple[int, int, str]:
-    for key in ("snapshot_rank", "top7_rank", "top7_sort_rank", "corq_rank", "rank"):
+    for key in ("snapshot_rank", "top7_rank", "top7_sort_rank", "corq_rank", "cloq_rank", "rank"):
         val = as_float(row.get(key), None)
         if val is not None:
-            return (0, int(val), str(row.get("match_id") or row.get("id") or ""))
-    return (1, 999, str(row.get("match_id") or row.get("id") or ""))
+            return (0, int(val), str(row.get("match_id") or row.get("event_id") or row.get("id") or ""))
+    return (1, 999, str(row.get("match_id") or row.get("event_id") or row.get("id") or ""))
 
 
-def corq_snapshot_rows_for_day(rows: List[Dict[str, Any]], day: str) -> List[Dict[str, Any]]:
+def _row_functional_day(row: Dict[str, Any]) -> str:
+    return str(
+        row.get("betting_day")
+        or row.get("snapshot_date")
+        or row.get("snapshot_functional_day")
+        or row.get("functional_day")
+        or row.get("date")
+        or ""
+    )[:10]
+
+
+def snapshot_rows_for_day(rows: List[Dict[str, Any]], day: str, model: str) -> List[Dict[str, Any]]:
     target = str(day or "")[:10]
+    model = str(model or "corq").lower()
     out: List[Dict[str, Any]] = []
     for row in rows or []:
         if not isinstance(row, dict):
             continue
-        model = str(row.get("model") or "").lower()
-        source = str(row.get("snapshot_source") or row.get("source_filter") or "").upper()
-        row_day = str(row.get("betting_day") or row.get("snapshot_date") or row.get("snapshot_functional_day") or row.get("functional_day") or row.get("date") or "")[:10]
+        row_day = _row_functional_day(row)
         if target and row_day != target:
             continue
-        if model == "corq" or source in {"CORQ_DAILY", "CORQ"}:
-            out.append(row)
+        row_model = str(row.get("model") or "").lower()
+        source = str(row.get("snapshot_source") or row.get("source_filter") or row.get("snapshot_type") or "").upper()
+        if model == "corq":
+            if row_model == "corq" or source in {"CORQ_DAILY", "CORQ", "CORQ_TOP7"}:
+                out.append(row)
+        elif model == "cloq":
+            if row_model == "cloq" or source in {"CLOQ", "CLOQ_DAILY", "DAILY_CLOQ_SNAPSHOT"} or "CLOQ" in source:
+                out.append(row)
     return sorted(out, key=_tg_row_sort_key)
 
 
-def build_corq_tg_summary(rows: List[Dict[str, Any]], day: str) -> Dict[str, Any]:
-    selected = corq_snapshot_rows_for_day(rows, day)
+def build_model_tg_summary(rows: List[Dict[str, Any]], day: str, model: str) -> Dict[str, Any]:
+    selected = snapshot_rows_for_day(rows, day, model)
     won = sum(1 for r in selected if _result_status(r) == "WON")
     lost = sum(1 for r in selected if _result_status(r) == "LOST")
     void = sum(1 for r in selected if _result_status(r) == "VOID")
     pending = sum(1 for r in selected if _result_status(r) == "PENDING")
     settled = won + lost
-    units = round(sum(float(r.get("units") or 0.0) for r in selected if r.get("units") is not None), 4)
+    units = 0.0
+    for r in selected:
+        status = _result_status(r)
+        val = as_float(r.get("units"), None)
+        if val is None:
+            odds = pick_odds(r)
+            if status == "WON" and odds and odds > 1.0:
+                val = float(odds) - 1.0
+            elif status == "LOST":
+                val = -1.0
+            elif status == "VOID":
+                val = 0.0
+        if val is not None:
+            units += float(val)
+    units = round(units, 4)
     roi = round(units / settled, 4) if settled else None
     return {
         "date": str(day)[:10],
         "display_date": _format_tg_day(day),
+        "model": model.lower(),
         "count": len(selected),
         "won": won,
         "lost": lost,
@@ -1049,15 +1073,16 @@ def build_corq_tg_summary(rows: List[Dict[str, Any]], day: str) -> Dict[str, Any
     }
 
 
-def format_corq_tg_summary_message(summary_obj: Dict[str, Any]) -> str:
+def format_model_tg_summary_message(summary_obj: Dict[str, Any], model_label: str) -> str:
     day = summary_obj.get("display_date") or _format_tg_day(str(summary_obj.get("date") or ""))
     rows = [r for r in summary_obj.get("rows") or [] if isinstance(r, dict)]
     units = float(summary_obj.get("units") or 0.0)
     roi = summary_obj.get("roi")
     roi_txt = "ROI —" if roi is None else f"ROI {float(roi) * 100:+.1f}%"
-    lines = [f"📊 CorQ RESULTS | {day}", ""]
+    label = str(model_label or "CorQ")
+    lines = [f"📊 {label} RESULTS | {day}", ""]
     if not rows:
-        lines.append("No previous CorQ snapshot rows found.")
+        lines.append(f"No previous {label} snapshot rows found.")
         return "\n".join(lines)
     for idx, row in enumerate(rows, 1):
         status = _result_status(row)
@@ -1065,11 +1090,7 @@ def format_corq_tg_summary_message(summary_obj: Dict[str, Any]) -> str:
         pick = _short_tg_name(pick_name(row))
         odds = _fmt_tg_odds(pick_odds(row))
         time_txt = _fmt_tg_time(row)
-        unit_txt = _fmt_tg_units(row.get("units"), status)
-        if status == "PENDING":
-            unit_txt = " | Pending"
-        # Keep Results compact: original numbering + status icon + pick + time + odds + units.
-        # No opponent and no set/score details in the Telegram Results message.
+        unit_txt = _fmt_tg_units(row.get("units"), status, row)
         lines.append(f"{number_emoji(idx)} {icon} {pick} | {time_txt} | {odds}{unit_txt}")
     lines.extend([
         "",
@@ -1082,10 +1103,13 @@ def format_corq_tg_summary_message(summary_obj: Dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def write_corq_tg_summary(day: str, output_root: Path = OUTPUTS) -> Dict[str, Any]:
-    results_rows = json_rows(read_json(RESULTS_DIR / "latest_results_corq.json", []))
-    summary_obj = build_corq_tg_summary(results_rows, day)
-    message = format_corq_tg_summary_message(summary_obj)
+def write_model_tg_summary(model: str, day: str, output_root: Path = OUTPUTS) -> Dict[str, Any]:
+    model = str(model or "corq").lower()
+    model_label = "CloQ" if model == "cloq" else "CorQ"
+    results_file = RESULTS_DIR / f"latest_results_{model}.json"
+    results_rows = json_rows(read_json(results_file, []))
+    summary_obj = build_model_tg_summary(results_rows, day, model)
+    message = format_model_tg_summary_message(summary_obj, model_label)
     telegram_dir = Path(output_root) / "telegram"
     telegram_dir.mkdir(parents=True, exist_ok=True)
     json_summary = dict(summary_obj)
@@ -1100,13 +1124,24 @@ def write_corq_tg_summary(day: str, output_root: Path = OUTPUTS) -> Dict[str, An
             "score": r.get("final_score") or r.get("score"),
             "winner": r.get("winner"),
             "units": r.get("units"),
-            "snapshot_rank": r.get("snapshot_rank") or r.get("top7_rank") or r.get("corq_rank"),
+            "snapshot_rank": r.get("snapshot_rank") or r.get("top7_rank") or r.get("corq_rank") or r.get("cloq_rank"),
         }
         for r in summary_obj.get("rows") or []
     ]
-    write_json(telegram_dir / "latest_corq_results_summary.json", json_summary)
-    (telegram_dir / "latest_tg_results_message.txt").write_text(message, encoding="utf-8")
-    return {**json_summary, "message": message, "output": str(telegram_dir / "latest_tg_results_message.txt")}
+    json_path = telegram_dir / f"latest_{model}_results_summary.json"
+    msg_name = "latest_tg_cloq_results_message.txt" if model == "cloq" else "latest_tg_results_message.txt"
+    write_json(json_path, json_summary)
+    (telegram_dir / msg_name).write_text(message, encoding="utf-8")
+    return {**json_summary, "message": message, "output": str(telegram_dir / msg_name)}
+
+
+def write_corq_tg_summary(day: str, output_root: Path = OUTPUTS) -> Dict[str, Any]:
+    return write_model_tg_summary("corq", day, output_root)
+
+
+def write_cloq_tg_summary(day: str, output_root: Path = OUTPUTS) -> Dict[str, Any]:
+    return write_model_tg_summary("cloq", day, output_root)
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build CorQ/CloQ/Audit results files")
@@ -1119,14 +1154,18 @@ def main() -> None:
     parser.add_argument("--local-tz", default="Europe/Bratislava", help="Timezone used by --settle-yesterday")
     parser.add_argument("--settlement-grace-hours", type=float, default=0.0, help="Only fetch matches after start time plus this many hours")
     parser.add_argument("--sources", default="corq,cloq,audit", help="Backward-compatible no-op")
-    parser.add_argument("--write-tg-summary", action="store_true", help="Write previous CorQ snapshot Telegram result list with per-match status icons")
-    parser.add_argument("--tg-summary-date", default=None, help="CorQ snapshot date to summarize for Telegram YYYY-MM-DD")
+    parser.add_argument("--write-tg-summary", action="store_true", help="Write previous CorQ and CloQ snapshot Telegram result lists")
+    parser.add_argument("--write-cloq-tg-summary", action="store_true", help="Write previous CloQ snapshot Telegram result list")
+    parser.add_argument("--write-all-tg-summaries", action="store_true", help="Write both CorQ and CloQ Telegram result lists")
+    parser.add_argument("--tg-summary-date", default=None, help="Snapshot date to summarize for Telegram YYYY-MM-DD")
     parser.add_argument("--telegram-output-root", default=None, help="Output root for outputs/telegram; defaults to --output-root")
     args = parser.parse_args()
+
     legacy_fetch = str(args.legacy_fetch_api or "").strip().lower() in {"1", "true", "yes", "y", "on"}
     settle_date = args.settle_date
     if args.settle_yesterday and not settle_date:
         settle_date = local_yesterday(args.local_tz)
+
     manifest = build_results(
         output_root=args.output_root,
         run_date=args.run_date,
@@ -1135,11 +1174,20 @@ def main() -> None:
         settlement_grace_hours=args.settlement_grace_hours,
         local_tz=args.local_tz,
     )
-    if args.write_tg_summary:
+
+    if args.write_tg_summary or args.write_cloq_tg_summary or args.write_all_tg_summaries:
         tg_day = args.tg_summary_date or settle_date or local_yesterday(args.local_tz)
         tg_output_root = Path(args.telegram_output_root or args.output_root)
-        tg_summary = write_corq_tg_summary(tg_day, tg_output_root)
-        print({"telegram_corq_results_summary": tg_summary})
+        tg_payload: Dict[str, Any] = {}
+        if args.write_tg_summary or args.write_all_tg_summaries:
+            tg_payload["telegram_corq_results_summary"] = write_corq_tg_summary(tg_day, tg_output_root)
+            # Also write CloQ when the legacy flag is used. Extra file is harmless,
+            # and it makes the morning CloQ-results feed deterministic.
+            tg_payload["telegram_cloq_results_summary"] = write_cloq_tg_summary(tg_day, tg_output_root)
+        if args.write_cloq_tg_summary and "telegram_cloq_results_summary" not in tg_payload:
+            tg_payload["telegram_cloq_results_summary"] = write_cloq_tg_summary(tg_day, tg_output_root)
+        print(tg_payload)
+
     print(manifest)
 
 
