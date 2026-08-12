@@ -4,7 +4,7 @@
   "latest_odds_player1": 15.0,
   "latest_odds_player2": 1.01,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-12T04:28:41.047890+00:00",
+  "latest_snapshot_time_utc": "2026-08-12T11:33:39.508305+00:00",
   "opening_odds_player1": 15.0,
   "opening_odds_player2": 1.01,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Filip Kiryllo",
   "player2": "Filip Peliwo",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "16781346",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-11T13:08:09+00:00",
       "target_date": "2026-08-12"
+    },
+    {
+      "event_id": "16781346",
+      "event_key": "2026-08-12_filip-kiryllo_vs_filip-peliwo",
+      "hours_to_start": -22.43,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 15.0,
+      "odds_player2": 1.01,
+      "player1": "Filip Kiryllo",
+      "player2": "Filip Peliwo",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-12T11:33:39.508305+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-11T13:08:09+00:00",
+      "target_date": "2026-08-12"
     }
   ],
   "start_time_utc": "2026-08-11T13:08:09+00:00",
-  "updated_at_utc": "2026-08-12T04:28:51.046096+00:00"
+  "updated_at_utc": "2026-08-12T11:33:59.244068+00:00"
 }

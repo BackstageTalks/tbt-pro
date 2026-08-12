@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.16667,
   "latest_odds_player2": 4.5,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-12T04:28:41.047890+00:00",
+  "latest_snapshot_time_utc": "2026-08-12T11:33:39.508305+00:00",
   "opening_odds_player1": 1.16667,
   "opening_odds_player2": 4.5,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Virginia Crocker",
   "player2": "Vitória Zuccon",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "16782049",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-11T13:12:15+00:00",
       "target_date": "2026-08-12"
+    },
+    {
+      "event_id": "16782049",
+      "event_key": "2026-08-12_virginia-crocker_vs_vitoria-zuccon",
+      "hours_to_start": -22.36,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.16667,
+      "odds_player2": 4.5,
+      "player1": "Virginia Crocker",
+      "player2": "Vitória Zuccon",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-12T11:33:39.508305+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-11T13:12:15+00:00",
+      "target_date": "2026-08-12"
     }
   ],
   "start_time_utc": "2026-08-11T13:12:15+00:00",
-  "updated_at_utc": "2026-08-12T04:28:52.197610+00:00"
+  "updated_at_utc": "2026-08-12T11:34:00.926503+00:00"
 }
