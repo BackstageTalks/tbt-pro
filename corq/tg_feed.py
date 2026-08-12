@@ -789,12 +789,12 @@ def load_cloq_rows(cloq_path: Path, all_path: Path) -> List[Dict[str, Any]]:
 
 
 # ============================================================
-# TG safety override V9
+# TG safety + results settlement override V10
 # ============================================================
-# Production guard: no CorQ/CloQ pick with displayed probability below 50%
-# can be sent to Telegram. Results messages are rebuilt from result rows when
-# a pre-generated text artifact is missing or is only a placeholder.
-
+# Pick feeds keep a hard Telegram floor. Results feeds are date-aware and can
+# rebuild from JSON rows if the pre-generated message is missing or only a
+# placeholder. This fixes CorQ/CloQ result messages that previously said
+# "No previous snapshot rows found" despite rows existing in results JSON.
 TG_MIN_PICK_PROBABILITY = float(os.getenv("TG_MIN_PICK_PROBABILITY", "0.50") or "0.50")
 
 
@@ -803,11 +803,11 @@ def probability_below_tg_floor(row: Dict[str, Any]) -> bool:
     return bool(prob is None or prob < TG_MIN_PICK_PROBABILITY)
 
 
-_ORIGINAL_INVALID_CORQ_REASON_V9 = invalid_corq_reason
+_ORIGINAL_INVALID_CORQ_REASON_V10 = invalid_corq_reason
 
 
 def invalid_corq_reason(row: Dict[str, Any], upcoming_only: bool = True) -> str:
-    reason = _ORIGINAL_INVALID_CORQ_REASON_V9(row, upcoming_only=upcoming_only)
+    reason = _ORIGINAL_INVALID_CORQ_REASON_V10(row, upcoming_only=upcoming_only)
     if reason:
         return reason
     if probability_below_tg_floor(row):
@@ -816,25 +816,151 @@ def invalid_corq_reason(row: Dict[str, Any], upcoming_only: bool = True) -> str:
     return ""
 
 
+def completed_betting_day_iso(tz_name: str = "Europe/Bratislava") -> str:
+    tz = local_tz()
+    now_local = datetime.now(tz)
+    current_betting_day = now_local.date() - timedelta(days=1) if now_local.hour < 6 else now_local.date()
+    return (current_betting_day - timedelta(days=1)).isoformat()
+
+
+def _row_result_day(row: Dict[str, Any]) -> str:
+    for key in ("betting_day", "snapshot_date", "snapshot_functional_day", "functional_day", "date", "run_date", "match_date"):
+        value = row.get(key)
+        if value:
+            txt = str(value).strip()[:10]
+            try:
+                datetime.fromisoformat(txt)
+                return txt
+            except Exception:
+                pass
+    dt = match_start_datetime(row)
+    if dt is not None:
+        return dt.astimezone(local_tz()).date().isoformat()
+    return ""
+
+
+def _model_label(model: str) -> str:
+    return "CloQ" if str(model).lower() == "cloq" else "CorQ"
+
+
+def result_status(row: Dict[str, Any]) -> str:
+    for key in (
+        "settlement_status", "result_status", "pick_result", "final_result",
+        "status", "outcome", "settlement", "result", "winner_status",
+    ):
+        txt = str(row.get(key) or "").strip().lower()
+        if txt in {"won", "win", "w", "hit", "winner", "correct", "green"}:
+            return "won"
+        if txt in {"lost", "loss", "l", "miss", "loser", "incorrect", "red"}:
+            return "lost"
+        if txt in {"void", "push", "cancelled", "canceled", "walkover", "retired"}:
+            return "void"
+        if txt in {"pending", "notstarted", "not_started", "inprogress", "live", "open"}:
+            return "pending"
+    if row.get("won") is True:
+        return "won"
+    if row.get("lost") is True:
+        return "lost"
+    return "pending"
+
+
+def result_units(row: Dict[str, Any]) -> float:
+    st = result_status(row)
+    explicit = None
+    for key in ("units", "profit_units", "pnl_units", "result_units", "settlement_units"):
+        val = as_float(row.get(key))
+        if val is not None:
+            explicit = float(val)
+            break
+    odds = pick_odds(row) or 0.0
+    if st == "won" and odds > 1.0:
+        computed = odds - 1.0
+        return computed if explicit in (None, 0.0) else explicit
+    if st == "lost":
+        return -1.0 if explicit in (None, 0.0) else explicit
+    if st == "void":
+        return 0.0
+    return explicit if explicit is not None else 0.0
+
+
+def _result_row_model_matches(row: Dict[str, Any], model: str) -> bool:
+    model = str(model or "corq").lower()
+    row_model = str(row.get("model") or "").lower()
+    source = str(row.get("snapshot_source") or row.get("source_filter") or row.get("snapshot_type") or "").upper()
+    if model == "cloq":
+        return row_model == "cloq" or source in {"CLOQ", "CLOQ_DAILY", "DAILY_CLOQ_SNAPSHOT"} or "CLOQ" in source
+    return row_model == "corq" or source in {"CORQ", "CORQ_DAILY", "CORQ_TOP7"} or "CORQ" in source
+
+
+def filter_result_rows(rows: List[Dict[str, Any]], model: str, day: Optional[str] = None) -> List[Dict[str, Any]]:
+    target = str(day or "").strip()[:10]
+    out: List[Dict[str, Any]] = []
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        if not _result_row_model_matches(row, model):
+            continue
+        if target and _row_result_day(row) != target:
+            continue
+        out.append(row)
+    out.sort(key=lambda r: (as_float(r.get("snapshot_rank") or r.get("top7_rank") or r.get("cloq_rank") or r.get("rank"), 9999) or 9999, start_time(r), pick_name(r)))
+    return out
+
+
+def build_results_summary_message(rows: List[Dict[str, Any]], model_label: str, day: Optional[str] = None) -> str:
+    model = str(model_label or "CorQ").lower()
+    label = _model_label(model)
+    rows = filter_result_rows(rows or [], model, day=day)
+    date_text = ""
+    if day:
+        try:
+            date_text = datetime.fromisoformat(str(day)[:10]).strftime("%d.%m.%y")
+        except Exception:
+            date_text = str(day)[:10]
+    else:
+        date_text = snapshot_date(rows)
+    counts = {"won": 0, "lost": 0, "void": 0, "pending": 0}
+    units = 0.0
+    for row in rows:
+        st = result_status(row)
+        counts[st if st in counts else "pending"] += 1
+        units += result_units(row)
+    decided = counts["won"] + counts["lost"]
+    roi = (units / decided) if decided else None
+    roi_txt = "ROI —" if roi is None else f"ROI {roi * 100:+.1f}%"
+    lines = [HEADER, "", f"📊 Results | {label}", f"📅 {date_text}", ""]
+    if rows:
+        for idx, row in enumerate(rows[:10], 1):
+            st = result_status(row)
+            icon = {"won": "✅", "lost": "❌", "void": "➖", "pending": "⏳"}.get(st, "⏳")
+            unit_txt = "Pending" if st == "pending" else f"{result_units(row):+.2f}u"
+            lines.append(f"{number_emoji(idx)} {icon} {short_name(pick_name(row))} | {start_time(row)} | {fmt_odds(pick_odds(row))} | {unit_txt}")
+        lines.extend([
+            "",
+            f"✅{counts['won']} ❌{counts['lost']} ➖{counts['void']} ⏳{counts['pending']} | {units:+.2f}u | {roi_txt}",
+        ])
+    else:
+        lines.append(f"No previous {label} snapshot rows found.")
+    lines.extend(["", FOOTER])
+    return "\n".join(lines)
+
+
 def _results_message_needs_rebuild(message: str, model_label: str) -> bool:
     txt = str(message or "").strip()
     if not txt:
         return True
     low = txt.lower()
-    if "no previous" in low or "no valid" in low or "summary available yet" in low:
+    if "no previous" in low or "snapshot rows found" in low or "summary available yet" in low:
         return True
-    if "snapshot rows found" in low:
+    if os.getenv("TG_RESULTS_FORCE_REBUILD", "0").lower() in {"1", "true", "yes", "y"}:
         return True
-    # If generated CloQ results contain only zero unit lines, prefer rebuilding
-    # from result JSON so W/L odds can compute units from status and odds.
-    if model_label.lower() == "cloq" and "+0.00u" in txt and "❌" not in txt and "✅" not in txt:
+    if str(model_label).lower() == "cloq" and "+0.00u" in txt and "❌" not in txt and "✅" not in txt:
         return True
     return False
 
 
 def _load_result_rows(model: str) -> List[Dict[str, Any]]:
     model = str(model or "corq").lower()
-    candidates = []
     if model == "cloq":
         candidates = [
             OUTPUTS / "results" / "latest_results_cloq.json",
@@ -856,111 +982,6 @@ def _load_result_rows(model: str) -> List[Dict[str, Any]]:
     return []
 
 
-_ORIGINAL_RESULT_STATUS_V9 = result_status
-
-
-
-# ============================================================
-# CloQ / CorQ match-overlap safety
-# ============================================================
-def _norm_match_name(value: Any) -> str:
-    import re
-    txt = str(value or "").strip().lower()
-    txt = re.sub(r"[^a-z0-9]+", " ", txt)
-    return " ".join(txt.split())
-
-def _row_event_id(row: Dict[str, Any]) -> str:
-    for key in ("event_id", "match_id", "fixture_id", "api_event_id", "id", "top7_event_id", "cloq_event_id"):
-        value = row.get(key)
-        if value not in (None, "", "—", "-"):
-            return str(value).strip()
-    return ""
-
-def tg_match_identity(row: Dict[str, Any]) -> str:
-    event_id = _row_event_id(row)
-    if event_id:
-        return "event:" + event_id
-    names = sorted([_norm_match_name(pick_name(row)), _norm_match_name(opponent_name(row))])
-    names = [n for n in names if n and n != "tbd"]
-    day = row_day_iso(row)
-    dt = match_start_datetime(row)
-    time_part = dt.strftime("%H:%M") if dt is not None else start_time(row)
-    if len(names) >= 2:
-        return "names:" + "|".join(names) + "|" + str(day or "") + "|" + str(time_part or "")
-    return ""
-
-def load_corq_overlap_match_keys() -> set[str]:
-    keys: set[str] = set()
-    for path in (
-        DEFAULT_TOP7_PATH,
-        OUTPUTS / "latest_top7.json",
-        OUTPUTS / "snapshots" / "latest_corq_top7_snapshot.json",
-    ):
-        rows = json_rows(read_json(path, []))
-        for row in rows:
-            key = tg_match_identity(row)
-            if key:
-                keys.add(key)
-    return keys
-
-def drop_cloq_corq_overlaps(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    keys = load_corq_overlap_match_keys()
-    if not keys or not rows:
-        return rows
-    out: List[Dict[str, Any]] = []
-    skipped = 0
-    for row in rows:
-        key = tg_match_identity(row)
-        if key and key in keys:
-            skipped += 1
-            continue
-        out.append(row)
-    if skipped:
-        print(f"[tg_feed] CloQ overlap safety skipped {skipped} row(s) already covered by CorQ")
-    return out
-
-def result_status(row: Dict[str, Any]) -> str:
-    for key in (
-        "settlement_status", "result_status", "pick_result", "final_result",
-        "status", "outcome", "settlement", "result", "winner_status",
-    ):
-        txt = str(row.get(key) or "").strip().lower()
-        if txt in {"won", "win", "w", "hit", "winner", "correct", "green"}:
-            return "won"
-        if txt in {"lost", "loss", "l", "miss", "loser", "incorrect", "red"}:
-            return "lost"
-        if txt in {"void", "push", "cancelled", "canceled", "walkover", "retired"}:
-            return "void"
-        if txt in {"pending", "notstarted", "not_started", "inprogress", "live", "open"}:
-            return "pending"
-    if row.get("won") is True:
-        return "won"
-    if row.get("lost") is True:
-        return "lost"
-    return _ORIGINAL_RESULT_STATUS_V9(row)
-
-
-_ORIGINAL_RESULT_UNITS_V9 = result_units
-
-
-def result_units(row: Dict[str, Any]) -> float:
-    st = result_status(row)
-    explicit = None
-    for key in ("units", "profit_units", "pnl_units", "result_units", "settlement_units"):
-        val = as_float(row.get(key))
-        if val is not None:
-            explicit = float(val)
-            break
-    odds = pick_odds(row) or 0.0
-    if st == "won" and odds > 1.0:
-        computed = odds - 1.0
-        return computed if explicit in (None, 0.0) else explicit
-    if st == "lost":
-        return -1.0 if explicit in (None, 0.0) else explicit
-    if st == "void":
-        return 0.0
-    return explicit if explicit is not None else 0.0
-
 def main() -> None:
     parser = argparse.ArgumentParser(description="Telegram feed formatter/sender for CorQ")
     parser.add_argument("--mode", choices=("cloq", "top7", "free", "results", "corq-results", "cloq-results"), default=os.getenv("TG_FEED_MODE", "top7"))
@@ -969,6 +990,7 @@ def main() -> None:
     parser.add_argument("--all-path", default=os.getenv("TG_ALL_PATH", str(DEFAULT_ALL_PATH)))
     parser.add_argument("--results-message-path", default=os.getenv("TG_RESULTS_MESSAGE_PATH", str(DEFAULT_RESULTS_MESSAGE_PATH)))
     parser.add_argument("--cloq-results-message-path", default=os.getenv("TG_CLOQ_RESULTS_MESSAGE_PATH", str(DEFAULT_CLOQ_RESULTS_MESSAGE_PATH)))
+    parser.add_argument("--results-date", default=os.getenv("TG_RESULTS_DATE", ""), help="Results betting day YYYY-MM-DD. Defaults to previous completed betting day.")
     parser.add_argument("--output", default=os.getenv("TG_MESSAGE_OUTPUT", str(DEFAULT_MESSAGE_PATH)))
     parser.add_argument("--send", action="store_true", help="Send to Telegram using env bot token and chat id")
     parser.add_argument("--chat-id", default=None, help="Telegram chat id. Defaults by mode from env.")
@@ -989,24 +1011,23 @@ def main() -> None:
     args = parser.parse_args()
     if args.mode == "corq-results":
         args.mode = "results"
-
     upcoming_only_env = str(os.getenv("TG_FEED_UPCOMING_ONLY", "true")).lower() not in {"0", "false", "no"}
     upcoming_only = upcoming_only_env and not args.include_started
+    results_day = (args.results_date or completed_betting_day_iso()).strip()[:10]
+    sendable_rows: List[Dict[str, Any]] = []
 
     if args.mode == "results":
         results_path = Path(args.results_message_path)
         message = results_path.read_text(encoding="utf-8").strip() if results_path.exists() else ""
-        sendable_rows: List[Dict[str, Any]] = []
         if _results_message_needs_rebuild(message, "CorQ"):
             corq_results = _load_result_rows("corq")
-            message = build_results_summary_message(corq_results, "CorQ")
+            message = build_results_summary_message(corq_results, "CorQ", day=results_day)
     elif args.mode == "cloq-results":
         results_path = Path(args.cloq_results_message_path)
         message = results_path.read_text(encoding="utf-8").strip() if results_path.exists() else ""
-        sendable_rows = []
         if _results_message_needs_rebuild(message, "CloQ"):
             cloq_results = _load_result_rows("cloq")
-            message = build_results_summary_message(cloq_results, "CloQ")
+            message = build_results_summary_message(cloq_results, "CloQ", day=results_day)
     elif args.mode == "cloq":
         rows = load_cloq_rows(Path(args.cloq_path), Path(args.all_path))
         sendable_rows = valid_rows(rows, upcoming_only=upcoming_only)
@@ -1032,13 +1053,11 @@ def main() -> None:
             print(f"[tg_feed] No valid TOP7 rows for mode={args.mode}; Telegram send skipped.")
             return
         if args.mode in {"results", "cloq-results"} and not message.strip():
-            print("[tg_feed] Empty CorQ results summary; Telegram send skipped.")
+            print("[tg_feed] Empty results summary; Telegram send skipped.")
             return
         chat_id = args.chat_id
         if not chat_id:
             if args.mode == "free":
-                # FREE is sent to the same production channel as TOP7 by default.
-                # A dedicated FREE chat can still override this if configured.
                 chat_id = (
                     os.getenv("TELEGRAM_FREE_CHAT_ID")
                     or os.getenv("TG_FREE_CHAT_ID")
@@ -1046,7 +1065,6 @@ def main() -> None:
                     or os.getenv("TG_TOP7_CHAT_ID")
                     or os.getenv("TGCHID")
                     or os.getenv("TELEGRAM_CHAT_ID")
-                    or os.getenv("TG_CHAT_ID")
                     or os.getenv("TG_CHAT_ID")
                 )
             else:
@@ -1056,11 +1074,10 @@ def main() -> None:
                     or os.getenv("TGCHID")
                     or os.getenv("TELEGRAM_CHAT_ID")
                     or os.getenv("TG_CHAT_ID")
-                    or os.getenv("TG_CHAT_ID")
                 )
         if not args.bot_token:
             if args.mode == "free":
-                print("[tg_feed] Missing TELEGRAM_BOT_TOKEN/TG_BOT_TOKEN/TGBOT/TGBOT; FREE Telegram send skipped.")
+                print("[tg_feed] Missing TELEGRAM_BOT_TOKEN/TG_BOT_TOKEN/TGBOT; FREE Telegram send skipped.")
                 return
             raise SystemExit("Missing TELEGRAM_BOT_TOKEN/TG_BOT_TOKEN/TGBOT")
         if not chat_id:
