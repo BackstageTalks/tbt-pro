@@ -4176,3 +4176,327 @@ def evaluate_eligibility(row: Dict[str, Any]) -> Dict[str, Any]:
 
 def top7_from_ranking(ranked: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT, *args: Any, **kwargs: Any) -> List[Dict[str, Any]]:
     return select_top7(ranked, top_n=top_n)
+
+# ============================================================
+# CorQ TOP7 pair probability audit/selection override V11
+# ============================================================
+# Purpose:
+# - Treat displayed CorQ % as a raw side model probability/signal.
+# - Normalize both sides within the same match to obtain pair win probability.
+# - Keep a hard filter, but apply it to pair win probability, not isolated raw CorQ.
+# - Keep quality/risk as ranking score and audit fields, not as win probability.
+
+CORQ_TOP7_PAIR_PROBABILITY_MODEL_VERSION = "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11"
+CORQ_TOP7_MIN_PAIR_PROBABILITY_V11 = 0.50
+CORQ_TOP7_MIN_PICK_ODDS_V11 = 1.40
+
+try:
+    _CORQ_V11_BASE_ANNOTATE_TOP7_QUALITY = annotate_top7_quality
+except NameError:  # pragma: no cover
+    _CORQ_V11_BASE_ANNOTATE_TOP7_QUALITY = None
+
+
+def _corq_v11_match_key(row: Dict[str, Any]) -> str:
+    if "_corq_v6_match_key" in globals():
+        try:
+            return _corq_v6_match_key(row)
+        except Exception:
+            pass
+    return _match_identity_key(row)
+
+
+def _corq_v11_pick_name(row: Dict[str, Any]) -> str:
+    return str(
+        row.get("pick")
+        or row.get("player")
+        or row.get("pick_name")
+        or row.get("selected_player")
+        or row.get("predicted_winner")
+        or ""
+    ).strip()
+
+
+def _corq_v11_group_rows(rows: Iterable[Dict[str, Any]]) -> Dict[str, List[Dict[str, Any]]]:
+    groups: Dict[str, List[Dict[str, Any]]] = {}
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        key = _corq_v11_match_key(row)
+        groups.setdefault(key, []).append(row)
+    return groups
+
+
+def _corq_v11_apply_pair_probabilities(rows: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    data = [r for r in rows if isinstance(r, dict)]
+    groups = _corq_v11_group_rows(data)
+    for key, group in groups.items():
+        raw_values: List[float] = []
+        for row in group:
+            raw_values.append(max(0.000001, float(corq_probability(row) or 0.0)))
+        total = sum(raw_values)
+        if len(group) >= 2 and total > 0:
+            pair_values = [v / total for v in raw_values]
+        else:
+            pair_values = [max(0.0, min(1.0, float(corq_probability(row) or 0.0))) for row in group]
+        for idx, row in enumerate(group):
+            raw_prob = max(0.0, min(1.0, float(corq_probability(row) or 0.0)))
+            pair_prob = max(0.0, min(1.0, float(pair_values[idx] if idx < len(pair_values) else raw_prob)))
+            opponent_raw = None
+            opponent_pair = None
+            if len(group) >= 2:
+                other_raw = [raw_values[j] for j in range(len(group)) if j != idx]
+                other_pair = [pair_values[j] for j in range(len(group)) if j != idx]
+                if other_raw:
+                    opponent_raw = max(other_raw)
+                if other_pair:
+                    opponent_pair = max(other_pair)
+            if opponent_raw is None:
+                opponent_raw = max(0.0, 1.0 - raw_prob)
+            if opponent_pair is None:
+                opponent_pair = max(0.0, 1.0 - pair_prob)
+            row["corq_raw_probability"] = round(raw_prob, 6)
+            row["corq_raw_probability_pct"] = round(raw_prob * 100.0, 2)
+            row["corq_opponent_raw_probability"] = round(float(opponent_raw), 6)
+            row["corq_opponent_raw_probability_pct"] = round(float(opponent_raw) * 100.0, 2)
+            row["corq_pair_win_probability"] = round(pair_prob, 6)
+            row["corq_pair_win_probability_pct"] = round(pair_prob * 100.0, 2)
+            row["corq_opponent_pair_win_probability"] = round(float(opponent_pair), 6)
+            row["corq_opponent_pair_win_probability_pct"] = round(float(opponent_pair) * 100.0, 2)
+            row["corq_pair_margin_pp"] = round((pair_prob - float(opponent_pair)) * 100.0, 2)
+            row["corq_pair_match_key"] = key
+            row["corq_probability_layer_note"] = "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR"
+            row["corq_pair_probability_model_version"] = CORQ_TOP7_PAIR_PROBABILITY_MODEL_VERSION
+            if raw_prob < 0.50 and pair_prob >= 0.50:
+                row["corq_raw_below_50_pair_selected_info"] = True
+            else:
+                row["corq_raw_below_50_pair_selected_info"] = False
+    return data
+
+
+def _corq_v11_pair_probability(row: Dict[str, Any]) -> float:
+    value = _as_float(row.get("corq_pair_win_probability"), None)
+    if value is None:
+        return max(0.0, min(1.0, float(corq_probability(row) or 0.0)))
+    if value > 1.5:
+        value = value / 100.0
+    return max(0.0, min(1.0, float(value)))
+
+
+def _corq_v11_hard_reject_reasons(row: Dict[str, Any]) -> List[str]:
+    reasons: List[str] = []
+    if not is_today_match(row):
+        reasons.append("REJECT_TOP7_NOT_TODAY_MATCH")
+    if not is_notstarted(row):
+        reasons.append("REJECT_TOP7_STATUS_NOT_PREMATCH")
+    if not odds_available(row):
+        reasons.append("REJECT_TOP7_MISSING_ODDS")
+    if is_doubles(row):
+        reasons.append("REJECT_TOP7_DOUBLES")
+    if not side_valid(row):
+        reasons.append("REJECT_TOP7_INVALID_SIDE_ORIENTATION")
+    if odds_orientation_extreme_risk(row):
+        reasons.append("REJECT_TOP7_ODDS_ORIENTATION_UNCONFIRMED_EXTREME")
+    odds = pick_odds_value(row)
+    if odds is not None and odds < CORQ_TOP7_MIN_PICK_ODDS_V11:
+        reasons.append("REJECT_TOP7_LOW_ODDS_UNDER_1_40")
+    if _corq_v11_pair_probability(row) < CORQ_TOP7_MIN_PAIR_PROBABILITY_V11:
+        reasons.append("REJECT_TOP7_PAIR_PROB_BELOW_50")
+    return _corq_v10_unique(reasons) if "_corq_v10_unique" in globals() else list(dict.fromkeys(reasons))
+
+
+def _corq_v11_soft_penalty_reasons(row: Dict[str, Any]) -> List[str]:
+    reasons: List[str] = []
+    if row.get("corq_raw_below_50_pair_selected_info") is True:
+        reasons.append("INFO_RAW_CORQ_BELOW_50_PAIR_SELECTED")
+    try:
+        previous = _corq_v10_soft_penalty_reasons(row) if "_corq_v10_soft_penalty_reasons" in globals() else []
+        reasons.extend(previous or [])
+    except Exception:
+        pass
+    if pick_thinq_edge(row) < 0:
+        reasons.append("PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK")
+    if _vf4_market_against_pick(row) if "_vf4_market_against_pick" in globals() else False:
+        reasons.append("PENALTY_TOP7_MARKET_AGAINST_PICK")
+    if value_delta_pp(row) is not None and float(value_delta_pp(row) or 0.0) < 0:
+        reasons.append("PENALTY_TOP7_NEGATIVE_VALUE_DELTA")
+    if expected_value_pct(row) is not None and float(expected_value_pct(row) or 0.0) < 0:
+        reasons.append("PENALTY_TOP7_NEGATIVE_EV")
+    if pick_odds_value(row) is not None and float(pick_odds_value(row) or 0.0) < 1.55:
+        reasons.append("PENALTY_TOP7_SHORT_PRICE")
+    if pick_data_depth(row) < 0.70:
+        reasons.append("PENALTY_TOP7_LOW_PICK_DATA_DEPTH")
+    if thinq_confidence(row) < 0.65:
+        reasons.append("PENALTY_TOP7_LOW_THINQ_CONFIDENCE")
+    if elo_unavailable(row):
+        reasons.append("PENALTY_TOP7_ELO_UNAVAILABLE")
+    return _corq_v10_unique(reasons) if "_corq_v10_unique" in globals() else list(dict.fromkeys(reasons))
+
+
+def top7_reject_reasons(row: Dict[str, Any]) -> List[str]:
+    return _corq_v11_hard_reject_reasons(row)
+
+
+if "REJECT_TOP7_PAIR_PROB_BELOW_50" not in TOP7_REJECT_PRIORITY:
+    TOP7_REJECT_PRIORITY.append("REJECT_TOP7_PAIR_PROB_BELOW_50")
+
+
+def is_publishable(row: Dict[str, Any]) -> bool:
+    return not top7_reject_reasons(row)
+
+
+def _corq_v11_probability_gap_pp(row: Dict[str, Any]) -> float:
+    try:
+        odds = pick_odds_value(row)
+        if odds is None or odds <= 1.0:
+            return -20.0
+        return (_corq_v11_pair_probability(row) - (1.0 / odds)) * 100.0
+    except Exception:
+        return -20.0
+
+
+def _corq_v11_quality_score(row: Dict[str, Any]) -> float:
+    pair = _corq_v11_pair_probability(row) * 100.0
+    raw = corq_probability(row) * 100.0
+    depth = pick_data_depth(row) * 100.0
+    fdepth = form_data_depth(row) * 100.0
+    conf = thinq_confidence(row) * 100.0
+    edge = pick_thinq_edge(row) * 100.0
+    gap = _corq_v11_probability_gap_pp(row)
+    score = pair * 1.10 + raw * 0.25 + depth * 0.18 + fdepth * 0.08 + conf * 0.08 + edge * 0.25
+    score += max(min(gap, 8.0), -14.0) * 0.70
+    vd = value_delta_pp(row)
+    ev = expected_value_pct(row)
+    if vd is not None:
+        score += max(min(float(vd), 8.0), -12.0) * 0.18
+    else:
+        score -= 1.0
+    if ev is not None:
+        score += max(min(float(ev), 10.0), -15.0) * 0.08
+    else:
+        score -= 1.0
+    for reason in _corq_v11_soft_penalty_reasons(row):
+        if reason.startswith("PENALTY_TOP7_MARKET_AGAINST"):
+            score -= 5.0
+        elif reason.startswith("PENALTY_TOP7_THINQ_EDGE"):
+            score -= 4.0
+        elif reason.startswith("PENALTY_TOP7_NEGATIVE_EV"):
+            score -= 3.0
+        elif reason.startswith("PENALTY_TOP7_NEGATIVE_VALUE"):
+            score -= 3.0
+        elif reason.startswith("PENALTY_TOP7_SHORT_PRICE"):
+            score -= 2.5
+        elif reason.startswith("PENALTY_TOP7_LOW"):
+            score -= 2.0
+        elif reason.startswith("PENALTY_TOP7_ELO"):
+            score -= 2.5
+    return round(score, 4)
+
+
+def annotate_top7_quality(row: Dict[str, Any]) -> Dict[str, Any]:
+    try:
+        if _CORQ_V11_BASE_ANNOTATE_TOP7_QUALITY is not None:
+            row = _CORQ_V11_BASE_ANNOTATE_TOP7_QUALITY(row)
+    except Exception:
+        pass
+    hard = top7_reject_reasons(row)
+    soft = _corq_v11_soft_penalty_reasons(row)
+    publishable = not hard
+    score = _corq_v11_quality_score(row) if publishable else 0.0
+    row["top7_filter_mode"] = CORQ_TOP7_PAIR_PROBABILITY_MODEL_VERSION
+    row["top7_publishable"] = publishable
+    row["eligible_for_top7"] = publishable
+    row["corq_top7_selectable"] = publishable
+    row["top7_quality_reject_reasons"] = hard
+    row["top7_reject_reasons"] = hard
+    row["top7_hard_reject_reasons"] = hard
+    row["top7_primary_reject_reason"] = top7_primary_reject_reason(hard)
+    row["top7_reject_reason_count"] = len(hard)
+    row["top7_soft_penalty_reasons"] = soft
+    row["top7_soft_penalty_count"] = len(soft)
+    row["corq_quality_score"] = score
+    row["corq_pick_quality_score"] = score
+    row["corq_top7_sort_score"] = score
+    row["top7_quality_score"] = score
+    row["top7_pair_probability_guard_min"] = CORQ_TOP7_MIN_PAIR_PROBABILITY_V11
+    row["top7_pair_probability_guard_prob"] = round(_corq_v11_pair_probability(row), 6)
+    row["top7_pair_probability_guard_passed"] = publishable
+    row["top7_selection_model_version"] = CORQ_TOP7_PAIR_PROBABILITY_MODEL_VERSION
+    return row
+
+
+def sort_publishable(rows: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    candidates = [
+        r for r in rows
+        if isinstance(r, dict)
+        and annotate_top7_quality(r).get("top7_publishable") is True
+    ]
+    ranked = sorted(
+        candidates,
+        key=lambda r: (
+            float(r.get("corq_top7_sort_score") or r.get("top7_quality_score") or 0.0),
+            _corq_v11_pair_probability(r),
+            _corq_v11_probability_gap_pp(r),
+            corq_probability(r),
+            thinq_confidence(r),
+            pick_data_depth(r),
+            pick_odds_value(r) or 0.0,
+        ),
+        reverse=True,
+    )
+    for idx, row in enumerate(ranked, start=1):
+        row["top7_sort_rank"] = idx
+        row["top7_sort_primary"] = "PAIR_PROBABILITY_QUALITY_SCORE_DESC"
+        row["top7_sort_model_version"] = CORQ_TOP7_PAIR_PROBABILITY_MODEL_VERSION
+    return ranked
+
+
+def select_top7(rows: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> List[Dict[str, Any]]:
+    annotated = annotate_rows(list(rows or []))
+    _corq_v11_apply_pair_probabilities(annotated)
+    for row in annotated:
+        annotate_top7_quality(row)
+    ranked = sort_publishable(annotated)
+    target = int(top_n or TOP_N_DEFAULT)
+    selected: List[Dict[str, Any]] = []
+    seen = set()
+    for row in ranked:
+        key = _corq_v11_match_key(row)
+        if key in seen:
+            continue
+        seen.add(key)
+        selected.append(row)
+        if len(selected) >= target:
+            break
+    for idx, row in enumerate(selected, start=1):
+        row["top7_rank"] = idx
+        row["top7_selection_model_version"] = CORQ_TOP7_PAIR_PROBABILITY_MODEL_VERSION
+    return selected
+
+
+def rank_predictions(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    all_rows = annotate_rows(list(predictions or []))
+    _corq_v11_apply_pair_probabilities(all_rows)
+    for row in all_rows:
+        annotate_top7_quality(row)
+    top7 = select_top7(all_rows, top_n=top_n)
+    return all_rows, top7
+
+
+def build_all_and_top7(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    return rank_predictions(predictions, top_n=top_n)
+
+
+def build_rankings(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    return rank_predictions(predictions, top_n=top_n)
+
+
+def apply_ranking(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    return rank_predictions(predictions, top_n=top_n)
+
+
+def evaluate_eligibility(row: Dict[str, Any]) -> Dict[str, Any]:
+    return annotate_top7_quality(row)
+
+
+def top7_from_ranking(ranked: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT, *args: Any, **kwargs: Any) -> List[Dict[str, Any]]:
+    return select_top7(ranked, top_n=top_n)
