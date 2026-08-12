@@ -361,39 +361,53 @@ jobs:
           rows = [r for r in rows if isinstance(r, dict)]
 
           publishable = [r for r in rows if r.get("top7_publishable") is True]
+          selected = [r for r in rows if r.get("top7_rank") or r.get("top7_selected") is True]
+
           print(f"top7_diagnostic_rows={len(rows)}")
           print(f"top7_publishable_rows={len(publishable)}")
+          print(f"top7_selected_rows={len(selected)}")
 
-          reason_keys = (
-              "top7_reject_reasons",
-              "top7_quality_reject_reasons",
-              "reject_reasons",
-              "corq_reject_reasons",
-              "risk_flags",
-              "corq_risk_flags",
-              "flags",
-          )
-          reasons = Counter()
+          hard = Counter()
+          soft = Counter()
+          no_hard_no_publishable = 0
+
           for row in rows:
-              if row.get("top7_publishable") is True:
-                  continue
-              found = False
-              for key in reason_keys:
-                  val = row.get(key)
-                  if isinstance(val, list):
-                      for item in val:
-                          if item:
-                              reasons[str(item)] += 1
-                              found = True
-                  elif isinstance(val, str) and val.strip():
-                      reasons[val.strip()] += 1
-                      found = True
-              if not found:
-                  reasons["NO_REJECT_REASON_FIELD"] += 1
+              hard_reasons = row.get("top7_hard_reject_reasons")
+              if hard_reasons is None:
+                  hard_reasons = row.get("top7_reject_reasons") or row.get("top7_quality_reject_reasons") or []
+              if isinstance(hard_reasons, str):
+                  hard_reasons = [hard_reasons]
+              hard_reasons = sorted({str(x) for x in hard_reasons if x})
 
-          print("TOP7 reject reason summary:")
-          for reason, count in reasons.most_common(30):
-              print(f"  {count:4d}  {reason}")
+              soft_reasons = row.get("top7_soft_penalty_reasons") or []
+              if isinstance(soft_reasons, str):
+                  soft_reasons = [soft_reasons]
+              soft_reasons = sorted({str(x) for x in soft_reasons if x})
+
+              if hard_reasons:
+                  for reason in hard_reasons:
+                      hard[reason] += 1
+              elif row.get("top7_publishable") is not True:
+                  no_hard_no_publishable += 1
+
+              for reason in soft_reasons:
+                  soft[reason] += 1
+
+          print("TOP7 hard reject summary:")
+          if hard:
+              for reason, count in hard.most_common(30):
+                  print(f"  {count:4d}  {reason}")
+          else:
+              print("     0  NONE")
+          if no_hard_no_publishable:
+              print(f"  {no_hard_no_publishable:4d}  NO_HARD_REASON_BUT_NOT_PUBLISHABLE")
+
+          print("TOP7 soft penalty summary:")
+          if soft:
+              for reason, count in soft.most_common(30):
+                  print(f"  {count:4d}  {reason}")
+          else:
+              print("     0  NONE")
 
           def first_val(row, keys):
               for key in keys:
@@ -401,23 +415,24 @@ jobs:
                       return row.get(key)
               return None
 
-          print("TOP7 sample rejected rows:")
-          for idx, row in enumerate(rows[:12], start=1):
+          def describe(row):
               pick = first_val(row, ("pick", "player", "player1", "home"))
               opp = first_val(row, ("opponent", "opp", "player2", "away"))
               prob = first_val(row, ("corq_probability", "corq_estimated_win_probability", "win_probability", "probability"))
               odds = first_val(row, ("pick_odds", "odds", "odds_player1", "home_odds"))
-              thinq = first_val(row, ("thinq_confidence", "thinq_probability_confidence", "data_confidence"))
-              depth = first_val(row, ("stat_data_depth", "pick_data_depth", "data_depth"))
-              form = first_val(row, ("form_data_depth", "form_confidence", "recent_form_confidence"))
-              row_reasons = []
-              for key in reason_keys:
-                  val = row.get(key)
-                  if isinstance(val, list):
-                      row_reasons.extend(str(x) for x in val if x)
-                  elif isinstance(val, str) and val.strip():
-                      row_reasons.append(val.strip())
-              print(f"  {idx}. {pick} vs {opp} | prob={prob} odds={odds} thinq={thinq} stat_depth={depth} form_depth={form} | reasons={row_reasons[:8] or ['NONE']}")
+              score = first_val(row, ("corq_top7_sort_score", "top7_quality_score"))
+              hard_reasons = row.get("top7_hard_reject_reasons") or row.get("top7_reject_reasons") or []
+              soft_reasons = row.get("top7_soft_penalty_reasons") or []
+              return f"{pick} vs {opp} | prob={prob} odds={odds} score={score} | hard={hard_reasons or ['NONE']} | soft={soft_reasons[:6] or ['NONE']}"
+
+          print("TOP7 selected sample:")
+          for idx, row in enumerate((selected or publishable)[:10], start=1):
+              print(f"  {idx}. {describe(row)}")
+
+          print("TOP7 hard-rejected sample:")
+          rejected = [r for r in rows if (r.get("top7_hard_reject_reasons") or r.get("top7_reject_reasons") or r.get("top7_quality_reject_reasons"))]
+          for idx, row in enumerate(rejected[:10], start=1):
+              print(f"  {idx}. {describe(row)}")
           PY
 
       - name: Render web site
