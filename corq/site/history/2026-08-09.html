@@ -207,7 +207,11 @@
     ['corq','cloq','audit'].forEach(function(sectionKey){
       const section=(range.sections||{})[sectionKey]||{meta:'',chunks:[]};
       document.querySelectorAll('[data-section-meta="'+sectionKey+'"]').forEach(function(meta){ meta.innerHTML=section.meta||''; });
-      document.querySelectorAll('.results-lazy-root[data-section="'+sectionKey+'"]').forEach(function(root){ setChunks(root, section.chunks||[]); loadNext(root, initialChunks); });
+      document.querySelectorAll('.results-lazy-root[data-section="'+sectionKey+'"]').forEach(function(root){
+        const chunks=section.chunks||[];
+        setChunks(root, chunks);
+        loadNext(root, range.autoloadAll ? chunks.length : initialChunks);
+      });
     });
     const stats=range.stats||{};
     const depth=document.getElementById('results-range-depth'); if(depth) depth.innerHTML=stats.depth||'';
