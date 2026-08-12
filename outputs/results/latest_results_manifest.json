@@ -1,38 +1,38 @@
 {
-  "generated_at": "2026-08-11T12:16:21+00:00",
-  "date": "2026-08-10",
-  "fetch_api": true,
-  "settlement_grace_hours": 2.0,
+  "generated_at": "2026-08-12T04:53:45+00:00",
+  "date": "2026-08-12",
+  "fetch_api": false,
+  "settlement_grace_hours": 0.0,
   "local_tz": "Europe/Bratislava",
-  "corq_count": 78,
-  "cloq_count": 48,
-  "audit_count": 405,
+  "corq_count": 83,
+  "cloq_count": 51,
+  "audit_count": 427,
   "summary": {
     "corq": {
-      "picks": 78,
+      "picks": 83,
       "won": 38,
       "lost": 33,
-      "pending": 7,
+      "pending": 12,
       "void": 0,
       "win_rate": 0.5352,
       "units": -9.1658,
       "roi": -0.1291
     },
     "cloq": {
-      "picks": 48,
+      "picks": 51,
       "won": 17,
       "lost": 21,
-      "pending": 10,
+      "pending": 13,
       "void": 0,
       "win_rate": 0.4474,
       "units": -3.1717,
       "roi": -0.0835
     },
     "audit": {
-      "picks": 405,
+      "picks": 427,
       "won": 225,
       "lost": 123,
-      "pending": 50,
+      "pending": 72,
       "void": 7,
       "win_rate": 0.6466,
       "units": -22.6429,
@@ -41,10 +41,10 @@
   },
   "summary_by_snapshot_source": {
     "CORQ_DAILY": {
-      "picks": 78,
+      "picks": 83,
       "won": 38,
       "lost": 33,
-      "pending": 7,
+      "pending": 12,
       "void": 0,
       "win_rate": 0.5352,
       "units": -9.1658,
@@ -57,9 +57,9 @@
     "audit": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/latest_all_audit_snapshot.json"
   },
   "locks": {
-    "corq": "immutable_ledger_source_plus_existing:0+existing:71+preserved:7",
-    "cloq": "immutable_ledger_source_plus_existing:0+existing:38+preserved:10",
-    "audit": "immutable_ledger_source_plus_existing:50+existing:355+preserved:50"
+    "corq": "immutable_ledger_source_plus_existing:5+existing:76+preserved:2",
+    "cloq": "immutable_ledger_source_plus_existing:3+existing:46+preserved:2",
+    "audit": "immutable_ledger_source_plus_existing:53+existing:396+preserved:9"
   },
   "output_root": "outputs/results"
 }
