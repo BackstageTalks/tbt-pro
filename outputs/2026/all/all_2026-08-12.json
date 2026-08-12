@@ -2628,7 +2628,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 12,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -2648,13 +2648,31 @@
     "top7_probability_guard_prob": 0.6287,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": -6.5744,
-    "top7_quality_score": 74.578,
-    "corq_top7_sort_score": 74.578,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 97.7739,
+    "corq_top7_sort_score": 97.7739,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 97.7739,
+    "corq_pick_quality_score": 97.7739,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.626757,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 12,
+    "corq_raw_probability": 0.6287,
+    "corq_raw_probability_pct": 62.87,
+    "corq_opponent_raw_probability": 0.3744,
+    "corq_opponent_raw_probability_pct": 37.44,
+    "corq_pair_win_probability": 0.626757,
+    "corq_pair_win_probability_pct": 62.68,
+    "corq_opponent_pair_win_probability": 0.373243,
+    "corq_opponent_pair_win_probability_pct": 37.32,
+    "corq_pair_margin_pp": 25.35,
+    "corq_pair_match_key": "match_id:16661633",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
     "top7_sort_rank": 13,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10"
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11"
   },
   {
     "match_id": 16661633,
@@ -5285,20 +5303,20 @@
       "VALUE_NEUTRAL"
     ],
     "corq_source_rank": 54,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
@@ -5311,8 +5329,26 @@
     "top7_probability_gap_pp": 1.0764,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 54
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.373243,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 54,
+    "corq_raw_probability": 0.3744,
+    "corq_raw_probability_pct": 37.44,
+    "corq_opponent_raw_probability": 0.6287,
+    "corq_opponent_raw_probability_pct": 62.87,
+    "corq_pair_win_probability": 0.373243,
+    "corq_pair_win_probability_pct": 37.32,
+    "corq_opponent_pair_win_probability": 0.626757,
+    "corq_opponent_pair_win_probability_pct": 62.68,
+    "corq_pair_margin_pp": -25.35,
+    "corq_pair_match_key": "match_id:16661633",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16661634,
@@ -7937,20 +7973,20 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 41,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
@@ -7963,8 +7999,26 @@
     "top7_probability_gap_pp": 9.2172,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 41
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.4724,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 41,
+    "corq_raw_probability": 0.4724,
+    "corq_raw_probability_pct": 47.24,
+    "corq_opponent_raw_probability": 0.5276,
+    "corq_opponent_raw_probability_pct": 52.76,
+    "corq_pair_win_probability": 0.4724,
+    "corq_pair_win_probability_pct": 47.24,
+    "corq_opponent_pair_win_probability": 0.5276,
+    "corq_opponent_pair_win_probability_pct": 52.76,
+    "corq_pair_margin_pp": -5.52,
+    "corq_pair_match_key": "match_id:16661634",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16661634,
@@ -10589,7 +10643,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 24,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -10609,13 +10663,31 @@
     "top7_probability_guard_prob": 0.5276,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": -13.9067,
-    "top7_quality_score": 58.692,
-    "corq_top7_sort_score": 58.692,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 75.1843,
+    "corq_top7_sort_score": 75.1843,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 75.1843,
+    "corq_pick_quality_score": 75.1843,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.5276,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 24,
-    "top7_sort_rank": 23,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10"
+    "corq_raw_probability": 0.5276,
+    "corq_raw_probability_pct": 52.76,
+    "corq_opponent_raw_probability": 0.4724,
+    "corq_opponent_raw_probability_pct": 47.24,
+    "corq_pair_win_probability": 0.5276,
+    "corq_pair_win_probability_pct": 52.76,
+    "corq_opponent_pair_win_probability": 0.4724,
+    "corq_opponent_pair_win_probability_pct": 47.24,
+    "corq_pair_margin_pp": 5.52,
+    "corq_pair_match_key": "match_id:16661634",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
+    "top7_sort_rank": 21,
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11"
   },
   {
     "match_id": 16784132,
@@ -13237,7 +13309,7 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 1,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -13252,13 +13324,31 @@
     "top7_probability_guard_prob": 0.6805,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": 8.0512,
-    "top7_quality_score": 103.9805,
-    "corq_top7_sort_score": 103.9805,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 135.4515,
+    "corq_top7_sort_score": 135.4515,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 135.4515,
+    "corq_pick_quality_score": 135.4515,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.6805,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 1,
+    "corq_raw_probability": 0.6805,
+    "corq_raw_probability_pct": 68.05,
+    "corq_opponent_raw_probability": 0.3195,
+    "corq_opponent_raw_probability_pct": 31.95,
+    "corq_pair_win_probability": 0.6805,
+    "corq_pair_win_probability_pct": 68.05,
+    "corq_opponent_pair_win_probability": 0.3195,
+    "corq_opponent_pair_win_probability_pct": 31.95,
+    "corq_pair_margin_pp": 36.1,
+    "corq_pair_match_key": "match_id:16784132",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
     "top7_sort_rank": 1,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_rank": 1
   },
   {
@@ -15881,20 +15971,20 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 64,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
@@ -15909,8 +15999,26 @@
     "top7_probability_gap_pp": -15.669,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 64
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.3195,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 64,
+    "corq_raw_probability": 0.3195,
+    "corq_raw_probability_pct": 31.95,
+    "corq_opponent_raw_probability": 0.6805,
+    "corq_opponent_raw_probability_pct": 68.05,
+    "corq_pair_win_probability": 0.3195,
+    "corq_pair_win_probability_pct": 31.95,
+    "corq_opponent_pair_win_probability": 0.6805,
+    "corq_opponent_pair_win_probability_pct": 68.05,
+    "corq_pair_margin_pp": -36.1,
+    "corq_pair_match_key": "match_id:16784132",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16784161,
@@ -18540,7 +18648,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 2,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -18551,20 +18659,41 @@
     "top7_reject_reason_count": 0,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_SHORT_PRICE",
-      "PENALTY_TOP7_MARKET_AGAINST_PICK"
+      "PENALTY_TOP7_MARKET_AGAINST_PICK",
+      "PENALTY_TOP7_NEGATIVE_VALUE_DELTA",
+      "PENALTY_TOP7_NEGATIVE_EV"
     ],
-    "top7_soft_penalty_count": 2,
+    "top7_soft_penalty_count": 4,
     "top7_probability_guard_min": 0.5,
     "top7_probability_guard_prob": 0.668,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": -4.6286,
-    "top7_quality_score": 82.7916,
-    "corq_top7_sort_score": 82.7916,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 105.3497,
+    "corq_top7_sort_score": 105.3497,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 105.3497,
+    "corq_pick_quality_score": 105.3497,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.668,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 2,
-    "top7_sort_rank": 8,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10"
+    "corq_raw_probability": 0.668,
+    "corq_raw_probability_pct": 66.8,
+    "corq_opponent_raw_probability": 0.332,
+    "corq_opponent_raw_probability_pct": 33.2,
+    "corq_pair_win_probability": 0.668,
+    "corq_pair_win_probability_pct": 66.8,
+    "corq_opponent_pair_win_probability": 0.332,
+    "corq_opponent_pair_win_probability_pct": 33.2,
+    "corq_pair_margin_pp": 33.6,
+    "corq_pair_match_key": "match_id:16784161",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
+    "top7_sort_rank": 7,
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "top7_rank": 7
   },
   {
     "match_id": 16784161,
@@ -21194,35 +21323,54 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 63,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
       "PENALTY_TOP7_NEGATIVE_EV",
-      "PENALTY_TOP7_MARKET_AGAINST_PICK"
+      "PENALTY_TOP7_MARKET_AGAINST_PICK",
+      "PENALTY_TOP7_NEGATIVE_VALUE_DELTA"
     ],
-    "top7_soft_penalty_count": 3,
+    "top7_soft_penalty_count": 4,
     "top7_probability_guard_min": 0.5,
     "top7_probability_guard_prob": 0.332,
     "top7_probability_guard_passed": false,
     "top7_probability_gap_pp": -3.1636,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 63
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.332,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 63,
+    "corq_raw_probability": 0.332,
+    "corq_raw_probability_pct": 33.2,
+    "corq_opponent_raw_probability": 0.668,
+    "corq_opponent_raw_probability_pct": 66.8,
+    "corq_pair_win_probability": 0.332,
+    "corq_pair_win_probability_pct": 33.2,
+    "corq_opponent_pair_win_probability": 0.668,
+    "corq_opponent_pair_win_probability_pct": 66.8,
+    "corq_pair_margin_pp": -33.6,
+    "corq_pair_match_key": "match_id:16784161",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16784130,
@@ -23845,34 +23993,54 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 36,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
-      "PENALTY_TOP7_MARKET_AGAINST_PICK"
+      "PENALTY_TOP7_MARKET_AGAINST_PICK",
+      "PENALTY_TOP7_NEGATIVE_VALUE_DELTA",
+      "PENALTY_TOP7_NEGATIVE_EV"
     ],
-    "top7_soft_penalty_count": 2,
+    "top7_soft_penalty_count": 4,
     "top7_probability_guard_min": 0.5,
     "top7_probability_guard_prob": 0.4836,
     "top7_probability_guard_passed": false,
     "top7_probability_gap_pp": -4.0207,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 36
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.4836,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 36,
+    "corq_raw_probability": 0.4836,
+    "corq_raw_probability_pct": 48.36,
+    "corq_opponent_raw_probability": 0.5164,
+    "corq_opponent_raw_probability_pct": 51.64,
+    "corq_pair_win_probability": 0.4836,
+    "corq_pair_win_probability_pct": 48.36,
+    "corq_opponent_pair_win_probability": 0.5164,
+    "corq_opponent_pair_win_probability_pct": 51.64,
+    "corq_pair_margin_pp": -3.28,
+    "corq_pair_match_key": "match_id:16784130",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16784130,
@@ -26495,7 +26663,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 29,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -26505,20 +26673,40 @@
     "top7_primary_reject_reason": null,
     "top7_reject_reason_count": 0,
     "top7_soft_penalty_reasons": [
-      "PENALTY_TOP7_MARKET_AGAINST_PICK"
+      "PENALTY_TOP7_MARKET_AGAINST_PICK",
+      "PENALTY_TOP7_NEGATIVE_VALUE_DELTA",
+      "PENALTY_TOP7_NEGATIVE_EV"
     ],
-    "top7_soft_penalty_count": 1,
+    "top7_soft_penalty_count": 3,
     "top7_probability_guard_min": 0.5,
     "top7_probability_guard_prob": 0.5164,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": -3.9156,
-    "top7_quality_score": 71.553,
-    "corq_top7_sort_score": 71.553,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 84.9375,
+    "corq_top7_sort_score": 84.9375,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 84.9375,
+    "corq_pick_quality_score": 84.9375,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.5164,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 29,
-    "top7_sort_rank": 15,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10"
+    "corq_raw_probability": 0.5164,
+    "corq_raw_probability_pct": 51.64,
+    "corq_opponent_raw_probability": 0.4836,
+    "corq_opponent_raw_probability_pct": 48.36,
+    "corq_pair_win_probability": 0.5164,
+    "corq_pair_win_probability_pct": 51.64,
+    "corq_opponent_pair_win_probability": 0.4836,
+    "corq_opponent_pair_win_probability_pct": 48.36,
+    "corq_pair_margin_pp": 3.28,
+    "corq_pair_match_key": "match_id:16784130",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
+    "top7_sort_rank": 17,
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11"
   },
   {
     "match_id": 16784159,
@@ -29135,20 +29323,20 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 62,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
@@ -29161,8 +29349,26 @@
     "top7_probability_gap_pp": 5.1286,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 62
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.337,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 62,
+    "corq_raw_probability": 0.337,
+    "corq_raw_probability_pct": 33.7,
+    "corq_opponent_raw_probability": 0.663,
+    "corq_opponent_raw_probability_pct": 66.3,
+    "corq_pair_win_probability": 0.337,
+    "corq_pair_win_probability_pct": 33.7,
+    "corq_opponent_pair_win_probability": 0.663,
+    "corq_opponent_pair_win_probability_pct": 66.3,
+    "corq_pair_margin_pp": -32.6,
+    "corq_pair_match_key": "match_id:16784159",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16784159,
@@ -31779,7 +31985,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 3,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
@@ -31807,8 +32013,26 @@
     "top7_probability_gap_pp": -11.4786,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 3
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.663,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 3,
+    "corq_raw_probability": 0.663,
+    "corq_raw_probability_pct": 66.3,
+    "corq_opponent_raw_probability": 0.337,
+    "corq_opponent_raw_probability_pct": 33.7,
+    "corq_pair_win_probability": 0.663,
+    "corq_pair_win_probability_pct": 66.3,
+    "corq_opponent_pair_win_probability": 0.337,
+    "corq_opponent_pair_win_probability_pct": 33.7,
+    "corq_pair_margin_pp": 32.6,
+    "corq_pair_match_key": "match_id:16784159",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16796176,
@@ -34448,37 +34672,57 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 37,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
       "PENALTY_TOP7_LOW_PICK_DATA_DEPTH",
       "PENALTY_TOP7_LOW_THINQ_CONFIDENCE",
       "PENALTY_TOP7_ELO_UNAVAILABLE",
-      "PENALTY_TOP7_MARKET_AGAINST_PICK"
+      "PENALTY_TOP7_MARKET_AGAINST_PICK",
+      "PENALTY_TOP7_NEGATIVE_VALUE_DELTA",
+      "PENALTY_TOP7_NEGATIVE_EV"
     ],
-    "top7_soft_penalty_count": 5,
+    "top7_soft_penalty_count": 7,
     "top7_probability_guard_min": 0.5,
     "top7_probability_guard_prob": 0.4832,
     "top7_probability_guard_passed": false,
     "top7_probability_gap_pp": -4.0607,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 37
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.4832,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 37,
+    "corq_raw_probability": 0.4832,
+    "corq_raw_probability_pct": 48.32,
+    "corq_opponent_raw_probability": 0.5168,
+    "corq_opponent_raw_probability_pct": 51.68,
+    "corq_pair_win_probability": 0.4832,
+    "corq_pair_win_probability_pct": 48.32,
+    "corq_opponent_pair_win_probability": 0.5168,
+    "corq_opponent_pair_win_probability_pct": 51.68,
+    "corq_pair_margin_pp": -3.36,
+    "corq_pair_match_key": "match_id:16796176",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16796176,
@@ -37118,7 +37362,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 28,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -37131,20 +37375,40 @@
       "PENALTY_TOP7_LOW_PICK_DATA_DEPTH",
       "PENALTY_TOP7_LOW_THINQ_CONFIDENCE",
       "PENALTY_TOP7_ELO_UNAVAILABLE",
-      "PENALTY_TOP7_MARKET_AGAINST_PICK"
+      "PENALTY_TOP7_MARKET_AGAINST_PICK",
+      "PENALTY_TOP7_NEGATIVE_VALUE_DELTA",
+      "PENALTY_TOP7_NEGATIVE_EV"
     ],
-    "top7_soft_penalty_count": 4,
+    "top7_soft_penalty_count": 6,
     "top7_probability_guard_min": 0.5,
     "top7_probability_guard_prob": 0.5168,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": -3.8756,
-    "top7_quality_score": 61.7832,
-    "corq_top7_sort_score": 61.7832,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 69.6231,
+    "corq_top7_sort_score": 69.6231,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 69.6231,
+    "corq_pick_quality_score": 69.6231,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.5168,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 28,
-    "top7_sort_rank": 21,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10"
+    "corq_raw_probability": 0.5168,
+    "corq_raw_probability_pct": 51.68,
+    "corq_opponent_raw_probability": 0.4832,
+    "corq_opponent_raw_probability_pct": 48.32,
+    "corq_pair_win_probability": 0.5168,
+    "corq_pair_win_probability_pct": 51.68,
+    "corq_opponent_pair_win_probability": 0.4832,
+    "corq_opponent_pair_win_probability_pct": 48.32,
+    "corq_pair_margin_pp": 3.36,
+    "corq_pair_match_key": "match_id:16796176",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
+    "top7_sort_rank": 23,
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11"
   },
   {
     "match_id": 16796000,
@@ -39770,20 +40034,20 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 60,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
@@ -39798,8 +40062,26 @@
     "top7_probability_gap_pp": -15.14,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 60
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.3486,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 60,
+    "corq_raw_probability": 0.3486,
+    "corq_raw_probability_pct": 34.86,
+    "corq_opponent_raw_probability": 0.6514,
+    "corq_opponent_raw_probability_pct": 65.14,
+    "corq_pair_win_probability": 0.3486,
+    "corq_pair_win_probability_pct": 34.86,
+    "corq_opponent_pair_win_probability": 0.6514,
+    "corq_opponent_pair_win_probability_pct": 65.14,
+    "corq_pair_margin_pp": -30.28,
+    "corq_pair_match_key": "match_id:16796000",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16796000,
@@ -42425,7 +42707,7 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 6,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -42440,13 +42722,31 @@
     "top7_probability_guard_prob": 0.6514,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": 7.2462,
-    "top7_quality_score": 99.4783,
-    "corq_top7_sort_score": 99.4783,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 129.6543,
+    "corq_top7_sort_score": 129.6543,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 129.6543,
+    "corq_pick_quality_score": 129.6543,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.6514,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 6,
+    "corq_raw_probability": 0.6514,
+    "corq_raw_probability_pct": 65.14,
+    "corq_opponent_raw_probability": 0.3486,
+    "corq_opponent_raw_probability_pct": 34.86,
+    "corq_pair_win_probability": 0.6514,
+    "corq_pair_win_probability_pct": 65.14,
+    "corq_opponent_pair_win_probability": 0.3486,
+    "corq_opponent_pair_win_probability_pct": 34.86,
+    "corq_pair_margin_pp": 30.28,
+    "corq_pair_match_key": "match_id:16796000",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
     "top7_sort_rank": 2,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_rank": 2
   },
   {
@@ -45081,7 +45381,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 8,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
@@ -45109,8 +45409,26 @@
     "top7_probability_gap_pp": -8.9153,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 8
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.6442,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 8,
+    "corq_raw_probability": 0.6442,
+    "corq_raw_probability_pct": 64.42,
+    "corq_opponent_raw_probability": 0.3558,
+    "corq_opponent_raw_probability_pct": 35.58,
+    "corq_pair_win_probability": 0.6442,
+    "corq_pair_win_probability_pct": 64.42,
+    "corq_opponent_pair_win_probability": 0.3558,
+    "corq_opponent_pair_win_probability_pct": 35.58,
+    "corq_pair_margin_pp": 28.84,
+    "corq_pair_match_key": "match_id:16799575",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16799575,
@@ -47744,20 +48062,20 @@
       "VALUE_NEUTRAL"
     ],
     "corq_source_rank": 58,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
@@ -47770,8 +48088,26 @@
     "top7_probability_gap_pp": 2.2467,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 58
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.3558,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 58,
+    "corq_raw_probability": 0.3558,
+    "corq_raw_probability_pct": 35.58,
+    "corq_opponent_raw_probability": 0.6442,
+    "corq_opponent_raw_probability_pct": 64.42,
+    "corq_pair_win_probability": 0.3558,
+    "corq_pair_win_probability_pct": 35.58,
+    "corq_opponent_pair_win_probability": 0.6442,
+    "corq_opponent_pair_win_probability_pct": 64.42,
+    "corq_pair_margin_pp": -28.84,
+    "corq_pair_match_key": "match_id:16799575",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16800010,
@@ -50393,20 +50729,20 @@
       "VALUE_NEUTRAL"
     ],
     "corq_source_rank": 43,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
@@ -50419,8 +50755,26 @@
     "top7_probability_gap_pp": 0.6655,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 43
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.4612,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 43,
+    "corq_raw_probability": 0.4612,
+    "corq_raw_probability_pct": 46.12,
+    "corq_opponent_raw_probability": 0.5388,
+    "corq_opponent_raw_probability_pct": 53.88,
+    "corq_pair_win_probability": 0.4612,
+    "corq_pair_win_probability_pct": 46.12,
+    "corq_opponent_pair_win_probability": 0.5388,
+    "corq_opponent_pair_win_probability_pct": 53.88,
+    "corq_pair_margin_pp": -7.76,
+    "corq_pair_match_key": "match_id:16800010",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16800010,
@@ -53042,7 +53396,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 22,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -53061,13 +53415,31 @@
     "top7_probability_guard_prob": 0.5388,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": -8.0242,
-    "top7_quality_score": 65.5461,
-    "corq_top7_sort_score": 65.5461,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 84.3972,
+    "corq_top7_sort_score": 84.3972,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 84.3972,
+    "corq_pick_quality_score": 84.3972,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.5388,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 22,
-    "top7_sort_rank": 19,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10"
+    "corq_raw_probability": 0.5388,
+    "corq_raw_probability_pct": 53.88,
+    "corq_opponent_raw_probability": 0.4612,
+    "corq_opponent_raw_probability_pct": 46.12,
+    "corq_pair_win_probability": 0.5388,
+    "corq_pair_win_probability_pct": 53.88,
+    "corq_opponent_pair_win_probability": 0.4612,
+    "corq_opponent_pair_win_probability_pct": 46.12,
+    "corq_pair_margin_pp": 7.76,
+    "corq_pair_match_key": "match_id:16800010",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
+    "top7_sort_rank": 18,
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11"
   },
   {
     "match_id": 16800037,
@@ -55706,20 +56078,20 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 57,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
@@ -55734,8 +56106,26 @@
     "top7_probability_gap_pp": -9.6345,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 57
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.3582,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 57,
+    "corq_raw_probability": 0.3582,
+    "corq_raw_probability_pct": 35.82,
+    "corq_opponent_raw_probability": 0.6418,
+    "corq_opponent_raw_probability_pct": 64.18,
+    "corq_pair_win_probability": 0.3582,
+    "corq_pair_win_probability_pct": 35.82,
+    "corq_opponent_pair_win_probability": 0.6418,
+    "corq_opponent_pair_win_probability_pct": 64.18,
+    "corq_pair_margin_pp": -28.36,
+    "corq_pair_match_key": "match_id:16800037",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16800037,
@@ -58374,7 +58764,7 @@
       "VALUE_NEUTRAL"
     ],
     "corq_source_rank": 9,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -58389,13 +58779,31 @@
     "top7_probability_guard_prob": 0.6418,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": 2.2758,
-    "top7_quality_score": 91.6701,
-    "corq_top7_sort_score": 91.6701,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 123.4164,
+    "corq_top7_sort_score": 123.4164,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 123.4164,
+    "corq_pick_quality_score": 123.4164,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.6418,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 9,
+    "corq_raw_probability": 0.6418,
+    "corq_raw_probability_pct": 64.18,
+    "corq_opponent_raw_probability": 0.3582,
+    "corq_opponent_raw_probability_pct": 35.82,
+    "corq_pair_win_probability": 0.6418,
+    "corq_pair_win_probability_pct": 64.18,
+    "corq_opponent_pair_win_probability": 0.3582,
+    "corq_opponent_pair_win_probability_pct": 35.82,
+    "corq_pair_margin_pp": 28.36,
+    "corq_pair_match_key": "match_id:16800037",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
     "top7_sort_rank": 4,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_rank": 4
   },
   {
@@ -61037,7 +61445,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 27,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -61059,13 +61467,31 @@
     "top7_probability_guard_prob": 0.5202,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": -5.8738,
-    "top7_quality_score": 57.0755,
-    "corq_top7_sort_score": 57.0755,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 67.3115,
+    "corq_top7_sort_score": 67.3115,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 67.3115,
+    "corq_pick_quality_score": 67.3115,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.5202,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 27,
+    "corq_raw_probability": 0.5202,
+    "corq_raw_probability_pct": 52.02,
+    "corq_opponent_raw_probability": 0.4798,
+    "corq_opponent_raw_probability_pct": 47.98,
+    "corq_pair_win_probability": 0.5202,
+    "corq_pair_win_probability_pct": 52.02,
+    "corq_opponent_pair_win_probability": 0.4798,
+    "corq_opponent_pair_win_probability_pct": 47.98,
+    "corq_pair_margin_pp": 4.04,
+    "corq_pair_match_key": "match_id:16799912",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
     "top7_sort_rank": 24,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10"
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11"
   },
   {
     "match_id": 16799912,
@@ -63706,37 +64132,57 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 38,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
       "PENALTY_TOP7_LOW_PICK_DATA_DEPTH",
       "PENALTY_TOP7_LOW_THINQ_CONFIDENCE",
       "PENALTY_TOP7_ELO_UNAVAILABLE",
-      "PENALTY_TOP7_MARKET_AGAINST_PICK"
+      "PENALTY_TOP7_MARKET_AGAINST_PICK",
+      "PENALTY_TOP7_NEGATIVE_VALUE_DELTA",
+      "PENALTY_TOP7_NEGATIVE_EV"
     ],
-    "top7_soft_penalty_count": 5,
+    "top7_soft_penalty_count": 7,
     "top7_probability_guard_min": 0.5,
     "top7_probability_guard_prob": 0.4798,
     "top7_probability_guard_passed": false,
     "top7_probability_gap_pp": -2.02,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 38
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.4798,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 38,
+    "corq_raw_probability": 0.4798,
+    "corq_raw_probability_pct": 47.98,
+    "corq_opponent_raw_probability": 0.5202,
+    "corq_opponent_raw_probability_pct": 52.02,
+    "corq_pair_win_probability": 0.4798,
+    "corq_pair_win_probability_pct": 47.98,
+    "corq_opponent_pair_win_probability": 0.5202,
+    "corq_opponent_pair_win_probability_pct": 52.02,
+    "corq_pair_margin_pp": -4.04,
+    "corq_pair_match_key": "match_id:16799912",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16800021,
@@ -66360,20 +66806,20 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 55,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
@@ -66386,8 +66832,26 @@
     "top7_probability_gap_pp": 7.3782,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 55
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.3679,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 55,
+    "corq_raw_probability": 0.3679,
+    "corq_raw_probability_pct": 36.79,
+    "corq_opponent_raw_probability": 0.6321,
+    "corq_opponent_raw_probability_pct": 63.21,
+    "corq_pair_win_probability": 0.3679,
+    "corq_pair_win_probability_pct": 36.79,
+    "corq_opponent_pair_win_probability": 0.6321,
+    "corq_opponent_pair_win_probability_pct": 63.21,
+    "corq_pair_margin_pp": -26.42,
+    "corq_pair_match_key": "match_id:16800021",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16800021,
@@ -69011,7 +69475,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 11,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
@@ -69039,8 +69503,26 @@
     "top7_probability_gap_pp": -13.7131,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 11
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.6321,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 11,
+    "corq_raw_probability": 0.6321,
+    "corq_raw_probability_pct": 63.21,
+    "corq_opponent_raw_probability": 0.3679,
+    "corq_opponent_raw_probability_pct": 36.79,
+    "corq_pair_win_probability": 0.6321,
+    "corq_pair_win_probability_pct": 63.21,
+    "corq_opponent_pair_win_probability": 0.3679,
+    "corq_opponent_pair_win_probability_pct": 36.79,
+    "corq_pair_margin_pp": 26.42,
+    "corq_pair_match_key": "match_id:16800021",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16800036,
@@ -71658,35 +72140,54 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 56,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
       "PENALTY_TOP7_NEGATIVE_EV",
-      "PENALTY_TOP7_MARKET_AGAINST_PICK"
+      "PENALTY_TOP7_MARKET_AGAINST_PICK",
+      "PENALTY_TOP7_NEGATIVE_VALUE_DELTA"
     ],
-    "top7_soft_penalty_count": 3,
+    "top7_soft_penalty_count": 4,
     "top7_probability_guard_min": 0.5,
     "top7_probability_guard_prob": 0.3587,
     "top7_probability_guard_passed": false,
     "top7_probability_gap_pp": -4.13,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 56
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.3587,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 56,
+    "corq_raw_probability": 0.3587,
+    "corq_raw_probability_pct": 35.87,
+    "corq_opponent_raw_probability": 0.6413,
+    "corq_opponent_raw_probability_pct": 64.13,
+    "corq_pair_win_probability": 0.3587,
+    "corq_pair_win_probability_pct": 35.87,
+    "corq_opponent_pair_win_probability": 0.6413,
+    "corq_opponent_pair_win_probability_pct": 64.13,
+    "corq_pair_margin_pp": -28.26,
+    "corq_pair_match_key": "match_id:16800036",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16800036,
@@ -74304,7 +74805,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 10,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -74315,21 +74816,40 @@
     "top7_reject_reason_count": 0,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_SHORT_PRICE",
-      "PENALTY_TOP7_MARKET_AGAINST_PICK"
+      "PENALTY_TOP7_MARKET_AGAINST_PICK",
+      "PENALTY_TOP7_NEGATIVE_VALUE_DELTA",
+      "PENALTY_TOP7_NEGATIVE_EV"
     ],
-    "top7_soft_penalty_count": 2,
+    "top7_soft_penalty_count": 4,
     "top7_probability_guard_min": 0.5,
     "top7_probability_guard_prob": 0.6413,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": -2.5367,
-    "top7_quality_score": 83.2385,
-    "corq_top7_sort_score": 83.2385,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 103.0318,
+    "corq_top7_sort_score": 103.0318,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 103.0318,
+    "corq_pick_quality_score": 103.0318,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.6413,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 10,
-    "top7_sort_rank": 6,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "top7_rank": 6
+    "corq_raw_probability": 0.6413,
+    "corq_raw_probability_pct": 64.13,
+    "corq_opponent_raw_probability": 0.3587,
+    "corq_opponent_raw_probability_pct": 35.87,
+    "corq_pair_win_probability": 0.6413,
+    "corq_pair_win_probability_pct": 64.13,
+    "corq_opponent_pair_win_probability": 0.3587,
+    "corq_opponent_pair_win_probability_pct": 35.87,
+    "corq_pair_margin_pp": 28.26,
+    "corq_pair_match_key": "match_id:16800036",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
+    "top7_sort_rank": 9,
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11"
   },
   {
     "match_id": 16800331,
@@ -76957,20 +77477,20 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 35,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
@@ -76989,8 +77509,26 @@
     "top7_probability_gap_pp": -6.7956,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 35
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.4876,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 35,
+    "corq_raw_probability": 0.4876,
+    "corq_raw_probability_pct": 48.76,
+    "corq_opponent_raw_probability": 0.5124,
+    "corq_opponent_raw_probability_pct": 51.24,
+    "corq_pair_win_probability": 0.4876,
+    "corq_pair_win_probability_pct": 48.76,
+    "corq_opponent_pair_win_probability": 0.5124,
+    "corq_opponent_pair_win_probability_pct": 51.24,
+    "corq_pair_margin_pp": -2.48,
+    "corq_pair_match_key": "match_id:16800331",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16800331,
@@ -79618,7 +80156,7 @@
       "VALUE_NEUTRAL"
     ],
     "corq_source_rank": 30,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -79631,20 +80169,40 @@
       "PENALTY_TOP7_LOW_PICK_DATA_DEPTH",
       "PENALTY_TOP7_LOW_THINQ_CONFIDENCE",
       "PENALTY_TOP7_ELO_UNAVAILABLE",
-      "PENALTY_TOP7_LOW_CONTEXT_RISK"
+      "PENALTY_TOP7_LOW_CONTEXT_RISK",
+      "PENALTY_TOP7_NEGATIVE_VALUE_DELTA",
+      "PENALTY_TOP7_NEGATIVE_EV"
     ],
-    "top7_soft_penalty_count": 4,
+    "top7_soft_penalty_count": 6,
     "top7_probability_guard_min": 0.5,
     "top7_probability_guard_prob": 0.5124,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": -1.1407,
-    "top7_quality_score": 63.1198,
-    "corq_top7_sort_score": 63.1198,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 73.7893,
+    "corq_top7_sort_score": 73.7893,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 73.7893,
+    "corq_pick_quality_score": 73.7893,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.5124,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 30,
-    "top7_sort_rank": 20,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10"
+    "corq_raw_probability": 0.5124,
+    "corq_raw_probability_pct": 51.24,
+    "corq_opponent_raw_probability": 0.4876,
+    "corq_opponent_raw_probability_pct": 48.76,
+    "corq_pair_win_probability": 0.5124,
+    "corq_pair_win_probability_pct": 51.24,
+    "corq_opponent_pair_win_probability": 0.4876,
+    "corq_opponent_pair_win_probability_pct": 48.76,
+    "corq_pair_margin_pp": 2.48,
+    "corq_pair_match_key": "match_id:16800331",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
+    "top7_sort_rank": 22,
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11"
   },
   {
     "match_id": 16800145,
@@ -82269,20 +82827,20 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 59,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
@@ -82295,8 +82853,26 @@
     "top7_probability_gap_pp": 6.4086,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 59
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.3498,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 59,
+    "corq_raw_probability": 0.3498,
+    "corq_raw_probability_pct": 34.98,
+    "corq_opponent_raw_probability": 0.6502,
+    "corq_opponent_raw_probability_pct": 65.02,
+    "corq_pair_win_probability": 0.3498,
+    "corq_pair_win_probability_pct": 34.98,
+    "corq_opponent_pair_win_probability": 0.6502,
+    "corq_opponent_pair_win_probability_pct": 65.02,
+    "corq_pair_margin_pp": -30.04,
+    "corq_pair_match_key": "match_id:16800145",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16800145,
@@ -84921,7 +85497,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 7,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
@@ -84949,8 +85525,26 @@
     "top7_probability_gap_pp": -12.7586,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 7
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.6502,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 7,
+    "corq_raw_probability": 0.6502,
+    "corq_raw_probability_pct": 65.02,
+    "corq_opponent_raw_probability": 0.3498,
+    "corq_opponent_raw_probability_pct": 34.98,
+    "corq_pair_win_probability": 0.6502,
+    "corq_pair_win_probability_pct": 65.02,
+    "corq_opponent_pair_win_probability": 0.3498,
+    "corq_opponent_pair_win_probability_pct": 34.98,
+    "corq_pair_margin_pp": 30.04,
+    "corq_pair_match_key": "match_id:16800145",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16662011,
@@ -87576,20 +88170,20 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 49,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
@@ -87602,8 +88196,26 @@
     "top7_probability_gap_pp": 9.3967,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 49
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.432665,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 49,
+    "corq_raw_probability": 0.4273,
+    "corq_raw_probability_pct": 42.73,
+    "corq_opponent_raw_probability": 0.5603,
+    "corq_opponent_raw_probability_pct": 56.03,
+    "corq_pair_win_probability": 0.432665,
+    "corq_pair_win_probability_pct": 43.27,
+    "corq_opponent_pair_win_probability": 0.567335,
+    "corq_opponent_pair_win_probability_pct": 56.73,
+    "corq_pair_margin_pp": -13.47,
+    "corq_pair_match_key": "match_id:16662011",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16662011,
@@ -90229,7 +90841,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 16,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -90249,13 +90861,31 @@
     "top7_probability_guard_prob": 0.5603,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": -15.3986,
-    "top7_quality_score": 60.224,
-    "corq_top7_sort_score": 60.224,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 80.6874,
+    "corq_top7_sort_score": 80.6874,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 80.6874,
+    "corq_pick_quality_score": 80.6874,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.567335,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 16,
-    "top7_sort_rank": 22,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10"
+    "corq_raw_probability": 0.5603,
+    "corq_raw_probability_pct": 56.03,
+    "corq_opponent_raw_probability": 0.4273,
+    "corq_opponent_raw_probability_pct": 42.73,
+    "corq_pair_win_probability": 0.567335,
+    "corq_pair_win_probability_pct": 56.73,
+    "corq_opponent_pair_win_probability": 0.432665,
+    "corq_opponent_pair_win_probability_pct": 43.27,
+    "corq_pair_margin_pp": 13.47,
+    "corq_pair_match_key": "match_id:16662011",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
+    "top7_sort_rank": 20,
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11"
   },
   {
     "match_id": 16662009,
@@ -92871,20 +93501,20 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 34,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
@@ -92899,8 +93529,26 @@
     "top7_probability_gap_pp": -8.8135,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 34
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.492857,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 34,
+    "corq_raw_probability": 0.4899,
+    "corq_raw_probability_pct": 48.99,
+    "corq_opponent_raw_probability": 0.5041,
+    "corq_opponent_raw_probability_pct": 50.41,
+    "corq_pair_win_probability": 0.492857,
+    "corq_pair_win_probability_pct": 49.29,
+    "corq_opponent_pair_win_probability": 0.507143,
+    "corq_opponent_pair_win_probability_pct": 50.71,
+    "corq_pair_margin_pp": -1.43,
+    "corq_pair_match_key": "match_id:16662009",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16662009,
@@ -95516,7 +96164,7 @@
       "VALUE_NEUTRAL"
     ],
     "corq_source_rank": 32,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -95533,13 +96181,31 @@
     "top7_probability_guard_prob": 0.5041,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": 2.791,
-    "top7_quality_score": 74.3054,
-    "corq_top7_sort_score": 74.3054,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 97.4739,
+    "corq_top7_sort_score": 97.4739,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 97.4739,
+    "corq_pick_quality_score": 97.4739,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.507143,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 32,
+    "corq_raw_probability": 0.5041,
+    "corq_raw_probability_pct": 50.41,
+    "corq_opponent_raw_probability": 0.4899,
+    "corq_opponent_raw_probability_pct": 48.99,
+    "corq_pair_win_probability": 0.507143,
+    "corq_pair_win_probability_pct": 50.71,
+    "corq_opponent_pair_win_probability": 0.492857,
+    "corq_opponent_pair_win_probability_pct": 49.29,
+    "corq_pair_margin_pp": 1.43,
+    "corq_pair_match_key": "match_id:16662009",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
     "top7_sort_rank": 14,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10"
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11"
   },
   {
     "match_id": 16784139,
@@ -98158,20 +98824,20 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 42,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
@@ -98186,8 +98852,26 @@
     "top7_probability_gap_pp": -14.6942,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 42
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.4721,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 42,
+    "corq_raw_probability": 0.4721,
+    "corq_raw_probability_pct": 47.21,
+    "corq_opponent_raw_probability": 0.5279,
+    "corq_opponent_raw_probability_pct": 52.79,
+    "corq_pair_win_probability": 0.4721,
+    "corq_pair_win_probability_pct": 47.21,
+    "corq_opponent_pair_win_probability": 0.5279,
+    "corq_opponent_pair_win_probability_pct": 52.79,
+    "corq_pair_margin_pp": -5.58,
+    "corq_pair_match_key": "match_id:16784139",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16784139,
@@ -100806,7 +101490,7 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 23,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -100823,13 +101507,31 @@
     "top7_probability_guard_prob": 0.5279,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": 7.3355,
-    "top7_quality_score": 80.608,
-    "corq_top7_sort_score": 80.608,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 104.534,
+    "corq_top7_sort_score": 104.534,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 104.534,
+    "corq_pick_quality_score": 104.534,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.5279,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 23,
-    "top7_sort_rank": 9,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10"
+    "corq_raw_probability": 0.5279,
+    "corq_raw_probability_pct": 52.79,
+    "corq_opponent_raw_probability": 0.4721,
+    "corq_opponent_raw_probability_pct": 47.21,
+    "corq_pair_win_probability": 0.5279,
+    "corq_pair_win_probability_pct": 52.79,
+    "corq_opponent_pair_win_probability": 0.4721,
+    "corq_opponent_pair_win_probability_pct": 47.21,
+    "corq_pair_margin_pp": 5.58,
+    "corq_pair_match_key": "match_id:16784139",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
+    "top7_sort_rank": 8,
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11"
   },
   {
     "match_id": 16784137,
@@ -103447,20 +104149,20 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 61,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
@@ -103475,8 +104177,26 @@
     "top7_probability_gap_pp": -11.3045,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 61
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.3415,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 61,
+    "corq_raw_probability": 0.3415,
+    "corq_raw_probability_pct": 34.15,
+    "corq_opponent_raw_probability": 0.6585,
+    "corq_opponent_raw_probability_pct": 65.85,
+    "corq_pair_win_probability": 0.3415,
+    "corq_pair_win_probability_pct": 34.15,
+    "corq_opponent_pair_win_probability": 0.6585,
+    "corq_opponent_pair_win_probability_pct": 65.85,
+    "corq_pair_margin_pp": -31.7,
+    "corq_pair_match_key": "match_id:16784137",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16784137,
@@ -106094,7 +106814,7 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 5,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -106109,13 +106829,31 @@
     "top7_probability_guard_prob": 0.6585,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": 3.9458,
-    "top7_quality_score": 95.2081,
-    "corq_top7_sort_score": 95.2081,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 127.8932,
+    "corq_top7_sort_score": 127.8932,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 127.8932,
+    "corq_pick_quality_score": 127.8932,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.6585,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 5,
+    "corq_raw_probability": 0.6585,
+    "corq_raw_probability_pct": 65.85,
+    "corq_opponent_raw_probability": 0.3415,
+    "corq_opponent_raw_probability_pct": 34.15,
+    "corq_pair_win_probability": 0.6585,
+    "corq_pair_win_probability_pct": 65.85,
+    "corq_opponent_pair_win_probability": 0.3415,
+    "corq_opponent_pair_win_probability_pct": 34.15,
+    "corq_pair_margin_pp": 31.7,
+    "corq_pair_match_key": "match_id:16784137",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
     "top7_sort_rank": 3,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_rank": 3
   },
   {
@@ -108739,20 +109477,20 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 33,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_LOW_PICK_DATA_DEPTH",
@@ -108767,8 +109505,26 @@
     "top7_probability_gap_pp": 12.7564,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 33
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.4912,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 33,
+    "corq_raw_probability": 0.4912,
+    "corq_raw_probability_pct": 49.12,
+    "corq_opponent_raw_probability": 0.5088,
+    "corq_opponent_raw_probability_pct": 50.88,
+    "corq_pair_win_probability": 0.4912,
+    "corq_pair_win_probability_pct": 49.12,
+    "corq_opponent_pair_win_probability": 0.5088,
+    "corq_opponent_pair_win_probability_pct": 50.88,
+    "corq_pair_margin_pp": -1.76,
+    "corq_pair_match_key": "match_id:16784135",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16784135,
@@ -111391,7 +112147,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 31,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -111415,13 +112171,31 @@
     "top7_probability_guard_prob": 0.5088,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": -20.5486,
-    "top7_quality_score": 42.1152,
-    "corq_top7_sort_score": 42.1152,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 51.2528,
+    "corq_top7_sort_score": 51.2528,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 51.2528,
+    "corq_pick_quality_score": 51.2528,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.5088,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 31,
+    "corq_raw_probability": 0.5088,
+    "corq_raw_probability_pct": 50.88,
+    "corq_opponent_raw_probability": 0.4912,
+    "corq_opponent_raw_probability_pct": 49.12,
+    "corq_pair_win_probability": 0.5088,
+    "corq_pair_win_probability_pct": 50.88,
+    "corq_opponent_pair_win_probability": 0.4912,
+    "corq_opponent_pair_win_probability_pct": 49.12,
+    "corq_pair_margin_pp": 1.76,
+    "corq_pair_match_key": "match_id:16784135",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
     "top7_sort_rank": 25,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10"
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11"
   },
   {
     "match_id": 16784141,
@@ -114040,7 +114814,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 25,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -114059,13 +114833,31 @@
     "top7_probability_guard_prob": 0.5258,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": -7.4188,
-    "top7_quality_score": 67.1905,
-    "corq_top7_sort_score": 67.1905,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 83.2684,
+    "corq_top7_sort_score": 83.2684,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 83.2684,
+    "corq_pick_quality_score": 83.2684,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.5258,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 25,
-    "top7_sort_rank": 17,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10"
+    "corq_raw_probability": 0.5258,
+    "corq_raw_probability_pct": 52.58,
+    "corq_opponent_raw_probability": 0.4742,
+    "corq_opponent_raw_probability_pct": 47.42,
+    "corq_pair_win_probability": 0.5258,
+    "corq_pair_win_probability_pct": 52.58,
+    "corq_opponent_pair_win_probability": 0.4742,
+    "corq_opponent_pair_win_probability_pct": 47.42,
+    "corq_pair_margin_pp": 5.16,
+    "corq_pair_match_key": "match_id:16784141",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
+    "top7_sort_rank": 19,
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11"
   },
   {
     "match_id": 16784141,
@@ -116684,34 +117476,54 @@
       "VALUE_NEUTRAL"
     ],
     "corq_source_rank": 40,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
-      "PENALTY_TOP7_MARKET_AGAINST_PICK"
+      "PENALTY_TOP7_MARKET_AGAINST_PICK",
+      "PENALTY_TOP7_NEGATIVE_VALUE_DELTA",
+      "PENALTY_TOP7_NEGATIVE_EV"
     ],
-    "top7_soft_penalty_count": 2,
+    "top7_soft_penalty_count": 4,
     "top7_probability_guard_min": 0.5,
     "top7_probability_guard_prob": 0.4742,
     "top7_probability_guard_passed": false,
     "top7_probability_gap_pp": -0.199,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 40
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.4742,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 40,
+    "corq_raw_probability": 0.4742,
+    "corq_raw_probability_pct": 47.42,
+    "corq_opponent_raw_probability": 0.5258,
+    "corq_opponent_raw_probability_pct": 52.58,
+    "corq_pair_win_probability": 0.4742,
+    "corq_pair_win_probability_pct": 47.42,
+    "corq_opponent_pair_win_probability": 0.5258,
+    "corq_opponent_pair_win_probability_pct": 52.58,
+    "corq_pair_margin_pp": -5.16,
+    "corq_pair_match_key": "match_id:16784141",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16796166,
@@ -119332,34 +120144,54 @@
       "VALUE_NEUTRAL"
     ],
     "corq_source_rank": 48,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
-      "PENALTY_TOP7_MARKET_AGAINST_PICK"
+      "PENALTY_TOP7_MARKET_AGAINST_PICK",
+      "PENALTY_TOP7_NEGATIVE_VALUE_DELTA",
+      "PENALTY_TOP7_NEGATIVE_EV"
     ],
-    "top7_soft_penalty_count": 2,
+    "top7_soft_penalty_count": 4,
     "top7_probability_guard_min": 0.5,
     "top7_probability_guard_prob": 0.4426,
     "top7_probability_guard_passed": false,
     "top7_probability_gap_pp": -0.1844,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 48
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.4426,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 48,
+    "corq_raw_probability": 0.4426,
+    "corq_raw_probability_pct": 44.26,
+    "corq_opponent_raw_probability": 0.5574,
+    "corq_opponent_raw_probability_pct": 55.74,
+    "corq_pair_win_probability": 0.4426,
+    "corq_pair_win_probability_pct": 44.26,
+    "corq_opponent_pair_win_probability": 0.5574,
+    "corq_opponent_pair_win_probability_pct": 55.74,
+    "corq_pair_margin_pp": -11.48,
+    "corq_pair_match_key": "match_id:16796166",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16796166,
@@ -121980,7 +122812,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 17,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -121999,13 +122831,31 @@
     "top7_probability_guard_prob": 0.5574,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": -7.8975,
-    "top7_quality_score": 68.2281,
-    "corq_top7_sort_score": 68.2281,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 88.0064,
+    "corq_top7_sort_score": 88.0064,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 88.0064,
+    "corq_pick_quality_score": 88.0064,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.5574,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 17,
-    "top7_sort_rank": 16,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10"
+    "corq_raw_probability": 0.5574,
+    "corq_raw_probability_pct": 55.74,
+    "corq_opponent_raw_probability": 0.4426,
+    "corq_opponent_raw_probability_pct": 44.26,
+    "corq_pair_win_probability": 0.5574,
+    "corq_pair_win_probability_pct": 55.74,
+    "corq_opponent_pair_win_probability": 0.4426,
+    "corq_opponent_pair_win_probability_pct": 44.26,
+    "corq_pair_margin_pp": 11.48,
+    "corq_pair_match_key": "match_id:16796166",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
+    "top7_sort_rank": 15,
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11"
   },
   {
     "match_id": 16796167,
@@ -124619,7 +125469,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 21,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -124638,13 +125488,31 @@
     "top7_probability_guard_prob": 0.5394,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": -7.9642,
-    "top7_quality_score": 65.9111,
-    "corq_top7_sort_score": 65.9111,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 84.9497,
+    "corq_top7_sort_score": 84.9497,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 84.9497,
+    "corq_pick_quality_score": 84.9497,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.5394,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 21,
-    "top7_sort_rank": 18,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10"
+    "corq_raw_probability": 0.5394,
+    "corq_raw_probability_pct": 53.94,
+    "corq_opponent_raw_probability": 0.4606,
+    "corq_opponent_raw_probability_pct": 46.06,
+    "corq_pair_win_probability": 0.5394,
+    "corq_pair_win_probability_pct": 53.94,
+    "corq_opponent_pair_win_probability": 0.4606,
+    "corq_opponent_pair_win_probability_pct": 46.06,
+    "corq_pair_margin_pp": 7.88,
+    "corq_pair_match_key": "match_id:16796167",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
+    "top7_sort_rank": 16,
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11"
   },
   {
     "match_id": 16796167,
@@ -127258,20 +128126,20 @@
       "VALUE_NEUTRAL"
     ],
     "corq_source_rank": 44,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
@@ -127284,8 +128152,26 @@
     "top7_probability_gap_pp": 0.6055,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 44
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.4606,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 44,
+    "corq_raw_probability": 0.4606,
+    "corq_raw_probability_pct": 46.06,
+    "corq_opponent_raw_probability": 0.5394,
+    "corq_opponent_raw_probability_pct": 53.94,
+    "corq_pair_win_probability": 0.4606,
+    "corq_pair_win_probability_pct": 46.06,
+    "corq_opponent_pair_win_probability": 0.5394,
+    "corq_opponent_pair_win_probability_pct": 53.94,
+    "corq_pair_margin_pp": -7.88,
+    "corq_pair_match_key": "match_id:16796167",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16796165,
@@ -129916,20 +130802,20 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 45,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
@@ -129944,8 +130830,26 @@
     "top7_probability_gap_pp": -14.8988,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 45
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.451,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 45,
+    "corq_raw_probability": 0.451,
+    "corq_raw_probability_pct": 45.1,
+    "corq_opponent_raw_probability": 0.549,
+    "corq_opponent_raw_probability_pct": 54.9,
+    "corq_pair_win_probability": 0.451,
+    "corq_pair_win_probability_pct": 45.1,
+    "corq_opponent_pair_win_probability": 0.549,
+    "corq_opponent_pair_win_probability_pct": 54.9,
+    "corq_pair_margin_pp": -9.8,
+    "corq_pair_match_key": "match_id:16796165",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16796165,
@@ -132576,7 +133480,7 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 20,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -132593,14 +133497,32 @@
     "top7_probability_guard_prob": 0.549,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": 7.281,
-    "top7_quality_score": 82.8674,
-    "corq_top7_sort_score": 82.8674,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 107.5861,
+    "corq_top7_sort_score": 107.5861,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 107.5861,
+    "corq_pick_quality_score": 107.5861,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.549,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 20,
-    "top7_sort_rank": 7,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "top7_rank": 7
+    "corq_raw_probability": 0.549,
+    "corq_raw_probability_pct": 54.9,
+    "corq_opponent_raw_probability": 0.451,
+    "corq_opponent_raw_probability_pct": 45.1,
+    "corq_pair_win_probability": 0.549,
+    "corq_pair_win_probability_pct": 54.9,
+    "corq_opponent_pair_win_probability": 0.451,
+    "corq_opponent_pair_win_probability_pct": 45.1,
+    "corq_pair_margin_pp": 9.8,
+    "corq_pair_match_key": "match_id:16796165",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
+    "top7_sort_rank": 6,
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "top7_rank": 6
   },
   {
     "match_id": 16799045,
@@ -135221,20 +136143,20 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 50,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
@@ -135249,8 +136171,26 @@
     "top7_probability_gap_pp": -12.0364,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 50
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.4251,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 50,
+    "corq_raw_probability": 0.4251,
+    "corq_raw_probability_pct": 42.51,
+    "corq_opponent_raw_probability": 0.5749,
+    "corq_opponent_raw_probability_pct": 57.49,
+    "corq_pair_win_probability": 0.4251,
+    "corq_pair_win_probability_pct": 42.51,
+    "corq_opponent_pair_win_probability": 0.5749,
+    "corq_opponent_pair_win_probability_pct": 57.49,
+    "corq_pair_margin_pp": -14.98,
+    "corq_pair_match_key": "match_id:16799045",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16799045,
@@ -137871,7 +138811,7 @@
       "VALUE_NEUTRAL"
     ],
     "corq_source_rank": 15,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -137886,13 +138826,31 @@
     "top7_probability_guard_prob": 0.5749,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": 2.9436,
-    "top7_quality_score": 86.6256,
-    "corq_top7_sort_score": 86.6256,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 113.2437,
+    "corq_top7_sort_score": 113.2437,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 113.2437,
+    "corq_pick_quality_score": 113.2437,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.5749,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 15,
+    "corq_raw_probability": 0.5749,
+    "corq_raw_probability_pct": 57.49,
+    "corq_opponent_raw_probability": 0.4251,
+    "corq_opponent_raw_probability_pct": 42.51,
+    "corq_pair_win_probability": 0.5749,
+    "corq_pair_win_probability_pct": 57.49,
+    "corq_opponent_pair_win_probability": 0.4251,
+    "corq_opponent_pair_win_probability_pct": 42.51,
+    "corq_pair_margin_pp": 14.98,
+    "corq_pair_match_key": "match_id:16799045",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
     "top7_sort_rank": 5,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_rank": 5
   },
   {
@@ -140515,7 +141473,7 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 26,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -140532,13 +141490,31 @@
     "top7_probability_guard_prob": 0.5208,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": 7.6356,
-    "top7_quality_score": 78.951,
-    "corq_top7_sort_score": 78.951,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 102.4421,
+    "corq_top7_sort_score": 102.4421,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 102.4421,
+    "corq_pick_quality_score": 102.4421,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.5208,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 26,
-    "top7_sort_rank": 11,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10"
+    "corq_raw_probability": 0.5208,
+    "corq_raw_probability_pct": 52.08,
+    "corq_opponent_raw_probability": 0.4792,
+    "corq_opponent_raw_probability_pct": 47.92,
+    "corq_pair_win_probability": 0.5208,
+    "corq_pair_win_probability_pct": 52.08,
+    "corq_opponent_pair_win_probability": 0.4792,
+    "corq_opponent_pair_win_probability_pct": 47.92,
+    "corq_pair_margin_pp": 4.16,
+    "corq_pair_match_key": "match_id:16799780",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
+    "top7_sort_rank": 10,
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11"
   },
   {
     "match_id": 16799780,
@@ -143160,20 +144136,20 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 39,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
@@ -143188,8 +144164,26 @@
     "top7_probability_gap_pp": -15.7175,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 39
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.4792,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 39,
+    "corq_raw_probability": 0.4792,
+    "corq_raw_probability_pct": 47.92,
+    "corq_opponent_raw_probability": 0.5208,
+    "corq_opponent_raw_probability_pct": 52.08,
+    "corq_pair_win_probability": 0.4792,
+    "corq_pair_win_probability_pct": 47.92,
+    "corq_opponent_pair_win_probability": 0.5208,
+    "corq_opponent_pair_win_probability_pct": 52.08,
+    "corq_pair_margin_pp": -4.16,
+    "corq_pair_match_key": "match_id:16799780",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16784143,
@@ -145825,7 +146819,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 13,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
@@ -145842,17 +146836,37 @@
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_SHORT_PRICE",
-      "PENALTY_TOP7_MARKET_AGAINST_PICK"
+      "PENALTY_TOP7_MARKET_AGAINST_PICK",
+      "PENALTY_TOP7_NEGATIVE_VALUE_DELTA",
+      "PENALTY_TOP7_NEGATIVE_EV"
     ],
-    "top7_soft_penalty_count": 2,
+    "top7_soft_penalty_count": 4,
     "top7_probability_guard_min": 0.5,
     "top7_probability_guard_prob": 0.6245,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": -4.2167,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 13
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.6245,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 13,
+    "corq_raw_probability": 0.6245,
+    "corq_raw_probability_pct": 62.45,
+    "corq_opponent_raw_probability": 0.3755,
+    "corq_opponent_raw_probability_pct": 37.55,
+    "corq_pair_win_probability": 0.6245,
+    "corq_pair_win_probability_pct": 62.45,
+    "corq_opponent_pair_win_probability": 0.3755,
+    "corq_opponent_pair_win_probability_pct": 37.55,
+    "corq_pair_margin_pp": 24.9,
+    "corq_pair_match_key": "match_id:16784143",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16784143,
@@ -148488,37 +149502,57 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 53,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
       "REJECT_TOP7_STATUS_NOT_PREMATCH",
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
       "REJECT_TOP7_STATUS_NOT_PREMATCH",
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
       "REJECT_TOP7_STATUS_NOT_PREMATCH",
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_primary_reject_reason": "REJECT_TOP7_STATUS_NOT_PREMATCH",
     "top7_reject_reason_count": 2,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
-      "PENALTY_TOP7_MARKET_AGAINST_PICK"
+      "PENALTY_TOP7_MARKET_AGAINST_PICK",
+      "PENALTY_TOP7_NEGATIVE_VALUE_DELTA",
+      "PENALTY_TOP7_NEGATIVE_EV"
     ],
-    "top7_soft_penalty_count": 2,
+    "top7_soft_penalty_count": 4,
     "top7_probability_guard_min": 0.5,
     "top7_probability_guard_prob": 0.3755,
     "top7_probability_guard_passed": false,
     "top7_probability_gap_pp": -2.45,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 53
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.3755,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 53,
+    "corq_raw_probability": 0.3755,
+    "corq_raw_probability_pct": 37.55,
+    "corq_opponent_raw_probability": 0.6245,
+    "corq_opponent_raw_probability_pct": 62.45,
+    "corq_pair_win_probability": 0.3755,
+    "corq_pair_win_probability_pct": 37.55,
+    "corq_opponent_pair_win_probability": 0.6245,
+    "corq_opponent_pair_win_probability_pct": 62.45,
+    "corq_pair_margin_pp": -24.9,
+    "corq_pair_match_key": "match_id:16784143",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16799044,
@@ -151146,7 +152180,7 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 19,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -151164,13 +152198,31 @@
     "top7_probability_guard_prob": 0.5504,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": 5.04,
-    "top7_quality_score": 77.094,
-    "corq_top7_sort_score": 77.094,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 100.5397,
+    "corq_top7_sort_score": 100.5397,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 100.5397,
+    "corq_pick_quality_score": 100.5397,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.5504,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 19,
-    "top7_sort_rank": 12,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10"
+    "corq_raw_probability": 0.5504,
+    "corq_raw_probability_pct": 55.04,
+    "corq_opponent_raw_probability": 0.4496,
+    "corq_opponent_raw_probability_pct": 44.96,
+    "corq_pair_win_probability": 0.5504,
+    "corq_pair_win_probability_pct": 55.04,
+    "corq_opponent_pair_win_probability": 0.4496,
+    "corq_opponent_pair_win_probability_pct": 44.96,
+    "corq_pair_margin_pp": 10.08,
+    "corq_pair_match_key": "match_id:16799044",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
+    "top7_sort_rank": 11,
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11"
   },
   {
     "match_id": 16799044,
@@ -153798,20 +154850,20 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 46,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
@@ -153827,8 +154879,26 @@
     "top7_probability_gap_pp": -12.9338,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 46
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.4496,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 46,
+    "corq_raw_probability": 0.4496,
+    "corq_raw_probability_pct": 44.96,
+    "corq_opponent_raw_probability": 0.5504,
+    "corq_opponent_raw_probability_pct": 55.04,
+    "corq_pair_win_probability": 0.4496,
+    "corq_pair_win_probability_pct": 44.96,
+    "corq_opponent_pair_win_probability": 0.5504,
+    "corq_opponent_pair_win_probability_pct": 55.04,
+    "corq_pair_margin_pp": -10.08,
+    "corq_pair_match_key": "match_id:16799044",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16799828,
@@ -156447,7 +157517,7 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 4,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
@@ -156475,8 +157545,26 @@
     "top7_probability_gap_pp": -19.5818,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 4
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.615392,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 4,
+    "corq_raw_probability": 0.6613,
+    "corq_raw_probability_pct": 66.13,
+    "corq_opponent_raw_probability": 0.4133,
+    "corq_opponent_raw_probability_pct": 41.33,
+    "corq_pair_win_probability": 0.615392,
+    "corq_pair_win_probability_pct": 61.54,
+    "corq_opponent_pair_win_probability": 0.384608,
+    "corq_opponent_pair_win_probability_pct": 38.46,
+    "corq_pair_margin_pp": 23.08,
+    "corq_pair_match_key": "match_id:16799828",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16799828,
@@ -159095,20 +160183,20 @@
       "VALUE_POSITIVE"
     ],
     "corq_source_rank": 51,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK"
@@ -159120,8 +160208,26 @@
     "top7_probability_gap_pp": 21.33,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 51
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.384608,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 51,
+    "corq_raw_probability": 0.4133,
+    "corq_raw_probability_pct": 41.33,
+    "corq_opponent_raw_probability": 0.6613,
+    "corq_opponent_raw_probability_pct": 66.13,
+    "corq_pair_win_probability": 0.384608,
+    "corq_pair_win_probability_pct": 38.46,
+    "corq_opponent_pair_win_probability": 0.615392,
+    "corq_opponent_pair_win_probability_pct": 61.54,
+    "corq_pair_margin_pp": -23.08,
+    "corq_pair_match_key": "match_id:16799828",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16800013,
@@ -161739,20 +162845,20 @@
       "VALUE_NEGATIVE"
     ],
     "corq_source_rank": 47,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
-    "top7_primary_reject_reason": "REJECT_TOP7_CORQ_BELOW_50",
+    "top7_primary_reject_reason": "REJECT_TOP7_PAIR_PROB_BELOW_50",
     "top7_reject_reason_count": 1,
     "top7_soft_penalty_reasons": [
       "PENALTY_TOP7_THINQ_EDGE_AGAINST_PICK",
@@ -161767,8 +162873,26 @@
     "top7_probability_gap_pp": -7.5907,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 47
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.4479,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 47,
+    "corq_raw_probability": 0.4479,
+    "corq_raw_probability_pct": 44.79,
+    "corq_opponent_raw_probability": 0.5521,
+    "corq_opponent_raw_probability_pct": 55.21,
+    "corq_pair_win_probability": 0.4479,
+    "corq_pair_win_probability_pct": 44.79,
+    "corq_opponent_pair_win_probability": 0.5521,
+    "corq_opponent_pair_win_probability_pct": 55.21,
+    "corq_pair_margin_pp": -10.42,
+    "corq_pair_match_key": "match_id:16800013",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16800013,
@@ -164386,7 +165510,7 @@
       "VALUE_NEUTRAL"
     ],
     "corq_source_rank": 18,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": true,
     "eligible_for_top7": true,
     "corq_top7_selectable": true,
@@ -164395,19 +165519,40 @@
     "top7_hard_reject_reasons": [],
     "top7_primary_reject_reason": null,
     "top7_reject_reason_count": 0,
-    "top7_soft_penalty_reasons": [],
-    "top7_soft_penalty_count": 0,
+    "top7_soft_penalty_reasons": [
+      "PENALTY_TOP7_NEGATIVE_VALUE_DELTA",
+      "PENALTY_TOP7_NEGATIVE_EV"
+    ],
+    "top7_soft_penalty_count": 2,
     "top7_probability_guard_min": 0.5,
     "top7_probability_guard_prob": 0.5521,
     "top7_probability_guard_passed": true,
     "top7_probability_gap_pp": -0.3456,
-    "top7_quality_score": 80.607,
-    "corq_top7_sort_score": 80.607,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_quality_score": 99.653,
+    "corq_top7_sort_score": 99.653,
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 99.653,
+    "corq_pick_quality_score": 99.653,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.5521,
+    "top7_pair_probability_guard_passed": true,
     "corq_rank": 18,
-    "top7_sort_rank": 10,
-    "top7_sort_primary": "CORQ_V10_SCORE_DESC",
-    "top7_sort_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10"
+    "corq_raw_probability": 0.5521,
+    "corq_raw_probability_pct": 55.21,
+    "corq_opponent_raw_probability": 0.4479,
+    "corq_opponent_raw_probability_pct": 44.79,
+    "corq_pair_win_probability": 0.5521,
+    "corq_pair_win_probability_pct": 55.21,
+    "corq_opponent_pair_win_probability": 0.4479,
+    "corq_opponent_pair_win_probability_pct": 44.79,
+    "corq_pair_margin_pp": 10.42,
+    "corq_pair_match_key": "match_id:16800013",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false,
+    "top7_sort_rank": 12,
+    "top7_sort_primary": "PAIR_PROBABILITY_QUALITY_SCORE_DESC",
+    "top7_sort_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11"
   },
   {
     "match_id": 16800572,
@@ -166819,7 +167964,7 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 14,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
@@ -166842,8 +167987,26 @@
     "top7_probability_gap_pp": -20.0,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 14
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.609,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 14,
+    "corq_raw_probability": 0.609,
+    "corq_raw_probability_pct": 60.9,
+    "corq_opponent_raw_probability": 0.391,
+    "corq_opponent_raw_probability_pct": 39.1,
+    "corq_pair_win_probability": 0.609,
+    "corq_pair_win_probability_pct": 60.9,
+    "corq_opponent_pair_win_probability": 0.391,
+    "corq_opponent_pair_win_probability_pct": 39.1,
+    "corq_pair_margin_pp": 21.8,
+    "corq_pair_match_key": "match_id:16800572",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   },
   {
     "match_id": 16800572,
@@ -169255,21 +170418,21 @@
     "marq_v2_movement_status": null,
     "price_value_status": "MISSING_VALUE_INPUT",
     "corq_source_rank": 52,
-    "top7_filter_mode": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
+    "top7_filter_mode": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
     "top7_publishable": false,
     "eligible_for_top7": false,
     "corq_top7_selectable": false,
     "top7_reject_reasons": [
       "REJECT_TOP7_MISSING_ODDS",
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_quality_reject_reasons": [
       "REJECT_TOP7_MISSING_ODDS",
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_hard_reject_reasons": [
       "REJECT_TOP7_MISSING_ODDS",
-      "REJECT_TOP7_CORQ_BELOW_50"
+      "REJECT_TOP7_PAIR_PROB_BELOW_50"
     ],
     "top7_primary_reject_reason": "REJECT_TOP7_MISSING_ODDS",
     "top7_reject_reason_count": 2,
@@ -169283,7 +170446,25 @@
     "top7_probability_gap_pp": -20.0,
     "top7_quality_score": 0.0,
     "corq_top7_sort_score": 0.0,
-    "top7_selection_model_version": "CORQ_TOP7_FINAL_DIAGNOSTIC_V10",
-    "corq_rank": 52
+    "top7_selection_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_quality_score": 0.0,
+    "corq_pick_quality_score": 0.0,
+    "top7_pair_probability_guard_min": 0.5,
+    "top7_pair_probability_guard_prob": 0.391,
+    "top7_pair_probability_guard_passed": false,
+    "corq_rank": 52,
+    "corq_raw_probability": 0.391,
+    "corq_raw_probability_pct": 39.1,
+    "corq_opponent_raw_probability": 0.609,
+    "corq_opponent_raw_probability_pct": 60.9,
+    "corq_pair_win_probability": 0.391,
+    "corq_pair_win_probability_pct": 39.1,
+    "corq_opponent_pair_win_probability": 0.609,
+    "corq_opponent_pair_win_probability_pct": 60.9,
+    "corq_pair_margin_pp": -21.8,
+    "corq_pair_match_key": "match_id:16800572",
+    "corq_probability_layer_note": "RAW_CORQ_SIGNAL_NORMALIZED_TO_MATCH_PAIR",
+    "corq_pair_probability_model_version": "CORQ_TOP7_PAIR_PROBABILITY_AUDIT_V11",
+    "corq_raw_below_50_pair_selected_info": false
   }
 ]
