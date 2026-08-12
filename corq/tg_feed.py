@@ -670,9 +670,123 @@ def load_cloq_rows(cloq_path: Path, all_path: Path) -> List[Dict[str, Any]]:
     print("[tg_feed] CloQ source selected: empty, no valid rows found")
     return []
 
+
+# ============================================================
+# TG safety override V9
+# ============================================================
+# Production guard: no CorQ/CloQ pick with displayed probability below 50%
+# can be sent to Telegram. Results messages are rebuilt from result rows when
+# a pre-generated text artifact is missing or is only a placeholder.
+
+TG_MIN_PICK_PROBABILITY = float(os.getenv("TG_MIN_PICK_PROBABILITY", "0.50") or "0.50")
+
+
+def probability_below_tg_floor(row: Dict[str, Any]) -> bool:
+    prob = probability(row)
+    return bool(prob is None or prob < TG_MIN_PICK_PROBABILITY)
+
+
+_ORIGINAL_INVALID_CORQ_REASON_V9 = invalid_corq_reason
+
+
+def invalid_corq_reason(row: Dict[str, Any], upcoming_only: bool = True) -> str:
+    reason = _ORIGINAL_INVALID_CORQ_REASON_V9(row, upcoming_only=upcoming_only)
+    if reason:
+        return reason
+    if probability_below_tg_floor(row):
+        prob = probability(row)
+        return "probability_below_50" if prob is not None else "missing_probability"
+    return ""
+
+
+def _results_message_needs_rebuild(message: str, model_label: str) -> bool:
+    txt = str(message or "").strip()
+    if not txt:
+        return True
+    low = txt.lower()
+    if "no previous" in low or "no valid" in low or "summary available yet" in low:
+        return True
+    if "snapshot rows found" in low:
+        return True
+    # If generated CloQ results contain only zero unit lines, prefer rebuilding
+    # from result JSON so W/L odds can compute units from status and odds.
+    if model_label.lower() == "cloq" and "+0.00u" in txt and "❌" not in txt and "✅" not in txt:
+        return True
+    return False
+
+
+def _load_result_rows(model: str) -> List[Dict[str, Any]]:
+    model = str(model or "corq").lower()
+    candidates = []
+    if model == "cloq":
+        candidates = [
+            OUTPUTS / "results" / "latest_results_cloq.json",
+            OUTPUTS / "results" / "latest_cloq_results.json",
+            OUTPUTS / "latest_results_cloq.json",
+        ]
+    else:
+        candidates = [
+            OUTPUTS / "results" / "latest_results_corq.json",
+            OUTPUTS / "results" / "latest_corq_results.json",
+            OUTPUTS / "latest_results_corq.json",
+        ]
+    for path in candidates:
+        rows = json_rows(read_json(path, []))
+        if rows:
+            print(f"[tg_feed] {model.upper()} results rows selected: {path} raw={len(rows)}")
+            return rows
+    print(f"[tg_feed] {model.upper()} results rows selected: empty")
+    return []
+
+
+_ORIGINAL_RESULT_STATUS_V9 = result_status
+
+
+def result_status(row: Dict[str, Any]) -> str:
+    for key in (
+        "settlement_status", "result_status", "pick_result", "final_result",
+        "status", "outcome", "settlement", "result", "winner_status",
+    ):
+        txt = str(row.get(key) or "").strip().lower()
+        if txt in {"won", "win", "w", "hit", "winner", "correct", "green"}:
+            return "won"
+        if txt in {"lost", "loss", "l", "miss", "loser", "incorrect", "red"}:
+            return "lost"
+        if txt in {"void", "push", "cancelled", "canceled", "walkover", "retired"}:
+            return "void"
+        if txt in {"pending", "notstarted", "not_started", "inprogress", "live", "open"}:
+            return "pending"
+    if row.get("won") is True:
+        return "won"
+    if row.get("lost") is True:
+        return "lost"
+    return _ORIGINAL_RESULT_STATUS_V9(row)
+
+
+_ORIGINAL_RESULT_UNITS_V9 = result_units
+
+
+def result_units(row: Dict[str, Any]) -> float:
+    st = result_status(row)
+    explicit = None
+    for key in ("units", "profit_units", "pnl_units", "result_units", "settlement_units"):
+        val = as_float(row.get(key))
+        if val is not None:
+            explicit = float(val)
+            break
+    odds = pick_odds(row) or 0.0
+    if st == "won" and odds > 1.0:
+        computed = odds - 1.0
+        return computed if explicit in (None, 0.0) else explicit
+    if st == "lost":
+        return -1.0 if explicit in (None, 0.0) else explicit
+    if st == "void":
+        return 0.0
+    return explicit if explicit is not None else 0.0
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Telegram feed formatter/sender for CorQ")
-    parser.add_argument("--mode", choices=("cloq", "top7", "free", "results", "cloq-results"), default=os.getenv("TG_FEED_MODE", "top7"))
+    parser.add_argument("--mode", choices=("cloq", "top7", "free", "results", "corq-results", "cloq-results"), default=os.getenv("TG_FEED_MODE", "top7"))
     parser.add_argument("--top7-path", default=os.getenv("TG_TOP7_PATH", str(DEFAULT_TOP7_PATH)))
     parser.add_argument("--cloq-path", default=os.getenv("TG_CLOQ_PATH", str(DEFAULT_CLOQ_PATH)))
     parser.add_argument("--all-path", default=os.getenv("TG_ALL_PATH", str(DEFAULT_ALL_PATH)))
@@ -696,6 +810,8 @@ def main() -> None:
         help="Include matches that already started. Default is upcoming only.",
     )
     args = parser.parse_args()
+    if args.mode == "corq-results":
+        args.mode = "results"
 
     upcoming_only_env = str(os.getenv("TG_FEED_UPCOMING_ONLY", "true")).lower() not in {"0", "false", "no"}
     upcoming_only = upcoming_only_env and not args.include_started
@@ -704,15 +820,15 @@ def main() -> None:
         results_path = Path(args.results_message_path)
         message = results_path.read_text(encoding="utf-8").strip() if results_path.exists() else ""
         sendable_rows: List[Dict[str, Any]] = []
-        if not message:
-            corq_results = json_rows(read_json(OUTPUTS / "results" / "latest_results_corq.json", []))
+        if _results_message_needs_rebuild(message, "CorQ"):
+            corq_results = _load_result_rows("corq")
             message = build_results_summary_message(corq_results, "CorQ")
     elif args.mode == "cloq-results":
         results_path = Path(args.cloq_results_message_path)
         message = results_path.read_text(encoding="utf-8").strip() if results_path.exists() else ""
         sendable_rows = []
-        if not message:
-            cloq_results = json_rows(read_json(OUTPUTS / "results" / "latest_results_cloq.json", []))
+        if _results_message_needs_rebuild(message, "CloQ"):
+            cloq_results = _load_result_rows("cloq")
             message = build_results_summary_message(cloq_results, "CloQ")
     elif args.mode == "cloq":
         rows = load_cloq_rows(Path(args.cloq_path), Path(args.all_path))

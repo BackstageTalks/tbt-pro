@@ -3705,3 +3705,140 @@ def evaluate_eligibility(row: Dict[str, Any]) -> Dict[str, Any]:
 def top7_from_ranking(ranked: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT, *args: Any, **kwargs: Any) -> List[Dict[str, Any]]:
     return select_top7(ranked, top_n=top_n)
 
+# ============================================================
+# CorQ TOP7 probability hard guard V9
+# ============================================================
+# V8 deliberately converted most quality gates into soft penalties, but CorQ
+# TOP7 must never publish a side whose final CorQ probability is below 50%.
+# This final override keeps the V8 audit cleanup behavior while restoring a
+# non-negotiable probability floor for TOP7 selection and output.
+
+CORQ_TOP7_PROBABILITY_GUARD_MODEL_VERSION = "CORQ_TOP7_PROBABILITY_GUARD_V9"
+CORQ_TOP7_MIN_FINAL_PROBABILITY_V9 = 0.50
+
+try:
+    _CORQ_V9_BASE_TOP7_REJECT_REASONS = top7_reject_reasons
+    _CORQ_V9_BASE_ANNOTATE_TOP7_QUALITY = annotate_top7_quality
+    _CORQ_V9_BASE_SORT_PUBLISHABLE = sort_publishable
+except NameError:  # pragma: no cover
+    pass
+
+
+def _corq_v9_probability_reject(row: Dict[str, Any]) -> List[str]:
+    prob = corq_probability(row)
+    if prob < CORQ_TOP7_MIN_FINAL_PROBABILITY_V9:
+        return ["REJECT_TOP7_CORQ_BELOW_50"]
+    return []
+
+
+def top7_reject_reasons(row: Dict[str, Any]) -> List[str]:
+    reasons = []
+    try:
+        reasons.extend(_CORQ_V9_BASE_TOP7_REJECT_REASONS(row) or [])
+    except Exception:
+        reasons.extend(row.get("top7_reject_reasons") or [])
+    reasons.extend(_corq_v9_probability_reject(row))
+    return _corq_v8_unique(reasons) if "_corq_v8_unique" in globals() else list(dict.fromkeys(str(x) for x in reasons if x))
+
+
+if "REJECT_TOP7_CORQ_BELOW_50" not in TOP7_REJECT_PRIORITY:
+    TOP7_REJECT_PRIORITY.append("REJECT_TOP7_CORQ_BELOW_50")
+
+
+def is_publishable(row: Dict[str, Any]) -> bool:
+    return not top7_reject_reasons(row)
+
+
+def annotate_top7_quality(row: Dict[str, Any]) -> Dict[str, Any]:
+    try:
+        row = _CORQ_V9_BASE_ANNOTATE_TOP7_QUALITY(row)
+    except Exception:
+        pass
+    reasons = top7_reject_reasons(row)
+    publishable = not reasons
+    row["top7_filter_mode"] = CORQ_TOP7_PROBABILITY_GUARD_MODEL_VERSION
+    row["top7_publishable"] = publishable
+    row["eligible_for_top7"] = publishable
+    row["top7_quality_reject_reasons"] = reasons
+    row["top7_reject_reasons"] = reasons
+    row["top7_hard_reject_reasons"] = reasons
+    row["top7_primary_reject_reason"] = top7_primary_reject_reason(reasons)
+    row["top7_reject_reason_count"] = len(reasons)
+    row["top7_probability_guard_min"] = CORQ_TOP7_MIN_FINAL_PROBABILITY_V9
+    row["top7_probability_guard_prob"] = round(corq_probability(row), 6)
+    row["top7_probability_guard_passed"] = publishable
+    if not publishable:
+        row["top7_quality_score"] = 0.0
+        row["corq_top7_selectable"] = False
+    return row
+
+
+def sort_publishable(rows: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    candidates = [
+        r for r in rows
+        if isinstance(r, dict)
+        and (r.get("corq_top7_selectable") is True or r.get("top7_publishable") is True)
+        and not top7_reject_reasons(r)
+        and corq_probability(r) >= CORQ_TOP7_MIN_FINAL_PROBABILITY_V9
+    ]
+    try:
+        ranked = _CORQ_V9_BASE_SORT_PUBLISHABLE(candidates)
+    except Exception:
+        ranked = sorted(
+            candidates,
+            key=lambda r: (
+                float(r.get("corq_top7_sort_score") or r.get("top7_quality_score") or 0.0),
+                corq_probability(r),
+                thinq_confidence(r),
+                pick_odds_value(r) or 0.0,
+            ),
+            reverse=True,
+        )
+    return [r for r in ranked if corq_probability(r) >= CORQ_TOP7_MIN_FINAL_PROBABILITY_V9 and not top7_reject_reasons(r)]
+
+
+def select_top7(rows: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> List[Dict[str, Any]]:
+    annotated = annotate_rows(list(rows or []))
+    ranked = sort_publishable(annotated)
+    target = int(top_n or TOP_N_DEFAULT)
+    selected: List[Dict[str, Any]] = []
+    seen = set()
+    for row in ranked:
+        key = _corq_v6_match_key(row) if "_corq_v6_match_key" in globals() else _match_identity_key(row)
+        if key in seen:
+            continue
+        seen.add(key)
+        selected.append(row)
+        if len(selected) >= target:
+            break
+    for idx, row in enumerate(selected, start=1):
+        row["top7_rank"] = idx
+        row["top7_selection_model_version"] = CORQ_TOP7_PROBABILITY_GUARD_MODEL_VERSION
+    return selected
+
+
+def rank_predictions(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    all_rows = annotate_rows(list(predictions or []))
+    top7 = select_top7(all_rows, top_n=top_n)
+    return all_rows, top7
+
+
+def build_all_and_top7(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    return rank_predictions(predictions, top_n=top_n)
+
+
+def build_rankings(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    return rank_predictions(predictions, top_n=top_n)
+
+
+def apply_ranking(predictions: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+    return rank_predictions(predictions, top_n=top_n)
+
+
+def evaluate_eligibility(row: Dict[str, Any]) -> Dict[str, Any]:
+    return annotate_top7_quality(row)
+
+
+def top7_from_ranking(ranked: Iterable[Dict[str, Any]], top_n: int = TOP_N_DEFAULT, *args: Any, **kwargs: Any) -> List[Dict[str, Any]]:
+    return select_top7(ranked, top_n=top_n)
+
