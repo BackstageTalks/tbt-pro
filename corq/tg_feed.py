@@ -500,6 +500,7 @@ def build_free_message(rows: List[Dict[str, Any]], upcoming_only: bool = True) -
     return "\n".join(lines)
 
 def build_cloq_message(rows: List[Dict[str, Any]], limit: int = 10, upcoming_only: bool = True) -> str:
+    rows = drop_cloq_corq_overlaps(rows)
     rows = valid_rows(rows, upcoming_only=upcoming_only)[:limit]
     date_text = snapshot_date(rows)
     lines = [HEADER, "", "🎾 TOP10 | CloQ", f"📅 {date_text}", ""]
@@ -509,6 +510,66 @@ def build_cloq_message(rows: List[Dict[str, Any]], limit: int = 10, upcoming_onl
         lines.append("No valid upcoming CloQ picks available today.")
     lines.extend(["", FOOTER])
     return "\n".join(lines)
+
+
+# ============================================================
+# CloQ / CorQ match-overlap safety
+# ============================================================
+def _norm_match_name(value: Any) -> str:
+    import re
+    txt = str(value or "").strip().lower()
+    txt = re.sub(r"[^a-z0-9]+", " ", txt)
+    return " ".join(txt.split())
+
+def _row_event_id(row: Dict[str, Any]) -> str:
+    for key in ("event_id", "match_id", "fixture_id", "api_event_id", "id", "top7_event_id", "cloq_event_id"):
+        value = row.get(key)
+        if value not in (None, "", "—", "-"):
+            return str(value).strip()
+    return ""
+
+def tg_match_identity(row: Dict[str, Any]) -> str:
+    event_id = _row_event_id(row)
+    if event_id:
+        return "event:" + event_id
+    names = sorted([_norm_match_name(pick_name(row)), _norm_match_name(opponent_name(row))])
+    names = [n for n in names if n and n != "tbd"]
+    day = row_day_iso(row)
+    dt = match_start_datetime(row)
+    time_part = dt.strftime("%H:%M") if dt is not None else start_time(row)
+    if len(names) >= 2:
+        return "names:" + "|".join(names) + "|" + str(day or "") + "|" + str(time_part or "")
+    return ""
+
+def load_corq_overlap_match_keys() -> set[str]:
+    keys: set[str] = set()
+    for path in (
+        DEFAULT_TOP7_PATH,
+        OUTPUTS / "latest_top7.json",
+        OUTPUTS / "snapshots" / "latest_corq_top7_snapshot.json",
+    ):
+        rows = json_rows(read_json(path, []))
+        for row in rows:
+            key = tg_match_identity(row)
+            if key:
+                keys.add(key)
+    return keys
+
+def drop_cloq_corq_overlaps(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    keys = load_corq_overlap_match_keys()
+    if not keys or not rows:
+        return rows
+    out: List[Dict[str, Any]] = []
+    skipped = 0
+    for row in rows:
+        key = tg_match_identity(row)
+        if key and key in keys:
+            skipped += 1
+            continue
+        out.append(row)
+    if skipped:
+        print(f"[tg_feed] CloQ overlap safety skipped {skipped} row(s) already covered by CorQ")
+    return out
 
 def result_status(row: Dict[str, Any]) -> str:
     for key in ("settlement_status", "result_status", "status", "outcome"):
@@ -648,6 +709,59 @@ def load_rows_for_mode(mode: str, top7_path: Path, all_path: Path) -> List[Dict[
     return all_rows_raw
 
 
+def tg_match_identity(row: Dict[str, Any]) -> str:
+    for key in ("match_key", "event_key", "match_id", "event_id", "fixture_id", "api_match_id", "id"):
+        value = row.get(key)
+        if value is not None and str(value).strip():
+            return str(value).strip()
+    p1 = pick_name(row).strip().lower()
+    p2 = opponent_name(row).strip().lower()
+    start = str(row.get("start_time_utc") or row.get("match_time_utc") or row.get("start_time") or row.get("match_time") or "").strip().lower()
+    tournament = str(row.get("tournament") or row.get("competition") or row.get("league") or "").strip().lower()
+    names = "::".join(sorted([p1, p2]))
+    return f"fallback::{names}::{start}::{tournament}"
+
+
+def current_corq_match_keys_for_tg(top7_path: Optional[Path] = None) -> set[str]:
+    candidates = []
+    if top7_path is not None:
+        candidates.append(top7_path)
+    candidates.extend([
+        OUTPUTS / "latest_top7.json",
+        OUTPUTS / "snapshots" / "latest_corq_top7_snapshot.json",
+    ])
+    seen_paths: set[str] = set()
+    for path in candidates:
+        path_key = str(path)
+        if path_key in seen_paths:
+            continue
+        seen_paths.add(path_key)
+        rows = json_rows(read_json(path, []))
+        if not rows:
+            continue
+        keys = {tg_match_identity(row) for row in rows if isinstance(row, dict) and tg_match_identity(row)}
+        if keys:
+            return keys
+    return set()
+
+
+def filter_cloq_corq_overlap_for_tg(rows: List[Dict[str, Any]], corq_match_keys: Optional[set[str]] = None) -> List[Dict[str, Any]]:
+    corq_match_keys = corq_match_keys or current_corq_match_keys_for_tg()
+    if not corq_match_keys:
+        return rows
+    out: List[Dict[str, Any]] = []
+    skipped = 0
+    for row in rows or []:
+        key = tg_match_identity(row)
+        if key in corq_match_keys:
+            skipped += 1
+            continue
+        out.append(row)
+    if skipped:
+        print(f"[tg_feed] CloQ duplicate guard skipped {skipped} CorQ-overlap matches")
+    return out
+
+
 def load_cloq_rows(cloq_path: Path, all_path: Path) -> List[Dict[str, Any]]:
     sources: List[tuple[str, List[Dict[str, Any]]]] = []
     sources.append((str(cloq_path), json_rows(read_json(cloq_path, []))))
@@ -657,16 +771,19 @@ def load_cloq_rows(cloq_path: Path, all_path: Path) -> List[Dict[str, Any]]:
     latest_nested = OUTPUTS / "cloq" / "latest_cloq.json"
     if cloq_path != latest_nested and latest_nested != latest_flat:
         sources.append((str(latest_nested), json_rows(read_json(latest_nested, []))))
+    corq_keys = current_corq_match_keys_for_tg()
     for label, rows in sources:
+        rows = filter_cloq_corq_overlap_for_tg(rows, corq_match_keys=corq_keys)
         print(f"[tg_feed] CloQ source check | {_describe_rows(label, rows)}")
         if valid_rows(rows, upcoming_only=False):
             print(f"[tg_feed] CloQ source selected: {label}")
-            return rows
+            return drop_cloq_corq_overlaps(rows)
     all_rows = json_rows(read_json(all_path, []))
     fallback = [r for r in all_rows if str(r.get("cloq_passed") or r.get("is_cloq") or "").lower() in {"1", "true", "yes"}]
+    fallback = filter_cloq_corq_overlap_for_tg(fallback, corq_match_keys=corq_keys)
     if fallback:
         print(f"[tg_feed] CloQ source selected: {all_path} filtered cloq")
-        return fallback
+        return drop_cloq_corq_overlaps(fallback)
     print("[tg_feed] CloQ source selected: empty, no valid rows found")
     return []
 
@@ -741,6 +858,66 @@ def _load_result_rows(model: str) -> List[Dict[str, Any]]:
 
 _ORIGINAL_RESULT_STATUS_V9 = result_status
 
+
+
+# ============================================================
+# CloQ / CorQ match-overlap safety
+# ============================================================
+def _norm_match_name(value: Any) -> str:
+    import re
+    txt = str(value or "").strip().lower()
+    txt = re.sub(r"[^a-z0-9]+", " ", txt)
+    return " ".join(txt.split())
+
+def _row_event_id(row: Dict[str, Any]) -> str:
+    for key in ("event_id", "match_id", "fixture_id", "api_event_id", "id", "top7_event_id", "cloq_event_id"):
+        value = row.get(key)
+        if value not in (None, "", "—", "-"):
+            return str(value).strip()
+    return ""
+
+def tg_match_identity(row: Dict[str, Any]) -> str:
+    event_id = _row_event_id(row)
+    if event_id:
+        return "event:" + event_id
+    names = sorted([_norm_match_name(pick_name(row)), _norm_match_name(opponent_name(row))])
+    names = [n for n in names if n and n != "tbd"]
+    day = row_day_iso(row)
+    dt = match_start_datetime(row)
+    time_part = dt.strftime("%H:%M") if dt is not None else start_time(row)
+    if len(names) >= 2:
+        return "names:" + "|".join(names) + "|" + str(day or "") + "|" + str(time_part or "")
+    return ""
+
+def load_corq_overlap_match_keys() -> set[str]:
+    keys: set[str] = set()
+    for path in (
+        DEFAULT_TOP7_PATH,
+        OUTPUTS / "latest_top7.json",
+        OUTPUTS / "snapshots" / "latest_corq_top7_snapshot.json",
+    ):
+        rows = json_rows(read_json(path, []))
+        for row in rows:
+            key = tg_match_identity(row)
+            if key:
+                keys.add(key)
+    return keys
+
+def drop_cloq_corq_overlaps(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    keys = load_corq_overlap_match_keys()
+    if not keys or not rows:
+        return rows
+    out: List[Dict[str, Any]] = []
+    skipped = 0
+    for row in rows:
+        key = tg_match_identity(row)
+        if key and key in keys:
+            skipped += 1
+            continue
+        out.append(row)
+    if skipped:
+        print(f"[tg_feed] CloQ overlap safety skipped {skipped} row(s) already covered by CorQ")
+    return out
 
 def result_status(row: Dict[str, Any]) -> str:
     for key in (
