@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.2,
   "latest_odds_player2": 1.67,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-12T11:33:39.508305+00:00",
+  "latest_snapshot_time_utc": "2026-08-12T17:44:25.827996+00:00",
   "opening_odds_player1": 2.2,
   "opening_odds_player2": 1.67,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Mariano Navone",
   "player2": "Raphael Collignon",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "16797614",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-13T14:00:00+00:00",
       "target_date": "2026-08-14"
+    },
+    {
+      "event_id": "16797614",
+      "event_key": "2026-08-14_mariano-navone_vs_raphael-collignon",
+      "hours_to_start": 20.26,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.2,
+      "odds_player2": 1.67,
+      "player1": "Mariano Navone",
+      "player2": "Raphael Collignon",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-12T17:44:25.827996+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-13T14:00:00+00:00",
+      "target_date": "2026-08-14"
     }
   ],
   "start_time_utc": "2026-08-13T14:00:00+00:00",
-  "updated_at_utc": "2026-08-12T11:36:08.791619+00:00"
+  "updated_at_utc": "2026-08-12T17:45:48.096686+00:00"
 }
