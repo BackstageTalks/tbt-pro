@@ -4,7 +4,7 @@
   "latest_odds_player1": 4.0,
   "latest_odds_player2": 1.22222,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-11T17:44:07.497574+00:00",
+  "latest_snapshot_time_utc": "2026-08-12T04:28:41.047890+00:00",
   "opening_odds_player1": 4.0,
   "opening_odds_player2": 1.22222,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Yuno Kitahara",
   "player2": "Alana Smith",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "16781631",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-11T14:34:44+00:00",
       "target_date": "2026-08-12"
+    },
+    {
+      "event_id": "16781631",
+      "event_key": "2026-08-12_alana-smith_vs_yuno-kitahara",
+      "hours_to_start": -13.9,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 4.0,
+      "odds_player2": 1.22222,
+      "player1": "Yuno Kitahara",
+      "player2": "Alana Smith",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-12T04:28:41.047890+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-11T14:34:44+00:00",
+      "target_date": "2026-08-12"
     }
   ],
   "start_time_utc": "2026-08-11T14:34:44+00:00",
-  "updated_at_utc": "2026-08-11T17:45:07.368638+00:00"
+  "updated_at_utc": "2026-08-12T04:29:04.276537+00:00"
 }

@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.83333,
   "latest_odds_player2": 1.83333,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-11T17:44:07.497574+00:00",
+  "latest_snapshot_time_utc": "2026-08-12T04:28:41.047890+00:00",
   "opening_odds_player1": 1.83333,
   "opening_odds_player2": 1.83333,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Arthur Bellegy",
   "player2": "Leonardo Borrelli",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "16782060",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-11T14:46:18+00:00",
       "target_date": "2026-08-12"
+    },
+    {
+      "event_id": "16782060",
+      "event_key": "2026-08-12_arthur-bellegy_vs_leonardo-borrelli",
+      "hours_to_start": -13.71,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.83333,
+      "odds_player2": 1.83333,
+      "player1": "Arthur Bellegy",
+      "player2": "Leonardo Borrelli",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-12T04:28:41.047890+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-11T14:46:18+00:00",
+      "target_date": "2026-08-12"
     }
   ],
   "start_time_utc": "2026-08-11T14:46:18+00:00",
-  "updated_at_utc": "2026-08-11T17:45:08.749885+00:00"
+  "updated_at_utc": "2026-08-12T04:29:05.508892+00:00"
 }
