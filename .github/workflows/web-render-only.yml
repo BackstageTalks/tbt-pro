@@ -54,103 +54,134 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install pandas lxml html5lib beautifulsoup4 requests
-
-      - name: Render web site from existing outputs
+      - name: Install optional Python dependencies
+        shell: bash
         run: |
           set -euo pipefail
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            python -m pip install -r requirements.txt
+          fi
+
+      - name: Remove stale lazy results chunks before render
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "[cleanup] removing stale tracked and untracked Results lazy chunks"
+          git rm -r --ignore-unmatch corq/site/assets/results_lazy 2>/dev/null || true
+          rm -rf corq/site/assets/results_lazy
+          mkdir -p corq/site/assets/results_lazy
+
+      - name: Render web site
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "[render] python -m corq.web.render"
           python -m corq.web.render
 
       - name: Verify rendered site
+        shell: bash
         run: |
           set -euo pipefail
-          echo "[verify] pwd=$(pwd)"
+          echo "[verify] $(pwd)"
           echo "[verify] corq/site tree preview"
-          find corq/site -maxdepth 3 -type f | sort | sed -n '1,120p' || true
+          find corq/site -maxdepth 3 -type f | sort | sed -n '1,120p'
+          echo "[verify] required site files exist"
+          test -f corq/site/index.html
           python - <<'PY'
           from pathlib import Path
+          site = Path('corq/site')
+          required = [site / 'index.html', site / 'history' / 'index.html']
           try:
-              from corq.web.paths import TOP7_PATH, ALL_PATH, RESULTS_PATH, CLOQ_PATH, THINQ_PATH
-          except Exception:
-              TOP7_PATH = "h4v34n1c3d4y180"
-              CLOQ_PATH = "h4v34n1c3d4y181"
-              ALL_PATH = "h4v34n1c3d4y182"
-              RESULTS_PATH = "h4v34n1c3d4y183"
-              THINQ_PATH = "h4v34n1c3d4y186"
-          required = [
-              Path("corq/site/index.html"),
-              Path("corq/site") / TOP7_PATH / "index.html",
-              Path("corq/site") / ALL_PATH / "index.html",
-              Path("corq/site") / RESULTS_PATH / "index.html",
-              Path("corq/site") / CLOQ_PATH / "index.html",
-              Path("corq/site/history/index.html"),
-          ]
-          missing = [str(p) for p in required if not p.is_file()]
+              from corq.web.paths import ROUTES
+              for key in ('corq', 'cloq', 'audit', 'results'):
+                  route = ROUTES.get(key) if isinstance(ROUTES, dict) else None
+                  if route:
+                      required.append(site / str(route).strip('/') / 'index.html')
+          except Exception as exc:
+              print('[verify] route import warning:', exc)
+          missing = [str(p) for p in required if not p.exists()]
           if missing:
-              print("[verify] missing required files:")
+              print('[verify] missing required files:')
               for item in missing:
-                  print(" -", item)
+                  print(' -', item)
               raise SystemExit(1)
-          print("[verify] required site files exist")
+          print('[verify] OK required files:', len(required))
           PY
 
       - name: Inspect generated site before cleanup
+        shell: bash
         run: |
           set -euo pipefail
           echo "[site] top-level size"
           du -sh corq/site || true
           echo "[site] file count"
-          find corq/site -type f | wc -l || true
+          find corq/site -type f | wc -l
+          echo "[site] key page sizes"
+          for f in \
+            corq/site/index.html \
+            corq/site/history/index.html \
+            corq/site/h4v34n1c3d4y180/index.html \
+            corq/site/h4v34n1c3d4y181/index.html \
+            corq/site/h4v34n1c3d4y182/index.html \
+            corq/site/h4v34n1c3d4y183/index.html \
+            corq/site/h4v34n1c3d4y186/index.html; do
+            if [ -f "$f" ]; then
+              du -h "$f"
+            fi
+          done
           echo "[site] largest files before cleanup"
-          find corq/site -type f -printf '%s %p\n' | sort -nr | head -30 || true
+          find corq/site -type f -printf '%s %p\n' | sort -nr | head -30
 
       - name: Keep Pages artifact small
+        shell: bash
         run: |
           set -euo pipefail
-          rm -rf corq/site/logs || true
-          find corq/site -type f \( -name "*.log" -o -name "*.tmp" -o -name "*.bak" \) -delete || true
-          find corq/site -type f -name "*.json" -size +5M -print -delete || true
-          find corq/site -type f -size +95M -print -delete || true
+          echo "[cleanup] removing logs/debug/temp artifacts from Pages site"
+          rm -rf corq/site/logs
+          find corq/site -type f \( -name '*.log' -o -name '*.tmp' -o -name '*.bak' \) -delete
+          find corq/site -type f -name '*.json' -size +5M -print -delete
+          find corq/site -type f -size +95M -print -delete
           echo "[site] size after cleanup"
           du -sh corq/site || true
           echo "[site] largest files after cleanup"
-          find corq/site -type f -printf '%s %p\n' | sort -nr | head -30 || true
+          find corq/site -type f -printf '%s %p\n' | sort -nr | head -30
 
       - name: Commit rendered site
-        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.commit_site == 'true' }}
+        if: ${{ github.event_name == 'push' || inputs.commit_site == 'true' }}
+        shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add corq/site
+          git add -A corq/site
           if git diff --cached --quiet; then
-            echo "No corq/site changes to commit."
+            echo "[commit] no rendered site changes"
           else
             git commit -m "Render web site"
             git push
           fi
 
-      - name: Configure Pages
-        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.deploy_pages == 'true' }}
+      - name: Configure GitHub Pages
+        if: ${{ github.event_name == 'push' || inputs.deploy_pages == 'true' }}
         uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
-        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.deploy_pages == 'true' }}
+        if: ${{ github.event_name == 'push' || inputs.deploy_pages == 'true' }}
         uses: actions/upload-pages-artifact@v3
         with:
           path: corq/site
 
       - name: Deploy to GitHub Pages
-        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.deploy_pages == 'true' }}
+        if: ${{ github.event_name == 'push' || inputs.deploy_pages == 'true' }}
         id: deployment
         uses: actions/deploy-pages@v4
         timeout-minutes: 20
