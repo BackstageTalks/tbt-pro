@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.5,
   "latest_odds_player2": 1.53,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-13T11:33:17.356147+00:00",
+  "latest_snapshot_time_utc": "2026-08-13T17:44:58.945924+00:00",
   "opening_odds_player1": 2.5,
   "opening_odds_player2": 1.53,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Alycia Parks",
   "player2": "Viktorija Golubić",
-  "snapshot_count": 1,
+  "snapshot_count": 2,
   "snapshots": [
     {
       "event_id": "16798533",
@@ -34,8 +34,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-14T14:00:00+00:00",
       "target_date": "2026-08-15"
+    },
+    {
+      "event_id": "16798533",
+      "event_key": "2026-08-15_alycia-parks_vs_viktorija-golubic",
+      "hours_to_start": 20.25,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.5,
+      "odds_player2": 1.53,
+      "player1": "Alycia Parks",
+      "player2": "Viktorija Golubić",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-13T17:44:58.945924+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-14T14:00:00+00:00",
+      "target_date": "2026-08-15"
     }
   ],
   "start_time_utc": "2026-08-14T14:00:00+00:00",
-  "updated_at_utc": "2026-08-13T11:34:13.045571+00:00"
+  "updated_at_utc": "2026-08-13T17:46:02.949541+00:00"
 }
