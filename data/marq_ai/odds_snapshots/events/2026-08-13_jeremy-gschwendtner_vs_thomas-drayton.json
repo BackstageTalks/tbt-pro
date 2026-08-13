@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.11111,
   "latest_odds_player2": 6.0,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-12T17:44:25.827996+00:00",
+  "latest_snapshot_time_utc": "2026-08-13T04:32:02.827765+00:00",
   "opening_odds_player1": 1.11111,
   "opening_odds_player2": 6.0,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Jeremy Gschwendtner",
   "player2": "Thomas Drayton",
-  "snapshot_count": 4,
+  "snapshot_count": 5,
   "snapshots": [
     {
       "event_id": "16794186",
@@ -97,8 +97,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-12T13:42:48+00:00",
       "target_date": "2026-08-13"
+    },
+    {
+      "event_id": "16794186",
+      "event_key": "2026-08-13_jeremy-gschwendtner_vs_thomas-drayton",
+      "hours_to_start": -14.82,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.11111,
+      "odds_player2": 6.0,
+      "player1": "Jeremy Gschwendtner",
+      "player2": "Thomas Drayton",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-13T04:32:02.827765+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-12T13:42:48+00:00",
+      "target_date": "2026-08-13"
     }
   ],
   "start_time_utc": "2026-08-12T13:42:48+00:00",
-  "updated_at_utc": "2026-08-12T17:45:18.742991+00:00"
+  "updated_at_utc": "2026-08-13T04:32:22.321548+00:00"
 }
