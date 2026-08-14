@@ -2,6 +2,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import urllib.parse
+import urllib.request
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
@@ -296,6 +299,44 @@ def write_report(report: Dict[str, Any], output_root: Path) -> Dict[str, str]:
     }
 
 
+
+
+def send_telegram_message(message: str) -> bool:
+    bot_token = (
+        os.getenv("TELEGRAM_BOT_TOKEN")
+        or os.getenv("TG_BOT_TOKEN")
+        or os.getenv("TGBOT")
+    )
+    chat_id = (
+        os.getenv("TELEGRAM_WEEKLY_STATS_CHAT_ID")
+        or os.getenv("TG_WEEKLY_STATS_CHAT_ID")
+        or os.getenv("TELEGRAM_TOP7_CHAT_ID")
+        or os.getenv("TG_TOP7_CHAT_ID")
+        or os.getenv("TELEGRAM_CHAT_ID")
+        or os.getenv("TG_CHAT_ID")
+        or os.getenv("TGCHID")
+    )
+    if not bot_token or not chat_id:
+        print("[weekly_stats] --send requested but Telegram token/chat id is missing; send skipped.")
+        return False
+
+    payload = urllib.parse.urlencode(
+        {
+            "chat_id": chat_id,
+            "text": message,
+            "disable_web_page_preview": "true",
+        }
+    ).encode("utf-8")
+    req = urllib.request.Request(f"https://api.telegram.org/bot{bot_token}/sendMessage", data=payload, method="POST")
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            body = resp.read().decode("utf-8", errors="replace")
+        print(f"[weekly_stats] Telegram response: {body[:500]}")
+        return True
+    except Exception as exc:
+        print(f"[weekly_stats] Telegram send failed but stats were generated: {exc}")
+        return False
+
 def parse_models(value: str) -> Tuple[str, ...]:
     items = [x.strip().lower() for x in str(value or "").split(",") if x.strip()]
     return tuple(items) if items else DEFAULT_MODELS
@@ -308,6 +349,7 @@ def main() -> None:
     parser.add_argument("--end-date", default=None, help="Last day in stats window, YYYY-MM-DD. Defaults to previous completed betting day.")
     parser.add_argument("--local-tz", default="Europe/Bratislava")
     parser.add_argument("--models", default=",".join(DEFAULT_MODELS))
+    parser.add_argument("--send", action="store_true", help="Optionally send the generated weekly stats Telegram message. If Telegram env is missing, generation still succeeds.")
     args = parser.parse_args()
 
     output_root = Path(args.output_root)
@@ -320,7 +362,11 @@ def main() -> None:
     )
     outputs = write_report(report, output_root)
 
-    print(json.dumps({"weekly_model_stats": report, "outputs": outputs}, ensure_ascii=False, indent=2, default=str))
+    sent = False
+    if args.send:
+        sent = send_telegram_message(build_telegram_message(report))
+
+    print(json.dumps({"weekly_model_stats": report, "outputs": outputs, "telegram_sent": sent}, ensure_ascii=False, indent=2, default=str))
 
 
 if __name__ == "__main__":
