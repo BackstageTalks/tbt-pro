@@ -1,10 +1,10 @@
 {
   "event_id": "16823092",
   "event_key": "2026-08-15_harriet-dart_vs_peyton-stearns",
-  "latest_odds_player1": 1.4,
-  "latest_odds_player2": 3.0,
+  "latest_odds_player1": 1.08333,
+  "latest_odds_player2": 8.0,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-14T04:30:37.052505+00:00",
+  "latest_snapshot_time_utc": "2026-08-14T17:40:32.924230+00:00",
   "opening_odds_player1": 1.4,
   "opening_odds_player2": 3.0,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Peyton Stearns",
   "player2": "Harriet Dart",
-  "snapshot_count": 1,
+  "snapshot_count": 2,
   "snapshots": [
     {
       "event_id": "16823092",
@@ -34,8 +34,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-14T16:10:00+00:00",
       "target_date": "2026-08-15"
+    },
+    {
+      "event_id": "16823092",
+      "event_key": "2026-08-15_harriet-dart_vs_peyton-stearns",
+      "hours_to_start": -0.68,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.08333,
+      "odds_player2": 8.0,
+      "player1": "Peyton Stearns",
+      "player2": "Harriet Dart",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-14T17:40:32.924230+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-14T17:00:00+00:00",
+      "target_date": "2026-08-15"
     }
   ],
-  "start_time_utc": "2026-08-14T16:10:00+00:00",
-  "updated_at_utc": "2026-08-14T04:31:30.935557+00:00"
+  "start_time_utc": "2026-08-14T17:00:00+00:00",
+  "updated_at_utc": "2026-08-14T17:41:16.863367+00:00"
 }
