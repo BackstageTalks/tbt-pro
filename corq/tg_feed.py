@@ -945,13 +945,64 @@ def build_results_summary_message(rows: List[Dict[str, Any]], model_label: str, 
     return "\n".join(lines)
 
 
-def _results_message_needs_rebuild(message: str, model_label: str) -> bool:
+def _display_day_to_iso(value: str) -> str:
+    txt = str(value or "").strip()
+    if not txt:
+        return ""
+    # Supported TG headers include dd.mm.yy, dd.mm.yyyy and yyyy-mm-dd.
+    try:
+        if len(txt) >= 10 and txt[4] == "-" and txt[7] == "-":
+            datetime.fromisoformat(txt[:10])
+            return txt[:10]
+    except Exception:
+        pass
+    import re
+    m = re.search(r"(\d{1,2})\.(\d{1,2})\.(\d{2}|\d{4})", txt)
+    if not m:
+        return ""
+    dd = int(m.group(1))
+    mm = int(m.group(2))
+    yy = int(m.group(3))
+    if yy < 100:
+        yy += 2000
+    try:
+        return datetime(yy, mm, dd).date().isoformat()
+    except Exception:
+        return ""
+
+def _extract_results_message_day(message: str) -> str:
+    txt = str(message or "")
+    if not txt.strip():
+        return ""
+    # Prefer the explicit RESULTS header line, but accept any first date in the message.
+    for line in txt.splitlines()[:8]:
+        upper = line.upper()
+        if "RESULT" in upper or "📅" in line:
+            day = _display_day_to_iso(line)
+            if day:
+                return day
+    return _display_day_to_iso(txt[:250])
+
+def _results_message_needs_rebuild(message: str, model_label: str, target_day: Optional[str] = None) -> bool:
     txt = str(message or "").strip()
     if not txt:
         return True
     low = txt.lower()
     if "no previous" in low or "snapshot rows found" in low or "summary available yet" in low:
         return True
+    target = str(target_day or "").strip()[:10]
+    if target:
+        try:
+            datetime.fromisoformat(target)
+            message_day = _extract_results_message_day(txt)
+            if message_day and message_day != target:
+                print(f"[tg_feed] stale {model_label} results message detected: message_day={message_day} target_day={target}; rebuilding from JSON rows")
+                return True
+            if not message_day:
+                print(f"[tg_feed] {model_label} results message has no parseable day; rebuilding from JSON rows")
+                return True
+        except Exception:
+            pass
     if os.getenv("TG_RESULTS_FORCE_REBUILD", "0").lower() in {"1", "true", "yes", "y"}:
         return True
     if str(model_label).lower() == "cloq" and "+0.00u" in txt and "❌" not in txt and "✅" not in txt:
@@ -1019,13 +1070,13 @@ def main() -> None:
     if args.mode == "results":
         results_path = Path(args.results_message_path)
         message = results_path.read_text(encoding="utf-8").strip() if results_path.exists() else ""
-        if _results_message_needs_rebuild(message, "CorQ"):
+        if _results_message_needs_rebuild(message, "CorQ", target_day=results_day):
             corq_results = _load_result_rows("corq")
             message = build_results_summary_message(corq_results, "CorQ", day=results_day)
     elif args.mode == "cloq-results":
         results_path = Path(args.cloq_results_message_path)
         message = results_path.read_text(encoding="utf-8").strip() if results_path.exists() else ""
-        if _results_message_needs_rebuild(message, "CloQ"):
+        if _results_message_needs_rebuild(message, "CloQ", target_day=results_day):
             cloq_results = _load_result_rows("cloq")
             message = build_results_summary_message(cloq_results, "CloQ", day=results_day)
     elif args.mode == "cloq":
