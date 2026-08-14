@@ -44,116 +44,150 @@ concurrency:
 jobs:
   send-tg-feeds:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+      RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+      TGBOT: ${{ secrets.TGBOT }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+      TELEGRAM_TOP7_CHAT_ID: ${{ secrets.TELEGRAM_TOP7_CHAT_ID }}
+      TG_TOP7_CHAT_ID: ${{ secrets.TG_TOP7_CHAT_ID }}
+      TELEGRAM_FREE_CHAT_ID: ${{ secrets.TELEGRAM_FREE_CHAT_ID }}
+      TG_FREE_CHAT_ID: ${{ secrets.TG_FREE_CHAT_ID }}
+      TGCHID: ${{ secrets.TGCHID }}
+      TG_FEED_TIMEZONE: "Europe/Bratislava"
+      TG_FEED_UPCOMING_ONLY: "true"
+      TG_FEED_PAST_GRACE_MINUTES: "0"
+      TG_RESULTS_FORCE_REBUILD: "1"
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Resolve TG mode
-        id: tgmode
+      - name: Install dependencies
         shell: bash
         run: |
-          set -euo pipefail
-          MODE="${{ github.event.inputs.mode || github.event.client_payload.mode || 'all' }}"
-          LIMIT="${{ github.event.inputs.limit || github.event.client_payload.limit || '7' }}"
-          CLOQ_LIMIT="${{ github.event.inputs.cloq_limit || github.event.client_payload.cloq_limit || '10' }}"
-          INCLUDE_STARTED="${{ github.event.inputs.include_started || github.event.client_payload.include_started || 'false' }}"
-          echo "mode=${MODE}" >> "$GITHUB_OUTPUT"
-          echo "limit=${LIMIT}" >> "$GITHUB_OUTPUT"
-          echo "cloq_limit=${CLOQ_LIMIT}" >> "$GITHUB_OUTPUT"
-          echo "include_started=${INCLUDE_STARTED}" >> "$GITHUB_OUTPUT"
-          echo "TG mode=${MODE} limit=${LIMIT} cloq_limit=${CLOQ_LIMIT} include_started=${INCLUDE_STARTED}"
-
-      - name: Prepare output directory
-        shell: bash
-        run: mkdir -p outputs/telegram
-
-      - name: Send TG feeds
-        shell: bash
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
-          TGBOT: ${{ secrets.TGBOT }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
-          TGCHID: ${{ secrets.TGCHID }}
-          TELEGRAM_TOP7_CHAT_ID: ${{ secrets.TELEGRAM_TOP7_CHAT_ID }}
-          TG_TOP7_CHAT_ID: ${{ secrets.TG_TOP7_CHAT_ID }}
-          TELEGRAM_FREE_CHAT_ID: ${{ secrets.TELEGRAM_FREE_CHAT_ID }}
-          TG_FREE_CHAT_ID: ${{ secrets.TG_FREE_CHAT_ID }}
-          TG_FEED_TIMEZONE: Europe/Bratislava
-        run: |
-          set -euo pipefail
-          MODE="${{ steps.tgmode.outputs.mode }}"
-          LIMIT="${{ steps.tgmode.outputs.limit }}"
-          CLOQ_LIMIT="${{ steps.tgmode.outputs.cloq_limit }}"
-          INCLUDE_STARTED="${{ steps.tgmode.outputs.include_started }}"
-
-          EXTRA_ARGS=()
-          if [ "${INCLUDE_STARTED}" = "true" ]; then
-            EXTRA_ARGS+=("--include-started")
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
           fi
 
-          send_mode() {
-            local feed_mode="$1"
-            local feed_limit="$2"
-            echo "[send-tg-feeds] sending mode=${feed_mode} limit=${feed_limit}"
-            python -m corq.tg_feed --mode "${feed_mode}" --limit "${feed_limit}" --send "${EXTRA_ARGS[@]}"
-          }
-
-          case "${MODE}" in
-            all|both)
-              # Morning evaluation first, then daily picks.
-              send_mode cloq-results "${CLOQ_LIMIT}"
-              send_mode results "${LIMIT}"
-              send_mode cloq "${CLOQ_LIMIT}"
-              send_mode top7 "${LIMIT}"
-              send_mode free "${LIMIT}"
-              ;;
-            picks)
-              send_mode cloq "${CLOQ_LIMIT}"
-              send_mode top7 "${LIMIT}"
-              send_mode free "${LIMIT}"
-              ;;
-            results)
-              send_mode cloq-results "${CLOQ_LIMIT}"
-              send_mode results "${LIMIT}"
-              ;;
-            cloq)
-              send_mode cloq "${CLOQ_LIMIT}"
-              ;;
-            top7)
-              send_mode top7 "${LIMIT}"
-              ;;
-            free)
-              send_mode free "${LIMIT}"
-              ;;
-            cloq-results)
-              send_mode cloq-results "${CLOQ_LIMIT}"
-              ;;
-            corq-results)
-              send_mode results "${LIMIT}"
-              ;;
-            *)
-              echo "Unknown mode: ${MODE}" >&2
-              exit 2
-              ;;
-          esac
-
-      - name: Commit generated TG messages if changed
+      - name: Resolve feed mode
+        id: mode
         shell: bash
         run: |
-          set -euo pipefail
+          MODE="${{ github.event.inputs.mode }}"
+          if [ -z "$MODE" ] || [ "$MODE" = "null" ]; then
+            MODE="${{ github.event.client_payload.mode }}"
+          fi
+          if [ -z "$MODE" ] || [ "$MODE" = "null" ]; then
+            MODE="all"
+          fi
+
+          LIMIT="${{ github.event.inputs.limit }}"
+          if [ -z "$LIMIT" ] || [ "$LIMIT" = "null" ]; then
+            LIMIT="${{ github.event.client_payload.limit }}"
+          fi
+          if [ -z "$LIMIT" ] || [ "$LIMIT" = "null" ]; then
+            LIMIT="7"
+          fi
+
+          CLOQ_LIMIT="${{ github.event.inputs.cloq_limit }}"
+          if [ -z "$CLOQ_LIMIT" ] || [ "$CLOQ_LIMIT" = "null" ]; then
+            CLOQ_LIMIT="${{ github.event.client_payload.cloq_limit }}"
+          fi
+          if [ -z "$CLOQ_LIMIT" ] || [ "$CLOQ_LIMIT" = "null" ]; then
+            CLOQ_LIMIT="10"
+          fi
+
+          INCLUDE_STARTED="${{ github.event.inputs.include_started }}"
+          if [ -z "$INCLUDE_STARTED" ] || [ "$INCLUDE_STARTED" = "null" ]; then
+            INCLUDE_STARTED="${{ github.event.client_payload.include_started }}"
+          fi
+          if [ -z "$INCLUDE_STARTED" ] || [ "$INCLUDE_STARTED" = "null" ]; then
+            INCLUDE_STARTED="false"
+          fi
+
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+          echo "limit=$LIMIT" >> "$GITHUB_OUTPUT"
+          echo "cloq_limit=$CLOQ_LIMIT" >> "$GITHUB_OUTPUT"
+          echo "include_started=$INCLUDE_STARTED" >> "$GITHUB_OUTPUT"
+          echo "Resolved mode=$MODE limit=$LIMIT cloq_limit=$CLOQ_LIMIT include_started=$INCLUDE_STARTED"
+
+      - name: Settle results before Telegram results feed
+        if: ${{ steps.mode.outputs.mode == 'all' || steps.mode.outputs.mode == 'results' || steps.mode.outputs.mode == 'corq-results' || steps.mode.outputs.mode == 'cloq-results' }}
+        shell: bash
+        run: |
+          python -m corq.results_engine.builder \
+            --output-root outputs \
+            --settle-yesterday \
+            --fetch-api \
+            --write-all-tg-summaries \
+            --local-tz Europe/Bratislava
+
+      - name: Send CorQ TOP7 Telegram feed
+        if: ${{ steps.mode.outputs.mode == 'all' || steps.mode.outputs.mode == 'picks' || steps.mode.outputs.mode == 'top7' }}
+        shell: bash
+        run: |
+          EXTRA=""
+          if [ "${{ steps.mode.outputs.include_started }}" = "true" ]; then
+            EXTRA="--include-started"
+          fi
+          python -m corq.tg_feed --mode top7 --limit "${{ steps.mode.outputs.limit }}" --send $EXTRA
+
+      - name: Send CloQ Telegram feed
+        if: ${{ steps.mode.outputs.mode == 'all' || steps.mode.outputs.mode == 'picks' || steps.mode.outputs.mode == 'cloq' }}
+        shell: bash
+        run: |
+          EXTRA=""
+          if [ "${{ steps.mode.outputs.include_started }}" = "true" ]; then
+            EXTRA="--include-started"
+          fi
+          python -m corq.tg_feed --mode cloq --limit "${{ steps.mode.outputs.cloq_limit }}" --send $EXTRA
+
+      - name: Send FREE Telegram feed
+        if: ${{ steps.mode.outputs.mode == 'all' || steps.mode.outputs.mode == 'picks' || steps.mode.outputs.mode == 'free' }}
+        shell: bash
+        run: |
+          EXTRA=""
+          if [ "${{ steps.mode.outputs.include_started }}" = "true" ]; then
+            EXTRA="--include-started"
+          fi
+          python -m corq.tg_feed --mode free --limit "${{ steps.mode.outputs.limit }}" --send $EXTRA
+
+      - name: Send CorQ results Telegram feed
+        if: ${{ steps.mode.outputs.mode == 'all' || steps.mode.outputs.mode == 'results' || steps.mode.outputs.mode == 'corq-results' }}
+        shell: bash
+        run: |
+          python -m corq.tg_feed --mode corq-results --send
+
+      - name: Send CloQ results Telegram feed
+        if: ${{ steps.mode.outputs.mode == 'all' || steps.mode.outputs.mode == 'results' || steps.mode.outputs.mode == 'cloq-results' }}
+        shell: bash
+        run: |
+          python -m corq.tg_feed --mode cloq-results --send
+
+      - name: Commit updated Telegram and results artifacts
+        if: always()
+        shell: bash
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add outputs/telegram || true
+          git add outputs || true
           if git diff --cached --quiet; then
-            echo "No Telegram message artifacts changed."
+            echo "No output changes to commit."
           else
-            git commit -m "Update Telegram feed messages"
+            git commit -m "Update Telegram feed artifacts"
+            git pull --rebase || true
             git push
           fi
