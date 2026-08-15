@@ -91,6 +91,13 @@ jobs:
         run: |
           python -m cloq.engine --input outputs/latest_all.json --output-root outputs
 
+      - name: Finalize CorQ TOP7 after CloQ priority
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
+        run: |
+          # CloQ has priority. CorQ TOP7 is rebuilt from the saved ALL pool,
+          # removes matches already selected by CloQ, and fills back to TOP7.
+          python -m corq.engine --output-root outputs --finalize-top7-from-latest-all
+
       - name: Validate runtime outputs
         if: ${{ steps.local_time.outputs.should_run == 'true' }}
         run: |
