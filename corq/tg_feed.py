@@ -1322,6 +1322,62 @@ def build_results_summary_message(rows: List[Dict[str, Any]], model_label: str, 
     return "\n".join(lines)
 
 
+
+# ============================================================
+# CloQ/CorQ overlap guard override V13
+# ============================================================
+# Previous behavior removed CloQ rows when the same match also existed in CorQ.
+# That was useful to avoid duplicate Telegram posts, but it also made CloQ
+# audit/results harder to reason about. Default is now OFF: CloQ is allowed to
+# publish and evaluate its own rows even when CorQ has the same match.
+# To re-enable old behavior temporarily, set TG_CLOQ_CORQ_OVERLAP_GUARD=1.
+
+TG_CLOQ_CORQ_OVERLAP_GUARD_MODEL_VERSION = "TG_CLOQ_CORQ_OVERLAP_GUARD_DISABLED_V13"
+
+
+def _cloq_corq_overlap_guard_enabled() -> bool:
+    return str(os.getenv("TG_CLOQ_CORQ_OVERLAP_GUARD", "0")).lower() in {"1", "true", "yes", "y", "on"}
+
+
+def drop_cloq_corq_overlaps(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    if not _cloq_corq_overlap_guard_enabled():
+        print("[tg_feed] CloQ/CorQ overlap guard disabled; CloQ rows kept unchanged")
+        return list(rows or [])
+    keys = load_corq_overlap_match_keys() if "load_corq_overlap_match_keys" in globals() else current_corq_match_keys_for_tg()
+    if not keys or not rows:
+        return rows
+    out: List[Dict[str, Any]] = []
+    skipped = 0
+    for row in rows:
+        key = tg_match_identity(row)
+        if key and key in keys:
+            skipped += 1
+            continue
+        out.append(row)
+    if skipped:
+        print(f"[tg_feed] CloQ overlap safety skipped {skipped} row(s) already covered by CorQ")
+    return out
+
+
+def filter_cloq_corq_overlap_for_tg(rows: List[Dict[str, Any]], corq_match_keys: Optional[set[str]] = None) -> List[Dict[str, Any]]:
+    if not _cloq_corq_overlap_guard_enabled():
+        print("[tg_feed] CloQ duplicate guard disabled; source rows kept unchanged")
+        return list(rows or [])
+    corq_match_keys = corq_match_keys or current_corq_match_keys_for_tg()
+    if not corq_match_keys:
+        return rows
+    out: List[Dict[str, Any]] = []
+    skipped = 0
+    for row in rows or []:
+        key = tg_match_identity(row)
+        if key in corq_match_keys:
+            skipped += 1
+            continue
+        out.append(row)
+    if skipped:
+        print(f"[tg_feed] CloQ duplicate guard skipped {skipped} CorQ-overlap matches")
+    return out
+
 # ============================================================
 # Immutable TG snapshot persistence V12
 # ============================================================
