@@ -1,8 +1,9 @@
 """Build CloQ high-odds data-covered output from CorQ ALL rows.
 
-CloQ scans the full CorQ ALL/Audit pool, but excludes matches that are already
-selected by CorQ TOP7 so that the two public feeds do not duplicate the same
-match. The exclusion is match-level, not player-level.
+CloQ is the priority public feed. It scans the full CorQ ALL/Audit pool and
+keeps its own selected matches without excluding CorQ overlap. CorQ is finalized
+after CloQ and removes CloQ-overlap matches from the CorQ TOP7 candidate pool,
+then fills back to seven from the remaining CorQ candidates.
 """
 from __future__ import annotations
 
@@ -44,12 +45,11 @@ def write_json(path: Path, data: Any) -> None:
 
 
 def load_corq_overlap_keys(output_root: Path) -> Set[str]:
-    """Return match identity keys already covered by CorQ.
+    """Return CorQ keys for audit only.
 
-    Primary source is outputs/latest_top7.json because it represents the current
-    runtime CorQ selection. This avoids CloQ publishing the same match. The
-    daily immutable snapshot is also checked as a safety net when latest_top7 is
-    absent or stale, but empty files naturally contribute no keys.
+    CloQ no longer excludes CorQ overlaps. The keys are kept only to annotate
+    audit rows and manifest diagnostics if a previous preliminary CorQ TOP7
+    exists in the workspace.
     """
     paths = [
         output_root / "latest_top7.json",
@@ -68,11 +68,11 @@ def load_corq_overlap_keys(output_root: Path) -> Set[str]:
 
 
 def mark_corq_overlaps(rows: Iterable[Dict[str, Any]], corq_match_keys: Set[str]) -> List[Dict[str, Any]]:
-    """Annotate CloQ rows and mark matches already present in CorQ TOP7.
+    """Annotate CloQ rows with overlap info, but never exclude them.
 
-    The row remains visible in CloQ audit, but it is removed from the public
-    CloQ output. This keeps the model transparent while avoiding duplicate
-    public picks.
+    CloQ is now the priority model. If CloQ and CorQ select the same match,
+    CloQ keeps the match and the later CorQ finalization removes that match
+    from CorQ TOP7 and fills CorQ back to seven from remaining candidates.
     """
     annotated: List[Dict[str, Any]] = []
     for base_row in rows:
@@ -80,27 +80,18 @@ def mark_corq_overlaps(rows: Iterable[Dict[str, Any]], corq_match_keys: Set[str]
             continue
         row = annotate_cloq(base_row)
         key = str(match_identity(row) or "")
-        if key and key in corq_match_keys:
-            original_publishable = bool(row.get("cloq_publishable"))
-            row["cloq_original_publishable_before_corq_overlap"] = original_publishable
-            row["cloq_excluded_by_corq_overlap"] = True
+        overlap = bool(key and key in corq_match_keys)
+        row["cloq_excluded_by_corq_overlap"] = False
+        row["cloq_corq_overlap_detected"] = overlap
+        if overlap:
             row["cloq_corq_overlap_match_key"] = key
-            row["cloq_corq_overlap_reason"] = "CLOQ_SKIP_ALREADY_IN_CORQ"
-            row["cloq_publishable"] = False
-            row["cloq_decision"] = "CLOQ_REJECTED_CORQ_OVERLAP"
-            reject_reasons = list(row.get("cloq_reject_reasons") or [])
-            if "CLOQ_SKIP_ALREADY_IN_CORQ" not in reject_reasons:
-                reject_reasons.append("CLOQ_SKIP_ALREADY_IN_CORQ")
-            row["cloq_reject_reasons"] = reject_reasons
-            risk_tags = list(row.get("cloq_risk_tags") or [])
-            if "CORQ_OVERLAP" not in risk_tags:
-                risk_tags.append("CORQ_OVERLAP")
-            row["cloq_risk_tags"] = risk_tags
-        else:
-            row.setdefault("cloq_excluded_by_corq_overlap", False)
+            row["cloq_corq_overlap_policy"] = "CLOQ_PRIORITY_KEEP_ROW_CORQ_FINALIZER_SKIPS_OVERLAP"
+            audit_tags = list(row.get("cloq_audit_tags") or [])
+            if "CORQ_OVERLAP_CLOQ_PRIORITY" not in audit_tags:
+                audit_tags.append("CORQ_OVERLAP_CLOQ_PRIORITY")
+            row["cloq_audit_tags"] = audit_tags
         annotated.append(row)
     return annotated
-
 
 def dedupe_best_by_match(rows: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
     best: Dict[str, Dict[str, Any]] = {}
@@ -158,7 +149,7 @@ def build_cloq_rows(
         row["cloq_rank"] = idx
         row["cloq_selected"] = True
         row["cloq_publish_tier"] = str(row.get("cloq_decision") or "CLOQ_SELECTED")
-        row["cloq_selected_reason"] = "top_high_odds_data_covered_candidate_excluding_corq_overlap"
+        row["cloq_selected_reason"] = "top_high_odds_data_covered_candidate_cloq_priority"
     return output
 
 
@@ -203,18 +194,18 @@ def build_manifest(
         "output_rows": len(output_rows),
         "top_n": top_n,
         "corq_overlap": {
-            "enabled": True,
+            "enabled": False,
             "source_paths": [
                 "outputs/latest_top7.json",
                 "outputs/snapshots/latest_corq_top7_snapshot.json",
             ],
             "corq_match_key_count": len(corq_overlap_keys),
-            "audit_rows_excluded_by_corq_overlap": corq_overlap_count,
-            "publishable_rows_excluded_by_corq_overlap": corq_overlap_publishable_before_count,
-            "policy": "CloQ excludes matches already covered by CorQ TOP7/snapshot.",
+            "audit_rows_excluded_by_corq_overlap": 0,
+            "publishable_rows_excluded_by_corq_overlap": 0,
+            "policy": "CloQ has priority. CloQ keeps overlapping matches; CorQ finalizer removes CloQ overlaps from CorQ TOP7 and fills back to seven.",
         },
         "policy": {
-            "concept": "Top higher-odds data-covered winner candidates, excluding CorQ overlap.",
+            "concept": "Top higher-odds data-covered winner candidates. CloQ has priority over CorQ overlap.",
             "min_odds": 1.70,
             "max_odds": 2.50,
             "odds_bands": {
@@ -240,15 +231,59 @@ def build_manifest(
             "CloQ targets odds >= 1.70 and <= 2.50.",
             "Higher odds require stronger model/depth/support scoring.",
             "Rows without required core data are rejected with explicit reasons.",
-            "Matches already in CorQ are visible in audit but excluded from public CloQ output.",
+            "CloQ is priority: overlapping matches remain in CloQ public output; CorQ finalizer removes them from CorQ TOP7.",
         ],
     }
 
+
+
+def _cloq_snapshot_day(rows: List[Dict[str, Any]]) -> str:
+    for row in rows or []:
+        for key in ("betting_day", "snapshot_date", "snapshot_functional_day", "functional_day", "date", "run_date", "match_date"):
+            value = row.get(key) if isinstance(row, dict) else None
+            if value:
+                text = str(value).strip()[:10]
+                if len(text) == 10:
+                    return text
+    return datetime.now(timezone.utc).date().isoformat()
+
+
+def write_cloq_daily_snapshots(output_root: Path, cloq_rows: List[Dict[str, Any]]) -> Dict[str, str]:
+    day = _cloq_snapshot_day(cloq_rows)
+    snapshots_dir = output_root / "snapshots"
+    snapshots_dir.mkdir(parents=True, exist_ok=True)
+    created_at = datetime.now(timezone.utc).isoformat()
+    snapshot_rows: List[Dict[str, Any]] = []
+    for idx, row in enumerate(cloq_rows or [], start=1):
+        item = dict(row)
+        item.setdefault("model", "cloq")
+        item.setdefault("snapshot_source", "CLOQ_DAILY")
+        item.setdefault("snapshot_type", "DAILY_CLOQ_SNAPSHOT")
+        item.setdefault("source_filter", "CloQ")
+        item.setdefault("snapshot_date", day)
+        item.setdefault("betting_day", day)
+        item.setdefault("snapshot_functional_day", day)
+        item.setdefault("functional_day", day)
+        item.setdefault("snapshot_rank", item.get("cloq_rank") or idx)
+        item.setdefault("cloq_rank", idx)
+        item.setdefault("snapshot_created_at_utc", created_at)
+        item.setdefault("results_status", "PENDING")
+        snapshot_rows.append(item)
+    dated = snapshots_dir / f"cloq_top_{day}.json"
+    latest = snapshots_dir / "latest_cloq_snapshot.json"
+    write_json(dated, snapshot_rows)
+    write_json(latest, snapshot_rows)
+    return {
+        "cloq_daily_snapshot": str(dated),
+        "latest_cloq_snapshot": str(latest),
+        "cloq_snapshot_day": day,
+    }
 
 def run(input_path: Optional[str] = None, output_root: str = "outputs", top_n: int = DEFAULT_TOP_N) -> Dict[str, Any]:
     root = Path(output_root)
     input_file = Path(input_path) if input_path else root / "latest_all.json"
     all_rows = json_rows(read_json(input_file, []))
+    # CloQ is priority. CorQ overlap keys are audit-only and must not exclude CloQ rows.
     corq_overlap_keys = load_corq_overlap_keys(root)
     audit_rows = build_cloq_audit_rows(all_rows, corq_match_keys=corq_overlap_keys)
     cloq_rows = build_cloq_rows(all_rows, top_n=top_n, corq_match_keys=corq_overlap_keys)
@@ -261,6 +296,7 @@ def run(input_path: Optional[str] = None, output_root: str = "outputs", top_n: i
     write_json(latest_nested, cloq_rows)
     write_json(latest_flat, cloq_rows)
     write_json(audit_path, audit_rows)
+    cloq_snapshot_paths = write_cloq_daily_snapshots(root, cloq_rows)
     write_json(manifest_path, build_manifest(input_file, cloq_rows, audit_rows, len(all_rows), top_n, corq_overlap_keys))
     return {
         "rows": len(cloq_rows),
@@ -271,6 +307,7 @@ def run(input_path: Optional[str] = None, output_root: str = "outputs", top_n: i
         "latest_cloq_flat": str(latest_flat),
         "latest_cloq_audit": str(audit_path),
         "manifest": str(manifest_path),
+        "snapshots": cloq_snapshot_paths,
     }
 
 
