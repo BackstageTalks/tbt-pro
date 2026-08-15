@@ -1,6 +1,6 @@
 {
   "model_version": "2026-08-04-marq-coverage-report-v1",
-  "generated_at_utc": "2026-08-15T05:33:55.361037+00:00",
+  "generated_at_utc": "2026-08-15T07:52:00.013368+00:00",
   "input_paths": {
     "all": "outputs/latest_all.json",
     "top7": "outputs/latest_top7.json",
@@ -11,8 +11,8 @@
       "label": "all_audit",
       "total_rows": 64,
       "coverage_pct": {
-        "high_marq": 75.0,
-        "medium_current_only": 25.0,
+        "high_marq": 71.88,
+        "medium_current_only": 28.12,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
         "usable_marq_high_or_medium": 100.0
@@ -21,32 +21,32 @@
         "getAllOddsForEvent": 64
       },
       "data_status_counts": {
-        "EXACT_BETTING_ODDS_WITH_OPENING": 48,
-        "EXACT_CURRENT_ODDS_ONLY": 16
+        "EXACT_BETTING_ODDS_WITH_OPENING": 46,
+        "EXACT_CURRENT_ODDS_ONLY": 18
       },
       "confidence_counts": {
-        "HIGH": 48,
-        "MEDIUM": 16
+        "HIGH": 46,
+        "MEDIUM": 18
       },
       "movement_status_counts": {
-        "REAL_OPENING_CURRENT_AVAILABLE": 48,
-        "OPENING_EQUALS_CURRENT": 16
+        "REAL_OPENING_CURRENT_AVAILABLE": 46,
+        "OPENING_EQUALS_CURRENT": 18
       },
       "quality_tier_counts": {
-        "HIGH": 48,
-        "MEDIUM_CURRENT_ONLY": 16
+        "HIGH": 46,
+        "MEDIUM_CURRENT_ONLY": 18
       },
       "value_status_counts": {
-        "NO_VALUE": 35,
+        "NO_VALUE": 34,
         "VALUE_STRONG": 26,
-        "VALUE_PLAYABLE": 3
+        "VALUE_PLAYABLE": 4
       },
       "source_policy_counts": {
         "TENNISAPI_ONLY_EXACT_EVENT": 64
       },
       "market_weight_stats": {
         "count": 64,
-        "avg": 0.225,
+        "avg": 0.2206,
         "min": 0.12,
         "max": 0.3
       },
@@ -58,7 +58,7 @@
       },
       "expected_value_pct_stats": {
         "count": 64,
-        "avg": 3.8909,
+        "avg": 3.8914,
         "min": -35.27,
         "max": 237.32
       },
@@ -191,30 +191,30 @@
             "identity": "16737514",
             "pick": "Novak Djokovic",
             "opponent": "Thiago Agustin Tirante",
-            "odds": 1.28,
+            "odds": 1.25,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": -11.09,
-            "expected_value_pct": -18.77,
+            "value_delta_pp": -12.73,
+            "expected_value_pct": -20.67,
             "fallback_reason": null
           },
           {
             "identity": "16737514",
             "pick": "Thiago Agustin Tirante",
             "opponent": "Novak Djokovic",
-            "odds": 3.75,
+            "odds": 4.0,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": 11.09,
-            "expected_value_pct": 37.02,
+            "value_delta_pp": 12.73,
+            "expected_value_pct": 46.16,
             "fallback_reason": null
           },
           {
@@ -313,15 +313,15 @@
             "identity": "16737514",
             "pick": "Novak Djokovic",
             "opponent": "Thiago Agustin Tirante",
-            "odds": 1.28,
+            "odds": 1.25,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": -11.09,
-            "expected_value_pct": -18.77,
+            "value_delta_pp": -12.73,
+            "expected_value_pct": -20.67,
             "fallback_reason": null
           },
           {
@@ -495,15 +495,15 @@
             "identity": "16737514",
             "pick": "Thiago Agustin Tirante",
             "opponent": "Novak Djokovic",
-            "odds": 3.75,
+            "odds": 4.0,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": 11.09,
-            "expected_value_pct": 37.02,
+            "value_delta_pp": 12.73,
+            "expected_value_pct": 46.16,
             "fallback_reason": null
           },
           {
@@ -932,13 +932,13 @@
       },
       "value_delta_pp_stats": {
         "count": 3,
-        "avg": 5.7433,
+        "avg": 6.62,
         "min": -0.17,
         "max": 10.91
       },
       "expected_value_pct_stats": {
         "count": 3,
-        "avg": 6.2967,
+        "avg": 7.99,
         "min": -5.57,
         "max": 16.56
       },
@@ -947,21 +947,6 @@
         "no_marq_or_unknown": [],
         "current_only": [],
         "real_opening": [
-          {
-            "identity": "16737881",
-            "pick": "Maja Chwalinska",
-            "opponent": "Cristina Bucsa",
-            "odds": 1.91,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": 6.49,
-            "expected_value_pct": 7.9,
-            "fallback_reason": null
-          },
           {
             "identity": "16737512",
             "pick": "Matteo Arnaldi",
@@ -975,6 +960,21 @@
             "market_weight": 0.3,
             "value_delta_pp": 10.91,
             "expected_value_pct": 16.56,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16737881",
+            "pick": "Maja Chwalinska",
+            "opponent": "Cristina Bucsa",
+            "odds": 2.0,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 9.12,
+            "expected_value_pct": 12.98,
             "fallback_reason": null
           }
         ],
@@ -997,21 +997,6 @@
         ],
         "value_strong": [
           {
-            "identity": "16737881",
-            "pick": "Maja Chwalinska",
-            "opponent": "Cristina Bucsa",
-            "odds": 1.91,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": 6.49,
-            "expected_value_pct": 7.9,
-            "fallback_reason": null
-          },
-          {
             "identity": "16737512",
             "pick": "Matteo Arnaldi",
             "opponent": "Martin Landaluce",
@@ -1024,6 +1009,21 @@
             "market_weight": 0.3,
             "value_delta_pp": 10.91,
             "expected_value_pct": 16.56,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16737881",
+            "pick": "Maja Chwalinska",
+            "opponent": "Cristina Bucsa",
+            "odds": 2.0,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 9.12,
+            "expected_value_pct": 12.98,
             "fallback_reason": null
           }
         ]
