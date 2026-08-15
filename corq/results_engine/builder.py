@@ -69,6 +69,72 @@ def load_source_rows(kind: str) -> Tuple[Any, List[Dict[str, Any]], str]:
     return {}, [], ""
 
 
+
+
+def _source_rows_match_day(rows: List[Dict[str, Any]], day: str, local_tz: str = "Europe/Bratislava") -> bool:
+    target = str(day or "").strip()[:10]
+    if not target or not rows:
+        return True
+    matches = 0
+    checked = 0
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        checked += 1
+        try:
+            row_day = result_row_date(row, target, local_tz) if "result_row_date" in globals() else row_date(row, "")
+        except Exception:
+            row_day = row.get("betting_day") or row.get("snapshot_date") or row.get("date") or ""
+        if str(row_day or "")[:10] == target:
+            matches += 1
+    return bool(checked and matches > 0)
+
+
+def dated_source_candidates(kind: str, day: str) -> List[Path]:
+    day = str(day or "").strip()[:10]
+    if not day:
+        return []
+    if kind == "corq":
+        return [
+            SNAPSHOTS_DIR / f"corq_top7_{day}.json",
+            SNAPSHOTS_DIR / f"top7_{day}.json",
+            SNAPSHOTS_DIR / f"CORQ_TOP7_{day}.json",
+        ]
+    if kind == "cloq":
+        return [
+            SNAPSHOTS_DIR / f"cloq_top_{day}.json",
+            SNAPSHOTS_DIR / f"cloq_{day}.json",
+            SNAPSHOTS_DIR / f"CLOQ_TOP_{day}.json",
+            OUTPUTS / "cloq" / f"cloq_{day}.json",
+        ]
+    return [
+        SNAPSHOTS_DIR / f"audit_{day}.json",
+        SNAPSHOTS_DIR / f"all_audit_{day}.json",
+    ]
+
+
+def load_source_rows_for_day(kind: str, day: str, local_tz: str = "Europe/Bratislava") -> Tuple[Any, List[Dict[str, Any]], str]:
+    """Load immutable dated snapshot first for settlement.
+
+    Results for 2026-08-14 must not be seeded from latest_cloq/latest_top7
+    after the 2026-08-15 daily run has already overwritten latest files.
+    """
+    for path in dated_source_candidates(kind, day):
+        payload = read_json(path, None)
+        rows = json_rows(payload)
+        if rows:
+            print(f"[results_builder] {kind.upper()} dated source selected: {path} rows={len(rows)}")
+            return payload, rows, str(path)
+
+    payload, rows, source = load_source_rows(kind)
+    if rows and _source_rows_match_day(rows, day, local_tz=local_tz):
+        print(f"[results_builder] {kind.upper()} latest source accepted for day {day}: {source} rows={len(rows)}")
+        return payload, rows, source
+
+    if rows:
+        print(f"[results_builder] {kind.upper()} latest source ignored for settle day {day}: source={source} rows={len(rows)} day_mismatch")
+    return {}, [], ""
+
 def snapshot_status(row: Dict[str, Any]) -> str:
     raw = row.get("status") or row.get("status_type") or row.get("match_status_type") or row.get("event_status")
     if not raw and isinstance(row.get("raw"), dict):
@@ -830,15 +896,15 @@ def merge_current_source_with_existing_results(
 
 
 def build_results_database(run_date: Optional[str] = None, output_root: Path = RESULTS_DIR, fetch_api: bool = False, settle_date: Optional[str] = None, settlement_grace_hours: float = 0.0, local_tz: str = "Europe/Bratislava") -> Dict[str, Any]:
-    corq_payload, corq_rows, corq_source = load_source_rows("corq")
-    cloq_payload, cloq_rows, cloq_source = load_source_rows("cloq")
-    audit_payload, audit_rows, audit_source = load_source_rows("audit")
     if settle_date:
         day = str(settle_date)[:10]
     elif run_date:
         day = str(run_date)[:10]
     else:
         day = functional_day_now(local_tz)
+    corq_payload, corq_rows, corq_source = load_source_rows_for_day("corq", day, local_tz=local_tz)
+    cloq_payload, cloq_rows, cloq_source = load_source_rows_for_day("cloq", day, local_tz=local_tz)
+    audit_payload, audit_rows, audit_source = load_source_rows_for_day("audit", day, local_tz=local_tz)
 
     old_corq_rows = json_rows(read_json(output_root / "latest_results_corq.json", []))
     old_cloq_rows = json_rows(read_json(output_root / "latest_results_cloq.json", []))
