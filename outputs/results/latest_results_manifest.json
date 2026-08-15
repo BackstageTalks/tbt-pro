@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-08-15T07:52:04+00:00",
-  "date": "2026-08-15",
-  "fetch_api": false,
+  "generated_at": "2026-08-15T07:59:36+00:00",
+  "date": "2026-08-14",
+  "fetch_api": true,
   "settlement_grace_hours": 0.0,
   "local_tz": "Europe/Bratislava",
   "corq_count": 102,
@@ -52,14 +52,14 @@
     }
   },
   "sources": {
-    "corq": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/latest_corq_top7_snapshot.json",
-    "cloq": "/home/runner/work/tbt-pro/tbt-pro/outputs/cloq/latest_cloq.json",
-    "audit": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/latest_all_audit_snapshot.json"
+    "corq": "",
+    "cloq": "",
+    "audit": ""
   },
   "locks": {
-    "corq": "immutable_ledger_source_plus_existing:0+existing:95+preserved:7",
-    "cloq": "immutable_ledger_source_plus_existing:0+existing:66+preserved:3",
-    "audit": "immutable_ledger_source_plus_existing:32+existing:497+preserved:32"
+    "corq": "existing_results_only_no_source_rows",
+    "cloq": "existing_results_only_no_source_rows",
+    "audit": "existing_results_only_no_source_rows"
   },
   "output_root": "outputs/results"
 }
