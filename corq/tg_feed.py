@@ -1321,6 +1321,74 @@ def build_results_summary_message(rows: List[Dict[str, Any]], model_label: str, 
     lines.extend(["", FOOTER])
     return "\n".join(lines)
 
+
+# ============================================================
+# Immutable TG snapshot persistence V12
+# ============================================================
+# The Results feed must be based on the exact rows sent in the original pick
+# feed, not on whatever latest_* file exists the next morning. This writes a
+# dated snapshot whenever TOP7/CloQ pick messages are built/sent.
+
+TG_SENT_SNAPSHOT_VERSION = "TG_SENT_SNAPSHOT_V12"
+
+
+def _tg_snapshot_day_from_rows(rows: List[Dict[str, Any]]) -> str:
+    for row in rows or []:
+        day = row_day_iso(row)
+        if day:
+            return day[:10]
+    return datetime.now(local_tz()).date().isoformat()
+
+
+def _tg_write_json(path: Path, payload: Any) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2, default=str), encoding="utf-8")
+
+
+def persist_sent_pick_snapshot(mode: str, rows: List[Dict[str, Any]], limit: int = 7) -> None:
+    mode = str(mode or "").lower()
+    if mode not in {"top7", "cloq"}:
+        return
+    rows = [dict(r) for r in rows or [] if isinstance(r, dict)]
+    if not rows:
+        print(f"[tg_feed] {mode.upper()} sent snapshot skipped: no rows")
+        return
+    day = _tg_snapshot_day_from_rows(rows)
+    snapshot_rows: List[Dict[str, Any]] = []
+    for idx, row in enumerate(rows[:limit], start=1):
+        row.setdefault("betting_day", day)
+        row.setdefault("snapshot_date", day)
+        row.setdefault("snapshot_functional_day", day)
+        row.setdefault("functional_day", day)
+        row.setdefault("tg_sent_snapshot_version", TG_SENT_SNAPSHOT_VERSION)
+        row.setdefault("tg_sent_snapshot_written_at", datetime.now(timezone.utc).replace(microsecond=0).isoformat())
+        if mode == "cloq":
+            row.setdefault("model", "cloq")
+            row.setdefault("snapshot_source", "CLOQ_DAILY")
+            row.setdefault("snapshot_type", "DAILY_CLOQ_SNAPSHOT")
+            row.setdefault("source_filter", "CloQ")
+            row.setdefault("cloq_rank", row.get("cloq_rank") or row.get("rank") or idx)
+            row.setdefault("snapshot_rank", row.get("snapshot_rank") or row.get("cloq_rank") or idx)
+        else:
+            row.setdefault("model", "corq")
+            row.setdefault("snapshot_source", "CORQ_DAILY")
+            row.setdefault("snapshot_type", "DAILY_CORQ_SNAPSHOT")
+            row.setdefault("source_filter", "CorQ")
+            row.setdefault("top7_rank", row.get("top7_rank") or row.get("rank") or idx)
+            row.setdefault("snapshot_rank", row.get("snapshot_rank") or row.get("top7_rank") or idx)
+        snapshot_rows.append(row)
+
+    out_dir = OUTPUTS / "snapshots"
+    if mode == "cloq":
+        dated_path = out_dir / f"cloq_top_{day}.json"
+        latest_path = out_dir / "latest_cloq_snapshot.json"
+    else:
+        dated_path = out_dir / f"corq_top7_{day}.json"
+        latest_path = out_dir / "latest_corq_top7_snapshot.json"
+    _tg_write_json(dated_path, snapshot_rows)
+    _tg_write_json(latest_path, snapshot_rows)
+    print(f"[tg_feed] {mode.upper()} sent snapshot persisted: {dated_path} rows={len(snapshot_rows)}")
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Telegram feed formatter/sender for CorQ")
     parser.add_argument("--mode", choices=("cloq", "top7", "free", "results", "corq-results", "cloq-results"), default=os.getenv("TG_FEED_MODE", "top7"))
@@ -1369,15 +1437,19 @@ def main() -> None:
             message = build_results_summary_message(cloq_results, "CloQ", day=results_day)
     elif args.mode == "cloq":
         rows = load_cloq_rows(Path(args.cloq_path), Path(args.all_path))
-        sendable_rows = valid_rows(rows, upcoming_only=upcoming_only)
+        cloq_rows_for_message = valid_rows(drop_cloq_corq_overlaps(rows), upcoming_only=upcoming_only)[:max(args.limit, 10)]
+        sendable_rows = cloq_rows_for_message
         message = build_cloq_message(rows, limit=max(args.limit, 10), upcoming_only=upcoming_only)
+        persist_sent_pick_snapshot("cloq", cloq_rows_for_message, limit=max(args.limit, 10))
     else:
         rows = load_rows_for_mode(args.mode, Path(args.top7_path), Path(args.all_path))
         sendable_rows = valid_rows(rows, upcoming_only=(upcoming_only if args.mode == "free" else False))
         if args.mode == "free":
             message = build_free_message(rows, upcoming_only=upcoming_only)
         else:
+            top7_rows_for_message = valid_rows(rows, upcoming_only=False)[:args.limit]
             message = build_top7_message(rows, limit=args.limit, upcoming_only=False)
+            persist_sent_pick_snapshot("top7", top7_rows_for_message, limit=args.limit)
 
     output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
