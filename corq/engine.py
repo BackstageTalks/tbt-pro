@@ -1455,6 +1455,183 @@ def _write_results_foundation_snapshots(
     }
 
 
+
+# ---------------------------------------------------------------------------
+# CloQ-priority CorQ finalizer
+# ---------------------------------------------------------------------------
+CORQ_CLOQ_PRIORITY_MODEL_VERSION = "CORQ_TOP7_CLOQ_PRIORITY_FILL_V1"
+
+
+def _json_rows_local(obj: Any) -> List[Dict[str, Any]]:
+    if isinstance(obj, list):
+        return [x for x in obj if isinstance(x, dict)]
+    if isinstance(obj, dict):
+        for key in ("rows", "items", "top7", "all", "picks", "records", "data"):
+            val = obj.get(key)
+            if isinstance(val, list):
+                return [x for x in val if isinstance(x, dict)]
+    return []
+
+
+def _read_json_local(path: Path, default: Any) -> Any:
+    try:
+        if path.exists():
+            return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return default
+    return default
+
+
+def _write_json_local(path: Path, data: Any) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=2, default=str), encoding="utf-8")
+
+
+def _priority_norm_text(value: Any) -> str:
+    text = str(value or "").strip().lower()
+    text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
+    text = re.sub(r"[^a-z0-9]+", " ", text)
+    return " ".join(text.split())
+
+
+def _priority_event_id(row: Dict[str, Any]) -> str:
+    raw = row.get("raw") if isinstance(row.get("raw"), dict) else {}
+    for key in ("event_id", "match_id", "id", "fixture_id", "api_match_id", "custom_id", "customId"):
+        value = row.get(key)
+        if value not in (None, ""):
+            return str(value).strip()
+    for key in ("id", "customId", "custom_id"):
+        value = raw.get(key)
+        if value not in (None, ""):
+            return str(value).strip()
+    return ""
+
+
+def _priority_pick_name(row: Dict[str, Any]) -> str:
+    for key in ("pick", "top7_pick", "corq_pick", "cloq_pick", "selected_pick", "selected_player", "predicted_winner", "player", "player1", "home"):
+        value = row.get(key)
+        if value not in (None, "", "—", "-"):
+            return str(value).strip()
+    return ""
+
+
+def _priority_opponent_name(row: Dict[str, Any]) -> str:
+    for key in ("opponent", "opponent_name", "opp", "top7_opponent", "corq_opponent", "player2", "away"):
+        value = row.get(key)
+        if value not in (None, "", "—", "-"):
+            return str(value).strip()
+    return ""
+
+
+def _priority_start_day(row: Dict[str, Any]) -> str:
+    for key in ("betting_day", "snapshot_date", "snapshot_functional_day", "functional_day", "date", "match_date", "start_date"):
+        value = row.get(key)
+        if value:
+            return str(value).strip()[:10]
+    for key in ("start_time_utc", "match_time_utc", "start_time", "match_time", "scheduled_at"):
+        value = row.get(key)
+        if value:
+            return str(value).strip()[:10]
+    return ""
+
+
+def _priority_match_key(row: Dict[str, Any]) -> str:
+    eid = _priority_event_id(row)
+    if eid:
+        return "event:" + eid
+    names = sorted([_priority_norm_text(_priority_pick_name(row)), _priority_norm_text(_priority_opponent_name(row))])
+    names = [n for n in names if n]
+    if len(names) >= 2:
+        return "names:" + "|".join(names) + "|" + _priority_start_day(row)
+    return ""
+
+
+def _load_cloq_priority_keys(output_root: str = "outputs") -> set[str]:
+    root = Path(output_root)
+    paths = [
+        root / "cloq" / "latest_cloq.json",
+        root / "snapshots" / "latest_cloq_snapshot.json",
+    ]
+    keys: set[str] = set()
+    for path in paths:
+        rows = _json_rows_local(_read_json_local(path, []))
+        for row in rows:
+            key = _priority_match_key(row)
+            if key:
+                keys.add(key)
+        if keys:
+            break
+    return keys
+
+
+def _apply_cloq_priority_filter(ranked_rows: List[Dict[str, Any]], output_root: str = "outputs") -> tuple[List[Dict[str, Any]], List[Dict[str, Any]], set[str]]:
+    cloq_keys = _load_cloq_priority_keys(output_root)
+    if not cloq_keys:
+        return ranked_rows, [], set()
+    kept: List[Dict[str, Any]] = []
+    skipped: List[Dict[str, Any]] = []
+    for row in ranked_rows or []:
+        key = _priority_match_key(row)
+        if key and key in cloq_keys:
+            item = dict(row)
+            item["corq_skipped_by_cloq_priority"] = True
+            item["corq_cloq_priority_match_key"] = key
+            item["corq_cloq_priority_reason"] = "CORQ_SKIPPED_CLOQ_PRIORITY_OVERLAP"
+            skipped.append(item)
+            continue
+        kept.append(row)
+    return kept, skipped, cloq_keys
+
+
+def finalize_top7_from_latest_all(output_root: str = "outputs", run_date: Optional[str] = None, top_n: int = 7) -> Dict[str, Any]:
+    """Finalize CorQ TOP7 after CloQ has been generated.
+
+    This avoids duplicate public matches by giving CloQ priority. CorQ is not
+    shrunk after TOP7 selection; instead, the entire ranked CorQ candidate pool
+    is filtered against CloQ and then filled back to top_n from remaining rows.
+    """
+    root = Path(output_root)
+    latest_all = root / "latest_all.json"
+    all_rows = _json_rows_local(_read_json_local(latest_all, []))
+    if not all_rows:
+        raise SystemExit(f"Cannot finalize CorQ TOP7: no rows in {latest_all}")
+
+    ranking = rank_corq(all_rows)
+    filtered_ranking, skipped_rows, cloq_keys = _apply_cloq_priority_filter(ranking, output_root=output_root)
+    top7 = top7_from_ranking(filtered_ranking, top_n=top_n)
+
+    for idx, row in enumerate(top7, start=1):
+        row["top7_rank"] = idx
+        row["snapshot_rank"] = idx
+        row["corq_cloq_priority_model_version"] = CORQ_CLOQ_PRIORITY_MODEL_VERSION
+        row["corq_cloq_priority_enabled"] = True
+        row["corq_cloq_priority_cloq_key_count"] = len(cloq_keys)
+        row["corq_cloq_priority_skipped_count"] = len(skipped_rows)
+
+    top7_paths = save_top7(top7, run_date=run_date, output_root=output_root)
+    snapshot_paths = _write_results_foundation_snapshots(all_rows, top7, run_date=run_date, output_root=output_root)
+    skipped_path = root / "snapshots" / "latest_corq_cloq_priority_skipped.json"
+    _write_json_local(skipped_path, skipped_rows)
+
+    manifest = {
+        "runtime": "corq_top7_cloq_priority_finalizer",
+        "model_version": CORQ_CLOQ_PRIORITY_MODEL_VERSION,
+        "finished_at_utc": datetime.now(timezone.utc).isoformat(),
+        "run_date": run_date,
+        "input": str(latest_all),
+        "all_count": len(all_rows),
+        "ranked_count": len(ranking),
+        "cloq_priority_key_count": len(cloq_keys),
+        "corq_candidates_after_cloq_filter": len(filtered_ranking),
+        "corq_skipped_by_cloq_priority_count": len(skipped_rows),
+        "top7_count": len(top7),
+        "top7_target": top_n,
+        "outputs": {"top7": top7_paths, "snapshots": snapshot_paths, "skipped": str(skipped_path)},
+    }
+    manifest_paths = save_run_manifest(manifest, run_date=run_date, output_root=output_root)
+    manifest["outputs"]["manifest"] = manifest_paths
+    return manifest
+
 def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", run_date: Optional[str] = None) -> Dict[str, Any]:
     started_at = datetime.now(timezone.utc).isoformat()
     raw_candidates = load_candidates(input_path)
@@ -1524,7 +1701,16 @@ def main() -> None:
     parser.add_argument("--input", dest="input_path", default=None, help="Optional path to candidates/matches JSON")
     parser.add_argument("--output-root", default="outputs", help="Output root directory")
     parser.add_argument("--date", dest="run_date", default=None, help="Run date YYYY-MM-DD")
+    parser.add_argument("--finalize-top7-from-latest-all", action="store_true", help="Finalize TOP7 from outputs/latest_all.json after CloQ has priority")
     args = parser.parse_args()
+
+    if args.finalize_top7_from_latest_all:
+        manifest = finalize_top7_from_latest_all(output_root=args.output_root, run_date=args.run_date, top_n=7)
+        print("CORQ CloQ-priority TOP7 finalizer finished")
+        print(f"ALL: {manifest['all_count']}")
+        print(f"Skipped by CloQ priority: {manifest['corq_skipped_by_cloq_priority_count']}")
+        print(f"TOP7: {manifest['top7_count']}")
+        return
 
     manifest = run_daily(input_path=args.input_path, output_root=args.output_root, run_date=args.run_date)
     print("CORQ runtime finished")
