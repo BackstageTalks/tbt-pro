@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.53,
   "latest_odds_player2": 2.5,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-15T11:01:21.851564+00:00",
+  "latest_snapshot_time_utc": "2026-08-15T17:02:32.294649+00:00",
   "opening_odds_player1": 1.53,
   "opening_odds_player2": 2.5,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Arthur Rinderknech",
   "player2": "Juan Manuel Cerundolo",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "16737589",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-16T15:00:00+00:00",
       "target_date": "2026-08-17"
+    },
+    {
+      "event_id": "16737589",
+      "event_key": "2026-08-17_arthur-rinderknech_vs_juan-manuel-cerundolo",
+      "hours_to_start": 21.96,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.53,
+      "odds_player2": 2.5,
+      "player1": "Arthur Rinderknech",
+      "player2": "Juan Manuel Cerundolo",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-15T17:02:32.294649+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-16T15:00:00+00:00",
+      "target_date": "2026-08-17"
     }
   ],
   "start_time_utc": "2026-08-16T15:00:00+00:00",
-  "updated_at_utc": "2026-08-15T11:02:44.609222+00:00"
+  "updated_at_utc": "2026-08-15T17:03:55.493968+00:00"
 }
