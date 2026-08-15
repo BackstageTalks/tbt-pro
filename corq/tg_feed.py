@@ -1033,6 +1033,294 @@ def _load_result_rows(model: str) -> List[Dict[str, Any]]:
     return []
 
 
+
+# ============================================================
+# Results TG completeness override V11
+# ============================================================
+# Problem fixed:
+# Existing results messages were built only from settled/latest_results rows.
+# If the settlement ledger skipped a pick, especially around overlap/model
+# de-duplication or still-pending settlement, Telegram showed fewer rows than
+# the original daily snapshot. Results feeds must display the whole snapshot
+# and mark rows without settlement as Pending.
+
+TG_RESULTS_COMPLETENESS_MODEL_VERSION = "TG_RESULTS_COMPLETENESS_V11"
+
+
+def _tg_norm_text(value: Any) -> str:
+    import re
+    txt = str(value or "").strip().lower()
+    txt = re.sub(r"[^a-z0-9]+", " ", txt)
+    return " ".join(txt.split())
+
+
+def _tg_event_id(row: Dict[str, Any]) -> str:
+    for key in ("event_id", "match_id", "id", "fixture_id", "api_match_id", "custom_id", "customId"):
+        value = row.get(key)
+        if value is not None and str(value).strip():
+            return str(value).strip()
+    raw = row.get("raw") if isinstance(row.get("raw"), dict) else {}
+    for key in ("id", "customId"):
+        value = raw.get(key)
+        if value is not None and str(value).strip():
+            return str(value).strip()
+    return ""
+
+
+def _tg_side_identity(row: Dict[str, Any]) -> str:
+    existing = str(row.get("side_identity") or "").strip()
+    if existing:
+        return existing.lower()
+    event_id = _tg_event_id(row)
+    pick = _tg_norm_text(pick_name(row))
+    if event_id and pick:
+        return f"id:{event_id}|pick:{pick}"
+    match_key = str(row.get("match_identity") or row.get("match_key") or "").strip().lower()
+    if match_key and pick:
+        return f"{match_key}|pick:{pick}"
+    p1 = _tg_norm_text(row.get("player1") or row.get("home") or row.get("home_player") or "")
+    p2 = _tg_norm_text(row.get("player2") or row.get("away") or row.get("away_player") or opponent_name(row))
+    start = str(row.get("start_time_utc") or row.get("match_time_utc") or row.get("start_time") or row.get("match_time") or "").strip()[:16]
+    return f"pair:{'|'.join(sorted([pick or p1, p2]))}|{start}|pick:{pick}"
+
+
+def _tg_row_day_from_value(row: Dict[str, Any]) -> str:
+    for key in ("betting_day", "snapshot_date", "snapshot_functional_day", "functional_day", "date", "run_date", "match_date"):
+        value = row.get(key)
+        if value:
+            txt = str(value).strip()[:10]
+            try:
+                datetime.fromisoformat(txt)
+                return txt
+            except Exception:
+                pass
+    return ""
+
+
+def _row_result_day(row: Dict[str, Any]) -> str:
+    explicit = _tg_row_day_from_value(row)
+    if explicit:
+        return explicit
+    dt = match_start_datetime(row)
+    if dt is not None:
+        local_dt = dt.astimezone(local_tz())
+        day = local_dt.date()
+        # Project/results day is 06:00 -> 06:00 Europe/Bratislava.
+        if local_dt.hour < 6:
+            day = day - timedelta(days=1)
+        return day.isoformat()
+    return ""
+
+
+
+def _results_message_needs_rebuild(message: str, model_label: str, target_day: Optional[str] = None) -> bool:
+    """Force JSON/snapshot-based results rendering by default.
+
+    Pre-built result messages can be stale or incomplete when the settlement
+    ledger contains only settled rows. Rebuilding here lets the completeness
+    layer use the full expected daily snapshot and fill missing rows as Pending.
+    Set TG_RESULTS_USE_PREBUILT=1 only for debugging a pre-rendered message.
+    """
+    if os.getenv("TG_RESULTS_USE_PREBUILT", "0").lower() in {"1", "true", "yes", "y"}:
+        txt = str(message or "").strip()
+        if not txt:
+            return True
+        target = str(target_day or "").strip()[:10]
+        if target:
+            message_day = _extract_results_message_day(txt)
+            return bool(message_day != target)
+        return False
+    return True
+
+def _tg_result_source_candidates(model: str, day: Optional[str] = None) -> List[Path]:
+    day = str(day or "").strip()[:10]
+    model = str(model or "corq").lower()
+    candidates: List[Path] = []
+    if model == "cloq":
+        candidates.extend([
+            OUTPUTS / "cloq" / "latest_cloq.json",
+            OUTPUTS / "latest_cloq.json",
+            OUTPUTS / "snapshots" / "latest_cloq_snapshot.json",
+            OUTPUTS / "snapshots" / "latest_cloq.json",
+        ])
+        if day:
+            candidates.extend([
+                OUTPUTS / "snapshots" / f"cloq_{day}.json",
+                OUTPUTS / "snapshots" / f"cloq_top_{day}.json",
+                OUTPUTS / "cloq" / f"cloq_{day}.json",
+            ])
+    else:
+        candidates.extend([
+            OUTPUTS / "snapshots" / "latest_corq_top7_snapshot.json",
+            OUTPUTS / "latest_top7.json",
+            OUTPUTS / "snapshots" / "latest_top7.json",
+        ])
+        if day:
+            candidates.extend([
+                OUTPUTS / "snapshots" / f"corq_top7_{day}.json",
+                OUTPUTS / "snapshots" / f"top7_{day}.json",
+                OUTPUTS / "snapshots" / f"CORQ_TOP7_{day}.json",
+            ])
+    # Preserve order but remove duplicates.
+    out: List[Path] = []
+    seen = set()
+    for path in candidates:
+        key = str(path)
+        if key not in seen:
+            out.append(path)
+            seen.add(key)
+    return out
+
+
+def _tg_expected_rows_from_snapshots(model: str, day: Optional[str] = None) -> List[Dict[str, Any]]:
+    target = str(day or "").strip()[:10]
+    model = str(model or "corq").lower()
+    for path in _tg_result_source_candidates(model, day=target):
+        rows = json_rows(read_json(path, []))
+        if not rows:
+            continue
+        selected: List[Dict[str, Any]] = []
+        for row in rows:
+            if not isinstance(row, dict):
+                continue
+            if target and _row_result_day(row) != target:
+                continue
+            # TOP7/CloQ snapshot files can be compact and may not carry model.
+            if model == "corq":
+                rank = as_float(row.get("top7_rank") or row.get("snapshot_rank") or row.get("corq_rank") or row.get("rank"), None)
+                if rank is None and not (row.get("top7_publishable") is True or "CORQ" in str(row.get("snapshot_type") or row.get("snapshot_source") or "").upper()):
+                    continue
+            else:
+                rank = as_float(row.get("cloq_rank") or row.get("rank") or row.get("snapshot_rank"), None)
+                row_text = str(row.get("model") or row.get("snapshot_type") or row.get("snapshot_source") or row.get("source_filter") or "").upper()
+                # CloQ files are often pure CloQ lists, so accept rows even if no explicit model exists.
+                if rank is None and rows.index(row) >= 10 and "CLOQ" not in row_text:
+                    continue
+            selected.append(dict(row))
+        if selected:
+            print(f"[tg_feed] {model.upper()} expected snapshot rows selected: {path} rows={len(selected)}")
+            return selected
+    print(f"[tg_feed] {model.upper()} expected snapshot rows selected: empty")
+    return []
+
+
+def _tg_merge_expected_and_results(results: List[Dict[str, Any]], expected: List[Dict[str, Any]], model: str, day: Optional[str]) -> List[Dict[str, Any]]:
+    model = str(model or "corq").lower()
+    target = str(day or "").strip()[:10]
+    results_filtered = filter_result_rows(results or [], model, day=target)
+    by_side: Dict[str, Dict[str, Any]] = {}
+    for row in results_filtered:
+        key = _tg_side_identity(row)
+        if key:
+            by_side[key] = row
+
+    merged: List[Dict[str, Any]] = []
+    used = set()
+    expected_sorted = sorted(
+        expected or [],
+        key=lambda r: (
+            as_float(r.get("snapshot_rank") or r.get("top7_rank") or r.get("cloq_rank") or r.get("rank"), 9999) or 9999,
+            start_time(r),
+            pick_name(r),
+        ),
+    )
+    for row in expected_sorted:
+        key = _tg_side_identity(row)
+        settled = by_side.get(key)
+        if settled is not None:
+            merged.append(settled)
+            used.add(key)
+        else:
+            pending = dict(row)
+            pending.setdefault("model", model)
+            if target:
+                pending.setdefault("date", target)
+                pending.setdefault("betting_day", target)
+            pending["result_status"] = "PENDING"
+            pending["result"] = "PENDING"
+            pending["settlement_status"] = "PENDING"
+            pending["units"] = None
+            pending["tg_results_fill_status"] = "PENDING_FROM_EXPECTED_SNAPSHOT"
+            pending["tg_results_completeness_version"] = TG_RESULTS_COMPLETENESS_MODEL_VERSION
+            merged.append(pending)
+            print(f"[tg_feed] {model.upper()} results completeness filled pending row: {pick_name(pending)} {start_time(pending)}")
+
+    # Add any extra settled rows that were not in expected snapshot. This keeps
+    # backward compatibility if historical snapshots are not available.
+    for row in results_filtered:
+        key = _tg_side_identity(row)
+        if key not in used and not any(_tg_side_identity(x) == key for x in merged):
+            merged.append(row)
+
+    merged.sort(key=lambda r: (
+        as_float(r.get("snapshot_rank") or r.get("top7_rank") or r.get("cloq_rank") or r.get("rank"), 9999) or 9999,
+        start_time(r),
+        pick_name(r),
+    ))
+    return merged
+
+
+def filter_result_rows(rows: List[Dict[str, Any]], model: str, day: Optional[str] = None) -> List[Dict[str, Any]]:
+    target = str(day or "").strip()[:10]
+    out: List[Dict[str, Any]] = []
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        if not _result_row_model_matches(row, model):
+            continue
+        if target and _row_result_day(row) != target:
+            continue
+        out.append(row)
+    out.sort(key=lambda r: (as_float(r.get("snapshot_rank") or r.get("top7_rank") or r.get("cloq_rank") or r.get("rank"), 9999) or 9999, start_time(r), pick_name(r)))
+    return out
+
+
+def build_results_summary_message(rows: List[Dict[str, Any]], model_label: str, day: Optional[str] = None) -> str:
+    model = str(model_label or "CorQ").lower()
+    label = _model_label(model)
+    filtered = filter_result_rows(rows or [], model, day=day)
+    expected = _tg_expected_rows_from_snapshots(model, day=day)
+    if expected:
+        rows = _tg_merge_expected_and_results(rows or [], expected, model, day)
+    else:
+        rows = filtered
+
+    date_text = ""
+    if day:
+        try:
+            date_text = datetime.fromisoformat(str(day)[:10]).strftime("%d.%m.%y")
+        except Exception:
+            date_text = str(day)[:10]
+    else:
+        date_text = snapshot_date(rows)
+
+    counts = {"won": 0, "lost": 0, "void": 0, "pending": 0}
+    units = 0.0
+    for row in rows:
+        st = result_status(row)
+        counts[st if st in counts else "pending"] += 1
+        units += result_units(row)
+    decided = counts["won"] + counts["lost"]
+    roi = (units / decided) if decided else None
+    roi_txt = "ROI —" if roi is None else f"ROI {roi * 100:+.1f}%"
+    lines = [HEADER, "", f"📊 Results | {label}", f"📅 {date_text}", ""]
+    if rows:
+        for idx, row in enumerate(rows[:10], 1):
+            st = result_status(row)
+            icon = {"won": "✅", "lost": "❌", "void": "➖", "pending": "⏳"}.get(st, "⏳")
+            unit_txt = "Pending" if st == "pending" else f"{result_units(row):+.2f}u"
+            lines.append(f"{number_emoji(idx)} {icon} {short_name(pick_name(row))} | {start_time(row)} | {fmt_odds(pick_odds(row))} | {unit_txt}")
+        lines.extend([
+            "",
+            f"✅{counts['won']} ❌{counts['lost']} ➖{counts['void']} ⏳{counts['pending']} | {units:+.2f}u | {roi_txt}",
+        ])
+        if expected and len(rows) != len(filtered):
+            lines.append(f"↪️ Filled {len(rows) - len(filtered)} missing snapshot row(s) as Pending")
+    else:
+        lines.append(f"No previous {label} snapshot rows found.")
+    lines.extend(["", FOOTER])
+    return "\n".join(lines)
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Telegram feed formatter/sender for CorQ")
     parser.add_argument("--mode", choices=("cloq", "top7", "free", "results", "corq-results", "cloq-results"), default=os.getenv("TG_FEED_MODE", "top7"))
