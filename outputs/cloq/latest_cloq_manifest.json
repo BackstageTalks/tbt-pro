@@ -1,10 +1,10 @@
 {
   "model": "CLOQ_HIGH_ODDS_DATA_COVERED_V5_AUDIT_CLEANUP",
-  "created_at_utc": "2026-08-15T11:33:54.903769+00:00",
+  "created_at_utc": "2026-08-16T04:27:55.958178+00:00",
   "input_path": "outputs/latest_all.json",
-  "input_rows": 64,
-  "audit_rows": 64,
-  "output_rows": 9,
+  "input_rows": 68,
+  "audit_rows": 68,
+  "output_rows": 6,
   "top_n": 10,
   "corq_overlap": {
     "enabled": false,
@@ -12,7 +12,7 @@
       "outputs/latest_top7.json",
       "outputs/snapshots/latest_corq_top7_snapshot.json"
     ],
-    "corq_match_key_count": 8,
+    "corq_match_key_count": 7,
     "audit_rows_excluded_by_corq_overlap": 0,
     "publishable_rows_excluded_by_corq_overlap": 0,
     "policy": "CloQ has priority. CloQ keeps overlapping matches; CorQ finalizer removes CloQ overlaps from CorQ TOP7 and fills back to seven."
@@ -34,69 +34,63 @@
     "forced_count": false
   },
   "selected_tier_counts": {
-    "CLOQ_PRIME": 5,
-    "CLOQ_EXTENDED": 3,
-    "CLOQ_HIGH_VARIANCE": 1
+    "CLOQ_PRIME": 3,
+    "CLOQ_EXTENDED": 3
   },
   "decision_counts": {
-    "CLOQ_PRIME": 5,
+    "CLOQ_PRIME": 3,
     "CLOQ_EXTENDED": 3,
-    "CLOQ_HIGH_VARIANCE": 1,
-    "CLOQ_REJECTED": 55
+    "CLOQ_REJECTED": 62
   },
   "price_bucket_counts": {
     "PRIME_1_70_1_90": 7,
-    "EXTENDED_1_90_2_20": 9,
+    "EXTENDED_1_90_2_20": 7,
     "HIGH_VARIANCE_2_20_2_50": 6,
-    "TOO_LOW": 24,
-    "TOO_HIGH": 18
+    "TOO_LOW": 27,
+    "TOO_HIGH": 21
   },
   "reject_reason_counts": {
     "CLOQ_INFO_UNDERDOG_MARKET_NOT_SUPPORTIVE": 3,
     "CLOQ_INFO_MARKET_AGAINST_PICK": 3,
-    "CLOQ_REJECT_MODEL_BELOW_50": 12,
-    "CLOQ_REJECT_RANDOM_UNDERDOG": 11,
+    "CLOQ_REJECT_RANDOM_UNDERDOG": 10,
     "CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE": 10,
     "CLOQ_REJECT_MARKET_AGAINST_WEAK_MODEL": 10,
-    "CLOQ_REJECT_MODEL_BELOW_BAND_MINIMUM": 1,
-    "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE": 1,
-    "CLOQ_REJECT_ODDS_UNDER_1_70": 24,
-    "CLOQ_REJECT_STATUS_NOT_PREMATCH": 2,
-    "CLOQ_REJECT_ODDS_OVER_2_50": 18
+    "CLOQ_REJECT_MODEL_BELOW_50": 13,
+    "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE": 2,
+    "CLOQ_REJECT_ODDS_UNDER_1_70": 27,
+    "CLOQ_REJECT_ODDS_OVER_2_50": 21
   },
   "risk_tag_counts": {
-    "MARKET_AGAINST_PICK": 31,
-    "PROBABILITY_UNDER_BREAK_EVEN_INFO": 36,
-    "HIGH_VARIANCE_PRICE_BAND": 24,
-    "MARQ_AGAINST": 26,
-    "MODEL_AGAINST": 32,
-    "ELO_AGAINST": 31,
-    "SURFACE_AGAINST": 28,
-    "FORM_AGAINST": 3
+    "FORM_AGAINST": 3,
+    "MARKET_AGAINST_PICK": 34,
+    "MARQ_AGAINST": 29,
+    "PROBABILITY_UNDER_BREAK_EVEN_INFO": 39,
+    "ELO_AGAINST": 34,
+    "SURFACE_AGAINST": 33,
+    "MODEL_AGAINST": 34,
+    "HIGH_VARIANCE_PRICE_BAND": 27
   },
   "support_tag_counts": {
     "PRIME_1_70_1_90": 7,
-    "PROBABILITY_BUFFER_STRONG": 18,
-    "MODEL_STRONG_SUPPORT": 27,
-    "MARQ_SUPPORT": 9,
-    "ELO_SUPPORT": 31,
-    "FORM_LIGHT_SUPPORT": 24,
-    "SURFACE_SUPPORT": 28,
-    "MARKET_WITH_PICK": 31,
-    "DATA_COVERED_STRONG": 34,
-    "EXTENDED_1_90_2_20": 9,
-    "MARQ_LIGHT_SUPPORT": 2,
-    "MARKET_NEUTRAL": 2,
-    "DATA_COVERED": 30,
-    "PROBABILITY_OVER_BREAK_EVEN": 10,
-    "MODEL_SUPPORT": 3,
+    "PROBABILITY_BUFFER_STRONG": 22,
+    "MODEL_STRONG_SUPPORT": 29,
+    "MARQ_SUPPORT": 8,
+    "ELO_SUPPORT": 34,
+    "FORM_LIGHT_SUPPORT": 29,
+    "SURFACE_SUPPORT": 33,
+    "MARKET_WITH_PICK": 34,
+    "DATA_COVERED_STRONG": 46,
+    "PROBABILITY_OVER_BREAK_EVEN": 7,
+    "EXTENDED_1_90_2_20": 7,
+    "DATA_COVERED": 22,
+    "SURFACE_LIGHT_SUPPORT": 1,
+    "MODEL_LIGHT_SUPPORT": 3,
     "FORM_SUPPORT": 3,
-    "MODEL_LIGHT_SUPPORT": 2,
-    "SURFACE_LIGHT_SUPPORT": 4,
     "HIGH_VARIANCE_2_20_2_50": 6,
-    "TOO_LOW": 24,
-    "MARQ_STRONG_SUPPORT": 22,
-    "TOO_HIGH": 18
+    "TOO_LOW": 27,
+    "MARQ_STRONG_SUPPORT": 26,
+    "MODEL_SUPPORT": 2,
+    "TOO_HIGH": 21
   },
   "notes": [
     "CloQ scans the full ALL pool, not only CorQ TOP7.",
