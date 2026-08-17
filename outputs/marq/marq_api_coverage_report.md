@@ -1,6 +1,6 @@
 # MarQ API Coverage Report
 
-Generated UTC: 2026-08-17T09:34:22.880725+00:00
+Generated UTC: 2026-08-17T13:51:27.428863+00:00
 Model: 2026-08-04-marq-coverage-report-v1
 
 ## all_audit
@@ -37,14 +37,14 @@ Rows: 32
 ### Value status
 
 - NO_VALUE: 16 (50.0%)
-- VALUE_STRONG: 13 (40.62%)
-- VALUE_PLAYABLE: 3 (9.38%)
+- VALUE_STRONG: 12 (37.5%)
+- VALUE_PLAYABLE: 4 (12.5%)
 
 ### Numeric stats
 
 - CorQ market weight: `{'count': 32, 'avg': 0.2506, 'min': 0.12, 'max': 0.3}`
-- Value delta pp: `{'count': 32, 'avg': 0.0, 'min': -19.47, 'max': 19.47}`
-- Expected value pct: `{'count': 32, 'avg': 8.2378, 'min': -26.91, 'max': 111.92}`
+- Value delta pp: `{'count': 32, 'avg': 0.0, 'min': -18.15, 'max': 18.15}`
+- Expected value pct: `{'count': 32, 'avg': 7.5075, 'min': -26.26, 'max': 99.08}`
 
 ## corq_top7
 
@@ -52,8 +52,8 @@ Rows: 5
 
 ### Coverage
 
-- High MarQ: 80.0%
-- Medium current-only: 20.0%
+- High MarQ: 100.0%
+- Medium current-only: 0.0%
 - Thin fallback: 0.0%
 - No/unknown MarQ: 0.0%
 - Usable High+Medium: 100.0%
@@ -64,18 +64,15 @@ Rows: 5
 
 ### Quality tiers
 
-- HIGH: 4 (80.0%)
-- MEDIUM_CURRENT_ONLY: 1 (20.0%)
+- HIGH: 5 (100.0%)
 
 ### Data status
 
-- EXACT_BETTING_ODDS_WITH_OPENING: 4 (80.0%)
-- EXACT_CURRENT_ODDS_ONLY: 1 (20.0%)
+- EXACT_BETTING_ODDS_WITH_OPENING: 5 (100.0%)
 
 ### Movement status
 
-- REAL_OPENING_CURRENT_AVAILABLE: 4 (80.0%)
-- OPENING_EQUALS_CURRENT: 1 (20.0%)
+- REAL_OPENING_CURRENT_AVAILABLE: 5 (100.0%)
 
 ### Value status
 
@@ -85,9 +82,9 @@ Rows: 5
 
 ### Numeric stats
 
-- CorQ market weight: `{'count': 5, 'avg': 0.232, 'min': 0.12, 'max': 0.3}`
-- Value delta pp: `{'count': 5, 'avg': -0.876, 'min': -4.67, 'max': 4.03}`
-- Expected value pct: `{'count': 5, 'avg': -5.844, 'min': -13.22, 'max': 2.8}`
+- CorQ market weight: `{'count': 5, 'avg': 0.268, 'min': 0.22, 'max': 0.3}`
+- Value delta pp: `{'count': 5, 'avg': -0.366, 'min': -4.67, 'max': 4.03}`
+- Expected value pct: `{'count': 5, 'avg': -5.33, 'min': -13.22, 'max': 2.8}`
 
 ## cloq
 

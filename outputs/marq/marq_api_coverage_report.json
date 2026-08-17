@@ -1,6 +1,6 @@
 {
   "model_version": "2026-08-04-marq-coverage-report-v1",
-  "generated_at_utc": "2026-08-17T09:34:22.880725+00:00",
+  "generated_at_utc": "2026-08-17T13:51:27.428863+00:00",
   "input_paths": {
     "all": "outputs/latest_all.json",
     "top7": "outputs/latest_top7.json",
@@ -38,8 +38,8 @@
       },
       "value_status_counts": {
         "NO_VALUE": 16,
-        "VALUE_STRONG": 13,
-        "VALUE_PLAYABLE": 3
+        "VALUE_STRONG": 12,
+        "VALUE_PLAYABLE": 4
       },
       "source_policy_counts": {
         "TENNISAPI_ONLY_EXACT_EVENT": 32
@@ -53,14 +53,14 @@
       "value_delta_pp_stats": {
         "count": 32,
         "avg": 0.0,
-        "min": -19.47,
-        "max": 19.47
+        "min": -18.15,
+        "max": 18.15
       },
       "expected_value_pct_stats": {
         "count": 32,
-        "avg": 8.2378,
-        "min": -26.91,
-        "max": 111.92
+        "avg": 7.5075,
+        "min": -26.26,
+        "max": 99.08
       },
       "samples": {
         "thin_fallback": [],
@@ -343,15 +343,15 @@
             "identity": "16737586",
             "pick": "Alexander Zverev",
             "opponent": "Terence Atmane",
-            "odds": 1.13,
+            "odds": 1.14,
             "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.22,
-            "value_delta_pp": -19.47,
-            "expected_value_pct": -26.91,
+            "data_status": "EXACT_CURRENT_ODDS_ONLY",
+            "confidence": "MEDIUM",
+            "movement_status": "OPENING_EQUALS_CURRENT",
+            "tier": "MEDIUM_CURRENT_ONLY",
+            "market_weight": 0.12,
+            "value_delta_pp": -18.15,
+            "expected_value_pct": -26.26,
             "fallback_reason": null
           },
           {
@@ -480,15 +480,15 @@
             "identity": "16737586",
             "pick": "Terence Atmane",
             "opponent": "Alexander Zverev",
-            "odds": 6.0,
+            "odds": 5.5,
             "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": 19.47,
-            "expected_value_pct": 111.92,
+            "data_status": "EXACT_CURRENT_ODDS_ONLY",
+            "confidence": "MEDIUM",
+            "movement_status": "OPENING_EQUALS_CURRENT",
+            "tier": "MEDIUM_CURRENT_ONLY",
+            "market_weight": 0.12,
+            "value_delta_pp": 18.15,
+            "expected_value_pct": 94.26,
             "fallback_reason": null
           },
           {
@@ -582,21 +582,6 @@
             "fallback_reason": null
           },
           {
-            "identity": "16737894",
-            "pick": "Clara Tauson",
-            "opponent": "Linda Noskova",
-            "odds": 3.0,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": 3.88,
-            "expected_value_pct": 7.1,
-            "fallback_reason": null
-          },
-          {
             "identity": "16737883",
             "pick": "Emma Navarro",
             "opponent": "Jessica Pegula",
@@ -609,6 +594,21 @@
             "market_weight": 0.3,
             "value_delta_pp": 9.61,
             "expected_value_pct": 37.97,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16737893",
+            "pick": "Alexandra Eala",
+            "opponent": "Amanda Anisimova",
+            "odds": 2.1,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 4.67,
+            "expected_value_pct": 4.66,
             "fallback_reason": null
           }
         ]
@@ -627,8 +627,8 @@
       "label": "corq_top7",
       "total_rows": 5,
       "coverage_pct": {
-        "high_marq": 80.0,
-        "medium_current_only": 20.0,
+        "high_marq": 100.0,
+        "medium_current_only": 0.0,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
         "usable_marq_high_or_medium": 100.0
@@ -637,20 +637,16 @@
         "getAllOddsForEvent": 5
       },
       "data_status_counts": {
-        "EXACT_BETTING_ODDS_WITH_OPENING": 4,
-        "EXACT_CURRENT_ODDS_ONLY": 1
+        "EXACT_BETTING_ODDS_WITH_OPENING": 5
       },
       "confidence_counts": {
-        "HIGH": 4,
-        "MEDIUM": 1
+        "HIGH": 5
       },
       "movement_status_counts": {
-        "REAL_OPENING_CURRENT_AVAILABLE": 4,
-        "OPENING_EQUALS_CURRENT": 1
+        "REAL_OPENING_CURRENT_AVAILABLE": 5
       },
       "quality_tier_counts": {
-        "HIGH": 4,
-        "MEDIUM_CURRENT_ONLY": 1
+        "HIGH": 5
       },
       "value_status_counts": {
         "NO_VALUE": 3,
@@ -662,19 +658,19 @@
       },
       "market_weight_stats": {
         "count": 5,
-        "avg": 0.232,
-        "min": 0.12,
+        "avg": 0.268,
+        "min": 0.22,
         "max": 0.3
       },
       "value_delta_pp_stats": {
         "count": 5,
-        "avg": -0.876,
+        "avg": -0.366,
         "min": -4.67,
         "max": 4.03
       },
       "expected_value_pct_stats": {
         "count": 5,
-        "avg": -5.844,
+        "avg": -5.33,
         "min": -13.22,
         "max": 2.8
       },
@@ -711,6 +707,21 @@
             "market_weight": 0.3,
             "value_delta_pp": -2.08,
             "expected_value_pct": -7.46,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16737894",
+            "pick": "Linda Noskova",
+            "opponent": "Clara Tauson",
+            "odds": 1.44,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": -1.33,
+            "expected_value_pct": -7.41,
             "fallback_reason": null
           },
           {
@@ -764,15 +775,15 @@
             "identity": "16737894",
             "pick": "Linda Noskova",
             "opponent": "Clara Tauson",
-            "odds": 1.4,
+            "odds": 1.44,
             "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": -3.88,
-            "expected_value_pct": -9.98,
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": -1.33,
+            "expected_value_pct": -7.41,
             "fallback_reason": null
           },
           {
