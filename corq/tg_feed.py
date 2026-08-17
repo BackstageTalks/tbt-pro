@@ -148,6 +148,86 @@ def short_name(name: str) -> str:
     return parts[-1]
 
 
+# ---------------------------------------------------------------------------
+# Telegram display-name disambiguation
+# ---------------------------------------------------------------------------
+# Display names stay compact by default (surname only), but if one TG message
+# contains multiple picks with the same surname, include initials. Examples:
+#   Francisco Cerundolo -> F. Cerundolo
+#   Juan Manuel Cerundolo -> J.M. Cerundolo
+# If initials are still ambiguous, fall back to the full player name.
+
+def _tg_display_norm(value: Any) -> str:
+    import re
+    import unicodedata
+    text = str(value or "").strip().lower()
+    text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
+    text = re.sub(r"[^a-z0-9]+", " ", text)
+    return " ".join(text.split())
+
+
+def _tg_name_parts(name: Any) -> List[str]:
+    return [part for part in str(name or "").strip().split() if part]
+
+
+def _tg_surname(name: Any) -> str:
+    parts = _tg_name_parts(name)
+    return parts[-1] if parts else ""
+
+
+def _tg_initials(name: Any) -> str:
+    parts = _tg_name_parts(name)
+    if len(parts) <= 1:
+        return ""
+    return "".join(f"{part[0].upper()}." for part in parts[:-1] if part)
+
+
+def display_name_map(rows: Iterable[Dict[str, Any]]) -> Dict[str, str]:
+    full_names: List[str] = []
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        name = pick_name(row)
+        if name and name not in full_names:
+            full_names.append(name)
+
+    surname_counts: Dict[str, int] = {}
+    for name in full_names:
+        key = _tg_display_norm(_tg_surname(name))
+        if key:
+            surname_counts[key] = surname_counts.get(key, 0) + 1
+
+    proposed: Dict[str, str] = {}
+    display_counts: Dict[str, int] = {}
+    for name in full_names:
+        surname = _tg_surname(name)
+        surname_key = _tg_display_norm(surname)
+        if surname and surname_counts.get(surname_key, 0) > 1:
+            initials = _tg_initials(name)
+            display = f"{initials} {surname}".strip() if initials else str(name).strip()
+        else:
+            display = short_name(name)
+        proposed[name] = display
+        display_key = _tg_display_norm(display)
+        display_counts[display_key] = display_counts.get(display_key, 0) + 1
+
+    # If initials still collide, show full names for that collision group.
+    out: Dict[str, str] = {}
+    for name, display in proposed.items():
+        if display_counts.get(_tg_display_norm(display), 0) > 1:
+            out[name] = str(name).strip() or "—"
+        else:
+            out[name] = display or "—"
+    return out
+
+
+def display_pick_name(row: Dict[str, Any], names: Optional[Dict[str, str]] = None) -> str:
+    full = pick_name(row)
+    if names and full in names:
+        return names[full]
+    return short_name(full)
+
+
 def local_tz():
     """Telegram feed timezone.
 
@@ -469,8 +549,8 @@ def number_emoji(index: int) -> str:
     return emojis[index - 1] if 1 <= index <= len(emojis) else f"{index}."
 
 
-def format_row(row: Dict[str, Any], prefix: str) -> str:
-    name = short_name(pick_name(row))
+def format_row(row: Dict[str, Any], prefix: str, names: Optional[Dict[str, str]] = None) -> str:
+    name = display_pick_name(row, names)
     return f"{prefix} {name} | {start_time(row)} | {fmt_pct(probability(row))} | {fmt_odds(pick_odds(row))}"
 
 
@@ -480,7 +560,8 @@ def build_top7_message(rows: List[Dict[str, Any]], limit: int = 7, upcoming_only
     date_text = snapshot_date(rows)
     lines = [HEADER, "", "🎾 TOP Picks | CorQ", f"📅 {date_text}", ""]
     if rows:
-        lines.extend(format_row(row, number_emoji(idx)) for idx, row in enumerate(rows, 1))
+        names = display_name_map(rows)
+        lines.extend(format_row(row, number_emoji(idx), names) for idx, row in enumerate(rows, 1))
     else:
         lines.append("No valid upcoming CorQ picks available today.")
     lines.extend(["", FOOTER])
@@ -492,8 +573,9 @@ def build_free_message(rows: List[Dict[str, Any]], upcoming_only: bool = True) -
     date_text = snapshot_date(rows)
     lines = [HEADER, "", "🎾 FREE | CorQ", f"📅 {date_text}", ""]
     if rows:
+        names = display_name_map(rows)
         row = rows[0]
-        lines.append(format_row(row, "🆓"))
+        lines.append(format_row(row, "🆓", names))
     else:
         lines.append("No valid upcoming CorQ free pick available today.")
     lines.extend(["", FOOTER])
@@ -505,7 +587,8 @@ def build_cloq_message(rows: List[Dict[str, Any]], limit: int = 10, upcoming_onl
     date_text = snapshot_date(rows)
     lines = [HEADER, "", "🎾 TOP Picks | CloQ", f"📅 {date_text}", ""]
     if rows:
-        lines.extend(format_row(row, number_emoji(idx)) for idx, row in enumerate(rows, 1))
+        names = display_name_map(rows)
+        lines.extend(format_row(row, number_emoji(idx), names) for idx, row in enumerate(rows, 1))
     else:
         lines.append("No valid upcoming CloQ picks available today.")
     lines.extend(["", FOOTER])
@@ -517,7 +600,8 @@ def build_cloq_free_message(rows: List[Dict[str, Any]], upcoming_only: bool = Tr
     date_text = snapshot_date(rows)
     lines = [HEADER, "", "🎾 FREE | CloQ", f"📅 {date_text}", ""]
     if rows:
-        lines.append(format_row(rows[0], "🆓"))
+        names = display_name_map(rows)
+        lines.append(format_row(rows[0], "🆓", names))
     else:
         lines.append("No valid upcoming CloQ free pick available today.")
     lines.extend(["", FOOTER])
@@ -632,7 +716,7 @@ def build_results_summary_message(rows: List[Dict[str, Any]], model_label: str) 
         for idx, row in enumerate(rows[:10], 1):
             st = result_status(row)
             icon = {"won": "✅", "lost": "❌", "void": "↩️", "pending": "⏳"}.get(st, "⏳")
-            lines.append(f"{number_emoji(idx)} {short_name(pick_name(row))} | {icon} | {fmt_odds(pick_odds(row))} | {result_units(row):+.2f}u")
+            lines.append(f"{number_emoji(idx)} {display_pick_name(row, display_name_map(rows))} | {icon} | {fmt_odds(pick_odds(row))} | {result_units(row):+.2f}u")
     else:
         lines.append(f"No {model_label} results summary available yet.")
     lines.extend(["", FOOTER])
@@ -942,11 +1026,12 @@ def build_results_summary_message(rows: List[Dict[str, Any]], model_label: str, 
     roi_txt = "ROI —" if roi is None else f"ROI {roi * 100:+.1f}%"
     lines = [HEADER, "", f"📊 Results | {label}", f"📅 {date_text}", ""]
     if rows:
+        names = display_name_map(rows)
         for idx, row in enumerate(rows[:10], 1):
             st = result_status(row)
             icon = {"won": "✅", "lost": "❌", "void": "➖", "pending": "⏳"}.get(st, "⏳")
             unit_txt = "Pending" if st == "pending" else f"{result_units(row):+.2f}u"
-            lines.append(f"{number_emoji(idx)} {icon} {short_name(pick_name(row))} | {start_time(row)} | {fmt_odds(pick_odds(row))} | {unit_txt}")
+            lines.append(f"{number_emoji(idx)} {icon} {display_pick_name(row, names)} | {start_time(row)} | {fmt_odds(pick_odds(row))} | {unit_txt}")
         lines.extend([
             "",
             f"✅{counts['won']} ❌{counts['lost']} ➖{counts['void']} ⏳{counts['pending']} | {units:+.2f}u | {roi_txt}",
@@ -1358,11 +1443,12 @@ def build_results_summary_message(rows: List[Dict[str, Any]], model_label: str, 
     roi_txt = "ROI —" if roi is None else f"ROI {roi * 100:+.1f}%"
     lines = [HEADER, "", f"📊 Results | {label}", f"📅 {date_text}", ""]
     if rows:
+        names = display_name_map(rows)
         for idx, row in enumerate(rows[:10], 1):
             st = result_status(row)
             icon = {"won": "✅", "lost": "❌", "void": "➖", "pending": "⏳"}.get(st, "⏳")
             unit_txt = "Pending" if st == "pending" else f"{result_units(row):+.2f}u"
-            lines.append(f"{number_emoji(idx)} {icon} {short_name(pick_name(row))} | {start_time(row)} | {fmt_odds(pick_odds(row))} | {unit_txt}")
+            lines.append(f"{number_emoji(idx)} {icon} {display_pick_name(row, names)} | {start_time(row)} | {fmt_odds(pick_odds(row))} | {unit_txt}")
         lines.extend([
             "",
             f"✅{counts['won']} ❌{counts['lost']} ➖{counts['void']} ⏳{counts['pending']} | {units:+.2f}u | {roi_txt}",
