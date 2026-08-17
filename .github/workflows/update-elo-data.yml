@@ -11,18 +11,10 @@ on:
         description: "Optional audit note"
         required: false
         default: "manual"
-  workflow_run:
-    workflows:
-      - Update TA Profiles
+  repository_dispatch:
     types:
-      - completed
-    branches:
-      - main
-  schedule:
-    # Safety standalone run in case workflow_run from TA is delayed/missed.
-    # 04:15 UTC Tuesday = 06:15 Europe/Bratislava during summer time.
-    # In winter this is 05:15 Europe/Bratislava Tuesday.
-    - cron: "15 4 * * 2"
+      - update-elo-data
+      - elo-data-refresh
 
 permissions:
   contents: write
@@ -41,7 +33,6 @@ jobs:
         id: trigger_policy
         env:
           EVENT_NAME: ${{ github.event_name }}
-          WORKFLOW_RUN_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
         run: |
           python - <<'PY' >> "$GITHUB_OUTPUT"
           import os
@@ -49,25 +40,16 @@ jobs:
           from zoneinfo import ZoneInfo
 
           event_name = os.getenv("EVENT_NAME", "")
-          conclusion = os.getenv("WORKFLOW_RUN_CONCLUSION", "")
           now = datetime.now(ZoneInfo("Europe/Bratislava"))
 
-          should_run = True
-          reason = event_name
-
-          if event_name == "workflow_run":
-              # TA also runs on Thu/Fri. ELO should refresh automatically only from the Tuesday TA run.
-              should_run = conclusion == "success" and now.weekday() == 1
-              reason = f"workflow_run_after_ta conclusion={conclusion} local_weekday={now.weekday()}"
-          elif event_name == "schedule":
-              should_run = now.weekday() == 1
-              reason = f"scheduled_tuesday_guard local_weekday={now.weekday()}"
-          elif event_name == "workflow_dispatch":
-              should_run = True
-              reason = "manual_dispatch"
+          # ELO refresh is controlled by external Cron or manual dispatch only.
+          # No internal GitHub schedule and no dependency on TA workflows.
+          should_run = event_name in {"workflow_dispatch", "repository_dispatch"}
+          reason = "external_cron_or_manual_dispatch" if should_run else f"unsupported_trigger={event_name}"
 
           print(f"now={now.isoformat()}")
           print(f"event_name={event_name}")
+          print(f"trigger_policy=external_cron_or_manual_dispatch")
           print(f"reason={reason}")
           print(f"should_run={'true' if should_run else 'false'}")
           PY
