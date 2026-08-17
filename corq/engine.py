@@ -279,35 +279,26 @@ def _enrich_with_tennisapi_ranking_info(record: Dict[str, Any], rankings: Dict[s
 
 
 def _enrich_with_ta_profile_context(record: Dict[str, Any]) -> Dict[str, Any]:
-    try:
-        try:
-            from thinq.loaders.ta_profile_loader import build_match_ta_context  # type: ignore
-        except Exception:
-            # Some repo snapshots keep the TA profile loader as a top-level helper.
-            # Keep this fallback so Aces/DF projections are not silently lost due to
-            # import-path drift between workflows.
-            from ta_profile_loader import build_match_ta_context  # type: ignore
-        ctx = build_match_ta_context(
-            str(record.get("pick") or record.get("player") or record.get("player1") or ""),
-            str(record.get("opponent") or record.get("opp") or record.get("player2") or ""),
-            str(record.get("surface") or record.get("surface_raw") or ""),
-        )
-        if isinstance(ctx, dict):
-            record.update(ctx)
-            record["ta_context"] = ctx
-            return record
-    except Exception as exc:
-        record.setdefault("ta_context_error", str(exc))
+    """TA legacy disabled.
+
+    Tennis Abstract profile enrichment was removed from the production path.
+    Keep neutral ta_* compatibility fields so render/audit code that still reads
+    those keys does not fail, but do not import or scrape TA data.
+    """
     defaults = {
-        "ta_status": "N/A",
-        "ta_pick_status": "N/A",
-        "ta_opp_status": "N/A",
+        "ta_status": "DISABLED",
+        "ta_pick_status": "DISABLED",
+        "ta_opp_status": "DISABLED",
+        "ta_scope": "DISABLED",
+        "ta_surface": None,
         "ta_pick_set_pct": None,
         "ta_opp_set_pct": None,
         "ta_pick_game_pct": None,
         "ta_opp_game_pct": None,
         "ta_pick_tb_split": None,
         "ta_opp_tb_split": None,
+        "ta_pick_tb_pct": None,
+        "ta_opp_tb_pct": None,
         "ta_pick_ace_pct": None,
         "ta_opp_ace_pct": None,
         "ta_pick_df_pct": None,
@@ -316,6 +307,10 @@ def _enrich_with_ta_profile_context(record: Dict[str, Any]) -> Dict[str, Any]:
         "ta_opp_surface_dr": None,
         "ta_pick_rpw_pct": None,
         "ta_opp_rpw_pct": None,
+        "ta_pick_tpw_pct": None,
+        "ta_opp_tpw_pct": None,
+        "ta_pick_matches": None,
+        "ta_opp_matches": None,
         "ta_pick_depth": None,
         "ta_opp_depth": None,
         "pick_aces_line": None,
@@ -331,12 +326,12 @@ def _enrich_with_ta_profile_context(record: Dict[str, Any]) -> Dict[str, Any]:
         "ta_match_shape": "N/A",
         "ta_depth_label": "N/A",
         "ta_decision_confidence": 0.0,
-        "ta_decision_notes": [],
+        "ta_decision_notes": ["TA profile enrichment disabled; API/ThinQ data only"],
+        "ta_context": {},
     }
     for key, value in defaults.items():
         record.setdefault(key, value)
     return record
-
 
 def _call_build_match_features(thinq_service: Any, payload: Dict[str, Any]) -> Dict[str, Any]:
     method = thinq_service.build_match_features
