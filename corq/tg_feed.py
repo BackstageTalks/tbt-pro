@@ -478,7 +478,7 @@ def build_top7_message(rows: List[Dict[str, Any]], limit: int = 7, upcoming_only
     # TOP7 is an immutable daily snapshot. Do not drop already-started rows.
     rows = valid_rows(rows, upcoming_only=False)[:limit]
     date_text = snapshot_date(rows)
-    lines = [HEADER, "", "🎾 TOP7 | CorQ", f"📅 {date_text}", ""]
+    lines = [HEADER, "", "🎾 TOP Picks | CorQ", f"📅 {date_text}", ""]
     if rows:
         lines.extend(format_row(row, number_emoji(idx)) for idx, row in enumerate(rows, 1))
     else:
@@ -503,11 +503,23 @@ def build_cloq_message(rows: List[Dict[str, Any]], limit: int = 10, upcoming_onl
     rows = drop_cloq_corq_overlaps(rows)
     rows = valid_rows(rows, upcoming_only=upcoming_only)[:limit]
     date_text = snapshot_date(rows)
-    lines = [HEADER, "", "🎾 TOP10 | CloQ", f"📅 {date_text}", ""]
+    lines = [HEADER, "", "🎾 TOP Picks | CloQ", f"📅 {date_text}", ""]
     if rows:
         lines.extend(format_row(row, number_emoji(idx)) for idx, row in enumerate(rows, 1))
     else:
         lines.append("No valid upcoming CloQ picks available today.")
+    lines.extend(["", FOOTER])
+    return "\n".join(lines)
+
+
+def build_cloq_free_message(rows: List[Dict[str, Any]], upcoming_only: bool = True) -> str:
+    rows = valid_rows(drop_cloq_corq_overlaps(rows), upcoming_only=upcoming_only)
+    date_text = snapshot_date(rows)
+    lines = [HEADER, "", "🎾 FREE | CloQ", f"📅 {date_text}", ""]
+    if rows:
+        lines.append(format_row(rows[0], "🆓"))
+    else:
+        lines.append("No valid upcoming CloQ free pick available today.")
     lines.extend(["", FOOTER])
     return "\n".join(lines)
 
@@ -1204,18 +1216,51 @@ def _tg_expected_rows_from_snapshots(model: str, day: Optional[str] = None) -> L
     return []
 
 
+
+
+def _tg_result_loose_identity(row: Dict[str, Any], day: Optional[str] = None) -> str:
+    """Fallback identity for result/snapshot merge when event ids differ.
+
+    Some settled rows and snapshot rows can represent the same pick but carry a
+    different side_identity/event key. Use conservative visible fields so a
+    settled row replaces the Pending snapshot row instead of creating duplicate
+    lines in Telegram results.
+    """
+    pick = _tg_norm_text(pick_name(row))
+    if not pick:
+        return ""
+    target_day = str(day or _row_result_day(row) or "").strip()[:10]
+    t = start_time(row)
+    odds = pick_odds(row)
+    odds_txt = f"{odds:.2f}" if odds else ""
+    opponent = _tg_norm_text(opponent_name(row))
+    # Opponent can be missing/TBD in compact snapshots. Keep it only when useful.
+    opponent_part = opponent if opponent and opponent != "tbd" else ""
+    return "|".join([target_day, pick, opponent_part, str(t or ""), odds_txt])
+
+
+def _tg_merge_key_set(row: Dict[str, Any], day: Optional[str] = None) -> set[str]:
+    out = set()
+    side = _tg_side_identity(row)
+    if side:
+        out.add("side:" + side)
+    loose = _tg_result_loose_identity(row, day=day)
+    if loose:
+        out.add("loose:" + loose)
+    return out
+
 def _tg_merge_expected_and_results(results: List[Dict[str, Any]], expected: List[Dict[str, Any]], model: str, day: Optional[str]) -> List[Dict[str, Any]]:
     model = str(model or "corq").lower()
     target = str(day or "").strip()[:10]
     results_filtered = filter_result_rows(results or [], model, day=target)
-    by_side: Dict[str, Dict[str, Any]] = {}
+
+    by_key: Dict[str, Dict[str, Any]] = {}
     for row in results_filtered:
-        key = _tg_side_identity(row)
-        if key:
-            by_side[key] = row
+        for key in _tg_merge_key_set(row, day=target):
+            by_key.setdefault(key, row)
 
     merged: List[Dict[str, Any]] = []
-    used = set()
+    used_keys: set[str] = set()
     expected_sorted = sorted(
         expected or [],
         key=lambda r: (
@@ -1225,11 +1270,16 @@ def _tg_merge_expected_and_results(results: List[Dict[str, Any]], expected: List
         ),
     )
     for row in expected_sorted:
-        key = _tg_side_identity(row)
-        settled = by_side.get(key)
+        keys = _tg_merge_key_set(row, day=target)
+        settled = None
+        for key in keys:
+            if key in by_key:
+                settled = by_key[key]
+                break
         if settled is not None:
             merged.append(settled)
-            used.add(key)
+            used_keys.update(_tg_merge_key_set(settled, day=target))
+            used_keys.update(keys)
         else:
             pending = dict(row)
             pending.setdefault("model", model)
@@ -1243,14 +1293,18 @@ def _tg_merge_expected_and_results(results: List[Dict[str, Any]], expected: List
             pending["tg_results_fill_status"] = "PENDING_FROM_EXPECTED_SNAPSHOT"
             pending["tg_results_completeness_version"] = TG_RESULTS_COMPLETENESS_MODEL_VERSION
             merged.append(pending)
+            used_keys.update(keys)
             print(f"[tg_feed] {model.upper()} results completeness filled pending row: {pick_name(pending)} {start_time(pending)}")
 
-    # Add any extra settled rows that were not in expected snapshot. This keeps
-    # backward compatibility if historical snapshots are not available.
+    # Add extra settled rows that were not in expected snapshot, but do not add
+    # another copy if the same pick/time/odds already exists as Pending/settled.
     for row in results_filtered:
-        key = _tg_side_identity(row)
-        if key not in used and not any(_tg_side_identity(x) == key for x in merged):
+        keys = _tg_merge_key_set(row, day=target)
+        if keys and keys.intersection(used_keys):
+            continue
+        if not any(_tg_merge_key_set(x, day=target).intersection(keys) for x in merged):
             merged.append(row)
+            used_keys.update(keys)
 
     merged.sort(key=lambda r: (
         as_float(r.get("snapshot_rank") or r.get("top7_rank") or r.get("cloq_rank") or r.get("rank"), 9999) or 9999,
@@ -1258,7 +1312,6 @@ def _tg_merge_expected_and_results(results: List[Dict[str, Any]], expected: List
         pick_name(r),
     ))
     return merged
-
 
 def filter_result_rows(rows: List[Dict[str, Any]], model: str, day: Optional[str] = None) -> List[Dict[str, Any]]:
     target = str(day or "").strip()[:10]
@@ -1447,7 +1500,7 @@ def persist_sent_pick_snapshot(mode: str, rows: List[Dict[str, Any]], limit: int
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Telegram feed formatter/sender for CorQ")
-    parser.add_argument("--mode", choices=("cloq", "top7", "free", "results", "corq-results", "cloq-results"), default=os.getenv("TG_FEED_MODE", "top7"))
+    parser.add_argument("--mode", choices=("cloq", "cloq-free", "top7", "free", "results", "corq-results", "cloq-results"), default=os.getenv("TG_FEED_MODE", "top7"))
     parser.add_argument("--top7-path", default=os.getenv("TG_TOP7_PATH", str(DEFAULT_TOP7_PATH)))
     parser.add_argument("--cloq-path", default=os.getenv("TG_CLOQ_PATH", str(DEFAULT_CLOQ_PATH)))
     parser.add_argument("--all-path", default=os.getenv("TG_ALL_PATH", str(DEFAULT_ALL_PATH)))
@@ -1491,6 +1544,11 @@ def main() -> None:
         if _results_message_needs_rebuild(message, "CloQ", target_day=results_day):
             cloq_results = _load_result_rows("cloq")
             message = build_results_summary_message(cloq_results, "CloQ", day=results_day)
+    elif args.mode == "cloq-free":
+        rows = load_cloq_rows(Path(args.cloq_path), Path(args.all_path))
+        cloq_rows_for_message = valid_rows(drop_cloq_corq_overlaps(rows), upcoming_only=upcoming_only)[:1]
+        sendable_rows = cloq_rows_for_message
+        message = build_cloq_free_message(rows, upcoming_only=upcoming_only)
     elif args.mode == "cloq":
         rows = load_cloq_rows(Path(args.cloq_path), Path(args.all_path))
         cloq_rows_for_message = valid_rows(drop_cloq_corq_overlaps(rows), upcoming_only=upcoming_only)[:max(args.limit, 10)]
@@ -1513,7 +1571,7 @@ def main() -> None:
     print(message)
 
     if args.send:
-        if args.mode in {"free", "cloq"} and not sendable_rows:
+        if args.mode in {"free", "cloq", "cloq-free"} and not sendable_rows:
             print(f"[tg_feed] No valid upcoming rows for mode={args.mode}; Telegram send skipped.")
             return
         if args.mode == "top7" and "No valid upcoming CorQ picks" in message:
@@ -1524,7 +1582,7 @@ def main() -> None:
             return
         chat_id = args.chat_id
         if not chat_id:
-            if args.mode == "free":
+            if args.mode in {"free", "cloq-free"}:
                 chat_id = (
                     os.getenv("TELEGRAM_FREE_CHAT_ID")
                     or os.getenv("TG_FREE_CHAT_ID")
@@ -1543,19 +1601,19 @@ def main() -> None:
                     or os.getenv("TG_CHAT_ID")
                 )
         if not args.bot_token:
-            if args.mode == "free":
+            if args.mode in {"free", "cloq-free"}:
                 print("[tg_feed] Missing TELEGRAM_BOT_TOKEN/TG_BOT_TOKEN/TGBOT; FREE Telegram send skipped.")
                 return
             raise SystemExit("Missing TELEGRAM_BOT_TOKEN/TG_BOT_TOKEN/TGBOT")
         if not chat_id:
-            if args.mode == "free":
+            if args.mode in {"free", "cloq-free"}:
                 print("[tg_feed] Missing Telegram chat id for FREE mode; FREE Telegram send skipped.")
                 return
             raise SystemExit("Missing Telegram chat id for mode")
         try:
             send_telegram(message, args.bot_token, chat_id)
         except Exception as exc:
-            if args.mode == "free":
+            if args.mode in {"free", "cloq-free"}:
                 print(f"[tg_feed] FREE Telegram send failed but production workflow will continue: {exc}")
                 return
             raise
