@@ -13,6 +13,7 @@ on:
           - "picks"
           - "results"
           - "cloq"
+          - "cloq-free"
           - "top7"
           - "free"
           - "cloq-results"
@@ -164,6 +165,16 @@ jobs:
             EXTRA="--include-started"
           fi
           python -m corq.tg_feed --mode free --limit "${{ steps.mode.outputs.limit }}" --send $EXTRA
+
+      - name: Send CloQ FREE Telegram feed
+        if: ${{ steps.mode.outputs.mode == 'all' || steps.mode.outputs.mode == 'picks' || steps.mode.outputs.mode == 'cloq-free' }}
+        shell: bash
+        run: |
+          EXTRA=""
+          if [ "${{ steps.mode.outputs.include_started }}" = "true" ]; then
+            EXTRA="--include-started"
+          fi
+          python -m corq.tg_feed --mode cloq-free --limit "${{ steps.mode.outputs.cloq_limit }}" --send $EXTRA
 
       - name: Send CorQ results Telegram feed
         if: ${{ steps.mode.outputs.mode == 'all' || steps.mode.outputs.mode == 'results' || steps.mode.outputs.mode == 'corq-results' }}
