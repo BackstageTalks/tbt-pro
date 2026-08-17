@@ -11,14 +11,6 @@ on:
         description: "Only settle matches after start time plus this many hours."
         required: false
         default: "2"
-      write_tg_summary:
-        description: "Write outputs/telegram/latest_tg_results_message.txt"
-        required: false
-        type: choice
-        options:
-          - "true"
-          - "false"
-        default: "true"
 
 permissions:
   contents: write
@@ -56,19 +48,14 @@ jobs:
           set -euo pipefail
           SETTLE_DATE="${{ github.event.inputs.settle_date }}"
           GRACE="${{ github.event.inputs.settlement_grace_hours || '2' }}"
-          WRITE_TG="${{ github.event.inputs.write_tg_summary || 'true' }}"
 
+          # This manual settlement workflow updates Results data and renders the site only.
+          # Telegram result messages are handled by .github/workflows/send-tg-feeds.yml.
           CMD=(python -m corq.results_engine.builder --output-root outputs --fetch-api --local-tz Europe/Bratislava --settlement-grace-hours "$GRACE")
           if [ -n "$SETTLE_DATE" ]; then
             CMD+=(--settle-date "$SETTLE_DATE")
-            if [ "$WRITE_TG" = "true" ]; then
-              CMD+=(--write-tg-summary --tg-summary-date "$SETTLE_DATE")
-            fi
           else
             CMD+=(--settle-yesterday)
-            if [ "$WRITE_TG" = "true" ]; then
-              CMD+=(--write-tg-summary)
-            fi
           fi
 
           echo "Running: ${CMD[*]}"
