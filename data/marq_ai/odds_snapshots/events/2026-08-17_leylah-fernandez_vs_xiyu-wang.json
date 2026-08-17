@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.67,
   "latest_odds_player2": 2.2,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-17T03:34:50.359987+00:00",
+  "latest_snapshot_time_utc": "2026-08-17T11:05:26.173591+00:00",
   "opening_odds_player1": 1.57,
   "opening_odds_player2": 2.38,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Leylah Fernandez",
   "player2": "Xiyu Wang",
-  "snapshot_count": 7,
+  "snapshot_count": 8,
   "snapshots": [
     {
       "event_id": "16737923",
@@ -160,8 +160,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-16T21:15:00+00:00",
       "target_date": "2026-08-17"
+    },
+    {
+      "event_id": "16737923",
+      "event_key": "2026-08-17_leylah-fernandez_vs_xiyu-wang",
+      "hours_to_start": -13.84,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.67,
+      "odds_player2": 2.2,
+      "player1": "Leylah Fernandez",
+      "player2": "Xiyu Wang",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-17T11:05:26.173591+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-16T21:15:00+00:00",
+      "target_date": "2026-08-17"
     }
   ],
   "start_time_utc": "2026-08-16T21:15:00+00:00",
-  "updated_at_utc": "2026-08-17T03:35:38.162447+00:00"
+  "updated_at_utc": "2026-08-17T11:06:10.633596+00:00"
 }
