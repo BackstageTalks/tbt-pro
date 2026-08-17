@@ -456,7 +456,10 @@ jobs:
           echo "[site] file count"
           find corq/site -type f | wc -l || true
           echo "[site] largest files before cleanup"
-          find corq/site -type f -printf '%s %p\n' | sort -nr | head -30 || true
+          tmp_sizes="$(mktemp)"
+          find corq/site -type f -printf '%s %p\n' > "$tmp_sizes" || true
+          sort -nr "$tmp_sizes" | head -30 || true
+          rm -f "$tmp_sizes"
 
       - name: Keep Pages artifact small
         if: ${{ steps.local_time.outputs.should_run == 'true' }}
@@ -471,7 +474,10 @@ jobs:
           echo "[site] size after cleanup"
           du -sh corq/site || true
           echo "[site] largest files after cleanup"
-          find corq/site -type f -printf '%s %p\n' | sort -nr | head -30 || true
+          tmp_sizes="$(mktemp)"
+          find corq/site -type f -printf '%s %p\n' > "$tmp_sizes" || true
+          sort -nr "$tmp_sizes" | head -30 || true
+          rm -f "$tmp_sizes"
 
       - name: Commit generated outputs
         if: ${{ steps.local_time.outputs.should_run == 'true' }}
