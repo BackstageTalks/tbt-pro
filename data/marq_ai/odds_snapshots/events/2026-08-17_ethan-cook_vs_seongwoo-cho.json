@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.83333,
   "latest_odds_player2": 1.83333,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-17T11:05:26.173591+00:00",
+  "latest_snapshot_time_utc": "2026-08-17T17:10:42.203065+00:00",
   "opening_odds_player1": 1.83333,
   "opening_odds_player2": 1.83333,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Seongwoo Cho",
   "player2": "Ethan Cook",
-  "snapshot_count": 1,
+  "snapshot_count": 2,
   "snapshots": [
     {
       "event_id": "16845789",
@@ -34,8 +34,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-17T02:02:02+00:00",
       "target_date": "2026-08-17"
+    },
+    {
+      "event_id": "16845789",
+      "event_key": "2026-08-17_ethan-cook_vs_seongwoo-cho",
+      "hours_to_start": -15.14,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.83333,
+      "odds_player2": 1.83333,
+      "player1": "Seongwoo Cho",
+      "player2": "Ethan Cook",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-17T17:10:42.203065+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-17T02:02:02+00:00",
+      "target_date": "2026-08-17"
     }
   ],
   "start_time_utc": "2026-08-17T02:02:02+00:00",
-  "updated_at_utc": "2026-08-17T11:06:14.393550+00:00"
+  "updated_at_utc": "2026-08-17T17:11:24.142710+00:00"
 }

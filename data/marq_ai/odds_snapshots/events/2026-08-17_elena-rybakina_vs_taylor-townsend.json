@@ -4,7 +4,7 @@
   "latest_odds_player1": 3.75,
   "latest_odds_player2": 1.28,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-17T11:05:26.173591+00:00",
+  "latest_snapshot_time_utc": "2026-08-17T17:10:42.203065+00:00",
   "opening_odds_player1": 3.75,
   "opening_odds_player2": 1.28,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Taylor Townsend",
   "player2": "Elena Rybakina",
-  "snapshot_count": 8,
+  "snapshot_count": 9,
   "snapshots": [
     {
       "event_id": "16737879",
@@ -181,8 +181,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-16T15:05:00+00:00",
       "target_date": "2026-08-17"
+    },
+    {
+      "event_id": "16737879",
+      "event_key": "2026-08-17_elena-rybakina_vs_taylor-townsend",
+      "hours_to_start": -26.1,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 3.75,
+      "odds_player2": 1.28,
+      "player1": "Taylor Townsend",
+      "player2": "Elena Rybakina",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-17T17:10:42.203065+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-16T15:05:00+00:00",
+      "target_date": "2026-08-17"
     }
   ],
   "start_time_utc": "2026-08-16T15:05:00+00:00",
-  "updated_at_utc": "2026-08-17T11:05:58.443852+00:00"
+  "updated_at_utc": "2026-08-17T17:10:56.562021+00:00"
 }
