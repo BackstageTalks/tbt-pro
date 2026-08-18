@@ -133,12 +133,60 @@ def is_void_status(row: Dict[str, Any]) -> bool:
     return any(token in text for token in void_tokens)
 
 
+def parse_tennis_score_sets(score: Any) -> List[Tuple[int, int]]:
+    text = str(score or "").strip()
+    if not text:
+        return []
+    text = re.sub(r"\([^)]*\)", "", text)
+    text = re.sub(r"\[[^\]]*\]", "", text)
+    pairs: List[Tuple[int, int]] = []
+    for a, b in re.findall(r"(\d{1,2})\s*[-:]\s*(\d{1,2})", text):
+        try:
+            pairs.append((int(a), int(b)))
+        except Exception:
+            continue
+    return pairs
+
+
+def tennis_set_is_complete(a: int, b: int) -> bool:
+    hi = max(a, b)
+    lo = min(a, b)
+    diff = abs(a - b)
+    if hi < 6:
+        return False
+    if hi == 6:
+        return diff >= 2
+    if hi == 7:
+        return lo in {5, 6}
+    return diff >= 2
+
+
+def score_indicates_unfinished_tennis_match(score: Any) -> bool:
+    sets = parse_tennis_score_sets(score)
+    if not sets:
+        return False
+    home_sets = 0
+    away_sets = 0
+    for a, b in sets:
+        if not tennis_set_is_complete(a, b):
+            return True
+        if a > b:
+            home_sets += 1
+        elif b > a:
+            away_sets += 1
+    return max(home_sets, away_sets) < 2
+
+
 def infer_result(row: Dict[str, Any], existing: Optional[Dict[str, Any]] = None) -> Tuple[str, Optional[float]]:
     merged = dict(row)
     if existing:
         merged.update({k: v for k, v in existing.items() if v not in (None, "")})
 
-    if is_void_status(merged):
+    winner = str(merged.get("winner") or "").strip()
+    score = merged.get("score") or merged.get("final_score")
+
+    # VOID must have priority over explicit/winner-based settlement.
+    if is_void_status(merged) or (winner and score_indicates_unfinished_tennis_match(score)):
         return "VOID", 0.0
 
     explicit = result_status_text(merged)
@@ -149,16 +197,12 @@ def infer_result(row: Dict[str, Any], existing: Optional[Dict[str, Any]] = None)
         return "LOST", -1.0
     if explicit == "VOID":
         return "VOID", 0.0
-
-    winner = str(merged.get("winner") or "").strip()
     if winner:
         if normalize_name(winner) == normalize_name(pick_name(merged)):
             odds = pick_odds(merged)
             return "WON", round((odds or 1.0) - 1.0, 2)
         return "LOST", -1.0
-
     return "PENDING", None
-
 
 def row_score(row: Dict[str, Any]) -> Tuple[float, float, float, float, float]:
     publish = 1.0 if row.get("top7_publishable") or row.get("eligible_for_top7") else 0.0

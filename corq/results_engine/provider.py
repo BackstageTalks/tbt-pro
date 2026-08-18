@@ -30,20 +30,31 @@ def _first_value(obj: Any, *keys: str) -> Any:
 
 
 def status_from_obj(status: Any) -> str:
+    """Normalize provider event status.
+
+    VOID-like statuses must have priority over generic finished values because
+    some providers can expose a winner together with retirement/walkover context.
+    """
+    candidates: List[Any] = []
     if isinstance(status, dict):
-        raw = _first_value(
-            status,
+        for key in (
             "type",
             "description",
             "status",
             "statusType",
             "name",
             "code",
-        )
+            "reason",
+            "shortName",
+        ):
+            value = _first_value(status, key)
+            if value not in (None, "", "—", "-"):
+                candidates.append(value)
     else:
-        raw = status
+        candidates.append(status)
 
-    text = _norm(raw)
+    texts = [_norm(value) for value in candidates if _norm(value)]
+    text = texts[0] if texts else ""
 
     finished_values = {
         "100",
@@ -82,11 +93,21 @@ def status_from_obj(status: Any) -> str:
         "canceled",
         "postponed",
         "retired",
+        "retirement",
         "walkover",
+        "wo",
+        "w_o",
         "interrupted",
         "abandoned",
         "defaulted",
+        "void",
     }
+
+    # Check all status fields for explicit void-like context before classifying
+    # the event as finished/live/not-started.
+    for item in texts:
+        if item in void_values:
+            return item
 
     if text in finished_values:
         return "finished"
@@ -94,10 +115,7 @@ def status_from_obj(status: Any) -> str:
         return "live"
     if text in notstarted_values:
         return "notstarted"
-    if text in void_values:
-        return text
     return text or "unknown"
-
 
 def event_id(row: Dict[str, Any]) -> Optional[int]:
     for key in ("event_id", "match_id", "id"):
