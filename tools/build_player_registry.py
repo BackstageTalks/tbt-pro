@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
@@ -10,6 +11,7 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple
 PLAYER_DIR = Path("thinq/data/players")
 REGISTRY_PATH = PLAYER_DIR / "player_registry.json"
 ELO_UNIVERSE_PATH = PLAYER_DIR / "elo_player_universe.json"
+ALIAS_DB_PATH = PLAYER_DIR / "tennis_name_alias_database.json"
 MANIFEST_PATH = PLAYER_DIR / "player_registry_manifest.json"
 RUNTIME_DIR = Path("runtime/players")
 RUNTIME_REPORT_PATH = RUNTIME_DIR / "player_registry_report.json"
@@ -38,6 +40,31 @@ DEFAULT_RANKING_FILES = (
     "data/rankings/wta_rankings.json",
 )
 
+SPECIAL_CHARS = {
+    "ł": "l", "Ł": "L", "đ": "d", "Đ": "D", "ß": "ss", "ø": "o", "Ø": "O",
+    "æ": "ae", "Æ": "AE", "œ": "oe", "Œ": "OE", "ı": "i", "İ": "I",
+}
+
+MOJIBAKE_REPLACEMENTS = {
+    "Ä‡": "ć", "Ä": "ć", "Ä": "č", "Ä‘": "đ", "Å¡": "š", "Å¾": "ž",
+    "Ã¡": "á", "Ã©": "é", "Ã­": "í", "Ã³": "ó", "Ãº": "ú", "Ã±": "ñ", "Ã§": "ç",
+    "Ã¼": "ü", "Ã¶": "ö", "Ã¤": "ä", "â€™": "'", "â€˜": "'", "â€“": "-", "â€”": "-",
+}
+
+MANUAL_CANONICAL_OVERRIDES = {
+    "ivajovic": "Iva Jović",
+    "felixaugeraliassime": "Felix Auger-Aliassime",
+    "joaofonseca": "Joao Fonseca",
+    "christopheroconnell": "Christopher O'Connell",
+}
+
+MANUAL_ALIASES = {
+    "ivajovic": ["Iva Jovic", "Iva Jović", "Iva JoviÄ‡"],
+    "felixaugeraliassime": ["Felix Auger Aliassime", "Félix Auger-Aliassime", "Felix Auger-Aliassime"],
+    "joaofonseca": ["Joao Fonseca", "João Fonseca"],
+    "christopheroconnell": ["Christopher OConnell", "Christopher O'Connell", "Christopher O Connell"],
+}
+
 
 def now_iso() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
@@ -57,8 +84,18 @@ def read_json(path: Path) -> Any:
     return None
 
 
+def fix_mojibake(value: Any) -> str:
+    text = str(value or "").strip()
+    for bad, good in MOJIBAKE_REPLACEMENTS.items():
+        text = text.replace(bad, good)
+    return re.sub(r"\s+", " ", text).strip()
+
+
 def normalize_name(value: Any) -> str:
-    text = str(value or "").strip().lower()
+    text = fix_mojibake(value).lower()
+    text = "".join(SPECIAL_CHARS.get(ch, ch) for ch in text)
+    text = unicodedata.normalize("NFKD", text)
+    text = "".join(ch for ch in text if not unicodedata.combining(ch))
     text = re.sub(r"[^a-z0-9]+", " ", text)
     return " ".join(text.split())
 
@@ -67,11 +104,32 @@ def compact_key(value: Any) -> str:
     return re.sub(r"[^a-z0-9]+", "", normalize_name(value))
 
 
+def canonical_name(value: Any) -> str:
+    fixed = fix_mojibake(value)
+    key = compact_key(fixed)
+    return MANUAL_CANONICAL_OVERRIDES.get(key, fixed)
+
+
+def unique_names(values: Iterable[Any]) -> List[str]:
+    out: List[str] = []
+    seen = set()
+    for value in values:
+        text = fix_mojibake(value)
+        key = compact_key(text)
+        if text and key and key not in seen:
+            out.append(text)
+            seen.add(key)
+    return out
+
+
 def as_int(value: Any) -> Optional[int]:
     try:
         if value in (None, "", "N/A", "-", "None"):
             return None
-        return int(float(str(value).replace(",", ".")))
+        text = str(value)
+        if text.startswith("api:") or text.startswith("id:"):
+            text = text.split(":", 1)[1]
+        return int(float(text.replace(",", ".")))
     except Exception:
         return None
 
@@ -101,6 +159,8 @@ def rows_from_payload(payload: Any) -> List[Dict[str, Any]]:
             value = payload.get(key)
             if isinstance(value, list):
                 return [x for x in value if isinstance(x, dict)]
+            if isinstance(value, dict) and key == "players":
+                return [dict(v, registry_key=k) for k, v in value.items() if isinstance(v, dict)]
         nested = payload.get("data")
         if isinstance(nested, dict):
             return rows_from_payload(nested)
@@ -124,44 +184,55 @@ def player_id_from_team(team: Any) -> Optional[int]:
         if value is not None:
             return value
     pti = team.get("playerTeamInfo") if isinstance(team.get("playerTeamInfo"), dict) else {}
-    value = as_int(pti.get("id"))
-    if value is not None:
-        return value
-    return None
+    return as_int(pti.get("id"))
 
 
 def make_player_key(player_id: Any, name: Any) -> str:
     pid = as_int(player_id)
     if pid is not None:
-        return f"id:{pid}"
+        return f"api:{pid}"
     return f"name:{compact_key(name)}"
 
 
 def ensure_player(registry: Dict[str, Dict[str, Any]], player_id: Any, name: Any) -> Optional[Dict[str, Any]]:
-    name_text = str(name or "").strip()
+    raw_name = fix_mojibake(name)
+    cname = canonical_name(raw_name)
     pid = as_int(player_id)
-    if not name_text and pid is None:
+    if not cname and pid is None:
         return None
-    key = make_player_key(pid, name_text)
+    key = make_player_key(pid, cname)
     player = registry.get(key)
     if player is None:
         player = {
             "registry_key": key,
             "player_id": pid,
-            "name": name_text,
-            "normalized_name": normalize_name(name_text),
-            "compact_key": compact_key(name_text),
+            "api_team_id": pid,
+            "rapidapi_id": pid,
+            "name": cname,
+            "canonical_name": cname,
+            "display_name": cname,
+            "normalized_name": normalize_name(cname),
+            "compact_key": compact_key(cname),
+            "aliases": [],
             "sources": [],
             "updated_at": now_iso(),
         }
         registry[key] = player
     else:
-        if pid is not None and player.get("player_id") is None:
+        if pid is not None:
             player["player_id"] = pid
-        if name_text and not player.get("name"):
-            player["name"] = name_text
-            player["normalized_name"] = normalize_name(name_text)
-            player["compact_key"] = compact_key(name_text)
+            player["api_team_id"] = pid
+            player["rapidapi_id"] = pid
+        if cname and (not player.get("name") or player.get("name") != canonical_name(player.get("name"))):
+            player["name"] = canonical_name(player.get("name") or cname)
+            player["canonical_name"] = canonical_name(player.get("canonical_name") or cname)
+            player["display_name"] = player["canonical_name"]
+            player["normalized_name"] = normalize_name(player["canonical_name"])
+            player["compact_key"] = compact_key(player["canonical_name"])
+    aliases = player.setdefault("aliases", [])
+    for alias in unique_names([raw_name, cname] + MANUAL_ALIASES.get(compact_key(cname), [])):
+        if compact_key(alias) != compact_key(player.get("canonical_name")) and alias not in aliases:
+            aliases.append(alias)
     return player
 
 
@@ -203,25 +274,20 @@ def load_elo_cache(registry: Dict[str, Dict[str, Any]], files: Iterable[Path]) -
             name = first_value(row, ("player", "name", "player_name", "full_name"))
             if not name:
                 continue
-            player = ensure_player(registry, first_value(row, ("player_id", "team_id", "id")), name)
+            player = ensure_player(registry, first_value(row, ("api_team_id", "rapidapi_id", "player_id", "team_id", "id")), name)
             if player is None:
                 continue
             player["elo_available"] = True
             player["h2h_eligible"] = True
             player["tour"] = str(first_value(row, ("tour", "category", "gender")) or player.get("tour") or "").upper() or None
             for src_key, dst_key in (
-                ("elo", "elo"),
-                ("overall_elo", "elo"),
-                ("rating", "elo"),
-                ("hard_elo", "hard_elo"),
-                ("clay_elo", "clay_elo"),
-                ("grass_elo", "grass_elo"),
-                ("name_key", "elo_name_key"),
-                ("compact_key", "elo_compact_key"),
+                ("elo", "elo"), ("overall_elo", "elo"), ("rating", "elo"),
+                ("hard_elo", "hard_elo"), ("clay_elo", "clay_elo"), ("grass_elo", "grass_elo"),
+                ("name_key", "elo_name_key"), ("compact_key", "elo_compact_key"),
             ):
                 value = row.get(src_key)
                 if value not in (None, ""):
-                    player[dst_key] = as_float(value) if "elo" in dst_key and dst_key != "elo_name_key" and dst_key != "elo_compact_key" else value
+                    player[dst_key] = as_float(value) if dst_key in {"elo", "hard_elo", "clay_elo", "grass_elo"} else value
             touch_source(player, str(path))
             stats["players_added_or_updated"] += 1
     return stats
@@ -246,7 +312,7 @@ def load_rankings(registry: Dict[str, Dict[str, Any]], files: Iterable[Path]) ->
         for row in rows:
             team = ranking_team(row)
             name = player_name_from_team(team) or first_value(row, ("player", "name", "player_name"))
-            player_id = player_id_from_team(team) or first_value(row, ("player_id", "team_id", "id"))
+            player_id = player_id_from_team(team) or first_value(row, ("api_team_id", "player_id", "team_id", "id"))
             player = ensure_player(registry, player_id, name)
             if player is None:
                 continue
@@ -264,6 +330,8 @@ def load_rankings(registry: Dict[str, Dict[str, Any]], files: Iterable[Path]) ->
                 player["country"] = country.get("name")
                 player["country_alpha2"] = country.get("alpha2")
                 player["country_alpha3"] = country.get("alpha3")
+            elif country:
+                player["country"] = country
             touch_source(player, str(path))
             stats["players_updated"] += 1
     return stats
@@ -272,8 +340,8 @@ def load_rankings(registry: Dict[str, Dict[str, Any]], files: Iterable[Path]) ->
 def extract_output_players(row: Dict[str, Any]) -> List[Tuple[Any, Any, str]]:
     out: List[Tuple[Any, Any, str]] = []
     sides = (
-        ("pick", ("thinq_pick_player_id", "pick_player_id", "player1_id", "home_id", "home_player_id"), ("pick", "top7_pick", "cloq_pick", "player", "player1", "home_name")),
-        ("opponent", ("thinq_opponent_player_id", "opponent_player_id", "player2_id", "away_id", "away_player_id"), ("opponent", "opp", "player2", "away_name")),
+        ("pick", ("thinq_pick_player_id", "pick_player_id", "player1_id", "home_id", "home_player_id", "pick_api_team_id"), ("pick", "top7_pick", "cloq_pick", "player", "player1", "home_name")),
+        ("opponent", ("thinq_opponent_player_id", "opponent_player_id", "player2_id", "away_id", "away_player_id", "opponent_api_team_id"), ("opponent", "opp", "player2", "away_name")),
     )
     for side, id_keys, name_keys in sides:
         pid = first_value(row, id_keys)
@@ -327,25 +395,66 @@ def build_name_indexes(registry: Dict[str, Dict[str, Any]]) -> Tuple[Dict[str, s
     by_name: Dict[str, str] = {}
     by_compact: Dict[str, str] = {}
     for key, player in registry.items():
-        name_key = normalize_name(player.get("name"))
-        compact = compact_key(player.get("name"))
-        if name_key:
-            by_name.setdefault(name_key, key)
-        if compact:
-            by_compact.setdefault(compact, key)
-        for alias_key in ("elo_name_key", "elo_compact_key"):
-            alias = str(player.get(alias_key) or "")
-            if alias:
-                by_name.setdefault(normalize_name(alias), key)
-                by_compact.setdefault(compact_key(alias), key)
+        names = [player.get("name"), player.get("canonical_name"), player.get("display_name"), player.get("sackmann_name")]
+        names.extend(player.get("aliases") if isinstance(player.get("aliases"), list) else [])
+        names.extend([player.get("elo_name_key"), player.get("elo_compact_key")])
+        for name in names:
+            nkey = normalize_name(name)
+            ckey = compact_key(name)
+            if nkey:
+                by_name.setdefault(nkey, key)
+            if ckey:
+                by_compact.setdefault(ckey, key)
     return by_name, by_compact
 
 
+def build_alias_database(registry: Dict[str, Dict[str, Any]], path: Path) -> Dict[str, Any]:
+    existing = read_json(path)
+    manual_players = []
+    if isinstance(existing, dict) and isinstance(existing.get("players"), list):
+        manual_players = [p for p in existing["players"] if isinstance(p, dict)]
+    by_key = {str(p.get("registry_key") or p.get("player_id") or p.get("api_team_id") or p.get("canonical_name")): p for p in manual_players}
+    for registry_key, player in registry.items():
+        aliases = unique_names([player.get("name"), player.get("canonical_name"), player.get("display_name")] + list(player.get("aliases") or []))
+        by_key[registry_key] = {
+            "player_id": registry_key,
+            "api_team_id": player.get("api_team_id"),
+            "rapidapi_id": player.get("rapidapi_id"),
+            "canonical_name": player.get("canonical_name") or player.get("name"),
+            "display_name": player.get("display_name") or player.get("canonical_name") or player.get("name"),
+            "tour": player.get("tour"),
+            "country": player.get("country"),
+            "aliases": aliases,
+            "search_key": compact_key(player.get("canonical_name") or player.get("name")),
+        }
+    players = sorted(by_key.values(), key=lambda p: (str(p.get("tour") or ""), str(p.get("canonical_name") or "")))
+    alias_resolution = {}
+    for player in players:
+        pid = player.get("player_id")
+        if not pid:
+            continue
+        for alias in unique_names([player.get("canonical_name"), player.get("display_name")] + list(player.get("aliases") or [])):
+            key = compact_key(alias)
+            if key:
+                alias_resolution[key] = {"status": "resolved", "resolved_player_id": pid}
+    payload = {
+        "version": "TENNIS_NAME_ALIAS_DATABASE_V1",
+        "generated_at": now_iso(),
+        "source": "tools/build_player_registry.py",
+        "policy": "manual_aliases_preserved_generated_registry_aliases_added",
+        "players": players,
+        "alias_resolution": alias_resolution,
+    }
+    write_json(path, payload)
+    return payload
+
+
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Build unified API/ELO player registry")
+    parser = argparse.ArgumentParser(description="Build unified API/ELO player registry and alias database")
     parser.add_argument("--elo-files", default=",".join(DEFAULT_ELO_FILES))
     parser.add_argument("--ranking-files", default=",".join(DEFAULT_RANKING_FILES))
     parser.add_argument("--output-files", default=",".join(DEFAULT_OUTPUT_FILES))
+    parser.add_argument("--skip-alias-db", action="store_true")
     args = parser.parse_args()
 
     registry: Dict[str, Dict[str, Any]] = {}
@@ -359,9 +468,13 @@ def main() -> int:
     calculate_elo_ranks(registry)
     by_name, by_compact = build_name_indexes(registry)
 
-    players_sorted = sorted(registry.values(), key=lambda p: (0 if p.get("elo_available") else 1, str(p.get("tour") or ""), as_int(p.get("elo_rank_tour")) or 999999, str(p.get("name") or "")))
+    players_sorted = sorted(
+        registry.values(),
+        key=lambda p: (0 if p.get("elo_available") else 1, str(p.get("tour") or ""), as_int(p.get("elo_rank_tour")) or 999999, str(p.get("canonical_name") or p.get("name") or "")),
+    )
+
     registry_payload = {
-        "version": "PLAYER_REGISTRY_V1",
+        "version": "PLAYER_REGISTRY_V2_CANONICAL_NAMES",
         "generated_at": now_iso(),
         "source": "ELO_CACHE_PLUS_API_OUTPUTS_AND_OPTIONAL_RANKINGS",
         "player_count": len(players_sorted),
@@ -376,7 +489,7 @@ def main() -> int:
 
     elo_players = [p for p in players_sorted if p.get("elo_available")]
     universe_payload = {
-        "version": "ELO_PLAYER_UNIVERSE_V1",
+        "version": "ELO_PLAYER_UNIVERSE_V2_CANONICAL_NAMES",
         "generated_at": now_iso(),
         "source": "ELO_CACHE",
         "player_count": len(elo_players),
@@ -384,7 +497,9 @@ def main() -> int:
             {
                 "registry_key": p.get("registry_key"),
                 "player_id": p.get("player_id"),
-                "name": p.get("name"),
+                "api_team_id": p.get("api_team_id"),
+                "name": p.get("canonical_name") or p.get("name"),
+                "canonical_name": p.get("canonical_name") or p.get("name"),
                 "normalized_name": p.get("normalized_name"),
                 "compact_key": p.get("compact_key"),
                 "tour": p.get("tour"),
@@ -401,24 +516,35 @@ def main() -> int:
         ],
     }
 
+    alias_db_stats = {"written": False, "path": str(ALIAS_DB_PATH), "players": 0, "aliases": 0}
+    if not args.skip_alias_db:
+        alias_payload = build_alias_database(registry, ALIAS_DB_PATH)
+        alias_db_stats = {
+            "written": True,
+            "path": str(ALIAS_DB_PATH),
+            "players": len(alias_payload.get("players") or []),
+            "aliases": len(alias_payload.get("alias_resolution") or {}),
+        }
+
     manifest = {
         "status": "OK" if elo_players else "NO_ELO_PLAYERS_FOUND",
         "generated_at": now_iso(),
         "registry_path": str(REGISTRY_PATH),
         "elo_universe_path": str(ELO_UNIVERSE_PATH),
+        "alias_database_path": str(ALIAS_DB_PATH),
         "player_count": len(players_sorted),
         "elo_player_count": len(elo_players),
         "api_rank_player_count": registry_payload["api_rank_player_count"],
         "elo_stats": elo_stats,
         "ranking_stats": ranking_stats,
         "output_stats": output_stats,
+        "alias_db_stats": alias_db_stats,
     }
 
     write_json(REGISTRY_PATH, registry_payload)
     write_json(ELO_UNIVERSE_PATH, universe_payload)
     write_json(MANIFEST_PATH, manifest)
     write_json(RUNTIME_REPORT_PATH, manifest)
-
     print(json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True))
     return 0
 
