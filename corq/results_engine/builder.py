@@ -217,24 +217,105 @@ def _score_indicates_void(score: Any) -> bool:
     return is_void_status(score)
 
 
+def _parse_tennis_score_sets(score: Any) -> List[Tuple[int, int]]:
+    """Parse tennis score text into numeric set pairs.
+
+    Examples:
+      "6-7 6-1 5-0" -> [(6, 7), (6, 1), (5, 0)]
+      "6:4, 7:6"    -> [(6, 4), (7, 6)]
+
+    The parser is intentionally conservative. It only extracts clear numeric
+    set pairs and ignores tiebreak annotations in parentheses or brackets.
+    """
+    text = str(score or "").strip()
+    if not text:
+        return []
+
+    text = re.sub(r"\([^)]*\)", "", text)
+    text = re.sub(r"\[[^\]]*\]", "", text)
+
+    pairs: List[Tuple[int, int]] = []
+    for a, b in re.findall(r"(\d{1,2})\s*[-:]\s*(\d{1,2})", text):
+        try:
+            pairs.append((int(a), int(b)))
+        except Exception:
+            continue
+    return pairs
+
+
+def _tennis_set_is_complete(a: int, b: int) -> bool:
+    """Return True when one tennis set score is terminal.
+
+    Covers normal sets, tiebreak sets and extended final sets.
+    """
+    hi = max(a, b)
+    lo = min(a, b)
+    diff = abs(a - b)
+
+    if hi < 6:
+        return False
+    if hi == 6:
+        return diff >= 2
+    if hi == 7:
+        return lo in {5, 6}
+    return diff >= 2
+
+
+def _score_indicates_unfinished_tennis_match(score: Any) -> bool:
+    """Detect score patterns that should block winner-based settlement.
+
+    Important case:
+      6-7 6-1 5-0
+
+    If a winner exists but the last visible set is not terminal, the match was
+    not normally completed and should be treated as VOID instead of WON/LOST.
+    """
+    sets = _parse_tennis_score_sets(score)
+    if not sets:
+        return False
+
+    home_sets = 0
+    away_sets = 0
+
+    for idx, (a, b) in enumerate(sets):
+        complete = _tennis_set_is_complete(a, b)
+
+        if not complete:
+            return True
+
+        if a > b:
+            home_sets += 1
+        elif b > a:
+            away_sets += 1
+
+    # Normal BO3 singles completion requires one side to win 2 complete sets.
+    # When a provider returns a winner with only one completed set in the score,
+    # do not trust winner-based settlement.
+    if max(home_sets, away_sets) >= 2:
+        return False
+
+    return True
+
+
 def result_from_winner(row: Dict[str, Any], winner: str, status: str) -> Tuple[str, Optional[float]]:
     score = row.get("score") or row.get("final_score")
     pick = pick_name(row)
-    void_by_event_status = _event_status_is_void(status)
-    void_by_score = _score_indicates_void(score)
 
-    # If a real finished winner is available and the score does not explicitly
-    # indicate retirement/walkover/cancel, settle by winner first. This fixes
-    # historical rows where existing result/status was VOID even though winner
-    # and final score clearly identify the match winner.
-    if winner and not void_by_score:
+    void_by_event_status = _event_status_is_void(status)
+    void_by_score_token = _score_indicates_void(score)
+    unfinished_score_with_winner = bool(winner) and _score_indicates_unfinished_tennis_match(score)
+
+    # VOID must have priority over winner-based settlement.
+    # This prevents retired/unfinished matches such as 6-7 6-1 5-0 from being
+    # settled as WON only because the provider also returns a winner.
+    if void_by_event_status or void_by_score_token or unfinished_score_with_winner:
+        return "VOID", 0.0
+
+    if winner:
         if normalize_name(winner) == normalize_name(pick):
             odds = pick_odds(row)
             return "WON", round((odds or 1.0) - 1.0, 4) if odds else None
         return "LOST", -1.0
-
-    if void_by_event_status or void_by_score:
-        return "VOID", 0.0
 
     explicit = str(row.get("result") or row.get("result_status") or "").upper()
     if explicit in {"WON", "WIN"}:
@@ -245,7 +326,6 @@ def result_from_winner(row: Dict[str, Any], winner: str, status: str) -> Tuple[s
     if explicit == "VOID":
         return "VOID", 0.0
     return "PENDING", None
-
 
 def preserve_existing(out: Dict[str, Any], existing: Optional[Dict[str, Any]]) -> None:
     if not existing:
