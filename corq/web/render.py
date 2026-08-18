@@ -6914,6 +6914,212 @@ def render_results_page(manifest: Dict[str, Any]) -> str:
     ]
     return page_shell('Results', RESULTS_PATH, '\n'.join(body), manifest)
 
+
+# ============================================================
+# Unified visual ordering override V2
+# ============================================================
+# Single render-order source for CorQ, CloQ and Audit cards.
+# CorQ/CloQ are displayed from strongest to weakest model pick.
+# Audit keeps the operational nearest-match-time order.
+
+def _sort_number(value: Any, default: Optional[float] = None) -> Optional[float]:
+    try:
+        if value in (None, "", "—", "-", "N/A", "NA", "None", "null"):
+            return default
+        if isinstance(value, str):
+            value = value.strip().replace("%", "").replace("pp", "").replace(",", ".")
+            if value.startswith("#"):
+                value = value[1:]
+        return float(value)
+    except Exception:
+        return default
+
+
+def _first_numeric_value(row: Dict[str, Any], *keys: str, default: Optional[float] = None) -> Optional[float]:
+    for key in keys:
+        value = nested_get(row, *key.split(".")) if "." in key else row.get(key)
+        parsed = _sort_number(value)
+        if parsed is not None:
+            return parsed
+    return default
+
+
+def _first_rank_value(row: Dict[str, Any], *keys: str) -> Optional[int]:
+    value = _first_numeric_value(row, *keys)
+    if value is None or value <= 0:
+        return None
+    return int(value)
+
+
+def _sort_probability_value(row: Dict[str, Any]) -> float:
+    value = probability(row)
+    parsed = _sort_number(value, 0.0) or 0.0
+    if 0.0 < parsed <= 1.0:
+        parsed *= 100.0
+    return parsed
+
+
+def _sort_pick_time(row: Dict[str, Any]) -> int:
+    dt = audit_match_time_utc(row)
+    return int(dt.timestamp()) if dt is not None else 9999999999
+
+
+def _corq_visual_sort_key(row: Dict[str, Any]) -> Tuple[int, int, float, float, float, float, int, str]:
+    rank = _first_rank_value(
+        row,
+        "top7_rank",
+        "corq_top7_rank",
+        "snapshot_rank",
+        "rank",
+        "_corq_render_rank",
+    )
+    score = _first_numeric_value(
+        row,
+        "corq_top7_sort_score",
+        "top7_sort_score",
+        "top7_quality_score",
+        "corq_quality_score",
+        "quality_score",
+        default=0.0,
+    ) or 0.0
+    value_delta = _first_numeric_value(
+        row,
+        "marq_v2_value_delta_pp",
+        "corq_value_delta_pp",
+        "value_delta_pp",
+        "model_market_delta_pp",
+        default=-999.0,
+    ) or -999.0
+    ev = _first_numeric_value(
+        row,
+        "marq_v2_expected_value_pct",
+        "expected_value_pct",
+        "ev_pct",
+        "expected_value",
+        default=-999.0,
+    ) or -999.0
+    return (
+        0 if rank is not None else 1,
+        rank if rank is not None else 9999,
+        -score,
+        -_sort_probability_value(row),
+        -value_delta,
+        -ev,
+        _sort_pick_time(row),
+        pick_name(row).lower(),
+    )
+
+
+def _cloq_visual_sort_key(row: Dict[str, Any]) -> Tuple[int, int, float, float, float, float, int, str]:
+    rank = _first_rank_value(row, "cloq_rank", "rank", "_corq_render_rank")
+    score = _first_numeric_value(
+        row,
+        "cloq_score",
+        "cloq_sort_score",
+        "cloq_quality_score",
+        "corq_top7_sort_score",
+        "top7_quality_score",
+        default=0.0,
+    ) or 0.0
+    gap = _first_numeric_value(row, "cloq_odds_gap_pct", "odds_gap_pct", default=999.0) or 999.0
+    value_delta = _first_numeric_value(
+        row,
+        "marq_v2_value_delta_pp",
+        "corq_value_delta_pp",
+        "value_delta_pp",
+        default=-999.0,
+    ) or -999.0
+    ev = _first_numeric_value(row, "expected_value_pct", "ev_pct", default=-999.0) or -999.0
+    return (
+        0 if rank is not None else 1,
+        rank if rank is not None else 9999,
+        -score,
+        gap,
+        -value_delta,
+        -ev,
+        _sort_pick_time(row),
+        pick_name(row).lower(),
+    )
+
+
+def sort_pick_rows(rows: List[Dict[str, Any]], page: str = "corq") -> List[Dict[str, Any]]:
+    page_key = str(page or "").lower()
+    clean_rows = [r for r in rows or [] if isinstance(r, dict)]
+    if page_key == "cloq":
+        return sorted(clean_rows, key=_cloq_visual_sort_key)
+    if page_key in {"all", "audit", "thinq"}:
+        return sorted(clean_rows, key=_audit_v3_time_sort_key)
+    return sorted(clean_rows, key=_corq_visual_sort_key)
+
+
+def _assign_visual_ranks(rows: List[Dict[str, Any]]) -> None:
+    for idx, row in enumerate(rows or [], start=1):
+        if isinstance(row, dict):
+            row["_corq_render_rank"] = idx
+
+
+def render_cards_page(title: str, active: str, rows: List[Dict[str, Any]], manifest: Dict[str, Any], page: str = "corq", dedupe: bool = False) -> str:
+    rows = dedupe_matches(rows) if dedupe else [r for r in rows or [] if isinstance(r, dict)]
+    rows = sort_pick_rows(rows, page=page)
+    _assign_visual_ranks(rows)
+    mark_audit_h2h_top10(rows)
+    ensure_logs(rows)
+    if not rows:
+        cards = '<div class="empty">No rows available.</div>'
+    else:
+        cards = '<div class="grid">' + "\n".join(render_card(r, i + 1, page=page) for i, r in enumerate(rows)) + '</div>'
+    summary = render_notes_summary(rows) if page in {"corq", "cloq", "all"} else ""
+    return page_shell(title, active, summary + cards, manifest)
+
+
+def render_all() -> None:
+    SITE_DIR.mkdir(parents=True, exist_ok=True)
+    manifest = read_json(OUTPUTS / "latest_manifest.json", {})
+    top7_raw = json_rows(read_json(OUTPUTS / "latest_top7.json", []))
+    all_rows_raw = json_rows(read_json(OUTPUTS / "latest_all.json", []))
+    cloq_raw = json_rows(read_json(OUTPUTS / "cloq" / "latest_cloq.json", []))
+    if not cloq_raw:
+        cloq_raw = json_rows(read_json(OUTPUTS / "latest_cloq.json", []))
+
+    top7 = sort_pick_rows(top7_raw, page="corq")
+    cloq = sort_pick_rows(cloq_raw, page="cloq")
+    mark_audit_cloq_rows(all_rows_raw, cloq)
+    all_rows_for_audit = sort_pick_rows(all_rows_raw, page="all")
+    _assign_visual_ranks(top7)
+    _assign_visual_ranks(cloq)
+    _assign_visual_ranks(all_rows_for_audit)
+    ensure_logs(top7 + all_rows_for_audit + cloq)
+
+    write_text(SITE_DIR / "index.html", page_shell("CorQ", "root", '<script>location.href="' + esc(TOP7_PATH) + '/"</script>', manifest))
+    write_text(SITE_DIR / TOP7_PATH / "index.html", render_cards_page("CorQ", TOP7_PATH, top7, manifest, page="corq"))
+    write_text(SITE_DIR / ALL_PATH / "index.html", render_cards_page("Audit", ALL_PATH, all_rows_for_audit, manifest, page="all", dedupe=True))
+    write_text(SITE_DIR / CLOQ_PATH / "index.html", render_cards_page("CloQ", CLOQ_PATH, cloq, manifest, page="cloq"))
+    write_text(SITE_DIR / THINQ_PATH / "index.html", render_cards_page("ThinQ", THINQ_PATH, all_rows_for_audit, manifest, page="all", dedupe=True))
+    write_text(SITE_DIR / RESULTS_PATH / "index.html", render_results_page(manifest))
+    write_text(SITE_DIR / HISTORY_PATH / "index.html", render_results_history_index(manifest))
+
+    corq_all, cloq_all, audit_all = _history_all_result_rows()
+    start, _end = results_default_date_range()
+    history_rows = _history_rows_before_window(corq_all + cloq_all + audit_all, start)
+    for day in sorted({_history_row_date_iso(r) for r in history_rows if _history_row_date_iso(r) != "unknown"}, reverse=True):
+        write_text(SITE_DIR / HISTORY_PATH / f"{day}.html", render_results_history_day(manifest, day))
+
+    write_text(SITE_DIR / CORQ_RSS_PATH, rss_items(top7, "CorQ TOP7"))
+    write_text(SITE_DIR / CLOQ_RSS_PATH, rss_items(cloq, "CloQ"))
+    write_text(SITE_DIR / THINQ_RSS_PATH, rss_items(all_rows_for_audit[:20], "ThinQ"))
+    render_manifest = {
+        "rendered_at": datetime.now(tz=timezone.utc).isoformat(),
+        "top7_count": len(top7),
+        "all_count": len(all_rows_for_audit),
+        "cloq_count": len(cloq),
+        "render_order_policy": "corq_cloq_model_rank_audit_match_time",
+        "history_path": HISTORY_PATH,
+        "site_root": str(SITE_DIR),
+    }
+    write_text(SITE_DIR / "render_manifest.json", json.dumps(render_manifest, ensure_ascii=False, indent=2))
+    print(f"Rendered site: top7={len(top7)} all={len(all_rows_for_audit)} cloq={len(cloq)} history={HISTORY_PATH} order=rank root={SITE_DIR}")
+
+
 def main() -> None:
     render_all()
 
