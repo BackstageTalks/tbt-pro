@@ -741,19 +741,245 @@ def build_h2h_context(
     return summary
 
 
+
+# ---------------------------------------------------------------------------
+# Prewarm / registry helpers
+# ---------------------------------------------------------------------------
+
+PLAYERS_DIR = Path("thinq/data/players")
+PLAYER_REGISTRY_PATH = PLAYERS_DIR / "player_registry.json"
+PLAYER_REGISTRY_MANIFEST_PATH = PLAYERS_DIR / "player_registry_manifest.json"
+H2H_MATCHUPS_PATH = CACHE_DIR / "h2h_matchups.json"
+H2H_MANIFEST_PATH = CACHE_DIR / "h2h_manifest.json"
+RUNTIME_H2H_DIR = Path("runtime/h2h")
+RUNTIME_H2H_REPORT_PATH = RUNTIME_H2H_DIR / "h2h_coverage_report.json"
+ELO_PLAYERS_INDEX_PATH = Path("thinq/data/elo/elo_players_index.json")
+
+
+def _write_json(path: Path, payload: Dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
+
+
+def _load_json(path: Path) -> Any:
+    try:
+        if path.exists():
+            return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    return None
+
+
+def load_elo_universe(path: Path = ELO_PLAYERS_INDEX_PATH) -> Dict[str, Dict[str, Any]]:
+    payload = _load_json(path)
+    players: Dict[str, Dict[str, Any]] = {}
+    if isinstance(payload, dict):
+        raw = payload.get("players")
+        if isinstance(raw, dict):
+            for key, value in raw.items():
+                if isinstance(value, dict):
+                    players[compact_text(value.get("name") or key)] = value
+        elif isinstance(raw, list):
+            for value in raw:
+                if isinstance(value, dict):
+                    name = value.get("name") or value.get("player")
+                    if name:
+                        players[compact_text(name)] = value
+    return players
+
+
+def _rows_from_payload(payload: Any) -> List[Dict[str, Any]]:
+    if isinstance(payload, list):
+        return [x for x in payload if isinstance(x, dict)]
+    if isinstance(payload, dict):
+        for key in ("rows", "items", "all", "top7", "picks", "records", "data", "matches"):
+            value = payload.get(key)
+            if isinstance(value, list):
+                return [x for x in value if isinstance(x, dict)]
+    return []
+
+
+def _load_rows(path: Path) -> List[Dict[str, Any]]:
+    payload = _load_json(path)
+    return _rows_from_payload(payload)
+
+
+def _first(row: Dict[str, Any], keys: Iterable[str]) -> Any:
+    for key in keys:
+        value = row.get(key)
+        if value not in (None, "", "-", "N/A", "None"):
+            return value
+    return None
+
+
+def _row_identity(row: Dict[str, Any]) -> Dict[str, Any]:
+    custom_id = string_id(_first(row, ("event_custom_id", "custom_id", "customId")))
+    event_id = _first(row, ("event_id", "match_id", "id"))
+    if not custom_id and event_id not in (None, "") and not str(event_id).isdigit():
+        custom_id = string_id(event_id)
+    pick = str(_first(row, ("pick", "top7_pick", "cloq_pick", "player", "player1", "home_name")) or "").strip()
+    opponent = str(_first(row, ("opponent", "opp", "player2", "away_name")) or "").strip()
+    return {
+        "custom_id": custom_id,
+        "event_id": event_id or custom_id,
+        "pick": pick,
+        "opponent": opponent,
+        "surface": _first(row, ("surface", "surface_raw", "groundType", "court")),
+        "pick_id": _first(row, ("thinq_pick_player_id", "pick_player_id", "player1_id", "home_id", "home_player_id")),
+        "opponent_id": _first(row, ("thinq_opponent_player_id", "opponent_player_id", "player2_id", "away_id", "away_player_id")),
+        "tournament": _first(row, ("tournament", "tournament_name", "event_tournament")),
+        "start_time": _first(row, ("start_time", "startTimestamp", "start_timestamp", "match_time")),
+    }
+
+
+def _upsert_player(registry: Dict[str, Any], name: str, api_id: Any, tour: Any = None, extra: Optional[Dict[str, Any]] = None) -> None:
+    if not name:
+        return
+    key = f"api:{api_id}" if api_id not in (None, "") else f"name:{compact_text(name)}"
+    players = registry.setdefault("players", {})
+    current = players.get(key) if isinstance(players.get(key), dict) else {}
+    current.update({
+        "name": name,
+        "compact_key": compact_text(name),
+        "api_team_id": as_int(api_id),
+        "tour": tour or current.get("tour"),
+        "last_seen_at": now_iso(),
+    })
+    if extra:
+        current.update({k: v for k, v in extra.items() if v not in (None, "")})
+    players[key] = current
+
+
+def prewarm_h2h_cache(outputs_dir: str = "outputs", max_requests: int = 60, require_elo: bool = True) -> Dict[str, Any]:
+    out_dir = Path(outputs_dir)
+    source_files = [
+        out_dir / "latest_all.json",
+        out_dir / "latest_top7.json",
+        out_dir / "latest_cloq.json",
+        out_dir / "cloq" / "latest_cloq.json",
+    ]
+    elo = load_elo_universe()
+    registry = _load_json(PLAYER_REGISTRY_PATH) or {"version": CACHE_VERSION, "updated_at": now_iso(), "players": {}}
+    matchups = _load_json(H2H_MATCHUPS_PATH) or {"version": CACHE_VERSION, "updated_at": now_iso(), "matchups": {}}
+
+    seen = set()
+    work: List[Dict[str, Any]] = []
+    source_counts: Dict[str, int] = {}
+    rejects = {"missing_identity": 0, "missing_custom_id": 0, "not_in_elo_universe": 0, "duplicate": 0}
+
+    for path in source_files:
+        rows = _load_rows(path)
+        source_counts[str(path)] = len(rows)
+        for row in rows:
+            ident = _row_identity(row)
+            if not ident["pick"] or not ident["opponent"]:
+                rejects["missing_identity"] += 1
+                continue
+            if not ident["custom_id"]:
+                rejects["missing_custom_id"] += 1
+                continue
+            pick_key = compact_text(ident["pick"])
+            opp_key = compact_text(ident["opponent"])
+            in_elo = (pick_key in elo) and (opp_key in elo)
+            if require_elo and not in_elo:
+                rejects["not_in_elo_universe"] += 1
+                continue
+            sig = (ident["custom_id"], pick_key, opp_key)
+            if sig in seen:
+                rejects["duplicate"] += 1
+                continue
+            seen.add(sig)
+            work.append(ident)
+
+    attempted = ok = no_data = errors = 0
+    results: List[Dict[str, Any]] = []
+    for ident in work[:max_requests]:
+        attempted += 1
+        try:
+            ctx = build_h2h_context(
+                event_id=ident["event_id"],
+                pick=ident["pick"],
+                opponent=ident["opponent"],
+                surface=ident["surface"],
+                player1_id=ident["pick_id"],
+                player2_id=ident["opponent_id"],
+                event_custom_id=ident["custom_id"],
+            )
+            if ctx.get("status") == "OK":
+                ok += 1
+            else:
+                no_data += 1
+            mkey = f"custom:{ident['custom_id']}"
+            matchups.setdefault("matchups", {})[mkey] = {
+                "custom_id": ident["custom_id"],
+                "event_id": ident["event_id"],
+                "player1_id": as_int(ident["pick_id"]),
+                "player2_id": as_int(ident["opponent_id"]),
+                "player1_name": ident["pick"],
+                "player2_name": ident["opponent"],
+                "surface": ident["surface"],
+                "tournament": ident["tournament"],
+                "start_time": ident["start_time"],
+                "both_players_in_elo_universe": compact_text(ident["pick"]) in elo and compact_text(ident["opponent"]) in elo,
+                "h2h_cache_key": ctx.get("cache_key"),
+                "h2h_status": ctx.get("status"),
+                "last_seen_at": now_iso(),
+            }
+            _upsert_player(registry, ident["pick"], ident["pick_id"], extra={"elo_available": compact_text(ident["pick"]) in elo})
+            _upsert_player(registry, ident["opponent"], ident["opponent_id"], extra={"elo_available": compact_text(ident["opponent"]) in elo})
+            results.append({"custom_id": ident["custom_id"], "status": ctx.get("status"), "matches": ctx.get("total_matches"), "cache_key": ctx.get("cache_key")})
+        except Exception as exc:
+            errors += 1
+            results.append({"custom_id": ident.get("custom_id"), "status": "ERROR", "error": str(exc)})
+
+    registry["updated_at"] = now_iso()
+    matchups["updated_at"] = now_iso()
+    _write_json(PLAYER_REGISTRY_PATH, registry)
+    _write_json(PLAYER_REGISTRY_MANIFEST_PATH, {"updated_at": now_iso(), "player_count": len(registry.get("players", {}))})
+    _write_json(H2H_MATCHUPS_PATH, matchups)
+
+    manifest = {
+        "status": "OK" if work else "NO_ELIGIBLE_MATCHES",
+        "updated_at": now_iso(),
+        "outputs_dir": outputs_dir,
+        "require_elo": require_elo,
+        "elo_universe_count": len(elo),
+        "candidate_pairs": len(work),
+        "attempted": attempted,
+        "ok": ok,
+        "no_data": no_data,
+        "errors": errors,
+        "source_counts": source_counts,
+        "rejects": rejects,
+        "cache_path": str(CACHE_PATH),
+        "matchups_path": str(H2H_MATCHUPS_PATH),
+        "player_registry_path": str(PLAYER_REGISTRY_PATH),
+    }
+    _write_json(H2H_MANIFEST_PATH, manifest)
+    _write_json(RUNTIME_H2H_REPORT_PATH, {**manifest, "results": results})
+    return manifest
+
+
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="Inspect or fetch TennisAPI PRO H2H lazy cache")
+    parser = argparse.ArgumentParser(description="ThinQ H2H loader and cache prewarm")
     parser.add_argument("--custom-id", default=None)
     parser.add_argument("--pick", default="")
     parser.add_argument("--opponent", default="")
     parser.add_argument("--surface", default=None)
     parser.add_argument("--pick-id", default=None)
     parser.add_argument("--opponent-id", default=None)
+    parser.add_argument("--prewarm", action="store_true")
+    parser.add_argument("--outputs-dir", default=os.getenv("OUTPUTS_DIR", "outputs"))
+    parser.add_argument("--max-requests", type=int, default=int(os.getenv("MAX_REQUESTS", "60") or 60))
+    parser.add_argument("--require-elo", default=os.getenv("H2H_REQUIRE_ELO", "true"))
     args = parser.parse_args()
 
-    if args.custom_id:
+    if args.prewarm:
+        require_elo = str(args.require_elo).strip().lower() not in {"0", "false", "no"}
+        print(json.dumps(prewarm_h2h_cache(args.outputs_dir, args.max_requests, require_elo), ensure_ascii=False, indent=2))
+    elif args.custom_id:
         print(json.dumps(build_h2h_context(
             event_id=args.custom_id,
             event_custom_id=args.custom_id,
