@@ -1,36 +1,14 @@
 {
-  "generated_at": "2026-07-22T11:37:36Z",
-  "status": "ok",
-  "cache_file": "thinq/data/elo/elo_cache.json",
-  "player_count": 1131,
-  "sources": {
-    "atp_elo": {
-      "url": "https://tennisabstract.com/reports/atp_elo_ratings.html",
-      "tour": "atp",
-      "last_update": "2026-07-20",
-      "row_count": 544,
-      "error": null
-    },
-    "atp_yelo": {
-      "url": "https://tennisabstract.com/reports/atp_season_yelo_ratings.html",
-      "tour": "atp",
-      "last_update": "2026-07-20",
-      "row_count": 490,
-      "error": null
-    },
-    "wta_elo": {
-      "url": "https://tennisabstract.com/reports/wta_elo_ratings.html",
-      "tour": "wta",
-      "last_update": "2026-07-20",
-      "row_count": 543,
-      "error": null
-    },
-    "wta_yelo": {
-      "url": "https://tennisabstract.com/reports/wta_season_yelo_ratings.html",
-      "tour": "wta",
-      "last_update": "2026-07-20",
-      "row_count": 472,
-      "error": null
-    }
+  "alias_cache": "thinq/data/elo/elo_cache.json",
+  "canonical_cache": "thinq/data/elo/ta_elo_ratings.json",
+  "errors": [],
+  "generated_at": "2026-08-18T05:41:27+00:00",
+  "profile_count": 1099,
+  "refreshed_at_utc": "2026-08-18T05:41:27+00:00",
+  "source": "tennis_abstract_elo_ratings",
+  "stats": {
+    "failed": 0,
+    "players": 1099,
+    "sources": 2
   }
 }
