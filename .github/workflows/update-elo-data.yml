@@ -101,53 +101,141 @@ jobs:
           elif [ -f tools/update-elo-data.py ]; then
             run_and_validate "tools/update-elo-data.py" python tools/update-elo-data.py
           elif [ -f thinq/loaders/elo_loader.py ]; then
-            # thinq/loaders/elo_loader.py refreshes the TA ELO cache only with --update.
-            # Running it without --update only inspects the existing index and does not refresh data.
-            run_and_validate "thinq/loaders/elo_loader.py --update" python thinq/loaders/elo_loader.py --update --output thinq/data/elo/ta_elo_ratings.json
+            if python thinq/loaders/elo_loader.py --help >/tmp/elo_help.txt 2>&1; then
+              if grep -qi -- "--refresh\|--force" /tmp/elo_help.txt; then
+                python thinq/loaders/elo_loader.py --refresh || python thinq/loaders/elo_loader.py --force-refresh || python thinq/loaders/elo_loader.py
+              else
+                python thinq/loaders/elo_loader.py
+              fi
+            else
+              python thinq/loaders/elo_loader.py
+            fi
           else
             echo "No known ELO update entrypoint found."
             echo "Expected one of: tools/update_elo_data.py, tools/update-elo-data.py, thinq/loaders/elo_loader.py"
             exit 1
           fi
 
-      - name: Normalize ELO cache aliases
+
+      - name: Build ELO players index
         if: ${{ steps.trigger_policy.outputs.should_run == 'true' }}
         run: |
           python - <<'PY'
-          from pathlib import Path
           import json
+          import re
+          from pathlib import Path
           from datetime import datetime, timezone
 
-          root = Path("thinq/data/elo")
-          canonical = root / "ta_elo_ratings.json"
-          alias = root / "elo_cache.json"
-          refresh = root / "elo_last_refresh.json"
+          out_path = Path("thinq/data/elo/elo_players_index.json")
+          candidates = [
+              Path("thinq/data/elo/ta_elo_ratings.json"),
+              Path("thinq/data/elo/elo_cache.json"),
+          ]
 
-          if not canonical.exists():
-              raise SystemExit("Canonical ELO cache missing: thinq/data/elo/ta_elo_ratings.json")
-          payload = json.loads(canonical.read_text(encoding="utf-8"))
-          players = payload.get("players") if isinstance(payload, dict) else None
-          if not isinstance(players, dict) or not players:
-              raise SystemExit("Canonical ELO cache has no players")
+          def compact(value):
+              text = str(value or "").strip().lower()
+              return re.sub(r"[^a-z0-9]+", "", text)
 
-          # Keep elo_cache.json synchronized because the runtime loader discovers
-          # both files and sorted discovery can otherwise prefer an older alias.
-          alias.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
+          def as_float(value):
+              try:
+                  if value in (None, "", "N/A", "-"):
+                      return None
+                  return float(value)
+              except Exception:
+                  return None
 
-          meta = {
-              "generated_at": payload.get("generated_at") or datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
-              "refreshed_at_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
-              "source": payload.get("source") or "tennis_abstract_elo_ratings",
-              "canonical_cache": str(canonical),
-              "alias_cache": str(alias),
-              "profile_count": payload.get("profile_count") or len(players),
-              "stats": payload.get("stats"),
-              "errors": payload.get("errors") or [],
+          def iter_records(payload):
+              if isinstance(payload, list):
+                  for item in payload:
+                      if isinstance(item, dict):
+                          yield item
+              elif isinstance(payload, dict):
+                  for key in ("players", "ratings", "items", "data", "records"):
+                      value = payload.get(key)
+                      if isinstance(value, list):
+                          for item in value:
+                              if isinstance(item, dict):
+                                  yield item
+                          return
+                      if isinstance(value, dict):
+                          for name, item in value.items():
+                              if isinstance(item, dict):
+                                  row = dict(item)
+                                  row.setdefault("player", name)
+                                  yield row
+                          return
+                  # fallback: mapping directly name -> record
+                  for name, item in payload.items():
+                      if isinstance(item, dict):
+                          row = dict(item)
+                          row.setdefault("player", name)
+                          yield row
+
+          source = None
+          records = []
+          for path in candidates:
+              if not path.exists():
+                  continue
+              try:
+                  payload = json.loads(path.read_text(encoding="utf-8"))
+                  records = list(iter_records(payload))
+                  if records:
+                      source = str(path)
+                      break
+              except Exception as exc:
+                  print(f"Failed reading {path}: {exc}")
+
+          players = {}
+          rows = []
+          for row in records:
+              name = row.get("player") or row.get("name") or row.get("player_name")
+              if not name:
+                  continue
+              tour = str(row.get("tour") or row.get("gender") or row.get("category") or "").upper()
+              if tour in {"M", "MEN", "ATP"}:
+                  tour = "ATP"
+              elif tour in {"F", "W", "WOMEN", "WTA"}:
+                  tour = "WTA"
+              else:
+                  tour = tour or "UNKNOWN"
+              item = {
+                  "name": str(name),
+                  "compact_key": compact(name),
+                  "tour": tour,
+                  "elo": as_float(row.get("elo") or row.get("overall_elo") or row.get("rating")),
+                  "hard_elo": as_float(row.get("hard_elo")),
+                  "clay_elo": as_float(row.get("clay_elo")),
+                  "grass_elo": as_float(row.get("grass_elo")),
+                  "h2h_eligible": True,
+                  "source": source,
+              }
+              players[item["compact_key"]] = item
+              rows.append(item)
+
+          for tour in sorted({r["tour"] for r in rows}):
+              subset = [r for r in rows if r["tour"] == tour]
+              for field, rank_field in [
+                  ("elo", "elo_rank_tour"),
+                  ("hard_elo", "hard_elo_rank_tour"),
+                  ("clay_elo", "clay_elo_rank_tour"),
+                  ("grass_elo", "grass_elo_rank_tour"),
+              ]:
+                  ranked = sorted([r for r in subset if r.get(field) is not None], key=lambda x: x[field], reverse=True)
+                  for idx, item in enumerate(ranked, start=1):
+                      item[rank_field] = idx
+
+          out = {
+              "version": "ELO_PLAYERS_INDEX_V1",
+              "generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+              "source": source,
+              "player_count": len(players),
+              "players": players,
           }
-          refresh.write_text(json.dumps(meta, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
-          print(f"ELO canonical players={len(players)} generated_at={meta['generated_at']}")
-          print(f"Synced {alias}")
-          print(f"Wrote {refresh}")
+          out_path.parent.mkdir(parents=True, exist_ok=True)
+          out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
+          print(f"Wrote {out_path} players={len(players)} source={source}")
+          if not players:
+              raise SystemExit("elo_players_index is empty")
           PY
 
       - name: Validate ELO cache
