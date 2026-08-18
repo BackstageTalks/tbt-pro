@@ -1,34 +1,56 @@
-"""THINQ H2H loader.
+"""THINQ H2H loader using TennisAPI PRO customId endpoint with lazy JSON cache.
 
-Broad implementation for runtime building:
-- RapidAPI PRO first, if event_id is available
-- local cache fallback
-- never blocks CORQ if no H2H data exists
+Policy:
+- TennisAPI PRO is the only external H2H source.
+- Primary endpoint: /api/tennis/event/{customId}/h2h.
+- Cache lives under thinq/data/h2h/ so H2H data is organized with ThinQ data.
+- Missing data returns NO_DATA and never fabricates values.
+- Cached API data can be used if the API is temporarily unavailable.
+
+Runtime orientation:
+- build_h2h_context receives pick/opponent and side-aware player IDs from
+  thinq.service.
+- H2H wins are oriented to pick -> opponent.
 """
 
 from __future__ import annotations
 
 import json
 import os
+import re
 import time
-from datetime import date
+from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 try:
     import requests
 except Exception:  # pragma: no cover
-    requests = None
+    requests = None  # type: ignore
 
 try:
     from corq.name_match import names_match, normalize_name
-except Exception:
+except Exception:  # pragma: no cover
     def normalize_name(value: Any) -> str:
-        return str(value or "").strip().lower()
+        text = str(value or "").strip().lower()
+        text = re.sub(r"[^a-z0-9]+", " ", text)
+        return " ".join(text.split())
+
     def names_match(a: Any, b: Any, threshold: float = 0.78) -> bool:
         return normalize_name(a) == normalize_name(b)
 
-CACHE_DIR = Path("data/h2h_cache")
+
+CACHE_DIR = Path("thinq/data/h2h")
+CACHE_PATH = CACHE_DIR / "h2h_cache.json"
+LAST_REFRESH_PATH = CACHE_DIR / "h2h_last_refresh.json"
+CACHE_VERSION = "TENNISAPI_PRO_H2H_LAZY_CACHE_V1"
+DEFAULT_CACHE_TTL_DAYS = int(os.getenv("H2H_CACHE_TTL_DAYS", "14"))
+REQUEST_TIMEOUT_SECONDS = int(os.getenv("H2H_REQUEST_TIMEOUT_SECONDS", "25"))
+REQUEST_DELAY_SECONDS = float(os.getenv("H2H_REQUEST_DELAY_SECONDS", "0.10"))
+
+
+def now_iso() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
 
 def as_int(value: Any) -> Optional[int]:
@@ -40,81 +62,13 @@ def as_int(value: Any) -> Optional[int]:
         return None
 
 
-def rapidapi_host() -> str:
-    return os.getenv("TENNISAPI_RAPIDAPI_HOST") or os.getenv("RAPIDAPI_HOST") or "tennisapi1.p.rapidapi.com"
-
-
-def rapidapi_headers() -> Optional[Dict[str, str]]:
-    key = os.getenv("RAPIDAPI_KEY")
-    if not key:
-        return None
-    return {"x-rapidapi-key": key, "x-rapidapi-host": rapidapi_host()}
-
-
-def cache_path(event_id: Any, player1: str, player2: str) -> Path:
-    year = str(date.today().year)
-    key = str(event_id or f"{normalize_name(player1)}__{normalize_name(player2)}").replace("/", "_")
-    return CACHE_DIR / year / f"h2h_{key}.json"
-
-
-def save_cache(path: Path, payload: Any) -> None:
+def as_float(value: Any) -> Optional[float]:
     try:
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    except Exception:
-        pass
-
-
-def load_cache(path: Path) -> Optional[Any]:
-    try:
-        if path.exists():
-            return json.loads(path.read_text(encoding="utf-8"))
+        if value in (None, "", "-", "N/A"):
+            return None
+        return float(value)
     except Exception:
         return None
-    return None
-
-
-def api_get_with_audit(path: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-    audit: Dict[str, Any] = {
-        "endpoint": path,
-        "params": params or {},
-        "url_path": path,
-        "ok": False,
-        "status_code": None,
-        "error": None,
-        "payload": None,
-    }
-    if requests is None:
-        audit["error"] = "requests_unavailable"
-        return audit
-    headers = rapidapi_headers()
-    if not headers:
-        audit["error"] = "missing_rapidapi_key"
-        return audit
-    url = f"https://{rapidapi_host()}{path}"
-    try:
-        resp = requests.get(url, headers=headers, params=params or {}, timeout=25)
-        audit["status_code"] = resp.status_code
-        if resp.status_code in (204, 404):
-            audit["error"] = f"empty_status_{resp.status_code}"
-            return audit
-        resp.raise_for_status()
-        if not resp.text:
-            audit["error"] = "empty_response_text"
-            return audit
-        audit["payload"] = resp.json()
-        audit["ok"] = True
-        return audit
-    except Exception as exc:
-        audit["error"] = str(exc)
-        return audit
-    finally:
-        time.sleep(0.10)
-
-
-def api_get(path: str, params: Optional[Dict[str, Any]] = None) -> Optional[Any]:
-    audit = api_get_with_audit(path, params=params)
-    return audit.get("payload") if audit.get("ok") else None
 
 
 def string_id(value: Any) -> Optional[str]:
@@ -124,13 +78,26 @@ def string_id(value: Any) -> Optional[str]:
     return text or None
 
 
-def normalize_surface_bucket(value: Any) -> Optional[str]:
-    """Map API and project surface labels into one H2H bucket.
+def compact_text(value: Any) -> str:
+    return re.sub(r"[^a-z0-9]+", "", normalize_name(value))
 
-    Tennis API payloads are not consistent: surface can be a plain string,
-    groundType.name, nested tournament.groundType or labels such as red clay.
-    The H2H same-surface calculation must compare buckets, not raw strings.
-    """
+
+def rapidapi_host() -> str:
+    return os.getenv("TENNISAPI_RAPIDAPI_HOST") or os.getenv("RAPIDAPI_HOST") or "tennisapi1.p.rapidapi.com"
+
+
+def rapidapi_headers() -> Optional[Dict[str, str]]:
+    key = os.getenv("RAPIDAPI_KEY", "").strip()
+    if not key:
+        return None
+    return {
+        "x-rapidapi-key": key,
+        "x-rapidapi-host": rapidapi_host(),
+        "Content-Type": "application/json",
+    }
+
+
+def normalize_surface_bucket(value: Any) -> Optional[str]:
     if value in (None, ""):
         return None
     if isinstance(value, dict):
@@ -139,131 +106,142 @@ def normalize_surface_bucket(value: Any) -> Optional[str]:
             if bucket:
                 return bucket
         return None
-    text = str(value or "").strip().lower()
+    text = str(value or "").strip().lower().replace("_", " ").replace("-", " ")
     if not text:
         return None
-    text = text.replace("_", " ").replace("-", " ")
-    clay_terms = ("clay", "red clay", "green clay", "terre battue", "antuka", "har tru", "hartru")
-    grass_terms = ("grass", "lawn")
-    hard_terms = ("hard", "hardcourt", "hard court", "indoor hard", "outdoor hard", "carpet")
-    if any(term in text for term in clay_terms):
+    if any(term in text for term in ("clay", "red clay", "green clay", "terre battue", "har tru", "hartru")):
         return "Clay"
-    if any(term in text for term in grass_terms):
+    if any(term in text for term in ("grass", "lawn")):
         return "Grass"
-    if any(term in text for term in hard_terms):
+    if any(term in text for term in ("hard", "hardcourt", "hard court", "indoor", "carpet")):
         return "Hard"
     return None
 
 
-def _surface_candidates(obj: Any, depth: int = 0) -> List[Any]:
-    if depth > 4:
-        return []
-    out: List[Any] = []
-    if isinstance(obj, dict):
-        for key, value in obj.items():
-            key_norm = str(key).lower().replace("_", "").replace("-", "")
-            if key_norm in {"surface", "surfacetype", "ground", "groundtype", "courttype", "court", "surfaceinfo"}:
-                out.append(value)
-            if isinstance(value, (dict, list)):
-                out.extend(_surface_candidates(value, depth + 1))
-    elif isinstance(obj, list):
-        for item in obj:
-            out.extend(_surface_candidates(item, depth + 1))
-    return out
+def _nested_get(data: Any, *keys: str) -> Any:
+    current = data
+    for key in keys:
+        if not isinstance(current, dict):
+            return None
+        current = current.get(key)
+    return current
 
 
-def event_surface_bucket(event: Dict[str, Any]) -> Optional[str]:
-    # First check common top-level fields, then scan nested tournament/venue data.
-    direct = [
-        event.get("surface"),
-        event.get("groundType"),
-        event.get("surfaceType"),
-        event.get("courtType"),
-        event.get("court"),
-    ]
-    for value in direct + _surface_candidates(event):
-        bucket = normalize_surface_bucket(value)
-        if bucket:
-            return bucket
+def _team_name(team: Any) -> str:
+    if isinstance(team, dict):
+        for key in ("name", "fullName", "displayName", "shortName", "slug"):
+            if team.get(key):
+                return str(team.get(key))
+    return str(team or "")
+
+
+def _team_id(team: Any) -> Optional[int]:
+    if not isinstance(team, dict):
+        return None
+    for key in ("id", "teamId", "playerId"):
+        value = as_int(team.get(key))
+        if value is not None:
+            return value
+    value = as_int(_nested_get(team, "playerTeamInfo", "id"))
+    if value is not None:
+        return value
     return None
 
 
-def fetch_h2h_from_api(
-    event_id: Any,
-    player1_id: Any = None,
-    player2_id: Any = None,
-    event_custom_id: Any = None,
-) -> Optional[Any]:
-    event_id_int = as_int(event_id)
-    custom_id = string_id(event_custom_id)
-    event_id_text = string_id(event_id)
-    if not custom_id and event_id_text and not event_id_text.isdigit():
-        custom_id = event_id_text
-    attempts: List[Any] = []
+def _score_string(event: Dict[str, Any]) -> str:
+    home_score = event.get("homeScore") if isinstance(event.get("homeScore"), dict) else {}
+    away_score = event.get("awayScore") if isinstance(event.get("awayScore"), dict) else {}
+    parts: List[str] = []
+    for idx in range(1, 6):
+        hp = home_score.get(f"period{idx}")
+        ap = away_score.get(f"period{idx}")
+        if hp in (None, "") or ap in (None, ""):
+            continue
+        ht = home_score.get(f"period{idx}TieBreak")
+        at = away_score.get(f"period{idx}TieBreak")
+        tb = ""
+        if ht not in (None, "") or at not in (None, ""):
+            tb = f"({ht or 0}-{at or 0})"
+        parts.append(f"{hp}-{ap}{tb}")
+    return " ".join(parts)
 
-    # TennisApi PRO H2H history. RapidAPI docs/examples use the event customId
-    # for this endpoint, e.g. /api/tennis/event/QCtsXrI/h2h.
-    # If customId is available, keep H2H lightweight and do not fan out to
-    # numeric/player/team fallbacks. Those extra calls produced mostly 404/429.
-    if custom_id:
-        attempts.extend([
-            (f"/api/tennis/event/{custom_id}/h2h", None),
-            (f"/api/tennis/event/{custom_id}/head-to-head", None),
-        ])
 
-    # Numeric event id fallbacks only when customId is not available.
-    if event_id_int and not custom_id:
-        attempts.extend([
-            (f"/api/tennis/event/{event_id_int}/h2h", None),
-            (f"/api/tennis/event/{event_id_int}/head-to-head", None),
-            (f"/api/tennis/event/{event_id_int}/h2h/summary", None),
-            ("/api/tennis/getHeadToHeadHistory", {"eventId": event_id_int}),
-            ("/api/tennis/getHeadToHeadSummary", {"eventId": event_id_int}),
-        ])
+def _event_date_from_timestamp(value: Any) -> Optional[str]:
+    try:
+        ts = int(value)
+        return datetime.fromtimestamp(ts, tz=timezone.utc).date().isoformat()
+    except Exception:
+        return None
 
-    p1 = as_int(player1_id)
-    p2 = as_int(player2_id)
-    if p1 and p2 and not custom_id:
-        attempts.extend([
-            (f"/api/tennis/head-to-head/{p1}/{p2}", None),
-            (f"/api/tennis/team/{p1}/versus/{p2}/matches", None),
-            (f"/api/tennis/player/{p1}/versus/{p2}/matches", None),
-            ("/api/tennis/getHeadToHeadHistory", {"player1Id": p1, "player2Id": p2}),
-            ("/api/tennis/getHeadToHeadSummary", {"player1Id": p1, "player2Id": p2}),
-            ("/api/tennis/getHeadToHeadHistory", {"homeTeamId": p1, "awayTeamId": p2}),
-            ("/api/tennis/getHeadToHeadSummary", {"homeTeamId": p1, "awayTeamId": p2}),
-        ])
 
-    endpoint_attempts: List[Dict[str, Any]] = []
-    for path, params in attempts:
-        audit = api_get_with_audit(path, params=params)
-        endpoint_attempts.append({
-            "endpoint": audit.get("endpoint"),
-            "params": audit.get("params"),
-            "status_code": audit.get("status_code"),
-            "ok": audit.get("ok"),
-            "error": audit.get("error"),
-        })
-        payload = audit.get("payload")
-        if payload:
-            return {
-                "endpoint": path,
-                "params": params,
-                "payload": payload,
-                "endpoint_attempts": endpoint_attempts,
-                "api_status_code": audit.get("status_code"),
-                "api_error": audit.get("error"),
-            }
-    if endpoint_attempts:
-        return {
-            "endpoint": None,
-            "params": None,
-            "payload": None,
-            "endpoint_attempts": endpoint_attempts,
-            "api_status_code": endpoint_attempts[-1].get("status_code"),
-            "api_error": endpoint_attempts[-1].get("error"),
-        }
-    return None
+def normalize_h2h_event(event: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    if not isinstance(event, dict):
+        return None
+
+    home = event.get("homeTeam") or event.get("home") or event.get("player1")
+    away = event.get("awayTeam") or event.get("away") or event.get("player2")
+    home_name = _team_name(home)
+    away_name = _team_name(away)
+    home_id = _team_id(home)
+    away_id = _team_id(away)
+    winner_code = as_int(event.get("winnerCode"))
+
+    winner_side = None
+    winner_name = ""
+    winner_id = None
+    if winner_code == 1:
+        winner_side = "HOME"
+        winner_name = home_name
+        winner_id = home_id
+    elif winner_code == 2:
+        winner_side = "AWAY"
+        winner_name = away_name
+        winner_id = away_id
+    else:
+        winner = event.get("winner") or event.get("winnerTeam") or event.get("winner_team")
+        winner_name = _team_name(winner)
+        winner_id = _team_id(winner)
+        if winner_id is not None and winner_id == home_id:
+            winner_side = "HOME"
+        elif winner_id is not None and winner_id == away_id:
+            winner_side = "AWAY"
+        elif winner_name and names_match(winner_name, home_name):
+            winner_side = "HOME"
+            winner_id = home_id
+        elif winner_name and names_match(winner_name, away_name):
+            winner_side = "AWAY"
+            winner_id = away_id
+
+    status = event.get("status") if isinstance(event.get("status"), dict) else {}
+    tournament = event.get("tournament") if isinstance(event.get("tournament"), dict) else {}
+    category = tournament.get("category") if isinstance(tournament.get("category"), dict) else {}
+    unique_tournament = tournament.get("uniqueTournament") if isinstance(tournament.get("uniqueTournament"), dict) else {}
+
+    surface_raw = event.get("groundType") or tournament.get("groundType") or unique_tournament.get("groundType")
+    surface_bucket = normalize_surface_bucket(surface_raw)
+
+    return {
+        "event_id": event.get("id"),
+        "custom_id": event.get("customId") or event.get("custom_id"),
+        "date": _event_date_from_timestamp(event.get("startTimestamp")),
+        "start_timestamp": event.get("startTimestamp"),
+        "tournament": tournament.get("name") or unique_tournament.get("name"),
+        "category": category.get("name"),
+        "round": _nested_get(event, "roundInfo", "name") or _nested_get(event, "roundInfo", "round"),
+        "surface": surface_bucket,
+        "surface_raw": surface_raw,
+        "home_name": home_name,
+        "away_name": away_name,
+        "home_id": home_id,
+        "away_id": away_id,
+        "winner_side": winner_side,
+        "winner_name": winner_name,
+        "winner_id": winner_id,
+        "winner_code": winner_code,
+        "status_type": status.get("type"),
+        "status_description": status.get("description"),
+        "score": _score_string(event),
+    }
 
 
 def extract_events(payload: Any) -> List[Dict[str, Any]]:
@@ -282,31 +260,194 @@ def extract_events(payload: Any) -> List[Dict[str, Any]]:
     return []
 
 
-def player_name_from_event_side(value: Any) -> str:
-    if isinstance(value, dict):
-        for key in ("name", "fullName", "displayName", "shortName", "slug"):
-            if value.get(key):
-                return str(value.get(key))
-    return str(value or "")
+def normalize_events(payload: Any) -> List[Dict[str, Any]]:
+    out: List[Dict[str, Any]] = []
+    for event in extract_events(payload):
+        item = normalize_h2h_event(event)
+        if item:
+            out.append(item)
+    return out
 
 
-def winner_from_event(event: Dict[str, Any]) -> Optional[str]:
-    winner = event.get("winner") or event.get("winnerTeam") or event.get("winner_team")
-    if winner:
-        return player_name_from_event_side(winner)
-    code = event.get("winnerCode")
-    home = player_name_from_event_side(event.get("homeTeam") or event.get("home") or event.get("player1"))
-    away = player_name_from_event_side(event.get("awayTeam") or event.get("away") or event.get("player2"))
+def h2h_event_key(event: Dict[str, Any]) -> str:
+    event_id = event.get("event_id")
+    if event_id not in (None, ""):
+        return f"event:{event_id}"
+    parts = [
+        str(event.get("date") or ""),
+        str(event.get("home_id") or event.get("home_name") or ""),
+        str(event.get("away_id") or event.get("away_name") or ""),
+        str(event.get("score") or ""),
+    ]
+    return "fallback:" + "|".join(parts)
+
+
+def merge_h2h_events(existing: Any, new_events: Any) -> List[Dict[str, Any]]:
+    merged: Dict[str, Dict[str, Any]] = {}
+    for source in (existing, new_events):
+        if not isinstance(source, list):
+            continue
+        for item in source:
+            if not isinstance(item, dict):
+                continue
+            key = h2h_event_key(item)
+            if key in merged:
+                updated = dict(merged[key])
+                updated.update({k: v for k, v in item.items() if v not in (None, "")})
+                merged[key] = updated
+            else:
+                merged[key] = dict(item)
+
+    def sort_key(item: Dict[str, Any]) -> tuple:
+        ts = as_int(item.get("start_timestamp")) or 0
+        ev = str(item.get("event_id") or "")
+        return (-ts, ev)
+
+    return sorted(merged.values(), key=sort_key)
+
+
+def _empty_cache() -> Dict[str, Any]:
+    return {
+        "version": CACHE_VERSION,
+        "source": "TENNISAPI_PRO_H2H",
+        "generated_at": now_iso(),
+        "updated_at": now_iso(),
+        "pairs": {},
+    }
+
+
+def load_h2h_cache() -> Dict[str, Any]:
     try:
-        code_int = int(code)
-        if code_int == 1:
-            return home
-        if code_int == 2:
-            return away
+        if CACHE_PATH.exists():
+            payload = json.loads(CACHE_PATH.read_text(encoding="utf-8"))
+            if isinstance(payload, dict):
+                payload.setdefault("version", CACHE_VERSION)
+                payload.setdefault("source", "TENNISAPI_PRO_H2H")
+                payload.setdefault("pairs", {})
+                return payload
+    except Exception:
+        pass
+    return _empty_cache()
+
+
+def save_h2h_cache(cache: Dict[str, Any]) -> None:
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    cache["updated_at"] = now_iso()
+    CACHE_PATH.write_text(json.dumps(cache, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
+
+
+def write_last_refresh(meta: Dict[str, Any]) -> None:
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    LAST_REFRESH_PATH.write_text(json.dumps(meta, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
+
+
+def cache_key(event_custom_id: Any, event_id: Any, player1_id: Any, player2_id: Any, pick: str, opponent: str) -> str:
+    custom_id = string_id(event_custom_id)
+    if custom_id:
+        return f"custom:{custom_id}"
+    event_text = string_id(event_id)
+    if event_text and not event_text.isdigit():
+        return f"custom:{event_text}"
+    p1 = as_int(player1_id)
+    p2 = as_int(player2_id)
+    if p1 is not None and p2 is not None:
+        left, right = sorted([p1, p2])
+        return f"teamids:{left}|{right}"
+    names = sorted([compact_text(pick), compact_text(opponent)])
+    return f"names:{names[0]}|{names[1]}"
+
+
+def parse_iso_dt(value: Any) -> Optional[datetime]:
+    try:
+        text = str(value or "").replace("Z", "+00:00")
+        dt = datetime.fromisoformat(text)
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt.astimezone(timezone.utc)
     except Exception:
         return None
-    return None
 
+
+def cache_entry_is_fresh(entry: Dict[str, Any], ttl_days: int = DEFAULT_CACHE_TTL_DAYS) -> bool:
+    if not isinstance(entry, dict):
+        return False
+    updated = parse_iso_dt(entry.get("updated_at"))
+    if updated is None:
+        return False
+    age_seconds = (datetime.now(timezone.utc) - updated).total_seconds()
+    return age_seconds <= max(ttl_days, 0) * 86400
+
+
+def api_get_with_audit(path: str) -> Dict[str, Any]:
+    audit: Dict[str, Any] = {
+        "endpoint": path,
+        "url_path": path,
+        "ok": False,
+        "status_code": None,
+        "error": None,
+        "payload": None,
+    }
+    if requests is None:
+        audit["error"] = "requests_unavailable"
+        return audit
+    headers = rapidapi_headers()
+    if not headers:
+        audit["error"] = "missing_rapidapi_key"
+        return audit
+    url = f"https://{rapidapi_host()}{path}"
+    try:
+        response = requests.get(url, headers=headers, timeout=REQUEST_TIMEOUT_SECONDS)
+        audit["status_code"] = response.status_code
+        if response.status_code in (204, 404):
+            audit["error"] = f"empty_status_{response.status_code}"
+            return audit
+        response.raise_for_status()
+        if not response.text:
+            audit["error"] = "empty_response_text"
+            return audit
+        audit["payload"] = response.json()
+        audit["ok"] = True
+        return audit
+    except Exception as exc:
+        audit["error"] = str(exc)
+        return audit
+    finally:
+        time.sleep(REQUEST_DELAY_SECONDS)
+
+
+def fetch_h2h_from_api(event_custom_id: Any) -> Dict[str, Any]:
+    custom_id = string_id(event_custom_id)
+    if not custom_id:
+        return {
+            "endpoint": None,
+            "payload": None,
+            "normalized_events": [],
+            "endpoint_attempts": [],
+            "api_status_code": None,
+            "api_error": "missing_custom_id",
+            "h2h_fetch_version": CACHE_VERSION,
+        }
+
+    path = f"/api/tennis/event/{custom_id}/h2h"
+    audit = api_get_with_audit(path)
+    attempts = [{
+        "endpoint": audit.get("endpoint"),
+        "status_code": audit.get("status_code"),
+        "ok": audit.get("ok"),
+        "error": audit.get("error"),
+    }]
+    payload = audit.get("payload") if audit.get("ok") else None
+    normalized = normalize_events(payload) if payload is not None else []
+    return {
+        "endpoint": path,
+        "payload": payload,
+        "normalized_events": normalized,
+        "endpoint_attempts": attempts,
+        "api_status_code": audit.get("status_code"),
+        "api_error": audit.get("error"),
+        "h2h_fetch_version": CACHE_VERSION,
+        "h2h_payload_event_count": len(normalized),
+    }
 
 
 def _clamp(value: float, lo: float, hi: float) -> float:
@@ -314,12 +455,6 @@ def _clamp(value: float, lo: float, hi: float) -> float:
 
 
 def h2h_sample_cap(total_matches: int) -> float:
-    """Maximum directional H2H edge allowed by sample size.
-
-    H2H has high narrative value but can easily overfit on 1-2 meetings.
-    This cap prevents one historical match from moving CorQ like a strong model layer.
-    Returned value is probability-point scale, e.g. 0.015 = 1.5pp.
-    """
     try:
         total = int(total_matches or 0)
     except Exception:
@@ -354,11 +489,6 @@ def h2h_sample_quality(total_matches: int, confidence: float) -> str:
 
 
 def effective_h2h_edge(raw_edge: float, total_matches: int, confidence: float) -> float:
-    """Shrink raw H2H edge by sample quality and confidence.
-
-    Example: a 1-0 H2H can still support a pick, but it is capped at +/-1.5pp,
-    not the old +/-4.0pp maximum.
-    """
     try:
         raw = float(raw_edge or 0.0)
     except Exception:
@@ -370,15 +500,30 @@ def effective_h2h_edge(raw_edge: float, total_matches: int, confidence: float) -
     cap = h2h_sample_cap(total_matches)
     if cap <= 0.0:
         return 0.0
-    # Confidence max in this loader is 0.55. Use it as a smooth shrink factor,
-    # then never allow the value to exceed the sample cap.
     conf_factor = _clamp(conf / 0.55, 0.20, 1.0)
     return round(_clamp(raw * conf_factor, -cap, cap), 4)
 
 
-def summarize_h2h(payload: Any, pick: str, opponent: str, surface: Optional[str] = None) -> Dict[str, Any]:
-    events = extract_events(payload)
+def _winner_matches_player(event: Dict[str, Any], player_id: Optional[int], player_name: str) -> bool:
+    winner_id = as_int(event.get("winner_id"))
+    if player_id is not None and winner_id is not None:
+        return winner_id == player_id
+    winner_name = event.get("winner_name")
+    return bool(winner_name and names_match(winner_name, player_name))
+
+
+def summarize_h2h_events(
+    events: List[Dict[str, Any]],
+    pick: str,
+    opponent: str,
+    surface: Optional[str] = None,
+    pick_player_id: Any = None,
+    opponent_player_id: Any = None,
+) -> Dict[str, Any]:
     requested_surface = normalize_surface_bucket(surface)
+    pick_id = as_int(pick_player_id)
+    opponent_id = as_int(opponent_player_id)
+
     total = 0
     pick_wins = 0
     opponent_wins = 0
@@ -386,34 +531,44 @@ def summarize_h2h(payload: Any, pick: str, opponent: str, surface: Optional[str]
     same_surface_pick_wins = 0
     same_surface_opponent_wins = 0
     missing_surface_matches = 0
-    detected_surface_buckets: List[str] = []
+    detected_surfaces: List[str] = []
 
-    for event in events:
-        winner = winner_from_event(event)
-        if not winner:
+    for event in events or []:
+        if not isinstance(event, dict):
             continue
+        if event.get("status_type") not in (None, "finished"):
+            continue
+        winner_id = as_int(event.get("winner_id"))
+        winner_name = str(event.get("winner_name") or "")
+        if winner_id is None and not winner_name:
+            continue
+
+        pick_won = _winner_matches_player(event, pick_id, pick)
+        opponent_won = _winner_matches_player(event, opponent_id, opponent)
+        if not pick_won and not opponent_won:
+            # API returned a H2H event, but orientation cannot be proven.
+            continue
+
         total += 1
-        pick_won = names_match(winner, pick)
-        opponent_won = names_match(winner, opponent)
         if pick_won:
             pick_wins += 1
         elif opponent_won:
             opponent_wins += 1
 
-        event_bucket = event_surface_bucket(event)
-        if event_bucket:
-            detected_surface_buckets.append(event_bucket)
+        event_surface = normalize_surface_bucket(event.get("surface") or event.get("surface_raw"))
+        if event_surface:
+            detected_surfaces.append(event_surface)
         else:
             missing_surface_matches += 1
 
-        if requested_surface and event_bucket == requested_surface:
+        if requested_surface and event_surface == requested_surface:
             same_surface_total += 1
             if pick_won:
                 same_surface_pick_wins += 1
             elif opponent_won:
                 same_surface_opponent_wins += 1
 
-    if total == 0:
+    if total <= 0:
         return {
             "status": "NO_DATA",
             "source": "none",
@@ -423,8 +578,14 @@ def summarize_h2h(payload: Any, pick: str, opponent: str, surface: Optional[str]
             "same_surface_matches": 0,
             "same_surface_pick_wins": 0,
             "same_surface_opponent_wins": 0,
+            "same_surface_pick_win_pct": None,
+            "same_surface_raw_edge": 0.0,
+            "same_surface_effective_edge": 0.0,
+            "same_surface_edge": 0.0,
+            "same_surface_sample_quality": "NO_SAMPLE",
             "h2h_requested_surface": surface,
             "h2h_requested_surface_bucket": requested_surface,
+            "h2h_detected_surface_buckets": [],
             "h2h_missing_surface_matches": 0,
             "raw_edge": 0.0,
             "effective_edge": 0.0,
@@ -432,22 +593,22 @@ def summarize_h2h(payload: Any, pick: str, opponent: str, surface: Optional[str]
             "sample_cap": 0.0,
             "sample_quality": "NO_SAMPLE",
             "confidence": 0.0,
-            "reason": "No API H2H events returned",
+            "reason": "No oriented TennisAPI PRO H2H events available",
         }
 
     win_pct = pick_wins / total
-    raw_edge = max(min((win_pct - 0.5) * 0.08, 0.04), -0.04)
+    raw_edge = _clamp((win_pct - 0.5) * 0.08, -0.04, 0.04)
     confidence = min(0.15 + total * 0.08, 0.55)
     edge = effective_h2h_edge(raw_edge, total, confidence)
+
     surface_win_pct = (same_surface_pick_wins / same_surface_total) if same_surface_total else None
-    raw_surface_edge = max(min(((surface_win_pct or 0.5) - 0.5) * 0.08, 0.04), -0.04) if surface_win_pct is not None else 0.0
+    raw_surface_edge = _clamp(((surface_win_pct or 0.5) - 0.5) * 0.08, -0.04, 0.04) if surface_win_pct is not None else 0.0
     surface_confidence = min(0.15 + same_surface_total * 0.08, 0.55) if same_surface_total else 0.0
     surface_edge = effective_h2h_edge(raw_surface_edge, same_surface_total, surface_confidence) if surface_win_pct is not None else 0.0
-    quality = h2h_sample_quality(total, confidence)
-    surface_quality = h2h_sample_quality(same_surface_total, surface_confidence)
+
     return {
         "status": "OK",
-        "source": "rapidapi_pro_or_cache",
+        "source": "TENNISAPI_PRO_H2H",
         "total_matches": total,
         "pick_wins": pick_wins,
         "opponent_wins": opponent_wins,
@@ -459,16 +620,16 @@ def summarize_h2h(payload: Any, pick: str, opponent: str, surface: Optional[str]
         "same_surface_raw_edge": round(raw_surface_edge, 4),
         "same_surface_effective_edge": round(surface_edge, 4),
         "same_surface_edge": round(surface_edge, 4),
-        "same_surface_sample_quality": surface_quality,
+        "same_surface_sample_quality": h2h_sample_quality(same_surface_total, surface_confidence),
         "h2h_requested_surface": surface,
         "h2h_requested_surface_bucket": requested_surface,
-        "h2h_detected_surface_buckets": sorted(set(detected_surface_buckets)),
+        "h2h_detected_surface_buckets": sorted(set(detected_surfaces)),
         "h2h_missing_surface_matches": missing_surface_matches,
         "raw_edge": round(raw_edge, 4),
         "effective_edge": round(edge, 4),
         "edge": round(edge, 4),
         "sample_cap": round(h2h_sample_cap(total), 4),
-        "sample_quality": quality,
+        "sample_quality": h2h_sample_quality(total, confidence),
         "confidence": round(confidence, 4),
         "reason": None,
     }
@@ -483,455 +644,129 @@ def build_h2h_context(
     player2_id: Any = None,
     event_custom_id: Any = None,
 ) -> Dict[str, Any]:
-    cache_key = event_custom_id or event_id
-    path = cache_path(cache_key, pick, opponent)
-    payload = load_cache(path)
+    custom_id = string_id(event_custom_id)
+    event_id_text = string_id(event_id)
+    if not custom_id and event_id_text and not event_id_text.isdigit():
+        custom_id = event_id_text
+
+    key = cache_key(custom_id, event_id, player1_id, player2_id, pick, opponent)
+    cache = load_h2h_cache()
+    pairs = cache.setdefault("pairs", {})
+    entry = pairs.get(key) if isinstance(pairs, dict) else None
+
     source = "cache"
-    if payload is None:
-        payload = fetch_h2h_from_api(event_id, player1_id=player1_id, player2_id=player2_id, event_custom_id=event_custom_id)
-        source = "rapidapi_pro"
-        if payload is not None:
-            save_cache(path, payload)
-    summary = summarize_h2h(payload, pick, opponent, surface=surface) if payload is not None else summarize_h2h(None, pick, opponent, surface=surface)
-    if isinstance(payload, dict):
-        summary["endpoint"] = payload.get("endpoint")
-        summary["params"] = payload.get("params")
-        summary["endpoint_attempts"] = payload.get("endpoint_attempts") or []
-        summary["api_status_code"] = payload.get("api_status_code")
-        summary["api_error"] = payload.get("api_error")
-        if payload.get("payload") is None and summary.get("status") != "OK":
-            summary["reason"] = payload.get("api_error") or summary.get("reason")
-    summary["cache_path"] = str(path)
+    api_result: Optional[Dict[str, Any]] = None
+    used_stale_cache = False
+
+    if not isinstance(entry, dict) or not cache_entry_is_fresh(entry):
+        api_result = fetch_h2h_from_api(custom_id)
+        if api_result.get("payload") is not None:
+            existing_events = entry.get("normalized_events") if isinstance(entry, dict) else []
+            merged_events = merge_h2h_events(existing_events, api_result.get("normalized_events") or [])
+            entry = {
+                "cache_key": key,
+                "custom_id": custom_id,
+                "event_id": event_id,
+                "pick": pick,
+                "opponent": opponent,
+                "pick_player_id": as_int(player1_id),
+                "opponent_player_id": as_int(player2_id),
+                "updated_at": now_iso(),
+                "source": "TENNISAPI_PRO_H2H",
+                "endpoint": api_result.get("endpoint"),
+                "api_status_code": api_result.get("api_status_code"),
+                "api_error": api_result.get("api_error"),
+                "endpoint_attempts": api_result.get("endpoint_attempts") or [],
+                "normalized_events": merged_events,
+                "event_count": len(merged_events),
+                "last_api_event_count": len(api_result.get("normalized_events") or []),
+                "archive_policy": "append_update_merge_by_event_id_no_delete",
+                "fetch_version": CACHE_VERSION,
+            }
+            pairs[key] = entry
+            save_h2h_cache(cache)
+            source = "api"
+            write_last_refresh({
+                "refreshed_at_utc": now_iso(),
+                "source": "TENNISAPI_PRO_H2H",
+                "cache_path": str(CACHE_PATH),
+                "last_key": key,
+                "pair_count": len(pairs),
+                "last_api_status_code": api_result.get("api_status_code"),
+                "last_api_error": api_result.get("api_error"),
+                "last_event_count": len(api_result.get("normalized_events") or []),
+            })
+        elif isinstance(entry, dict):
+            used_stale_cache = True
+            source = "stale_cache"
+        else:
+            entry = None
+            source = "api_no_data"
+
+    events = (entry or {}).get("normalized_events") if isinstance(entry, dict) else []
+    summary = summarize_h2h_events(
+        events if isinstance(events, list) else [],
+        pick=pick,
+        opponent=opponent,
+        surface=surface,
+        pick_player_id=player1_id,
+        opponent_player_id=player2_id,
+    )
+
+    if summary.get("status") == "OK":
+        summary["source"] = {
+            "api": "TENNISAPI_PRO_H2H_API",
+            "cache": "TENNISAPI_PRO_H2H_CACHE",
+            "stale_cache": "TENNISAPI_PRO_H2H_STALE_CACHE",
+        }.get(source, "TENNISAPI_PRO_H2H")
+    else:
+        summary["source"] = "none" if source == "api_no_data" else source
+
+    summary["cache_key"] = key
+    summary["cache_path"] = str(CACHE_PATH)
+    summary["last_refresh_path"] = str(LAST_REFRESH_PATH)
+    summary["cache_updated_at"] = (entry or {}).get("updated_at") if isinstance(entry, dict) else None
+    summary["cache_fresh"] = cache_entry_is_fresh(entry) if isinstance(entry, dict) else False
+    summary["used_stale_cache"] = used_stale_cache
+    summary["endpoint"] = (entry or {}).get("endpoint") if isinstance(entry, dict) else None
+    summary["endpoint_attempts"] = (entry or {}).get("endpoint_attempts") if isinstance(entry, dict) else ((api_result or {}).get("endpoint_attempts") if api_result else [])
+    summary["api_status_code"] = (entry or {}).get("api_status_code") if isinstance(entry, dict) else ((api_result or {}).get("api_status_code") if api_result else None)
+    summary["api_error"] = (entry or {}).get("api_error") if isinstance(entry, dict) else ((api_result or {}).get("api_error") if api_result else None)
+    summary["h2h_fetch_version"] = CACHE_VERSION
+    summary["h2h_payload_event_count"] = (entry or {}).get("event_count") if isinstance(entry, dict) else 0
     summary["requested_event_id"] = as_int(event_id) or event_id
-    summary["requested_event_custom_id"] = string_id(event_custom_id)
+    summary["requested_event_custom_id"] = custom_id
     summary["requested_player1_id"] = as_int(player1_id)
     summary["requested_player2_id"] = as_int(player2_id)
-    if summary.get("status") == "OK":
-        summary["source"] = source
     return summary
 
-# ---------------------------------------------------------------------------
-# Robust runtime override: RapidAPI H2H history + summary fallback
-# ---------------------------------------------------------------------------
-# Kept at the end so older function bodies stay available, but runtime imports
-# use these safer definitions. Primary endpoint remains event/{customId}/h2h.
 
-_H2H_ROBUST_OVERRIDE_VERSION = "2026-08-01-h2h-history-summary-fallback"
+if __name__ == "__main__":
+    import argparse
 
+    parser = argparse.ArgumentParser(description="Inspect or fetch TennisAPI PRO H2H lazy cache")
+    parser.add_argument("--custom-id", default=None)
+    parser.add_argument("--pick", default="")
+    parser.add_argument("--opponent", default="")
+    parser.add_argument("--surface", default=None)
+    parser.add_argument("--pick-id", default=None)
+    parser.add_argument("--opponent-id", default=None)
+    args = parser.parse_args()
 
-def _h2h_find_summary_counts(payload: Any) -> Optional[Dict[str, int]]:
-    """Find homeWins/awayWins style counts in a nested RapidAPI response."""
-    if isinstance(payload, dict) and "payload" in payload:
-        payload = payload.get("payload")
-    if not isinstance(payload, dict):
-        return None
-    stack = [payload]
-    while stack:
-        current = stack.pop()
-        if not isinstance(current, dict):
-            continue
-        hw = current.get("homeWins")
-        aw = current.get("awayWins")
-        if hw is not None and aw is not None:
-            try:
-                return {"homeWins": int(hw or 0), "awayWins": int(aw or 0)}
-            except Exception:
-                pass
-        for value in current.values():
-            if isinstance(value, dict):
-                stack.append(value)
-    return None
-
-
-def fetch_h2h_from_api(
-    event_id: Any,
-    player1_id: Any = None,
-    player2_id: Any = None,
-    event_custom_id: Any = None,
-) -> Optional[Any]:
-    """Fetch H2H with strict primary endpoint and auditable fallbacks.
-
-    Order:
-    1. /api/tennis/event/{customId}/h2h where available.
-    2. numeric event h2h/history/summary endpoints.
-    3. player/team pair history/summary endpoints when ids are available.
-
-    Summary-only responses are kept, but summarize_h2h() only uses them when
-    the endpoint is an explicit HeadToHeadSummary fallback, so event-order
-    ambiguity cannot silently contaminate pick/opponent orientation.
-    """
-    custom_id = string_id(event_custom_id)
-    event_id_text = string_id(event_id)
-    event_id_int = as_int(event_id)
-    if not custom_id and event_id_text and not event_id_text.isdigit():
-        custom_id = event_id_text
-    p1 = as_int(player1_id)
-    p2 = as_int(player2_id)
-
-    attempts: List[Any] = []
-    if custom_id:
-        attempts.extend([
-            (f"/api/tennis/event/{custom_id}/h2h", None),
-            (f"/api/tennis/event/{custom_id}/head-to-head", None),
-        ])
-    if event_id_int:
-        attempts.extend([
-            (f"/api/tennis/event/{event_id_int}/h2h", None),
-            (f"/api/tennis/event/{event_id_int}/head-to-head", None),
-            ("/api/tennis/getHeadToHeadHistory", {"id": event_id_int}),
-            ("/api/tennis/getHeadToHeadHistory", {"eventId": event_id_int}),
-            ("/api/tennis/getHeadToHeadSummary", {"id": event_id_int}),
-            ("/api/tennis/getHeadToHeadSummary", {"eventId": event_id_int}),
-        ])
-    if p1 and p2:
-        attempts.extend([
-            (f"/api/tennis/head-to-head/{p1}/{p2}", None),
-            (f"/api/tennis/team/{p1}/versus/{p2}/matches", None),
-            (f"/api/tennis/player/{p1}/versus/{p2}/matches", None),
-            ("/api/tennis/getHeadToHeadHistory", {"player1Id": p1, "player2Id": p2}),
-            ("/api/tennis/getHeadToHeadHistory", {"homeTeamId": p1, "awayTeamId": p2}),
-            ("/api/tennis/getHeadToHeadSummary", {"player1Id": p1, "player2Id": p2}),
-            ("/api/tennis/getHeadToHeadSummary", {"homeTeamId": p1, "awayTeamId": p2}),
-            # Some RapidAPI screens label path param as id. Keep this as final fallback.
-            ("/api/tennis/getHeadToHeadHistory", {"id": p1, "secondId": p2}),
-            ("/api/tennis/getHeadToHeadSummary", {"id": p1, "secondId": p2}),
-        ])
-
-    endpoint_attempts: List[Dict[str, Any]] = []
-    seen = set()
-    for path, params in attempts:
-        sig = (path, json.dumps(params or {}, sort_keys=True))
-        if sig in seen:
-            continue
-        seen.add(sig)
-        audit = api_get_with_audit(path, params=params)
-        endpoint_attempts.append({
-            "endpoint": audit.get("endpoint"),
-            "params": audit.get("params"),
-            "status_code": audit.get("status_code"),
-            "ok": audit.get("ok"),
-            "error": audit.get("error"),
-        })
-        raw = audit.get("payload")
-        events = extract_events(raw)
-        summary = _h2h_find_summary_counts(raw)
-        if raw and (events or summary):
-            return {
-                "endpoint": path,
-                "params": params,
-                "payload": raw,
-                "endpoint_attempts": endpoint_attempts,
-                "api_status_code": audit.get("status_code"),
-                "api_error": audit.get("error"),
-                "h2h_fetch_version": _H2H_ROBUST_OVERRIDE_VERSION,
-                "h2h_payload_event_count": len(events),
-                "h2h_payload_has_summary": bool(summary),
-            }
-    if endpoint_attempts:
-        return {
-            "endpoint": None,
-            "params": None,
-            "payload": None,
-            "endpoint_attempts": endpoint_attempts,
-            "api_status_code": endpoint_attempts[-1].get("status_code"),
-            "api_error": endpoint_attempts[-1].get("error"),
-            "h2h_fetch_version": _H2H_ROBUST_OVERRIDE_VERSION,
-        }
-    return None
-
-
-_previous_summarize_h2h = summarize_h2h
-
-
-def summarize_h2h(payload: Any, pick: str, opponent: str, surface: Optional[str] = None) -> Dict[str, Any]:
-    summary = _previous_summarize_h2h(payload, pick, opponent, surface=surface)
-    if summary.get("status") == "OK":
-        summary.setdefault("h2h_summary_source", "events")
-        return summary
-
-    # If history events are missing but explicit HeadToHeadSummary returned
-    # homeWins/awayWins using player1/player2 params, use it as total-H2H only.
-    endpoint = ""
-    params = None
-    if isinstance(payload, dict):
-        endpoint = str(payload.get("endpoint") or "")
-        params = payload.get("params")
-    counts = _h2h_find_summary_counts(payload)
-    params_text = json.dumps(params or {}, sort_keys=True)
-    safe_summary_endpoint = "getHeadToHeadSummary" in endpoint and any(
-        key in params_text for key in ("player1Id", "homeTeamId", "secondId")
-    )
-    if not counts or not safe_summary_endpoint:
-        summary["h2h_summary_source"] = "none"
-        summary["h2h_summary_usable"] = False
-        return summary
-
-    pick_wins = int(counts.get("homeWins") or 0)
-    opponent_wins = int(counts.get("awayWins") or 0)
-    total = pick_wins + opponent_wins
-    if total <= 0:
-        return summary
-    win_pct = pick_wins / total
-    raw_edge = max(min((win_pct - 0.5) * 0.08, 0.04), -0.04)
-    confidence = min(0.12 + total * 0.06, 0.42)
-    edge = effective_h2h_edge(raw_edge, total, confidence)
-    return {
-        "status": "OK",
-        "source": "rapidapi_pro_summary",
-        "h2h_summary_source": "getHeadToHeadSummary",
-        "h2h_summary_usable": True,
-        "h2h_orientation": "homeWins_as_pick_from_player_params",
-        "total_matches": total,
-        "pick_wins": pick_wins,
-        "opponent_wins": opponent_wins,
-        "pick_win_pct": round(win_pct, 4),
-        "same_surface_matches": 0,
-        "same_surface_pick_wins": 0,
-        "same_surface_opponent_wins": 0,
-        "same_surface_pick_win_pct": None,
-        "same_surface_raw_edge": 0.0,
-        "same_surface_effective_edge": 0.0,
-        "same_surface_edge": 0.0,
-        "same_surface_sample_quality": "NO_SAMPLE",
-        "h2h_requested_surface": surface,
-        "h2h_requested_surface_bucket": normalize_surface_bucket(surface),
-        "h2h_detected_surface_buckets": [],
-        "h2h_missing_surface_matches": 0,
-        "raw_edge": round(raw_edge, 4),
-        "effective_edge": round(edge, 4),
-        "edge": round(edge, 4),
-        "sample_cap": round(h2h_sample_cap(total), 4),
-        "sample_quality": h2h_sample_quality(total, confidence),
-        "confidence": round(confidence, 4),
-        "reason": None,
-        "warning": "Summary-only H2H cannot calculate same-surface H2H.",
-    }
-
-# ---------------------------------------------------------------------------
-# Final robust override: explicit RapidAPI H2H history/summary event endpoints
-# ---------------------------------------------------------------------------
-# Adds the endpoint shapes visible in RapidAPI Playground:
-# - /api/tennis/event/{customId}/h2h
-# - /api/tennis/event/{customId}/h2h/history
-# - /api/tennis/event/{customId}/h2h/summary
-# Summary-only payloads are used only when orientation can be proven from
-# player params or event home/away names.
-
-_H2H_FINAL_ENDPOINT_VERSION = "2026-08-01-h2h-event-history-summary-final"
-
-
-def _h2h_team_name(value: Any) -> str:
-    if isinstance(value, dict):
-        for key in ("name", "shortName", "fullName", "displayName", "slug"):
-            if value.get(key):
-                return str(value.get(key))
-    return str(value or "")
-
-
-def _h2h_find_event_side_names(payload: Any) -> Dict[str, str]:
-    """Find current event home/away names in a nested H2H summary response."""
-    if isinstance(payload, dict) and "payload" in payload:
-        payload = payload.get("payload")
-    stack = [payload]
-    while stack:
-        current = stack.pop()
-        if isinstance(current, dict):
-            home = current.get("homeTeam") or current.get("home") or current.get("player1")
-            away = current.get("awayTeam") or current.get("away") or current.get("player2")
-            home_name = _h2h_team_name(home)
-            away_name = _h2h_team_name(away)
-            if home_name and away_name:
-                return {"home": home_name, "away": away_name}
-            for value in current.values():
-                if isinstance(value, (dict, list)):
-                    stack.append(value)
-        elif isinstance(current, list):
-            for item in current:
-                if isinstance(item, (dict, list)):
-                    stack.append(item)
-    return {"home": "", "away": ""}
-
-
-def _h2h_orient_summary_counts(payload: Any, pick: str, opponent: str, params: Any = None) -> Optional[Dict[str, Any]]:
-    counts = _h2h_find_summary_counts(payload)
-    if not counts:
-        return None
-    home_wins = int(counts.get("homeWins") or 0)
-    away_wins = int(counts.get("awayWins") or 0)
-
-    # Player-param fallbacks were built with home/player1 as pick and away/player2 as opponent.
-    params_text = json.dumps(params or {}, sort_keys=True)
-    if any(key in params_text for key in ("player1Id", "homeTeamId", "secondId")):
-        return {
-            "pick_wins": home_wins,
-            "opponent_wins": away_wins,
-            "orientation": "homeWins_as_pick_from_player_params",
-        }
-
-    # Event-summary fallbacks can be used if response exposes current event home/away names.
-    sides = _h2h_find_event_side_names(payload)
-    home_name = sides.get("home") or ""
-    away_name = sides.get("away") or ""
-    if home_name and away_name:
-        if names_match(pick, home_name) and names_match(opponent, away_name):
-            return {"pick_wins": home_wins, "opponent_wins": away_wins, "orientation": "homeWins_as_pick_from_event_home"}
-        if names_match(pick, away_name) and names_match(opponent, home_name):
-            return {"pick_wins": away_wins, "opponent_wins": home_wins, "orientation": "awayWins_as_pick_from_event_away"}
-    return None
-
-
-def fetch_h2h_from_api(
-    event_id: Any,
-    player1_id: Any = None,
-    player2_id: Any = None,
-    event_custom_id: Any = None,
-) -> Optional[Any]:
-    custom_id = string_id(event_custom_id)
-    event_id_text = string_id(event_id)
-    event_id_int = as_int(event_id)
-    if not custom_id and event_id_text and not event_id_text.isdigit():
-        custom_id = event_id_text
-    p1 = as_int(player1_id)
-    p2 = as_int(player2_id)
-
-    attempts: List[Any] = []
-    if custom_id:
-        attempts.extend([
-            (f"/api/tennis/event/{custom_id}/h2h", None),
-            (f"/api/tennis/event/{custom_id}/h2h/history", None),
-            (f"/api/tennis/event/{custom_id}/h2h/summary", None),
-            (f"/api/tennis/event/{custom_id}/head-to-head", None),
-            (f"/api/tennis/event/{custom_id}/head-to-head/history", None),
-            (f"/api/tennis/event/{custom_id}/head-to-head/summary", None),
-        ])
-    if event_id_int:
-        attempts.extend([
-            (f"/api/tennis/event/{event_id_int}/h2h", None),
-            (f"/api/tennis/event/{event_id_int}/h2h/history", None),
-            (f"/api/tennis/event/{event_id_int}/h2h/summary", None),
-            (f"/api/tennis/event/{event_id_int}/head-to-head", None),
-            (f"/api/tennis/event/{event_id_int}/head-to-head/history", None),
-            (f"/api/tennis/event/{event_id_int}/head-to-head/summary", None),
-            ("/api/tennis/getHeadToHeadHistory", {"id": event_id_int}),
-            ("/api/tennis/getHeadToHeadSummary", {"id": event_id_int}),
-            ("/api/tennis/getHeadToHeadHistory", {"eventId": event_id_int}),
-            ("/api/tennis/getHeadToHeadSummary", {"eventId": event_id_int}),
-        ])
-    if p1 and p2:
-        attempts.extend([
-            ("/api/tennis/getHeadToHeadHistory", {"player1Id": p1, "player2Id": p2}),
-            ("/api/tennis/getHeadToHeadSummary", {"player1Id": p1, "player2Id": p2}),
-            ("/api/tennis/getHeadToHeadHistory", {"homeTeamId": p1, "awayTeamId": p2}),
-            ("/api/tennis/getHeadToHeadSummary", {"homeTeamId": p1, "awayTeamId": p2}),
-            ("/api/tennis/getHeadToHeadHistory", {"id": p1, "secondId": p2}),
-            ("/api/tennis/getHeadToHeadSummary", {"id": p1, "secondId": p2}),
-            (f"/api/tennis/head-to-head/{p1}/{p2}", None),
-            (f"/api/tennis/team/{p1}/versus/{p2}/matches", None),
-            (f"/api/tennis/player/{p1}/versus/{p2}/matches", None),
-        ])
-
-    endpoint_attempts: List[Dict[str, Any]] = []
-    seen = set()
-    for path, params in attempts:
-        sig = (path, json.dumps(params or {}, sort_keys=True))
-        if sig in seen:
-            continue
-        seen.add(sig)
-        audit = api_get_with_audit(path, params=params)
-        endpoint_attempts.append({
-            "endpoint": audit.get("endpoint"),
-            "params": audit.get("params"),
-            "status_code": audit.get("status_code"),
-            "ok": audit.get("ok"),
-            "error": audit.get("error"),
-        })
-        raw = audit.get("payload")
-        events = extract_events(raw)
-        summary = _h2h_find_summary_counts(raw)
-        if raw and (events or summary):
-            return {
-                "endpoint": path,
-                "params": params,
-                "payload": raw,
-                "endpoint_attempts": endpoint_attempts,
-                "api_status_code": audit.get("status_code"),
-                "api_error": audit.get("error"),
-                "h2h_fetch_version": _H2H_FINAL_ENDPOINT_VERSION,
-                "h2h_payload_event_count": len(events),
-                "h2h_payload_has_summary": bool(summary),
-            }
-    return {
-        "endpoint": None,
-        "params": None,
-        "payload": None,
-        "endpoint_attempts": endpoint_attempts,
-        "api_status_code": endpoint_attempts[-1].get("status_code") if endpoint_attempts else None,
-        "api_error": endpoint_attempts[-1].get("error") if endpoint_attempts else "no_h2h_attempts",
-        "h2h_fetch_version": _H2H_FINAL_ENDPOINT_VERSION,
-    }
-
-
-_h2h_previous_summary_final = summarize_h2h
-
-
-def summarize_h2h(payload: Any, pick: str, opponent: str, surface: Optional[str] = None) -> Dict[str, Any]:
-    summary = _h2h_previous_summary_final(payload, pick, opponent, surface=surface)
-    if summary.get("status") == "OK":
-        summary.setdefault("h2h_summary_source", "events")
-        return summary
-
-    endpoint = ""
-    params = None
-    raw_payload = payload
-    if isinstance(payload, dict):
-        endpoint = str(payload.get("endpoint") or "")
-        params = payload.get("params")
-        raw_payload = payload.get("payload", payload)
-
-    orientation = _h2h_orient_summary_counts(raw_payload, pick, opponent, params=params)
-    if not orientation:
-        summary["h2h_summary_source"] = "summary_unusable_orientation_unknown"
-        summary["h2h_summary_usable"] = False
-        return summary
-
-    pick_wins = int(orientation.get("pick_wins") or 0)
-    opponent_wins = int(orientation.get("opponent_wins") or 0)
-    total = pick_wins + opponent_wins
-    if total <= 0:
-        return summary
-
-    win_pct = pick_wins / total
-    raw_edge = max(min((win_pct - 0.5) * 0.08, 0.04), -0.04)
-    confidence = min(0.12 + total * 0.06, 0.42)
-    edge = effective_h2h_edge(raw_edge, total, confidence)
-    return {
-        "status": "OK",
-        "source": "rapidapi_pro_summary",
-        "h2h_summary_source": endpoint or "HeadToHeadSummary",
-        "h2h_summary_usable": True,
-        "h2h_orientation": orientation.get("orientation"),
-        "total_matches": total,
-        "pick_wins": pick_wins,
-        "opponent_wins": opponent_wins,
-        "pick_win_pct": round(win_pct, 4),
-        "same_surface_matches": 0,
-        "same_surface_pick_wins": 0,
-        "same_surface_opponent_wins": 0,
-        "same_surface_pick_win_pct": None,
-        "same_surface_raw_edge": 0.0,
-        "same_surface_effective_edge": 0.0,
-        "same_surface_edge": 0.0,
-        "same_surface_sample_quality": "NO_SAMPLE",
-        "h2h_requested_surface": surface,
-        "h2h_requested_surface_bucket": normalize_surface_bucket(surface),
-        "h2h_detected_surface_buckets": [],
-        "h2h_missing_surface_matches": 0,
-        "raw_edge": round(raw_edge, 4),
-        "effective_edge": round(edge, 4),
-        "edge": round(edge, 4),
-        "sample_cap": round(h2h_sample_cap(total), 4),
-        "sample_quality": h2h_sample_quality(total, confidence),
-        "confidence": round(confidence, 4),
-        "reason": None,
-        "warning": "Summary-only H2H cannot calculate same-surface H2H.",
-    }
+    if args.custom_id:
+        print(json.dumps(build_h2h_context(
+            event_id=args.custom_id,
+            event_custom_id=args.custom_id,
+            pick=args.pick,
+            opponent=args.opponent,
+            surface=args.surface,
+            player1_id=args.pick_id,
+            player2_id=args.opponent_id,
+        ), ensure_ascii=False, indent=2))
+    else:
+        cache = load_h2h_cache()
+        print(json.dumps({
+            "cache_path": str(CACHE_PATH),
+            "pair_count": len(cache.get("pairs", {})),
+            "updated_at": cache.get("updated_at"),
+        }, ensure_ascii=False, indent=2))
