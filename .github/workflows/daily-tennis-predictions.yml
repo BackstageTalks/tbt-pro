@@ -489,7 +489,7 @@ jobs:
           # pushes generated files first, avoid rebase conflicts in
           # corq/site/render_manifest.json by preserving this run's generated
           # folders, resetting to origin/main, then restoring and committing them.
-          git add outputs corq/site || true
+          git add outputs corq/site thinq/data/h2h || true
 
           if git diff --cached --quiet; then
             echo "No generated output changes to commit."
@@ -506,13 +506,16 @@ jobs:
           tmp_dir="$(mktemp -d)"
           cp -a outputs "$tmp_dir/outputs" 2>/dev/null || true
           cp -a corq/site "$tmp_dir/site" 2>/dev/null || true
+          cp -a thinq/data/h2h "$tmp_dir/h2h" 2>/dev/null || true
           git fetch origin main
           git reset --hard origin/main
           rm -rf outputs corq/site
           [ -d "$tmp_dir/outputs" ] && cp -a "$tmp_dir/outputs" outputs
           mkdir -p corq
           [ -d "$tmp_dir/site" ] && cp -a "$tmp_dir/site" corq/site
-          git add outputs corq/site || true
+          mkdir -p thinq/data
+          [ -d "$tmp_dir/h2h" ] && cp -a "$tmp_dir/h2h" thinq/data/h2h
+          git add outputs corq/site thinq/data/h2h || true
           if git diff --cached --quiet; then
             echo "No generated output changes after reset."
             exit 0
