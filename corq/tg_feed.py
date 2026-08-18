@@ -23,8 +23,8 @@ DEFAULT_MESSAGE_PATH = OUTPUTS / "telegram" / "latest_tg_message.txt"
 DEFAULT_RESULTS_MESSAGE_PATH = OUTPUTS / "telegram" / "latest_tg_results_message.txt"
 DEFAULT_CLOQ_RESULTS_MESSAGE_PATH = OUTPUTS / "telegram" / "latest_tg_cloq_results_message.txt"
 
-HEADER = "AI Betting by BackstageTalks"
-FOOTER = "ℹ️ Analytical preview only\n🧠 by BackstageTalks AI Engine"
+HEADER = "Data Betting by BackstageTalks"
+FOOTER = "ℹ️ Analytical preview only\n🧠 by BackstageTalks Data Engine"
 
 
 def read_json(path: Path, default: Any) -> Any:
