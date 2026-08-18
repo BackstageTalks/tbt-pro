@@ -1,0 +1,245 @@
+name: Update H2H Cache
+
+on:
+  workflow_dispatch:
+    inputs:
+      outputs_dir:
+        description: "Outputs directory to scan for current match rows"
+        required: false
+        default: "outputs"
+      max_requests:
+        description: "Maximum TennisAPI H2H API requests in this run"
+        required: false
+        default: "60"
+      force_refresh:
+        description: "Force refresh even when cache exists"
+        required: false
+        type: choice
+        options:
+          - "false"
+          - "true"
+        default: "false"
+  repository_dispatch:
+    types:
+      - update-h2h-cache
+      - h2h-cache-refresh
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-h2h-cache
+  cancel-in-progress: false
+
+jobs:
+  update-h2h-cache:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+      RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+      OUTPUTS_DIR: ${{ github.event.inputs.outputs_dir || 'outputs' }}
+      MAX_REQUESTS: ${{ github.event.inputs.max_requests || '60' }}
+      FORCE_REFRESH: ${{ github.event.inputs.force_refresh || 'false' }}
+      H2H_CACHE_TTL_DAYS: ${{ github.event.inputs.force_refresh == 'true' && '0' || '30' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install requests
+
+      - name: Prewarm H2H cache from current outputs
+        run: |
+          set -euo pipefail
+          echo "OUTPUTS_DIR=${OUTPUTS_DIR}"
+          echo "MAX_REQUESTS=${MAX_REQUESTS}"
+          echo "FORCE_REFRESH=${FORCE_REFRESH}"
+          echo "H2H_CACHE_TTL_DAYS=${H2H_CACHE_TTL_DAYS}"
+
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          from typing import Any, Dict, Iterable, List, Tuple
+
+          from thinq.loaders.h2h_loader import build_h2h_context, load_h2h_cache
+
+          outputs_dir = Path(os.getenv("OUTPUTS_DIR", "outputs"))
+          max_requests = int(os.getenv("MAX_REQUESTS", "60") or 60)
+
+          candidates = [
+              outputs_dir / "latest_all.json",
+              outputs_dir / "latest_top7.json",
+              outputs_dir / "latest_cloq.json",
+              outputs_dir / "cloq" / "latest_cloq.json",
+          ]
+
+          def rows_from_payload(payload: Any) -> List[Dict[str, Any]]:
+              if isinstance(payload, list):
+                  return [x for x in payload if isinstance(x, dict)]
+              if isinstance(payload, dict):
+                  for key in ("rows", "items", "all", "top7", "picks", "records", "data"):
+                      value = payload.get(key)
+                      if isinstance(value, list):
+                          return [x for x in value if isinstance(x, dict)]
+              return []
+
+          def load_rows(path: Path) -> List[Dict[str, Any]]:
+              try:
+                  if not path.exists():
+                      return []
+                  payload = json.loads(path.read_text(encoding="utf-8"))
+                  return rows_from_payload(payload)
+              except Exception as exc:
+                  print(f"[h2h] failed reading {path}: {exc}")
+                  return []
+
+          def first(row: Dict[str, Any], keys: Iterable[str]) -> Any:
+              for key in keys:
+                  value = row.get(key)
+                  if value not in (None, "", "N/A", "-"):
+                      return value
+              return None
+
+          def match_identity(row: Dict[str, Any]) -> Tuple[str, str, str]:
+              custom_id = str(first(row, ("event_custom_id", "custom_id", "customId")) or "").strip()
+              pick = str(first(row, ("pick", "top7_pick", "cloq_pick", "player", "player1")) or "").strip()
+              opponent = str(first(row, ("opponent", "opp", "player2")) or "").strip()
+              return custom_id, pick, opponent
+
+          seen = set()
+          work: List[Dict[str, Any]] = []
+          for path in candidates:
+              rows = load_rows(path)
+              print(f"[h2h] source={path} rows={len(rows)}")
+              for row in rows:
+                  custom_id, pick, opponent = match_identity(row)
+                  if not custom_id or not pick or not opponent:
+                      continue
+                  sig = (custom_id, pick.lower(), opponent.lower())
+                  if sig in seen:
+                      continue
+                  seen.add(sig)
+                  work.append(row)
+
+          cache_before = load_h2h_cache()
+          before_count = len(cache_before.get("pairs", {})) if isinstance(cache_before.get("pairs"), dict) else 0
+
+          fetched = 0
+          ok = 0
+          no_data = 0
+          errors = 0
+          for row in work:
+              if fetched >= max_requests:
+                  print(f"[h2h] max_requests reached: {max_requests}")
+                  break
+
+              custom_id, pick, opponent = match_identity(row)
+              surface = first(row, ("surface", "surface_raw", "groundType", "court"))
+              event_id = first(row, ("event_id", "match_id", "id")) or custom_id
+              pick_id = first(row, ("thinq_pick_player_id", "pick_player_id", "player1_id", "home_id"))
+              opponent_id = first(row, ("thinq_opponent_player_id", "opponent_player_id", "player2_id", "away_id"))
+
+              fetched += 1
+              try:
+                  ctx = build_h2h_context(
+                      event_id=event_id,
+                      event_custom_id=custom_id,
+                      pick=pick,
+                      opponent=opponent,
+                      surface=surface,
+                      player1_id=pick_id,
+                      player2_id=opponent_id,
+                  )
+                  status = ctx.get("status")
+                  if status == "OK":
+                      ok += 1
+                  else:
+                      no_data += 1
+                  print(
+                      "[h2h]",
+                      f"custom_id={custom_id}",
+                      f"status={status}",
+                      f"matches={ctx.get('total_matches')}",
+                      f"source={ctx.get('source')}",
+                      f"cache_key={ctx.get('cache_key')}",
+                  )
+              except Exception as exc:
+                  errors += 1
+                  print(f"[h2h] ERROR custom_id={custom_id} pick={pick} opponent={opponent}: {exc}")
+
+          cache_after = load_h2h_cache()
+          after_count = len(cache_after.get("pairs", {})) if isinstance(cache_after.get("pairs"), dict) else 0
+          print(json.dumps({
+              "candidate_pairs": len(work),
+              "attempted": fetched,
+              "ok": ok,
+              "no_data": no_data,
+              "errors": errors,
+              "pair_count_before": before_count,
+              "pair_count_after": after_count,
+              "cache_path": "thinq/data/h2h/h2h_cache.json",
+          }, indent=2))
+          PY
+
+      - name: Show H2H cache summary
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          cache_path = Path("thinq/data/h2h/h2h_cache.json")
+          refresh_path = Path("thinq/data/h2h/h2h_last_refresh.json")
+          if not cache_path.exists():
+              print("No H2H cache was created.")
+              raise SystemExit(0)
+          payload = json.loads(cache_path.read_text(encoding="utf-8"))
+          pairs = payload.get("pairs") if isinstance(payload.get("pairs"), dict) else {}
+          event_count = 0
+          for entry in pairs.values():
+              if isinstance(entry, dict) and isinstance(entry.get("normalized_events"), list):
+                  event_count += len(entry.get("normalized_events"))
+          print("h2h_cache_path=", cache_path)
+          print("h2h_pair_count=", len(pairs))
+          print("h2h_normalized_event_count=", event_count)
+          print("h2h_last_refresh_exists=", refresh_path.exists())
+          PY
+
+      - name: Commit H2H cache
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add thinq/data/h2h || true
+          if git diff --cached --quiet; then
+            echo "No H2H cache changes to commit."
+            exit 0
+          fi
+          git commit -m "Update H2H cache"
+          if git push; then
+            echo "H2H cache pushed."
+            exit 0
+          fi
+
+          echo "Push rejected, preserving H2H cache and retrying on latest main..."
+          tmp_dir="$(mktemp -d)"
+          cp -a thinq/data/h2h "$tmp_dir/h2h" 2>/dev/null || true
+          git fetch origin main
+          git reset --hard origin/main
+          mkdir -p thinq/data
+          [ -d "$tmp_dir/h2h" ] && rm -rf thinq/data/h2h && cp -a "$tmp_dir/h2h" thinq/data/h2h
+          git add thinq/data/h2h || true
+          if git diff --cached --quiet; then
+            echo "No H2H cache changes after reset."
+            exit 0
+          fi
+          git commit -m "Update H2H cache"
+          git push
