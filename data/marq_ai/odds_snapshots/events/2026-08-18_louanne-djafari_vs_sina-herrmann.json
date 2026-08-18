@@ -4,7 +4,7 @@
   "latest_odds_player1": 6.5,
   "latest_odds_player2": 1.1,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-17T17:10:42.203065+00:00",
+  "latest_snapshot_time_utc": "2026-08-18T03:29:32.775934+00:00",
   "opening_odds_player1": 6.5,
   "opening_odds_player2": 1.1,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Louanne Djafari",
   "player2": "Sina Herrmann",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "16848264",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-17T12:06:54+00:00",
       "target_date": "2026-08-18"
+    },
+    {
+      "event_id": "16848264",
+      "event_key": "2026-08-18_louanne-djafari_vs_sina-herrmann",
+      "hours_to_start": -15.38,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 6.5,
+      "odds_player2": 1.1,
+      "player1": "Louanne Djafari",
+      "player2": "Sina Herrmann",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-18T03:29:32.775934+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-17T12:06:54+00:00",
+      "target_date": "2026-08-18"
     }
   ],
   "start_time_utc": "2026-08-17T12:06:54+00:00",
-  "updated_at_utc": "2026-08-17T17:11:26.434680+00:00"
+  "updated_at_utc": "2026-08-18T03:29:41.330870+00:00"
 }
