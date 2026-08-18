@@ -217,6 +217,56 @@
       "source": "TENNISAPI_PRO_H2H",
       "updated_at": "2026-08-18T12:00:46+00:00"
     },
+    "custom:RvebsPCKc": {
+      "api_error": null,
+      "api_status_code": 200,
+      "archive_policy": "append_update_merge_by_event_id_no_delete",
+      "cache_key": "custom:RvebsPCKc",
+      "custom_id": "RvebsPCKc",
+      "endpoint": "/api/tennis/event/RvebsPCKc/h2h",
+      "endpoint_attempts": [
+        {
+          "endpoint": "/api/tennis/event/RvebsPCKc/h2h",
+          "error": null,
+          "ok": true,
+          "status_code": 200
+        }
+      ],
+      "event_count": 1,
+      "event_id": 16737481,
+      "fetch_version": "TENNISAPI_PRO_H2H_LAZY_CACHE_V1",
+      "last_api_event_count": 1,
+      "normalized_events": [
+        {
+          "away_id": 338890,
+          "away_name": "Daniel Merida",
+          "category": "ATP",
+          "custom_id": "RvebsPCKc",
+          "date": "2026-08-18",
+          "event_id": 16737481,
+          "home_id": 136042,
+          "home_name": "Taylor Fritz",
+          "round": "Round of 32",
+          "score": "",
+          "start_timestamp": 1787070600,
+          "status_description": "Not started",
+          "status_type": "notstarted",
+          "surface": "Hard",
+          "surface_raw": "Hardcourt outdoor",
+          "tournament": "Cincinnati, USA",
+          "winner_code": null,
+          "winner_id": null,
+          "winner_name": "",
+          "winner_side": null
+        }
+      ],
+      "opponent": "Daniel Merida",
+      "opponent_player_id": 338890,
+      "pick": "Taylor Fritz",
+      "pick_player_id": 136042,
+      "source": "TENNISAPI_PRO_H2H",
+      "updated_at": "2026-08-18T12:06:32+00:00"
+    },
     "custom:TAvsYmOb": {
       "api_error": null,
       "api_status_code": 200,
@@ -382,6 +432,78 @@
       "pick_player_id": 412818,
       "source": "TENNISAPI_PRO_H2H",
       "updated_at": "2026-08-18T12:00:45+00:00"
+    },
+    "custom:efnbsGYPb": {
+      "api_error": null,
+      "api_status_code": 200,
+      "archive_policy": "append_update_merge_by_event_id_no_delete",
+      "cache_key": "custom:efnbsGYPb",
+      "custom_id": "efnbsGYPb",
+      "endpoint": "/api/tennis/event/efnbsGYPb/h2h",
+      "endpoint_attempts": [
+        {
+          "endpoint": "/api/tennis/event/efnbsGYPb/h2h",
+          "error": null,
+          "ok": true,
+          "status_code": 200
+        }
+      ],
+      "event_count": 2,
+      "event_id": 16737872,
+      "fetch_version": "TENNISAPI_PRO_H2H_LAZY_CACHE_V1",
+      "last_api_event_count": 2,
+      "normalized_events": [
+        {
+          "away_id": 227431,
+          "away_name": "Xinyu Wang",
+          "category": "WTA",
+          "custom_id": "efnbsGYPb",
+          "date": "2026-08-18",
+          "event_id": 16737872,
+          "home_id": 157754,
+          "home_name": "Aryna Sabalenka",
+          "round": "Round of 32",
+          "score": "",
+          "start_timestamp": 1787094000,
+          "status_description": "Not started",
+          "status_type": "notstarted",
+          "surface": "Hard",
+          "surface_raw": "Hardcourt outdoor",
+          "tournament": "Cincinnati, USA",
+          "winner_code": null,
+          "winner_id": null,
+          "winner_name": "",
+          "winner_side": null
+        },
+        {
+          "away_id": 157754,
+          "away_name": "Aryna Sabalenka",
+          "category": "WTA",
+          "custom_id": "efnbsGYPb",
+          "date": "2022-01-20",
+          "event_id": 10078041,
+          "home_id": 227431,
+          "home_name": "Xinyu Wang",
+          "round": "Round of 64",
+          "score": "6-1 4-6 2-6",
+          "start_timestamp": 1642643400,
+          "status_description": "Ended",
+          "status_type": "finished",
+          "surface": "Hard",
+          "surface_raw": "Hardcourt outdoor",
+          "tournament": "Australian Open, Melbourne, Australia",
+          "winner_code": 2,
+          "winner_id": 157754,
+          "winner_name": "Aryna Sabalenka",
+          "winner_side": "AWAY"
+        }
+      ],
+      "opponent": "Xinyu Wang",
+      "opponent_player_id": 227431,
+      "pick": "Aryna Sabalenka",
+      "pick_player_id": 157754,
+      "source": "TENNISAPI_PRO_H2H",
+      "updated_at": "2026-08-18T12:07:03+00:00"
     },
     "custom:evpbsBlUb": {
       "api_error": null,
@@ -1099,6 +1221,6 @@
     }
   },
   "source": "TENNISAPI_PRO_H2H",
-  "updated_at": "2026-08-18T12:00:48+00:00",
+  "updated_at": "2026-08-18T12:07:03+00:00",
   "version": "TENNISAPI_PRO_H2H_LAZY_CACHE_V1"
 }

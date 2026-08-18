@@ -1,6 +1,6 @@
 {
   "model": "CLOQ_HIGH_ODDS_DATA_COVERED_V5_AUDIT_CLEANUP",
-  "created_at_utc": "2026-08-18T05:57:19.786923+00:00",
+  "created_at_utc": "2026-08-18T12:07:29.093406+00:00",
   "input_path": "outputs/latest_all.json",
   "input_rows": 32,
   "audit_rows": 32,
@@ -34,15 +34,17 @@
     "forced_count": false
   },
   "selected_tier_counts": {
-    "CLOQ_PRIME": 3
+    "CLOQ_EXTENDED": 1,
+    "CLOQ_PRIME": 2
   },
   "decision_counts": {
-    "CLOQ_PRIME": 3,
+    "CLOQ_EXTENDED": 1,
+    "CLOQ_PRIME": 2,
     "CLOQ_REJECTED": 29
   },
   "price_bucket_counts": {
-    "PRIME_1_70_1_90": 3,
-    "EXTENDED_1_90_2_20": 3,
+    "EXTENDED_1_90_2_20": 4,
+    "PRIME_1_70_1_90": 2,
     "HIGH_VARIANCE_2_20_2_50": 4,
     "TOO_LOW": 13,
     "TOO_HIGH": 9
@@ -50,8 +52,8 @@
   "reject_reason_counts": {
     "CLOQ_REJECT_MODEL_BELOW_50": 6,
     "CLOQ_REJECT_RANDOM_UNDERDOG": 6,
-    "CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE": 6,
-    "CLOQ_REJECT_MARKET_AGAINST_WEAK_MODEL": 6,
+    "CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE": 5,
+    "CLOQ_REJECT_MARKET_AGAINST_WEAK_MODEL": 5,
     "CLOQ_REJECT_MODEL_BELOW_BAND_MINIMUM": 1,
     "CLOQ_INFO_UNDERDOG_MARKET_NOT_SUPPORTIVE": 1,
     "CLOQ_INFO_MARKET_AGAINST_PICK": 1,
@@ -61,34 +63,35 @@
     "CLOQ_REJECT_ODDS_OVER_2_50": 9
   },
   "risk_tag_counts": {
-    "PROBABILITY_UNDER_BREAK_EVEN_INFO": 17,
+    "PROBABILITY_UNDER_BREAK_EVEN_INFO": 18,
     "MODEL_AGAINST": 16,
     "ELO_AGAINST": 16,
     "SURFACE_AGAINST": 16,
-    "MARKET_AGAINST_PICK": 16,
+    "MARKET_AGAINST_PICK": 15,
     "MARQ_AGAINST": 14,
     "HIGH_VARIANCE_PRICE_BAND": 13,
     "FORM_AGAINST": 2
   },
   "support_tag_counts": {
-    "PRIME_1_70_1_90": 3,
-    "PROBABILITY_OVER_BREAK_EVEN": 5,
-    "MODEL_STRONG_SUPPORT": 14,
-    "MARQ_SUPPORT": 4,
+    "EXTENDED_1_90_2_20": 4,
+    "PROBABILITY_BUFFER_STRONG": 11,
+    "MODEL_STRONG_SUPPORT": 15,
+    "MARQ_LIGHT_SUPPORT": 2,
     "ELO_SUPPORT": 16,
+    "FORM_LIGHT_SUPPORT": 11,
     "SURFACE_SUPPORT": 16,
-    "MARKET_WITH_PICK": 16,
-    "DATA_COVERED": 12,
-    "FORM_LIGHT_SUPPORT": 8,
-    "DATA_COVERED_STRONG": 20,
-    "MODEL_SUPPORT": 1,
-    "EXTENDED_1_90_2_20": 3,
+    "MARKET_NEUTRAL": 2,
+    "DATA_COVERED_STRONG": 26,
+    "PRIME_1_70_1_90": 2,
+    "PROBABILITY_OVER_BREAK_EVEN": 3,
+    "MARQ_SUPPORT": 3,
+    "MARKET_WITH_PICK": 15,
     "HIGH_VARIANCE_2_20_2_50": 4,
-    "PROBABILITY_BUFFER_STRONG": 10,
     "MODEL_LIGHT_SUPPORT": 1,
     "TOO_LOW": 13,
     "MARQ_STRONG_SUPPORT": 12,
     "FORM_SUPPORT": 2,
+    "DATA_COVERED": 6,
     "TOO_HIGH": 9
   },
   "notes": [
