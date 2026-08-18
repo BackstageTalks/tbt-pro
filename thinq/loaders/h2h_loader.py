@@ -812,23 +812,58 @@ def _first(row: Dict[str, Any], keys: Iterable[str]) -> Any:
     return None
 
 
+def _raw_event(row: Dict[str, Any]) -> Dict[str, Any]:
+    raw = row.get("raw")
+    return raw if isinstance(raw, dict) else {}
+
+
+def _side_player_id(row: Dict[str, Any], side: str) -> Any:
+    raw = _raw_event(row)
+    team_key = "homeTeam" if side == "HOME" else "awayTeam"
+    team = raw.get(team_key) if isinstance(raw.get(team_key), dict) else {}
+    return _first(row, (
+        f"{side.lower()}_id",
+        f"{side.lower()}_player_id",
+    )) or team.get("id") or _nested_get(team, "playerTeamInfo", "id")
+
+
 def _row_identity(row: Dict[str, Any]) -> Dict[str, Any]:
-    custom_id = string_id(_first(row, ("event_custom_id", "custom_id", "customId")))
-    event_id = _first(row, ("event_id", "match_id", "id"))
+    raw = _raw_event(row)
+    custom_id = string_id(_first(row, (
+        "event_custom_id",
+        "custom_id",
+        "customId",
+        "thinq_h2h_requested_event_custom_id",
+    )))
+    if not custom_id:
+        custom_id = string_id(raw.get("customId") or raw.get("custom_id"))
+
+    event_id = _first(row, ("event_id", "match_id", "id")) or raw.get("id")
     if not custom_id and event_id not in (None, "") and not str(event_id).isdigit():
         custom_id = string_id(event_id)
+
     pick = str(_first(row, ("pick", "top7_pick", "cloq_pick", "player", "player1", "home_name")) or "").strip()
     opponent = str(_first(row, ("opponent", "opp", "player2", "away_name")) or "").strip()
+
+    pick_id = _first(row, ("thinq_pick_player_id", "pick_player_id", "player1_id", "home_id", "home_player_id"))
+    opponent_id = _first(row, ("thinq_opponent_player_id", "opponent_player_id", "player2_id", "away_id", "away_player_id"))
+    if pick_id in (None, ""):
+        pick_side = str(row.get("pick_side") or "").upper()
+        pick_id = _side_player_id(row, pick_side) if pick_side in {"HOME", "AWAY"} else None
+    if opponent_id in (None, ""):
+        opponent_side = str(row.get("opponent_side") or "").upper()
+        opponent_id = _side_player_id(row, opponent_side) if opponent_side in {"HOME", "AWAY"} else None
+
     return {
         "custom_id": custom_id,
         "event_id": event_id or custom_id,
         "pick": pick,
         "opponent": opponent,
-        "surface": _first(row, ("surface", "surface_raw", "groundType", "court")),
-        "pick_id": _first(row, ("thinq_pick_player_id", "pick_player_id", "player1_id", "home_id", "home_player_id")),
-        "opponent_id": _first(row, ("thinq_opponent_player_id", "opponent_player_id", "player2_id", "away_id", "away_player_id")),
-        "tournament": _first(row, ("tournament", "tournament_name", "event_tournament")),
-        "start_time": _first(row, ("start_time", "startTimestamp", "start_timestamp", "match_time")),
+        "surface": _first(row, ("surface", "surface_raw", "groundType", "court")) or raw.get("groundType"),
+        "pick_id": pick_id,
+        "opponent_id": opponent_id,
+        "tournament": _first(row, ("tournament", "tournament_name", "event_tournament")) or _nested_get(raw, "tournament", "name"),
+        "start_time": _first(row, ("start_time", "match_start", "startTimestamp", "start_timestamp", "match_time")) or raw.get("startTimestamp"),
     }
 
 
