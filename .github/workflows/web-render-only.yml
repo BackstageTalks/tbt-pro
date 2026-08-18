@@ -93,7 +93,9 @@ jobs:
           set -euo pipefail
           echo "[verify] $(pwd)"
           echo "[verify] corq/site tree preview"
-          find corq/site -maxdepth 3 -type f | sort | sed -n '1,120p'
+          set +o pipefail
+          find corq/site -maxdepth 3 -type f 2>/dev/null | sort | sed -n '1,120p' || true
+          set -o pipefail
           echo "[verify] required site files exist"
           test -f corq/site/index.html
           python - <<'PY'
@@ -139,7 +141,9 @@ jobs:
             fi
           done
           echo "[site] largest files before cleanup"
-          find corq/site -type f -printf '%s %p\n' | sort -nr | head -30
+          set +o pipefail
+          find corq/site -type f -printf '%s %p\n' 2>/dev/null | sort -nr | head -30 || true
+          set -o pipefail
 
       - name: Keep Pages artifact small
         shell: bash
@@ -153,7 +157,9 @@ jobs:
           echo "[site] size after cleanup"
           du -sh corq/site || true
           echo "[site] largest files after cleanup"
-          find corq/site -type f -printf '%s %p\n' | sort -nr | head -30
+          set +o pipefail
+          find corq/site -type f -printf '%s %p\n' 2>/dev/null | sort -nr | head -30 || true
+          set -o pipefail
 
       - name: Commit rendered site
         if: ${{ github.event_name == 'push' || inputs.commit_site == 'true' }}
