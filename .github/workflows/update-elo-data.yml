@@ -101,20 +101,54 @@ jobs:
           elif [ -f tools/update-elo-data.py ]; then
             run_and_validate "tools/update-elo-data.py" python tools/update-elo-data.py
           elif [ -f thinq/loaders/elo_loader.py ]; then
-            if python thinq/loaders/elo_loader.py --help >/tmp/elo_help.txt 2>&1; then
-              if grep -qi -- "--refresh\|--force" /tmp/elo_help.txt; then
-                python thinq/loaders/elo_loader.py --refresh || python thinq/loaders/elo_loader.py --force-refresh || python thinq/loaders/elo_loader.py
-              else
-                python thinq/loaders/elo_loader.py
-              fi
-            else
-              python thinq/loaders/elo_loader.py
-            fi
+            # thinq/loaders/elo_loader.py refreshes the TA ELO cache only with --update.
+            # Running it without --update only inspects the existing index and does not refresh data.
+            run_and_validate "thinq/loaders/elo_loader.py --update" python thinq/loaders/elo_loader.py --update --output thinq/data/elo/ta_elo_ratings.json
           else
             echo "No known ELO update entrypoint found."
             echo "Expected one of: tools/update_elo_data.py, tools/update-elo-data.py, thinq/loaders/elo_loader.py"
             exit 1
           fi
+
+      - name: Normalize ELO cache aliases
+        if: ${{ steps.trigger_policy.outputs.should_run == 'true' }}
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          from datetime import datetime, timezone
+
+          root = Path("thinq/data/elo")
+          canonical = root / "ta_elo_ratings.json"
+          alias = root / "elo_cache.json"
+          refresh = root / "elo_last_refresh.json"
+
+          if not canonical.exists():
+              raise SystemExit("Canonical ELO cache missing: thinq/data/elo/ta_elo_ratings.json")
+          payload = json.loads(canonical.read_text(encoding="utf-8"))
+          players = payload.get("players") if isinstance(payload, dict) else None
+          if not isinstance(players, dict) or not players:
+              raise SystemExit("Canonical ELO cache has no players")
+
+          # Keep elo_cache.json synchronized because the runtime loader discovers
+          # both files and sorted discovery can otherwise prefer an older alias.
+          alias.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
+
+          meta = {
+              "generated_at": payload.get("generated_at") or datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+              "refreshed_at_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+              "source": payload.get("source") or "tennis_abstract_elo_ratings",
+              "canonical_cache": str(canonical),
+              "alias_cache": str(alias),
+              "profile_count": payload.get("profile_count") or len(players),
+              "stats": payload.get("stats"),
+              "errors": payload.get("errors") or [],
+          }
+          refresh.write_text(json.dumps(meta, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
+          print(f"ELO canonical players={len(players)} generated_at={meta['generated_at']}")
+          print(f"Synced {alias}")
+          print(f"Wrote {refresh}")
+          PY
 
       - name: Validate ELO cache
         if: ${{ steps.trigger_policy.outputs.should_run == 'true' }}
