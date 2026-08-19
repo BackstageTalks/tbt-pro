@@ -120,6 +120,43 @@ def has_elo_pair(row: Dict[str, Any]) -> Tuple[bool, Optional[str]]:
 
 
 
+
+
+def repair_mojibake_text(value: Any) -> Any:
+    """Repair common UTF-8-as-Latin1 mojibake in names, e.g. MenÅ¡ik -> Menšik.
+
+    This is intentionally conservative and only tries to repair strings that contain
+    typical mojibake markers. Non-string values are returned unchanged.
+    """
+    if not isinstance(value, str):
+        return value
+    if not value:
+        return value
+    markers = ("Ã", "Å", "Ä", "Â", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
+    if not any(marker in value for marker in markers):
+        return value
+    candidates = []
+    for encoding in ("latin1", "cp1252"):
+        try:
+            repaired = value.encode(encoding, errors="strict").decode("utf-8", errors="strict")
+            candidates.append(repaired)
+        except Exception:
+            pass
+    for repaired in candidates:
+        if repaired and repaired != value and not any(marker in repaired for marker in markers[:4]):
+            return repaired
+    return value
+
+
+def repair_mojibake_obj(value: Any) -> Any:
+    if isinstance(value, str):
+        return repair_mojibake_text(value)
+    if isinstance(value, list):
+        return [repair_mojibake_obj(item) for item in value]
+    if isinstance(value, dict):
+        return {key: repair_mojibake_obj(item) for key, item in value.items()}
+    return value
+
 def nested_first(row: Dict[str, Any], paths: Iterable[Tuple[str, ...]]) -> Any:
     for path in paths:
         value: Any = row
@@ -191,9 +228,9 @@ def match_identity(row: Dict[str, Any]) -> Dict[str, Any]:
     if not custom_id and event_id not in (None, "") and not str(event_id).isdigit():
         custom_id = str(event_id).strip()
 
-    pick = str(first(row, ("pick", "top7_pick", "cloq_pick", "player", "player1", "home_name")) or "").strip()
-    opponent = str(first(row, ("opponent", "opp", "cloq_opponent", "player2", "away_name")) or "").strip()
-    surface = first(row, ("surface", "surface_raw", "groundType", "court"))
+    pick = str(repair_mojibake_text(first(row, ("pick", "top7_pick", "cloq_pick", "player", "player1", "home_name")) or "")).strip()
+    opponent = str(repair_mojibake_text(first(row, ("opponent", "opp", "cloq_opponent", "player2", "away_name")) or "")).strip()
+    surface = repair_mojibake_text(first(row, ("surface", "surface_raw", "groundType", "court")))
     pick_id = first(row, (
         "thinq_pick_player_id",
         "pick_player_id",
@@ -354,10 +391,10 @@ def main() -> int:
                 "h2h_status": status,
                 "last_seen_at": finished_at if "finished_at" in locals() else now_iso(),
                 "player1_id": ident.get("pick_id"),
-                "player1_name": ident.get("pick"),
+                "player1_name": repair_mojibake_text(ident.get("pick")),
                 "player2_id": ident.get("opponent_id"),
-                "player2_name": ident.get("opponent"),
-                "surface": ident.get("surface"),
+                "player2_name": repair_mojibake_text(ident.get("opponent")),
+                "surface": repair_mojibake_text(ident.get("surface")),
                 "source_file": item.get("source_file"),
                 "source": ctx.get("source"),
                 "endpoint": ctx.get("endpoint"),
@@ -375,8 +412,8 @@ def main() -> int:
                 "oriented_finished_event_count": ctx.get("oriented_finished_event_count"),
                 "same_surface_finished_event_count": ctx.get("same_surface_finished_event_count"),
                 "excluded_event_count": ctx.get("excluded_event_count"),
-                "excluded_reasons": ctx.get("excluded_reasons"),
-                "reason": ctx.get("reason"),
+                "excluded_reasons": repair_mojibake_obj(ctx.get("excluded_reasons")),
+                "reason": repair_mojibake_text(ctx.get("reason")),
             }
             print("[h2h] " + json.dumps(result, ensure_ascii=False, sort_keys=True))
         except Exception as exc:
@@ -386,7 +423,7 @@ def main() -> int:
                 "pick": ident.get("pick"),
                 "opponent": ident.get("opponent"),
                 "status": "ERROR",
-                "error": str(exc),
+                "error": repair_mojibake_text(str(exc)),
                 "source_file": item.get("source_file"),
             }
             results.append(result)
@@ -399,12 +436,12 @@ def main() -> int:
                 "history_status": "API_ERROR",
                 "last_seen_at": finished_at if "finished_at" in locals() else now_iso(),
                 "player1_id": ident.get("pick_id"),
-                "player1_name": ident.get("pick"),
+                "player1_name": repair_mojibake_text(ident.get("pick")),
                 "player2_id": ident.get("opponent_id"),
-                "player2_name": ident.get("opponent"),
-                "surface": ident.get("surface"),
+                "player2_name": repair_mojibake_text(ident.get("opponent")),
+                "surface": repair_mojibake_text(ident.get("surface")),
                 "source_file": item.get("source_file"),
-                "error": str(exc),
+                "error": repair_mojibake_text(str(exc)),
             }
             print("[h2h] ERROR " + json.dumps(result, ensure_ascii=False, sort_keys=True))
 
