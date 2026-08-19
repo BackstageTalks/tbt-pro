@@ -1,6 +1,6 @@
 {
   "model_version": "2026-08-04-marq-coverage-report-v1",
-  "generated_at_utc": "2026-08-19T13:26:49.806614+00:00",
+  "generated_at_utc": "2026-08-19T14:36:37.303909+00:00",
   "input_paths": {
     "all": "outputs/latest_all.json",
     "top7": "outputs/latest_top7.json",
@@ -11,8 +11,8 @@
       "label": "all_audit",
       "total_rows": 32,
       "coverage_pct": {
-        "high_marq": 62.5,
-        "medium_current_only": 37.5,
+        "high_marq": 75.0,
+        "medium_current_only": 25.0,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
         "usable_marq_high_or_medium": 100.0
@@ -21,45 +21,45 @@
         "getAllOddsForEvent": 32
       },
       "data_status_counts": {
-        "EXACT_BETTING_ODDS_WITH_OPENING": 20,
-        "EXACT_CURRENT_ODDS_ONLY": 12
+        "EXACT_BETTING_ODDS_WITH_OPENING": 24,
+        "EXACT_CURRENT_ODDS_ONLY": 8
       },
       "confidence_counts": {
-        "HIGH": 20,
-        "MEDIUM": 12
+        "HIGH": 24,
+        "MEDIUM": 8
       },
       "movement_status_counts": {
-        "REAL_OPENING_CURRENT_AVAILABLE": 20,
-        "OPENING_EQUALS_CURRENT": 12
+        "REAL_OPENING_CURRENT_AVAILABLE": 24,
+        "OPENING_EQUALS_CURRENT": 8
       },
       "quality_tier_counts": {
-        "HIGH": 20,
-        "MEDIUM_CURRENT_ONLY": 12
+        "HIGH": 24,
+        "MEDIUM_CURRENT_ONLY": 8
       },
       "value_status_counts": {
-        "NO_VALUE": 15,
+        "NO_VALUE": 16,
         "VALUE_STRONG": 15,
-        "VALUE_PLAYABLE": 2
+        "VALUE_PLAYABLE": 1
       },
       "source_policy_counts": {
         "TENNISAPI_ONLY_EXACT_EVENT": 32
       },
       "market_weight_stats": {
         "count": 32,
-        "avg": 0.2075,
+        "avg": 0.225,
         "min": 0.12,
         "max": 0.3
       },
       "value_delta_pp_stats": {
         "count": 32,
-        "avg": -0.4159,
-        "min": -30.87,
+        "avg": 0.0,
+        "min": -24.33,
         "max": 24.33
       },
       "expected_value_pct_stats": {
         "count": 32,
-        "avg": 16.8869,
-        "min": -35.42,
+        "avg": 18.8031,
+        "min": -28.75,
         "max": 361.4
       },
       "samples": {
@@ -78,8 +78,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": 6.0,
-            "expected_value_pct": 11.02,
+            "value_delta_pp": 4.01,
+            "expected_value_pct": 5.54,
             "fallback_reason": null
           },
           {
@@ -93,38 +93,38 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": -6.0,
-            "expected_value_pct": -14.13,
+            "value_delta_pp": -4.01,
+            "expected_value_pct": -11.27,
             "fallback_reason": null
           },
           {
             "identity": "16737483",
             "pick": "Alexander Zverev",
             "opponent": "Tommy Paul",
-            "odds": 1.33,
+            "odds": 1.4,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -11.07,
-            "expected_value_pct": -19.12,
+            "value_delta_pp": -3.7,
+            "expected_value_pct": -9.73,
             "fallback_reason": null
           },
           {
             "identity": "16737483",
             "pick": "Tommy Paul",
             "opponent": "Alexander Zverev",
-            "odds": 3.4,
+            "odds": 3.0,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 7.4,
-            "expected_value_pct": 20.77,
+            "value_delta_pp": 3.7,
+            "expected_value_pct": 6.56,
             "fallback_reason": null
           },
           {
@@ -138,8 +138,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 0.73,
-            "expected_value_pct": -3.66,
+            "value_delta_pp": -2.72,
+            "expected_value_pct": -11.87,
             "fallback_reason": null
           },
           {
@@ -168,8 +168,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 12.25,
-            "expected_value_pct": 37.26,
+            "value_delta_pp": 10.12,
+            "expected_value_pct": 30.02,
             "fallback_reason": null
           },
           {
@@ -188,6 +188,36 @@
             "fallback_reason": null
           },
           {
+            "identity": "16737495",
+            "pick": "Taylor Fritz",
+            "opponent": "Christopher O'Connell",
+            "odds": 1.08,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": -21.13,
+            "expected_value_pct": -27.66,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16737495",
+            "pick": "Christopher O'Connell",
+            "opponent": "Taylor Fritz",
+            "odds": 8.0,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 21.13,
+            "expected_value_pct": 164.16,
+            "fallback_reason": null
+          },
+          {
             "identity": "16737500",
             "pick": "Frances Tiafoe",
             "opponent": "Felix Auger-Aliassime",
@@ -198,8 +228,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 15.84,
-            "expected_value_pct": 38.08,
+            "value_delta_pp": 12.72,
+            "expected_value_pct": 29.5,
             "fallback_reason": null
           },
           {
@@ -213,38 +243,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -15.84,
-            "expected_value_pct": -28.3,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16737901",
-            "pick": "Sorana Cirstea",
-            "opponent": "Jessica Pegula",
-            "odds": 3.5,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": 5.34,
-            "expected_value_pct": 13.47,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16737901",
-            "pick": "Jessica Pegula",
-            "opponent": "Sorana Cirstea",
-            "odds": 1.3,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.22,
-            "value_delta_pp": -5.34,
-            "expected_value_pct": -12.15,
+            "value_delta_pp": -12.72,
+            "expected_value_pct": -23.81,
             "fallback_reason": null
           }
         ],
@@ -275,23 +275,23 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": -6.0,
-            "expected_value_pct": -14.13,
+            "value_delta_pp": -4.01,
+            "expected_value_pct": -11.27,
             "fallback_reason": null
           },
           {
             "identity": "16737483",
             "pick": "Alexander Zverev",
             "opponent": "Tommy Paul",
-            "odds": 1.33,
+            "odds": 1.4,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -11.07,
-            "expected_value_pct": -19.12,
+            "value_delta_pp": -3.7,
+            "expected_value_pct": -9.73,
             "fallback_reason": null
           },
           {
@@ -307,6 +307,21 @@
             "market_weight": 0.12,
             "value_delta_pp": -6.22,
             "expected_value_pct": -15.17,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16737494",
+            "pick": "Nuno Borges",
+            "opponent": "Brandon Nakashima",
+            "odds": 2.38,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": -2.72,
+            "expected_value_pct": -11.87,
             "fallback_reason": null
           },
           {
@@ -328,15 +343,15 @@
             "identity": "16737495",
             "pick": "Taylor Fritz",
             "opponent": "Christopher O'Connell",
-            "odds": 1.1,
+            "odds": 1.08,
             "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": -19.44,
-            "expected_value_pct": -26.32,
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": -21.13,
+            "expected_value_pct": -27.66,
             "fallback_reason": null
           },
           {
@@ -350,8 +365,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -15.84,
-            "expected_value_pct": -28.3,
+            "value_delta_pp": -12.72,
+            "expected_value_pct": -23.81,
             "fallback_reason": null
           },
           {
@@ -365,8 +380,8 @@
             "movement_status": "OPENING_EQUALS_CURRENT",
             "tier": "MEDIUM_CURRENT_ONLY",
             "market_weight": 0.12,
-            "value_delta_pp": -30.87,
-            "expected_value_pct": -35.42,
+            "value_delta_pp": -24.33,
+            "expected_value_pct": -28.68,
             "fallback_reason": null
           },
           {
@@ -395,8 +410,8 @@
             "movement_status": "OPENING_EQUALS_CURRENT",
             "tier": "MEDIUM_CURRENT_ONLY",
             "market_weight": 0.12,
-            "value_delta_pp": -7.14,
-            "expected_value_pct": -17.5,
+            "value_delta_pp": -8.7,
+            "expected_value_pct": -20.2,
             "fallback_reason": null
           },
           {
@@ -410,23 +425,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -7.48,
-            "expected_value_pct": -14.73,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16737900",
-            "pick": "Amanda Anisimova",
-            "opponent": "Linda Noskova",
-            "odds": 2.0,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": -7.25,
-            "expected_value_pct": -19.76,
+            "value_delta_pp": -4.17,
+            "expected_value_pct": -10.23,
             "fallback_reason": null
           }
         ],
@@ -457,23 +457,23 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": 6.0,
-            "expected_value_pct": 11.02,
+            "value_delta_pp": 4.01,
+            "expected_value_pct": 5.54,
             "fallback_reason": null
           },
           {
             "identity": "16737483",
             "pick": "Tommy Paul",
             "opponent": "Alexander Zverev",
-            "odds": 3.4,
+            "odds": 3.0,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 7.4,
-            "expected_value_pct": 20.77,
+            "value_delta_pp": 3.7,
+            "expected_value_pct": 6.56,
             "fallback_reason": null
           },
           {
@@ -502,23 +502,23 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 12.25,
-            "expected_value_pct": 37.26,
+            "value_delta_pp": 10.12,
+            "expected_value_pct": 30.02,
             "fallback_reason": null
           },
           {
             "identity": "16737495",
             "pick": "Christopher O'Connell",
             "opponent": "Taylor Fritz",
-            "odds": 7.0,
+            "odds": 8.0,
             "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": 19.44,
-            "expected_value_pct": 131.14,
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 21.13,
+            "expected_value_pct": 164.16,
             "fallback_reason": null
           },
           {
@@ -532,8 +532,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 15.84,
-            "expected_value_pct": 38.08,
+            "value_delta_pp": 12.72,
+            "expected_value_pct": 29.5,
             "fallback_reason": null
           },
           {
@@ -577,8 +577,8 @@
             "movement_status": "OPENING_EQUALS_CURRENT",
             "tier": "MEDIUM_CURRENT_ONLY",
             "market_weight": 0.12,
-            "value_delta_pp": 7.14,
-            "expected_value_pct": 9.85,
+            "value_delta_pp": 8.7,
+            "expected_value_pct": 13.13,
             "fallback_reason": null
           },
           {
@@ -592,8 +592,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 7.48,
-            "expected_value_pct": 19.36,
+            "value_delta_pp": 4.17,
+            "expected_value_pct": 8.77,
             "fallback_reason": null
           },
           {
@@ -607,8 +607,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": 4.94,
-            "expected_value_pct": 3.63,
+            "value_delta_pp": 7.25,
+            "expected_value_pct": 7.78,
             "fallback_reason": null
           }
         ]
@@ -625,56 +625,56 @@
     },
     "corq_top7": {
       "label": "corq_top7",
-      "total_rows": 4,
+      "total_rows": 5,
       "coverage_pct": {
-        "high_marq": 75.0,
-        "medium_current_only": 25.0,
+        "high_marq": 80.0,
+        "medium_current_only": 20.0,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
         "usable_marq_high_or_medium": 100.0
       },
       "endpoint_counts": {
-        "getAllOddsForEvent": 4
+        "getAllOddsForEvent": 5
       },
       "data_status_counts": {
-        "EXACT_BETTING_ODDS_WITH_OPENING": 3,
+        "EXACT_BETTING_ODDS_WITH_OPENING": 4,
         "EXACT_CURRENT_ODDS_ONLY": 1
       },
       "confidence_counts": {
-        "HIGH": 3,
+        "HIGH": 4,
         "MEDIUM": 1
       },
       "movement_status_counts": {
-        "REAL_OPENING_CURRENT_AVAILABLE": 3,
+        "REAL_OPENING_CURRENT_AVAILABLE": 4,
         "OPENING_EQUALS_CURRENT": 1
       },
       "quality_tier_counts": {
-        "HIGH": 3,
+        "HIGH": 4,
         "MEDIUM_CURRENT_ONLY": 1
       },
       "value_status_counts": {
-        "NO_VALUE": 3,
+        "NO_VALUE": 4,
         "VALUE_PLAYABLE": 1
       },
       "source_policy_counts": {
-        "TENNISAPI_ONLY_EXACT_EVENT": 4
+        "TENNISAPI_ONLY_EXACT_EVENT": 5
       },
       "market_weight_stats": {
-        "count": 4,
-        "avg": 0.215,
+        "count": 5,
+        "avg": 0.216,
         "min": 0.12,
         "max": 0.3
       },
       "value_delta_pp_stats": {
-        "count": 4,
-        "avg": -6.335,
-        "min": -15.84,
+        "count": 5,
+        "avg": -4.786,
+        "min": -12.72,
         "max": 2.72
       },
       "expected_value_pct_stats": {
-        "count": 4,
-        "avg": -14.685,
-        "min": -28.3,
+        "count": 5,
+        "avg": -12.224,
+        "min": -23.81,
         "max": -1.14
       },
       "samples": {
@@ -698,6 +698,21 @@
             "fallback_reason": null
           },
           {
+            "identity": "16737483",
+            "pick": "Alexander Zverev",
+            "opponent": "Tommy Paul",
+            "odds": 1.4,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": -3.7,
+            "expected_value_pct": -9.73,
+            "fallback_reason": null
+          },
+          {
             "identity": "16737497",
             "pick": "Jakub Menšik",
             "opponent": "Thiago Agustin Tirante",
@@ -708,8 +723,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": -6.0,
-            "expected_value_pct": -14.13,
+            "value_delta_pp": -4.01,
+            "expected_value_pct": -11.27,
             "fallback_reason": null
           },
           {
@@ -723,12 +738,42 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -15.84,
-            "expected_value_pct": -28.3,
+            "value_delta_pp": -12.72,
+            "expected_value_pct": -23.81,
             "fallback_reason": null
           }
         ],
         "no_value": [
+          {
+            "identity": "16737483",
+            "pick": "Alexander Zverev",
+            "opponent": "Tommy Paul",
+            "odds": 1.4,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": -3.7,
+            "expected_value_pct": -9.73,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16737497",
+            "pick": "Jakub Menšik",
+            "opponent": "Thiago Agustin Tirante",
+            "odds": 1.44,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": -4.01,
+            "expected_value_pct": -11.27,
+            "fallback_reason": null
+          },
           {
             "identity": "16737496",
             "pick": "Arthur Fils",
@@ -745,21 +790,6 @@
             "fallback_reason": null
           },
           {
-            "identity": "16737497",
-            "pick": "Jakub Menšik",
-            "opponent": "Thiago Agustin Tirante",
-            "odds": 1.44,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": -6.0,
-            "expected_value_pct": -14.13,
-            "fallback_reason": null
-          },
-          {
             "identity": "16737500",
             "pick": "Felix Auger-Aliassime",
             "opponent": "Frances Tiafoe",
@@ -770,20 +800,20 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -15.84,
-            "expected_value_pct": -28.3,
+            "value_delta_pp": -12.72,
+            "expected_value_pct": -23.81,
             "fallback_reason": null
           }
         ],
         "value_strong": []
       },
       "attempt_summary": {
-        "total_attempts": 4,
+        "total_attempts": 5,
         "endpoint_counts": {
-          "getAllOddsForEvent": 4
+          "getAllOddsForEvent": 5
         },
         "status_counts": {
-          "200": 4
+          "200": 5
         }
       }
     },
@@ -830,15 +860,15 @@
       },
       "value_delta_pp_stats": {
         "count": 2,
-        "avg": 6.04,
-        "min": 4.94,
-        "max": 7.14
+        "avg": 7.975,
+        "min": 7.25,
+        "max": 8.7
       },
       "expected_value_pct_stats": {
         "count": 2,
-        "avg": 6.74,
-        "min": 3.63,
-        "max": 9.85
+        "avg": 10.455,
+        "min": 7.78,
+        "max": 13.13
       },
       "samples": {
         "thin_fallback": [],
@@ -856,8 +886,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": 4.94,
-            "expected_value_pct": 3.63,
+            "value_delta_pp": 7.25,
+            "expected_value_pct": 7.78,
             "fallback_reason": null
           }
         ],
@@ -874,8 +904,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": 4.94,
-            "expected_value_pct": 3.63,
+            "value_delta_pp": 7.25,
+            "expected_value_pct": 7.78,
             "fallback_reason": null
           },
           {
@@ -889,8 +919,8 @@
             "movement_status": "OPENING_EQUALS_CURRENT",
             "tier": "MEDIUM_CURRENT_ONLY",
             "market_weight": 0.12,
-            "value_delta_pp": 7.14,
-            "expected_value_pct": 9.85,
+            "value_delta_pp": 8.7,
+            "expected_value_pct": 13.13,
             "fallback_reason": null
           }
         ]

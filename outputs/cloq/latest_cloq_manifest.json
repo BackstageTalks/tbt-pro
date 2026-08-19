@@ -1,6 +1,6 @@
 {
   "model": "CLOQ_HIGH_ODDS_DATA_COVERED_V5_AUDIT_CLEANUP",
-  "created_at_utc": "2026-08-19T13:26:49.386980+00:00",
+  "created_at_utc": "2026-08-19T14:36:36.873366+00:00",
   "input_path": "outputs/latest_all.json",
   "input_rows": 32,
   "audit_rows": 32,
@@ -12,7 +12,7 @@
       "outputs/latest_top7.json",
       "outputs/snapshots/latest_corq_top7_snapshot.json"
     ],
-    "corq_match_key_count": 7,
+    "corq_match_key_count": 8,
     "audit_rows_excluded_by_corq_overlap": 0,
     "publishable_rows_excluded_by_corq_overlap": 0,
     "policy": "CloQ has priority. CloQ keeps overlapping matches; CorQ finalizer removes CloQ overlaps from CorQ TOP7 and fills back to seven."
@@ -56,6 +56,7 @@
     "CLOQ_REJECT_RANDOM_UNDERDOG": 3,
     "CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE": 3,
     "CLOQ_REJECT_MARKET_AGAINST_WEAK_MODEL": 3,
+    "CLOQ_REJECT_MODEL_GAP_TOO_NEGATIVE": 1,
     "CLOQ_REJECT_ODDS_UNDER_1_70": 14,
     "CLOQ_REJECT_ODDS_OVER_2_50": 12
   },
@@ -71,24 +72,25 @@
   },
   "support_tag_counts": {
     "PRIME_1_70_1_90": 2,
-    "PROBABILITY_OVER_BREAK_EVEN": 3,
-    "MODEL_SUPPORT": 2,
+    "PROBABILITY_BUFFER_STRONG": 10,
+    "MODEL_STRONG_SUPPORT": 13,
     "MARQ_SUPPORT": 2,
     "ELO_SUPPORT": 14,
+    "FORM_LIGHT_SUPPORT": 14,
     "SURFACE_SUPPORT": 13,
     "MARKET_WITH_PICK": 16,
-    "DATA_COVERED": 18,
+    "DATA_COVERED_STRONG": 30,
     "EXTENDED_1_90_2_20": 2,
-    "PROBABILITY_BUFFER_STRONG": 12,
     "MODEL_LIGHT_SUPPORT": 2,
     "ELO_LIGHT_SUPPORT": 1,
-    "SURFACE_LIGHT_SUPPORT": 2,
-    "DATA_COVERED_STRONG": 14,
+    "SURFACE_LIGHT_SUPPORT": 3,
     "HIGH_VARIANCE_2_20_2_50": 2,
+    "PROBABILITY_OVER_BREAK_EVEN": 5,
     "TOO_LOW": 14,
-    "MODEL_STRONG_SUPPORT": 12,
     "MARQ_STRONG_SUPPORT": 14,
-    "FORM_LIGHT_SUPPORT": 7,
+    "FORM_SUPPORT": 1,
+    "DATA_COVERED": 2,
+    "MODEL_SUPPORT": 1,
     "TOO_HIGH": 12
   },
   "notes": [
