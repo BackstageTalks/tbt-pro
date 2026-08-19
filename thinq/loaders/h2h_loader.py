@@ -511,6 +511,115 @@ def _winner_matches_player(event: Dict[str, Any], player_id: Optional[int], play
     winner_name = event.get("winner_name")
     return bool(winner_name and names_match(winner_name, player_name))
 
+def _parse_score_shape(score: Any) -> Optional[Dict[str, Any]]:
+    text = str(score or "").strip()
+    if not text:
+        return None
+    sets: List[Tuple[int, int]] = []
+    tiebreak_sets = 0
+    for raw_set in text.split():
+        token = raw_set.strip()
+        if not token or "-" not in token:
+            continue
+        if "(" in token and ")" in token:
+            tiebreak_sets += 1
+        token_base = token.split("(", 1)[0]
+        parts = token_base.split("-", 1)
+        if len(parts) != 2:
+            continue
+        left = as_int(parts[0])
+        right = as_int(parts[1])
+        if left is None or right is None:
+            continue
+        if left < 0 or right < 0:
+            continue
+        # Ignore incomplete retirement fragments such as 0-1.
+        if max(left, right) < 4:
+            continue
+        sets.append((left, right))
+    if not sets:
+        return None
+    total_games = sum(a + b for a, b in sets)
+    return {
+        "sets_played": len(sets),
+        "total_games": total_games,
+        "tiebreak_sets": tiebreak_sets,
+        "has_tiebreak": tiebreak_sets > 0,
+        "score_sets": sets,
+    }
+
+
+def _avg(values: List[float]) -> Optional[float]:
+    clean = [float(v) for v in values if v is not None]
+    return round(sum(clean) / len(clean), 2) if clean else None
+
+
+def _h2h_shape_summary(events: List[Dict[str, Any]], requested_surface: Optional[str]) -> Dict[str, Any]:
+    all_sets: List[float] = []
+    all_games: List[float] = []
+    all_tb = 0
+    same_sets: List[float] = []
+    same_games: List[float] = []
+    same_tb = 0
+    usable = 0
+    same_usable = 0
+
+    for event in events or []:
+        if not isinstance(event, dict):
+            continue
+        status = str(event.get("status_type") or "").lower()
+        status_description = str(event.get("status_description") or "").lower()
+        if status not in {"", "finished"}:
+            continue
+        if any(token in status_description for token in ("retired", "walkover", "canceled", "cancelled")):
+            continue
+        shape = _parse_score_shape(event.get("score"))
+        if not shape:
+            continue
+        usable += 1
+        all_sets.append(float(shape["sets_played"]))
+        all_games.append(float(shape["total_games"]))
+        if shape.get("has_tiebreak"):
+            all_tb += 1
+        event_surface = normalize_surface_bucket(event.get("surface") or event.get("surface_raw"))
+        if requested_surface and event_surface == requested_surface:
+            same_usable += 1
+            same_sets.append(float(shape["sets_played"]))
+            same_games.append(float(shape["total_games"]))
+            if shape.get("has_tiebreak"):
+                same_tb += 1
+
+    preferred_sets = same_sets if same_usable >= 2 else all_sets
+    preferred_games = same_games if same_usable >= 2 else all_games
+    preferred_tb_count = same_tb if same_usable >= 2 else all_tb
+    preferred_count = same_usable if same_usable >= 2 else usable
+    source_scope = "same_surface_h2h" if same_usable >= 2 else "all_h2h"
+
+    avg_sets = _avg(preferred_sets)
+    avg_games = _avg(preferred_games)
+    tb_rate = round(preferred_tb_count / preferred_count, 4) if preferred_count else None
+    decider_rate = round(sum(1 for v in preferred_sets if v >= 3) / preferred_count, 4) if preferred_count else None
+    quality = "NO_SAMPLE"
+    if preferred_count >= 4:
+        quality = "GOOD_SAMPLE"
+    elif preferred_count >= 2:
+        quality = "MEDIUM_SAMPLE"
+    elif preferred_count == 1:
+        quality = "LOW_SAMPLE"
+
+    return {
+        "h2h_score_shape_status": "OK" if preferred_count else "NO_DATA",
+        "h2h_score_shape_source": source_scope if preferred_count else "none",
+        "h2h_score_shape_sample": preferred_count,
+        "h2h_score_shape_quality": quality,
+        "h2h_projected_sets": avg_sets,
+        "h2h_projected_games": avg_games,
+        "h2h_tiebreak_probability": tb_rate,
+        "h2h_decider_probability": decider_rate,
+        "h2h_all_score_sample": usable,
+        "h2h_same_surface_score_sample": same_usable,
+    }
+
 
 def summarize_h2h_events(
     events: List[Dict[str, Any]],
@@ -594,8 +703,19 @@ def summarize_h2h_events(
             "sample_quality": "NO_SAMPLE",
             "confidence": 0.0,
             "reason": "No oriented TennisAPI PRO H2H events available",
+            "h2h_score_shape_status": "NO_DATA",
+            "h2h_score_shape_source": "none",
+            "h2h_score_shape_sample": 0,
+            "h2h_score_shape_quality": "NO_SAMPLE",
+            "h2h_projected_sets": None,
+            "h2h_projected_games": None,
+            "h2h_tiebreak_probability": None,
+            "h2h_decider_probability": None,
+            "h2h_all_score_sample": 0,
+            "h2h_same_surface_score_sample": 0,
         }
 
+    shape = _h2h_shape_summary(events or [], requested_surface)
     win_pct = pick_wins / total
     raw_edge = _clamp((win_pct - 0.5) * 0.08, -0.04, 0.04)
     confidence = min(0.15 + total * 0.08, 0.55)
@@ -632,6 +752,7 @@ def summarize_h2h_events(
         "sample_quality": h2h_sample_quality(total, confidence),
         "confidence": round(confidence, 4),
         "reason": None,
+        **shape,
     }
 
 
