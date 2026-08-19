@@ -204,16 +204,40 @@ def _safe_match_dynamics_context(**kwargs: Any) -> Dict[str, Any]:
 
 
 def _safe_ta_context(pick: str, opponent: str, surface: str = "") -> Dict[str, Any]:
-    try:
-        ctx = build_match_ta_context(pick, opponent, surface)
-        if isinstance(ctx, dict):
-            return ctx
-    except Exception as exc:
-        return {"ta_status": "N/A", "aces_status": "N/A", "ta_decision_confidence": 0.0, "ta_decision_notes": [f"TA_CONTEXT_FAILED: {exc}"]}
-    return {"ta_status": "N/A", "aces_status": "N/A", "ta_decision_confidence": 0.0, "ta_decision_notes": ["TA_CONTEXT_NON_DICT"]}
+    """TA profile context is disabled for production model inputs.
 
-
-
+    Policy: API PRO is the only external stats source for aces/DF/serve props.
+    Keep TA-shaped keys as None only for compatibility with legacy render fields.
+    """
+    return {
+        "ta_status": "DISABLED",
+        "ta_pick_status": "DISABLED",
+        "ta_opp_status": "DISABLED",
+        "ta_pick_set_pct": None,
+        "ta_opp_set_pct": None,
+        "ta_pick_game_pct": None,
+        "ta_opp_game_pct": None,
+        "ta_pick_tb_split": None,
+        "ta_opp_tb_split": None,
+        "ta_pick_tb_pct": None,
+        "ta_opp_tb_pct": None,
+        "ta_pick_ace_pct": None,
+        "ta_opp_ace_pct": None,
+        "ta_pick_df_pct": None,
+        "ta_opp_df_pct": None,
+        "pick_ace_pct": None,
+        "opponent_ace_pct": None,
+        "pick_df_pct": None,
+        "opponent_df_pct": None,
+        "ta_pick_depth": None,
+        "ta_opp_depth": None,
+        "pick_aces_line": None,
+        "opponent_aces_line": None,
+        "total_aces_line": None,
+        "aces_status": "DISABLED",
+        "ta_decision_confidence": 0.0,
+        "ta_decision_notes": ["TA_CONTEXT_DISABLED_API_PRO_ONLY"],
+    }
 
 def _first_non_null(*values: Any) -> Any:
     for value in values:
@@ -283,7 +307,7 @@ def normalize_surface(surface: Optional[str]) -> Dict[str, Any]:
 API_PRO_HOST = "tennisapi1.p.rapidapi.com"
 API_PRO_BASE_URL = "https://tennisapi1.p.rapidapi.com"
 API_PRO_TIMEOUT = 20
-API_PRO_CACHE_DIR = Path("data/api_pro/team_year_stats")
+API_PRO_CACHE_DIR = Path("thinq/data/players/team_year_stats")
 API_PRO_CACHE_TTL_SECONDS = 60 * 60 * 24 * 7
 
 
@@ -603,8 +627,7 @@ class ThinqService:
                 opponent_player_id=opponent_player_id,
                 surface=surface_bucket,
                 projected_games=(
-                    ta_context.get("ta_projected_games")
-                    or match_dynamics.get("projected_games")
+                    match_dynamics.get("projected_games")
                     or kwargs.get("projected_games")
                     or kwargs.get("projected_total_games")
                     or kwargs.get("games_line")
@@ -856,6 +879,9 @@ class ThinqService:
             "api_serve_stats": api_serve_stats,
             "api_serve_stats_source": api_serve_stats.get("api_serve_stats_source"),
             "api_serve_stats_status": api_serve_stats.get("api_serve_stats_status"),
+            "aces_source": "API_PRO_TEAM_YEAR_STATS" if api_serve_stats.get("aces_status") == "OK" else "NO_DATA",
+            "df_source": "API_PRO_TEAM_YEAR_STATS" if api_serve_stats.get("df_status") == "OK" else "NO_DATA",
+            "serve_props_source_policy": "API_PRO_ONLY_NO_FALLBACK",
             "api_pick_ace_pct": api_serve_stats.get("api_pick_ace_pct"),
             "api_opp_ace_pct": api_serve_stats.get("api_opp_ace_pct"),
             "api_pick_df_pct": api_serve_stats.get("api_pick_df_pct"),
@@ -869,36 +895,36 @@ class ThinqService:
             "api_pick_serve_year": api_serve_stats.get("api_pick_serve_year"),
             "api_opp_serve_year": api_serve_stats.get("api_opp_serve_year"),
             # Compatibility aliases consumed by the Sets/Games/Aces/DF layers. Prefer TA if available, otherwise API PRO team yearly stats.
-            "pick_ace_pct": _first_non_null(ta_context.get("ta_pick_ace_pct"), api_serve_stats.get("api_pick_ace_pct")),
-            "opponent_ace_pct": _first_non_null(ta_context.get("ta_opp_ace_pct"), api_serve_stats.get("api_opp_ace_pct")),
-            "pick_df_pct": _first_non_null(ta_context.get("ta_pick_df_pct"), api_serve_stats.get("api_pick_df_pct")),
-            "opponent_df_pct": _first_non_null(ta_context.get("ta_opp_df_pct"), api_serve_stats.get("api_opp_df_pct")),
-            "pick_tb_pct": ta_context.get("ta_pick_tb_pct"),
-            "opponent_tb_pct": ta_context.get("ta_opp_tb_pct"),
-            "tb_probability": _avg_pct(ta_context.get("ta_pick_tb_pct"), ta_context.get("ta_opp_tb_pct")),
-            "tiebreak_probability": _avg_pct(ta_context.get("ta_pick_tb_pct"), ta_context.get("ta_opp_tb_pct")),
-            "tie_break_probability": _avg_pct(ta_context.get("ta_pick_tb_pct"), ta_context.get("ta_opp_tb_pct")),
-            "ace_status": "OK" if _first_non_null(ta_context.get("ta_pick_ace_pct"), api_serve_stats.get("api_pick_ace_pct")) is not None and _first_non_null(ta_context.get("ta_opp_ace_pct"), api_serve_stats.get("api_opp_ace_pct")) is not None else "MISSING_ACE_DATA",
-            "df_status": "OK" if _first_non_null(ta_context.get("ta_pick_df_pct"), api_serve_stats.get("api_pick_df_pct")) is not None and _first_non_null(ta_context.get("ta_opp_df_pct"), api_serve_stats.get("api_opp_df_pct")) is not None else "MISSING_DF_DATA",
+            "pick_ace_pct": api_serve_stats.get("api_pick_ace_pct"),
+            "opponent_ace_pct": api_serve_stats.get("api_opp_ace_pct"),
+            "pick_df_pct": api_serve_stats.get("api_pick_df_pct"),
+            "opponent_df_pct": api_serve_stats.get("api_opp_df_pct"),
+            "pick_tb_pct": None,
+            "opponent_tb_pct": None,
+            "tb_probability": match_dynamics.get("tiebreak_probability"),
+            "tiebreak_probability": match_dynamics.get("tiebreak_probability"),
+            "tie_break_probability": match_dynamics.get("tiebreak_probability"),
+            "ace_status": api_serve_stats.get("aces_status"),
+            "df_status": api_serve_stats.get("df_status"),
             "ta_pick_surface_dr": ta_context.get("ta_pick_surface_dr"),
             "ta_opp_surface_dr": ta_context.get("ta_opp_surface_dr"),
             "ta_pick_rpw_pct": ta_context.get("ta_pick_rpw_pct"),
             "ta_opp_rpw_pct": ta_context.get("ta_opp_rpw_pct"),
             "ta_pick_depth": ta_context.get("ta_pick_depth"),
             "ta_opp_depth": ta_context.get("ta_opp_depth"),
-            "s_data_depth": _ta_depth_pct(ta_context.get("ta_pick_depth"), ta_context.get("ta_opp_depth")),
-            "sets_games_data_depth": _ta_depth_pct(ta_context.get("ta_pick_depth"), ta_context.get("ta_opp_depth")),
-            "sets_model_source": "TA" if _first_non_null(ta_context.get("ta_pick_game_pct"), ta_context.get("ta_opp_game_pct"), ta_context.get("ta_pick_ace_pct"), ta_context.get("ta_opp_ace_pct")) is not None else "ModelFallback",
-            "pick_aces_line": ta_context.get("pick_aces_line"),
-            "opponent_aces_line": ta_context.get("opponent_aces_line"),
-            "total_aces_line": _first_non_null(ta_context.get("total_aces_line"), api_serve_stats.get("total_aces_projection")),
+            "s_data_depth": None,
+            "sets_games_data_depth": None,
+            "sets_model_source": "API_PRO_H2H_MATCH_DYNAMICS",
+            "pick_aces_line": None,
+            "opponent_aces_line": None,
+            "total_aces_line": None,
             "pick_aces_projection": api_serve_stats.get("pick_aces_projection"),
             "opponent_aces_projection": api_serve_stats.get("opponent_aces_projection"),
             "total_aces_projection": api_serve_stats.get("total_aces_projection"),
             "pick_df_projection": api_serve_stats.get("pick_df_projection"),
             "opponent_df_projection": api_serve_stats.get("opponent_df_projection"),
             "total_df_projection": api_serve_stats.get("total_df_projection"),
-            "aces_status": _first_non_null(ta_context.get("aces_status"), api_serve_stats.get("aces_status")),
+            "aces_status": api_serve_stats.get("aces_status"),
             "ta_scope": ta_context.get("ta_scope"),
             "ta_surface": ta_context.get("ta_surface"),
             "ta_pick_hold_pct": ta_context.get("ta_pick_hold_pct"),
