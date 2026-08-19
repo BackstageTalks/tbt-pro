@@ -2117,16 +2117,13 @@ def build_sets_games_from_match(match: Dict[str, Any], model_prediction: Optiona
             enriched["games_line"] = set_markets["total_games"].get("line")
             enriched["games_line_source"] = set_markets["total_games"].get("source") or _REAL_LINE_SOURCE
 
-    df_info = build_ta_double_faults_projection(
-        enriched,
-        games_line=enriched.get("projected_total_games") or enriched.get("expected_games") or enriched.get("games_line") or enriched.get("total_games_line"),
-        surface=str(enriched.get("surface") or enriched.get("surface_raw") or "") or None,
-    )
-    if isinstance(df_info, dict):
-        enriched.update(df_info)
-    aces_info = _ta_aces_projection(enriched, as_float(enriched.get("projected_total_games") or enriched.get("expected_games")))
-    if isinstance(aces_info, dict):
-        enriched.update(aces_info)
+    # Aces/DF projections must come from ThinQ API PRO team-year serve stats.
+    # This layer only overlays real API PRO bookmaker prop lines from odds/all.
+    enriched.setdefault("aces_source", "API_PRO_TEAM_YEAR_STATS" if enriched.get("total_aces_projection") is not None else "NO_DATA")
+    enriched.setdefault("df_source", "API_PRO_TEAM_YEAR_STATS" if enriched.get("total_df_projection") is not None else "NO_DATA")
+    enriched.setdefault("serve_props_source_policy", "API_PRO_ONLY_NO_TA_NO_BET365_FALLBACK")
+    enriched.setdefault("aces_status", "OK" if enriched.get("total_aces_projection") is not None else "MISSING_API_SERVE_STATS")
+    enriched.setdefault("df_status", "OK" if enriched.get("total_df_projection") is not None else "MISSING_API_SERVE_STATS")
 
     if isinstance(set_markets, dict):
         _apply_real_prop_lines(enriched, set_markets)
