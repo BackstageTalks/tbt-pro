@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
@@ -12,6 +13,7 @@ from thinq.loaders.h2h_loader import build_h2h_context, load_h2h_cache
 H2H_DATA_DIR = Path("thinq/data/h2h")
 H2H_CACHE_PATH = H2H_DATA_DIR / "h2h_cache.json"
 H2H_MANIFEST_PATH = H2H_DATA_DIR / "h2h_manifest.json"
+H2H_MATCHUPS_PATH = H2H_DATA_DIR / "h2h_matchups.json"
 RUNTIME_H2H_DIR = Path("runtime/h2h")
 RUNTIME_REPORT_PATH = RUNTIME_H2H_DIR / "h2h_coverage_report.json"
 CACHE_VERSION = "TENNISAPI_PRO_H2H_LAZY_CACHE_V1"
@@ -304,6 +306,7 @@ def main() -> int:
     no_data = 0
     errors = 0
     results: List[Dict[str, Any]] = []
+    matchups: Dict[str, Dict[str, Any]] = {}
 
     for item in work:
         if attempted >= max_requests:
@@ -343,6 +346,38 @@ def main() -> int:
                 "elo_reason": item.get("elo_reason"),
             }
             results.append(result)
+            matchup_key = str(result.get("cache_key") or ("custom:" + str(ident.get("custom_id") or "")))
+            matchups[matchup_key] = {
+                "h2h_cache_key": matchup_key,
+                "custom_id": ident.get("custom_id"),
+                "event_id": ident.get("event_id"),
+                "h2h_status": status,
+                "last_seen_at": finished_at if "finished_at" in locals() else now_iso(),
+                "player1_id": ident.get("pick_id"),
+                "player1_name": ident.get("pick"),
+                "player2_id": ident.get("opponent_id"),
+                "player2_name": ident.get("opponent"),
+                "surface": ident.get("surface"),
+                "source_file": item.get("source_file"),
+                "source": ctx.get("source"),
+                "endpoint": ctx.get("endpoint"),
+                "api_status_code": ctx.get("api_status_code"),
+                "api_error": ctx.get("api_error"),
+                "total_matches": ctx.get("total_matches"),
+                "same_surface_matches": ctx.get("same_surface_matches"),
+                "pick_wins": ctx.get("pick_wins"),
+                "opponent_wins": ctx.get("opponent_wins"),
+                "same_surface_pick_wins": ctx.get("same_surface_pick_wins"),
+                "same_surface_opponent_wins": ctx.get("same_surface_opponent_wins"),
+                "history_status": ctx.get("history_status") or ("OK" if status == "OK" else "NO_PREVIOUS_H2H"),
+                "api_event_count": ctx.get("api_event_count") or ctx.get("h2h_payload_event_count"),
+                "finished_event_count": ctx.get("finished_event_count"),
+                "oriented_finished_event_count": ctx.get("oriented_finished_event_count"),
+                "same_surface_finished_event_count": ctx.get("same_surface_finished_event_count"),
+                "excluded_event_count": ctx.get("excluded_event_count"),
+                "excluded_reasons": ctx.get("excluded_reasons"),
+                "reason": ctx.get("reason"),
+            }
             print("[h2h] " + json.dumps(result, ensure_ascii=False, sort_keys=True))
         except Exception as exc:
             errors += 1
@@ -355,6 +390,22 @@ def main() -> int:
                 "source_file": item.get("source_file"),
             }
             results.append(result)
+            matchup_key = "custom:" + str(ident.get("custom_id") or "")
+            matchups[matchup_key] = {
+                "h2h_cache_key": matchup_key,
+                "custom_id": ident.get("custom_id"),
+                "event_id": ident.get("event_id"),
+                "h2h_status": "ERROR",
+                "history_status": "API_ERROR",
+                "last_seen_at": finished_at if "finished_at" in locals() else now_iso(),
+                "player1_id": ident.get("pick_id"),
+                "player1_name": ident.get("pick"),
+                "player2_id": ident.get("opponent_id"),
+                "player2_name": ident.get("opponent"),
+                "surface": ident.get("surface"),
+                "source_file": item.get("source_file"),
+                "error": str(exc),
+            }
             print("[h2h] ERROR " + json.dumps(result, ensure_ascii=False, sort_keys=True))
 
     after_count = cache_pair_count()
@@ -385,6 +436,7 @@ def main() -> int:
         "pair_count_after": after_count,
         "cache_path": str(H2H_CACHE_PATH),
         "manifest_path": str(H2H_MANIFEST_PATH),
+        "matchups_path": str(H2H_MATCHUPS_PATH),
         "runtime_report_path": str(RUNTIME_REPORT_PATH),
         **meta,
     }
@@ -392,6 +444,7 @@ def main() -> int:
     report["results"] = results
 
     write_json(H2H_MANIFEST_PATH, manifest)
+    write_json(H2H_MATCHUPS_PATH, {"version": CACHE_VERSION, "updated_at": finished_at, "matchups": matchups})
     write_json(RUNTIME_REPORT_PATH, report)
 
     print("[h2h] manifest")
