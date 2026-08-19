@@ -2175,3 +2175,178 @@ try:
 except Exception:
     pass
 # 2026-08-03 note: market_lines consumes provider.fetch_provider_odds(), which is now exact /odds/1/all only in production.
+
+# ---------------------------------------------------------------------------
+# 2026-08-19 strict Sets/Games/TB override: real data only, no default shape
+# ---------------------------------------------------------------------------
+
+_SETS_GAMES_STRICT_REAL_DATA_VERSION = "2026-08-19-sets-games-tb-real-data-only-v1"
+
+
+def _strict_real_score_shape(match: Dict[str, Any]) -> Dict[str, Any]:
+    h2h = match.get("h2h") if isinstance(match.get("h2h"), dict) else {}
+    thinq = match.get("thinq") if isinstance(match.get("thinq"), dict) else {}
+    if not h2h and isinstance(thinq.get("h2h"), dict):
+        h2h = thinq.get("h2h") or {}
+
+    sample = as_float(h2h.get("h2h_score_shape_sample") or match.get("h2h_score_shape_sample"), None)
+    status = str(h2h.get("h2h_score_shape_status") or match.get("h2h_score_shape_status") or match.get("sets_games_status") or "NO_DATA")
+    h2h_status = str(h2h.get("status") or match.get("thinq_h2h_status") or match.get("h2h_status") or "NO_DATA")
+    projected_sets = as_float(h2h.get("h2h_projected_sets") or match.get("h2h_projected_sets") or match.get("projected_sets"), None)
+    projected_games = as_float(h2h.get("h2h_projected_games") or match.get("h2h_projected_games") or match.get("projected_games"), None)
+    tb_prob = normalize_probability_value(h2h.get("h2h_tiebreak_probability") or match.get("h2h_tiebreak_probability") or match.get("tiebreak_probability") or match.get("tb_probability"))
+    decider_prob = normalize_probability_value(h2h.get("h2h_decider_probability") or match.get("h2h_decider_probability") or match.get("decider_probability"))
+
+    if sample is None:
+        sample = 0.0
+    if sample <= 0:
+        status = "NO_PREVIOUS_H2H" if h2h_status == "NO_PREVIOUS_H2H" or status == "NO_PREVIOUS_H2H" else "NO_DATA"
+    elif sample < 2:
+        status = "LOW_SAMPLE"
+    else:
+        status = "OK"
+
+    return {
+        "status": status,
+        "sample": int(sample),
+        "projected_sets": projected_sets if status == "OK" else None,
+        "projected_games": projected_games if status == "OK" else None,
+        "tb_probability": tb_prob if status == "OK" else None,
+        "decider_probability": decider_prob if status == "OK" else None,
+        "quality": "GOOD_SAMPLE" if sample >= 4 else "MEDIUM_SAMPLE" if sample >= 2 else "LOW_SAMPLE" if sample == 1 else "NO_SAMPLE",
+    }
+
+
+def _strict_line_pick_from_projection(projection: Optional[float], line: Any, scale: float) -> Dict[str, Any]:
+    line_value = as_float(line, None)
+    if projection is None or line_value is None:
+        return {"selection": None, "probability": None, "side": None}
+    if float(projection) >= line_value:
+        probability = _over_probability_from_projection(float(projection), line_value, scale)
+        return {"selection": f"O{line_value:g}", "probability": probability, "side": "Over"}
+    probability = round(1.0 - _over_probability_from_projection(float(projection), line_value, scale), 4)
+    return {"selection": f"U{line_value:g}", "probability": probability, "side": "Under"}
+
+
+def build_market_aware_sets(match: Dict[str, Any], model_prediction: Dict[str, Any], set_markets: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    """Build Sets/Games/TB fields from real inputs only.
+
+    No generic projected sets, games, or TB defaults are created. If the H2H
+    score-shape sample is missing or too small, fields stay None with an explicit
+    status: NO_DATA, LOW_SAMPLE, or NO_PREVIOUS_H2H.
+    """
+    set_markets = set_markets or {}
+    shape = _strict_real_score_shape(match)
+    status = shape["status"]
+    sample = shape["sample"]
+    projected_sets = shape["projected_sets"]
+    projected_games = shape["projected_games"]
+    tb_probability = shape["tb_probability"]
+    decider_probability = shape["decider_probability"]
+
+    ts = set_markets.get("total_sets") if isinstance(set_markets, dict) else None
+    tg = set_markets.get("total_games") if isinstance(set_markets, dict) else None
+    tb = set_markets.get("tie_break") if isinstance(set_markets, dict) else None
+
+    sets_line = ts.get("line") if isinstance(ts, dict) else None
+    games_line = tg.get("line") if isinstance(tg, dict) else None
+    sets_pick = _strict_line_pick_from_projection(projected_sets, sets_line, 0.42)
+    games_pick = _strict_line_pick_from_projection(projected_games, games_line, 1.85)
+
+    if isinstance(tb, dict) and tb.get("yes_probability") is not None and tb_probability is None:
+        # Market probability is real market data, but not a model projection.
+        tb_probability = None
+    tb_selection = "Yes" if tb_probability is not None and tb_probability >= 0.50 else "No" if tb_probability is not None else None
+
+    return {
+        "sets_games_strict_version": _SETS_GAMES_STRICT_REAL_DATA_VERSION,
+        "sets_games_source_policy": "REAL_DATA_ONLY_NO_DEFAULTS",
+        "sets_games_fallback_policy": "NO_MODEL_DEFAULT_WHEN_SAMPLE_MISSING",
+        "sets_games_status": status,
+        "sets_games_data_quality": shape["quality"],
+        "h2h_score_shape_sample": sample,
+        "h2h_score_shape_status": status,
+        "h2h_score_shape_quality": shape["quality"],
+        "expected_sets": projected_sets,
+        "projected_sets": projected_sets,
+        "sets_selection": sets_pick.get("selection"),
+        "sets_probability": sets_pick.get("probability"),
+        "sets_probability_label": sets_pick.get("selection"),
+        "sets_o25_probability": decider_probability,
+        "sets_o45_probability": None,
+        "sets_line": sets_line,
+        "sets_line_source": ts.get("source") if isinstance(ts, dict) else None,
+        "sets_source": "TENNISAPI_H2H_SCORE_SHAPE" if status == "OK" else status,
+        "sets_model_source": "TENNISAPI_H2H_SCORE_SHAPE" if status == "OK" else "NO_REAL_SCORE_SHAPE_DATA",
+        "most_likely_score": None,
+        "most_likely_score_probability": None,
+        "score_probabilities": {},
+        "score_basis": "none" if status != "OK" else "real_h2h_score_shape",
+        "expected_games": projected_games,
+        "projected_total_games": projected_games,
+        "projected_games": projected_games,
+        "games_line": games_line,
+        "total_games_line": games_line,
+        "games_pick": f"{games_pick.get('side')} {games_line:g}" if games_pick.get("side") and games_line is not None else None,
+        "games_selection": games_pick.get("selection"),
+        "games_probability": games_pick.get("probability"),
+        "games_model_source": "TENNISAPI_H2H_SCORE_SHAPE" if status == "OK" else "NO_REAL_SCORE_SHAPE_DATA",
+        "games_data_quality": shape["quality"],
+        "best_total_selection": games_pick.get("selection"),
+        "best_total_probability": games_pick.get("probability"),
+        "games_over_odds": tg.get("over_odds") if isinstance(tg, dict) else None,
+        "games_under_odds": tg.get("under_odds") if isinstance(tg, dict) else None,
+        "games_over_probability": tg.get("over_probability") if isinstance(tg, dict) else None,
+        "games_under_probability": tg.get("under_probability") if isinstance(tg, dict) else None,
+        "tie_break_yes_odds": tb.get("yes_odds") if isinstance(tb, dict) else None,
+        "tie_break_no_odds": tb.get("no_odds") if isinstance(tb, dict) else None,
+        "tie_break_selection": tb_selection,
+        "tiebreak_selection": tb_selection,
+        "tie_break_probability": round(float(tb_probability), 4) if tb_probability is not None else None,
+        "tb_probability": round(float(tb_probability), 4) if tb_probability is not None else None,
+        "tiebreak_probability": round(float(tb_probability), 4) if tb_probability is not None else None,
+        "tb_model_source": "TENNISAPI_H2H_SCORE_SHAPE" if status == "OK" else "NO_REAL_SCORE_SHAPE_DATA",
+    }
+
+
+def build_sets_games_from_match(match: Dict[str, Any], model_prediction: Optional[Dict[str, Any]] = None, force_refresh: bool = False) -> Dict[str, Any]:
+    event_id = match.get("event_id") or match.get("match_id") or match.get("id")
+    set_markets = get_tennisapi_set_markets(event_id, force_refresh=force_refresh) if event_id else {}
+    output = build_market_aware_sets(match, model_prediction or match, set_markets=set_markets)
+    enriched = dict(match)
+    enriched.update(output)
+
+    if isinstance(set_markets, dict):
+        enriched["sets_games_market_source"] = set_markets.get("market_source") or (_REAL_LINE_SOURCE if set_markets.get("raw_market_count") else None)
+        enriched["sets_games_raw_market_count"] = set_markets.get("raw_market_count")
+        enriched["sets_games_endpoint_summary"] = set_markets.get("sets_games_endpoint_summary")
+        if isinstance(set_markets.get("total_sets"), dict):
+            enriched["sets_line"] = set_markets["total_sets"].get("line")
+            enriched["sets_line_source"] = set_markets["total_sets"].get("source") or _REAL_LINE_SOURCE
+        if isinstance(set_markets.get("total_games"), dict):
+            enriched["games_line"] = set_markets["total_games"].get("line")
+            enriched["games_line_source"] = set_markets["total_games"].get("source") or _REAL_LINE_SOURCE
+        _apply_real_prop_lines(enriched, set_markets)
+
+    # Preserve API PRO serve projections from ThinQ. Do not create TA fallback projections here.
+    enriched.setdefault("aces_source", "API_PRO_TEAM_YEAR_STATS" if enriched.get("total_aces_projection") is not None else "NO_DATA")
+    enriched.setdefault("df_source", "API_PRO_TEAM_YEAR_STATS" if enriched.get("total_df_projection") is not None else "NO_DATA")
+    enriched.setdefault("serve_props_source_policy", "API_PRO_ONLY_NO_TA_NO_BET365_FALLBACK")
+    enriched.setdefault("aces_status", "OK" if enriched.get("total_aces_projection") is not None else "MISSING_API_SERVE_STATS")
+    enriched.setdefault("df_status", "OK" if enriched.get("total_df_projection") is not None else "MISSING_API_SERVE_STATS")
+
+    value_candidates = build_sets_games_value_candidates(enriched)
+    enriched["sets_games_value_candidates"] = value_candidates
+    if value_candidates and value_candidates[0].get("selection"):
+        enriched["value_bet"] = value_candidates[0].get("selection")
+        enriched["value_bet_display"] = value_candidates[0].get("selection")
+        enriched["sets_games_best_value"] = value_candidates[0].get("selection")
+        enriched["sets_games_best_value_edge"] = value_candidates[0].get("edge")
+    else:
+        enriched["value_bet"] = None
+        enriched["value_bet_display"] = None
+        enriched["sets_games_best_value"] = None
+        enriched["sets_games_best_value_edge"] = None
+    enriched["sets_games_market_lines_version"] = _SETS_GAMES_STRICT_REAL_DATA_VERSION
+    return enriched
+
