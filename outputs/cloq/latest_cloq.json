@@ -373,7 +373,7 @@
       },
       "h2h": {
         "status": "OK",
-        "source": "TENNISAPI_PRO_H2H_API",
+        "source": "TENNISAPI_PRO_H2H_CACHE",
         "total_matches": 3,
         "pick_wins": 1,
         "opponent_wins": 2,
@@ -398,9 +398,9 @@
         "endpoint_attempts": [
           {
             "endpoint": "/api/tennis/event/DmRbsZFjc/h2h",
-            "status_code": 200,
+            "error": null,
             "ok": true,
-            "error": null
+            "status_code": 200
           }
         ],
         "api_status_code": 200,
@@ -731,7 +731,7 @@
         },
         "h2h": {
           "status": "OK",
-          "source": "TENNISAPI_PRO_H2H_API",
+          "source": "TENNISAPI_PRO_H2H_CACHE",
           "total_matches": 3,
           "pick_wins": 1,
           "opponent_wins": 2,
@@ -758,6 +758,16 @@
           "sample_quality": "MEDIUM_SAMPLE",
           "confidence": 0.39,
           "reason": null,
+          "h2h_score_shape_status": "OK",
+          "h2h_score_shape_source": "same_surface_h2h",
+          "h2h_score_shape_sample": 2,
+          "h2h_score_shape_quality": "MEDIUM_SAMPLE",
+          "h2h_projected_sets": 2.5,
+          "h2h_projected_games": 22.0,
+          "h2h_tiebreak_probability": 0.5,
+          "h2h_decider_probability": 0.5,
+          "h2h_all_score_sample": 3,
+          "h2h_same_surface_score_sample": 2,
           "cache_key": "custom:DmRbsZFjc",
           "cache_path": "thinq/data/h2h/h2h_cache.json",
           "last_refresh_path": "thinq/data/h2h/h2h_last_refresh.json",
@@ -768,9 +778,9 @@
           "endpoint_attempts": [
             {
               "endpoint": "/api/tennis/event/DmRbsZFjc/h2h",
-              "status_code": 200,
+              "error": null,
               "ok": true,
-              "error": null
+              "status_code": 200
             }
           ],
           "api_status_code": 200,
@@ -1149,7 +1159,7 @@
       "thinq_surface_elo_edge": 0.043,
       "thinq_elo_edge": 0.043,
       "thinq_h2h_status": "OK",
-      "thinq_h2h_source": "TENNISAPI_PRO_H2H_API",
+      "thinq_h2h_source": "TENNISAPI_PRO_H2H_CACHE",
       "thinq_h2h_total_matches": 3,
       "thinq_h2h_pick_wins": 1,
       "thinq_h2h_opponent_wins": 2,
@@ -1178,9 +1188,9 @@
       "thinq_h2h_endpoint_attempts": [
         {
           "endpoint": "/api/tennis/event/DmRbsZFjc/h2h",
-          "status_code": 200,
+          "error": null,
           "ok": true,
-          "error": null
+          "status_code": 200
         }
       ],
       "thinq_h2h_api_status_code": 200,
@@ -1569,7 +1579,7 @@
     "thinq_surface_elo_edge": 0.043,
     "thinq_elo_edge": 0.043,
     "thinq_h2h_status": "OK",
-    "thinq_h2h_source": "TENNISAPI_PRO_H2H_API",
+    "thinq_h2h_source": "TENNISAPI_PRO_H2H_CACHE",
     "thinq_h2h_total_matches": 3,
     "thinq_h2h_pick_wins": 1,
     "thinq_h2h_opponent_wins": 2,
@@ -1598,9 +1608,9 @@
     "thinq_h2h_endpoint_attempts": [
       {
         "endpoint": "/api/tennis/event/DmRbsZFjc/h2h",
-        "status_code": 200,
+        "error": null,
         "ok": true,
-        "error": null
+        "status_code": 200
       }
     ],
     "thinq_h2h_api_status_code": 200,
@@ -1696,7 +1706,7 @@
     },
     "h2h": {
       "status": "OK",
-      "source": "TENNISAPI_PRO_H2H_API",
+      "source": "TENNISAPI_PRO_H2H_CACHE",
       "total_matches": 3,
       "pick_wins": 1,
       "opponent_wins": 2,
@@ -1721,9 +1731,9 @@
       "endpoint_attempts": [
         {
           "endpoint": "/api/tennis/event/DmRbsZFjc/h2h",
-          "status_code": 200,
+          "error": null,
           "ok": true,
-          "error": null
+          "status_code": 200
         }
       ],
       "api_status_code": 200,
@@ -2266,6 +2276,7 @@
     "sets_games_best_value": null,
     "sets_games_market_lines_version": "2026-08-01-real-prop-line-source-final",
     "sets_games_status": "OK",
+    "h2h_score_shape_status": "NO_DATA",
     "marq_source": "tennisapi_market_quality_v2",
     "marq_api_source": "TennisApi RapidAPI",
     "marq_source_policy": "TENNISAPI_ONLY_EXACT_EVENT",
@@ -2960,7 +2971,7 @@
       },
       "h2h": {
         "status": "OK",
-        "source": "TENNISAPI_PRO_H2H_API",
+        "source": "TENNISAPI_PRO_H2H_CACHE",
         "total_matches": 3,
         "pick_wins": 2,
         "opponent_wins": 1,
@@ -2985,9 +2996,9 @@
         "endpoint_attempts": [
           {
             "endpoint": "/api/tennis/event/gbRbsBKmd/h2h",
-            "status_code": 200,
+            "error": null,
             "ok": true,
-            "error": null
+            "status_code": 200
           }
         ],
         "api_status_code": 200,
@@ -3318,7 +3329,7 @@
         },
         "h2h": {
           "status": "OK",
-          "source": "TENNISAPI_PRO_H2H_API",
+          "source": "TENNISAPI_PRO_H2H_CACHE",
           "total_matches": 3,
           "pick_wins": 2,
           "opponent_wins": 1,
@@ -3345,6 +3356,16 @@
           "sample_quality": "MEDIUM_SAMPLE",
           "confidence": 0.39,
           "reason": null,
+          "h2h_score_shape_status": "OK",
+          "h2h_score_shape_source": "all_h2h",
+          "h2h_score_shape_sample": 3,
+          "h2h_score_shape_quality": "MEDIUM_SAMPLE",
+          "h2h_projected_sets": 2.0,
+          "h2h_projected_games": 19.67,
+          "h2h_tiebreak_probability": 0.3333,
+          "h2h_decider_probability": 0.0,
+          "h2h_all_score_sample": 3,
+          "h2h_same_surface_score_sample": 1,
           "cache_key": "custom:gbRbsBKmd",
           "cache_path": "thinq/data/h2h/h2h_cache.json",
           "last_refresh_path": "thinq/data/h2h/h2h_last_refresh.json",
@@ -3355,9 +3376,9 @@
           "endpoint_attempts": [
             {
               "endpoint": "/api/tennis/event/gbRbsBKmd/h2h",
-              "status_code": 200,
+              "error": null,
               "ok": true,
-              "error": null
+              "status_code": 200
             }
           ],
           "api_status_code": 200,
@@ -3736,7 +3757,7 @@
       "thinq_surface_elo_edge": 0.0033,
       "thinq_elo_edge": 0.0033,
       "thinq_h2h_status": "OK",
-      "thinq_h2h_source": "TENNISAPI_PRO_H2H_API",
+      "thinq_h2h_source": "TENNISAPI_PRO_H2H_CACHE",
       "thinq_h2h_total_matches": 3,
       "thinq_h2h_pick_wins": 2,
       "thinq_h2h_opponent_wins": 1,
@@ -3765,9 +3786,9 @@
       "thinq_h2h_endpoint_attempts": [
         {
           "endpoint": "/api/tennis/event/gbRbsBKmd/h2h",
-          "status_code": 200,
+          "error": null,
           "ok": true,
-          "error": null
+          "status_code": 200
         }
       ],
       "thinq_h2h_api_status_code": 200,
@@ -4156,7 +4177,7 @@
     "thinq_surface_elo_edge": 0.0033,
     "thinq_elo_edge": 0.0033,
     "thinq_h2h_status": "OK",
-    "thinq_h2h_source": "TENNISAPI_PRO_H2H_API",
+    "thinq_h2h_source": "TENNISAPI_PRO_H2H_CACHE",
     "thinq_h2h_total_matches": 3,
     "thinq_h2h_pick_wins": 2,
     "thinq_h2h_opponent_wins": 1,
@@ -4185,9 +4206,9 @@
     "thinq_h2h_endpoint_attempts": [
       {
         "endpoint": "/api/tennis/event/gbRbsBKmd/h2h",
-        "status_code": 200,
+        "error": null,
         "ok": true,
-        "error": null
+        "status_code": 200
       }
     ],
     "thinq_h2h_api_status_code": 200,
@@ -4283,7 +4304,7 @@
     },
     "h2h": {
       "status": "OK",
-      "source": "TENNISAPI_PRO_H2H_API",
+      "source": "TENNISAPI_PRO_H2H_CACHE",
       "total_matches": 3,
       "pick_wins": 2,
       "opponent_wins": 1,
@@ -4308,9 +4329,9 @@
       "endpoint_attempts": [
         {
           "endpoint": "/api/tennis/event/gbRbsBKmd/h2h",
-          "status_code": 200,
+          "error": null,
           "ok": true,
-          "error": null
+          "status_code": 200
         }
       ],
       "api_status_code": 200,
@@ -4853,6 +4874,7 @@
     "sets_games_best_value": null,
     "sets_games_market_lines_version": "2026-08-01-real-prop-line-source-final",
     "sets_games_status": "OK",
+    "h2h_score_shape_status": "NO_DATA",
     "marq_source": "tennisapi_market_quality_v2",
     "marq_api_source": "TennisApi RapidAPI",
     "marq_source_policy": "TENNISAPI_ONLY_EXACT_EVENT",

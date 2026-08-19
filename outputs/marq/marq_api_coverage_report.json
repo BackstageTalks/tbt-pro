@@ -1,6 +1,6 @@
 {
   "model_version": "2026-08-04-marq-coverage-report-v1",
-  "generated_at_utc": "2026-08-19T05:38:13.678901+00:00",
+  "generated_at_utc": "2026-08-19T07:26:20.957105+00:00",
   "input_paths": {
     "all": "outputs/latest_all.json",
     "top7": "outputs/latest_top7.json",
@@ -11,8 +11,8 @@
       "label": "all_audit",
       "total_rows": 32,
       "coverage_pct": {
-        "high_marq": 56.25,
-        "medium_current_only": 43.75,
+        "high_marq": 62.5,
+        "medium_current_only": 37.5,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
         "usable_marq_high_or_medium": 100.0
@@ -21,20 +21,20 @@
         "getAllOddsForEvent": 32
       },
       "data_status_counts": {
-        "EXACT_BETTING_ODDS_WITH_OPENING": 18,
-        "EXACT_CURRENT_ODDS_ONLY": 14
+        "EXACT_BETTING_ODDS_WITH_OPENING": 20,
+        "EXACT_CURRENT_ODDS_ONLY": 12
       },
       "confidence_counts": {
-        "HIGH": 18,
-        "MEDIUM": 14
+        "HIGH": 20,
+        "MEDIUM": 12
       },
       "movement_status_counts": {
-        "REAL_OPENING_CURRENT_AVAILABLE": 18,
-        "OPENING_EQUALS_CURRENT": 14
+        "REAL_OPENING_CURRENT_AVAILABLE": 20,
+        "OPENING_EQUALS_CURRENT": 12
       },
       "quality_tier_counts": {
-        "HIGH": 18,
-        "MEDIUM_CURRENT_ONLY": 14
+        "HIGH": 20,
+        "MEDIUM_CURRENT_ONLY": 12
       },
       "value_status_counts": {
         "NO_VALUE": 16,
@@ -46,7 +46,7 @@
       },
       "market_weight_stats": {
         "count": 32,
-        "avg": 0.1987,
+        "avg": 0.2075,
         "min": 0.12,
         "max": 0.3
       },
@@ -58,7 +58,7 @@
       },
       "expected_value_pct_stats": {
         "count": 32,
-        "avg": 15.6359,
+        "avg": 16.1769,
         "min": -28.68,
         "max": 361.4
       },
@@ -101,30 +101,30 @@
             "identity": "16737483",
             "pick": "Alexander Zverev",
             "opponent": "Tommy Paul",
-            "odds": 1.36,
+            "odds": 1.33,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -5.7,
-            "expected_value_pct": -12.31,
+            "value_delta_pp": -7.4,
+            "expected_value_pct": -14.24,
             "fallback_reason": null
           },
           {
             "identity": "16737483",
             "pick": "Tommy Paul",
             "opponent": "Alexander Zverev",
-            "odds": 3.2,
+            "odds": 3.4,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 5.7,
-            "expected_value_pct": 13.66,
+            "value_delta_pp": 7.4,
+            "expected_value_pct": 20.77,
             "fallback_reason": null
           },
           {
@@ -188,6 +188,36 @@
             "fallback_reason": null
           },
           {
+            "identity": "16737500",
+            "pick": "Frances Tiafoe",
+            "opponent": "Felix Auger-Aliassime",
+            "odds": 3.0,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 15.27,
+            "expected_value_pct": 41.27,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16737500",
+            "pick": "Felix Auger-Aliassime",
+            "opponent": "Frances Tiafoe",
+            "odds": 1.4,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": -15.27,
+            "expected_value_pct": -25.93,
+            "fallback_reason": null
+          },
+          {
             "identity": "16737901",
             "pick": "Sorana Cirstea",
             "opponent": "Jessica Pegula",
@@ -215,36 +245,6 @@
             "market_weight": 0.22,
             "value_delta_pp": -5.34,
             "expected_value_pct": -12.15,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16737906",
-            "pick": "Diana Shnaider",
-            "opponent": "Elena Rybakina",
-            "odds": 3.2,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": 4.17,
-            "expected_value_pct": 8.77,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16737906",
-            "pick": "Elena Rybakina",
-            "opponent": "Diana Shnaider",
-            "odds": 1.36,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.22,
-            "value_delta_pp": -4.17,
-            "expected_value_pct": -10.23,
             "fallback_reason": null
           }
         ],
@@ -283,15 +283,15 @@
             "identity": "16737483",
             "pick": "Alexander Zverev",
             "opponent": "Tommy Paul",
-            "odds": 1.36,
+            "odds": 1.33,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -5.7,
-            "expected_value_pct": -12.31,
+            "value_delta_pp": -7.4,
+            "expected_value_pct": -14.24,
             "fallback_reason": null
           },
           {
@@ -358,15 +358,15 @@
             "identity": "16737500",
             "pick": "Felix Auger-Aliassime",
             "opponent": "Frances Tiafoe",
-            "odds": 1.5,
+            "odds": 1.4,
             "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": -10.77,
-            "expected_value_pct": -20.64,
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": -15.27,
+            "expected_value_pct": -25.93,
             "fallback_reason": null
           },
           {
@@ -465,15 +465,15 @@
             "identity": "16737483",
             "pick": "Tommy Paul",
             "opponent": "Alexander Zverev",
-            "odds": 3.2,
+            "odds": 3.4,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 5.7,
-            "expected_value_pct": 13.66,
+            "value_delta_pp": 7.4,
+            "expected_value_pct": 20.77,
             "fallback_reason": null
           },
           {
@@ -525,15 +525,15 @@
             "identity": "16737500",
             "pick": "Frances Tiafoe",
             "opponent": "Felix Auger-Aliassime",
-            "odds": 2.63,
+            "odds": 3.0,
             "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": 10.77,
-            "expected_value_pct": 23.85,
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 15.27,
+            "expected_value_pct": 41.27,
             "fallback_reason": null
           },
           {
@@ -627,8 +627,8 @@
       "label": "corq_top7",
       "total_rows": 5,
       "coverage_pct": {
-        "high_marq": 60.0,
-        "medium_current_only": 40.0,
+        "high_marq": 80.0,
+        "medium_current_only": 20.0,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
         "usable_marq_high_or_medium": 100.0
@@ -637,20 +637,20 @@
         "getAllOddsForEvent": 5
       },
       "data_status_counts": {
-        "EXACT_BETTING_ODDS_WITH_OPENING": 3,
-        "EXACT_CURRENT_ODDS_ONLY": 2
+        "EXACT_BETTING_ODDS_WITH_OPENING": 4,
+        "EXACT_CURRENT_ODDS_ONLY": 1
       },
       "confidence_counts": {
-        "HIGH": 3,
-        "MEDIUM": 2
+        "HIGH": 4,
+        "MEDIUM": 1
       },
       "movement_status_counts": {
-        "REAL_OPENING_CURRENT_AVAILABLE": 3,
-        "OPENING_EQUALS_CURRENT": 2
+        "REAL_OPENING_CURRENT_AVAILABLE": 4,
+        "OPENING_EQUALS_CURRENT": 1
       },
       "quality_tier_counts": {
-        "HIGH": 3,
-        "MEDIUM_CURRENT_ONLY": 2
+        "HIGH": 4,
+        "MEDIUM_CURRENT_ONLY": 1
       },
       "value_status_counts": {
         "NO_VALUE": 4,
@@ -661,20 +661,20 @@
       },
       "market_weight_stats": {
         "count": 5,
-        "avg": 0.196,
+        "avg": 0.216,
         "min": 0.12,
         "max": 0.3
       },
       "value_delta_pp_stats": {
         "count": 5,
-        "avg": -5.296,
-        "min": -10.77,
+        "avg": -6.196,
+        "min": -15.27,
         "max": 2.72
       },
       "expected_value_pct_stats": {
         "count": 5,
-        "avg": -12.784,
-        "min": -20.64,
+        "avg": -13.842,
+        "min": -25.93,
         "max": -1.14
       },
       "samples": {
@@ -725,6 +725,21 @@
             "market_weight": 0.22,
             "value_delta_pp": -8.0,
             "expected_value_pct": -17.33,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16737500",
+            "pick": "Felix Auger-Aliassime",
+            "opponent": "Frances Tiafoe",
+            "odds": 1.4,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": -15.27,
+            "expected_value_pct": -25.93,
             "fallback_reason": null
           }
         ],
@@ -778,15 +793,15 @@
             "identity": "16737500",
             "pick": "Felix Auger-Aliassime",
             "opponent": "Frances Tiafoe",
-            "odds": 1.5,
+            "odds": 1.4,
             "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": -10.77,
-            "expected_value_pct": -20.64,
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": -15.27,
+            "expected_value_pct": -25.93,
             "fallback_reason": null
           }
         ],
