@@ -1,16 +1,13 @@
-"""Clean production entrypoint for CORQ Daily Predictions.
+"""Top-level compatibility entrypoint for the tennis prediction pipeline.
 
-Architecture:
-- THINQ = intelligence layer / brain
-- CORQ = CORE output/ranking engine
-- TOP7 = first 7 eligible picks from CORQ ranking
-
-Run:
-    python engine.py
+The real CorQ daily engine lives in corq.engine.  Keep this root file tiny so
+accidentally editing it cannot change model behaviour.
 """
+
+from __future__ import annotations
 
 from corq.engine import main
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
