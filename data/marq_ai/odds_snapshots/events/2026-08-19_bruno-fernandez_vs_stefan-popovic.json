@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.83333,
   "latest_odds_player2": 1.83333,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-19T11:04:32.555115+00:00",
+  "latest_snapshot_time_utc": "2026-08-19T17:09:34.010618+00:00",
   "opening_odds_player1": 1.83333,
   "opening_odds_player2": 1.83333,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Bruno Fernandez",
   "player2": "Stefan Popović",
-  "snapshot_count": 4,
+  "snapshot_count": 5,
   "snapshots": [
     {
       "event_id": "16854720",
@@ -97,8 +97,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-18T13:43:06+00:00",
       "target_date": "2026-08-19"
+    },
+    {
+      "event_id": "16854720",
+      "event_key": "2026-08-19_bruno-fernandez_vs_stefan-popovic",
+      "hours_to_start": -27.44,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.83333,
+      "odds_player2": 1.83333,
+      "player1": "Bruno Fernandez",
+      "player2": "Stefan Popović",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-19T17:09:34.010618+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-18T13:43:06+00:00",
+      "target_date": "2026-08-19"
     }
   ],
   "start_time_utc": "2026-08-18T13:43:06+00:00",
-  "updated_at_utc": "2026-08-19T11:05:10.343376+00:00"
+  "updated_at_utc": "2026-08-19T17:09:59.321657+00:00"
 }
