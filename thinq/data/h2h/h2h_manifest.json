@@ -1,34 +1,26 @@
 {
-  "allowed_reason_hits": {},
-  "attempted": 0,
+  "attempted": 32,
   "cache_path": "thinq/data/h2h/h2h_cache.json",
-  "candidate_pairs": 0,
-  "elo_universe_path": "thinq/data/players/elo_player_universe.json",
+  "candidate_pairs": 32,
+  "elo_key_hits": {
+    "pick_elo+opponent_elo": 41
+  },
   "errors": 0,
-  "finished_at_utc": "2026-08-19T09:32:35+00:00",
-  "history_status_counts": {},
+  "finished_at_utc": "2026-08-19T10:25:31+00:00",
   "manifest_path": "thinq/data/h2h/h2h_manifest.json",
-  "matchups_path": "thinq/data/h2h/h2h_matchups.json",
   "max_requests": 60,
-  "no_data": 0,
-  "ok": 0,
+  "no_data": 10,
+  "ok": 22,
   "outputs_dir": "outputs",
   "pair_count_after": 32,
   "pair_count_before": 32,
-  "player_registry_path": "thinq/data/players/player_registry.json",
-  "player_universe_count": 1099,
-  "player_universe_loaded": true,
-  "player_universe_source": "thinq/data/players/elo_player_universe.json",
   "reject_counts": {
-    "both_players_missing_from_elo_universe": 0,
-    "duplicate": 0,
-    "missing_elo_universe": 0,
-    "missing_h2h_key": 41,
-    "missing_identity": 0,
-    "opponent_missing_from_elo_universe": 0,
-    "pick_missing_from_elo_universe": 0
+    "duplicate": 9,
+    "missing_elo": 0,
+    "missing_h2h_key": 0,
+    "missing_identity": 0
   },
-  "require_elo": true,
+  "require_elo": false,
   "runtime_report_path": "runtime/h2h/h2h_coverage_report.json",
   "source_counts": {
     "outputs/cloq/latest_cloq.json": 2,
@@ -36,6 +28,6 @@
     "outputs/latest_cloq.json": 2,
     "outputs/latest_top7.json": 5
   },
-  "started_at_utc": "2026-08-19T09:32:35+00:00",
-  "status": "NO_ELIGIBLE_MATCHES"
+  "started_at_utc": "2026-08-19T10:25:31+00:00",
+  "status": "OK"
 }
