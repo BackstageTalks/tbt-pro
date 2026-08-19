@@ -3,37 +3,20 @@ name: Update H2H Cache
 on:
   workflow_dispatch:
     inputs:
-      outputs_dir:
-        description: "Outputs directory to scan for current match rows"
-        required: false
-        default: "outputs"
-      max_requests:
-        description: "Maximum TennisAPI H2H API requests in this run"
-        required: false
-        default: "60"
-      require_elo:
-        description: "Only prewarm H2H for players in ELO universe"
+      mode:
+        description: "H2H cache mode"
         required: false
         type: choice
         options:
-          - "true"
-          - "false"
-        default: "true"
-      force_refresh:
-        description: "Force refresh even when cache exists"
-        required: false
-        type: choice
-        options:
-          - "false"
-          - "true"
-        default: "false"
+          - "lazy-api-pro-only"
+        default: "lazy-api-pro-only"
   repository_dispatch:
     types:
       - update-h2h-cache
       - h2h-cache-refresh
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: update-h2h-cache
@@ -42,87 +25,29 @@ concurrency:
 jobs:
   update-h2h-cache:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
-
-    env:
-      PYTHONPATH: ${{ github.workspace }}
-      RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
-      OUTPUTS_DIR: ${{ github.event.inputs.outputs_dir || github.event.client_payload.outputs_dir || 'outputs' }}
-      MAX_REQUESTS: ${{ github.event.inputs.max_requests || github.event.client_payload.max_requests || '60' }}
-      H2H_REQUIRE_ELO: ${{ github.event.inputs.require_elo || github.event.client_payload.require_elo || 'true' }}
-      H2H_CACHE_TTL_DAYS: ${{ (github.event.inputs.force_refresh == 'true' || github.event.client_payload.force_refresh == 'true') && '0' || '30' }}
+    timeout-minutes: 10
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install Python dependencies
+      - name: Explain H2H cache policy
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install requests
+          echo "H2H cache prewarm is disabled."
+          echo "Current policy: API PRO only, lazy per-match H2H loading by customId during ThinQ/CorQ enrichment."
+          echo "Legacy h2h_loader.py prewarm arguments are intentionally not used:"
+          echo "  --prewarm"
+          echo "  --outputs-dir"
+          echo "  --max-requests"
+          echo "  --require-elo"
+          echo ""
+          echo "This workflow is kept as a compatibility no-op for repository_dispatch/manual triggers."
 
-      - name: Prewarm H2H cache
+      - name: Validate no legacy prewarm call in this workflow
         run: |
           set -euo pipefail
-          python -m thinq.loaders.h2h_loader \
-            --prewarm \
-            --outputs-dir "${OUTPUTS_DIR}" \
-            --max-requests "${MAX_REQUESTS}" \
-            --require-elo "${H2H_REQUIRE_ELO}"
-
-      - name: Show H2H summary
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          for p in [
-              Path("thinq/data/h2h/h2h_manifest.json"),
-              Path("thinq/data/h2h/h2h_cache.json"),
-              Path("thinq/data/h2h/h2h_matchups.json"),
-              Path("thinq/data/players/player_registry.json"),
-              Path("runtime/h2h/h2h_coverage_report.json"),
-          ]:
-              print(f"{p}: {'FOUND' if p.exists() else 'missing'}")
-          manifest = Path("thinq/data/h2h/h2h_manifest.json")
-          if manifest.exists():
-              print(manifest.read_text(encoding="utf-8"))
-          PY
-
-      - name: Commit H2H data
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add thinq/data/h2h thinq/data/players runtime/h2h || true
-          if git diff --cached --quiet; then
-            echo "No H2H data changes to commit."
-            exit 0
+          if grep -n -- "--prewarm\|--outputs-dir\|--max-requests\|--require-elo" .github/workflows/update-h2h-cache.yml; then
+            echo "Legacy H2H prewarm arguments found in workflow."
+            exit 1
           fi
-          git commit -m "Update H2H data"
-          if git push; then
-            echo "H2H data pushed."
-            exit 0
-          fi
-
-          echo "Push rejected, preserving H2H data and retrying on latest main..."
-          tmp_dir="$(mktemp -d)"
-          cp -a thinq/data/h2h "$tmp_dir/h2h" 2>/dev/null || true
-          cp -a thinq/data/players "$tmp_dir/players" 2>/dev/null || true
-          cp -a runtime/h2h "$tmp_dir/runtime_h2h" 2>/dev/null || true
-          git fetch origin main
-          git reset --hard origin/main
-          mkdir -p thinq/data runtime
-          [ -d "$tmp_dir/h2h" ] && rm -rf thinq/data/h2h && cp -a "$tmp_dir/h2h" thinq/data/h2h
-          [ -d "$tmp_dir/players" ] && rm -rf thinq/data/players && cp -a "$tmp_dir/players" thinq/data/players
-          [ -d "$tmp_dir/runtime_h2h" ] && rm -rf runtime/h2h && mkdir -p runtime && cp -a "$tmp_dir/runtime_h2h" runtime/h2h
-          git add thinq/data/h2h thinq/data/players runtime/h2h || true
-          if git diff --cached --quiet; then
-            echo "No H2H data changes after reset."
-            exit 0
-          fi
-          git commit -m "Update H2H data"
-          git push
+          echo "No legacy H2H prewarm arguments found."
