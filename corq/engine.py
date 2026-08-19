@@ -1286,56 +1286,103 @@ def _ratio_or_none(value: Any) -> Optional[float]:
 
 
 def _enrich_with_h2h_score_shape(record: Dict[str, Any]) -> Dict[str, Any]:
-    """Use real TennisAPI H2H scores to strengthen Sets/Games/TB projections.
+    """Attach real H2H score-shape status and projections.
 
-    No serve-stat projection is created here. Aces/DF stay API-only or N/A.
+    Policy:
+    - 0 usable previous matches: NO_PREVIOUS_H2H or NO_DATA, no projections.
+    - 1 usable previous match: LOW_SAMPLE, no public projection signal.
+    - 2+ usable previous matches: use real score-derived Set/Game/TB shape.
     """
+    thinq = record.get("thinq") if isinstance(record.get("thinq"), dict) else {}
     h2h = record.get("h2h") if isinstance(record.get("h2h"), dict) else {}
+    if not h2h and isinstance(thinq.get("h2h"), dict):
+        h2h = thinq.get("h2h") or {}
+
+    h2h_status = str(
+        h2h.get("status")
+        or record.get("thinq_h2h_status")
+        or record.get("h2h_status")
+        or "NO_DATA"
+    )
     sample = _num(h2h.get("h2h_score_shape_sample") or record.get("h2h_score_shape_sample"))
+    raw_event_count = _num(h2h.get("h2h_raw_event_count") or record.get("h2h_raw_event_count"))
     projected_sets = _num(h2h.get("h2h_projected_sets") or record.get("h2h_projected_sets"))
     projected_games = _num(h2h.get("h2h_projected_games") or record.get("h2h_projected_games"))
     tb_prob = _ratio_or_none(h2h.get("h2h_tiebreak_probability") or record.get("h2h_tiebreak_probability"))
     decider_prob = _ratio_or_none(h2h.get("h2h_decider_probability") or record.get("h2h_decider_probability"))
-    quality = str(h2h.get("h2h_score_shape_quality") or record.get("h2h_score_shape_quality") or "NO_SAMPLE")
     source = str(h2h.get("h2h_score_shape_source") or record.get("h2h_score_shape_source") or "none")
 
+    record["sets_games_source_policy"] = "REAL_DATA_ONLY_NO_DEFAULTS"
+    record["sets_games_fallback_policy"] = "NO_MODEL_DEFAULT_WHEN_SAMPLE_MISSING"
+
     if sample is None or sample <= 0:
-        record.setdefault("h2h_score_shape_status", "NO_DATA")
+        status = "NO_PREVIOUS_H2H" if h2h_status == "NO_PREVIOUS_H2H" or (raw_event_count is not None and raw_event_count <= 0) else "NO_DATA"
+        record["h2h_score_shape_status"] = status
+        record["h2h_score_shape_quality"] = "NO_SAMPLE"
+        record["h2h_score_shape_sample"] = 0
+        record["sets_games_status"] = status
+        record["sets_games_data_quality"] = status
+        record["sets_model_source"] = "NO_REAL_SCORE_SHAPE_DATA"
+        record["games_model_source"] = "NO_REAL_SCORE_SHAPE_DATA"
+        record["tb_model_source"] = "NO_REAL_SCORE_SHAPE_DATA"
+        record["projected_sets"] = None
+        record["projected_games"] = None
+        record["tiebreak_probability"] = None
+        record["tb_probability"] = None
+        record["decider_probability"] = None
+        record["s_data_depth"] = max(_num(record.get("s_data_depth")) or 0.0, 0.0)
+        record["sets_games_data_depth"] = max(_num(record.get("sets_games_data_depth")) or 0.0, 0.0)
         return record
 
     record["h2h_score_shape_sample"] = int(sample)
-    record["h2h_score_shape_quality"] = quality
     record["h2h_score_shape_source"] = source
+
+    if sample < 2:
+        record["h2h_score_shape_status"] = "LOW_SAMPLE"
+        record["h2h_score_shape_quality"] = "LOW_SAMPLE"
+        record["sets_games_status"] = "LOW_SAMPLE"
+        record["sets_games_data_quality"] = "LOW_SAMPLE"
+        record["sets_model_source"] = "LOW_SAMPLE_REAL_H2H_SCORE_SHAPE"
+        record["games_model_source"] = "LOW_SAMPLE_REAL_H2H_SCORE_SHAPE"
+        record["tb_model_source"] = "LOW_SAMPLE_REAL_H2H_SCORE_SHAPE"
+        record["projected_sets"] = None
+        record["projected_games"] = None
+        record["tiebreak_probability"] = None
+        record["tb_probability"] = None
+        record["decider_probability"] = None
+        record["s_data_depth"] = max(_num(record.get("s_data_depth")) or 0.0, 0.25)
+        record["sets_games_data_depth"] = max(_num(record.get("sets_games_data_depth")) or 0.0, 0.25)
+        return record
+
+    quality = "GOOD_SAMPLE" if sample >= 4 else "MEDIUM_SAMPLE"
+    record["h2h_score_shape_status"] = "OK"
+    record["h2h_score_shape_quality"] = quality
     record["sets_model_source"] = "TENNISAPI_H2H_SCORE_SHAPE"
+    record["games_model_source"] = "TENNISAPI_H2H_SCORE_SHAPE"
+    record["tb_model_source"] = "TENNISAPI_H2H_SCORE_SHAPE"
     record["sets_games_status"] = "OK_H2H_SCORE_SHAPE"
 
     if projected_sets is not None:
         record["h2h_projected_sets"] = round(projected_sets, 2)
-        record.setdefault("projected_sets", round(projected_sets, 2))
-        record.setdefault("ta_projected_sets", round(projected_sets, 2))
+        record["projected_sets"] = round(projected_sets, 2)
+        record["ta_projected_sets"] = None
     if projected_games is not None:
         record["h2h_projected_games"] = round(projected_games, 2)
-        record.setdefault("projected_games", round(projected_games, 2))
-        record.setdefault("ta_projected_games", round(projected_games, 2))
+        record["projected_games"] = round(projected_games, 2)
+        record["ta_projected_games"] = None
     if tb_prob is not None:
         record["h2h_tiebreak_probability"] = round(tb_prob, 4)
-        record.setdefault("tiebreak_probability", round(tb_prob, 4))
-        record.setdefault("tb_probability", round(tb_prob, 4))
+        record["tiebreak_probability"] = round(tb_prob, 4)
+        record["tb_probability"] = round(tb_prob, 4)
     if decider_prob is not None:
         record["h2h_decider_probability"] = round(decider_prob, 4)
-        record.setdefault("decider_probability", round(decider_prob, 4))
-        record.setdefault("sets_over_2_5_probability", round(decider_prob, 4))
+        record["decider_probability"] = round(decider_prob, 4)
+        record["sets_over_2_5_probability"] = round(decider_prob, 4)
 
-    if quality == "GOOD_SAMPLE":
-        depth = 0.85
-    elif quality == "MEDIUM_SAMPLE":
-        depth = 0.65
-    else:
-        depth = 0.40
+    depth = 0.85 if quality == "GOOD_SAMPLE" else 0.65
     record["s_data_depth"] = max(_num(record.get("s_data_depth")) or 0.0, depth)
     record["sets_games_data_depth"] = max(_num(record.get("sets_games_data_depth")) or 0.0, depth)
     return record
-
 
 def _enrich_with_sets_games(record: Dict[str, Any]) -> Dict[str, Any]:
     """Attach Sets/Games market-aware fields from marq.market_lines.
@@ -1818,8 +1865,11 @@ def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", ru
         prediction = build_corq_prediction(enriched)
         prediction = _enrich_with_tennisapi_ranking_info(prediction, tennisapi_rankings)
         prediction = _enrich_with_ta_profile_context(prediction)
-        prediction = _enrich_with_sets_games(prediction)
+        # H2H score-shape must be attached before Sets/Games/TB market logic.
+        # Sets/Games/TB projections are allowed only from real score-shape data
+        # or real market lines, never from generic model fallback defaults.
         prediction = _enrich_with_h2h_score_shape(prediction)
+        prediction = _enrich_with_sets_games(prediction)
         prediction = _enrich_with_marq(prediction)
         prediction = apply_corq_market_calibration(prediction)
         prediction = _enrich_with_price_value(prediction)
