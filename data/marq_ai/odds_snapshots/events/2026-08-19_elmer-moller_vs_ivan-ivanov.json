@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.5,
   "latest_odds_player2": 2.5,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-18T11:05:16.490432+00:00",
+  "latest_snapshot_time_utc": "2026-08-19T03:31:39.119894+00:00",
   "opening_odds_player1": 1.5,
   "opening_odds_player2": 2.5,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Elmer Moller",
   "player2": "Ivan Ivanov",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "16841689",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-18T12:30:00+00:00",
       "target_date": "2026-08-19"
+    },
+    {
+      "event_id": "16841689",
+      "event_key": "2026-08-19_elmer-moller_vs_ivan-ivanov",
+      "hours_to_start": -13.69,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.5,
+      "odds_player2": 2.5,
+      "player1": "Elmer Moller",
+      "player2": "Ivan Ivanov",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-19T03:31:39.119894+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-18T13:50:00+00:00",
+      "target_date": "2026-08-19"
     }
   ],
-  "start_time_utc": "2026-08-18T12:30:00+00:00",
-  "updated_at_utc": "2026-08-18T11:05:47.861430+00:00"
+  "start_time_utc": "2026-08-18T13:50:00+00:00",
+  "updated_at_utc": "2026-08-19T03:32:02.061387+00:00"
 }
