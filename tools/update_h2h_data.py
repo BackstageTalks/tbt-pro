@@ -313,6 +313,29 @@ def build_work_queue(outputs_dir: Path, require_elo: bool) -> Tuple[List[Dict[st
     return work, meta
 
 
+
+def model_history_status(ctx: Dict[str, Any], status: Any) -> str:
+    """Return a stable manifest-level H2H history status."""
+    history_status = str(ctx.get("history_status") or "").strip().upper() if isinstance(ctx, dict) else ""
+    if history_status:
+        return history_status
+    if status == "OK":
+        return "OK"
+    api_error = str(ctx.get("api_error") or "").strip() if isinstance(ctx, dict) else ""
+    if api_error:
+        return "API_ERROR"
+    api_status_code = ctx.get("api_status_code") if isinstance(ctx, dict) else None
+    if api_status_code in (204, 404):
+        return "API_NO_DATA"
+    api_event_count = ctx.get("api_event_count") or ctx.get("h2h_payload_event_count") if isinstance(ctx, dict) else 0
+    try:
+        if int(api_event_count or 0) > 0:
+            return "NO_PREVIOUS_H2H"
+    except Exception:
+        pass
+    return "NO_DATA"
+
+
 def cache_pair_count() -> int:
     try:
         payload = load_h2h_cache()
@@ -344,6 +367,7 @@ def main() -> int:
     errors = 0
     results: List[Dict[str, Any]] = []
     matchups: Dict[str, Dict[str, Any]] = {}
+    history_status_counts: Dict[str, int] = {}
 
     for item in work:
         if attempted >= max_requests:
@@ -362,6 +386,8 @@ def main() -> int:
                 player2_id=ident["opponent_id"],
             )
             status = ctx.get("status")
+            history_status = model_history_status(ctx, status)
+            history_status_counts[history_status] = history_status_counts.get(history_status, 0) + 1
             if status == "OK":
                 ok += 1
             else:
@@ -406,7 +432,7 @@ def main() -> int:
                 "opponent_wins": ctx.get("opponent_wins"),
                 "same_surface_pick_wins": ctx.get("same_surface_pick_wins"),
                 "same_surface_opponent_wins": ctx.get("same_surface_opponent_wins"),
-                "history_status": ctx.get("history_status") or ("OK" if status == "OK" else "NO_PREVIOUS_H2H"),
+                "history_status": history_status,
                 "api_event_count": ctx.get("api_event_count") or ctx.get("h2h_payload_event_count"),
                 "finished_event_count": ctx.get("finished_event_count"),
                 "oriented_finished_event_count": ctx.get("oriented_finished_event_count"),
@@ -418,6 +444,7 @@ def main() -> int:
             print("[h2h] " + json.dumps(result, ensure_ascii=False, sort_keys=True))
         except Exception as exc:
             errors += 1
+            history_status_counts["API_ERROR"] = history_status_counts.get("API_ERROR", 0) + 1
             result = {
                 "custom_id": ident.get("custom_id"),
                 "pick": ident.get("pick"),
@@ -469,6 +496,7 @@ def main() -> int:
         "ok": ok,
         "no_data": no_data,
         "errors": errors,
+        "history_status_counts": history_status_counts,
         "pair_count_before": before_count,
         "pair_count_after": after_count,
         "cache_path": str(H2H_CACHE_PATH),
