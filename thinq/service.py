@@ -681,7 +681,9 @@ class ThinqService:
         flags.extend(elo.get("flags") or [])
         flags.extend(recent_form.get("flags") or [])
         flags.extend(match_dynamics.get("flags") or [])
-        if h2h.get("status") != "OK":
+        if h2h.get("status") == "NO_PREVIOUS_H2H":
+            flags.append("NO_PREVIOUS_H2H")
+        elif h2h.get("status") != "OK":
             flags.append("NO_H2H_DATA")
         if recent_form.get("status") != "OK":
             flags.append("RECENT_FORM_NO_DATA")
@@ -756,6 +758,11 @@ class ThinqService:
                 "requested_event_custom_id": h2h.get("requested_event_custom_id"),
                 "requested_player1_id": h2h.get("requested_player1_id"),
                 "requested_player2_id": h2h.get("requested_player2_id"),
+                "h2h_raw_event_count": h2h.get("h2h_raw_event_count"),
+                "h2h_finished_event_count": h2h.get("h2h_finished_event_count"),
+                "h2h_usable_event_count": h2h.get("h2h_usable_event_count"),
+                "h2h_excluded_event_count": h2h.get("h2h_excluded_event_count"),
+                "h2h_excluded_reasons": h2h.get("h2h_excluded_reasons") or {},
             },
             "recent_form": recent_form,
             "match_dynamics": match_dynamics,
