@@ -16,9 +16,9 @@ on:
         required: false
         type: choice
         options:
-          - "true"
           - "false"
-        default: "true"
+          - "true"
+        default: "false"
   repository_dispatch:
     types:
       - update-h2h-cache
@@ -40,7 +40,7 @@ jobs:
       RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
       OUTPUTS_DIR: ${{ github.event.inputs.outputs_dir || github.event.client_payload.outputs_dir || 'outputs' }}
       MAX_REQUESTS: ${{ github.event.inputs.max_requests || github.event.client_payload.max_requests || '60' }}
-      REQUIRE_ELO: ${{ github.event.inputs.require_elo || github.event.client_payload.require_elo || 'true' }}
+      REQUIRE_ELO: ${{ github.event.inputs.require_elo || github.event.client_payload.require_elo || 'false' }}
 
     steps:
       - name: Checkout repository
@@ -65,6 +65,7 @@ jobs:
           echo "outputs_dir=${OUTPUTS_DIR}"
           echo "max_requests=${MAX_REQUESTS}"
           echo "require_elo=${REQUIRE_ELO}"
+          echo "Note: require_elo defaults to false because the ELO-universe guard can otherwise reject all current candidates before API PRO H2H is called."
 
       - name: Build player registry and ELO universe
         run: |
@@ -94,6 +95,8 @@ jobs:
           print('history_status_counts=', manifest.get('history_status_counts'))
           if manifest.get('status') in {'ERROR', 'NO_ELO_UNIVERSE'}:
               raise SystemExit(f"H2H prewarm failed with status={manifest.get('status')}")
+          if int(manifest.get('candidate_pairs') or 0) == 0:
+              raise SystemExit('H2H prewarm found zero candidate pairs. Check outputs/latest_all.json and identity/customId fields.')
           PY
 
       - name: Commit H2H cache outputs
