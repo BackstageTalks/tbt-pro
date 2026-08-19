@@ -1,6 +1,6 @@
 # MarQ API Coverage Report
 
-Generated UTC: 2026-08-19T11:51:21.598281+00:00
+Generated UTC: 2026-08-19T12:10:36.725507+00:00
 Model: 2026-08-04-marq-coverage-report-v1
 
 ## all_audit
