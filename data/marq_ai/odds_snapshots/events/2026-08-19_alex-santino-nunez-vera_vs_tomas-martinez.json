@@ -4,7 +4,7 @@
   "latest_odds_player1": 3.75,
   "latest_odds_player2": 1.25,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-19T03:31:39.119894+00:00",
+  "latest_snapshot_time_utc": "2026-08-19T11:04:32.555115+00:00",
   "opening_odds_player1": 3.75,
   "opening_odds_player2": 1.25,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Alex Santino Nunez Vera",
   "player2": "Tomas Martinez",
-  "snapshot_count": 1,
+  "snapshot_count": 2,
   "snapshots": [
     {
       "event_id": "16857911",
@@ -34,8 +34,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-18T13:55:30+00:00",
       "target_date": "2026-08-19"
+    },
+    {
+      "event_id": "16857911",
+      "event_key": "2026-08-19_alex-santino-nunez-vera_vs_tomas-martinez",
+      "hours_to_start": -21.15,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 3.75,
+      "odds_player2": 1.25,
+      "player1": "Alex Santino Nunez Vera",
+      "player2": "Tomas Martinez",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-19T11:04:32.555115+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-18T13:55:30+00:00",
+      "target_date": "2026-08-19"
     }
   ],
   "start_time_utc": "2026-08-18T13:55:30+00:00",
-  "updated_at_utc": "2026-08-19T03:32:03.837081+00:00"
+  "updated_at_utc": "2026-08-19T11:05:15.187846+00:00"
 }
