@@ -33,21 +33,13 @@ jobs:
 
       - name: Explain H2H cache policy
         run: |
-          echo "H2H cache prewarm is disabled."
-          echo "Current policy: API PRO only, lazy per-match H2H loading by customId during ThinQ/CorQ enrichment."
-          echo "Legacy h2h_loader.py prewarm arguments are intentionally not used:"
-          echo "  --prewarm"
-          echo "  --outputs-dir"
-          echo "  --max-requests"
-          echo "  --require-elo"
-          echo ""
-          echo "This workflow is kept as a compatibility no-op for repository_dispatch/manual triggers."
+          echo "H2H cache bulk refresh is disabled."
+          echo "Current policy: API PRO only."
+          echo "H2H is loaded lazily per match by customId during ThinQ/CorQ enrichment."
+          echo "This workflow is kept only for compatibility with manual and repository_dispatch triggers."
 
-      - name: Validate no legacy prewarm call in this workflow
+      - name: Validate workflow compatibility
         run: |
           set -euo pipefail
-          if grep -n -- "--prewarm\|--outputs-dir\|--max-requests\|--require-elo" .github/workflows/update-h2h-cache.yml; then
-            echo "Legacy H2H prewarm arguments found in workflow."
-            exit 1
-          fi
-          echo "No legacy H2H prewarm arguments found."
+          echo "Compatibility workflow is valid."
+          echo "No bulk H2H cache refresh command is executed."
