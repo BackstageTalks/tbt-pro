@@ -814,6 +814,94 @@ def _enrich_with_api_h2h_stats(record: Dict[str, Any], client: Any, request_stat
     record["api_h2h_stats_request_no"] = state.get("count")
     return _apply_api_h2h_stats_to_record(record, stats)
 
+
+def _values_equal_numberish(left: Any, right: Any) -> bool:
+    try:
+        if left in (None, "") or right in (None, ""):
+            return False
+        return abs(float(left) - float(right)) < 1e-9
+    except Exception:
+        return False
+
+
+def _finalize_api_pro_serve_props(record: Dict[str, Any]) -> Dict[str, Any]:
+    """Normalize ace/DF public fields to the API PRO-only policy.
+
+    API PRO team-year stats may create projections. They are NOT market/provider
+    lines. Real *_line fields should remain populated only when a real market
+    line is supplied by API PRO odds/markets enrichment.
+    """
+    if not isinstance(record, dict):
+        return record
+
+    api_pro_present = (
+        record.get("aces_source") == "API_PRO_TEAM_YEAR_STATS"
+        or record.get("df_source") == "API_PRO_TEAM_YEAR_STATS"
+        or record.get("serve_props_source_policy") in {
+            "API_PRO_ONLY_NO_FALLBACK",
+            "API_PRO_ONLY_NO_TA_NO_BET365_FALLBACK",
+        }
+        or any(record.get(k) not in (None, "") for k in (
+            "api_pick_ace_pct",
+            "api_opp_ace_pct",
+            "api_pick_df_pct",
+            "api_opp_df_pct",
+            "pick_aces_projection",
+            "opponent_aces_projection",
+            "total_aces_projection",
+            "pick_df_projection",
+            "opponent_df_projection",
+            "total_df_projection",
+        ))
+    )
+
+    if api_pro_present:
+        record["api_serve_stats_source"] = "API_PRO_TEAM_YEAR_STATS"
+        record["serve_props_source_policy"] = "API_PRO_ONLY_NO_TA_NO_BET365_FALLBACK"
+        bad_statuses = {None, "", "H2H_STATS_DISABLED", "DISABLED"}
+        if record.get("api_serve_stats_status") in bad_statuses:
+            has_projection = any(record.get(k) not in (None, "") for k in (
+                "pick_aces_projection",
+                "opponent_aces_projection",
+                "total_aces_projection",
+                "pick_df_projection",
+                "opponent_df_projection",
+                "total_df_projection",
+            ))
+            record["api_serve_stats_status"] = "OK" if has_projection else "NO_DATA"
+
+    # API serve stats projections are not real market lines. Remove any line
+    # fields whose source is API_SERVE_STATS or whose value was mirrored from
+    # a projection without a real provider-line source.
+    line_projection_pairs = (
+        ("pick_aces_line", "pick_aces_projection"),
+        ("opponent_aces_line", "opponent_aces_projection"),
+        ("total_aces_line", "total_aces_projection"),
+        ("pick_df_line", "pick_df_projection"),
+        ("opponent_df_line", "opponent_df_projection"),
+        ("total_df_line", "total_df_projection"),
+    )
+    real_line_sources = {
+        "API_PRO_ODDS_ALL",
+        "TENNISAPI_PRO_ODDS_ALL",
+        "API_PRO_MARKET_LINE",
+        "API_PRO_MARKET_LINES",
+        "ODDS_ALL_MARKET",
+        "PROVIDER_MARKET_LINE",
+    }
+    for line_key, projection_key in line_projection_pairs:
+        source_key = f"{line_key}_source"
+        source = str(record.get(source_key) or "").strip()
+        if source in real_line_sources:
+            continue
+        if source == "API_SERVE_STATS" or _values_equal_numberish(record.get(line_key), record.get(projection_key)):
+            if record.get(line_key) not in (None, ""):
+                record[f"{line_key}_removed_projection_value"] = record.get(line_key)
+            record[line_key] = None
+            record[source_key] = "NO_MARKET_LINE_API_PRO_ONLY"
+
+    return record
+
 def _enrich_with_thinq(record: Dict[str, Any], thinq_service: Any) -> Dict[str, Any]:
     safe_record = repair_candidate_side(record)
     safe_record["side_audit"] = build_side_audit(safe_record)
@@ -911,6 +999,7 @@ def _enrich_with_thinq(record: Dict[str, Any], thinq_service: Any) -> Dict[str, 
             safe_record[key] = value
 
     _flatten_thinq_payload(safe_record, thinq)
+    _finalize_api_pro_serve_props(safe_record)
 
     safe_record["thinq_h2h_requested_event_custom_id"] = (
         _nested_get(thinq, "h2h", "requested_event_custom_id")
@@ -1725,6 +1814,7 @@ def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", ru
     for candidate in candidates:
         enriched = _enrich_with_thinq(candidate, thinq_service)
         enriched = _enrich_with_api_h2h_stats(enriched, api_h2h_client, api_h2h_request_state)
+        enriched = _finalize_api_pro_serve_props(enriched)
         prediction = build_corq_prediction(enriched)
         prediction = _enrich_with_tennisapi_ranking_info(prediction, tennisapi_rankings)
         prediction = _enrich_with_ta_profile_context(prediction)
@@ -1733,6 +1823,7 @@ def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", ru
         prediction = _enrich_with_marq(prediction)
         prediction = apply_corq_market_calibration(prediction)
         prediction = _enrich_with_price_value(prediction)
+        prediction = _finalize_api_pro_serve_props(prediction)
         scored.append(prediction)
 
     all_view = make_all_match_view(scored)
