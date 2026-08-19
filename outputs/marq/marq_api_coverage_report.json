@@ -1,6 +1,6 @@
 {
   "model_version": "2026-08-04-marq-coverage-report-v1",
-  "generated_at_utc": "2026-08-19T13:13:46.399706+00:00",
+  "generated_at_utc": "2026-08-19T13:26:49.806614+00:00",
   "input_paths": {
     "all": "outputs/latest_all.json",
     "top7": "outputs/latest_top7.json",
@@ -37,9 +37,9 @@
         "MEDIUM_CURRENT_ONLY": 12
       },
       "value_status_counts": {
-        "NO_VALUE": 16,
+        "NO_VALUE": 15,
         "VALUE_STRONG": 15,
-        "VALUE_PLAYABLE": 1
+        "VALUE_PLAYABLE": 2
       },
       "source_policy_counts": {
         "TENNISAPI_ONLY_EXACT_EVENT": 32
@@ -52,14 +52,14 @@
       },
       "value_delta_pp_stats": {
         "count": 32,
-        "avg": 0.0,
-        "min": -24.33,
+        "avg": -0.4159,
+        "min": -30.87,
         "max": 24.33
       },
       "expected_value_pct_stats": {
         "count": 32,
-        "avg": 16.7484,
-        "min": -28.68,
+        "avg": 16.8869,
+        "min": -35.42,
         "max": 361.4
       },
       "samples": {
@@ -78,8 +78,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": 4.01,
-            "expected_value_pct": 5.54,
+            "value_delta_pp": 6.0,
+            "expected_value_pct": 11.02,
             "fallback_reason": null
           },
           {
@@ -93,8 +93,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": -4.01,
-            "expected_value_pct": -11.27,
+            "value_delta_pp": -6.0,
+            "expected_value_pct": -14.13,
             "fallback_reason": null
           },
           {
@@ -108,8 +108,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -7.4,
-            "expected_value_pct": -14.24,
+            "value_delta_pp": -11.07,
+            "expected_value_pct": -19.12,
             "fallback_reason": null
           },
           {
@@ -138,8 +138,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": -2.72,
-            "expected_value_pct": -11.87,
+            "value_delta_pp": 0.73,
+            "expected_value_pct": -3.66,
             "fallback_reason": null
           },
           {
@@ -168,8 +168,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 10.12,
-            "expected_value_pct": 30.02,
+            "value_delta_pp": 12.25,
+            "expected_value_pct": 37.26,
             "fallback_reason": null
           },
           {
@@ -198,8 +198,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 12.72,
-            "expected_value_pct": 29.5,
+            "value_delta_pp": 15.84,
+            "expected_value_pct": 38.08,
             "fallback_reason": null
           },
           {
@@ -213,8 +213,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -12.72,
-            "expected_value_pct": -23.81,
+            "value_delta_pp": -15.84,
+            "expected_value_pct": -28.3,
             "fallback_reason": null
           },
           {
@@ -275,8 +275,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": -4.01,
-            "expected_value_pct": -11.27,
+            "value_delta_pp": -6.0,
+            "expected_value_pct": -14.13,
             "fallback_reason": null
           },
           {
@@ -290,8 +290,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -7.4,
-            "expected_value_pct": -14.24,
+            "value_delta_pp": -11.07,
+            "expected_value_pct": -19.12,
             "fallback_reason": null
           },
           {
@@ -307,21 +307,6 @@
             "market_weight": 0.12,
             "value_delta_pp": -6.22,
             "expected_value_pct": -15.17,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16737494",
-            "pick": "Nuno Borges",
-            "opponent": "Brandon Nakashima",
-            "odds": 2.38,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": -2.72,
-            "expected_value_pct": -11.87,
             "fallback_reason": null
           },
           {
@@ -365,8 +350,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -12.72,
-            "expected_value_pct": -23.81,
+            "value_delta_pp": -15.84,
+            "expected_value_pct": -28.3,
             "fallback_reason": null
           },
           {
@@ -380,8 +365,8 @@
             "movement_status": "OPENING_EQUALS_CURRENT",
             "tier": "MEDIUM_CURRENT_ONLY",
             "market_weight": 0.12,
-            "value_delta_pp": -24.33,
-            "expected_value_pct": -28.68,
+            "value_delta_pp": -30.87,
+            "expected_value_pct": -35.42,
             "fallback_reason": null
           },
           {
@@ -410,8 +395,8 @@
             "movement_status": "OPENING_EQUALS_CURRENT",
             "tier": "MEDIUM_CURRENT_ONLY",
             "market_weight": 0.12,
-            "value_delta_pp": -8.7,
-            "expected_value_pct": -20.2,
+            "value_delta_pp": -7.14,
+            "expected_value_pct": -17.5,
             "fallback_reason": null
           },
           {
@@ -425,8 +410,23 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -4.17,
-            "expected_value_pct": -10.23,
+            "value_delta_pp": -7.48,
+            "expected_value_pct": -14.73,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16737900",
+            "pick": "Amanda Anisimova",
+            "opponent": "Linda Noskova",
+            "odds": 2.0,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": -7.25,
+            "expected_value_pct": -19.76,
             "fallback_reason": null
           }
         ],
@@ -457,8 +457,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": 4.01,
-            "expected_value_pct": 5.54,
+            "value_delta_pp": 6.0,
+            "expected_value_pct": 11.02,
             "fallback_reason": null
           },
           {
@@ -502,8 +502,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 10.12,
-            "expected_value_pct": 30.02,
+            "value_delta_pp": 12.25,
+            "expected_value_pct": 37.26,
             "fallback_reason": null
           },
           {
@@ -532,8 +532,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 12.72,
-            "expected_value_pct": 29.5,
+            "value_delta_pp": 15.84,
+            "expected_value_pct": 38.08,
             "fallback_reason": null
           },
           {
@@ -577,8 +577,8 @@
             "movement_status": "OPENING_EQUALS_CURRENT",
             "tier": "MEDIUM_CURRENT_ONLY",
             "market_weight": 0.12,
-            "value_delta_pp": 8.7,
-            "expected_value_pct": 13.13,
+            "value_delta_pp": 7.14,
+            "expected_value_pct": 9.85,
             "fallback_reason": null
           },
           {
@@ -592,8 +592,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 4.17,
-            "expected_value_pct": 8.77,
+            "value_delta_pp": 7.48,
+            "expected_value_pct": 19.36,
             "fallback_reason": null
           },
           {
@@ -607,8 +607,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": 7.25,
-            "expected_value_pct": 7.78,
+            "value_delta_pp": 4.94,
+            "expected_value_pct": 3.63,
             "fallback_reason": null
           }
         ]
@@ -667,14 +667,14 @@
       },
       "value_delta_pp_stats": {
         "count": 4,
-        "avg": -5.0575,
-        "min": -12.72,
+        "avg": -6.335,
+        "min": -15.84,
         "max": 2.72
       },
       "expected_value_pct_stats": {
         "count": 4,
-        "avg": -12.8475,
-        "min": -23.81,
+        "avg": -14.685,
+        "min": -28.3,
         "max": -1.14
       },
       "samples": {
@@ -708,8 +708,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": -4.01,
-            "expected_value_pct": -11.27,
+            "value_delta_pp": -6.0,
+            "expected_value_pct": -14.13,
             "fallback_reason": null
           },
           {
@@ -723,27 +723,12 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -12.72,
-            "expected_value_pct": -23.81,
+            "value_delta_pp": -15.84,
+            "expected_value_pct": -28.3,
             "fallback_reason": null
           }
         ],
         "no_value": [
-          {
-            "identity": "16737497",
-            "pick": "Jakub Menšik",
-            "opponent": "Thiago Agustin Tirante",
-            "odds": 1.44,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": -4.01,
-            "expected_value_pct": -11.27,
-            "fallback_reason": null
-          },
           {
             "identity": "16737496",
             "pick": "Arthur Fils",
@@ -760,6 +745,21 @@
             "fallback_reason": null
           },
           {
+            "identity": "16737497",
+            "pick": "Jakub Menšik",
+            "opponent": "Thiago Agustin Tirante",
+            "odds": 1.44,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": -6.0,
+            "expected_value_pct": -14.13,
+            "fallback_reason": null
+          },
+          {
             "identity": "16737500",
             "pick": "Felix Auger-Aliassime",
             "opponent": "Frances Tiafoe",
@@ -770,8 +770,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -12.72,
-            "expected_value_pct": -23.81,
+            "value_delta_pp": -15.84,
+            "expected_value_pct": -28.3,
             "fallback_reason": null
           }
         ],
@@ -830,15 +830,15 @@
       },
       "value_delta_pp_stats": {
         "count": 2,
-        "avg": 7.975,
-        "min": 7.25,
-        "max": 8.7
+        "avg": 6.04,
+        "min": 4.94,
+        "max": 7.14
       },
       "expected_value_pct_stats": {
         "count": 2,
-        "avg": 10.455,
-        "min": 7.78,
-        "max": 13.13
+        "avg": 6.74,
+        "min": 3.63,
+        "max": 9.85
       },
       "samples": {
         "thin_fallback": [],
@@ -856,8 +856,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": 7.25,
-            "expected_value_pct": 7.78,
+            "value_delta_pp": 4.94,
+            "expected_value_pct": 3.63,
             "fallback_reason": null
           }
         ],
@@ -874,8 +874,8 @@
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": 7.25,
-            "expected_value_pct": 7.78,
+            "value_delta_pp": 4.94,
+            "expected_value_pct": 3.63,
             "fallback_reason": null
           },
           {
@@ -889,8 +889,8 @@
             "movement_status": "OPENING_EQUALS_CURRENT",
             "tier": "MEDIUM_CURRENT_ONLY",
             "market_weight": 0.12,
-            "value_delta_pp": 8.7,
-            "expected_value_pct": 13.13,
+            "value_delta_pp": 7.14,
+            "expected_value_pct": 9.85,
             "fallback_reason": null
           }
         ]
