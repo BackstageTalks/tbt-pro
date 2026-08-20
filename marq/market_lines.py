@@ -2328,6 +2328,68 @@ def build_sets_games_from_match(match: Dict[str, Any], model_prediction: Optiona
             enriched["games_line_source"] = set_markets["total_games"].get("source") or _REAL_LINE_SOURCE
         _apply_real_prop_lines(enriched, set_markets)
 
+    # Sets/Games/TB: use only real API PRO previous-match score history.
+    # H2H remains an additional signal, not a prerequisite for match-shape projections.
+    serve_ctx = enriched.get("api_serve_stats") if isinstance(enriched.get("api_serve_stats"), dict) else {}
+    pick_prev_status = serve_ctx.get("api_pick_previous_matches_status") or enriched.get("api_pick_previous_matches_status")
+    opp_prev_status = serve_ctx.get("api_opp_previous_matches_status") or enriched.get("api_opp_previous_matches_status")
+    pick_prev_sample = serve_ctx.get("api_pick_previous_matches_sample") or enriched.get("api_pick_previous_matches_sample") or 0
+    opp_prev_sample = serve_ctx.get("api_opp_previous_matches_sample") or enriched.get("api_opp_previous_matches_sample") or 0
+    pick_avg_games = serve_ctx.get("api_pick_previous_average_games") or enriched.get("api_pick_previous_average_games")
+    opp_avg_games = serve_ctx.get("api_opp_previous_average_games") or enriched.get("api_opp_previous_average_games")
+    pick_avg_sets = serve_ctx.get("api_pick_previous_average_sets") or enriched.get("api_pick_previous_average_sets")
+    opp_avg_sets = serve_ctx.get("api_opp_previous_average_sets") or enriched.get("api_opp_previous_average_sets")
+    pick_tb_rate = serve_ctx.get("api_pick_previous_tiebreak_rate") or enriched.get("api_pick_previous_tiebreak_rate")
+    opp_tb_rate = serve_ctx.get("api_opp_previous_tiebreak_rate") or enriched.get("api_opp_previous_tiebreak_rate")
+
+    previous_score_history_ok = (
+        str(pick_prev_status) == "OK"
+        and str(opp_prev_status) == "OK"
+        and int(pick_prev_sample or 0) >= 3
+        and int(opp_prev_sample or 0) >= 3
+        and pick_avg_games is not None
+        and opp_avg_games is not None
+        and pick_avg_sets is not None
+        and opp_avg_sets is not None
+        and pick_tb_rate is not None
+        and opp_tb_rate is not None
+    )
+    if previous_score_history_ok:
+        projected_games = round((float(pick_avg_games) + float(opp_avg_games)) / 2.0, 1)
+        projected_sets = round((float(pick_avg_sets) + float(opp_avg_sets)) / 2.0, 2)
+        tb_probability = round((float(pick_tb_rate) + float(opp_tb_rate)) / 2.0, 4)
+        sample_quality = "OK" if min(int(pick_prev_sample), int(opp_prev_sample)) >= 8 else "LOW_SAMPLE"
+        source = "API_PRO_PREVIOUS_MATCHES_SCORE_HISTORY"
+        enriched.update({
+            "sets_games_source_policy": "API_PRO_REAL_SCORE_HISTORY_ONLY_NO_DEFAULTS",
+            "sets_games_fallback_policy": "NO_MODEL_DEFAULT_WHEN_API_SAMPLE_MISSING",
+            "sets_games_status": "OK" if sample_quality == "OK" else "LOW_SAMPLE",
+            "sets_games_data_quality": sample_quality,
+            "sets_games_score_history_source": source,
+            "sets_games_score_history_pick_sample": int(pick_prev_sample),
+            "sets_games_score_history_opponent_sample": int(opp_prev_sample),
+            "projected_sets": projected_sets,
+            "expected_sets": projected_sets,
+            "projected_games": projected_games,
+            "expected_games": projected_games,
+            "projected_total_games": projected_games,
+            "tiebreak_probability": tb_probability,
+            "tie_break_probability": tb_probability,
+            "tb_probability": tb_probability,
+            "sets_model_source": source,
+            "games_model_source": source,
+            "tb_model_source": source,
+            "sets_source": source,
+            "score_basis": "api_pro_previous_matches_real_scores",
+        })
+    else:
+        enriched.setdefault("sets_games_score_history_source", "NO_USABLE_API_PRO_PREVIOUS_MATCH_SAMPLE")
+
+    # A model projection is never a market line. Clear stale line-source aliases when no real line exists.
+    for base in ("pick_aces", "opponent_aces", "total_aces", "pick_df", "opponent_df", "total_df"):
+        if enriched.get(f"{base}_line") is None:
+            enriched[f"{base}_line_source"] = None
+
     # Preserve API PRO serve projections from ThinQ. Do not create TA fallback projections here.
     enriched.setdefault("aces_source", "API_PRO_TEAM_YEAR_STATS" if enriched.get("total_aces_projection") is not None else "NO_DATA")
     enriched.setdefault("df_source", "API_PRO_TEAM_YEAR_STATS" if enriched.get("total_df_projection") is not None else "NO_DATA")
