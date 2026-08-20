@@ -308,7 +308,11 @@ API_PRO_HOST = "tennisapi1.p.rapidapi.com"
 API_PRO_BASE_URL = "https://tennisapi1.p.rapidapi.com"
 API_PRO_TIMEOUT = 20
 API_PRO_CACHE_DIR = Path("thinq/data/players/team_year_stats")
+API_PRO_PREVIOUS_MATCHES_CACHE_DIR = Path("thinq/data/players/previous_matches")
 API_PRO_CACHE_TTL_SECONDS = 60 * 60 * 24 * 7
+API_PRO_PREVIOUS_MATCHES_MAX_PAGES = 1
+API_PRO_PREVIOUS_MATCHES_SAMPLE = 12
+API_PRO_PREVIOUS_MATCHES_MIN_SAMPLE = 3
 
 
 def _api_pro_key() -> str:
@@ -375,6 +379,163 @@ def _fetch_team_year_statistics(team_id: Any, year: int, force_refresh: bool = F
     except Exception as exc:
         return {"status": "FETCH_FAILED", "statistics": [], "error": str(exc), "cache_path": str(cache_path)}
 
+
+
+def _previous_matches_cache_path(player_id: Any, page: int) -> Path:
+    API_PRO_PREVIOUS_MATCHES_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    return API_PRO_PREVIOUS_MATCHES_CACHE_DIR / f"{player_id}_{page}.json"
+
+
+def _fetch_previous_player_matches(player_id: Any, page: int = 0, force_refresh: bool = False) -> Dict[str, Any]:
+    """Fetch API PRO getPreviousPlayerMatches.
+
+    Endpoint pagination starts at page 0. Only the configured first pages are
+    requested so the daily workflow remains quota-conscious; cached responses
+    are reused for seven days.
+    """
+    if player_id in (None, ""):
+        return {"status": "NO_PLAYER_ID", "events": [], "page": page}
+    cache_path = _previous_matches_cache_path(player_id, page)
+    if not force_refresh:
+        cached = _read_api_cache(cache_path)
+        if isinstance(cached, dict):
+            cached.setdefault("cache_path", str(cache_path))
+            cached.setdefault("from_cache", True)
+            return cached
+    if not _api_pro_key():
+        return {"status": "NO_API_KEY", "events": [], "page": page, "cache_path": str(cache_path)}
+    url = f"{API_PRO_BASE_URL}/api/tennis/player/{player_id}/events/previous/{page}"
+    try:
+        response = requests.get(url, headers=_api_pro_headers(), timeout=API_PRO_TIMEOUT)
+        status = response.status_code
+        if status == 429:
+            return {"status": "RATE_LIMITED", "events": [], "page": page, "api_status_code": status, "cache_path": str(cache_path)}
+        response.raise_for_status()
+        payload = response.json()
+        events = payload.get("events") if isinstance(payload, dict) else []
+        result = {
+            "status": "OK",
+            "events": events if isinstance(events, list) else [],
+            "has_next_page": bool(payload.get("hasNextPage")) if isinstance(payload, dict) else False,
+            "page": page,
+            "api_status_code": status,
+            "cache_path": str(cache_path),
+            "from_cache": False,
+        }
+        _write_api_cache(cache_path, result)
+        return result
+    except Exception as exc:
+        return {"status": "FETCH_FAILED", "events": [], "page": page, "error": str(exc), "cache_path": str(cache_path)}
+
+
+def _as_of_timestamp(as_of_date: Any) -> Optional[int]:
+    if as_of_date in (None, ""):
+        return None
+    try:
+        text = str(as_of_date).strip().replace("Z", "+00:00")
+        dt = datetime.fromisoformat(text)
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return int(dt.timestamp())
+    except Exception:
+        return None
+
+
+def _completed_singles_score_shape(event: Dict[str, Any], as_of_ts: Optional[int] = None) -> Optional[Dict[str, Any]]:
+    if not isinstance(event, dict):
+        return None
+    status = event.get("status") if isinstance(event.get("status"), dict) else {}
+    if str(status.get("type") or "").lower() != "finished":
+        return None
+    description = str(status.get("description") or "").lower()
+    if any(word in description for word in ("retired", "walkover", "canceled", "cancelled", "postponed", "abandoned")):
+        return None
+    filters = event.get("eventFilters") if isinstance(event.get("eventFilters"), dict) else {}
+    categories = [str(x).lower() for x in (filters.get("category") or [])]
+    if categories and "singles" not in categories:
+        return None
+    start_ts = event.get("startTimestamp")
+    try:
+        start_ts_int = int(start_ts)
+    except Exception:
+        start_ts_int = 0
+    if as_of_ts is not None and start_ts_int and start_ts_int >= as_of_ts:
+        return None
+    home = event.get("homeScore") if isinstance(event.get("homeScore"), dict) else {}
+    away = event.get("awayScore") if isinstance(event.get("awayScore"), dict) else {}
+    set_games: List[int] = []
+    tiebreak_sets = 0
+    for idx in range(1, 6):
+        hk, ak = f"period{idx}", f"period{idx}"
+        if home.get(hk) in (None, "") or away.get(ak) in (None, ""):
+            continue
+        try:
+            hg, ag = int(home.get(hk)), int(away.get(ak))
+        except Exception:
+            return None
+        if hg < 0 or ag < 0 or hg + ag < 6:
+            return None
+        set_games.append(hg + ag)
+        if home.get(f"period{idx}TieBreak") not in (None, "") or away.get(f"period{idx}TieBreak") not in (None, ""):
+            tiebreak_sets += 1
+    if not set_games:
+        return None
+    return {
+        "event_id": event.get("id"),
+        "start_timestamp": start_ts_int or None,
+        "surface": _surface_bucket(event.get("groundType") or ((event.get("tournament") or {}).get("uniqueTournament") or {}).get("groundType")),
+        "sets": len(set_games),
+        "games": sum(set_games),
+        "tiebreak_sets": tiebreak_sets,
+    }
+
+
+def _build_previous_matches_shape(player_id: Any, surface: Any, as_of_date: Any = None, force_refresh: bool = False) -> Dict[str, Any]:
+    requested_surface = _surface_bucket(surface)
+    as_of_ts = _as_of_timestamp(as_of_date)
+    events: List[Dict[str, Any]] = []
+    pages: List[Dict[str, Any]] = []
+    for page in range(API_PRO_PREVIOUS_MATCHES_MAX_PAGES):
+        result = _fetch_previous_player_matches(player_id, page=page, force_refresh=force_refresh)
+        pages.append(result)
+        events.extend([x for x in result.get("events", []) if isinstance(x, dict)])
+        if result.get("status") != "OK" or not result.get("has_next_page"):
+            break
+    shapes = [x for x in (_completed_singles_score_shape(e, as_of_ts=as_of_ts) for e in events) if isinstance(x, dict)]
+    shapes.sort(key=lambda x: int(x.get("start_timestamp") or 0), reverse=True)
+    surface_shapes = [x for x in shapes if x.get("surface") == requested_surface and requested_surface != "Unknown"]
+    selected = surface_shapes[:API_PRO_PREVIOUS_MATCHES_SAMPLE]
+    scope = "surface"
+    if len(selected) < API_PRO_PREVIOUS_MATCHES_MIN_SAMPLE:
+        selected = shapes[:API_PRO_PREVIOUS_MATCHES_SAMPLE]
+        scope = "overall"
+    sample = len(selected)
+    status = "OK" if sample >= API_PRO_PREVIOUS_MATCHES_MIN_SAMPLE else "LOW_SAMPLE" if sample > 0 else "NO_DATA"
+    avg_games = round(sum(float(x["games"]) for x in selected) / sample, 2) if sample else None
+    avg_sets = round(sum(float(x["sets"]) for x in selected) / sample, 2) if sample else None
+    tb_rate = round(sum(1 for x in selected if int(x.get("tiebreak_sets") or 0) > 0) / sample, 4) if sample else None
+    return {
+        "status": status,
+        "source": "API_PRO_GET_PREVIOUS_PLAYER_MATCHES",
+        "scope": scope,
+        "requested_surface": requested_surface,
+        "sample": sample,
+        "average_games": avg_games if status == "OK" else None,
+        "average_sets": avg_sets if status == "OK" else None,
+        "tiebreak_match_rate": tb_rate if status == "OK" else None,
+        "valid_events": len(shapes),
+        "raw_events": len(events),
+        "pages_fetched": len(pages),
+        "cache_paths": [x.get("cache_path") for x in pages if x.get("cache_path")],
+        "api_statuses": [x.get("status") for x in pages],
+    }
+
+
+def _combined_previous_matches_projection(pick_shape: Dict[str, Any], opponent_shape: Dict[str, Any]) -> Optional[float]:
+    values = [x.get("average_games") for x in (pick_shape, opponent_shape) if x.get("status") == "OK" and x.get("average_games") is not None]
+    if len(values) < 2:
+        return None
+    return round(sum(float(x) for x in values) / len(values), 2)
 
 def _iter_stat_dicts(obj: Any) -> List[Dict[str, Any]]:
     out: List[Dict[str, Any]] = []
@@ -466,6 +627,12 @@ def build_api_pro_serve_stats_context(
     force_refresh: bool = False,
 ) -> Dict[str, Any]:
     year = _season_year(as_of_date)
+    pick_previous_shape = _build_previous_matches_shape(pick_player_id, surface, as_of_date=as_of_date, force_refresh=force_refresh)
+    opp_previous_shape = _build_previous_matches_shape(opponent_player_id, surface, as_of_date=as_of_date, force_refresh=force_refresh)
+    supplied_games = projected_games
+    if supplied_games in (None, "", 0, 0.0):
+        projected_games = _combined_previous_matches_projection(pick_previous_shape, opp_previous_shape)
+    games_source = "UPSTREAM_REAL_PROJECTION" if supplied_games not in (None, "", 0, 0.0) else "API_PRO_PREVIOUS_MATCHES" if projected_games is not None else "NO_REAL_GAMES_SAMPLE"
     pick_raw = _fetch_team_year_statistics(pick_player_id, year, force_refresh=force_refresh)
     opp_raw = _fetch_team_year_statistics(opponent_player_id, year, force_refresh=force_refresh)
     # If current year is thin or missing, try previous year. This matters in early season and for players with sparse 2026 sample.
@@ -495,6 +662,22 @@ def build_api_pro_serve_stats_context(
     opp_df = _project_serve_prop(opp_stats.get("df_pct"), projected_games)
     return {
         "api_serve_stats_source": "API_PRO_TEAM_YEAR_STATS",
+        "serve_props_source_policy": "API_PRO_ONLY_NO_TA_NO_BET365_FALLBACK",
+        "api_previous_matches_source": "API_PRO_GET_PREVIOUS_PLAYER_MATCHES",
+        "api_previous_matches_games_source": games_source,
+        "api_previous_matches_projected_games": projected_games,
+        "api_pick_previous_matches_status": pick_previous_shape.get("status"),
+        "api_opp_previous_matches_status": opp_previous_shape.get("status"),
+        "api_pick_previous_matches_scope": pick_previous_shape.get("scope"),
+        "api_opp_previous_matches_scope": opp_previous_shape.get("scope"),
+        "api_pick_previous_matches_sample": pick_previous_shape.get("sample"),
+        "api_opp_previous_matches_sample": opp_previous_shape.get("sample"),
+        "api_pick_previous_average_games": pick_previous_shape.get("average_games"),
+        "api_opp_previous_average_games": opp_previous_shape.get("average_games"),
+        "api_pick_previous_average_sets": pick_previous_shape.get("average_sets"),
+        "api_opp_previous_average_sets": opp_previous_shape.get("average_sets"),
+        "api_pick_previous_tiebreak_rate": pick_previous_shape.get("tiebreak_match_rate"),
+        "api_opp_previous_tiebreak_rate": opp_previous_shape.get("tiebreak_match_rate"),
         "api_serve_stats_status": "OK" if pick_stats.get("status") == "OK" and opp_stats.get("status") == "OK" else "PARTIAL",
         "api_pick_serve_stats_status": pick_stats.get("status"),
         "api_opp_serve_stats_status": opp_stats.get("status"),
