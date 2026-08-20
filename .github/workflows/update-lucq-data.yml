@@ -148,13 +148,39 @@ jobs:
         if: ${{ github.event_name == 'repository_dispatch' || github.event.inputs.commit_outputs == 'true' }}
         shell: bash
         run: |
+          set -euo pipefail
+
           if git diff --quiet -- outputs/lucq/latest_lucq.json corq/site; then
             echo "No LucQ or rendered-site changes to commit."
             exit 0
           fi
+
+          tmp_dir="$(mktemp -d)"
+          cleanup() {
+            rm -rf "$tmp_dir"
+          }
+          trap cleanup EXIT
+
+          mkdir -p "$tmp_dir/outputs/lucq" "$tmp_dir/corq"
+          cp -a outputs/lucq/latest_lucq.json "$tmp_dir/outputs/lucq/latest_lucq.json"
+          cp -a corq/site "$tmp_dir/corq/site"
+
+          git fetch origin main
+          git reset --hard origin/main
+
+          mkdir -p outputs/lucq corq
+          cp -a "$tmp_dir/outputs/lucq/latest_lucq.json" outputs/lucq/latest_lucq.json
+          rm -rf corq/site
+          cp -a "$tmp_dir/corq/site" corq/site
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add outputs/lucq/latest_lucq.json corq/site
+
+          if git diff --cached --quiet; then
+            echo "No LucQ or rendered-site changes after syncing latest main."
+            exit 0
+          fi
+
           git commit -m "Update LucQ data for ${{ steps.betting-day.outputs.betting_day }}"
-          git pull --rebase origin main
           git push origin HEAD:main
