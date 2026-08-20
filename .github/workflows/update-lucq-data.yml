@@ -3,47 +3,50 @@ name: Update LucQ Data
 on:
   workflow_dispatch:
     inputs:
-      run_date:
-        description: "Optional LucQ date in YYYY-MM-DD format"
+      betting_day:
+        description: "LucQ betting day YYYY-MM-DD; empty uses Europe/Bratislava 06:00 day"
         required: false
         default: ""
         type: string
-      commit_outputs:
-        description: "Commit generated LucQ outputs"
+      overwrite_snapshot:
+        description: "Allow replacement of an existing immutable daily Top 10 snapshot"
         required: false
-        default: "true"
+        default: "false"
         type: choice
         options:
-          - "true"
           - "false"
+          - "true"
   repository_dispatch:
     types:
       - update-lucq-data
 
 permissions:
   contents: write
-
-env:
-  PYTHONUNBUFFERED: "1"
-  TZ: Europe/Bratislava
-  LUCQ_SOURCE_POLICY: API_PRO_ONLY
-  LUCQ_MODEL_LABEL: LucQ
-  LUCQ_SORT_FIELD: lucq_probability
-  LUCQ_SORT_DIRECTION: desc
-  LUCQ_ENABLE_TOP10_PICKS: "0"
+  actions: write
 
 concurrency:
   group: update-lucq-data-${{ github.ref }}
   cancel-in-progress: false
 
+env:
+  PYTHONUNBUFFERED: "1"
+  RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+  TENNISAPI_RAPIDAPI_HOST: ${{ vars.TENNISAPI_RAPIDAPI_HOST || 'tennisapi1.p.rapidapi.com' }}
+  TENNISAPI_H2H_RAPIDAPI_HOST: ${{ vars.TENNISAPI_H2H_RAPIDAPI_HOST || 'tennis-api-atp-wta-itf.p.rapidapi.com' }}
+  TENNISAPI_H2H_STATS_ENABLED: "1"
+  TENNISAPI_H2H_NAME_FALLBACK_ENABLED: "1"
+  TENNISAPI_MAX_RPS: "4"
+  TENNISAPI_ODDS_PROVIDER_IDS: ${{ vars.TENNISAPI_ODDS_PROVIDER_IDS || '1' }}
+  LUCQ_MIN_SAMPLE: "3"
+  LUCQ_TOP_LIMIT: "10"
+
 jobs:
-  update-lucq-data:
-    name: Build LucQ API PRO layer
+  update-lucq:
     runs-on: ubuntu-latest
     timeout-minutes: 45
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -51,127 +54,47 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.12"
           cache: pip
 
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then
-            python -m pip install -r requirements.txt
-          fi
+        run: pip install -r requirements.txt
 
-      - name: Resolve run date
-        id: run-date
-        shell: bash
+      - name: Build LucQ API PRO data
         env:
-          INPUT_RUN_DATE: ${{ github.event.inputs.run_date || '' }}
-          DISPATCH_RUN_DATE: ${{ github.event.client_payload.run_date || '' }}
+          LUCQ_BETTING_DAY: ${{ inputs.betting_day || github.event.client_payload.betting_day || '' }}
+          LUCQ_OVERWRITE_SNAPSHOT: ${{ inputs.overwrite_snapshot || github.event.client_payload.overwrite_snapshot || 'false' }}
         run: |
-          RUN_DATE="${INPUT_RUN_DATE:-${DISPATCH_RUN_DATE:-}}"
-          if [ -z "$RUN_DATE" ]; then
-            RUN_DATE="$(TZ=Europe/Bratislava date +%F)"
-          fi
-          if ! printf '%s' "$RUN_DATE" | grep -Eq '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'; then
-            echo "Invalid run date: $RUN_DATE"
-            exit 1
-          fi
-          echo "run_date=$RUN_DATE" >> "$GITHUB_OUTPUT"
-          echo "LucQ run date: $RUN_DATE"
+          set -euo pipefail
+          python -m lucq.engine
 
-      - name: Validate LucQ entrypoint
+      - name: Validate LucQ outputs
         run: |
-          test -f lucq/builder.py || {
-            echo "Missing lucq/builder.py"
-            echo "LucQ builder must use real API PRO data only and write outputs/lucq/latest_lucq.json."
-            exit 1
-          }
-
-      - name: Build LucQ data
-        env:
-          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
-          TENNISAPI_RAPIDAPI_HOST: ${{ secrets.TENNISAPI_RAPIDAPI_HOST }}
-          LUCQ_RUN_DATE: ${{ steps.run-date.outputs.run_date }}
-        run: |
-          python lucq/builder.py             --date "${{ steps.run-date.outputs.run_date }}"             --output "outputs/lucq/latest_lucq.json"
-
-      - name: Validate LucQ output
-        run: |
+          set -euo pipefail
+          test -f outputs/lucq/latest.json
+          test -f outputs/lucq/latest_top10.json
+          test -f outputs/lucq/latest_manifest.json
           python - <<'PY'
           import json
           from pathlib import Path
-
-          path = Path("outputs/lucq/latest_lucq.json")
-          if not path.exists():
-              raise SystemExit("Missing outputs/lucq/latest_lucq.json")
-
-          payload = json.loads(path.read_text(encoding="utf-8"))
-          if isinstance(payload, dict):
-              rows = payload.get("rows") or payload.get("items") or payload.get("matches") or []
-          elif isinstance(payload, list):
-              rows = payload
-          else:
-              raise SystemExit("LucQ output must be a JSON object or list")
-
-          if not isinstance(rows, list):
-              raise SystemExit("LucQ rows must be a list")
-
-          forbidden_sources = ("corq", "thinq", "cloq", "marq", "elo", "bet365", "tennis abstract")
-          previous_probability = None
-
-          for index, row in enumerate(rows, start=1):
-              if not isinstance(row, dict):
-                  raise SystemExit(f"LucQ row {index} is not an object")
-
-              probability = row.get("lucq_probability")
-              if probability is None:
-                  raise SystemExit(f"LucQ row {index} has no lucq_probability")
-
-              try:
-                  probability = float(probability)
-              except Exception as exc:
-                  raise SystemExit(f"LucQ row {index} has invalid probability") from exc
-
-              if probability > 1.0:
-                  probability /= 100.0
-              if not 0.0 <= probability <= 1.0:
-                  raise SystemExit(f"LucQ row {index} probability is outside 0..1")
-
-              source_blob = " ".join(
-                  str(row.get(key) or "")
-                  for key in ("source", "data_source", "model_source", "probability_source", "source_policy")
-              ).lower()
-              if any(source in source_blob for source in forbidden_sources):
-                  raise SystemExit(f"LucQ row {index} contains a forbidden source: {source_blob}")
-
-              if "api" not in source_blob or "pro" not in source_blob:
-                  raise SystemExit(f"LucQ row {index} does not declare API PRO provenance")
-
-              if previous_probability is not None and probability > previous_probability + 1e-12:
-                  raise SystemExit("LucQ rows are not sorted by lucq_probability descending")
-              previous_probability = probability
-
-          print(f"Validated {len(rows)} LucQ rows")
+          for name in ("latest.json", "latest_top10.json", "latest_manifest.json"):
+              json.loads((Path("outputs/lucq") / name).read_text(encoding="utf-8"))
+          print("LucQ outputs valid")
           PY
 
-      - name: Upload LucQ artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: lucq-data-${{ steps.run-date.outputs.run_date }}
-          path: outputs/lucq/latest_lucq.json
-          if-no-files-found: error
-          retention-days: 14
+      - name: Render web
+        run: python corq/web/render.py
 
-      - name: Commit LucQ outputs
-        if: ${{ github.event_name == 'repository_dispatch' || github.event.inputs.commit_outputs == 'true' }}
-        shell: bash
+      - name: Commit LucQ outputs and rendered site
         run: |
-          if git diff --quiet -- outputs/lucq/latest_lucq.json; then
-            echo "No LucQ output changes to commit."
-            exit 0
-          fi
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add outputs/lucq/latest_lucq.json
-          git commit -m "Update LucQ data for ${{ steps.run-date.outputs.run_date }}"
-          git push
+          git add outputs/lucq corq/site
+          if git diff --cached --quiet; then
+            echo "No LucQ changes to commit."
+            exit 0
+          fi
+          git commit -m "Update LucQ API PRO data"
+          git pull --rebase origin main
+          git push origin HEAD:main
