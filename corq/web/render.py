@@ -7142,9 +7142,11 @@ def _lucq_sort_key(row: Dict[str, Any]) -> Tuple[float, int, str]:
 
 
 def _lucq_metric_box(title: str, head: str, metrics: List[Tuple[str, str]]) -> str:
-    lines = [f'<section class="metric-box small-box lucq-box"><div class="box-head"><span>{esc(title)}</span><b>{esc(head)}</b></div>']
+    head_html = f'<b>{esc(head)}</b>' if str(head or "").strip() else ""
+    lines = [f'<section class="metric-box small-box lucq-box"><div class="box-head"><span>{esc(title)}</span>{head_html}</div>']
     for label, value in metrics:
-        rendered_value = value if str(value).lstrip().startswith('<span class="depth-wrap">') else esc(value)
+        text = str(value or "")
+        rendered_value = text if text.lstrip().startswith('<span class="depth-wrap">') else esc(text)
         lines.append(metric_row(label, rendered_value))
     lines.append('</section>')
     return "\n".join(lines)
@@ -7374,18 +7376,29 @@ def _lucq_match_box(row: Dict[str, Any], rank: int) -> str:
     ])
 
 
+def _lucq_depth_bar(value: Any) -> str:
+    raw = as_float(value)
+    if raw is None:
+        return '<span class="depth-wrap lucq-depth-wrap"><span class="depth-number">N/A</span><span class="depth-bar lucq-depth-bar"><span class="bar-bad" style="width:0%"></span></span></span>'
+    pct = raw * 100.0 if raw <= 1.0 else raw
+    pct = max(0.0, min(100.0, pct))
+    cls = "bar-good" if pct >= 70 else "bar-mid" if pct >= 40 else "bar-bad"
+    width = "100%" if pct >= 99.5 else f"{pct:.0f}%"
+    return f'<span class="depth-wrap lucq-depth-wrap"><span class="depth-number">{pct:.0f}%</span><span class="depth-bar lucq-depth-bar"><span class="{cls}" style="width:{width}"></span></span></span>'
+
+
 def _lucq_sets_games_box(row: Dict[str, Any]) -> str:
     quality = as_float(row.get("lucq_data_quality_score"))
-    quality = max(0.0, min(1.0, quality)) if quality is not None else 0.0
-    best_signal = str(row.get("lucq_best_signal") or "N/A")
-    best_probability = row.get("lucq_best_signal_probability")
-    head = f'{best_signal} {as_pct(best_probability, 1, "N/A")}' if best_signal != "N/A" else "N/A"
-    sample_depth = f'{row.get("pick_shape_sample") or 0} / {row.get("opponent_shape_sample") or 0} &nbsp; {bar_html(quality)}'
-    return _lucq_metric_box("Sets / Games / TB", head, [
+    quality = max(0.0, min(1.0, quality)) if quality is not None else None
+    sample = f'{row.get("pick_shape_sample") or 0} / {row.get("opponent_shape_sample") or 0}'
+    return _lucq_metric_box("Sets / Games / TB", "", [
         ("Sets", f'{_lucq_value(row.get("projected_sets"), 2)} | {_lucq_signal(row.get("sets_selection"), row.get("sets_probability"))}'),
+        ("Sets data depth", _lucq_depth_bar(quality)),
         ("Games", f'{_lucq_value(row.get("projected_games"), 1)} | {_lucq_signal(row.get("games_selection"), row.get("games_probability"))}'),
+        ("Games data depth", _lucq_depth_bar(quality)),
         ("TB", f'{str(row.get("tb_selection") or "N/A")} | {as_pct(row.get("tb_probability"), 1, "N/A")}'),
-        ("Sample / depth P-O", sample_depth),
+        ("TB data depth", _lucq_depth_bar(quality)),
+        ("Sample P / O", sample),
     ])
 
 
@@ -7395,16 +7408,13 @@ def _lucq_serve_box(row: Dict[str, Any]) -> str:
     serve_sample = f'{pick_sample if pick_sample is not None else "N/A"} / {opponent_sample if opponent_sample is not None else "N/A"}'
     ace_depth = as_float(row.get("aces_data_depth"))
     df_depth = as_float(row.get("df_data_depth"))
-    valid_depths = [value for value in (ace_depth, df_depth) if value is not None]
-    serve_depth = sum(valid_depths) / len(valid_depths) if valid_depths else None
-    return _lucq_metric_box("Aces / Double faults", as_pct(serve_depth, 0, "N/A"), [
+    return _lucq_metric_box("Aces / Double faults", "", [
         ("Aces P | O | T", _lucq_triplet(row, "aces")),
-        ("Aces depth", bar_html(ace_depth)),
+        ("Aces data depth", _lucq_depth_bar(ace_depth)),
         ("DF P | O | T", _lucq_triplet(row, "df")),
-        ("DF depth", bar_html(df_depth)),
+        ("DF data depth", _lucq_depth_bar(df_depth)),
         ("Sample P / O", serve_sample),
     ])
-
 
 def _lucq_evaluation_box(row: Dict[str, Any]) -> str:
     overall = _lucq_status_text(row.get("lucq_result_status") or "PENDING")
@@ -7436,7 +7446,7 @@ def render_lucq_card(row: Dict[str, Any], rank: int) -> str:
 def render_lucq_page(rows: List[Dict[str, Any]], manifest: Dict[str, Any]) -> str:
     clean = sorted([row for row in rows if isinstance(row, dict)], key=_lucq_sort_key)
     cards = ('<main class="grid">' + "\n".join(render_lucq_card(row, index) for index, row in enumerate(clean, 1)) + '</main>') if clean else '<div class="empty">No LucQ rows available.</div>'
-    intro = '<section class="summary-panel"><div class="summary-title">LucQ</div><div>Sets, games, tiebreak, aces and double-fault projections with evaluation on the same page.</div></section>'
+    intro = '<style>.lucq-card{grid-template-columns:minmax(250px,1.15fr) repeat(3,minmax(220px,1fr))}.lucq-box .box-head{justify-content:flex-start}.lucq-depth-wrap{width:142px;justify-content:flex-end}.lucq-depth-bar{width:82px;border:0;background:#26364b;padding:0}.lucq-depth-bar>span{display:block;height:100%;border-radius:999px}.lucq-box .metric-row b{min-width:150px}</style><section class="summary-panel"><div class="summary-title">LucQ</div><div>Sets, games, tiebreak, aces and double-fault projections with evaluation on the same page.</div></section>'
     return page_shell("LucQ", LUCQ_PATH, intro + cards, manifest)
 
 
