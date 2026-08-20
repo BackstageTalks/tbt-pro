@@ -7320,6 +7320,107 @@ def render_all() -> None:
     write_text(SITE_DIR / LUCQ_RSS_PATH, rss_items(lucq_rows, "LucQ"))
     print(f"Rendered LucQ: rows={len(lucq_rows)} path={LUCQ_PATH}")
 
+
+
+# ============================================================
+# LucQ compact analytical card + inline evaluation override V3
+# ============================================================
+
+def _lucq_status_text(value: Any) -> str:
+    text = str(value or "N/A").strip().upper().replace("_", " ")
+    return text if text else "N/A"
+
+
+def _lucq_result_css(status: Any) -> str:
+    text = _lucq_status_text(status)
+    if text in {"WON", "WIN"}:
+        return "good"
+    if text in {"LOST", "LOSS"}:
+        return "bad"
+    return "neutral"
+
+
+def _lucq_actual_triplet(row: Dict[str, Any], family: str) -> str:
+    if family == "aces":
+        values = (row.get("actual_pick_aces"), row.get("actual_opponent_aces"), row.get("actual_total_aces"))
+    else:
+        values = (row.get("actual_pick_df"), row.get("actual_opponent_df"), row.get("actual_total_df"))
+    if all(value is None for value in values):
+        return "— | — | —"
+    return " | ".join(_lucq_value(value, 1) if value is not None else "—" for value in values)
+
+
+def _lucq_match_box(row: Dict[str, Any], rank: int) -> str:
+    return "\n".join([
+        '<section class="pick-main compact-v3">',
+        '<div class="compact-topline">',
+        f'<span class="rank-num">#{rank}</span>',
+        f'<span class="compact-datetime-pill"><span class="compact-date">{esc(start_date(row))}</span><span class="compact-clock">{esc(start_time(row))}</span></span>',
+        '</div>',
+        '<div class="compact-player pick-side no-label">',
+        f'<div class="compact-name-row"><span class="compact-name">{esc(pick_name(row))}</span></div>',
+        '</div>',
+        '<div class="compact-vs">VS</div>',
+        '<div class="compact-player opp-side no-label">',
+        f'<div class="compact-name-row"><span class="compact-name">{esc(opponent_name(row))}</span></div>',
+        '</div>',
+        f'<div class="compact-match"><div class="compact-meta-only">{esc(meta_line(row))}</div></div>',
+        '</section>',
+    ])
+
+
+def _lucq_sets_games_box(row: Dict[str, Any]) -> str:
+    return _lucq_metric_box("Sets / Games / TB", as_pct(row.get("lucq_probability"), 1, "N/A"), [
+        ("Sets", f'{_lucq_value(row.get("projected_sets"), 2)} | {_lucq_signal(row.get("sets_selection"), row.get("sets_probability"))}'),
+        ("Games", f'{_lucq_value(row.get("projected_games"), 1)} | {_lucq_signal(row.get("games_selection"), row.get("games_probability"))}'),
+        ("TB", f'{str(row.get("tb_selection") or "N/A")} | {as_pct(row.get("tb_probability"), 1, "N/A")}'),
+        ("Sample P / O", f'{row.get("pick_shape_sample") or 0} / {row.get("opponent_shape_sample") or 0}'),
+    ])
+
+
+def _lucq_serve_box(row: Dict[str, Any]) -> str:
+    return _lucq_metric_box("Aces / Double faults", _lucq_value(row.get("total_aces_projection"), 1), [
+        ("Aces P | O | T", _lucq_triplet(row, "aces")),
+        ("DF P | O | T", _lucq_triplet(row, "df")),
+        ("Aces actual", _lucq_actual_triplet(row, "aces")),
+        ("DF actual", _lucq_actual_triplet(row, "df")),
+    ])
+
+
+def _lucq_evaluation_box(row: Dict[str, Any]) -> str:
+    overall = _lucq_status_text(row.get("lucq_result_status") or "PENDING")
+    metrics = [
+        ("Sets", _lucq_status_text(row.get("sets_result_status"))),
+        ("Games", _lucq_status_text(row.get("games_result_status"))),
+        ("TB", _lucq_status_text(row.get("tb_result_status"))),
+        ("Aces", _lucq_status_text(row.get("aces_result_status"))),
+        ("Double faults", _lucq_status_text(row.get("df_result_status"))),
+    ]
+    lines = [f'<section class="metric-box small-box"><div class="box-head">Evaluation <b class="{_lucq_result_css(overall)}">{esc(overall)}</b></div>']
+    for label, value in metrics:
+        lines.append(metric_row(label, esc(value), _lucq_result_css(value)))
+    lines.append('</section>')
+    return "\n".join(lines)
+
+
+def render_lucq_card(row: Dict[str, Any], rank: int) -> str:
+    return "".join([
+        '<article class="pick-card lucq-card">',
+        _lucq_match_box(row, rank),
+        _lucq_sets_games_box(row),
+        _lucq_serve_box(row),
+        _lucq_evaluation_box(row),
+        '</article>',
+    ])
+
+
+def render_lucq_page(rows: List[Dict[str, Any]], manifest: Dict[str, Any]) -> str:
+    clean = sorted([row for row in rows if isinstance(row, dict)], key=_lucq_sort_key)
+    cards = ('<main class="grid">' + "\n".join(render_lucq_card(row, index) for index, row in enumerate(clean, 1)) + '</main>') if clean else '<div class="empty">No LucQ rows available.</div>'
+    intro = '<section class="summary-panel"><div class="summary-title">LucQ</div><div>Sets, games, tiebreak, aces and double-fault projections with evaluation on the same page.</div></section>'
+    return page_shell("LucQ", LUCQ_PATH, intro + cards, manifest)
+
+
 def main() -> None:
     render_all()
 
