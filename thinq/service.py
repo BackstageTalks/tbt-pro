@@ -310,7 +310,7 @@ API_PRO_TIMEOUT = 20
 API_PRO_CACHE_DIR = Path("thinq/data/players/team_year_stats")
 API_PRO_PREVIOUS_MATCHES_CACHE_DIR = Path("thinq/data/players/previous_matches")
 API_PRO_CACHE_TTL_SECONDS = 60 * 60 * 24 * 7
-API_PRO_PREVIOUS_MATCHES_MAX_PAGES = 1
+API_PRO_PREVIOUS_MATCHES_MAX_PAGES = 2
 API_PRO_PREVIOUS_MATCHES_SAMPLE = 12
 API_PRO_PREVIOUS_MATCHES_MIN_SAMPLE = 3
 
@@ -500,6 +500,10 @@ def _build_previous_matches_shape(player_id: Any, surface: Any, as_of_date: Any 
         pages.append(result)
         events.extend([x for x in result.get("events", []) if isinstance(x, dict)])
         if result.get("status") != "OK" or not result.get("has_next_page"):
+            break
+        current_shapes = [x for x in (_completed_singles_score_shape(e, as_of_ts=as_of_ts) for e in events) if isinstance(x, dict)]
+        current_surface_count = sum(1 for x in current_shapes if x.get("surface") == requested_surface and requested_surface != "Unknown")
+        if len(current_shapes) >= 20 and current_surface_count >= 8:
             break
     shapes = [x for x in (_completed_singles_score_shape(e, as_of_ts=as_of_ts) for e in events) if isinstance(x, dict)]
     shapes.sort(key=lambda x: int(x.get("start_timestamp") or 0), reverse=True)
