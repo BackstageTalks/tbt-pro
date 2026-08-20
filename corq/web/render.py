@@ -7144,7 +7144,8 @@ def _lucq_sort_key(row: Dict[str, Any]) -> Tuple[float, int, str]:
 def _lucq_metric_box(title: str, head: str, metrics: List[Tuple[str, str]]) -> str:
     lines = [f'<section class="metric-box small-box lucq-box"><div class="box-head"><span>{esc(title)}</span><b>{esc(head)}</b></div>']
     for label, value in metrics:
-        lines.append(metric_row(label, esc(value)))
+        rendered_value = value if str(value).lstrip().startswith('<span class="depth-wrap">') else esc(value)
+        lines.append(metric_row(label, rendered_value))
     lines.append('</section>')
     return "\n".join(lines)
 
