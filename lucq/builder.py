@@ -17,7 +17,7 @@ from zoneinfo import ZoneInfo
 from corq.corq_rapidapi_client import fetch_daily_matches_with_odds
 
 LOCAL_TZ = ZoneInfo("Europe/Bratislava")
-LUCQ_VERSION = "LUCQ_API_PRO_NO_VIG_V1"
+LUCQ_VERSION = "LUCQ_API_PRO_NO_VIG_V2"
 SOURCE_POLICY = "API_PRO_ONLY"
 
 
@@ -64,7 +64,12 @@ def build_lucq_rows(run_date: str) -> List[Dict[str, Any]]:
         )
         if probability_1 is None or probability_2 is None:
             continue
-        if not match.get("odds_labels_confirmed"):
+        # Exact-event API PRO odds are already oriented to player1/player2 by
+        # corq_rapidapi_client. Some valid numeric 1/2 payloads do not set the
+        # optional odds_labels_confirmed flag, so that flag must not remove a
+        # real and complete exact-event odds pair.
+        endpoint = str(match.get("odds_endpoint") or "")
+        if "/api/tennis/event/" not in endpoint:
             continue
 
         if probability_1 >= probability_2:
@@ -120,6 +125,8 @@ def build_lucq_rows(run_date: str) -> List[Dict[str, Any]]:
             "betting_day_end_local": match.get("betting_day_end_local"),
             "odds_endpoint": match.get("odds_endpoint"),
             "odds_matching_direction": match.get("odds_matching_direction"),
+            "odds_labels_confirmed": bool(match.get("odds_labels_confirmed")),
+            "lucq_orientation_policy": "EXACT_EVENT_PLAYER1_PLAYER2",
             "lucq_real_line": True,
             "lucq_top10_enabled": False,
         }
