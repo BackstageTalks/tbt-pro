@@ -92,7 +92,7 @@ jobs:
 
       - name: Build LucQ API PRO data
         run: |
-          python lucq/builder.py \
+          python -m lucq.builder \
             --date "${{ steps.betting-day.outputs.betting_day }}" \
             --output "outputs/lucq/latest_lucq.json"
 
