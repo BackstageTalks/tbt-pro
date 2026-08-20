@@ -188,6 +188,36 @@ def _side_selection(prefix: str, line: float, over_probability: Optional[float])
     return f"U{line:.1f}", round(1.0 - probability, 4)
 
 
+def _first_numeric(mapping: Dict[str, Any], *keys: str) -> Optional[float]:
+    for key in keys:
+        value = mapping.get(key)
+        number = _float(value)
+        if number is not None and number >= 0:
+            return number
+    return None
+
+
+def _serve_samples(serve: Dict[str, Any]) -> Tuple[Optional[int], Optional[int]]:
+    pick = _first_numeric(
+        serve,
+        "api_pick_serve_matches", "api_pick_matches", "pick_matches",
+        "pick_sample", "pick_sample_size", "pick_year_stats_matches",
+    )
+    opponent = _first_numeric(
+        serve,
+        "api_opp_serve_matches", "api_opponent_serve_matches", "api_opp_matches",
+        "opponent_matches", "opp_matches", "opponent_sample", "opponent_sample_size",
+        "opponent_year_stats_matches",
+    )
+    return (int(pick) if pick is not None else None, int(opponent) if opponent is not None else None)
+
+
+def _sample_depth(sample: Optional[int], target: int = 20) -> Optional[float]:
+    if sample is None:
+        return None
+    return round(max(0.0, min(1.0, float(sample) / float(target))), 4)
+
+
 def _data_quality(pick_shape: Dict[str, Any], opponent_shape: Dict[str, Any], serve: Dict[str, Any]) -> Tuple[str, float]:
     pick_sample = int(pick_shape.get("sample") or 0)
     opponent_sample = int(opponent_shape.get("sample") or 0)
@@ -253,6 +283,11 @@ def build_lucq_rows(run_date: str) -> List[Dict[str, Any]]:
             as_of_date=start,
         )
         quality_label, quality_score = _data_quality(pick_shape, opponent_shape, serve)
+        pick_serve_sample, opponent_serve_sample = _serve_samples(serve)
+        pick_serve_depth = _sample_depth(pick_serve_sample)
+        opponent_serve_depth = _sample_depth(opponent_serve_sample)
+        ace_depth = _mean([pick_serve_depth, opponent_serve_depth])
+        df_depth = ace_depth
 
         row = {
             "model": "LucQ",
@@ -313,6 +348,10 @@ def build_lucq_rows(run_date: str) -> List[Dict[str, Any]]:
             "shape_source": "API_PRO_GET_PREVIOUS_PLAYER_MATCHES",
             "serve_source": serve.get("api_serve_stats_source"),
             "serve_status": serve.get("api_serve_stats_status"),
+            "pick_serve_sample": pick_serve_sample,
+            "opponent_serve_sample": opponent_serve_sample,
+            "aces_data_depth": ace_depth,
+            "df_data_depth": df_depth,
             "surface": surface,
             "tournament": match.get("tournament"),
             "category": match.get("category"),
@@ -336,8 +375,19 @@ def build_lucq_rows(run_date: str) -> List[Dict[str, Any]]:
             if value is not None
         ]
         lucq_probability = max(statistical_probabilities) if statistical_probabilities else None
+        signal_candidates = []
+        if sets_probability is not None:
+            signal_candidates.append((sets_probability, f"Sets {sets_selection}"))
+        if games_probability is not None:
+            signal_candidates.append((games_probability, f"Games {games_selection}"))
+        if tiebreak_probability is not None:
+            tb_side_probability = max(tiebreak_probability, 1.0 - tiebreak_probability)
+            signal_candidates.append((tb_side_probability, "TB YES" if tiebreak_probability >= 0.5 else "TB NO"))
+        best_signal = max(signal_candidates, key=lambda item: item[0]) if signal_candidates else (None, None)
         row["lucq_probability"] = round(lucq_probability, 6) if lucq_probability is not None else None
         row["lucq_probability_pct"] = round(lucq_probability * 100.0, 1) if lucq_probability is not None else None
+        row["lucq_best_signal"] = best_signal[1]
+        row["lucq_best_signal_probability"] = round(best_signal[0], 6) if best_signal[0] is not None else None
 
         # The LucQ page owns its evaluation box. Actual values are populated by
         # the LucQ settlement step when the event is finished. Until then each
