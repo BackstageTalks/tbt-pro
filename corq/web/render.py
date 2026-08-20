@@ -7387,11 +7387,13 @@ def _lucq_sets_games_box(row: Dict[str, Any]) -> str:
 
 
 def _lucq_serve_box(row: Dict[str, Any]) -> str:
+    serve_sample = f'{row.get("pick_serve_sample") if row.get("pick_serve_sample") is not None else "N/A"} / {row.get("opponent_serve_sample") if row.get("opponent_serve_sample") is not None else "N/A"}'
     return _lucq_metric_box("Aces / Double faults", _lucq_value(row.get("total_aces_projection"), 1), [
         ("Aces P | O | T", _lucq_triplet(row, "aces")),
+        ("Aces depth", bar_html(row.get("aces_data_depth"))),
         ("DF P | O | T", _lucq_triplet(row, "df")),
-        ("Aces actual", _lucq_actual_triplet(row, "aces")),
-        ("DF actual", _lucq_actual_triplet(row, "df")),
+        ("DF depth", bar_html(row.get("df_data_depth"))),
+        ("Sample P / O", serve_sample),
     ])
 
 
@@ -7401,8 +7403,8 @@ def _lucq_evaluation_box(row: Dict[str, Any]) -> str:
         ("Sets", _lucq_status_text(row.get("sets_result_status"))),
         ("Games", _lucq_status_text(row.get("games_result_status"))),
         ("TB", _lucq_status_text(row.get("tb_result_status"))),
-        ("Aces", _lucq_status_text(row.get("aces_result_status"))),
-        ("Double faults", _lucq_status_text(row.get("df_result_status"))),
+        ("Aces actual P | O | T", _lucq_actual_triplet(row, "aces")),
+        ("DF actual P | O | T", _lucq_actual_triplet(row, "df")),
     ]
     lines = [f'<section class="metric-box small-box"><div class="box-head">Evaluation <b class="{_lucq_result_css(overall)}">{esc(overall)}</b></div>']
     for label, value in metrics:
