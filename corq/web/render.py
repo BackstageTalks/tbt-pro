@@ -7351,30 +7351,37 @@ def _lucq_actual_triplet(row: Dict[str, Any], family: str) -> str:
 
 
 def _lucq_match_box(row: Dict[str, Any], rank: int) -> str:
+    p_odds = pick_odds(row)
+    o_odds = opponent_odds(row)
     return "\n".join([
         '<section class="pick-main compact-v3">',
         '<div class="compact-topline">',
         f'<span class="rank-num">#{rank}</span>',
         f'<span class="compact-datetime-pill"><span class="compact-date">{esc(start_date(row))}</span><span class="compact-clock">{esc(start_time(row))}</span></span>',
+        f'<span class="brain goat-badge" title="LucQ analytical prediction"><img class="card-goat-logo" src="{goat_badge_src()}" alt="LucQ"></span>',
         '</div>',
-        '<div class="compact-player pick-side no-label">',
-        f'<div class="compact-name-row"><span class="compact-name">{esc(pick_name(row))}</span></div>',
+        '<div class="compact-player pick-side">',
+        '<div class="compact-label">Pick</div>',
+        f'<div class="compact-name-row"><span class="compact-name">{esc(pick_name(row))} <span class="compact-odds inline pick">@ {fmt_odds(p_odds)}</span></span><span class="compact-rank">{esc(player_rank_display(row, "pick"))}</span></div>',
         '</div>',
-        '<div class="compact-vs">VS</div>',
+        '<div class="compact-vs">to beat</div>',
         '<div class="compact-player opp-side no-label">',
-        f'<div class="compact-name-row"><span class="compact-name">{esc(opponent_name(row))}</span></div>',
+        f'<div class="compact-name-row"><span class="compact-name">{esc(opponent_name(row))} <span class="compact-odds inline opp">@ {fmt_odds(o_odds)}</span></span><span class="compact-rank">{esc(player_rank_display(row, "opponent"))}</span></div>',
         '</div>',
-        f'<div class="compact-match"><div class="compact-meta-only">{esc(meta_line(row))}</div></div>',
+        f'<div class="compact-match"><div class="compact-match-row"><span class="compact-meta compact-meta-only">{esc(meta_line(row))}</span></div></div>',
         '</section>',
     ])
 
 
 def _lucq_sets_games_box(row: Dict[str, Any]) -> str:
+    quality = as_float(row.get("lucq_data_quality_score"))
+    quality = max(0.0, min(1.0, quality)) if quality is not None else 0.0
     return _lucq_metric_box("Sets / Games / TB", as_pct(row.get("lucq_probability"), 1, "N/A"), [
         ("Sets", f'{_lucq_value(row.get("projected_sets"), 2)} | {_lucq_signal(row.get("sets_selection"), row.get("sets_probability"))}'),
         ("Games", f'{_lucq_value(row.get("projected_games"), 1)} | {_lucq_signal(row.get("games_selection"), row.get("games_probability"))}'),
         ("TB", f'{str(row.get("tb_selection") or "N/A")} | {as_pct(row.get("tb_probability"), 1, "N/A")}'),
         ("Sample P / O", f'{row.get("pick_shape_sample") or 0} / {row.get("opponent_shape_sample") or 0}'),
+        ("Data depth", bar_html(quality)),
     ])
 
 
