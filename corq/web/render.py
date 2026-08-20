@@ -7229,6 +7229,86 @@ def render_lucq_page(rows: List[Dict[str, Any]], manifest: Dict[str, Any]) -> st
     return page_shell("LucQ", LUCQ_PATH, intro + cards, manifest)
 
 
+
+# LucQ analytical card override V2.
+def _lucq_value(value: Any, digits: int = 1, suffix: str = "") -> str:
+    number = as_float(value)
+    return "N/A" if number is None else f"{number:.{digits}f}{suffix}"
+
+
+def _lucq_triplet(row: Dict[str, Any], family: str) -> str:
+    if family == "aces":
+        values = (row.get("pick_aces_projection"), row.get("opponent_aces_projection"), row.get("total_aces_projection"))
+    else:
+        values = (row.get("pick_df_projection"), row.get("opponent_df_projection"), row.get("total_df_projection"))
+    return " | ".join(_lucq_value(value, 1) for value in values)
+
+
+def _lucq_signal(selection: Any, probability_value: Any) -> str:
+    text = str(selection or "").strip()
+    probability_text = as_pct(probability_value, 1, "N/A")
+    return f"{text} | {probability_text}" if text else "N/A"
+
+
+def render_lucq_card(row: Dict[str, Any], rank: int) -> str:
+    pick_box = "\n".join([
+        '<section class="pick-main compact-v3">',
+        '<div class="compact-topline">',
+        f'<span class="rank-num">#{rank}</span>',
+        f'<span class="compact-datetime-pill"><span class="compact-date">{esc(start_date(row))}</span><span class="compact-clock">{esc(start_time(row))}</span></span>',
+        '<span class="compact-top-tags"><span class="insight-chip positive">API PRO</span></span>',
+        '</div>',
+        '<div class="compact-player pick-side no-label">',
+        f'<div class="compact-name-row"><span class="compact-name">{esc(pick_name(row))}<span class="compact-odds inline pick">@ {fmt_odds(pick_odds(row))}</span></span></div>',
+        '</div>',
+        '<div class="compact-vs">TO BEAT</div>',
+        '<div class="compact-player opp-side no-label">',
+        f'<div class="compact-name-row"><span class="compact-name">{esc(opponent_name(row))}<span class="compact-odds inline opp">@ {fmt_odds(opponent_odds(row))}</span></span></div>',
+        '</div>',
+        f'<div class="compact-match"><div class="compact-meta compact-meta-only">{esc(meta_line(row))}</div></div>',
+        '</section>',
+    ])
+    boxes = [
+        _lucq_metric_box("LucQ", as_pct(row.get("lucq_probability"), 1, "N/A"), [
+            ("Winner", pick_name(row)),
+            ("Win probability", as_pct(row.get("lucq_probability"), 1, "N/A")),
+            ("Data quality", str(row.get("lucq_data_quality") or "N/A")),
+            ("Quality score", as_pct(row.get("lucq_data_quality_score"), 0, "N/A")),
+        ]),
+        _lucq_metric_box("Sets", _lucq_value(row.get("projected_sets"), 2), [
+            ("Projection", _lucq_value(row.get("projected_sets"), 2)),
+            ("Sets O/U", _lucq_signal(row.get("sets_selection"), row.get("sets_probability"))),
+            ("Line", _lucq_value(row.get("sets_line"), 1)),
+            ("Samples P/O", f'{row.get("pick_shape_sample") or 0} | {row.get("opponent_shape_sample") or 0}'),
+        ]),
+        _lucq_metric_box("Games", _lucq_value(row.get("projected_games"), 1), [
+            ("Projection", _lucq_value(row.get("projected_games"), 1)),
+            ("Games O/U", _lucq_signal(row.get("games_selection"), row.get("games_probability"))),
+            ("Line", _lucq_value(row.get("games_line"), 1)),
+            ("TB probability", as_pct(row.get("tb_probability"), 1, "N/A")),
+        ]),
+        _lucq_metric_box("Aces", _lucq_value(row.get("total_aces_projection"), 1), [
+            ("P | O | Total", _lucq_triplet(row, "aces")),
+            ("Status", str(row.get("aces_status") or "N/A")),
+            ("Source", str(row.get("serve_source") or "N/A")),
+            ("Policy", "API PRO only"),
+        ]),
+        _lucq_metric_box("Double faults", _lucq_value(row.get("total_df_projection"), 1), [
+            ("P | O | Total", _lucq_triplet(row, "df")),
+            ("Status", str(row.get("df_status") or "N/A")),
+            ("Shape source", str(row.get("shape_source") or "N/A")),
+            ("Version", str(row.get("lucq_version") or "N/A")),
+        ]),
+    ]
+    return f'<article class="pick-card lucq-card" id="lucq-match-{rank}">' + pick_box + "".join(boxes) + '</article>'
+
+
+def render_lucq_page(rows: List[Dict[str, Any]], manifest: Dict[str, Any]) -> str:
+    clean = sorted([row for row in rows if isinstance(row, dict)], key=_lucq_sort_key)
+    cards = ('<div class="grid">' + "\n".join(render_lucq_card(row, index) for index, row in enumerate(clean, 1)) + '</div>') if clean else '<div class="empty">No LucQ API PRO rows available.</div>'
+    intro = '<section class="summary-panel data-notes-summary"><div class="summary-title">LucQ</div><div class="hero-line">API PRO projections for winner, sets, games, tiebreaks, aces and double faults. Missing source data is shown as N/A.</div></section>'
+    return page_shell("LucQ", LUCQ_PATH, intro + cards, manifest)
+
 _ORIGINAL_RENDER_ALL_BEFORE_LUCQ = render_all
 
 
