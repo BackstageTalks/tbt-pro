@@ -1139,6 +1139,74 @@ def _participants_from_event(event: Dict[str, Any]) -> List[Dict[str, Any]]:
     return out
 
 
+def _entity_id(value: Any) -> Optional[int]:
+    if not isinstance(value, dict):
+        return None
+    for key in ("id", "teamId", "team_id", "playerId", "player_id"):
+        raw = value.get(key)
+        try:
+            if raw not in (None, ""):
+                return int(raw)
+        except Exception:
+            continue
+    player_info = value.get("playerTeamInfo")
+    if isinstance(player_info, dict):
+        try:
+            raw = player_info.get("id")
+            return int(raw) if raw not in (None, "") else None
+        except Exception:
+            return None
+    return None
+
+
+def event_player_ids(event: Dict[str, Any]) -> Tuple[Optional[int], Optional[int]]:
+    home = (
+        event.get("homeTeam")
+        or event.get("home_team")
+        or event.get("home")
+        or event.get("player1")
+        or event.get("participant1")
+        or event.get("competitor1")
+        or event.get("team1")
+    )
+    away = (
+        event.get("awayTeam")
+        or event.get("away_team")
+        or event.get("away")
+        or event.get("player2")
+        or event.get("participant2")
+        or event.get("competitor2")
+        or event.get("team2")
+    )
+    home_id = _entity_id(home)
+    away_id = _entity_id(away)
+    if home_id is not None and away_id is not None:
+        return home_id, away_id
+
+    participants = _participants_from_event(event)
+    side_home_id: Optional[int] = None
+    side_away_id: Optional[int] = None
+    ordered_ids: List[int] = []
+    for item in participants:
+        entity_id = _entity_id(item)
+        if entity_id is None:
+            continue
+        side = _participant_side(item)
+        if side == "home" and side_home_id is None:
+            side_home_id = entity_id
+        elif side == "away" and side_away_id is None:
+            side_away_id = entity_id
+        if entity_id not in ordered_ids:
+            ordered_ids.append(entity_id)
+    home_id = home_id or side_home_id
+    away_id = away_id or side_away_id
+    if home_id is not None and away_id is not None:
+        return home_id, away_id
+    if len(ordered_ids) >= 2:
+        return ordered_ids[0], ordered_ids[1]
+    return home_id, away_id
+
+
 def event_players(event: Dict[str, Any]) -> Tuple[Optional[str], Optional[str]]:
     home = (
         event.get("homeTeam")
@@ -1214,6 +1282,7 @@ def normalize_event_for_corq(event: Dict[str, Any]) -> Optional[Dict[str, Any]]:
     player1, player2 = event_players(event)
     if not player1 or not player2:
         return None
+    player1_id, player2_id = event_player_ids(event)
     event_id = event.get("id") or event.get("event_id") or event.get("match_id")
     start_ts = event.get("startTimestamp") or event.get("start_timestamp") or deep_find_first(event, {"startTimestamp", "start_time"})
     raw_surface = event.get("surfaceType") or event.get("surface") or event.get("groundType") or deep_find_first(event, {"surfaceType", "surface", "courtSurface", "groundType"})
@@ -1232,6 +1301,10 @@ def normalize_event_for_corq(event: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         "id": event_id,
         "player1": player1,
         "player2": player2,
+        "player1_id": player1_id,
+        "player2_id": player2_id,
+        "home_team_id": player1_id,
+        "away_team_id": player2_id,
         "surface": surface,
         "surface_raw": surface_raw,
         "tournament": tournament,
