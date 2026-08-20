@@ -15,24 +15,33 @@ TG_RSS_PATH = CORQ_RSS_PATH
 CLOQ_RSS_PATH = "h4v34n1c3d4y185.xml"
 THINQ_PATH = "h4v34n1c3d4y186"
 THINQ_RSS_PATH = "h4v34n1c3d4y187.xml"
+LUCQ_PATH = "h4v34n1c3d4y188"
+LUCQ_RSS_PATH = "h4v34n1c3d4y189.xml"
 
 NAV_ITEMS = [
     {"key": "top7", "label": "CorQ", "path": TOP7_PATH},
-    {"key": "all", "label": "ALL", "path": ALL_PATH},
+    {"key": "all", "label": "Audit", "path": ALL_PATH},
     {"key": "results", "label": "Results", "path": RESULTS_PATH},
-    {"key": "thinq", "label": "THINQ", "path": THINQ_PATH},
-    {"key": "cloq", "label": "CLOQ", "path": CLOQ_PATH},
-    {"key": "tg_rss", "label": "TG RSS", "path": TG_RSS_PATH},
+    {"key": "thinq", "label": "ThinQ", "path": THINQ_PATH},
+    {"key": "cloq", "label": "CloQ", "path": CLOQ_PATH},
+    {"key": "lucq", "label": "LucQ", "path": LUCQ_PATH},
+    {"key": "tg_rss", "label": "TG", "path": TG_RSS_PATH},
 ]
 
+
 def base_url() -> str:
-    value = os.getenv("TBTPRO_BASE_URL", "https://backstagetalks.github.io/tbt-pro/").strip()
+    value = os.getenv(
+        "TBTPRO_BASE_URL",
+        "https://backstagetalks.github.io/tbt-pro/",
+    ).strip()
     if value and not value.endswith("/"):
         value += "/"
     return value
 
+
 def page_file(path: str) -> str:
     return path if path.endswith(".xml") else f"{path}/index.html"
+
 
 def page_url(path: str) -> str:
     root = base_url()
@@ -42,7 +51,7 @@ def page_url(path: str) -> str:
 
 
 def site_url(path: str = "") -> str:
-    """Return absolute public URL for a site path."""
+    """Return the absolute public URL for a site path."""
     if not path:
         return base_url()
     if str(path).endswith("/"):
