@@ -61,6 +61,8 @@ try:
         CORQ_RSS_PATH,
         CLOQ_RSS_PATH,
         THINQ_RSS_PATH,
+        LUCQ_PATH,
+        LUCQ_RSS_PATH,
         NAV_ITEMS,
     )
 except Exception:
@@ -72,6 +74,8 @@ except Exception:
     CLOQ_RSS_PATH = "h4v34n1c3d4y185.xml"
     THINQ_PATH = "h4v34n1c3d4y186"
     THINQ_RSS_PATH = "h4v34n1c3d4y187.xml"
+    LUCQ_PATH = "h4v34n1c3d4y188"
+    LUCQ_RSS_PATH = "h4v34n1c3d4y189.xml"
     NAV_ITEMS = [("CorQ", TOP7_PATH), ("All", ALL_PATH), ("Results", RESULTS_PATH), ("CloQ", CLOQ_PATH), ("TG RSS", CORQ_RSS_PATH)]
 
 try:
@@ -7119,6 +7123,122 @@ def render_all() -> None:
     write_text(SITE_DIR / "render_manifest.json", json.dumps(render_manifest, ensure_ascii=False, indent=2))
     print(f"Rendered site: top7={len(top7)} all={len(all_rows_for_audit)} cloq={len(cloq)} history={HISTORY_PATH} order=rank root={SITE_DIR}")
 
+
+
+# ============================================================
+# LucQ API PRO-only page override V1
+# Same page shell and card grid, independent of all other project layers.
+# ============================================================
+
+def _lucq_probability(row: Dict[str, Any]) -> float:
+    value = as_float(row.get("lucq_probability"), 0.0) or 0.0
+    return value / 100.0 if value > 1.0 else value
+
+
+def _lucq_sort_key(row: Dict[str, Any]) -> Tuple[float, int, str]:
+    dt = audit_match_time_utc(row)
+    timestamp = int(dt.timestamp()) if dt is not None else 9999999999
+    return (-_lucq_probability(row), timestamp, pick_name(row).lower())
+
+
+def _lucq_metric_box(title: str, head: str, metrics: List[Tuple[str, str]]) -> str:
+    lines = [f'<section class="metric-box small-box lucq-box"><div class="box-head"><span>{esc(title)}</span><b>{esc(head)}</b></div>']
+    for label, value in metrics:
+        lines.append(metric_row(label, esc(value)))
+    lines.append('</section>')
+    return "\n".join(lines)
+
+
+def render_lucq_card(row: Dict[str, Any], rank: int) -> str:
+    probability_value = _lucq_probability(row)
+    probability_text = as_pct(probability_value, 1)
+    source = str(row.get("data_source") or row.get("source") or "API PRO")
+    start = str(row.get("match_start") or row.get("start_time") or "—")
+    selection = str(row.get("lucq_selection") or f"{pick_name(row)} to win")
+    line = fmt_odds(row.get("lucq_line") or pick_odds(row))
+    overround = as_pct(row.get("overround"), 1)
+    status = str(row.get("lucq_status") or "OK")
+    endpoint = str(row.get("odds_endpoint") or "Exact event odds")
+    direction = str(row.get("odds_matching_direction") or "Confirmed")
+
+    pick_box = "\n".join([
+        '<section class="pick-main compact-v3">',
+        '<div class="compact-topline">',
+        f'<span class="rank-num">#{rank}</span>',
+        f'<span class="compact-datetime-pill"><span class="compact-date">{esc(start_date(row))}</span><span class="compact-clock">{esc(start_time(row))}</span></span>',
+        '<span class="compact-top-tags"><span class="insight-chip positive">API PRO</span></span>',
+        '</div>',
+        '<div class="compact-player pick-side no-label">',
+        f'<div class="compact-name-row"><span class="compact-name">{esc(pick_name(row))}<span class="compact-odds inline pick">@ {line}</span></span></div>',
+        '</div>',
+        '<div class="compact-vs">TO BEAT</div>',
+        '<div class="compact-player opp-side no-label">',
+        f'<div class="compact-name-row"><span class="compact-name">{esc(opponent_name(row))}<span class="compact-odds inline opp">@ {fmt_odds(opponent_odds(row))}</span></span></div>',
+        '</div>',
+        f'<div class="compact-match"><div class="compact-meta compact-meta-only">{esc(meta_line(row))}</div></div>',
+        '</section>',
+    ])
+
+    boxes = [
+        _lucq_metric_box("LucQ", probability_text, [
+            ("Selection", selection),
+            ("Probability", probability_text),
+            ("Line", line),
+            ("Status", status),
+        ]),
+        _lucq_metric_box("API PRO", "Real data", [
+            ("Source", source),
+            ("Market", str(row.get("lucq_market") or "Match winner")),
+            ("Real line", "Yes" if row.get("lucq_real_line") else "No"),
+            ("Policy", str(row.get("source_policy") or "API_PRO_ONLY")),
+        ]),
+        _lucq_metric_box("Probability", probability_text, [
+            ("P1 odds", fmt_odds(row.get("odds_player1"))),
+            ("P2 odds", fmt_odds(row.get("odds_player2"))),
+            ("No-vig", probability_text),
+            ("Overround", overround),
+        ]),
+        _lucq_metric_box("Match", status, [
+            ("Surface", str(row.get("surface") or "—")),
+            ("Best of", str(row.get("best_of") or "—")),
+            ("Start", start),
+            ("Event ID", str(row.get("event_id") or "—")),
+        ]),
+        _lucq_metric_box("Audit", "Confirmed", [
+            ("Match", direction),
+            ("Endpoint", endpoint),
+            ("Version", str(row.get("lucq_version") or "—")),
+            ("Rank", str(rank)),
+        ]),
+    ]
+    return f'<article class="pick-card lucq-card" id="lucq-match-{rank}">' + pick_box + "".join(boxes) + '</article>'
+
+
+def render_lucq_page(rows: List[Dict[str, Any]], manifest: Dict[str, Any]) -> str:
+    clean = sorted([row for row in rows if isinstance(row, dict)], key=_lucq_sort_key)
+    if clean:
+        cards = '<div class="grid">' + "\n".join(render_lucq_card(row, index) for index, row in enumerate(clean, 1)) + '</div>'
+    else:
+        cards = '<div class="empty">No LucQ API PRO rows available.</div>'
+    intro = (
+        '<section class="summary-panel data-notes-summary">'
+        '<div class="summary-title">LucQ</div>'
+        '<div class="hero-line">API PRO-only probability layer. Matches are sorted by LucQ probability from highest to lowest.</div>'
+        '</section>'
+    )
+    return page_shell("LucQ", LUCQ_PATH, intro + cards, manifest)
+
+
+_ORIGINAL_RENDER_ALL_BEFORE_LUCQ = render_all
+
+
+def render_all() -> None:
+    _ORIGINAL_RENDER_ALL_BEFORE_LUCQ()
+    manifest = read_json(OUTPUTS / "latest_manifest.json", {})
+    lucq_rows = json_rows(read_json(OUTPUTS / "lucq" / "latest_lucq.json", []))
+    write_text(SITE_DIR / LUCQ_PATH / "index.html", render_lucq_page(lucq_rows, manifest))
+    write_text(SITE_DIR / LUCQ_RSS_PATH, rss_items(lucq_rows, "LucQ"))
+    print(f"Rendered LucQ: rows={len(lucq_rows)} path={LUCQ_PATH}")
 
 def main() -> None:
     render_all()
