@@ -6,15 +6,34 @@ import os
 import time
 from datetime import datetime, timezone
 from pathlib import Path
+
 import requests
 
-from thinq.loaders.history_loader import (
-    HistoryMatch,
-    get_player_matches,
-    history_data_status,
-    normalize_name,
-    normalize_surface,
-)
+try:
+    from thinq.loaders.history_loader import normalize_name, normalize_surface
+except Exception:
+    def normalize_name(value: Any) -> str:
+        return " ".join(str(value or "").strip().lower().split())
+
+    def normalize_surface(value: Any) -> str:
+        text = str(value or "").lower()
+        if "clay" in text:
+            return "Clay"
+        if "grass" in text:
+            return "Grass"
+        if "hard" in text or "indoor" in text or "carpet" in text:
+            return "Hard"
+        return "Unknown"
+
+
+API_PRO_HOST = "tennisapi1.p.rapidapi.com"
+API_PRO_BASE_URL = "https://tennisapi1.p.rapidapi.com"
+API_PRO_TIMEOUT = 20
+API_CACHE_DIR = Path("thinq/data/players/previous_matches")
+API_CACHE_TTL_SECONDS = 60 * 60 * 24 * 7
+API_MAX_PAGES = 2
+API_MIN_USABLE_MATCHES = 20
+API_MIN_SURFACE_MATCHES = 8
 
 
 def clamp(value: float, low: float, high: float) -> float:
@@ -22,26 +41,11 @@ def clamp(value: float, low: float, high: float) -> float:
 
 
 def _fmt_record(wins: int, total: int) -> str:
-    if total <= 0:
-        return "N/A"
-    return f"{wins}-{total - wins}"
+    return "N/A" if total <= 0 else f"{wins}-{total - wins}"
 
 
 def _win_pct(wins: int, total: int) -> Optional[float]:
-    if total <= 0:
-        return None
-    return round(wins / total, 4)
-
-
-
-
-API_PRO_HOST = "tennisapi1.p.rapidapi.com"
-API_PRO_BASE_URL = "https://tennisapi1.p.rapidapi.com"
-API_PRO_TIMEOUT = 20
-API_RECENT_FORM_CACHE_DIR = Path("data/api_pro/team_last_matches")
-API_RECENT_FORM_CACHE_TTL_SECONDS = 60 * 60 * 6
-STALE_FORM_DAYS = 30
-AGING_FORM_DAYS = 21
+    return round(wins / total, 4) if total > 0 else None
 
 
 def _api_key() -> str:
@@ -56,199 +60,99 @@ def _headers() -> Dict[str, str]:
     }
 
 
-def _cache_path(team_id: Any, page: int = 0) -> Path:
-    API_RECENT_FORM_CACHE_DIR.mkdir(parents=True, exist_ok=True)
-    return API_RECENT_FORM_CACHE_DIR / f"{team_id}_last_{page}.json"
+def _cache_path(player_id: Any, page: int) -> Path:
+    API_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    return API_CACHE_DIR / f"{player_id}_{page}.json"
 
 
-def _read_cache(path: Path) -> Optional[Any]:
+def _read_cache(path: Path) -> Optional[Dict[str, Any]]:
     try:
-        if not path.exists():
-            return None
         payload = json.loads(path.read_text(encoding="utf-8"))
-        if time.time() - float(payload.get("saved_at", 0)) > API_RECENT_FORM_CACHE_TTL_SECONDS:
+        if time.time() - float(payload.get("saved_at", 0)) > API_CACHE_TTL_SECONDS:
             return None
-        return payload.get("data")
+        data = payload.get("data")
+        return data if isinstance(data, dict) else None
     except Exception:
         return None
 
 
-def _write_cache(path: Path, data: Any) -> None:
+def _write_cache(path: Path, data: Dict[str, Any]) -> None:
     try:
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps({"saved_at": time.time(), "data": data}, ensure_ascii=False, indent=2), encoding="utf-8")
+        path.write_text(
+            json.dumps({"saved_at": time.time(), "data": data}, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
     except Exception:
         pass
+
+
+def _fetch_page(player_id: Any, page: int, force_refresh: bool = False) -> Dict[str, Any]:
+    if player_id in (None, ""):
+        return {"status": "NO_PLAYER_ID", "events": [], "page": page}
+    path = _cache_path(player_id, page)
+    if not force_refresh:
+        cached = _read_cache(path)
+        if cached is not None:
+            cached.setdefault("from_cache", True)
+            cached.setdefault("cache_path", str(path))
+            return cached
+    if not _api_key():
+        return {"status": "NO_API_KEY", "events": [], "page": page, "cache_path": str(path)}
+    endpoint = f"{API_PRO_BASE_URL}/api/tennis/player/{player_id}/events/previous/{page}"
+    try:
+        response = requests.get(endpoint, headers=_headers(), timeout=API_PRO_TIMEOUT)
+        if response.status_code == 429:
+            return {
+                "status": "RATE_LIMITED",
+                "events": [],
+                "page": page,
+                "api_status_code": 429,
+                "endpoint": endpoint,
+                "cache_path": str(path),
+            }
+        response.raise_for_status()
+        payload = response.json()
+        events = payload.get("events", []) if isinstance(payload, dict) else []
+        result = {
+            "status": "OK",
+            "events": events if isinstance(events, list) else [],
+            "has_next_page": bool(payload.get("hasNextPage")) if isinstance(payload, dict) else False,
+            "page": page,
+            "api_status_code": response.status_code,
+            "endpoint": endpoint,
+            "cache_path": str(path),
+            "from_cache": False,
+        }
+        _write_cache(path, result)
+        return result
+    except Exception as exc:
+        return {
+            "status": "FETCH_FAILED",
+            "events": [],
+            "page": page,
+            "error": str(exc),
+            "endpoint": endpoint,
+            "cache_path": str(path),
+        }
 
 
 def _parse_date(value: Any) -> Optional[datetime]:
     if value in (None, ""):
         return None
-    if isinstance(value, (int, float)):
-        try:
-            # API timestamps are seconds.
-            v = float(value)
-            if v > 10_000_000_000:
-                v = v / 1000.0
-            return datetime.fromtimestamp(v, tz=timezone.utc)
-        except Exception:
-            return None
-    text = str(value).strip()
-    if not text:
-        return None
     try:
-        if text.endswith("Z"):
-            text = text[:-1] + "+00:00"
+        if isinstance(value, (int, float)) or str(value).isdigit():
+            number = float(value)
+            if number > 10_000_000_000:
+                number /= 1000.0
+            return datetime.fromtimestamp(number, tz=timezone.utc)
+        text = str(value).strip().replace("Z", "+00:00")
         dt = datetime.fromisoformat(text)
         if dt.tzinfo is None:
             dt = dt.replace(tzinfo=timezone.utc)
         return dt.astimezone(timezone.utc)
     except Exception:
         return None
-
-
-def _date_str(dt: Optional[datetime]) -> Optional[str]:
-    return dt.date().isoformat() if dt else None
-
-
-def _days_old(last_date: Optional[str], match_date: Optional[Any]) -> Optional[int]:
-    if not last_date:
-        return None
-    left = _parse_date(last_date)
-    right = _parse_date(match_date) or datetime.now(timezone.utc)
-    if not left:
-        try:
-            left = datetime.fromisoformat(str(last_date)).replace(tzinfo=timezone.utc)
-        except Exception:
-            return None
-    return max((right.date() - left.date()).days, 0)
-
-
-def _freshness_status(days: Optional[int]) -> str:
-    if days is None:
-        return "UNKNOWN"
-    if days <= AGING_FORM_DAYS:
-        return "FRESH"
-    if days <= STALE_FORM_DAYS:
-        return "AGING"
-    return "STALE"
-
-
-def _iter_events(obj: Any) -> List[Dict[str, Any]]:
-    out: List[Dict[str, Any]] = []
-    if isinstance(obj, dict):
-        if isinstance(obj.get("homeTeam"), dict) and isinstance(obj.get("awayTeam"), dict):
-            out.append(obj)
-        for value in obj.values():
-            out.extend(_iter_events(value))
-    elif isinstance(obj, list):
-        for item in obj:
-            out.extend(_iter_events(item))
-    return out
-
-
-def _fetch_team_last_matches(team_id: Any, page: int = 0, force_refresh: bool = False) -> Dict[str, Any]:
-    if team_id in (None, ""):
-        return {"status": "NO_TEAM_ID", "events": []}
-    path = _cache_path(team_id, page)
-    if not force_refresh:
-        cached = _read_cache(path)
-        if isinstance(cached, dict):
-            cached.setdefault("from_cache", True)
-            cached.setdefault("cache_path", str(path))
-            return cached
-    if not _api_key():
-        return {"status": "NO_API_KEY", "events": [], "cache_path": str(path)}
-
-    # RapidAPI TennisApi endpoint confirmed in the playground as:
-    # Players -> getPreviousPlayerMatches, params: id, page.
-    # The exact generated path can vary between API wrapper releases, so we try
-    # the player/previous variants first and keep the older Sofascore-style
-    # team/last paths as fallbacks. A response with real events wins.
-    urls = [
-        f"{API_PRO_BASE_URL}/api/tennis/player/{team_id}/matches/previous/{page}",
-        f"{API_PRO_BASE_URL}/api/tennis/player/{team_id}/events/previous/{page}",
-        f"{API_PRO_BASE_URL}/api/tennis/player/{team_id}/previous-matches/{page}",
-        f"{API_PRO_BASE_URL}/api/tennis/player/{team_id}/matches/last/{page}",
-        f"{API_PRO_BASE_URL}/api/tennis/player/{team_id}/events/last/{page}",
-        f"{API_PRO_BASE_URL}/api/tennis/team/{team_id}/matches/previous/{page}",
-        f"{API_PRO_BASE_URL}/api/tennis/team/{team_id}/events/previous/{page}",
-        f"{API_PRO_BASE_URL}/api/tennis/team/{team_id}/events/last/{page}",
-        f"{API_PRO_BASE_URL}/api/tennis/team/{team_id}/matches/last/{page}",
-    ]
-    last_error = None
-    best_result = None
-    attempts = []
-    for url in urls:
-        try:
-            response = requests.get(url, headers=_headers(), timeout=API_PRO_TIMEOUT)
-            status = response.status_code
-            attempts.append({"endpoint": url, "status_code": status})
-            if status == 429:
-                return {
-                    "status": "RATE_LIMITED",
-                    "events": [],
-                    "api_status_code": status,
-                    "cache_path": str(path),
-                    "endpoint": url,
-                    "endpoint_attempts": attempts,
-                }
-            if status == 404:
-                last_error = f"HTTP 404: {url}"
-                continue
-            response.raise_for_status()
-            payload = response.json()
-            events = _iter_events(payload)
-            result = {
-                "status": "OK",
-                "endpoint": url,
-                "api_status_code": status,
-                "payload": payload,
-                "events": events,
-                "event_count": len(events),
-                "from_cache": False,
-                "cache_path": str(path),
-                "endpoint_attempts": attempts,
-            }
-            if len(events) > 0:
-                _write_cache(path, result)
-                return result
-            # Keep an OK zero-event payload as a last resort, but continue
-            # probing because some paths return metadata without matches.
-            if best_result is None:
-                best_result = result
-        except Exception as exc:
-            last_error = str(exc)
-            attempts.append({"endpoint": url, "error": last_error})
-            continue
-    if best_result is not None:
-        _write_cache(path, best_result)
-        return best_result
-    return {
-        "status": "FETCH_FAILED",
-        "events": [],
-        "error": last_error,
-        "cache_path": str(path),
-        "endpoint_attempts": attempts,
-    }
-
-
-def _event_surface(event: Dict[str, Any]) -> Optional[str]:
-    tournament = event.get("tournament") if isinstance(event.get("tournament"), dict) else {}
-    unique = tournament.get("uniqueTournament") if isinstance(tournament.get("uniqueTournament"), dict) else {}
-    return event.get("groundType") or tournament.get("groundType") or unique.get("groundType") or event.get("surface")
-
-
-def _event_dt(event: Dict[str, Any]) -> Optional[datetime]:
-    return _parse_date(event.get("startTimestamp") or event.get("startTime") or event.get("match_start"))
-
-
-def _is_finished(event: Dict[str, Any]) -> bool:
-    status = event.get("status") if isinstance(event.get("status"), dict) else {}
-    stype = str(status.get("type") or event.get("status_type") or "").lower()
-    code = status.get("code", event.get("status_code"))
-    desc = str(status.get("description") or "").lower()
-    return stype in {"finished", "ended"} or code == 100 or "finished" in desc
 
 
 def _team_id(team: Any) -> Optional[Any]:
@@ -258,229 +162,233 @@ def _team_id(team: Any) -> Optional[Any]:
 
 
 def _team_name(team: Any) -> str:
-    if not isinstance(team, dict):
-        return ""
-    return str(team.get("name") or team.get("shortName") or "")
+    return str(team.get("name") or team.get("shortName") or "") if isinstance(team, dict) else ""
+
+
+def _surface(event: Dict[str, Any]) -> str:
+    tournament = event.get("tournament") if isinstance(event.get("tournament"), dict) else {}
+    unique = tournament.get("uniqueTournament") if isinstance(tournament.get("uniqueTournament"), dict) else {}
+    return normalize_surface(event.get("groundType") or unique.get("groundType") or tournament.get("groundType"))
+
+
+def _is_usable_finished_singles(event: Dict[str, Any]) -> bool:
+    status = event.get("status") if isinstance(event.get("status"), dict) else {}
+    if str(status.get("type") or "").lower() != "finished":
+        return False
+    description = str(status.get("description") or "").lower()
+    if any(x in description for x in ("retired", "walkover", "canceled", "cancelled", "postponed", "abandoned")):
+        return False
+    filters = event.get("eventFilters") if isinstance(event.get("eventFilters"), dict) else {}
+    categories = [str(x).lower() for x in (filters.get("category") or [])]
+    return not categories or "singles" in categories
 
 
 def _winner_side(event: Dict[str, Any]) -> Optional[str]:
-    code = event.get("winnerCode") or event.get("winner_code")
     try:
-        code = int(code)
-        if code == 1:
-            return "HOME"
-        if code == 2:
-            return "AWAY"
-    except Exception:
-        pass
-    home_score = event.get("homeScore") if isinstance(event.get("homeScore"), dict) else {}
-    away_score = event.get("awayScore") if isinstance(event.get("awayScore"), dict) else {}
-    try:
-        h = int(home_score.get("current"))
-        a = int(away_score.get("current"))
-        if h > a:
-            return "HOME"
-        if a > h:
-            return "AWAY"
+        code = int(event.get("winnerCode"))
+        return "HOME" if code == 1 else "AWAY" if code == 2 else None
     except Exception:
         return None
-    return None
 
 
-def _api_history_matches(team_id: Any, player_name: str, surface: Optional[str], current_event_id: Any = None, current_match_start: Any = None, force_refresh: bool = False) -> Dict[str, Any]:
-    result = _fetch_team_last_matches(team_id, page=0, force_refresh=force_refresh)
-    events = result.get("events") or []
+def _normalize_events(
+    events: List[Dict[str, Any]],
+    player_id: Any,
+    player_name: str,
+    current_event_id: Any,
+    current_match_start: Any,
+) -> List[Dict[str, Any]]:
+    player_key = normalize_name(player_name)
     current_dt = _parse_date(current_match_start)
-    surface_norm = normalize_surface(surface)
-    normalized_player = normalize_name(player_name)
     matches: List[Dict[str, Any]] = []
-
+    seen: set[str] = set()
     for event in events:
-        if not isinstance(event, dict):
+        if not isinstance(event, dict) or not _is_usable_finished_singles(event):
             continue
         event_id = event.get("id")
-        if current_event_id is not None and str(event_id) == str(current_event_id):
+        event_key = str(event_id or event.get("customId") or "")
+        if not event_key or event_key in seen or (current_event_id is not None and event_key == str(current_event_id)):
             continue
-        if not _is_finished(event):
-            continue
-        dt = _event_dt(event)
+        dt = _parse_date(event.get("startTimestamp"))
         if current_dt and dt and dt >= current_dt:
             continue
-        home = event.get("homeTeam") or {}
-        away = event.get("awayTeam") or {}
-        home_id = _team_id(home)
-        away_id = _team_id(away)
-        home_name = _team_name(home)
-        away_name = _team_name(away)
-        is_home = str(home_id) == str(team_id) or normalize_name(home_name) == normalized_player
-        is_away = str(away_id) == str(team_id) or normalize_name(away_name) == normalized_player
+        home = event.get("homeTeam") if isinstance(event.get("homeTeam"), dict) else {}
+        away = event.get("awayTeam") if isinstance(event.get("awayTeam"), dict) else {}
+        is_home = str(_team_id(home)) == str(player_id) or normalize_name(_team_name(home)) == player_key
+        is_away = str(_team_id(away)) == str(player_id) or normalize_name(_team_name(away)) == player_key
         if not is_home and not is_away:
             continue
         winner = _winner_side(event)
-        won = (winner == "HOME" and is_home) or (winner == "AWAY" and is_away)
-        opp_name = away_name if is_home else home_name
+        if winner is None:
+            continue
+        opponent_team = away if is_home else home
+        opponent_rank = opponent_team.get("ranking")
+        try:
+            opponent_rank = int(opponent_rank) if opponent_rank not in (None, "", 0) else None
+        except Exception:
+            opponent_rank = None
         matches.append({
-            "date": _date_str(dt),
+            "date": dt.date().isoformat() if dt else None,
             "timestamp": dt.timestamp() if dt else 0,
-            "surface": normalize_surface(_event_surface(event)),
-            "won": bool(won),
-            "opponent": opp_name,
-            "opponent_rank": None,
+            "surface": _surface(event),
+            "won": (winner == "HOME" and is_home) or (winner == "AWAY" and is_away),
+            "opponent": _team_name(opponent_team),
+            "opponent_rank": opponent_rank,
             "event_id": event_id,
         })
-    matches.sort(key=lambda item: item.get("timestamp") or 0, reverse=True)
+        seen.add(event_key)
+    matches.sort(key=lambda x: float(x.get("timestamp") or 0), reverse=True)
+    return matches
+
+
+def _api_history(
+    player_id: Any,
+    player_name: str,
+    surface: Any,
+    current_event_id: Any,
+    current_match_start: Any,
+    force_refresh: bool,
+) -> Dict[str, Any]:
+    requested_surface = normalize_surface(surface)
+    pages: List[Dict[str, Any]] = []
+    raw_events: List[Dict[str, Any]] = []
+    first = _fetch_page(player_id, 0, force_refresh=force_refresh)
+    pages.append(first)
+    raw_events.extend(first.get("events") or [])
+    matches = _normalize_events(raw_events, player_id, player_name, current_event_id, current_match_start)
+    surface_count = sum(1 for item in matches if normalize_surface(item.get("surface")) == requested_surface)
+    needs_page_1 = (
+        first.get("status") == "OK"
+        and first.get("has_next_page")
+        and (len(matches) < API_MIN_USABLE_MATCHES or surface_count < API_MIN_SURFACE_MATCHES)
+    )
+    if needs_page_1 and API_MAX_PAGES > 1:
+        second = _fetch_page(player_id, 1, force_refresh=force_refresh)
+        pages.append(second)
+        raw_events.extend(second.get("events") or [])
+        matches = _normalize_events(raw_events, player_id, player_name, current_event_id, current_match_start)
+    statuses = [str(page.get("status") or "") for page in pages]
+    status = "OK" if matches else ("RATE_LIMITED" if "RATE_LIMITED" in statuses else statuses[-1] if statuses else "NO_DATA")
     return {
-        "status": result.get("status"),
-        "source": "rapidapi_team_last_matches",
-        "team_id": team_id,
-        "api_event_count": len(events),
-        "usable_match_count": len(matches),
-        "endpoint": result.get("endpoint"),
-        "cache_path": result.get("cache_path"),
+        "status": status,
+        "source": "API_PRO_GET_PREVIOUS_PLAYER_MATCHES",
         "matches": matches,
-        "surface": surface_norm,
-        "error": result.get("error"),
+        "api_event_count": len(raw_events),
+        "usable_match_count": len(matches),
+        "pages_fetched": len(pages),
+        "page_statuses": statuses,
+        "endpoints": [page.get("endpoint") for page in pages if page.get("endpoint")],
+        "cache_paths": [page.get("cache_path") for page in pages if page.get("cache_path")],
     }
 
 
-def _summarize_api_sample(sample: List[Dict[str, Any]]) -> Dict[str, Any]:
+def _empty_player_stats(player: str, surface: Any, level: Any) -> Dict[str, Any]:
+    empty = {"count": 0, "wins": 0, "losses": 0, "record": "N/A", "win_pct": None, "avg_opponent_rank": None, "last_match_date": None}
+    return {
+        "player": player,
+        "normalized_player": normalize_name(player),
+        "total_history_matches": 0,
+        "last5": dict(empty),
+        "last10": dict(empty),
+        "surface": normalize_surface(surface),
+        "surface_last10": dict(empty),
+        "level": level,
+        "level_last10": dict(empty),
+    }
+
+
+def _summarize(sample: List[Dict[str, Any]]) -> Dict[str, Any]:
     wins = sum(1 for item in sample if item.get("won") is True)
+    ranks = [int(item["opponent_rank"]) for item in sample if item.get("opponent_rank") not in (None, "", 0)]
     total = len(sample)
     return {
         "count": total,
         "wins": wins,
-        "losses": max(total - wins, 0),
+        "losses": total - wins,
         "record": _fmt_record(wins, total),
         "win_pct": _win_pct(wins, total),
-        "avg_opponent_rank": None,
+        "avg_opponent_rank": round(sum(ranks) / len(ranks), 1) if ranks else None,
+        "opponent_rank_count": len(ranks),
         "last_match_date": sample[0].get("date") if sample else None,
     }
 
 
-def _api_player_windows(player: str, surface: Optional[str], api_ctx: Dict[str, Any], level: Optional[str] = None) -> Dict[str, Any]:
-    matches = api_ctx.get("matches") or []
+def _player_windows(player: str, surface: Any, level: Any, context: Dict[str, Any]) -> Dict[str, Any]:
+    matches = context.get("matches") or []
     surface_norm = normalize_surface(surface)
-    last5 = matches[:5]
-    last10 = matches[:10]
-    surface_matches = [m for m in matches if normalize_surface(m.get("surface")) == surface_norm][:10]
-    empty = _empty_player_stats(player, surface, level)
+    surface_matches = [item for item in matches if normalize_surface(item.get("surface")) == surface_norm]
     return {
-        **empty,
+        **_empty_player_stats(player, surface, level),
         "total_history_matches": len(matches),
-        "last5": _summarize_api_sample(last5),
-        "last10": _summarize_api_sample(last10),
-        "surface_last10": _summarize_api_sample(surface_matches),
-        "api_status": api_ctx.get("status"),
-        "api_event_count": api_ctx.get("api_event_count"),
-        "api_usable_match_count": api_ctx.get("usable_match_count"),
-        "api_endpoint": api_ctx.get("endpoint"),
-        "api_cache_path": api_ctx.get("cache_path"),
-    }
-
-def _empty_player_stats(player: str, surface: Optional[str], level: Optional[str] = None) -> Dict[str, Any]:
-    surface_norm = normalize_surface(surface)
-    key = normalize_name(player)
-    empty_window = {
-        "count": 0,
-        "wins": 0,
-        "losses": 0,
-        "record": "N/A",
-        "win_pct": None,
-        "avg_opponent_rank": None,
-        "last_match_date": None,
-    }
-    return {
-        "player": player,
-        "normalized_player": key,
-        "total_history_matches": 0,
-        "last5": dict(empty_window),
-        "last10": dict(empty_window),
-        "surface": surface_norm,
-        "surface_last10": dict(empty_window),
-        "level": level or None,
-        "level_last10": dict(empty_window),
+        "last5": _summarize(matches[:5]),
+        "last10": _summarize(matches[:10]),
+        "surface_last10": _summarize(surface_matches[:10]),
+        "api_status": context.get("status"),
+        "api_event_count": context.get("api_event_count"),
+        "api_usable_match_count": context.get("usable_match_count"),
+        "api_pages_fetched": context.get("pages_fetched"),
+        "api_endpoints": context.get("endpoints"),
+        "api_cache_paths": context.get("cache_paths"),
     }
 
 
-def _player_windows(player: str, surface: Optional[str], level: Optional[str] = None) -> Dict[str, Any]:
-    key = normalize_name(player)
-    matches = get_player_matches(player)
-    surface_norm = normalize_surface(surface)
-    level_norm = str(level or "").strip().lower()
-
-    def summarize(sample: List[HistoryMatch]) -> Dict[str, Any]:
-        wins = sum(1 for m in sample if m.player_won(key) is True)
-        total = len(sample)
-        opp_ranks = [m.opponent_rank_for(key) for m in sample if m.opponent_rank_for(key) is not None]
-        return {
-            "count": total,
-            "wins": wins,
-            "losses": max(total - wins, 0),
-            "record": _fmt_record(wins, total),
-            "win_pct": _win_pct(wins, total),
-            "avg_opponent_rank": round(sum(opp_ranks) / len(opp_ranks), 1) if opp_ranks else None,
-            "last_match_date": sample[0].date if sample else None,
-        }
-
-    last5 = matches[:5]
-    last10 = matches[:10]
-    surface_matches = [m for m in matches if normalize_surface(m.surface) == surface_norm][:10]
-    level_matches = [m for m in matches if level_norm and str(m.level or "").strip().lower() == level_norm][:10]
-
-    return {
-        "player": player,
-        "normalized_player": key,
-        "total_history_matches": len(matches),
-        "last5": summarize(last5),
-        "last10": summarize(last10),
-        "surface": surface_norm,
-        "surface_last10": summarize(surface_matches),
-        "level": level or None,
-        "level_last10": summarize(level_matches),
-    }
+def _diff(a: Optional[float], b: Optional[float]) -> float:
+    return float(a) - float(b) if a is not None and b is not None else 0.0
 
 
-def _diff_pct(a: Optional[float], b: Optional[float]) -> float:
-    if a is None or b is None:
+def _quality_edge(pick_stats: Dict[str, Any], opponent_stats: Dict[str, Any]) -> float:
+    pick_rank = pick_stats.get("last10", {}).get("avg_opponent_rank")
+    opponent_rank = opponent_stats.get("last10", {}).get("avg_opponent_rank")
+    if pick_rank is None or opponent_rank is None:
         return 0.0
-    return float(a) - float(b)
+    return round(clamp((float(opponent_rank) - float(pick_rank)) / 10000.0, -0.03, 0.03), 4)
 
 
-def _quality_edge(pick_stats: Dict[str, Any], opp_stats: Dict[str, Any]) -> float:
-    p_rank = pick_stats.get("last10", {}).get("avg_opponent_rank")
-    o_rank = opp_stats.get("last10", {}).get("avg_opponent_rank")
-    if p_rank is None or o_rank is None:
-        return 0.0
-    diff = float(o_rank) - float(p_rank)
-    return round(clamp(diff / 10000.0, -0.03, 0.03), 4)
-
-
-def _confidence(pick_stats: Dict[str, Any], opp_stats: Dict[str, Any]) -> float:
-    p_total = pick_stats.get("last10", {}).get("count") or 0
-    o_total = opp_stats.get("last10", {}).get("count") or 0
-    p_surface = pick_stats.get("surface_last10", {}).get("count") or 0
-    o_surface = opp_stats.get("surface_last10", {}).get("count") or 0
-
+def _confidence(pick_stats: Dict[str, Any], opponent_stats: Dict[str, Any]) -> float:
+    p_total = int(pick_stats.get("last10", {}).get("count") or 0)
+    o_total = int(opponent_stats.get("last10", {}).get("count") or 0)
+    p_surface = int(pick_stats.get("surface_last10", {}).get("count") or 0)
+    o_surface = int(opponent_stats.get("surface_last10", {}).get("count") or 0)
+    rank_quality = (
+        int(pick_stats.get("last10", {}).get("opponent_rank_count") or 0) >= 5
+        and int(opponent_stats.get("last10", {}).get("opponent_rank_count") or 0) >= 5
+    )
     base = min((p_total + o_total) / 20.0, 1.0) * 0.55
-    surface_score = min((p_surface + o_surface) / 12.0, 1.0) * 0.30
-    quality = 0.15 if (
-        pick_stats.get("last10", {}).get("avg_opponent_rank") is not None
-        and opp_stats.get("last10", {}).get("avg_opponent_rank") is not None
-    ) else 0.0
-
+    surface_score = min((p_surface + o_surface) / 16.0, 1.0) * 0.30
+    quality = 0.15 if rank_quality else 0.0
     return round(clamp(base + surface_score + quality, 0.0, 0.95), 4)
 
 
-def _sample_audit(pick_stats: Dict[str, Any], opp_stats: Dict[str, Any], status: str, reason: str = "") -> Dict[str, Any]:
+def _no_data_response(pick: str, opponent: str, surface: Any, level: Any, pick_api: Dict[str, Any], opponent_api: Dict[str, Any]) -> Dict[str, Any]:
+    reason = "API PRO previous-player history is unavailable for one or both players"
     return {
-        "status": status,
+        "status": "NO_DATA",
+        "source": "API_PRO_GET_PREVIOUS_PLAYER_MATCHES",
+        "source_policy": "API_PRO_ONLY_NO_LOCAL_HISTORY_FALLBACK",
+        "surface": normalize_surface(surface),
+        "level": level,
         "reason": reason,
-        "pick_last10_count": pick_stats.get("last10", {}).get("count", 0),
-        "opponent_last10_count": opp_stats.get("last10", {}).get("count", 0),
-        "pick_surface_count": pick_stats.get("surface_last10", {}).get("count", 0),
-        "opponent_surface_count": opp_stats.get("surface_last10", {}).get("count", 0),
-        "pick_total_history_matches": pick_stats.get("total_history_matches", 0),
-        "opponent_total_history_matches": opp_stats.get("total_history_matches", 0),
+        "pick": _empty_player_stats(pick, surface, level),
+        "opponent": _empty_player_stats(opponent, surface, level),
+        "recent_form_edge": 0.0,
+        "short_form_edge": 0.0,
+        "surface_recent_form_edge": 0.0,
+        "opponent_quality_edge": 0.0,
+        "effective_recent_form_edge": 0.0,
+        "effective_short_form_edge": 0.0,
+        "effective_surface_recent_form_edge": 0.0,
+        "effective_opponent_quality_edge": 0.0,
+        "form_confidence": 0.0,
+        "form_data_depth": 0.0,
+        "recent_form_freshness_status": "API_UNAVAILABLE",
+        "pick_api_status": pick_api.get("status"),
+        "opponent_api_status": opponent_api.get("status"),
+        "pick_api_event_count": pick_api.get("api_event_count", 0),
+        "opponent_api_event_count": opponent_api.get("api_event_count", 0),
+        "pick_api_usable_match_count": pick_api.get("usable_match_count", 0),
+        "opponent_api_usable_match_count": opponent_api.get("usable_match_count", 0),
+        "flags": ["RECENT_FORM_NO_API_DATA"],
+        "history_status": {"status": "DISABLED", "source_policy": "API_PRO_ONLY_NO_LOCAL_HISTORY_FALLBACK"},
     }
 
 
@@ -490,195 +398,96 @@ def build_recent_form_context(
     surface: Optional[str] = None,
     level: Optional[str] = None,
     *_args: Any,
-    **_kwargs: Any,
+    **kwargs: Any,
 ) -> Dict[str, Any]:
-    """Build a side-safe recent-form context for ThinQ.
+    pick_id = kwargs.get("pick_player_id") or kwargs.get("pick_team_id")
+    opponent_id = kwargs.get("opponent_player_id") or kwargs.get("opponent_team_id")
+    current_event_id = kwargs.get("event_id")
+    current_match_start = kwargs.get("match_start") or kwargs.get("start_time") or kwargs.get("as_of_date")
+    force_refresh = bool(kwargs.get("force_refresh_api_recent_form", False))
 
-    Priority:
-    1. RapidAPI team last matches when pick/opponent team IDs are available.
-    2. Local history only when it exists and is not stale.
-    3. Neutral/no-data response when neither source is usable.
-    """
-    history_status = history_data_status()
-    empty_pick_stats = _empty_player_stats(pick, surface, level)
-    empty_opp_stats = _empty_player_stats(opponent, surface, level)
+    pick_api = _api_history(pick_id, pick, surface, current_event_id, current_match_start, force_refresh)
+    opponent_api = _api_history(opponent_id, opponent, surface, current_event_id, current_match_start, force_refresh)
+    if not pick_api.get("matches") or not opponent_api.get("matches"):
+        return _no_data_response(pick, opponent, surface, level, pick_api, opponent_api)
 
-    has_local_history = bool(history_status.get("match_count"))
-    pick_stats_local = _player_windows(pick, surface, level) if has_local_history else empty_pick_stats
-    opp_stats_local = _player_windows(opponent, surface, level) if has_local_history else empty_opp_stats
-
-    pick_team_id = _kwargs.get("pick_player_id") or _kwargs.get("pick_team_id")
-    opp_team_id = _kwargs.get("opponent_player_id") or _kwargs.get("opponent_team_id")
-    current_event_id = _kwargs.get("event_id")
-    current_match_start = _kwargs.get("match_start") or _kwargs.get("start_time") or _kwargs.get("as_of_date")
-    force_api_refresh = bool(_kwargs.get("force_refresh_api_recent_form", False))
-
-    pick_api = _api_history_matches(
-        pick_team_id,
-        pick,
-        surface,
-        current_event_id=current_event_id,
-        current_match_start=current_match_start,
-        force_refresh=force_api_refresh,
-    ) if pick_team_id else {"status": "NO_TEAM_ID", "matches": [], "usable_match_count": 0}
-    opp_api = _api_history_matches(
-        opp_team_id,
-        opponent,
-        surface,
-        current_event_id=current_event_id,
-        current_match_start=current_match_start,
-        force_refresh=force_api_refresh,
-    ) if opp_team_id else {"status": "NO_TEAM_ID", "matches": [], "usable_match_count": 0}
-
-    pick_stats_api = _api_player_windows(pick, surface, pick_api, level) if int(pick_api.get("usable_match_count") or 0) > 0 else None
-    opp_stats_api = _api_player_windows(opponent, surface, opp_api, level) if int(opp_api.get("usable_match_count") or 0) > 0 else None
-
-    local_pick_days = _days_old(pick_stats_local.get("last10", {}).get("last_match_date"), current_match_start)
-    local_opp_days = _days_old(opp_stats_local.get("last10", {}).get("last_match_date"), current_match_start)
-    local_pick_freshness = _freshness_status(local_pick_days)
-    local_opp_freshness = _freshness_status(local_opp_days)
-    local_stale = local_pick_freshness == "STALE" or local_opp_freshness == "STALE"
-    api_available = bool(pick_stats_api and opp_stats_api)
-
-    if api_available:
-        pick_stats = pick_stats_api
-        opp_stats = opp_stats_api
-        form_source = "rapidapi_team_last_matches"
-        form_freshness = "API_CURRENT"
-    elif has_local_history and (pick_stats_local["last10"]["count"] > 0 or opp_stats_local["last10"]["count"] > 0):
-        pick_stats = pick_stats_local
-        opp_stats = opp_stats_local
-        form_source = "local_history"
-        form_freshness = "LOCAL_STALE" if local_stale else "LOCAL_FRESH"
-    else:
-        reason = "No usable API or local recent-form matches found"
-        return {
-            "status": "NO_DATA",
-            "source": None,
-            "surface": normalize_surface(surface),
-            "level": level,
-            "reason": reason,
-            "recent_form_edge": 0.0,
-            "short_form_edge": 0.0,
-            "surface_recent_form_edge": 0.0,
-            "opponent_quality_edge": 0.0,
-            "effective_recent_form_edge": 0.0,
-            "effective_short_form_edge": 0.0,
-            "effective_surface_recent_form_edge": 0.0,
-            "effective_opponent_quality_edge": 0.0,
-            "form_confidence": 0.0,
-            "form_data_depth": 0.0,
-            "recent_form_freshness_status": "NO_USABLE_SOURCE",
-            "pick": empty_pick_stats,
-            "opponent": empty_opp_stats,
-            "pick_last10_record": None,
-            "opponent_last10_record": None,
-            "pick_surface_record": None,
-            "opponent_surface_record": None,
-            "pick_local_last_match_date": pick_stats_local.get("last10", {}).get("last_match_date"),
-            "opponent_local_last_match_date": opp_stats_local.get("last10", {}).get("last_match_date"),
-            "pick_local_days_old": local_pick_days,
-            "opponent_local_days_old": local_opp_days,
-            "pick_api_last10_record": pick_stats_api.get("last10", {}).get("record") if pick_stats_api else None,
-            "opponent_api_last10_record": opp_stats_api.get("last10", {}).get("record") if opp_stats_api else None,
-            "pick_api_surface_record": pick_stats_api.get("surface_last10", {}).get("record") if pick_stats_api else None,
-            "opponent_api_surface_record": opp_stats_api.get("surface_last10", {}).get("record") if opp_stats_api else None,
-            "pick_api_last_match_date": pick_stats_api.get("last10", {}).get("last_match_date") if pick_stats_api else None,
-            "opponent_api_last_match_date": opp_stats_api.get("last10", {}).get("last_match_date") if opp_stats_api else None,
-            "pick_api_status": pick_api.get("status"),
-            "opponent_api_status": opp_api.get("status"),
-            "pick_api_event_count": pick_api.get("api_event_count"),
-            "opponent_api_event_count": opp_api.get("api_event_count"),
-            "pick_api_usable_match_count": pick_api.get("usable_match_count"),
-            "opponent_api_usable_match_count": opp_api.get("usable_match_count"),
-            "recent_form_sample_audit": _sample_audit(empty_pick_stats, empty_opp_stats, "NO_DATA", reason),
-            "flags": ["RECENT_FORM_NO_DATA"],
-            "history_status": history_status,
-        }
-
-    last10_diff = _diff_pct(pick_stats["last10"].get("win_pct"), opp_stats["last10"].get("win_pct"))
-    last5_diff = _diff_pct(pick_stats["last5"].get("win_pct"), opp_stats["last5"].get("win_pct"))
-    surface_diff = _diff_pct(pick_stats["surface_last10"].get("win_pct"), opp_stats["surface_last10"].get("win_pct"))
-
-    raw_recent_form_edge = round(clamp(last10_diff * 0.08, -0.05, 0.05), 4)
-    raw_short_form_edge = round(clamp(last5_diff * 0.05, -0.035, 0.035), 4)
-    raw_surface_recent_form_edge = round(clamp(surface_diff * 0.07, -0.05, 0.05), 4)
-    raw_opponent_quality_edge = _quality_edge(pick_stats, opp_stats)
-    form_confidence = _confidence(pick_stats, opp_stats)
+    pick_stats = _player_windows(pick, surface, level, pick_api)
+    opponent_stats = _player_windows(opponent, surface, level, opponent_api)
+    last10_diff = _diff(pick_stats["last10"].get("win_pct"), opponent_stats["last10"].get("win_pct"))
+    last5_diff = _diff(pick_stats["last5"].get("win_pct"), opponent_stats["last5"].get("win_pct"))
+    surface_diff = _diff(pick_stats["surface_last10"].get("win_pct"), opponent_stats["surface_last10"].get("win_pct"))
+    recent_edge = round(clamp(last10_diff * 0.08, -0.05, 0.05), 4)
+    short_edge = round(clamp(last5_diff * 0.05, -0.035, 0.035), 4)
+    surface_edge = round(clamp(surface_diff * 0.07, -0.05, 0.05), 4)
+    quality_edge = _quality_edge(pick_stats, opponent_stats)
+    confidence = _confidence(pick_stats, opponent_stats)
 
     flags: List[str] = []
-    if form_source == "local_history" and local_stale:
-        recent_form_edge = 0.0
-        short_form_edge = 0.0
-        surface_recent_form_edge = 0.0
-        opponent_quality_edge = 0.0
-        form_confidence = min(form_confidence, 0.35)
-        flags.append("RECENT_FORM_STALE_LOCAL_HISTORY")
-    else:
-        recent_form_edge = raw_recent_form_edge
-        short_form_edge = raw_short_form_edge
-        surface_recent_form_edge = raw_surface_recent_form_edge
-        opponent_quality_edge = raw_opponent_quality_edge
-
-    if pick_stats["last10"]["count"] < 3 or opp_stats["last10"]["count"] < 3:
+    if pick_stats["last10"]["count"] < 10 or opponent_stats["last10"]["count"] < 10:
         flags.append("RECENT_FORM_THIN_SAMPLE")
-    if pick_stats["surface_last10"]["count"] < 3 or opp_stats["surface_last10"]["count"] < 3:
+    if pick_stats["surface_last10"]["count"] < 5 or opponent_stats["surface_last10"]["count"] < 5:
         flags.append("SURFACE_RECENT_FORM_THIN_SAMPLE")
-    if opponent_quality_edge == 0.0:
+    if pick_stats["last10"].get("opponent_rank_count", 0) < 5 or opponent_stats["last10"].get("opponent_rank_count", 0) < 5:
         flags.append("OPPONENT_QUALITY_THIN_DATA")
-    if abs(recent_form_edge) < 0.005 and abs(surface_recent_form_edge) < 0.005:
+    if abs(recent_edge) < 0.005 and abs(surface_edge) < 0.005:
         flags.append("RECENT_FORM_NEUTRAL")
 
-    sample_audit = _sample_audit(pick_stats, opp_stats, "OK")
     return {
         "status": "OK",
-        "source": form_source,
+        "source": "API_PRO_GET_PREVIOUS_PLAYER_MATCHES",
+        "source_policy": "API_PRO_ONLY_NO_LOCAL_HISTORY_FALLBACK",
         "surface": normalize_surface(surface),
         "level": level,
         "pick": pick_stats,
-        "opponent": opp_stats,
+        "opponent": opponent_stats,
         "pick_last5_record": pick_stats["last5"]["record"],
-        "opponent_last5_record": opp_stats["last5"]["record"],
+        "opponent_last5_record": opponent_stats["last5"]["record"],
         "pick_last10_record": pick_stats["last10"]["record"],
-        "opponent_last10_record": opp_stats["last10"]["record"],
+        "opponent_last10_record": opponent_stats["last10"]["record"],
         "pick_last10_win_pct": pick_stats["last10"].get("win_pct"),
-        "opponent_last10_win_pct": opp_stats["last10"].get("win_pct"),
+        "opponent_last10_win_pct": opponent_stats["last10"].get("win_pct"),
         "pick_surface_record": pick_stats["surface_last10"]["record"],
-        "opponent_surface_record": opp_stats["surface_last10"]["record"],
+        "opponent_surface_record": opponent_stats["surface_last10"]["record"],
         "pick_surface_last10_win_pct": pick_stats["surface_last10"].get("win_pct"),
-        "opponent_surface_last10_win_pct": opp_stats["surface_last10"].get("win_pct"),
-        "raw_recent_form_edge": raw_recent_form_edge,
-        "raw_short_form_edge": raw_short_form_edge,
-        "raw_surface_recent_form_edge": raw_surface_recent_form_edge,
-        "raw_opponent_quality_edge": raw_opponent_quality_edge,
-        "recent_form_edge": recent_form_edge,
-        "short_form_edge": short_form_edge,
-        "surface_recent_form_edge": surface_recent_form_edge,
-        "opponent_quality_edge": opponent_quality_edge,
-        "effective_recent_form_edge": recent_form_edge,
-        "effective_short_form_edge": short_form_edge,
-        "effective_surface_recent_form_edge": surface_recent_form_edge,
-        "effective_opponent_quality_edge": opponent_quality_edge,
-        "form_confidence": round(form_confidence, 4),
-        "form_data_depth": round(form_confidence, 4),
-        "recent_form_freshness_status": form_freshness,
-        "pick_local_last_match_date": pick_stats_local.get("last10", {}).get("last_match_date"),
-        "opponent_local_last_match_date": opp_stats_local.get("last10", {}).get("last_match_date"),
-        "pick_local_days_old": local_pick_days,
-        "opponent_local_days_old": local_opp_days,
-        "pick_api_last10_record": pick_stats_api.get("last10", {}).get("record") if pick_stats_api else None,
-        "opponent_api_last10_record": opp_stats_api.get("last10", {}).get("record") if opp_stats_api else None,
-        "pick_api_surface_record": pick_stats_api.get("surface_last10", {}).get("record") if pick_stats_api else None,
-        "opponent_api_surface_record": opp_stats_api.get("surface_last10", {}).get("record") if opp_stats_api else None,
-        "pick_api_last_match_date": pick_stats_api.get("last10", {}).get("last_match_date") if pick_stats_api else None,
-        "opponent_api_last_match_date": opp_stats_api.get("last10", {}).get("last_match_date") if opp_stats_api else None,
+        "opponent_surface_last10_win_pct": opponent_stats["surface_last10"].get("win_pct"),
+        "raw_recent_form_edge": recent_edge,
+        "raw_short_form_edge": short_edge,
+        "raw_surface_recent_form_edge": surface_edge,
+        "raw_opponent_quality_edge": quality_edge,
+        "recent_form_edge": recent_edge,
+        "short_form_edge": short_edge,
+        "surface_recent_form_edge": surface_edge,
+        "opponent_quality_edge": quality_edge,
+        "effective_recent_form_edge": recent_edge,
+        "effective_short_form_edge": short_edge,
+        "effective_surface_recent_form_edge": surface_edge,
+        "effective_opponent_quality_edge": quality_edge,
+        "form_confidence": confidence,
+        "form_data_depth": confidence,
+        "recent_form_freshness_status": "API_CURRENT",
+        "pick_api_last10_record": pick_stats["last10"]["record"],
+        "opponent_api_last10_record": opponent_stats["last10"]["record"],
+        "pick_api_surface_record": pick_stats["surface_last10"]["record"],
+        "opponent_api_surface_record": opponent_stats["surface_last10"]["record"],
+        "pick_api_last_match_date": pick_stats["last10"].get("last_match_date"),
+        "opponent_api_last_match_date": opponent_stats["last10"].get("last_match_date"),
         "pick_api_status": pick_api.get("status"),
-        "opponent_api_status": opp_api.get("status"),
+        "opponent_api_status": opponent_api.get("status"),
         "pick_api_event_count": pick_api.get("api_event_count"),
-        "opponent_api_event_count": opp_api.get("api_event_count"),
+        "opponent_api_event_count": opponent_api.get("api_event_count"),
         "pick_api_usable_match_count": pick_api.get("usable_match_count"),
-        "opponent_api_usable_match_count": opp_api.get("usable_match_count"),
-        "recent_form_sample_audit": sample_audit,
+        "opponent_api_usable_match_count": opponent_api.get("usable_match_count"),
+        "recent_form_sample_audit": {
+            "status": "OK",
+            "pick_last10_count": pick_stats["last10"]["count"],
+            "opponent_last10_count": opponent_stats["last10"]["count"],
+            "pick_surface_count": pick_stats["surface_last10"]["count"],
+            "opponent_surface_count": opponent_stats["surface_last10"]["count"],
+            "pick_total_history_matches": pick_stats["total_history_matches"],
+            "opponent_total_history_matches": opponent_stats["total_history_matches"],
+            "pick_pages_fetched": pick_api.get("pages_fetched"),
+            "opponent_pages_fetched": opponent_api.get("pages_fetched"),
+        },
         "flags": sorted(set(flags)),
-        "history_status": history_status,
+        "history_status": {"status": "DISABLED", "source_policy": "API_PRO_ONLY_NO_LOCAL_HISTORY_FALLBACK"},
     }
