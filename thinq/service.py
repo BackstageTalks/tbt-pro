@@ -518,6 +518,8 @@ def _build_previous_matches_shape(player_id: Any, surface: Any, as_of_date: Any 
     avg_games = round(sum(float(x["games"]) for x in selected) / sample, 2) if sample else None
     avg_sets = round(sum(float(x["sets"]) for x in selected) / sample, 2) if sample else None
     tb_rate = round(sum(1 for x in selected if int(x.get("tiebreak_sets") or 0) > 0) / sample, 4) if sample else None
+    decider_rate = round(sum(1 for x in selected if int(x.get("sets") or 0) >= 3) / sample, 4) if sample else None
+    games_over_22_5_rate = round(sum(1 for x in selected if float(x.get("games") or 0) > 22.5) / sample, 4) if sample else None
     return {
         "status": status,
         "source": "API_PRO_GET_PREVIOUS_PLAYER_MATCHES",
@@ -527,6 +529,8 @@ def _build_previous_matches_shape(player_id: Any, surface: Any, as_of_date: Any 
         "average_games": avg_games if status == "OK" else None,
         "average_sets": avg_sets if status == "OK" else None,
         "tiebreak_match_rate": tb_rate if status == "OK" else None,
+        "decider_match_rate": decider_rate if status == "OK" else None,
+        "games_over_22_5_rate": games_over_22_5_rate if status == "OK" else None,
         "valid_events": len(shapes),
         "raw_events": len(events),
         "pages_fetched": len(pages),
