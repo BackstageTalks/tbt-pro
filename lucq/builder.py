@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -53,6 +54,13 @@ def _no_vig(odds_1: Any, odds_2: Any) -> Tuple[Optional[float], Optional[float],
     if total <= 0:
         return None, None, None
     return round(raw_1 / total, 6), round(raw_2 / total, 6), round(total, 6)
+
+
+def _smoothed_rate(successes: int, sample: int) -> Optional[float]:
+    """Beta(1,1) smoothing over real observations; avoids false 0%/100%."""
+    if sample <= 0:
+        return None
+    return round((int(successes) + 1.0) / (int(sample) + 2.0), 4)
 
 
 def _target_datetime(run_date: str) -> datetime:
@@ -140,12 +148,17 @@ def _build_real_shape(player_id: Any, surface: Any, as_of_date: Any, best_of: in
         return {"status": status, "sample": 0, "scope": scope, "raw_events": len(events), "pages_fetched": len(page_results)}
     average_sets = round(sum(float(item["sets"]) for item in selected) / sample, 2)
     average_games = round(sum(float(item["games"]) for item in selected) / sample, 2)
-    tb_rate = round(sum(1 for item in selected if int(item.get("tiebreak_sets") or 0) > 0) / sample, 4)
+    tb_successes = sum(1 for item in selected if int(item.get("tiebreak_sets") or 0) > 0)
     if int(best_of or 3) == 5:
-        over_sets_rate = round(sum(1 for item in selected if int(item.get("sets") or 0) >= 4) / sample, 4)
+        sets_over_successes = sum(1 for item in selected if int(item.get("sets") or 0) >= 4)
     else:
-        over_sets_rate = round(sum(1 for item in selected if int(item.get("sets") or 0) >= 3) / sample, 4)
-    games_over_rate = round(sum(1 for item in selected if float(item.get("games") or 0) > GAMES_LINE) / sample, 4)
+        sets_over_successes = sum(1 for item in selected if int(item.get("sets") or 0) >= 3)
+    games_over_successes = sum(1 for item in selected if float(item.get("games") or 0) > GAMES_LINE)
+    # All probabilities remain calculations from real observed matches. Beta(1,1)
+    # smoothing only prevents a small sample from being displayed as certain 0/100%.
+    tb_rate = _smoothed_rate(tb_successes, sample)
+    over_sets_rate = _smoothed_rate(sets_over_successes, sample)
+    games_over_rate = _smoothed_rate(games_over_successes, sample)
     return {
         "status": status,
         "sample": sample,
@@ -191,6 +204,8 @@ def _start_sort_value(row: Dict[str, Any]) -> str:
 
 
 def build_lucq_rows(run_date: str) -> List[Dict[str, Any]]:
+    # LucQ displays current API PRO ranks in the first box. Missing rank stays (X).
+    os.environ.setdefault("TENNISAPI_ATTACH_RANKINGS", "1")
     matches = fetch_daily_matches_with_odds(_target_datetime(run_date))
     rows: List[Dict[str, Any]] = []
 
@@ -257,6 +272,12 @@ def build_lucq_rows(run_date: str) -> List[Dict[str, Any]]:
             "pick_side": pick_side,
             "pick_player_id": pick_id,
             "opponent_player_id": opponent_id,
+            "player1_api_rank": match.get("player1_api_rank"),
+            "player2_api_rank": match.get("player2_api_rank"),
+            "pick_api_rank": match.get("player1_api_rank") if pick_side == "HOME" else match.get("player2_api_rank"),
+            "opponent_api_rank": match.get("player2_api_rank") if pick_side == "HOME" else match.get("player1_api_rank"),
+            "pick_api_rank_points": match.get("player1_api_rank_points") if pick_side == "HOME" else match.get("player2_api_rank_points"),
+            "opponent_api_rank_points": match.get("player2_api_rank_points") if pick_side == "HOME" else match.get("player1_api_rank_points"),
             "pick_odds": pick_odds,
             "opponent_odds": opponent_odds,
             "odds_player1": _positive_float(match.get("odds_player1")),
