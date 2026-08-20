@@ -156,4 +156,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add outputs/lucq/latest_lucq.json corq/site
           git commit -m "Update LucQ data for ${{ steps.betting-day.outputs.betting_day }}"
-          git push
+          git pull --rebase origin main
+          git push origin HEAD:main
