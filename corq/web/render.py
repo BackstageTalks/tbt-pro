@@ -7146,7 +7146,7 @@ def _lucq_metric_box(title: str, head: str, metrics: List[Tuple[str, str]]) -> s
     lines = [f'<section class="metric-box small-box lucq-box"><div class="box-head"><span>{esc(title)}</span>{head_html}</div>']
     for label, value in metrics:
         text = str(value or "")
-        rendered_value = text if text.lstrip().startswith('<span class="depth-wrap">') else esc(text)
+        rendered_value = text if ('class="depth-wrap ' in text or 'class="depth-wrap"' in text) else esc(text)
         lines.append(metric_row(label, rendered_value))
     lines.append('</section>')
     return "\n".join(lines)
