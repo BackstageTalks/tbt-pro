@@ -4,25 +4,24 @@ on:
   workflow_dispatch:
     inputs:
       betting_day:
-        description: "LucQ betting day YYYY-MM-DD; empty uses Europe/Bratislava 06:00 day"
+        description: "LucQ betting day YYYY-MM-DD; empty uses current Europe/Bratislava day"
         required: false
         default: ""
         type: string
-      overwrite_snapshot:
-        description: "Allow replacement of an existing immutable daily Top 10 snapshot"
+      commit_outputs:
+        description: "Commit LucQ output and rendered site"
         required: false
-        default: "false"
+        default: "true"
         type: choice
         options:
-          - "false"
           - "true"
+          - "false"
   repository_dispatch:
     types:
       - update-lucq-data
 
 permissions:
   contents: write
-  actions: write
 
 concurrency:
   group: update-lucq-data-${{ github.ref }}
@@ -30,23 +29,27 @@ concurrency:
 
 env:
   PYTHONUNBUFFERED: "1"
+  TZ: Europe/Bratislava
   RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
   TENNISAPI_RAPIDAPI_HOST: ${{ vars.TENNISAPI_RAPIDAPI_HOST || 'tennisapi1.p.rapidapi.com' }}
-  TENNISAPI_H2H_RAPIDAPI_HOST: ${{ vars.TENNISAPI_H2H_RAPIDAPI_HOST || 'tennis-api-atp-wta-itf.p.rapidapi.com' }}
-  TENNISAPI_H2H_STATS_ENABLED: "1"
-  TENNISAPI_H2H_NAME_FALLBACK_ENABLED: "1"
-  TENNISAPI_MAX_RPS: "4"
-  TENNISAPI_ODDS_PROVIDER_IDS: ${{ vars.TENNISAPI_ODDS_PROVIDER_IDS || '1' }}
-  LUCQ_MIN_SAMPLE: "3"
-  LUCQ_TOP_LIMIT: "10"
+  TENNISAPI_PROVIDER_IDS: ${{ vars.TENNISAPI_ODDS_PROVIDER_IDS || '1' }}
+  TENNISAPI_ATTACH_RANKINGS: "0"
+  TENNISAPI_H2H_STATS_ENABLED: "0"
+  TENNISAPI_H2H_NAME_FALLBACK_ENABLED: "0"
+  LUCQ_SOURCE_POLICY: API_PRO_ONLY
+  LUCQ_MODEL_LABEL: LucQ
+  LUCQ_SORT_FIELD: lucq_probability
+  LUCQ_SORT_DIRECTION: desc
+  LUCQ_ENABLE_TOP10_PICKS: "0"
 
 jobs:
   update-lucq:
+    name: Build LucQ API PRO data
     runs-on: ubuntu-latest
     timeout-minutes: 45
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -54,47 +57,103 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.11"
           cache: pip
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Resolve betting day
+        id: betting-day
+        shell: bash
+        env:
+          MANUAL_DAY: ${{ github.event.inputs.betting_day || '' }}
+          DISPATCH_DAY: ${{ github.event.client_payload.betting_day || '' }}
+        run: |
+          BETTING_DAY="${MANUAL_DAY:-${DISPATCH_DAY:-}}"
+          if [ -z "$BETTING_DAY" ]; then
+            BETTING_DAY="$(TZ=Europe/Bratislava date +%F)"
+          fi
+          if ! printf '%s' "$BETTING_DAY" | grep -Eq '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'; then
+            echo "Invalid betting day: $BETTING_DAY"
+            exit 1
+          fi
+          echo "betting_day=$BETTING_DAY" >> "$GITHUB_OUTPUT"
+          echo "LucQ betting day: $BETTING_DAY"
+
+      - name: Validate LucQ entrypoint
+        run: |
+          test -f lucq/builder.py || {
+            echo "Missing lucq/builder.py"
+            exit 1
+          }
 
       - name: Build LucQ API PRO data
-        env:
-          LUCQ_BETTING_DAY: ${{ inputs.betting_day || github.event.client_payload.betting_day || '' }}
-          LUCQ_OVERWRITE_SNAPSHOT: ${{ inputs.overwrite_snapshot || github.event.client_payload.overwrite_snapshot || 'false' }}
         run: |
-          set -euo pipefail
-          python -m lucq.engine
+          python lucq/builder.py \
+            --date "${{ steps.betting-day.outputs.betting_day }}" \
+            --output "outputs/lucq/latest_lucq.json"
 
-      - name: Validate LucQ outputs
+      - name: Validate LucQ output
         run: |
-          set -euo pipefail
-          test -f outputs/lucq/latest.json
-          test -f outputs/lucq/latest_top10.json
-          test -f outputs/lucq/latest_manifest.json
           python - <<'PY'
           import json
           from pathlib import Path
-          for name in ("latest.json", "latest_top10.json", "latest_manifest.json"):
-              json.loads((Path("outputs/lucq") / name).read_text(encoding="utf-8"))
-          print("LucQ outputs valid")
+
+          path = Path("outputs/lucq/latest_lucq.json")
+          if not path.exists():
+              raise SystemExit("Missing outputs/lucq/latest_lucq.json")
+
+          payload = json.loads(path.read_text(encoding="utf-8"))
+          rows = payload.get("rows") if isinstance(payload, dict) else None
+          if not isinstance(rows, list):
+              raise SystemExit("LucQ output rows must be a list")
+
+          previous = None
+          for index, row in enumerate(rows, start=1):
+              probability = row.get("lucq_probability")
+              if probability is None:
+                  raise SystemExit(f"Row {index} has no lucq_probability")
+              probability = float(probability)
+              if not 0.0 <= probability <= 1.0:
+                  raise SystemExit(f"Row {index} probability is outside 0..1")
+              if previous is not None and probability > previous + 1e-12:
+                  raise SystemExit("Rows are not sorted by LucQ probability descending")
+              previous = probability
+
+              source = " ".join(str(row.get(key) or "") for key in (
+                  "source", "data_source", "probability_source", "source_policy"
+              )).lower()
+              if "api pro" not in source and "api_pro" not in source:
+                  raise SystemExit(f"Row {index} has no API PRO provenance")
+
+          print(f"LucQ output valid: rows={len(rows)}")
           PY
 
       - name: Render web
-        run: python corq/web/render.py
-
-      - name: Commit LucQ outputs and rendered site
         run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add outputs/lucq corq/site
-          if git diff --cached --quiet; then
-            echo "No LucQ changes to commit."
+          python -m corq.web.render
+
+      - name: Upload LucQ artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lucq-data-${{ steps.betting-day.outputs.betting_day }}
+          path: outputs/lucq/latest_lucq.json
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Commit LucQ output and rendered site
+        if: ${{ github.event_name == 'repository_dispatch' || github.event.inputs.commit_outputs == 'true' }}
+        shell: bash
+        run: |
+          if git diff --quiet -- outputs/lucq/latest_lucq.json corq/site; then
+            echo "No LucQ or rendered-site changes to commit."
             exit 0
           fi
-          git commit -m "Update LucQ API PRO data"
-          git pull --rebase origin main
-          git push origin HEAD:main
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add outputs/lucq/latest_lucq.json corq/site
+          git commit -m "Update LucQ data for ${{ steps.betting-day.outputs.betting_day }}"
+          git push
