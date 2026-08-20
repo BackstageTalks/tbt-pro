@@ -2330,17 +2330,42 @@ def build_sets_games_from_match(match: Dict[str, Any], model_prediction: Optiona
 
     # Sets/Games/TB: use only real API PRO previous-match score history.
     # H2H remains an additional signal, not a prerequisite for match-shape projections.
-    serve_ctx = enriched.get("api_serve_stats") if isinstance(enriched.get("api_serve_stats"), dict) else {}
-    pick_prev_status = serve_ctx.get("api_pick_previous_matches_status") or enriched.get("api_pick_previous_matches_status")
-    opp_prev_status = serve_ctx.get("api_opp_previous_matches_status") or enriched.get("api_opp_previous_matches_status")
-    pick_prev_sample = serve_ctx.get("api_pick_previous_matches_sample") or enriched.get("api_pick_previous_matches_sample") or 0
-    opp_prev_sample = serve_ctx.get("api_opp_previous_matches_sample") or enriched.get("api_opp_previous_matches_sample") or 0
-    pick_avg_games = serve_ctx.get("api_pick_previous_average_games") or enriched.get("api_pick_previous_average_games")
-    opp_avg_games = serve_ctx.get("api_opp_previous_average_games") or enriched.get("api_opp_previous_average_games")
-    pick_avg_sets = serve_ctx.get("api_pick_previous_average_sets") or enriched.get("api_pick_previous_average_sets")
-    opp_avg_sets = serve_ctx.get("api_opp_previous_average_sets") or enriched.get("api_opp_previous_average_sets")
-    pick_tb_rate = serve_ctx.get("api_pick_previous_tiebreak_rate") or enriched.get("api_pick_previous_tiebreak_rate")
-    opp_tb_rate = serve_ctx.get("api_opp_previous_tiebreak_rate") or enriched.get("api_opp_previous_tiebreak_rate")
+    def _dict_at_path(root: Dict[str, Any], *path: str) -> Dict[str, Any]:
+        current: Any = root
+        for key in path:
+            if not isinstance(current, dict):
+                return {}
+            current = current.get(key)
+        return current if isinstance(current, dict) else {}
+
+    def _first_present_value(*values: Any) -> Any:
+        # Preserve valid numeric zero, especially a real 0.0 tiebreak rate.
+        for value in values:
+            if value is not None and value != "":
+                return value
+        return None
+
+    serve_contexts = [
+        _dict_at_path(enriched, "api_serve_stats"),
+        _dict_at_path(enriched, "thinq", "api_serve_stats"),
+        _dict_at_path(enriched, "thinq", "contexts", "api_serve_stats"),
+        _dict_at_path(enriched, "contexts", "api_serve_stats"),
+    ]
+
+    def _serve_value(key: str, default: Any = None) -> Any:
+        value = _first_present_value(*(ctx.get(key) for ctx in serve_contexts), enriched.get(key))
+        return default if value is None else value
+
+    pick_prev_status = _serve_value("api_pick_previous_matches_status")
+    opp_prev_status = _serve_value("api_opp_previous_matches_status")
+    pick_prev_sample = _serve_value("api_pick_previous_matches_sample", 0)
+    opp_prev_sample = _serve_value("api_opp_previous_matches_sample", 0)
+    pick_avg_games = _serve_value("api_pick_previous_average_games")
+    opp_avg_games = _serve_value("api_opp_previous_average_games")
+    pick_avg_sets = _serve_value("api_pick_previous_average_sets")
+    opp_avg_sets = _serve_value("api_opp_previous_average_sets")
+    pick_tb_rate = _serve_value("api_pick_previous_tiebreak_rate")
+    opp_tb_rate = _serve_value("api_opp_previous_tiebreak_rate")
 
     previous_score_history_ok = (
         str(pick_prev_status) == "OK"
@@ -2365,6 +2390,7 @@ def build_sets_games_from_match(match: Dict[str, Any], model_prediction: Optiona
             "sets_games_fallback_policy": "NO_MODEL_DEFAULT_WHEN_API_SAMPLE_MISSING",
             "sets_games_status": "OK" if sample_quality == "OK" else "LOW_SAMPLE",
             "sets_games_data_quality": sample_quality,
+            "games_data_quality": sample_quality,
             "sets_games_score_history_source": source,
             "sets_games_score_history_pick_sample": int(pick_prev_sample),
             "sets_games_score_history_opponent_sample": int(opp_prev_sample),
