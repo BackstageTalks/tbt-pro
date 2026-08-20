@@ -1294,23 +1294,39 @@ def _enrich_with_h2h_score_shape(record: Dict[str, Any]) -> Dict[str, Any]:
     - 2+ usable previous matches: use real score-derived Set/Game/TB shape.
     """
     thinq = record.get("thinq") if isinstance(record.get("thinq"), dict) else {}
-    h2h = record.get("h2h") if isinstance(record.get("h2h"), dict) else {}
-    if not h2h and isinstance(thinq.get("h2h"), dict):
-        h2h = thinq.get("h2h") or {}
+    thinq_contexts = thinq.get("contexts") if isinstance(thinq.get("contexts"), dict) else {}
+    h2h_candidates = [
+        record.get("h2h"),
+        thinq.get("h2h"),
+        thinq_contexts.get("h2h"),
+    ]
+    h2h: Dict[str, Any] = {}
+    for candidate in h2h_candidates:
+        if isinstance(candidate, dict) and candidate:
+            # Prefer the richest block, normally thinq.contexts.h2h.
+            if not h2h or candidate.get("h2h_score_shape_sample") is not None:
+                h2h = candidate
 
-    h2h_status = str(
-        h2h.get("status")
-        or record.get("thinq_h2h_status")
-        or record.get("h2h_status")
-        or "NO_DATA"
-    )
-    sample = _num(h2h.get("h2h_score_shape_sample") or record.get("h2h_score_shape_sample"))
-    raw_event_count = _num(h2h.get("h2h_raw_event_count") or record.get("h2h_raw_event_count"))
-    projected_sets = _num(h2h.get("h2h_projected_sets") or record.get("h2h_projected_sets"))
-    projected_games = _num(h2h.get("h2h_projected_games") or record.get("h2h_projected_games"))
-    tb_prob = _ratio_or_none(h2h.get("h2h_tiebreak_probability") or record.get("h2h_tiebreak_probability"))
-    decider_prob = _ratio_or_none(h2h.get("h2h_decider_probability") or record.get("h2h_decider_probability"))
-    source = str(h2h.get("h2h_score_shape_source") or record.get("h2h_score_shape_source") or "none")
+    def _first_value(*values: Any) -> Any:
+        # Zero is valid for TB/decider probability and sample counters.
+        for value in values:
+            if value is not None and value != "":
+                return value
+        return None
+
+    h2h_status = str(_first_value(
+        h2h.get("status"),
+        record.get("thinq_h2h_status"),
+        record.get("h2h_status"),
+        "NO_DATA",
+    ))
+    sample = _num(_first_value(h2h.get("h2h_score_shape_sample"), record.get("h2h_score_shape_sample")))
+    raw_event_count = _num(_first_value(h2h.get("h2h_raw_event_count"), record.get("h2h_raw_event_count")))
+    projected_sets = _num(_first_value(h2h.get("h2h_projected_sets"), record.get("h2h_projected_sets")))
+    projected_games = _num(_first_value(h2h.get("h2h_projected_games"), record.get("h2h_projected_games")))
+    tb_prob = _ratio_or_none(_first_value(h2h.get("h2h_tiebreak_probability"), record.get("h2h_tiebreak_probability")))
+    decider_prob = _ratio_or_none(_first_value(h2h.get("h2h_decider_probability"), record.get("h2h_decider_probability")))
+    source = str(_first_value(h2h.get("h2h_score_shape_source"), record.get("h2h_score_shape_source"), "none"))
 
     record["sets_games_source_policy"] = "REAL_DATA_ONLY_NO_DEFAULTS"
     record["sets_games_fallback_policy"] = "NO_MODEL_DEFAULT_WHEN_SAMPLE_MISSING"
