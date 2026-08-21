@@ -7410,8 +7410,10 @@ def _lucq_serve_box(row: Dict[str, Any]) -> str:
     df_depth = as_float(row.get("df_data_depth"))
     return _lucq_metric_box("Aces / Double faults", "", [
         ("Aces P | O | T", _lucq_triplet(row, "aces")),
+        ("Aces Total O/U", _lucq_signal(row.get("total_aces_selection"), row.get("total_aces_probability"))),
         ("Aces data depth", _lucq_depth_bar(ace_depth)),
         ("DF P | O | T", _lucq_triplet(row, "df")),
+        ("DF Total O/U", _lucq_signal(row.get("total_df_selection"), row.get("total_df_probability"))),
         ("DF data depth", _lucq_depth_bar(df_depth)),
         ("Sample P / O", serve_sample),
     ])
