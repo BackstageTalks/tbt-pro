@@ -774,6 +774,23 @@ class RapidApiClient:
         result["api_h2h_resolution"] = "NAME_ENDPOINT"
         return result
 
+    def _ranking_endpoint_templates(self) -> List[str]:
+        """Return API PRO ranking endpoints from most specific to broadest.
+
+        The direct team endpoint uses the trusted player/team ID. Tour ranking
+        endpoints are paginated and then matched conservatively by player name.
+        Operators may override the list through TENNISAPI_RANKING_ENDPOINT_TEMPLATES.
+        """
+        configured = str(os.getenv("TENNISAPI_RANKING_ENDPOINT_TEMPLATES") or "").strip()
+        if configured:
+            values = [item.strip() for item in configured.split(",") if item.strip()]
+            if values:
+                return values
+        return [
+            "/api/tennis/rankings/team/{player_id}",
+            "/api/tennis/rankings/{tour}",
+        ]
+
     def _candidate_player_ids(self, player_name: str, identity: Optional[Dict[str, Any]] = None) -> List[str]:
         """Return trusted API PRO player/team IDs from the supplied identity.
 
