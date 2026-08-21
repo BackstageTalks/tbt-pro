@@ -8,6 +8,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import math
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -179,6 +180,33 @@ def _mean(values: List[Any], digits: int = 4) -> Optional[float]:
     return round(sum(valid) / len(valid), digits) if valid else None
 
 
+def _poisson_cdf(k: int, mean: float) -> float:
+    if mean <= 0:
+        return 1.0
+    term = math.exp(-mean)
+    total = term
+    for value in range(1, max(0, int(k)) + 1):
+        term *= mean / value
+        total += term
+    return max(0.0, min(1.0, total))
+
+
+def _count_ou_selection(projection: Any) -> Dict[str, Any]:
+    """Balanced half-line call from an API PRO-derived count projection."""
+    mean = _positive_float(projection)
+    if mean is None:
+        return {"line": None, "selection": None, "probability": None, "over_probability": None}
+    line = math.floor(mean) + 0.5
+    threshold = int(math.floor(line))
+    under_probability = _poisson_cdf(threshold, mean)
+    over_probability = 1.0 - under_probability
+    if over_probability >= under_probability:
+        selection, probability = f"O{line:.1f}", over_probability
+    else:
+        selection, probability = f"U{line:.1f}", under_probability
+    return {"line": round(line, 1), "selection": selection, "probability": round(probability, 4), "over_probability": round(over_probability, 4)}
+
+
 def _side_selection(prefix: str, line: float, over_probability: Optional[float]) -> Tuple[Optional[str], Optional[float]]:
     if over_probability is None:
         return None, None
@@ -337,6 +365,15 @@ def build_lucq_rows(run_date: str) -> List[Dict[str, Any]]:
             "pick_df_projection": serve.get("pick_df_projection"),
             "opponent_df_projection": serve.get("opponent_df_projection"),
             "total_df_projection": serve.get("total_df_projection"),
+            "total_aces_line": total_aces_call.get("line"),
+            "total_aces_selection": total_aces_call.get("selection"),
+            "total_aces_probability": total_aces_call.get("probability"),
+            "total_aces_over_probability": total_aces_call.get("over_probability"),
+            "total_df_line": total_df_call.get("line"),
+            "total_df_selection": total_df_call.get("selection"),
+            "total_df_probability": total_df_call.get("probability"),
+            "total_df_over_probability": total_df_call.get("over_probability"),
+            "serve_ou_probability_model": "POISSON_FROM_API_PRO_PROJECTION",
             "aces_status": serve.get("aces_status"),
             "df_status": serve.get("df_status"),
             "lucq_data_quality": quality_label,
