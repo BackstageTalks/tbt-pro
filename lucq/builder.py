@@ -7,7 +7,10 @@ from __future__ import annotations
 
 import argparse
 import json
-from datetime import datetime
+import os
+import re
+import math
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 from zoneinfo import ZoneInfo
@@ -53,6 +56,41 @@ def _no_vig(odds_1: Any, odds_2: Any) -> Tuple[Optional[float], Optional[float],
     if total <= 0:
         return None, None, None
     return round(raw_1 / total, 6), round(raw_2 / total, 6), round(total, 6)
+
+
+def _smoothed_rate(successes: int, sample: int) -> Optional[float]:
+    """Beta(1,1) smoothing over real observations; avoids false 0%/100%."""
+    if sample <= 0:
+        return None
+    return round((int(successes) + 1.0) / (int(sample) + 2.0), 4)
+
+
+def _betting_window(run_date: str) -> Tuple[datetime, datetime]:
+    day = datetime.strptime(run_date, "%Y-%m-%d").date()
+    start = datetime.combine(day, datetime.min.time(), tzinfo=LOCAL_TZ).replace(hour=6)
+    return start, start + timedelta(days=1)
+
+
+def _parse_match_datetime(value: Any) -> Optional[datetime]:
+    text = str(value or "").strip()
+    if not text:
+        return None
+    try:
+        if re.fullmatch(r"\d{10,13}", text):
+            dt = datetime.fromtimestamp(int(text[:10]), tz=ZoneInfo("UTC"))
+        else:
+            dt = datetime.fromisoformat(text.replace("Z", "+00:00"))
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=ZoneInfo("UTC"))
+        return dt.astimezone(LOCAL_TZ)
+    except Exception:
+        return None
+
+
+def _in_betting_window(match: Dict[str, Any], run_date: str) -> bool:
+    start, end = _betting_window(run_date)
+    dt = _parse_match_datetime(match.get("match_start") or match.get("start_time") or match.get("startTimestamp"))
+    return dt is not None and start <= dt < end
 
 
 def _target_datetime(run_date: str) -> datetime:
@@ -140,12 +178,17 @@ def _build_real_shape(player_id: Any, surface: Any, as_of_date: Any, best_of: in
         return {"status": status, "sample": 0, "scope": scope, "raw_events": len(events), "pages_fetched": len(page_results)}
     average_sets = round(sum(float(item["sets"]) for item in selected) / sample, 2)
     average_games = round(sum(float(item["games"]) for item in selected) / sample, 2)
-    tb_rate = round(sum(1 for item in selected if int(item.get("tiebreak_sets") or 0) > 0) / sample, 4)
+    tb_successes = sum(1 for item in selected if int(item.get("tiebreak_sets") or 0) > 0)
     if int(best_of or 3) == 5:
-        over_sets_rate = round(sum(1 for item in selected if int(item.get("sets") or 0) >= 4) / sample, 4)
+        sets_over_successes = sum(1 for item in selected if int(item.get("sets") or 0) >= 4)
     else:
-        over_sets_rate = round(sum(1 for item in selected if int(item.get("sets") or 0) >= 3) / sample, 4)
-    games_over_rate = round(sum(1 for item in selected if float(item.get("games") or 0) > GAMES_LINE) / sample, 4)
+        sets_over_successes = sum(1 for item in selected if int(item.get("sets") or 0) >= 3)
+    games_over_successes = sum(1 for item in selected if float(item.get("games") or 0) > GAMES_LINE)
+    # All probabilities remain calculations from real observed matches. Beta(1,1)
+    # smoothing only prevents a small sample from being displayed as certain 0/100%.
+    tb_rate = _smoothed_rate(tb_successes, sample)
+    over_sets_rate = _smoothed_rate(sets_over_successes, sample)
+    games_over_rate = _smoothed_rate(games_over_successes, sample)
     return {
         "status": status,
         "sample": sample,
@@ -166,6 +209,33 @@ def _mean(values: List[Any], digits: int = 4) -> Optional[float]:
     return round(sum(valid) / len(valid), digits) if valid else None
 
 
+def _poisson_cdf(k: int, mean: float) -> float:
+    if mean <= 0:
+        return 1.0
+    term = math.exp(-mean)
+    total = term
+    for value in range(1, max(0, int(k)) + 1):
+        term *= mean / value
+        total += term
+    return max(0.0, min(1.0, total))
+
+
+def _count_ou_selection(projection: Any) -> Dict[str, Any]:
+    """Balanced half-line call from an API PRO-derived count projection."""
+    mean = _positive_float(projection)
+    if mean is None:
+        return {"line": None, "selection": None, "probability": None, "over_probability": None}
+    line = math.floor(mean) + 0.5
+    threshold = int(math.floor(line))
+    under_probability = _poisson_cdf(threshold, mean)
+    over_probability = 1.0 - under_probability
+    if over_probability >= under_probability:
+        selection, probability = f"O{line:.1f}", over_probability
+    else:
+        selection, probability = f"U{line:.1f}", under_probability
+    return {"line": round(line, 1), "selection": selection, "probability": round(probability, 4), "over_probability": round(over_probability, 4)}
+
+
 def _side_selection(prefix: str, line: float, over_probability: Optional[float]) -> Tuple[Optional[str], Optional[float]]:
     if over_probability is None:
         return None, None
@@ -173,6 +243,36 @@ def _side_selection(prefix: str, line: float, over_probability: Optional[float])
     if probability >= 0.5:
         return f"O{line:.1f}", round(probability, 4)
     return f"U{line:.1f}", round(1.0 - probability, 4)
+
+
+def _first_numeric(mapping: Dict[str, Any], *keys: str) -> Optional[float]:
+    for key in keys:
+        value = mapping.get(key)
+        number = _float(value)
+        if number is not None and number >= 0:
+            return number
+    return None
+
+
+def _serve_samples(serve: Dict[str, Any]) -> Tuple[Optional[int], Optional[int]]:
+    pick = _first_numeric(
+        serve,
+        "api_pick_serve_matches", "api_pick_matches", "pick_matches",
+        "pick_sample", "pick_sample_size", "pick_year_stats_matches",
+    )
+    opponent = _first_numeric(
+        serve,
+        "api_opp_serve_matches", "api_opponent_serve_matches", "api_opp_matches",
+        "opponent_matches", "opp_matches", "opponent_sample", "opponent_sample_size",
+        "opponent_year_stats_matches",
+    )
+    return (int(pick) if pick is not None else None, int(opponent) if opponent is not None else None)
+
+
+def _sample_depth(sample: Optional[int], target: int = 20) -> Optional[float]:
+    if sample is None:
+        return None
+    return round(max(0.0, min(1.0, float(sample) / float(target))), 4)
 
 
 def _data_quality(pick_shape: Dict[str, Any], opponent_shape: Dict[str, Any], serve: Dict[str, Any]) -> Tuple[str, float]:
@@ -191,7 +291,9 @@ def _start_sort_value(row: Dict[str, Any]) -> str:
 
 
 def build_lucq_rows(run_date: str) -> List[Dict[str, Any]]:
-    matches = fetch_daily_matches_with_odds(_target_datetime(run_date))
+    # LucQ displays current API PRO ranks in the first box. Missing rank stays (X).
+    os.environ.setdefault("TENNISAPI_ATTACH_RANKINGS", "1")
+    matches = [match for match in fetch_daily_matches_with_odds(_target_datetime(run_date)) if _in_betting_window(match, run_date)]
     rows: List[Dict[str, Any]] = []
 
     for match in matches:
@@ -238,20 +340,11 @@ def build_lucq_rows(run_date: str) -> List[Dict[str, Any]]:
             as_of_date=start,
         )
         quality_label, quality_score = _data_quality(pick_shape, opponent_shape, serve)
-
-        pick_serve_sample = int(serve.get("api_pick_serve_matches") or 0)
-        opponent_serve_sample = int(serve.get("api_opp_serve_matches") or 0)
-        pick_serve_attempts = int(serve.get("api_pick_serve_attempts") or 0)
-        opponent_serve_attempts = int(serve.get("api_opp_serve_attempts") or 0)
-        serve_match_depth = min(1.0, min(pick_serve_sample, opponent_serve_sample) / 20.0)
-        serve_attempt_depth = min(1.0, min(pick_serve_attempts, opponent_serve_attempts) / 1000.0)
-        serve_depth = round((0.55 * serve_match_depth) + (0.45 * serve_attempt_depth), 4)
-        if serve.get("api_serve_stats_status") != "OK":
-            serve_depth = min(serve_depth, 0.49)
-
-        tb_selection = None
-        if tiebreak_probability is not None:
-            tb_selection = "YES" if tiebreak_probability >= 0.5 else "NO"
+        pick_serve_sample, opponent_serve_sample = _serve_samples(serve)
+        pick_serve_depth = _sample_depth(pick_serve_sample)
+        opponent_serve_depth = _sample_depth(opponent_serve_sample)
+        ace_depth = _mean([pick_serve_depth, opponent_serve_depth])
+        df_depth = ace_depth
 
         row = {
             "model": "LucQ",
@@ -271,12 +364,20 @@ def build_lucq_rows(run_date: str) -> List[Dict[str, Any]]:
             "pick_side": pick_side,
             "pick_player_id": pick_id,
             "opponent_player_id": opponent_id,
+            "player1_api_rank": match.get("player1_api_rank"),
+            "player2_api_rank": match.get("player2_api_rank"),
+            "pick_api_rank": match.get("player1_api_rank") if pick_side == "HOME" else match.get("player2_api_rank"),
+            "opponent_api_rank": match.get("player2_api_rank") if pick_side == "HOME" else match.get("player1_api_rank"),
+            "pick_api_rank_points": match.get("player1_api_rank_points") if pick_side == "HOME" else match.get("player2_api_rank_points"),
+            "opponent_api_rank_points": match.get("player2_api_rank_points") if pick_side == "HOME" else match.get("player1_api_rank_points"),
             "pick_odds": pick_odds,
             "opponent_odds": opponent_odds,
             "odds_player1": _positive_float(match.get("odds_player1")),
             "odds_player2": _positive_float(match.get("odds_player2")),
-            "lucq_probability": winner_probability,
-            "lucq_probability_pct": round(winner_probability * 100.0, 1),
+            "winner_probability": winner_probability,
+            "winner_probability_pct": round(winner_probability * 100.0, 1),
+            "lucq_probability": None,
+            "lucq_probability_pct": None,
             "projected_sets": projected_sets,
             "sets_line": SETS_LINE,
             "sets_selection": sets_selection,
@@ -287,21 +388,23 @@ def build_lucq_rows(run_date: str) -> List[Dict[str, Any]]:
             "games_probability": games_probability,
             "tb_probability": tiebreak_probability,
             "tiebreak_probability": tiebreak_probability,
-            "tb_selection": tb_selection,
             "pick_aces_projection": serve.get("pick_aces_projection"),
             "opponent_aces_projection": serve.get("opponent_aces_projection"),
             "total_aces_projection": serve.get("total_aces_projection"),
             "pick_df_projection": serve.get("pick_df_projection"),
             "opponent_df_projection": serve.get("opponent_df_projection"),
             "total_df_projection": serve.get("total_df_projection"),
+            "total_aces_line": total_aces_call.get("line"),
+            "total_aces_selection": total_aces_call.get("selection"),
+            "total_aces_probability": total_aces_call.get("probability"),
+            "total_aces_over_probability": total_aces_call.get("over_probability"),
+            "total_df_line": total_df_call.get("line"),
+            "total_df_selection": total_df_call.get("selection"),
+            "total_df_probability": total_df_call.get("probability"),
+            "total_df_over_probability": total_df_call.get("over_probability"),
+            "serve_ou_probability_model": "POISSON_FROM_API_PRO_PROJECTION",
             "aces_status": serve.get("aces_status"),
             "df_status": serve.get("df_status"),
-            "aces_data_depth": serve_depth,
-            "df_data_depth": serve_depth,
-            "pick_serve_sample": pick_serve_sample,
-            "opponent_serve_sample": opponent_serve_sample,
-            "pick_serve_attempts": pick_serve_attempts,
-            "opponent_serve_attempts": opponent_serve_attempts,
             "lucq_data_quality": quality_label,
             "lucq_data_quality_score": quality_score,
             "pick_shape_sample": pick_shape.get("sample"),
@@ -311,6 +414,10 @@ def build_lucq_rows(run_date: str) -> List[Dict[str, Any]]:
             "shape_source": "API_PRO_GET_PREVIOUS_PLAYER_MATCHES",
             "serve_source": serve.get("api_serve_stats_source"),
             "serve_status": serve.get("api_serve_stats_status"),
+            "pick_serve_sample": pick_serve_sample,
+            "opponent_serve_sample": opponent_serve_sample,
+            "aces_data_depth": ace_depth,
+            "df_data_depth": df_depth,
             "surface": surface,
             "tournament": match.get("tournament"),
             "category": match.get("category"),
@@ -318,13 +425,93 @@ def build_lucq_rows(run_date: str) -> List[Dict[str, Any]]:
             "match_start": start,
             "start_time": start,
             "status": match.get("status_type"),
-            "betting_day": match.get("betting_day") or run_date,
+            "betting_day": run_date,
+            "betting_window_start": _betting_window(run_date)[0].isoformat(),
+            "betting_window_end": _betting_window(run_date)[1].isoformat(),
             "odds_endpoint": endpoint,
             "overround": overround,
         }
+
+        # LucQ probability is statistical, not match-winner probability.
+        # It is the strongest available confidence among Sets, Games and TB.
+        statistical_probabilities = [
+            value for value in (
+                sets_probability,
+                games_probability,
+                max(tiebreak_probability, 1.0 - tiebreak_probability) if tiebreak_probability is not None else None,
+            )
+            if value is not None
+        ]
+        lucq_probability = max(statistical_probabilities) if statistical_probabilities else None
+        signal_candidates = []
+        if sets_probability is not None:
+            signal_candidates.append((sets_probability, f"Sets {sets_selection}"))
+        if games_probability is not None:
+            signal_candidates.append((games_probability, f"Games {games_selection}"))
+        if tiebreak_probability is not None:
+            tb_side_probability = max(tiebreak_probability, 1.0 - tiebreak_probability)
+            signal_candidates.append((tb_side_probability, "TB YES" if tiebreak_probability >= 0.5 else "TB NO"))
+        best_signal = max(signal_candidates, key=lambda item: item[0]) if signal_candidates else (None, None)
+        row["lucq_probability"] = round(lucq_probability, 6) if lucq_probability is not None else None
+        row["lucq_probability_pct"] = round(lucq_probability * 100.0, 1) if lucq_probability is not None else None
+        row["lucq_best_signal"] = best_signal[1]
+        row["lucq_best_signal_probability"] = round(best_signal[0], 6) if best_signal[0] is not None else None
+
+        # The LucQ page owns its evaluation box. Actual values are populated by
+        # the LucQ settlement step when the event is finished. Until then each
+        # evaluable market is PENDING; projections without a real line remain
+        # PROJECTION_ONLY and are never presented as WON/LOST.
+        row.update({
+            "lucq_result_status": "PENDING",
+            "sets_result_status": "PENDING" if sets_selection else "N/A",
+            "games_result_status": "PENDING" if games_selection else "N/A",
+            "tb_selection": "YES" if tiebreak_probability is not None and tiebreak_probability >= 0.5 else "NO" if tiebreak_probability is not None else None,
+            "tb_result_status": "PENDING" if tiebreak_probability is not None else "N/A",
+            "aces_result_status": "PROJECTION_ONLY" if serve.get("total_aces_projection") is not None else "N/A",
+            "df_result_status": "PROJECTION_ONLY" if serve.get("total_df_projection") is not None else "N/A",
+            "actual_sets": None,
+            "actual_games": None,
+            "actual_tiebreak": None,
+            "actual_pick_aces": None,
+            "actual_opponent_aces": None,
+            "actual_total_aces": None,
+            "actual_pick_df": None,
+            "actual_opponent_df": None,
+            "actual_total_df": None,
+        })
+        signal_candidates: List[Tuple[float, str]] = []
+        if sets_probability is not None:
+            signal_candidates.append((float(sets_probability), f"Sets {sets_selection}"))
+        if games_probability is not None:
+            signal_candidates.append((float(games_probability), f"Games {games_selection}"))
+        if tiebreak_probability is not None:
+            tb_side = max(float(tiebreak_probability), 1.0 - float(tiebreak_probability))
+            signal_candidates.append((tb_side, "TB YES" if tiebreak_probability >= 0.5 else "TB NO"))
+        for probability_key, label_key in (("total_aces_probability", "Aces total"), ("total_df_probability", "DF total")):
+            value = _float(row.get(probability_key))
+            selection_value = row.get(probability_key.replace("probability", "selection"))
+            if value is not None and selection_value:
+                signal_candidates.append((value, f"{label_key} {selection_value}"))
+        best_signal = max(signal_candidates, key=lambda item: item[0]) if signal_candidates else (None, None)
+        row["winner_probability"] = winner_probability
+        row["winner_probability_pct"] = round(winner_probability * 100.0, 1)
+        row["lucq_probability"] = round(best_signal[0], 6) if best_signal[0] is not None else None
+        row["lucq_probability_pct"] = round(best_signal[0] * 100.0, 1) if best_signal[0] is not None else None
+        row["lucq_best_signal"] = best_signal[1]
+        row.update({
+            "lucq_result_status": "PENDING",
+            "sets_result_status": "PENDING" if sets_selection else "N/A",
+            "games_result_status": "PENDING" if games_selection else "N/A",
+            "tb_result_status": "PENDING" if tb_selection else "N/A",
+            "aces_result_status": "PENDING" if row.get("total_aces_selection") else "N/A",
+            "df_result_status": "PENDING" if row.get("total_df_selection") else "N/A",
+            "actual_sets": None, "actual_games": None, "actual_tiebreak": None,
+            "actual_pick_aces": None, "actual_opponent_aces": None, "actual_total_aces": None,
+            "actual_pick_df": None, "actual_opponent_df": None, "actual_total_df": None,
+        })
         rows.append(row)
 
-    rows.sort(key=lambda row: (-float(row["lucq_probability"]), _start_sort_value(row)))
+    rows.sort(key=lambda row: (-(float(row.get("lucq_probability") or 0.0)), _start_sort_value(row)))
     for index, row in enumerate(rows, start=1):
         row["lucq_rank"] = index
     return rows
@@ -345,7 +532,13 @@ def write_output(rows: List[Dict[str, Any]], output_path: str, run_date: str) ->
         "row_count": len(rows),
         "rows": rows,
     }
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    encoded = json.dumps(payload, ensure_ascii=False, indent=2)
+    path.write_text(encoded, encoding="utf-8")
+    snapshot = path.parent / "snapshots" / f"lucq_{run_date}.json"
+    snapshot.parent.mkdir(parents=True, exist_ok=True)
+    if not snapshot.exists():
+        snapshot.write_text(encoded, encoding="utf-8")
+        print(f"LUCQ IMMUTABLE SNAPSHOT: {snapshot}")
     return path
 
 
