@@ -186,34 +186,64 @@ def main() -> None:
     parser.add_argument("--date", default="", help="Optional snapshot day YYYY-MM-DD")
     parser.add_argument("--output", default="outputs/lucq/results/latest_lucq_results.json")
     args = parser.parse_args()
+
     snapshot_dir = Path("outputs/lucq/snapshots")
     if args.date:
-        requested = snapshot_dir / f"lucq_{args.date}.json"
-        paths = [requested] if requested.exists() else []
+        candidates = [snapshot_dir / f"lucq_{args.date}.json"]
     else:
-        paths = sorted(snapshot_dir.glob("lucq_*.json"))
-    latest = Path("outputs/lucq/latest_lucq.json")
-    if not paths and latest.exists():
-        print(f"No matching snapshot found; using fallback: {latest}")
-        paths = [latest]
-    if not paths:
-        raise SystemExit("No LucQ snapshot or latest_lucq.json found to settle")
-    print("LucQ settlement inputs:", ", ".join(str(path) for path in paths))
+        candidates = sorted(snapshot_dir.glob("lucq_*.json"))
+
+    existing = [path for path in candidates if path.exists()]
+    if not existing and not args.date and Path("outputs/lucq/latest_lucq.json").exists():
+        existing = [Path("outputs/lucq/latest_lucq.json")]
+
     rows_by_id: Dict[str, Dict[str, Any]] = {}
-    for path in paths:
-        for row in _load_rows(path):
+    empty_inputs: List[str] = []
+    for path in existing:
+        rows = _load_rows(path)
+        print(f"LucQ settlement input: {path} rows={len(rows)}")
+        if not rows:
+            empty_inputs.append(str(path))
+            continue
+        for row in rows:
             key = str(row.get("event_id") or row.get("match_id") or f"{row.get('pick')}|{row.get('opponent')}|{row.get('match_start')}")
             rows_by_id[key] = row
+
+    output = Path(args.output)
+    output.parent.mkdir(parents=True, exist_ok=True)
+
+    # An empty or missing historical snapshot is a valid no-data state. It must
+    # not fail the workflow or block rendering of existing LucQ Results.
     if not rows_by_id:
-        raise SystemExit("LucQ settlement input contains zero rows")
+        payload = {
+            "model": "LucQ Results",
+            "generated_at": datetime.now(LOCAL_TZ).isoformat(),
+            "requested_betting_day": args.date or None,
+            "status": "NO_ROWS",
+            "row_count": 0,
+            "input_paths": [str(path) for path in existing],
+            "empty_inputs": empty_inputs,
+            "rows": [],
+        }
+        output.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        print(f"LUCQ RESULTS: {output} rows=0 status=NO_ROWS")
+        return
+
     client = RapidApiClient()
     settled = [settle_row(row, client) for row in rows_by_id.values()]
     settled.sort(key=lambda row: str(row.get("match_start") or ""), reverse=True)
-    output = Path(args.output)
-    output.parent.mkdir(parents=True, exist_ok=True)
-    payload = {"model": "LucQ Results", "generated_at": datetime.now(LOCAL_TZ).isoformat(), "row_count": len(settled), "rows": settled}
+    payload = {
+        "model": "LucQ Results",
+        "generated_at": datetime.now(LOCAL_TZ).isoformat(),
+        "requested_betting_day": args.date or None,
+        "status": "OK",
+        "row_count": len(settled),
+        "input_paths": [str(path) for path in existing],
+        "empty_inputs": empty_inputs,
+        "rows": settled,
+    }
     output.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"LUCQ RESULTS: {output} rows={len(settled)}")
+    print(f"LUCQ RESULTS: {output} rows={len(settled)} status=OK")
 
 
 if __name__ == "__main__":
