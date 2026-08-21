@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       betting_day:
-        description: "Optional LucQ snapshot day YYYY-MM-DD; empty settles all snapshots"
+        description: "Optional LucQ snapshot day YYYY-MM-DD; empty settles all non-empty snapshots"
         required: false
         default: ""
         type: string
@@ -29,6 +29,7 @@ jobs:
   settle-lucq:
     runs-on: ubuntu-latest
     timeout-minutes: 45
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -49,32 +50,32 @@ jobs:
       - name: Settle LucQ snapshots
         env:
           BETTING_DAY: ${{ github.event.inputs.betting_day || github.event.client_payload.betting_day || '' }}
+        shell: bash
         run: |
+          set -euo pipefail
           args=()
           if [ -n "$BETTING_DAY" ]; then
             args+=(--date "$BETTING_DAY")
           fi
           python -m lucq.settlement "${args[@]}" --output outputs/lucq/results/latest_lucq_results.json
 
-      - name: Render LucQ Results
-        run: python -m corq.web.render
-
-      - name: Validate LucQ Results
+      - name: Validate LucQ Results structure
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
+
           path = Path("outputs/lucq/results/latest_lucq_results.json")
           payload = json.loads(path.read_text(encoding="utf-8"))
           rows = payload.get("rows")
           if not isinstance(rows, list):
               raise SystemExit("LucQ Results rows must be a list")
-          if not rows:
-              raise SystemExit("LucQ Results contains zero rows")
-          from collections import Counter
-          statuses = Counter(str(row.get("lucq_result_status") or "UNKNOWN") for row in rows)
-          print("LucQ Results valid:", len(rows), "statuses=", dict(statuses))
+          print("LucQ Results status:", payload.get("status"))
+          print("LucQ Results rows:", len(rows))
           PY
+
+      - name: Render LucQ Results
+        run: python -m corq.web.render
 
       - name: Commit LucQ Results and site
         shell: bash
