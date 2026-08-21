@@ -774,6 +774,42 @@ class RapidApiClient:
         result["api_h2h_resolution"] = "NAME_ENDPOINT"
         return result
 
+    def _candidate_player_ids(self, player_name: str, identity: Optional[Dict[str, Any]] = None) -> List[str]:
+        """Return trusted API PRO player/team IDs from the supplied identity.
+
+        Ranking lookup must not guess IDs from names. Name-based ranking
+        endpoints remain available when no trusted ID is present.
+        """
+        candidates: List[str] = []
+        seen = set()
+
+        def add(value: Any) -> None:
+            if value in (None, "") or isinstance(value, bool):
+                return
+            try:
+                text = str(int(float(str(value).strip())))
+            except Exception:
+                text = str(value).strip()
+            if not text or text.lower() in {"none", "null", "nan", "0"}:
+                return
+            if text not in seen:
+                seen.add(text)
+                candidates.append(text)
+
+        if isinstance(identity, dict):
+            for key in (
+                "player_id", "playerId", "team_id", "teamId", "id",
+                "api_player_id", "api_team_id", "tennisapi_player_id",
+                "pick_player_id", "opponent_player_id",
+            ):
+                add(identity.get(key))
+            for key in ("player", "team", "participant", "playerTeamInfo", "raw"):
+                nested = identity.get(key)
+                if isinstance(nested, dict):
+                    for nested_key in ("id", "player_id", "playerId", "team_id", "teamId"):
+                        add(nested.get(nested_key))
+        return candidates
+
     def get_player_ranking(self, player_name: str, tour: Optional[str] = None, identity: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Fetch current TennisApi ranking for one player.
 
@@ -838,8 +874,10 @@ class RapidApiClient:
         row = dict(match)
         p1 = row.get("player1") or row.get("home")
         p2 = row.get("player2") or row.get("away")
-        r1 = self.get_player_ranking(str(p1 or ""), tour=tour or row.get("gender") or row.get("category"))
-        r2 = self.get_player_ranking(str(p2 or ""), tour=tour or row.get("gender") or row.get("category"))
+        r1_identity = {"player_id": row.get("player1_id") or row.get("home_team_id") or row.get("home_id")}
+        r2_identity = {"player_id": row.get("player2_id") or row.get("away_team_id") or row.get("away_id")}
+        r1 = self.get_player_ranking(str(p1 or ""), tour=tour or row.get("gender") or row.get("category"), identity=r1_identity)
+        r2 = self.get_player_ranking(str(p2 or ""), tour=tour or row.get("gender") or row.get("category"), identity=r2_identity)
         rank1 = _rank_int(r1.get("rank"))
         rank2 = _rank_int(r2.get("rank"))
         gap = abs(rank1 - rank2) if rank1 is not None and rank2 is not None else None
