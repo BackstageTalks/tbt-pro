@@ -187,14 +187,25 @@ def main() -> None:
     parser.add_argument("--output", default="outputs/lucq/results/latest_lucq_results.json")
     args = parser.parse_args()
     snapshot_dir = Path("outputs/lucq/snapshots")
-    paths = [snapshot_dir / f"lucq_{args.date}.json"] if args.date else sorted(snapshot_dir.glob("lucq_*.json"))
-    if not paths and Path("outputs/lucq/latest_lucq.json").exists():
-        paths = [Path("outputs/lucq/latest_lucq.json")]
+    if args.date:
+        requested = snapshot_dir / f"lucq_{args.date}.json"
+        paths = [requested] if requested.exists() else []
+    else:
+        paths = sorted(snapshot_dir.glob("lucq_*.json"))
+    latest = Path("outputs/lucq/latest_lucq.json")
+    if not paths and latest.exists():
+        print(f"No matching snapshot found; using fallback: {latest}")
+        paths = [latest]
+    if not paths:
+        raise SystemExit("No LucQ snapshot or latest_lucq.json found to settle")
+    print("LucQ settlement inputs:", ", ".join(str(path) for path in paths))
     rows_by_id: Dict[str, Dict[str, Any]] = {}
     for path in paths:
         for row in _load_rows(path):
             key = str(row.get("event_id") or row.get("match_id") or f"{row.get('pick')}|{row.get('opponent')}|{row.get('match_start')}")
             rows_by_id[key] = row
+    if not rows_by_id:
+        raise SystemExit("LucQ settlement input contains zero rows")
     client = RapidApiClient()
     settled = [settle_row(row, client) for row in rows_by_id.values()]
     settled.sort(key=lambda row: str(row.get("match_start") or ""), reverse=True)
