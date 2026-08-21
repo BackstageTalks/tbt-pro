@@ -69,7 +69,11 @@ jobs:
           rows = payload.get("rows")
           if not isinstance(rows, list):
               raise SystemExit("LucQ Results rows must be a list")
-          print("LucQ Results valid:", len(rows))
+          if not rows:
+              raise SystemExit("LucQ Results contains zero rows")
+          from collections import Counter
+          statuses = Counter(str(row.get("lucq_result_status") or "UNKNOWN") for row in rows)
+          print("LucQ Results valid:", len(rows), "statuses=", dict(statuses))
           PY
 
       - name: Commit LucQ Results and site
