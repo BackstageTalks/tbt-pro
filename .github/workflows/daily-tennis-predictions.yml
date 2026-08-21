@@ -73,6 +73,18 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install pandas lxml html5lib beautifulsoup4 requests
 
+      - name: Run API event coverage audit
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: |
+          set -euo pipefail
+          DATE_ARG=""
+          if [ -n "${{ github.event.client_payload.betting_day || '' }}" ]; then
+            DATE_ARG="--date ${{ github.event.client_payload.betting_day }}"
+          fi
+          python -m tools.audit_api_event_coverage $DATE_ARG
+
       - name: Evaluate previous CorQ snapshot results
         if: ${{ steps.local_time.outputs.should_run == 'true' }}
         run: |
