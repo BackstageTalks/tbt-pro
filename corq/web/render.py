@@ -7456,40 +7456,97 @@ def main() -> None:
     render_all()
 
 
-
-# ============================================================
-# LucQ Results page final override V1
-# ============================================================
-
-try:
-    from corq.web.paths import LUCQ_RESULTS_PATH
-except Exception:
-    LUCQ_RESULTS_PATH = "h4v34n1c3d4y190"
-
-
-def _lucq_results_sort_key(row: Dict[str, Any]) -> Tuple[int, int, str]:
-    status = _lucq_status_text(row.get("lucq_result_status"))
-    status_order = {"PENDING": 0, "RESULT UNAVAILABLE": 1, "WON": 2, "LOST": 3, "VOID": 4}
-    dt = audit_match_time_utc(row)
-    timestamp = -int(dt.timestamp()) if dt is not None else 0
-    return status_order.get(status, 8), timestamp, pick_name(row).lower()
-
-
-def render_lucq_results_page(rows: List[Dict[str, Any]], manifest: Dict[str, Any]) -> str:
-    clean = sorted([row for row in rows if isinstance(row, dict)], key=_lucq_results_sort_key)
-    cards = ('<main class="grid">' + "\n".join(render_lucq_card(row, index) for index, row in enumerate(clean, 1)) + '</main>') if clean else '<div class="empty">No LucQ results available.</div>'
-    intro = '<style>.lucq-card{grid-template-columns:minmax(250px,1.15fr) repeat(3,minmax(220px,1fr))}.lucq-depth-wrap{width:142px;justify-content:flex-end}.lucq-depth-bar{width:82px;border:0;background:#26364b;padding:0}.lucq-depth-bar>span{display:block;height:100%;border-radius:999px}</style><section class="summary-panel"><div class="summary-title">LucQ Results</div><div>Settled LucQ sets, games, tiebreak, aces and double-fault predictions.</div></section>'
-    return page_shell("LucQ Results", LUCQ_RESULTS_PATH, intro + cards, manifest)
-
-
-_LUCQ_RESULTS_BASE_RENDER_ALL = render_all
-
-def render_all() -> None:
-    _LUCQ_RESULTS_BASE_RENDER_ALL()
-    manifest = read_json(OUTPUTS / "latest_manifest.json", {})
-    lucq_results = json_rows(read_json(OUTPUTS / "lucq" / "results" / "latest_lucq_results.json", []))
-    write_text(SITE_DIR / LUCQ_RESULTS_PATH / "index.html", render_lucq_results_page(lucq_results, manifest))
-    print(f"Rendered LucQ Results: rows={len(lucq_results)} path={LUCQ_RESULTS_PATH}")
-
 if __name__ == "__main__":
     main()
+
+# ============================================================
+# LucQ visual/data-depth final override V4
+# ============================================================
+
+def _lucq_metric_row_raw(label: str, value_html: str, cls: str = "") -> str:
+    return (
+        f'<div class="metric-row {esc(cls)}">'
+        f'<span class="metric-label">{esc(label)} {info_icon(_label_info_key(label))}</span>'
+        f'<b>{value_html}</b>'
+        '</div>'
+    )
+
+
+def _lucq_plain_box(title: str, rows: List[Tuple[str, str, bool]]) -> str:
+    lines = [f'<section class="metric-box small-box lucq-box"><div class="box-head"><span>{esc(title)}</span></div>']
+    for label, value, is_html in rows:
+        rendered = str(value) if is_html else esc(value)
+        lines.append(_lucq_metric_row_raw(label, rendered))
+    lines.append('</section>')
+    return "\n".join(lines)
+
+
+def _lucq_depth_bar(value: Any) -> str:
+    raw = as_float(value)
+    if raw is None:
+        pct = 0.0
+        number = "N/A"
+        cls = "bar-bad"
+    else:
+        pct = raw * 100.0 if raw <= 1.0 else raw
+        pct = max(0.0, min(100.0, pct))
+        number = f"{pct:.0f}%"
+        cls = "bar-good" if pct >= 70 else "bar-mid" if pct >= 40 else "bar-bad"
+    return (
+        '<span class="depth-wrap lucq-depth-wrap">'
+        f'<span class="depth-number">{number}</span>'
+        '<span class="depth-bar lucq-depth-bar">'
+        f'<span class="{cls}" style="width:{pct:.2f}%"></span>'
+        '</span></span>'
+    )
+
+
+def _lucq_sets_games_box(row: Dict[str, Any]) -> str:
+    shape_depth = as_float(row.get("lucq_data_quality_score"))
+    sample = f'{int(row.get("pick_shape_sample") or 0)} / {int(row.get("opponent_shape_sample") or 0)}'
+    return _lucq_plain_box("Sets / Games / TB", [
+        ("Sets", f'{_lucq_value(row.get("projected_sets"), 2)} | {_lucq_signal(row.get("sets_selection"), row.get("sets_probability"))}', False),
+        ("Sets data depth", _lucq_depth_bar(shape_depth), True),
+        ("Games", f'{_lucq_value(row.get("projected_games"), 1)} | {_lucq_signal(row.get("games_selection"), row.get("games_probability"))}', False),
+        ("Games data depth", _lucq_depth_bar(shape_depth), True),
+        ("TB", f'{str(row.get("tb_selection") or "N/A")} | {as_pct(row.get("tb_probability"), 1, "N/A")}', False),
+        ("TB data depth", _lucq_depth_bar(shape_depth), True),
+        ("Score sample P / O", sample, False),
+    ])
+
+
+def _lucq_serve_box(row: Dict[str, Any]) -> str:
+    serve_sample = f'{int(row.get("pick_serve_sample") or 0)} / {int(row.get("opponent_serve_sample") or 0)}'
+    serve_attempts = f'{int(row.get("pick_serve_attempts") or 0)} / {int(row.get("opponent_serve_attempts") or 0)}'
+    return _lucq_plain_box("Aces / Double faults", [
+        ("Aces P | O | T", _lucq_triplet(row, "aces"), False),
+        ("Aces total O/U", _lucq_signal(row.get("total_aces_selection"), row.get("total_aces_probability")), False),
+        ("Aces data depth", _lucq_depth_bar(row.get("aces_data_depth")), True),
+        ("DF P | O | T", _lucq_triplet(row, "df"), False),
+        ("DF total O/U", _lucq_signal(row.get("total_df_selection"), row.get("total_df_probability")), False),
+        ("DF data depth", _lucq_depth_bar(row.get("df_data_depth")), True),
+        ("Serve matches P / O", serve_sample, False),
+        ("Serve attempts P / O", serve_attempts, False),
+    ])
+
+
+def render_lucq_page(rows: List[Dict[str, Any]], manifest: Dict[str, Any]) -> str:
+    clean = sorted([row for row in rows if isinstance(row, dict)], key=_lucq_sort_key)
+    cards = ('<main class="grid">' + "\n".join(render_lucq_card(row, index) for index, row in enumerate(clean, 1)) + '</main>') if clean else '<div class="empty">No LucQ rows available.</div>'
+    intro = '''
+<style>
+.lucq-card{grid-template-columns:minmax(250px,1.15fr) repeat(3,minmax(240px,1fr))}
+.lucq-box .box-head{justify-content:flex-start}
+.lucq-box .box-head b{display:none!important}
+.lucq-box .metric-row{align-items:center}
+.lucq-box .metric-row b{min-width:174px;max-width:62%;overflow-wrap:anywhere}
+.lucq-depth-wrap{display:inline-flex;width:174px;align-items:center;justify-content:flex-end;gap:8px}
+.lucq-depth-wrap .depth-number{width:42px;min-width:42px}
+.lucq-depth-bar{display:block;width:116px;height:9px;border:1px solid #334155;background:#1e293b;padding:0;box-sizing:border-box}
+.lucq-depth-bar>span{display:block;height:100%;border-radius:999px}
+@media(max-width:1350px){.lucq-card{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.lucq-card{grid-template-columns:1fr}.lucq-box .metric-row b{max-width:58%}}
+</style>
+<section class="summary-panel"><div class="summary-title">LucQ</div><div>Sets, games, tiebreak, aces and double-fault projections with evaluation on the same page.</div></section>
+'''
+    return page_shell("LucQ", LUCQ_PATH, intro + cards, manifest)
