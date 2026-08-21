@@ -33,7 +33,7 @@ env:
   RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
   TENNISAPI_RAPIDAPI_HOST: ${{ vars.TENNISAPI_RAPIDAPI_HOST || 'tennisapi1.p.rapidapi.com' }}
   TENNISAPI_PROVIDER_IDS: ${{ vars.TENNISAPI_ODDS_PROVIDER_IDS || '1' }}
-  TENNISAPI_ATTACH_RANKINGS: "0"
+  TENNISAPI_ATTACH_RANKINGS: "1"
   TENNISAPI_H2H_STATS_ENABLED: "0"
   TENNISAPI_H2H_NAME_FALLBACK_ENABLED: "0"
   LUCQ_SOURCE_POLICY: API_PRO_ONLY
@@ -140,7 +140,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: lucq-data-${{ steps.betting-day.outputs.betting_day }}
-          path: outputs/lucq/latest_lucq.json
+          path: |
+            outputs/lucq/latest_lucq.json
+            outputs/lucq/snapshots/
           if-no-files-found: error
           retention-days: 14
 
@@ -163,6 +165,7 @@ jobs:
 
           mkdir -p "$tmp_dir/outputs/lucq" "$tmp_dir/corq"
           cp -a outputs/lucq/latest_lucq.json "$tmp_dir/outputs/lucq/latest_lucq.json"
+          cp -a outputs/lucq/snapshots "$tmp_dir/outputs/lucq/snapshots"
           cp -a corq/site "$tmp_dir/corq/site"
 
           git fetch origin main
@@ -170,12 +173,14 @@ jobs:
 
           mkdir -p outputs/lucq corq
           cp -a "$tmp_dir/outputs/lucq/latest_lucq.json" outputs/lucq/latest_lucq.json
+          rm -rf outputs/lucq/snapshots
+          cp -a "$tmp_dir/outputs/lucq/snapshots" outputs/lucq/snapshots
           rm -rf corq/site
           cp -a "$tmp_dir/corq/site" corq/site
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add outputs/lucq/latest_lucq.json corq/site
+          git add outputs/lucq/latest_lucq.json outputs/lucq/snapshots corq/site
 
           if git diff --cached --quiet; then
             echo "No LucQ or rendered-site changes after syncing latest main."
