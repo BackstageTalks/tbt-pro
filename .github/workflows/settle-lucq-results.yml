@@ -1,0 +1,98 @@
+name: Settle LucQ Results
+
+on:
+  workflow_dispatch:
+    inputs:
+      betting_day:
+        description: "Optional LucQ snapshot day YYYY-MM-DD; empty settles all snapshots"
+        required: false
+        default: ""
+        type: string
+  repository_dispatch:
+    types:
+      - settle-lucq-results
+
+permissions:
+  contents: write
+
+concurrency:
+  group: settle-lucq-results-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  PYTHONUNBUFFERED: "1"
+  TZ: Europe/Bratislava
+  RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+  TENNISAPI_RAPIDAPI_HOST: ${{ vars.TENNISAPI_RAPIDAPI_HOST || 'tennisapi1.p.rapidapi.com' }}
+
+jobs:
+  settle-lucq:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Settle LucQ snapshots
+        env:
+          BETTING_DAY: ${{ github.event.inputs.betting_day || github.event.client_payload.betting_day || '' }}
+        run: |
+          args=()
+          if [ -n "$BETTING_DAY" ]; then
+            args+=(--date "$BETTING_DAY")
+          fi
+          python -m lucq.settlement "${args[@]}" --output outputs/lucq/results/latest_lucq_results.json
+
+      - name: Render LucQ Results
+        run: python -m corq.web.render
+
+      - name: Validate LucQ Results
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path("outputs/lucq/results/latest_lucq_results.json")
+          payload = json.loads(path.read_text(encoding="utf-8"))
+          rows = payload.get("rows")
+          if not isinstance(rows, list):
+              raise SystemExit("LucQ Results rows must be a list")
+          print("LucQ Results valid:", len(rows))
+          PY
+
+      - name: Commit LucQ Results and site
+        shell: bash
+        run: |
+          set -euo pipefail
+          tmp_dir="$(mktemp -d)"
+          trap 'rm -rf "$tmp_dir"' EXIT
+          mkdir -p "$tmp_dir/outputs/lucq/results" "$tmp_dir/corq"
+          cp -a outputs/lucq/results/latest_lucq_results.json "$tmp_dir/outputs/lucq/results/"
+          cp -a corq/site "$tmp_dir/corq/site"
+          git fetch origin main
+          git reset --hard origin/main
+          mkdir -p outputs/lucq/results corq
+          cp -a "$tmp_dir/outputs/lucq/results/latest_lucq_results.json" outputs/lucq/results/
+          rm -rf corq/site
+          cp -a "$tmp_dir/corq/site" corq/site
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add outputs/lucq/results/latest_lucq_results.json corq/site
+          if git diff --cached --quiet; then
+            echo "No LucQ Results changes to commit."
+            exit 0
+          fi
+          git commit -m "Settle LucQ results"
+          git push origin HEAD:main
