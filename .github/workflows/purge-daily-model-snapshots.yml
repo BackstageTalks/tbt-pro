@@ -1,0 +1,226 @@
+name: Purge Daily Model Snapshots
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_date:
+        description: "Date to purge in YYYY-MM-DD format"
+        required: true
+        type: string
+      dry_run:
+        description: "Only list matching files, do not delete"
+        required: true
+        default: true
+        type: boolean
+      include_latest:
+        description: "Also delete matching outputs/latest_*.json files"
+        required: true
+        default: false
+        type: boolean
+      confirmation:
+        description: "For real deletion enter DELETE YYYY-MM-DD"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: purge-daily-model-snapshots
+  cancel-in-progress: false
+
+jobs:
+  purge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate inputs
+        env:
+          TARGET_DATE: ${{ inputs.target_date }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          CONFIRMATION: ${{ inputs.confirmation }}
+        run: |
+          set -euo pipefail
+
+          if ! [[ "$TARGET_DATE" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+            echo "Invalid target_date. Required format: YYYY-MM-DD"
+            exit 1
+          fi
+
+          python - <<'PY'
+          import os
+          from datetime import date
+
+          value = os.environ["TARGET_DATE"]
+          parsed = date.fromisoformat(value)
+          if parsed.isoformat() != value:
+              raise SystemExit("Invalid calendar date")
+          print(f"Validated target date: {value}")
+          PY
+
+          if [ "$DRY_RUN" != "true" ]; then
+            expected="DELETE $TARGET_DATE"
+            if [ "$CONFIRMATION" != "$expected" ]; then
+              echo "Real deletion blocked. confirmation must be exactly: $expected"
+              exit 1
+            fi
+          fi
+
+      - name: Find and optionally delete daily model files
+        env:
+          TARGET_DATE: ${{ inputs.target_date }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          INCLUDE_LATEST: ${{ inputs.include_latest }}
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          root = Path("outputs")
+          target = os.environ["TARGET_DATE"]
+          dry_run = os.environ["DRY_RUN"].lower() == "true"
+          include_latest = os.environ["INCLUDE_LATEST"].lower() == "true"
+
+          if not root.exists():
+              raise SystemExit("outputs/ does not exist")
+
+          date_keys = {
+              "date",
+              "day",
+              "snapshot_date",
+              "functional_day",
+              "betting_day",
+              "run_date",
+              "prediction_date",
+          }
+
+          def contains_target_metadata(value):
+              if isinstance(value, dict):
+                  for key, item in value.items():
+                      if key in date_keys and str(item)[:10] == target:
+                          return True
+                      if contains_target_metadata(item):
+                          return True
+              elif isinstance(value, list):
+                  return any(contains_target_metadata(item) for item in value)
+              return False
+
+          def json_matches(path):
+              if path.suffix.lower() != ".json":
+                  return False
+              try:
+                  payload = json.loads(path.read_text(encoding="utf-8"))
+              except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+                  return False
+              return contains_target_metadata(payload)
+
+          candidates = []
+          skipped_latest = []
+
+          for path in sorted(root.rglob("*")):
+              if not path.is_file():
+                  continue
+
+              relative = path.relative_to(root)
+              is_latest = path.name.startswith("latest_")
+              path_match = target in relative.as_posix()
+              metadata_match = json_matches(path)
+
+              if not (path_match or metadata_match):
+                  continue
+
+              if is_latest and not include_latest:
+                  skipped_latest.append(relative)
+                  continue
+
+              candidates.append(relative)
+
+          print(f"target_date={target}")
+          print(f"dry_run={dry_run}")
+          print(f"include_latest={include_latest}")
+          print(f"matched_files={len(candidates)}")
+
+          if candidates:
+              print("Matched files:")
+              for relative in candidates:
+                  print(f"  outputs/{relative.as_posix()}")
+          else:
+              print("No matching daily files found.")
+
+          if skipped_latest:
+              print("Protected latest files matching the date:")
+              for relative in skipped_latest:
+                  print(f"  outputs/{relative.as_posix()}")
+
+          report = {
+              "target_date": target,
+              "dry_run": dry_run,
+              "include_latest": include_latest,
+              "matched_files": [f"outputs/{p.as_posix()}" for p in candidates],
+              "protected_latest_files": [f"outputs/{p.as_posix()}" for p in skipped_latest],
+          }
+          Path("purge-report.json").write_text(
+              json.dumps(report, indent=2, ensure_ascii=False),
+              encoding="utf-8",
+          )
+
+          if dry_run:
+              print("DRY RUN complete. No files were deleted.")
+              raise SystemExit(0)
+
+          for relative in candidates:
+              path = root / relative
+              path.unlink()
+              print(f"Deleted outputs/{relative.as_posix()}")
+
+          directories = sorted(
+              (p for p in root.rglob("*") if p.is_dir()),
+              key=lambda p: len(p.parts),
+              reverse=True,
+          )
+          for directory in directories:
+              try:
+                  directory.rmdir()
+                  print(f"Removed empty directory {directory.as_posix()}")
+              except OSError:
+                  pass
+
+          print(f"Deleted {len(candidates)} files for {target}.")
+          PY
+
+      - name: Upload purge report
+        uses: actions/upload-artifact@v4
+        with:
+          name: purge-report-${{ inputs.target_date }}
+          path: purge-report.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Commit deletion
+        if: ${{ inputs.dry_run == false }}
+        env:
+          TARGET_DATE: ${{ inputs.target_date }}
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A outputs
+
+          if git diff --cached --quiet; then
+            echo "No repository files changed. Nothing to commit."
+            exit 0
+          fi
+
+          git commit -m "Purge daily model snapshots for $TARGET_DATE"
+          git pull --rebase origin main
+          git push origin HEAD:main
