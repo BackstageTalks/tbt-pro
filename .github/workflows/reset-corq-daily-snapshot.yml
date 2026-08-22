@@ -1,0 +1,148 @@
+name: Reset CorQ Daily Snapshot
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_date:
+        description: "Betting day to refresh, format YYYY-MM-DD"
+        required: true
+        type: string
+      dry_run:
+        description: "Only verify and display the target file"
+        required: true
+        default: true
+        type: boolean
+      confirmation:
+        description: "For deletion enter RESET YYYY-MM-DD"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: reset-corq-daily-snapshot
+  cancel-in-progress: false
+
+jobs:
+  reset-snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate date and confirmation
+        env:
+          TARGET_DATE: ${{ inputs.target_date }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          CONFIRMATION: ${{ inputs.confirmation }}
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          import os
+          from datetime import date
+
+          raw = os.environ["TARGET_DATE"]
+          try:
+              parsed = date.fromisoformat(raw)
+          except ValueError as exc:
+              raise SystemExit(f"Invalid target_date: {exc}")
+
+          if parsed.isoformat() != raw:
+              raise SystemExit("target_date must use exact YYYY-MM-DD format")
+
+          print(f"Validated betting day: {raw}")
+          PY
+
+          if [ "$DRY_RUN" != "true" ]; then
+            expected="RESET $TARGET_DATE"
+            if [ "$CONFIRMATION" != "$expected" ]; then
+              echo "Deletion blocked. confirmation must be exactly: $expected"
+              exit 1
+            fi
+          fi
+
+      - name: Locate CorQ immutable daily snapshot
+        id: target
+        env:
+          TARGET_DATE: ${{ inputs.target_date }}
+        run: |
+          set -euo pipefail
+
+          year="${TARGET_DATE:0:4}"
+          month="${TARGET_DATE:5:2}"
+          snapshot="outputs/snapshots/corq_daily/$year/$month/${TARGET_DATE}_corq_daily_snapshot.json"
+
+          echo "snapshot=$snapshot" >> "$GITHUB_OUTPUT"
+          echo "Target snapshot: $snapshot"
+
+          if [ -f "$snapshot" ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            ls -lh "$snapshot"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "No immutable CorQ snapshot exists for $TARGET_DATE. Nothing must be deleted."
+          fi
+
+      - name: Delete only immutable dated snapshot
+        if: ${{ inputs.dry_run == false && steps.target.outputs.exists == 'true' }}
+        env:
+          SNAPSHOT: ${{ steps.target.outputs.snapshot }}
+        run: |
+          set -euo pipefail
+          rm -- "$SNAPSHOT"
+          echo "Deleted only: $SNAPSHOT"
+          echo "Protected: outputs/snapshots/latest_corq_top7_snapshot.json"
+          echo "Protected: outputs/snapshots/latest_corq_top7_snapshot_manifest.json"
+          echo "Protected: outputs/latest_top7.json"
+          echo "Protected: outputs/latest_all.json"
+          echo "Protected: all CloQ, LucQ, MarQ, Results and Telegram outputs"
+
+      - name: Commit reset
+        if: ${{ inputs.dry_run == false && steps.target.outputs.exists == 'true' }}
+        env:
+          TARGET_DATE: ${{ inputs.target_date }}
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A outputs/snapshots/corq_daily
+
+          if git diff --cached --quiet; then
+            echo "No snapshot deletion to commit."
+            exit 0
+          fi
+
+          git commit -m "Reset CorQ daily snapshot for $TARGET_DATE"
+
+          if git push origin HEAD:main; then
+            echo "Snapshot reset pushed successfully."
+            exit 0
+          fi
+
+          echo "Push rejected. Retrying on latest main."
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Summary
+        env:
+          TARGET_DATE: ${{ inputs.target_date }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          SNAPSHOT: ${{ steps.target.outputs.snapshot }}
+          EXISTS: ${{ steps.target.outputs.exists }}
+        run: |
+          if [ "$DRY_RUN" = "true" ]; then
+            echo "DRY RUN: no files were deleted."
+          elif [ "$EXISTS" = "true" ]; then
+            echo "Reset complete for $TARGET_DATE."
+            echo "Deleted: $SNAPSHOT"
+            echo "Run Daily Tennis Predictions again to create a fresh immutable snapshot."
+          else
+            echo "Nothing was deleted because the dated snapshot did not exist."
+          fi
