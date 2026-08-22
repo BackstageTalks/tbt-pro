@@ -1,6 +1,6 @@
 {
   "model_version": "2026-08-04-marq-coverage-report-v1",
-  "generated_at_utc": "2026-08-22T15:45:51.402332+00:00",
+  "generated_at_utc": "2026-08-22T16:19:03.443403+00:00",
   "input_paths": {
     "all": "outputs/latest_all.json",
     "top7": "outputs/latest_top7.json",
@@ -11,8 +11,8 @@
       "label": "all_audit",
       "total_rows": 40,
       "coverage_pct": {
-        "high_marq": 25.0,
-        "medium_current_only": 75.0,
+        "high_marq": 30.0,
+        "medium_current_only": 70.0,
         "thin_fallback": 0.0,
         "no_or_unknown_marq": 0.0,
         "usable_marq_high_or_medium": 100.0
@@ -21,32 +21,32 @@
         "getAllOddsForEvent": 40
       },
       "data_status_counts": {
-        "EXACT_CURRENT_ODDS_ONLY": 30,
-        "EXACT_BETTING_ODDS_WITH_OPENING": 10
+        "EXACT_CURRENT_ODDS_ONLY": 28,
+        "EXACT_BETTING_ODDS_WITH_OPENING": 12
       },
       "confidence_counts": {
-        "MEDIUM": 30,
-        "HIGH": 10
+        "MEDIUM": 28,
+        "HIGH": 12
       },
       "movement_status_counts": {
-        "OPENING_EQUALS_CURRENT": 30,
-        "REAL_OPENING_CURRENT_AVAILABLE": 10
+        "OPENING_EQUALS_CURRENT": 28,
+        "REAL_OPENING_CURRENT_AVAILABLE": 12
       },
       "quality_tier_counts": {
-        "MEDIUM_CURRENT_ONLY": 30,
-        "HIGH": 10
+        "MEDIUM_CURRENT_ONLY": 28,
+        "HIGH": 12
       },
       "value_status_counts": {
         "NO_VALUE": 21,
-        "VALUE_STRONG": 17,
-        "VALUE_PLAYABLE": 2
+        "VALUE_STRONG": 16,
+        "VALUE_PLAYABLE": 3
       },
       "source_policy_counts": {
         "TENNISAPI_ONLY_EXACT_EVENT": 40
       },
       "market_weight_stats": {
         "count": 40,
-        "avg": 0.149,
+        "avg": 0.156,
         "min": 0.1,
         "max": 0.3
       },
@@ -58,9 +58,9 @@
       },
       "expected_value_pct_stats": {
         "count": 40,
-        "avg": 37.3305,
+        "avg": 145.3847,
         "min": -48.09,
-        "max": 739.12
+        "max": 4309.66
       },
       "samples": {
         "thin_fallback": [],
@@ -101,60 +101,90 @@
             "identity": "16892050",
             "pick": "Felix Balshaw",
             "opponent": "Luca Pow",
-            "odds": 1.5,
+            "odds": 1.1429,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": -11.76,
-            "expected_value_pct": -23.89,
+            "market_weight": 0.22,
+            "value_delta_pp": -32.06,
+            "expected_value_pct": -42.01,
             "fallback_reason": null
           },
           {
             "identity": "16892050",
             "pick": "Luca Pow",
             "opponent": "Felix Balshaw",
-            "odds": 2.5,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.22,
-            "value_delta_pp": 11.76,
-            "expected_value_pct": 23.15,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16892047",
-            "pick": "Pierre-Hugues Herbert",
-            "opponent": "Kenta Miyoshi",
-            "odds": 1.2857,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.22,
-            "value_delta_pp": -16.64,
-            "expected_value_pct": -27.37,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16892047",
-            "pick": "Kenta Miyoshi",
-            "opponent": "Pierre-Hugues Herbert",
-            "odds": 3.5,
+            "odds": 5.5,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 16.64,
-            "expected_value_pct": 52.29,
+            "value_delta_pp": 32.06,
+            "expected_value_pct": 170.93,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16892052",
+            "pick": "Hugo Grenier",
+            "opponent": "Neil Oberleitner",
+            "odds": 1.001,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": -42.68,
+            "expected_value_pct": -43.6,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16892052",
+            "pick": "Neil Oberleitner",
+            "opponent": "Hugo Grenier",
+            "odds": 101.0,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 42.68,
+            "expected_value_pct": 4309.66,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16892047",
+            "pick": "Pierre-Hugues Herbert",
+            "opponent": "Kenta Miyoshi",
+            "odds": 1.6667,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": 0.74,
+            "expected_value_pct": -5.85,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16892047",
+            "pick": "Kenta Miyoshi",
+            "opponent": "Pierre-Hugues Herbert",
+            "odds": 2.1,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": -0.74,
+            "expected_value_pct": -8.63,
             "fallback_reason": null
           },
           {
@@ -253,45 +283,45 @@
             "identity": "16892050",
             "pick": "Felix Balshaw",
             "opponent": "Luca Pow",
-            "odds": 1.5,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.3,
-            "value_delta_pp": -11.76,
-            "expected_value_pct": -23.89,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16892052",
-            "pick": "Hugo Grenier",
-            "opponent": "Neil Oberleitner",
-            "odds": 1.25,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": -18.66,
-            "expected_value_pct": -29.57,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16892047",
-            "pick": "Pierre-Hugues Herbert",
-            "opponent": "Kenta Miyoshi",
-            "odds": 1.2857,
+            "odds": 1.1429,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.22,
-            "value_delta_pp": -16.64,
-            "expected_value_pct": -27.37,
+            "value_delta_pp": -32.06,
+            "expected_value_pct": -42.01,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16892052",
+            "pick": "Hugo Grenier",
+            "opponent": "Neil Oberleitner",
+            "odds": 1.001,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.22,
+            "value_delta_pp": -42.68,
+            "expected_value_pct": -43.6,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16892047",
+            "pick": "Kenta Miyoshi",
+            "opponent": "Pierre-Hugues Herbert",
+            "odds": 2.1,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": -0.74,
+            "expected_value_pct": -8.63,
             "fallback_reason": null
           },
           {
@@ -420,45 +450,30 @@
             "identity": "16892050",
             "pick": "Luca Pow",
             "opponent": "Felix Balshaw",
-            "odds": 2.5,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
-            "confidence": "HIGH",
-            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
-            "tier": "HIGH",
-            "market_weight": 0.22,
-            "value_delta_pp": 11.76,
-            "expected_value_pct": 23.15,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16892052",
-            "pick": "Neil Oberleitner",
-            "opponent": "Hugo Grenier",
-            "odds": 3.75,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": 18.66,
-            "expected_value_pct": 63.72,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16892047",
-            "pick": "Kenta Miyoshi",
-            "opponent": "Pierre-Hugues Herbert",
-            "odds": 3.5,
+            "odds": 5.5,
             "endpoint": "getAllOddsForEvent",
             "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
             "confidence": "HIGH",
             "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
             "tier": "HIGH",
             "market_weight": 0.3,
-            "value_delta_pp": 16.64,
-            "expected_value_pct": 52.29,
+            "value_delta_pp": 32.06,
+            "expected_value_pct": 170.93,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16892052",
+            "pick": "Neil Oberleitner",
+            "opponent": "Hugo Grenier",
+            "odds": 101.0,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_BETTING_ODDS_WITH_OPENING",
+            "confidence": "HIGH",
+            "movement_status": "REAL_OPENING_CURRENT_AVAILABLE",
+            "tier": "HIGH",
+            "market_weight": 0.3,
+            "value_delta_pp": 42.68,
+            "expected_value_pct": 4309.66,
             "fallback_reason": null
           },
           {
@@ -579,6 +594,21 @@
             "market_weight": 0.12,
             "value_delta_pp": 3.13,
             "expected_value_pct": -0.44,
+            "fallback_reason": null
+          },
+          {
+            "identity": "16891913",
+            "pick": "Panna Udvardy",
+            "opponent": "Emiliana Arango",
+            "odds": 2.375,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_CURRENT_ODDS_ONLY",
+            "confidence": "MEDIUM",
+            "movement_status": "OPENING_EQUALS_CURRENT",
+            "tier": "MEDIUM_CURRENT_ONLY",
+            "market_weight": 0.12,
+            "value_delta_pp": 13.44,
+            "expected_value_pct": 25.09,
             "fallback_reason": null
           }
         ]
