@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.8,
   "latest_odds_player2": 2.0,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-22T11:01:33.190015+00:00",
+  "latest_snapshot_time_utc": "2026-08-22T17:02:39.842957+00:00",
   "opening_odds_player1": 1.8,
   "opening_odds_player2": 2.0,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Brandon Nakashima",
   "player2": "Frances Tiafoe",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "16737470",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-22T22:00:00+00:00",
       "target_date": "2026-08-23"
+    },
+    {
+      "event_id": "16737470",
+      "event_key": "2026-08-23_brandon-nakashima_vs_frances-tiafoe",
+      "hours_to_start": 4.96,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.8,
+      "odds_player2": 2.0,
+      "player1": "Brandon Nakashima",
+      "player2": "Frances Tiafoe",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-22T17:02:39.842957+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-22T22:00:00+00:00",
+      "target_date": "2026-08-23"
     }
   ],
   "start_time_utc": "2026-08-22T22:00:00+00:00",
-  "updated_at_utc": "2026-08-22T11:02:07.610993+00:00"
+  "updated_at_utc": "2026-08-22T17:03:06.691023+00:00"
 }

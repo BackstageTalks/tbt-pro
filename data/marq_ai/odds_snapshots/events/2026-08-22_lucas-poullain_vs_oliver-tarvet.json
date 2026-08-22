@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.25,
   "latest_odds_player2": 3.75,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-22T03:27:57.910945+00:00",
+  "latest_snapshot_time_utc": "2026-08-22T17:02:39.842957+00:00",
   "opening_odds_player1": 1.25,
   "opening_odds_player2": 3.75,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Oliver Tarvet",
   "player2": "Lucas Poullain",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "16807253",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-22T11:00:00+00:00",
       "target_date": "2026-08-22"
+    },
+    {
+      "event_id": "16807253",
+      "event_key": "2026-08-22_lucas-poullain_vs_oliver-tarvet",
+      "hours_to_start": -6.04,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.25,
+      "odds_player2": 3.75,
+      "player1": "Oliver Tarvet",
+      "player2": "Lucas Poullain",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-22T17:02:39.842957+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-22T11:00:00+00:00",
+      "target_date": "2026-08-22"
     }
   ],
   "start_time_utc": "2026-08-22T11:00:00+00:00",
-  "updated_at_utc": "2026-08-22T03:28:06.516087+00:00"
+  "updated_at_utc": "2026-08-22T17:02:40.576038+00:00"
 }
