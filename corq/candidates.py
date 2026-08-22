@@ -28,17 +28,9 @@ from corq.sides import AWAY, HOME, derive_side_record, repair_candidate_side
 # Europe/Bratislava betting-day policy and TennisAPI pageSize=200 pagination.
 # Keep fallbacks for older repo snapshots, but do not make ThinQ the primary
 # CORQ match source anymore.
-try:  # preferred current repo path
-    from corq.corq_rapidapi_client import fetch_daily_matches_with_odds  # type: ignore
-    CORQ_CANDIDATE_LOADER_SOURCE = "corq.corq_rapidapi_client"
-except Exception:  # pragma: no cover - legacy fallback
-    try:
-        from corq.rapidapi_client import fetch_daily_matches_with_odds  # type: ignore
-        CORQ_CANDIDATE_LOADER_SOURCE = "corq.rapidapi_client"
-    except Exception:  # pragma: no cover - last-resort legacy fallback
-        from thinq.loaders.rapidapi_client import fetch_daily_matches_with_odds  # type: ignore
-        CORQ_CANDIDATE_LOADER_SOURCE = "thinq.loaders.rapidapi_client"
+from corq.corq_rapidapi_client import fetch_daily_matches_with_odds
 
+CORQ_CANDIDATE_LOADER_SOURCE = "corq.corq_rapidapi_client"
 
 def load_json_candidates(path: Optional[str] = None, include_default_paths: bool = False) -> List[Dict[str, Any]]:
     search_paths: List[Path] = []

@@ -699,3 +699,66 @@ def apply_corq_market_calibration(record: Dict[str, Any]) -> Dict[str, Any]:
         }
     )
     return out
+
+# Final ThinQ V3 contract guard.
+_CORQ_BASE_BUILD_PREDICTION = build_corq_prediction
+_CORQ_BASE_APPLY_MARKET_CALIBRATION = apply_corq_market_calibration
+
+
+def _is_no_prediction(record: Dict[str, Any]) -> bool:
+    layer = thinq_probability_layer(record)
+    status = str(
+        record.get("corq_prediction_status")
+        or record.get("thinq_prediction_status")
+        or layer.get("prediction_status")
+        or layer.get("status")
+        or ""
+    ).upper()
+    probability = thinq_pick_probability(record)
+    return status == "NO_PREDICTION" or (
+        probability is not None
+        and abs(probability - 0.50) < 1e-12
+        and layer.get("winner") is None
+    )
+
+
+def _apply_no_prediction_guard(record: Dict[str, Any]) -> Dict[str, Any]:
+    out = dict(record)
+    out.update({
+        "corq_status": "NO_PREDICTION",
+        "corq_prediction_status": "NO_PREDICTION",
+        "corq_winner": None,
+        "corq_winner_side": None,
+        "corq_probability": 0.50,
+        "corq_estimated_win_probability": 0.50,
+        "corq_calibrated_probability": 0.50,
+        "corq_calibrated_probability_pct": 50.0,
+        "estimated_win_pct": 50.0,
+        "corq_score": 0.50,
+        "corq_edge": 0.0,
+        "value_edge": 0.0,
+        "edge": 0.0,
+        "corq_market_adjustment_pp": 0.0,
+        "corq_probability_source": "THINQ_NO_PREDICTION",
+        "corq_calibration_method": "NO_PREDICTION_PASSTHROUGH",
+    })
+    out["corq_risk_flags"] = sorted(set(list(out.get("corq_risk_flags") or []) + ["CORQ_NO_PREDICTION_FROM_THINQ"]))
+    return out
+
+
+def build_corq_prediction(record: Dict[str, Any]) -> Dict[str, Any]:
+    out = _CORQ_BASE_BUILD_PREDICTION(record)
+    if _is_no_prediction(out):
+        return _apply_no_prediction_guard(out)
+    out["corq_status"] = "OK"
+    out["corq_prediction_status"] = "PREDICTION"
+    return out
+
+
+def apply_corq_market_calibration(record: Dict[str, Any]) -> Dict[str, Any]:
+    if _is_no_prediction(record):
+        return _apply_no_prediction_guard(record)
+    out = _CORQ_BASE_APPLY_MARKET_CALIBRATION(record)
+    out["corq_status"] = "OK"
+    out["corq_prediction_status"] = "PREDICTION"
+    return out

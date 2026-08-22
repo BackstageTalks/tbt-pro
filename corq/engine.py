@@ -271,67 +271,9 @@ def _enrich_with_tennisapi_ranking_info(record: Dict[str, Any], rankings: Dict[s
     record["pick_rank_points_display"] = str(pick_points) if pick_points is not None else "N/A"
     record["opponent_rank_points_display"] = str(opp_points) if opp_points is not None else "N/A"
     # Backward-compatible aliases for render code that still expects TA rank display keys.
-    record["pick_ta_rank_display"] = record["pick_rank_display"]
-    record["opponent_ta_rank_display"] = record["opponent_rank_display"]
-    record["ta_ranking_replaced_by"] = "TENNISAPI_RANKINGS_INFO_ONLY"
     return record
 
 
-
-def _enrich_with_ta_profile_context(record: Dict[str, Any]) -> Dict[str, Any]:
-    """TA legacy disabled.
-
-    Tennis Abstract profile enrichment was removed from the production path.
-    Keep neutral ta_* compatibility fields so render/audit code that still reads
-    those keys does not fail, but do not import or scrape TA data.
-    """
-    defaults = {
-        "ta_status": "DISABLED",
-        "ta_pick_status": "DISABLED",
-        "ta_opp_status": "DISABLED",
-        "ta_scope": "DISABLED",
-        "ta_surface": None,
-        "ta_pick_set_pct": None,
-        "ta_opp_set_pct": None,
-        "ta_pick_game_pct": None,
-        "ta_opp_game_pct": None,
-        "ta_pick_tb_split": None,
-        "ta_opp_tb_split": None,
-        "ta_pick_tb_pct": None,
-        "ta_opp_tb_pct": None,
-        "ta_pick_ace_pct": None,
-        "ta_opp_ace_pct": None,
-        "ta_pick_df_pct": None,
-        "ta_opp_df_pct": None,
-        "ta_pick_surface_dr": None,
-        "ta_opp_surface_dr": None,
-        "ta_pick_rpw_pct": None,
-        "ta_opp_rpw_pct": None,
-        "ta_pick_tpw_pct": None,
-        "ta_opp_tpw_pct": None,
-        "ta_pick_matches": None,
-        "ta_opp_matches": None,
-        "ta_pick_depth": None,
-        "ta_opp_depth": None,
-        "pick_aces_line": None,
-        "opponent_aces_line": None,
-        "total_aces_line": None,
-        "aces_status": "N/A",
-        "ta_winner_decision": "N/A",
-        "ta_winner_read": "N/A",
-        "ta_sets_decision": "N/A",
-        "ta_games_decision": "N/A",
-        "ta_tb_decision": "N/A",
-        "ta_serve_return_pattern": "N/A",
-        "ta_match_shape": "N/A",
-        "ta_depth_label": "N/A",
-        "ta_decision_confidence": 0.0,
-        "ta_decision_notes": ["TA profile enrichment disabled; API/ThinQ data only"],
-        "ta_context": {},
-    }
-    for key, value in defaults.items():
-        record.setdefault(key, value)
-    return record
 
 def _call_build_match_features(thinq_service: Any, payload: Dict[str, Any]) -> Dict[str, Any]:
     method = thinq_service.build_match_features
@@ -1865,22 +1807,13 @@ def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", ru
     candidates = [repair_candidate_side(candidate) for candidate in raw_candidates]
     thinq_service = _load_thinq_service()
     tennisapi_rankings = _load_tennisapi_rankings_info(output_root)
-    try:
-        from corq.rapidapi_client import RapidApiClient  # type: ignore
-        api_h2h_client = RapidApiClient()
-    except Exception as exc:
-        api_h2h_client = None
-        print(f"TENNISAPI H2H STATS CLIENT UNAVAILABLE: {exc}")
-    api_h2h_request_state = {"count": 0}
 
     scored: List[Dict[str, Any]] = []
     for candidate in candidates:
         enriched = _enrich_with_thinq(candidate, thinq_service)
-        enriched = _enrich_with_api_h2h_stats(enriched, api_h2h_client, api_h2h_request_state)
         enriched = _finalize_api_pro_serve_props(enriched)
         prediction = build_corq_prediction(enriched)
         prediction = _enrich_with_tennisapi_ranking_info(prediction, tennisapi_rankings)
-        prediction = _enrich_with_ta_profile_context(prediction)
         # H2H score-shape must be attached before Sets/Games/TB market logic.
         # Sets/Games/TB projections are allowed only from real score-shape data
         # or real market lines, never from generic model fallback defaults.
