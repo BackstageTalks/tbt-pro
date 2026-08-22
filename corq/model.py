@@ -100,7 +100,7 @@ def model_components(edges: Dict[str, Optional[float]]) -> Dict[str, float]:
     ranking = clamp(_edge(edges, "ranking_context_edge"), -0.02, 0.02)
     market = clamp(_edge(edges, "market_sanity_edge"), -0.02, 0.02)
     context = clamp(
-        _edge(edges, "surface_form_edge") + _edge(edges, "level_form_edge") + _edge(edges, "ta_edge")
+        _edge(edges, "surface_form_edge") + _edge(edges, "level_form_edge")
         + _edge(edges, "fatigue_edge") + _edge(edges, "surface_transition_edge") + _edge(edges, "level_context_edge")
         + _edge(edges, "status_risk_edge") + _edge(edges, "sets_edge") + _edge(edges, "games_edge")
         + _edge(edges, "tiebreak_edge") + _edge(edges, "decider_edge"),
