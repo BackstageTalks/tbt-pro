@@ -66,7 +66,9 @@ def build_match_dynamics_context(
     if elo_edge is None:
         elo_edge = as_float(edges.get("elo_edge")) or 0.0
 
-    h2h_edge = as_float(h2h.get("edge"))
+    h2h_edge = as_float(h2h.get("effective_edge"))
+    if h2h_edge is None:
+        h2h_edge = as_float(h2h.get("edge"))
     if h2h_edge is None:
         h2h_edge = as_float(h2h.get("h2h_edge"))
     if h2h_edge is None:
@@ -100,6 +102,14 @@ def build_match_dynamics_context(
     else:
         odds_gap_pct = None
 
+    h2h_shape_ok = h2h.get("h2h_score_shape_status") == "OK"
+    h2h_shape_sample = int(as_float(h2h.get("h2h_score_shape_sample")) or 0)
+    h2h_sets = as_float(h2h.get("h2h_projected_sets")) if h2h_shape_ok else None
+    h2h_games = as_float(h2h.get("h2h_projected_games")) if h2h_shape_ok else None
+    h2h_tb = as_float(h2h.get("h2h_tiebreak_probability")) if h2h_shape_ok else None
+    h2h_decider = as_float(h2h.get("h2h_decider_probability")) if h2h_shape_ok else None
+    h2h_shape_weight = clamp(h2h_shape_sample / 8.0, 0.0, 0.45) if h2h_shape_ok else 0.0
+
     if surface_name == "Grass":
         tiebreak_base = 0.34
         games_base = 22.2 if best_of_int == 3 else 37.0
@@ -125,6 +135,18 @@ def build_match_dynamics_context(
         projected_games = games_base + 8.0 * closeness + 5.0 * decider_probability
 
     tiebreak_probability = clamp(tiebreak_base + 0.18 * closeness, 0.12, 0.58)
+    projection_source = "HEURISTIC_BASE"
+    if h2h_shape_weight > 0.0:
+        if h2h_sets is not None:
+            projected_sets = (1.0 - h2h_shape_weight) * projected_sets + h2h_shape_weight * h2h_sets
+        if h2h_games is not None:
+            projected_games = (1.0 - h2h_shape_weight) * projected_games + h2h_shape_weight * h2h_games
+        if h2h_tb is not None:
+            tiebreak_probability = clamp((1.0 - h2h_shape_weight) * tiebreak_probability + h2h_shape_weight * h2h_tb, 0.05, 0.75)
+        if h2h_decider is not None:
+            decider_probability = clamp((1.0 - h2h_shape_weight) * decider_probability + h2h_shape_weight * h2h_decider, 0.05, 0.75)
+            straight_sets_probability = clamp(1.0 - decider_probability, 0.25, 0.90)
+        projection_source = "HEURISTIC_PLUS_API_PRO_H2H_SCORE_SHAPE"
 
     dominance = clamp(abs(composite_edge) / 0.12, 0.0, 1.0)
     direction = 1.0 if composite_edge >= 0 else -1.0
@@ -160,10 +182,17 @@ def build_match_dynamics_context(
         flags.append("MATCH_DYNAMICS_RECENT_FORM_NEUTRAL")
     if surface_name == "Unknown":
         flags.append("MATCH_DYNAMICS_SURFACE_UNKNOWN")
+    if not h2h_shape_ok:
+        flags.append("MATCH_DYNAMICS_NO_H2H_SCORE_SHAPE")
+    elif h2h_shape_sample < 3:
+        flags.append("MATCH_DYNAMICS_H2H_SCORE_SHAPE_THIN")
 
     return {
         "status": "OK",
-        "source": "thinq_match_dynamics_v1",
+        "source": "thinq_match_dynamics_v2",
+        "projection_source": projection_source,
+        "h2h_score_shape_sample": h2h_shape_sample,
+        "h2h_score_shape_weight": round(h2h_shape_weight, 4),
         "pick": pick,
         "opponent": opponent,
         "surface": surface_name,

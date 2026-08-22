@@ -83,8 +83,9 @@ def build_thinq_probability_layer(
     flags = list(flags or [])
 
     components = {
-        "overall_elo_edge": round(clamp(_edge(edges, "overall_elo_edge"), -0.07, 0.07), 4),
-        "surface_elo_edge": round(clamp(_edge(edges, "surface_elo_edge"), -0.08, 0.08), 4),
+        "elo_edge": round(clamp(_edge(edges, "elo_edge"), -0.10, 0.10), 4),
+        "overall_elo_edge_audit": round(clamp(_edge(edges, "overall_elo_edge"), -0.07, 0.07), 4),
+        "surface_elo_edge_audit": round(clamp(_edge(edges, "surface_elo_edge"), -0.08, 0.08), 4),
         "h2h_edge": round(clamp(_edge(edges, "h2h_edge"), -0.04, 0.04), 4),
         "recent_form_edge": round(clamp(_edge(edges, "recent_form_edge"), -0.05, 0.05), 4),
         "short_form_edge": round(clamp(_edge(edges, "short_form_edge"), -0.035, 0.035), 4),
@@ -104,13 +105,11 @@ def build_thinq_probability_layer(
 
     raw_edge = round(
         clamp(
-            components["overall_elo_edge"]
-            + components["surface_elo_edge"]
+            components["elo_edge"]
             + components["h2h_edge"]
             + form_family
             + components["surface_recent_form_edge"]
-            + components["opponent_quality_edge"]
-            + sets_games_family,
+            + components["opponent_quality_edge"],
             -0.25,
             0.25,
         ),
@@ -142,7 +141,7 @@ def build_thinq_probability_layer(
 
     return {
         "status": status,
-        "model_version": "THINQ_PROBABILITY_V1",
+        "model_version": "THINQ_PROBABILITY_V2",
         "pick": pick,
         "pick_side": pick_side,
         "opponent": opponent,
@@ -162,7 +161,7 @@ def build_thinq_probability_layer(
         "confidence": prob_confidence,
         "components": components,
         "form_family_edge": round(form_family, 4),
-        "sets_games_edge": round(sets_games_family, 4),
+        "sets_games_edge_audit_only": round(sets_games_family, 4),
         "display": display,
         "flags": sorted(set(flags)),
     }
