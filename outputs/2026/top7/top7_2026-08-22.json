@@ -2005,7 +2005,7 @@
     "blinq": {
       "status": "OK",
       "prediction_status": "PREDICTION",
-      "model_version": "BLINQ_V2_COMPONENT_SYMMETRY_DATA_QUALITY",
+      "model_version": "BLINQ_V2_1_DEAD_ZONE_LOW_DATA_GUARD",
       "source_policy": "REAL_DATA_ONLY_API_PRO_PLUS_TA_ELO_CACHE_ALLOWED",
       "player_a": "Anna Bondar",
       "player_b": "Elsa Jacquemot",
@@ -2093,11 +2093,20 @@
         "history_match_count": null,
         "history_file_count": null
       },
+      "decision_guard": {
+        "exact_tie": false,
+        "dead_zone": false,
+        "dead_zone_half_width": 0.005,
+        "low_data": false,
+        "low_data_confidence_threshold": 0.4
+      },
       "symmetry_contract": {
         "status": "PASS",
         "rule": "P(A,B)+P(B,A)=1 and each signed component(A,B)=-component(B,A)",
         "complement_sum": 1.0,
-        "exact_50_50": false
+        "exact_50_50": false,
+        "dead_zone": false,
+        "low_data_guard": false
       },
       "flags": [
         "MATCH_DYNAMICS_H2H_SCORE_SHAPE_THIN"
@@ -2120,6 +2129,8 @@
       "probability_complement_ok": true,
       "score_antisymmetry_ok": true,
       "component_antisymmetry_ok": true,
+      "decision_symmetry_ok": true,
+      "winner_symmetry_ok": true,
       "tie_ok": true,
       "probability_sum": 1.0,
       "score_sum": 0.0,
@@ -2166,7 +2177,7 @@
     "blinq_swapped_audit_run": {
       "status": "OK",
       "prediction_status": "PREDICTION",
-      "model_version": "BLINQ_V2_COMPONENT_SYMMETRY_DATA_QUALITY",
+      "model_version": "BLINQ_V2_1_DEAD_ZONE_LOW_DATA_GUARD",
       "source_policy": "REAL_DATA_ONLY_API_PRO_PLUS_TA_ELO_CACHE_ALLOWED",
       "player_a": "Elsa Jacquemot",
       "player_b": "Anna Bondar",
@@ -2254,11 +2265,20 @@
         "history_match_count": null,
         "history_file_count": null
       },
+      "decision_guard": {
+        "exact_tie": false,
+        "dead_zone": false,
+        "dead_zone_half_width": 0.005,
+        "low_data": false,
+        "low_data_confidence_threshold": 0.4
+      },
       "symmetry_contract": {
         "status": "PASS",
         "rule": "P(A,B)+P(B,A)=1 and each signed component(A,B)=-component(B,A)",
         "complement_sum": 1.0,
-        "exact_50_50": false
+        "exact_50_50": false,
+        "dead_zone": false,
+        "low_data_guard": false
       },
       "flags": [
         "MATCH_DYNAMICS_H2H_SCORE_SHAPE_THIN"
@@ -2577,7 +2597,7 @@
       "FAIR",
       "VALUE_NEGATIVE"
     ],
-    "corq_source_rank": 37,
+    "corq_source_rank": 33,
     "top7_filter_mode": "CORQ_TOP7_CANONICAL_V13_SYMMETRY",
     "top7_publishable": true,
     "eligible_for_top7": true,
@@ -2609,7 +2629,7 @@
     "corq_symmetry_audit_status": "FAIL",
     "corq_symmetry_audit_model_version": "CORQ_TOP7_CANONICAL_V13_SYMMETRY",
     "corq_symmetry_audit_checked_pairs": 20,
-    "corq_symmetry_audit_failed_pairs": 7,
+    "corq_symmetry_audit_failed_pairs": 6,
     "top7_rank": 1,
     "snapshot_rank": 1,
     "corq_cloq_priority_model_version": "CORQ_TOP7_CLOQ_PRIORITY_FILL_V1",
@@ -4602,7 +4622,7 @@
     "blinq": {
       "status": "OK",
       "prediction_status": "PREDICTION",
-      "model_version": "BLINQ_V2_COMPONENT_SYMMETRY_DATA_QUALITY",
+      "model_version": "BLINQ_V2_1_DEAD_ZONE_LOW_DATA_GUARD",
       "source_policy": "REAL_DATA_ONLY_API_PRO_PLUS_TA_ELO_CACHE_ALLOWED",
       "player_a": "Brandon Nakashima",
       "player_b": "Frances Tiafoe",
@@ -4690,11 +4710,20 @@
         "history_match_count": null,
         "history_file_count": null
       },
+      "decision_guard": {
+        "exact_tie": false,
+        "dead_zone": false,
+        "dead_zone_half_width": 0.005,
+        "low_data": false,
+        "low_data_confidence_threshold": 0.4
+      },
       "symmetry_contract": {
         "status": "PASS",
         "rule": "P(A,B)+P(B,A)=1 and each signed component(A,B)=-component(B,A)",
         "complement_sum": 1.0,
-        "exact_50_50": false
+        "exact_50_50": false,
+        "dead_zone": false,
+        "low_data_guard": false
       },
       "flags": []
     },
@@ -4713,6 +4742,8 @@
       "probability_complement_ok": true,
       "score_antisymmetry_ok": true,
       "component_antisymmetry_ok": true,
+      "decision_symmetry_ok": true,
+      "winner_symmetry_ok": true,
       "tie_ok": true,
       "probability_sum": 1.0,
       "score_sum": 0.0,
@@ -4759,7 +4790,7 @@
     "blinq_swapped_audit_run": {
       "status": "OK",
       "prediction_status": "PREDICTION",
-      "model_version": "BLINQ_V2_COMPONENT_SYMMETRY_DATA_QUALITY",
+      "model_version": "BLINQ_V2_1_DEAD_ZONE_LOW_DATA_GUARD",
       "source_policy": "REAL_DATA_ONLY_API_PRO_PLUS_TA_ELO_CACHE_ALLOWED",
       "player_a": "Frances Tiafoe",
       "player_b": "Brandon Nakashima",
@@ -4847,11 +4878,20 @@
         "history_match_count": null,
         "history_file_count": null
       },
+      "decision_guard": {
+        "exact_tie": false,
+        "dead_zone": false,
+        "dead_zone_half_width": 0.005,
+        "low_data": false,
+        "low_data_confidence_threshold": 0.4
+      },
       "symmetry_contract": {
         "status": "PASS",
         "rule": "P(A,B)+P(B,A)=1 and each signed component(A,B)=-component(B,A)",
         "complement_sum": 1.0,
-        "exact_50_50": false
+        "exact_50_50": false,
+        "dead_zone": false,
+        "low_data_guard": false
       },
       "flags": []
     },
@@ -5199,7 +5239,7 @@
     "corq_symmetry_audit_status": "FAIL",
     "corq_symmetry_audit_model_version": "CORQ_TOP7_CANONICAL_V13_SYMMETRY",
     "corq_symmetry_audit_checked_pairs": 20,
-    "corq_symmetry_audit_failed_pairs": 7,
+    "corq_symmetry_audit_failed_pairs": 6,
     "top7_rank": 2,
     "snapshot_rank": 2,
     "corq_cloq_priority_model_version": "CORQ_TOP7_CLOQ_PRIORITY_FILL_V1",
