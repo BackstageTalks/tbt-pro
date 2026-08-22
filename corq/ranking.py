@@ -19,7 +19,7 @@ except Exception:  # pragma: no cover
 
 TOP_N_DEFAULT = 7
 BRATISLAVA_TZ = "Europe/Bratislava"
-TOP7_MODEL_VERSION = "CORQ_TOP7_CANONICAL_V12_SYMMETRY"
+TOP7_MODEL_VERSION = "CORQ_TOP7_CANONICAL_V13_SYMMETRY"
 MIN_PICK_ODDS = 1.40
 MIN_FINAL_PROBABILITY = 0.50
 SYMMETRY_TOLERANCE = 0.0001
@@ -281,8 +281,11 @@ def symmetry_audit(rows: Iterable[Dict[str, Any]], tolerance: float = SYMMETRY_T
             continue
         checked += 1
         hp, ap = corq_probability(home), corq_probability(away)
-        h_edge = _as_float(home.get("corq_edge"), hp - 0.50) or 0.0
-        a_edge = _as_float(away.get("corq_edge"), ap - 0.50) or 0.0
+        # Symmetry must use the probability-centred model edge. corq_edge is a
+        # value edge versus each side's raw implied odds, so its A/B sum is not
+        # mathematically required to be zero when the market has overround.
+        h_edge = hp - 0.50
+        a_edge = ap - 0.50
         probability_ok = abs((hp + ap) - 1.0) <= tolerance
         edge_ok = abs(h_edge + a_edge) <= tolerance
         tie_ok = not ((hp == 0.50 or ap == 0.50) and (not no_prediction(home) or not no_prediction(away)))
@@ -359,6 +362,10 @@ def quality_score(row: Dict[str, Any]) -> float:
 
 
 def annotate_top7_quality(row: Dict[str, Any]) -> Dict[str, Any]:
+    # TA is disabled outside the explicitly permitted ELO cache signal. Remove
+    # obsolete projection aliases instead of exporting null legacy fields.
+    row.pop("ta_projected_sets", None)
+    row.pop("ta_projected_games", None)
     hard = hard_reject_reasons(row)
     soft = soft_penalty_reasons(row)
     support = support_tags(row)
@@ -395,6 +402,8 @@ def annotate_rows(rows: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
     for row in out:
         row["corq_symmetry_audit_status"] = audit["status"]
         row["corq_symmetry_audit_model_version"] = TOP7_MODEL_VERSION
+        row["corq_symmetry_audit_checked_pairs"] = audit["checked_pairs"]
+        row["corq_symmetry_audit_failed_pairs"] = audit["failed_pairs"]
     return out
 
 
