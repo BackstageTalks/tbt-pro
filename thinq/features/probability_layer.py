@@ -120,19 +120,41 @@ def build_thinq_probability_layer(
     pick_probability = round(clamp(0.50 + raw_edge * prob_confidence, 0.05, 0.95), 4)
     opponent_probability = round(1.0 - pick_probability, 4)
 
-    pick_is_winner = pick_probability >= opponent_probability
-    winner = pick if pick_is_winner else opponent
-    winner_side = pick_side if pick_is_winner else opponent_side
-    loser = opponent if pick_is_winner else pick
-    loser_side = opponent_side if pick_is_winner else pick_side
-    winner_probability = max(pick_probability, opponent_probability)
+    is_exact_tie = pick_probability == 0.50 and opponent_probability == 0.50
+    if is_exact_tie:
+        prediction_status = "NO_PREDICTION"
+        winner = None
+        winner_side = None
+        loser = None
+        loser_side = None
+        winner_probability = 0.50
+        flags.append("THINQ_EXACT_50_50_NO_PREDICTION")
+    else:
+        prediction_status = "PREDICTION"
+        pick_is_winner = pick_probability > opponent_probability
+        winner = pick if pick_is_winner else opponent
+        winner_side = pick_side if pick_is_winner else opponent_side
+        loser = opponent if pick_is_winner else pick
+        loser_side = opponent_side if pick_is_winner else pick_side
+        winner_probability = max(pick_probability, opponent_probability)
 
-    status = "OK"
-    if elo.get("status") != "OK" and recent_form.get("status") != "OK" and abs(raw_edge) < 0.0001:
+    status = "NO_PREDICTION" if is_exact_tie else "OK"
+    if not is_exact_tie and elo.get("status") != "OK" and recent_form.get("status") != "OK" and abs(raw_edge) < 0.0001:
         status = "LOW_DATA"
 
+    complement_sum = round(pick_probability + opponent_probability, 8)
+    symmetry_audit = {
+        "status": "PASS" if abs(complement_sum - 1.0) <= 1e-8 else "FAIL",
+        "rule": "P(A_vs_B) + P(B_vs_A) = 1",
+        "pick_probability": pick_probability,
+        "swapped_pick_probability_expected": opponent_probability,
+        "complement_sum": complement_sum,
+        "edge_swap_expected": round(-raw_edge, 4),
+        "exact_50_50": is_exact_tie,
+    }
+
     display = {
-        "winner": winner,
+        "winner": winner if winner is not None else "NO_PREDICTION",
         "probability": f"{winner_probability * 100:.1f}%",
         "pick_probability": f"{pick_probability * 100:.1f}%",
         "edge": f"{raw_edge * 100:+.1f}%",
@@ -141,7 +163,8 @@ def build_thinq_probability_layer(
 
     return {
         "status": status,
-        "model_version": "THINQ_PROBABILITY_V2",
+        "prediction_status": prediction_status,
+        "model_version": "THINQ_PROBABILITY_V3_SYMMETRY",
         "pick": pick,
         "pick_side": pick_side,
         "opponent": opponent,
@@ -162,6 +185,38 @@ def build_thinq_probability_layer(
         "components": components,
         "form_family_edge": round(form_family, 4),
         "sets_games_edge_audit_only": round(sets_games_family, 4),
+        "symmetry_audit": symmetry_audit,
         "display": display,
         "flags": sorted(set(flags)),
+    }
+
+
+def audit_probability_symmetry(
+    result_ab: Dict[str, Any],
+    result_ba: Dict[str, Any],
+    tolerance: float = 0.0001,
+) -> Dict[str, Any]:
+    """Audit two real model runs after swapping pick and opponent.
+
+    A/B passes only when probabilities are complementary, edges are opposite,
+    and an exact 50:50 result does not select a winner in either orientation.
+    """
+    p_ab = as_float(result_ab.get("pick_probability"))
+    p_ba = as_float(result_ba.get("pick_probability"))
+    edge_ab = as_float(result_ab.get("edge"))
+    edge_ba = as_float(result_ba.get("edge"))
+    probability_ok = p_ab is not None and p_ba is not None and abs((p_ab + p_ba) - 1.0) <= tolerance
+    edge_ok = edge_ab is not None and edge_ba is not None and abs(edge_ab + edge_ba) <= tolerance
+    tie_ab_ok = p_ab != 0.50 or (result_ab.get("prediction_status") == "NO_PREDICTION" and result_ab.get("winner") is None)
+    tie_ba_ok = p_ba != 0.50 or (result_ba.get("prediction_status") == "NO_PREDICTION" and result_ba.get("winner") is None)
+    passed = bool(probability_ok and edge_ok and tie_ab_ok and tie_ba_ok)
+    return {
+        "status": "PASS" if passed else "FAIL",
+        "probability_complement_ok": bool(probability_ok),
+        "edge_antisimmetry_ok": bool(edge_ok),
+        "tie_ab_ok": bool(tie_ab_ok),
+        "tie_ba_ok": bool(tie_ba_ok),
+        "probability_sum": round((p_ab or 0.0) + (p_ba or 0.0), 8),
+        "edge_sum": round((edge_ab or 0.0) + (edge_ba or 0.0), 8),
+        "tolerance": tolerance,
     }
