@@ -89,6 +89,114 @@ def _load_thinq_service():
     return _UnavailableThinqService(list(THINQ_SERVICE_LOAD_DIAGNOSTICS))
 
 
+BLINQ_SERVICE_LOAD_DIAGNOSTICS: List[Dict[str, Any]] = []
+
+
+class _UnavailableBlinqService:
+    """Soft-fail placeholder. BlinQ audit must never stop the CorQ runtime."""
+
+    def __init__(self, diagnostics: List[Dict[str, Any]]) -> None:
+        self._corq_import_module = None
+        self._corq_import_file = None
+        self._corq_import_diagnostics = diagnostics
+
+    def build_match_features(self, *args: Any, **kwargs: Any) -> Dict[str, Any]:
+        return {
+            "available": False,
+            "model": "blinq",
+            "blinq_status": "UNAVAILABLE",
+            "blinq_prediction_status": "NO_PREDICTION",
+            "blinq_probability": None,
+            "blinq_winner": None,
+            "blinq_symmetry_audit": {"status": "NOT_RUN"},
+            "blinq_flags": ["BLINQ_SERVICE_IMPORT_FAILED"],
+            "error": "BLINQ_SERVICE_IMPORT_FAILED",
+        }
+
+
+def _load_blinq_service():
+    """Load canonical BlinQ service. No compatibility or legacy aliases."""
+    global BLINQ_SERVICE_LOAD_DIAGNOSTICS
+    BLINQ_SERVICE_LOAD_DIAGNOSTICS = []
+    module_name = "blinq.service"
+    try:
+        module = importlib.import_module(module_name)
+        service_cls = getattr(module, "BlinqService")
+        service = service_cls()
+        setattr(service, "_corq_import_module", module_name)
+        setattr(service, "_corq_import_file", getattr(module, "__file__", None))
+        setattr(service, "_corq_import_diagnostics", [])
+        return service
+    except Exception as exc:
+        BLINQ_SERVICE_LOAD_DIAGNOSTICS.append({
+            "module": module_name,
+            "ok": False,
+            "error": f"{type(exc).__name__}: {exc}",
+            "traceback_tail": traceback.format_exc(limit=4).splitlines()[-8:],
+        })
+        return _UnavailableBlinqService(list(BLINQ_SERVICE_LOAD_DIAGNOSTICS))
+
+
+def _enrich_with_blinq(record: Dict[str, Any], blinq_service: Any) -> Dict[str, Any]:
+    """Attach BlinQ in audit-only mode without changing CorQ ranking or TOP7."""
+    output = dict(record)
+    thinq = output.get("thinq") if isinstance(output.get("thinq"), dict) else {}
+    payload = {
+        "player1": output.get("player1"),
+        "player2": output.get("player2"),
+        "pick": output.get("pick"),
+        "opponent": output.get("opponent"),
+        "pick_side": output.get("pick_side"),
+        "opponent_side": output.get("opponent_side"),
+        "thinq": thinq,
+    }
+    try:
+        result = blinq_service.build_match_features(**payload)
+        if not isinstance(result, dict):
+            result = {
+                "available": False,
+                "model": "blinq",
+                "blinq_status": "ERROR",
+                "blinq_prediction_status": "NO_PREDICTION",
+                "blinq_probability": None,
+                "blinq_winner": None,
+                "blinq_symmetry_audit": {"status": "NOT_RUN"},
+                "blinq_flags": ["BLINQ_RETURNED_NON_DICT"],
+                "error": "BLINQ_RETURNED_NON_DICT",
+            }
+    except Exception as exc:
+        result = {
+            "available": False,
+            "model": "blinq",
+            "blinq_status": "ERROR",
+            "blinq_prediction_status": "NO_PREDICTION",
+            "blinq_probability": None,
+            "blinq_winner": None,
+            "blinq_symmetry_audit": {"status": "NOT_RUN"},
+            "blinq_flags": ["BLINQ_ATTACH_FAILED"],
+            "error": str(exc),
+        }
+
+    output["blinq"] = result.get("blinq") if isinstance(result.get("blinq"), dict) else result
+    output["blinq_available"] = bool(result.get("available", False))
+    output["blinq_status"] = result.get("blinq_status")
+    output["blinq_prediction_status"] = result.get("blinq_prediction_status")
+    output["blinq_probability"] = result.get("blinq_probability")
+    output["blinq_probability_pct"] = result.get("blinq_probability_pct")
+    output["blinq_opponent_probability"] = result.get("blinq_opponent_probability")
+    output["blinq_winner"] = result.get("blinq_winner")
+    output["blinq_winner_side"] = result.get("blinq_winner_side")
+    output["blinq_confidence"] = result.get("blinq_confidence")
+    output["blinq_flags"] = result.get("blinq_flags") or []
+    output["blinq_symmetry_audit"] = result.get("blinq_symmetry_audit") or {"status": "NOT_RUN"}
+    output["blinq_swapped_audit_run"] = result.get("blinq_swapped_audit_run")
+    output["blinq_error"] = result.get("error")
+    output["blinq_mode"] = "AUDIT_ONLY_NO_CORQ_RANKING_EFFECT"
+    output["blinq_service_module"] = getattr(blinq_service, "_corq_import_module", None)
+    output["blinq_service_file"] = getattr(blinq_service, "_corq_import_file", None)
+    return output
+
+
 def _ranking_norm_name(value: Any) -> str:
     """Normalize player names for info-only ranking lookup.
 
@@ -1806,12 +1914,14 @@ def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", ru
     raw_candidates = load_candidates(input_path)
     candidates = [repair_candidate_side(candidate) for candidate in raw_candidates]
     thinq_service = _load_thinq_service()
+    blinq_service = _load_blinq_service()
     tennisapi_rankings = _load_tennisapi_rankings_info(output_root)
 
     scored: List[Dict[str, Any]] = []
     for candidate in candidates:
         enriched = _enrich_with_thinq(candidate, thinq_service)
         enriched = _finalize_api_pro_serve_props(enriched)
+        enriched = _enrich_with_blinq(enriched, blinq_service)
         prediction = build_corq_prediction(enriched)
         prediction = _enrich_with_tennisapi_ranking_info(prediction, tennisapi_rankings)
         # H2H score-shape must be attached before Sets/Games/TB market logic.
@@ -1850,6 +1960,18 @@ def run_daily(input_path: Optional[str] = None, output_root: str = "outputs", ru
         "thinq_service_module": getattr(thinq_service, "_corq_import_module", None),
         "thinq_service_file": getattr(thinq_service, "_corq_import_file", None),
         "thinq_service_import_diagnostics": getattr(thinq_service, "_corq_import_diagnostics", THINQ_SERVICE_LOAD_DIAGNOSTICS),
+        "blinq_mode": "AUDIT_ONLY_NO_CORQ_RANKING_EFFECT",
+        "blinq_service_available": not isinstance(blinq_service, _UnavailableBlinqService),
+        "blinq_service_module": getattr(blinq_service, "_corq_import_module", None),
+        "blinq_service_file": getattr(blinq_service, "_corq_import_file", None),
+        "blinq_service_import_diagnostics": getattr(blinq_service, "_corq_import_diagnostics", BLINQ_SERVICE_LOAD_DIAGNOSTICS),
+        "blinq_audit": {
+            "row_count": len(scored),
+            "available_count": sum(1 for row in scored if row.get("blinq_available") is True),
+            "symmetry_pass_count": sum(1 for row in scored if (row.get("blinq_symmetry_audit") or {}).get("status") == "PASS"),
+            "symmetry_fail_count": sum(1 for row in scored if (row.get("blinq_symmetry_audit") or {}).get("status") == "FAIL"),
+            "no_prediction_count": sum(1 for row in scored if row.get("blinq_prediction_status") == "NO_PREDICTION"),
+        },
         "side_safety": {
             "player1_definition": "HOME_API_FIRST_SIDE",
             "player2_definition": "AWAY_API_SECOND_SIDE",
