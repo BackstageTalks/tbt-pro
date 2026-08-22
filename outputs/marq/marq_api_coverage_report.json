@@ -1,6 +1,6 @@
 {
   "model_version": "2026-08-04-marq-coverage-report-v1",
-  "generated_at_utc": "2026-08-22T13:47:54.939597+00:00",
+  "generated_at_utc": "2026-08-22T14:59:23.270204+00:00",
   "input_paths": {
     "all": "outputs/latest_all.json",
     "top7": "outputs/latest_top7.json",
@@ -563,27 +563,28 @@
         "HIGH": 1
       },
       "value_status_counts": {
-        "NO_VALUE": 4,
-        "VALUE_STRONG": 3
+        "NO_VALUE": 5,
+        "VALUE_STRONG": 1,
+        "VALUE_PLAYABLE": 1
       },
       "source_policy_counts": {
         "TENNISAPI_ONLY_EXACT_EVENT": 7
       },
       "market_weight_stats": {
         "count": 7,
-        "avg": 0.1343,
-        "min": 0.12,
+        "avg": 0.1286,
+        "min": 0.1,
         "max": 0.22
       },
       "value_delta_pp_stats": {
         "count": 7,
-        "avg": 1.0657,
+        "avg": -1.5729,
         "min": -14.57,
         "max": 13.44
       },
       "expected_value_pct_stats": {
         "count": 7,
-        "avg": -2.59,
+        "avg": -6.9829,
         "min": -24.95,
         "max": 25.09
       },
@@ -668,39 +669,24 @@
             "value_delta_pp": -2.15,
             "expected_value_pct": -9.14,
             "fallback_reason": null
+          },
+          {
+            "identity": "16892049",
+            "pick": "Abdullah Shelbayh",
+            "opponent": "Ryan Seggerman",
+            "odds": 1.5714,
+            "endpoint": "getAllOddsForEvent",
+            "data_status": "EXACT_CURRENT_ODDS_ONLY",
+            "confidence": "MEDIUM",
+            "movement_status": "OPENING_EQUALS_CURRENT",
+            "tier": "MEDIUM_CURRENT_ONLY",
+            "market_weight": 0.1,
+            "value_delta_pp": -7.19,
+            "expected_value_pct": -18.77,
+            "fallback_reason": null
           }
         ],
         "value_strong": [
-          {
-            "identity": "16892045",
-            "pick": "Li Tu",
-            "opponent": "Quinn Vandecasteele",
-            "odds": 1.8333,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": 8.7,
-            "expected_value_pct": 7.61,
-            "fallback_reason": null
-          },
-          {
-            "identity": "16892047",
-            "pick": "Pierre-Hugues Herbert",
-            "opponent": "Kenta Miyoshi",
-            "odds": 1.8,
-            "endpoint": "getAllOddsForEvent",
-            "data_status": "EXACT_CURRENT_ODDS_ONLY",
-            "confidence": "MEDIUM",
-            "movement_status": "OPENING_EQUALS_CURRENT",
-            "tier": "MEDIUM_CURRENT_ONLY",
-            "market_weight": 0.12,
-            "value_delta_pp": 5.02,
-            "expected_value_pct": 1.68,
-            "fallback_reason": null
-          },
           {
             "identity": "16891913",
             "pick": "Panna Udvardy",

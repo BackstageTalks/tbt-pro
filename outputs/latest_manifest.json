@@ -1,31 +1,20 @@
 {
-  "runtime": "corq_daily_side_safe",
-  "started_at_utc": "2026-08-22T13:46:48.676025+00:00",
-  "finished_at_utc": "2026-08-22T13:47:54.466954+00:00",
+  "runtime": "corq_top7_cloq_priority_finalizer",
+  "model_version": "CORQ_TOP7_CLOQ_PRIORITY_FILL_V1",
+  "finished_at_utc": "2026-08-22T14:59:23.077883+00:00",
   "run_date": "2026-08-22",
   "betting_day": "2026-08-22",
   "betting_day_start_local": "2026-08-22T06:00:00+02:00",
   "betting_day_end_local": "2026-08-23T06:00:00+02:00",
-  "input_path": null,
-  "candidate_count": 40,
-  "scored_count": 40,
+  "input": "outputs/latest_all.json",
   "all_count": 40,
   "ranked_count": 40,
+  "cloq_priority_key_count": 2,
+  "corq_candidates_after_cloq_filter": 36,
+  "corq_skipped_by_cloq_priority_count": 4,
   "top7_count": 7,
-  "thinq_service_available": true,
-  "thinq_service_module": "thinq.service",
-  "thinq_service_file": "/home/runner/work/tbt-pro/tbt-pro/thinq/service.py",
-  "thinq_service_import_diagnostics": [],
-  "side_safety": {
-    "player1_definition": "HOME_API_FIRST_SIDE",
-    "player2_definition": "AWAY_API_SECOND_SIDE",
-    "pick_definition": "DERIVED_FROM_PICK_SIDE"
-  },
+  "top7_target": 7,
   "outputs": {
-    "all": {
-      "dated": "outputs/2026/all/all_2026-08-22.json",
-      "latest": "outputs/latest_all.json"
-    },
     "top7": {
       "dated": "outputs/2026/top7/top7_2026-08-22.json",
       "latest": "outputs/latest_top7.json"
@@ -39,6 +28,7 @@
       "betting_day": "2026-08-22",
       "betting_day_start_local": "2026-08-22T06:00:00+02:00",
       "betting_day_end_local": "2026-08-23T06:00:00+02:00"
-    }
+    },
+    "skipped": "outputs/snapshots/latest_corq_cloq_priority_skipped.json"
   }
 }
