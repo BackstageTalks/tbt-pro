@@ -104,6 +104,12 @@ jobs:
           python -m cloq.engine --input outputs/latest_all.json --output-root outputs
 
 
+      - name: Finalize CorQ TOP7 with CloQ priority
+        if: ${{ steps.local_time.outputs.should_run == 'true' }}
+        run: |
+          set -euo pipefail
+          python -m corq.engine --output-root outputs --finalize-top7-from-latest-all
+
       - name: Validate runtime outputs
         if: ${{ steps.local_time.outputs.should_run == 'true' }}
         run: |
@@ -132,6 +138,24 @@ jobs:
           print(f"runtime_output_audit={len(audit)}")
           print(f"runtime_output_cloq={len(cloq)}")
           print(f"runtime_output_cloq_flat={len(cloq_flat)}")
+          def event_key(row):
+              raw = row.get("raw") if isinstance(row.get("raw"), dict) else {}
+              for key in ("event_id", "match_id", "id", "fixture_id", "api_match_id", "custom_id", "customId"):
+                  value = row.get(key)
+                  if value not in (None, ""):
+                      return "event:" + str(value).strip()
+              for key in ("id", "customId", "custom_id"):
+                  value = raw.get(key)
+                  if value not in (None, ""):
+                      return "event:" + str(value).strip()
+              return ""
+          corq_keys = {event_key(row) for row in top7 if event_key(row)}
+          cloq_keys = {event_key(row) for row in cloq if event_key(row)}
+          overlap = sorted(corq_keys & cloq_keys)
+          print(f"runtime_corq_cloq_overlap_count={len(overlap)}")
+          if overlap:
+              print("runtime_corq_cloq_overlap_keys=", overlap)
+              raise SystemExit("CorQ TOP7 overlaps CloQ despite CloQ-priority finalization.")
 
           manifest_path = Path("outputs/latest_manifest.json")
           manifest = {}
