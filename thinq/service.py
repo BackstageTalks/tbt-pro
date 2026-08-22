@@ -55,13 +55,59 @@ except Exception:
 
 
 try:
+    from thinq.loaders.ta_profile_loader import build_match_ta_context
+except Exception:
+    def build_match_ta_context(pick: str, opponent: str, surface: str = "") -> Dict[str, Any]:
+        return {
+            "ta_status": "N/A",
+            "ta_pick_status": "N/A",
+            "ta_opp_status": "N/A",
+            "ta_pick_set_pct": None,
+            "ta_opp_set_pct": None,
+            "ta_pick_game_pct": None,
+            "ta_opp_game_pct": None,
+            "ta_pick_tb_split": None,
+            "ta_opp_tb_split": None,
+            "ta_pick_tb_pct": None,
+            "ta_opp_tb_pct": None,
+            "ta_pick_ace_pct": None,
+            "ta_opp_ace_pct": None,
+            "ta_pick_df_pct": None,
+            "ta_opp_df_pct": None,
+            "pick_ace_pct": None,
+            "opponent_ace_pct": None,
+            "pick_df_pct": None,
+            "opponent_df_pct": None,
+            "ta_pick_surface_dr": None,
+            "ta_opp_surface_dr": None,
+            "ta_pick_rpw_pct": None,
+            "ta_opp_rpw_pct": None,
+            "ta_pick_depth": None,
+            "ta_opp_depth": None,
+            "pick_aces_line": None,
+            "opponent_aces_line": None,
+            "total_aces_line": None,
+            "aces_status": "N/A",
+            "ta_winner_decision": "N/A",
+            "ta_sets_decision": "N/A",
+            "ta_games_decision": "N/A",
+            "ta_tb_decision": "N/A",
+            "ta_serve_return_pattern": "N/A",
+            "ta_match_shape": "N/A",
+            "ta_depth_label": "N/A",
+            "ta_decision_confidence": 0.0,
+            "ta_decision_notes": [],
+        }
+
+try:
     from thinq.features.probability_layer import build_thinq_probability_layer
 except Exception:
     def build_thinq_probability_layer(*args: Any, **kwargs: Any) -> Dict[str, Any]:
         pick = kwargs.get("pick") or ""
         opponent = kwargs.get("opponent") or ""
         return {
-            "status": "NO_DATA",
+            "status": "NO_PREDICTION",
+            "prediction_status": "NO_PREDICTION",
             "model_version": "THINQ_PROBABILITY_UNAVAILABLE",
             "pick": pick,
             "opponent": opponent,
@@ -69,13 +115,25 @@ except Exception:
             "pick_probability_pct": 50.0,
             "opponent_probability": 0.50,
             "opponent_probability_pct": 50.0,
-            "winner": pick,
+            "winner": None,
+            "winner_side": None,
+            "loser": None,
+            "loser_side": None,
             "winner_probability": 0.50,
             "winner_probability_pct": 50.0,
             "edge": 0.0,
             "confidence": 0.0,
             "components": {},
-            "flags": ["THINQ_PROBABILITY_UNAVAILABLE"],
+            "symmetry_audit": {
+                "status": "PASS",
+                "rule": "P(A_vs_B) + P(B_vs_A) = 1",
+                "pick_probability": 0.50,
+                "swapped_pick_probability_expected": 0.50,
+                "complement_sum": 1.0,
+                "edge_swap_expected": 0.0,
+                "exact_50_50": True,
+            },
+            "flags": ["THINQ_PROBABILITY_UNAVAILABLE", "THINQ_EXACT_50_50_NO_PREDICTION"],
         }
 
 
@@ -157,6 +215,72 @@ def _safe_match_dynamics_context(**kwargs: Any) -> Dict[str, Any]:
             "error": str(exc),
         }
 
+
+def _safe_ta_context(pick: str, opponent: str, surface: str = "") -> Dict[str, Any]:
+    """TA profile context is disabled for production model inputs.
+
+    Policy: API PRO is the only external stats source for aces/DF/serve props.
+    Keep TA-shaped keys as None only for compatibility with legacy render fields.
+    """
+    return {
+        "ta_status": "DISABLED",
+        "ta_pick_status": "DISABLED",
+        "ta_opp_status": "DISABLED",
+        "ta_pick_set_pct": None,
+        "ta_opp_set_pct": None,
+        "ta_pick_game_pct": None,
+        "ta_opp_game_pct": None,
+        "ta_pick_tb_split": None,
+        "ta_opp_tb_split": None,
+        "ta_pick_tb_pct": None,
+        "ta_opp_tb_pct": None,
+        "ta_pick_ace_pct": None,
+        "ta_opp_ace_pct": None,
+        "ta_pick_df_pct": None,
+        "ta_opp_df_pct": None,
+        "pick_ace_pct": None,
+        "opponent_ace_pct": None,
+        "pick_df_pct": None,
+        "opponent_df_pct": None,
+        "ta_pick_depth": None,
+        "ta_opp_depth": None,
+        "pick_aces_line": None,
+        "opponent_aces_line": None,
+        "total_aces_line": None,
+        "aces_status": "DISABLED",
+        "ta_decision_confidence": 0.0,
+        "ta_decision_notes": ["TA_CONTEXT_DISABLED_API_PRO_ONLY"],
+    }
+
+def _first_non_null(*values: Any) -> Any:
+    for value in values:
+        if value not in (None, "", "N/A", "—", "-"):
+            return value
+    return None
+
+
+def _avg_pct(*values: Any) -> Optional[float]:
+    nums: List[float] = []
+    for value in values:
+        try:
+            if value not in (None, "", "N/A", "—", "-"):
+                nums.append(float(value))
+        except Exception:
+            continue
+    if not nums:
+        return None
+    return round(sum(nums) / len(nums), 1)
+
+
+def _ta_data_status(*values: Any) -> str:
+    return "OK" if all(value not in (None, "", "N/A", "—", "-") for value in values) else "MISSING_TA_DATA"
+
+
+def _ta_depth_pct(pick_depth: Any, opp_depth: Any) -> Optional[float]:
+    avg = _avg_pct(pick_depth, opp_depth)
+    if avg is None:
+        return None
+    return max(0.0, min(100.0, avg))
 
 def normalize_surface(surface: Optional[str]) -> Dict[str, Any]:
     raw = str(surface or "").strip()
@@ -559,7 +683,7 @@ def build_api_pro_serve_stats_context(
     opp_df = _project_serve_prop(opp_stats.get("df_pct"), projected_games)
     return {
         "api_serve_stats_source": "API_PRO_TEAM_YEAR_STATS",
-        "serve_props_source_policy": "API_PRO_ONLY_NO_FALLBACK",
+        "serve_props_source_policy": "API_PRO_ONLY_NO_TA_NO_BET365_FALLBACK",
         "api_previous_matches_source": "API_PRO_GET_PREVIOUS_PLAYER_MATCHES",
         "api_previous_matches_games_source": games_source,
         "api_previous_matches_projected_games": projected_games,
@@ -700,6 +824,7 @@ class ThinqService:
             pick_odds=kwargs.get("pick_odds") or kwargs.get("odds"),
             opponent_odds=kwargs.get("opponent_odds"),
         )
+        ta_context = _safe_ta_context(analysis_pick, analysis_opponent, str(surface_bucket or ""))
         try:
             api_serve_stats = build_api_pro_serve_stats_context(
                 pick_player_id=pick_player_id,
@@ -863,12 +988,15 @@ class ThinqService:
                 "recent_form": recent_form,
                 "elo": elo,
                 "thinq_probability_layer": thinq_probability_layer,
+                "ta_context": ta_context,
                 "api_serve_stats": api_serve_stats,
             },
             "edges": edges,
             "flags": sorted(set(flags)),
             "thinq_available": True,
             "thinq_probability_status": thinq_probability_layer.get("status"),
+            "thinq_prediction_status": thinq_probability_layer.get("prediction_status"),
+            "thinq_symmetry_audit": thinq_probability_layer.get("symmetry_audit"),
             "thinq_model_version": thinq_probability_layer.get("model_version"),
             "thinq_pick_probability": thinq_probability_layer.get("pick_probability"),
             "thinq_pick_probability_pct": thinq_probability_layer.get("pick_probability_pct"),
@@ -954,6 +1082,23 @@ class ThinqService:
             "opponent_api_event_count": recent_form.get("opponent_api_event_count"),
             "pick_api_usable_match_count": recent_form.get("pick_api_usable_match_count"),
             "opponent_api_usable_match_count": recent_form.get("opponent_api_usable_match_count"),
+            "ta_context": ta_context,
+            "thinq_ta_context": ta_context,
+            "ta_status": ta_context.get("ta_status"),
+            "ta_pick_status": ta_context.get("ta_pick_status"),
+            "ta_opp_status": ta_context.get("ta_opp_status"),
+            "ta_pick_set_pct": ta_context.get("ta_pick_set_pct"),
+            "ta_opp_set_pct": ta_context.get("ta_opp_set_pct"),
+            "ta_pick_game_pct": ta_context.get("ta_pick_game_pct"),
+            "ta_opp_game_pct": ta_context.get("ta_opp_game_pct"),
+            "ta_pick_tb_split": ta_context.get("ta_pick_tb_split"),
+            "ta_opp_tb_split": ta_context.get("ta_opp_tb_split"),
+            "ta_pick_tb_pct": ta_context.get("ta_pick_tb_pct"),
+            "ta_opp_tb_pct": ta_context.get("ta_opp_tb_pct"),
+            "ta_pick_ace_pct": ta_context.get("ta_pick_ace_pct"),
+            "ta_opp_ace_pct": ta_context.get("ta_opp_ace_pct"),
+            "ta_pick_df_pct": ta_context.get("ta_pick_df_pct"),
+            "ta_opp_df_pct": ta_context.get("ta_opp_df_pct"),
             "api_serve_stats": api_serve_stats,
             "api_serve_stats_source": api_serve_stats.get("api_serve_stats_source"),
             "api_serve_stats_status": api_serve_stats.get("api_serve_stats_status"),
@@ -972,7 +1117,7 @@ class ThinqService:
             "api_opp_serve_scope": api_serve_stats.get("api_opp_serve_scope"),
             "api_pick_serve_year": api_serve_stats.get("api_pick_serve_year"),
             "api_opp_serve_year": api_serve_stats.get("api_opp_serve_year"),
-            # Compatibility aliases consumed by the Sets/Games/Aces/DF layers. API PRO team yearly stats only.
+            # Compatibility aliases consumed by the Sets/Games/Aces/DF layers. Prefer TA if available, otherwise API PRO team yearly stats.
             "pick_ace_pct": api_serve_stats.get("api_pick_ace_pct"),
             "opponent_ace_pct": api_serve_stats.get("api_opp_ace_pct"),
             "pick_df_pct": api_serve_stats.get("api_pick_df_pct"),
@@ -984,6 +1129,12 @@ class ThinqService:
             "tie_break_probability": match_dynamics.get("tiebreak_probability"),
             "ace_status": api_serve_stats.get("aces_status"),
             "df_status": api_serve_stats.get("df_status"),
+            "ta_pick_surface_dr": ta_context.get("ta_pick_surface_dr"),
+            "ta_opp_surface_dr": ta_context.get("ta_opp_surface_dr"),
+            "ta_pick_rpw_pct": ta_context.get("ta_pick_rpw_pct"),
+            "ta_opp_rpw_pct": ta_context.get("ta_opp_rpw_pct"),
+            "ta_pick_depth": ta_context.get("ta_pick_depth"),
+            "ta_opp_depth": ta_context.get("ta_opp_depth"),
             "s_data_depth": None,
             "sets_games_data_depth": None,
             "sets_model_source": "API_PRO_H2H_MATCH_DYNAMICS",
@@ -997,6 +1148,44 @@ class ThinqService:
             "opponent_df_projection": api_serve_stats.get("opponent_df_projection"),
             "total_df_projection": api_serve_stats.get("total_df_projection"),
             "aces_status": api_serve_stats.get("aces_status"),
+            "ta_scope": ta_context.get("ta_scope"),
+            "ta_surface": ta_context.get("ta_surface"),
+            "ta_pick_hold_pct": ta_context.get("ta_pick_hold_pct"),
+            "ta_opp_hold_pct": ta_context.get("ta_opp_hold_pct"),
+            "ta_pick_break_pct": ta_context.get("ta_pick_break_pct"),
+            "ta_opp_break_pct": ta_context.get("ta_opp_break_pct"),
+            "ta_pick_spw_pct": ta_context.get("ta_pick_spw_pct"),
+            "ta_opp_spw_pct": ta_context.get("ta_opp_spw_pct"),
+            "ta_pick_tpw_pct": ta_context.get("ta_pick_tpw_pct"),
+            "ta_opp_tpw_pct": ta_context.get("ta_opp_tpw_pct"),
+            "ta_pick_matches": ta_context.get("ta_pick_matches"),
+            "ta_opp_matches": ta_context.get("ta_opp_matches"),
+            "ta_winner_decision": ta_context.get("ta_winner_decision"),
+            "ta_winner_read": ta_context.get("ta_winner_decision"),
+            "ta_sets_decision": ta_context.get("ta_sets_decision"),
+            "ta_games_decision": ta_context.get("ta_games_decision"),
+            "ta_tb_decision": ta_context.get("ta_tb_decision"),
+            "ta_projected_sets": ta_context.get("ta_projected_sets"),
+            "ta_projected_games": ta_context.get("ta_projected_games"),
+            "ta_straight_sets_probability": ta_context.get("ta_straight_sets_probability"),
+            "ta_decider_probability": ta_context.get("ta_decider_probability"),
+            "ta_tiebreak_probability": ta_context.get("ta_tiebreak_probability"),
+            "ta_score_projection": ta_context.get("ta_score_projection"),
+            "ta_sets_model_status": ta_context.get("ta_sets_model_status"),
+            "ta_signal": ta_context.get("ta_signal"),
+            "ta_signal_label": ta_context.get("ta_signal_label"),
+            "ta_signal_action": ta_context.get("ta_signal_action"),
+            "ta_signal_market": ta_context.get("ta_signal_market"),
+            "ta_signal_type": ta_context.get("ta_signal_type"),
+            "ta_signal_strength": ta_context.get("ta_signal_strength"),
+            "ta_signal_confidence": ta_context.get("ta_signal_confidence"),
+            "ta_signal_reasons": ta_context.get("ta_signal_reasons") or [],
+            "ta_signal_score_projection": ta_context.get("ta_signal_score_projection"),
+            "ta_serve_return_pattern": ta_context.get("ta_serve_return_pattern"),
+            "ta_match_shape": ta_context.get("ta_match_shape"),
+            "ta_depth_label": ta_context.get("ta_depth_label"),
+            "ta_decision_confidence": ta_context.get("ta_decision_confidence"),
+            "ta_decision_notes": ta_context.get("ta_decision_notes") or [],
             "thinq_pick_player_id": pick_player_id,
             "thinq_opponent_player_id": opponent_player_id,
             "thinq_id_orientation": "PICK_IDS_SIDE_AWARE_V1",
@@ -1006,6 +1195,7 @@ class ThinqService:
                 "h2h": h2h.get("status"),
                 "recent_form": recent_form.get("status"),
                 "match_dynamics": match_dynamics.get("status"),
+                "ta": ta_context.get("ta_status"),
                 "history_match_count": (recent_form.get("history_status") or {}).get("match_count") if isinstance(recent_form.get("history_status"), dict) else None,
                 "history_file_count": (recent_form.get("history_status") or {}).get("file_count") if isinstance(recent_form.get("history_status"), dict) else None,
             },
