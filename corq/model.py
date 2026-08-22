@@ -76,7 +76,6 @@ def extract_edges(record: Dict[str, Any]) -> Dict[str, Optional[float]]:
         "market_sanity_edge",
         "surface_form_edge",
         "level_form_edge",
-        "ta_edge",
         "fatigue_edge",
         "surface_transition_edge",
         "level_context_edge",
