@@ -1,0 +1,38 @@
+{
+  "attempted": 32,
+  "cache_path": "thinq/data/h2h/h2h_cache.json",
+  "candidate_pairs": 32,
+  "elo_key_hits": {
+    "pick_elo+opponent_elo": 41
+  },
+  "errors": 0,
+  "finished_at_utc": "2026-08-19T11:32:29+00:00",
+  "history_status_counts": {
+    "NO_PREVIOUS_H2H": 10,
+    "OK": 22
+  },
+  "manifest_path": "thinq/data/h2h/h2h_manifest.json",
+  "matchups_path": "thinq/data/h2h/h2h_matchups.json",
+  "max_requests": 60,
+  "no_data": 10,
+  "ok": 22,
+  "outputs_dir": "outputs",
+  "pair_count_after": 32,
+  "pair_count_before": 32,
+  "reject_counts": {
+    "duplicate": 9,
+    "missing_elo": 0,
+    "missing_h2h_key": 0,
+    "missing_identity": 0
+  },
+  "require_elo": false,
+  "runtime_report_path": "runtime/h2h/h2h_coverage_report.json",
+  "source_counts": {
+    "outputs/cloq/latest_cloq.json": 2,
+    "outputs/latest_all.json": 32,
+    "outputs/latest_cloq.json": 2,
+    "outputs/latest_top7.json": 5
+  },
+  "started_at_utc": "2026-08-19T11:32:29+00:00",
+  "status": "OK"
+}
