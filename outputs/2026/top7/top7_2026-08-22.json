@@ -2005,36 +2005,85 @@
     "blinq": {
       "status": "OK",
       "prediction_status": "PREDICTION",
-      "model_version": "BLINQ_V1_SYMMETRIC_REAL_DATA_ONLY",
+      "model_version": "BLINQ_V2_COMPONENT_SYMMETRY_DATA_QUALITY",
       "source_policy": "REAL_DATA_ONLY_API_PRO_PLUS_TA_ELO_CACHE_ALLOWED",
       "player_a": "Anna Bondar",
       "player_b": "Elsa Jacquemot",
       "side_a": "HOME",
       "side_b": "AWAY",
-      "probability_a": 0.5661640967,
-      "probability_b": 0.4338359033,
-      "probability_a_pct": 56.6164,
-      "probability_b_pct": 43.3836,
+      "probability_a": 0.5624606934,
+      "probability_b": 0.4375393066,
+      "probability_a_pct": 56.2461,
+      "probability_b_pct": 43.7539,
       "winner": "Anna Bondar",
       "winner_side": "HOME",
-      "winner_probability": 0.5661640967,
-      "raw_score": 0.037815,
-      "effective_score": 0.0332772,
+      "loser": "Elsa Jacquemot",
+      "loser_side": "AWAY",
+      "winner_probability": 0.5624606934,
+      "raw_score": 0.0356753846,
+      "effective_score": 0.0313943385,
       "confidence": 0.88,
+      "data_quality_score": 0.97,
       "feature_coverage": 1.0,
+      "available_component_count": 6,
+      "source_diversity": 1.0,
       "components": {
         "elo_edge": 0.08,
         "h2h_edge": 0.025,
         "recent_form_edge": 0.024,
+        "short_form_edge": 0.01,
         "surface_recent_form_edge": 0.007,
         "opponent_quality_edge": 0.0127
       },
       "component_input_audit": {
-        "elo_edge": 0.08,
-        "h2h_edge": 0.025,
-        "recent_form_edge": 0.024,
-        "surface_recent_form_edge": 0.007,
-        "opponent_quality_edge": 0.0127
+        "elo_edge": {
+          "raw": 0.08,
+          "capped": 0.08,
+          "available": true,
+          "source": "elo",
+          "source_status": "OK",
+          "neutral_zero": false
+        },
+        "h2h_edge": {
+          "raw": 0.025,
+          "capped": 0.025,
+          "available": true,
+          "source": "h2h",
+          "source_status": "OK",
+          "neutral_zero": false
+        },
+        "recent_form_edge": {
+          "raw": 0.024,
+          "capped": 0.024,
+          "available": true,
+          "source": "recent_form",
+          "source_status": "OK",
+          "neutral_zero": false
+        },
+        "short_form_edge": {
+          "raw": 0.01,
+          "capped": 0.01,
+          "available": true,
+          "source": "recent_form",
+          "source_status": "OK",
+          "neutral_zero": false
+        },
+        "surface_recent_form_edge": {
+          "raw": 0.007,
+          "capped": 0.007,
+          "available": true,
+          "source": "recent_form",
+          "source_status": "OK",
+          "neutral_zero": false
+        },
+        "opponent_quality_edge": {
+          "raw": 0.0127,
+          "capped": 0.0127,
+          "available": true,
+          "source": "recent_form",
+          "source_status": "OK",
+          "neutral_zero": false
+        }
       },
       "source_status": {
         "elo": "OK",
@@ -2046,7 +2095,7 @@
       },
       "symmetry_contract": {
         "status": "PASS",
-        "rule": "P(A,B)+P(B,A)=1 and score(A,B)=-score(B,A)",
+        "rule": "P(A,B)+P(B,A)=1 and each signed component(A,B)=-component(B,A)",
         "complement_sum": 1.0,
         "exact_50_50": false
       },
@@ -2057,9 +2106,9 @@
     "blinq_available": true,
     "blinq_status": "OK",
     "blinq_prediction_status": "PREDICTION",
-    "blinq_probability": 0.5661640967,
-    "blinq_probability_pct": 56.6164,
-    "blinq_opponent_probability": 0.4338359033,
+    "blinq_probability": 0.5624606934,
+    "blinq_probability_pct": 56.2461,
+    "blinq_opponent_probability": 0.4375393066,
     "blinq_winner": "Anna Bondar",
     "blinq_winner_side": "HOME",
     "blinq_confidence": 0.88,
@@ -2070,44 +2119,132 @@
       "status": "PASS",
       "probability_complement_ok": true,
       "score_antisymmetry_ok": true,
+      "component_antisymmetry_ok": true,
       "tie_ok": true,
       "probability_sum": 1.0,
       "score_sum": 0.0,
+      "component_checks": {
+        "elo_edge": {
+          "ab": 0.08,
+          "ba": -0.08,
+          "sum": 0.0,
+          "status": "PASS"
+        },
+        "h2h_edge": {
+          "ab": 0.025,
+          "ba": -0.025,
+          "sum": 0.0,
+          "status": "PASS"
+        },
+        "recent_form_edge": {
+          "ab": 0.024,
+          "ba": -0.024,
+          "sum": 0.0,
+          "status": "PASS"
+        },
+        "short_form_edge": {
+          "ab": 0.01,
+          "ba": -0.01,
+          "sum": 0.0,
+          "status": "PASS"
+        },
+        "surface_recent_form_edge": {
+          "ab": 0.007,
+          "ba": -0.007,
+          "sum": 0.0,
+          "status": "PASS"
+        },
+        "opponent_quality_edge": {
+          "ab": 0.0127,
+          "ba": -0.0127,
+          "sum": 0.0,
+          "status": "PASS"
+        }
+      },
       "tolerance": 1e-08
     },
     "blinq_swapped_audit_run": {
       "status": "OK",
       "prediction_status": "PREDICTION",
-      "model_version": "BLINQ_V1_SYMMETRIC_REAL_DATA_ONLY",
+      "model_version": "BLINQ_V2_COMPONENT_SYMMETRY_DATA_QUALITY",
       "source_policy": "REAL_DATA_ONLY_API_PRO_PLUS_TA_ELO_CACHE_ALLOWED",
       "player_a": "Elsa Jacquemot",
       "player_b": "Anna Bondar",
       "side_a": "AWAY",
       "side_b": "HOME",
-      "probability_a": 0.4338359033,
-      "probability_b": 0.5661640967,
-      "probability_a_pct": 43.3836,
-      "probability_b_pct": 56.6164,
+      "probability_a": 0.4375393066,
+      "probability_b": 0.5624606934,
+      "probability_a_pct": 43.7539,
+      "probability_b_pct": 56.2461,
       "winner": "Anna Bondar",
       "winner_side": "HOME",
-      "winner_probability": 0.5661640967,
-      "raw_score": -0.037815,
-      "effective_score": -0.0332772,
+      "loser": "Elsa Jacquemot",
+      "loser_side": "AWAY",
+      "winner_probability": 0.5624606934,
+      "raw_score": -0.0356753846,
+      "effective_score": -0.0313943385,
       "confidence": 0.88,
+      "data_quality_score": 0.97,
       "feature_coverage": 1.0,
+      "available_component_count": 6,
+      "source_diversity": 1.0,
       "components": {
         "elo_edge": -0.08,
         "h2h_edge": -0.025,
         "recent_form_edge": -0.024,
+        "short_form_edge": -0.01,
         "surface_recent_form_edge": -0.007,
         "opponent_quality_edge": -0.0127
       },
       "component_input_audit": {
-        "elo_edge": -0.08,
-        "h2h_edge": -0.025,
-        "recent_form_edge": -0.024,
-        "surface_recent_form_edge": -0.007,
-        "opponent_quality_edge": -0.0127
+        "elo_edge": {
+          "raw": -0.08,
+          "capped": -0.08,
+          "available": true,
+          "source": "elo",
+          "source_status": "OK",
+          "neutral_zero": false
+        },
+        "h2h_edge": {
+          "raw": -0.025,
+          "capped": -0.025,
+          "available": true,
+          "source": "h2h",
+          "source_status": "OK",
+          "neutral_zero": false
+        },
+        "recent_form_edge": {
+          "raw": -0.024,
+          "capped": -0.024,
+          "available": true,
+          "source": "recent_form",
+          "source_status": "OK",
+          "neutral_zero": false
+        },
+        "short_form_edge": {
+          "raw": -0.01,
+          "capped": -0.01,
+          "available": true,
+          "source": "recent_form",
+          "source_status": "OK",
+          "neutral_zero": false
+        },
+        "surface_recent_form_edge": {
+          "raw": -0.007,
+          "capped": -0.007,
+          "available": true,
+          "source": "recent_form",
+          "source_status": "OK",
+          "neutral_zero": false
+        },
+        "opponent_quality_edge": {
+          "raw": -0.0127,
+          "capped": -0.0127,
+          "available": true,
+          "source": "recent_form",
+          "source_status": "OK",
+          "neutral_zero": false
+        }
       },
       "source_status": {
         "elo": "OK",
@@ -2119,7 +2256,7 @@
       },
       "symmetry_contract": {
         "status": "PASS",
-        "rule": "P(A,B)+P(B,A)=1 and score(A,B)=-score(B,A)",
+        "rule": "P(A,B)+P(B,A)=1 and each signed component(A,B)=-component(B,A)",
         "complement_sum": 1.0,
         "exact_50_50": false
       },
@@ -4465,36 +4602,85 @@
     "blinq": {
       "status": "OK",
       "prediction_status": "PREDICTION",
-      "model_version": "BLINQ_V1_SYMMETRIC_REAL_DATA_ONLY",
+      "model_version": "BLINQ_V2_COMPONENT_SYMMETRY_DATA_QUALITY",
       "source_policy": "REAL_DATA_ONLY_API_PRO_PLUS_TA_ELO_CACHE_ALLOWED",
       "player_a": "Brandon Nakashima",
       "player_b": "Frances Tiafoe",
       "side_a": "HOME",
       "side_b": "AWAY",
-      "probability_a": 0.5089955626,
-      "probability_b": 0.4910044374,
-      "probability_a_pct": 50.8996,
-      "probability_b_pct": 49.1004,
+      "probability_a": 0.5083037288,
+      "probability_b": 0.4916962712,
+      "probability_a_pct": 50.8304,
+      "probability_b_pct": 49.1696,
       "winner": "Brandon Nakashima",
       "winner_side": "HOME",
-      "winner_probability": 0.5089955626,
-      "raw_score": 0.0051116667,
-      "effective_score": 0.0044982667,
+      "loser": "Frances Tiafoe",
+      "loser_side": "AWAY",
+      "winner_probability": 0.5083037288,
+      "raw_score": 0.0047184615,
+      "effective_score": 0.0041522462,
       "confidence": 0.88,
+      "data_quality_score": 0.97,
       "feature_coverage": 1.0,
+      "available_component_count": 6,
+      "source_diversity": 1.0,
       "components": {
         "elo_edge": 0.0109,
         "h2h_edge": -0.03,
         "recent_form_edge": 0.016,
+        "short_form_edge": 0.0,
         "surface_recent_form_edge": 0.014,
         "opponent_quality_edge": 0.0001
       },
       "component_input_audit": {
-        "elo_edge": 0.0109,
-        "h2h_edge": -0.03,
-        "recent_form_edge": 0.016,
-        "surface_recent_form_edge": 0.014,
-        "opponent_quality_edge": 0.0001
+        "elo_edge": {
+          "raw": 0.0109,
+          "capped": 0.0109,
+          "available": true,
+          "source": "elo",
+          "source_status": "OK",
+          "neutral_zero": false
+        },
+        "h2h_edge": {
+          "raw": -0.03,
+          "capped": -0.03,
+          "available": true,
+          "source": "h2h",
+          "source_status": "OK",
+          "neutral_zero": false
+        },
+        "recent_form_edge": {
+          "raw": 0.016,
+          "capped": 0.016,
+          "available": true,
+          "source": "recent_form",
+          "source_status": "OK",
+          "neutral_zero": false
+        },
+        "short_form_edge": {
+          "raw": 0.0,
+          "capped": 0.0,
+          "available": true,
+          "source": "recent_form",
+          "source_status": "OK",
+          "neutral_zero": true
+        },
+        "surface_recent_form_edge": {
+          "raw": 0.014,
+          "capped": 0.014,
+          "available": true,
+          "source": "recent_form",
+          "source_status": "OK",
+          "neutral_zero": false
+        },
+        "opponent_quality_edge": {
+          "raw": 0.0001,
+          "capped": 0.0001,
+          "available": true,
+          "source": "recent_form",
+          "source_status": "OK",
+          "neutral_zero": false
+        }
       },
       "source_status": {
         "elo": "OK",
@@ -4506,7 +4692,7 @@
       },
       "symmetry_contract": {
         "status": "PASS",
-        "rule": "P(A,B)+P(B,A)=1 and score(A,B)=-score(B,A)",
+        "rule": "P(A,B)+P(B,A)=1 and each signed component(A,B)=-component(B,A)",
         "complement_sum": 1.0,
         "exact_50_50": false
       },
@@ -4515,9 +4701,9 @@
     "blinq_available": true,
     "blinq_status": "OK",
     "blinq_prediction_status": "PREDICTION",
-    "blinq_probability": 0.5089955626,
-    "blinq_probability_pct": 50.8996,
-    "blinq_opponent_probability": 0.4910044374,
+    "blinq_probability": 0.5083037288,
+    "blinq_probability_pct": 50.8304,
+    "blinq_opponent_probability": 0.4916962712,
     "blinq_winner": "Brandon Nakashima",
     "blinq_winner_side": "HOME",
     "blinq_confidence": 0.88,
@@ -4526,44 +4712,132 @@
       "status": "PASS",
       "probability_complement_ok": true,
       "score_antisymmetry_ok": true,
+      "component_antisymmetry_ok": true,
       "tie_ok": true,
       "probability_sum": 1.0,
       "score_sum": 0.0,
+      "component_checks": {
+        "elo_edge": {
+          "ab": 0.0109,
+          "ba": -0.0109,
+          "sum": 0.0,
+          "status": "PASS"
+        },
+        "h2h_edge": {
+          "ab": -0.03,
+          "ba": 0.03,
+          "sum": 0.0,
+          "status": "PASS"
+        },
+        "recent_form_edge": {
+          "ab": 0.016,
+          "ba": -0.016,
+          "sum": 0.0,
+          "status": "PASS"
+        },
+        "short_form_edge": {
+          "ab": 0.0,
+          "ba": -0.0,
+          "sum": 0.0,
+          "status": "PASS"
+        },
+        "surface_recent_form_edge": {
+          "ab": 0.014,
+          "ba": -0.014,
+          "sum": 0.0,
+          "status": "PASS"
+        },
+        "opponent_quality_edge": {
+          "ab": 0.0001,
+          "ba": -0.0001,
+          "sum": 0.0,
+          "status": "PASS"
+        }
+      },
       "tolerance": 1e-08
     },
     "blinq_swapped_audit_run": {
       "status": "OK",
       "prediction_status": "PREDICTION",
-      "model_version": "BLINQ_V1_SYMMETRIC_REAL_DATA_ONLY",
+      "model_version": "BLINQ_V2_COMPONENT_SYMMETRY_DATA_QUALITY",
       "source_policy": "REAL_DATA_ONLY_API_PRO_PLUS_TA_ELO_CACHE_ALLOWED",
       "player_a": "Frances Tiafoe",
       "player_b": "Brandon Nakashima",
       "side_a": "AWAY",
       "side_b": "HOME",
-      "probability_a": 0.4910044374,
-      "probability_b": 0.5089955626,
-      "probability_a_pct": 49.1004,
-      "probability_b_pct": 50.8996,
+      "probability_a": 0.4916962712,
+      "probability_b": 0.5083037288,
+      "probability_a_pct": 49.1696,
+      "probability_b_pct": 50.8304,
       "winner": "Brandon Nakashima",
       "winner_side": "HOME",
-      "winner_probability": 0.5089955626,
-      "raw_score": -0.0051116667,
-      "effective_score": -0.0044982667,
+      "loser": "Frances Tiafoe",
+      "loser_side": "AWAY",
+      "winner_probability": 0.5083037288,
+      "raw_score": -0.0047184615,
+      "effective_score": -0.0041522462,
       "confidence": 0.88,
+      "data_quality_score": 0.97,
       "feature_coverage": 1.0,
+      "available_component_count": 6,
+      "source_diversity": 1.0,
       "components": {
         "elo_edge": -0.0109,
         "h2h_edge": 0.03,
         "recent_form_edge": -0.016,
+        "short_form_edge": -0.0,
         "surface_recent_form_edge": -0.014,
         "opponent_quality_edge": -0.0001
       },
       "component_input_audit": {
-        "elo_edge": -0.0109,
-        "h2h_edge": 0.03,
-        "recent_form_edge": -0.016,
-        "surface_recent_form_edge": -0.014,
-        "opponent_quality_edge": -0.0001
+        "elo_edge": {
+          "raw": -0.0109,
+          "capped": -0.0109,
+          "available": true,
+          "source": "elo",
+          "source_status": "OK",
+          "neutral_zero": false
+        },
+        "h2h_edge": {
+          "raw": 0.03,
+          "capped": 0.03,
+          "available": true,
+          "source": "h2h",
+          "source_status": "OK",
+          "neutral_zero": false
+        },
+        "recent_form_edge": {
+          "raw": -0.016,
+          "capped": -0.016,
+          "available": true,
+          "source": "recent_form",
+          "source_status": "OK",
+          "neutral_zero": false
+        },
+        "short_form_edge": {
+          "raw": -0.0,
+          "capped": -0.0,
+          "available": true,
+          "source": "recent_form",
+          "source_status": "OK",
+          "neutral_zero": true
+        },
+        "surface_recent_form_edge": {
+          "raw": -0.014,
+          "capped": -0.014,
+          "available": true,
+          "source": "recent_form",
+          "source_status": "OK",
+          "neutral_zero": false
+        },
+        "opponent_quality_edge": {
+          "raw": -0.0001,
+          "capped": -0.0001,
+          "available": true,
+          "source": "recent_form",
+          "source_status": "OK",
+          "neutral_zero": false
+        }
       },
       "source_status": {
         "elo": "OK",
@@ -4575,7 +4849,7 @@
       },
       "symmetry_contract": {
         "status": "PASS",
-        "rule": "P(A,B)+P(B,A)=1 and score(A,B)=-score(B,A)",
+        "rule": "P(A,B)+P(B,A)=1 and each signed component(A,B)=-component(B,A)",
         "complement_sum": 1.0,
         "exact_50_50": false
       },
