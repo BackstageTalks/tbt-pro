@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T14:57:55+00:00",
+  "generated_at": "2026-08-22T15:17:11+00:00",
   "status": "OK",
   "source_policy": "API_PRO_ALL_EVENTS_NO_ODDS_REQUIREMENT",
   "betting_day": "2026-08-22",
@@ -26,11 +26,14 @@
       "best_of": 3,
       "match_start": "2026-08-22T15:00:00+00:00",
       "start_time": "2026-08-22T15:00:00+00:00",
-      "status_type": "notstarted",
-      "status_code": 0,
+      "status_type": "inprogress",
+      "status_code": 8,
       "is_doubles": false,
       "source": "RapidAPI PRO",
       "raw": {
+        "firstToServe": 2,
+        "homeTeamSeed": "2",
+        "awayTeamSeed": "WC",
         "tournament": {
           "name": "Winston Salem, USA, Qualifying",
           "slug": "winston-salem-usa-qualifying",
@@ -83,7 +86,7 @@
                 "shortNameTranslation": {}
               }
             },
-            "userCount": 1686,
+            "userCount": 1710,
             "groundType": "Hardcourt outdoor",
             "tennisPoints": 250,
             "hasPerformanceGraphFeature": false,
@@ -121,9 +124,9 @@
         },
         "customId": "azedsVIXd",
         "status": {
-          "code": 0,
-          "description": "Not started",
-          "type": "notstarted"
+          "code": 8,
+          "description": "1st set",
+          "type": "inprogress"
         },
         "homeTeam": {
           "name": "Felix Balshaw",
@@ -135,7 +138,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 777,
+          "userCount": 775,
           "playerTeamInfo": {
             "id": 18550
           },
@@ -209,11 +212,29 @@
             }
           }
         },
-        "homeScore": {},
-        "awayScore": {},
-        "time": {},
+        "homeScore": {
+          "current": 0,
+          "display": 0,
+          "period1": 2,
+          "point": "0"
+        },
+        "awayScore": {
+          "current": 0,
+          "display": 0,
+          "period1": 1,
+          "point": "0"
+        },
+        "time": {
+          "currentPeriodStartTimestamp": 1787411325
+        },
         "changes": {
-          "changeTimestamp": 0
+          "changes": [
+            "homeScore.period1",
+            "homeScore.point",
+            "awayScore.point",
+            "firstToServe"
+          ],
+          "changeTimestamp": 1787411791
         },
         "hasGlobalHighlights": false,
         "crowdsourcingDataDisplayEnabled": false,
@@ -229,6 +250,7 @@
           "period4": "4th set",
           "period5": "5th set"
         },
+        "lastPeriod": "period1",
         "finalResultOnly": false,
         "feedLocked": false,
         "groundType": "Hardcourt outdoor",
@@ -276,11 +298,14 @@
       "best_of": 3,
       "match_start": "2026-08-22T15:00:00+00:00",
       "start_time": "2026-08-22T15:00:00+00:00",
-      "status_type": "notstarted",
-      "status_code": 0,
+      "status_type": "inprogress",
+      "status_code": 8,
       "is_doubles": false,
       "source": "RapidAPI PRO",
       "raw": {
+        "firstToServe": 2,
+        "homeTeamSeed": "3",
+        "awayTeamSeed": "A",
         "tournament": {
           "name": "Winston Salem, USA, Qualifying",
           "slug": "winston-salem-usa-qualifying",
@@ -333,7 +358,7 @@
                 "shortNameTranslation": {}
               }
             },
-            "userCount": 1686,
+            "userCount": 1710,
             "groundType": "Hardcourt outdoor",
             "tennisPoints": 250,
             "hasPerformanceGraphFeature": false,
@@ -371,9 +396,9 @@
         },
         "customId": "hXRsUgRb",
         "status": {
-          "code": 0,
-          "description": "Not started",
-          "type": "notstarted"
+          "code": 8,
+          "description": "1st set",
+          "type": "inprogress"
         },
         "homeTeam": {
           "name": "Hugo Grenier",
@@ -385,7 +410,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 2328,
+          "userCount": 2327,
           "playerTeamInfo": {
             "id": 556
           },
@@ -428,7 +453,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 780,
+          "userCount": 782,
           "playerTeamInfo": {
             "id": 4464
           },
@@ -459,11 +484,26 @@
             }
           }
         },
-        "homeScore": {},
-        "awayScore": {},
-        "time": {},
+        "homeScore": {
+          "current": 0,
+          "display": 0,
+          "period1": 1,
+          "point": "30"
+        },
+        "awayScore": {
+          "current": 0,
+          "display": 0,
+          "period1": 1,
+          "point": "30"
+        },
+        "time": {
+          "currentPeriodStartTimestamp": 1787411356
+        },
         "changes": {
-          "changeTimestamp": 0
+          "changes": [
+            "homeScore.point"
+          ],
+          "changeTimestamp": 1787411824
         },
         "hasGlobalHighlights": false,
         "crowdsourcingDataDisplayEnabled": false,
@@ -479,6 +519,7 @@
           "period4": "4th set",
           "period5": "5th set"
         },
+        "lastPeriod": "period1",
         "finalResultOnly": false,
         "feedLocked": false,
         "groundType": "Hardcourt outdoor",
@@ -526,11 +567,14 @@
       "best_of": 3,
       "match_start": "2026-08-22T15:00:00+00:00",
       "start_time": "2026-08-22T15:00:00+00:00",
-      "status_type": "notstarted",
-      "status_code": 0,
+      "status_type": "inprogress",
+      "status_code": 8,
       "is_doubles": false,
       "source": "RapidAPI PRO",
       "raw": {
+        "firstToServe": 1,
+        "homeTeamSeed": "4",
+        "awayTeamSeed": "A",
         "tournament": {
           "name": "Winston Salem, USA, Qualifying",
           "slug": "winston-salem-usa-qualifying",
@@ -583,7 +627,7 @@
                 "shortNameTranslation": {}
               }
             },
-            "userCount": 1686,
+            "userCount": 1710,
             "groundType": "Hardcourt outdoor",
             "tennisPoints": 250,
             "hasPerformanceGraphFeature": false,
@@ -621,9 +665,9 @@
         },
         "customId": "dQrsfBBb",
         "status": {
-          "code": 0,
-          "description": "Not started",
-          "type": "notstarted"
+          "code": 8,
+          "description": "1st set",
+          "type": "inprogress"
         },
         "homeTeam": {
           "name": "Pierre-Hugues Herbert",
@@ -635,7 +679,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 3726,
+          "userCount": 3732,
           "playerTeamInfo": {
             "id": 40
           },
@@ -679,7 +723,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 582,
+          "userCount": 579,
           "playerTeamInfo": {
             "id": 5806
           },
@@ -712,11 +756,28 @@
             }
           }
         },
-        "homeScore": {},
-        "awayScore": {},
-        "time": {},
+        "homeScore": {
+          "current": 0,
+          "display": 0,
+          "period1": 1,
+          "point": "0"
+        },
+        "awayScore": {
+          "current": 0,
+          "display": 0,
+          "period1": 1,
+          "point": "0"
+        },
+        "time": {
+          "currentPeriodStartTimestamp": 1787411319
+        },
         "changes": {
-          "changeTimestamp": 0
+          "changes": [
+            "homeScore.period1",
+            "homeScore.point",
+            "firstToServe"
+          ],
+          "changeTimestamp": 1787411790
         },
         "hasGlobalHighlights": false,
         "crowdsourcingDataDisplayEnabled": false,
@@ -732,6 +793,7 @@
           "period4": "4th set",
           "period5": "5th set"
         },
+        "lastPeriod": "period1",
         "finalResultOnly": false,
         "feedLocked": false,
         "groundType": "Hardcourt outdoor",
@@ -784,6 +846,8 @@
       "is_doubles": false,
       "source": "RapidAPI PRO",
       "raw": {
+        "homeTeamSeed": "A",
+        "awayTeamSeed": "7",
         "tournament": {
           "name": "Winston Salem, USA, Qualifying",
           "slug": "winston-salem-usa-qualifying",
@@ -836,7 +900,7 @@
                 "shortNameTranslation": {}
               }
             },
-            "userCount": 1686,
+            "userCount": 1710,
             "groundType": "Hardcourt outdoor",
             "tennisPoints": 250,
             "hasPerformanceGraphFeature": false,
@@ -888,7 +952,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 202,
+          "userCount": 203,
           "playerTeamInfo": {
             "id": 5507
           },
@@ -930,7 +994,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 1575,
+          "userCount": 1574,
           "playerTeamInfo": {
             "id": 12254
           },
@@ -1034,6 +1098,7 @@
       "is_doubles": false,
       "source": "RapidAPI PRO",
       "raw": {
+        "awayTeamSeed": "8",
         "tournament": {
           "name": "Winston Salem, USA, Qualifying",
           "slug": "winston-salem-usa-qualifying",
@@ -1086,7 +1151,7 @@
                 "shortNameTranslation": {}
               }
             },
-            "userCount": 1686,
+            "userCount": 1710,
             "groundType": "Hardcourt outdoor",
             "tennisPoints": 250,
             "hasPerformanceGraphFeature": false,
@@ -1138,7 +1203,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 1481,
+          "userCount": 1483,
           "playerTeamInfo": {
             "id": 5005
           },
@@ -1181,7 +1246,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 617,
+          "userCount": 620,
           "playerTeamInfo": {
             "id": 11934
           },
@@ -1287,6 +1352,8 @@
       "is_doubles": false,
       "source": "RapidAPI PRO",
       "raw": {
+        "homeTeamSeed": "WC",
+        "awayTeamSeed": "5",
         "tournament": {
           "name": "Winston Salem, USA, Qualifying",
           "slug": "winston-salem-usa-qualifying",
@@ -1339,7 +1406,7 @@
                 "shortNameTranslation": {}
               }
             },
-            "userCount": 1686,
+            "userCount": 1710,
             "groundType": "Hardcourt outdoor",
             "tennisPoints": 250,
             "hasPerformanceGraphFeature": false,
@@ -1391,7 +1458,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 257,
+          "userCount": 258,
           "playerTeamInfo": {
             "id": 11938
           },
@@ -1433,7 +1500,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 1046,
+          "userCount": 1049,
           "playerTeamInfo": {
             "id": 296
           },
@@ -1538,6 +1605,8 @@
       "is_doubles": false,
       "source": "RapidAPI PRO",
       "raw": {
+        "homeTeamSeed": "1",
+        "awayTeamSeed": "A",
         "tournament": {
           "name": "Winston Salem, USA, Qualifying",
           "slug": "winston-salem-usa-qualifying",
@@ -1590,7 +1659,7 @@
                 "shortNameTranslation": {}
               }
             },
-            "userCount": 1686,
+            "userCount": 1710,
             "groundType": "Hardcourt outdoor",
             "tennisPoints": 250,
             "hasPerformanceGraphFeature": false,
@@ -1642,7 +1711,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 2033,
+          "userCount": 2034,
           "playerTeamInfo": {
             "id": 4554
           },
@@ -1684,7 +1753,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 660,
+          "userCount": 659,
           "playerTeamInfo": {
             "id": 5454
           },
@@ -1788,6 +1857,8 @@
       "is_doubles": false,
       "source": "RapidAPI PRO",
       "raw": {
+        "homeTeamSeed": "A",
+        "awayTeamSeed": "6",
         "tournament": {
           "name": "Winston Salem, USA, Qualifying",
           "slug": "winston-salem-usa-qualifying",
@@ -1840,7 +1911,7 @@
                 "shortNameTranslation": {}
               }
             },
-            "userCount": 1686,
+            "userCount": 1710,
             "groundType": "Hardcourt outdoor",
             "tennisPoints": 250,
             "hasPerformanceGraphFeature": false,
@@ -1892,7 +1963,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 480,
+          "userCount": 477,
           "playerTeamInfo": {
             "id": 18103
           },
@@ -1935,7 +2006,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 1233,
+          "userCount": 1232,
           "playerTeamInfo": {
             "id": 5377
           },
@@ -2093,7 +2164,7 @@
                 "shortNameTranslation": {}
               }
             },
-            "userCount": 7766,
+            "userCount": 7846,
             "groundType": "Hardcourt outdoor",
             "tennisPoints": 1000,
             "hasPerformanceGraphFeature": false,
@@ -2145,7 +2216,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 39689,
+          "userCount": 39836,
           "playerTeamInfo": {
             "id": 4435
           },
@@ -2189,7 +2260,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 29234,
+          "userCount": 29353,
           "playerTeamInfo": {
             "id": 4829
           },
@@ -2350,7 +2421,7 @@
                 "shortNameTranslation": {}
               }
             },
-            "userCount": 3634,
+            "userCount": 3676,
             "groundType": "Hardcourt outdoor",
             "tennisPoints": 1000,
             "hasPerformanceGraphFeature": false,
@@ -2402,7 +2473,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 26044,
+          "userCount": 26084,
           "playerTeamInfo": {
             "id": 311
           },
@@ -2446,7 +2517,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 85097,
+          "userCount": 85223,
           "playerTeamInfo": {
             "id": 390
           },
@@ -2552,6 +2623,7 @@
       "is_doubles": false,
       "source": "RapidAPI PRO",
       "raw": {
+        "awayTeamSeed": "8",
         "tournament": {
           "name": "Monterrey, Mexico, Qualifying",
           "slug": "monterrey-mexico-qualifying",
@@ -2604,7 +2676,7 @@
                 "shortNameTranslation": {}
               }
             },
-            "userCount": 731,
+            "userCount": 751,
             "groundType": "Hardcourt outdoor",
             "tennisPoints": 500,
             "hasPerformanceGraphFeature": false,
@@ -2654,7 +2726,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 871,
+          "userCount": 869,
           "playerTeamInfo": {
             "id": 1612
           },
@@ -2695,7 +2767,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 1629,
+          "userCount": 1631,
           "playerTeamInfo": {
             "id": 4306
           },
@@ -2798,6 +2870,7 @@
       "is_doubles": false,
       "source": "RapidAPI PRO",
       "raw": {
+        "awayTeamSeed": "6",
         "tournament": {
           "name": "Monterrey, Mexico, Qualifying",
           "slug": "monterrey-mexico-qualifying",
@@ -2850,7 +2923,7 @@
                 "shortNameTranslation": {}
               }
             },
-            "userCount": 731,
+            "userCount": 751,
             "groundType": "Hardcourt outdoor",
             "tennisPoints": 500,
             "hasPerformanceGraphFeature": false,
@@ -2943,7 +3016,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 3808,
+          "userCount": 3810,
           "playerTeamInfo": {
             "id": 3448
           },
@@ -3049,6 +3122,7 @@
       "is_doubles": false,
       "source": "RapidAPI PRO",
       "raw": {
+        "homeTeamSeed": "3",
         "tournament": {
           "name": "Monterrey, Mexico, Qualifying",
           "slug": "monterrey-mexico-qualifying",
@@ -3101,7 +3175,7 @@
                 "shortNameTranslation": {}
               }
             },
-            "userCount": 731,
+            "userCount": 751,
             "groundType": "Hardcourt outdoor",
             "tennisPoints": 500,
             "hasPerformanceGraphFeature": false,
@@ -3151,7 +3225,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 3407,
+          "userCount": 3409,
           "playerTeamInfo": {
             "id": 3454
           },
@@ -3196,7 +3270,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 4508,
+          "userCount": 4505,
           "playerTeamInfo": {
             "id": 3327
           },
@@ -3302,6 +3376,7 @@
       "is_doubles": false,
       "source": "RapidAPI PRO",
       "raw": {
+        "awayTeamSeed": "7",
         "tournament": {
           "name": "Monterrey, Mexico, Qualifying",
           "slug": "monterrey-mexico-qualifying",
@@ -3354,7 +3429,7 @@
                 "shortNameTranslation": {}
               }
             },
-            "userCount": 731,
+            "userCount": 751,
             "groundType": "Hardcourt outdoor",
             "tennisPoints": 500,
             "hasPerformanceGraphFeature": false,
@@ -3404,7 +3479,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 624,
+          "userCount": 625,
           "playerTeamInfo": {
             "id": 693
           },
@@ -3552,6 +3627,7 @@
       "is_doubles": false,
       "source": "RapidAPI PRO",
       "raw": {
+        "homeTeamSeed": "4",
         "tournament": {
           "name": "Monterrey, Mexico, Qualifying",
           "slug": "monterrey-mexico-qualifying",
@@ -3604,7 +3680,7 @@
                 "shortNameTranslation": {}
               }
             },
-            "userCount": 731,
+            "userCount": 751,
             "groundType": "Hardcourt outdoor",
             "tennisPoints": 500,
             "hasPerformanceGraphFeature": false,
@@ -3654,7 +3730,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 2378,
+          "userCount": 2380,
           "playerTeamInfo": {
             "id": 5366
           },
@@ -3696,7 +3772,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 2479,
+          "userCount": 2478,
           "playerTeamInfo": {
             "id": 3972
           },
@@ -3802,6 +3878,7 @@
       "is_doubles": false,
       "source": "RapidAPI PRO",
       "raw": {
+        "awayTeamSeed": "5",
         "tournament": {
           "name": "Monterrey, Mexico, Qualifying",
           "slug": "monterrey-mexico-qualifying",
@@ -3854,7 +3931,7 @@
                 "shortNameTranslation": {}
               }
             },
-            "userCount": 731,
+            "userCount": 751,
             "groundType": "Hardcourt outdoor",
             "tennisPoints": 500,
             "hasPerformanceGraphFeature": false,
@@ -3945,7 +4022,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 5440,
+          "userCount": 5436,
           "playerTeamInfo": {
             "id": 202
           },
@@ -4051,6 +4128,7 @@
       "is_doubles": false,
       "source": "RapidAPI PRO",
       "raw": {
+        "homeTeamSeed": "2",
         "tournament": {
           "name": "Monterrey, Mexico, Qualifying",
           "slug": "monterrey-mexico-qualifying",
@@ -4103,7 +4181,7 @@
                 "shortNameTranslation": {}
               }
             },
-            "userCount": 731,
+            "userCount": 751,
             "groundType": "Hardcourt outdoor",
             "tennisPoints": 500,
             "hasPerformanceGraphFeature": false,
@@ -4153,7 +4231,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 4433,
+          "userCount": 4437,
           "playerTeamInfo": {
             "id": 659
           },
@@ -4196,7 +4274,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 4019,
+          "userCount": 4018,
           "playerTeamInfo": {
             "id": 3609
           },
@@ -4301,6 +4379,8 @@
       "is_doubles": false,
       "source": "RapidAPI PRO",
       "raw": {
+        "homeTeamSeed": "1",
+        "awayTeamSeed": "WC",
         "tournament": {
           "name": "Monterrey, Mexico, Qualifying",
           "slug": "monterrey-mexico-qualifying",
@@ -4353,7 +4433,7 @@
                 "shortNameTranslation": {}
               }
             },
-            "userCount": 731,
+            "userCount": 751,
             "groundType": "Hardcourt outdoor",
             "tennisPoints": 500,
             "hasPerformanceGraphFeature": false,
@@ -4403,7 +4483,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 5495,
+          "userCount": 5494,
           "playerTeamInfo": {
             "id": 12375
           },
@@ -4602,7 +4682,7 @@
                 "shortNameTranslation": {}
               }
             },
-            "userCount": 7766,
+            "userCount": 7846,
             "groundType": "Hardcourt outdoor",
             "tennisPoints": 1000,
             "hasPerformanceGraphFeature": false,
@@ -4654,7 +4734,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 11119,
+          "userCount": 11422,
           "playerTeamInfo": {
             "id": 2981
           },
@@ -4698,7 +4778,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 26416,
+          "userCount": 26670,
           "playerTeamInfo": {
             "id": 34
           },
@@ -4857,7 +4937,7 @@
                 "shortNameTranslation": {}
               }
             },
-            "userCount": 3634,
+            "userCount": 3676,
             "groundType": "Hardcourt outdoor",
             "tennisPoints": 1000,
             "hasPerformanceGraphFeature": false,
@@ -4909,7 +4989,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 4838,
+          "userCount": 5296,
           "playerTeamInfo": {
             "id": 4909
           },
@@ -4954,7 +5034,7 @@
             "slug": "tennis",
             "id": 5
           },
-          "userCount": 50437,
+          "userCount": 50619,
           "playerTeamInfo": {
             "id": 3595
           },
