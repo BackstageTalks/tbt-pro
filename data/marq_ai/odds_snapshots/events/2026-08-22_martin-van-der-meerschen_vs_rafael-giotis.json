@@ -4,7 +4,7 @@
   "latest_odds_player1": 9.0,
   "latest_odds_player2": 1.04,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-22T03:27:57.910945+00:00",
+  "latest_snapshot_time_utc": "2026-08-22T11:01:33.190015+00:00",
   "opening_odds_player1": 9.0,
   "opening_odds_player2": 1.04,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Rafael Giotis",
   "player2": "Martin Van der Meerschen",
-  "snapshot_count": 1,
+  "snapshot_count": 2,
   "snapshots": [
     {
       "event_id": "16879763",
@@ -34,8 +34,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-21T12:07:39+00:00",
       "target_date": "2026-08-22"
+    },
+    {
+      "event_id": "16879763",
+      "event_key": "2026-08-22_martin-van-der-meerschen_vs_rafael-giotis",
+      "hours_to_start": -22.9,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 9.0,
+      "odds_player2": 1.04,
+      "player1": "Rafael Giotis",
+      "player2": "Martin Van der Meerschen",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-22T11:01:33.190015+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-21T12:07:39+00:00",
+      "target_date": "2026-08-22"
     }
   ],
   "start_time_utc": "2026-08-21T12:07:39+00:00",
-  "updated_at_utc": "2026-08-22T03:28:18.267775+00:00"
+  "updated_at_utc": "2026-08-22T11:01:45.912314+00:00"
 }
