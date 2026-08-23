@@ -11,10 +11,22 @@ on:
         options:
           - "true"
           - "false"
-      max_ranking_pages:
-        description: "Maximum pages per ATP/WTA endpoint; pageSize remains 200"
+      max_players:
+        description: "Maximum player ranking API requests per run"
         required: false
-        default: "10"
+        default: "200"
+      ttl_hours:
+        description: "Skip cached player rankings newer than this many hours"
+        required: false
+        default: "168"
+      force_ranking_refresh:
+        description: "Ignore ranking cache freshness"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "true"
+          - "false"
       run_reason:
         description: "Optional audit note"
         required: false
@@ -107,15 +119,22 @@ jobs:
         shell: bash
         run: test -s thinq/data/elo/ta_elo_ratings.json
 
-      - name: Update API PRO ATP and WTA rankings
+      - name: Update API PRO player rankings
         shell: bash
         env:
-          MAX_RANKING_PAGES: ${{ inputs.max_ranking_pages || '10' }}
+          MAX_PLAYERS: ${{ inputs.max_players || '200' }}
+          TTL_HOURS: ${{ inputs.ttl_hours || '168' }}
+          FORCE_RANKING_REFRESH: ${{ inputs.force_ranking_refresh || 'false' }}
         run: |
           set -euo pipefail
-          python tools/update_api_pro_rankings.py --max-pages "${MAX_RANKING_PAGES}"
-          test -s thinq/data/rankings/api_rankings_atp.json
-          test -s thinq/data/rankings/api_rankings_wta.json
+          force_arg=""
+          if [ "$FORCE_RANKING_REFRESH" = "true" ]; then
+            force_arg="--force"
+          fi
+
+          python tools/update_api_pro_rankings.py             --registry thinq/data/players/player_registry.json             --output thinq/data/rankings/api_pro_player_rankings.json             --max-players "$MAX_PLAYERS"             --ttl-hours "$TTL_HOURS"             $force_arg
+
+          test -s thinq/data/rankings/api_pro_player_rankings.json
 
       - name: Build central player registry
         shell: bash
@@ -129,14 +148,12 @@ jobs:
           set -euo pipefail
           for path in \
             thinq/data/elo/ta_elo_ratings.json \
-            thinq/data/rankings/api_rankings_atp.json \
-            thinq/data/rankings/api_rankings_wta.json \
+            thinq/data/rankings/api_pro_player_rankings.json \
             thinq/data/players/player_registry.json \
             thinq/data/players/elo_player_universe.json \
             thinq/data/players/player_registry_manifest.json \
             thinq/data/players/tennis_name_alias_database.json \
-            runtime/players/player_registry_report.json \
-            runtime/players/api_pro_ranking_update_report.json; do
+            runtime/players/player_registry_report.json; do
             test -s "$path" || { echo "Missing or empty output: $path"; exit 1; }
           done
 
