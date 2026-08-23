@@ -87,6 +87,25 @@ jobs:
           echo "[render] python -m corq.web.render"
           python -m corq.web.render
 
+      - name: Render BlinQ page explicitly
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          from corq.web import render
+
+          manifest = render.read_json(render.OUTPUTS / "latest_manifest.json", {})
+          rows = render.json_rows(render.read_json(render.OUTPUTS / "latest_all.json", []))
+          path = getattr(render, "BLINQ_PATH", "h4v34n1c3d4y191")
+          html = render.render_blinq_page(rows, manifest)
+          target = render.SITE_DIR / path / "index.html"
+          render.write_text(target, html)
+          if not target.is_file() or target.stat().st_size == 0:
+              raise SystemExit(f"BlinQ page was not created: {target}")
+          print(f"[render] BlinQ rows={len(rows)} path={target}")
+          PY
+
       - name: Verify rendered site
         shell: bash
         run: |
