@@ -1,1 +1,0 @@
-"""BlinQ web renderer package."""
