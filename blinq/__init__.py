@@ -1,5 +1,4 @@
-"""BlinQ model layer built on validated ThinQ outputs."""
-from .model import build_blinq_prediction
-from .service import BlinqService, build_match_prediction
-
-__all__ = ["BlinqService", "build_blinq_prediction", "build_match_prediction"]
+"""BlinQ symmetric ELO prediction layer."""
+from blinq.model import predict_from_elo, symmetry_audit
+from blinq.service import BlinqService
+__all__ = ["BlinqService", "predict_from_elo", "symmetry_audit"]
