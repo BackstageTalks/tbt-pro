@@ -1,101 +1,33 @@
-"""BlinQ service consuming completed ThinQ contexts without API calls."""
+"""BlinQ service facade."""
 from __future__ import annotations
 
-from typing import Any, Dict, Mapping, Optional
+from typing import Any, Dict
 
-from .model import COMPONENTS, audit_blinq_symmetry, build_blinq_prediction
-
-EDGE_KEYS = tuple(COMPONENTS.keys())
-
-
-def _mapping(value: Any) -> Mapping[str, Any]:
-    return value if isinstance(value, Mapping) else {}
-
-
-def _swap_edges(edges: Mapping[str, Any]) -> Dict[str, Any]:
-    swapped: Dict[str, Any] = {}
-    for key in EDGE_KEYS:
-        value = edges.get(key)
-        try:
-            swapped[key] = -float(value) if value not in (None, "") else None
-        except (TypeError, ValueError):
-            swapped[key] = None
-    return swapped
+from .model import build_blinq_prediction
 
 
 class BlinqService:
-    def build_match_features(
-        self,
-        *,
-        player1: str,
-        player2: str,
-        pick: str,
-        opponent: str,
-        pick_side: Optional[str],
-        opponent_side: Optional[str],
-        thinq: Mapping[str, Any],
-        **_: Any,
-    ) -> Dict[str, Any]:
-        thinq = _mapping(thinq)
-        edges = _mapping(thinq.get("edges"))
-        source_status = _mapping(thinq.get("thinq_source_status"))
-        common = {
-            "source_status": source_status,
-            "upstream_confidence": thinq.get("thinq_data_confidence", thinq.get("confidence")),
-            "flags": thinq.get("flags") or thinq.get("thinq_flags") or [],
-        }
+    def __init__(self, *, dead_zone: float = 0.015, min_confidence: float = 0.45) -> None:
+        self.dead_zone = dead_zone
+        self.min_confidence = min_confidence
 
-        edges_ab = {key: edges.get(key) for key in EDGE_KEYS}
-        result_ab = build_blinq_prediction(
-            player_a=pick,
-            player_b=opponent,
-            side_a=pick_side,
-            side_b=opponent_side,
-            edges=edges_ab,
-            **common,
+    def build_match_prediction(self, thinq_result: Dict[str, Any]) -> Dict[str, Any]:
+        if not isinstance(thinq_result, dict):
+            return {
+                "model": "BlinQ",
+                "model_version": "BLINQ_V1_THINQ_DECISION",
+                "status": "NO_PREDICTION",
+                "prediction_status": "NO_PREDICTION",
+                "winner": None,
+                "reasons": ["INVALID_THINQ_INPUT"],
+                "source_policy": "THINQ_OUTPUT_ONLY_NO_API_NO_FALLBACK",
+            }
+        return build_blinq_prediction(
+            thinq_result,
+            dead_zone=self.dead_zone,
+            min_confidence=self.min_confidence,
         )
-        result_ba = build_blinq_prediction(
-            player_a=opponent,
-            player_b=pick,
-            side_a=opponent_side,
-            side_b=pick_side,
-            edges=_swap_edges(edges_ab),
-            **common,
-        )
-        symmetry_audit = audit_blinq_symmetry(result_ab, result_ba)
-
-        if symmetry_audit["status"] != "PASS":
-            result_ab.update(
-                status="SYMMETRY_FAIL",
-                prediction_status="NO_PREDICTION",
-                winner=None,
-                winner_side=None,
-                loser=None,
-                loser_side=None,
-                winner_probability=0.5,
-            )
-            result_ab["flags"] = sorted(set(result_ab.get("flags", [])) | {"BLINQ_SYMMETRY_FAIL"})
-
-        return {
-            "available": True,
-            "model": "blinq",
-            "mode": "AUDIT_ONLY_NO_CORQ_RANKING_EFFECT",
-            "blinq": result_ab,
-            "blinq_swapped_audit_run": result_ba,
-            "blinq_symmetry_audit": symmetry_audit,
-            "blinq_status": result_ab["status"],
-            "blinq_prediction_status": result_ab["prediction_status"],
-            "blinq_probability": result_ab["probability_a"],
-            "blinq_probability_pct": result_ab["probability_a_pct"],
-            "blinq_opponent_probability": result_ab["probability_b"],
-            "blinq_winner": result_ab["winner"],
-            "blinq_winner_side": result_ab["winner_side"],
-            "blinq_confidence": result_ab["confidence"],
-            "blinq_data_quality_score": result_ab["data_quality_score"],
-            "blinq_feature_coverage": result_ab["feature_coverage"],
-            "blinq_flags": result_ab["flags"],
-        }
 
 
-def build_match_features(**kwargs: Any) -> Dict[str, Any]:
-    return BlinqService().build_match_features(**kwargs)
+def build_match_prediction(thinq_result: Dict[str, Any], **kwargs: Any) -> Dict[str, Any]:
+    return BlinqService(**kwargs).build_match_prediction(thinq_result)

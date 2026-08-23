@@ -1,11 +1,5 @@
-"""BlinQ symmetric decision layer."""
-from .model import BLINQ_MODEL_VERSION, audit_blinq_symmetry, build_blinq_prediction
-from .service import BlinqService, build_match_features
+"""BlinQ model layer built on validated ThinQ outputs."""
+from .model import build_blinq_prediction
+from .service import BlinqService, build_match_prediction
 
-__all__ = [
-    "BLINQ_MODEL_VERSION",
-    "BlinqService",
-    "audit_blinq_symmetry",
-    "build_blinq_prediction",
-    "build_match_features",
-]
+__all__ = ["BlinqService", "build_blinq_prediction", "build_match_prediction"]
