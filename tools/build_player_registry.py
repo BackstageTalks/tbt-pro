@@ -215,6 +215,10 @@ def ensure_player(registry: Dict[str, Dict[str, Any]], player_id: Any, name: Any
             "compact_key": compact_key(cname),
             "aliases": [],
             "sources": [],
+            "rank": None,
+            "rank_points": None,
+            "country_code": None,
+            "country_name": None,
             "updated_at": now_iso(),
         }
         registry[key] = player
@@ -300,6 +304,44 @@ def ranking_team(row: Dict[str, Any]) -> Dict[str, Any]:
     return team
 
 
+def country_fields(row: Dict[str, Any], team: Dict[str, Any]) -> Tuple[Optional[str], Optional[str], Optional[str]]:
+    raw = team.get("country") or row.get("country") or row.get("nationality")
+    name: Optional[str] = None
+    alpha2: Optional[str] = None
+    alpha3: Optional[str] = None
+    if isinstance(raw, dict):
+        name = first_value(raw, ("name", "country_name", "displayName", "display_name"))
+        alpha2 = first_value(raw, ("alpha2", "country_code", "code", "iso2"))
+        alpha3 = first_value(raw, ("alpha3", "iso3"))
+    elif raw not in (None, ""):
+        text = str(raw).strip()
+        if len(text) == 2 and text.isalpha():
+            alpha2 = text
+        elif len(text) == 3 and text.isalpha():
+            alpha3 = text
+        else:
+            name = text
+    alpha2 = str(alpha2).upper() if alpha2 else None
+    alpha3 = str(alpha3).upper() if alpha3 else None
+    return str(name).strip() if name else None, alpha2, alpha3
+
+
+def apply_public_enrichment_aliases(player: Dict[str, Any]) -> None:
+    rank = as_int(player.get("rank") or player.get("api_rank"))
+    points = as_int(player.get("rank_points") or player.get("api_points"))
+    country_name = first_value(player, ("country_name", "country"))
+    country_code = first_value(player, ("country_code", "country_alpha2", "country_alpha3"))
+    player["rank"] = rank
+    player["rank_points"] = points
+    player["country_name"] = str(country_name).strip() if country_name else None
+    player["country_code"] = str(country_code).upper().strip() if country_code else None
+    # Compatibility fields remain during migration; models should consume public fields above.
+    player["api_rank"] = rank
+    player["api_points"] = points
+    if player["country_name"]:
+        player["country"] = player["country_name"]
+
+
 def load_rankings(registry: Dict[str, Dict[str, Any]], files: Iterable[Path]) -> Dict[str, Any]:
     stats = {"files_found": 0, "rows": 0, "players_updated": 0}
     for path in files:
@@ -319,19 +361,26 @@ def load_rankings(registry: Dict[str, Dict[str, Any]], files: Iterable[Path]) ->
             category = team.get("gender") or row.get("tour") or row.get("category")
             if category:
                 player["tour"] = str(category).upper()
-            rank = as_int(row.get("ranking") or row.get("rank") or team.get("ranking"))
+            rank = as_int(first_value(row, ("ranking", "rank", "position", "currentRank", "current_rank")) or team.get("ranking"))
+            points = as_int(first_value(row, ("points", "rankingPoints", "ranking_points", "rank_points", "currentPoints", "current_points")))
             if rank is not None:
+                player["rank"] = rank
                 player["api_rank"] = rank
-            points = as_int(row.get("points") or row.get("rankingPoints") or row.get("rank_points"))
             if points is not None:
+                player["rank_points"] = points
                 player["api_points"] = points
-            country = team.get("country") if isinstance(team.get("country"), dict) else row.get("country")
-            if isinstance(country, dict):
-                player["country"] = country.get("name")
-                player["country_alpha2"] = country.get("alpha2")
-                player["country_alpha3"] = country.get("alpha3")
-            elif country:
-                player["country"] = country
+            country_name, alpha2, alpha3 = country_fields(row, team)
+            if country_name:
+                player["country_name"] = country_name
+                player["country"] = country_name
+            if alpha2:
+                player["country_code"] = alpha2
+                player["country_alpha2"] = alpha2
+            if alpha3:
+                player["country_alpha3"] = alpha3
+                if not player.get("country_code"):
+                    player["country_code"] = alpha3
+            apply_public_enrichment_aliases(player)
             touch_source(player, str(path))
             stats["players_updated"] += 1
     return stats
@@ -465,6 +514,8 @@ def main() -> int:
     elo_stats = load_elo_cache(registry, elo_files)
     ranking_stats = load_rankings(registry, ranking_files)
     output_stats = load_outputs(registry, output_files)
+    for player in registry.values():
+        apply_public_enrichment_aliases(player)
     calculate_elo_ranks(registry)
     by_name, by_compact = build_name_indexes(registry)
 
@@ -479,7 +530,7 @@ def main() -> int:
         "source": "ELO_CACHE_PLUS_API_OUTPUTS_AND_OPTIONAL_RANKINGS",
         "player_count": len(players_sorted),
         "elo_player_count": sum(1 for p in players_sorted if p.get("elo_available")),
-        "api_rank_player_count": sum(1 for p in players_sorted if p.get("api_rank") is not None),
+        "api_rank_player_count": sum(1 for p in players_sorted if p.get("rank") is not None),
         "players": players_sorted,
         "index": {
             "by_name": by_name,
@@ -508,6 +559,10 @@ def main() -> int:
                 "clay_elo": p.get("clay_elo"),
                 "grass_elo": p.get("grass_elo"),
                 "elo_rank_tour": p.get("elo_rank_tour"),
+                "rank": p.get("rank"),
+                "rank_points": p.get("rank_points"),
+                "country_code": p.get("country_code"),
+                "country_name": p.get("country_name"),
                 "api_rank": p.get("api_rank"),
                 "api_points": p.get("api_points"),
                 "h2h_eligible": True,
