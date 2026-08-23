@@ -7496,5 +7496,54 @@ def render_all() -> None:
     write_text(SITE_DIR / LUCQ_RESULTS_PATH / "index.html", render_lucq_results_page(lucq_results, manifest))
     print(f"Rendered LucQ Results: rows={len(lucq_results)} path={LUCQ_RESULTS_PATH}")
 
+
+
+# ============================================================
+# BlinQ page final override V1
+# ============================================================
+# BlinQ is rendered from the existing ThinQ-enriched latest_all.json rows.
+# No separate outputs/blinq snapshot, API call or standalone site is required.
+try:
+    from corq.web.paths import BLINQ_PATH
+except Exception:
+    BLINQ_PATH = "h4v34n1c3d4y191"
+
+_BLINQ_BASE_RENDER_ALL = render_all
+
+
+def render_blinq_page(rows: List[Dict[str, Any]], manifest: Dict[str, Any]) -> str:
+    clean = [row for row in rows or [] if isinstance(row, dict)]
+    intro = (
+        '<section class="summary-panel">'
+        '<div class="summary-title">BlinQ</div>'
+        '<div>Independent model view rendered from existing ThinQ-enriched match data. '
+        'No separate snapshot or additional API request is used.</div>'
+        '</section>'
+    )
+    cards_page = render_cards_page(
+        "BlinQ",
+        BLINQ_PATH,
+        clean,
+        manifest,
+        page="thinq",
+        dedupe=True,
+    )
+    marker = '<main class="grid">'
+    if marker in cards_page:
+        return cards_page.replace(marker, intro + marker, 1)
+    return cards_page.replace('</nav>', '</nav>' + intro, 1)
+
+
+def render_all() -> None:
+    _BLINQ_BASE_RENDER_ALL()
+    manifest = read_json(OUTPUTS / "latest_manifest.json", {})
+    blinq_rows = json_rows(read_json(OUTPUTS / "latest_all.json", []))
+    write_text(
+        SITE_DIR / BLINQ_PATH / "index.html",
+        render_blinq_page(blinq_rows, manifest),
+    )
+    print(f"Rendered BlinQ: rows={len(blinq_rows)} path={BLINQ_PATH}")
+
+
 if __name__ == "__main__":
     main()

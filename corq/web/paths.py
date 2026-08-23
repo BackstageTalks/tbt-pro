@@ -13,6 +13,7 @@ TG_RSS_PATH = CORQ_RSS_PATH
 CLOQ_RSS_PATH = "h4v34n1c3d4y185.xml"
 THINQ_PATH = "h4v34n1c3d4y186"
 THINQ_RSS_PATH = "h4v34n1c3d4y187.xml"
+BLINQ_PATH = "h4v34n1c3d4y191"
 LUCQ_PATH = "h4v34n1c3d4y188"
 LUCQ_RSS_PATH = "h4v34n1c3d4y189.xml"
 LUCQ_RESULTS_PATH = "h4v34n1c3d4y190"
@@ -22,6 +23,7 @@ NAV_ITEMS = [
     {"key": "all", "label": "Audit", "path": ALL_PATH},
     {"key": "results", "label": "Results", "path": RESULTS_PATH},
     {"key": "thinq", "label": "ThinQ", "path": THINQ_PATH},
+    {"key": "blinq", "label": "BlinQ", "path": BLINQ_PATH},
     {"key": "cloq", "label": "CloQ", "path": CLOQ_PATH},
     {"key": "lucq", "label": "LucQ", "path": LUCQ_PATH},
     {"key": "lucq_results", "label": "LucQ Results", "path": LUCQ_RESULTS_PATH},
