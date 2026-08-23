@@ -1,7 +1,13 @@
 {
   "endpoint_template": "/api/tennis/player/{player_id}/rankings",
-  "errors": [],
-  "generated_at": "2026-08-23T19:25:02+00:00",
+  "errors": [
+    {
+      "error": "Expecting value: line 1 column 1 (char 0)",
+      "name": "Esha Velaga",
+      "player_id": 1265470
+    }
+  ],
+  "generated_at": "2026-08-23T19:45:22+00:00",
   "players": {
     "101101": {
       "best_ranking": 10,
@@ -27,6 +33,30 @@
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-23T19:24:56+00:00"
     },
+    "107357": {
+      "best_ranking": 95,
+      "country": "FRA",
+      "name": "Hugo Grenier",
+      "player_id": 107357,
+      "points": 218,
+      "previous_ranking": 253,
+      "ranking": 258,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:02+00:00"
+    },
+    "122668": {
+      "best_ranking": 522,
+      "country": "USA",
+      "name": "Jaeda Daniel",
+      "player_id": 122668,
+      "points": 60,
+      "previous_ranking": 681,
+      "ranking": 701,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:03+00:00"
+    },
     "125006": {
       "best_ranking": 30,
       "country": "PRT",
@@ -38,6 +68,18 @@
       "ranking_class": "team",
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-23T19:24:58+00:00"
+    },
+    "128584": {
+      "best_ranking": 12,
+      "country": "RUS",
+      "name": "Liudmila Samsonova",
+      "player_id": 128584,
+      "points": 1178,
+      "previous_ranking": 55,
+      "ranking": 43,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:06+00:00"
     },
     "136042": {
       "best_ranking": 4,
@@ -63,6 +105,18 @@
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-23T19:25:01+00:00"
     },
+    "150574": {
+      "best_ranking": 50,
+      "country": "HUN",
+      "name": "Anna Bondar",
+      "player_id": 150574,
+      "points": 961,
+      "previous_ranking": 78,
+      "ranking": 76,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:44:49+00:00"
+    },
     "157754": {
       "best_ranking": 1,
       "country": "BLR",
@@ -87,6 +141,30 @@
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-23T19:24:50+00:00"
     },
+    "189995": {
+      "best_ranking": 34,
+      "country": "RUS",
+      "name": "Anna Blinkova",
+      "player_id": 189995,
+      "points": 734,
+      "previous_ranking": 108,
+      "ranking": 111,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:44:49+00:00"
+    },
+    "191873": {
+      "best_ranking": 33,
+      "country": "USA",
+      "name": "Jenson Brooksby",
+      "player_id": 191873,
+      "points": 840,
+      "previous_ranking": 74,
+      "ranking": 74,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:04+00:00"
+    },
     "192013": {
       "best_ranking": 4,
       "country": "CAN",
@@ -98,6 +176,18 @@
       "ranking_class": "team",
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-23T19:24:51+00:00"
+    },
+    "194186": {
+      "best_ranking": 54,
+      "country": "CHN",
+      "name": "Yibing Wu",
+      "player_id": 194186,
+      "points": 553,
+      "previous_ranking": 116,
+      "ranking": 118,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:19+00:00"
     },
     "19728": {
       "best_ranking": 17,
@@ -111,6 +201,30 @@
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-23T19:25:00+00:00"
     },
+    "198209": {
+      "best_ranking": 150,
+      "country": "TWN",
+      "name": "En-Shuo Liang",
+      "player_id": 198209,
+      "points": 235,
+      "previous_ranking": 303,
+      "ranking": 306,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:44:58+00:00"
+    },
+    "198592": {
+      "best_ranking": 27,
+      "country": "SRB",
+      "name": "Miomir Kecmanović",
+      "player_id": 198592,
+      "points": 930,
+      "previous_ranking": 62,
+      "ranking": 66,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:12+00:00"
+    },
     "201239": {
       "best_ranking": 5,
       "country": "AUS",
@@ -122,6 +236,66 @@
       "ranking_class": "team",
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-23T19:24:44+00:00"
+    },
+    "206617": {
+      "best_ranking": 53,
+      "country": "UKR",
+      "name": "Yuliia Starodubtseva",
+      "player_id": 206617,
+      "points": 953,
+      "previous_ranking": 65,
+      "ranking": 78,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:21+00:00"
+    },
+    "210114": {
+      "best_ranking": 417,
+      "country": "RUS",
+      "name": "Ekaterina Ovcharenko",
+      "player_id": 210114,
+      "points": 69,
+      "previous_ranking": 546,
+      "ranking": 653,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:44:57+00:00"
+    },
+    "216154": {
+      "best_ranking": 89,
+      "country": "JPN",
+      "name": "Sho Shimabukuro",
+      "player_id": 216154,
+      "points": 697,
+      "previous_ranking": 94,
+      "ranking": 90,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:18+00:00"
+    },
+    "217828": {
+      "best_ranking": 60,
+      "country": "UZB",
+      "name": "Kamilla Rakhimova",
+      "player_id": 217828,
+      "points": 894,
+      "previous_ranking": 83,
+      "ranking": 83,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:04+00:00"
+    },
+    "218347": {
+      "best_ranking": 59,
+      "country": "HUN",
+      "name": "Panna Udvardy",
+      "player_id": 218347,
+      "points": 961,
+      "previous_ranking": 76,
+      "ranking": 77,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:15+00:00"
     },
     "221515": {
       "best_ranking": 52,
@@ -183,6 +357,30 @@
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-23T19:24:45+00:00"
     },
+    "231728": {
+      "best_ranking": 353,
+      "country": "IND",
+      "name": "Dhakshineswar Suresh",
+      "player_id": 231728,
+      "points": 124,
+      "previous_ranking": 393,
+      "ranking": 400,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:44:55+00:00"
+    },
+    "234309": {
+      "best_ranking": 319,
+      "country": "HKG",
+      "name": "Hong Yi Cody Wong",
+      "player_id": 234309,
+      "points": 72,
+      "previous_ranking": 642,
+      "ranking": 638,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:02+00:00"
+    },
     "235576": {
       "best_ranking": 29,
       "country": "USA",
@@ -195,6 +393,18 @@
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-23T19:24:47+00:00"
     },
+    "237452": {
+      "best_ranking": 62,
+      "country": "AUS",
+      "name": "Rinky Hijikata",
+      "player_id": 237452,
+      "points": 673,
+      "previous_ranking": 93,
+      "ranking": 95,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:17+00:00"
+    },
     "247791": {
       "best_ranking": 47,
       "country": "FRA",
@@ -206,6 +416,66 @@
       "ranking_class": "team",
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-23T19:24:49+00:00"
+    },
+    "250859": {
+      "best_ranking": 44,
+      "country": "UKR",
+      "name": "Oleksandra Oliynykova",
+      "player_id": 250859,
+      "points": 1154,
+      "previous_ranking": 44,
+      "ranking": 46,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:13+00:00"
+    },
+    "255391": {
+      "best_ranking": 65,
+      "country": "RUS",
+      "name": "Anastasia Zakharova",
+      "player_id": 255391,
+      "points": 827,
+      "previous_ranking": 99,
+      "ranking": 91,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:44:48+00:00"
+    },
+    "255420": {
+      "best_ranking": 54,
+      "country": "ARG",
+      "name": "Francisco Comesaña",
+      "player_id": 255420,
+      "points": 603,
+      "previous_ranking": 107,
+      "ranking": 109,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:00+00:00"
+    },
+    "256104": {
+      "best_ranking": 56,
+      "country": "USA",
+      "name": "Katie Volynets",
+      "player_id": 256104,
+      "points": 838,
+      "previous_ranking": 91,
+      "ranking": 89,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:05+00:00"
+    },
+    "256809": {
+      "best_ranking": 352,
+      "country": "CAN",
+      "name": "Ariana Arseneault",
+      "player_id": 256809,
+      "points": 166,
+      "previous_ranking": 352,
+      "ranking": 385,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:44:51+00:00"
     },
     "261015": {
       "best_ranking": 5,
@@ -255,6 +525,126 @@
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-23T19:24:54+00:00"
     },
+    "276809": {
+      "best_ranking": 626,
+      "country": "AUS",
+      "name": "Alexandra Osborne",
+      "player_id": 276809,
+      "points": 13,
+      "previous_ranking": 1148,
+      "ranking": 1144,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:44:47+00:00"
+    },
+    "289146": {
+      "best_ranking": 29,
+      "country": "FRA",
+      "name": "Giovanni Mpetshi Perricard",
+      "player_id": 289146,
+      "points": 690,
+      "previous_ranking": 91,
+      "ranking": 92,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:01+00:00"
+    },
+    "290569": {
+      "best_ranking": 449,
+      "country": "USA",
+      "name": "Quinn Vandecasteele",
+      "player_id": 290569,
+      "points": 95,
+      "previous_ranking": 471,
+      "ranking": 483,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:16+00:00"
+    },
+    "293867": {
+      "best_ranking": 79,
+      "country": "UZB",
+      "name": "Maria Timofeeva",
+      "player_id": 293867,
+      "points": 806,
+      "previous_ranking": 98,
+      "ranking": 96,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:07+00:00"
+    },
+    "294337": {
+      "best_ranking": 63,
+      "country": "ITA",
+      "name": "Mattia Bellucci",
+      "player_id": 294337,
+      "points": 751,
+      "previous_ranking": 80,
+      "ranking": 81,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:08+00:00"
+    },
+    "294594": {
+      "best_ranking": 328,
+      "country": "ECU",
+      "name": "Mell Elizabeth Reasco Gonzalez",
+      "player_id": 294594,
+      "points": 207,
+      "previous_ranking": 331,
+      "ranking": 335,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:11+00:00"
+    },
+    "298339": {
+      "best_ranking": 88,
+      "country": "CZE",
+      "name": "Darja Vidmanova",
+      "player_id": 298339,
+      "points": 842,
+      "previous_ranking": 92,
+      "ranking": 88,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:44:54+00:00"
+    },
+    "307383": {
+      "best_ranking": 181,
+      "country": "JOR",
+      "name": "Abdullah Shelbayh",
+      "player_id": 307383,
+      "points": 222,
+      "previous_ranking": 267,
+      "ranking": 253,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:44:46+00:00"
+    },
+    "311012": {
+      "best_ranking": 29,
+      "country": "USA",
+      "name": "Ashlyn Krueger",
+      "player_id": 311012,
+      "points": 1047,
+      "previous_ranking": 58,
+      "ranking": 56,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:44:52+00:00"
+    },
+    "316468": {
+      "best_ranking": 50,
+      "country": "HRV",
+      "name": "Antonia Ružić",
+      "player_id": 316468,
+      "points": 1032,
+      "previous_ranking": 56,
+      "ranking": 61,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:44:51+00:00"
+    },
     "318575": {
       "best_ranking": 11,
       "country": "RUS",
@@ -266,6 +656,30 @@
       "ranking_class": "team",
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-23T19:24:49+00:00"
+    },
+    "322021": {
+      "best_ranking": 702,
+      "country": "CHN",
+      "name": "Yiming Dang",
+      "player_id": 322021,
+      "points": 51,
+      "previous_ranking": 764,
+      "ranking": 747,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:20+00:00"
+    },
+    "326949": {
+      "best_ranking": 63,
+      "country": "PRY",
+      "name": "Adolfo Daniel Vallejo",
+      "player_id": 326949,
+      "points": 914,
+      "previous_ranking": 66,
+      "ranking": 70,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:44:46+00:00"
     },
     "338500": {
       "best_ranking": 14,
@@ -279,6 +693,18 @@
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-23T19:24:46+00:00"
     },
+    "339455": {
+      "best_ranking": 101,
+      "country": "AUS",
+      "name": "Taylah Preston",
+      "player_id": 339455,
+      "points": 762,
+      "previous_ranking": 106,
+      "ranking": 101,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:19+00:00"
+    },
     "341818": {
       "best_ranking": 79,
       "country": "PRT",
@@ -290,6 +716,30 @@
       "ranking_class": "team",
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-23T19:24:53+00:00"
+    },
+    "348987": {
+      "best_ranking": 39,
+      "country": "CZE",
+      "name": "Nikola Bartunkova",
+      "player_id": 348987,
+      "points": 1203,
+      "previous_ranking": 42,
+      "ranking": 39,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:13+00:00"
+    },
+    "349089": {
+      "best_ranking": 70,
+      "country": "HRV",
+      "name": "Dino Prižmić",
+      "player_id": 349089,
+      "points": 652,
+      "previous_ranking": 98,
+      "ranking": 101,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:44:56+00:00"
     },
     "35424": {
       "best_ranking": 5,
@@ -315,6 +765,18 @@
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-23T19:24:59+00:00"
     },
+    "371932": {
+      "best_ranking": 78,
+      "country": "DEU",
+      "name": "Ella Seidel",
+      "player_id": 371932,
+      "points": 755,
+      "previous_ranking": 105,
+      "ranking": 103,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:44:57+00:00"
+    },
     "372312": {
       "best_ranking": 12,
       "country": "CZE",
@@ -326,6 +788,18 @@
       "ranking_class": "team",
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-23T19:24:53+00:00"
+    },
+    "376006": {
+      "best_ranking": 28,
+      "country": "AUS",
+      "name": "Maya Joint",
+      "player_id": 376006,
+      "points": 1006,
+      "previous_ranking": 75,
+      "ranking": 67,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:09+00:00"
     },
     "406776": {
       "best_ranking": 5,
@@ -339,6 +813,114 @@
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-23T19:24:57+00:00"
     },
+    "407392": {
+      "best_ranking": 211,
+      "country": "USA",
+      "name": "Darwin Blanch",
+      "player_id": 407392,
+      "points": 249,
+      "previous_ranking": 221,
+      "ranking": 224,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:44:55+00:00"
+    },
+    "40800": {
+      "best_ranking": 10,
+      "country": "ESP",
+      "name": "Pablo Carreño Busta",
+      "player_id": 40800,
+      "points": 885,
+      "previous_ranking": 68,
+      "ranking": 72,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:14+00:00"
+    },
+    "408344": {
+      "best_ranking": 883,
+      "country": "USA",
+      "name": "Sebastian Gorzny",
+      "player_id": 408344,
+      "points": 39,
+      "previous_ranking": 876,
+      "ranking": 782,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:17+00:00"
+    },
+    "417196": {
+      "best_ranking": 55,
+      "country": "ESP",
+      "name": "Martin Landaluce",
+      "player_id": 417196,
+      "points": 922,
+      "previous_ranking": 64,
+      "ranking": 67,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:07+00:00"
+    },
+    "418056": {
+      "best_ranking": 45,
+      "country": "AUT",
+      "name": "Lilli Tagger",
+      "player_id": 418056,
+      "points": 1123,
+      "previous_ranking": 46,
+      "ranking": 48,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:06+00:00"
+    },
+    "425590": {
+      "best_ranking": 315,
+      "country": "JPN",
+      "name": "Ena Koike",
+      "player_id": 425590,
+      "points": 213,
+      "previous_ranking": 325,
+      "ranking": 329,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:44:59+00:00"
+    },
+    "445470": {
+      "best_ranking": 411,
+      "country": "NLD",
+      "name": "Mees Rottgering",
+      "player_id": 445470,
+      "points": 117,
+      "previous_ranking": 416,
+      "ranking": 418,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:10+00:00"
+    },
+    "44553": {
+      "best_ranking": 36,
+      "country": "FRA",
+      "name": "Pierre-Hugues Herbert",
+      "player_id": 44553,
+      "points": 194,
+      "previous_ranking": 284,
+      "ranking": 287,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:15+00:00"
+    },
+    "448189": {
+      "best_ranking": 834,
+      "country": "USA",
+      "name": "Capucine Jauffret",
+      "player_id": 448189,
+      "points": 37,
+      "previous_ranking": 852,
+      "ranking": 857,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:44:53+00:00"
+    },
     "44834": {
       "best_ranking": 3,
       "country": "USA",
@@ -351,6 +933,18 @@
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-23T19:24:54+00:00"
     },
+    "45545": {
+      "best_ranking": 20,
+      "country": "KAZ",
+      "name": "Yulia Putintseva",
+      "player_id": 45545,
+      "points": 904,
+      "previous_ranking": 82,
+      "ranking": 81,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:21+00:00"
+    },
     "458834": {
       "best_ranking": 23,
       "country": "ESP",
@@ -362,6 +956,54 @@
       "ranking_class": "team",
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-23T19:24:59+00:00"
+    },
+    "479887": {
+      "best_ranking": 802,
+      "country": "USA",
+      "name": "Anna Frey",
+      "player_id": 479887,
+      "points": 35,
+      "previous_ranking": 873,
+      "ranking": 872,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:44:50+00:00"
+    },
+    "490667": {
+      "best_ranking": 606,
+      "country": "AUS",
+      "name": "Cruz Hewitt",
+      "player_id": 490667,
+      "points": 136,
+      "previous_ranking": 370,
+      "ranking": 376,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:44:53+00:00"
+    },
+    "494195": {
+      "best_ranking": 246,
+      "country": "FRA",
+      "name": "Felix Balshaw",
+      "player_id": 494195,
+      "points": 220,
+      "previous_ranking": 248,
+      "ranking": 254,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:00+00:00"
+    },
+    "496742": {
+      "best_ranking": 243,
+      "country": "SVK",
+      "name": "Mia Pohankova",
+      "player_id": 496742,
+      "points": 300,
+      "previous_ranking": 246,
+      "ranking": 247,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:12+00:00"
     },
     "57163": {
       "best_ranking": 2,
@@ -386,17 +1028,29 @@
       "ranking_class": "team",
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-23T19:24:48+00:00"
+    },
+    "88310": {
+      "best_ranking": 31,
+      "country": "EGY",
+      "name": "Mayar Sherif",
+      "player_id": 88310,
+      "points": 1105,
+      "previous_ranking": 50,
+      "ranking": 49,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-23T19:45:09+00:00"
     }
   },
   "registry": "thinq/data/players/player_registry.json",
   "source": "API_PRO_PLAYER_RANKINGS",
   "stats": {
-    "cached_players": 32,
-    "failed": 0,
-    "fresh_cache_skipped": 0,
+    "cached_players": 86,
+    "failed": 1,
+    "fresh_cache_skipped": 32,
     "no_ranking": 0,
-    "registry_players_with_id": 32,
-    "requests": 32,
-    "updated": 32
+    "registry_players_with_id": 87,
+    "requests": 55,
+    "updated": 54
   }
 }
