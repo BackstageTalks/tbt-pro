@@ -1,0 +1,209 @@
+name: Ranking Update
+
+on:
+  workflow_dispatch:
+    inputs:
+      force_elo_refresh:
+        description: "Refresh TA ELO cache before rebuilding the registry"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+      max_ranking_pages:
+        description: "Maximum pages per ATP/WTA ranking endpoint; pageSize is always 200"
+        required: false
+        default: "10"
+      run_reason:
+        description: "Optional external-cron/manual audit note"
+        required: false
+        default: "manual"
+  repository_dispatch:
+    types:
+      - ranking-update
+      - player-registry-refresh
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ranking-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+      RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+      PYTHONUNBUFFERED: "1"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            python -m pip install -r requirements.txt
+          fi
+
+      - name: Validate required configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "${RAPIDAPI_KEY:-}" || {
+            echo "RAPIDAPI_KEY secret is missing"
+            exit 1
+          }
+          python -m py_compile \
+            tools/update_api_pro_rankings.py \
+            tools/build_player_registry.py \
+            thinq/loaders/elo_loader.py
+
+      - name: Refresh ELO cache
+        if: ${{ github.event_name == 'repository_dispatch' || inputs.force_elo_refresh == 'true' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m thinq.loaders.elo_loader \
+            --update \
+            --output thinq/data/elo/ta_elo_ratings.json
+          test -s thinq/data/elo/ta_elo_ratings.json
+
+      - name: Update API PRO ATP and WTA rankings
+        shell: bash
+        env:
+          MAX_RANKING_PAGES: ${{ inputs.max_ranking_pages || '10' }}
+        run: |
+          set -euo pipefail
+          python tools/update_api_pro_rankings.py \
+            --max-pages "${MAX_RANKING_PAGES}"
+          test -s thinq/data/rankings/api_rankings_atp.json
+          test -s thinq/data/rankings/api_rankings_wta.json
+
+      - name: Build central player registry
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/build_player_registry.py
+
+      - name: Validate central outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          for path in \
+            thinq/data/elo/ta_elo_ratings.json \
+            thinq/data/rankings/api_rankings_atp.json \
+            thinq/data/rankings/api_rankings_wta.json \
+            thinq/data/players/player_registry.json \
+            thinq/data/players/elo_player_universe.json \
+            thinq/data/players/player_registry_manifest.json \
+            thinq/data/players/tennis_name_alias_database.json \
+            runtime/players/player_registry_report.json \
+            runtime/players/api_pro_ranking_update_report.json; do
+            test -s "$path" || {
+              echo "Missing or empty output: $path"
+              exit 1
+            }
+          done
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          registry_path = Path("thinq/data/players/player_registry.json")
+          registry = json.loads(registry_path.read_text(encoding="utf-8"))
+          players = registry.get("players")
+          if not isinstance(players, list) or not players:
+              raise SystemExit("player_registry.json has no players")
+
+          rank_count = sum(1 for row in players if row.get("rank") is not None)
+          country_count = sum(1 for row in players if row.get("country_code") or row.get("country_name"))
+          elo_count = sum(1 for row in players if row.get("elo") is not None)
+
+          if rank_count == 0:
+              raise SystemExit("Registry contains zero API PRO rankings")
+          if elo_count == 0:
+              raise SystemExit("Registry contains zero ELO players")
+
+          print(
+              f"Validated registry players={len(players)} "
+              f"ranked={rank_count} countries={country_count} elo={elo_count}"
+          )
+          PY
+
+      - name: Write run metadata
+        shell: bash
+        env:
+          RUN_REASON: ${{ inputs.run_reason || github.event.action || 'external' }}
+        run: |
+          set -euo pipefail
+          mkdir -p runtime/players
+          python - <<'PY'
+          import json
+          import os
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          payload = {
+              "workflow": "Ranking Update",
+              "generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+              "run_reason": os.getenv("RUN_REASON", "external"),
+              "github_run_id": os.getenv("GITHUB_RUN_ID"),
+              "github_sha": os.getenv("GITHUB_SHA"),
+          }
+          Path("runtime/players/ranking_update_run.json").write_text(
+              json.dumps(payload, ensure_ascii=False, indent=2),
+              encoding="utf-8",
+          )
+          PY
+
+      - name: Commit ranking, ELO and registry outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A \
+            thinq/data/elo \
+            thinq/data/rankings \
+            thinq/data/players/player_registry.json \
+            thinq/data/players/elo_player_universe.json \
+            thinq/data/players/player_registry_manifest.json \
+            thinq/data/players/tennis_name_alias_database.json \
+            runtime/players
+
+          if git diff --cached --quiet; then
+            echo "No ranking, ELO or registry changes"
+            exit 0
+          fi
+
+          git commit -m "Update rankings ELO and player registry"
+
+          branch="${GITHUB_REF_NAME:-main}"
+          for attempt in 1 2 3; do
+            if git pull --rebase origin "$branch" && git push origin "HEAD:$branch"; then
+              echo "Ranking update pushed successfully"
+              exit 0
+            fi
+            echo "Push attempt $attempt failed; retrying"
+            sleep $((attempt * 3))
+          done
+
+          echo "Failed to push ranking update after 3 attempts"
+          exit 1
