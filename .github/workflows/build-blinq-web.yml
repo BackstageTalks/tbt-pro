@@ -1,0 +1,78 @@
+name: Build BlinQ Web
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-blinq-web
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then python -m pip install -r requirements.txt; fi
+
+      - name: Validate BlinQ
+        run: |
+          set -euo pipefail
+          python -m py_compile blinq/__init__.py blinq/model.py blinq/service.py blinq/web/__init__.py blinq/web/render.py
+          python - <<'PY'
+          from blinq.model import predict_from_elo, symmetry_audit
+          a = {"player": "A", "elo": 1800.0, "hard_elo": 1825.0}
+          b = {"player": "B", "elo": 1700.0, "hard_elo": 1675.0}
+          audit = symmetry_audit(a, b, "Hard")
+          if audit["ok"] is not True:
+              raise SystemExit(f"Symmetry failed: {audit}")
+          tie = predict_from_elo({"player": "A", "elo": 1700.0}, {"player": "B", "elo": 1700.0})
+          if tie["status"] != "NO_PREDICTION" or tie["winner"] is not None:
+              raise SystemExit(f"Tie guard failed: {tie}")
+          print("BlinQ validation OK")
+          PY
+
+      - name: Build website
+        run: |
+          set -euo pipefail
+          python -m blinq.web.render --output blinq/site/index.html
+          test -s blinq/site/index.html
+
+      - name: Upload website artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: blinq-site
+          path: blinq/site/index.html
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Commit generated website
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- blinq/site/index.html; then
+            echo "BlinQ website is already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add blinq/site/index.html
+          git commit -m "Build BlinQ website"
+          git pull --rebase origin main
+          git push origin HEAD:main
