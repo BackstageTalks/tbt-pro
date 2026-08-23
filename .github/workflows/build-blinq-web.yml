@@ -35,7 +35,7 @@ jobs:
       - name: Validate BlinQ
         run: |
           set -euo pipefail
-          python -m py_compile blinq/__init__.py blinq/model.py blinq/service.py blinq/web/__init__.py blinq/web/render.py
+          python -m py_compile blinq/__init__.py blinq/model.py blinq/service.py blinq/run.py blinq/web/__init__.py blinq/web/render.py
           python - <<'PY'
           from blinq.model import predict_from_elo, symmetry_audit
           a = {"player": "A", "elo": 1800.0, "hard_elo": 1825.0}
@@ -52,7 +52,7 @@ jobs:
       - name: Build website
         run: |
           set -euo pipefail
-          python -m blinq.web.render --output blinq/site/index.html
+          python -m blinq.run --output blinq/site/index.html
           test -s blinq/site/index.html
 
       - name: Upload website artifact
