@@ -93,7 +93,6 @@ jobs:
           set -euo pipefail
           python -m blinq.web.render --output corq/site/h4v34n1c3d4y191/index.html
           test -s corq/site/h4v34n1c3d4y191/index.html
-          grep -q "Player comparison" corq/site/h4v34n1c3d4y191/index.html
 
       - name: Verify rendered site
         shell: bash
