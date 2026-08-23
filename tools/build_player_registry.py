@@ -30,6 +30,7 @@ DEFAULT_ELO_FILES = (
 )
 
 DEFAULT_RANKING_FILES = (
+    "thinq/data/rankings/api_pro_player_rankings.json",
     "thinq/data/rankings/atp_rankings.json",
     "thinq/data/rankings/wta_rankings.json",
     "thinq/data/rankings/api_rankings_atp.json",
