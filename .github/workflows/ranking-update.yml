@@ -4,54 +4,48 @@ on:
   workflow_dispatch:
     inputs:
       force_elo_refresh:
-        description: "Try to refresh TA ELO; preserve existing cache if refresh fails"
+        description: Refresh TA ELO cache before rebuilding registry
         required: false
-        default: "true"
-        type: choice
-        options:
-          - "true"
-          - "false"
+        default: false
+        type: boolean
       max_players:
-        description: "Maximum player ranking API requests per run"
+        description: Maximum API PRO player ranking requests
         required: false
         default: "200"
+        type: string
       ttl_hours:
-        description: "Skip cached player rankings newer than this many hours"
+        description: Ranking cache TTL in hours
         required: false
         default: "168"
+        type: string
       force_ranking_refresh:
-        description: "Ignore ranking cache freshness"
+        description: Ignore ranking TTL
         required: false
-        default: "false"
-        type: choice
-        options:
-          - "true"
-          - "false"
+        default: false
+        type: boolean
       run_reason:
-        description: "Optional audit note"
+        description: Optional audit reason
         required: false
-        default: "manual"
+        default: manual
+        type: string
   repository_dispatch:
-    types:
-      - ranking-update
-      - player-registry-refresh
+    types: [ranking-update]
 
 permissions:
   contents: write
 
 concurrency:
-  group: ranking-update
+  group: ranking-update-main
   cancel-in-progress: false
+
+env:
+  RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+  PYTHONUNBUFFERED: "1"
 
 jobs:
   update:
     runs-on: ubuntu-latest
     timeout-minutes: 120
-    env:
-      PYTHONPATH: ${{ github.workspace }}
-      RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
-      PYTHONUNBUFFERED: "1"
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -69,9 +63,7 @@ jobs:
         run: |
           set -euo pipefail
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then
-            python -m pip install -r requirements.txt
-          fi
+          if [ -f requirements.txt ]; then python -m pip install -r requirements.txt; fi
 
       - name: Validate configuration
         shell: bash
@@ -79,66 +71,67 @@ jobs:
           set -euo pipefail
           test -n "${RAPIDAPI_KEY:-}" || { echo "RAPIDAPI_KEY secret is missing"; exit 1; }
           python -m py_compile \
+            tools/resolve_api_pro_player_ids.py \
             tools/update_api_pro_rankings.py \
             tools/build_player_registry.py \
-            thinq/loaders/elo_loader.py \
-            blinq/service.py \
-            blinq/web/render.py
+            thinq/loaders/elo_loader.py
 
       - name: Refresh ELO cache safely
-        if: ${{ github.event_name == 'repository_dispatch' || inputs.force_elo_refresh == 'true' }}
+        if: ${{ github.event_name == 'repository_dispatch' || inputs.force_elo_refresh == true }}
         shell: bash
         run: |
           set -euo pipefail
           ELO_PATH="thinq/data/elo/ta_elo_ratings.json"
           BACKUP_PATH="${RUNNER_TEMP}/ta_elo_ratings.json.backup"
-
-          if [ -s "$ELO_PATH" ]; then
-            cp "$ELO_PATH" "$BACKUP_PATH"
-          fi
-
+          if [ -s "$ELO_PATH" ]; then cp "$ELO_PATH" "$BACKUP_PATH"; fi
           set +e
           python -m thinq.loaders.elo_loader --update --output "$ELO_PATH"
-          refresh_status=$?
+          status=$?
           set -e
-
-          if [ "$refresh_status" -ne 0 ] || [ ! -s "$ELO_PATH" ]; then
+          if [ "$status" -ne 0 ] || [ ! -s "$ELO_PATH" ]; then
             echo "[ELO] refresh failed; preserving previous valid cache"
-            if [ -s "$BACKUP_PATH" ]; then
-              cp "$BACKUP_PATH" "$ELO_PATH"
-            else
-              echo "[ELO] no previous valid cache is available"
-              exit 1
-            fi
-          else
-            echo "[ELO] refresh completed successfully"
+            test -s "$BACKUP_PATH" || exit 1
+            cp "$BACKUP_PATH" "$ELO_PATH"
           fi
-
           test -s "$ELO_PATH"
 
-      - name: Require existing ELO cache when refresh is disabled
-        if: ${{ github.event_name != 'repository_dispatch' && inputs.force_elo_refresh != 'true' }}
+      - name: Require existing ELO cache
+        if: ${{ github.event_name != 'repository_dispatch' && inputs.force_elo_refresh != true }}
         shell: bash
         run: test -s thinq/data/elo/ta_elo_ratings.json
+
+      - name: Build preliminary player universe
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/build_player_registry.py
+
+      - name: Resolve API PRO player identities from real payloads
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/resolve_api_pro_player_ids.py
+          python tools/build_player_registry.py
 
       - name: Update API PRO player rankings
         shell: bash
         env:
           MAX_PLAYERS: ${{ inputs.max_players || '200' }}
           TTL_HOURS: ${{ inputs.ttl_hours || '168' }}
-          FORCE_RANKING_REFRESH: ${{ inputs.force_ranking_refresh || 'false' }}
+          FORCE_RANKING_REFRESH: ${{ inputs.force_ranking_refresh || false }}
         run: |
           set -euo pipefail
-          force_arg=""
-          if [ "$FORCE_RANKING_REFRESH" = "true" ]; then
-            force_arg="--force"
-          fi
-
-          python tools/update_api_pro_rankings.py             --registry thinq/data/players/player_registry.json             --output thinq/data/rankings/api_pro_player_rankings.json             --max-players "$MAX_PLAYERS"             --ttl-hours "$TTL_HOURS"             $force_arg
-
+          args=(
+            --registry thinq/data/players/player_registry.json
+            --output thinq/data/rankings/api_pro_player_rankings.json
+            --max-players "$MAX_PLAYERS"
+            --ttl-hours "$TTL_HOURS"
+          )
+          if [ "$FORCE_RANKING_REFRESH" = "true" ]; then args+=(--force); fi
+          python tools/update_api_pro_rankings.py "${args[@]}"
           test -s thinq/data/rankings/api_pro_player_rankings.json
 
-      - name: Build central player registry
+      - name: Build final central player registry
         shell: bash
         run: |
           set -euo pipefail
@@ -150,6 +143,7 @@ jobs:
           set -euo pipefail
           for path in \
             thinq/data/elo/ta_elo_ratings.json \
+            thinq/data/players/api_pro_player_identities.json \
             thinq/data/rankings/api_pro_player_rankings.json \
             thinq/data/players/player_registry.json \
             thinq/data/players/elo_player_universe.json \
@@ -158,66 +152,18 @@ jobs:
             runtime/players/player_registry_report.json; do
             test -s "$path" || { echo "Missing or empty output: $path"; exit 1; }
           done
-
           python - <<'PY'
           import json
           from pathlib import Path
-
-          data = json.loads(Path("thinq/data/players/player_registry.json").read_text(encoding="utf-8"))
-          players = data.get("players")
-          if not isinstance(players, list) or not players:
-              raise SystemExit("player_registry.json has no players")
-          ranked = sum(row.get("rank") is not None for row in players)
-          elo = sum(row.get("elo") is not None for row in players)
-          countries = sum(bool(row.get("country_code") or row.get("country_name")) for row in players)
-          if ranked == 0:
-              raise SystemExit("Registry contains zero API PRO rankings")
-          if elo == 0:
-              raise SystemExit("Registry contains zero ELO players")
-          print(f"Validated players={len(players)} ranked={ranked} countries={countries} elo={elo}")
-          PY
-
-      - name: Build merged registry and render
-        shell: bash
-        run: |
-          set -euo pipefail
-          python tools/build_player_registry.py
-          python -m blinq.web.render --output blinq/site/index.html
-          test -s blinq/site/index.html
-
-          python - <<'PY'
-          from pathlib import Path
-
-          page = Path("blinq/site/index.html").read_text(encoding="utf-8")
-
-          required = (
-              'lang="en"',
-              "Who we are",
-              "What we do",
-              "Why we do it",
-              "Player 1",
-              "Player 2",
-              "Surface",
-              "Calculate prediction",
-              "Comparison history",
-              "(X)",
-          )
-          missing = [text for text in required if text not in page]
-          if missing:
-              raise SystemExit(f"BlinQ render is missing required content: {missing}")
-
-          forbidden = (
-              "Real A/B symmetry:",
-              "Unknown ·",
-              "Porovnanie dvoch hráčov",
-              "Vypočítať predikciu",
-              '<nav class="nav">',
-          )
-          present = [text for text in forbidden if text in page]
-          if present:
-              raise SystemExit(f"BlinQ render contains removed legacy content: {present}")
-
-          print(f"Validated BlinQ render: {len(page)} bytes")
+          data = json.loads(Path('thinq/data/players/player_registry.json').read_text(encoding='utf-8'))
+          players = data.get('players') or []
+          ids = sum(row.get('player_id') is not None for row in players)
+          ranked = sum(row.get('rank') is not None for row in players)
+          elo = sum(row.get('elo') is not None for row in players)
+          countries = sum(bool(row.get('country_code') or row.get('country_name')) for row in players)
+          if not players or elo == 0 or ids == 0 or ranked == 0:
+              raise SystemExit(f'Invalid registry coverage players={len(players)} ids={ids} ranked={ranked} elo={elo}')
+          print(f'Validated players={len(players)} ids={ids} ranked={ranked} countries={countries} elo={elo}')
           PY
 
       - name: Write run metadata
@@ -232,18 +178,18 @@ jobs:
           from datetime import datetime, timezone
           from pathlib import Path
           payload = {
-              "workflow": "Ranking Update",
-              "generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
-              "run_reason": os.getenv("RUN_REASON", "external"),
-              "github_run_id": os.getenv("GITHUB_RUN_ID"),
-              "github_sha": os.getenv("GITHUB_SHA"),
+              'workflow': 'Ranking Update',
+              'generated_at': datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+              'run_reason': os.getenv('RUN_REASON', 'external'),
+              'github_run_id': os.getenv('GITHUB_RUN_ID'),
+              'github_sha': os.getenv('GITHUB_SHA'),
           }
-          Path("runtime/players/ranking_update_run.json").write_text(
-              json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
+          Path('runtime/players/ranking_update_run.json').write_text(
+              json.dumps(payload, ensure_ascii=False, indent=2), encoding='utf-8'
           )
           PY
 
-      - name: Commit ranking ELO and registry outputs
+      - name: Commit identity ranking ELO and registry outputs
         shell: bash
         run: |
           set -euo pipefail
@@ -252,25 +198,20 @@ jobs:
           git add -A \
             thinq/data/elo \
             thinq/data/rankings \
+            thinq/data/players/api_pro_player_identities.json \
             thinq/data/players/player_registry.json \
             thinq/data/players/elo_player_universe.json \
             thinq/data/players/player_registry_manifest.json \
             thinq/data/players/tennis_name_alias_database.json \
-            runtime/players \
-            blinq/site/index.html \
-            blinq/web/render.py
-
+            runtime/players
           if git diff --cached --quiet; then
-            echo "No ranking ELO or registry changes"
+            echo "No identity ranking ELO or registry changes"
             exit 0
           fi
-
-          git commit -m "Update rankings ELO and player registry"
+          git commit -m "Update player identities rankings ELO and registry"
           branch="${GITHUB_REF_NAME:-main}"
           for attempt in 1 2 3; do
-            if git pull --rebase origin "$branch" && git push origin "HEAD:$branch"; then
-              exit 0
-            fi
+            if git pull --rebase origin "$branch" && git push origin "HEAD:$branch"; then exit 0; fi
             sleep $((attempt * 3))
           done
           exit 1
