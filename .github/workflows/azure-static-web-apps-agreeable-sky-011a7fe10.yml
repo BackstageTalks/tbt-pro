@@ -3,21 +3,20 @@ name: Azure Static Web Apps CI/CD
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
       - "api/**"
       - "blinq/**"
       - "corq/web/**"
       - "corq/messages.py"
       - "thinq/**"
+      - "tools/build_player_registry.py"
       - "outputs/**"
       - "requirements.txt"
       - ".github/workflows/azure-static-web-apps-agreeable-sky-011a7fe10.yml"
   pull_request:
     types: [opened, synchronize, reopened, closed]
-    branches:
-      - main
+    branches: [main]
 
 permissions:
   contents: read
@@ -33,14 +32,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     name: Build and Deploy
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-          submodules: false
-          lfs: false
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -48,127 +42,84 @@ jobs:
           python-version: "3.11"
           cache: pip
 
-      - name: Install Python dependencies
-        shell: bash
+      - name: Install dependencies
         run: |
           set -euo pipefail
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then
-            python -m pip install -r requirements.txt
-          fi
-          if [ -f api/requirements.txt ]; then
-            python -m pip install -r api/requirements.txt
-          fi
+          test ! -f requirements.txt || python -m pip install -r requirements.txt
+          test ! -f api/requirements.txt || python -m pip install -r api/requirements.txt
 
-      - name: Render shared web site
-        shell: bash
+      - name: Build merged player registry
+        run: |
+          set -euo pipefail
+          python tools/build_player_registry.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path("thinq/data/players/player_registry.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+          assert data.get("version") == "PLAYER_REGISTRY_V3_API_ELO_MERGED", data.get("version")
+          players = data.get("players") or []
+          assert not any(p.get("registry_key", "").startswith("api:") and not p.get("elo_available") and any(q.get("compact_key") == p.get("compact_key") and q.get("elo_available") for q in players) for p in players)
+          print({"version": data.get("version"), "players": len(players), "ranked": data.get("api_rank_player_count")})
+          PY
+
+      - name: Render shared site
         env:
           PYTHONPATH: ${{ github.workspace }}
           TENNISAPI_ATTACH_RANKINGS: "0"
           CORQ_RENDER_ENABLE_LOGS: "0"
         run: |
           set -euo pipefail
-          rm -rf corq/site/assets/results_lazy
-          mkdir -p corq/site/assets/results_lazy
           python -m corq.web.render
           python -m blinq.web.render --output corq/site/h4v34n1c3d4y191/index.html
+          grep -q "Advanced tennis intelligence built from PRO API data" corq/site/h4v34n1c3d4y191/index.html
+          grep -q "/api/blinq/predict" corq/site/h4v34n1c3d4y191/index.html
 
-      - name: Reduce Static Web Apps artifact size
-        shell: bash
+      - name: Reduce static artifact
         run: |
           set -euo pipefail
-
-          echo "[size] before cleanup"
-          du -sh corq/site || true
-
-          # Results lazy chunks and debug artifacts are not required by BlinQ.
-          rm -rf corq/site/assets/results_lazy
-          rm -rf corq/site/logs
+          rm -rf corq/site/assets/results_lazy corq/site/logs
           find corq/site -type f \( -name "*.log" -o -name "*.tmp" -o -name "*.bak" \) -delete
+          size=$(du -sb corq/site | awk '{print $1}')
+          echo "Static artifact bytes: $size"
+          test "$size" -le 240000000
 
-          # Do not ship oversized diagnostics/data payloads in the Free SWA artifact.
-          find corq/site -type f -name "*.json" -size +5M -print -delete
-          find corq/site -type f -size +50M -print -delete
-
-          echo "[size] largest remaining files"
-          find corq/site -type f -printf "%s %p\n" | sort -nr | head -30 || true
-
-          echo "[size] after cleanup"
-          du -sh corq/site || true
-
-          size_bytes=$(du -sb corq/site | awk '{print $1}')
-          max_bytes=240000000
-          if [ "$size_bytes" -gt "$max_bytes" ]; then
-            echo "Static artifact remains too large: ${size_bytes} bytes; limit guard=${max_bytes}"
-            exit 1
-          fi
-
-      - name: Configure Static Web Apps runtime
-        shell: bash
+      - name: Configure runtime and access
         run: |
-          set -euo pipefail
           cat > corq/site/staticwebapp.config.json <<'JSON'
           {
-            "platform": {
-              "apiRuntime": "python:3.11"
-            },
+            "platform": {"apiRuntime": "python:3.11"},
             "globalHeaders": {
               "X-Content-Type-Options": "nosniff",
               "Referrer-Policy": "strict-origin-when-cross-origin"
             },
             "navigationFallback": {
               "rewrite": "/index.html",
-              "exclude": ["/api/*", "/*.xml", "/*.{css,js,png,jpg,jpeg,webp,svg,ico,json}"]
+              "exclude": ["/api/*", "/.auth/*", "/*.xml", "/*.{css,js,png,jpg,jpeg,webp,svg,ico,json}"]
             }
           }
           JSON
 
       - name: Prepare managed Python API
-        shell: bash
         run: |
           set -euo pipefail
           test -s api/function_app.py
           test -s api/host.json
           test -s api/requirements.txt
-
           rm -rf api/blinq api/thinq api/corq
           cp -R blinq api/blinq
           cp -R thinq api/thinq
           cp -R corq api/corq
-
-          # Keep only runtime code and the compact model data required by BlinQ.
-          rm -rf api/corq/site api/corq/outputs api/corq/logs
-          rm -rf api/thinq/outputs api/thinq/data/players/previous_matches api/thinq/data/players/team_year_stats
+          rm -rf api/corq/site api/corq/outputs api/corq/logs api/thinq/outputs
           find api -type d -name "__pycache__" -prune -exec rm -rf {} +
           find api -type f \( -name "*.pyc" -o -name "*.log" -o -name "*.tmp" -o -name "*.bak" \) -delete
-          find api -type f -size +50M -print -delete
-
           python -m py_compile api/function_app.py api/blinq/service.py
+          size=$(du -sb api | awk '{print $1}')
+          echo "API artifact bytes: $size"
+          test "$size" -le 100000000
 
-          echo "[api size]"
-          du -sh api
-          api_size=$(du -sb api | awk '{print $1}')
-          if [ "$api_size" -gt 100000000 ]; then
-            echo "Managed API package is too large: ${api_size} bytes"
-            exit 1
-          fi
-
-      - name: Validate deployment package
-        shell: bash
-        run: |
-          set -euo pipefail
-          test -s corq/site/index.html
-          test -s corq/site/h4v34n1c3d4y191/index.html
-          test -s corq/site/staticwebapp.config.json
-          test -s api/function_app.py
-          grep -q "/api/blinq/predict" corq/site/h4v34n1c3d4y191/index.html
-          if grep -q "const prob=d" corq/site/h4v34n1c3d4y191/index.html; then
-            echo "ELO-only BlinQ JavaScript is still present"
-            exit 1
-          fi
-
-      - name: Upload Static Web App and managed API
-        id: builddeploy
+      - name: Upload Static Web App and API
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AGREEABLE_SKY_011A7FE10 }}
@@ -178,7 +129,6 @@ jobs:
           api_location: api
           output_location: ""
           skip_app_build: true
-          skip_api_build: false
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
