@@ -101,6 +101,110 @@ def _layer(result: Dict[str, Any]) -> Dict[str, Any]:
     return value if isinstance(value, dict) else {}
 
 
+
+def _pair_index(value1: Any, value2: Any, *, samples1: int = 1, samples2: int = 1) -> Dict[str, Any]:
+    """Return a real-data pair index. Missing samples stay unavailable, never 50:50."""
+    first = _float(value1)
+    second = _float(value2)
+    if first is None or second is None or samples1 <= 0 or samples2 <= 0:
+        return {"available": False, "p1": None, "p2": None}
+    total = first + second
+    if total <= 0:
+        return {"available": False, "p1": None, "p2": None}
+    p1 = round(first / total * 100.0, 1)
+    return {"available": True, "p1": p1, "p2": round(100.0 - p1, 1)}
+
+
+def _elo_index(elo: Dict[str, Any]) -> Dict[str, Any]:
+    first = _float(elo.get("pick_elo"))
+    second = _float(elo.get("opponent_elo"))
+    if first is None or second is None:
+        return {"available": False, "p1": None, "p2": None, "label": "S-index"}
+    # Same neutral ELO scale as the model, exposed only as a 0-100 strength index.
+    probability = 1.0 / (1.0 + 10.0 ** (-(first - second) / 400.0))
+    p1 = round(probability * 100.0, 1)
+    return {"available": True, "p1": p1, "p2": round(100.0 - p1, 1), "label": "S-index"}
+
+
+def _window(form: Dict[str, Any], side: str, key: str) -> Dict[str, Any]:
+    player = form.get(side) if isinstance(form.get(side), dict) else {}
+    value = player.get(key) if isinstance(player.get(key), dict) else {}
+    return value
+
+
+def _form_index(form: Dict[str, Any], key: str, prefix: str) -> Dict[str, Any]:
+    first = _window(form, "pick", key)
+    second = _window(form, "opponent", key)
+    count1 = _int(first.get("count")) or 0
+    count2 = _int(second.get("count")) or 0
+    sample = min(count1, count2)
+    index = _pair_index(first.get("win_pct"), second.get("win_pct"), samples1=count1, samples2=count2)
+    index.update({"label": f"{prefix}{sample}-index" if sample > 0 else f"{prefix}-index", "sample": sample})
+    return index
+
+
+def _h2h_index(h2h: Dict[str, Any]) -> Dict[str, Any]:
+    total = _int(h2h.get("total_matches")) or 0
+    first = _int(h2h.get("pick_wins"))
+    second = _int(h2h.get("opponent_wins"))
+    index = _pair_index(first, second, samples1=total, samples2=total)
+    index.update({"label": f"H{total}-index" if total > 0 else "H-index", "sample": total})
+    return index
+
+
+def _market_index(result: Dict[str, Any]) -> Dict[str, Any]:
+    """Use market information only when an exact-event movement payload exists."""
+    candidates = [result.get("marq"), result.get("market"), (result.get("contexts") or {}).get("marq")]
+    for market in candidates:
+        if not isinstance(market, dict):
+            continue
+        exact = market.get("exact_event") is True or str(market.get("match_status") or "").upper() == "EXACT"
+        first = _float(market.get("player1_index") or market.get("pick_index"))
+        second = _float(market.get("player2_index") or market.get("opponent_index"))
+        if exact and first is not None and second is not None:
+            index = _pair_index(first, second)
+            index.update({"label": "M-index", "source": market.get("source")})
+            return index
+    return {"available": False, "p1": None, "p2": None, "label": "M-index"}
+
+
+def _data_index(public: Dict[str, Any], elo: Dict[str, Any], form_window: Dict[str, Any], surface_window: Dict[str, Any], h2h_total: int) -> float:
+    checks = [
+        public.get("player_id") is not None,
+        public.get("elo") is not None,
+        elo.get("pick_elo") is not None,
+        (_int(form_window.get("count")) or 0) >= 5,
+        (_int(surface_window.get("count")) or 0) >= 3,
+        h2h_total > 0,
+        public.get("rank") is not None,
+        bool(public.get("country_code")),
+    ]
+    return round(sum(1 for item in checks if item) / len(checks) * 100.0, 1)
+
+
+def _build_indices(forward: Dict[str, Any], player1: Dict[str, Any], player2: Dict[str, Any]) -> Dict[str, Any]:
+    elo = forward.get("elo") if isinstance(forward.get("elo"), dict) else {}
+    form = forward.get("recent_form") if isinstance(forward.get("recent_form"), dict) else {}
+    h2h = forward.get("h2h") if isinstance(forward.get("h2h"), dict) else {}
+    p1_last10 = _window(form, "pick", "last10")
+    p2_last10 = _window(form, "opponent", "last10")
+    p1_surface = _window(form, "pick", "surface_last10")
+    p2_surface = _window(form, "opponent", "surface_last10")
+    h2h_total = _int(h2h.get("total_matches")) or 0
+    return {
+        "strength": _elo_index(elo),
+        "form": _form_index(form, "last10", "F"),
+        "court_form": _form_index(form, "surface_last10", "CF"),
+        "h2h": _h2h_index(h2h),
+        "market": _market_index(forward),
+        "data": {
+            "available": True,
+            "p1": _data_index(player1, elo, p1_last10, p1_surface, h2h_total),
+            "p2": _data_index(player2, {"pick_elo": elo.get("opponent_elo")}, p2_last10, p2_surface, h2h_total),
+            "label": "D-index",
+        },
+    }
+
 def _no_prediction(reason: str, flags: List[str], **extra: Any) -> Dict[str, Any]:
     return {
         "model": "BlinQ",
@@ -188,6 +292,7 @@ class BlinqService:
             "tolerance": TOLERANCE,
         }
 
+        indices = _build_indices(forward, _public(row1), _public(row2))
         blocked = (
             not symmetry_ok
             or p_ab is None
@@ -208,6 +313,7 @@ class BlinqService:
                 symmetry_audit=audit,
                 thinq_forward=forward,
                 thinq_reverse=reverse,
+                indices=indices,
             )
 
         winner_is_p1 = p_ab > 0.5
@@ -232,4 +338,5 @@ class BlinqService:
             "elo": forward.get("elo") or {},
             "flags": sorted(set(layer_ab.get("flags") or [])),
             "symmetry_audit": audit,
+            "indices": indices,
         }
