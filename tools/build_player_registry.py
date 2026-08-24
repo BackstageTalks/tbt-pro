@@ -195,17 +195,76 @@ def make_player_key(player_id: Any, name: Any) -> str:
     return f"name:{compact_key(name)}"
 
 
+def _find_player_key(
+    registry: Dict[str, Dict[str, Any]],
+    player_id: Optional[int],
+    name: Any,
+) -> Optional[str]:
+    """Resolve an existing identity by API ID first, then normalized names."""
+    if player_id is not None:
+        api_key = f"api:{player_id}"
+        if api_key in registry:
+            return api_key
+        for key, row in registry.items():
+            row_id = as_int(
+                row.get("api_team_id")
+                or row.get("rapidapi_id")
+                or row.get("player_id")
+            )
+            if row_id == player_id:
+                return key
+
+    wanted = compact_key(name)
+    if not wanted:
+        return None
+    for key, row in registry.items():
+        candidates = [
+            row.get("name"),
+            row.get("canonical_name"),
+            row.get("display_name"),
+            row.get("normalized_name"),
+            row.get("compact_key"),
+            row.get("elo_name_key"),
+            row.get("elo_compact_key"),
+        ]
+        candidates.extend(row.get("aliases") if isinstance(row.get("aliases"), list) else [])
+        if any(compact_key(candidate) == wanted for candidate in candidates if candidate):
+            return key
+    return None
+
+
+def _merge_player_rows(target: Dict[str, Any], source: Dict[str, Any]) -> Dict[str, Any]:
+    """Merge duplicate identities without replacing real values with missing data."""
+    for key, value in source.items():
+        if key in {"aliases", "sources", "seen_sides"}:
+            existing = target.setdefault(key, [])
+            if not isinstance(existing, list):
+                existing = []
+                target[key] = existing
+            incoming = value if isinstance(value, list) else []
+            for item in incoming:
+                if item not in existing:
+                    existing.append(item)
+            continue
+        if target.get(key) in (None, "", [], {}) and value not in (None, "", [], {}):
+            target[key] = value
+    return target
+
+
 def ensure_player(registry: Dict[str, Dict[str, Any]], player_id: Any, name: Any) -> Optional[Dict[str, Any]]:
     raw_name = fix_mojibake(name)
     cname = canonical_name(raw_name)
     pid = as_int(player_id)
     if not cname and pid is None:
         return None
-    key = make_player_key(pid, cname)
-    player = registry.get(key)
+
+    existing_key = _find_player_key(registry, pid, cname)
+    desired_key = make_player_key(pid, cname)
+    player = registry.get(existing_key) if existing_key else None
+
     if player is None:
         player = {
-            "registry_key": key,
+            "registry_key": desired_key,
             "player_id": pid,
             "api_team_id": pid,
             "rapidapi_id": pid,
@@ -222,24 +281,38 @@ def ensure_player(registry: Dict[str, Dict[str, Any]], player_id: Any, name: Any
             "country_name": None,
             "updated_at": now_iso(),
         }
-        registry[key] = player
+        registry[desired_key] = player
     else:
-        if pid is not None:
-            player["player_id"] = pid
-            player["api_team_id"] = pid
-            player["rapidapi_id"] = pid
-        if cname and (not player.get("name") or player.get("name") != canonical_name(player.get("name"))):
-            player["name"] = canonical_name(player.get("name") or cname)
-            player["canonical_name"] = canonical_name(player.get("canonical_name") or cname)
-            player["display_name"] = player["canonical_name"]
-            player["normalized_name"] = normalize_name(player["canonical_name"])
-            player["compact_key"] = compact_key(player["canonical_name"])
+        # Promote a name-only ELO identity to its canonical API identity.
+        if pid is not None and existing_key != desired_key:
+            duplicate = registry.get(desired_key)
+            if duplicate is not None and duplicate is not player:
+                player = _merge_player_rows(player, duplicate)
+                registry.pop(desired_key, None)
+            registry.pop(existing_key, None)
+            registry[desired_key] = player
+        elif existing_key and existing_key != desired_key and desired_key not in registry:
+            registry.pop(existing_key, None)
+            registry[desired_key] = player
+
+    player["registry_key"] = desired_key
+    if pid is not None:
+        player["player_id"] = pid
+        player["api_team_id"] = pid
+        player["rapidapi_id"] = pid
+    if cname:
+        current_name = canonical_name(player.get("canonical_name") or player.get("name") or cname)
+        player["name"] = current_name
+        player["canonical_name"] = current_name
+        player["display_name"] = current_name
+        player["normalized_name"] = normalize_name(current_name)
+        player["compact_key"] = compact_key(current_name)
+
     aliases = player.setdefault("aliases", [])
     for alias in unique_names([raw_name, cname] + MANUAL_ALIASES.get(compact_key(cname), [])):
         if compact_key(alias) != compact_key(player.get("canonical_name")) and alias not in aliases:
             aliases.append(alias)
     return player
-
 
 def touch_source(player: Dict[str, Any], source: str) -> None:
     sources = player.setdefault("sources", [])
@@ -526,7 +599,7 @@ def main() -> int:
     )
 
     registry_payload = {
-        "version": "PLAYER_REGISTRY_V2_CANONICAL_NAMES",
+        "version": "PLAYER_REGISTRY_V3_API_ELO_MERGED",
         "generated_at": now_iso(),
         "source": "ELO_CACHE_PLUS_API_OUTPUTS_AND_OPTIONAL_RANKINGS",
         "player_count": len(players_sorted),
@@ -541,7 +614,7 @@ def main() -> int:
 
     elo_players = [p for p in players_sorted if p.get("elo_available")]
     universe_payload = {
-        "version": "ELO_PLAYER_UNIVERSE_V2_CANONICAL_NAMES",
+        "version": "ELO_PLAYER_UNIVERSE_V3_API_ELO_MERGED",
         "generated_at": now_iso(),
         "source": "ELO_CACHE",
         "player_count": len(elo_players),
