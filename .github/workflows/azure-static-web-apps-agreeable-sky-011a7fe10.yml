@@ -73,8 +73,42 @@ jobs:
           set -euo pipefail
           python -m corq.web.render
           python -m blinq.web.render --output corq/site/h4v34n1c3d4y191/index.html
-          grep -q "Advanced tennis intelligence built from PRO API data" corq/site/h4v34n1c3d4y191/index.html
-          grep -q "/api/blinq/predict" corq/site/h4v34n1c3d4y191/index.html
+          python - <<'PY'
+          from pathlib import Path
+
+          page_path = Path("corq/site/h4v34n1c3d4y191/index.html")
+          page = page_path.read_text(encoding="utf-8")
+
+          required = (
+              'lang="en"',
+              "Who we are",
+              "What we do",
+              "Why we do it",
+              "Player 1",
+              "Player 2",
+              "Surface",
+              "Calculate prediction",
+              "Comparison history",
+              "/api/blinq/predict",
+              "(X)",
+          )
+          missing = [item for item in required if item not in page]
+          if missing:
+              raise SystemExit(f"BlinQ page is missing required content: {missing}")
+
+          forbidden = (
+              "Advanced tennis intelligence built from PRO API data",
+              "Compare two players using real ELO and API PRO data",
+              "Real A/B symmetry:",
+              "Unknown ·",
+              '<nav class="nav">',
+          )
+          present = [item for item in forbidden if item in page]
+          if present:
+              raise SystemExit(f"BlinQ page contains removed content: {present}")
+
+          print(f"Validated BlinQ page: {page_path} ({len(page)} bytes)")
+          PY
 
       - name: Reduce static artifact
         run: |
