@@ -81,7 +81,9 @@ jobs:
           python -m py_compile \
             tools/update_api_pro_rankings.py \
             tools/build_player_registry.py \
-            thinq/loaders/elo_loader.py
+            thinq/loaders/elo_loader.py \
+            blinq/service.py \
+            blinq/web/render.py
 
       - name: Refresh ELO cache safely
         if: ${{ github.event_name == 'repository_dispatch' || inputs.force_elo_refresh == 'true' }}
@@ -175,6 +177,49 @@ jobs:
           print(f"Validated players={len(players)} ranked={ranked} countries={countries} elo={elo}")
           PY
 
+      - name: Build merged registry and render
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/build_player_registry.py
+          python -m blinq.web.render --output blinq/site/index.html
+          test -s blinq/site/index.html
+
+          python - <<'PY'
+          from pathlib import Path
+
+          page = Path("blinq/site/index.html").read_text(encoding="utf-8")
+
+          required = (
+              'lang="en"',
+              "Who we are",
+              "What we do",
+              "Why we do it",
+              "Player 1",
+              "Player 2",
+              "Surface",
+              "Calculate prediction",
+              "Comparison history",
+              "(X)",
+          )
+          missing = [text for text in required if text not in page]
+          if missing:
+              raise SystemExit(f"BlinQ render is missing required content: {missing}")
+
+          forbidden = (
+              "Real A/B symmetry:",
+              "Unknown ·",
+              "Porovnanie dvoch hráčov",
+              "Vypočítať predikciu",
+              '<nav class="nav">',
+          )
+          present = [text for text in forbidden if text in page]
+          if present:
+              raise SystemExit(f"BlinQ render contains removed legacy content: {present}")
+
+          print(f"Validated BlinQ render: {len(page)} bytes")
+          PY
+
       - name: Write run metadata
         shell: bash
         env:
@@ -211,7 +256,9 @@ jobs:
             thinq/data/players/elo_player_universe.json \
             thinq/data/players/player_registry_manifest.json \
             thinq/data/players/tennis_name_alias_database.json \
-            runtime/players
+            runtime/players \
+            blinq/site/index.html \
+            blinq/web/render.py
 
           if git diff --cached --quiet; then
             echo "No ranking ELO or registry changes"
