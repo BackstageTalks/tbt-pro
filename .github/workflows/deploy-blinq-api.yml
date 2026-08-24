@@ -1,0 +1,51 @@
+name: Deploy BlinQ API
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+      - deploy-blinq-api
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-blinq-api
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Prepare Azure Functions package
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf function_package
+          mkdir -p function_package
+          cp -R api/. function_package/
+          cp -R blinq function_package/blinq
+          cp -R thinq function_package/thinq
+          cp -R corq function_package/corq
+          if [ -f requirements.txt ]; then
+            cat requirements.txt >> function_package/requirements.txt
+          fi
+          python -m py_compile \
+            function_package/function_app.py \
+            function_package/blinq/service.py
+
+      - name: Deploy Azure Function
+        uses: Azure/functions-action@v1
+        with:
+          app-name: ${{ vars.BLINQ_FUNCTION_APP_NAME }}
+          package: function_package
+          publish-profile: ${{ secrets.BLINQ_FUNCTION_PUBLISH_PROFILE }}
