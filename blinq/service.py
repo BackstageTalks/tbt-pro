@@ -1,57 +1,235 @@
-"""BlinQ service backed by the existing ThinQ TA ELO cache."""
-from __future__ import annotations
-from typing import Any, Dict, List, Optional
-from blinq.model import symmetry_audit
-import json
-from pathlib import Path
-from thinq.loaders.elo_loader import find_player
+"""BlinQ orchestration over the canonical ThinQ model.
 
+BlinQ does not implement a second prediction formula. It runs ThinQ in both
+orientations and accepts a prediction only when the real A/B model runs are
+complementary. Exact 50:50 always means NO_PREDICTION.
+"""
+from __future__ import annotations
+
+import json
+import re
+import unicodedata
+from functools import lru_cache
+from pathlib import Path
+from typing import Any, Dict, List, Optional
+
+from thinq.service import ThinqService
 
 REGISTRY_PATH = Path("thinq/data/players/player_registry.json")
+TOLERANCE = 0.0001
 
-def _registry_players() -> List[Dict[str, Any]]:
+
+def _compact(value: Any) -> str:
+    text = unicodedata.normalize("NFKD", str(value or "").strip().lower())
+    text = "".join(ch for ch in text if not unicodedata.combining(ch))
+    return re.sub(r"[^a-z0-9]+", "", text)
+
+
+def _int(value: Any) -> Optional[int]:
     try:
-        data = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
-        rows = data.get("players", []) if isinstance(data, dict) else []
-        return [r for r in rows if isinstance(r, dict)]
+        if value in (None, "", 0, "0"):
+            return None
+        return int(float(value))
+    except (TypeError, ValueError):
+        return None
+
+
+def _float(value: Any) -> Optional[float]:
+    try:
+        if value in (None, ""):
+            return None
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _name(row: Dict[str, Any]) -> str:
+    return str(
+        row.get("display_name")
+        or row.get("canonical_name")
+        or row.get("name")
+        or row.get("player")
+        or ""
+    ).strip()
+
+
+@lru_cache(maxsize=1)
+def _registry() -> Dict[str, Dict[str, Any]]:
+    try:
+        payload = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
     except Exception:
-        return []
+        return {}
+    rows = payload.get("players") if isinstance(payload, dict) else []
+    if isinstance(rows, dict):
+        rows = list(rows.values())
+    index: Dict[str, Dict[str, Any]] = {}
+    for raw in rows if isinstance(rows, list) else []:
+        if not isinstance(raw, dict):
+            continue
+        name = _name(raw)
+        if not name:
+            continue
+        row = dict(raw)
+        row["player"] = name
+        keys = [name, row.get("normalized_name"), row.get("compact_key")]
+        keys.extend(row.get("aliases") if isinstance(row.get("aliases"), list) else [])
+        for value in keys:
+            key = _compact(value)
+            if key:
+                index.setdefault(key, row)
+    return index
+
+
+def _public(row: Dict[str, Any]) -> Dict[str, Any]:
+    country = row.get("country_code") or row.get("country_alpha3") or row.get("country_alpha2")
+    return {
+        "player": row.get("player") or _name(row),
+        "player_id": _int(row.get("api_team_id") or row.get("rapidapi_id") or row.get("player_id")),
+        "country_code": str(country).upper() if country else None,
+        "country_name": row.get("country_name") or row.get("country"),
+        "rank": _int(row.get("rank") or row.get("api_rank")),
+        "rank_points": _int(row.get("rank_points") or row.get("api_points")),
+        "elo": _float(row.get("elo")),
+        "hard_elo": _float(row.get("hard_elo")),
+        "clay_elo": _float(row.get("clay_elo")),
+        "grass_elo": _float(row.get("grass_elo")),
+    }
+
+
+def _layer(result: Dict[str, Any]) -> Dict[str, Any]:
+    value = result.get("thinq_probability_layer") or result.get("probability_layer")
+    return value if isinstance(value, dict) else {}
+
+
+def _no_prediction(reason: str, flags: List[str], **extra: Any) -> Dict[str, Any]:
+    return {
+        "model": "BlinQ",
+        "model_version": "BLINQ_THINQ_ORCHESTRATOR_V1",
+        "status": "NO_PREDICTION",
+        "prediction_status": "NO_PREDICTION",
+        "winner": None,
+        "winner_side": None,
+        "winner_probability": 0.5,
+        "player1_probability": 0.5,
+        "player2_probability": 0.5,
+        "reason": reason,
+        "flags": sorted(set(flags)),
+        **extra,
+    }
+
 
 class BlinqService:
+    def __init__(self) -> None:
+        self.thinq = ThinqService()
+
     def players(self) -> List[Dict[str, Any]]:
-        out = []
-        for row in _registry_players():
-            name = str(row.get("display_name") or row.get("canonical_name") or row.get("name") or "").strip()
-            if not name or row.get("elo") is None:
-                continue
-            country = row.get("country_code") or row.get("country_alpha3") or row.get("country_alpha2")
-            out.append({
-                "player": name,
-                "country_code": str(country).upper() if country else None,
-                "country_name": row.get("country_name") or row.get("country"),
-                "rank": row.get("rank") or row.get("api_rank"),
-                "rank_points": row.get("rank_points") or row.get("api_points"),
-                "elo": row.get("elo"),
-                "hard_elo": row.get("hard_elo"),
-                "clay_elo": row.get("clay_elo"),
-                "grass_elo": row.get("grass_elo"),
-            })
-        return sorted(out, key=lambda row: str(row.get("player") or "").casefold())
+        unique: Dict[str, Dict[str, Any]] = {}
+        for row in _registry().values():
+            public = _public(row)
+            if public["player"] and public["elo"] is not None:
+                unique.setdefault(_compact(public["player"]), public)
+        return sorted(unique.values(), key=lambda row: str(row["player"]).casefold())
+
+    def _resolve(self, value: str) -> Optional[Dict[str, Any]]:
+        return _registry().get(_compact(value))
+
+    def _run(self, pick: Dict[str, Any], opponent: Dict[str, Any], surface: str) -> Dict[str, Any]:
+        pick_public, opponent_public = _public(pick), _public(opponent)
+        return self.thinq.build_match_features(
+            player1=pick_public["player"],
+            player2=opponent_public["player"],
+            pick=pick_public["player"],
+            opponent=opponent_public["player"],
+            pick_side="HOME",
+            opponent_side="AWAY",
+            player1_id=pick_public["player_id"],
+            player2_id=opponent_public["player_id"],
+            surface=surface,
+            level=None,
+            best_of=3,
+            save_snapshot=False,
+        )
 
     def predict(self, player1: str, player2: str, surface: Optional[str] = None) -> Dict[str, Any]:
         if not str(player1 or "").strip() or not str(player2 or "").strip():
-            return {"status": "INVALID_INPUT", "reason": "Both players are required."}
-        if str(player1).strip().casefold() == str(player2).strip().casefold():
-            return {"status": "INVALID_INPUT", "reason": "Select two different players."}
-        row1, row2 = find_player(player1), find_player(player2)
+            return _no_prediction("Both players are required.", ["INVALID_INPUT"])
+        if _compact(player1) == _compact(player2):
+            return _no_prediction("Select two different players.", ["SAME_PLAYER"])
+
+        row1, row2 = self._resolve(player1), self._resolve(player2)
         if row1 is None or row2 is None:
             missing = ([player1] if row1 is None else []) + ([player2] if row2 is None else [])
-            return {"status": "NO_DATA", "reason": "ELO record not found.", "missing_players": missing}
-        audit = symmetry_audit(row1, row2, surface)
-        result = dict(audit["forward"])
-        result["symmetry_ok"] = audit["ok"]
-        result["symmetry_error"] = audit["error"]
-        if audit["ok"] is False:
-            result.update({"status": "NO_PREDICTION", "winner": None, "winner_side": None})
-            result["flags"] = sorted(set(result.get("flags", []) + ["SYMMETRY_AUDIT_FAILED"]))
-        return result
+            return _no_prediction("Player not found in central registry.", ["PLAYER_NOT_FOUND"], missing_players=missing)
+
+        surface_name = str(surface or "Overall")
+        forward = self._run(row1, row2, surface_name)
+        reverse = self._run(row2, row1, surface_name)
+        layer_ab, layer_ba = _layer(forward), _layer(reverse)
+        p_ab = _float(layer_ab.get("pick_probability"))
+        p_ba = _float(layer_ba.get("pick_probability"))
+        edge_ab = _float(layer_ab.get("edge"))
+        edge_ba = _float(layer_ba.get("edge"))
+
+        probability_ok = p_ab is not None and p_ba is not None and abs((p_ab + p_ba) - 1.0) <= TOLERANCE
+        edge_ok = edge_ab is not None and edge_ba is not None and abs(edge_ab + edge_ba) <= TOLERANCE
+        tie_ok = not (
+            p_ab == 0.5
+            and (layer_ab.get("prediction_status") != "NO_PREDICTION" or layer_ab.get("winner") is not None)
+        )
+        symmetry_ok = bool(probability_ok and edge_ok and tie_ok)
+
+        audit = {
+            "status": "PASS" if symmetry_ok else "FAIL",
+            "probability_complement_ok": probability_ok,
+            "edge_antisymmetry_ok": edge_ok,
+            "tie_guard_ok": tie_ok,
+            "probability_sum": round((p_ab or 0.0) + (p_ba or 0.0), 8),
+            "edge_sum": round((edge_ab or 0.0) + (edge_ba or 0.0), 8),
+            "tolerance": TOLERANCE,
+        }
+
+        blocked = (
+            not symmetry_ok
+            or p_ab is None
+            or p_ba is None
+            or layer_ab.get("prediction_status") == "NO_PREDICTION"
+            or p_ab == 0.5
+        )
+        if blocked:
+            flags = list(layer_ab.get("flags") or [])
+            if not symmetry_ok:
+                flags.append("BLINQ_REAL_AB_SYMMETRY_FAILED")
+            return _no_prediction(
+                "ThinQ data is insufficient, tied, or failed the real A/B audit.",
+                flags,
+                player1=_public(row1),
+                player2=_public(row2),
+                surface=surface_name,
+                symmetry_audit=audit,
+                thinq_forward=forward,
+                thinq_reverse=reverse,
+            )
+
+        winner_is_p1 = p_ab > 0.5
+        return {
+            "model": "BlinQ",
+            "model_version": "BLINQ_THINQ_ORCHESTRATOR_V1",
+            "status": "PREDICTION",
+            "prediction_status": "PREDICTION",
+            "surface": surface_name,
+            "player1": _public(row1),
+            "player2": _public(row2),
+            "player1_probability": round(p_ab, 4),
+            "player2_probability": round(1.0 - p_ab, 4),
+            "winner": _public(row1)["player"] if winner_is_p1 else _public(row2)["player"],
+            "winner_side": "PLAYER1" if winner_is_p1 else "PLAYER2",
+            "winner_probability": round(max(p_ab, 1.0 - p_ab), 4),
+            "confidence": layer_ab.get("confidence"),
+            "edge": edge_ab,
+            "components": layer_ab.get("components") or {},
+            "h2h": forward.get("h2h") or {},
+            "recent_form": forward.get("recent_form") or {},
+            "elo": forward.get("elo") or {},
+            "flags": sorted(set(layer_ab.get("flags") or [])),
+            "symmetry_audit": audit,
+        }
