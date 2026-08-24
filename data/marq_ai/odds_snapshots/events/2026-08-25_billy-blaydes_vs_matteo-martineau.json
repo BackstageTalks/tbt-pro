@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.625,
   "latest_odds_player2": 1.44444,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-24T03:40:07.933435+00:00",
+  "latest_snapshot_time_utc": "2026-08-24T11:13:49.012168+00:00",
   "opening_odds_player1": 2.625,
   "opening_odds_player2": 1.44444,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Billy Blaydes",
   "player2": "Matteo Martineau",
-  "snapshot_count": 1,
+  "snapshot_count": 2,
   "snapshots": [
     {
       "event_id": "16895633",
@@ -34,8 +34,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-24T13:40:00+00:00",
       "target_date": "2026-08-25"
+    },
+    {
+      "event_id": "16895633",
+      "event_key": "2026-08-25_billy-blaydes_vs_matteo-martineau",
+      "hours_to_start": 2.44,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.625,
+      "odds_player2": 1.44444,
+      "player1": "Billy Blaydes",
+      "player2": "Matteo Martineau",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-24T11:13:49.012168+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-24T13:40:00+00:00",
+      "target_date": "2026-08-25"
     }
   ],
   "start_time_utc": "2026-08-24T13:40:00+00:00",
-  "updated_at_utc": "2026-08-24T03:40:33.374383+00:00"
+  "updated_at_utc": "2026-08-24T11:14:13.799808+00:00"
 }
