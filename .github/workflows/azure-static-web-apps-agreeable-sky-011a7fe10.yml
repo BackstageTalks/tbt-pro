@@ -10,7 +10,6 @@ on:
       - "blinq/**"
       - "corq/web/**"
       - "corq/messages.py"
-      - "corq/web/paths.py"
       - "thinq/**"
       - "outputs/**"
       - "requirements.txt"
@@ -74,6 +73,36 @@ jobs:
           python -m corq.web.render
           python -m blinq.web.render --output corq/site/h4v34n1c3d4y191/index.html
 
+      - name: Reduce Static Web Apps artifact size
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "[size] before cleanup"
+          du -sh corq/site || true
+
+          # Results lazy chunks and debug artifacts are not required by BlinQ.
+          rm -rf corq/site/assets/results_lazy
+          rm -rf corq/site/logs
+          find corq/site -type f \( -name "*.log" -o -name "*.tmp" -o -name "*.bak" \) -delete
+
+          # Do not ship oversized diagnostics/data payloads in the Free SWA artifact.
+          find corq/site -type f -name "*.json" -size +5M -print -delete
+          find corq/site -type f -size +50M -print -delete
+
+          echo "[size] largest remaining files"
+          find corq/site -type f -printf "%s %p\n" | sort -nr | head -30 || true
+
+          echo "[size] after cleanup"
+          du -sh corq/site || true
+
+          size_bytes=$(du -sb corq/site | awk '{print $1}')
+          max_bytes=240000000
+          if [ "$size_bytes" -gt "$max_bytes" ]; then
+            echo "Static artifact remains too large: ${size_bytes} bytes; limit guard=${max_bytes}"
+            exit 1
+          fi
+
       - name: Configure Static Web Apps runtime
         shell: bash
         run: |
@@ -101,12 +130,28 @@ jobs:
           test -s api/function_app.py
           test -s api/host.json
           test -s api/requirements.txt
+
           rm -rf api/blinq api/thinq api/corq
           cp -R blinq api/blinq
           cp -R thinq api/thinq
           cp -R corq api/corq
-          find api -type d -name site -prune -exec rm -rf {} +
+
+          # Keep only runtime code and the compact model data required by BlinQ.
+          rm -rf api/corq/site api/corq/outputs api/corq/logs
+          rm -rf api/thinq/outputs api/thinq/data/players/previous_matches api/thinq/data/players/team_year_stats
+          find api -type d -name "__pycache__" -prune -exec rm -rf {} +
+          find api -type f \( -name "*.pyc" -o -name "*.log" -o -name "*.tmp" -o -name "*.bak" \) -delete
+          find api -type f -size +50M -print -delete
+
           python -m py_compile api/function_app.py api/blinq/service.py
+
+          echo "[api size]"
+          du -sh api
+          api_size=$(du -sb api | awk '{print $1}')
+          if [ "$api_size" -gt 100000000 ]; then
+            echo "Managed API package is too large: ${api_size} bytes"
+            exit 1
+          fi
 
       - name: Validate deployment package
         shell: bash
