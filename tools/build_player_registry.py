@@ -41,6 +41,10 @@ DEFAULT_RANKING_FILES = (
     "data/rankings/wta_rankings.json",
 )
 
+DEFAULT_IDENTITY_FILES = (
+    "thinq/data/players/api_pro_player_identities.json",
+)
+
 SPECIAL_CHARS = {
     "ł": "l", "Ł": "L", "đ": "d", "Đ": "D", "ß": "ss", "ø": "o", "Ø": "O",
     "æ": "ae", "Æ": "AE", "œ": "oe", "Œ": "OE", "ı": "i", "İ": "I",
@@ -416,6 +420,39 @@ def apply_public_enrichment_aliases(player: Dict[str, Any]) -> None:
         player["country"] = player["country_name"]
 
 
+def load_identities(registry: Dict[str, Dict[str, Any]], files: Iterable[Path]) -> Dict[str, Any]:
+    stats = {"files_found": 0, "rows": 0, "players_updated": 0, "ambiguous_ignored": 0}
+    for path in files:
+        payload = read_json(path)
+        if not isinstance(payload, dict):
+            continue
+        stats["files_found"] += 1
+        rows = payload.get("players")
+        if not isinstance(rows, list):
+            continue
+        stats["rows"] += len(rows)
+        for row in rows:
+            if not isinstance(row, dict):
+                continue
+            status = str(row.get("status") or "").upper()
+            if status not in {"EXISTING_ID", "EXACT_NORMALIZED_NAME"}:
+                stats["ambiguous_ignored"] += 1
+                continue
+            pid = as_int(row.get("player_id") or row.get("api_team_id") or row.get("rapidapi_id"))
+            name = first_value(row, ("name", "canonical_name", "display_name", "player"))
+            if pid is None or not name:
+                continue
+            player = ensure_player(registry, pid, name)
+            if player is None:
+                continue
+            code = first_value(row, ("country_code", "country_alpha3", "country_alpha2"))
+            if code and not player.get("country_code"):
+                player["country_code"] = str(code).upper().strip()
+            touch_source(player, str(path))
+            stats["players_updated"] += 1
+    return stats
+
+
 def load_rankings(registry: Dict[str, Dict[str, Any]], files: Iterable[Path]) -> Dict[str, Any]:
     stats = {"files_found": 0, "rows": 0, "players_updated": 0}
     for path in files:
@@ -576,6 +613,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Build unified API/ELO player registry and alias database")
     parser.add_argument("--elo-files", default=",".join(DEFAULT_ELO_FILES))
     parser.add_argument("--ranking-files", default=",".join(DEFAULT_RANKING_FILES))
+    parser.add_argument("--identity-files", default=",".join(DEFAULT_IDENTITY_FILES))
     parser.add_argument("--output-files", default=",".join(DEFAULT_OUTPUT_FILES))
     parser.add_argument("--skip-alias-db", action="store_true")
     args = parser.parse_args()
@@ -583,9 +621,11 @@ def main() -> int:
     registry: Dict[str, Dict[str, Any]] = {}
     elo_files = [Path(x.strip()) for x in args.elo_files.split(",") if x.strip()]
     ranking_files = [Path(x.strip()) for x in args.ranking_files.split(",") if x.strip()]
+    identity_files = [Path(x.strip()) for x in args.identity_files.split(",") if x.strip()]
     output_files = [Path(x.strip()) for x in args.output_files.split(",") if x.strip()]
 
     elo_stats = load_elo_cache(registry, elo_files)
+    identity_stats = load_identities(registry, identity_files)
     ranking_stats = load_rankings(registry, ranking_files)
     output_stats = load_outputs(registry, output_files)
     for player in registry.values():
@@ -665,6 +705,7 @@ def main() -> int:
         "elo_player_count": len(elo_players),
         "api_rank_player_count": registry_payload["api_rank_player_count"],
         "elo_stats": elo_stats,
+        "identity_stats": identity_stats,
         "ranking_stats": ranking_stats,
         "output_stats": output_stats,
         "alias_db_stats": alias_db_stats,
