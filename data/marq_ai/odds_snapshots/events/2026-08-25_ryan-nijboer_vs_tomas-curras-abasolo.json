@@ -1,10 +1,10 @@
 {
   "event_id": "16901545",
   "event_key": "2026-08-25_ryan-nijboer_vs_tomas-curras-abasolo",
-  "latest_odds_player1": 1.125,
-  "latest_odds_player2": 5.5,
+  "latest_odds_player1": 1.33333,
+  "latest_odds_player2": 3.25,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-24T11:13:49.012168+00:00",
+  "latest_snapshot_time_utc": "2026-08-24T17:17:48.746650+00:00",
   "opening_odds_player1": 1.125,
   "opening_odds_player2": 5.5,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Ryan Nijboer",
   "player2": "Tomas Curras Abasolo",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "16901545",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-24T12:19:00+00:00",
       "target_date": "2026-08-25"
+    },
+    {
+      "event_id": "16901545",
+      "event_key": "2026-08-25_ryan-nijboer_vs_tomas-curras-abasolo",
+      "hours_to_start": -3.09,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.33333,
+      "odds_player2": 3.25,
+      "player1": "Ryan Nijboer",
+      "player2": "Tomas Curras Abasolo",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-24T17:17:48.746650+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-24T14:12:23+00:00",
+      "target_date": "2026-08-25"
     }
   ],
-  "start_time_utc": "2026-08-24T12:19:00+00:00",
-  "updated_at_utc": "2026-08-24T11:14:10.593941+00:00"
+  "start_time_utc": "2026-08-24T14:12:23+00:00",
+  "updated_at_utc": "2026-08-24T17:18:29.848484+00:00"
 }
