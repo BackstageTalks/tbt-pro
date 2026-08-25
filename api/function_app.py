@@ -37,7 +37,7 @@ def _response(
 ) -> func.HttpResponse:
     headers = {
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
         "Vary": "Origin",
         "Cache-Control": "no-store",
     }
@@ -198,10 +198,11 @@ def blinq_access_request(req: func.HttpRequest) -> func.HttpResponse:
     if access_error or not row:
         return _response(req, {"status": access_error or "ACCESS_UNAVAILABLE"}, 503)
     import requests
+    from datetime import datetime, timezone
     updated = requests.patch(
         f"{SUPABASE_URL}/rest/v1/blinq_access", headers=_admin_headers(),
         params={"user_id": f"eq.{user.get('id')}"},
-        json={"access_status": "PAYMENT_PENDING", "access_requested_at": "now()"}, timeout=12
+        json={"access_status": "PAYMENT_PENDING", "access_requested_at": datetime.now(timezone.utc).isoformat()}, timeout=12
     )
     if updated.status_code not in (200, 204):
         return _response(req, {"status": "REQUEST_FAILED"}, 500)
@@ -214,6 +215,32 @@ def blinq_access_request(req: func.HttpRequest) -> func.HttpResponse:
 def blinq_predict(req: func.HttpRequest) -> func.HttpResponse:
     if req.method == "OPTIONS":
         return _response(req, {}, 204)
+
+    user, auth_error = _auth_user(req)
+    if auth_error or not user:
+        return _response(
+            req,
+            {"status": auth_error or "AUTH_REQUIRED", "reason": "Sign in is required."},
+            401,
+        )
+
+    access_row, access_error = _access_row(user)
+    if access_error or not access_row:
+        return _response(
+            req,
+            {"status": access_error or "ACCESS_UNAVAILABLE", "reason": "Access status is temporarily unavailable."},
+            503,
+        )
+
+    effective = _effective_status(access_row)
+    if effective not in {"FREE_ACTIVE", "PRO_ACTIVE"}:
+        if effective == "EXPIRED":
+            reason = "Your BlinQ access has expired."
+        elif effective == "PAYMENT_PENDING":
+            reason = "Payment verification pending."
+        else:
+            reason = "Your BlinQ access is currently disabled."
+        return _response(req, {"status": effective, "reason": reason, **_public_access(access_row)}, 403)
 
     try:
         body = req.get_json()
@@ -266,7 +293,7 @@ def blinq_predict(req: func.HttpRequest) -> func.HttpResponse:
                 "status": "NO_PREDICTION",
                 "prediction_status": "NO_PREDICTION",
                 "winner": None,
-                "reason": "BlinQ backend failed safely.",
+                "reason": "Prediction service is temporarily unavailable.",
                 "error_type": type(exc).__name__,
             },
             500,
