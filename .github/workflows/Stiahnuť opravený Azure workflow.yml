@@ -1,0 +1,172 @@
+name: Azure Static Web Apps CI/CD
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "api/**"
+      - "blinq/**"
+      - "corq/web/**"
+      - "corq/messages.py"
+      - "thinq/**"
+      - "tools/build_player_registry.py"
+      - "outputs/**"
+      - "requirements.txt"
+      - "supabase/**"
+      - ".github/workflows/azure-static-web-apps-agreeable-sky-011a7fe10.yml"
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: azure-static-web-apps-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build_and_deploy_job:
+    if: >-
+      github.event_name == 'push' ||
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    name: Build and Deploy
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            python -m pip install -r requirements.txt
+          fi
+          python -m pip install -r api/requirements.txt
+
+      - name: Validate Supabase build configuration
+        shell: bash
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "$SUPABASE_URL" || { echo "SUPABASE_URL secret is missing"; exit 1; }
+          test -n "$SUPABASE_ANON_KEY" || { echo "SUPABASE_ANON_KEY secret is missing"; exit 1; }
+
+      - name: Compile BlinQ and API
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile \
+            api/function_app.py \
+            blinq/service.py \
+            blinq/web/render.py
+
+      - name: Build central player registry
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/build_player_registry.py
+          test -s thinq/data/players/player_registry.json
+
+      - name: Render shared web site
+        shell: bash
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          set -euo pipefail
+          python -m corq.web.render
+          python -m blinq.web.render \
+            --output corq/site/h4v34n1c3d4y191/index.html
+
+          test -s corq/site/h4v34n1c3d4y191/index.html
+          grep -q "Create account" corq/site/h4v34n1c3d4y191/index.html
+          grep -q "20 free successful predictions" corq/site/h4v34n1c3d4y191/index.html
+          grep -q "/api/blinq/predict" corq/site/h4v34n1c3d4y191/index.html
+
+      - name: Reduce static deployment package
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf \
+            corq/site/results_lazy \
+            corq/site/**/__pycache__ \
+            corq/site/**/*.log \
+            corq/site/**/*.tmp || true
+
+          size_bytes=$(du -sb corq/site | cut -f1)
+          echo "Static web size: ${size_bytes} bytes"
+          test "$size_bytes" -lt 250000000 || {
+            echo "Static web package exceeds the Azure Free plan limit"
+            du -ah corq/site | sort -hr | head -30
+            exit 1
+          }
+
+      - name: Prepare managed Python API
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf api/blinq api/thinq api/corq api/__pycache__
+          cp -R blinq api/blinq
+          cp -R thinq api/thinq
+          cp -R corq api/corq
+
+          find api -type d -name __pycache__ -prune -exec rm -rf {} +
+          find api -type f \( -name "*.pyc" -o -name "*.log" -o -name "*.tmp" \) -delete
+          rm -rf \
+            api/blinq/site \
+            api/corq/site \
+            api/corq/web/assets \
+            api/thinq/outputs \
+            api/thinq/data/ta_profiles || true
+
+          test -s api/function_app.py
+          test -s api/requirements.txt
+          test -s api/blinq/service.py
+          test -s api/thinq/service.py
+          test -s api/thinq/data/players/player_registry.json
+
+          api_size_bytes=$(du -sb api | cut -f1)
+          echo "Managed API size: ${api_size_bytes} bytes"
+          test "$api_size_bytes" -lt 100000000 || {
+            echo "Managed API package exceeds 100 MB"
+            du -ah api | sort -hr | head -30
+            exit 1
+          }
+
+      - name: Deploy Static Web App and managed API
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AGREEABLE_SKY_011A7FE10 }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: upload
+          app_location: corq/site
+          api_location: api
+          output_location: ""
+          skip_app_build: true
+
+  close_pull_request_job:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    name: Close Pull Request
+    steps:
+      - name: Close Pull Request
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AGREEABLE_SKY_011A7FE10 }}
+          action: close
