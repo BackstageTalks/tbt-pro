@@ -1,273 +1,101 @@
-"""Azure Functions HTTP API for the canonical BlinQ prediction service."""
+"""Authenticated BlinQ Azure Functions API."""
 from __future__ import annotations
-
-import json
-import os
-from typing import Any, Dict, Optional, Tuple
-
+import json, os
+from datetime import datetime, timezone
 import azure.functions as func
-
+import requests
 from blinq.service import BlinqService
 
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
+URL=os.getenv("SUPABASE_URL","").rstrip("/")
+PUB=os.getenv("SUPABASE_PUBLISHABLE_KEY",os.getenv("SUPABASE_ANON_KEY",""))
+SECRET=os.getenv("SUPABASE_SERVICE_ROLE_KEY","")
+ORIGINS={x.strip().rstrip("/") for x in os.getenv("BLINQ_ALLOWED_ORIGINS","https://backstagetalks.github.io,https://agreeable-sky-011a7fe10.7.azurestaticapps.net").split(",") if x.strip()}
 
-_DEFAULT_ALLOWED_ORIGINS = {
-    "https://backstagetalks.github.io",
-    "https://agreeable-sky-011a7fe10.7.azurestaticapps.net",
-}
+def reply(req,payload,status=200):
+    origin=str(req.headers.get("Origin") or "").strip().rstrip("/")
+    headers={"Access-Control-Allow-Methods":"GET, POST, OPTIONS","Access-Control-Allow-Headers":"Authorization, Content-Type, apikey","Cache-Control":"no-store","Vary":"Origin"}
+    if origin in ORIGINS: headers["Access-Control-Allow-Origin"]=origin
+    return func.HttpResponse(json.dumps(payload,ensure_ascii=False,default=str),status_code=status,mimetype="application/json",headers=headers)
 
-
-def _allowed_origins() -> set[str]:
-    configured = os.getenv("BLINQ_ALLOWED_ORIGINS", "")
-    values = {item.strip().rstrip("/") for item in configured.split(",") if item.strip()}
-    return values or set(_DEFAULT_ALLOWED_ORIGINS)
-
-
-def _cors_origin(req: func.HttpRequest) -> str:
-    origin = str(req.headers.get("Origin") or "").strip().rstrip("/")
-    if origin in _allowed_origins():
-        return origin
-    return ""
-
-
-def _response(
-    req: func.HttpRequest,
-    payload: Dict[str, Any],
-    status: int = 200,
-) -> func.HttpResponse:
-    headers = {
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Vary": "Origin",
-        "Cache-Control": "no-store",
-    }
-    origin = _cors_origin(req)
-    if origin:
-        headers["Access-Control-Allow-Origin"] = origin
-
-    return func.HttpResponse(
-        json.dumps(payload, ensure_ascii=False, default=str),
-        status_code=status,
-        mimetype="application/json",
-        headers=headers,
-    )
-
-
-
-
-SUPABASE_URL = os.getenv("SUPABASE_URL", "").rstrip("/")
-SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY", "")
-SUPABASE_SERVICE_ROLE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
-DEFAULT_FREE_PREDICTIONS = int(os.getenv("BLINQ_DEFAULT_FREE_PREDICTIONS", "20"))
-
-def _bearer(req: func.HttpRequest) -> str:
-    value = str(req.headers.get("Authorization") or "").strip()
+def token(req):
+    value=str(req.headers.get("Authorization") or "").strip()
     return value[7:].strip() if value.lower().startswith("bearer ") else ""
 
-def _supabase_ready() -> bool:
-    return bool(SUPABASE_URL and SUPABASE_ANON_KEY and SUPABASE_SERVICE_ROLE_KEY)
+def admin_headers():
+    return {"apikey":SECRET,"Authorization":f"Bearer {SECRET}","Content-Type":"application/json","Prefer":"return=representation"}
 
-def _auth_user(req: func.HttpRequest) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
-    token = _bearer(req)
-    if not token:
-        return None, "AUTH_REQUIRED"
-    if not _supabase_ready():
-        return None, "ACCESS_BACKEND_NOT_CONFIGURED"
+def get_user(req):
+    t=token(req)
+    if not t: return None,"AUTH_REQUIRED"
+    if not (URL and PUB and SECRET): return None,"ACCESS_BACKEND_NOT_CONFIGURED"
     try:
-        import requests
-        response = requests.get(
-            f"{SUPABASE_URL}/auth/v1/user",
-            headers={"apikey": SUPABASE_ANON_KEY, "Authorization": f"Bearer {token}"},
-            timeout=12,
-        )
-        if response.status_code != 200:
-            return None, "INVALID_SESSION"
-        payload = response.json()
-        return payload if isinstance(payload, dict) else None, None
-    except Exception:
-        return None, "AUTH_UNAVAILABLE"
+        r=requests.get(f"{URL}/auth/v1/user",headers={"apikey":PUB,"Authorization":f"Bearer {t}"},timeout=12)
+        return (r.json(),None) if r.status_code==200 else (None,"INVALID_SESSION")
+    except Exception: return None,"AUTH_UNAVAILABLE"
 
-def _admin_headers() -> Dict[str, str]:
-    return {
-        "apikey": SUPABASE_SERVICE_ROLE_KEY,
-        "Authorization": f"Bearer {SUPABASE_SERVICE_ROLE_KEY}",
-        "Content-Type": "application/json",
-        "Prefer": "return=representation",
-    }
-
-def _access_row(user: Dict[str, Any]) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
-    import requests
-    uid = str(user.get("id") or "")
-    email = str(user.get("email") or "").strip().lower()
-    if not uid or not email:
-        return None, "INVALID_IDENTITY"
-    endpoint = f"{SUPABASE_URL}/rest/v1/blinq_access"
+def get_access(uid):
     try:
-        current = requests.get(
-            endpoint, headers=_admin_headers(), params={"user_id": f"eq.{uid}", "select": "*"}, timeout=12
-        )
-        rows = current.json() if current.status_code == 200 else []
-        if isinstance(rows, list) and rows:
-            return rows[0], None
-        created = requests.post(
-            endpoint, headers={**_admin_headers(), "Prefer": "resolution=merge-duplicates,return=representation"},
-            json={
-                "user_id": uid, "email": email, "access_status": "FREE_ACTIVE",
-                "plan_code": "FREE_20", "credits_granted": DEFAULT_FREE_PREDICTIONS,
-                "credits_used": 0, "trial_used": True,
-            }, timeout=12
-        )
-        data = created.json() if created.status_code in (200, 201) else []
-        return (data[0] if isinstance(data, list) and data else None), (None if data else "ACCESS_CREATE_FAILED")
-    except Exception:
-        return None, "ACCESS_UNAVAILABLE"
+        r=requests.get(f"{URL}/rest/v1/blinq_access",headers=admin_headers(),params={"user_id":f"eq.{uid}","select":"*"},timeout=12)
+        rows=r.json() if r.status_code==200 else []
+        return (rows[0],None) if isinstance(rows,list) and rows else (None,"ACCESS_NOT_FOUND")
+    except Exception: return None,"ACCESS_UNAVAILABLE"
 
-def _effective_status(row: Dict[str, Any]) -> str:
-    from datetime import datetime, timezone
-    status = str(row.get("access_status") or "PENDING").upper()
-    paid_until = row.get("paid_until")
-    if status == "PRO_ACTIVE" and paid_until:
+def effective(row):
+    status=str(row.get("access_status") or "INACTIVE").upper()
+    if status in {"PRO_ACTIVE","PRO_PLUS_ACTIVE"}:
         try:
-            end = datetime.fromisoformat(str(paid_until).replace("Z", "+00:00"))
-            if end <= datetime.now(timezone.utc):
-                return "EXPIRED"
-        except ValueError:
-            return "DISABLED"
-    if status == "FREE_ACTIVE":
-        remaining = int(row.get("credits_granted") or 0) - int(row.get("credits_used") or 0)
-        return "FREE_ACTIVE" if remaining > 0 else "EXPIRED"
+            end=datetime.fromisoformat(str(row.get("paid_until") or "").replace("Z","+00:00"))
+            return status if end>datetime.now(timezone.utc) else "EXPIRED"
+        except ValueError: return "EXPIRED"
+    if status=="FREE_ACTIVE":
+        return status if int(row.get("credits_granted") or 0)>int(row.get("credits_used") or 0) else "EXPIRED"
     return status
 
-def _public_access(row: Dict[str, Any]) -> Dict[str, Any]:
-    granted = int(row.get("credits_granted") or 0)
-    used = int(row.get("credits_used") or 0)
-    return {
-        "access_status": _effective_status(row), "plan_code": row.get("plan_code"),
-        "credits_granted": granted, "credits_used": used,
-        "credits_remaining": max(0, granted - used), "paid_until": row.get("paid_until"),
-        "payment_verification_pending": str(row.get("access_status") or "").upper() == "PAYMENT_PENDING",
-    }
+def public(row):
+    g,u=int(row.get("credits_granted") or 0),int(row.get("credits_used") or 0)
+    return {"access_status":effective(row),"plan_code":row.get("plan_code"),"credits_granted":g,"credits_used":u,"credits_remaining":max(0,g-u),"paid_until":row.get("paid_until"),"role":row.get("role") or "USER"}
 
-def _consume_credit(user_id: str) -> bool:
-    import requests
-    response = requests.post(
-        f"{SUPABASE_URL}/rest/v1/rpc/consume_blinq_credit", headers=_admin_headers(),
-        json={"p_user_id": user_id}, timeout=12
-    )
-    if response.status_code != 200:
-        return False
-    value = response.json()
-    return value is True
+def consume(uid):
+    r=requests.post(f"{URL}/rest/v1/rpc/consume_blinq_credit",headers=admin_headers(),json={"p_user_id":uid},timeout=12)
+    return r.status_code==200 and r.json() is True
 
-@app.route(route="blinq/health", methods=["GET", "OPTIONS"])
-def blinq_health(req: func.HttpRequest) -> func.HttpResponse:
-    if req.method == "OPTIONS":
-        return _response(req, {}, 204)
-    return _response(
-        req,
-        {
-            "status": "OK",
-            "service": "BlinQ API",
-            "prediction_endpoint": "/api/blinq/predict",
-        },
-        200,
-    )
+@app.route(route="blinq/health",methods=["GET","OPTIONS"])
+def health(req):
+    if req.method=="OPTIONS": return reply(req,{},204)
+    return reply(req,{"status":"OK","service":"BlinQ API","auth_configured":bool(URL and PUB and SECRET)})
 
+@app.route(route="blinq/access/status",methods=["GET","OPTIONS"])
+def access_status(req):
+    if req.method=="OPTIONS": return reply(req,{},204)
+    user,error=get_user(req)
+    if error: return reply(req,{"status":error},401)
+    row,error=get_access(str(user.get("id") or ""))
+    if error: return reply(req,{"status":error},403)
+    return reply(req,{"status":"OK","email":user.get("email"),**public(row)})
 
-
-@app.route(route="blinq/access/status", methods=["GET", "OPTIONS"])
-def blinq_access_status(req: func.HttpRequest) -> func.HttpResponse:
-    if req.method == "OPTIONS":
-        return _response(req, {}, 204)
-    user, error = _auth_user(req)
-    if error or not user:
-        return _response(req, {"status": error or "AUTH_REQUIRED"}, 401)
-    row, access_error = _access_row(user)
-    if access_error or not row:
-        return _response(req, {"status": access_error or "ACCESS_UNAVAILABLE"}, 503)
-    return _response(req, {"status": "OK", "email": user.get("email"), **_public_access(row)}, 200)
-
-@app.route(route="blinq/access/request", methods=["POST", "OPTIONS"])
-def blinq_access_request(req: func.HttpRequest) -> func.HttpResponse:
-    if req.method == "OPTIONS":
-        return _response(req, {}, 204)
-    user, error = _auth_user(req)
-    if error or not user:
-        return _response(req, {"status": error or "AUTH_REQUIRED"}, 401)
-    row, access_error = _access_row(user)
-    if access_error or not row:
-        return _response(req, {"status": access_error or "ACCESS_UNAVAILABLE"}, 503)
-    import requests
-    updated = requests.patch(
-        f"{SUPABASE_URL}/rest/v1/blinq_access", headers=_admin_headers(),
-        params={"user_id": f"eq.{user.get('id')}"},
-        json={"access_status": "PAYMENT_PENDING", "access_requested_at": "now()"}, timeout=12
-    )
-    if updated.status_code not in (200, 204):
-        return _response(req, {"status": "REQUEST_FAILED"}, 500)
-    return _response(req, {
-        "status": "PAYMENT_PENDING",
-        "message": "Your BlinQ Pro access will be activated after the payment email is matched with your account.",
-    }, 200)
-
-@app.route(route="blinq/predict", methods=["POST", "OPTIONS"])
-def blinq_predict(req: func.HttpRequest) -> func.HttpResponse:
-    if req.method == "OPTIONS":
-        return _response(req, {}, 204)
-
+@app.route(route="blinq/predict",methods=["POST","OPTIONS"])
+def predict(req):
+    if req.method=="OPTIONS": return reply(req,{},204)
+    user,error=get_user(req)
+    if error: return reply(req,{"status":error},401)
+    uid=str(user.get("id") or "")
+    row,error=get_access(uid)
+    if error: return reply(req,{"status":error},403)
+    status=effective(row)
+    if status not in {"FREE_ACTIVE","PRO_ACTIVE","PRO_PLUS_ACTIVE","ADMIN"}: return reply(req,{"status":"ACCESS_INACTIVE",**public(row)},403)
+    try: body=req.get_json()
+    except ValueError: return reply(req,{"status":"INVALID_INPUT","reason":"Request body must be JSON."},400)
+    p1,p2=str(body.get("player1") or "").strip(),str(body.get("player2") or "").strip()
+    surface=str(body.get("surface") or "Overall").strip()
+    if not p1 or not p2 or p1.casefold()==p2.casefold(): return reply(req,{"status":"INVALID_INPUT","reason":"Select two different players."},400)
     try:
-        body = req.get_json()
-    except ValueError:
-        return _response(
-            req,
-            {"status": "INVALID_INPUT", "reason": "Request body must be JSON."},
-            400,
-        )
-
-    if not isinstance(body, dict):
-        return _response(
-            req,
-            {"status": "INVALID_INPUT", "reason": "JSON object is required."},
-            400,
-        )
-
-    player1 = str(body.get("player1") or "").strip()
-    player2 = str(body.get("player2") or "").strip()
-    surface = str(body.get("surface") or "Overall").strip()
-
-    if not player1 or not player2:
-        return _response(
-            req,
-            {"status": "INVALID_INPUT", "reason": "Both players are required."},
-            400,
-        )
-
-    if player1.casefold() == player2.casefold():
-        return _response(
-            req,
-            {"status": "INVALID_INPUT", "reason": "Select two different players."},
-            400,
-        )
-
-    try:
-        result = BlinqService().predict(player1, player2, surface)
-        if str(result.get("prediction_status") or result.get("status") or "").upper() == "PREDICTION":
-            if effective == "FREE_ACTIVE" and not _consume_credit(str(user.get("id") or "")):
-                return _response(req, {"status": "CREDIT_UPDATE_FAILED"}, 503)
-            refreshed, _ = _access_row(user)
-            result["access"] = _public_access(refreshed or access_row)
-        else:
-            result["access"] = _public_access(access_row)
-        return _response(req, result, 200)
+        result=BlinqService().predict(p1,p2,surface)
+        successful=str(result.get("prediction_status") or result.get("status") or "").upper()=="PREDICTION"
+        if successful and status=="FREE_ACTIVE":
+            if not consume(uid): return reply(req,{"status":"CREDIT_UPDATE_FAILED"},409)
+            row,_=get_access(uid)
+        result["access"]=public(row or {})
+        return reply(req,result)
     except Exception as exc:
-        return _response(
-            req,
-            {
-                "status": "NO_PREDICTION",
-                "prediction_status": "NO_PREDICTION",
-                "winner": None,
-                "reason": "BlinQ backend failed safely.",
-                "error_type": type(exc).__name__,
-            },
-            500,
-        )
+        return reply(req,{"status":"NO_PREDICTION","prediction_status":"NO_PREDICTION","winner":None,"reason":"BlinQ backend failed safely.","error_type":type(exc).__name__},500)
