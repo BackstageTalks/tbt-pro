@@ -1,55 +1,55 @@
 # MarQ API Coverage Report
 
-Generated UTC: 2026-08-24T05:49:01.186248+00:00
+Generated UTC: 2026-08-25T05:42:35.421858+00:00
 Model: 2026-08-04-marq-coverage-report-v1
 
 ## all_audit
 
-Rows: 192
+Rows: 184
 
 ### Coverage
 
-- High MarQ: 9.38%
-- Medium current-only: 19.79%
+- High MarQ: 6.52%
+- Medium current-only: 83.7%
 - Thin fallback: 0.0%
-- No/unknown MarQ: 70.83%
-- Usable High+Medium: 29.17%
+- No/unknown MarQ: 9.78%
+- Usable High+Medium: 90.22%
 
 ### Endpoints
 
-- NO_ENDPOINT: 134 (69.79%)
-- getAllOddsForEvent: 58 (30.21%)
+- getAllOddsForEvent: 166 (90.22%)
+- NO_ENDPOINT: 18 (9.78%)
 
 ### Quality tiers
 
-- NO_MARQ: 136 (70.83%)
-- MEDIUM_CURRENT_ONLY: 38 (19.79%)
-- HIGH: 18 (9.38%)
+- MEDIUM_CURRENT_ONLY: 154 (83.7%)
+- NO_MARQ: 18 (9.78%)
+- HIGH: 12 (6.52%)
 
 ### Data status
 
-- NO_DATA_STATUS: 134 (69.79%)
-- EXACT_CURRENT_ODDS_ONLY: 38 (19.79%)
-- EXACT_BETTING_ODDS_WITH_OPENING: 20 (10.42%)
+- EXACT_CURRENT_ODDS_ONLY: 154 (83.7%)
+- NO_DATA_STATUS: 18 (9.78%)
+- EXACT_BETTING_ODDS_WITH_OPENING: 12 (6.52%)
 
 ### Movement status
 
-- NO_MOVEMENT_STATUS: 134 (69.79%)
-- OPENING_EQUALS_CURRENT: 38 (19.79%)
-- REAL_OPENING_CURRENT_AVAILABLE: 20 (10.42%)
+- OPENING_EQUALS_CURRENT: 154 (83.7%)
+- NO_MOVEMENT_STATUS: 18 (9.78%)
+- REAL_OPENING_CURRENT_AVAILABLE: 12 (6.52%)
 
 ### Value status
 
-- VALUE_UNKNOWN: 136 (70.83%)
-- NO_VALUE: 28 (14.58%)
-- VALUE_STRONG: 24 (12.5%)
-- VALUE_PLAYABLE: 4 (2.08%)
+- NO_VALUE: 87 (47.28%)
+- VALUE_STRONG: 67 (36.41%)
+- VALUE_UNKNOWN: 18 (9.78%)
+- VALUE_PLAYABLE: 12 (6.52%)
 
 ### Numeric stats
 
-- CorQ market weight: `{'count': 192, 'avg': 0.0477, 'min': 0.0, 'max': 0.3}`
-- Value delta pp: `{'count': 56, 'avg': 0.0202, 'min': -26.3, 'max': 26.3}`
-- Expected value pct: `{'count': 56, 'avg': 2.4404, 'min': -34.68, 'max': 177.9}`
+- CorQ market weight: `{'count': 184, 'avg': 0.1148, 'min': 0.0, 'max': 0.3}`
+- Value delta pp: `{'count': 166, 'avg': 0.0001, 'min': -43.45, 'max': 43.45}`
+- Expected value pct: `{'count': 166, 'avg': 16.7774, 'min': -48.36, 'max': 648.2}`
 
 ## corq_top7
 
@@ -57,8 +57,8 @@ Rows: 7
 
 ### Coverage
 
-- High MarQ: 42.86%
-- Medium current-only: 57.14%
+- High MarQ: 0.0%
+- Medium current-only: 100.0%
 - Thin fallback: 0.0%
 - No/unknown MarQ: 0.0%
 - Usable High+Medium: 100.0%
@@ -69,71 +69,70 @@ Rows: 7
 
 ### Quality tiers
 
-- MEDIUM_CURRENT_ONLY: 4 (57.14%)
-- HIGH: 3 (42.86%)
+- MEDIUM_CURRENT_ONLY: 7 (100.0%)
 
 ### Data status
 
-- EXACT_CURRENT_ODDS_ONLY: 4 (57.14%)
-- EXACT_BETTING_ODDS_WITH_OPENING: 3 (42.86%)
+- EXACT_CURRENT_ODDS_ONLY: 7 (100.0%)
 
 ### Movement status
 
-- OPENING_EQUALS_CURRENT: 4 (57.14%)
-- REAL_OPENING_CURRENT_AVAILABLE: 3 (42.86%)
+- OPENING_EQUALS_CURRENT: 7 (100.0%)
 
 ### Value status
 
-- NO_VALUE: 6 (85.71%)
-- VALUE_STRONG: 1 (14.29%)
+- VALUE_PLAYABLE: 3 (42.86%)
+- VALUE_STRONG: 2 (28.57%)
+- NO_VALUE: 2 (28.57%)
 
 ### Numeric stats
 
-- CorQ market weight: `{'count': 7, 'avg': 0.1743, 'min': 0.12, 'max': 0.3}`
-- Value delta pp: `{'count': 7, 'avg': -4.5043, 'min': -11.89, 'max': 3.74}`
-- Expected value pct: `{'count': 7, 'avg': -11.5714, 'min': -21.19, 'max': 2.22}`
+- CorQ market weight: `{'count': 7, 'avg': 0.12, 'min': 0.12, 'max': 0.12}`
+- Value delta pp: `{'count': 7, 'avg': 3.8757, 'min': -2.63, 'max': 15.08}`
+- Expected value pct: `{'count': 7, 'avg': 2.1486, 'min': -8.42, 'max': 28.99}`
 
 ## cloq
 
-Rows: 7
+Rows: 10
 
 ### Coverage
 
-- High MarQ: 14.29%
-- Medium current-only: 85.71%
+- High MarQ: 30.0%
+- Medium current-only: 70.0%
 - Thin fallback: 0.0%
 - No/unknown MarQ: 0.0%
 - Usable High+Medium: 100.0%
 
 ### Endpoints
 
-- getAllOddsForEvent: 7 (100.0%)
+- getAllOddsForEvent: 10 (100.0%)
 
 ### Quality tiers
 
-- MEDIUM_CURRENT_ONLY: 6 (85.71%)
-- HIGH: 1 (14.29%)
+- MEDIUM_CURRENT_ONLY: 7 (70.0%)
+- HIGH: 3 (30.0%)
 
 ### Data status
 
-- EXACT_CURRENT_ODDS_ONLY: 6 (85.71%)
-- EXACT_BETTING_ODDS_WITH_OPENING: 1 (14.29%)
+- EXACT_CURRENT_ODDS_ONLY: 7 (70.0%)
+- EXACT_BETTING_ODDS_WITH_OPENING: 3 (30.0%)
 
 ### Movement status
 
-- OPENING_EQUALS_CURRENT: 6 (85.71%)
-- REAL_OPENING_CURRENT_AVAILABLE: 1 (14.29%)
+- OPENING_EQUALS_CURRENT: 7 (70.0%)
+- REAL_OPENING_CURRENT_AVAILABLE: 3 (30.0%)
 
 ### Value status
 
-- VALUE_STRONG: 5 (71.43%)
-- VALUE_PLAYABLE: 2 (28.57%)
+- VALUE_STRONG: 7 (70.0%)
+- VALUE_PLAYABLE: 2 (20.0%)
+- NO_VALUE: 1 (10.0%)
 
 ### Numeric stats
 
-- CorQ market weight: `{'count': 7, 'avg': 0.1457, 'min': 0.12, 'max': 0.3}`
-- Value delta pp: `{'count': 7, 'avg': 4.5886, 'min': 0.57, 'max': 11.71}`
-- Expected value pct: `{'count': 7, 'avg': 2.7129, 'min': -4.24, 'max': 18.91}`
+- CorQ market weight: `{'count': 10, 'avg': 0.174, 'min': 0.12, 'max': 0.3}`
+- Value delta pp: `{'count': 10, 'avg': 4.901, 'min': -1.87, 'max': 18.4}`
+- Expected value pct: `{'count': 10, 'avg': 3.633, 'min': -10.54, 'max': 39.75}`
 
 ## Notes
 
