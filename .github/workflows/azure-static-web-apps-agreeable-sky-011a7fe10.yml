@@ -13,6 +13,7 @@ on:
       - "tools/build_player_registry.py"
       - "outputs/**"
       - "requirements.txt"
+      - "supabase/**"
       - ".github/workflows/azure-static-web-apps-agreeable-sky-011a7fe10.yml"
   pull_request:
     types: [opened, synchronize, reopened, closed]
@@ -69,6 +70,8 @@ jobs:
           PYTHONPATH: ${{ github.workspace }}
           TENNISAPI_ATTACH_RANKINGS: "0"
           CORQ_RENDER_ENABLE_LOGS: "0"
+          SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
         run: |
           set -euo pipefail
           python -m corq.web.render
@@ -91,6 +94,8 @@ jobs:
               "Comparison history",
               "/api/blinq/predict",
               "(X)",
+              "Register",
+              "Forgot password",
           )
           missing = [item for item in required if item not in page]
           if missing:
