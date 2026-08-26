@@ -87,7 +87,8 @@ jobs:
 
           required = (
               'lang="en"',
-              "BackstageTalks",
+              "Welcome to BlinQ",
+              "Powered by BackstageTalks Data Model Engine",
               "Data Model Engine",
               "Player 1",
               "Player 2",
@@ -98,6 +99,7 @@ jobs:
               "(X)",
               "Create account",
               "Forgot password",
+              "10 free successful predictions",
           )
           missing = [item for item in required if item not in page]
           if missing:
@@ -111,7 +113,6 @@ jobs:
               "Compare two players using real ELO and API PRO data",
               "Real A/B symmetry:",
               "Unknown ·",
-              "New accounts receive 10 free successful predictions.",
               '<nav class="nav">',
           )
           present = [item for item in forbidden if item in page]
