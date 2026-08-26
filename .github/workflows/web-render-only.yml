@@ -3,12 +3,6 @@ name: Web Render Only
 on:
   workflow_dispatch:
     inputs:
-      commit_site:
-        description: "Commit generated corq/site back to repository"
-        required: false
-        default: "true"
-        type: choice
-        options: ["true", "false"]
       deploy_pages:
         description: "Deploy rendered site to GitHub Pages"
         required: false
@@ -28,7 +22,7 @@ on:
       - ".github/workflows/web-render-only.yml"
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -154,38 +148,14 @@ jobs:
           })
           PY
 
-      - name: Commit generated registry and site
-        if: github.event_name == 'push' || inputs.commit_site == 'true'
+      - name: Report generated artifact
         shell: bash
         run: |
           set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            thinq/data/players/player_registry.json \
-            thinq/data/players/elo_player_universe.json \
-            thinq/data/players/player_registry_manifest.json \
-            thinq/data/players/tennis_name_alias_database.json \
-            runtime/players/player_registry_report.json \
-            corq/site
-
-          if git diff --cached --quiet; then
-            echo "No generated changes"
-            exit 0
-          fi
-
-          git commit -m "chore: refresh merged player registry and web"
-          branch="${GITHUB_REF_NAME:-main}"
-          for attempt in 1 2 3; do
-            if git pull --rebase origin "$branch" && git push origin "HEAD:$branch"; then
-              exit 0
-            fi
-            if [ "$attempt" = "3" ]; then
-              echo "Push failed after 3 attempts"
-              exit 1
-            fi
-            sleep $((attempt * 3))
-          done
+          echo "Generated files are deployed from the workflow artifact only."
+          echo "No generated files are committed back to main."
+          test -s corq/site/follow-the-data/index.html
+          du -sh corq/site
 
       - name: Configure GitHub Pages
         if: github.event_name == 'push' || inputs.deploy_pages == 'true'
