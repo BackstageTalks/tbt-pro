@@ -53,8 +53,15 @@ def _name(row: Dict[str, Any]) -> str:
     ).strip()
 
 
-@lru_cache(maxsize=1)
-def _registry() -> Dict[str, Dict[str, Any]]:
+def _registry_mtime() -> int:
+    try:
+        return REGISTRY_PATH.stat().st_mtime_ns
+    except OSError:
+        return 0
+
+
+@lru_cache(maxsize=2)
+def _registry_cached(_mtime_ns: int) -> Dict[str, Dict[str, Any]]:
     try:
         payload = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
     except Exception:
@@ -78,6 +85,10 @@ def _registry() -> Dict[str, Dict[str, Any]]:
             if key:
                 index.setdefault(key, row)
     return index
+
+
+def _registry() -> Dict[str, Dict[str, Any]]:
+    return _registry_cached(_registry_mtime())
 
 
 def _public(row: Dict[str, Any]) -> Dict[str, Any]:
