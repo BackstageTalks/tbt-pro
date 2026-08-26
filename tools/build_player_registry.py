@@ -31,14 +31,6 @@ DEFAULT_ELO_FILES = (
 
 DEFAULT_RANKING_FILES = (
     "thinq/data/rankings/api_pro_player_rankings.json",
-    "thinq/data/rankings/atp_rankings.json",
-    "thinq/data/rankings/wta_rankings.json",
-    "thinq/data/rankings/api_rankings_atp.json",
-    "thinq/data/rankings/api_rankings_wta.json",
-    "data/api_pro/rankings/atp_rankings.json",
-    "data/api_pro/rankings/wta_rankings.json",
-    "data/rankings/atp_rankings.json",
-    "data/rankings/wta_rankings.json",
 )
 
 DEFAULT_IDENTITY_FILES = (
