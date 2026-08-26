@@ -33,7 +33,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     name: Build and Deploy
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -45,7 +44,6 @@ jobs:
           cache: pip
 
       - name: Install dependencies
-        shell: bash
         run: |
           set -euo pipefail
           python -m pip install --upgrade pip
@@ -53,57 +51,34 @@ jobs:
           test ! -f api/requirements.txt || python -m pip install -r api/requirements.txt
 
       - name: Build merged player registry
-        shell: bash
         run: |
           set -euo pipefail
           python tools/build_player_registry.py
-
           python - <<'PY'
           import json
           from pathlib import Path
-
           path = Path("thinq/data/players/player_registry.json")
           data = json.loads(path.read_text(encoding="utf-8"))
-          version = data.get("version")
-          if version != "PLAYER_REGISTRY_V3_API_ELO_MERGED":
-              raise SystemExit(f"Unexpected player registry version: {version}")
-
+          assert data.get("version") == "PLAYER_REGISTRY_V3_API_ELO_MERGED", data.get("version")
           players = data.get("players") or []
-          duplicate_api_profiles = [
-              player for player in players
-              if player.get("registry_key", "").startswith("api:")
-              and not player.get("elo_available")
-              and any(
-                  other.get("compact_key") == player.get("compact_key")
-                  and other.get("elo_available")
-                  for other in players
-              )
-          ]
-          if duplicate_api_profiles:
-              raise SystemExit(
-                  f"Found {len(duplicate_api_profiles)} unmerged API player profiles"
-              )
-
-          print({
-              "version": version,
-              "players": len(players),
-              "ranked": data.get("api_rank_player_count"),
-          })
+          assert not any(p.get("registry_key", "").startswith("api:") and not p.get("elo_available") and any(q.get("compact_key") == p.get("compact_key") and q.get("elo_available") for q in players) for p in players)
+          print({"version": data.get("version"), "players": len(players), "ranked": data.get("api_rank_player_count")})
           PY
 
       - name: Render shared site
-        shell: bash
         env:
           PYTHONPATH: ${{ github.workspace }}
           TENNISAPI_ATTACH_RANKINGS: "0"
           CORQ_RENDER_ENABLE_LOGS: "0"
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || vars.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY || secrets.SUPABASE_PUBLISHABLE_KEY || vars.SUPABASE_ANON_KEY || vars.SUPABASE_PUBLISHABLE_KEY }}
         run: |
           set -euo pipefail
+          test -n "${SUPABASE_URL:-}" || { echo "SUPABASE_URL is missing in GitHub Actions Secrets or Variables"; exit 1; }
+          test -n "${SUPABASE_ANON_KEY:-}" || { echo "SUPABASE_ANON_KEY or SUPABASE_PUBLISHABLE_KEY is missing in GitHub Actions Secrets or Variables"; exit 1; }
+          test -s blinq/web/assets/blinq_logo.png || { echo "Missing BlinQ logo"; exit 1; }
           python -m corq.web.render
           python -m blinq.web.render --output corq/site/h4v34n1c3d4y191/index.html
-
           python - <<'PY'
           from pathlib import Path
 
@@ -112,33 +87,32 @@ jobs:
 
           required = (
               'lang="en"',
-              "Who we are",
-              "What we do",
-              "Why we do it",
+              "BackstageTalks",
+              "Data Model Engine",
               "Player 1",
               "Player 2",
               "Surface",
               "Calculate prediction",
               "Comparison history",
-              "Sign in",
-              "Create account",
-              "Forgot password",
-              "New accounts receive 10 free successful predictions.",
               "/api/blinq/predict",
               "(X)",
+              "Create account",
+              "Forgot password",
           )
           missing = [item for item in required if item not in page]
           if missing:
               raise SystemExit(f"BlinQ page is missing required content: {missing}")
 
           forbidden = (
+              "Who we are",
+              "What we do",
+              "Why we do it",
               "Advanced tennis intelligence built from PRO API data",
               "Compare two players using real ELO and API PRO data",
               "Real A/B symmetry:",
               "Unknown ·",
+              "New accounts receive 10 free successful predictions.",
               '<nav class="nav">',
-              "Request access",
-              "New accounts receive 20 free successful predictions.",
           )
           present = [item for item in forbidden if item in page]
           if present:
@@ -148,7 +122,6 @@ jobs:
           PY
 
       - name: Reduce static artifact
-        shell: bash
         run: |
           set -euo pipefail
           rm -rf corq/site/assets/results_lazy corq/site/logs
@@ -158,7 +131,6 @@ jobs:
           test "$size" -le 240000000
 
       - name: Configure runtime and access
-        shell: bash
         run: |
           cat > corq/site/staticwebapp.config.json <<'JSON'
           {
@@ -169,33 +141,24 @@ jobs:
             },
             "navigationFallback": {
               "rewrite": "/index.html",
-              "exclude": [
-                "/api/*",
-                "/.auth/*",
-                "/*.xml",
-                "/*.{css,js,png,jpg,jpeg,webp,svg,ico,json}"
-              ]
+              "exclude": ["/api/*", "/.auth/*", "/*.xml", "/*.{css,js,png,jpg,jpeg,webp,svg,ico,json}"]
             }
           }
           JSON
 
       - name: Prepare managed Python API
-        shell: bash
         run: |
           set -euo pipefail
           test -s api/function_app.py
           test -s api/host.json
           test -s api/requirements.txt
-
           rm -rf api/blinq api/thinq api/corq
           cp -R blinq api/blinq
           cp -R thinq api/thinq
           cp -R corq api/corq
-
           rm -rf api/corq/site api/corq/outputs api/corq/logs api/thinq/outputs
           find api -type d -name "__pycache__" -prune -exec rm -rf {} +
           find api -type f \( -name "*.pyc" -o -name "*.log" -o -name "*.tmp" -o -name "*.bak" \) -delete
-
           python -m py_compile api/function_app.py api/blinq/service.py
           size=$(du -sb api | awk '{print $1}')
           echo "API artifact bytes: $size"
@@ -216,7 +179,6 @@ jobs:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
     name: Close Pull Request
-
     steps:
       - name: Close Pull Request
         uses: Azure/static-web-apps-deploy@v1
