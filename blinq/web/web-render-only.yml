@@ -1,0 +1,191 @@
+name: Web Render Only
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit_site:
+        description: "Commit generated corq/site back to repository"
+        required: false
+        default: "true"
+        type: choice
+        options: ["true", "false"]
+      deploy_pages:
+        description: "Deploy rendered site to GitHub Pages"
+        required: false
+        default: "true"
+        type: choice
+        options: ["true", "false"]
+  push:
+    branches: [main]
+    paths:
+      - "blinq/**"
+      - "corq/web/**"
+      - "corq/messages.py"
+      - "corq/web/paths.py"
+      - "thinq/data/players/**"
+      - "thinq/data/rankings/**"
+      - "tools/build_player_registry.py"
+      - ".github/workflows/web-render-only.yml"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+env:
+  PYTHONUNBUFFERED: "1"
+  TENNISAPI_ATTACH_RANKINGS: "0"
+  CORQ_RENDER_ENABLE_LOGS: "0"
+
+concurrency:
+  group: web-render-only-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  render-web:
+    name: Render web only
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          test ! -f requirements.txt || python -m pip install -r requirements.txt
+
+      - name: Build merged registry and render
+        shell: bash
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || vars.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY || secrets.SUPABASE_PUBLISHABLE_KEY || vars.SUPABASE_ANON_KEY || vars.SUPABASE_PUBLISHABLE_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "${SUPABASE_URL:-}" || { echo "SUPABASE_URL is missing in GitHub Actions Secrets or Variables"; exit 1; }
+          test -n "${SUPABASE_ANON_KEY:-}" || { echo "SUPABASE_ANON_KEY is missing in GitHub Actions Secrets or Variables"; exit 1; }
+          test -s blinq/web/assets/blinq_logo.png || { echo "Missing BlinQ logo"; exit 1; }
+
+          python tools/build_player_registry.py
+          python -m corq.web.render
+          python -m blinq.web.render --output corq/site/h4v34n1c3d4y191/index.html
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          registry_path = Path("thinq/data/players/player_registry.json")
+          page_path = Path("corq/site/h4v34n1c3d4y191/index.html")
+
+          registry = json.loads(registry_path.read_text(encoding="utf-8"))
+          if registry.get("version") != "PLAYER_REGISTRY_V3_API_ELO_MERGED":
+              raise SystemExit(f"Unexpected registry version: {registry.get('version')}")
+
+          players = registry.get("players") or []
+          if not isinstance(players, list) or not players:
+              raise SystemExit("Merged player registry is empty")
+
+          if not page_path.is_file() or page_path.stat().st_size == 0:
+              raise SystemExit(f"Missing or empty BlinQ page: {page_path}")
+
+          page = page_path.read_text(encoding="utf-8")
+          required = (
+              'lang="en"',
+              "BackstageTalks",
+              "Data Model Engine",
+              "Player 1",
+              "Player 2",
+              "Surface",
+              "Calculate prediction",
+              "Comparison history",
+              "/api/blinq/predict",
+              "Create account",
+              "Forgot password",
+          )
+          missing = [item for item in required if item not in page]
+          if missing:
+              raise SystemExit(f"BlinQ page is missing required content: {missing}")
+
+          forbidden = (
+              "Who we are",
+              "What we do",
+              "Why we do it",
+              "Advanced tennis intelligence built from PRO API data",
+              "Compare two players using real ELO and API PRO data",
+              "Real A/B symmetry:",
+              "Unknown ·",
+              "New accounts receive 10 free successful predictions.",
+              '<nav class="nav">',
+          )
+          present = [item for item in forbidden if item in page]
+          if present:
+              raise SystemExit(f"BlinQ page contains removed content: {present}")
+
+          print({
+              "version": registry.get("version"),
+              "players": len(players),
+              "ranked": registry.get("api_rank_player_count"),
+              "blinq_bytes": len(page),
+          })
+          PY
+
+      - name: Commit generated registry and site
+        if: github.event_name == 'push' || inputs.commit_site == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            thinq/data/players/player_registry.json \
+            thinq/data/players/elo_player_universe.json \
+            thinq/data/players/player_registry_manifest.json \
+            thinq/data/players/tennis_name_alias_database.json \
+            runtime/players/player_registry_report.json \
+            corq/site
+
+          if git diff --cached --quiet; then
+            echo "No generated changes"
+            exit 0
+          fi
+
+          git commit -m "chore: refresh merged player registry and web"
+          branch="${GITHUB_REF_NAME:-main}"
+          for attempt in 1 2 3; do
+            if git pull --rebase origin "$branch" && git push origin "HEAD:$branch"; then
+              exit 0
+            fi
+            if [ "$attempt" = "3" ]; then
+              echo "Push failed after 3 attempts"
+              exit 1
+            fi
+            sleep $((attempt * 3))
+          done
+
+      - name: Configure GitHub Pages
+        if: github.event_name == 'push' || inputs.deploy_pages == 'true'
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        if: github.event_name == 'push' || inputs.deploy_pages == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: corq/site
+
+      - name: Deploy GitHub Pages
+        if: github.event_name == 'push' || inputs.deploy_pages == 'true'
+        id: deployment
+        uses: actions/deploy-pages@v4
