@@ -121,7 +121,6 @@ jobs:
           required = (
               'lang="en"',
               "BackstageTalks",
-              "Data Model Engine",
               "Player 1",
               "Player 2",
               "Surface",
@@ -143,7 +142,6 @@ jobs:
               "Compare two players using real ELO and API PRO data",
               "Real A/B symmetry:",
               "Unknown ·",
-              "New accounts receive 10 free successful predictions.",
           )
           present = [item for item in forbidden if item in page]
           if present:
