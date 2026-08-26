@@ -560,15 +560,57 @@ def build_name_indexes(registry: Dict[str, Dict[str, Any]]) -> Tuple[Dict[str, s
     return by_name, by_compact
 
 
+def safe_alias_variants(value: Any) -> List[str]:
+    """Generate deterministic name variants without fuzzy or surname-only guesses."""
+    name = fix_mojibake(value)
+    if not name:
+        return []
+    variants: List[str] = [name]
+    plain = normalize_name(name)
+    if plain:
+        variants.append(plain)
+    spaced = re.sub(r"[-_.']+", " ", name)
+    spaced = re.sub(r"\s+", " ", spaced).strip()
+    variants.append(spaced)
+    tokens = [token for token in re.split(r"\s+", spaced) if token]
+    if len(tokens) >= 2:
+        variants.append(" ".join(reversed(tokens)))
+        # Initial forms remain collision-safe because ambiguous keys are rejected below.
+        variants.append(f"{tokens[0][0]}. {' '.join(tokens[1:])}")
+        variants.append(f"{' '.join(tokens[:-1])} {tokens[-1][0]}.")
+    return unique_names(variants)
+
+
+def _prefer_alias_player(left: Dict[str, Any], right: Dict[str, Any]) -> Dict[str, Any]:
+    """Merge one logical player and prefer the record backed by a real API ID."""
+    left_api = as_int(left.get("api_team_id") or left.get("rapidapi_id"))
+    right_api = as_int(right.get("api_team_id") or right.get("rapidapi_id"))
+    primary, secondary = (right, left) if right_api is not None and left_api is None else (left, right)
+    merged = dict(primary)
+    for key, value in secondary.items():
+        if merged.get(key) in (None, "", [], {}) and value not in (None, "", [], {}):
+            merged[key] = value
+    merged["aliases"] = unique_names(
+        list(primary.get("aliases") or [])
+        + list(secondary.get("aliases") or [])
+        + [primary.get("canonical_name"), secondary.get("canonical_name"), primary.get("display_name"), secondary.get("display_name")]
+    )
+    api_id = as_int(merged.get("api_team_id") or merged.get("rapidapi_id"))
+    if api_id is not None:
+        merged["player_id"] = f"api:{api_id}"
+        merged["api_team_id"] = api_id
+        merged["rapidapi_id"] = api_id
+    return merged
+
+
 def build_alias_database(registry: Dict[str, Dict[str, Any]], path: Path) -> Dict[str, Any]:
     existing = read_json(path)
-    manual_players = []
+    source_players: List[Dict[str, Any]] = []
     if isinstance(existing, dict) and isinstance(existing.get("players"), list):
-        manual_players = [p for p in existing["players"] if isinstance(p, dict)]
-    by_key = {str(p.get("registry_key") or p.get("player_id") or p.get("api_team_id") or p.get("canonical_name")): p for p in manual_players}
+        source_players.extend(p for p in existing["players"] if isinstance(p, dict))
+
     for registry_key, player in registry.items():
-        aliases = unique_names([player.get("name"), player.get("canonical_name"), player.get("display_name")] + list(player.get("aliases") or []))
-        by_key[registry_key] = {
+        source_players.append({
             "player_id": registry_key,
             "api_team_id": player.get("api_team_id"),
             "rapidapi_id": player.get("rapidapi_id"),
@@ -576,26 +618,62 @@ def build_alias_database(registry: Dict[str, Dict[str, Any]], path: Path) -> Dic
             "display_name": player.get("display_name") or player.get("canonical_name") or player.get("name"),
             "tour": player.get("tour"),
             "country": player.get("country"),
-            "aliases": aliases,
+            "aliases": unique_names([player.get("name"), player.get("canonical_name"), player.get("display_name")] + list(player.get("aliases") or [])),
             "search_key": compact_key(player.get("canonical_name") or player.get("name")),
-        }
-    players = sorted(by_key.values(), key=lambda p: (str(p.get("tour") or ""), str(p.get("canonical_name") or "")))
-    alias_resolution = {}
+        })
+
+    # Collapse old name:<key> and new api:<id> rows into one logical player.
+    by_identity: Dict[Tuple[str, str], Dict[str, Any]] = {}
+    for player in source_players:
+        canonical = player.get("canonical_name") or player.get("display_name")
+        search_key = compact_key(player.get("search_key") or canonical)
+        if not search_key:
+            continue
+        tour = str(player.get("tour") or "").upper()
+        identity = (tour, search_key)
+        if identity in by_identity:
+            by_identity[identity] = _prefer_alias_player(by_identity[identity], player)
+        else:
+            by_identity[identity] = dict(player)
+
+    players: List[Dict[str, Any]] = []
+    for player in by_identity.values():
+        canonical = player.get("canonical_name") or player.get("display_name")
+        aliases: List[str] = []
+        for name in [canonical, player.get("display_name")] + list(player.get("aliases") or []):
+            aliases.extend(safe_alias_variants(name))
+        player["aliases"] = unique_names(aliases)
+        player["search_key"] = compact_key(canonical)
+        players.append(player)
+    players.sort(key=lambda p: (str(p.get("tour") or ""), str(p.get("canonical_name") or "")))
+
+    # Resolve only globally unique generated keys. Ambiguous initial forms remain explicit.
+    candidates: Dict[str, set] = {}
     for player in players:
-        pid = player.get("player_id")
+        pid = str(player.get("player_id") or "")
         if not pid:
             continue
-        for alias in unique_names([player.get("canonical_name"), player.get("display_name")] + list(player.get("aliases") or [])):
+        for alias in [player.get("canonical_name"), player.get("display_name")] + list(player.get("aliases") or []):
             key = compact_key(alias)
             if key:
-                alias_resolution[key] = {"status": "resolved", "resolved_player_id": pid}
+                candidates.setdefault(key, set()).add(pid)
+
+    alias_resolution: Dict[str, Dict[str, Any]] = {}
+    ambiguous_aliases: Dict[str, List[str]] = {}
+    for key, ids in sorted(candidates.items()):
+        if len(ids) == 1:
+            alias_resolution[key] = {"status": "resolved", "resolved_player_id": next(iter(ids))}
+        else:
+            ambiguous_aliases[key] = sorted(ids)
+
     payload = {
-        "version": "TENNIS_NAME_ALIAS_DATABASE_V1",
+        "version": "TENNIS_NAME_ALIAS_DATABASE_V2_DEDUPED",
         "generated_at": now_iso(),
         "source": "tools/build_player_registry.py",
-        "policy": "manual_aliases_preserved_generated_registry_aliases_added",
+        "policy": "preserve_manual_aliases_prefer_api_identity_safe_variants_no_fuzzy_no_surname_only",
         "players": players,
         "alias_resolution": alias_resolution,
+        "ambiguous_aliases": ambiguous_aliases,
     }
     write_json(path, payload)
     return payload
