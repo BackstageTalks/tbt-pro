@@ -218,19 +218,11 @@ def blinq_predict(req: func.HttpRequest) -> func.HttpResponse:
 
     user, auth_error = _auth_user(req)
     if auth_error or not user:
-        return _response(
-            req,
-            {"status": auth_error or "AUTH_REQUIRED", "reason": "Sign in is required."},
-            401,
-        )
+        return _response(req, {"status": auth_error or "AUTH_REQUIRED", "reason": "Sign in is required."}, 401)
 
     access_row, access_error = _access_row(user)
     if access_error or not access_row:
-        return _response(
-            req,
-            {"status": access_error or "ACCESS_UNAVAILABLE", "reason": "Access status is temporarily unavailable."},
-            503,
-        )
+        return _response(req, {"status": access_error or "ACCESS_UNAVAILABLE", "reason": "Access status is temporarily unavailable."}, 503)
 
     effective = _effective_status(access_row)
     if effective not in {"FREE_ACTIVE", "PRO_ACTIVE"}:
