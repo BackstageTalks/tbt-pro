@@ -360,7 +360,7 @@ def main() -> int:
                         extract_country(row)
                         or extract_country(previous or {})
                     ),
-                    "status": "PRESERVED_EXISTING_ID",
+                    "status": "EXISTING_ID",
                     "sources": merge_sources(
                         (previous or {}).get("sources"),
                         ["previous_identity_cache"],
