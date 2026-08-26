@@ -106,13 +106,6 @@ jobs:
           set -euo pipefail
           python tools/build_player_registry.py
 
-      - name: Resolve API PRO player identities from real payloads
-        shell: bash
-        run: |
-          set -euo pipefail
-          python tools/resolve_api_pro_player_ids.py
-          python tools/build_player_registry.py
-
       - name: Update API PRO player rankings
         shell: bash
         env:
@@ -130,6 +123,12 @@ jobs:
           if [ "$FORCE_RANKING_REFRESH" = "true" ]; then args+=(--force); fi
           python tools/update_api_pro_rankings.py "${args[@]}"
           test -s thinq/data/rankings/api_pro_player_rankings.json
+
+      - name: Resolve API PRO player identities incrementally
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/resolve_api_pro_player_ids.py
 
       - name: Build final central player registry
         shell: bash
