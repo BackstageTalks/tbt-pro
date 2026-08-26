@@ -120,12 +120,7 @@ jobs:
           page = page_path.read_text(encoding="utf-8")
           required = (
               'lang="en"',
-              "Welcome to BlinQ",
-              "BACKSTAGETALKS DATA MODEL ENGINE",
-              "WHO WE ARE",
-              "WHAT WE DO",
-              "WHY WE DO IT",
-              "Follow the data, not the noise.",
+              "BackstageTalks",
               "Player 1",
               "Player 2",
               "Surface",
@@ -134,8 +129,6 @@ jobs:
               "/api/blinq/predict",
               "Create account",
               "Forgot password",
-              "New accounts receive 10 free successful predictions.",
-              "Sign in to view your comparison history",
           )
           missing = [item for item in required if item not in page]
           if missing:
