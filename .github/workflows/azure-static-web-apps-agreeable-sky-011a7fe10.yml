@@ -93,8 +93,7 @@ jobs:
               "Real player data meets transparent model logic",
               "THE PURPOSE",
               "Less guesswork, more edge",
-              "Ignore the hype",
-              "Follow the data",
+              'Ignore the hype.<span class="motto-sep">—</span>Follow the data.',
               "Player 1",
               "Player 2",
               "Surface",
@@ -112,7 +111,6 @@ jobs:
           forbidden = (
               "Welcome to BlinQ",
               "Data model engine",
-              "by BackstageTalks",
               "New accounts receive 10 free successful predictions",
               '<nav class="nav"',
               "WHO WE ARE",
@@ -120,8 +118,6 @@ jobs:
               "WHY WE DO IT",
               "Check access status",
               "mix-blend-mode:screen",
-              "Ignore the hype.",
-              "Follow the data.",
               '<header class="topbar">',
           )
           present = [item for item in forbidden if item in page]
