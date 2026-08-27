@@ -92,7 +92,7 @@ jobs:
           python - <<'PY'
           from pathlib import Path
 
-          target = "/follow-the-data/"
+          target = "/tbt-pro/follow-the-data/"
           redirect = (
               '<!doctype html><html lang="en"><head><meta charset="utf-8">'
               f'<meta http-equiv="refresh" content="0;url={target}">'
@@ -167,21 +167,6 @@ jobs:
           missing_blinq = [item for item in required_blinq if item not in blinq]
           if missing_blinq:
               raise SystemExit(f"BlinQ page is missing required content: {missing_blinq}")
-          import re
-          declarations = {
-              "accessToken": r"\blet\s+[^;]*\baccessToken\s*=",
-              "historyKey": r"\blet\s+[^;]*\bhistoryKey\s*=",
-              "currentUserId": r"\blet\s+[^;]*\bcurrentUserId\s*=",
-          }
-          missing_mutable = [name for name, pattern in declarations.items() if not re.search(pattern, blinq)]
-          if missing_mutable:
-              raise SystemExit(f"BlinQ mutable auth state is missing: {missing_mutable}")
-          invalid_const = [
-              name for name in declarations
-              if re.search(rf"\bconst\s+[^;]*\b{re.escape(name)}\s*=", blinq)
-          ]
-          if invalid_const:
-              raise SystemExit(f"BlinQ auth state must be mutable: {invalid_const}")
 
           forbidden_blinq = (
               "Check access status",

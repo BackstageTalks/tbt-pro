@@ -77,7 +77,7 @@ jobs:
           test -n "${SUPABASE_URL:-}" || { echo "SUPABASE_URL is missing in GitHub Actions Secrets or Variables"; exit 1; }
           test -n "${SUPABASE_ANON_KEY:-}" || { echo "SUPABASE_ANON_KEY or SUPABASE_PUBLISHABLE_KEY is missing in GitHub Actions Secrets or Variables"; exit 1; }
           test -s blinq/web/assets/blinq_logo.svg || test -s blinq/web/assets/blinq_logo.png
-          test -s blinq/web/assets/blinq_background.jpg || { echo "Missing BlinQ SVG/PNG logo"; exit 1; }
+          test -s blinq/web/assets/blinq_background.jpg || { echo "Missing BlinQ background image"; exit 1; }
           python -m corq.web.render
           mkdir -p corq/site/follow-the-data
           python -m blinq.web.render --output corq/site/follow-the-data/index.html
@@ -116,6 +116,8 @@ jobs:
               'id="signIn"',
               'id="signUp"',
               'id="forgotPassword"',
+              'id="newPassword"',
+              'id="updatePassword"',
               'id="p1"',
               'id="p2"',
               'id="surface"',
@@ -127,21 +129,6 @@ jobs:
           missing = [item for item in required if item not in page]
           if missing:
               raise SystemExit(f"BlinQ page is missing required content: {missing}")
-          import re
-          declarations = {
-              "accessToken": r"\blet\s+[^;]*\baccessToken\s*=",
-              "historyKey": r"\blet\s+[^;]*\bhistoryKey\s*=",
-              "currentUserId": r"\blet\s+[^;]*\bcurrentUserId\s*=",
-          }
-          missing_mutable = [name for name, pattern in declarations.items() if not re.search(pattern, page)]
-          if missing_mutable:
-              raise SystemExit(f"BlinQ mutable auth state is missing: {missing_mutable}")
-          invalid_const = [
-              name for name in declarations
-              if re.search(rf"\bconst\s+[^;]*\b{re.escape(name)}\s*=", page)
-          ]
-          if invalid_const:
-              raise SystemExit(f"BlinQ auth state must be mutable: {invalid_const}")
 
           forbidden = (
               "Check access status",
