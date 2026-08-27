@@ -60,6 +60,7 @@ jobs:
           test -s corq/web/paths.py
           test -s blinq/web/render.py
           test -s blinq/web/assets/blinq_logo.svg || test -s blinq/web/assets/blinq_logo.png
+          test -s blinq/web/assets/blinq_background.jpg
           python -m py_compile \
             tools/build_player_registry.py \
             corq/web/render.py \
