@@ -1,10 +1,10 @@
 {
   "model": "CLOQ_HIGH_ODDS_DATA_COVERED_V5_AUDIT_CLEANUP",
-  "created_at_utc": "2026-08-27T05:36:42.571443+00:00",
+  "created_at_utc": "2026-08-27T21:14:52.705523+00:00",
   "input_path": "outputs/latest_all.json",
-  "input_rows": 84,
-  "audit_rows": 84,
-  "output_rows": 4,
+  "input_rows": 86,
+  "audit_rows": 86,
+  "output_rows": 7,
   "top_n": 10,
   "corq_overlap": {
     "enabled": false,
@@ -12,7 +12,7 @@
       "outputs/latest_top7.json",
       "outputs/snapshots/latest_corq_top7_snapshot.json"
     ],
-    "corq_match_key_count": 7,
+    "corq_match_key_count": 13,
     "audit_rows_excluded_by_corq_overlap": 0,
     "publishable_rows_excluded_by_corq_overlap": 0,
     "policy": "CloQ has priority. CloQ keeps overlapping matches; CorQ finalizer removes CloQ overlaps from CorQ TOP7 and fills back to seven."
@@ -34,66 +34,67 @@
     "forced_count": false
   },
   "selected_tier_counts": {
-    "CLOQ_PRIME": 3,
-    "CLOQ_HIGH_VARIANCE": 1
+    "CLOQ_PRIME": 5,
+    "CLOQ_EXTENDED": 2
   },
   "decision_counts": {
-    "CLOQ_PRIME": 3,
-    "CLOQ_HIGH_VARIANCE": 1,
-    "CLOQ_REJECTED": 80
+    "CLOQ_PRIME": 5,
+    "CLOQ_EXTENDED": 2,
+    "CLOQ_REJECTED": 79
   },
   "price_bucket_counts": {
-    "PRIME_1_70_1_90": 4,
-    "HIGH_VARIANCE_2_20_2_50": 4,
-    "EXTENDED_1_90_2_20": 4,
-    "TOO_LOW": 64,
-    "TOO_HIGH": 8
+    "PRIME_1_70_1_90": 13,
+    "EXTENDED_1_90_2_20": 14,
+    "HIGH_VARIANCE_2_20_2_50": 9,
+    "TOO_LOW": 33,
+    "TOO_HIGH": 17
   },
   "reject_reason_counts": {
-    "CLOQ_INFO_UNDERDOG_MARKET_NOT_SUPPORTIVE": 1,
-    "CLOQ_INFO_MARKET_AGAINST_PICK": 1,
-    "CLOQ_REJECT_MODEL_BELOW_50": 8,
-    "CLOQ_REJECT_RANDOM_UNDERDOG": 8,
-    "CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE": 7,
-    "CLOQ_REJECT_MARKET_AGAINST_WEAK_MODEL": 7,
-    "CLOQ_REJECT_MISSING_PICK_ODDS": 50,
-    "CLOQ_REJECT_ODDS_UNDER_1_70": 14,
-    "CLOQ_REJECT_ODDS_OVER_2_50": 8
+    "CLOQ_INFO_UNDERDOG_MARKET_NOT_SUPPORTIVE": 4,
+    "CLOQ_INFO_MARKET_AGAINST_PICK": 2,
+    "CLOQ_REJECT_STATUS_NOT_PREMATCH": 42,
+    "CLOQ_REJECT_MODEL_BELOW_50": 23,
+    "CLOQ_REJECT_RANDOM_UNDERDOG": 22,
+    "CLOQ_REJECT_UNDERDOG_MARKET_NOT_SUPPORTIVE": 19,
+    "CLOQ_REJECT_MARKET_AGAINST_WEAK_MODEL": 18,
+    "CLOQ_REJECT_MODEL_BELOW_BAND_MINIMUM": 1,
+    "CLOQ_REJECT_ODDS_UNDER_1_70": 33,
+    "CLOQ_REJECT_ODDS_OVER_2_50": 17
   },
   "risk_tag_counts": {
-    "HIGH_VARIANCE_PRICE_BAND": 12,
-    "MARQ_AGAINST": 34,
-    "MARKET_AGAINST_PICK": 16,
-    "MODEL_AGAINST": 42,
-    "ELO_AGAINST": 40,
-    "PROBABILITY_UNDER_BREAK_EVEN_INFO": 18,
+    "MARQ_AGAINST": 35,
+    "MARKET_AGAINST_PICK": 37,
+    "PROBABILITY_UNDER_BREAK_EVEN_INFO": 47,
+    "MODEL_AGAINST": 43,
+    "ELO_AGAINST": 41,
+    "SURFACE_AGAINST": 29,
     "FORM_AGAINST": 6,
-    "SURFACE_AGAINST": 28
+    "HIGH_VARIANCE_PRICE_BAND": 26
   },
   "support_tag_counts": {
-    "PRIME_1_70_1_90": 4,
-    "PROBABILITY_OVER_BREAK_EVEN": 7,
-    "MODEL_SUPPORT": 22,
-    "MARQ_LIGHT_SUPPORT": 8,
-    "ELO_SUPPORT": 40,
-    "FORM_LIGHT_SUPPORT": 36,
-    "SURFACE_SUPPORT": 28,
-    "MARKET_NEUTRAL": 2,
-    "PICK_STRONG": 31,
-    "DATA_COVERED_STRONG": 80,
+    "PRIME_1_70_1_90": 13,
+    "PROBABILITY_OVER_BREAK_EVEN": 15,
     "MODEL_STRONG_SUPPORT": 9,
-    "MARQ_SUPPORT": 18,
+    "MARQ_LIGHT_SUPPORT": 9,
+    "ELO_SUPPORT": 41,
+    "FORM_LIGHT_SUPPORT": 37,
+    "SURFACE_SUPPORT": 29,
+    "MARKET_NEUTRAL": 12,
+    "PICK_STRONG": 32,
+    "DATA_COVERED_STRONG": 82,
+    "MARQ_SUPPORT": 12,
     "FORM_SUPPORT": 6,
-    "MARKET_WITH_PICK": 16,
+    "MARKET_WITH_PICK": 37,
+    "EXTENDED_1_90_2_20": 14,
+    "MODEL_SUPPORT": 23,
     "SURFACE_LIGHT_SUPPORT": 14,
-    "HIGH_VARIANCE_2_20_2_50": 4,
-    "PROBABILITY_BUFFER_STRONG": 9,
+    "PROBABILITY_BUFFER_STRONG": 24,
     "MODEL_LIGHT_SUPPORT": 11,
-    "EXTENDED_1_90_2_20": 4,
-    "TOO_LOW": 64,
-    "MARQ_STRONG_SUPPORT": 17,
     "DATA_COVERED": 4,
-    "TOO_HIGH": 8
+    "HIGH_VARIANCE_2_20_2_50": 9,
+    "TOO_LOW": 33,
+    "MARQ_STRONG_SUPPORT": 25,
+    "TOO_HIGH": 17
   },
   "notes": [
     "CloQ scans the full ALL pool, not only CorQ TOP7.",

@@ -9301,6 +9301,100 @@
       "source": "TENNISAPI_PRO_H2H",
       "updated_at": "2026-08-25T05:39:07+00:00"
     },
+    "custom:QfZbstTac": {
+      "api_error": null,
+      "api_status_code": 200,
+      "archive_policy": "append_update_merge_by_event_id_no_delete",
+      "cache_key": "custom:QfZbstTac",
+      "custom_id": "QfZbstTac",
+      "endpoint": "/api/tennis/event/QfZbstTac/h2h",
+      "endpoint_attempts": [
+        {
+          "endpoint": "/api/tennis/event/QfZbstTac/h2h",
+          "error": null,
+          "ok": true,
+          "status_code": 200
+        }
+      ],
+      "event_count": 3,
+      "event_id": 16868940,
+      "fetch_version": "TENNISAPI_PRO_H2H_LAZY_CACHE_V1",
+      "last_api_event_count": 3,
+      "normalized_events": [
+        {
+          "away_id": 247791,
+          "away_name": "Diane Parry",
+          "category": "WTA",
+          "custom_id": "QfZbstTac",
+          "date": "2026-08-28",
+          "event_id": 16868940,
+          "home_id": 252168,
+          "home_name": "Clara Tauson",
+          "round": "Quarterfinals",
+          "score": "",
+          "start_timestamp": 1787880600,
+          "status_description": "Not started",
+          "status_type": "notstarted",
+          "surface": "Hard",
+          "surface_raw": "Hardcourt outdoor",
+          "tournament": "Monterrey, Mexico",
+          "winner_code": null,
+          "winner_id": null,
+          "winner_name": "",
+          "winner_side": null
+        },
+        {
+          "away_id": 247791,
+          "away_name": "Diane Parry",
+          "category": "WTA",
+          "custom_id": "QfZbstTac",
+          "date": "2026-06-16",
+          "event_id": 16334679,
+          "home_id": 252168,
+          "home_name": "Clara Tauson",
+          "round": "Round of 32",
+          "score": "3-6 4-6",
+          "start_timestamp": 1781617800,
+          "status_description": "Ended",
+          "status_type": "finished",
+          "surface": "Grass",
+          "surface_raw": "Grass",
+          "tournament": "Berlin, Germany",
+          "winner_code": 2,
+          "winner_id": 247791,
+          "winner_name": "Diane Parry",
+          "winner_side": "AWAY"
+        },
+        {
+          "away_id": 252168,
+          "away_name": "Clara Tauson",
+          "category": "WTA",
+          "custom_id": "QfZbstTac",
+          "date": "2024-10-18",
+          "event_id": 12965698,
+          "home_id": 247791,
+          "home_name": "Diane Parry",
+          "round": "Quarterfinals",
+          "score": "6-3 1-6 6-3",
+          "start_timestamp": 1729236300,
+          "status_description": "Ended",
+          "status_type": "finished",
+          "surface": "Hard",
+          "surface_raw": "Hardcourt outdoor",
+          "tournament": "Osaka, Japan",
+          "winner_code": 1,
+          "winner_id": 247791,
+          "winner_name": "Diane Parry",
+          "winner_side": "HOME"
+        }
+      ],
+      "opponent": "Diane Parry",
+      "opponent_player_id": 247791,
+      "pick": "Clara Tauson",
+      "pick_player_id": 252168,
+      "source": "TENNISAPI_PRO_H2H",
+      "updated_at": "2026-08-27T21:14:10+00:00"
+    },
     "custom:QgPsPCtc": {
       "api_error": null,
       "api_status_code": 200,
@@ -27987,6 +28081,6 @@
     }
   },
   "source": "TENNISAPI_PRO_H2H",
-  "updated_at": "2026-08-27T05:36:38+00:00",
+  "updated_at": "2026-08-27T21:14:10+00:00",
   "version": "TENNISAPI_PRO_H2H_LAZY_CACHE_V1"
 }
