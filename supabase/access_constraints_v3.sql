@@ -1,3 +1,4 @@
+begin;
 -- BlinQ access migration v3
 -- Aligns an older blinq_access table with the current FREE_10 / PRO model.
 
@@ -79,6 +80,8 @@ begin
 end;
 $$;
 
+drop trigger if exists on_auth_user_created_blinq_access on auth.users;
+drop trigger if exists on_auth_user_created on auth.users;
 drop trigger if exists on_auth_user_created_blinq on auth.users;
 create trigger on_auth_user_created_blinq
 after insert on auth.users
@@ -107,3 +110,4 @@ revoke all on function public.consume_blinq_credit(uuid)
   from public, anon, authenticated;
 grant execute on function public.consume_blinq_credit(uuid)
   to service_role;
+commit;
