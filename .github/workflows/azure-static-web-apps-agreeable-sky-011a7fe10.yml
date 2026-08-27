@@ -76,7 +76,7 @@ jobs:
           set -euo pipefail
           test -n "${SUPABASE_URL:-}" || { echo "SUPABASE_URL is missing in GitHub Actions Secrets or Variables"; exit 1; }
           test -n "${SUPABASE_ANON_KEY:-}" || { echo "SUPABASE_ANON_KEY or SUPABASE_PUBLISHABLE_KEY is missing in GitHub Actions Secrets or Variables"; exit 1; }
-          test -s blinq/web/assets/blinq_logo.svg || test -s blinq/web/assets/blinq_logo.png || { echo "Missing BlinQ SVG/PNG logo"; exit 1; }
+          test -s blinq/web/assets/blinq_logo.png || { echo "Missing BlinQ logo"; exit 1; }
           python -m corq.web.render
           python -m blinq.web.render --output corq/site/follow-the-data/index.html
           python - <<'PY'
@@ -90,9 +90,12 @@ jobs:
               "Welcome to BlinQ",
               "Data model engine",
               "by BackstageTalks",
-              "WHO WE ARE",
-              "WHAT WE DO",
-              "WHY WE DO IT",
+              "THE PLATFORM",
+              "Independent tennis intelligence for data enthusiasts",
+              "THE METHOD",
+              "Real player data meets transparent model logic",
+              "THE PURPOSE",
+              "Less guesswork, more edge",
               "Ignore the hype",
               "Follow the data",
               "Player 1",
@@ -103,21 +106,20 @@ jobs:
               "/api/blinq/predict",
               "Create account",
               "Forgot password",
-              "data:image/svg+xml;base64,",
-              "onAuthStateChange((event,session)",
           )
           missing = [item for item in required if item not in page]
           if missing:
               raise SystemExit(f"BlinQ page is missing required content: {missing}")
 
           forbidden = (
-              "THE PLATFORM",
-              "THE METHOD",
-              "THE PURPOSE",
+              "WHO WE ARE",
+              "WHAT WE DO",
+              "WHY WE DO IT",
               "Check access status",
               "mix-blend-mode:screen",
               "Ignore the hype.",
               "Follow the data.",
+              '<header class="topbar">',
           )
           present = [item for item in forbidden if item in page]
           if present:
