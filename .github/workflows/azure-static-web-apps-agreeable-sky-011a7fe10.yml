@@ -127,6 +127,22 @@ jobs:
           missing = [item for item in required if item not in page]
           if missing:
               raise SystemExit(f"BlinQ page is missing required content: {missing}")
+          mutable_auth_contracts = (
+              "let accessToken=",
+              "let historyKey=",
+              "currentUserId=",
+          )
+          missing_mutable = [item for item in mutable_auth_contracts if item not in page]
+          if missing_mutable:
+              raise SystemExit(f"BlinQ mutable auth state is missing: {missing_mutable}")
+          forbidden_const_state = (
+              "const accessToken=",
+              "const historyKey=",
+              "const currentUserId=",
+          )
+          invalid_const_state = [item for item in forbidden_const_state if item in page]
+          if invalid_const_state:
+              raise SystemExit(f"BlinQ auth state must be mutable: {invalid_const_state}")
 
           forbidden = (
               "Check access status",
