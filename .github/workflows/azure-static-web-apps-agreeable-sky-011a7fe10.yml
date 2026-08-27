@@ -87,9 +87,6 @@ jobs:
 
           required = (
               'lang="en"',
-              "Welcome to BlinQ",
-              "Data model engine",
-              "by BackstageTalks",
               "THE PLATFORM",
               "Independent tennis intelligence for data enthusiasts",
               "THE METHOD",
@@ -106,12 +103,18 @@ jobs:
               "/api/blinq/predict",
               "Create account",
               "Forgot password",
+              "New accounts receive 10 free predictions",
           )
           missing = [item for item in required if item not in page]
           if missing:
               raise SystemExit(f"BlinQ page is missing required content: {missing}")
 
           forbidden = (
+              "Welcome to BlinQ",
+              "Data model engine",
+              "by BackstageTalks",
+              "New accounts receive 10 free successful predictions",
+              '<nav class="nav"',
               "WHO WE ARE",
               "WHAT WE DO",
               "WHY WE DO IT",
