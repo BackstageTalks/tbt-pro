@@ -1,0 +1,192 @@
+name: Azure Static Web Apps CI/CD
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "api/**"
+      - "blinq/**"
+      - "corq/web/**"
+      - "corq/messages.py"
+      - "thinq/**"
+      - "tools/build_player_registry.py"
+      - "outputs/**"
+      - "requirements.txt"
+      - "supabase/**"
+      - ".github/workflows/azure-static-web-apps-agreeable-sky-011a7fe10.yml"
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: azure-static-web-apps-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build_and_deploy_job:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    name: Build and Deploy
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          test ! -f requirements.txt || python -m pip install -r requirements.txt
+          test ! -f api/requirements.txt || python -m pip install -r api/requirements.txt
+
+      - name: Build merged player registry
+        run: |
+          set -euo pipefail
+          python tools/build_player_registry.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path("thinq/data/players/player_registry.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+          assert data.get("version") == "PLAYER_REGISTRY_V3_API_ELO_MERGED", data.get("version")
+          players = data.get("players") or []
+          assert not any(p.get("registry_key", "").startswith("api:") and not p.get("elo_available") and any(q.get("compact_key") == p.get("compact_key") and q.get("elo_available") for q in players) for p in players)
+          print({"version": data.get("version"), "players": len(players), "ranked": data.get("api_rank_player_count")})
+          PY
+
+      - name: Render shared site
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+          TENNISAPI_ATTACH_RANKINGS: "0"
+          CORQ_RENDER_ENABLE_LOGS: "0"
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || vars.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY || secrets.SUPABASE_PUBLISHABLE_KEY || vars.SUPABASE_ANON_KEY || vars.SUPABASE_PUBLISHABLE_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "${SUPABASE_URL:-}" || { echo "SUPABASE_URL is missing in GitHub Actions Secrets or Variables"; exit 1; }
+          test -n "${SUPABASE_ANON_KEY:-}" || { echo "SUPABASE_ANON_KEY or SUPABASE_PUBLISHABLE_KEY is missing in GitHub Actions Secrets or Variables"; exit 1; }
+          test -s blinq/web/assets/blinq_logo.svg || test -s blinq/web/assets/blinq_logo.png || { echo "Missing BlinQ SVG/PNG logo"; exit 1; }
+          python -m corq.web.render
+          python -m blinq.web.render --output corq/site/follow-the-data/index.html
+          python - <<'PY'
+          from pathlib import Path
+
+          page_path = Path("corq/site/follow-the-data/index.html")
+          page = page_path.read_text(encoding="utf-8")
+
+          required = (
+              'lang="en"',
+              "Welcome to BlinQ",
+              "Data model engine",
+              "by BackstageTalks",
+              "WHO WE ARE",
+              "WHAT WE DO",
+              "WHY WE DO IT",
+              "Ignore the hype",
+              "Follow the data",
+              "Player 1",
+              "Player 2",
+              "Surface",
+              "Calculate prediction",
+              "Comparison history",
+              "/api/blinq/predict",
+              "Create account",
+              "Forgot password",
+              "data:image/svg+xml;base64,",
+              "onAuthStateChange((event,session)",
+          )
+          missing = [item for item in required if item not in page]
+          if missing:
+              raise SystemExit(f"BlinQ page is missing required content: {missing}")
+
+          forbidden = (
+              "THE PLATFORM",
+              "THE METHOD",
+              "THE PURPOSE",
+              "Check access status",
+              "mix-blend-mode:screen",
+              "Ignore the hype.",
+              "Follow the data.",
+          )
+          present = [item for item in forbidden if item in page]
+          if present:
+              raise SystemExit(f"BlinQ page contains removed content: {present}")
+
+          print(f"Validated BlinQ page: {page_path} ({len(page)} bytes)")
+          PY
+
+      - name: Reduce static artifact
+        run: |
+          set -euo pipefail
+          rm -rf corq/site/assets/results_lazy corq/site/logs
+          find corq/site -type f \( -name "*.log" -o -name "*.tmp" -o -name "*.bak" \) -delete
+          size=$(du -sb corq/site | awk '{print $1}')
+          echo "Static artifact bytes: $size"
+          test "$size" -le 240000000
+
+      - name: Configure runtime and access
+        run: |
+          cat > corq/site/staticwebapp.config.json <<'JSON'
+          {
+            "platform": {"apiRuntime": "python:3.11"},
+            "globalHeaders": {
+              "X-Content-Type-Options": "nosniff",
+              "Referrer-Policy": "strict-origin-when-cross-origin"
+            },
+            "navigationFallback": {
+              "rewrite": "/index.html",
+              "exclude": ["/api/*", "/.auth/*", "/*.xml", "/*.{css,js,png,jpg,jpeg,webp,svg,ico,json}"]
+            }
+          }
+          JSON
+
+      - name: Prepare managed Python API
+        run: |
+          set -euo pipefail
+          test -s api/function_app.py
+          test -s api/host.json
+          test -s api/requirements.txt
+          rm -rf api/blinq api/thinq api/corq
+          cp -R blinq api/blinq
+          cp -R thinq api/thinq
+          cp -R corq api/corq
+          rm -rf api/corq/site api/corq/outputs api/corq/logs api/thinq/outputs
+          find api -type d -name "__pycache__" -prune -exec rm -rf {} +
+          find api -type f \( -name "*.pyc" -o -name "*.log" -o -name "*.tmp" -o -name "*.bak" \) -delete
+          python -m py_compile api/function_app.py api/blinq/service.py
+          size=$(du -sb api | awk '{print $1}')
+          echo "API artifact bytes: $size"
+          test "$size" -le 100000000
+
+      - name: Upload Static Web App and API
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AGREEABLE_SKY_011A7FE10 }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: upload
+          app_location: corq/site
+          api_location: api
+          output_location: ""
+          skip_app_build: true
+
+  close_pull_request_job:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    name: Close Pull Request
+    steps:
+      - name: Close Pull Request
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AGREEABLE_SKY_011A7FE10 }}
+          action: close
