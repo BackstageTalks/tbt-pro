@@ -58,7 +58,7 @@ def _response(
 SUPABASE_URL = os.getenv("SUPABASE_URL", "").rstrip("/")
 SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY", "")
 SUPABASE_SERVICE_ROLE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
-DEFAULT_FREE_PREDICTIONS = int(os.getenv("BLINQ_DEFAULT_FREE_PREDICTIONS", "20"))
+DEFAULT_FREE_PREDICTIONS = int(os.getenv("BLINQ_DEFAULT_FREE_PREDICTIONS", "10"))
 
 def _bearer(req: func.HttpRequest) -> str:
     value = str(req.headers.get("Authorization") or "").strip()
@@ -113,7 +113,7 @@ def _access_row(user: Dict[str, Any]) -> Tuple[Optional[Dict[str, Any]], Optiona
             endpoint, headers={**_admin_headers(), "Prefer": "resolution=merge-duplicates,return=representation"},
             json={
                 "user_id": uid, "email": email, "access_status": "FREE_ACTIVE",
-                "plan_code": "FREE_20", "credits_granted": DEFAULT_FREE_PREDICTIONS,
+                "plan_code": "FREE_10", "credits_granted": DEFAULT_FREE_PREDICTIONS,
                 "credits_used": 0, "trial_used": True,
             }, timeout=12
         )
@@ -286,7 +286,6 @@ def blinq_predict(req: func.HttpRequest) -> func.HttpResponse:
                 "prediction_status": "NO_PREDICTION",
                 "winner": None,
                 "reason": "Prediction service is temporarily unavailable.",
-                "error_type": type(exc).__name__,
             },
             500,
         )
