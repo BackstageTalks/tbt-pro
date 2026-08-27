@@ -1,55 +1,55 @@
 # MarQ API Coverage Report
 
-Generated UTC: 2026-08-26T04:28:08.943671+00:00
+Generated UTC: 2026-08-27T05:36:43.292828+00:00
 Model: 2026-08-04-marq-coverage-report-v1
 
 ## all_audit
 
-Rows: 160
+Rows: 84
 
 ### Coverage
 
-- High MarQ: 5.0%
-- Medium current-only: 55.0%
+- High MarQ: 7.14%
+- Medium current-only: 33.33%
 - Thin fallback: 0.0%
-- No/unknown MarQ: 40.0%
-- Usable High+Medium: 60.0%
+- No/unknown MarQ: 59.52%
+- Usable High+Medium: 40.48%
 
 ### Endpoints
 
-- getAllOddsForEvent: 96 (60.0%)
-- NO_ENDPOINT: 64 (40.0%)
+- NO_ENDPOINT: 50 (59.52%)
+- getAllOddsForEvent: 34 (40.48%)
 
 ### Quality tiers
 
-- MEDIUM_CURRENT_ONLY: 88 (55.0%)
-- NO_MARQ: 64 (40.0%)
-- HIGH: 8 (5.0%)
+- NO_MARQ: 50 (59.52%)
+- MEDIUM_CURRENT_ONLY: 28 (33.33%)
+- HIGH: 6 (7.14%)
 
 ### Data status
 
-- EXACT_CURRENT_ODDS_ONLY: 88 (55.0%)
-- NO_DATA_STATUS: 64 (40.0%)
-- EXACT_BETTING_ODDS_WITH_OPENING: 8 (5.0%)
+- NO_DATA_STATUS: 50 (59.52%)
+- EXACT_CURRENT_ODDS_ONLY: 28 (33.33%)
+- EXACT_BETTING_ODDS_WITH_OPENING: 6 (7.14%)
 
 ### Movement status
 
-- OPENING_EQUALS_CURRENT: 88 (55.0%)
-- NO_MOVEMENT_STATUS: 64 (40.0%)
-- REAL_OPENING_CURRENT_AVAILABLE: 8 (5.0%)
+- NO_MOVEMENT_STATUS: 50 (59.52%)
+- OPENING_EQUALS_CURRENT: 28 (33.33%)
+- REAL_OPENING_CURRENT_AVAILABLE: 6 (7.14%)
 
 ### Value status
 
-- VALUE_UNKNOWN: 64 (40.0%)
-- NO_VALUE: 49 (30.63%)
-- VALUE_STRONG: 40 (25.0%)
-- VALUE_PLAYABLE: 7 (4.38%)
+- VALUE_UNKNOWN: 50 (59.52%)
+- NO_VALUE: 17 (20.24%)
+- VALUE_STRONG: 16 (19.05%)
+- VALUE_PLAYABLE: 1 (1.19%)
 
 ### Numeric stats
 
-- CorQ market weight: `{'count': 160, 'avg': 0.0783, 'min': 0.0, 'max': 0.3}`
-- Value delta pp: `{'count': 96, 'avg': 0.0, 'min': -37.39, 'max': 37.39}`
-- Expected value pct: `{'count': 96, 'avg': 6.2086, 'min': -45.8, 'max': 311.23}`
+- CorQ market weight: `{'count': 84, 'avg': 0.0581, 'min': 0.0, 'max': 0.3}`
+- Value delta pp: `{'count': 34, 'avg': 0.0, 'min': -20.55, 'max': 20.55}`
+- Expected value pct: `{'count': 34, 'avg': 0.5862, 'min': -32.86, 'max': 61.33}`
 
 ## corq_top7
 
@@ -84,57 +84,54 @@ Rows: 7
 
 ### Value status
 
-- NO_VALUE: 6 (85.71%)
-- VALUE_PLAYABLE: 1 (14.29%)
+- NO_VALUE: 7 (100.0%)
 
 ### Numeric stats
 
-- CorQ market weight: `{'count': 7, 'avg': 0.1457, 'min': 0.12, 'max': 0.3}`
-- Value delta pp: `{'count': 7, 'avg': -3.5071, 'min': -7.29, 'max': 1.99}`
-- Expected value pct: `{'count': 7, 'avg': -11.1043, 'min': -17.43, 'max': -1.74}`
+- CorQ market weight: `{'count': 7, 'avg': 0.1343, 'min': 0.12, 'max': 0.22}`
+- Value delta pp: `{'count': 7, 'avg': -6.3629, 'min': -12.71, 'max': -2.8}`
+- Expected value pct: `{'count': 7, 'avg': -15.1886, 'min': -22.34, 'max': -9.83}`
 
 ## cloq
 
-Rows: 10
+Rows: 4
 
 ### Coverage
 
-- High MarQ: 10.0%
-- Medium current-only: 90.0%
+- High MarQ: 50.0%
+- Medium current-only: 50.0%
 - Thin fallback: 0.0%
 - No/unknown MarQ: 0.0%
 - Usable High+Medium: 100.0%
 
 ### Endpoints
 
-- getAllOddsForEvent: 10 (100.0%)
+- getAllOddsForEvent: 4 (100.0%)
 
 ### Quality tiers
 
-- MEDIUM_CURRENT_ONLY: 9 (90.0%)
-- HIGH: 1 (10.0%)
+- MEDIUM_CURRENT_ONLY: 2 (50.0%)
+- HIGH: 2 (50.0%)
 
 ### Data status
 
-- EXACT_CURRENT_ODDS_ONLY: 9 (90.0%)
-- EXACT_BETTING_ODDS_WITH_OPENING: 1 (10.0%)
+- EXACT_CURRENT_ODDS_ONLY: 2 (50.0%)
+- EXACT_BETTING_ODDS_WITH_OPENING: 2 (50.0%)
 
 ### Movement status
 
-- OPENING_EQUALS_CURRENT: 9 (90.0%)
-- REAL_OPENING_CURRENT_AVAILABLE: 1 (10.0%)
+- OPENING_EQUALS_CURRENT: 2 (50.0%)
+- REAL_OPENING_CURRENT_AVAILABLE: 2 (50.0%)
 
 ### Value status
 
-- VALUE_STRONG: 6 (60.0%)
-- NO_VALUE: 3 (30.0%)
-- VALUE_PLAYABLE: 1 (10.0%)
+- VALUE_STRONG: 4 (100.0%)
 
 ### Numeric stats
 
-- CorQ market weight: `{'count': 10, 'avg': 0.136, 'min': 0.1, 'max': 0.3}`
-- Value delta pp: `{'count': 10, 'avg': 4.153, 'min': -1.96, 'max': 12.72}`
-- Expected value pct: `{'count': 10, 'avg': 1.125, 'min': -9.7, 'max': 21.14}`
+- CorQ market weight: `{'count': 4, 'avg': 0.19, 'min': 0.12, 'max': 0.3}`
+- Value delta pp: `{'count': 4, 'avg': 7.27, 'min': 3.2, 'max': 14.21}`
+- Expected value pct: `{'count': 4, 'avg': 8.7425, 'min': 0.39, 'max': 26.92}`
 
 ## Notes
 
