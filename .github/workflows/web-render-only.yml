@@ -4,18 +4,19 @@ on:
   workflow_dispatch:
     inputs:
       deploy_pages:
-        description: Deploy rendered site to GitHub Pages
+        description: Deploy BlinQ fallback to GitHub Pages
         required: false
         default: "true"
         type: choice
         options: ["true", "false"]
+
 permissions:
   contents: read
   pages: write
   id-token: write
 
 concurrency:
-  group: github-pages-render-${{ github.ref }}
+  group: github-pages-blinq-fallback
   cancel-in-progress: true
 
 env:
@@ -25,13 +26,12 @@ env:
 
 jobs:
   render-and-deploy:
-    name: Render and deploy GitHub Pages
+    name: Render BlinQ fallback
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 30
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -43,32 +43,18 @@ jobs:
           cache: pip
 
       - name: Install dependencies
-        shell: bash
         run: |
           set -euo pipefail
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then
-            python -m pip install -r requirements.txt
-          fi
+          test ! -f requirements.txt || python -m pip install -r requirements.txt
 
-      - name: Validate render sources
-        shell: bash
+      - name: Build player registry
         run: |
           set -euo pipefail
-          test -s tools/build_player_registry.py
-          test -s corq/web/render.py
-          test -s corq/web/paths.py
-          test -s blinq/web/render.py
-          test -s blinq/web/assets/blinq_logo.svg || test -s blinq/web/assets/blinq_logo.png
-          test -s blinq/web/assets/blinq_background.jpg
-          python -m py_compile \
-            tools/build_player_registry.py \
-            corq/web/render.py \
-            corq/web/paths.py \
-            blinq/web/render.py
+          python tools/build_player_registry.py
+          test -s thinq/data/players/player_registry.json
 
-      - name: Build registry and all GitHub Pages
-        shell: bash
+      - name: Render isolated BlinQ artifact
         env:
           PYTHONPATH: ${{ github.workspace }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL || vars.SUPABASE_URL }}
@@ -77,135 +63,66 @@ jobs:
           set -euo pipefail
           test -n "${SUPABASE_URL:-}" || { echo "SUPABASE_URL is missing"; exit 1; }
           test -n "${SUPABASE_ANON_KEY:-}" || { echo "SUPABASE_ANON_KEY or SUPABASE_PUBLISHABLE_KEY is missing"; exit 1; }
-
-          python tools/build_player_registry.py
-
-          # Rebuild the original CorQ, Audit, Results, ThinQ, CloQ and LucQ pages.
-          python -m corq.web.render
-
-          # Add the current BlinQ portal without replacing any original page.
-          mkdir -p corq/site/follow-the-data
-          python -m blinq.web.render \
-            --output corq/site/follow-the-data/index.html
-
-          # Preserve legacy BlinQ URLs as redirects only.
-          python - <<'PY'
+          test -s blinq/web/assets/blinq_logo.svg || test -s blinq/web/assets/blinq_logo.png
+          test -s blinq/web/assets/blinq_background.jpg
+          rm -rf pages-artifact
+          mkdir -p pages-artifact/follow-the-data pages-artifact/blinq-portal-k7m3q9
+          python -m blinq.web.render --output pages-artifact/follow-the-data/index.html
+          python - <<'PY2'
           from pathlib import Path
 
+          root = Path("pages-artifact")
           target = "/tbt-pro/follow-the-data/"
           redirect = (
               '<!doctype html><html lang="en"><head><meta charset="utf-8">'
               f'<meta http-equiv="refresh" content="0;url={target}">'
-              f'<link rel="canonical" href="{target}">'
-              '<title>Redirecting to BlinQ</title></head>'
-              f'<body><p><a href="{target}">Continue to BlinQ</a></p>'
-              f'<script>location.replace({target!r});</script></body></html>'
+              f'<link rel="canonical" href="{target}"><title>Redirecting</title>'
+              f'</head><body><a href="{target}">Continue to BlinQ</a></body></html>'
           )
-          for old_path in ("blinq-portal-k7m3q9", "h4v34n1c3d4y191"):
-              path = Path("corq/site") / old_path / "index.html"
-              path.parent.mkdir(parents=True, exist_ok=True)
-              path.write_text(redirect, encoding="utf-8")
-          PY
+          (root / "index.html").write_text(redirect, encoding="utf-8")
+          (root / "blinq-portal-k7m3q9" / "index.html").write_text(redirect, encoding="utf-8")
+          (root / ".nojekyll").write_text("", encoding="utf-8")
+          PY2
 
-      - name: Validate original pages and BlinQ
-        shell: bash
+      - name: Validate BlinQ fallback
         run: |
           set -euo pipefail
-          python - <<'PY'
-          import json
+          python - <<'PY2'
           from pathlib import Path
 
-          registry_path = Path("thinq/data/players/player_registry.json")
-          registry = json.loads(registry_path.read_text(encoding="utf-8"))
-          players = registry.get("players") or []
-          if registry.get("version") != "PLAYER_REGISTRY_V3_API_ELO_MERGED":
-              raise SystemExit(f"Unexpected registry version: {registry.get('version')}")
-          if not players:
-              raise SystemExit("Merged player registry is empty")
-
-          # Stable original GitHub Pages contracts from corq/web/paths.py.
-          required_files = (
-              "corq/site/index.html",
-              "corq/site/h4v34n1c3d4y180/index.html",
-              "corq/site/h4v34n1c3d4y181/index.html",
-              "corq/site/h4v34n1c3d4y182/index.html",
-              "corq/site/h4v34n1c3d4y183/index.html",
-              "corq/site/h4v34n1c3d4y186/index.html",
-              "corq/site/h4v34n1c3d4y188/index.html",
-              "corq/site/h4v34n1c3d4y190/index.html",
-              "corq/site/follow-the-data/index.html",
-          )
-          missing = [path for path in required_files if not Path(path).is_file() or Path(path).stat().st_size == 0]
-          if missing:
-              raise SystemExit(f"Missing or empty rendered pages: {missing}")
-
-          blinq_path = Path("corq/site/follow-the-data/index.html")
-          blinq = blinq_path.read_text(encoding="utf-8")
-          required_blinq = (
-              'lang="en"',
-              'class="welcome-strip"',
-              'class="welcome-mark"',
-              "Welcome to BlinQ",
-              "THE PLATFORM",
-              "THE METHOD",
-              "THE PURPOSE",
-              'id="authEmail"',
-              'id="authPassword"',
+          page_path = Path("pages-artifact/follow-the-data/index.html")
+          page = page_path.read_text(encoding="utf-8")
+          required = (
+              'id="signedOut"',
               'id="signIn"',
               'id="signUp"',
               'id="forgotPassword"',
-              'id="p1"',
-              'id="p2"',
-              'id="surface"',
-              'id="run"',
+              'id="updatePassword"',
               'id="historySection"',
               "/api/blinq/predict",
-              "data:image/jpeg;base64,",
           )
-          missing_blinq = [item for item in required_blinq if item not in blinq]
-          if missing_blinq:
-              raise SystemExit(f"BlinQ page is missing required content: {missing_blinq}")
-
-          forbidden_blinq = (
-              "Check access status",
-              "mix-blend-mode:screen",
-              "__BLINQ_BACKGROUND__",
-              '<header class="topbar">',
-          )
-          present = [item for item in forbidden_blinq if item in blinq]
-          if present:
-              raise SystemExit(f"BlinQ page contains removed content: {present}")
-
-          print({
-              "registry_players": len(players),
-              "ranked": registry.get("api_rank_player_count"),
-              "validated_pages": len(required_files),
-              "blinq_bytes": blinq_path.stat().st_size,
-          })
-          PY
-
-      - name: Prepare GitHub Pages artifact
-        shell: bash
-        run: |
-          set -euo pipefail
-          rm -rf corq/site/logs
-          find corq/site -type f \( -name "*.log" -o -name "*.tmp" -o -name "*.bak" -o -name "*.pyc" \) -delete
-          find corq/site -type d -name "__pycache__" -prune -exec rm -rf {} +
-          test -s corq/site/index.html
-          test -s corq/site/follow-the-data/index.html
-          du -sh corq/site
+          missing = [marker for marker in required if marker not in page]
+          if missing:
+              raise SystemExit(f"BlinQ fallback is missing stable markers: {missing}")
+          if '<header class="topbar">' in page:
+              raise SystemExit("Removed top navigation is present")
+          unexpected = [p.as_posix() for p in Path("pages-artifact").rglob("index.html") if p.parent.name.startswith("h4v")]
+          if unexpected:
+              raise SystemExit(f"CorQ pages entered isolated artifact: {unexpected}")
+          print({"page": str(page_path), "bytes": page_path.stat().st_size})
+          PY2
 
       - name: Configure GitHub Pages
-        if: github.event_name == 'push' || inputs.deploy_pages == 'true'
+        if: inputs.deploy_pages == 'true'
         uses: actions/configure-pages@v5
 
       - name: Upload GitHub Pages artifact
-        if: github.event_name == 'push' || inputs.deploy_pages == 'true'
+        if: inputs.deploy_pages == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
-          path: corq/site
+          path: pages-artifact
 
       - name: Deploy GitHub Pages
-        if: github.event_name == 'push' || inputs.deploy_pages == 'true'
+        if: inputs.deploy_pages == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
