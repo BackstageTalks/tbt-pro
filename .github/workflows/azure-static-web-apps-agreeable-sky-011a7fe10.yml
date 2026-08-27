@@ -105,41 +105,34 @@ jobs:
 
           required = (
               'lang="en"',
+              'class="welcome-strip"',
+              'class="welcome-mark"',
+              "Welcome to BlinQ",
               "THE PLATFORM",
-              "Independent tennis intelligence for data enthusiasts",
               "THE METHOD",
-              "Real player data meets transparent model logic",
               "THE PURPOSE",
-              "Less guesswork, more edge",
-              "Ignore the hype",
-              "Follow the data",
-              "Player 1",
-              "Player 2",
-              "Surface",
-              "Calculate prediction",
-              "Comparison history",
+              'id="authEmail"',
+              'id="authPassword"',
+              'id="signIn"',
+              'id="signUp"',
+              'id="forgotPassword"',
+              'id="p1"',
+              'id="p2"',
+              'id="surface"',
+              'id="run"',
+              'id="historySection"',
               "/api/blinq/predict",
-              "Create account",
-              "Forgot password",
-              "New accounts receive 10 free successful predictions.",
-              "onAuthStateChange((event,session)",
+              "data:image/jpeg;base64,",
           )
-          if not ("data:image/svg+xml;base64," in page or "data:image/png;base64," in page):
-              raise SystemExit("BlinQ page is missing embedded SVG/PNG logo")
           missing = [item for item in required if item not in page]
           if missing:
               raise SystemExit(f"BlinQ page is missing required content: {missing}")
 
           forbidden = (
-              "Welcome to BlinQ",
-              "Data model engine",
-              "WHO WE ARE",
-              "WHAT WE DO",
-              "WHY WE DO IT",
               "Check access status",
               "mix-blend-mode:screen",
+              "__BLINQ_BACKGROUND__",
               '<header class="topbar">',
-              "onAuthStateChange(()=>refreshAuth())",
           )
           present = [item for item in forbidden if item in page]
           if present:
