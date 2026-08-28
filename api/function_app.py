@@ -56,7 +56,7 @@ def _response(
 
 
 SUPABASE_URL = os.getenv("SUPABASE_URL", "").rstrip("/")
-SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY", "")
+SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY", "") or os.getenv("SUPABASE_PUBLISHABLE_KEY", "")
 SUPABASE_SERVICE_ROLE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
 DEFAULT_FREE_PREDICTIONS = int(os.getenv("BLINQ_DEFAULT_FREE_PREDICTIONS", "10"))
 
@@ -81,11 +81,17 @@ def _auth_user(req: func.HttpRequest) -> Tuple[Optional[Dict[str, Any]], Optiona
             timeout=12,
         )
         if response.status_code != 200:
-            return None, "INVALID_SESSION"
+            return None, f"INVALID_SESSION_{response.status_code}"
         payload = response.json()
-        return payload if isinstance(payload, dict) else None, None
-    except Exception:
+        if not isinstance(payload, dict) or not payload.get("id"):
+            return None, "INVALID_SESSION_PAYLOAD"
+        return payload, None
+    except requests.Timeout:
+        return None, "AUTH_TIMEOUT"
+    except requests.RequestException:
         return None, "AUTH_UNAVAILABLE"
+    except ValueError:
+        return None, "AUTH_INVALID_RESPONSE"
 
 def _admin_headers() -> Dict[str, str]:
     return {
@@ -122,31 +128,61 @@ def _access_row(user: Dict[str, Any]) -> Tuple[Optional[Dict[str, Any]], Optiona
     except Exception:
         return None, "ACCESS_UNAVAILABLE"
 
-def _effective_status(row: Dict[str, Any]) -> str:
+def _int_value(value: Any) -> int:
+    try:
+        return max(0, int(value or 0))
+    except (TypeError, ValueError):
+        return 0
+
+
+def _paid_active(row: Dict[str, Any]) -> bool:
     from datetime import datetime, timezone
-    status = str(row.get("access_status") or "PENDING").upper()
     paid_until = row.get("paid_until")
-    if status == "PRO_ACTIVE" and paid_until:
-        try:
-            end = datetime.fromisoformat(str(paid_until).replace("Z", "+00:00"))
-            if end <= datetime.now(timezone.utc):
-                return "EXPIRED"
-        except ValueError:
-            return "DISABLED"
+    if not paid_until:
+        return False
+    try:
+        end = datetime.fromisoformat(str(paid_until).replace("Z", "+00:00"))
+        if end.tzinfo is None:
+            end = end.replace(tzinfo=timezone.utc)
+        return end > datetime.now(timezone.utc)
+    except ValueError:
+        return False
+
+
+def _effective_status(row: Dict[str, Any]) -> str:
+    status = str(row.get("access_status") or "INACTIVE").upper()
+    if status in {"ADMIN"}:
+        return "ADMIN"
+    if status in {"PRO_ACTIVE", "PRO_PLUS_ACTIVE"}:
+        if _paid_active(row):
+            return status
+        # Paid access expiry does not delete previously unused FREE or bonus credits.
+        remaining = _int_value(row.get("credits_granted")) + _int_value(row.get("bonus_credits")) - _int_value(row.get("credits_used"))
+        return "FREE_ACTIVE" if remaining > 0 else "EXPIRED"
     if status == "FREE_ACTIVE":
-        remaining = int(row.get("credits_granted") or 0) - int(row.get("credits_used") or 0)
+        remaining = _int_value(row.get("credits_granted")) + _int_value(row.get("bonus_credits")) - _int_value(row.get("credits_used"))
         return "FREE_ACTIVE" if remaining > 0 else "EXPIRED"
     return status
 
+
 def _public_access(row: Dict[str, Any]) -> Dict[str, Any]:
-    granted = int(row.get("credits_granted") or 0)
-    used = int(row.get("credits_used") or 0)
+    granted = _int_value(row.get("credits_granted"))
+    bonus = _int_value(row.get("bonus_credits"))
+    used = _int_value(row.get("credits_used"))
+    effective = _effective_status(row)
+    unlimited = effective in {"PRO_ACTIVE", "PRO_PLUS_ACTIVE", "ADMIN"}
     return {
-        "access_status": _effective_status(row), "plan_code": row.get("plan_code"),
-        "credits_granted": granted, "credits_used": used,
-        "credits_remaining": max(0, granted - used), "paid_until": row.get("paid_until"),
+        "access_status": effective,
+        "plan_code": row.get("plan_code"),
+        "unlimited": unlimited,
+        "credits_granted": granted,
+        "bonus_credits": bonus,
+        "credits_used": used,
+        "credits_remaining": None if unlimited else max(0, granted + bonus - used),
+        "paid_until": row.get("paid_until"),
         "payment_verification_pending": str(row.get("access_status") or "").upper() == "PAYMENT_PENDING",
     }
+
 
 def _consume_credit(user_id: str) -> bool:
     import requests
@@ -225,7 +261,7 @@ def blinq_predict(req: func.HttpRequest) -> func.HttpResponse:
         return _response(req, {"status": access_error or "ACCESS_UNAVAILABLE", "reason": "Access status is temporarily unavailable."}, 503)
 
     effective = _effective_status(access_row)
-    if effective not in {"FREE_ACTIVE", "PRO_ACTIVE"}:
+    if effective not in {"FREE_ACTIVE", "PRO_ACTIVE", "PRO_PLUS_ACTIVE", "ADMIN"}:
         if effective == "EXPIRED":
             reason = "Your BlinQ access has expired."
         elif effective == "PAYMENT_PENDING":
