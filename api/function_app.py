@@ -55,29 +55,32 @@ def _response(
 
 
 
-SUPABASE_URL = os.getenv("SUPABASE_URL", "").rstrip("/")
-SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY", "") or os.getenv("SUPABASE_PUBLISHABLE_KEY", "")
-SUPABASE_SERVICE_ROLE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
+SUPABASE_URL = os.getenv("SUPABASE_URL", "").strip().rstrip("/")
+SUPABASE_ANON_KEY = (os.getenv("SUPABASE_ANON_KEY", "") or os.getenv("SUPABASE_PUBLISHABLE_KEY", "")).strip()
+SUPABASE_SERVICE_ROLE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "").strip()
 DEFAULT_FREE_PREDICTIONS = int(os.getenv("BLINQ_DEFAULT_FREE_PREDICTIONS", "10"))
 
 def _bearer(req: func.HttpRequest) -> str:
     value = str(req.headers.get("Authorization") or "").strip()
     return value[7:].strip() if value.lower().startswith("bearer ") else ""
 
-def _supabase_ready() -> bool:
-    return bool(SUPABASE_URL and SUPABASE_ANON_KEY and SUPABASE_SERVICE_ROLE_KEY)
+def _supabase_auth_ready() -> bool:
+    return bool(SUPABASE_URL and (SUPABASE_SERVICE_ROLE_KEY or SUPABASE_ANON_KEY))
+
+def _supabase_admin_ready() -> bool:
+    return bool(SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY)
 
 def _auth_user(req: func.HttpRequest) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
     token = _bearer(req)
     if not token:
         return None, "AUTH_REQUIRED"
-    if not _supabase_ready():
-        return None, "ACCESS_BACKEND_NOT_CONFIGURED"
+    if not _supabase_auth_ready():
+        return None, "AUTH_BACKEND_NOT_CONFIGURED"
     try:
         import requests
         response = requests.get(
             f"{SUPABASE_URL}/auth/v1/user",
-            headers={"apikey": SUPABASE_ANON_KEY, "Authorization": f"Bearer {token}"},
+            headers={"apikey": SUPABASE_SERVICE_ROLE_KEY or SUPABASE_ANON_KEY, "Authorization": f"Bearer {token}"},
             timeout=12,
         )
         if response.status_code != 200:
@@ -103,6 +106,8 @@ def _admin_headers() -> Dict[str, str]:
 
 def _access_row(user: Dict[str, Any]) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
     import requests
+    if not _supabase_admin_ready():
+        return None, "ACCESS_BACKEND_NOT_CONFIGURED"
     uid = str(user.get("id") or "")
     email = str(user.get("email") or "").strip().lower()
     if not uid or not email:
@@ -205,6 +210,8 @@ def blinq_health(req: func.HttpRequest) -> func.HttpResponse:
             "status": "OK",
             "service": "BlinQ API",
             "prediction_endpoint": "/api/blinq/predict",
+            "auth_configured": _supabase_auth_ready(),
+            "access_configured": _supabase_admin_ready(),
         },
         200,
     )
@@ -217,7 +224,7 @@ def blinq_access_status(req: func.HttpRequest) -> func.HttpResponse:
         return _response(req, {}, 204)
     user, error = _auth_user(req)
     if error or not user:
-        return _response(req, {"status": error or "AUTH_REQUIRED", "reason": "Session validation failed."}, 401)
+        return _response(req, {"status": error or "AUTH_REQUIRED", "reason": error or "Session validation failed."}, 401)
     row, access_error = _access_row(user)
     if access_error or not row:
         return _response(req, {"status": access_error or "ACCESS_UNAVAILABLE"}, 503)
@@ -254,7 +261,7 @@ def blinq_predict(req: func.HttpRequest) -> func.HttpResponse:
 
     user, auth_error = _auth_user(req)
     if auth_error or not user:
-        return _response(req, {"status": auth_error or "AUTH_REQUIRED", "reason": "Sign in is required."}, 401)
+        return _response(req, {"status": auth_error or "AUTH_REQUIRED", "reason": auth_error or "Sign in is required."}, 401)
 
     access_row, access_error = _access_row(user)
     if access_error or not access_row:
