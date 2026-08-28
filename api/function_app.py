@@ -65,7 +65,7 @@ def _bearer(req: func.HttpRequest) -> str:
     return value[7:].strip() if value.lower().startswith("bearer ") else ""
 
 def _supabase_auth_ready() -> bool:
-    return bool(SUPABASE_URL and (SUPABASE_SERVICE_ROLE_KEY or SUPABASE_ANON_KEY))
+    return bool(SUPABASE_URL and SUPABASE_ANON_KEY)
 
 def _supabase_admin_ready() -> bool:
     return bool(SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY)
@@ -80,7 +80,7 @@ def _auth_user(req: func.HttpRequest) -> Tuple[Optional[Dict[str, Any]], Optiona
         import requests
         response = requests.get(
             f"{SUPABASE_URL}/auth/v1/user",
-            headers={"apikey": SUPABASE_SERVICE_ROLE_KEY or SUPABASE_ANON_KEY, "Authorization": f"Bearer {token}"},
+            headers={"apikey": SUPABASE_ANON_KEY, "Authorization": f"Bearer {token}"},
             timeout=12,
         )
         if response.status_code != 200:
