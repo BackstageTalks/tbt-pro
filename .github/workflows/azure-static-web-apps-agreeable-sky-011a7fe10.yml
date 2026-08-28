@@ -8,8 +8,6 @@ on:
       - "api/**"
       - "blinq/**"
       - "thinq/**"
-      - "corq/web/**"
-      - "corq/messages.py"
       - "tools/build_player_registry.py"
       - "requirements.txt"
       - "supabase/**"
@@ -23,7 +21,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: azure-static-web-apps-${{ github.ref }}
+  group: azure-blinq-${{ github.ref }}
   cancel-in-progress: true
 
 env:
@@ -36,7 +34,7 @@ jobs:
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     timeout-minutes: 45
-    name: Build and Deploy
+    name: Build and Deploy BlinQ
 
     steps:
       - name: Checkout repository
@@ -56,20 +54,21 @@ jobs:
           test ! -f requirements.txt || python -m pip install -r requirements.txt
           test ! -f api/requirements.txt || python -m pip install -r api/requirements.txt
 
-      - name: Validate required configuration
+      - name: Validate Azure inputs
         shell: bash
         env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL || vars.SUPABASE_URL }}
-          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY || secrets.SUPABASE_PUBLISHABLE_KEY || vars.SUPABASE_ANON_KEY || vars.SUPABASE_PUBLISHABLE_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
           set -euo pipefail
           test -n "${SUPABASE_URL:-}" || { echo "SUPABASE_URL is missing"; exit 1; }
-          test -n "${SUPABASE_ANON_KEY:-}" || { echo "Supabase publishable key is missing"; exit 1; }
+          test -n "${SUPABASE_ANON_KEY:-}" || { echo "SUPABASE_ANON_KEY is missing"; exit 1; }
           test -s blinq/web/render.py
+          test -s blinq/service.py
           test -s api/function_app.py
           test -s api/host.json
           test -s api/requirements.txt
-          python -m py_compile blinq/web/render.py api/function_app.py
+          python -m py_compile blinq/web/render.py blinq/service.py api/function_app.py
 
       - name: Build player registry
         shell: bash
@@ -80,12 +79,12 @@ jobs:
           python tools/build_player_registry.py
           test -s thinq/data/players/player_registry.json
 
-      - name: Build minimal Azure BlinQ site
+      - name: Build minimal BlinQ site
         shell: bash
         env:
           PYTHONPATH: ${{ github.workspace }}
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL || vars.SUPABASE_URL }}
-          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY || secrets.SUPABASE_PUBLISHABLE_KEY || vars.SUPABASE_ANON_KEY || vars.SUPABASE_PUBLISHABLE_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
           set -euo pipefail
           rm -rf azure-site
@@ -104,7 +103,7 @@ jobs:
               f'<body><a href="{target}">Continue to BlinQ</a>'
               f'<script>location.replace({target!r});</script></body></html>'
           )
-          for route in ("", "blinq-portal-k7m3q9", "h4v34n1c3d4y191"):
+          for route in ("", "blinq-portal-k7m3q9"):
               path = Path("azure-site") / route / "index.html"
               path.parent.mkdir(parents=True, exist_ok=True)
               path.write_text(redirect, encoding="utf-8")
@@ -125,7 +124,7 @@ jobs:
           }
           JSON
 
-      - name: Validate Azure artifact
+      - name: Validate BlinQ artifact
         shell: bash
         run: |
           set -euo pipefail
@@ -134,8 +133,8 @@ jobs:
           test -s azure-site/blinq-portal-k7m3q9/index.html
           test -s azure-site/staticwebapp.config.json
           grep -Fq "Welcome to BlinQ" azure-site/follow-the-data/index.html
-          grep -Fq "/follow-the-data/" azure-site/follow-the-data/index.html
           grep -Fq "New accounts receive 10 free predictions" azure-site/follow-the-data/index.html
+          grep -Fq "/api/blinq/predict" azure-site/follow-the-data/index.html
           if grep -Fq "__SUPABASE_" azure-site/follow-the-data/index.html; then
             echo "Unresolved Supabase placeholder"
             exit 1
@@ -151,16 +150,19 @@ jobs:
           rm -rf api/blinq api/thinq api/corq
           cp -R blinq api/blinq
           cp -R thinq api/thinq
-          cp -R corq api/corq
+          test ! -d corq || cp -R corq api/corq
           rm -rf api/blinq/web api/corq/site api/corq/outputs api/corq/logs api/thinq/outputs
           find api -type d -name "__pycache__" -prune -exec rm -rf {} +
           find api -type f \( -name "*.pyc" -o -name "*.log" -o -name "*.tmp" -o -name "*.bak" \) -delete
           python -m py_compile api/function_app.py api/blinq/service.py
+          grep -Fq "INVALID_SESSION_" api/function_app.py
+          grep -Fq "bonus_credits" api/function_app.py
+          grep -Fq "PRO_PLUS_ACTIVE" api/function_app.py
           size=$(du -sb api | awk '{print $1}')
           echo "Azure API artifact bytes: $size"
           test "$size" -le 100000000
 
-      - name: Deploy to Azure Static Web Apps
+      - name: Deploy BlinQ to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AGREEABLE_SKY_011A7FE10 }}
