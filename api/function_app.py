@@ -77,7 +77,7 @@ def _auth_user(req: func.HttpRequest) -> Tuple[Optional[Dict[str, Any]], Optiona
         import requests
         response = requests.get(
             f"{SUPABASE_URL}/auth/v1/user",
-            headers={"apikey": SUPABASE_SERVICE_ROLE_KEY, "Authorization": f"Bearer {token}"},
+            headers={"apikey": SUPABASE_ANON_KEY, "Authorization": f"Bearer {token}"},
             timeout=12,
         )
         if response.status_code != 200:
@@ -120,7 +120,7 @@ def _access_row(user: Dict[str, Any]) -> Tuple[Optional[Dict[str, Any]], Optiona
             json={
                 "user_id": uid, "email": email, "access_status": "FREE_ACTIVE",
                 "plan_code": "FREE_10", "credits_granted": DEFAULT_FREE_PREDICTIONS,
-                "credits_used": 0, "trial_used": True,
+                "bonus_credits": 0, "credits_used": 0, "trial_used": True,
             }, timeout=12
         )
         data = created.json() if created.status_code in (200, 201) else []
