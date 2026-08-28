@@ -64,20 +64,24 @@ def _bearer(req: func.HttpRequest) -> str:
     value = str(req.headers.get("Authorization") or "").strip()
     return value[7:].strip() if value.lower().startswith("bearer ") else ""
 
-def _supabase_ready() -> bool:
-    return bool(SUPABASE_URL and SUPABASE_ANON_KEY and SUPABASE_SERVICE_ROLE_KEY)
+def _auth_ready() -> bool:
+    return bool(SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY)
+
+
+def _access_ready() -> bool:
+    return bool(SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY)
 
 def _auth_user(req: func.HttpRequest) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
     token = _bearer(req)
     if not token:
         return None, "AUTH_REQUIRED"
-    if not _supabase_ready():
-        return None, "ACCESS_BACKEND_NOT_CONFIGURED"
+    if not _auth_ready():
+        return None, "AUTH_BACKEND_NOT_CONFIGURED"
     try:
         import requests
         response = requests.get(
             f"{SUPABASE_URL}/auth/v1/user",
-            headers={"apikey": SUPABASE_ANON_KEY, "Authorization": f"Bearer {token}"},
+            headers={"apikey": SUPABASE_SERVICE_ROLE_KEY, "Authorization": f"Bearer {token}"},
             timeout=12,
         )
         if response.status_code != 200:
@@ -102,6 +106,8 @@ def _admin_headers() -> Dict[str, str]:
     }
 
 def _access_row(user: Dict[str, Any]) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
+    if not _access_ready():
+        return None, "ACCESS_BACKEND_NOT_CONFIGURED"
     import requests
     uid = str(user.get("id") or "")
     email = str(user.get("email") or "").strip().lower()
@@ -185,6 +191,8 @@ def _public_access(row: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def _consume_credit(user_id: str) -> bool:
+    if not _access_ready() or not user_id:
+        return False
     import requests
     response = requests.post(
         f"{SUPABASE_URL}/rest/v1/rpc/consume_blinq_credit", headers=_admin_headers(),
