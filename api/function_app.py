@@ -3,11 +3,9 @@ from __future__ import annotations
 
 import json
 import os
-from datetime import datetime, timezone
 from typing import Any, Dict, Optional, Tuple
 
 import azure.functions as func
-import requests
 
 from blinq.service import BlinqService
 
@@ -17,16 +15,6 @@ _DEFAULT_ALLOWED_ORIGINS = {
     "https://backstagetalks.github.io",
     "https://agreeable-sky-011a7fe10.7.azurestaticapps.net",
 }
-_AUTH_HEADER = "X-BlinQ-Authorization"
-SUPABASE_URL = os.getenv("SUPABASE_URL", "").strip().rstrip("/")
-SUPABASE_ANON_KEY = (
-    os.getenv("SUPABASE_ANON_KEY", "")
-    or os.getenv("SUPABASE_PUBLISHABLE_KEY", "")
-).strip()
-SUPABASE_SERVICE_ROLE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "").strip()
-DEFAULT_FREE_PREDICTIONS = max(
-    0, int(os.getenv("BLINQ_DEFAULT_FREE_PREDICTIONS", "10"))
-)
 
 
 def _allowed_origins() -> set[str]:
@@ -37,7 +25,9 @@ def _allowed_origins() -> set[str]:
 
 def _cors_origin(req: func.HttpRequest) -> str:
     origin = str(req.headers.get("Origin") or "").strip().rstrip("/")
-    return origin if origin in _allowed_origins() else ""
+    if origin in _allowed_origins():
+        return origin
+    return ""
 
 
 def _response(
@@ -47,13 +37,14 @@ def _response(
 ) -> func.HttpResponse:
     headers = {
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        "Access-Control-Allow-Headers": f"Content-Type, {_AUTH_HEADER}",
+        "Access-Control-Allow-Headers": "Content-Type, X-BlinQ-Authorization",
         "Vary": "Origin",
         "Cache-Control": "no-store",
     }
     origin = _cors_origin(req)
     if origin:
         headers["Access-Control-Allow-Origin"] = origin
+
     return func.HttpResponse(
         json.dumps(payload, ensure_ascii=False, default=str),
         status_code=status,
@@ -62,66 +53,51 @@ def _response(
     )
 
 
-def _bearer(req: func.HttpRequest) -> str:
-    # Azure Static Web Apps reserves Authorization for its own proxy/auth layer.
-    value = str(req.headers.get(_AUTH_HEADER) or "").strip()
-    return value[7:].strip() if value.lower().startswith("bearer ") else ""
 
+
+SUPABASE_URL = os.getenv("SUPABASE_URL", "").strip().rstrip("/")
+SUPABASE_ANON_KEY = (os.getenv("SUPABASE_ANON_KEY", "") or os.getenv("SUPABASE_PUBLISHABLE_KEY", "")).strip()
+SUPABASE_SERVICE_ROLE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "").strip()
+DEFAULT_FREE_PREDICTIONS = int(os.getenv("BLINQ_DEFAULT_FREE_PREDICTIONS", "10"))
+
+def _bearer(req: func.HttpRequest) -> str:
+    # Azure Static Web Apps reserves and may replace the standard Authorization
+    # header before forwarding a request to its managed Functions API. Carry the
+    # Supabase user JWT in an application-specific header instead.
+    value = str(req.headers.get("X-BlinQ-Authorization") or "").strip()
+    return value[7:].strip() if value.lower().startswith("bearer ") else ""
 
 def _supabase_auth_ready() -> bool:
     return bool(SUPABASE_URL and SUPABASE_ANON_KEY)
 
-
 def _supabase_admin_ready() -> bool:
     return bool(SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY)
 
-
-def _safe_upstream_code(response: requests.Response) -> str:
-    try:
-        payload = response.json()
-    except ValueError:
-        return ""
-    if not isinstance(payload, dict):
-        return ""
-    value = payload.get("code") or payload.get("error_code") or payload.get("error")
-    text = str(value or "").strip()
-    return text[:80] if text else ""
-
-
-def _auth_user(
-    req: func.HttpRequest,
-) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
+def _auth_user(req: func.HttpRequest) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
     token = _bearer(req)
     if not token:
         return None, "AUTH_REQUIRED"
     if not _supabase_auth_ready():
         return None, "AUTH_BACKEND_NOT_CONFIGURED"
     try:
+        import requests
         response = requests.get(
             f"{SUPABASE_URL}/auth/v1/user",
-            headers={
-                "apikey": SUPABASE_ANON_KEY,
-                "Authorization": f"Bearer {token}",
-            },
+            headers={"apikey": SUPABASE_ANON_KEY, "Authorization": f"Bearer {token}"},
             timeout=12,
         )
+        if response.status_code != 200:
+            return None, f"INVALID_SESSION_{response.status_code}"
+        payload = response.json()
+        if not isinstance(payload, dict) or not payload.get("id"):
+            return None, "INVALID_SESSION_PAYLOAD"
+        return payload, None
     except requests.Timeout:
         return None, "AUTH_TIMEOUT"
     except requests.RequestException:
         return None, "AUTH_UNAVAILABLE"
-
-    if response.status_code != 200:
-        upstream = _safe_upstream_code(response)
-        suffix = f"_{upstream}" if upstream else ""
-        return None, f"INVALID_SESSION_{response.status_code}{suffix}"
-    try:
-        payload = response.json()
     except ValueError:
         return None, "AUTH_INVALID_RESPONSE"
-    if not isinstance(payload, dict) or not payload.get("id"):
-        return None, "INVALID_SESSION_PAYLOAD"
-    return payload, None
-
 
 def _admin_headers() -> Dict[str, str]:
     return {
@@ -131,62 +107,34 @@ def _admin_headers() -> Dict[str, str]:
         "Prefer": "return=representation",
     }
 
-
-def _access_row(
-    user: Dict[str, Any],
-) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
+def _access_row(user: Dict[str, Any]) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
+    import requests
     if not _supabase_admin_ready():
         return None, "ACCESS_BACKEND_NOT_CONFIGURED"
     uid = str(user.get("id") or "")
     email = str(user.get("email") or "").strip().lower()
     if not uid or not email:
         return None, "INVALID_IDENTITY"
-
     endpoint = f"{SUPABASE_URL}/rest/v1/blinq_access"
     try:
         current = requests.get(
-            endpoint,
-            headers=_admin_headers(),
-            params={"user_id": f"eq.{uid}", "select": "*"},
-            timeout=12,
+            endpoint, headers=_admin_headers(), params={"user_id": f"eq.{uid}", "select": "*"}, timeout=12
         )
-        if current.status_code != 200:
-            return None, f"ACCESS_READ_FAILED_{current.status_code}"
-        rows = current.json()
+        rows = current.json() if current.status_code == 200 else []
         if isinstance(rows, list) and rows:
             return rows[0], None
-
         created = requests.post(
-            endpoint,
-            headers={
-                **_admin_headers(),
-                "Prefer": "resolution=merge-duplicates,return=representation",
-            },
+            endpoint, headers={**_admin_headers(), "Prefer": "resolution=merge-duplicates,return=representation"},
             json={
-                "user_id": uid,
-                "email": email,
-                "access_status": "FREE_ACTIVE",
-                "plan_code": "FREE_10",
-                "credits_granted": DEFAULT_FREE_PREDICTIONS,
-                "bonus_credits": 0,
-                "credits_used": 0,
-                "trial_used": True,
-            },
-            timeout=12,
+                "user_id": uid, "email": email, "access_status": "FREE_ACTIVE",
+                "plan_code": "FREE_10", "credits_granted": DEFAULT_FREE_PREDICTIONS,
+                "bonus_credits": 0, "credits_used": 0, "trial_used": True,
+            }, timeout=12
         )
-        if created.status_code not in (200, 201):
-            return None, f"ACCESS_CREATE_FAILED_{created.status_code}"
-        data = created.json()
-        if isinstance(data, list) and data:
-            return data[0], None
-        if isinstance(data, dict) and data:
-            return data, None
-        return None, "ACCESS_CREATE_EMPTY"
-    except requests.Timeout:
-        return None, "ACCESS_TIMEOUT"
-    except (requests.RequestException, ValueError):
+        data = created.json() if created.status_code in (200, 201) else []
+        return (data[0] if isinstance(data, list) and data else None), (None if data else "ACCESS_CREATE_FAILED")
+    except Exception:
         return None, "ACCESS_UNAVAILABLE"
-
 
 def _int_value(value: Any) -> int:
     try:
@@ -196,6 +144,7 @@ def _int_value(value: Any) -> int:
 
 
 def _paid_active(row: Dict[str, Any]) -> bool:
+    from datetime import datetime, timezone
     paid_until = row.get("paid_until")
     if not paid_until:
         return False
@@ -208,25 +157,19 @@ def _paid_active(row: Dict[str, Any]) -> bool:
         return False
 
 
-def _remaining_credits(row: Dict[str, Any]) -> int:
-    return max(
-        0,
-        _int_value(row.get("credits_granted"))
-        + _int_value(row.get("bonus_credits"))
-        - _int_value(row.get("credits_used")),
-    )
-
-
 def _effective_status(row: Dict[str, Any]) -> str:
     status = str(row.get("access_status") or "INACTIVE").upper()
-    if status == "ADMIN":
+    if status in {"ADMIN"}:
         return "ADMIN"
     if status in {"PRO_ACTIVE", "PRO_PLUS_ACTIVE"}:
         if _paid_active(row):
             return status
-        return "FREE_ACTIVE" if _remaining_credits(row) > 0 else "EXPIRED"
+        # Paid access expiry does not delete previously unused FREE or bonus credits.
+        remaining = _int_value(row.get("credits_granted")) + _int_value(row.get("bonus_credits")) - _int_value(row.get("credits_used"))
+        return "FREE_ACTIVE" if remaining > 0 else "EXPIRED"
     if status == "FREE_ACTIVE":
-        return "FREE_ACTIVE" if _remaining_credits(row) > 0 else "EXPIRED"
+        remaining = _int_value(row.get("credits_granted")) + _int_value(row.get("bonus_credits")) - _int_value(row.get("credits_used"))
+        return "FREE_ACTIVE" if remaining > 0 else "EXPIRED"
     return status
 
 
@@ -243,28 +186,22 @@ def _public_access(row: Dict[str, Any]) -> Dict[str, Any]:
         "credits_granted": granted,
         "bonus_credits": bonus,
         "credits_used": used,
-        "credits_remaining": None if unlimited else _remaining_credits(row),
+        "credits_remaining": None if unlimited else max(0, granted + bonus - used),
         "paid_until": row.get("paid_until"),
-        "payment_verification_pending": (
-            str(row.get("access_status") or "").upper() == "PAYMENT_PENDING"
-        ),
+        "payment_verification_pending": str(row.get("access_status") or "").upper() == "PAYMENT_PENDING",
     }
 
 
 def _consume_credit(user_id: str) -> bool:
-    if not _supabase_admin_ready() or not user_id:
+    import requests
+    response = requests.post(
+        f"{SUPABASE_URL}/rest/v1/rpc/consume_blinq_credit", headers=_admin_headers(),
+        json={"p_user_id": user_id}, timeout=12
+    )
+    if response.status_code != 200:
         return False
-    try:
-        response = requests.post(
-            f"{SUPABASE_URL}/rest/v1/rpc/consume_blinq_credit",
-            headers=_admin_headers(),
-            json={"p_user_id": user_id},
-            timeout=12,
-        )
-        return response.status_code == 200 and response.json() is True
-    except (requests.RequestException, ValueError):
-        return False
-
+    value = response.json()
+    return value is True
 
 @app.route(route="blinq/health", methods=["GET", "OPTIONS"])
 def blinq_health(req: func.HttpRequest) -> func.HttpResponse:
@@ -278,9 +215,10 @@ def blinq_health(req: func.HttpRequest) -> func.HttpResponse:
             "prediction_endpoint": "/api/blinq/predict",
             "auth_configured": _supabase_auth_ready(),
             "access_configured": _supabase_admin_ready(),
-            "auth_header": _AUTH_HEADER,
         },
+        200,
     )
+
 
 
 @app.route(route="blinq/access/status", methods=["GET", "OPTIONS"])
@@ -289,15 +227,11 @@ def blinq_access_status(req: func.HttpRequest) -> func.HttpResponse:
         return _response(req, {}, 204)
     user, error = _auth_user(req)
     if error or not user:
-        return _response(req, {"status": error or "AUTH_REQUIRED"}, 401)
+        return _response(req, {"status": error or "AUTH_REQUIRED", "reason": error or "Session validation failed."}, 401)
     row, access_error = _access_row(user)
     if access_error or not row:
         return _response(req, {"status": access_error or "ACCESS_UNAVAILABLE"}, 503)
-    return _response(
-        req,
-        {"status": "OK", "email": user.get("email"), **_public_access(row)},
-    )
-
+    return _response(req, {"status": "OK", "email": user.get("email"), **_public_access(row)}, 200)
 
 @app.route(route="blinq/access/request", methods=["POST", "OPTIONS"])
 def blinq_access_request(req: func.HttpRequest) -> func.HttpResponse:
@@ -309,85 +243,70 @@ def blinq_access_request(req: func.HttpRequest) -> func.HttpResponse:
     row, access_error = _access_row(user)
     if access_error or not row:
         return _response(req, {"status": access_error or "ACCESS_UNAVAILABLE"}, 503)
-
-    try:
-        updated = requests.patch(
-            f"{SUPABASE_URL}/rest/v1/blinq_access",
-            headers=_admin_headers(),
-            params={"user_id": f"eq.{user.get('id')}"},
-            json={
-                "access_status": "PAYMENT_PENDING",
-                "access_requested_at": datetime.now(timezone.utc).isoformat(),
-            },
-            timeout=12,
-        )
-    except requests.RequestException:
-        return _response(req, {"status": "REQUEST_UNAVAILABLE"}, 503)
-    if updated.status_code not in (200, 204):
-        return _response(req, {"status": f"REQUEST_FAILED_{updated.status_code}"}, 503)
-    return _response(
-        req,
-        {
-            "status": "PAYMENT_PENDING",
-            "message": "Payment verification pending.",
-        },
+    import requests
+    from datetime import datetime, timezone
+    updated = requests.patch(
+        f"{SUPABASE_URL}/rest/v1/blinq_access", headers=_admin_headers(),
+        params={"user_id": f"eq.{user.get('id')}"},
+        json={"access_status": "PAYMENT_PENDING", "access_requested_at": datetime.now(timezone.utc).isoformat()}, timeout=12
     )
-
+    if updated.status_code not in (200, 204):
+        return _response(req, {"status": "REQUEST_FAILED"}, 500)
+    return _response(req, {
+        "status": "PAYMENT_PENDING",
+        "message": "Your BlinQ Pro access will be activated after the payment email is matched with your account.",
+    }, 200)
 
 @app.route(route="blinq/predict", methods=["POST", "OPTIONS"])
 def blinq_predict(req: func.HttpRequest) -> func.HttpResponse:
     if req.method == "OPTIONS":
         return _response(req, {}, 204)
+
     user, auth_error = _auth_user(req)
     if auth_error or not user:
-        return _response(
-            req,
-            {"status": auth_error or "AUTH_REQUIRED", "reason": "Sign in is required."},
-            401,
-        )
+        return _response(req, {"status": auth_error or "AUTH_REQUIRED", "reason": auth_error or "Sign in is required."}, 401)
+
     access_row, access_error = _access_row(user)
     if access_error or not access_row:
-        return _response(
-            req,
-            {
-                "status": access_error or "ACCESS_UNAVAILABLE",
-                "reason": "Access status is temporarily unavailable.",
-            },
-            503,
-        )
+        return _response(req, {"status": access_error or "ACCESS_UNAVAILABLE", "reason": "Access status is temporarily unavailable."}, 503)
 
     effective = _effective_status(access_row)
     if effective not in {"FREE_ACTIVE", "PRO_ACTIVE", "PRO_PLUS_ACTIVE", "ADMIN"}:
-        reasons = {
-            "EXPIRED": "Your BlinQ access has expired.",
-            "PAYMENT_PENDING": "Payment verification pending.",
-        }
-        return _response(
-            req,
-            {
-                "status": effective,
-                "reason": reasons.get(effective, "Your BlinQ access is disabled."),
-                **_public_access(access_row),
-            },
-            403,
-        )
+        if effective == "EXPIRED":
+            reason = "Your BlinQ access has expired."
+        elif effective == "PAYMENT_PENDING":
+            reason = "Payment verification pending."
+        else:
+            reason = "Your BlinQ access is currently disabled."
+        return _response(req, {"status": effective, "reason": reason, **_public_access(access_row)}, 403)
 
     try:
         body = req.get_json()
     except ValueError:
-        return _response(req, {"status": "INVALID_INPUT", "reason": "JSON required."}, 400)
+        return _response(
+            req,
+            {"status": "INVALID_INPUT", "reason": "Request body must be JSON."},
+            400,
+        )
+
     if not isinstance(body, dict):
-        return _response(req, {"status": "INVALID_INPUT", "reason": "JSON object required."}, 400)
+        return _response(
+            req,
+            {"status": "INVALID_INPUT", "reason": "JSON object is required."},
+            400,
+        )
 
     player1 = str(body.get("player1") or "").strip()
     player2 = str(body.get("player2") or "").strip()
     surface = str(body.get("surface") or "Overall").strip()
+
     if not player1 or not player2:
         return _response(
             req,
             {"status": "INVALID_INPUT", "reason": "Both players are required."},
             400,
         )
+
     if player1.casefold() == player2.casefold():
         return _response(
             req,
@@ -397,7 +316,15 @@ def blinq_predict(req: func.HttpRequest) -> func.HttpResponse:
 
     try:
         result = BlinqService().predict(player1, player2, surface)
-    except Exception:
+        if str(result.get("prediction_status") or result.get("status") or "").upper() == "PREDICTION":
+            if effective == "FREE_ACTIVE" and not _consume_credit(str(user.get("id") or "")):
+                return _response(req, {"status": "CREDIT_UPDATE_FAILED"}, 503)
+            refreshed, _ = _access_row(user)
+            result["access"] = _public_access(refreshed or access_row)
+        else:
+            result["access"] = _public_access(access_row)
+        return _response(req, result, 200)
+    except Exception as exc:
         return _response(
             req,
             {
@@ -408,15 +335,3 @@ def blinq_predict(req: func.HttpRequest) -> func.HttpResponse:
             },
             500,
         )
-
-    prediction_status = str(
-        result.get("prediction_status") or result.get("status") or ""
-    ).upper()
-    if prediction_status == "PREDICTION":
-        if effective == "FREE_ACTIVE" and not _consume_credit(str(user.get("id") or "")):
-            return _response(req, {"status": "CREDIT_UPDATE_FAILED"}, 503)
-        refreshed, _ = _access_row(user)
-        result["access"] = _public_access(refreshed or access_row)
-    else:
-        result["access"] = _public_access(access_row)
-    return _response(req, result)
