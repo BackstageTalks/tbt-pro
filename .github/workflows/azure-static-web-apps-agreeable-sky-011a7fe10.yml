@@ -10,7 +10,6 @@ on:
       - "thinq/**"
       - "tools/build_player_registry.py"
       - "requirements.txt"
-      - "supabase/**"
       - ".github/workflows/azure-static-web-apps-agreeable-sky-011a7fe10.yml"
   pull_request:
     types: [opened, synchronize, reopened, closed]
@@ -26,15 +25,16 @@ concurrency:
 
 env:
   PYTHONUNBUFFERED: "1"
+  PYTHONPATH: ${{ github.workspace }}
   TENNISAPI_ATTACH_RANKINGS: "0"
   CORQ_RENDER_ENABLE_LOGS: "0"
 
 jobs:
   build_and_deploy_job:
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    name: Build and deploy BlinQ
     runs-on: ubuntu-latest
     timeout-minutes: 45
-    name: Build and Deploy BlinQ
 
     steps:
       - name: Checkout repository
@@ -54,7 +54,7 @@ jobs:
           test ! -f requirements.txt || python -m pip install -r requirements.txt
           test ! -f api/requirements.txt || python -m pip install -r api/requirements.txt
 
-      - name: Validate Azure inputs
+      - name: Validate build inputs
         shell: bash
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
@@ -70,55 +70,88 @@ jobs:
           test -s api/requirements.txt
           python -m py_compile blinq/web/render.py blinq/service.py api/function_app.py
 
-      - name: Build player registry
+      - name: Build and validate player registry
         shell: bash
-        env:
-          PYTHONPATH: ${{ github.workspace }}
         run: |
           set -euo pipefail
           python tools/build_player_registry.py
-          test -s thinq/data/players/player_registry.json
-          python - <<'PY2'
+          python - <<'PY'
           import json
           from pathlib import Path
-          payload = json.loads(Path("thinq/data/players/player_registry.json").read_text(encoding="utf-8"))
+
+          path = Path("thinq/data/players/player_registry.json")
+          payload = json.loads(path.read_text(encoding="utf-8"))
           rows = payload.get("players", []) if isinstance(payload, dict) else []
           count = len(rows) if isinstance(rows, (list, dict)) else 0
+          if count < 100:
+              raise SystemExit(f"Player registry is unexpectedly small: {count}")
           print(f"BlinQ registry players: {count}")
-          if count == 0:
-              raise SystemExit("Player registry is empty; refusing BlinQ deploy")
-          PY2
+          PY
 
-      - name: Build minimal BlinQ site
+      - name: Run backend contract tests
         shell: bash
         env:
-          PYTHONPATH: ${{ github.workspace }}
+          SUPABASE_URL: https://contract-test.supabase.co
+          SUPABASE_ANON_KEY: contract-test-public-key
+          SUPABASE_SERVICE_ROLE_KEY: contract-test-server-key
+          BLINQ_DEFAULT_FREE_PREDICTIONS: "10"
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import importlib.util
+          from pathlib import Path
+
+          path = Path("api/function_app.py")
+          spec = importlib.util.spec_from_file_location("blinq_function_contract", path)
+          module = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(module)
+
+          class Request:
+              method = "GET"
+              headers = {
+                  "Origin": "https://agreeable-sky-011a7fe10.7.azurestaticapps.net",
+                  "X-BlinQ-Authorization": "Bearer contract-token",
+              }
+
+          assert module._bearer(Request()) == "contract-token"
+          assert module._supabase_auth_ready() is True
+          assert module._supabase_admin_ready() is True
+          assert module._effective_status({
+              "access_status": "FREE_ACTIVE",
+              "credits_granted": 10,
+              "bonus_credits": 3,
+              "credits_used": 4,
+          }) == "FREE_ACTIVE"
+          access = module._public_access({
+              "access_status": "FREE_ACTIVE",
+              "credits_granted": 10,
+              "bonus_credits": 3,
+              "credits_used": 4,
+          })
+          assert access["credits_remaining"] == 9
+          assert module._effective_status({
+              "access_status": "FREE_ACTIVE",
+              "credits_granted": 10,
+              "bonus_credits": 0,
+              "credits_used": 10,
+          }) == "EXPIRED"
+          print("Backend contract tests passed")
+          PY
+
+      - name: Build isolated BlinQ site
+        shell: bash
+        env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
           set -euo pipefail
           rm -rf azure-site
-          mkdir -p azure-site/follow-the-data
+          mkdir -p azure-site/follow-the-data azure-site/blinq-portal-k7m3q9
           python -m blinq.web.render --output azure-site/follow-the-data/index.html
-
-          python - <<'PY'
-          from pathlib import Path
-
-          target = "/follow-the-data/"
-          redirect = (
-              '<!doctype html><html lang="en"><head><meta charset="utf-8">'
-              f'<meta http-equiv="refresh" content="0;url={target}">'
-              f'<link rel="canonical" href="{target}">'
-              '<title>Redirecting to BlinQ</title></head>'
-              f'<body><a href="{target}">Continue to BlinQ</a>'
-              f'<script>location.replace({target!r});</script></body></html>'
-          )
-          for route in ("", "blinq-portal-k7m3q9"):
-              path = Path("azure-site") / route / "index.html"
-              path.parent.mkdir(parents=True, exist_ok=True)
-              path.write_text(redirect, encoding="utf-8")
-          PY
-
+          cat > azure-site/index.html <<'HTML'
+          <!doctype html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=/follow-the-data/"><link rel="canonical" href="/follow-the-data/"></head><body><a href="/follow-the-data/">Continue to BlinQ</a></body></html>
+          HTML
+          cp azure-site/index.html azure-site/blinq-portal-k7m3q9/index.html
           cat > azure-site/staticwebapp.config.json <<'JSON'
           {
             "platform": {"apiRuntime": "python:3.11"},
@@ -134,21 +167,42 @@ jobs:
           }
           JSON
 
-      - name: Validate BlinQ artifact
+      - name: Validate static artifact contract
         shell: bash
         run: |
           set -euo pipefail
-          test -s azure-site/index.html
-          test -s azure-site/follow-the-data/index.html
-          test -s azure-site/blinq-portal-k7m3q9/index.html
-          test -s azure-site/staticwebapp.config.json
-          grep -Fq "Welcome to BlinQ" azure-site/follow-the-data/index.html
-          grep -Fq "New accounts receive 10 free predictions" azure-site/follow-the-data/index.html
-          grep -Fq "/api/blinq/predict" azure-site/follow-the-data/index.html
-          if grep -Fq "__SUPABASE_" azure-site/follow-the-data/index.html; then
-            echo "Unresolved Supabase placeholder"
-            exit 1
-          fi
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+
+          class ContractParser(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.ids = set()
+              def handle_starttag(self, tag, attrs):
+                  values = dict(attrs)
+                  if values.get("id"):
+                      self.ids.add(values["id"])
+
+          page = Path("azure-site/follow-the-data/index.html")
+          if not page.is_file() or page.stat().st_size == 0:
+              raise SystemExit("BlinQ page is missing or empty")
+          text = page.read_text(encoding="utf-8")
+          parser = ContractParser()
+          parser.feed(text)
+          required_ids = {
+              "signIn", "signUp", "forgotPassword", "signOut",
+              "p1", "p2", "surface", "run", "result",
+          }
+          missing = sorted(required_ids - parser.ids)
+          if missing:
+              raise SystemExit(f"Missing frontend contract ids: {missing}")
+          if "__SUPABASE_" in text:
+              raise SystemExit("Unresolved Supabase placeholder")
+          if "/api/blinq/predict" not in text:
+              raise SystemExit("Prediction endpoint contract is missing")
+          print("Static artifact contract passed")
+          PY
           size=$(du -sb azure-site | awk '{print $1}')
           echo "Azure static artifact bytes: $size"
           test "$size" -le 25000000
@@ -165,11 +219,6 @@ jobs:
           find api -type d -name "__pycache__" -prune -exec rm -rf {} +
           find api -type f \( -name "*.pyc" -o -name "*.log" -o -name "*.tmp" -o -name "*.bak" \) -delete
           python -m py_compile api/function_app.py api/blinq/service.py
-          grep -Fq "INVALID_SESSION_" api/function_app.py
-          grep -Fq "_supabase_auth_ready" api/function_app.py
-          grep -Fq "SUPABASE_SERVICE_ROLE_KEY or SUPABASE_ANON_KEY" api/function_app.py
-          grep -Fq "bonus_credits" api/function_app.py
-          grep -Fq "PRO_PLUS_ACTIVE" api/function_app.py
           size=$(du -sb api | awk '{print $1}')
           echo "Azure API artifact bytes: $size"
           test "$size" -le 100000000
@@ -187,10 +236,10 @@ jobs:
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    name: Close preview environment
     runs-on: ubuntu-latest
-    name: Close Pull Request
     steps:
-      - name: Close Pull Request
+      - name: Close preview environment
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AGREEABLE_SKY_011A7FE10 }}
