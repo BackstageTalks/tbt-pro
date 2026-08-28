@@ -91,6 +91,20 @@ def _registry() -> Dict[str, Dict[str, Any]]:
     return _registry_cached(_registry_mtime())
 
 
+def _tour(row: Dict[str, Any]) -> Optional[str]:
+    for value in (
+        row.get("tour"), row.get("circuit"), row.get("category"),
+        row.get("competition_type"), row.get("gender"), row.get("sex"),
+        row.get("league"), row.get("source_tour"),
+    ):
+        text = str(value or "").strip().upper()
+        if "WTA" in text or text in {"F", "W", "WOMEN", "FEMALE"}:
+            return "WTA"
+        if "ATP" in text or text in {"M", "MEN", "MALE"}:
+            return "ATP"
+    return None
+
+
 def _public(row: Dict[str, Any]) -> Dict[str, Any]:
     country = row.get("country_code") or row.get("country_alpha3") or row.get("country_alpha2")
     return {
@@ -98,6 +112,7 @@ def _public(row: Dict[str, Any]) -> Dict[str, Any]:
         "player_id": _int(row.get("api_team_id") or row.get("rapidapi_id") or row.get("player_id")),
         "country_code": str(country).upper() if country else None,
         "country_name": row.get("country_name") or row.get("country"),
+        "tour": _tour(row),
         "rank": _int(row.get("rank") or row.get("api_rank")),
         "rank_points": _int(row.get("rank_points") or row.get("api_points")),
         "elo": _float(row.get("elo")),
@@ -275,6 +290,18 @@ class BlinqService:
         if row1 is None or row2 is None:
             missing = ([player1] if row1 is None else []) + ([player2] if row2 is None else [])
             return _no_prediction("Player not found in central registry.", ["PLAYER_NOT_FOUND"], missing_players=missing)
+
+        tour1, tour2 = _tour(row1), _tour(row2)
+        if not tour1 or not tour2:
+            return _no_prediction(
+                "Player tour is unavailable. Comparison suppressed.",
+                ["PLAYER_TOUR_UNKNOWN"], player1=_public(row1), player2=_public(row2),
+            )
+        if tour1 != tour2:
+            return _no_prediction(
+                "ATP and WTA players cannot be compared.",
+                ["CROSS_TOUR_COMPARISON"], player1=_public(row1), player2=_public(row2),
+            )
 
         surface_name = str(surface or "Overall")
         forward = self._run(row1, row2, surface_name)
