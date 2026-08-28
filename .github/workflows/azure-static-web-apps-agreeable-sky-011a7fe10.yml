@@ -166,6 +166,8 @@ jobs:
           find api -type f \( -name "*.pyc" -o -name "*.log" -o -name "*.tmp" -o -name "*.bak" \) -delete
           python -m py_compile api/function_app.py api/blinq/service.py
           grep -Fq "INVALID_SESSION_" api/function_app.py
+          grep -Fq "_supabase_auth_ready" api/function_app.py
+          grep -Fq "SUPABASE_SERVICE_ROLE_KEY or SUPABASE_ANON_KEY" api/function_app.py
           grep -Fq "bonus_credits" api/function_app.py
           grep -Fq "PRO_PLUS_ACTIVE" api/function_app.py
           size=$(du -sb api | awk '{print $1}')
