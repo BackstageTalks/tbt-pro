@@ -1,66 +1,110 @@
 name: Azure Static Web Apps CI/CD
+
 on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["api/**", "blinq/**", "thinq/**", "tools/build_player_registry.py", "requirements.txt", ".github/workflows/azure-static-web-apps-agreeable-sky-011a7fe10.yml"]
+    paths:
+      - "api/**"
+      - "blinq/**"
+      - "thinq/**"
+      - "tools/build_player_registry.py"
+      - "requirements.txt"
+      - ".github/workflows/azure-static-web-apps-agreeable-sky-011a7fe10.yml"
+
 permissions:
   contents: read
+
 concurrency:
   group: azure-blinq-${{ github.ref }}
   cancel-in-progress: true
+
 env:
   PYTHONUNBUFFERED: "1"
   PYTHONPATH: ${{ github.workspace }}
+
 jobs:
   build_and_deploy_job:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: pip
+
       - name: Install dependencies
+        shell: bash
         run: |
           set -euo pipefail
           python -m pip install --upgrade pip
           test ! -f requirements.txt || python -m pip install -r requirements.txt
           test ! -f api/requirements.txt || python -m pip install -r api/requirements.txt
+
       - name: Validate source contracts
+        shell: bash
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
           set -euo pipefail
-          test -n "${SUPABASE_URL:-}"
-          test -n "${SUPABASE_ANON_KEY:-}"
+          test -n "${SUPABASE_URL:-}" || { echo "SUPABASE_URL is missing"; exit 1; }
+          test -n "${SUPABASE_ANON_KEY:-}" || { echo "SUPABASE_ANON_KEY is missing"; exit 1; }
           test -s blinq/web/render.py
+          test -s blinq/web/plans.json
           test -s blinq/service.py
           test -s api/function_app.py
           test -s api/host.json
           test -s api/requirements.txt
           python -m py_compile blinq/web/render.py blinq/service.py api/function_app.py
+
+      - name: Validate plans configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from urllib.parse import urlparse
+          data = json.loads(Path("blinq/web/plans.json").read_text(encoding="utf-8"))
+          for key in ("pro", "pro_plus"):
+              plan = data.get(key)
+              if not isinstance(plan, dict):
+                  raise SystemExit(f"Missing plan: {key}")
+              if not isinstance(plan.get("enabled"), bool):
+                  raise SystemExit(f"Invalid enabled flag: {key}")
+              if plan["enabled"]:
+                  parsed = urlparse(str(plan.get("url") or ""))
+                  if parsed.scheme != "https" or not parsed.netloc:
+                      raise SystemExit(f"Invalid HTTPS URL: {key}")
+          print("Plans contract passed")
+          PY
+
       - name: Build player registry
+        shell: bash
         run: |
           set -euo pipefail
           python tools/build_player_registry.py
           python - <<'PY'
           import json
           from pathlib import Path
-          data=json.loads(Path("thinq/data/players/player_registry.json").read_text())
-          rows=data.get("players",[]) if isinstance(data,dict) else []
-          count=len(rows) if isinstance(rows,(list,dict)) else 0
-          if count < 100: raise SystemExit(f"Registry too small: {count}")
+          data = json.loads(Path("thinq/data/players/player_registry.json").read_text(encoding="utf-8"))
+          rows = data.get("players", []) if isinstance(data, dict) else []
+          count = len(rows) if isinstance(rows, (list, dict)) else 0
+          if count < 100:
+              raise SystemExit(f"Registry too small: {count}")
           print(f"BlinQ registry players: {count}")
           PY
+
       - name: Build isolated BlinQ site
+        shell: bash
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-          BLINQ_PRO_PAYMENT_URL: ${{ vars.BLINQ_PRO_PAYMENT_URL }}
-          BLINQ_PRO_PLUS_PAYMENT_URL: ${{ vars.BLINQ_PRO_PLUS_PAYMENT_URL }}
         run: |
           set -euo pipefail
           rm -rf azure-site
@@ -71,26 +115,39 @@ jobs:
           cat > azure-site/staticwebapp.config.json <<'JSON'
           {"platform":{"apiRuntime":"python:3.11"},"globalHeaders":{"Cache-Control":"no-store","X-Content-Type-Options":"nosniff"},"navigationFallback":{"rewrite":"/index.html","exclude":["/api/*","/.auth/*","/*.{css,js,png,jpg,jpeg,webp,svg,ico,json}"]}}
           JSON
+
       - name: Validate built site contract
+        shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
           from html.parser import HTMLParser
           from pathlib import Path
-          class P(HTMLParser):
-              def __init__(self): super().__init__(); self.ids=set()
-              def handle_starttag(self,tag,attrs):
-                  value=dict(attrs).get("id")
-                  if value: self.ids.add(value)
-          text=Path("azure-site/follow-the-data/index.html").read_text()
-          p=P(); p.feed(text)
-          required={"signIn","signOut","p1","p2","surface","run","planBadge","planDetail","upgrade","upgradeModal","proPayment","proPlusPayment","closeUpgrade"}
-          missing=required-p.ids
-          if missing: raise SystemExit(f"Missing ids: {sorted(missing)}")
-          if "__SUPABASE_" in text or "__PRO_PAYMENT_URL__" in text: raise SystemExit("Unresolved placeholder")
+          class Parser(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.ids = set()
+              def handle_starttag(self, tag, attrs):
+                  value = dict(attrs).get("id")
+                  if value:
+                      self.ids.add(value)
+          text = Path("azure-site/follow-the-data/index.html").read_text(encoding="utf-8")
+          parser = Parser()
+          parser.feed(text)
+          required = {"authNickname","signIn","signUp","signOut","p1","p2","surface","run","upgradeOpen","upgradeModal","upgradeClose","planGrid"}
+          missing = sorted(required - parser.ids)
+          if missing:
+              raise SystemExit(f"Missing frontend ids: {missing}")
+          if "__SUPABASE_" in text or "__PLAN_CONFIG__" in text:
+              raise SystemExit("Unresolved frontend placeholder")
+          print("Frontend contract passed")
           PY
-          test "$(du -sb azure-site | awk '{print $1}')" -le 25000000
+          size=$(du -sb azure-site | awk '{print $1}')
+          echo "Azure static artifact bytes: $size"
+          test "$size" -le 25000000
+
       - name: Prepare managed API
+        shell: bash
         run: |
           set -euo pipefail
           rm -rf api/blinq api/thinq api/corq
@@ -98,9 +155,13 @@ jobs:
           cp -R thinq api/thinq
           test ! -d corq || cp -R corq api/corq
           rm -rf api/blinq/web api/corq/site api/corq/outputs api/corq/logs api/thinq/outputs
-          find api -type d -name __pycache__ -prune -exec rm -rf {} +
+          find api -type d -name "__pycache__" -prune -exec rm -rf {} +
+          find api -type f -name "*.pyc" -delete
           python -m py_compile api/function_app.py api/blinq/service.py
-          test "$(du -sb api | awk '{print $1}')" -le 100000000
+          size=$(du -sb api | awk '{print $1}')
+          echo "Azure API artifact bytes: $size"
+          test "$size" -le 100000000
+
       - name: Deploy BlinQ
         uses: Azure/static-web-apps-deploy@v1
         with:
