@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.75,
   "latest_odds_player2": 1.4,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-28T01:11:04.686848+00:00",
+  "latest_snapshot_time_utc": "2026-08-28T14:37:19.528361+00:00",
   "opening_odds_player1": 3.0,
   "opening_odds_player2": 1.36364,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Matthias Ujvary",
   "player2": "Lorenzo Rottoli",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "16930009",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-27T13:00:00+00:00",
       "target_date": "2026-08-28"
+    },
+    {
+      "event_id": "16930009",
+      "event_key": "2026-08-28_lorenzo-rottoli_vs_matthias-ujvary",
+      "hours_to_start": -25.62,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.75,
+      "odds_player2": 1.4,
+      "player1": "Matthias Ujvary",
+      "player2": "Lorenzo Rottoli",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-28T14:37:19.528361+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-27T13:00:00+00:00",
+      "target_date": "2026-08-28"
     }
   ],
   "start_time_utc": "2026-08-27T13:00:00+00:00",
-  "updated_at_utc": "2026-08-28T01:11:45.847886+00:00"
+  "updated_at_utc": "2026-08-28T14:37:36.067327+00:00"
 }
