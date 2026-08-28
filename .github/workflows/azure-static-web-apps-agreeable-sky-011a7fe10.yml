@@ -78,6 +78,16 @@ jobs:
           set -euo pipefail
           python tools/build_player_registry.py
           test -s thinq/data/players/player_registry.json
+          python - <<'PY2'
+          import json
+          from pathlib import Path
+          payload = json.loads(Path("thinq/data/players/player_registry.json").read_text(encoding="utf-8"))
+          rows = payload.get("players", []) if isinstance(payload, dict) else []
+          count = len(rows) if isinstance(rows, (list, dict)) else 0
+          print(f"BlinQ registry players: {count}")
+          if count == 0:
+              raise SystemExit("Player registry is empty; refusing BlinQ deploy")
+          PY2
 
       - name: Build minimal BlinQ site
         shell: bash
