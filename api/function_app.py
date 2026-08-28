@@ -37,7 +37,7 @@ def _response(
 ) -> func.HttpResponse:
     headers = {
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        "Access-Control-Allow-Headers": "Content-Type, X-BlinQ-Authorization",
         "Vary": "Origin",
         "Cache-Control": "no-store",
     }
@@ -61,7 +61,10 @@ SUPABASE_SERVICE_ROLE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "").strip()
 DEFAULT_FREE_PREDICTIONS = int(os.getenv("BLINQ_DEFAULT_FREE_PREDICTIONS", "10"))
 
 def _bearer(req: func.HttpRequest) -> str:
-    value = str(req.headers.get("Authorization") or "").strip()
+    # Azure Static Web Apps reserves and may replace the standard Authorization
+    # header before forwarding a request to its managed Functions API. Carry the
+    # Supabase user JWT in an application-specific header instead.
+    value = str(req.headers.get("X-BlinQ-Authorization") or "").strip()
     return value[7:].strip() if value.lower().startswith("bearer ") else ""
 
 def _supabase_auth_ready() -> bool:
