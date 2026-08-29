@@ -158,6 +158,31 @@ def _window(form: Dict[str, Any], side: str, key: str) -> Dict[str, Any]:
     return value
 
 
+def _form_record(form: Dict[str, Any], side: str, key: str) -> Dict[str, Any]:
+    window = _window(form, side, key)
+    wins = _int(window.get("wins") if window.get("wins") is not None else window.get("w"))
+    losses = _int(window.get("losses") if window.get("losses") is not None else window.get("l"))
+    count = _int(window.get("count"))
+    if count is None and wins is not None and losses is not None:
+        count = wins + losses
+    if wins is None or losses is None or not count or count <= 0:
+        return {"available": False, "wins": None, "losses": None, "count": 0}
+    return {"available": True, "wins": wins, "losses": losses, "count": count}
+
+
+def _form_records(form: Dict[str, Any]) -> Dict[str, Any]:
+    return {
+        "player1": {
+            "last10": _form_record(form, "pick", "last10"),
+            "surface": _form_record(form, "pick", "surface_last10"),
+        },
+        "player2": {
+            "last10": _form_record(form, "opponent", "last10"),
+            "surface": _form_record(form, "opponent", "surface_last10"),
+        },
+    }
+
+
 def _form_index(form: Dict[str, Any], key: str, prefix: str) -> Dict[str, Any]:
     first = _window(form, "pick", key)
     second = _window(form, "opponent", key)
@@ -234,7 +259,7 @@ def _build_indices(forward: Dict[str, Any], player1: Dict[str, Any], player2: Di
 def _no_prediction(reason: str, flags: List[str], **extra: Any) -> Dict[str, Any]:
     return {
         "model": "BlinQ",
-        "model_version": "BLINQ_THINQ_ORCHESTRATOR_V1",
+        "model_version": "BLINQ_THINQ_ORCHESTRATOR_V2",
         "status": "NO_PREDICTION",
         "prediction_status": "NO_PREDICTION",
         "winner": None,
@@ -352,12 +377,13 @@ class BlinqService:
                 thinq_forward=forward,
                 thinq_reverse=reverse,
                 indices=indices,
+                form_records=_form_records(forward.get("recent_form") if isinstance(forward.get("recent_form"), dict) else {}),
             )
 
         winner_is_p1 = p_ab > 0.5
         return {
             "model": "BlinQ",
-            "model_version": "BLINQ_THINQ_ORCHESTRATOR_V1",
+            "model_version": "BLINQ_THINQ_ORCHESTRATOR_V2",
             "status": "PREDICTION",
             "prediction_status": "PREDICTION",
             "surface": surface_name,
@@ -377,4 +403,5 @@ class BlinqService:
             "flags": sorted(set(layer_ab.get("flags") or [])),
             "symmetry_audit": audit,
             "indices": indices,
+            "form_records": _form_records(forward.get("recent_form") if isinstance(forward.get("recent_form"), dict) else {}),
         }
