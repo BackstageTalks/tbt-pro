@@ -4,7 +4,7 @@
   "latest_odds_player1": 6.0,
   "latest_odds_player2": 1.13,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-29T09:24:35.888947+00:00",
+  "latest_snapshot_time_utc": "2026-08-29T15:21:21.035234+00:00",
   "opening_odds_player1": 5.0,
   "opening_odds_player2": 1.17,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Venus Williams",
   "player2": "Sofia Kenin",
-  "snapshot_count": 4,
+  "snapshot_count": 5,
   "snapshots": [
     {
       "event_id": "16939124",
@@ -97,8 +97,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-31T00:40:00+00:00",
       "target_date": "2026-08-30"
+    },
+    {
+      "event_id": "16939124",
+      "event_key": "2026-08-30_sofia-kenin_vs_venus-williams",
+      "hours_to_start": 33.31,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 6.0,
+      "odds_player2": 1.13,
+      "player1": "Venus Williams",
+      "player2": "Sofia Kenin",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-29T15:21:21.035234+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-31T00:40:00+00:00",
+      "target_date": "2026-08-30"
     }
   ],
   "start_time_utc": "2026-08-31T00:40:00+00:00",
-  "updated_at_utc": "2026-08-29T09:25:22.703181+00:00"
+  "updated_at_utc": "2026-08-29T15:21:55.538703+00:00"
 }

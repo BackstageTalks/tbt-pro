@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.36364,
   "latest_odds_player2": 3.0,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-29T09:24:35.888947+00:00",
+  "latest_snapshot_time_utc": "2026-08-29T15:21:21.035234+00:00",
   "opening_odds_player1": 1.36364,
   "opening_odds_player2": 3.0,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Shauna Heffernan",
   "player2": "Ella Piron",
-  "snapshot_count": 1,
+  "snapshot_count": 2,
   "snapshots": [
     {
       "event_id": "16948669",
@@ -34,8 +34,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-29T17:20:00+00:00",
       "target_date": "2026-08-30"
+    },
+    {
+      "event_id": "16948669",
+      "event_key": "2026-08-30_ella-piron_vs_shauna-heffernan",
+      "hours_to_start": 1.98,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.36364,
+      "odds_player2": 3.0,
+      "player1": "Shauna Heffernan",
+      "player2": "Ella Piron",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-29T15:21:21.035234+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-29T17:20:00+00:00",
+      "target_date": "2026-08-30"
     }
   ],
   "start_time_utc": "2026-08-29T17:20:00+00:00",
-  "updated_at_utc": "2026-08-29T09:25:39.597720+00:00"
+  "updated_at_utc": "2026-08-29T15:22:01.325472+00:00"
 }
