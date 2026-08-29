@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import base64
+import csv
 import html
+import io
 import json
 import os
 import re
@@ -7062,6 +7064,61 @@ def _assign_visual_ranks(rows: List[Dict[str, Any]]) -> None:
             row["_corq_render_rank"] = idx
 
 
+def _cloq_daily_table(rows: List[Dict[str, Any]], manifest: Dict[str, Any]) -> str:
+    betting_day = str(manifest.get("betting_day") or manifest.get("functional_day") or "").strip()
+    updated_raw = manifest.get("generated_at") or manifest.get("run_generated_at") or manifest.get("created_at")
+    updated = "—"
+    if updated_raw:
+        try:
+            dt = datetime.fromisoformat(str(updated_raw).replace("Z", "+00:00"))
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            updated = dt.astimezone(WEB_DISPLAY_TIMEZONE).strftime("%H:%M")
+        except Exception:
+            updated = str(updated_raw)
+    try:
+        day_label = datetime.fromisoformat(betting_day).strftime("%d.%m.%Y") if betting_day else "—"
+    except Exception:
+        day_label = betting_day or "—"
+    table_rows = []
+    for row in rows:
+        rank = player_rank_display(row, "pick") or RANK_FALLBACK_DISPLAY
+        if str(rank).strip() in {"", "—", "N/A"}:
+            rank = RANK_FALLBACK_DISPLAY
+        table_rows.append("".join([
+            "<tr>", f"<td>{esc(start_time(row))}</td>", f"<td>{esc(pick_name(row))}</td>",
+            f"<td>{esc(opponent_name(row))}</td>", f"<td>{esc(rank)}</td>",
+            f"<td>{esc(surface_name(row))}</td>", f"<td>{as_pct(probability(row), 1)}</td>", "</tr>"
+        ]))
+    rows_html = "".join(table_rows) if table_rows else '<tr><td colspan="6">No CloQ rows available.</td></tr>'
+    return ''.join([
+        '<section class="summary-panel cloq-daily-table">', '<div class="summary-title">CloQ Daily Picks</div>',
+        f'<div class="time-line">{esc(day_label)} · Updated {esc(updated)}</div>',
+        '<div class="table-wrap"><table class="results-table">',
+        '<thead><tr><th>Time</th><th>Pick</th><th>Opponent</th><th>Rank</th><th>Surface</th><th>CloQ</th></tr></thead>',
+        f'<tbody>{rows_html}</tbody></table></div></section>'
+    ])
+
+
+def _write_cloq_daily_exports(rows: List[Dict[str, Any]], manifest: Dict[str, Any]) -> None:
+    records = []
+    for row in rows:
+        rank = player_rank_display(row, "pick") or RANK_FALLBACK_DISPLAY
+        records.append({
+            "time": start_time(row), "pick": pick_name(row), "opponent": opponent_name(row),
+            "rank": rank if str(rank).strip() not in {"", "—", "N/A"} else RANK_FALLBACK_DISPLAY,
+            "surface": surface_name(row), "cloq_probability": probability(row),
+        })
+    payload = {"betting_day": manifest.get("betting_day") or manifest.get("functional_day"),
+               "timezone": "Europe/Bratislava", "generated_at": manifest.get("generated_at") or datetime.now(timezone.utc).isoformat(),
+               "count": len(records), "rows": records}
+    write_text(SITE_DIR / "data" / "cloq_daily.json", json.dumps(payload, ensure_ascii=False, indent=2))
+    stream = io.StringIO()
+    writer = csv.DictWriter(stream, fieldnames=["time", "pick", "opponent", "rank", "surface", "cloq_probability"])
+    writer.writeheader(); writer.writerows(records)
+    write_text(SITE_DIR / "data" / "cloq_daily.csv", stream.getvalue())
+
+
 def render_cards_page(title: str, active: str, rows: List[Dict[str, Any]], manifest: Dict[str, Any], page: str = "corq", dedupe: bool = False) -> str:
     rows = dedupe_matches(rows) if dedupe else [r for r in rows or [] if isinstance(r, dict)]
     rows = sort_pick_rows(rows, page=page)
@@ -7073,7 +7130,8 @@ def render_cards_page(title: str, active: str, rows: List[Dict[str, Any]], manif
     else:
         cards = '<div class="grid">' + "\n".join(render_card(r, i + 1, page=page) for i, r in enumerate(rows)) + '</div>'
     summary = render_notes_summary(rows) if page in {"corq", "cloq", "all"} else ""
-    return page_shell(title, active, summary + cards, manifest)
+    daily_table = _cloq_daily_table(rows, manifest) if page == "cloq" else ""
+    return page_shell(title, active, daily_table + summary + cards, manifest)
 
 
 def render_all() -> None:
@@ -7087,6 +7145,7 @@ def render_all() -> None:
 
     top7 = sort_pick_rows(top7_raw, page="corq")
     cloq = sort_pick_rows(cloq_raw, page="cloq")
+    _write_cloq_daily_exports(cloq, manifest)
     mark_audit_cloq_rows(all_rows_raw, cloq)
     all_rows_for_audit = sort_pick_rows(all_rows_raw, page="all")
     _assign_visual_ranks(top7)
