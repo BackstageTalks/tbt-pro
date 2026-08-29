@@ -134,7 +134,7 @@ jobs:
           text = Path("azure-site/follow-the-data/index.html").read_text(encoding="utf-8")
           parser = Parser()
           parser.feed(text)
-          required = {"authNickname","signIn","signUp","signOut","p1","p2","surface","run","upgradeOpen","upgradeModal","upgradeClose","planGrid"}
+          required = {"signUpNickname","signIn","signUp","signOut","p1","p2","surface","run","upgradeOpen","upgradeModal","upgradeClose","planGrid"}
           missing = sorted(required - parser.ids)
           if missing:
               raise SystemExit(f"Missing frontend ids: {missing}")
