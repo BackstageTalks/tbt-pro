@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.0,
   "latest_odds_player2": 1.72727,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-29T15:21:21.035234+00:00",
+  "latest_snapshot_time_utc": "2026-08-29T19:32:17.862675+00:00",
   "opening_odds_player1": 2.0,
   "opening_odds_player2": 1.72727,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Anas Mazdrashki",
   "player2": "Sebastian Gima",
-  "snapshot_count": 4,
+  "snapshot_count": 5,
   "snapshots": [
     {
       "event_id": "16938381",
@@ -97,8 +97,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-28T12:00:00+00:00",
       "target_date": "2026-08-29"
+    },
+    {
+      "event_id": "16938381",
+      "event_key": "2026-08-29_anas-mazdrashki_vs_sebastian-gima",
+      "hours_to_start": -31.54,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.0,
+      "odds_player2": 1.72727,
+      "player1": "Anas Mazdrashki",
+      "player2": "Sebastian Gima",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-29T19:32:17.862675+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-28T12:00:00+00:00",
+      "target_date": "2026-08-29"
     }
   ],
   "start_time_utc": "2026-08-28T12:00:00+00:00",
-  "updated_at_utc": "2026-08-29T15:21:42.934064+00:00"
+  "updated_at_utc": "2026-08-29T19:32:41.296747+00:00"
 }

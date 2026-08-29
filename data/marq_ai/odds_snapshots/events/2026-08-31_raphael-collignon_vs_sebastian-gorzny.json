@@ -4,7 +4,7 @@
   "latest_odds_player1": 7.0,
   "latest_odds_player2": 1.1,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-29T15:21:21.035234+00:00",
+  "latest_snapshot_time_utc": "2026-08-29T19:32:17.862675+00:00",
   "opening_odds_player1": 7.0,
   "opening_odds_player2": 1.1,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Sebastian Gorzny",
   "player2": "Raphael Collignon",
-  "snapshot_count": 5,
+  "snapshot_count": 6,
   "snapshots": [
     {
       "event_id": "16940126",
@@ -118,8 +118,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-30T19:00:00+00:00",
       "target_date": "2026-08-31"
+    },
+    {
+      "event_id": "16940126",
+      "event_key": "2026-08-31_raphael-collignon_vs_sebastian-gorzny",
+      "hours_to_start": 23.46,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 7.0,
+      "odds_player2": 1.1,
+      "player1": "Sebastian Gorzny",
+      "player2": "Raphael Collignon",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-29T19:32:17.862675+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-30T19:00:00+00:00",
+      "target_date": "2026-08-31"
     }
   ],
   "start_time_utc": "2026-08-30T19:00:00+00:00",
-  "updated_at_utc": "2026-08-29T15:22:23.367472+00:00"
+  "updated_at_utc": "2026-08-29T19:33:27.189231+00:00"
 }
