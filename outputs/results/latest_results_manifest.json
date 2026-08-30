@@ -1,38 +1,38 @@
 {
-  "generated_at": "2026-08-30T08:52:38+00:00",
-  "date": "2026-08-29",
-  "fetch_api": true,
+  "generated_at": "2026-08-30T12:55:05+00:00",
+  "date": "2026-08-30",
+  "fetch_api": false,
   "settlement_grace_hours": 0.0,
   "local_tz": "Europe/Bratislava",
-  "corq_count": 178,
-  "cloq_count": 136,
-  "audit_count": 985,
+  "corq_count": 185,
+  "cloq_count": 146,
+  "audit_count": 1025,
   "summary": {
     "corq": {
-      "picks": 178,
+      "picks": 185,
       "won": 90,
       "lost": 79,
-      "pending": 0,
+      "pending": 7,
       "void": 9,
       "win_rate": 0.5325,
       "units": -22.0308,
       "roi": -0.1304
     },
     "cloq": {
-      "picks": 136,
+      "picks": 146,
       "won": 69,
       "lost": 61,
-      "pending": 0,
+      "pending": 10,
       "void": 6,
       "win_rate": 0.5308,
       "units": 2.7552,
       "roi": 0.0212
     },
     "audit": {
-      "picks": 985,
+      "picks": 1025,
       "won": 597,
       "lost": 326,
-      "pending": 0,
+      "pending": 40,
       "void": 62,
       "win_rate": 0.6468,
       "units": -104.1156,
@@ -41,10 +41,10 @@
   },
   "summary_by_snapshot_source": {
     "CORQ_DAILY": {
-      "picks": 178,
+      "picks": 185,
       "won": 90,
       "lost": 79,
-      "pending": 0,
+      "pending": 7,
       "void": 9,
       "win_rate": 0.5325,
       "units": -22.0308,
@@ -52,14 +52,14 @@
     }
   },
   "sources": {
-    "corq": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/corq_top7_2026-08-29.json",
-    "cloq": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/cloq_top_2026-08-29.json",
+    "corq": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/latest_corq_top7_snapshot.json",
+    "cloq": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/cloq_top_2026-08-30.json",
     "audit": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/latest_all_audit_snapshot.json"
   },
   "locks": {
-    "corq": "immutable_ledger_source_plus_existing:0+existing:176+preserved:2",
-    "cloq": "immutable_ledger_source_plus_existing:0+existing:135+preserved:1",
-    "audit": "immutable_ledger_source_plus_existing:3+existing:982+preserved:3"
+    "corq": "immutable_ledger_source_plus_existing:7+existing:178+preserved:0",
+    "cloq": "immutable_ledger_source_plus_existing:10+existing:136+preserved:0",
+    "audit": "immutable_ledger_source_plus_existing:80+existing:985+preserved:0"
   },
   "output_root": "outputs/results"
 }
