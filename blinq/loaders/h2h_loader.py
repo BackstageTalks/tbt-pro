@@ -1,4 +1,4 @@
-"""BlinQ-only H2H loader built from independent cached API PRO event JSON files."""
+"""BlinQ-only H2H loader from independent cached previous-match JSON files."""
 from __future__ import annotations
 import json
 import re
@@ -17,21 +17,25 @@ def _compact(value: Any) -> str:
 
 def _surface(value: Any) -> str:
     text = str(value or "").lower()
-    if "clay" in text: return "Clay"
-    if "grass" in text: return "Grass"
-    if "hard" in text or "indoor" in text or "carpet" in text: return "Hard"
+    if "clay" in text:
+        return "Clay"
+    if "grass" in text:
+        return "Grass"
+    if "hard" in text or "indoor" in text or "carpet" in text:
+        return "Hard"
     return "Unknown"
 
 
 def _team_id(team: Any) -> Any:
-    if not isinstance(team, dict): return None
+    if not isinstance(team, dict):
+        return None
     info = team.get("playerTeamInfo") if isinstance(team.get("playerTeamInfo"), dict) else {}
     return team.get("id") or info.get("id")
 
 
 def _events(player_id: Any) -> List[Dict[str, Any]]:
     rows: List[Dict[str, Any]] = []
-    seen = set()
+    seen: set[str] = set()
     for path in sorted(CACHE_DIR.glob(f"{player_id}_*.json")):
         try:
             payload = json.loads(path.read_text(encoding="utf-8"))
@@ -40,44 +44,56 @@ def _events(player_id: Any) -> List[Dict[str, Any]]:
         except Exception:
             continue
         for event in events if isinstance(events, list) else []:
-            if not isinstance(event, dict): continue
+            if not isinstance(event, dict):
+                continue
             key = str(event.get("id") or event.get("customId") or "")
             if key and key not in seen:
-                rows.append(event); seen.add(key)
+                rows.append(event)
+                seen.add(key)
     return rows
 
 
-def build_h2h_context(player1: str, player2: str, player1_id: Any, player2_id: Any, surface: Optional[str] = None, match_start: Any = None) -> Dict[str, Any]:
+def build_h2h_context(player1: str, player2: str, player1_id: Any, player2_id: Any,
+                      surface: Optional[str] = None, match_start: Any = None) -> Dict[str, Any]:
     if player1_id in (None, "") or player2_id in (None, ""):
-        return {"status":"NO_PLAYER_ID","source":"BLINQ_H2H_CACHE","total_matches":0,"same_surface_matches":0}
+        return {"status": "NO_PLAYER_ID", "source": "BLINQ_H2H_CACHE", "total_matches": 0, "same_surface_matches": 0}
     requested = _surface(surface)
     p1_key, p2_key = _compact(player1), _compact(player2)
-    matches = []
+    matches: List[Dict[str, Any]] = []
     for event in _events(player1_id):
         status = event.get("status") if isinstance(event.get("status"), dict) else {}
-        if str(status.get("type") or "").lower() != "finished": continue
-        desc = str(status.get("description") or "").lower()
-        if any(x in desc for x in ("retired","walkover","cancelled","canceled","abandoned")): continue
+        if str(status.get("type") or "").lower() != "finished":
+            continue
+        description = str(status.get("description") or "").lower()
+        if any(x in description for x in ("retired", "walkover", "cancelled", "canceled", "abandoned")):
+            continue
         home = event.get("homeTeam") if isinstance(event.get("homeTeam"), dict) else {}
         away = event.get("awayTeam") if isinstance(event.get("awayTeam"), dict) else {}
         ids = {str(_team_id(home)), str(_team_id(away))}
         names = {_compact(home.get("name") or home.get("shortName")), _compact(away.get("name") or away.get("shortName"))}
-        if not ({str(player1_id), str(player2_id)} <= ids or {p1_key, p2_key} <= names): continue
-        try: code = int(event.get("winnerCode"))
-        except Exception: continue
+        if not ({str(player1_id), str(player2_id)} <= ids or {p1_key, p2_key} <= names):
+            continue
+        try:
+            winner_code = int(event.get("winnerCode"))
+        except Exception:
+            continue
         p1_home = str(_team_id(home)) == str(player1_id) or _compact(home.get("name")) == p1_key
-        p1_won = (p1_home and code == 1) or ((not p1_home) and code == 2)
+        p1_won = (p1_home and winner_code == 1) or ((not p1_home) and winner_code == 2)
         tournament = event.get("tournament") if isinstance(event.get("tournament"), dict) else {}
         unique = tournament.get("uniqueTournament") if isinstance(tournament.get("uniqueTournament"), dict) else {}
-        matches.append({"event_id":event.get("id"),"p1_won":p1_won,"surface":_surface(event.get("groundType") or tournament.get("groundType") or unique.get("groundType"))})
-    total = len(matches); p1_wins = sum(1 for x in matches if x["p1_won"])
-    same = [x for x in matches if requested != "Unknown" and x["surface"] == requested]
-    same_p1 = sum(1 for x in same if x["p1_won"])
+        matches.append({"p1_won": p1_won, "surface": _surface(event.get("groundType") or tournament.get("groundType") or unique.get("groundType"))})
+    total = len(matches)
+    p1_wins = sum(1 for item in matches if item["p1_won"])
+    same = [item for item in matches if requested != "Unknown" and item["surface"] == requested]
+    same_p1 = sum(1 for item in same if item["p1_won"])
     return {
-        "status":"OK" if total else "NO_PREVIOUS_MATCHES",
-        "source":"BLINQ_INDEPENDENT_H2H_CACHE",
-        "total_matches":total,"pick_wins":p1_wins,"opponent_wins":total-p1_wins,
-        "same_surface_matches":len(same),"same_surface_pick_wins":same_p1,
-        "same_surface_opponent_wins":len(same)-same_p1,
-        "requested_surface":requested,
+        "status": "OK" if total else "NO_PREVIOUS_MATCHES",
+        "source": "BLINQ_INDEPENDENT_H2H_CACHE",
+        "total_matches": total,
+        "pick_wins": p1_wins,
+        "opponent_wins": total - p1_wins,
+        "same_surface_matches": len(same),
+        "same_surface_pick_wins": same_p1,
+        "same_surface_opponent_wins": len(same) - same_p1,
+        "requested_surface": requested,
     }
