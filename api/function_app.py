@@ -246,6 +246,7 @@ def blinq_health(req: func.HttpRequest) -> func.HttpResponse:
             "prediction_endpoint": "/api/blinq/predict",
             "auth_configured": _supabase_auth_ready(),
             "access_configured": _supabase_admin_ready(),
+            "rapidapi_configured": bool(os.getenv("RAPIDAPI_KEY", "").strip()),
         },
         200,
     )
