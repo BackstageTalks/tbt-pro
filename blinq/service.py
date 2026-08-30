@@ -7,8 +7,13 @@ complementary. Exact 50:50 always means NO_PREDICTION.
 from __future__ import annotations
 
 import json
+import os
 import re
+import time
 import unicodedata
+from datetime import datetime, timezone
+
+import requests
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -17,6 +22,14 @@ from thinq.service import ThinqService
 
 REGISTRY_PATH = Path("thinq/data/players/player_registry.json")
 TOLERANCE = 0.0001
+API_PRO_HOST = "tennisapi1.p.rapidapi.com"
+API_PRO_BASE_URL = "https://tennisapi1.p.rapidapi.com"
+API_TIMEOUT = 20
+BLINQ_CACHE_DIR = Path("blinq/data/api_cache/previous_matches")
+BLINQ_CACHE_TTL_SECONDS = 60 * 60 * 12
+BLINQ_MAX_PAGES = 3
+BLINQ_MIN_OVERALL_MATCHES = 10
+BLINQ_MIN_SURFACE_MATCHES = 5
 
 
 def _compact(value: Any) -> str:
@@ -256,10 +269,244 @@ def _build_indices(forward: Dict[str, Any], player1: Dict[str, Any], player2: Di
         },
     }
 
+
+
+def _surface_bucket(value: Any) -> str:
+    text = str(value or "").strip().lower()
+    if "clay" in text:
+        return "Clay"
+    if "grass" in text:
+        return "Grass"
+    if "hard" in text or "indoor" in text or "carpet" in text:
+        return "Hard"
+    return "Unknown"
+
+
+def _api_headers() -> Dict[str, str]:
+    return {
+        "Content-Type": "application/json",
+        "x-rapidapi-host": API_PRO_HOST,
+        "x-rapidapi-key": os.getenv("RAPIDAPI_KEY", "").strip(),
+    }
+
+
+def _cache_path(player_id: Any, page: int) -> Path:
+    return BLINQ_CACHE_DIR / f"{player_id}_{page}.json"
+
+
+def _read_cache(path: Path) -> Optional[Dict[str, Any]]:
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if time.time() - float(payload.get("saved_at", 0)) > BLINQ_CACHE_TTL_SECONDS:
+            return None
+        data = payload.get("data")
+        return data if isinstance(data, dict) else None
+    except Exception:
+        return None
+
+
+def _write_cache(path: Path, data: Dict[str, Any]) -> None:
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps({"saved_at": time.time(), "data": data}, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception:
+        pass
+
+
+def _fetch_previous_page(player_id: Any, page: int) -> Dict[str, Any]:
+    if player_id in (None, ""):
+        return {"status": "NO_PLAYER_ID", "events": [], "page": page}
+    path = _cache_path(player_id, page)
+    cached = _read_cache(path)
+    if cached is not None:
+        return {**cached, "from_cache": True, "cache_path": str(path)}
+    if not os.getenv("RAPIDAPI_KEY", "").strip():
+        return {"status": "NO_API_KEY", "events": [], "page": page, "cache_path": str(path)}
+    endpoint = f"{API_PRO_BASE_URL}/api/tennis/player/{player_id}/events/previous/{page}"
+    try:
+        response = requests.get(endpoint, headers=_api_headers(), timeout=API_TIMEOUT)
+        if response.status_code == 429:
+            return {"status": "RATE_LIMITED", "events": [], "page": page, "api_status_code": 429, "endpoint": endpoint}
+        response.raise_for_status()
+        payload = response.json() if response.content else {}
+        result = {
+            "status": "OK",
+            "events": payload.get("events", []) if isinstance(payload, dict) and isinstance(payload.get("events", []), list) else [],
+            "has_next_page": bool(payload.get("hasNextPage")) if isinstance(payload, dict) else False,
+            "page": page,
+            "api_status_code": response.status_code,
+            "endpoint": endpoint,
+            "from_cache": False,
+            "cache_path": str(path),
+        }
+        _write_cache(path, result)
+        return result
+    except Exception as exc:
+        return {"status": "FETCH_FAILED", "events": [], "page": page, "endpoint": endpoint, "error": str(exc)}
+
+
+def _event_surface(event: Dict[str, Any]) -> str:
+    tournament = event.get("tournament") if isinstance(event.get("tournament"), dict) else {}
+    unique = tournament.get("uniqueTournament") if isinstance(tournament.get("uniqueTournament"), dict) else {}
+    return _surface_bucket(event.get("groundType") or tournament.get("groundType") or unique.get("groundType"))
+
+
+def _team_id(team: Any) -> Any:
+    if not isinstance(team, dict):
+        return None
+    info = team.get("playerTeamInfo") if isinstance(team.get("playerTeamInfo"), dict) else {}
+    return team.get("id") or info.get("id")
+
+
+def _usable_event(event: Any) -> bool:
+    if not isinstance(event, dict):
+        return False
+    status = event.get("status") if isinstance(event.get("status"), dict) else {}
+    if str(status.get("type") or "").lower() != "finished":
+        return False
+    description = str(status.get("description") or "").lower()
+    if any(token in description for token in ("retired", "walkover", "cancelled", "canceled", "postponed", "abandoned")):
+        return False
+    categories = (event.get("eventFilters") or {}).get("category") if isinstance(event.get("eventFilters"), dict) else None
+    if isinstance(categories, list) and categories and "singles" not in {str(x).lower() for x in categories}:
+        return False
+    return event.get("winnerCode") in (1, 2, "1", "2")
+
+
+def _history(player: Dict[str, Any], surface: str) -> Dict[str, Any]:
+    player_id = player.get("player_id")
+    raw_events: List[Dict[str, Any]] = []
+    page_statuses: List[str] = []
+    for page in range(BLINQ_MAX_PAGES):
+        result = _fetch_previous_page(player_id, page)
+        page_statuses.append(str(result.get("status") or "UNKNOWN"))
+        raw_events.extend(x for x in (result.get("events") or []) if isinstance(x, dict))
+        usable = [x for x in raw_events if _usable_event(x)]
+        surface_count = sum(1 for x in usable if _event_surface(x) == _surface_bucket(surface))
+        if result.get("status") != "OK" or not result.get("has_next_page"):
+            break
+        if len(usable) >= BLINQ_MIN_OVERALL_MATCHES and surface_count >= BLINQ_MIN_SURFACE_MATCHES:
+            break
+    normalized: List[Dict[str, Any]] = []
+    seen = set()
+    for event in raw_events:
+        if not _usable_event(event):
+            continue
+        event_id = str(event.get("id") or event.get("customId") or "")
+        if not event_id or event_id in seen:
+            continue
+        home = event.get("homeTeam") if isinstance(event.get("homeTeam"), dict) else {}
+        away = event.get("awayTeam") if isinstance(event.get("awayTeam"), dict) else {}
+        is_home = str(_team_id(home)) == str(player_id)
+        is_away = str(_team_id(away)) == str(player_id)
+        if not is_home and not is_away:
+            continue
+        winner_code = int(event.get("winnerCode"))
+        won = (is_home and winner_code == 1) or (is_away and winner_code == 2)
+        normalized.append({
+            "event_id": event_id,
+            "timestamp": int(event.get("startTimestamp") or 0),
+            "surface": _event_surface(event),
+            "won": won,
+            "home_id": _team_id(home),
+            "away_id": _team_id(away),
+            "winner_code": winner_code,
+        })
+        seen.add(event_id)
+    normalized.sort(key=lambda x: int(x.get("timestamp") or 0), reverse=True)
+    status = "OK" if normalized else ("RATE_LIMITED" if "RATE_LIMITED" in page_statuses else page_statuses[-1] if page_statuses else "NO_DATA")
+    return {"status": status, "matches": normalized, "pages_fetched": len(page_statuses), "page_statuses": page_statuses}
+
+
+def _summary(matches: List[Dict[str, Any]], limit: int = 10) -> Dict[str, Any]:
+    sample = matches[:limit]
+    wins = sum(1 for x in sample if x.get("won") is True)
+    count = len(sample)
+    return {
+        "count": count,
+        "wins": wins,
+        "losses": count - wins,
+        "record": f"{wins}-{count - wins}" if count else "N/A",
+        "win_pct": round(wins / count, 4) if count else None,
+    }
+
+
+def _direct_data_bundle(player1: Dict[str, Any], player2: Dict[str, Any], surface: str, forward: Dict[str, Any]) -> Dict[str, Any]:
+    existing_form = forward.get("recent_form") if isinstance(forward.get("recent_form"), dict) else {}
+    existing_h2h = forward.get("h2h") if isinstance(forward.get("h2h"), dict) else {}
+    form_ok = existing_form.get("status") == "OK"
+    h2h_total = _int(existing_h2h.get("total_matches")) or 0
+    if form_ok and (h2h_total > 0 or str(existing_h2h.get("status") or "").upper() in {"NO_PREVIOUS_MATCHES", "NO_PREVIOUS_H2H"}):
+        return {"form": existing_form, "h2h": existing_h2h, "source": "THINQ_CONTEXT", "api_calls_needed": False}
+    first_history = _history(player1, surface)
+    second_history = _history(player2, surface)
+    p1_matches = first_history.get("matches") or []
+    p2_matches = second_history.get("matches") or []
+    surface_bucket = _surface_bucket(surface)
+    direct_form = {
+        "status": "OK" if p1_matches and p2_matches else "NO_DATA",
+        "source": "BLINQ_API_PRO_PREVIOUS_MATCHES",
+        "pick": {"last10": _summary(p1_matches), "surface_last10": _summary([x for x in p1_matches if x.get("surface") == surface_bucket])},
+        "opponent": {"last10": _summary(p2_matches), "surface_last10": _summary([x for x in p2_matches if x.get("surface") == surface_bucket])},
+        "pick_api_status": first_history.get("status"),
+        "opponent_api_status": second_history.get("status"),
+    }
+    p2_ids = {str(player2.get("player_id"))}
+    common = []
+    for match in p1_matches:
+        participants = {str(match.get("home_id")), str(match.get("away_id"))}
+        if str(player1.get("player_id")) in participants and participants.intersection(p2_ids):
+            common.append(match)
+    p1_wins = sum(1 for x in common if x.get("won") is True)
+    same_surface = [x for x in common if x.get("surface") == surface_bucket]
+    same_p1_wins = sum(1 for x in same_surface if x.get("won") is True)
+    direct_h2h = {
+        "status": "OK" if common else "NO_PREVIOUS_MATCHES",
+        "source": "BLINQ_API_PRO_PREVIOUS_MATCHES_INTERSECTION",
+        "total_matches": len(common),
+        "pick_wins": p1_wins,
+        "opponent_wins": len(common) - p1_wins,
+        "same_surface_matches": len(same_surface),
+        "same_surface_pick_wins": same_p1_wins,
+        "same_surface_opponent_wins": len(same_surface) - same_p1_wins,
+    }
+    return {
+        "form": existing_form if form_ok else direct_form,
+        "h2h": existing_h2h if h2h_total > 0 else direct_h2h,
+        "source": "BLINQ_ENRICHED",
+        "api_calls_needed": True,
+        "history_audit": {"player1": first_history, "player2": second_history},
+    }
+
+
+def _coverage(player1: Dict[str, Any], player2: Dict[str, Any], elo: Dict[str, Any], form: Dict[str, Any], h2h: Dict[str, Any], surface: str) -> Dict[str, Any]:
+    p1_last = _form_record(form, "pick", "last10")
+    p2_last = _form_record(form, "opponent", "last10")
+    p1_surface = _form_record(form, "pick", "surface_last10")
+    p2_surface = _form_record(form, "opponent", "surface_last10")
+    surface_key = {"Hard": "hard_elo", "Clay": "clay_elo", "Grass": "grass_elo"}.get(_surface_bucket(surface))
+    families = {
+        "elo": bool(player1.get("elo") is not None and player2.get("elo") is not None),
+        "surface_elo": bool(surface_key and player1.get(surface_key) is not None and player2.get(surface_key) is not None),
+        "form": bool(p1_last.get("available") and p2_last.get("available") and min(p1_last["count"], p2_last["count"]) >= 5),
+        "surface_form": bool(p1_surface.get("available") and p2_surface.get("available") and min(p1_surface["count"], p2_surface["count"]) >= 3),
+        "h2h": bool((_int(h2h.get("total_matches")) or 0) > 0),
+    }
+    weighted = {"elo": 30, "surface_elo": 15, "form": 30, "surface_form": 15, "h2h": 10}
+    score = sum(weighted[key] for key, available in families.items() if available)
+    independent = families["form"] or families["h2h"]
+    return {
+        "score": float(score),
+        "families": families,
+        "independent_signal_available": independent,
+        "prediction_allowed": bool(families["elo"] and independent and score >= 60),
+        "required_rule": "ELO plus usable Form or real H2H, with coverage >= 60",
+    }
+
 def _no_prediction(reason: str, flags: List[str], **extra: Any) -> Dict[str, Any]:
     return {
         "model": "BlinQ",
-        "model_version": "BLINQ_THINQ_ORCHESTRATOR_V2",
+        "model_version": "BLINQ_DATA_CONTRACT_V3",
         "status": "NO_PREDICTION",
         "prediction_status": "NO_PREDICTION",
         "winner": None,
@@ -331,6 +578,12 @@ class BlinqService:
         surface_name = str(surface or "Overall")
         forward = self._run(row1, row2, surface_name)
         reverse = self._run(row2, row1, surface_name)
+        player1_public, player2_public = _public(row1), _public(row2)
+        data_bundle = _direct_data_bundle(player1_public, player2_public, surface_name, forward)
+        enriched_forward = dict(forward)
+        enriched_forward["recent_form"] = data_bundle.get("form") or {}
+        enriched_forward["h2h"] = data_bundle.get("h2h") or {}
+        coverage = _coverage(player1_public, player2_public, enriched_forward.get("elo") or {}, enriched_forward["recent_form"], enriched_forward["h2h"], surface_name)
         layer_ab, layer_ba = _layer(forward), _layer(reverse)
         p_ab = _float(layer_ab.get("pick_probability"))
         p_ba = _float(layer_ba.get("pick_probability"))
@@ -355,18 +608,21 @@ class BlinqService:
             "tolerance": TOLERANCE,
         }
 
-        indices = _build_indices(forward, _public(row1), _public(row2))
+        indices = _build_indices(enriched_forward, player1_public, player2_public)
         blocked = (
             not symmetry_ok
             or p_ab is None
             or p_ba is None
             or layer_ab.get("prediction_status") == "NO_PREDICTION"
             or p_ab == 0.5
+            or not coverage.get("prediction_allowed")
         )
         if blocked:
             flags = list(layer_ab.get("flags") or [])
             if not symmetry_ok:
                 flags.append("BLINQ_REAL_AB_SYMMETRY_FAILED")
+            if not coverage.get("prediction_allowed"):
+                flags.append("INSUFFICIENT_SIGNAL_COVERAGE")
             return _no_prediction(
                 "ThinQ data is insufficient, tied, or failed the real A/B audit.",
                 flags,
@@ -377,13 +633,18 @@ class BlinqService:
                 thinq_forward=forward,
                 thinq_reverse=reverse,
                 indices=indices,
-                form_records=_form_records(forward.get("recent_form") if isinstance(forward.get("recent_form"), dict) else {}),
+                data_coverage=coverage,
+                data_bundle_source=data_bundle.get("source"),
+                h2h=enriched_forward.get("h2h") or {},
+                recent_form=enriched_forward.get("recent_form") or {},
+                elo=enriched_forward.get("elo") or {},
+                form_records=_form_records(enriched_forward.get("recent_form") if isinstance(enriched_forward.get("recent_form"), dict) else {}),
             )
 
         winner_is_p1 = p_ab > 0.5
         return {
             "model": "BlinQ",
-            "model_version": "BLINQ_THINQ_ORCHESTRATOR_V2",
+            "model_version": "BLINQ_DATA_CONTRACT_V3",
             "status": "PREDICTION",
             "prediction_status": "PREDICTION",
             "surface": surface_name,
@@ -397,11 +658,13 @@ class BlinqService:
             "confidence": layer_ab.get("confidence"),
             "edge": edge_ab,
             "components": layer_ab.get("components") or {},
-            "h2h": forward.get("h2h") or {},
-            "recent_form": forward.get("recent_form") or {},
-            "elo": forward.get("elo") or {},
+            "h2h": enriched_forward.get("h2h") or {},
+            "recent_form": enriched_forward.get("recent_form") or {},
+            "elo": enriched_forward.get("elo") or {},
+            "data_coverage": coverage,
+            "data_bundle_source": data_bundle.get("source"),
             "flags": sorted(set(layer_ab.get("flags") or [])),
             "symmetry_audit": audit,
             "indices": indices,
-            "form_records": _form_records(forward.get("recent_form") if isinstance(forward.get("recent_form"), dict) else {}),
+            "form_records": _form_records(enriched_forward.get("recent_form") if isinstance(enriched_forward.get("recent_form"), dict) else {}),
         }
