@@ -505,6 +505,7 @@ def blinq_predict(req: func.HttpRequest) -> func.HttpResponse:
                 "prediction_status": "NO_PREDICTION",
                 "winner": None,
                 "reason": "Prediction service is temporarily unavailable.",
+                "error_type": type(exc).__name__,
             },
             500,
         )
