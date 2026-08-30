@@ -329,7 +329,7 @@ def blinq_admin_account(req: func.HttpRequest) -> func.HttpResponse:
             patch.update({"plan_code": "FREE_10", "paid_until": None})
         else:
             patch.update({
-                "plan_code": "PRO_30" if action == "PRO_ACTIVE" else "PRO_PLUS_90",
+                "plan_code": "PRO_30D" if action == "PRO_ACTIVE" else "PRO_PLUS_90D",
                 "paid_at": now.isoformat(),
                 "paid_until": (now + timedelta(days=duration_days)).isoformat(),
             })
