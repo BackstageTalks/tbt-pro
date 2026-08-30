@@ -19,6 +19,9 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from thinq.service import ThinqService
+from blinq.loaders.elo_loader import build_elo_context as build_blinq_elo_context
+from blinq.loaders.h2h_loader import build_h2h_context as build_blinq_h2h_context
+from blinq.features.recent_form import build_recent_form_context as build_blinq_recent_form_context
 
 REGISTRY_PATH = Path("thinq/data/players/player_registry.json")
 TOLERANCE = 0.0001
@@ -40,7 +43,7 @@ def _compact(value: Any) -> str:
 
 def _int(value: Any) -> Optional[int]:
     try:
-        if value in (None, ""):
+        if value in (None, "", 0, "0"):
             return None
         return int(float(value))
     except (TypeError, ValueError):
@@ -154,22 +157,15 @@ def _pair_index(value1: Any, value2: Any, *, samples1: int = 1, samples2: int = 
     return {"available": True, "p1": p1, "p2": round(100.0 - p1, 1)}
 
 
-def _elo_index(elo: Dict[str, Any], player1: Dict[str, Any], player2: Dict[str, Any], surface: str) -> Dict[str, Any]:
-    overall1 = _float(player1.get("elo"))
-    overall2 = _float(player2.get("elo"))
-    surface_key = {"Hard": "hard_elo", "Clay": "clay_elo", "Grass": "grass_elo"}.get(_surface_bucket(surface))
-    surface1 = _float(player1.get(surface_key)) if surface_key else overall1
-    surface2 = _float(player2.get(surface_key)) if surface_key else overall2
-    return {
-        "available": overall1 is not None and overall2 is not None,
-        "p1": overall1,
-        "p2": overall2,
-        "surface_available": surface1 is not None and surface2 is not None,
-        "surface_p1": surface1,
-        "surface_p2": surface2,
-        "surface_key": surface_key or "elo",
-        "label": "E-index",
-    }
+def _elo_index(elo: Dict[str, Any]) -> Dict[str, Any]:
+    first = _float(elo.get("pick_elo"))
+    second = _float(elo.get("opponent_elo"))
+    if first is None or second is None:
+        return {"available": False, "p1": None, "p2": None, "label": "S-index"}
+    # Same neutral ELO scale as the model, exposed only as a 0-100 strength index.
+    probability = 1.0 / (1.0 + 10.0 ** (-(first - second) / 400.0))
+    p1 = round(probability * 100.0, 1)
+    return {"available": True, "p1": p1, "p2": round(100.0 - p1, 1), "label": "S-index"}
 
 
 def _window(form: Dict[str, Any], side: str, key: str) -> Dict[str, Any]:
@@ -223,6 +219,28 @@ def _h2h_index(h2h: Dict[str, Any]) -> Dict[str, Any]:
     return index
 
 
+def _surface_elo_index(elo: Dict[str, Any]) -> Dict[str, Any]:
+    first = _float(elo.get("surface_pick_elo"))
+    second = _float(elo.get("surface_opponent_elo"))
+    if first is None or second is None:
+        return {"available": False, "p1": None, "p2": None, "label": "SE-INDEX"}
+    probability = 1.0 / (1.0 + 10.0 ** (-(first - second) / 400.0))
+    p1 = max(5, min(95, int(round(probability * 20.0) * 5)))
+    return {"available": True, "p1": p1, "p2": 100 - p1, "label": "SE-INDEX"}
+
+
+def _surface_h2h_index(h2h: Dict[str, Any]) -> Dict[str, Any]:
+    total = _int(h2h.get("same_surface_matches")) or 0
+    first = _int(h2h.get("same_surface_pick_wins"))
+    second = _int(h2h.get("same_surface_opponent_wins"))
+    index = _pair_index(first, second, samples1=total, samples2=total)
+    if index.get("available"):
+        p1 = max(25, min(75, int(round(float(index["p1"]) / 5.0) * 5)))
+        index.update({"p1": p1, "p2": 100 - p1})
+    index.update({"label": "SH-INDEX", "sample": total})
+    return index
+
+
 def _market_index(result: Dict[str, Any]) -> Dict[str, Any]:
     """Use market information only when an exact-event movement payload exists."""
     candidates = [result.get("marq"), result.get("market"), (result.get("contexts") or {}).get("marq")]
@@ -239,7 +257,21 @@ def _market_index(result: Dict[str, Any]) -> Dict[str, Any]:
     return {"available": False, "p1": None, "p2": None, "label": "M-index"}
 
 
-def _build_indices(forward: Dict[str, Any], player1: Dict[str, Any], player2: Dict[str, Any], surface: str, coverage: Dict[str, Any]) -> Dict[str, Any]:
+def _data_index(public: Dict[str, Any], elo: Dict[str, Any], form_window: Dict[str, Any], surface_window: Dict[str, Any], h2h_total: int) -> float:
+    checks = [
+        public.get("player_id") is not None,
+        public.get("elo") is not None,
+        elo.get("pick_elo") is not None,
+        (_int(form_window.get("count")) or 0) >= 5,
+        (_int(surface_window.get("count")) or 0) >= 3,
+        h2h_total > 0,
+        public.get("rank") is not None,
+        bool(public.get("country_code")),
+    ]
+    return round(sum(1 for item in checks if item) / len(checks) * 100.0, 1)
+
+
+def _build_indices(forward: Dict[str, Any], player1: Dict[str, Any], player2: Dict[str, Any]) -> Dict[str, Any]:
     elo = forward.get("elo") if isinstance(forward.get("elo"), dict) else {}
     form = forward.get("recent_form") if isinstance(forward.get("recent_form"), dict) else {}
     h2h = forward.get("h2h") if isinstance(forward.get("h2h"), dict) else {}
@@ -249,16 +281,18 @@ def _build_indices(forward: Dict[str, Any], player1: Dict[str, Any], player2: Di
     p2_surface = _window(form, "opponent", "surface_last10")
     h2h_total = _int(h2h.get("total_matches")) or 0
     return {
-        "strength": _elo_index(elo, player1, player2, surface),
+        "strength": _elo_index(elo),
+        "surface_strength": _surface_elo_index(elo),
         "form": _form_index(form, "last10", "F"),
         "court_form": _form_index(form, "surface_last10", "CF"),
         "h2h": _h2h_index(h2h),
+        "surface_h2h": _surface_h2h_index(h2h),
         "market": _market_index(forward),
         "data": {
-            "available": _float(coverage.get("score")) is not None,
-            "value": round(float(coverage.get("score")) / 10.0, 1) if _float(coverage.get("score")) is not None else None,
-            "scale": 10,
-            "label": "Data depth",
+            "available": True,
+            "p1": _data_index(player1, elo, p1_last10, p1_surface, h2h_total),
+            "p2": _data_index(player2, {"pick_elo": elo.get("opponent_elo")}, p2_last10, p2_surface, h2h_total),
+            "label": "D-index",
         },
     }
 
@@ -425,69 +459,40 @@ def _summary(matches: List[Dict[str, Any]], limit: int = 10) -> Dict[str, Any]:
 
 
 def _direct_data_bundle(player1: Dict[str, Any], player2: Dict[str, Any], surface: str, forward: Dict[str, Any]) -> Dict[str, Any]:
-    existing_form = forward.get("recent_form") if isinstance(forward.get("recent_form"), dict) else {}
-    existing_h2h = forward.get("h2h") if isinstance(forward.get("h2h"), dict) else {}
-    form_ok = existing_form.get("status") == "OK"
-    h2h_total = _int(existing_h2h.get("total_matches")) or 0
-    if form_ok and (h2h_total > 0 or str(existing_h2h.get("status") or "").upper() in {"NO_PREVIOUS_MATCHES", "NO_PREVIOUS_H2H"}):
-        return {"form": existing_form, "h2h": existing_h2h, "source": "THINQ_CONTEXT", "api_calls_needed": False}
-    first_history = _history(player1, surface)
-    second_history = _history(player2, surface)
-    p1_matches = first_history.get("matches") or []
-    p2_matches = second_history.get("matches") or []
-    surface_bucket = _surface_bucket(surface)
-    p1_surface_matches = p1_matches if surface_bucket == "Unknown" else [x for x in p1_matches if x.get("surface") == surface_bucket]
-    p2_surface_matches = p2_matches if surface_bucket == "Unknown" else [x for x in p2_matches if x.get("surface") == surface_bucket]
-    direct_form = {
-        "status": "OK" if p1_matches and p2_matches else "NO_DATA",
-        "source": "BLINQ_API_PRO_PREVIOUS_MATCHES",
-        "pick": {"last10": _summary(p1_matches), "surface_last10": _summary(p1_surface_matches)},
-        "opponent": {"last10": _summary(p2_matches), "surface_last10": _summary(p2_surface_matches)},
-        "pick_api_status": first_history.get("status"),
-        "opponent_api_status": second_history.get("status"),
-    }
-    p2_ids = {str(player2.get("player_id"))}
-    common = []
-    for match in p1_matches:
-        participants = {str(match.get("home_id")), str(match.get("away_id"))}
-        if str(player1.get("player_id")) in participants and participants.intersection(p2_ids):
-            common.append(match)
-    p1_wins = sum(1 for x in common if x.get("won") is True)
-    same_surface = common if surface_bucket == "Unknown" else [x for x in common if x.get("surface") == surface_bucket]
-    same_p1_wins = sum(1 for x in same_surface if x.get("won") is True)
-    direct_h2h = {
-        "status": "OK" if common else "NO_PREVIOUS_MATCHES",
-        "source": "BLINQ_API_PRO_PREVIOUS_MATCHES_INTERSECTION",
-        "total_matches": len(common),
-        "pick_wins": p1_wins,
-        "opponent_wins": len(common) - p1_wins,
-        "same_surface_matches": len(same_surface),
-        "same_surface_pick_wins": same_p1_wins,
-        "same_surface_opponent_wins": len(same_surface) - same_p1_wins,
-    }
+    """Build a BlinQ-owned snapshot from independent BlinQ JSON/cache sources."""
+    elo = build_blinq_elo_context(player1.get("player", ""), player2.get("player", ""), surface)
+    form = build_blinq_recent_form_context(
+        player1.get("player", ""),
+        player2.get("player", ""),
+        surface,
+        None,
+        pick_player_id=player1.get("player_id"),
+        opponent_player_id=player2.get("player_id"),
+    )
+    h2h = build_blinq_h2h_context(
+        player1.get("player", ""),
+        player2.get("player", ""),
+        player1.get("player_id"),
+        player2.get("player_id"),
+        surface,
+    )
     return {
-        "form": existing_form if form_ok else direct_form,
-        "h2h": existing_h2h if h2h_total > 0 else direct_h2h,
-        "source": "BLINQ_ENRICHED",
-        "api_calls_needed": True,
-        "history_audit": {"player1": first_history, "player2": second_history},
+        "elo": elo,
+        "form": form,
+        "h2h": h2h,
+        "source": "BLINQ_INDEPENDENT_JSON_V1",
+        "api_calls_needed": False,
     }
-
 
 def _coverage(player1: Dict[str, Any], player2: Dict[str, Any], elo: Dict[str, Any], form: Dict[str, Any], h2h: Dict[str, Any], surface: str) -> Dict[str, Any]:
     p1_last = _form_record(form, "pick", "last10")
     p2_last = _form_record(form, "opponent", "last10")
     p1_surface = _form_record(form, "pick", "surface_last10")
     p2_surface = _form_record(form, "opponent", "surface_last10")
-    surface_bucket = _surface_bucket(surface)
-    surface_key = {"Hard": "hard_elo", "Clay": "clay_elo", "Grass": "grass_elo"}.get(surface_bucket)
-    overall_mode = surface_bucket == "Unknown"
+    surface_key = {"Hard": "hard_elo", "Clay": "clay_elo", "Grass": "grass_elo"}.get(_surface_bucket(surface))
     families = {
         "elo": bool(player1.get("elo") is not None and player2.get("elo") is not None),
-        "surface_elo": bool(
-            (overall_mode and player1.get("elo") is not None and player2.get("elo") is not None)
-            or (surface_key and player1.get(surface_key) is not None and player2.get(surface_key) is not None)
-        ),
+        "surface_elo": bool(surface_key and player1.get(surface_key) is not None and player2.get(surface_key) is not None),
         "form": bool(p1_last.get("available") and p2_last.get("available") and min(p1_last["count"], p2_last["count"]) >= 5),
         "surface_form": bool(p1_surface.get("available") and p2_surface.get("available") and min(p1_surface["count"], p2_surface["count"]) >= 3),
         "h2h": bool((_int(h2h.get("total_matches")) or 0) > 0),
@@ -506,7 +511,7 @@ def _coverage(player1: Dict[str, Any], player2: Dict[str, Any], elo: Dict[str, A
 def _no_prediction(reason: str, flags: List[str], **extra: Any) -> Dict[str, Any]:
     return {
         "model": "BlinQ",
-        "model_version": "BLINQ_DATA_CONTRACT_V4",
+        "model_version": "BLINQ_INDEPENDENT_DATA_V4",
         "status": "NO_PREDICTION",
         "prediction_status": "NO_PREDICTION",
         "winner": None,
@@ -581,6 +586,7 @@ class BlinqService:
         player1_public, player2_public = _public(row1), _public(row2)
         data_bundle = _direct_data_bundle(player1_public, player2_public, surface_name, forward)
         enriched_forward = dict(forward)
+        enriched_forward["elo"] = data_bundle.get("elo") or {}
         enriched_forward["recent_form"] = data_bundle.get("form") or {}
         enriched_forward["h2h"] = data_bundle.get("h2h") or {}
         coverage = _coverage(player1_public, player2_public, enriched_forward.get("elo") or {}, enriched_forward["recent_form"], enriched_forward["h2h"], surface_name)
@@ -608,7 +614,7 @@ class BlinqService:
             "tolerance": TOLERANCE,
         }
 
-        indices = _build_indices(enriched_forward, player1_public, player2_public, surface_name, coverage)
+        indices = _build_indices(enriched_forward, player1_public, player2_public)
         blocked = (
             not symmetry_ok
             or p_ab is None
@@ -634,15 +640,7 @@ class BlinqService:
                 thinq_reverse=reverse,
                 indices=indices,
                 data_coverage=coverage,
-                data_depth=indices.get("data", {}).get("value"),
-                data_depth_scale=10,
                 data_bundle_source=data_bundle.get("source"),
-                api_data_status={
-                    "rapidapi_configured": bool(os.getenv("RAPIDAPI_KEY", "").strip()),
-                    "player1_history": (data_bundle.get("history_audit") or {}).get("player1", {}).get("status"),
-                    "player2_history": (data_bundle.get("history_audit") or {}).get("player2", {}).get("status"),
-                    "odds": "DEFERRED_UNTIL_EXACT_EVENT_CONTEXT",
-                },
                 h2h=enriched_forward.get("h2h") or {},
                 recent_form=enriched_forward.get("recent_form") or {},
                 elo=enriched_forward.get("elo") or {},
@@ -652,7 +650,7 @@ class BlinqService:
         winner_is_p1 = p_ab > 0.5
         return {
             "model": "BlinQ",
-            "model_version": "BLINQ_DATA_CONTRACT_V4",
+            "model_version": "BLINQ_INDEPENDENT_DATA_V4",
             "status": "PREDICTION",
             "prediction_status": "PREDICTION",
             "surface": surface_name,
@@ -670,15 +668,7 @@ class BlinqService:
             "recent_form": enriched_forward.get("recent_form") or {},
             "elo": enriched_forward.get("elo") or {},
             "data_coverage": coverage,
-            "data_depth": indices.get("data", {}).get("value"),
-            "data_depth_scale": 10,
             "data_bundle_source": data_bundle.get("source"),
-            "api_data_status": {
-                "rapidapi_configured": bool(os.getenv("RAPIDAPI_KEY", "").strip()),
-                "player1_history": (data_bundle.get("history_audit") or {}).get("player1", {}).get("status"),
-                "player2_history": (data_bundle.get("history_audit") or {}).get("player2", {}).get("status"),
-                "odds": "DEFERRED_UNTIL_EXACT_EVENT_CONTEXT",
-            },
             "flags": sorted(set(layer_ab.get("flags") or [])),
             "symmetry_audit": audit,
             "indices": indices,
