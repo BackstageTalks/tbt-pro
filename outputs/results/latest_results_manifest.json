@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-08-30T12:55:05+00:00",
-  "date": "2026-08-30",
-  "fetch_api": false,
+  "generated_at": "2026-08-30T13:18:21+00:00",
+  "date": "2026-08-29",
+  "fetch_api": true,
   "settlement_grace_hours": 0.0,
   "local_tz": "Europe/Bratislava",
   "corq_count": 185,
@@ -52,14 +52,14 @@
     }
   },
   "sources": {
-    "corq": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/latest_corq_top7_snapshot.json",
-    "cloq": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/cloq_top_2026-08-30.json",
-    "audit": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/latest_all_audit_snapshot.json"
+    "corq": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/corq_top7_2026-08-29.json",
+    "cloq": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/cloq_top_2026-08-29.json",
+    "audit": ""
   },
   "locks": {
-    "corq": "immutable_ledger_source_plus_existing:7+existing:178+preserved:0",
-    "cloq": "immutable_ledger_source_plus_existing:10+existing:136+preserved:0",
-    "audit": "immutable_ledger_source_plus_existing:80+existing:985+preserved:0"
+    "corq": "immutable_ledger_source_plus_existing:0+existing:183+preserved:2",
+    "cloq": "immutable_ledger_source_plus_existing:0+existing:145+preserved:1",
+    "audit": "existing_results_only_no_source_rows"
   },
   "output_root": "outputs/results"
 }
