@@ -233,6 +233,132 @@ def blinq_access_status(req: func.HttpRequest) -> func.HttpResponse:
         return _response(req, {"status": access_error or "ACCESS_UNAVAILABLE"}, 503)
     return _response(req, {"status": "OK", "email": user.get("email"), **_public_access(row)}, 200)
 
+
+
+def _require_admin(req: func.HttpRequest) -> Tuple[Optional[Dict[str, Any]], Optional[Dict[str, Any]], Optional[str]]:
+    user, error = _auth_user(req)
+    if error or not user:
+        return None, None, error or "AUTH_REQUIRED"
+    row, access_error = _access_row(user)
+    if access_error or not row:
+        return user, None, access_error or "ACCESS_UNAVAILABLE"
+    if _effective_status(row) != "ADMIN":
+        return user, row, "ADMIN_REQUIRED"
+    return user, row, None
+
+
+def _admin_account_by_email(email: str) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
+    import requests
+    normalized = str(email or "").strip().lower()
+    if not normalized or "@" not in normalized:
+        return None, "INVALID_EMAIL"
+    try:
+        response = requests.get(
+            f"{SUPABASE_URL}/rest/v1/blinq_access",
+            headers=_admin_headers(),
+            params={"email": f"eq.{normalized}", "select": "*", "limit": "1"},
+            timeout=12,
+        )
+        if response.status_code != 200:
+            return None, "ACCOUNT_LOOKUP_FAILED"
+        rows = response.json()
+        if not isinstance(rows, list) or not rows:
+            return None, "ACCOUNT_NOT_FOUND"
+        return rows[0], None
+    except Exception:
+        return None, "ACCOUNT_LOOKUP_UNAVAILABLE"
+
+
+def _admin_public_account(row: Dict[str, Any]) -> Dict[str, Any]:
+    access = _public_access(row)
+    return {
+        "user_id": row.get("user_id"),
+        "email": row.get("email"),
+        "role": row.get("role"),
+        "access_status_stored": row.get("access_status"),
+        **access,
+    }
+
+
+@app.route(route="blinq/admin/account", methods=["GET", "POST", "OPTIONS"])
+def blinq_admin_account(req: func.HttpRequest) -> func.HttpResponse:
+    if req.method == "OPTIONS":
+        return _response(req, {}, 204)
+    _, _, admin_error = _require_admin(req)
+    if admin_error:
+        status = 403 if admin_error == "ADMIN_REQUIRED" else 401 if admin_error.startswith(("AUTH_", "INVALID_SESSION")) else 503
+        return _response(req, {"status": admin_error}, status)
+
+    if req.method == "GET":
+        account, lookup_error = _admin_account_by_email(req.params.get("email") or "")
+        if lookup_error or not account:
+            return _response(req, {"status": lookup_error or "ACCOUNT_NOT_FOUND"}, 404 if lookup_error == "ACCOUNT_NOT_FOUND" else 400)
+        return _response(req, {"status": "OK", "account": _admin_public_account(account)}, 200)
+
+    try:
+        body = req.get_json()
+    except ValueError:
+        return _response(req, {"status": "INVALID_INPUT", "reason": "Request body must be JSON."}, 400)
+    if not isinstance(body, dict):
+        return _response(req, {"status": "INVALID_INPUT"}, 400)
+
+    account, lookup_error = _admin_account_by_email(body.get("email") or "")
+    if lookup_error or not account:
+        return _response(req, {"status": lookup_error or "ACCOUNT_NOT_FOUND"}, 404 if lookup_error == "ACCOUNT_NOT_FOUND" else 400)
+
+    action = str(body.get("access_status") or "KEEP").strip().upper()
+    allowed = {"KEEP", "FREE_ACTIVE", "PRO_ACTIVE", "PRO_PLUS_ACTIVE"}
+    if action not in allowed:
+        return _response(req, {"status": "INVALID_ACCESS_STATUS"}, 400)
+    try:
+        add_comparisons = int(body.get("add_comparisons") or 0)
+        duration_days = int(body.get("duration_days") or 0)
+    except (TypeError, ValueError):
+        return _response(req, {"status": "INVALID_NUMERIC_VALUE"}, 400)
+    if add_comparisons < 0 or add_comparisons > 100000:
+        return _response(req, {"status": "INVALID_COMPARISON_COUNT"}, 400)
+    if action in {"PRO_ACTIVE", "PRO_PLUS_ACTIVE"} and duration_days not in {30, 90}:
+        return _response(req, {"status": "INVALID_DURATION"}, 400)
+
+    from datetime import datetime, timedelta, timezone
+    now = datetime.now(timezone.utc)
+    patch: Dict[str, Any] = {}
+    if action != "KEEP":
+        patch["access_status"] = action
+        if action == "FREE_ACTIVE":
+            patch.update({"plan_code": "FREE_10", "paid_until": None})
+        else:
+            patch.update({
+                "plan_code": "PRO_30" if action == "PRO_ACTIVE" else "PRO_PLUS_90",
+                "paid_at": now.isoformat(),
+                "paid_until": (now + timedelta(days=duration_days)).isoformat(),
+            })
+    if add_comparisons:
+        patch["credits_granted"] = _int_value(account.get("credits_granted")) + add_comparisons
+    payment_reference = str(body.get("payment_reference") or "").strip()
+    if payment_reference:
+        patch["payment_reference"] = payment_reference[:200]
+    if not patch:
+        return _response(req, {"status": "NO_CHANGES"}, 400)
+
+    import requests
+    try:
+        updated = requests.patch(
+            f"{SUPABASE_URL}/rest/v1/blinq_access",
+            headers=_admin_headers(),
+            params={"user_id": f"eq.{account.get('user_id')}"},
+            json=patch,
+            timeout=12,
+        )
+        if updated.status_code not in (200, 204):
+            return _response(req, {"status": "ACCOUNT_UPDATE_FAILED"}, 500)
+        rows = updated.json() if updated.content else []
+        result = rows[0] if isinstance(rows, list) and rows else {**account, **patch}
+        return _response(req, {"status": "OK", "account": _admin_public_account(result)}, 200)
+    except Exception:
+        return _response(req, {"status": "ACCOUNT_UPDATE_UNAVAILABLE"}, 503)
+
+
 @app.route(route="blinq/access/request", methods=["POST", "OPTIONS"])
 def blinq_access_request(req: func.HttpRequest) -> func.HttpResponse:
     if req.method == "OPTIONS":
