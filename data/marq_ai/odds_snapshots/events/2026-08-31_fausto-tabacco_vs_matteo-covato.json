@@ -1,10 +1,10 @@
 {
   "event_id": "16953483",
   "event_key": "2026-08-31_fausto-tabacco_vs_matteo-covato",
-  "latest_odds_player1": 3.75,
-  "latest_odds_player2": 1.25,
+  "latest_odds_player1": 8.5,
+  "latest_odds_player2": 1.05,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-30T15:03:21.844268+00:00",
+  "latest_snapshot_time_utc": "2026-08-30T19:29:52.991532+00:00",
   "opening_odds_player1": 3.75,
   "opening_odds_player2": 1.25,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Matteo Covato",
   "player2": "Fausto Tabacco",
-  "snapshot_count": 1,
+  "snapshot_count": 2,
   "snapshots": [
     {
       "event_id": "16953483",
@@ -34,8 +34,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-30T13:00:00+00:00",
       "target_date": "2026-08-31"
+    },
+    {
+      "event_id": "16953483",
+      "event_key": "2026-08-31_fausto-tabacco_vs_matteo-covato",
+      "hours_to_start": -6.5,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 8.5,
+      "odds_player2": 1.05,
+      "player1": "Matteo Covato",
+      "player2": "Fausto Tabacco",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-30T19:29:52.991532+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-30T13:00:00+00:00",
+      "target_date": "2026-08-31"
     }
   ],
   "start_time_utc": "2026-08-30T13:00:00+00:00",
-  "updated_at_utc": "2026-08-30T15:04:01.130201+00:00"
+  "updated_at_utc": "2026-08-30T19:30:16.741948+00:00"
 }

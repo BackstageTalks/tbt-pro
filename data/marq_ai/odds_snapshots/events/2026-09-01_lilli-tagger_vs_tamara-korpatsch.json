@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.22,
   "latest_odds_player2": 4.33333,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-30T15:03:21.844268+00:00",
+  "latest_snapshot_time_utc": "2026-08-30T19:29:52.991532+00:00",
   "opening_odds_player1": 1.2,
   "opening_odds_player2": 4.5,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Lilli Tagger",
   "player2": "Tamara Korpatsch",
-  "snapshot_count": 6,
+  "snapshot_count": 7,
   "snapshots": [
     {
       "event_id": "16940168",
@@ -139,8 +139,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-31T15:00:00+00:00",
       "target_date": "2026-09-01"
+    },
+    {
+      "event_id": "16940168",
+      "event_key": "2026-09-01_lilli-tagger_vs_tamara-korpatsch",
+      "hours_to_start": 19.5,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.22,
+      "odds_player2": 4.33333,
+      "player1": "Lilli Tagger",
+      "player2": "Tamara Korpatsch",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-30T19:29:52.991532+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-31T15:00:00+00:00",
+      "target_date": "2026-09-01"
     }
   ],
   "start_time_utc": "2026-08-31T15:00:00+00:00",
-  "updated_at_utc": "2026-08-30T15:04:30.827344+00:00"
+  "updated_at_utc": "2026-08-30T19:30:39.876764+00:00"
 }

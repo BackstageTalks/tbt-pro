@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.53333,
   "latest_odds_player2": 2.375,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-30T15:03:21.844268+00:00",
+  "latest_snapshot_time_utc": "2026-08-30T19:29:52.991532+00:00",
   "opening_odds_player1": 1.53333,
   "opening_odds_player2": 2.375,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Kaetan Mehta",
   "player2": "Joao Luis Silva",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "16948519",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-29T17:10:00+00:00",
       "target_date": "2026-08-30"
+    },
+    {
+      "event_id": "16948519",
+      "event_key": "2026-08-30_joao-luis-silva_vs_kaetan-mehta",
+      "hours_to_start": -26.33,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.53333,
+      "odds_player2": 2.375,
+      "player1": "Kaetan Mehta",
+      "player2": "Joao Luis Silva",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-30T19:29:52.991532+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-29T17:10:00+00:00",
+      "target_date": "2026-08-30"
     }
   ],
   "start_time_utc": "2026-08-29T17:10:00+00:00",
-  "updated_at_utc": "2026-08-30T15:03:38.917017+00:00"
+  "updated_at_utc": "2026-08-30T19:30:06.112163+00:00"
 }
