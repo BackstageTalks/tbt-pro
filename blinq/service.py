@@ -40,7 +40,7 @@ def _compact(value: Any) -> str:
 
 def _int(value: Any) -> Optional[int]:
     try:
-        if value in (None, "", 0, "0"):
+        if value in (None, ""):
             return None
         return int(float(value))
     except (TypeError, ValueError):
@@ -436,11 +436,13 @@ def _direct_data_bundle(player1: Dict[str, Any], player2: Dict[str, Any], surfac
     p1_matches = first_history.get("matches") or []
     p2_matches = second_history.get("matches") or []
     surface_bucket = _surface_bucket(surface)
+    p1_surface_matches = p1_matches if surface_bucket == "Unknown" else [x for x in p1_matches if x.get("surface") == surface_bucket]
+    p2_surface_matches = p2_matches if surface_bucket == "Unknown" else [x for x in p2_matches if x.get("surface") == surface_bucket]
     direct_form = {
         "status": "OK" if p1_matches and p2_matches else "NO_DATA",
         "source": "BLINQ_API_PRO_PREVIOUS_MATCHES",
-        "pick": {"last10": _summary(p1_matches), "surface_last10": _summary([x for x in p1_matches if x.get("surface") == surface_bucket])},
-        "opponent": {"last10": _summary(p2_matches), "surface_last10": _summary([x for x in p2_matches if x.get("surface") == surface_bucket])},
+        "pick": {"last10": _summary(p1_matches), "surface_last10": _summary(p1_surface_matches)},
+        "opponent": {"last10": _summary(p2_matches), "surface_last10": _summary(p2_surface_matches)},
         "pick_api_status": first_history.get("status"),
         "opponent_api_status": second_history.get("status"),
     }
@@ -451,7 +453,7 @@ def _direct_data_bundle(player1: Dict[str, Any], player2: Dict[str, Any], surfac
         if str(player1.get("player_id")) in participants and participants.intersection(p2_ids):
             common.append(match)
     p1_wins = sum(1 for x in common if x.get("won") is True)
-    same_surface = [x for x in common if x.get("surface") == surface_bucket]
+    same_surface = common if surface_bucket == "Unknown" else [x for x in common if x.get("surface") == surface_bucket]
     same_p1_wins = sum(1 for x in same_surface if x.get("won") is True)
     direct_h2h = {
         "status": "OK" if common else "NO_PREVIOUS_MATCHES",
@@ -477,10 +479,15 @@ def _coverage(player1: Dict[str, Any], player2: Dict[str, Any], elo: Dict[str, A
     p2_last = _form_record(form, "opponent", "last10")
     p1_surface = _form_record(form, "pick", "surface_last10")
     p2_surface = _form_record(form, "opponent", "surface_last10")
-    surface_key = {"Hard": "hard_elo", "Clay": "clay_elo", "Grass": "grass_elo"}.get(_surface_bucket(surface))
+    surface_bucket = _surface_bucket(surface)
+    surface_key = {"Hard": "hard_elo", "Clay": "clay_elo", "Grass": "grass_elo"}.get(surface_bucket)
+    overall_mode = surface_bucket == "Unknown"
     families = {
         "elo": bool(player1.get("elo") is not None and player2.get("elo") is not None),
-        "surface_elo": bool(surface_key and player1.get(surface_key) is not None and player2.get(surface_key) is not None),
+        "surface_elo": bool(
+            (overall_mode and player1.get("elo") is not None and player2.get("elo") is not None)
+            or (surface_key and player1.get(surface_key) is not None and player2.get(surface_key) is not None)
+        ),
         "form": bool(p1_last.get("available") and p2_last.get("available") and min(p1_last["count"], p2_last["count"]) >= 5),
         "surface_form": bool(p1_surface.get("available") and p2_surface.get("available") and min(p1_surface["count"], p2_surface["count"]) >= 3),
         "h2h": bool((_int(h2h.get("total_matches")) or 0) > 0),
@@ -630,6 +637,12 @@ class BlinqService:
                 data_depth=indices.get("data", {}).get("value"),
                 data_depth_scale=10,
                 data_bundle_source=data_bundle.get("source"),
+                api_data_status={
+                    "rapidapi_configured": bool(os.getenv("RAPIDAPI_KEY", "").strip()),
+                    "player1_history": (data_bundle.get("history_audit") or {}).get("player1", {}).get("status"),
+                    "player2_history": (data_bundle.get("history_audit") or {}).get("player2", {}).get("status"),
+                    "odds": "DEFERRED_UNTIL_EXACT_EVENT_CONTEXT",
+                },
                 h2h=enriched_forward.get("h2h") or {},
                 recent_form=enriched_forward.get("recent_form") or {},
                 elo=enriched_forward.get("elo") or {},
@@ -660,6 +673,12 @@ class BlinqService:
             "data_depth": indices.get("data", {}).get("value"),
             "data_depth_scale": 10,
             "data_bundle_source": data_bundle.get("source"),
+            "api_data_status": {
+                "rapidapi_configured": bool(os.getenv("RAPIDAPI_KEY", "").strip()),
+                "player1_history": (data_bundle.get("history_audit") or {}).get("player1", {}).get("status"),
+                "player2_history": (data_bundle.get("history_audit") or {}).get("player2", {}).get("status"),
+                "odds": "DEFERRED_UNTIL_EXACT_EVENT_CONTEXT",
+            },
             "flags": sorted(set(layer_ab.get("flags") or [])),
             "symmetry_audit": audit,
             "indices": indices,
