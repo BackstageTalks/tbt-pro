@@ -60,7 +60,8 @@ jobs:
           test -s api/function_app.py
           test -s api/host.json
           test -s api/requirements.txt
-          python -m py_compile blinq/web/render.py blinq/service.py api/function_app.py
+          python -m py_compile blinq/web/render.py blinq/service.py blinq/model.py api/function_app.py
+          python -c "from blinq.service import BlinqService; assert BlinqService"
 
       - name: Validate plans configuration
         shell: bash
@@ -157,7 +158,8 @@ jobs:
           rm -rf api/blinq/web api/corq/site api/corq/outputs api/corq/logs api/thinq/outputs
           find api -type d -name "__pycache__" -prune -exec rm -rf {} +
           find api -type f -name "*.pyc" -delete
-          python -m py_compile api/function_app.py api/blinq/service.py
+          python -m py_compile api/function_app.py api/blinq/service.py api/blinq/model.py
+          python -c "import sys; sys.path.insert(0, 'api'); from blinq.service import BlinqService; assert BlinqService"
           size=$(du -sb api | awk '{print $1}')
           echo "Azure API artifact bytes: $size"
           test "$size" -le 100000000
