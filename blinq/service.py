@@ -154,15 +154,22 @@ def _pair_index(value1: Any, value2: Any, *, samples1: int = 1, samples2: int = 
     return {"available": True, "p1": p1, "p2": round(100.0 - p1, 1)}
 
 
-def _elo_index(elo: Dict[str, Any]) -> Dict[str, Any]:
-    first = _float(elo.get("pick_elo"))
-    second = _float(elo.get("opponent_elo"))
-    if first is None or second is None:
-        return {"available": False, "p1": None, "p2": None, "label": "S-index"}
-    # Same neutral ELO scale as the model, exposed only as a 0-100 strength index.
-    probability = 1.0 / (1.0 + 10.0 ** (-(first - second) / 400.0))
-    p1 = round(probability * 100.0, 1)
-    return {"available": True, "p1": p1, "p2": round(100.0 - p1, 1), "label": "S-index"}
+def _elo_index(elo: Dict[str, Any], player1: Dict[str, Any], player2: Dict[str, Any], surface: str) -> Dict[str, Any]:
+    overall1 = _float(player1.get("elo"))
+    overall2 = _float(player2.get("elo"))
+    surface_key = {"Hard": "hard_elo", "Clay": "clay_elo", "Grass": "grass_elo"}.get(_surface_bucket(surface))
+    surface1 = _float(player1.get(surface_key)) if surface_key else overall1
+    surface2 = _float(player2.get(surface_key)) if surface_key else overall2
+    return {
+        "available": overall1 is not None and overall2 is not None,
+        "p1": overall1,
+        "p2": overall2,
+        "surface_available": surface1 is not None and surface2 is not None,
+        "surface_p1": surface1,
+        "surface_p2": surface2,
+        "surface_key": surface_key or "elo",
+        "label": "E-index",
+    }
 
 
 def _window(form: Dict[str, Any], side: str, key: str) -> Dict[str, Any]:
@@ -232,21 +239,7 @@ def _market_index(result: Dict[str, Any]) -> Dict[str, Any]:
     return {"available": False, "p1": None, "p2": None, "label": "M-index"}
 
 
-def _data_index(public: Dict[str, Any], elo: Dict[str, Any], form_window: Dict[str, Any], surface_window: Dict[str, Any], h2h_total: int) -> float:
-    checks = [
-        public.get("player_id") is not None,
-        public.get("elo") is not None,
-        elo.get("pick_elo") is not None,
-        (_int(form_window.get("count")) or 0) >= 5,
-        (_int(surface_window.get("count")) or 0) >= 3,
-        h2h_total > 0,
-        public.get("rank") is not None,
-        bool(public.get("country_code")),
-    ]
-    return round(sum(1 for item in checks if item) / len(checks) * 100.0, 1)
-
-
-def _build_indices(forward: Dict[str, Any], player1: Dict[str, Any], player2: Dict[str, Any]) -> Dict[str, Any]:
+def _build_indices(forward: Dict[str, Any], player1: Dict[str, Any], player2: Dict[str, Any], surface: str, coverage: Dict[str, Any]) -> Dict[str, Any]:
     elo = forward.get("elo") if isinstance(forward.get("elo"), dict) else {}
     form = forward.get("recent_form") if isinstance(forward.get("recent_form"), dict) else {}
     h2h = forward.get("h2h") if isinstance(forward.get("h2h"), dict) else {}
@@ -256,16 +249,16 @@ def _build_indices(forward: Dict[str, Any], player1: Dict[str, Any], player2: Di
     p2_surface = _window(form, "opponent", "surface_last10")
     h2h_total = _int(h2h.get("total_matches")) or 0
     return {
-        "strength": _elo_index(elo),
+        "strength": _elo_index(elo, player1, player2, surface),
         "form": _form_index(form, "last10", "F"),
         "court_form": _form_index(form, "surface_last10", "CF"),
         "h2h": _h2h_index(h2h),
         "market": _market_index(forward),
         "data": {
-            "available": True,
-            "p1": _data_index(player1, elo, p1_last10, p1_surface, h2h_total),
-            "p2": _data_index(player2, {"pick_elo": elo.get("opponent_elo")}, p2_last10, p2_surface, h2h_total),
-            "label": "D-index",
+            "available": _float(coverage.get("score")) is not None,
+            "value": round(float(coverage.get("score")) / 10.0, 1) if _float(coverage.get("score")) is not None else None,
+            "scale": 10,
+            "label": "Data depth",
         },
     }
 
@@ -506,7 +499,7 @@ def _coverage(player1: Dict[str, Any], player2: Dict[str, Any], elo: Dict[str, A
 def _no_prediction(reason: str, flags: List[str], **extra: Any) -> Dict[str, Any]:
     return {
         "model": "BlinQ",
-        "model_version": "BLINQ_DATA_CONTRACT_V3",
+        "model_version": "BLINQ_DATA_CONTRACT_V4",
         "status": "NO_PREDICTION",
         "prediction_status": "NO_PREDICTION",
         "winner": None,
@@ -608,7 +601,7 @@ class BlinqService:
             "tolerance": TOLERANCE,
         }
 
-        indices = _build_indices(enriched_forward, player1_public, player2_public)
+        indices = _build_indices(enriched_forward, player1_public, player2_public, surface_name, coverage)
         blocked = (
             not symmetry_ok
             or p_ab is None
@@ -634,6 +627,8 @@ class BlinqService:
                 thinq_reverse=reverse,
                 indices=indices,
                 data_coverage=coverage,
+                data_depth=indices.get("data", {}).get("value"),
+                data_depth_scale=10,
                 data_bundle_source=data_bundle.get("source"),
                 h2h=enriched_forward.get("h2h") or {},
                 recent_form=enriched_forward.get("recent_form") or {},
@@ -644,7 +639,7 @@ class BlinqService:
         winner_is_p1 = p_ab > 0.5
         return {
             "model": "BlinQ",
-            "model_version": "BLINQ_DATA_CONTRACT_V3",
+            "model_version": "BLINQ_DATA_CONTRACT_V4",
             "status": "PREDICTION",
             "prediction_status": "PREDICTION",
             "surface": surface_name,
@@ -662,6 +657,8 @@ class BlinqService:
             "recent_form": enriched_forward.get("recent_form") or {},
             "elo": enriched_forward.get("elo") or {},
             "data_coverage": coverage,
+            "data_depth": indices.get("data", {}).get("value"),
+            "data_depth_scale": 10,
             "data_bundle_source": data_bundle.get("source"),
             "flags": sorted(set(layer_ab.get("flags") or [])),
             "symmetry_audit": audit,
