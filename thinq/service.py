@@ -867,6 +867,13 @@ class ThinqService:
                 "h2h_same_surface_score_sample": h2h.get("h2h_same_surface_score_sample"),
             },
             "recent_form": recent_form,
+            "display_indices": {
+                "pick_form": recent_form.get("pick_api_last10_record"),
+                "opponent_form": recent_form.get("opponent_api_last10_record"),
+                "pick_surface_form": recent_form.get("pick_api_surface_record"),
+                "opponent_surface_form": recent_form.get("opponent_api_surface_record"),
+                "form_data_depth": recent_form.get("form_data_depth"),
+            },
             "match_dynamics": match_dynamics,
             "thinq_probability_layer": thinq_probability_layer,
             "probability_layer": thinq_probability_layer,
