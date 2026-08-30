@@ -192,16 +192,47 @@ def _public_access(row: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-def _consume_credit(user_id: str) -> bool:
+def _consume_credit(user_id: str, access_row: Dict[str, Any]) -> Tuple[bool, Optional[str]]:
+    """Consume exactly one FREE credit through the canonical atomic RPC.
+
+    Expired paid accounts may resolve to FREE_ACTIVE when saved FREE credits remain.
+    Normalize that stored state before calling the RPC, because the database function
+    intentionally consumes only rows whose stored status is FREE_ACTIVE.
+    """
     import requests
-    response = requests.post(
-        f"{SUPABASE_URL}/rest/v1/rpc/consume_blinq_credit", headers=_admin_headers(),
-        json={"p_user_id": user_id}, timeout=12
-    )
+
+    stored_status = str(access_row.get("access_status") or "").upper()
+    if stored_status != "FREE_ACTIVE":
+        try:
+            normalized = requests.patch(
+                f"{SUPABASE_URL}/rest/v1/blinq_access",
+                headers=_admin_headers(),
+                params={"user_id": f"eq.{user_id}"},
+                json={"access_status": "FREE_ACTIVE", "plan_code": "FREE_10", "paid_until": None},
+                timeout=12,
+            )
+            if normalized.status_code not in (200, 204):
+                return False, f"CREDIT_STATUS_NORMALIZE_FAILED_{normalized.status_code}"
+        except requests.RequestException:
+            return False, "CREDIT_STATUS_NORMALIZE_UNAVAILABLE"
+
+    try:
+        response = requests.post(
+            f"{SUPABASE_URL}/rest/v1/rpc/consume_blinq_credit",
+            headers=_admin_headers(),
+            json={"p_user_id": user_id},
+            timeout=12,
+        )
+    except requests.RequestException:
+        return False, "CREDIT_RPC_UNAVAILABLE"
+
     if response.status_code != 200:
-        return False
-    value = response.json()
-    return value is True
+        return False, f"CREDIT_RPC_FAILED_{response.status_code}"
+    try:
+        value = response.json()
+    except ValueError:
+        return False, "CREDIT_RPC_INVALID_RESPONSE"
+    return (True, None) if value is True else (False, "NO_FREE_CREDIT_AVAILABLE")
 
 @app.route(route="blinq/health", methods=["GET", "OPTIONS"])
 def blinq_health(req: func.HttpRequest) -> func.HttpResponse:
@@ -317,8 +348,10 @@ def blinq_admin_account(req: func.HttpRequest) -> func.HttpResponse:
         return _response(req, {"status": "INVALID_NUMERIC_VALUE"}, 400)
     if add_comparisons < 0 or add_comparisons > 100000:
         return _response(req, {"status": "INVALID_COMPARISON_COUNT"}, 400)
-    if action in {"PRO_ACTIVE", "PRO_PLUS_ACTIVE"} and duration_days not in {30, 90}:
-        return _response(req, {"status": "INVALID_DURATION"}, 400)
+    if action == "PRO_ACTIVE":
+        duration_days = 30
+    elif action == "PRO_PLUS_ACTIVE":
+        duration_days = 90
 
     from datetime import datetime, timedelta, timezone
     now = datetime.now(timezone.utc)
@@ -443,8 +476,21 @@ def blinq_predict(req: func.HttpRequest) -> func.HttpResponse:
     try:
         result = BlinqService().predict(player1, player2, surface)
         if str(result.get("prediction_status") or result.get("status") or "").upper() == "PREDICTION":
-            if effective == "FREE_ACTIVE" and not _consume_credit(str(user.get("id") or "")):
-                return _response(req, {"status": "CREDIT_UPDATE_FAILED"}, 503)
+            if effective == "FREE_ACTIVE":
+                consumed, credit_error = _consume_credit(str(user.get("id") or ""), access_row)
+                if not consumed:
+                    refreshed, _ = _access_row(user)
+                    current_access = _public_access(refreshed or access_row)
+                    status_code = 403 if credit_error == "NO_FREE_CREDIT_AVAILABLE" else 503
+                    return _response(
+                        req,
+                        {
+                            "status": "CREDIT_UPDATE_FAILED",
+                            "reason": credit_error or "Credit could not be updated.",
+                            **current_access,
+                        },
+                        status_code,
+                    )
             refreshed, _ = _access_row(user)
             result["access"] = _public_access(refreshed or access_row)
         else:
