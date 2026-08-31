@@ -18,9 +18,12 @@ jobs:
   update:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -32,9 +35,26 @@ jobs:
         run: |
           set -euo pipefail
           python -m pip install --upgrade pip
-          python -m pip install requests pandas lxml
+          if [ -f requirements.txt ]; then
+            python -m pip install -r requirements.txt
+          else
+            python -m pip install pandas lxml requests
+          fi
 
-      - name: Validate strict BlinQ contract
+      - name: Validate required BlinQ files
+        run: |
+          set -euo pipefail
+          test -f blinq/loaders/elo_loader.py
+          test -f blinq/loaders/h2h_loader.py
+          test -f blinq/loaders/player_registry_loader.py
+          test -f blinq/features/recent_form.py
+          test -f blinq/model.py
+          test -f blinq/service.py
+          test -f thinq/data/players/player_registry.json
+          test -f thinq/data/players/api_pro_player_identities.json
+          test -f thinq/data/rankings/api_pro_player_rankings.json
+
+      - name: Validate Python syntax
         run: |
           set -euo pipefail
           python -m py_compile \
@@ -42,32 +62,15 @@ jobs:
             blinq/model.py \
             blinq/loaders/elo_loader.py \
             blinq/loaders/h2h_loader.py \
+            blinq/loaders/player_registry_loader.py \
             blinq/features/recent_form.py
-          python - <<'PY'
-          from pathlib import Path
-
-          service = Path("blinq/service.py").read_text(encoding="utf-8")
-          elo = Path("blinq/loaders/elo_loader.py").read_text(encoding="utf-8")
-          form = Path("blinq/features/recent_form.py").read_text(encoding="utf-8")
-
-          violations = []
-          if "SURFACE_ELO_FALLBACK_OVERALL" in elo:
-              violations.append("surface ELO fallback")
-          if "def _quality_edge" in form or "quality_edge = _quality_edge" in form:
-              violations.append("ranking quality proxy")
-          if any(token in service.lower() for token in ("marq", "market_index")):
-              violations.append("market or MarQ signal")
-          if "BLINQ_STRICT_REAL_DATA_V5" not in service:
-              violations.append("strict runtime version")
-          if violations:
-              raise SystemExit("BlinQ contract failed: " + ", ".join(violations))
-          print("BlinQ strict real-data contract passed")
-          PY
 
       - name: Update verified ELO data
         run: |
           set -euo pipefail
-          python -m blinq.loaders.elo_loader --update --output blinq/data/elo/elo_ratings.json
+          python -m blinq.loaders.elo_loader \
+            --update \
+            --output blinq/data/elo/elo_ratings.json
 
       - name: Validate generated ELO dataset
         run: |
@@ -87,7 +90,53 @@ jobs:
           print(f"Verified ELO profiles: {count}")
           PY
 
-      - name: Validate existing match caches
+      - name: Build independent BlinQ player registry
+        run: |
+          set -euo pipefail
+          python -m blinq.loaders.player_registry_loader
+
+      - name: Validate BlinQ player registry
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          registry_path = Path("blinq/data/players/player_registry.json")
+          unresolved_path = Path("blinq/data/players/unresolved_players.json")
+          manifest_path = Path("blinq/data/players/manifest.json")
+
+          registry = json.loads(registry_path.read_text(encoding="utf-8"))
+          unresolved = json.loads(unresolved_path.read_text(encoding="utf-8"))
+          manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+          players = registry.get("players") or []
+
+          if not isinstance(players, list) or len(players) < 100:
+              raise SystemExit("Rejected BlinQ registry: missing or implausibly small player list")
+          if manifest.get("status") != "OK":
+              raise SystemExit(f"Rejected BlinQ registry manifest: {manifest}")
+
+          invalid = []
+          for player in players:
+              player_id = player.get("player_id")
+              expected = player_id not in (None, "", 0, "0")
+              if bool(player.get("form_eligible")) != expected:
+                  invalid.append(f"form:{player.get('player')}")
+              if bool(player.get("h2h_eligible")) != expected:
+                  invalid.append(f"h2h:{player.get('player')}")
+          if invalid:
+              raise SystemExit("Invalid eligibility contract: " + ", ".join(invalid[:20]))
+
+          print(
+              "BlinQ registry: "
+              f"players={len(players)} "
+              f"resolved={registry.get('resolved_player_count')} "
+              f"unresolved={unresolved.get('count')} "
+              f"new_exact_name_resolutions={registry.get('resolved_by_exact_name')}"
+          )
+          PY
+
+      - name: Validate existing verified match caches
         run: |
           set -euo pipefail
           python - <<'PY'
@@ -102,15 +151,90 @@ jobs:
           print(f"Validated match cache files: {len(files)}")
           PY
 
-      - name: Commit verified data changes
+      - name: Validate strict BlinQ contract
         run: |
           set -euo pipefail
-          git add blinq/data/elo/elo_ratings.json
-          if git diff --cached --quiet; then
-            echo "No verified BlinQ data changes"
-            exit 0
-          fi
+          python - <<'PY'
+          from pathlib import Path
+
+          service = Path("blinq/service.py").read_text(encoding="utf-8")
+          elo = Path("blinq/loaders/elo_loader.py").read_text(encoding="utf-8")
+          form = Path("blinq/features/recent_form.py").read_text(encoding="utf-8")
+
+          violations = []
+          if "SURFACE_ELO_FALLBACK_OVERALL" in elo:
+              violations.append("surface ELO fallback")
+          if "def _quality_edge" in form or "quality_edge = _quality_edge" in form:
+              violations.append("ranking quality proxy")
+          if any(token in service.lower() for token in ("marq", "market_index")):
+              violations.append("market or MarQ signal")
+          if "BLINQ_STRICT_REAL_DATA_V5" not in service:
+              violations.append("strict runtime version")
+          if ".mkdir(" in form or ".write_text(" in form or "requests.get(" in form:
+              violations.append("runtime form cache mutation or live API call")
+          if violations:
+              raise SystemExit("BlinQ contract failed: " + ", ".join(violations))
+          print("BlinQ strict real-data contract passed")
+          PY
+
+      - name: Validate anonymized public ELO indices
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import importlib.util
+          from pathlib import Path
+
+          path = Path("blinq/model.py")
+          spec = importlib.util.spec_from_file_location("blinq_model_contract", path)
+          module = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(module)
+
+          first = {"player": "A", "elo": 1800, "hard_elo": 1750}
+          second = {"player": "B", "elo": 1600, "hard_elo": 1650}
+          result = module.predict_from_elo(first, second, "Hard")
+          reverse = module.predict_from_elo(second, first, "Hard")
+
+          forbidden = {"player1_elo", "player2_elo", "elo_diff"}
+          leaked = forbidden.intersection(result)
+          if leaked:
+              raise SystemExit(f"Raw ELO fields leaked: {sorted(leaked)}")
+
+          for key in ("strength", "surface_strength"):
+              index = (result.get("indices") or {}).get(key) or {}
+              values = (index.get("p1"), index.get("p2"))
+              if not index.get("available") or any(value is None for value in values):
+                  raise SystemExit(f"Missing required test index: {key}")
+              if sum(values) != 100 or any(value < 5 or value > 95 or value % 5 for value in values):
+                  raise SystemExit(f"Invalid anonymized index {key}: {values}")
+
+          if abs(result["player1_probability"] + reverse["player1_probability"] - 1.0) > 1e-12:
+              raise SystemExit("A/B probability symmetry failed")
+
+          missing_surface = module.predict_from_elo(
+              {"player": "A", "elo": 1800},
+              {"player": "B", "elo": 1600, "clay_elo": 1650},
+              "Clay",
+          )
+          surface_index = missing_surface["indices"]["surface_strength"]
+          if surface_index.get("available") or surface_index.get("p1") is not None or surface_index.get("p2") is not None:
+              raise SystemExit("Missing surface ELO was replaced by another value")
+
+          print("Anonymized indices, symmetry, and no-surface-fallback checks passed")
+          PY
+
+      - name: Commit verified BlinQ data
+        run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "data(blinq): update verified ELO"
+          git add \
+            blinq/data/elo/elo_ratings.json \
+            blinq/data/players/player_registry.json \
+            blinq/data/players/unresolved_players.json \
+            blinq/data/players/manifest.json
+          if git diff --cached --quiet; then
+            echo "No verified BlinQ data changes to commit"
+            exit 0
+          fi
+          git commit -m "data(blinq): refresh verified ELO and player registry"
           git push
