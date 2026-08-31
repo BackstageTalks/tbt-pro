@@ -7,6 +7,9 @@ on:
     paths:
       - "api/**"
       - "blinq/**"
+      - "outputs/cloq/latest_cloq.json"
+      - "cloq/latest_cloq.json"
+      - "tools/export_blinq_top_daily.py"
       - "thinq/**"
       - "tools/build_player_registry.py"
       - "requirements.txt"
@@ -55,6 +58,7 @@ jobs:
           test -n "${SUPABASE_URL:-}" || { echo "SUPABASE_URL is missing"; exit 1; }
           test -n "${SUPABASE_ANON_KEY:-}" || { echo "SUPABASE_ANON_KEY is missing"; exit 1; }
           test -s blinq/web/render.py
+          test -s tools/export_blinq_top_daily.py
           test -s blinq/web/plans.json
           test -s blinq/service.py
           test -s blinq/loaders/h2h_loader.py
@@ -64,6 +68,7 @@ jobs:
           test -s api/requirements.txt
           python -m py_compile \
             blinq/web/render.py \
+            tools/export_blinq_top_daily.py \
             blinq/service.py \
             blinq/model.py \
             blinq/loaders/h2h_loader.py \
@@ -120,6 +125,8 @@ jobs:
           set -euo pipefail
           rm -rf azure-site
           mkdir -p azure-site/follow-the-data azure-site/blinq-portal-k7m3q9
+          python tools/export_blinq_top_daily.py --output blinq/data/top_daily_picks.json
+          test -s blinq/data/top_daily_picks.json
           python -m blinq.web.render --output azure-site/follow-the-data/index.html
           printf '%s' '<!doctype html><meta http-equiv="refresh" content="0;url=/follow-the-data/"><a href="/follow-the-data/">Continue</a>' > azure-site/index.html
           cp azure-site/index.html azure-site/blinq-portal-k7m3q9/index.html
