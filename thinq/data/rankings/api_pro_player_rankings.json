@@ -1,7 +1,7 @@
 {
   "endpoint_template": "/api/tennis/player/{player_id}/rankings",
   "errors": [],
-  "generated_at": "2026-08-26T18:17:18+00:00",
+  "generated_at": "2026-08-31T12:41:53+00:00",
   "players": {
     "100069": {
       "best_ranking": 156,
@@ -1719,6 +1719,18 @@
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-26T17:02:19+00:00"
     },
+    "18251": {
+      "best_ranking": 1,
+      "country": "USA",
+      "name": "Venus Williams",
+      "player_id": 18251,
+      "points": 75,
+      "previous_ranking": 611,
+      "ranking": 618,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-31T12:41:53+00:00"
+    },
     "18298": {
       "best_ranking": 2,
       "country": "RUS",
@@ -3338,6 +3350,18 @@
       "ranking_class": "team",
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-26T18:15:07+00:00"
+    },
+    "220592": {
+      "best_ranking": 50,
+      "country": "USA",
+      "name": "Catherine McNally",
+      "player_id": 220592,
+      "points": 990,
+      "previous_ranking": 64,
+      "ranking": 65,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-31T12:41:52+00:00"
     },
     "220801": {
       "best_ranking": 61,
@@ -10659,6 +10683,18 @@
       "source": "API_PRO_PLAYER_RANKINGS",
       "updated_at": "2026-08-26T17:03:08+00:00"
     },
+    "60276": {
+      "best_ranking": 36,
+      "country": "ARG",
+      "name": "Nadia Podoroska",
+      "player_id": 60276,
+      "points": 133,
+      "previous_ranking": 447,
+      "ranking": 449,
+      "ranking_class": "team",
+      "source": "API_PRO_PLAYER_RANKINGS",
+      "updated_at": "2026-08-31T12:41:52+00:00"
+    },
     "60392": {
       "best_ranking": 32,
       "country": "ESP",
@@ -11767,12 +11803,12 @@
   "registry": "thinq/data/players/player_registry.json",
   "source": "API_PRO_PLAYER_RANKINGS",
   "stats": {
-    "cached_players": 980,
+    "cached_players": 983,
     "failed": 0,
-    "fresh_cache_skipped": 0,
+    "fresh_cache_skipped": 980,
     "no_ranking": 0,
-    "registry_players_with_id": 980,
-    "requests": 500,
-    "updated": 500
+    "registry_players_with_id": 983,
+    "requests": 3,
+    "updated": 3
   }
 }
