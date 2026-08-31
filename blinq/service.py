@@ -7,13 +7,10 @@ complementary. Exact 50:50 always means NO_PREDICTION.
 from __future__ import annotations
 
 import json
-import os
 import re
-import time
 import unicodedata
 from datetime import datetime, timezone
 
-import requests
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -21,17 +18,10 @@ from typing import Any, Dict, List, Optional
 from thinq.service import ThinqService
 from blinq.features.recent_form import build_recent_form_context
 from blinq.loaders.h2h_loader import build_h2h_context
+from blinq.model import build_elo_context
 
 REGISTRY_PATH = Path("thinq/data/players/player_registry.json")
 TOLERANCE = 0.0001
-API_PRO_HOST = "tennisapi1.p.rapidapi.com"
-API_PRO_BASE_URL = "https://tennisapi1.p.rapidapi.com"
-API_TIMEOUT = 20
-BLINQ_CACHE_DIR = Path("blinq/data/api_cache/previous_matches")
-BLINQ_CACHE_TTL_SECONDS = 60 * 60 * 12
-BLINQ_MAX_PAGES = 3
-BLINQ_MIN_OVERALL_MATCHES = 10
-BLINQ_MIN_SURFACE_MATCHES = 5
 
 
 def _compact(value: Any) -> str:
@@ -156,19 +146,11 @@ def _pair_index(value1: Any, value2: Any, *, samples1: int = 1, samples2: int = 
     return {"available": True, "p1": p1, "p2": round(100.0 - p1, 1)}
 
 
-def _elo_index(elo: Dict[str, Any], player1: Dict[str, Any], player2: Dict[str, Any], surface: str) -> Dict[str, Any]:
-    overall1 = _float(player1.get("elo"))
-    overall2 = _float(player2.get("elo"))
-    surface_key = {"Hard": "hard_elo", "Clay": "clay_elo", "Grass": "grass_elo"}.get(_surface_bucket(surface))
-    surface1 = _float(player1.get(surface_key)) if surface_key else None
-    surface2 = _float(player2.get(surface_key)) if surface_key else None
-    return {
-        "available": overall1 is not None and overall2 is not None,
-        "p1": overall1, "p2": overall2, "label": "E-INDEX",
-        "surface_available": surface1 is not None and surface2 is not None,
-        "surface_p1": surface1, "surface_p2": surface2, "surface_key": surface_key or "elo",
-    }
-
+def _elo_indices(player1: Dict[str, Any], player2: Dict[str, Any], surface: str) -> Dict[str, Any]:
+    """Return anonymized ELO indices. Raw ratings never enter the public index contract."""
+    context = build_elo_context(player1, player2, surface)
+    indices = context.get("indices") if isinstance(context, dict) else {}
+    return indices if isinstance(indices, dict) else {}
 
 def _surface_h2h_index(h2h: Dict[str, Any]) -> Dict[str, Any]:
     total = _int(h2h.get("same_surface_matches")) or 0
@@ -253,8 +235,10 @@ def _build_indices(forward: Dict[str, Any], player1: Dict[str, Any], player2: Di
     p1_surface = _window(form, "pick", "surface_last10")
     p2_surface = _window(form, "opponent", "surface_last10")
     h2h_total = _int(h2h.get("total_matches")) or 0
+    elo_indices = _elo_indices(player1, player2, surface)
     return {
-        "strength": _elo_index(elo, player1, player2, surface),
+        "strength": elo_indices.get("strength") or {"available": False, "p1": None, "p2": None, "label": "E-INDEX"},
+        "surface_strength": elo_indices.get("surface_strength") or {"available": False, "p1": None, "p2": None, "label": "SE-INDEX"},
         "form": _form_index(form, "last10", "F"),
         "court_form": _form_index(form, "surface_last10", "CF"),
         "h2h": _h2h_index(h2h),
@@ -278,155 +262,6 @@ def _surface_bucket(value: Any) -> str:
     if "hard" in text or "indoor" in text or "carpet" in text:
         return "Hard"
     return "Unknown"
-
-
-def _api_headers() -> Dict[str, str]:
-    return {
-        "Content-Type": "application/json",
-        "x-rapidapi-host": API_PRO_HOST,
-        "x-rapidapi-key": os.getenv("RAPIDAPI_KEY", "").strip(),
-    }
-
-
-def _cache_path(player_id: Any, page: int) -> Path:
-    return BLINQ_CACHE_DIR / f"{player_id}_{page}.json"
-
-
-def _read_cache(path: Path) -> Optional[Dict[str, Any]]:
-    try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-        if time.time() - float(payload.get("saved_at", 0)) > BLINQ_CACHE_TTL_SECONDS:
-            return None
-        data = payload.get("data")
-        return data if isinstance(data, dict) else None
-    except Exception:
-        return None
-
-
-def _write_cache(path: Path, data: Dict[str, Any]) -> None:
-    try:
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps({"saved_at": time.time(), "data": data}, ensure_ascii=False, indent=2), encoding="utf-8")
-    except Exception:
-        pass
-
-
-def _fetch_previous_page(player_id: Any, page: int) -> Dict[str, Any]:
-    if player_id in (None, ""):
-        return {"status": "NO_PLAYER_ID", "events": [], "page": page}
-    path = _cache_path(player_id, page)
-    cached = _read_cache(path)
-    if cached is not None:
-        return {**cached, "from_cache": True, "cache_path": str(path)}
-    if not os.getenv("RAPIDAPI_KEY", "").strip():
-        return {"status": "NO_API_KEY", "events": [], "page": page, "cache_path": str(path)}
-    endpoint = f"{API_PRO_BASE_URL}/api/tennis/player/{player_id}/events/previous/{page}"
-    try:
-        response = requests.get(endpoint, headers=_api_headers(), timeout=API_TIMEOUT)
-        if response.status_code == 429:
-            return {"status": "RATE_LIMITED", "events": [], "page": page, "api_status_code": 429, "endpoint": endpoint}
-        response.raise_for_status()
-        payload = response.json() if response.content else {}
-        result = {
-            "status": "OK",
-            "events": payload.get("events", []) if isinstance(payload, dict) and isinstance(payload.get("events", []), list) else [],
-            "has_next_page": bool(payload.get("hasNextPage")) if isinstance(payload, dict) else False,
-            "page": page,
-            "api_status_code": response.status_code,
-            "endpoint": endpoint,
-            "from_cache": False,
-            "cache_path": str(path),
-        }
-        _write_cache(path, result)
-        return result
-    except Exception as exc:
-        return {"status": "FETCH_FAILED", "events": [], "page": page, "endpoint": endpoint, "error": str(exc)}
-
-
-def _event_surface(event: Dict[str, Any]) -> str:
-    tournament = event.get("tournament") if isinstance(event.get("tournament"), dict) else {}
-    unique = tournament.get("uniqueTournament") if isinstance(tournament.get("uniqueTournament"), dict) else {}
-    return _surface_bucket(event.get("groundType") or tournament.get("groundType") or unique.get("groundType"))
-
-
-def _team_id(team: Any) -> Any:
-    if not isinstance(team, dict):
-        return None
-    info = team.get("playerTeamInfo") if isinstance(team.get("playerTeamInfo"), dict) else {}
-    return team.get("id") or info.get("id")
-
-
-def _usable_event(event: Any) -> bool:
-    if not isinstance(event, dict):
-        return False
-    status = event.get("status") if isinstance(event.get("status"), dict) else {}
-    if str(status.get("type") or "").lower() != "finished":
-        return False
-    description = str(status.get("description") or "").lower()
-    if any(token in description for token in ("retired", "walkover", "cancelled", "canceled", "postponed", "abandoned")):
-        return False
-    categories = (event.get("eventFilters") or {}).get("category") if isinstance(event.get("eventFilters"), dict) else None
-    if isinstance(categories, list) and categories and "singles" not in {str(x).lower() for x in categories}:
-        return False
-    return event.get("winnerCode") in (1, 2, "1", "2")
-
-
-def _history(player: Dict[str, Any], surface: str) -> Dict[str, Any]:
-    player_id = player.get("player_id")
-    raw_events: List[Dict[str, Any]] = []
-    page_statuses: List[str] = []
-    for page in range(BLINQ_MAX_PAGES):
-        result = _fetch_previous_page(player_id, page)
-        page_statuses.append(str(result.get("status") or "UNKNOWN"))
-        raw_events.extend(x for x in (result.get("events") or []) if isinstance(x, dict))
-        usable = [x for x in raw_events if _usable_event(x)]
-        surface_count = sum(1 for x in usable if _event_surface(x) == _surface_bucket(surface))
-        if result.get("status") != "OK" or not result.get("has_next_page"):
-            break
-        if len(usable) >= BLINQ_MIN_OVERALL_MATCHES and surface_count >= BLINQ_MIN_SURFACE_MATCHES:
-            break
-    normalized: List[Dict[str, Any]] = []
-    seen = set()
-    for event in raw_events:
-        if not _usable_event(event):
-            continue
-        event_id = str(event.get("id") or event.get("customId") or "")
-        if not event_id or event_id in seen:
-            continue
-        home = event.get("homeTeam") if isinstance(event.get("homeTeam"), dict) else {}
-        away = event.get("awayTeam") if isinstance(event.get("awayTeam"), dict) else {}
-        is_home = str(_team_id(home)) == str(player_id)
-        is_away = str(_team_id(away)) == str(player_id)
-        if not is_home and not is_away:
-            continue
-        winner_code = int(event.get("winnerCode"))
-        won = (is_home and winner_code == 1) or (is_away and winner_code == 2)
-        normalized.append({
-            "event_id": event_id,
-            "timestamp": int(event.get("startTimestamp") or 0),
-            "surface": _event_surface(event),
-            "won": won,
-            "home_id": _team_id(home),
-            "away_id": _team_id(away),
-            "winner_code": winner_code,
-        })
-        seen.add(event_id)
-    normalized.sort(key=lambda x: int(x.get("timestamp") or 0), reverse=True)
-    status = "OK" if normalized else ("RATE_LIMITED" if "RATE_LIMITED" in page_statuses else page_statuses[-1] if page_statuses else "NO_DATA")
-    return {"status": status, "matches": normalized, "pages_fetched": len(page_statuses), "page_statuses": page_statuses}
-
-
-def _summary(matches: List[Dict[str, Any]], limit: int = 10) -> Dict[str, Any]:
-    sample = matches[:limit]
-    wins = sum(1 for x in sample if x.get("won") is True)
-    count = len(sample)
-    return {
-        "count": count,
-        "wins": wins,
-        "losses": count - wins,
-        "record": f"{wins}-{count - wins}" if count else "N/A",
-        "win_pct": round(wins / count, 4) if count else None,
-    }
 
 
 def _direct_data_bundle(player1: Dict[str, Any], player2: Dict[str, Any], surface: str, forward: Dict[str, Any]) -> Dict[str, Any]:
@@ -491,14 +326,16 @@ def _coverage(player1: Dict[str, Any], player2: Dict[str, Any], elo: Dict[str, A
 def _no_prediction(reason: str, flags: List[str], **extra: Any) -> Dict[str, Any]:
     return {
         "model": "BlinQ",
-        "model_version": "BLINQ_STRICT_REAL_DATA_V5",
+        "model_version": "BLINQ_AUDIT_CONTRACT_V6",
         "status": "NO_PREDICTION",
         "prediction_status": "NO_PREDICTION",
         "winner": None,
         "winner_side": None,
-        "winner_probability": 0.5,
-        "player1_probability": 0.5,
-        "player2_probability": 0.5,
+        "winner_probability": None,
+        "player1_probability": None,
+        "player2_probability": None,
+        "public_status": "NO_CLEAR_EDGE",
+        "public_label": "NO CLEAR EDGE",
         "reason": reason,
         "flags": sorted(set(flags)),
         **extra,
@@ -594,6 +431,7 @@ class BlinqService:
         }
 
         indices = _build_indices(enriched_forward, player1_public, player2_public, surface_name, coverage)
+        validation_failed = not symmetry_ok or p_ab is None or p_ba is None or edge_ab is None or edge_ba is None
         blocked = (
             not symmetry_ok
             or p_ab is None
@@ -609,8 +447,14 @@ class BlinqService:
             if not coverage.get("prediction_allowed"):
                 flags.append("INSUFFICIENT_SIGNAL_COVERAGE")
             return _no_prediction(
-                "Verified BlinQ match data is insufficient, tied, or failed the A/B audit.",
+                "The comparison could not produce a sufficiently supported edge.",
                 flags,
+                outcome_type="VALIDATION_FAILED" if validation_failed else "NO_CLEAR_EDGE",
+                public_status="RESULT_UNAVAILABLE" if validation_failed else "NO_CLEAR_EDGE",
+                public_label="RESULT UNAVAILABLE" if validation_failed else "NO CLEAR EDGE",
+                confidence=None,
+                confidence_label="NOT_CALCULATED",
+                low_confidence=bool(coverage.get("score", 0) < 75),
                 player1=_public(row1),
                 player2=_public(row2),
                 surface=surface_name,
@@ -629,9 +473,12 @@ class BlinqService:
         winner_is_p1 = p_ab > 0.5
         return {
             "model": "BlinQ",
-            "model_version": "BLINQ_STRICT_REAL_DATA_V5",
+            "model_version": "BLINQ_AUDIT_CONTRACT_V6",
             "status": "PREDICTION",
             "prediction_status": "PREDICTION",
+            "public_status": "PREDICTION",
+            "public_label": "PREDICTION",
+            "outcome_type": "PREDICTION",
             "surface": surface_name,
             "player1": _public(row1),
             "player2": _public(row2),
@@ -641,6 +488,8 @@ class BlinqService:
             "winner_side": "PLAYER1" if winner_is_p1 else "PLAYER2",
             "winner_probability": round(max(p_ab, 1.0 - p_ab), 4),
             "confidence": layer_ab.get("confidence"),
+            "confidence_label": ("LOW" if (_float(layer_ab.get("confidence")) or 0.0) < 0.60 else "MEDIUM" if (_float(layer_ab.get("confidence")) or 0.0) < 0.75 else "HIGH"),
+            "low_confidence": (_float(layer_ab.get("confidence")) or 0.0) < 0.60 or float(coverage.get("score") or 0.0) < 75.0,
             "edge": edge_ab,
             "h2h": enriched_forward.get("h2h") or {},
             "recent_form": enriched_forward.get("recent_form") or {},
