@@ -57,10 +57,18 @@ jobs:
           test -s blinq/web/render.py
           test -s blinq/web/plans.json
           test -s blinq/service.py
+          test -s blinq/loaders/h2h_loader.py
+          test -s blinq/features/recent_form.py
           test -s api/function_app.py
           test -s api/host.json
           test -s api/requirements.txt
-          python -m py_compile blinq/web/render.py blinq/service.py blinq/model.py api/function_app.py
+          python -m py_compile \
+            blinq/web/render.py \
+            blinq/service.py \
+            blinq/model.py \
+            blinq/loaders/h2h_loader.py \
+            blinq/features/recent_form.py \
+            api/function_app.py
           python -c "from blinq.service import BlinqService; assert BlinqService"
 
       - name: Validate plans configuration
@@ -71,6 +79,7 @@ jobs:
           import json
           from pathlib import Path
           from urllib.parse import urlparse
+
           data = json.loads(Path("blinq/web/plans.json").read_text(encoding="utf-8"))
           for key in ("pro", "pro_plus"):
               plan = data.get(key)
@@ -93,6 +102,7 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
+
           data = json.loads(Path("thinq/data/players/player_registry.json").read_text(encoding="utf-8"))
           rows = data.get("players", []) if isinstance(data, dict) else []
           count = len(rows) if isinstance(rows, (list, dict)) else 0
@@ -124,18 +134,24 @@ jobs:
           python - <<'PY'
           from html.parser import HTMLParser
           from pathlib import Path
+
           class Parser(HTMLParser):
               def __init__(self):
                   super().__init__()
                   self.ids = set()
+
               def handle_starttag(self, tag, attrs):
                   value = dict(attrs).get("id")
                   if value:
                       self.ids.add(value)
+
           text = Path("azure-site/follow-the-data/index.html").read_text(encoding="utf-8")
           parser = Parser()
           parser.feed(text)
-          required = {"signUpNickname","signIn","signUp","signOut","p1","p2","surface","run","upgradeOpen","upgradeModal","upgradeClose","planGrid"}
+          required = {
+              "signUpNickname", "signIn", "signUp", "signOut", "p1", "p2",
+              "surface", "run", "upgradeOpen", "upgradeModal", "upgradeClose", "planGrid"
+          }
           missing = sorted(required - parser.ids)
           if missing:
               raise SystemExit(f"Missing frontend ids: {missing}")
@@ -155,11 +171,112 @@ jobs:
           cp -R blinq api/blinq
           cp -R thinq api/thinq
           test ! -d corq || cp -R corq api/corq
-          rm -rf api/blinq/web api/corq/site api/corq/outputs api/corq/logs api/thinq/outputs
+
+          rm -rf \
+            api/blinq/web \
+            api/corq/site \
+            api/corq/outputs \
+            api/corq/logs \
+            api/thinq/outputs
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          cache_dir = Path("api/blinq/data/form/previous_matches")
+          kept_fields = {
+              "id", "customId", "startTimestamp", "status", "winnerCode",
+              "homeTeam", "awayTeam", "groundType", "tournament", "eventFilters"
+          }
+          team_fields = {"id", "name", "shortName", "playerTeamInfo"}
+          tournament_fields = {"groundType", "uniqueTournament"}
+          unique_fields = {"groundType"}
+
+          def compact_team(value):
+              if not isinstance(value, dict):
+                  return {}
+              return {key: value[key] for key in team_fields if key in value}
+
+          def compact_tournament(value):
+              if not isinstance(value, dict):
+                  return {}
+              output = {key: value[key] for key in tournament_fields if key in value}
+              unique = output.get("uniqueTournament")
+              if isinstance(unique, dict):
+                  output["uniqueTournament"] = {
+                      key: unique[key] for key in unique_fields if key in unique
+                  }
+              return output
+
+          files = sorted(cache_dir.glob("*.json")) if cache_dir.is_dir() else []
+          if not files:
+              raise SystemExit("No verified BlinQ previous-match cache files found")
+
+          valid_files = 0
+          total_events = 0
+          for path in files:
+              payload = json.loads(path.read_text(encoding="utf-8"))
+              if not isinstance(payload, dict) or payload.get("status") != "OK":
+                  raise SystemExit(f"Invalid match cache object: {path}")
+              events = payload.get("events")
+              if not isinstance(events, list):
+                  raise SystemExit(f"Invalid events list: {path}")
+
+              compact_events = []
+              for event in events:
+                  if not isinstance(event, dict):
+                      continue
+                  compact = {key: event[key] for key in kept_fields if key in event}
+                  compact["homeTeam"] = compact_team(event.get("homeTeam"))
+                  compact["awayTeam"] = compact_team(event.get("awayTeam"))
+                  compact["tournament"] = compact_tournament(event.get("tournament"))
+                  compact_events.append(compact)
+
+              compact_payload = {
+                  "status": "OK",
+                  "events": compact_events,
+                  "has_next_page": bool(payload.get("has_next_page")),
+                  "page": payload.get("page"),
+                  "player_id": payload.get("player_id"),
+                  "saved_at": payload.get("saved_at"),
+                  "saved_at_iso": payload.get("saved_at_iso"),
+                  "source": payload.get("source"),
+              }
+              path.write_text(
+                  json.dumps(compact_payload, ensure_ascii=False, separators=(",", ":")),
+                  encoding="utf-8",
+              )
+              valid_files += 1
+              total_events += len(compact_events)
+
+          print(f"Compacted match cache files={valid_files} events={total_events}")
+          PY
+
           find api -type d -name "__pycache__" -prune -exec rm -rf {} +
           find api -type f -name "*.pyc" -delete
-          python -m py_compile api/function_app.py api/blinq/service.py api/blinq/model.py
+
+          python -m py_compile \
+            api/function_app.py \
+            api/blinq/service.py \
+            api/blinq/model.py \
+            api/blinq/loaders/h2h_loader.py \
+            api/blinq/features/recent_form.py
           python -c "import sys; sys.path.insert(0, 'api'); from blinq.service import BlinqService; assert BlinqService"
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          files = sorted(Path("api/blinq/data/form/previous_matches").glob("*.json"))
+          if not files:
+              raise SystemExit("Compacted cache is missing from API artifact")
+          for path in files:
+              payload = json.loads(path.read_text(encoding="utf-8"))
+              if payload.get("status") != "OK" or not isinstance(payload.get("events"), list):
+                  raise SystemExit(f"Invalid compacted cache: {path}")
+          print(f"Validated compacted match cache files: {len(files)}")
+          PY
+
           size=$(du -sb api | awk '{print $1}')
           echo "Azure API artifact bytes: $size"
           test "$size" -le 100000000
