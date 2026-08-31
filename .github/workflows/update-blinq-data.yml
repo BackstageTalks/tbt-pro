@@ -45,20 +45,22 @@ jobs:
             blinq/features/recent_form.py
           python - <<'PY'
           from pathlib import Path
+
           service = Path("blinq/service.py").read_text(encoding="utf-8")
           elo = Path("blinq/loaders/elo_loader.py").read_text(encoding="utf-8")
           form = Path("blinq/features/recent_form.py").read_text(encoding="utf-8")
-          forbidden = []
+
+          violations = []
           if "SURFACE_ELO_FALLBACK_OVERALL" in elo:
-              forbidden.append("surface ELO fallback")
-          if "def _quality_edge" in form:
-              forbidden.append("ranking quality proxy")
+              violations.append("surface ELO fallback")
+          if "def _quality_edge" in form or "quality_edge = _quality_edge" in form:
+              violations.append("ranking quality proxy")
           if any(token in service.lower() for token in ("marq", "market_index")):
-              forbidden.append("market or MarQ signal")
+              violations.append("market or MarQ signal")
           if "BLINQ_STRICT_REAL_DATA_V5" not in service:
-              forbidden.append("strict runtime version")
-          if forbidden:
-              raise SystemExit("BlinQ contract failed: " + ", ".join(forbidden))
+              violations.append("strict runtime version")
+          if violations:
+              raise SystemExit("BlinQ contract failed: " + ", ".join(violations))
           print("BlinQ strict real-data contract passed")
           PY
 
@@ -73,6 +75,7 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
+
           path = Path("blinq/data/elo/elo_ratings.json")
           payload = json.loads(path.read_text(encoding="utf-8"))
           players = payload.get("players") if isinstance(payload, dict) else None
@@ -90,6 +93,7 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
+
           files = sorted(Path("blinq/data/form/previous_matches").glob("*.json"))
           for path in files:
               payload = json.loads(path.read_text(encoding="utf-8"))
