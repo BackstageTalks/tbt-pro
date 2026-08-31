@@ -19,6 +19,8 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from thinq.service import ThinqService
+from blinq.features.recent_form import build_recent_form_context
+from blinq.loaders.h2h_loader import build_h2h_context
 
 REGISTRY_PATH = Path("thinq/data/players/player_registry.json")
 TOLERANCE = 0.0001
@@ -40,7 +42,7 @@ def _compact(value: Any) -> str:
 
 def _int(value: Any) -> Optional[int]:
     try:
-        if value in (None, "", 0, "0"):
+        if value in (None, ""):
             return None
         return int(float(value))
     except (TypeError, ValueError):
@@ -158,8 +160,8 @@ def _elo_index(elo: Dict[str, Any], player1: Dict[str, Any], player2: Dict[str, 
     overall1 = _float(player1.get("elo"))
     overall2 = _float(player2.get("elo"))
     surface_key = {"Hard": "hard_elo", "Clay": "clay_elo", "Grass": "grass_elo"}.get(_surface_bucket(surface))
-    surface1 = _float(player1.get(surface_key)) if surface_key else overall1
-    surface2 = _float(player2.get(surface_key)) if surface_key else overall2
+    surface1 = _float(player1.get(surface_key)) if surface_key else None
+    surface2 = _float(player2.get(surface_key)) if surface_key else None
     return {
         "available": overall1 is not None and overall2 is not None,
         "p1": overall1, "p2": overall2, "label": "E-INDEX",
@@ -428,52 +430,34 @@ def _summary(matches: List[Dict[str, Any]], limit: int = 10) -> Dict[str, Any]:
 
 
 def _direct_data_bundle(player1: Dict[str, Any], player2: Dict[str, Any], surface: str, forward: Dict[str, Any]) -> Dict[str, Any]:
-    existing_form = forward.get("recent_form") if isinstance(forward.get("recent_form"), dict) else {}
-    existing_h2h = forward.get("h2h") if isinstance(forward.get("h2h"), dict) else {}
-    form_ok = existing_form.get("status") == "OK"
-    h2h_total = _int(existing_h2h.get("total_matches")) or 0
-    if form_ok and (h2h_total > 0 or str(existing_h2h.get("status") or "").upper() in {"NO_PREVIOUS_MATCHES", "NO_PREVIOUS_H2H"}):
-        return {"form": existing_form, "h2h": existing_h2h, "source": "THINQ_CONTEXT", "api_calls_needed": False}
-    first_history = _history(player1, surface)
-    second_history = _history(player2, surface)
-    p1_matches = first_history.get("matches") or []
-    p2_matches = second_history.get("matches") or []
-    surface_bucket = _surface_bucket(surface)
-    direct_form = {
-        "status": "OK" if p1_matches and p2_matches else "NO_DATA",
-        "source": "BLINQ_API_PRO_PREVIOUS_MATCHES",
-        "pick": {"last10": _summary(p1_matches), "surface_last10": _summary([x for x in p1_matches if x.get("surface") == surface_bucket])},
-        "opponent": {"last10": _summary(p2_matches), "surface_last10": _summary([x for x in p2_matches if x.get("surface") == surface_bucket])},
-        "pick_api_status": first_history.get("status"),
-        "opponent_api_status": second_history.get("status"),
-    }
-    p2_ids = {str(player2.get("player_id"))}
-    common = []
-    for match in p1_matches:
-        participants = {str(match.get("home_id")), str(match.get("away_id"))}
-        if str(player1.get("player_id")) in participants and participants.intersection(p2_ids):
-            common.append(match)
-    p1_wins = sum(1 for x in common if x.get("won") is True)
-    same_surface = [x for x in common if x.get("surface") == surface_bucket]
-    same_p1_wins = sum(1 for x in same_surface if x.get("won") is True)
-    direct_h2h = {
-        "status": "OK" if common else "NO_PREVIOUS_MATCHES",
-        "source": "BLINQ_API_PRO_PREVIOUS_MATCHES_INTERSECTION",
-        "total_matches": len(common),
-        "pick_wins": p1_wins,
-        "opponent_wins": len(common) - p1_wins,
-        "same_surface_matches": len(same_surface),
-        "same_surface_pick_wins": same_p1_wins,
-        "same_surface_opponent_wins": len(same_surface) - same_p1_wins,
-    }
-    return {
-        "form": existing_form if form_ok else direct_form,
-        "h2h": existing_h2h if h2h_total > 0 else direct_h2h,
-        "source": "BLINQ_ENRICHED",
-        "api_calls_needed": True,
-        "history_audit": {"player1": first_history, "player2": second_history},
-    }
+    """Build BlinQ context only from verified BlinQ match data.
 
+    Missing data remains NO_DATA. ThinQ context, rankings, market data and
+    cross-signal fallbacks are not accepted as substitutes.
+    """
+    cutoff = datetime.now(timezone.utc).isoformat()
+    form = build_recent_form_context(
+        player1.get("player") or "",
+        player2.get("player") or "",
+        surface,
+        pick_player_id=player1.get("player_id"),
+        opponent_player_id=player2.get("player_id"),
+        match_start=cutoff,
+    )
+    h2h = build_h2h_context(
+        player1.get("player") or "",
+        player2.get("player") or "",
+        player1.get("player_id"),
+        player2.get("player_id"),
+        surface=surface,
+        match_start=cutoff,
+    )
+    return {
+        "form": form if isinstance(form, dict) else {"status": "NO_DATA"},
+        "h2h": h2h if isinstance(h2h, dict) else {"status": "NO_DATA"},
+        "source": "BLINQ_VERIFIED_MATCH_DATA",
+        "cutoff": cutoff,
+    }
 
 def _coverage(player1: Dict[str, Any], player2: Dict[str, Any], elo: Dict[str, Any], form: Dict[str, Any], h2h: Dict[str, Any], surface: str) -> Dict[str, Any]:
     p1_last = _form_record(form, "pick", "last10")
@@ -488,8 +472,13 @@ def _coverage(player1: Dict[str, Any], player2: Dict[str, Any], elo: Dict[str, A
         "surface_form": bool(p1_surface.get("available") and p2_surface.get("available") and min(p1_surface["count"], p2_surface["count"]) >= 3),
         "h2h": bool((_int(h2h.get("total_matches")) or 0) > 0),
     }
-    weighted = {"elo": 30, "surface_elo": 15, "form": 30, "surface_form": 15, "h2h": 10}
-    score = sum(weighted[key] for key, available in families.items() if available)
+    concrete_surface = _surface_bucket(surface) in {"Hard", "Clay", "Grass"}
+    if not concrete_surface:
+        families["surface_elo"] = False
+        families["surface_form"] = False
+    weighted = ({"elo": 40, "form": 40, "h2h": 20} if not concrete_surface
+                else {"elo": 30, "surface_elo": 15, "form": 30, "surface_form": 15, "h2h": 10})
+    score = sum(weighted[key] for key, available in families.items() if key in weighted and available)
     independent = families["form"] or families["h2h"]
     return {
         "score": float(score),
@@ -502,7 +491,7 @@ def _coverage(player1: Dict[str, Any], player2: Dict[str, Any], elo: Dict[str, A
 def _no_prediction(reason: str, flags: List[str], **extra: Any) -> Dict[str, Any]:
     return {
         "model": "BlinQ",
-        "model_version": "BLINQ_RUNTIME_STABLE_V4",
+        "model_version": "BLINQ_STRICT_REAL_DATA_V5",
         "status": "NO_PREDICTION",
         "prediction_status": "NO_PREDICTION",
         "winner": None,
@@ -620,14 +609,12 @@ class BlinqService:
             if not coverage.get("prediction_allowed"):
                 flags.append("INSUFFICIENT_SIGNAL_COVERAGE")
             return _no_prediction(
-                "ThinQ data is insufficient, tied, or failed the real A/B audit.",
+                "Verified BlinQ match data is insufficient, tied, or failed the A/B audit.",
                 flags,
                 player1=_public(row1),
                 player2=_public(row2),
                 surface=surface_name,
                 symmetry_audit=audit,
-                thinq_forward=forward,
-                thinq_reverse=reverse,
                 indices=indices,
                 data_coverage=coverage,
                 data_depth=indices.get("data", {}).get("value"),
@@ -642,7 +629,7 @@ class BlinqService:
         winner_is_p1 = p_ab > 0.5
         return {
             "model": "BlinQ",
-            "model_version": "BLINQ_RUNTIME_STABLE_V4",
+            "model_version": "BLINQ_STRICT_REAL_DATA_V5",
             "status": "PREDICTION",
             "prediction_status": "PREDICTION",
             "surface": surface_name,
@@ -655,7 +642,6 @@ class BlinqService:
             "winner_probability": round(max(p_ab, 1.0 - p_ab), 4),
             "confidence": layer_ab.get("confidence"),
             "edge": edge_ab,
-            "components": layer_ab.get("components") or {},
             "h2h": enriched_forward.get("h2h") or {},
             "recent_form": enriched_forward.get("recent_form") or {},
             "elo": enriched_forward.get("elo") or {},
