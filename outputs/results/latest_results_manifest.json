@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-31T06:58:17+00:00",
-  "date": "2026-08-31",
-  "fetch_api": false,
-  "settlement_grace_hours": 0.0,
+  "generated_at": "2026-08-31T07:09:43+00:00",
+  "date": "2026-08-30",
+  "fetch_api": true,
+  "settlement_grace_hours": 2.0,
   "local_tz": "Europe/Bratislava",
   "corq_count": 192,
   "cloq_count": 149,
@@ -10,56 +10,56 @@
   "summary": {
     "corq": {
       "picks": 192,
-      "won": 90,
-      "lost": 79,
-      "pending": 14,
+      "won": 95,
+      "lost": 81,
+      "pending": 7,
       "void": 9,
-      "win_rate": 0.5325,
-      "units": -22.0308,
-      "roi": -0.1304
+      "win_rate": 0.5398,
+      "units": -20.4908,
+      "roi": -0.1164
     },
     "cloq": {
       "picks": 149,
-      "won": 69,
-      "lost": 61,
-      "pending": 13,
+      "won": 72,
+      "lost": 65,
+      "pending": 6,
       "void": 6,
-      "win_rate": 0.5308,
-      "units": 2.7552,
-      "roi": 0.0212
+      "win_rate": 0.5255,
+      "units": 1.1952,
+      "roi": 0.0087
     },
     "audit": {
       "picks": 1074,
-      "won": 597,
-      "lost": 326,
-      "pending": 89,
+      "won": 620,
+      "lost": 336,
+      "pending": 56,
       "void": 62,
-      "win_rate": 0.6468,
-      "units": -104.1156,
-      "roi": -0.1128
+      "win_rate": 0.6485,
+      "units": -104.7856,
+      "roi": -0.1096
     }
   },
   "summary_by_snapshot_source": {
     "CORQ_DAILY": {
       "picks": 192,
-      "won": 90,
-      "lost": 79,
-      "pending": 14,
+      "won": 95,
+      "lost": 81,
+      "pending": 7,
       "void": 9,
-      "win_rate": 0.5325,
-      "units": -22.0308,
-      "roi": -0.1304
+      "win_rate": 0.5398,
+      "units": -20.4908,
+      "roi": -0.1164
     }
   },
   "sources": {
-    "corq": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/latest_corq_top7_snapshot.json",
-    "cloq": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/cloq_top_2026-08-31.json",
-    "audit": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/latest_all_audit_snapshot.json"
+    "corq": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/corq_top7_2026-08-30.json",
+    "cloq": "/home/runner/work/tbt-pro/tbt-pro/outputs/snapshots/cloq_top_2026-08-30.json",
+    "audit": ""
   },
   "locks": {
-    "corq": "immutable_ledger_source_plus_existing:7+existing:185+preserved:0",
-    "cloq": "immutable_ledger_source_plus_existing:3+existing:146+preserved:0",
-    "audit": "immutable_ledger_source_plus_existing:106+existing:1017+preserved:8"
+    "corq": "immutable_ledger_source_plus_existing:0+existing:185+preserved:7",
+    "cloq": "immutable_ledger_source_plus_existing:0+existing:139+preserved:10",
+    "audit": "existing_results_only_no_source_rows"
   },
   "output_root": "outputs/results"
 }
