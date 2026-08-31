@@ -2,17 +2,6 @@ name: Update BlinQ verified data
 
 on:
   workflow_dispatch:
-    inputs:
-      max_match_cache_requests:
-        description: Maximum API PRO requests for verified match cache
-        required: false
-        default: "200"
-        type: string
-      force_match_cache:
-        description: Refresh even fresh match-cache files
-        required: false
-        default: false
-        type: boolean
 
 permissions:
   contents: write
@@ -24,7 +13,6 @@ concurrency:
 env:
   PYTHONUNBUFFERED: "1"
   PYTHONPATH: ${{ github.workspace }}
-  RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
 
 jobs:
   update:
@@ -59,7 +47,6 @@ jobs:
           test -f blinq/loaders/elo_loader.py
           test -f blinq/loaders/h2h_loader.py
           test -f blinq/loaders/player_registry_loader.py
-          test -f tools/update_blinq_match_cache.py
           test -f blinq/features/recent_form.py
           test -f blinq/model.py
           test -f blinq/service.py
@@ -76,8 +63,7 @@ jobs:
             blinq/loaders/elo_loader.py \
             blinq/loaders/h2h_loader.py \
             blinq/loaders/player_registry_loader.py \
-            blinq/features/recent_form.py \
-            tools/update_blinq_match_cache.py
+            blinq/features/recent_form.py
 
       - name: Update verified ELO data
         run: |
@@ -147,50 +133,6 @@ jobs:
               f"resolved={registry.get('resolved_player_count')} "
               f"unresolved={unresolved.get('count')} "
               f"new_exact_name_resolutions={registry.get('resolved_by_exact_name')}"
-          )
-          PY
-
-      - name: Update verified BlinQ match cache
-        run: |
-          set -euo pipefail
-          args=(
-            --max-requests "${{ inputs.max_match_cache_requests }}"
-            --max-pages 2
-            --ttl-hours 168
-            --stale-fallback-days 90
-          )
-          if [ "${{ inputs.force_match_cache }}" = "true" ]; then
-            args+=(--force)
-          fi
-          python tools/update_blinq_match_cache.py "${args[@]}"
-
-      - name: Validate verified match-cache coverage
-        run: |
-          set -euo pipefail
-          python - <<'PY'
-          import json
-          from pathlib import Path
-
-          manifest_path = Path("blinq/data/form/match_cache_manifest.json")
-          missing_path = Path("blinq/data/form/missing_match_cache.json")
-          manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-          missing = json.loads(missing_path.read_text(encoding="utf-8"))
-
-          eligible = int(manifest.get("eligible_players") or 0)
-          covered = int(manifest.get("players_with_cache") or 0)
-          absent = int(manifest.get("players_missing_cache") or 0)
-          if eligible <= 0:
-              raise SystemExit("No ELO + API-ID players available for cache update")
-          if covered + absent != eligible:
-              raise SystemExit(
-                  f"Invalid cache coverage: eligible={eligible}, covered={covered}, missing={absent}"
-              )
-          if int(missing.get("count") or 0) != absent:
-              raise SystemExit("Match-cache manifest and missing-player audit disagree")
-          print(
-              f"Verified match cache: eligible={eligible} covered={covered} "
-              f"missing={absent} requests={manifest.get('requests')} "
-              f"updated_files={manifest.get('updated_files')}"
           )
           PY
 
@@ -289,10 +231,7 @@ jobs:
             blinq/data/elo/elo_ratings.json \
             blinq/data/players/player_registry.json \
             blinq/data/players/unresolved_players.json \
-            blinq/data/players/manifest.json \
-            blinq/data/form/previous_matches \
-            blinq/data/form/match_cache_manifest.json \
-            blinq/data/form/missing_match_cache.json
+            blinq/data/players/manifest.json
           if git diff --cached --quiet; then
             echo "No verified BlinQ data changes to commit"
             exit 0
