@@ -417,6 +417,18 @@ def blinq_access_request(req: func.HttpRequest) -> func.HttpResponse:
         "message": "Your BlinQ Pro access will be activated after the payment email is matched with your account.",
     }, 200)
 
+
+def _is_billable_prediction(result: Dict[str, Any]) -> bool:
+    status = str(result.get("prediction_status") or result.get("status") or "").upper()
+    winner = result.get("winner")
+    p1, p2 = result.get("player1_probability"), result.get("player2_probability")
+    audit = result.get("symmetry_audit") if isinstance(result.get("symmetry_audit"), dict) else {}
+    try:
+        valid_probabilities = p1 is not None and p2 is not None and abs(float(p1) + float(p2) - 1.0) <= 0.0001
+    except (TypeError, ValueError):
+        valid_probabilities = False
+    return bool(status == "PREDICTION" and winner and valid_probabilities and audit.get("status") == "PASS")
+
 @app.route(route="blinq/predict", methods=["POST", "OPTIONS"])
 def blinq_predict(req: func.HttpRequest) -> func.HttpResponse:
     if req.method == "OPTIONS":
@@ -476,7 +488,7 @@ def blinq_predict(req: func.HttpRequest) -> func.HttpResponse:
 
     try:
         result = BlinqService().predict(player1, player2, surface)
-        if str(result.get("prediction_status") or result.get("status") or "").upper() == "PREDICTION":
+        if _is_billable_prediction(result):
             if effective == "FREE_ACTIVE":
                 consumed, credit_error = _consume_credit(str(user.get("id") or ""), access_row)
                 if not consumed:
@@ -495,6 +507,23 @@ def blinq_predict(req: func.HttpRequest) -> func.HttpResponse:
             refreshed, _ = _access_row(user)
             result["access"] = _public_access(refreshed or access_row)
         else:
+            if str(result.get("prediction_status") or result.get("status") or "").upper() == "PREDICTION":
+                result = {
+                    **result,
+                    "status": "NO_PREDICTION",
+                    "prediction_status": "NO_PREDICTION",
+                    "outcome_type": "VALIDATION_FAILED",
+                    "public_status": "RESULT_UNAVAILABLE",
+                    "public_label": "RESULT UNAVAILABLE",
+                    "winner": None,
+                    "winner_side": None,
+                    "winner_probability": None,
+                    "player1_probability": None,
+                    "player2_probability": None,
+                    "confidence": None,
+                    "confidence_label": "NOT_CALCULATED",
+                    "reason": "The comparison could not be verified.",
+                }
             result["access"] = _public_access(access_row)
         return _response(req, result, 200)
     except Exception as exc:
