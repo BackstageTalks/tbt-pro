@@ -225,10 +225,7 @@ def selected_surface_value(row: Dict[str, Any], surface: Optional[str]) -> Tuple
         return value, key, flags
     if key == "hard_elo" and "carpet" in str(surface or "").lower():
         flags.append("CARPET_AS_HARD_FALLBACK")
-    fallback = value_for_key(row, "elo")
-    if fallback is not None:
-        flags.append("SURFACE_ELO_FALLBACK_OVERALL")
-        return fallback, "elo", flags
+    flags.append("MISSING_SURFACE_ELO")
     return None, key, flags
 
 
