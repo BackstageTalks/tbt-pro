@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import re
 import unicodedata
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -25,6 +26,21 @@ def _surface(value: Any) -> str:
         return "Hard"
     return "Unknown"
 
+
+
+def _timestamp(value: Any) -> Optional[float]:
+    if value in (None, ""):
+        return None
+    try:
+        if isinstance(value, (int, float)) or str(value).isdigit():
+            number = float(value)
+            return number / 1000.0 if number > 10_000_000_000 else number
+        parsed = datetime.fromisoformat(str(value).strip().replace("Z", "+00:00"))
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=timezone.utc)
+        return parsed.timestamp()
+    except Exception:
+        return None
 
 def _team_id(team: Any) -> Any:
     if not isinstance(team, dict):
@@ -58,9 +74,15 @@ def build_h2h_context(player1: str, player2: str, player1_id: Any, player2_id: A
     if player1_id in (None, "") or player2_id in (None, ""):
         return {"status": "NO_PLAYER_ID", "source": "BLINQ_H2H_CACHE", "total_matches": 0, "same_surface_matches": 0}
     requested = _surface(surface)
+    cutoff = _timestamp(match_start)
     p1_key, p2_key = _compact(player1), _compact(player2)
     matches: List[Dict[str, Any]] = []
+    excluded_after_cutoff = 0
     for event in _events(player1_id):
+        event_time = _timestamp(event.get("startTimestamp"))
+        if cutoff is not None and event_time is not None and event_time >= cutoff:
+            excluded_after_cutoff += 1
+            continue
         status = event.get("status") if isinstance(event.get("status"), dict) else {}
         if str(status.get("type") or "").lower() != "finished":
             continue
@@ -96,4 +118,8 @@ def build_h2h_context(player1: str, player2: str, player1_id: Any, player2_id: A
         "same_surface_pick_wins": same_p1,
         "same_surface_opponent_wins": len(same) - same_p1,
         "requested_surface": requested,
+        "match_start_cutoff": match_start,
+        "excluded_after_cutoff": excluded_after_cutoff,
+        "data_depth": round(min(total / 5.0, 1.0) * 100.0, 1),
+        "surface_data_depth": round(min(len(same) / 3.0, 1.0) * 100.0, 1),
     }
