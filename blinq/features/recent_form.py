@@ -71,8 +71,11 @@ def _read_cache(path: Path) -> Optional[Dict[str, Any]]:
         age = time.time() - float(payload.get("saved_at", 0))
         if age > API_CACHE_STALE_FALLBACK_SECONDS:
             return None
-        data = payload.get("data")
-        if not isinstance(data, dict):
+        # Support both historical wrapped caches {saved_at, data:{events...}}
+        # and current verified caches {saved_at, events...}.
+        wrapped = payload.get("data")
+        data = wrapped if isinstance(wrapped, dict) else payload
+        if not isinstance(data, dict) or not isinstance(data.get("events"), list):
             return None
         data = dict(data)
         data["cache_age_seconds"] = int(max(age, 0))
@@ -225,7 +228,7 @@ def _api_history(
     surface_count = sum(1 for item in matches if normalize_surface(item.get("surface")) == requested_surface)
     needs_page_1 = (
         first.get("status") == "OK"
-        and first.get("has_next_page")
+        and first.get("has_next_page") or first.get("hasNextPage")
         and (len(matches) < API_MIN_USABLE_MATCHES or surface_count < API_MIN_SURFACE_MATCHES)
     )
     if needs_page_1 and API_MAX_PAGES > 1:
