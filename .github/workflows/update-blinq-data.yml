@@ -1,0 +1,112 @@
+name: Update BlinQ verified data
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-blinq-verified-data
+  cancel-in-progress: false
+
+env:
+  PYTHONUNBUFFERED: "1"
+  PYTHONPATH: ${{ github.workspace }}
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          python -m pip install requests pandas lxml
+
+      - name: Validate strict BlinQ contract
+        run: |
+          set -euo pipefail
+          python -m py_compile \
+            blinq/service.py \
+            blinq/model.py \
+            blinq/loaders/elo_loader.py \
+            blinq/loaders/h2h_loader.py \
+            blinq/features/recent_form.py
+          python - <<'PY'
+          from pathlib import Path
+          service = Path("blinq/service.py").read_text(encoding="utf-8")
+          elo = Path("blinq/loaders/elo_loader.py").read_text(encoding="utf-8")
+          form = Path("blinq/features/recent_form.py").read_text(encoding="utf-8")
+          forbidden = []
+          if "SURFACE_ELO_FALLBACK_OVERALL" in elo:
+              forbidden.append("surface ELO fallback")
+          if "def _quality_edge" in form:
+              forbidden.append("ranking quality proxy")
+          if any(token in service.lower() for token in ("marq", "market_index")):
+              forbidden.append("market or MarQ signal")
+          if "BLINQ_STRICT_REAL_DATA_V5" not in service:
+              forbidden.append("strict runtime version")
+          if forbidden:
+              raise SystemExit("BlinQ contract failed: " + ", ".join(forbidden))
+          print("BlinQ strict real-data contract passed")
+          PY
+
+      - name: Update verified ELO data
+        run: |
+          set -euo pipefail
+          python -m blinq.loaders.elo_loader --update --output blinq/data/elo/elo_ratings.json
+
+      - name: Validate generated ELO dataset
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path("blinq/data/elo/elo_ratings.json")
+          payload = json.loads(path.read_text(encoding="utf-8"))
+          players = payload.get("players") if isinstance(payload, dict) else None
+          count = len(players) if isinstance(players, (dict, list)) else 0
+          if count < 100:
+              raise SystemExit(f"Rejected ELO dataset: {count} players")
+          if payload.get("errors"):
+              raise SystemExit(f"Rejected ELO dataset: {payload['errors']}")
+          print(f"Verified ELO profiles: {count}")
+          PY
+
+      - name: Validate existing match caches
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          files = sorted(Path("blinq/data/form/previous_matches").glob("*.json"))
+          for path in files:
+              payload = json.loads(path.read_text(encoding="utf-8"))
+              if not isinstance(payload, dict):
+                  raise SystemExit(f"Invalid cache object: {path}")
+          print(f"Validated match cache files: {len(files)}")
+          PY
+
+      - name: Commit verified data changes
+        run: |
+          set -euo pipefail
+          git add blinq/data/elo/elo_ratings.json
+          if git diff --cached --quiet; then
+            echo "No verified BlinQ data changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data(blinq): update verified ELO"
+          git push
