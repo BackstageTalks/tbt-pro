@@ -159,10 +159,8 @@ def _paid_active(row: Dict[str, Any]) -> bool:
 
 def _effective_status(row: Dict[str, Any]) -> str:
     status = str(row.get("access_status") or "INACTIVE").upper()
-    if status in {"ADMIN"}:
-        return "ADMIN"
-    if status == "GOAT_PLUS_ACTIVE":
-        return "GOAT_PLUS_ACTIVE"
+    if status in {"ADMIN", "GOAT_PLUS_ACTIVE"}:
+        return status
     if status in {"PRO_ACTIVE", "PRO_PLUS_ACTIVE", "GOAT_ACTIVE"}:
         if _paid_active(row):
             return status
@@ -369,12 +367,7 @@ def blinq_admin_account(req: func.HttpRequest) -> func.HttpResponse:
             patch.update({"plan_code": "FREE_10", "paid_until": None})
         else:
             patch.update({
-                "plan_code": (
-                    "PRO_30D" if action == "PRO_ACTIVE"
-                    else "PRO_PLUS_90D" if action == "PRO_PLUS_ACTIVE"
-                    else "GOAT_365D" if action == "GOAT_ACTIVE"
-                    else "GOAT_PLUS_LIFETIME"
-                ),
+                "plan_code": "PRO_30D" if action == "PRO_ACTIVE" else "PRO_PLUS_90D" if action == "PRO_PLUS_ACTIVE" else "GOAT_365D" if action == "GOAT_ACTIVE" else "GOAT_LIFETIME",
                 "paid_at": now.isoformat(),
                 "paid_until": None if action == "GOAT_PLUS_ACTIVE" else (now + timedelta(days=duration_days)).isoformat(),
             })
