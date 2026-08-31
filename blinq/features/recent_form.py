@@ -62,7 +62,6 @@ def _headers() -> Dict[str, str]:
 
 
 def _cache_path(player_id: Any, page: int) -> Path:
-    API_CACHE_DIR.mkdir(parents=True, exist_ok=True)
     return API_CACHE_DIR / f"{player_id}_{page}.json"
 
 
@@ -84,65 +83,25 @@ def _read_cache(path: Path) -> Optional[Dict[str, Any]]:
 
 
 def _write_cache(path: Path, data: Dict[str, Any]) -> None:
-    try:
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(
-            json.dumps({"saved_at": time.time(), "data": data}, ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
-    except Exception:
-        pass
-
+    """Azure prediction runtime is read-only. Cache updates belong to GitHub Actions."""
+    return None
 
 def _fetch_page(player_id: Any, page: int, force_refresh: bool = False) -> Dict[str, Any]:
+    """Read verified BlinQ cache only. Never call API or write during prediction."""
     if player_id in (None, ""):
         return {"status": "NO_PLAYER_ID", "events": [], "page": page}
     path = _cache_path(player_id, page)
-    if not force_refresh:
-        cached = _read_cache(path)
-        if cached is not None:
-            cached.setdefault("from_cache", True)
-            cached.setdefault("cache_path", str(path))
-            return cached
-    if not _api_key():
-        return {"status": "NO_API_KEY", "events": [], "page": page, "cache_path": str(path)}
-    endpoint = f"{API_PRO_BASE_URL}/api/tennis/player/{player_id}/events/previous/{page}"
-    try:
-        response = requests.get(endpoint, headers=_headers(), timeout=API_PRO_TIMEOUT)
-        if response.status_code == 429:
-            return {
-                "status": "RATE_LIMITED",
-                "events": [],
-                "page": page,
-                "api_status_code": 429,
-                "endpoint": endpoint,
-                "cache_path": str(path),
-            }
-        response.raise_for_status()
-        payload = response.json()
-        events = payload.get("events", []) if isinstance(payload, dict) else []
-        result = {
-            "status": "OK",
-            "events": events if isinstance(events, list) else [],
-            "has_next_page": bool(payload.get("hasNextPage")) if isinstance(payload, dict) else False,
-            "page": page,
-            "api_status_code": response.status_code,
-            "endpoint": endpoint,
-            "cache_path": str(path),
-            "from_cache": False,
-        }
-        _write_cache(path, result)
-        return result
-    except Exception as exc:
-        return {
-            "status": "FETCH_FAILED",
-            "events": [],
-            "page": page,
-            "error": str(exc),
-            "endpoint": endpoint,
-            "cache_path": str(path),
-        }
-
+    cached = _read_cache(path)
+    if cached is not None:
+        cached.setdefault("from_cache", True)
+        cached.setdefault("cache_path", str(path))
+        return cached
+    return {
+        "status": "NO_VERIFIED_CACHE",
+        "events": [],
+        "page": page,
+        "cache_path": str(path),
+    }
 
 def _parse_date(value: Any) -> Optional[datetime]:
     if value in (None, ""):
@@ -398,7 +357,7 @@ def build_recent_form_context(
     opponent_id = kwargs.get("opponent_player_id") or kwargs.get("opponent_team_id")
     current_event_id = kwargs.get("event_id")
     current_match_start = kwargs.get("match_start") or kwargs.get("start_time") or kwargs.get("as_of_date")
-    force_refresh = bool(kwargs.get("force_refresh_api_recent_form", False))
+    force_refresh = False
 
     pick_api = _api_history(pick_id, pick, surface, current_event_id, current_match_start, force_refresh)
     opponent_api = _api_history(opponent_id, opponent, surface, current_event_id, current_match_start, force_refresh)
@@ -455,7 +414,7 @@ def build_recent_form_context(
         "effective_opponent_quality_edge": None,
         "form_confidence": confidence,
         "form_data_depth": confidence,
-        "recent_form_freshness_status": "API_CURRENT",
+        "recent_form_freshness_status": "VERIFIED_CACHE",
         "pick_api_last10_record": pick_stats["last10"]["record"],
         "opponent_api_last10_record": opponent_stats["last10"]["record"],
         "pick_api_surface_record": pick_stats["surface_last10"]["record"],
