@@ -161,6 +161,8 @@ def _effective_status(row: Dict[str, Any]) -> str:
     status = str(row.get("access_status") or "INACTIVE").upper()
     if status in {"ADMIN"}:
         return "ADMIN"
+    if status == "GOAT_PLUS_ACTIVE":
+        return "GOAT_PLUS_ACTIVE"
     if status in {"PRO_ACTIVE", "PRO_PLUS_ACTIVE", "GOAT_ACTIVE"}:
         if _paid_active(row):
             return status
@@ -178,7 +180,7 @@ def _public_access(row: Dict[str, Any]) -> Dict[str, Any]:
     bonus = _int_value(row.get("bonus_credits"))
     used = _int_value(row.get("credits_used"))
     effective = _effective_status(row)
-    unlimited = effective in {"PRO_ACTIVE", "PRO_PLUS_ACTIVE", "GOAT_ACTIVE", "ADMIN"}
+    unlimited = effective in {"PRO_ACTIVE", "PRO_PLUS_ACTIVE", "GOAT_ACTIVE", "GOAT_PLUS_ACTIVE", "ADMIN"}
     return {
         "access_status": effective,
         "plan_code": row.get("plan_code"),
@@ -339,7 +341,7 @@ def blinq_admin_account(req: func.HttpRequest) -> func.HttpResponse:
         return _response(req, {"status": lookup_error or "ACCOUNT_NOT_FOUND"}, 404 if lookup_error == "ACCOUNT_NOT_FOUND" else 400)
 
     action = str(body.get("access_status") or "KEEP").strip().upper()
-    allowed = {"KEEP", "FREE_ACTIVE", "PRO_ACTIVE", "PRO_PLUS_ACTIVE", "GOAT_ACTIVE"}
+    allowed = {"KEEP", "FREE_ACTIVE", "PRO_ACTIVE", "PRO_PLUS_ACTIVE", "GOAT_ACTIVE", "GOAT_PLUS_ACTIVE"}
     if action not in allowed:
         return _response(req, {"status": "INVALID_ACCESS_STATUS"}, 400)
     try:
@@ -355,6 +357,8 @@ def blinq_admin_account(req: func.HttpRequest) -> func.HttpResponse:
         duration_days = 90
     elif action == "GOAT_ACTIVE":
         duration_days = 365
+    elif action == "GOAT_PLUS_ACTIVE":
+        duration_days = 0
 
     from datetime import datetime, timedelta, timezone
     now = datetime.now(timezone.utc)
@@ -368,10 +372,11 @@ def blinq_admin_account(req: func.HttpRequest) -> func.HttpResponse:
                 "plan_code": (
                     "PRO_30D" if action == "PRO_ACTIVE"
                     else "PRO_PLUS_90D" if action == "PRO_PLUS_ACTIVE"
-                    else "GOAT_365D"
+                    else "GOAT_365D" if action == "GOAT_ACTIVE"
+                    else "GOAT_PLUS_LIFETIME"
                 ),
                 "paid_at": now.isoformat(),
-                "paid_until": (now + timedelta(days=duration_days)).isoformat(),
+                "paid_until": None if action == "GOAT_PLUS_ACTIVE" else (now + timedelta(days=duration_days)).isoformat(),
             })
     if add_comparisons:
         patch["credits_granted"] = _int_value(account.get("credits_granted")) + add_comparisons
@@ -449,7 +454,7 @@ def blinq_predict(req: func.HttpRequest) -> func.HttpResponse:
         return _response(req, {"status": access_error or "ACCESS_UNAVAILABLE", "reason": "Access status is temporarily unavailable."}, 503)
 
     effective = _effective_status(access_row)
-    if effective not in {"FREE_ACTIVE", "PRO_ACTIVE", "PRO_PLUS_ACTIVE", "GOAT_ACTIVE", "ADMIN"}:
+    if effective not in {"FREE_ACTIVE", "PRO_ACTIVE", "PRO_PLUS_ACTIVE", "GOAT_ACTIVE", "GOAT_PLUS_ACTIVE", "ADMIN"}:
         if effective == "EXPIRED":
             reason = "Your BlinQ access has expired."
         elif effective == "PAYMENT_PENDING":
