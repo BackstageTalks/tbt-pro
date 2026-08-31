@@ -343,27 +343,14 @@ def _diff(a: Optional[float], b: Optional[float]) -> float:
     return float(a) - float(b) if a is not None and b is not None else 0.0
 
 
-def _quality_edge(pick_stats: Dict[str, Any], opponent_stats: Dict[str, Any]) -> float:
-    pick_rank = pick_stats.get("last10", {}).get("avg_opponent_rank")
-    opponent_rank = opponent_stats.get("last10", {}).get("avg_opponent_rank")
-    if pick_rank is None or opponent_rank is None:
-        return 0.0
-    return round(clamp((float(opponent_rank) - float(pick_rank)) / 10000.0, -0.03, 0.03), 4)
-
-
 def _confidence(pick_stats: Dict[str, Any], opponent_stats: Dict[str, Any]) -> float:
     p_total = int(pick_stats.get("last10", {}).get("count") or 0)
     o_total = int(opponent_stats.get("last10", {}).get("count") or 0)
     p_surface = int(pick_stats.get("surface_last10", {}).get("count") or 0)
     o_surface = int(opponent_stats.get("surface_last10", {}).get("count") or 0)
-    rank_quality = (
-        int(pick_stats.get("last10", {}).get("opponent_rank_count") or 0) >= 5
-        and int(opponent_stats.get("last10", {}).get("opponent_rank_count") or 0) >= 5
-    )
-    base = min((p_total + o_total) / 20.0, 1.0) * 0.55
-    surface_score = min((p_surface + o_surface) / 16.0, 1.0) * 0.30
-    quality = 0.15 if rank_quality else 0.0
-    return round(clamp(base + surface_score + quality, 0.0, 0.95), 4)
+    base = min((p_total + o_total) / 20.0, 1.0) * 0.65
+    surface_score = min((p_surface + o_surface) / 16.0, 1.0) * 0.35
+    return round(clamp(base + surface_score, 0.0, 0.95), 4)
 
 
 def _no_data_response(pick: str, opponent: str, surface: Any, level: Any, pick_api: Dict[str, Any], opponent_api: Dict[str, Any]) -> Dict[str, Any]:
@@ -380,11 +367,11 @@ def _no_data_response(pick: str, opponent: str, surface: Any, level: Any, pick_a
         "recent_form_edge": 0.0,
         "short_form_edge": 0.0,
         "surface_recent_form_edge": 0.0,
-        "opponent_quality_edge": 0.0,
+        "opponent_quality_edge": None,
         "effective_recent_form_edge": 0.0,
         "effective_short_form_edge": 0.0,
         "effective_surface_recent_form_edge": 0.0,
-        "effective_opponent_quality_edge": 0.0,
+        "effective_opponent_quality_edge": None,
         "form_confidence": 0.0,
         "form_data_depth": 0.0,
         "recent_form_freshness_status": "API_UNAVAILABLE",
@@ -426,7 +413,6 @@ def build_recent_form_context(
     recent_edge = round(clamp(last10_diff * 0.08, -0.05, 0.05), 4)
     short_edge = round(clamp(last5_diff * 0.05, -0.035, 0.035), 4)
     surface_edge = round(clamp(surface_diff * 0.07, -0.05, 0.05), 4)
-    quality_edge = _quality_edge(pick_stats, opponent_stats)
     confidence = _confidence(pick_stats, opponent_stats)
 
     flags: List[str] = []
@@ -434,8 +420,6 @@ def build_recent_form_context(
         flags.append("RECENT_FORM_THIN_SAMPLE")
     if pick_stats["surface_last10"]["count"] < 5 or opponent_stats["surface_last10"]["count"] < 5:
         flags.append("SURFACE_RECENT_FORM_THIN_SAMPLE")
-    if pick_stats["last10"].get("opponent_rank_count", 0) < 5 or opponent_stats["last10"].get("opponent_rank_count", 0) < 5:
-        flags.append("OPPONENT_QUALITY_THIN_DATA")
     if abs(recent_edge) < 0.005 and abs(surface_edge) < 0.005:
         flags.append("RECENT_FORM_NEUTRAL")
 
@@ -460,15 +444,15 @@ def build_recent_form_context(
         "raw_recent_form_edge": recent_edge,
         "raw_short_form_edge": short_edge,
         "raw_surface_recent_form_edge": surface_edge,
-        "raw_opponent_quality_edge": quality_edge,
+        "raw_opponent_quality_edge": None,
         "recent_form_edge": recent_edge,
         "short_form_edge": short_edge,
         "surface_recent_form_edge": surface_edge,
-        "opponent_quality_edge": quality_edge,
+        "opponent_quality_edge": None,
         "effective_recent_form_edge": recent_edge,
         "effective_short_form_edge": short_edge,
         "effective_surface_recent_form_edge": surface_edge,
-        "effective_opponent_quality_edge": quality_edge,
+        "effective_opponent_quality_edge": None,
         "form_confidence": confidence,
         "form_data_depth": confidence,
         "recent_form_freshness_status": "API_CURRENT",
