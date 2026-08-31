@@ -22,12 +22,7 @@ from thinq.service import ThinqService
 from blinq.features.recent_form import build_recent_form_context
 from blinq.loaders.h2h_loader import build_h2h_context
 
-BLINQ_REGISTRY_PATH = Path("blinq/data/players/player_registry.json")
-THINQ_REGISTRY_FALLBACK_PATH = Path("thinq/data/players/player_registry.json")
-
-def _registry_path() -> Path:
-    return BLINQ_REGISTRY_PATH if BLINQ_REGISTRY_PATH.is_file() else THINQ_REGISTRY_FALLBACK_PATH
-
+REGISTRY_PATH = Path("thinq/data/players/player_registry.json")
 TOLERANCE = 0.0001
 API_PRO_HOST = "tennisapi1.p.rapidapi.com"
 API_PRO_BASE_URL = "https://tennisapi1.p.rapidapi.com"
@@ -75,7 +70,7 @@ def _name(row: Dict[str, Any]) -> str:
 
 def _registry_mtime() -> int:
     try:
-        return _registry_path().stat().st_mtime_ns
+        return REGISTRY_PATH.stat().st_mtime_ns
     except OSError:
         return 0
 
@@ -83,7 +78,7 @@ def _registry_mtime() -> int:
 @lru_cache(maxsize=2)
 def _registry_cached(_mtime_ns: int) -> Dict[str, Dict[str, Any]]:
     try:
-        payload = json.loads(_registry_path().read_text(encoding="utf-8"))
+        payload = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
     except Exception:
         return {}
     rows = payload.get("players") if isinstance(payload, dict) else []
@@ -167,19 +162,11 @@ def _elo_index(elo: Dict[str, Any], player1: Dict[str, Any], player2: Dict[str, 
     surface_key = {"Hard": "hard_elo", "Clay": "clay_elo", "Grass": "grass_elo"}.get(_surface_bucket(surface))
     surface1 = _float(player1.get(surface_key)) if surface_key else None
     surface2 = _float(player2.get(surface_key)) if surface_key else None
-    def pair(first: Optional[float], second: Optional[float]) -> tuple[Optional[int], Optional[int]]:
-        if first is None or second is None:
-            return None, None
-        probability = 1.0 / (1.0 + 10.0 ** (-(first - second) / 400.0))
-        p1 = max(5, min(95, int(round(probability * 20.0) * 5)))
-        return p1, 100 - p1
-    p1, p2 = pair(overall1, overall2)
-    sp1, sp2 = pair(surface1, surface2)
     return {
-        "available": p1 is not None,
-        "p1": p1, "p2": p2, "label": "E-INDEX",
-        "surface_available": sp1 is not None,
-        "surface_p1": sp1, "surface_p2": sp2, "surface_key": surface_key or "elo",
+        "available": overall1 is not None and overall2 is not None,
+        "p1": overall1, "p2": overall2, "label": "E-INDEX",
+        "surface_available": surface1 is not None and surface2 is not None,
+        "surface_p1": surface1, "surface_p2": surface2, "surface_key": surface_key or "elo",
     }
 
 
@@ -317,8 +304,12 @@ def _read_cache(path: Path) -> Optional[Dict[str, Any]]:
 
 
 def _write_cache(path: Path, data: Dict[str, Any]) -> None:
-    """Prediction runtime is read-only; verified caches are produced by workflow."""
-    return None
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps({"saved_at": time.time(), "data": data}, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception:
+        pass
+
 
 def _fetch_previous_page(player_id: Any, page: int) -> Dict[str, Any]:
     if player_id in (None, ""):
@@ -327,7 +318,30 @@ def _fetch_previous_page(player_id: Any, page: int) -> Dict[str, Any]:
     cached = _read_cache(path)
     if cached is not None:
         return {**cached, "from_cache": True, "cache_path": str(path)}
-    return {"status": "NO_VERIFIED_CACHE", "events": [], "page": page, "cache_path": str(path)}
+    if not os.getenv("RAPIDAPI_KEY", "").strip():
+        return {"status": "NO_API_KEY", "events": [], "page": page, "cache_path": str(path)}
+    endpoint = f"{API_PRO_BASE_URL}/api/tennis/player/{player_id}/events/previous/{page}"
+    try:
+        response = requests.get(endpoint, headers=_api_headers(), timeout=API_TIMEOUT)
+        if response.status_code == 429:
+            return {"status": "RATE_LIMITED", "events": [], "page": page, "api_status_code": 429, "endpoint": endpoint}
+        response.raise_for_status()
+        payload = response.json() if response.content else {}
+        result = {
+            "status": "OK",
+            "events": payload.get("events", []) if isinstance(payload, dict) and isinstance(payload.get("events", []), list) else [],
+            "has_next_page": bool(payload.get("hasNextPage")) if isinstance(payload, dict) else False,
+            "page": page,
+            "api_status_code": response.status_code,
+            "endpoint": endpoint,
+            "from_cache": False,
+            "cache_path": str(path),
+        }
+        _write_cache(path, result)
+        return result
+    except Exception as exc:
+        return {"status": "FETCH_FAILED", "events": [], "page": page, "endpoint": endpoint, "error": str(exc)}
+
 
 def _event_surface(event: Dict[str, Any]) -> str:
     tournament = event.get("tournament") if isinstance(event.get("tournament"), dict) else {}
@@ -477,7 +491,7 @@ def _coverage(player1: Dict[str, Any], player2: Dict[str, Any], elo: Dict[str, A
 def _no_prediction(reason: str, flags: List[str], **extra: Any) -> Dict[str, Any]:
     return {
         "model": "BlinQ",
-        "model_version": "BLINQ_STRICT_READ_ONLY_V6",
+        "model_version": "BLINQ_STRICT_REAL_DATA_V5",
         "status": "NO_PREDICTION",
         "prediction_status": "NO_PREDICTION",
         "winner": None,
@@ -547,24 +561,10 @@ class BlinqService:
             )
 
         surface_name = str(surface or "Overall")
-        try:
-            forward = self._run(row1, row2, surface_name)
-            reverse = self._run(row2, row1, surface_name)
-        except Exception as exc:
-            return _no_prediction(
-                "Prediction engine is temporarily unavailable.",
-                ["BLINQ_ENGINE_ERROR", type(exc).__name__],
-                player1=_public(row1), player2=_public(row2), surface=surface_name,
-            )
+        forward = self._run(row1, row2, surface_name)
+        reverse = self._run(row2, row1, surface_name)
         player1_public, player2_public = _public(row1), _public(row2)
-        try:
-            data_bundle = _direct_data_bundle(player1_public, player2_public, surface_name, forward)
-        except Exception as exc:
-            data_bundle = {
-                "form": {"status": "NO_DATA", "flags": ["FORM_LOADER_ERROR", type(exc).__name__]},
-                "h2h": {"status": "NO_DATA", "flags": ["H2H_LOADER_ERROR", type(exc).__name__]},
-                "source": "BLINQ_VERIFIED_MATCH_DATA_ERROR",
-            }
+        data_bundle = _direct_data_bundle(player1_public, player2_public, surface_name, forward)
         enriched_forward = dict(forward)
         enriched_forward["recent_form"] = data_bundle.get("form") or {}
         enriched_forward["h2h"] = data_bundle.get("h2h") or {}
@@ -629,7 +629,7 @@ class BlinqService:
         winner_is_p1 = p_ab > 0.5
         return {
             "model": "BlinQ",
-            "model_version": "BLINQ_STRICT_READ_ONLY_V6",
+            "model_version": "BLINQ_STRICT_REAL_DATA_V5",
             "status": "PREDICTION",
             "prediction_status": "PREDICTION",
             "surface": surface_name,
