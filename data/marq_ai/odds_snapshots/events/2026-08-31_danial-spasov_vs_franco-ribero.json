@@ -4,7 +4,7 @@
   "latest_odds_player1": 8.5,
   "latest_odds_player2": 1.05,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-30T19:29:52.991532+00:00",
+  "latest_snapshot_time_utc": "2026-08-31T17:44:00.494579+00:00",
   "opening_odds_player1": 8.5,
   "opening_odds_player2": 1.05,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Danial Spasov",
   "player2": "Franco Ribero",
-  "snapshot_count": 4,
+  "snapshot_count": 5,
   "snapshots": [
     {
       "event_id": "16953275",
@@ -97,8 +97,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-30T14:00:00+00:00",
       "target_date": "2026-08-31"
+    },
+    {
+      "event_id": "16953275",
+      "event_key": "2026-08-31_danial-spasov_vs_franco-ribero",
+      "hours_to_start": -27.73,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 8.5,
+      "odds_player2": 1.05,
+      "player1": "Danial Spasov",
+      "player2": "Franco Ribero",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-08-31T17:44:00.494579+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-30T14:00:00+00:00",
+      "target_date": "2026-08-31"
     }
   ],
   "start_time_utc": "2026-08-30T14:00:00+00:00",
-  "updated_at_utc": "2026-08-30T19:30:18.420399+00:00"
+  "updated_at_utc": "2026-08-31T17:44:14.031462+00:00"
 }
