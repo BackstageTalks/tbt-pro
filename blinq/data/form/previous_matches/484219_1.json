@@ -1,0 +1,7430 @@
+{
+  "api_status_code": 200,
+  "endpoint": "https://tennisapi1.p.rapidapi.com/api/tennis/player/484219/events/previous/1",
+  "events": [
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "awayTeamSeed": "8",
+      "changes": {
+        "changeTimestamp": 1769428770,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "IyBbsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 0,
+        "period2": 1,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IN",
+          "alpha3": "IND",
+          "name": "India",
+          "slug": "india"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ديغفيجاي براتاب سينغ",
+            "ru": "Сингх, Дигвияйпратап"
+          },
+          "shortNameTranslation": {
+            "ar": "د. سينغ"
+          }
+        },
+        "gender": "M",
+        "id": 191183,
+        "name": "Digvijay Pratap Singh",
+        "nameCode": "SIN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5154
+        },
+        "ranking": 534,
+        "shortName": "D. P. Singh",
+        "slug": "singh-digvijay-pratap",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 297
+      },
+      "id": 15428823,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 85710,
+        "name": "ATP Challenger Oeiras 2, Portugal Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-digvijay-pratap-singh",
+      "startTimestamp": 1769425200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1769426911,
+        "period1": 1211,
+        "period2": 1816
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1769385600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أويراس 2، البرتغال، تصفيات",
+            "ru": "Оэйраш 2, Португалия, квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 173832,
+        "isGroup": false,
+        "name": "Oeiras 2, Portugal, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "oeiras-2-portugal-qualifying",
+        "startTimestamp": 1769299200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أويراس 2، البرتغال",
+              "ru": "Оэйраш 2, Португалия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 16699,
+          "name": "Oeiras 2, Portugal",
+          "slug": "oeiras-2-portugal",
+          "userCount": 161
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 4,
+        "period2": 6,
+        "period3": 3,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كالفين هيميري",
+            "bn": "ক্যালভিন হেমেরি",
+            "hi": "कैल्विन हेमरी",
+            "ru": "Калвин Хемери"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. هيميري"
+          }
+        },
+        "gender": "M",
+        "id": 81271,
+        "name": "Calvin Hemery",
+        "nameCode": "HEM",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 347
+        },
+        "ranking": 326,
+        "shortName": "C. Hemery",
+        "slug": "hemery-calvin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1504
+      },
+      "changes": {
+        "changeTimestamp": 1769537438,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "wAHsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 2,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "homeTeamSeed": "Q",
+      "id": 15434233,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 85710,
+        "name": "ATP Challenger Oeiras 2, Portugal Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-calvin-hemery",
+      "startTimestamp": 1769529900,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1769535004,
+        "period1": 2362,
+        "period2": 2135,
+        "period3": 2412
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1769904000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أويراس 2، البرتغال",
+            "ru": "Оэйраш 2, Португалия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 173517,
+        "isGroup": false,
+        "name": "Oeiras 2, Portugal",
+        "priority": 0,
+        "slug": "oeiras-2-portugal",
+        "startTimestamp": 1769385600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أويراس 2، البرتغال",
+              "ru": "Оэйраш 2, Португалия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 16699,
+          "name": "Oeiras 2, Portugal",
+          "slug": "oeiras-2-portugal",
+          "userCount": 161
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 5,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1769704957,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "tLLcsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "خايمي فاريا",
+            "ru": "Хайме Фария"
+          },
+          "shortNameTranslation": {
+            "ar": "خ. فاريا",
+            "ru": "Х. Фария"
+          }
+        },
+        "gender": "M",
+        "id": 341818,
+        "name": "Jaime Faria",
+        "nameCode": "FAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5418
+        },
+        "ranking": 79,
+        "shortName": "J. Faria",
+        "slug": "faria-jaime",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9036
+      },
+      "homeTeamSeed": "4",
+      "id": 15403429,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 85710,
+        "name": "ATP Challenger Oeiras 2, Portugal Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-jaime-faria",
+      "startTimestamp": 1769698800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1769701929,
+        "period1": 2381,
+        "period2": 2969
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1769904000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أويراس 2، البرتغال",
+            "ru": "Оэйраш 2, Португалия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 173517,
+        "isGroup": false,
+        "name": "Oeiras 2, Portugal",
+        "priority": 0,
+        "slug": "oeiras-2-portugal",
+        "startTimestamp": 1769385600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أويراس 2، البرتغال",
+              "ru": "Оэйраш 2, Португалия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 16699,
+          "name": "Oeiras 2, Portugal",
+          "slug": "oeiras-2-portugal",
+          "userCount": 161
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 3,
+        "period2": 7,
+        "period3": 4,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "awayTeamSeed": "WC",
+      "changes": {
+        "changeTimestamp": 1770146077,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period3",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "RacdsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 5,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "توم غينتش",
+            "ru": "Том Генцш"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. غينتش",
+            "ru": "Т. Генцш"
+          }
+        },
+        "gender": "M",
+        "id": 380042,
+        "name": "Tom Gentzsch",
+        "nameCode": "GEN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5235
+        },
+        "ranking": 145,
+        "shortName": "T. Gentzsch",
+        "slug": "gentzsch-tom",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1849
+      },
+      "homeTeamSeed": "7",
+      "id": 15460022,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 87411,
+        "name": "ATP Challenger Koblenz, Germany Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-tom-gentzsch",
+      "startTimestamp": 1770138000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1770143752,
+        "period1": 2148,
+        "period2": 3094,
+        "period3": 2315
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1770508800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كوبلنز، ألمانيا",
+            "ru": "Кобленц, Германия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 174021,
+        "isGroup": false,
+        "name": "Koblenz, Germany",
+        "priority": 0,
+        "slug": "koblenz-germany",
+        "startTimestamp": 1769990400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كوبلنس، ألمانيا",
+              "ru": "Кобленц, Германия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 10065,
+          "name": "Koblenz, Germany",
+          "slug": "koblenz-germany",
+          "userCount": 155
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 4,
+        "period2": 1,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BR",
+          "alpha3": "BRA",
+          "name": "Brazil",
+          "slug": "brazil"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نيكولا زانيلاطو",
+            "ru": "Николас Занеллато"
+          },
+          "shortNameTranslation": {
+            "ar": "ن. زانيلاطو",
+            "ru": "Н. Занеллато"
+          }
+        },
+        "gender": "M",
+        "id": 381917,
+        "name": "Nicolas Zanellato",
+        "nameCode": "ZAN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5056
+        },
+        "ranking": 757,
+        "shortName": "N. Zanellato",
+        "slug": "zanellato-nicolas",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 505
+      },
+      "awayTeamSeed": "A",
+      "changes": {
+        "changeTimestamp": 1771770628,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "rNcdsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "id": 15595972,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 88879,
+        "name": "ATP Challenger Tigre II, Argentina Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-nicolas-zanellato",
+      "startTimestamp": 1771765200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1771768897,
+        "period1": 3193,
+        "period2": 1689
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1771804800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تيغري 2، الأرجنتين، التصفيات",
+            "ru": "Тигре 2, Аргентина, Квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 175751,
+        "isGroup": false,
+        "name": "Tigre 2, Argentina, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "tigre-2-argentina-qualifying",
+        "startTimestamp": 1771718400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تيغري 2، الأرجنتين",
+              "ru": "Тигре 2, Аргентина"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18854,
+          "name": "Tigre 2, Argentina",
+          "slug": "tigre-2-argentina",
+          "userCount": 76
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 6,
+        "period2TieBreak": 9,
+        "point": "9"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوتشيو راتي",
+            "ru": "Лучо Ратти"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. راتي",
+            "ru": "Л. Ратти"
+          }
+        },
+        "gender": "M",
+        "id": 405124,
+        "name": "Lucio Ratti",
+        "nameCode": "RAT",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5767
+        },
+        "ranking": 389,
+        "shortName": "L. Ratti",
+        "slug": "ratti-lucio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 655
+      },
+      "awayTeamSeed": "9",
+      "changes": {
+        "changeTimestamp": 1771858793,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "zcmdsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "period2TieBreak": 11,
+        "point": "10"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "id": 15599448,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 88879,
+        "name": "ATP Challenger Tigre II, Argentina Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-lucio-ratti",
+      "startTimestamp": 1771851600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1771854081,
+        "period1": 2036,
+        "period2": 4150
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1771804800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تيغري 2، الأرجنتين، التصفيات",
+            "ru": "Тигре 2, Аргентина, Квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 175751,
+        "isGroup": false,
+        "name": "Tigre 2, Argentina, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "tigre-2-argentina-qualifying",
+        "startTimestamp": 1771718400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تيغري 2، الأرجنتين",
+              "ru": "Тигре 2, Аргентина"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18854,
+          "name": "Tigre 2, Argentina",
+          "slug": "tigre-2-argentina",
+          "userCount": 76
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 2,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1771962024,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BkRcsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "period2": 0,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "NL",
+          "alpha3": "NLD",
+          "name": "Netherlands",
+          "slug": "netherlands"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "غاي دين أودن",
+            "ru": "Ги Дэн Оуден"
+          },
+          "shortNameTranslation": {
+            "ar": "غ. أودن",
+            "ru": "Г. Оуден"
+          }
+        },
+        "gender": "M",
+        "id": 355526,
+        "name": "Guy Den Ouden",
+        "nameCode": "DEN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4976
+        },
+        "ranking": 215,
+        "shortName": "G. Den Ouden",
+        "slug": "den-ouden-guy",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1638
+      },
+      "homeTeamSeed": "1",
+      "id": 15605649,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 88879,
+        "name": "ATP Challenger Tigre II, Argentina Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-guy-den-ouden",
+      "startTimestamp": 1771957500,
+      "status": {
+        "code": 92,
+        "description": "Retired",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1771960932,
+        "period1": 2962,
+        "period2": 1041
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1772323200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تيغري 2، الأرجنتين",
+            "ru": "Тигре 2, Аргентина"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 175433,
+        "isGroup": false,
+        "name": "Tigre 2, Argentina",
+        "priority": 0,
+        "slug": "tigre-2-argentina",
+        "startTimestamp": 1771804800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تيغري 2، الأرجنتين",
+              "ru": "Тигре 2, Аргентина"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18854,
+          "name": "Tigre 2, Argentina",
+          "slug": "tigre-2-argentina",
+          "userCount": 76
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 3,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "خوان مانويل لا سيرنا",
+            "ru": "Хуан Мануэль Ла Серна"
+          },
+          "shortNameTranslation": {
+            "ar": "خ. لا سيرنا",
+            "ru": "Х. Серна"
+          }
+        },
+        "gender": "M",
+        "id": 379442,
+        "name": "Juan Manuel La Serna",
+        "nameCode": "LA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5714
+        },
+        "ranking": 288,
+        "shortName": "J. La Serna",
+        "slug": "la-serna-juan-manuel",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1129
+      },
+      "awayTeamSeed": "WC",
+      "changes": {
+        "changeTimestamp": 1772125655,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "RNbdsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "homeTeamSeed": "Q",
+      "id": 15565527,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 88879,
+        "name": "ATP Challenger Tigre II, Argentina Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-juan-manuel-la-serna",
+      "startTimestamp": 1772119200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1772122460,
+        "period1": 2037,
+        "period2": 3151
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1772323200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تيغري 2، الأرجنتين",
+            "ru": "Тигре 2, Аргентина"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 175433,
+        "isGroup": false,
+        "name": "Tigre 2, Argentina",
+        "priority": 0,
+        "slug": "tigre-2-argentina",
+        "startTimestamp": 1771804800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تيغري 2، الأرجنتين",
+              "ru": "Тигре 2, Аргентина"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18854,
+          "name": "Tigre 2, Argentina",
+          "slug": "tigre-2-argentina",
+          "userCount": 76
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 6,
+        "period2TieBreak": 3,
+        "point": "3"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PE",
+          "alpha3": "PER",
+          "name": "Peru",
+          "slug": "peru"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "خوان بابلو فاريلاس",
+            "ru": "Вариллас Патино-Самудио, Хуан Пабло"
+          },
+          "shortNameTranslation": {
+            "ar": "خ. فاريلاس",
+            "bn": "জে. রডস",
+            "hi": "जे. वरिल्लास"
+          }
+        },
+        "gender": "M",
+        "id": 72248,
+        "name": "Juan Pablo Varillas",
+        "nameCode": "VAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 523
+        },
+        "ranking": 236,
+        "shortName": "J. Varillas",
+        "slug": "varillas-juan-pablo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4075
+      },
+      "changes": {
+        "changeTimestamp": 1772211212,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "YUDsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "point": "6"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "homeTeamSeed": "Q",
+      "id": 15565523,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 88879,
+        "name": "ATP Challenger Tigre II, Argentina Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-juan-pablo-varillas",
+      "startTimestamp": 1772204700,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1772207412,
+        "period1": 2335,
+        "period2": 3606
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1772323200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تيغري 2، الأرجنتين",
+            "ru": "Тигре 2, Аргентина"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 175433,
+        "isGroup": false,
+        "name": "Tigre 2, Argentina",
+        "priority": 0,
+        "slug": "tigre-2-argentina",
+        "startTimestamp": 1771804800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تيغري 2، الأرجنتين",
+              "ru": "Тигре 2, Аргентина"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18854,
+          "name": "Tigre 2, Argentina",
+          "slug": "tigre-2-argentina",
+          "userCount": 76
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 4,
+        "period3": 7,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "ES",
+          "alpha3": "ESP",
+          "name": "Spain",
+          "slug": "spain"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ميغيل داماس",
+            "ru": "Дамас, Мигель"
+          },
+          "shortNameTranslation": {
+            "ar": "م. داماس"
+          }
+        },
+        "gender": "M",
+        "id": 192862,
+        "name": "Miguel Damas",
+        "nameCode": "DAM",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4467
+        },
+        "ranking": 302,
+        "shortName": "M. Damas",
+        "slug": "damas-miguel",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1132
+      },
+      "changes": {
+        "changeTimestamp": 1772292736,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "mhCbsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 4,
+        "period2": 6,
+        "period3": 5,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "homeTeamSeed": "Q",
+      "id": 15565524,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 88879,
+        "name": "ATP Challenger Tigre II, Argentina Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-miguel-damas",
+      "startTimestamp": 1772283600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1772289138,
+        "period1": 2463,
+        "period2": 2283,
+        "period3": 3573
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1772323200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تيغري 2، الأرجنتين",
+            "ru": "Тигре 2, Аргентина"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 175433,
+        "isGroup": false,
+        "name": "Tigre 2, Argentina",
+        "priority": 0,
+        "slug": "tigre-2-argentina",
+        "startTimestamp": 1771804800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تيغري 2، الأرجنتين",
+              "ru": "Тигре 2, Аргентина"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18854,
+          "name": "Tigre 2, Argentina",
+          "slug": "tigre-2-argentina",
+          "userCount": 76
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 2,
+        "period2": 2,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فيرناندو كافالو",
+            "ru": "Фернандо Кавальо"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. كافالو",
+            "ru": "Ф. Кавальо"
+          }
+        },
+        "gender": "M",
+        "id": 403914,
+        "name": "Fernando Cavallo",
+        "nameCode": "CAV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 13590
+        },
+        "ranking": 772,
+        "shortName": "F. Cavallo",
+        "slug": "cavallo-fernando",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 286
+      },
+      "changes": {
+        "changeTimestamp": 1772646670,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "oDldsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "id": 15647566,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 90338,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-fernando-cavallo",
+      "startTimestamp": 1772642469,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 ييربا بوانا للرجال",
+            "ru": "ITF M25 Ерба Буэна"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 146758,
+        "name": "ITF M25 Yerba Buena Men",
+        "priority": 0,
+        "slug": "itf-m25-yerba-buena-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 ييربا بونا رجال",
+              "ru": "ITF M25 Ерба Буэна среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25200,
+          "name": "ITF M25 Yerba Buena Men",
+          "slug": "itf-m25-yerba-buena-men",
+          "userCount": 8
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 2,
+        "period2": 3,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إزيكييل مونفيرير",
+            "ru": "Эсэкиэль Монферрер"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. مونفيرير",
+            "ru": "Э. Монферрер"
+          }
+        },
+        "gender": "M",
+        "id": 302587,
+        "name": "Ezequiel Monferrer",
+        "nameCode": "MON",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 13361
+        },
+        "ranking": 1040,
+        "shortName": "E. Monferrer",
+        "slug": "monferrer-ezequiel",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 280
+      },
+      "changes": {
+        "changeTimestamp": 1772753244,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "firstToServe"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "MbwcsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "id": 15664473,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 90338,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-ezequiel-monferrer",
+      "startTimestamp": 1772747244,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 ييربا بوانا للرجال",
+            "ru": "ITF M25 Ерба Буэна"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 146758,
+        "name": "ITF M25 Yerba Buena Men",
+        "priority": 0,
+        "slug": "itf-m25-yerba-buena-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 ييربا بونا رجال",
+              "ru": "ITF M25 Ерба Буэна среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25200,
+          "name": "ITF M25 Yerba Buena Men",
+          "slug": "itf-m25-yerba-buena-men",
+          "userCount": 8
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "period2": 0,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارلوس ماريا زاراتي",
+            "ru": "Карлос Мария Сарате"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زاراتي",
+            "ru": "К. Сарате"
+          }
+        },
+        "gender": "M",
+        "id": 511702,
+        "name": "Carlos Maria Zarate",
+        "nameCode": "ZAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 20726
+        },
+        "ranking": 394,
+        "shortName": "C. Zarate",
+        "slug": "zarate-carlos-maria",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 629
+      },
+      "changes": {
+        "changeTimestamp": 1772831271,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "uJTdscJee",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "id": 15672394,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 90338,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "carlos-maria-zarate-diego-dedura-palomero",
+      "startTimestamp": 1772821870,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 ييربا بوانا للرجال",
+            "ru": "ITF M25 Ерба Буэна"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 146758,
+        "name": "ITF M25 Yerba Buena Men",
+        "priority": 0,
+        "slug": "itf-m25-yerba-buena-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 ييربا بونا رجال",
+              "ru": "ITF M25 Ерба Буэна среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25200,
+          "name": "ITF M25 Yerba Buena Men",
+          "slug": "itf-m25-yerba-buena-men",
+          "userCount": 8
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "changes": {
+        "changeTimestamp": 1772904658,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.period2",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "UfJdsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 2,
+        "period2": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيمو زيتون",
+            "ru": "Максимо Зейтун"
+          },
+          "shortNameTranslation": {
+            "ar": "م. زيتون",
+            "ru": "М. Зейтун"
+          }
+        },
+        "gender": "M",
+        "id": 460294,
+        "name": "Maximo Zeitune",
+        "nameCode": "ZEI",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 22202
+        },
+        "ranking": 645,
+        "shortName": "M. Zeitune",
+        "slug": "zeitune-maximo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 420
+      },
+      "id": 15678852,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 90338,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-maximo-zeitune",
+      "startTimestamp": 1772896290,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 ييربا بوانا للرجال",
+            "ru": "ITF M25 Ерба Буэна"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 146758,
+        "name": "ITF M25 Yerba Buena Men",
+        "priority": 0,
+        "slug": "itf-m25-yerba-buena-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 ييربا بونا رجال",
+              "ru": "ITF M25 Ерба Буэна среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25200,
+          "name": "ITF M25 Yerba Buena Men",
+          "slug": "itf-m25-yerba-buena-men",
+          "userCount": 8
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "point": ""
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "changes": {
+        "changeTimestamp": 1772986637,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "firstToServe"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "GlIcsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 6,
+        "period2TieBreak": 3,
+        "point": ""
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوتشيانو إيمانويل أمبروجي",
+            "ru": "Лучиано Эмануэль Амброджи"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. أمبروجي",
+            "ru": "Л. Амброджи"
+          }
+        },
+        "gender": "M",
+        "id": 333081,
+        "name": "Luciano Emanuel Ambrogi",
+        "nameCode": "AMB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5486
+        },
+        "ranking": 319,
+        "shortName": "L. E. Ambrogi",
+        "slug": "ambrogi-luciano-emanuel",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 981
+      },
+      "id": 15682534,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 90338,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-luciano-emanuel-ambrogi",
+      "startTimestamp": 1772979598,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 ييربا بوانا للرجال",
+            "ru": "ITF M25 Ерба Буэна"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 146758,
+        "name": "ITF M25 Yerba Buena Men",
+        "priority": 0,
+        "slug": "itf-m25-yerba-buena-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 ييربا بونا رجال",
+              "ru": "ITF M25 Ерба Буэна среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25200,
+          "name": "ITF M25 Yerba Buena Men",
+          "slug": "itf-m25-yerba-buena-men",
+          "userCount": 8
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 5,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CO",
+          "alpha3": "COL",
+          "name": "Colombia",
+          "slug": "colombia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دانيال إلهي غالان",
+            "ru": "Галан Риверос, Даниел Элахи"
+          },
+          "shortNameTranslation": {
+            "ar": "د. غالان",
+            "bn": "ডি. গ্যালান",
+            "hi": "डी. गालान"
+          }
+        },
+        "gender": "M",
+        "id": 92074,
+        "name": "Daniel Elahi Galan",
+        "nameCode": "GAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 333
+        },
+        "ranking": 272,
+        "shortName": "D. Galan",
+        "slug": "galan-daniel-elahi",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4013
+      },
+      "awayTeamSeed": "6",
+      "changes": {
+        "changeTimestamp": 1773186841,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "zQLsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "homeTeamSeed": "WC",
+      "id": 15682931,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 87409,
+        "name": "ATP Challenger Santiago, Chile Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-daniel-elahi-galan",
+      "startTimestamp": 1773180000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1773183324,
+        "period1": 2813,
+        "period2": 3320
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1773532800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سانتياغو، تشيلي",
+            "ru": "Сантьяго, Чили."
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 176499,
+        "isGroup": false,
+        "name": "Santiago, Chile",
+        "priority": 0,
+        "slug": "santiago-chile",
+        "startTimestamp": 1773014400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "سانتياغو، تشيلي",
+              "ru": "Сантьяго, Чили"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3617,
+          "name": "Santiago, Chile",
+          "slug": "santiago-chile",
+          "userCount": 201
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 7,
+        "period2": 3,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "awayTeamSeed": "WC",
+      "changes": {
+        "changeTimestamp": 1773362615,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "dcusuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 9,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BR",
+          "alpha3": "BRA",
+          "name": "Brazil",
+          "slug": "brazil"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تياغو مونتيرو",
+            "ru": "Тиаго Моура Монтейро"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. مونتيرو",
+            "bn": "টি. মন্টিরো",
+            "hi": "टी. मोंटेइरो"
+          }
+        },
+        "gender": "M",
+        "id": 47603,
+        "name": "Thiago Monteiro",
+        "nameCode": "MON",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 140
+        },
+        "ranking": 274,
+        "shortName": "T. Monteiro",
+        "slug": "monteiro-thiago",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 8389
+      },
+      "id": 15658155,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 87409,
+        "name": "ATP Challenger Santiago, Chile Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-thiago-monteiro",
+      "startTimestamp": 1773356400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1773360058,
+        "period1": 3549,
+        "period2": 2522
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1773532800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سانتياغو، تشيلي",
+            "ru": "Сантьяго, Чили."
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 176499,
+        "isGroup": false,
+        "name": "Santiago, Chile",
+        "priority": 0,
+        "slug": "santiago-chile",
+        "startTimestamp": 1773014400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "سانتياغو، تشيلي",
+              "ru": "Сантьяго, Чили"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3617,
+          "name": "Santiago, Chile",
+          "slug": "santiago-chile",
+          "userCount": 201
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 3,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "awayTeamSeed": "WC",
+      "changes": {
+        "changeTimestamp": 1773703141,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "pFNbsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p1000"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تياغو أجوستين تيرانتي",
+            "bn": "থিয়াগো অগাস্টিন তিরান্তে",
+            "hi": "थियागो आगस्टिन तिरांते",
+            "ru": "Тьяго Агустин Тиранте"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. تيرانتي",
+            "ru": "Т. Агустин Тиранте"
+          }
+        },
+        "gender": "M",
+        "id": 221515,
+        "name": "Thiago Agustin Tirante",
+        "nameCode": "TIR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2878
+        },
+        "ranking": 50,
+        "shortName": "T. Tirante",
+        "slug": "tirante-thiago-agustin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 7580
+      },
+      "homeTeamSeed": "3",
+      "id": 15744160,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 80799,
+        "name": "ATP Miami, USA Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-thiago-agustin-tirante",
+      "startTimestamp": 1773697800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1773700875,
+        "period1": 2139,
+        "period2": 2235
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1773705600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ميامي، الولايات المتحدة الأمريكية، التصفيات",
+            "ru": "Лига квалификации Майами, США"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 177305,
+        "isGroup": false,
+        "name": "Miami, USA, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "miami-usa-qualifying",
+        "startTimestamp": 1773619200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ميامي",
+              "bn": "মিয়ামি",
+              "hi": "मियामी",
+              "ru": "Майами"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2430,
+          "name": "Miami",
+          "primaryColorHex": "#0dacd1",
+          "secondaryColorHex": "#e5731f",
+          "slug": "miami-open",
+          "tennisPoints": 1000,
+          "userCount": 8653
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 3,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "ES",
+          "alpha3": "ESP",
+          "name": "Spain",
+          "slug": "spain"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيفان لوبيز",
+            "ru": "Иван Лопес Мартос"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. لوبيز",
+            "ru": "И. Мартос"
+          }
+        },
+        "gender": "M",
+        "id": 405581,
+        "name": "Ivan Lopez Martos",
+        "nameCode": "LOP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 19339
+        },
+        "shortName": "I. Lopez Martos",
+        "slug": "lopez-ivan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 51
+      },
+      "awayTeamSeed": "WC",
+      "changes": {
+        "changeTimestamp": 1774876852,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "GlmdsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "homeTeamSeed": "1",
+      "id": 15900843,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 87467,
+        "name": "ATP Challenger Menorca, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-ivan-lopez-martos",
+      "startTimestamp": 1774871100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1774874390,
+        "period1": 2611,
+        "period2": 2425
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1774828800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مينوركا، إسبانيا، التصفيات",
+            "ru": "Менорка, Испания, Отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 179392,
+        "isGroup": false,
+        "name": "Menorca, Spain, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "menorca-spain-qualifying",
+        "startTimestamp": 1774742400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مينوركا، إسبانيا",
+              "ru": "Менорка, Испания"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25747,
+          "name": "Menorca, Spain",
+          "slug": "atp-challenger-menorca-spain-men-singles",
+          "userCount": 99
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 5,
+        "period3": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دالي بلانش",
+            "ru": "Бланч, Дали"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بلانش"
+          }
+        },
+        "gender": "M",
+        "id": 318573,
+        "name": "Dali Blanch",
+        "nameCode": "BLA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4923
+        },
+        "ranking": 313,
+        "shortName": "D. Blanch",
+        "slug": "blanch-dali",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 859
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1775044965,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "ywCcsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 4,
+        "period2": 7,
+        "period3": 1,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "homeTeamSeed": "1",
+      "id": 15912531,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 87467,
+        "name": "ATP Challenger Menorca, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-dali-blanch",
+      "startTimestamp": 1775037600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1775043197,
+        "period1": 2217,
+        "period2": 2897,
+        "period3": 1749
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1774828800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مينوركا، إسبانيا، التصفيات",
+            "ru": "Менорка, Испания, Отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 179392,
+        "isGroup": false,
+        "name": "Menorca, Spain, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "menorca-spain-qualifying",
+        "startTimestamp": 1774742400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مينوركا، إسبانيا",
+              "ru": "Менорка, Испания"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25747,
+          "name": "Menorca, Spain",
+          "slug": "atp-challenger-menorca-spain-men-singles",
+          "userCount": 99
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 0,
+        "period2": 0,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "ES",
+          "alpha3": "ESP",
+          "name": "Spain",
+          "slug": "spain"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أسيير مينيسيس بيرني",
+            "ru": "Асьер Менесес Перни"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. بيرني",
+            "ru": "А. Перни"
+          }
+        },
+        "gender": "M",
+        "id": 1127951,
+        "name": "Asier Meneses Perny",
+        "nameCode": "MEN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 29707
+        },
+        "shortName": "A. Meneses Perny",
+        "slug": "asier-meneses-perny",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 35
+      },
+      "awayTeamSeed": "WC",
+      "changes": {
+        "changeTimestamp": 1775382512,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "uJTdsbjbj",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "homeTeamSeed": "1",
+      "id": 15951588,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 88862,
+        "name": "ATP Challenger Madrid, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "asier-meneses-perny-diego-dedura-palomero",
+      "startTimestamp": 1775379600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1775381087,
+        "period1": 1172,
+        "period2": 1361
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1775433600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مدريد، إسبانيا، التصفيات",
+            "ru": "Мадрид, Испания, отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 180227,
+        "isGroup": false,
+        "name": "Madrid, Spain, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "madrid-spain-qualifying",
+        "startTimestamp": 1775347200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مدريد، إسبانيا",
+              "ru": "Мадрид, Испания"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3981,
+          "name": "Madrid, Spain",
+          "slug": "madrid-spain",
+          "userCount": 290
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 3,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "ES",
+          "alpha3": "ESP",
+          "name": "Spain",
+          "slug": "spain"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إينيكي مونتس-دي لا تور",
+            "ru": "Инаки Монтес-де ла Торре"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. لا تور",
+            "ru": "И. Торре"
+          }
+        },
+        "gender": "M",
+        "id": 290568,
+        "name": "Inaki Montes-de la Torre",
+        "nameCode": "MON",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4921
+        },
+        "ranking": 275,
+        "shortName": "I. Montes-de la Torre",
+        "slug": "montes-de-la-torre-inaki",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1171
+      },
+      "awayTeamSeed": "8",
+      "changes": {
+        "changeTimestamp": 1775472162,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "tlqcsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "homeTeamSeed": "1",
+      "id": 15953142,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 88862,
+        "name": "ATP Challenger Madrid, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-inaki-montes-de-la-torre",
+      "startTimestamp": 1775466000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1775469550,
+        "period1": 2864,
+        "period2": 2584
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1775433600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مدريد، إسبانيا، التصفيات",
+            "ru": "Мадрид, Испания, отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 180227,
+        "isGroup": false,
+        "name": "Madrid, Spain, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "madrid-spain-qualifying",
+        "startTimestamp": 1775347200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مدريد، إسبانيا",
+              "ru": "Мадрид, Испания"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3981,
+          "name": "Madrid, Spain",
+          "slug": "madrid-spain",
+          "userCount": 290
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 5,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1775579781,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "FYZsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "RU",
+          "alpha3": "RUS",
+          "name": "Russia",
+          "slug": "russia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "رومان سافيولين",
+            "ru": "Сафиуллин, Роман"
+          },
+          "shortNameTranslation": {
+            "ar": "ر. سافيولين",
+            "bn": "আর. সাফিউলিন",
+            "hi": "आर. सफिउल्लिन"
+          }
+        },
+        "gender": "M",
+        "id": 124930,
+        "name": "Roman Safiullin",
+        "nameCode": "SAF",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 465
+        },
+        "ranking": 103,
+        "shortName": "R. Safiullin",
+        "slug": "safiullin-roman",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 5785
+      },
+      "id": 15962003,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 88862,
+        "name": "ATP Challenger Madrid, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-roman-safiullin",
+      "startTimestamp": 1775574300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1775576721,
+        "period1": 2154,
+        "period2": 3036
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1775952000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مدريد، إسبانيا",
+            "ru": "Мадрид, Испания"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 179722,
+        "isGroup": false,
+        "name": "Madrid, Spain",
+        "priority": 0,
+        "slug": "madrid-spain",
+        "startTimestamp": 1775433600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مدريد، إسبانيا",
+              "ru": "Мадрид, Испания"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3981,
+          "name": "Madrid, Spain",
+          "slug": "madrid-spain",
+          "userCount": 290
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "point": "6"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "awayTeamSeed": "WC",
+      "changes": {
+        "changeTimestamp": 1775914328,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2",
+          "awayScore.period2TieBreak",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.normaltime",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period2",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "ULfcsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p500"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 6,
+        "period2TieBreak": 5,
+        "point": "5"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "KZ",
+          "alpha3": "KAZ",
+          "name": "Kazakhstan",
+          "slug": "kazakhstan"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ألكسندر شيفشينكو",
+            "bn": "আলেকজান্ডার শেভচেঙ্কো",
+            "hi": "अलेक्ज़ेंडर शेवचेंको",
+            "ru": "Александр Шевченко"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. شيفشينكو",
+            "ru": "А. Шевченко"
+          }
+        },
+        "gender": "M",
+        "id": 264344,
+        "name": "Aleksandr Shevchenko",
+        "nameCode": "SHE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3086
+        },
+        "ranking": 89,
+        "shortName": "A. Shevchenko",
+        "slug": "shevchenko-alexander",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 5291
+      },
+      "homeTeamSeed": "1",
+      "id": 15989237,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 81206,
+        "name": "ATP Munich, Germany Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-alexander-shevchenko",
+      "startTimestamp": 1775908500,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1775911382,
+        "period1": 2568,
+        "period2": 2931
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1775952000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "الدوري الإنجليزي الممتاز 2025، الليلة 10",
+            "bn": "প্রিমিয়ার লীগ 2025, নাইট 10",
+            "hi": "प्रीमियर लीग 2025, नाइट 10",
+            "ru": "Мюнхен, Германия, квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 144686,
+        "isGroup": false,
+        "name": "Munich, Germany, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "premier-league-2025-night-10",
+        "startTimestamp": 1775865600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ميونيخ",
+              "bn": "মিউনিখ",
+              "hi": "म्यूनिख",
+              "ru": "Мюнхен"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2491,
+          "name": "Munich",
+          "primaryColorHex": "#011b48",
+          "secondaryColorHex": "#0f528d",
+          "slug": "munich",
+          "tennisPoints": 500,
+          "userCount": 2798
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 7,
+        "period1TieBreak": 10,
+        "period2": 3,
+        "period3": 3,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IN",
+          "alpha3": "IND",
+          "name": "India",
+          "slug": "india"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سوميت ناغال",
+            "bn": "সুমিত নাগল",
+            "hi": "सुमित नागल",
+            "ru": "Нагал, Сумит"
+          },
+          "shortNameTranslation": {
+            "ar": "س. ناغال"
+          }
+        },
+        "gender": "M",
+        "id": 131566,
+        "name": "Sumit Nagal",
+        "nameCode": "NAG",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 522
+        },
+        "ranking": 239,
+        "shortName": "S. Nagal",
+        "slug": "nagal-sumit",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3670
+      },
+      "awayTeamSeed": "A",
+      "changes": {
+        "changeTimestamp": 1776002230,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period3",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "qGcbsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p500"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period1TieBreak": 8,
+        "period2": 6,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "homeTeamSeed": "WC",
+      "id": 15992583,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 81206,
+        "name": "ATP Munich, Germany Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-sumit-nagal",
+      "startTimestamp": 1775992500,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1775999519,
+        "period1": 3798,
+        "period2": 2775,
+        "period3": 2698
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1775952000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "الدوري الإنجليزي الممتاز 2025، الليلة 10",
+            "bn": "প্রিমিয়ার লীগ 2025, নাইট 10",
+            "hi": "प्रीमियर लीग 2025, नाइट 10",
+            "ru": "Мюнхен, Германия, квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 144686,
+        "isGroup": false,
+        "name": "Munich, Germany, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "premier-league-2025-night-10",
+        "startTimestamp": 1775865600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ميونيخ",
+              "bn": "মিউনিখ",
+              "hi": "म्यूनिख",
+              "ru": "Мюнхен"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2491,
+          "name": "Munich",
+          "primaryColorHex": "#011b48",
+          "secondaryColorHex": "#0f528d",
+          "slug": "munich",
+          "tennisPoints": 500,
+          "userCount": 2798
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 5,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1776171298,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "FyjcsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p500"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فلافيو كوبولي",
+            "ru": "Флавио Коболли"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. كوبولي",
+            "bn": "এফ. কোবলি",
+            "hi": "एफ. कोबोल्ली",
+            "ru": "Ф. Коболли"
+          }
+        },
+        "gender": "M",
+        "id": 273680,
+        "name": "Flavio Cobolli",
+        "nameCode": "COB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4435
+        },
+        "ranking": 10,
+        "shortName": "F. Cobolli",
+        "slug": "flavio-cobolli",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 40303
+      },
+      "homeTeamSeed": "4",
+      "id": 15996555,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 81206,
+        "name": "ATP Munich, Germany Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-flavio-cobolli",
+      "startTimestamp": 1776165600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1776168401,
+        "period1": 2331,
+        "period2": 2848
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1776556800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "الدوري الإنجليزي الممتاز 2025، الليلة 11",
+            "bn": "প্রিমিয়ার লীগ 2025, নাইট 11",
+            "hi": "प्रीमियर लीग 2025, नाइट 11",
+            "ru": "Мюнхен, Германия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 144692,
+        "isGroup": false,
+        "name": "Munich, Germany",
+        "priority": 0,
+        "slug": "premier-league-2025-night-11",
+        "startTimestamp": 1776038400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ميونيخ",
+              "bn": "মিউনিখ",
+              "hi": "म्यूनिख",
+              "ru": "Мюнхен"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2491,
+          "name": "Munich",
+          "primaryColorHex": "#011b48",
+          "secondaryColorHex": "#0f528d",
+          "slug": "munich",
+          "tennisPoints": 500,
+          "userCount": 2798
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "awayTeamSeed": "WC",
+      "changes": {
+        "changeTimestamp": 1776799160,
+        "changes": [
+          "homeScore.point",
+          "awayScore.point"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "ccJcsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p1000"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 2
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوكا فان أسيش",
+            "ru": "Люка ван Аш"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. فان أسيش",
+            "bn": "এল. ভ্যান অ্যাশে",
+            "hi": "एल. वान एस्च",
+            "ru": "Л. ван Аш"
+          }
+        },
+        "gender": "M",
+        "id": 335102,
+        "name": "Luca Van Assche",
+        "nameCode": "VAN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4788
+        },
+        "ranking": 54,
+        "shortName": "L. Van Assche",
+        "slug": "van-assche-luca",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 5978
+      },
+      "homeTeamSeed": "10",
+      "id": 16036196,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 81204,
+        "name": "ATP Madrid Masters, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-luca-van-assche",
+      "startTimestamp": 1776689100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1776691588,
+        "period1": 1907,
+        "period2": 1942
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1776729600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جائزة أوروبا الكبرى لرمي السهام",
+            "ru": "Мадрид, Испания, квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 151327,
+        "isGroup": false,
+        "name": "Madrid, Spain, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "european-darts-grand-prix",
+        "startTimestamp": 1776643200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مدريد",
+              "bn": "মাদ্রিদ",
+              "hi": "मैड्रिड",
+              "ru": "Мадридский Мастерс ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2374,
+          "name": "ATP Madrid Masters",
+          "primaryColorHex": "#64c9d0",
+          "secondaryColorHex": "#1f7072",
+          "slug": "madrid-open",
+          "tennisPoints": 1000,
+          "userCount": 9079
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بنجامين بونزي",
+            "ru": "Бонзи, Бенжамин"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. بونزي",
+            "bn": "বি. বনজি",
+            "hi": "बी. बॉन्ज़ी"
+          }
+        },
+        "gender": "M",
+        "id": 94485,
+        "name": "Benjamin Bonzi",
+        "nameCode": "BON",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 375
+        },
+        "ranking": 100,
+        "shortName": "B. Bonzi",
+        "slug": "bonzi-benjamin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 6313
+      },
+      "awayTeamSeed": "15",
+      "changes": {
+        "changeTimestamp": 1776799164,
+        "changes": [
+          "homeScore.point",
+          "awayScore.point"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "KOMsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p1000"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 1
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "homeTeamSeed": "WC",
+      "id": 16041416,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 81204,
+        "name": "ATP Madrid Masters, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-benjamin-bonzi",
+      "startTimestamp": 1776777000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1776778954,
+        "period1": 1630,
+        "period2": 1429
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1776729600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جائزة أوروبا الكبرى لرمي السهام",
+            "ru": "Мадрид, Испания, квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 151327,
+        "isGroup": false,
+        "name": "Madrid, Spain, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "european-darts-grand-prix",
+        "startTimestamp": 1776643200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مدريد",
+              "bn": "মাদ্রিদ",
+              "hi": "मैड्रिड",
+              "ru": "Мадридский Мастерс ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2374,
+          "name": "ATP Madrid Masters",
+          "primaryColorHex": "#64c9d0",
+          "secondaryColorHex": "#1f7072",
+          "slug": "madrid-open",
+          "tennisPoints": 1000,
+          "userCount": 9079
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 2,
+        "period3": 3,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "GB",
+          "alpha3": "GBR",
+          "name": "United Kingdom",
+          "slug": "united-kingdom"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بيلي هاريس",
+            "ru": "Билли Харрис"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. هاريس",
+            "ru": "Б. Харрис"
+          }
+        },
+        "gender": "M",
+        "id": 111837,
+        "name": "Billy Harris",
+        "nameCode": "HAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2038
+        },
+        "ranking": 167,
+        "shortName": "B. Harris",
+        "slug": "harris-billy",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3089
+      },
+      "changes": {
+        "changeTimestamp": 1777305876,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "MLUsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period1TieBreak": 0,
+        "period2": 6,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "homeTeamSeed": "A",
+      "id": 16071385,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 88964,
+        "name": "ATP Challenger Mauthausen, Austria Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-billy-harris",
+      "startTimestamp": 1777298100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1777303384,
+        "period1": 3040,
+        "period2": 1756,
+        "period3": 2443
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1777766400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماوتهاوزن، النمسا",
+            "ru": "Маутхаузен, Австрия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 181995,
+        "isGroup": false,
+        "name": "Mauthausen, Austria",
+        "priority": 0,
+        "slug": "mauthausen-austria",
+        "startTimestamp": 1777248000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ماوتهاوزن، النمسا",
+              "ru": "Маутхаузен, Австрия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 22392,
+          "name": "Mauthausen, Austria",
+          "slug": "atp-challenger-mauthausen-austria-men-singles",
+          "userCount": 163
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 3,
+        "period2": 7,
+        "period3": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيو ويليام دونالد",
+            "ru": "Мэтью Уильям Дональд"
+          },
+          "shortNameTranslation": {
+            "ar": "م. دونالد",
+            "ru": "М. Дональд"
+          }
+        },
+        "gender": "M",
+        "id": 353705,
+        "name": "Matthew William Donald",
+        "nameCode": "DON",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5726
+        },
+        "ranking": 461,
+        "shortName": "M. Donald",
+        "slug": "donald-matthew",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 379
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1777482480,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "fzQcsuJTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 5,
+        "period3": 3,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دييغو ديدورا-بالوميرو",
+            "ru": "Диего Дедура-Паломеро"
+          },
+          "shortNameTranslation": {
+            "ar": "د. بالوميرو",
+            "ru": "Д. Дедура-Паломеро"
+          }
+        },
+        "gender": "M",
+        "id": 484219,
+        "name": "Diego Dedura-Palomero",
+        "nameCode": "DED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15334
+        },
+        "ranking": 194,
+        "shortName": "D. Dedura-Palomero",
+        "slug": "dedura-palomero-diego",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2646
+      },
+      "homeTeamSeed": "A",
+      "id": 16050299,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 88964,
+        "name": "ATP Challenger Mauthausen, Austria Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "diego-dedura-palomero-matthew-william-donald",
+      "startTimestamp": 1777474200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1777479951,
+        "period1": 2114,
+        "period2": 3285,
+        "period3": 2502
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1777766400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماوتهاوزن، النمسا",
+            "ru": "Маутхаузен, Австрия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 181995,
+        "isGroup": false,
+        "name": "Mauthausen, Austria",
+        "priority": 0,
+        "slug": "mauthausen-austria",
+        "startTimestamp": 1777248000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ماوتهاوزن، النمسا",
+              "ru": "Маутхаузен, Австрия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 22392,
+          "name": "Mauthausen, Austria",
+          "slug": "atp-challenger-mauthausen-austria-men-singles",
+          "userCount": 163
+        }
+      },
+      "winnerCode": 2
+    }
+  ],
+  "has_next_page": true,
+  "page": 1,
+  "player_id": 484219,
+  "saved_at": 1788183265.6672287,
+  "saved_at_iso": "2026-08-31T13:34:25+00:00",
+  "source": "API_PRO_PREVIOUS_MATCHES",
+  "status": "OK"
+}

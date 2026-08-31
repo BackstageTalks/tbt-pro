@@ -1,0 +1,6752 @@
+{
+  "api_status_code": 200,
+  "endpoint": "https://tennisapi1.p.rapidapi.com/api/tennis/player/52691/events/previous/1",
+  "events": [
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 6,
+        "period2TieBreak": 4,
+        "period3": 4,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "JP",
+          "alpha3": "JPN",
+          "name": "Japan",
+          "slug": "japan"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كايو نيشي مورا",
+            "ru": "Кайо Нисимура"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. مورا",
+            "ru": "К. Нисимура"
+          }
+        },
+        "gender": "F",
+        "id": 448232,
+        "name": "Kayo Nishimura",
+        "nameCode": "NIS",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 12482
+        },
+        "ranking": 494,
+        "shortName": "K. Nishimura",
+        "slug": "nishimura-kayo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 210
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1732765877,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwsHoEd",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 2,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "homeTeamSeed": "6",
+      "id": 13171806,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 69255,
+        "name": "ITF Japan 30A, Women Singles 2024",
+        "year": "2024"
+      },
+      "slug": "kayo-nishimura-carol-zhao",
+      "startTimestamp": 1732755600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1732762768,
+        "period1": 1843,
+        "period2": 4602,
+        "period3": 3081
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "اليابان 31A، فردي السيدات",
+            "ru": "Япония 31A, Основной разряд среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 142239,
+        "name": "Japan 31A, Women Singles",
+        "priority": 0,
+        "slug": "japan-31a-women-singles",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF اليابان 31A، فردي السيدات",
+              "ru": "ITF Япония 31A, женщины, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 24294,
+          "name": "ITF Japan 31A, Women Singles",
+          "slug": "itf-japan-31a-women-singles",
+          "userCount": 4
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 4,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليونا فالي",
+            "ru": "Фалей, Алена"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. فالي"
+          }
+        },
+        "gender": "F",
+        "id": 303360,
+        "name": "Aliona Falei",
+        "nameCode": "FAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5035
+        },
+        "ranking": 223,
+        "shortName": "A. Falei",
+        "slug": "falei-aliona",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 656
+      },
+      "awayTeamSeed": "2",
+      "changes": {
+        "changeTimestamp": 1732850230,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "Qdwskrwc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 2,
+        "period2": 6,
+        "period3": 1,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "homeTeamSeed": "6",
+      "id": 13175112,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 69255,
+        "name": "ITF Japan 30A, Women Singles 2024",
+        "year": "2024"
+      },
+      "slug": "aliona-falei-carol-zhao",
+      "startTimestamp": 1732842000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1732848147,
+        "period1": 2079,
+        "period2": 3006,
+        "period3": 2023
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "اليابان 31A، فردي السيدات",
+            "ru": "Япония 31A, Основной разряд среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 142239,
+        "name": "Japan 31A, Women Singles",
+        "priority": 0,
+        "slug": "japan-31a-women-singles",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF اليابان 31A، فردي السيدات",
+              "ru": "ITF Япония 31A, женщины, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 24294,
+          "name": "ITF Japan 31A, Women Singles",
+          "slug": "itf-japan-31a-women-singles",
+          "userCount": 4
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 1,
+        "period2": 1,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IL",
+          "alpha3": "ISR",
+          "name": "Israel",
+          "slug": "israel"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا غلشكو",
+            "bn": "লিনা গ্লুশকো",
+            "hi": "लिना ग्लुशको",
+            "ru": "Глушко, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. غلشكو"
+          }
+        },
+        "gender": "F",
+        "id": 195315,
+        "name": "Lina Glushko",
+        "nameCode": "GLU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3298
+        },
+        "ranking": 543,
+        "shortName": "L. Glushko",
+        "slug": "glushko-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 497
+      },
+      "changes": {
+        "changeTimestamp": 1733220540,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwspgDb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "id": 13186418,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 69186,
+        "name": "ITF United Arab Emirates 01A, Women Singles 2024",
+        "year": "2024"
+      },
+      "slug": "lina-glushko-carol-zhao",
+      "startTimestamp": 1733213700,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1733218275,
+        "period1": 3881,
+        "period2": 2235
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "الإمارات تحت 01، فردي السيدات",
+            "ru": "ОАЭ 01A, Турнир среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 142605,
+        "name": "UAE 01A, Women Singles ",
+        "priority": 0,
+        "slug": "uae-01a-women-singles",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "دبي",
+              "ru": "Дубай"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 7592,
+          "name": "Dubai",
+          "slug": "dubai",
+          "userCount": 87
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "JP",
+          "alpha3": "JPN",
+          "name": "Japan",
+          "slug": "japan"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مي ياماغوتشي",
+            "ru": "Ямагучи, Мей"
+          },
+          "shortNameTranslation": {
+            "ar": "م. ياماغوتشي"
+          }
+        },
+        "gender": "F",
+        "id": 208613,
+        "name": "Mei Yamaguchi",
+        "nameCode": "YAM",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3400
+        },
+        "ranking": 261,
+        "shortName": "M. Yamaguchi",
+        "slug": "yamaguchi-mei",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 585
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1733402862,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwsnxIb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 2,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "id": 13190969,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 69186,
+        "name": "ITF United Arab Emirates 01A, Women Singles 2024",
+        "year": "2024"
+      },
+      "slug": "mei-yamaguchi-carol-zhao",
+      "startTimestamp": 1733397900,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1733400157,
+        "period1": 1580,
+        "period2": 2683
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "الإمارات تحت 01، فردي السيدات",
+            "ru": "ОАЭ 01A, Турнир среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 142605,
+        "name": "UAE 01A, Women Singles ",
+        "priority": 0,
+        "slug": "uae-01a-women-singles",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "دبي",
+              "ru": "Дубай"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 7592,
+          "name": "Dubai",
+          "slug": "dubai",
+          "userCount": 87
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 6,
+        "period1TieBreak": 4,
+        "period2": 4,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "صوفي تشانغ",
+            "ru": "Чанг, Софи"
+          },
+          "shortNameTranslation": {
+            "ar": "ص. تشانغ"
+          }
+        },
+        "gender": "F",
+        "id": 98607,
+        "name": "Sophie Chang",
+        "nameCode": "CHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 840
+        },
+        "shortName": "S. Chang",
+        "slug": "chang-sophie",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 254
+      },
+      "changes": {
+        "changeTimestamp": 1738176662,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "firstToServe"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwshxO",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "id": 13397013,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 71317,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "sophie-chang-carol-zhao",
+      "startTimestamp": 1738162800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بطولة ITF و75 روما، جورجيا للسيدات",
+            "ru": "ITF W75 Рим, Джорджия среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 144896,
+        "name": "ITF W75 Rome, GA Women",
+        "priority": 0,
+        "slug": "itf-w75-rome-ga-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كأس ITF تحت 75 روما، جورجيا السيدات",
+              "ru": "ITF W75 Рим, Джорджия среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 24764,
+          "name": "ITF W75 Rome, GA Women",
+          "slug": "itf-w75-rome-ga-women",
+          "userCount": 2
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 1,
+        "period2": 0
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "changes": {
+        "changeTimestamp": 0
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwsUqXc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 2
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كادنس بريس",
+            "ru": "Каденс Брейс"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. بريس",
+            "ru": "К. Брейс"
+          }
+        },
+        "gender": "F",
+        "id": 368344,
+        "name": "Cadence Brace",
+        "nameCode": "BRA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5205
+        },
+        "ranking": 258,
+        "shortName": "C. Brace",
+        "slug": "brace-cadence",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 802
+      },
+      "id": 13404080,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 71317,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "cadence-brace-carol-zhao",
+      "startTimestamp": 1738261200,
+      "status": {
+        "code": 92,
+        "description": "Retired",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بطولة ITF و75 روما، جورجيا للسيدات",
+            "ru": "ITF W75 Рим, Джорджия среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 144896,
+        "name": "ITF W75 Rome, GA Women",
+        "priority": 0,
+        "slug": "itf-w75-rome-ga-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كأس ITF تحت 75 روما، جورجيا السيدات",
+              "ru": "ITF W75 Рим, Джорджия среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 24764,
+          "name": "ITF W75 Rome, GA Women",
+          "slug": "itf-w75-rome-ga-women",
+          "userCount": 2
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {},
+      "awayTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "changes": {
+        "changeTimestamp": 1739131912,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwsHKbc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {},
+      "homeTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليا ريرا",
+            "bn": "জুলিয়া রিরা",
+            "hi": "जूलिया रिएरा",
+            "ru": "Юлия Риера"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. ريرا",
+            "ru": "Ю. Риера"
+          }
+        },
+        "gender": "F",
+        "id": 254282,
+        "name": "Julia Riera",
+        "nameCode": "RIE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4391
+        },
+        "ranking": 147,
+        "shortName": "J. Riera",
+        "slug": "riera-julia",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2242
+      },
+      "homeTeamSeed": "1",
+      "id": 13450558,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 71661,
+        "name": "WTA 125K Cancun, Mexico Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "julia-riera-carol-zhao",
+      "startTimestamp": 1739131200,
+      "status": {
+        "code": 70,
+        "description": "Canceled",
+        "type": "canceled"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1739059200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كانكون، المكسيك، التصفيات",
+            "ru": "Канкун, Мексика, Отбор"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 145777,
+        "isGroup": false,
+        "name": "Cancun, Mexico, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "cancun-mexico-qualifying",
+        "startTimestamp": 1739059200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كانكون، المكسيك",
+              "ru": "Канкун, Мексика"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 24910,
+          "name": "Cancun, Mexico",
+          "slug": "wta-125k-cancun-mexico-women-singles",
+          "tennisPoints": 125,
+          "userCount": 48
+        }
+      }
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 4,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "changes": {
+        "changeTimestamp": 1739310349,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwsVZCc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارينا ستاكوسيتش",
+            "ru": "Марина Стакушич"
+          },
+          "shortNameTranslation": {
+            "ar": "م. ستاكوسيتش",
+            "ru": "М. Стакушич"
+          }
+        },
+        "gender": "F",
+        "id": 319995,
+        "name": "Marina Stakusic",
+        "nameCode": "STA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4900
+        },
+        "ranking": 140,
+        "shortName": "M. Stakusic",
+        "slug": "stakusic-marina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1995
+      },
+      "homeTeamSeed": "4",
+      "id": 13452371,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 71661,
+        "name": "WTA 125K Cancun, Mexico Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "marina-stakusic-carol-zhao",
+      "startTimestamp": 1739304000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1739306792,
+        "period1": 2290,
+        "period2": 3542
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1739577600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كانكون، المكسيك",
+            "ru": "Канкун, Мексика"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 145503,
+        "isGroup": false,
+        "name": "Cancun, Mexico",
+        "priority": 0,
+        "slug": "cancun-mexico",
+        "startTimestamp": 1739145600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كانكون، المكسيك",
+              "ru": "Канкун, Мексика"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 24910,
+          "name": "Cancun, Mexico",
+          "slug": "wta-125k-cancun-mexico-women-singles",
+          "tennisPoints": 125,
+          "userCount": 48
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 1,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ساكيا فيكيري",
+            "bn": "সাচিয়া ভিকারি",
+            "hi": "साचिया विकेरी",
+            "ru": "Викери, Сачиа"
+          },
+          "shortNameTranslation": {
+            "ar": "س. فيكيري"
+          }
+        },
+        "gender": "F",
+        "id": 51392,
+        "name": "Sachia Vickery",
+        "nameCode": "VIC",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 374
+        },
+        "ranking": 619,
+        "shortName": "S. Vickery",
+        "slug": "vickery-sachia",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 672
+      },
+      "changes": {
+        "changeTimestamp": 1740001103,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "firstToServe"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "RCvsQdw",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "id": 13494399,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 72292,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "carol-zhao-sachia-vickery",
+      "startTimestamp": 1739980800,
+      "status": {
+        "code": 92,
+        "description": "Retired",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W50 سبرينغ، تكساس للسيدات",
+            "ru": "ITF W50 Спринг, Техас среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 146331,
+        "name": "ITF W50 Spring, TX Women",
+        "priority": 0,
+        "slug": "itf-w50-spring-tx-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W50 سبرينغ، تكساس سيدات",
+              "ru": "ITF W50 Спринг, Техас, женщины"
+            },
+            "shortNameTranslation": {}
+          },
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25103,
+          "name": "ITF W50 Spring, TX Women",
+          "slug": "itf-w50-spring-tx-women",
+          "userCount": 2
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "changes": {
+        "changeTimestamp": 1740072257,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwsGKbc",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 2,
+        "period2": 2,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جازمين أورتيزي",
+            "ru": "Язмин Ортенци"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. أورتيزي",
+            "ru": "Я. Ортенци"
+          }
+        },
+        "gender": "F",
+        "id": 254281,
+        "name": "Jazmin Ortenzi",
+        "nameCode": "ORT",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3565
+        },
+        "ranking": 158,
+        "shortName": "J. Ortenzi",
+        "slug": "ortenzi-jazmin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1363
+      },
+      "id": 13505627,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 72292,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "jazmin-ortenzi-carol-zhao",
+      "startTimestamp": 1740067200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W50 سبرينغ، تكساس للسيدات",
+            "ru": "ITF W50 Спринг, Техас среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 146331,
+        "name": "ITF W50 Spring, TX Women",
+        "priority": 0,
+        "slug": "itf-w50-spring-tx-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W50 سبرينغ، تكساس سيدات",
+              "ru": "ITF W50 Спринг, Техас, женщины"
+            },
+            "shortNameTranslation": {}
+          },
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25103,
+          "name": "ITF W50 Spring, TX Women",
+          "slug": "itf-w50-spring-tx-women",
+          "userCount": 2
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "changes": {
+        "changeTimestamp": 1740429522,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period1",
+          "homeScore.period2",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period1",
+          "awayScore.period2"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwsfOKc",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "period2": 3
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AU",
+          "alpha3": "AUS",
+          "name": "Australia",
+          "slug": "australia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تايلا بريستون",
+            "ru": "Тайла Престон"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. بريستون",
+            "ru": "Т. Престон"
+          }
+        },
+        "gender": "F",
+        "id": 339455,
+        "name": "Taylah Preston",
+        "nameCode": "PRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5218
+        },
+        "ranking": 100,
+        "shortName": "T. Preston",
+        "slug": "preston-taylah",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1469
+      },
+      "id": 13510891,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 72292,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "taylah-preston-carol-zhao",
+      "startTimestamp": 1740416400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W50 سبرينغ، تكساس للسيدات",
+            "ru": "ITF W50 Спринг, Техас среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 146331,
+        "name": "ITF W50 Spring, TX Women",
+        "priority": 0,
+        "slug": "itf-w50-spring-tx-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W50 سبرينغ، تكساس سيدات",
+              "ru": "ITF W50 Спринг, Техас, женщины"
+            },
+            "shortNameTranslation": {}
+          },
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25103,
+          "name": "ITF W50 Spring, TX Women",
+          "slug": "itf-w50-spring-tx-women",
+          "userCount": 2
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period1TieBreak": 4,
+        "period2": 6,
+        "period3": 11
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماري ستويانا",
+            "bn": "মেরি স্টোইয়ানা",
+            "hi": "मैरी स्टोइना",
+            "ru": "Мэри Стояна"
+          },
+          "shortNameTranslation": {
+            "ar": "م. ستويانا",
+            "ru": "М. Стояна"
+          }
+        },
+        "gender": "F",
+        "id": 340542,
+        "name": "Mary Stoiana",
+        "nameCode": "STO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 12347
+        },
+        "ranking": 122,
+        "shortName": "M. Stoiana",
+        "slug": "stoiana-mary",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1106
+      },
+      "changes": {
+        "changeTimestamp": 0
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwsRkLc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 4,
+        "period3": 9
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "id": 13532433,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 72292,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "mary-stoiana-carol-zhao",
+      "startTimestamp": 1740438900,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W50 سبرينغ، تكساس للسيدات",
+            "ru": "ITF W50 Спринг, Техас среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 146331,
+        "name": "ITF W50 Spring, TX Women",
+        "priority": 0,
+        "slug": "itf-w50-spring-tx-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W50 سبرينغ، تكساس سيدات",
+              "ru": "ITF W50 Спринг, Техас, женщины"
+            },
+            "shortNameTranslation": {}
+          },
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25103,
+          "name": "ITF W50 Spring, TX Women",
+          "slug": "itf-w50-spring-tx-women",
+          "userCount": 2
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 5,
+        "period3": 4,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "آنا فري",
+            "ru": "Анна Фрей"
+          },
+          "shortNameTranslation": {
+            "ar": "آ. فري",
+            "ru": "А. Фрей"
+          }
+        },
+        "gender": "F",
+        "id": 479887,
+        "name": "Anna Frey",
+        "nameCode": "FRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 13503
+        },
+        "ranking": 873,
+        "shortName": "A. Frey",
+        "slug": "frey-anna",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1006
+      },
+      "changes": {
+        "changeTimestamp": 1740622847,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwsMXQd",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 1,
+        "period2": 7,
+        "period3": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "id": 13537211,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 72643,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "anna-frey-carol-zhao",
+      "startTimestamp": 1740609000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W35 أركاديا السيدات",
+            "ru": "ITF W35 Аркадия, Калифорния"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 146797,
+        "name": "ITF W35 Arcadia, CA Women",
+        "priority": 0,
+        "slug": "itf-w35-arcadia-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W35 أركاديا للسيدات",
+              "ru": "ITF W35 Аркадия, Калифорния среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25229,
+          "name": "ITF W35 Arcadia, CA Women",
+          "slug": "itf-w35-arcadia-women",
+          "userCount": 1
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period1TieBreak": 4,
+        "period2": 6,
+        "period3": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فيونا كراولي",
+            "bn": "ফিওনা ক্রাউলি",
+            "hi": "फियोना क्रॉली",
+            "ru": "Фиона Кроули"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. كراولي",
+            "ru": "Ф. Кроули"
+          }
+        },
+        "gender": "F",
+        "id": 266264,
+        "name": "Fiona Crawley",
+        "nameCode": "CRA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 12302
+        },
+        "ranking": 249,
+        "shortName": "F. Crawley",
+        "slug": "crawley-fiona",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 441
+      },
+      "changes": {
+        "changeTimestamp": 1740697651,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwsoAgc",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 3,
+        "period3": 0,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "id": 13542793,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 72643,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "fiona-crawley-carol-zhao",
+      "startTimestamp": 1740686400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W35 أركاديا السيدات",
+            "ru": "ITF W35 Аркадия, Калифорния"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 146797,
+        "name": "ITF W35 Arcadia, CA Women",
+        "priority": 0,
+        "slug": "itf-w35-arcadia-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W35 أركاديا للسيدات",
+              "ru": "ITF W35 Аркадия, Калифорния среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25229,
+          "name": "ITF W35 Arcadia, CA Women",
+          "slug": "itf-w35-arcadia-women",
+          "userCount": 1
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 4,
+        "period3": 2,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "HK",
+          "alpha3": "HKG",
+          "name": "Hong Kong",
+          "slug": "hong-kong"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "هونغ يي كودي وونغ",
+            "ru": "Вонг, Хон Йи Коди"
+          },
+          "shortNameTranslation": {
+            "ar": "ه. وونغ"
+          }
+        },
+        "gender": "F",
+        "id": 234309,
+        "name": "Hong Yi Cody Wong",
+        "nameCode": "WON",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4453
+        },
+        "ranking": 629,
+        "shortName": "H. Wong",
+        "slug": "wong-hong-yi-cody",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 480
+      },
+      "changes": {
+        "changeTimestamp": 1741757291,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwsjLTb",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hard",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 1,
+        "period2": 6,
+        "period3": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "id": 13590679,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 73139,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "hong-yi-cody-wong-carol-zhao",
+      "startTimestamp": 1741744800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W50 شنتشن للسيدات",
+            "ru": "ITF W50 Шэньчжэнь среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 147720,
+        "name": "ITF W50 Shenzen Women",
+        "priority": 0,
+        "slug": "itf-w50-shenzen-3-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W50 شنتشن للسيدات",
+              "ru": "Кубок ITF W50 Шэньчжэнь среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hard",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25456,
+          "name": "ITF W50 Shenzen Women",
+          "slug": "itf-w50-shenzen-3-women",
+          "userCount": 5
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "changes": {
+        "changeTimestamp": 1742359665,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "AHtsQdw",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Hard",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 2,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IN",
+          "alpha3": "IND",
+          "name": "India",
+          "slug": "india"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنكيتا رينا",
+            "bn": "অঙ্কিতা রায়না",
+            "hi": "अंकिता रैना",
+            "ru": "Райна, Анкита"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. رينا"
+          }
+        },
+        "gender": "F",
+        "id": 46625,
+        "name": "Ankita Raina",
+        "nameCode": "RAI",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 502
+        },
+        "ranking": 598,
+        "shortName": "A. Raina",
+        "slug": "raina-ankita",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 698
+      },
+      "id": 13629843,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 73460,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "carol-zhao-ankita-raina",
+      "startTimestamp": 1742349600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W75 لوان السيدات",
+            "ru": "ITF W75 Луан, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 148136,
+        "name": "ITF W75 Luan Women",
+        "priority": 0,
+        "slug": "itf-w75-luan-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W75 لوان سيدات",
+              "ru": "ITF W75 Луань среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hard",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25581,
+          "name": "ITF W75 Luan Women",
+          "slug": "itf-w75-luan-women",
+          "userCount": 1
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 5,
+        "period2": 6,
+        "period3": 3,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CN",
+          "alpha3": "CHN",
+          "name": "China",
+          "slug": "china"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "رويين زانغ",
+            "ru": "Жуэнь Чжан"
+          },
+          "shortNameTranslation": {
+            "ar": "ر. زانغ",
+            "ru": "Ж. Чжан"
+          }
+        },
+        "gender": "F",
+        "id": 469043,
+        "name": "Ruien Zhang",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 13535
+        },
+        "ranking": 658,
+        "shortName": "R. Zhang",
+        "slug": "zhang-ruien",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 279
+      },
+      "changes": {
+        "changeTimestamp": 1742448945,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwsTFMd",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Hard",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period2": 3,
+        "period3": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "id": 13639109,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 73460,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "ruien-zhang-carol-zhao",
+      "startTimestamp": 1742441400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W75 لوان السيدات",
+            "ru": "ITF W75 Луан, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 148136,
+        "name": "ITF W75 Luan Women",
+        "priority": 0,
+        "slug": "itf-w75-luan-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W75 لوان سيدات",
+              "ru": "ITF W75 Луань среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hard",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25581,
+          "name": "ITF W75 Luan Women",
+          "slug": "itf-w75-luan-women",
+          "userCount": 1
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 1,
+        "period2": 6,
+        "period2TieBreak": 3,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "changes": {
+        "changeTimestamp": 1742529893,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwsZQDc",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Hard",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "TH",
+          "alpha3": "THA",
+          "name": "Thailand",
+          "slug": "thailand"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لانلانا تاراروديي",
+            "ru": "Ланлана Тарарудии"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. تاراروديي",
+            "ru": "Л. Тарарудии"
+          }
+        },
+        "gender": "F",
+        "id": 322099,
+        "name": "Lanlana Tararudee",
+        "nameCode": "TAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5366
+        },
+        "ranking": 76,
+        "shortName": "L. Tararudee",
+        "slug": "tararudee-lanlana",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2448
+      },
+      "id": 13647930,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 73460,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "lanlana-tararudee-carol-zhao",
+      "startTimestamp": 1742522400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W75 لوان السيدات",
+            "ru": "ITF W75 Луан, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 148136,
+        "name": "ITF W75 Luan Women",
+        "priority": 0,
+        "slug": "itf-w75-luan-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W75 لوان سيدات",
+              "ru": "ITF W75 Луань среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hard",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25581,
+          "name": "ITF W75 Luan Women",
+          "slug": "itf-w75-luan-women",
+          "userCount": 1
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 3,
+        "period3": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AU",
+          "alpha3": "AUS",
+          "name": "Australia",
+          "slug": "australia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مايا جوينت",
+            "ru": "Майя Джойнт"
+          },
+          "shortNameTranslation": {
+            "ar": "م. جوينت",
+            "ru": "М. Джойнт"
+          }
+        },
+        "gender": "F",
+        "id": 376006,
+        "name": "Maya Joint",
+        "nameCode": "JOI",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 12375
+        },
+        "ranking": 72,
+        "shortName": "M. Joint",
+        "slug": "joint-maya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 5567
+      },
+      "changes": {
+        "changeTimestamp": 1742940918,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "Qdwsgvad",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 3,
+        "period2": 6,
+        "period3": 4,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "id": 13664867,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 70609,
+        "name": "WTA 125K Puerto Vallarta, Mexico Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "maya-joint-carol-zhao",
+      "startTimestamp": 1742932500,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1742938270,
+        "period1": 2583,
+        "period2": 2583,
+        "period3": 2589
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1743292800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بورتو فالارتا، المكسيك",
+            "ru": "Пуэрто-Вальярта, Мексика"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 148250,
+        "isGroup": false,
+        "name": "Puerto Vallarta, Mexico",
+        "priority": 0,
+        "slug": "puerto-vallarta-mexico",
+        "startTimestamp": 1742774400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بورتو فالارتا، المكسيك",
+              "ru": "Пуэрто-Вальярта, Мексика"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18663,
+          "name": "Puerto Vallarta, Mexico",
+          "slug": "puerto-vallarta-mexico",
+          "tennisPoints": 125,
+          "userCount": 99
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 5,
+        "period2": 1,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "awayTeamSeed": "8",
+      "changes": {
+        "changeTimestamp": 1743284214,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwsrHQd",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "خولييتا باريا",
+            "ru": "Хулиета Пареха"
+          },
+          "shortNameTranslation": {
+            "ar": "خ. باريا",
+            "ru": "Х. Пареха"
+          }
+        },
+        "gender": "F",
+        "id": 479117,
+        "name": "Julieta Pareja",
+        "nameCode": "PAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 17981
+        },
+        "ranking": 288,
+        "shortName": "J. Pareja",
+        "slug": "pareja-julieta",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1131
+      },
+      "homeTeamSeed": "WC",
+      "id": 13687009,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 67068,
+        "name": "WTA Bogota, Colombia Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "julieta-pareja-carol-zhao",
+      "startTimestamp": 1743270300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1743282514,
+        "period1": 2945,
+        "period2": 1670
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1743292800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بوغوتا، كولومبيا، التصفيات",
+            "ru": "Богота, Колумбия, отбор"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 148935,
+        "isGroup": false,
+        "name": "Bogota, Colombia, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "bogota-colombia-qualifying",
+        "startTimestamp": 1743206400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بوغوتا",
+              "ru": "Богота"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2560,
+          "name": "Bogota",
+          "primaryColorHex": "#13a9e4",
+          "secondaryColorHex": "#abacad",
+          "slug": "bogota",
+          "tennisPoints": 250,
+          "userCount": 630
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تيفاني ليمتر",
+            "ru": "Фико, Тифани"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. ليمتر"
+          }
+        },
+        "gender": "F",
+        "id": 200757,
+        "name": "Tiphanie Lemaitre",
+        "nameCode": "LEM",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3349
+        },
+        "ranking": 402,
+        "shortName": "T. Lemaitre",
+        "slug": "lemaitre-tiphanie",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 295
+      },
+      "changes": {
+        "changeTimestamp": 1744480026,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwshpFb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 2,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "homeTeamSeed": "6",
+      "id": 13753699,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 67090,
+        "name": "WTA Rouen, France Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "t-lemaitre-c-zhao",
+      "startTimestamp": 1744474800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1744477495,
+        "period1": 2330,
+        "period2": 2500
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1744502400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "روان، فرنسا، التصفيات",
+            "ru": "Руан, Франция, Квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 149941,
+        "isGroup": false,
+        "name": "Rouen, France, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "rouen-france-qualifying",
+        "startTimestamp": 1744416000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "روان",
+              "ru": "Руан"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 22265,
+          "name": "Rouen",
+          "slug": "wta-rouen-france-women-singles",
+          "tennisPoints": 250,
+          "userCount": 609
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "RO",
+          "alpha3": "ROU",
+          "name": "Romania",
+          "slug": "romania"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيرينا ماريا بارا",
+            "bn": "ইরিনা বারা",
+            "hi": "इरीना बारा",
+            "ru": "Бара, Ирина"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. بارا"
+          }
+        },
+        "gender": "F",
+        "id": 52183,
+        "name": "Irina Maria Bara",
+        "nameCode": "BARA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 536
+        },
+        "shortName": "I. Bara",
+        "slug": "bara-irina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1127
+      },
+      "changes": {
+        "changeTimestamp": 1745450072,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "ITvsQdw",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 0,
+        "period2": 0,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "id": 13805102,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 74774,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "c-zhao-i-bara",
+      "startTimestamp": 1745434800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W100 شارلوتسفيل للسيدات",
+            "ru": "ITF W100 Шарлоттсвилл, Вирджиния Женщины"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 150527,
+        "name": "ITF W100 Charlottesville, VA Women",
+        "priority": 0,
+        "slug": "itf-w100-charlottesville-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W100 شارلوتسفيل سيدات",
+              "ru": "ITF W100 Шарлоттсвилл, Виргиния среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 26206,
+          "name": "ITF W100 Charlottesville, VA Women",
+          "slug": "itf-w100-charlottesville-women",
+          "userCount": 2
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 3,
+        "period2": 6,
+        "period3": 4,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سيلفيا أمبروسيو",
+            "ru": "Сильвия Амбросио"
+          },
+          "shortNameTranslation": {
+            "ar": "س. أمبروسيو",
+            "ru": "С. Амбросио"
+          }
+        },
+        "gender": "F",
+        "id": 318257,
+        "name": "Silvia Ambrosio",
+        "nameCode": "AMB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4103
+        },
+        "ranking": 415,
+        "shortName": "S. Ambrosio",
+        "slug": "ambrosio-silvia",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 582
+      },
+      "changes": {
+        "changeTimestamp": 1746054237,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwshpCc",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 2,
+        "period3": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "id": 13832733,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 74968,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "s-ambrosio-c-zhao",
+      "startTimestamp": 1746021600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W100 بونيتا سبرينغز سيدات",
+            "ru": "ITF W100 Бонита-Спрингс, Флорида Женщины"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 151119,
+        "name": "ITF W100 Bonita Springs, FL Women",
+        "priority": 0,
+        "slug": "itf-w100-bonita-springs-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة ITF W100 بونيتا سبرينغز سيدات",
+              "ru": "ITF W100 Бонита-Спрингс, Флорида среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 26331,
+          "name": "ITF W100 Bonita Springs, FL Women",
+          "slug": "itf-w100-bonita-springs-women",
+          "userCount": 10
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "period2": 3,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "changes": {
+        "changeTimestamp": 1746120201,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwsEhM",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيرينا شيمانوفيتش",
+            "bn": "ইরিনা শায়মানোভিচ",
+            "hi": "इरीना शिमानोविच",
+            "ru": "Шиманович, Ирина"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. شيمانوفيتش"
+          }
+        },
+        "gender": "F",
+        "id": 92879,
+        "name": "Iryna Shymanovich",
+        "nameCode": "SHY",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2553
+        },
+        "ranking": 191,
+        "shortName": "I. Shymanovich",
+        "slug": "shymanovich-iryna",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1411
+      },
+      "id": 13838532,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 74968,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "i-shymanovich-c-zhao",
+      "startTimestamp": 1746109800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W100 بونيتا سبرينغز سيدات",
+            "ru": "ITF W100 Бонита-Спрингс, Флорида Женщины"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 151119,
+        "name": "ITF W100 Bonita Springs, FL Women",
+        "priority": 0,
+        "slug": "itf-w100-bonita-springs-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة ITF W100 بونيتا سبرينغز سيدات",
+              "ru": "ITF W100 Бонита-Спрингс, Флорида среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 26331,
+          "name": "ITF W100 Bonita Springs, FL Women",
+          "slug": "itf-w100-bonita-springs-women",
+          "userCount": 10
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 5,
+        "period2": 6,
+        "period3": 2,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سيلفيا أمبروسيو",
+            "ru": "Сильвия Амбросио"
+          },
+          "shortNameTranslation": {
+            "ar": "س. أمبروسيو",
+            "ru": "С. Амбросио"
+          }
+        },
+        "gender": "F",
+        "id": 318257,
+        "name": "Silvia Ambrosio",
+        "nameCode": "AMB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4103
+        },
+        "ranking": 415,
+        "shortName": "S. Ambrosio",
+        "slug": "ambrosio-silvia",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 582
+      },
+      "changes": {
+        "changeTimestamp": 1746635601,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwshpCc",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period2": 4,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "id": 13859127,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 75172,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "s-ambrosio-c-zhao",
+      "startTimestamp": 1746626400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W50 شاطئ هاربر الهندي سيدات",
+            "ru": "ITF W50 Индиан Харбор Бич, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 151580,
+        "name": "ITF W50 Indian Harbour Beach Women",
+        "priority": 0,
+        "slug": "itf-w50-indian-harbour-beach-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة ITF W50 شاطئ هاربر الهندي للسيدات",
+              "ru": "ITF W50 Индийский Харбор Бич, среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 26452,
+          "name": "ITF W50 Indian Harbour Beach Women",
+          "slug": "itf-w50-indian-harbour-beach-women",
+          "userCount": 5
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 1,
+        "period2": 6,
+        "period3": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "RU",
+          "alpha3": "RUS",
+          "name": "Russia",
+          "slug": "russia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستينا ليوتوفا",
+            "ru": "Кристина Лиутова"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. ليوتوفا",
+            "ru": "К. Лиутова"
+          }
+        },
+        "gender": "F",
+        "id": 927960,
+        "name": "Kristina Liutova",
+        "nameCode": "LIU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 20773
+        },
+        "ranking": 125,
+        "shortName": "K. Liutova",
+        "slug": "liutova-kristina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1937
+      },
+      "changes": {
+        "changeTimestamp": 1746723083,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "Qdwskjwh",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 4,
+        "period3": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "id": 13864958,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 75172,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "k-liutova-c-zhao",
+      "startTimestamp": 1746712800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W50 شاطئ هاربر الهندي سيدات",
+            "ru": "ITF W50 Индиан Харбор Бич, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 151580,
+        "name": "ITF W50 Indian Harbour Beach Women",
+        "priority": 0,
+        "slug": "itf-w50-indian-harbour-beach-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة ITF W50 شاطئ هاربر الهندي للسيدات",
+              "ru": "ITF W50 Индийский Харбор Бич, среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 26452,
+          "name": "ITF W50 Indian Harbour Beach Women",
+          "slug": "itf-w50-indian-harbour-beach-women",
+          "userCount": 5
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period2": 3,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BR",
+          "alpha3": "BRA",
+          "name": "Brazil",
+          "slug": "brazil"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارولينا ألفيس",
+            "bn": "ক্যারোলিনা আলভেস",
+            "hi": "कैरोलिना अल्वेस",
+            "ru": "Алвес, Каролина"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. ألفيس"
+          }
+        },
+        "gender": "F",
+        "id": 51839,
+        "name": "Carolina Alves",
+        "nameCode": "ALV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 852
+        },
+        "ranking": 314,
+        "shortName": "C. Alves",
+        "slug": "alves-carolina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1583
+      },
+      "changes": {
+        "changeTimestamp": 1747486988,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "OLvsQdw",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 5,
+        "period2": 6,
+        "period3": 3,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "homeTeamSeed": "3",
+      "id": 13909291,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 67123,
+        "name": "WTA Rabat, Morocco Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "carol-zhao-carolina-alves",
+      "startTimestamp": 1747476000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1747483738,
+        "period1": 3990,
+        "period2": 3103,
+        "period3": 3208
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1747526400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "الرباط، المغرب، التصفيات",
+            "ru": "Рабат, Марокко, отбор."
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 152650,
+        "isGroup": false,
+        "name": "Rabat, Morocco, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "rabat-morocco-qualifying",
+        "startTimestamp": 1747440000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "الرباط",
+              "ru": "Рабат"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2682,
+          "name": "Rabat",
+          "primaryColorHex": "#0c4522",
+          "secondaryColorHex": "#c5df96",
+          "slug": "rabat",
+          "tennisPoints": 250,
+          "userCount": 667
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "point": "6"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "changes": {
+        "changeTimestamp": 1749297995,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwskDNb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Grass",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 1,
+        "period2": 6,
+        "period2TieBreak": 4,
+        "point": "4"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليشا باركس",
+            "bn": "অ্যালিসিয়া পার্ক",
+            "hi": "एलिसिया पार्क्स",
+            "ru": "Паркс, Алисия"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. باركس"
+          }
+        },
+        "gender": "F",
+        "id": 221410,
+        "name": "Alycia Parks",
+        "nameCode": "PAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3463
+        },
+        "ranking": 79,
+        "shortName": "A. Parks",
+        "slug": "parks-alycia",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 5771
+      },
+      "homeTeamSeed": "1",
+      "id": 13979835,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 76334,
+        "name": "WTA London, Great Britain Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "alycia-parks-carol-zhao",
+      "startTimestamp": 1749290400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1749294589,
+        "period1": 3313,
+        "period2": 3370
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1749340800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لندن، بريطانيا العظمى، التصفيات",
+            "ru": "Лондон, Великобритания, квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 154373,
+        "isGroup": false,
+        "name": "London, Great Britain, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "london-great-britain-qualifying",
+        "startTimestamp": 1749254400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "لندن",
+              "ru": "Лондон"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Grass",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 27064,
+          "name": "London",
+          "slug": "wta-london-great-britain-women-singles",
+          "tennisPoints": 500,
+          "userCount": 1035
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "period2TieBreak": 1,
+        "period3": 7,
+        "period3TieBreak": 9,
+        "point": "8"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "RU",
+          "alpha3": "RUS",
+          "name": "Russia",
+          "slug": "russia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنستازيا زاخاروفا",
+            "bn": "আনাস্তাসিয়া জাখারোভা",
+            "hi": "अनास्तासिया ज़खारोवा",
+            "ru": "Захарова, Анастасия"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. زاخاروفا"
+          }
+        },
+        "gender": "F",
+        "id": 255391,
+        "name": "Anastasia Zakharova",
+        "nameCode": "ZAK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3569
+        },
+        "ranking": 101,
+        "shortName": "A. Zakharova",
+        "slug": "zakharova-anastasia",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2983
+      },
+      "awayTeamSeed": "8",
+      "changes": {
+        "changeTimestamp": 1749394923,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwsQhcc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Grass",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 3,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 6,
+        "period3TieBreak": 7,
+        "point": "7"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "id": 13982752,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 76334,
+        "name": "WTA London, Great Britain Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "anastasia-zakharova-carol-zhao",
+      "startTimestamp": 1749384900,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1749390540,
+        "period1": 2423,
+        "period2": 3472,
+        "period3": 4340
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1749340800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لندن، بريطانيا العظمى، التصفيات",
+            "ru": "Лондон, Великобритания, квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 154373,
+        "isGroup": false,
+        "name": "London, Great Britain, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "london-great-britain-qualifying",
+        "startTimestamp": 1749254400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "لندن",
+              "ru": "Лондон"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Grass",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 27064,
+          "name": "London",
+          "slug": "wta-london-great-britain-women-singles",
+          "tennisPoints": 500,
+          "userCount": 1035
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 3,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CN",
+          "alpha3": "CHN",
+          "name": "China",
+          "slug": "china"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "يكسين ما",
+            "ru": "Ма, Есинь"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. ما"
+          }
+        },
+        "gender": "F",
+        "id": 190950,
+        "name": "Yexin Ma",
+        "nameCode": "YEX",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3263
+        },
+        "ranking": 178,
+        "shortName": "Y. Ma",
+        "slug": "ma-yexin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1064
+      },
+      "changes": {
+        "changeTimestamp": 1752012406,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QdwsauBb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Grass",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول زهاو",
+            "bn": "ক্যারল ঝাও",
+            "hi": "कैरोल झाओ",
+            "ru": "Жао, Кэрол"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زهاو"
+          }
+        },
+        "gender": "F",
+        "id": 52691,
+        "name": "Carol Zhao",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 856
+        },
+        "ranking": 591,
+        "shortName": "C. Zhao",
+        "slug": "zhao-carol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 754
+      },
+      "id": 14121790,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 77705,
+        "name": "WTA 125K Cali, Colombia Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "yexin-ma-carol-zhao",
+      "startTimestamp": 1752007800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1752010062,
+        "period1": 2046,
+        "period2": 2299
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1752364800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نيو بورت، الولايات المتحدة الأمريكية",
+            "ru": "Ньюпорт, США"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 156892,
+        "isGroup": false,
+        "name": "Newport, USA",
+        "priority": 0,
+        "slug": "newport-usa",
+        "startTimestamp": 1751846400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "WTA 125K نيوبورت، الولايات المتحدة السيدات فردي",
+              "ru": "WTA 125K Ньюпорт, США среди женщин одиночный"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Grass",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 27740,
+          "name": "Newport, USA",
+          "slug": "wta-125k-newport-usa-women-singles",
+          "tennisPoints": 125,
+          "userCount": 111
+        }
+      },
+      "winnerCode": 1
+    }
+  ],
+  "has_next_page": true,
+  "page": 1,
+  "player_id": 52691,
+  "saved_at": 1788183139.9529545,
+  "saved_at_iso": "2026-08-31T13:32:19+00:00",
+  "source": "API_PRO_PREVIOUS_MATCHES",
+  "status": "OK"
+}

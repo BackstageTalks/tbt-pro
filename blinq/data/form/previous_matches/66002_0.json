@@ -1,0 +1,7159 @@
+{
+  "api_status_code": 200,
+  "endpoint": "https://tennisapi1.p.rapidapi.com/api/tennis/player/66002/events/previous/0",
+  "events": [
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 3,
+        "period2": 6,
+        "period3": 4,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "توم باريس",
+            "ru": "Том Парис"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. باريس",
+            "ru": "Т. Парис"
+          }
+        },
+        "gender": "M",
+        "id": 334289,
+        "name": "Tom Paris",
+        "nameCode": "PAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 6846
+        },
+        "ranking": 455,
+        "shortName": "T. Paris",
+        "slug": "paris-tom",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 807
+      },
+      "awayTeamSeed": "8",
+      "changes": {
+        "changeTimestamp": 1777296415,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsOKIc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 4,
+        "period3": 2,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "homeTeamSeed": "A",
+      "id": 16075757,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 88868,
+        "name": "ATP Challenger Aix en Provence, France Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "tom-paris-laurent-lokoli",
+      "startTimestamp": 1777287300,
+      "status": {
+        "code": 92,
+        "description": "Retired",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1777294011,
+        "period1": 3046,
+        "period2": 3190,
+        "period3": 2354
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1777334400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أكس أون بروفانس، فرنسا، التصفيات",
+            "ru": "Экс-ан-Прованс, Франция, Отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 182456,
+        "isGroup": false,
+        "name": "Aix en Provence, France, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "aix-en-provence-france-qualifying",
+        "startTimestamp": 1777248000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أكس أون بروفانس، فرنسا",
+              "ru": "Экс-ан-Прованс, Франция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 6107,
+          "name": "Aix en Provence, France",
+          "slug": "aix-en-provence-france",
+          "userCount": 455
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 6,
+        "period2TieBreak": 2,
+        "point": "2"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SK",
+          "alpha3": "SVK",
+          "name": "Slovakia",
+          "slug": "slovakia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ميلوش كارول",
+            "ru": "Милош Карол"
+          },
+          "shortNameTranslation": {
+            "ar": "م. كارول",
+            "ru": "М. Карол"
+          }
+        },
+        "gender": "M",
+        "id": 341853,
+        "name": "Miloš Karol",
+        "nameCode": "KAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4938
+        },
+        "ranking": 487,
+        "shortName": "M. Karol",
+        "slug": "karol-milos",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 890
+      },
+      "awayTeamSeed": "12",
+      "changes": {
+        "changeTimestamp": 1778423089,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsdMLc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "point": "6"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "id": 16155008,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 88944,
+        "name": "ATP Challenger Tunis, Tunisia Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "milos-karol-laurent-lokoli",
+      "startTimestamp": 1778415300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1778418951,
+        "period1": 3248,
+        "period2": 4094
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1778457600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Кубок Тунис, Тунис, квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 184143,
+        "isGroup": false,
+        "name": "Tunis, Tunisia, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "tunis-tunisia-qualifying",
+        "startTimestamp": 1778371200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تونس، تونس",
+              "ru": "Тунис, Тунис"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3573,
+          "name": "Tunis, Tunisia",
+          "slug": "tunis-tunisia",
+          "userCount": 213
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "period2": 0,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "changes": {
+        "changeTimestamp": 1778502209,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period1",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsdyR",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "period2": 0,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إنريكو دالا فالي",
+            "bn": "এনরিকো ডালা ভ্যালে",
+            "hi": "एनरिको डाला वाले",
+            "ru": "Далла Валле, Энрико"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. فالي"
+          }
+        },
+        "gender": "M",
+        "id": 106153,
+        "name": "Enrico Dalla Valle",
+        "nameCode": "DAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 654
+        },
+        "ranking": 328,
+        "shortName": "E. Dalla Valle",
+        "slug": "dalla-valle-enrico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1410
+      },
+      "id": 16159863,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 88944,
+        "name": "ATP Challenger Tunis, Tunisia Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "enrico-dalla-valle-laurent-lokoli",
+      "startTimestamp": 1778496900,
+      "status": {
+        "code": 92,
+        "description": "Retired",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1778501268,
+        "period1": 1972,
+        "period2": 599
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1778457600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Кубок Тунис, Тунис, квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 184143,
+        "isGroup": false,
+        "name": "Tunis, Tunisia, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "tunis-tunisia-qualifying",
+        "startTimestamp": 1778371200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تونس، تونس",
+              "ru": "Тунис, Тунис"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3573,
+          "name": "Tunis, Tunisia",
+          "slug": "tunis-tunisia",
+          "userCount": 213
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 4,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1778586450,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsjiMc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 4,
+        "period2": 6,
+        "period3": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "RU",
+          "alpha3": "RUS",
+          "name": "Russia",
+          "slug": "russia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا سيمكين",
+            "ru": "Илья Симакн"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. سيمكين",
+            "ru": "И. Симакн"
+          }
+        },
+        "gender": "M",
+        "id": 342909,
+        "name": "Ilia Simakin",
+        "nameCode": "SIM",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5315
+        },
+        "ranking": 267,
+        "shortName": "I. Simakin",
+        "slug": "simakin-ilia",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1528
+      },
+      "id": 16164275,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 88944,
+        "name": "ATP Challenger Tunis, Tunisia Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "ilia-simakin-laurent-lokoli",
+      "startTimestamp": 1778576400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1778582707,
+        "period1": 1862,
+        "period2": 3825,
+        "period3": 3700
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1778889600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Tunis, Tunisia"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 183703,
+        "isGroup": false,
+        "name": "Tunis, Tunisia",
+        "priority": 0,
+        "slug": "tunis-tunisia",
+        "startTimestamp": 1778457600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تونس، تونس",
+              "ru": "Тунис, Тунис"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3573,
+          "name": "Tunis, Tunisia",
+          "slug": "tunis-tunisia",
+          "userCount": 213
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 2,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فيديريكو أغوستين غوميز",
+            "ru": "Федерико Агустин Гомес"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. غوميز",
+            "ru": "Ф. Гомес"
+          }
+        },
+        "gender": "M",
+        "id": 146040,
+        "name": "Federico Agustin Gomez",
+        "nameCode": "GOM",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5048
+        },
+        "ranking": 181,
+        "shortName": "F. Gomez",
+        "slug": "gomez-federico-agustin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2609
+      },
+      "awayTeamSeed": "5",
+      "changes": {
+        "changeTimestamp": 1778682053,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsPvib",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "homeTeamSeed": "Q",
+      "id": 16135246,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 88944,
+        "name": "ATP Challenger Tunis, Tunisia Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "federico-agustin-gomez-laurent-lokoli",
+      "startTimestamp": 1778676300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1778679389,
+        "period1": 2265,
+        "period2": 2632
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1778889600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Tunis, Tunisia"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 183703,
+        "isGroup": false,
+        "name": "Tunis, Tunisia",
+        "priority": 0,
+        "slug": "tunis-tunisia",
+        "startTimestamp": 1778457600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تونس، تونس",
+              "ru": "Тунис, Тунис"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3573,
+          "name": "Tunis, Tunisia",
+          "slug": "tunis-tunisia",
+          "userCount": 213
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 2,
+        "period2": 1,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1778770254,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsLPRb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تريستان بويير",
+            "bn": "ট্রিস্টান বোয়ার",
+            "hi": "त्रिस्टन बॉयर",
+            "ru": "Бойер, Тристан"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. بويير"
+          }
+        },
+        "gender": "M",
+        "id": 232036,
+        "name": "Tristan Boyer",
+        "nameCode": "BOY",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4031
+        },
+        "ranking": 170,
+        "shortName": "T. Boyer",
+        "slug": "boyer-tristan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2283
+      },
+      "homeTeamSeed": "A",
+      "id": 16135263,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 88944,
+        "name": "ATP Challenger Tunis, Tunisia Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "tristan-boyer-laurent-lokoli",
+      "startTimestamp": 1778765400,
+      "status": {
+        "code": 92,
+        "description": "Retired",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1778768495,
+        "period1": 2505,
+        "period2": 1709
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1778889600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Tunis, Tunisia"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 183703,
+        "isGroup": false,
+        "name": "Tunis, Tunisia",
+        "priority": 0,
+        "slug": "tunis-tunisia",
+        "startTimestamp": 1778457600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تونس، تونس",
+              "ru": "Тунис, Тунис"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3573,
+          "name": "Tunis, Tunisia",
+          "slug": "tunis-tunisia",
+          "userCount": 213
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 2,
+        "period3": 3,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1779031242,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsfKGb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 3,
+        "period2": 6,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مانويل مازا",
+            "ru": "Мануэль Мадза"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مازا",
+            "ru": "М. Мадза"
+          }
+        },
+        "gender": "M",
+        "id": 204255,
+        "name": "Manuel Mazza",
+        "nameCode": "MAZ",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4988
+        },
+        "ranking": 774,
+        "shortName": "M. Mazza",
+        "slug": "mazza-manuel",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 353
+      },
+      "id": 16191783,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 94657,
+        "name": "ATP Challenger Cervia, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "manuel-mazza-laurent-lokoli",
+      "startTimestamp": 1779022200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1779027430,
+        "period1": 2279,
+        "period2": 2585,
+        "period3": 2898
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1779062400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Червия, Италия, отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 185157,
+        "isGroup": false,
+        "name": "Cervia, Italy, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "cervia-italy-qualifying",
+        "startTimestamp": 1778976000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ru": "Челленджер ATP Червия, Италия, среди мужчин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 34829,
+          "name": "Cervia, Italy",
+          "slug": "atp-challenger-cervia-italy-men-singles",
+          "userCount": 38
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1779622645,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "bTqscvB",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 5,
+        "period2": 4,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "KR",
+          "alpha3": "KOR",
+          "name": "South Korea",
+          "slug": "south-korea"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جي سونغ نام",
+            "ru": "Нам, Цзи Сун"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. نام"
+          }
+        },
+        "gender": "M",
+        "id": 42151,
+        "name": "Ji Sung Nam",
+        "nameCode": "NAM",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 546
+        },
+        "ranking": 1032,
+        "shortName": "J. Nam",
+        "slug": "nam-ji-sung",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 362
+      },
+      "id": 16224572,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 89796,
+        "name": "ATP Challenger Vicenza, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "laurent-lokoli-ji-sung-nam",
+      "startTimestamp": 1779614700,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1779619732,
+        "period1": 3449,
+        "period2": 2865
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1779667200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Виченца, Италия, отбор"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 185929,
+        "isGroup": false,
+        "name": "Vicenza, Italy, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "vicenza-italy-qualifying",
+        "startTimestamp": 1779580800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "فيتشنزا، إيطاليا",
+              "bn": "ভিসেনজা, ইতালি",
+              "hi": "विसेंजा, इटली",
+              "ru": "Виченца, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 6111,
+          "name": "Vicenza, Italy",
+          "slug": "vicenza-italy",
+          "userCount": 181
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 2,
+        "period2": 3,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1779706776,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsmcVc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CH",
+          "alpha3": "CHE",
+          "name": "Switzerland",
+          "slug": "switzerland"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ميكا برونولد",
+            "ru": "Мика Брунольд"
+          },
+          "shortNameTranslation": {
+            "ar": "م. برونولد",
+            "ru": "М. Брунольд"
+          }
+        },
+        "gender": "M",
+        "id": 362612,
+        "name": "Mika Brunold",
+        "nameCode": "BRU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5711
+        },
+        "ranking": 423,
+        "shortName": "M. Brunold",
+        "slug": "brunold-mika",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1278
+      },
+      "homeTeamSeed": "3",
+      "id": 16227549,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 89796,
+        "name": "ATP Challenger Vicenza, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "mika-brunold-laurent-lokoli",
+      "startTimestamp": 1779699600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1779703918,
+        "period1": 3738,
+        "period2": 2839
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1779667200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Виченца, Италия, отбор"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 185929,
+        "isGroup": false,
+        "name": "Vicenza, Italy, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "vicenza-italy-qualifying",
+        "startTimestamp": 1779580800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "فيتشنزا، إيطاليا",
+              "bn": "ভিসেনজা, ইতালি",
+              "hi": "विसेंजा, इटली",
+              "ru": "Виченца, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 6111,
+          "name": "Vicenza, Italy",
+          "slug": "vicenza-italy",
+          "userCount": 181
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 6,
+        "period2TieBreak": 3,
+        "period3": 3,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1780846689,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsAcT",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 2,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم جانفييه",
+            "bn": "ম্যাক্সিম জানভিয়ার",
+            "hi": "मैक्सिम जेनवियर",
+            "ru": "Жанвье, Максим"
+          },
+          "shortNameTranslation": {
+            "ar": "م. جانفييه"
+          }
+        },
+        "gender": "M",
+        "id": 107625,
+        "name": "Maxime Janvier",
+        "nameCode": "JAN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 317
+        },
+        "ranking": 566,
+        "shortName": "M. Janvier",
+        "slug": "janvier-maxime",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 966
+      },
+      "id": 16287084,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 89802,
+        "name": "ATP Challenger Lyon, France Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxime-janvier-laurent-lokoli",
+      "startTimestamp": 1780837200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1780843704,
+        "period1": 1801,
+        "period2": 4079,
+        "period3": 2963
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1780876800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Лион, Франция, Отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 187562,
+        "isGroup": false,
+        "name": "Lyon, France, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "lyon-france-qualifying",
+        "startTimestamp": 1780790400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ليون، فرنسا",
+              "ru": "Лион, Франция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 6787,
+          "name": "Lyon, France",
+          "slug": "lyon-france",
+          "userCount": 201
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 4,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "awayTeamSeed": "A",
+      "changes": {
+        "changeTimestamp": 1781539101,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsOZad",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CH",
+          "alpha3": "CHE",
+          "name": "Switzerland",
+          "slug": "switzerland"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كيليان فيلدباوش",
+            "ru": "Килиан Фельдбауш"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. فيلدباوش",
+            "ru": "К. Фельдбауш"
+          }
+        },
+        "gender": "M",
+        "id": 377489,
+        "name": "Kilian Feldbausch",
+        "nameCode": "FEL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5331
+        },
+        "ranking": 235,
+        "shortName": "K. Feldbausch",
+        "slug": "feldbausch-kilian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1473
+      },
+      "homeTeamSeed": "8",
+      "id": 16324539,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 89864,
+        "name": "ATP Challenger Royan, France Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "kilian-feldbausch-laurent-lokoli",
+      "startTimestamp": 1781533500,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1781536190,
+        "period1": 2077,
+        "period2": 2893
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1781913600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Роян, Франция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 187966,
+        "isGroup": false,
+        "name": "Royan, France",
+        "priority": 0,
+        "slug": "royan-france",
+        "startTimestamp": 1781481600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ATP Challenger رويان، فرنسا رجال فردي",
+              "ru": "Челленджер ATP Роян, Франция среди мужчин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 27226,
+          "name": "Royan, France",
+          "slug": "atp-challenger-royan-france-men-singles",
+          "userCount": 54
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 4,
+        "period3": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "changes": {
+        "changeTimestamp": 1782850096,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsNkvd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 3,
+        "period2": 6,
+        "period3": 0,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لويس لاريو",
+            "ru": "Луи Ларю"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لاريو",
+            "ru": "Л. Ларю"
+          }
+        },
+        "gender": "M",
+        "id": 425538,
+        "name": "Louis Larue",
+        "nameCode": "LAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 28225
+        },
+        "ranking": 948,
+        "shortName": "L. Larue",
+        "slug": "larue-louis",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 135
+      },
+      "id": 16410622,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 96362,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "louis-larue-laurent-lokoli",
+      "startTimestamp": 1782841220,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 أجاكسيو للرجال",
+            "ru": "ITF M25 Аяччо среди мужчин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 156491,
+        "name": "ITF M25+H Ajaccio Men",
+        "priority": 0,
+        "slug": "itf-m25-ajaccio-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "الرجال في بطولة ITF M25 أجاكسيو",
+              "ru": "ITF M25 Аяччо среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 27593,
+          "name": "ITF M25+H Ajaccio Men",
+          "slug": "itf-m25-ajaccio-men",
+          "userCount": 11
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "changes": {
+        "changeTimestamp": 1783025132,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsBCtc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "period2": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CH",
+          "alpha3": "CHE",
+          "name": "Switzerland",
+          "slug": "switzerland"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تانغي جينييه",
+            "ru": "Танги Женье"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. جينييه",
+            "ru": "Т. Женье"
+          }
+        },
+        "gender": "M",
+        "id": 296376,
+        "name": "Tanguy Genier",
+        "nameCode": "GEN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 13077
+        },
+        "ranking": 1219,
+        "shortName": "T. Genier",
+        "slug": "genier-tanguy",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 153
+      },
+      "id": 16424140,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 96362,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "tanguy-genier-laurent-lokoli",
+      "startTimestamp": 1783019680,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 أجاكسيو للرجال",
+            "ru": "ITF M25 Аяччо среди мужчин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 156491,
+        "name": "ITF M25+H Ajaccio Men",
+        "priority": 0,
+        "slug": "itf-m25-ajaccio-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "الرجال في بطولة ITF M25 أجاكسيو",
+              "ru": "ITF M25 Аяччо среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 27593,
+          "name": "ITF M25+H Ajaccio Men",
+          "slug": "itf-m25-ajaccio-men",
+          "userCount": 11
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 3,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "changes": {
+        "changeTimestamp": 1783107588,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsUHdd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 6,
+        "period2TieBreak": 2,
+        "period3": 3,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بول إنشوسبي",
+            "ru": "Пол Иншос"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. إنشوسبي",
+            "ru": "П. Иншос"
+          }
+        },
+        "gender": "M",
+        "id": 384144,
+        "name": "Paul Inchauspe",
+        "nameCode": "INC",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5356
+        },
+        "ranking": 580,
+        "shortName": "P. Inchauspe",
+        "slug": "inchauspe-paul",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 370
+      },
+      "id": 16432369,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 96362,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "paul-inchauspe-laurent-lokoli",
+      "startTimestamp": 1783095830,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 أجاكسيو للرجال",
+            "ru": "ITF M25 Аяччо среди мужчин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 156491,
+        "name": "ITF M25+H Ajaccio Men",
+        "priority": 0,
+        "slug": "itf-m25-ajaccio-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "الرجال في بطولة ITF M25 أجاكسيو",
+              "ru": "ITF M25 Аяччо среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 27593,
+          "name": "ITF M25+H Ajaccio Men",
+          "slug": "itf-m25-ajaccio-men",
+          "userCount": 11
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 2,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماتيس بوبشون",
+            "ru": "Матисс Бобишон"
+          },
+          "shortNameTranslation": {
+            "ar": "م. بوبشون",
+            "ru": "М. Бобишон"
+          }
+        },
+        "gender": "M",
+        "id": 418794,
+        "name": "Matisse Bobichon",
+        "nameCode": "BOB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 18960
+        },
+        "ranking": 644,
+        "shortName": "M. Bobichon",
+        "slug": "bobichon-matisse",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 309
+      },
+      "changes": {
+        "changeTimestamp": 1783185357,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsUArd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "id": 16438034,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 96362,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "matisse-bobichon-laurent-lokoli",
+      "startTimestamp": 1783180592,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 أجاكسيو للرجال",
+            "ru": "ITF M25 Аяччо среди мужчин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 156491,
+        "name": "ITF M25+H Ajaccio Men",
+        "priority": 0,
+        "slug": "itf-m25-ajaccio-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "الرجال في بطولة ITF M25 أجاكسيو",
+              "ru": "ITF M25 Аяччо среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 27593,
+          "name": "ITF M25+H Ajaccio Men",
+          "slug": "itf-m25-ajaccio-men",
+          "userCount": 11
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 3,
+        "period3": 2
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دان أديد",
+            "ru": "Аддед, Дэн"
+          },
+          "shortNameTranslation": {
+            "ar": "د. أديد"
+          }
+        },
+        "gender": "M",
+        "id": 191842,
+        "name": "Dan Added",
+        "nameCode": "ADD",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2548
+        },
+        "ranking": 223,
+        "shortName": "D. Added",
+        "slug": "added-dan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1172
+      },
+      "changes": {
+        "changeTimestamp": 1783271903,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsRLBb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 3,
+        "period2": 6,
+        "period3": 6
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "id": 16444891,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 96362,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "dan-added-laurent-lokoli",
+      "startTimestamp": 1783264265,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 أجاكسيو للرجال",
+            "ru": "ITF M25 Аяччо среди мужчин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 156491,
+        "name": "ITF M25+H Ajaccio Men",
+        "priority": 0,
+        "slug": "itf-m25-ajaccio-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "الرجال في بطولة ITF M25 أجاكسيو",
+              "ru": "ITF M25 Аяччо среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 27593,
+          "name": "ITF M25+H Ajaccio Men",
+          "slug": "itf-m25-ajaccio-men",
+          "userCount": 11
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 2,
+        "period2": 6,
+        "period2TieBreak": 4,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيو سكاليا",
+            "ru": "Матиё Скалия"
+          },
+          "shortNameTranslation": {
+            "ar": "م. سكاليا",
+            "ru": "М. Скалия"
+          }
+        },
+        "gender": "M",
+        "id": 151296,
+        "name": "Mathieu Scaglia",
+        "nameCode": "SCA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4761
+        },
+        "ranking": 1041,
+        "shortName": "M. Scaglia",
+        "slug": "scaglia-mathieu",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 119
+      },
+      "changes": {
+        "changeTimestamp": 1783532064,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsWAkb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "id": 16463888,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 97607,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "mathieu-scaglia-laurent-lokoli",
+      "startTimestamp": 1783525197,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 باستيا-لوشيانا للرجال",
+            "ru": "ITF M25 Бастия-Лючана среди мужчин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 156856,
+        "name": "ITF M25 Bastia-Lucciana Men",
+        "priority": 0,
+        "slug": "itf-m25-bastia-lucciana-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 باستيا-لوتشيانا رجال",
+              "ru": "ITF M25 Бастия-Лючана среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 27712,
+          "name": "ITF M25 Bastia-Lucciana Men",
+          "slug": "itf-m25-bastia-lucciana-men",
+          "userCount": 10
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 1,
+        "period2": 2,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماتيس مارتن",
+            "ru": "Матисс Мартин"
+          },
+          "shortNameTranslation": {
+            "ar": "ماتيس مارتن",
+            "ru": "М. Мартин"
+          }
+        },
+        "gender": "M",
+        "id": 1218196,
+        "name": "Matisse Martin",
+        "nameCode": "MMA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 44168
+        },
+        "shortName": "M. Martin",
+        "slug": "matisse-martin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 51
+      },
+      "changes": {
+        "changeTimestamp": 1783616998,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsWnMj",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "id": 16471972,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 97607,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "matisse-martin-laurent-lokoli",
+      "startTimestamp": 1783611611,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 باستيا-لوشيانا للرجال",
+            "ru": "ITF M25 Бастия-Лючана среди мужчин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 156856,
+        "name": "ITF M25 Bastia-Lucciana Men",
+        "priority": 0,
+        "slug": "itf-m25-bastia-lucciana-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 باستيا-لوتشيانا رجال",
+              "ru": "ITF M25 Бастия-Лючана среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 27712,
+          "name": "ITF M25 Bastia-Lucciana Men",
+          "slug": "itf-m25-bastia-lucciana-men",
+          "userCount": 10
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "period2": 1,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "MX",
+          "alpha3": "MEX",
+          "name": "Mexico",
+          "slug": "mexico"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "رودريغو ألوخاس",
+            "ru": "Родриго Алухас"
+          },
+          "shortNameTranslation": {
+            "ar": "ر. ألوخاس",
+            "ru": "Р. Алухас"
+          }
+        },
+        "gender": "M",
+        "id": 407882,
+        "name": "Rodrigo Alujas",
+        "nameCode": "ALU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 13240
+        },
+        "ranking": 763,
+        "shortName": "R. Alujas",
+        "slug": "alujas-rodrigo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 264
+      },
+      "changes": {
+        "changeTimestamp": 1783703923,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsHhnd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "id": 16478430,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 97607,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "rodrigo-alujas-laurent-lokoli",
+      "startTimestamp": 1783697814,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 باستيا-لوشيانا للرجال",
+            "ru": "ITF M25 Бастия-Лючана среди мужчин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 156856,
+        "name": "ITF M25 Bastia-Lucciana Men",
+        "priority": 0,
+        "slug": "itf-m25-bastia-lucciana-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 باستيا-لوتشيانا رجال",
+              "ru": "ITF M25 Бастия-Лючана среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 27712,
+          "name": "ITF M25 Bastia-Lucciana Men",
+          "slug": "itf-m25-bastia-lucciana-men",
+          "userCount": 10
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "changes": {
+        "changeTimestamp": 1783790973,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsgLPb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 1,
+        "period2": 3,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فلوران باكس",
+            "ru": "Бакс, Флорен"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. باكس"
+          }
+        },
+        "gender": "M",
+        "id": 226806,
+        "name": "Florent Bax",
+        "nameCode": "BAX",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2922
+        },
+        "ranking": 247,
+        "shortName": "F. Bax",
+        "slug": "bax-florent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 973
+      },
+      "id": 16486917,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 97607,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "florent-bax-laurent-lokoli",
+      "startTimestamp": 1783786171,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 باستيا-لوشيانا للرجال",
+            "ru": "ITF M25 Бастия-Лючана среди мужчин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 156856,
+        "name": "ITF M25 Bastia-Lucciana Men",
+        "priority": 0,
+        "slug": "itf-m25-bastia-lucciana-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 باستيا-لوتشيانا رجال",
+              "ru": "ITF M25 Бастия-Лючана среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 27712,
+          "name": "ITF M25 Bastia-Lucciana Men",
+          "slug": "itf-m25-bastia-lucciana-men",
+          "userCount": 10
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 1,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "يانيش غزواني دوراند",
+            "ru": "Янис Газуани Дюран"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. دوراند",
+            "ru": "Я. Дюран"
+          }
+        },
+        "gender": "M",
+        "id": 460257,
+        "name": "Yanis Ghazouani Durand",
+        "nameCode": "GHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 12920
+        },
+        "ranking": 570,
+        "shortName": "Y. Ghazouani Durand",
+        "slug": "ghazouani-durand-yanis",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 303
+      },
+      "changes": {
+        "changeTimestamp": 1783874492,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBshfJd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "id": 16495941,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 97607,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "yanis-ghazouani-durand-laurent-lokoli",
+      "startTimestamp": 1783868862,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 باستيا-لوشيانا للرجال",
+            "ru": "ITF M25 Бастия-Лючана среди мужчин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 156856,
+        "name": "ITF M25 Bastia-Lucciana Men",
+        "priority": 0,
+        "slug": "itf-m25-bastia-lucciana-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 باستيا-لوتشيانا رجال",
+              "ru": "ITF M25 Бастия-Лючана среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 27712,
+          "name": "ITF M25 Bastia-Lucciana Men",
+          "slug": "itf-m25-bastia-lucciana-men",
+          "userCount": 10
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "changes": {
+        "changeTimestamp": 1786446330,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsZVuj",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 1,
+        "period2": 1
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتن ريو",
+            "ru": "Мартин Риу"
+          },
+          "shortNameTranslation": {
+            "ar": "م. ريو",
+            "ru": "М. Риу"
+          }
+        },
+        "gender": "M",
+        "id": 1174799,
+        "name": "Martin Riu",
+        "nameCode": "RIU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 36949
+        },
+        "shortName": "M. Riu",
+        "slug": "martin-riu",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 12
+      },
+      "id": 16791996,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 100083,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "martin-riu-laurent-lokoli",
+      "startTimestamp": 1786441253,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 كوكسيجدي للرجال",
+            "ru": "ITF M25 Коксидже, мужчины"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 160526,
+        "name": "ITF M25 Koksijde Men",
+        "priority": 0,
+        "slug": "itf-m25-koksijde-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 كوكسيجدي للرجال",
+              "ru": "Коксидже, мужчины"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28593,
+          "name": "ITF M25 Koksijde Men",
+          "slug": "itf-m25-koksijde-men",
+          "userCount": 18
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 4
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "changes": {
+        "changeTimestamp": 1786536619,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsaxHg",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ميكائيل كاوك",
+            "ru": "Микаэль Каук"
+          },
+          "shortNameTranslation": {
+            "ar": "م. كاوك",
+            "ru": "М. Каук"
+          }
+        },
+        "gender": "M",
+        "id": 831100,
+        "name": "Mickael Kaouk",
+        "nameCode": "KAO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 36766
+        },
+        "ranking": 1008,
+        "shortName": "M. Kaouk",
+        "slug": "kaouk-mickael",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 173
+      },
+      "id": 16795744,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 100083,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "mickael-kaouk-laurent-lokoli",
+      "startTimestamp": 1786528978,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 كوكسيجدي للرجال",
+            "ru": "ITF M25 Коксидже, мужчины"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 160526,
+        "name": "ITF M25 Koksijde Men",
+        "priority": 0,
+        "slug": "itf-m25-koksijde-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 كوكسيجدي للرجال",
+              "ru": "Коксидже, мужчины"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28593,
+          "name": "ITF M25 Koksijde Men",
+          "slug": "itf-m25-koksijde-men",
+          "userCount": 18
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "changes": {
+        "changeTimestamp": 1787167949,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsyaxh",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 1,
+        "period2": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "توبيا كوستانزو باراجيولا مورديني",
+            "ru": "Тобия Костанцо Барагиола Мордини"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. مورديني",
+            "ru": "Т. Мордини"
+          }
+        },
+        "gender": "M",
+        "id": 930023,
+        "name": "Tobia Costanzo Baragiola Mordini",
+        "nameCode": "BAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 26448
+        },
+        "ranking": 1175,
+        "shortName": "T. Baragiola Mordini",
+        "slug": "baragiola-mordini-tobia-costanzo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 170
+      },
+      "id": 16863304,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 100639,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "tobia-costanzo-baragiola-mordini-laurent-lokoli",
+      "startTimestamp": 1787161052,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 ليزا للرجال",
+            "ru": "ITF M25 Леса среди мужчин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 161084,
+        "name": "ITF M25 Lesa Men",
+        "priority": 0,
+        "slug": "itf-m25-lesa-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 ليزا للرجال",
+              "ru": "ITF M25 Леса среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28775,
+          "name": "ITF M25 Lesa Men",
+          "slug": "itf-m25-lesa-men",
+          "userCount": 8
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "changes": {
+        "changeTimestamp": 1787391260,
+        "changes": [
+          "firstToServe"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsdzLc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 3,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دينيس قسطنطين سبيريدون",
+            "ru": "Денис Константин Спиридон"
+          },
+          "shortNameTranslation": {
+            "ar": "د. سبيريدون",
+            "ru": "Д. Спиридон"
+          }
+        },
+        "gender": "M",
+        "id": 341203,
+        "name": "Denis Constantin Spiridon",
+        "nameCode": "SPI",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11767
+        },
+        "ranking": 1130,
+        "shortName": "D. C. Spiridon",
+        "slug": "spiridon-denis-constantin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 152
+      },
+      "id": 16870713,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 100639,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "denis-constantin-spiridon-laurent-lokoli",
+      "startTimestamp": 1787386245,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 ليزا للرجال",
+            "ru": "ITF M25 Леса среди мужчин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 161084,
+        "name": "ITF M25 Lesa Men",
+        "priority": 0,
+        "slug": "itf-m25-lesa-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 ليزا للرجال",
+              "ru": "ITF M25 Леса среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28775,
+          "name": "ITF M25 Lesa Men",
+          "slug": "itf-m25-lesa-men",
+          "userCount": 8
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "changes": {
+        "changeTimestamp": 1787417315,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsEuGd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 3,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دانييل راباجنيتا",
+            "ru": "Даниэле Рапагнетта"
+          },
+          "shortNameTranslation": {
+            "ar": "د. راباجنيتا",
+            "ru": "Д. Рапагнетта"
+          }
+        },
+        "gender": "M",
+        "id": 453479,
+        "name": "Daniele Rapagnetta",
+        "nameCode": "RAP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 12519
+        },
+        "ranking": 740,
+        "shortName": "D. Rapagnetta",
+        "slug": "rapagnetta-daniele",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 436
+      },
+      "id": 16893994,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 100639,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "daniele-rapagnetta-laurent-lokoli",
+      "startTimestamp": 1787412434,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 ليزا للرجال",
+            "ru": "ITF M25 Леса среди мужчин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 161084,
+        "name": "ITF M25 Lesa Men",
+        "priority": 0,
+        "slug": "itf-m25-lesa-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 ليزا للرجال",
+              "ru": "ITF M25 Леса среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28775,
+          "name": "ITF M25 Lesa Men",
+          "slug": "itf-m25-lesa-men",
+          "userCount": 8
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 1,
+        "period2": 6,
+        "period3": 5,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سامويل سيغتي",
+            "ru": "Самуэле Сегетти"
+          },
+          "shortNameTranslation": {
+            "ar": "س. سيغتي",
+            "ru": "С. Сегетти"
+          }
+        },
+        "gender": "M",
+        "id": 421674,
+        "name": "Samuele Seghetti",
+        "nameCode": "SEG",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 20078
+        },
+        "ranking": 1500,
+        "shortName": "S. Seghetti",
+        "slug": "seghetti-samuele",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 200
+      },
+      "changes": {
+        "changeTimestamp": 1787484291,
+        "changes": [
+          "firstToServe"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBszItd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 2,
+        "period3": 7,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "id": 16895402,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 100639,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "samuele-seghetti-laurent-lokoli",
+      "startTimestamp": 1787476295,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 ليزا للرجال",
+            "ru": "ITF M25 Леса среди мужчин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 161084,
+        "name": "ITF M25 Lesa Men",
+        "priority": 0,
+        "slug": "itf-m25-lesa-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 ليزا للرجال",
+              "ru": "ITF M25 Леса среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28775,
+          "name": "ITF M25 Lesa Men",
+          "slug": "itf-m25-lesa-men",
+          "userCount": 8
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 3,
+        "period2": 6,
+        "period3": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "changes": {
+        "changeTimestamp": 1787505943,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsvWje",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 3,
+        "period3": 0,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بيرلويجي باسيل",
+            "ru": "Пьерлуиджи Басиле"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. باسيل",
+            "ru": "П. Басиле"
+          }
+        },
+        "gender": "M",
+        "id": 524820,
+        "name": "Pierluigi Basile",
+        "nameCode": "BAS",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 18342
+        },
+        "ranking": 634,
+        "shortName": "P. Basile",
+        "slug": "basile-pierluigi",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1444
+      },
+      "id": 16900319,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 100639,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "pierluigi-basile-laurent-lokoli",
+      "startTimestamp": 1787497895,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 ليزا للرجال",
+            "ru": "ITF M25 Леса среди мужчин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 161084,
+        "name": "ITF M25 Lesa Men",
+        "priority": 0,
+        "slug": "itf-m25-lesa-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 ليزا للرجال",
+              "ru": "ITF M25 Леса среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28775,
+          "name": "ITF M25 Lesa Men",
+          "slug": "itf-m25-lesa-men",
+          "userCount": 8
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "awayTeamSeed": "8",
+      "changes": {
+        "changeTimestamp": 1788081710,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsmRdd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 1,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لورينزو أنجليني",
+            "ru": "Лоренцо Анжелини"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. أنجليني",
+            "ru": "Л. Анжелини"
+          }
+        },
+        "gender": "M",
+        "id": 384612,
+        "name": "Lorenzo Angelini",
+        "nameCode": "ANG",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 21552
+        },
+        "ranking": 569,
+        "shortName": "L. Angelini",
+        "slug": "angelini-lorenzo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 393
+      },
+      "id": 16953492,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 94926,
+        "name": "ATP Challenger Como, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "lorenzo-angelini-laurent-lokoli",
+      "startTimestamp": 1788076800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1788079546,
+        "period1": 2248,
+        "period2": 2143
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1788134400,
+        "id": 197660,
+        "isGroup": false,
+        "name": "Como, Italy, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "como-italy-qualifying",
+        "startTimestamp": 1788048000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كومو، إيطاليا",
+              "ru": "Комо, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3497,
+          "name": "Como, Italy",
+          "slug": "como-italy",
+          "tennisPoints": 75,
+          "userCount": 209
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 3,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوران لوكولي",
+            "bn": "লরেন্ট লোকলি",
+            "hi": "लॉरेन्ट लोकॉली",
+            "ru": "Локоли, Лоран"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوكولي"
+          }
+        },
+        "gender": "M",
+        "id": 66002,
+        "name": "Laurent Lokoli",
+        "nameCode": "LOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1595
+        },
+        "ranking": 409,
+        "shortName": "L. Lokoli",
+        "slug": "lokoli-laurent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 897
+      },
+      "awayTeamSeed": "8",
+      "changes": {
+        "changeTimestamp": 1788168700,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cvBsaNBc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BA",
+          "alpha3": "BIH",
+          "name": "Bosnia & Herzegovina",
+          "slug": "bosnia-and-herzegovina"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريه نيديتش",
+            "ru": "Андрей Недић"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. نيديتش",
+            "ru": "А. Недић"
+          }
+        },
+        "gender": "M",
+        "id": 316900,
+        "name": "Andrej Nedić",
+        "nameCode": "NED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5395
+        },
+        "ranking": 250,
+        "shortName": "A. Nedić",
+        "slug": "nedic-andrej",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 979
+      },
+      "homeTeamSeed": "1",
+      "id": 16957614,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 94926,
+        "name": "ATP Challenger Como, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "andrej-nedic-laurent-lokoli",
+      "startTimestamp": 1788163200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1788165928,
+        "period1": 2222,
+        "period2": 2710
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1788134400,
+        "id": 197660,
+        "isGroup": false,
+        "name": "Como, Italy, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "como-italy-qualifying",
+        "startTimestamp": 1788048000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كومو، إيطاليا",
+              "ru": "Комо, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3497,
+          "name": "Como, Italy",
+          "slug": "como-italy",
+          "tennisPoints": 75,
+          "userCount": 209
+        }
+      },
+      "winnerCode": 1
+    }
+  ],
+  "has_next_page": true,
+  "page": 0,
+  "player_id": 66002,
+  "saved_at": 1788183794.5958195,
+  "saved_at_iso": "2026-08-31T13:43:14+00:00",
+  "source": "API_PRO_PREVIOUS_MATCHES",
+  "status": "OK"
+}

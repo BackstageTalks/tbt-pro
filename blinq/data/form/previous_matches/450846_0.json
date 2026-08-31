@@ -1,0 +1,7565 @@
+{
+  "api_status_code": 200,
+  "endpoint": "https://tennisapi1.p.rapidapi.com/api/tennis/player/450846/events/previous/0",
+  "events": [
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "awayTeamSeed": "WC",
+      "changes": {
+        "changeTimestamp": 1780496319,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "WGncsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 4,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BR",
+          "alpha3": "BRA",
+          "name": "Brazil",
+          "slug": "brazil"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بيدرو بوسكاردين دياز",
+            "ru": "Педро Боскардин Диас"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. دياز",
+            "ru": "П. Диас"
+          }
+        },
+        "gender": "M",
+        "id": 284096,
+        "name": "Pedro Boscardin Dias",
+        "nameCode": "BOS",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4973
+        },
+        "ranking": 278,
+        "shortName": "P. Boscardin Dias",
+        "slug": "boscardin-dias-pedro",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1759
+      },
+      "id": 16241136,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 89788,
+        "name": "ATP Challenger Prostejov, Czech Republic Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-pedro-boscardin-dias",
+      "startTimestamp": 1780489800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1780493139,
+        "period1": 2455,
+        "period2": 3128
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1780790400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Простеёв, Чехия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 186314,
+        "isGroup": false,
+        "name": "Prostejov, Czech Republic",
+        "priority": 0,
+        "slug": "prostejov-czech-republic",
+        "startTimestamp": 1780272000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بروستيجوف، جمهورية التشيك",
+              "ru": "Простеёв, Чехия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3512,
+          "name": "Prostejov, Czech Republic",
+          "slug": "prostejov-czech-republic",
+          "userCount": 292
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 3,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {},
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Мрва М / Валес В"
+          },
+          "shortNameTranslation": {}
+        },
+        "gender": "M",
+        "id": 1232884,
+        "name": "Mrva M / Vales V",
+        "nameCode": "M/V",
+        "national": false,
+        "slug": "mrva-m-vales-v",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [
+          {
+            "country": {
+              "alpha2": "CZ",
+              "alpha3": "CZE",
+              "name": "Czechia",
+              "slug": "czechia"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "ماكسيم مرفا",
+                "ru": "Максим Мрва"
+              },
+              "shortNameTranslation": {
+                "ar": "م. مرفا",
+                "ru": "М. Мрва"
+              }
+            },
+            "gender": "M",
+            "id": 450846,
+            "name": "Maxim Mrva",
+            "nameCode": "MRV",
+            "national": false,
+            "playerTeamInfo": {
+              "id": 11772
+            },
+            "ranking": 309,
+            "shortName": "M. Mrva",
+            "slug": "mrva-maxim",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            },
+            "subTeams": [],
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 1,
+            "userCount": 1426
+          },
+          {
+            "country": {
+              "alpha2": "CZ",
+              "alpha3": "CZE",
+              "name": "Czechia",
+              "slug": "czechia"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "فويتش فالس",
+                "ru": "Войтех Валеш"
+              },
+              "shortNameTranslation": {
+                "ar": "ف. فالس",
+                "ru": "В. Валеш"
+              }
+            },
+            "gender": "M",
+            "id": 477293,
+            "name": "Vojtech Vales",
+            "nameCode": "VAL",
+            "national": false,
+            "shortName": "V. Vales",
+            "slug": "vales-vojtech",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            },
+            "subTeams": [],
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 1,
+            "userCount": 30
+          }
+        ],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 2,
+        "userCount": 0
+      },
+      "awayTeamSeed": "WC",
+      "changes": {
+        "changeTimestamp": 1780505586,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "xWOcsJhTj",
+      "eventFilters": {
+        "category": [
+          "doubles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {},
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دزيفيكي ك / ماتوشيفسكي ب",
+            "ru": "Джевецкий К / Матушевский П"
+          },
+          "shortNameTranslation": {}
+        },
+        "gender": "M",
+        "id": 349822,
+        "name": "Drzewiecki K / Matuszewski P",
+        "nameCode": "D/M",
+        "national": false,
+        "slug": "drzewiecki-k-matuszewski-p",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [
+          {
+            "country": {
+              "alpha2": "PL",
+              "alpha3": "POL",
+              "name": "Poland",
+              "slug": "poland"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "كارول درزيفيكي",
+                "ru": "Кароль Држевецкий"
+              },
+              "shortNameTranslation": {
+                "ar": "ك. درزيفيكي",
+                "ru": "К. Држевецкий"
+              }
+            },
+            "gender": "M",
+            "id": 98413,
+            "name": "Karol Drzewiecki",
+            "nameCode": "DRZ",
+            "national": false,
+            "playerTeamInfo": {
+              "id": 1876
+            },
+            "shortName": "K. Drzewiecki",
+            "slug": "drzewiecki-karol",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            },
+            "subTeams": [],
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 1,
+            "userCount": 418
+          },
+          {
+            "country": {
+              "alpha2": "PL",
+              "alpha3": "POL",
+              "name": "Poland",
+              "slug": "poland"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "بيوتر ماتوشيفسكي",
+                "ru": "Матушевски, Пётр"
+              },
+              "shortNameTranslation": {
+                "ar": "ب. ماتوشيفسكي"
+              }
+            },
+            "gender": "M",
+            "id": 205899,
+            "name": "Piotr Matuszewski",
+            "nameCode": "MAT",
+            "national": false,
+            "playerTeamInfo": {
+              "id": 2729
+            },
+            "shortName": "P. Matuszewski",
+            "slug": "matuszewski-piotr",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            },
+            "subTeams": [],
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 1,
+            "userCount": 239
+          }
+        ],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 2,
+        "userCount": 109
+      },
+      "homeTeamSeed": "4",
+      "id": 16260821,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 89789,
+        "name": "ATP Challenger Prostejov, Czech Republic Men Doubles 2026",
+        "year": "2026"
+      },
+      "slug": "mrva-vales-drzewiecki-matuszewski",
+      "startTimestamp": 1780498800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1780503773,
+        "period1": 2063,
+        "period2": 1769
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1780704000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Простеёв, Чехия, парный разряд"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 186315,
+        "isGroup": false,
+        "name": "Prostejov, Czech Republic, Doubles",
+        "priority": 0,
+        "slug": "prostejov-czech-republic-doubles",
+        "startTimestamp": 1780272000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بروستيجوف، جمهورية التشيك، زوجي",
+              "ru": "Простеёв, Чехия, парный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3775,
+          "name": "Prostejov, Czech Republic, Doubles",
+          "slug": "prostejov-czech-republic-doubles",
+          "userCount": 8
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 5,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "awayTeamSeed": "WC",
+      "changes": {
+        "changeTimestamp": 1780676569,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period2",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "gLNbsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سيباستيان بايز",
+            "ru": "Себастьян Баэс"
+          },
+          "shortNameTranslation": {
+            "ar": "س. بايز",
+            "bn": "এস. বেজ",
+            "hi": "एस. बैज़",
+            "ru": "С. Баэс"
+          }
+        },
+        "gender": "M",
+        "id": 221806,
+        "name": "Sebastián Báez",
+        "nameCode": "BAE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2882
+        },
+        "ranking": 53,
+        "shortName": "S. Báez",
+        "slug": "baez-sebastian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 12328
+      },
+      "homeTeamSeed": "1",
+      "id": 16241131,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 89788,
+        "name": "ATP Challenger Prostejov, Czech Republic Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-sebastian-baez",
+      "startTimestamp": 1780670100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1780673329,
+        "period1": 2469,
+        "period2": 3222
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1780790400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Простеёв, Чехия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 186314,
+        "isGroup": false,
+        "name": "Prostejov, Czech Republic",
+        "priority": 0,
+        "slug": "prostejov-czech-republic",
+        "startTimestamp": 1780272000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بروستيجوف، جمهورية التشيك",
+              "ru": "Простеёв, Чехия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3512,
+          "name": "Prostejov, Czech Republic",
+          "slug": "prostejov-czech-republic",
+          "userCount": 292
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "changes": {
+        "changeTimestamp": 1781001807,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "REocsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 3,
+        "period2": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتن كروميتش",
+            "ru": "Мартин Крумич"
+          },
+          "shortNameTranslation": {
+            "ar": "م. كروميتش",
+            "ru": "М. Крумич"
+          }
+        },
+        "gender": "M",
+        "id": 286492,
+        "name": "Martin Krumich",
+        "nameCode": "KRU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4503
+        },
+        "ranking": 255,
+        "shortName": "M. Krumich",
+        "slug": "krumich-martin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1061
+      },
+      "homeTeamSeed": "Q",
+      "id": 16295488,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 89792,
+        "name": "ATP Challenger Bratislava, Slovakia Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-martin-krumich",
+      "startTimestamp": 1780993800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1780998818,
+        "period1": 4344,
+        "period2": 2951
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1781395200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Лига Братислава, Словакия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 187108,
+        "isGroup": false,
+        "name": "Bratislava, Slovakia",
+        "priority": 0,
+        "slug": "bratislava-slovakia",
+        "startTimestamp": 1780876800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "براتيسلافا، سلوفاكيا",
+              "ru": "Братислава, Словакия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3567,
+          "name": "Bratislava, Slovakia",
+          "slug": "bratislava-slovakia",
+          "userCount": 265
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 4,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "TW",
+          "alpha3": "TWN",
+          "name": "Chinese Taipei",
+          "slug": "chinese-taipei"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تشون-هسين تسينغ",
+            "bn": "চুন সিন সেং",
+            "hi": "चुन हसिन त्सेंग",
+            "ru": "Цен, Чун Син"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. تسينغ"
+          }
+        },
+        "gender": "M",
+        "id": 207034,
+        "name": "Chun-Hsin Tseng",
+        "nameCode": "TSE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 703
+        },
+        "ranking": 269,
+        "shortName": "C. Tseng",
+        "slug": "tseng-chun-hsin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2804
+      },
+      "awayTeamSeed": "8",
+      "changes": {
+        "changeTimestamp": 1781182430,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JPHbsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "id": 16272688,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 89792,
+        "name": "ATP Challenger Bratislava, Slovakia Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-chun-hsin-tseng",
+      "startTimestamp": 1781176500,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1781179410,
+        "period1": 2164,
+        "period2": 2983
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1781395200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Лига Братислава, Словакия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 187108,
+        "isGroup": false,
+        "name": "Bratislava, Slovakia",
+        "priority": 0,
+        "slug": "bratislava-slovakia",
+        "startTimestamp": 1780876800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "براتيسلافا، سلوفاكيا",
+              "ru": "Братислава, Словакия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3567,
+          "name": "Bratislava, Slovakia",
+          "slug": "bratislava-slovakia",
+          "userCount": 265
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 9,
+        "period2": 0,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "changes": {
+        "changeTimestamp": 1781264305,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "ULfcsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 11,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "KZ",
+          "alpha3": "KAZ",
+          "name": "Kazakhstan",
+          "slug": "kazakhstan"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ألكسندر شيفشينكو",
+            "bn": "আলেকজান্ডার শেভচেঙ্কো",
+            "hi": "अलेक्ज़ेंडर शेवचेंको",
+            "ru": "Александр Шевченко"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. شيفشينكو",
+            "ru": "А. Шевченко"
+          }
+        },
+        "gender": "M",
+        "id": 264344,
+        "name": "Aleksandr Shevchenko",
+        "nameCode": "SHE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3086
+        },
+        "ranking": 89,
+        "shortName": "A. Shevchenko",
+        "slug": "shevchenko-alexander",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 5291
+      },
+      "homeTeamSeed": "1",
+      "id": 16272683,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 89792,
+        "name": "ATP Challenger Bratislava, Slovakia Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-alexander-shevchenko",
+      "startTimestamp": 1781258400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1781262685,
+        "period1": 3698,
+        "period2": 1579
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1781395200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Лига Братислава, Словакия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 187108,
+        "isGroup": false,
+        "name": "Bratislava, Slovakia",
+        "priority": 0,
+        "slug": "bratislava-slovakia",
+        "startTimestamp": 1780876800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "براتيسلافا، سلوفاكيا",
+              "ru": "Братислава, Словакия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3567,
+          "name": "Bratislava, Slovakia",
+          "slug": "bratislava-slovakia",
+          "userCount": 265
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 1,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PL",
+          "alpha3": "POL",
+          "name": "Poland",
+          "slug": "poland"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "يان سادزيك",
+            "ru": "Ян Садзик"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. سادزيك",
+            "ru": "Я. Садзик"
+          }
+        },
+        "gender": "M",
+        "id": 1106000,
+        "name": "Jan Sadzik",
+        "nameCode": "JSA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 26138
+        },
+        "shortName": "J. Sadzik",
+        "slug": "jan-sadzik",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 118
+      },
+      "awayTeamSeed": "WC",
+      "changes": {
+        "changeTimestamp": 1781516401,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "WqFdsavRi",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "homeTeamSeed": "2",
+      "id": 16324272,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 89846,
+        "name": "ATP Challenger Poznan, Poland Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "jan-sadzik-maxim-mrva",
+      "startTimestamp": 1781512500,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1781515109,
+        "period1": 2208,
+        "period2": 1268
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1781481600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Познань, Польша, квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 188294,
+        "isGroup": false,
+        "name": "Poznan, Poland, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "poznan-poland-qualifying",
+        "startTimestamp": 1781395200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بوزنان، بولندا",
+              "ru": "Познань, Польша"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3445,
+          "name": "Poznan, Poland",
+          "slug": "poznan-poland",
+          "userCount": 183
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 3,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أولي والين",
+            "ru": "Олле Валлин"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. والين",
+            "ru": "О. Валлин"
+          }
+        },
+        "gender": "M",
+        "id": 325223,
+        "name": "Olle Wallin",
+        "nameCode": "WAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5747
+        },
+        "ranking": 415,
+        "shortName": "O. Wallin",
+        "slug": "wallin-olle",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 896
+      },
+      "awayTeamSeed": "8",
+      "changes": {
+        "changeTimestamp": 1781535357,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "yeFcsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "homeTeamSeed": "2",
+      "id": 16332613,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 89846,
+        "name": "ATP Challenger Poznan, Poland Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-olle-wallin",
+      "startTimestamp": 1781531100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1781533592,
+        "period1": 1649,
+        "period2": 1729
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1781481600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Познань, Польша, квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 188294,
+        "isGroup": false,
+        "name": "Poznan, Poland, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "poznan-poland-qualifying",
+        "startTimestamp": 1781395200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بوزنان، بولندا",
+              "ru": "Познань, Польша"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3445,
+          "name": "Poznan, Poland",
+          "slug": "poznan-poland",
+          "userCount": 183
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 2,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "JP",
+          "alpha3": "JPN",
+          "name": "Japan",
+          "slug": "japan"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أكيرا سانتيان",
+            "bn": "আকিরা সান্টিলান",
+            "hi": "अकीरा सैंटिलन",
+            "ru": "Сантиллан, Акира"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. سانتيان"
+          }
+        },
+        "gender": "M",
+        "id": 83263,
+        "name": "Akira Santillan",
+        "nameCode": "SAN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 435
+        },
+        "ranking": 290,
+        "shortName": "A. Santillan",
+        "slug": "santillan-akira",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 745
+      },
+      "awayTeamSeed": "A",
+      "changes": {
+        "changeTimestamp": 1781620076,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "npIsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "homeTeamSeed": "Q",
+      "id": 16335116,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 89846,
+        "name": "ATP Challenger Poznan, Poland Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-akira-santillan",
+      "startTimestamp": 1781615700,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1781618193,
+        "period1": 1918,
+        "period2": 1844
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1781913600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Познань, Польша"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 187961,
+        "isGroup": false,
+        "name": "Poznan, Poland",
+        "priority": 0,
+        "slug": "poznan-poland",
+        "startTimestamp": 1781481600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بوزنان، بولندا",
+              "ru": "Познань, Польша"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3445,
+          "name": "Poznan, Poland",
+          "slug": "poznan-poland",
+          "userCount": 183
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 3,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1781713869,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "HbwcsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BR",
+          "alpha3": "BRA",
+          "name": "Brazil",
+          "slug": "brazil"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "غوستافو هايد",
+            "ru": "Хейде, Густаво"
+          },
+          "shortNameTranslation": {
+            "ar": "غ. هايد"
+          }
+        },
+        "gender": "M",
+        "id": 302582,
+        "name": "Gustavo Heide",
+        "nameCode": "HEI",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4483
+        },
+        "ranking": 133,
+        "shortName": "G. Heide",
+        "slug": "heide-gustavo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3504
+      },
+      "homeTeamSeed": "8",
+      "id": 16306520,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 89846,
+        "name": "ATP Challenger Poznan, Poland Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-gustavo-heide",
+      "startTimestamp": 1781708400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1781711305,
+        "period1": 2428,
+        "period2": 2528
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1781913600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Познань, Польша"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 187961,
+        "isGroup": false,
+        "name": "Poznan, Poland",
+        "priority": 0,
+        "slug": "poznan-poland",
+        "startTimestamp": 1781481600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بوزنان، بولندا",
+              "ru": "Познань, Польша"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3445,
+          "name": "Poznan, Poland",
+          "slug": "poznan-poland",
+          "userCount": 183
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period1TieBreak": 5,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 2,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "awayTeamSeed": "2",
+      "changes": {
+        "changeTimestamp": 1782146098,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "XYPbsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "period2TieBreak": 3,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تومماسو كومبانيوتشي",
+            "ru": "Томмазо Компаньуччи"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. كومبانيوتشي",
+            "ru": "Т. Компаньуччи"
+          }
+        },
+        "gender": "M",
+        "id": 227447,
+        "name": "Tommaso Compagnucci",
+        "nameCode": "COM",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4953
+        },
+        "ranking": 364,
+        "shortName": "T. Compagnucci",
+        "slug": "compagnucci-tommaso",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 743
+      },
+      "id": 16370199,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 96545,
+        "name": "ATP Challenger Plovdiv, Bulgaria Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-tommaso-compagnucci",
+      "startTimestamp": 1782135000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1782143646,
+        "period1": 4335,
+        "period2": 3693,
+        "period3": 2405
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1782518400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Пловдив, Болгария"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 188707,
+        "isGroup": false,
+        "name": "Plovdiv, Bulgaria",
+        "priority": 0,
+        "slug": "plovdiv-bulgaria",
+        "startTimestamp": 1782086400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ru": "ATP Challenger Пловдив, Болгария, одиночный разряд мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 35546,
+          "name": "Plovdiv, Bulgaria",
+          "slug": "atp-challenger-plovdiv-bulgaria-men-singles",
+          "userCount": 37
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 7,
+        "period2": 6,
+        "period2TieBreak": 6,
+        "period3": 4,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "غونزالو فيلانويفا",
+            "ru": "Гонсало Виллануэва"
+          },
+          "shortNameTranslation": {
+            "ar": "غ. فيلانويفا"
+          }
+        },
+        "gender": "M",
+        "id": 85877,
+        "name": "Gonzalo Villanueva",
+        "nameCode": "VIL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1789
+        },
+        "ranking": 322,
+        "shortName": "G. Villanueva",
+        "slug": "villanueva-gonzalo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1298
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1783441440,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrJsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 5,
+        "period2": 7,
+        "period2TieBreak": 8,
+        "period3": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "id": 16457981,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 89857,
+        "name": "ATP Challenger Trieste, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-gonzalo-villanueva",
+      "startTimestamp": 1783430700,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1783438633,
+        "period1": 3142,
+        "period2": 4351,
+        "period3": 2756
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1783814400,
+        "id": 190348,
+        "isGroup": false,
+        "name": "Trieste, Italy",
+        "priority": 0,
+        "slug": "trieste-italy",
+        "startTimestamp": 1783296000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ترييستي، إيطاليا",
+              "ru": "Триест, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 15263,
+          "name": "Trieste, Italy",
+          "slug": "trieste-italy",
+          "userCount": 227
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فيديريكو بونديولي",
+            "ru": "Федерико Бондиоли"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. بونديولي",
+            "ru": "Ф. Бондиоли"
+          }
+        },
+        "gender": "M",
+        "id": 407383,
+        "name": "Federico Bondioli",
+        "nameCode": "BON",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5716
+        },
+        "ranking": 295,
+        "shortName": "F. Bondioli",
+        "slug": "bondioli-federico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1590
+      },
+      "awayTeamSeed": "A",
+      "changes": {
+        "changeTimestamp": 1783613607,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "IXmdsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 5,
+        "period2": 0,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "id": 16425153,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 89857,
+        "name": "ATP Challenger Trieste, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-federico-bondioli",
+      "startTimestamp": 1783608300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1783612085,
+        "period1": 3187,
+        "period2": 1474
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1783814400,
+        "id": 190348,
+        "isGroup": false,
+        "name": "Trieste, Italy",
+        "priority": 0,
+        "slug": "trieste-italy",
+        "startTimestamp": 1783296000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ترييستي، إيطاليا",
+              "ru": "Триест, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 15263,
+          "name": "Trieste, Italy",
+          "slug": "trieste-italy",
+          "userCount": 227
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 6,
+        "period2TieBreak": 5,
+        "period3": 4,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارلو ألبرتو كانياتو",
+            "ru": "Карло Альберто Каниато"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. كانياتو",
+            "ru": "К. Каниато"
+          }
+        },
+        "gender": "M",
+        "id": 403167,
+        "name": "Carlo Alberto Caniato",
+        "nameCode": "CAN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 12862
+        },
+        "ranking": 462,
+        "shortName": "C. A. Caniato",
+        "slug": "caniato-carlo-alberto",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1040
+      },
+      "changes": {
+        "changeTimestamp": 1784054771,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "rnldsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 3,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "id": 16496716,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 89904,
+        "name": "ATP Challenger Cordenons, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-carlo-alberto-caniato",
+      "startTimestamp": 1784043300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1784052299,
+        "period1": 1925,
+        "period2": 4476,
+        "period3": 2433
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1784419200,
+        "id": 191019,
+        "isGroup": false,
+        "name": "Cordenons, Italy",
+        "priority": 0,
+        "slug": "cordenons-italy",
+        "startTimestamp": 1783900800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كوردينون، إيطاليا",
+              "ru": "Корденонс, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3494,
+          "name": "Cordenons, Italy",
+          "slug": "cordenons-italy",
+          "tennisPoints": 75,
+          "userCount": 231
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 4,
+        "period3": 7,
+        "period3TieBreak": 9,
+        "point": "8"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "UY",
+          "alpha3": "URY",
+          "name": "Uruguay",
+          "slug": "uruguay"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فرانكو رونكاديللي",
+            "ru": "Ронкаделли, Франко"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. رونكاديللي"
+          }
+        },
+        "gender": "M",
+        "id": 240797,
+        "name": "Franco Roncadelli",
+        "nameCode": "RON",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5093
+        },
+        "ranking": 237,
+        "shortName": "F. Roncadelli",
+        "slug": "roncadelli-franco",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1145
+      },
+      "changes": {
+        "changeTimestamp": 1784200069,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "XpWbsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 2,
+        "period2": 6,
+        "period3": 6,
+        "period3TieBreak": 7,
+        "point": "7"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "id": 16465843,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 89904,
+        "name": "ATP Challenger Cordenons, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-franco-roncadelli",
+      "startTimestamp": 1784188800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1784195370,
+        "period1": 2112,
+        "period2": 3790,
+        "period3": 4648
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1784419200,
+        "id": 191019,
+        "isGroup": false,
+        "name": "Cordenons, Italy",
+        "priority": 0,
+        "slug": "cordenons-italy",
+        "startTimestamp": 1783900800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كوردينون، إيطاليا",
+              "ru": "Корденонс, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3494,
+          "name": "Cordenons, Italy",
+          "slug": "cordenons-italy",
+          "tennisPoints": 75,
+          "userCount": 231
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 4,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "awayTeamSeed": "A",
+      "changes": {
+        "changeTimestamp": 1785245303,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period2",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JnEdsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AT",
+          "alpha3": "AUT",
+          "name": "Austria",
+          "slug": "austria"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جويل شفايرزلر",
+            "ru": "Жоэль Шваерцлер"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. شفايرزلر",
+            "ru": "Ж. Шваерцлер"
+          }
+        },
+        "gender": "M",
+        "id": 448184,
+        "name": "Joel Schwaerzler",
+        "nameCode": "SCH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 7232
+        },
+        "ranking": 150,
+        "shortName": "J. Schwaerzler",
+        "slug": "schwarzler-joel-josef",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3055
+      },
+      "homeTeamSeed": "3",
+      "id": 16629358,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 89918,
+        "name": "ATP Challenger Liberec, Czech Republic Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-joel-schwaerzler",
+      "startTimestamp": 1785240900,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1785243119,
+        "period1": 1725,
+        "period2": 2164
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1785628800,
+        "id": 192952,
+        "isGroup": false,
+        "name": "Liberec, Czech Republic",
+        "priority": 0,
+        "slug": "liberec-czech-republic",
+        "startTimestamp": 1785110400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ليبيريتس، جمهورية التشيك",
+              "ru": "Либерец, Чехия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 5812,
+          "name": "Liberec, Czech Republic",
+          "slug": "liberec-czech-republic",
+          "tennisPoints": 75,
+          "userCount": 168
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 1,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {},
+        "gender": "M",
+        "id": 1252403,
+        "name": "Kellovsky D / Mrva M",
+        "nameCode": "K/M",
+        "national": false,
+        "slug": "kellovsky-d-mrva-m",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [
+          {
+            "country": {
+              "alpha2": "CZ",
+              "alpha3": "CZE",
+              "name": "Czechia",
+              "slug": "czechia"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "دومينيك كيللوفسكي",
+                "ru": "Доминик Келловски"
+              },
+              "shortNameTranslation": {
+                "ar": "د. كيللوفسكي"
+              }
+            },
+            "gender": "M",
+            "id": 93589,
+            "name": "Dominik Kellovsky",
+            "nameCode": "KEL",
+            "national": false,
+            "playerTeamInfo": {
+              "id": 1826
+            },
+            "ranking": 893,
+            "shortName": "D. Kellovsky",
+            "slug": "kellovsky-dominik",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            },
+            "subTeams": [],
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 1,
+            "userCount": 250
+          },
+          {
+            "country": {
+              "alpha2": "CZ",
+              "alpha3": "CZE",
+              "name": "Czechia",
+              "slug": "czechia"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "ماكسيم مرفا",
+                "ru": "Максим Мрва"
+              },
+              "shortNameTranslation": {
+                "ar": "م. مرفا",
+                "ru": "М. Мрва"
+              }
+            },
+            "gender": "M",
+            "id": 450846,
+            "name": "Maxim Mrva",
+            "nameCode": "MRV",
+            "national": false,
+            "playerTeamInfo": {
+              "id": 11772
+            },
+            "ranking": 309,
+            "shortName": "M. Mrva",
+            "slug": "mrva-maxim",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            },
+            "subTeams": [],
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 1,
+            "userCount": 1426
+          }
+        ],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 2,
+        "userCount": 1
+      },
+      "changes": {
+        "changeTimestamp": 1785329027,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cYaksdYak",
+      "eventFilters": {
+        "category": [
+          "doubles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {},
+        "gender": "M",
+        "id": 1252402,
+        "name": "Ambrogi L E / Bueno G",
+        "nameCode": "A/B",
+        "national": false,
+        "slug": "ambrogi-l-e-bueno-g",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [
+          {
+            "country": {
+              "alpha2": "AR",
+              "alpha3": "ARG",
+              "name": "Argentina",
+              "slug": "argentina"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "لوتشيانو إيمانويل أمبروجي",
+                "ru": "Лучиано Эмануэль Амброджи"
+              },
+              "shortNameTranslation": {
+                "ar": "ل. أمبروجي",
+                "ru": "Л. Амброджи"
+              }
+            },
+            "gender": "M",
+            "id": 333081,
+            "name": "Luciano Emanuel Ambrogi",
+            "nameCode": "AMB",
+            "national": false,
+            "playerTeamInfo": {
+              "id": 5486
+            },
+            "ranking": 319,
+            "shortName": "L. E. Ambrogi",
+            "slug": "ambrogi-luciano-emanuel",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            },
+            "subTeams": [],
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 1,
+            "userCount": 981
+          },
+          {
+            "country": {
+              "alpha2": "PE",
+              "alpha3": "PER",
+              "name": "Peru",
+              "slug": "peru"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "غونزالو بوينو",
+                "ru": "Гонсало Буэно"
+              },
+              "shortNameTranslation": {
+                "ar": "غ. بوينو",
+                "ru": "Г. Буэно"
+              }
+            },
+            "gender": "M",
+            "id": 299765,
+            "name": "Gonzalo Bueno",
+            "nameCode": "BUE",
+            "national": false,
+            "playerTeamInfo": {
+              "id": 5170
+            },
+            "ranking": 178,
+            "shortName": "G. Bueno",
+            "slug": "bueno-gonzalo",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            },
+            "subTeams": [],
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 1,
+            "userCount": 3073
+          }
+        ],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 2,
+        "userCount": 1
+      },
+      "id": 16626846,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 89919,
+        "name": "ATP Challenger Liberec, Czech Republic Men Doubles 2026",
+        "year": "2026"
+      },
+      "slug": "kellovsky-mrva-ambrogie-bueno",
+      "startTimestamp": 1785325500,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1785327345,
+        "period1": 1605,
+        "period2": 1617
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1785542400,
+        "id": 192953,
+        "isGroup": false,
+        "name": "Liberec, Czech Republic, Doubles",
+        "priority": 0,
+        "slug": "liberec-czech-republic-doubles",
+        "startTimestamp": 1785110400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "زوجي ليبيريتس، جمهورية التشيك",
+              "ru": "Либерец, Чехия, парный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 5879,
+          "name": "Liberec, Czech Republic, Doubles",
+          "slug": "liberec-czech-republic-doubles",
+          "tennisPoints": 75,
+          "userCount": 16
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 2,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نيك ميرتغنز",
+            "ru": "Ник Мертгенс"
+          },
+          "shortNameTranslation": {
+            "ar": "ن. ميرتغنز",
+            "ru": "Н. Мертгенс"
+          }
+        },
+        "gender": "M",
+        "id": 485654,
+        "name": "Nick Mertgens",
+        "nameCode": "MER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 26696
+        },
+        "shortName": "N. Mertgens",
+        "slug": "mertgens-nick",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 20
+      },
+      "awayTeamSeed": "WC",
+      "changes": {
+        "changeTimestamp": 1785675334,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "WqFdsenUd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "homeTeamSeed": "5",
+      "id": 16694692,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 90852,
+        "name": "ATP Challenger Hagen, Germany Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "nick-mertgens-maxim-mrva",
+      "startTimestamp": 1785672000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1785673740,
+        "period1": 1130,
+        "period2": 1573
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1785715200,
+        "id": 194466,
+        "isGroup": false,
+        "name": "Hagen, Germany, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "hagen-germany-qualifying",
+        "startTimestamp": 1785628800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة تشالنجر ATP هاجن، ألمانيا فردي",
+              "ru": "Челленджер ATP Хаген, Германия среди мужчин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28205,
+          "name": "Hagen, Germany",
+          "slug": "atp-challenger-hagen-germany-men-singles",
+          "userCount": 111
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 2,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نيكولاس كيكير",
+            "bn": "নিকোলাস কিকার",
+            "hi": "निकोलस किकर",
+            "ru": "Кикер, Николас"
+          },
+          "shortNameTranslation": {
+            "ar": "ن. كيكير"
+          }
+        },
+        "gender": "M",
+        "id": 66086,
+        "name": "Nicolas Kicker",
+        "nameCode": "KIC",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 416
+        },
+        "ranking": 366,
+        "shortName": "N. Kicker",
+        "slug": "kicker-nicolas",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2073
+      },
+      "awayTeamSeed": "10",
+      "changes": {
+        "changeTimestamp": 1785763787,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "LwBsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "homeTeamSeed": "5",
+      "id": 16700218,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 90852,
+        "name": "ATP Challenger Hagen, Germany Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-nicolas-kicker",
+      "startTimestamp": 1785758400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1785761314,
+        "period1": 2300,
+        "period2": 2447
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1785715200,
+        "id": 194466,
+        "isGroup": false,
+        "name": "Hagen, Germany, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "hagen-germany-qualifying",
+        "startTimestamp": 1785628800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة تشالنجر ATP هاجن، ألمانيا فردي",
+              "ru": "Челленджер ATP Хаген, Германия среди мужчин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28205,
+          "name": "Hagen, Germany",
+          "slug": "atp-challenger-hagen-germany-men-singles",
+          "userCount": 111
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1785841823,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.normaltime",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period2",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "dHIbsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 3,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "رودولف موليكر",
+            "bn": "রুডলফ মোলেকার",
+            "hi": "रुडोल्फ मोललेकर",
+            "ru": "Моллекер, Рудольф"
+          },
+          "shortNameTranslation": {
+            "ar": "ر. موليكر"
+          }
+        },
+        "gender": "M",
+        "id": 209103,
+        "name": "Rudolf Molleker",
+        "nameCode": "MOL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 246
+        },
+        "ranking": 481,
+        "shortName": "R. Molleker",
+        "slug": "molleker-rudolf",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1501
+      },
+      "homeTeamSeed": "Q",
+      "id": 16710531,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 90852,
+        "name": "ATP Challenger Hagen, Germany Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-rudolf-molleker",
+      "startTimestamp": 1785837000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1785839655,
+        "period1": 1628,
+        "period2": 2155
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1786233600,
+        "id": 193986,
+        "isGroup": false,
+        "name": "Hagen, Germany",
+        "priority": 0,
+        "slug": "hagen-germany",
+        "startTimestamp": 1785715200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة تشالنجر ATP هاجن، ألمانيا فردي",
+              "ru": "Челленджер ATP Хаген, Германия среди мужчин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28205,
+          "name": "Hagen, Germany",
+          "slug": "atp-challenger-hagen-germany-men-singles",
+          "userCount": 111
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "NL",
+          "alpha3": "NLD",
+          "name": "Netherlands",
+          "slug": "netherlands"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "غاي دين أودن",
+            "ru": "Ги Дэн Оуден"
+          },
+          "shortNameTranslation": {
+            "ar": "غ. أودن",
+            "ru": "Г. Оуден"
+          }
+        },
+        "gender": "M",
+        "id": 355526,
+        "name": "Guy Den Ouden",
+        "nameCode": "DEN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4976
+        },
+        "ranking": 215,
+        "shortName": "G. Den Ouden",
+        "slug": "den-ouden-guy",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1638
+      },
+      "changes": {
+        "changeTimestamp": 1785932514,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BkRcsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 2,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "homeTeamSeed": "Q",
+      "id": 16661539,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 90852,
+        "name": "ATP Challenger Hagen, Germany Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-guy-den-ouden",
+      "startTimestamp": 1785927300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1785929894,
+        "period1": 2335,
+        "period2": 2596
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1786233600,
+        "id": 193986,
+        "isGroup": false,
+        "name": "Hagen, Germany",
+        "priority": 0,
+        "slug": "hagen-germany",
+        "startTimestamp": 1785715200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة تشالنجر ATP هاجن، ألمانيا فردي",
+              "ru": "Челленджер ATP Хаген, Германия среди мужчин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28205,
+          "name": "Hagen, Germany",
+          "slug": "atp-challenger-hagen-germany-men-singles",
+          "userCount": 111
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 4,
+        "period2": 6,
+        "period3": 5,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بيرلويجي باسيل",
+            "ru": "Пьерлуиджи Басиле"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. باسيل",
+            "ru": "П. Басиле"
+          }
+        },
+        "gender": "M",
+        "id": 524820,
+        "name": "Pierluigi Basile",
+        "nameCode": "BAS",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 18342
+        },
+        "ranking": 634,
+        "shortName": "P. Basile",
+        "slug": "basile-pierluigi",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1444
+      },
+      "awayTeamSeed": "WC",
+      "changes": {
+        "changeTimestamp": 1786397177,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "WqFdsvWje",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 1,
+        "period3": 7,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "id": 16762950,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 94934,
+        "name": "ATP Challenger Todi, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "pierluigi-basile-maxim-mrva",
+      "startTimestamp": 1786386600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1786392703,
+        "period1": 3060,
+        "period2": 2490,
+        "period3": 4455
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1786838400,
+        "id": 194844,
+        "isGroup": false,
+        "name": "Todi, Italy",
+        "priority": 0,
+        "slug": "todi-italy",
+        "startTimestamp": 1786320000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تودي، إيطاليا",
+              "ru": "Тоди, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3434,
+          "name": "Todi, Italy",
+          "slug": "todi-italy",
+          "tennisPoints": 75,
+          "userCount": 220
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 3,
+        "period2": 6,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "changes": {
+        "changeTimestamp": 1786557899,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "UxCbsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 4,
+        "period3": 4,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "ES",
+          "alpha3": "ESP",
+          "name": "Spain",
+          "slug": "spain"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نيكولاس سانشيز إزكويردو",
+            "ru": "Санчес-Искьердо, Николас"
+          },
+          "shortNameTranslation": {
+            "ar": "ن. إزكويردو"
+          }
+        },
+        "gender": "M",
+        "id": 193644,
+        "name": "Nikolas Sanchez Izquierdo",
+        "nameCode": "SAI",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2576
+        },
+        "ranking": 217,
+        "shortName": "N. Sanchez Izquierdo",
+        "slug": "sanchez-izquierdo-nikolas",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1307
+      },
+      "homeTeamSeed": "5",
+      "id": 16728382,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 94934,
+        "name": "ATP Challenger Todi, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-nikolas-sanchez-izquierdo",
+      "startTimestamp": 1786548900,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1786553987,
+        "period1": 2196,
+        "period2": 2661,
+        "period3": 3889
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1786838400,
+        "id": 194844,
+        "isGroup": false,
+        "name": "Todi, Italy",
+        "priority": 0,
+        "slug": "todi-italy",
+        "startTimestamp": 1786320000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تودي، إيطاليا",
+              "ru": "Тоди, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3434,
+          "name": "Todi, Italy",
+          "slug": "todi-italy",
+          "tennisPoints": 75,
+          "userCount": 220
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 2,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فيديريكو أغوستين غوميز",
+            "ru": "Федерико Агустин Гомес"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. غوميز",
+            "ru": "Ф. Гомес"
+          }
+        },
+        "gender": "M",
+        "id": 146040,
+        "name": "Federico Agustin Gomez",
+        "nameCode": "GOM",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5048
+        },
+        "ranking": 181,
+        "shortName": "F. Gomez",
+        "slug": "gomez-federico-agustin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2609
+      },
+      "awayTeamSeed": "4",
+      "changes": {
+        "changeTimestamp": 1786723243,
+        "changes": [
+          "status.code",
+          "status.description",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "PvibsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "id": 16728385,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 94934,
+        "name": "ATP Challenger Todi, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-federico-agustin-gomez",
+      "startTimestamp": 1786712400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1786715835,
+        "period1": 2696,
+        "period2": 1480
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1786838400,
+        "id": 194844,
+        "isGroup": false,
+        "name": "Todi, Italy",
+        "priority": 0,
+        "slug": "todi-italy",
+        "startTimestamp": 1786320000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تودي، إيطاليا",
+              "ru": "Тоди, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3434,
+          "name": "Todi, Italy",
+          "slug": "todi-italy",
+          "tennisPoints": 75,
+          "userCount": 220
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 2,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليكس بارينا",
+            "ru": "Алекс Баррена"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. بارينا",
+            "ru": "А. Баррена"
+          }
+        },
+        "gender": "M",
+        "id": 303307,
+        "name": "Alex Barrena",
+        "nameCode": "BAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4855
+        },
+        "ranking": 259,
+        "shortName": "A. Barrena",
+        "slug": "barrena-alex",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1537
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1786814766,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "hqwcsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "id": 16728368,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 94934,
+        "name": "ATP Challenger Todi, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-alex-barrena",
+      "startTimestamp": 1786809900,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1786812369,
+        "period1": 2161,
+        "period2": 2347
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1786838400,
+        "id": 194844,
+        "isGroup": false,
+        "name": "Todi, Italy",
+        "priority": 0,
+        "slug": "todi-italy",
+        "startTimestamp": 1786320000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تودي، إيطاليا",
+              "ru": "Тоди, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3434,
+          "name": "Todi, Italy",
+          "slug": "todi-italy",
+          "tennisPoints": 75,
+          "userCount": 220
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "changes": {
+        "changeTimestamp": 1786909532,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "LwBsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 2,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نيكولاس كيكير",
+            "bn": "নিকোলাস কিকার",
+            "hi": "निकोलस किकर",
+            "ru": "Кикер, Николас"
+          },
+          "shortNameTranslation": {
+            "ar": "ن. كيكير"
+          }
+        },
+        "gender": "M",
+        "id": 66086,
+        "name": "Nicolas Kicker",
+        "nameCode": "KIC",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 416
+        },
+        "ranking": 366,
+        "shortName": "N. Kicker",
+        "slug": "kicker-nicolas",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2073
+      },
+      "homeTeamSeed": "A",
+      "id": 16728371,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 94934,
+        "name": "ATP Challenger Todi, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-nicolas-kicker",
+      "startTimestamp": 1786905000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1786907601,
+        "period1": 2056,
+        "period2": 1882
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1786838400,
+        "id": 194844,
+        "isGroup": false,
+        "name": "Todi, Italy",
+        "priority": 0,
+        "slug": "todi-italy",
+        "startTimestamp": 1786320000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تودي، إيطاليا",
+              "ru": "Тоди, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3434,
+          "name": "Todi, Italy",
+          "slug": "todi-italy",
+          "tennisPoints": 75,
+          "userCount": 220
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 2,
+        "period3": 4,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BA",
+          "alpha3": "BIH",
+          "name": "Bosnia & Herzegovina",
+          "slug": "bosnia-and-herzegovina"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نيرمان فاتيتيش",
+            "ru": "Нерман Фатич"
+          },
+          "shortNameTranslation": {
+            "ar": "ن. فاتيتيش",
+            "bn": "ন. ফাটিক",
+            "hi": "एन. फातिच"
+          }
+        },
+        "gender": "M",
+        "id": 63090,
+        "name": "Nerman Fatić",
+        "nameCode": "FAT",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1573
+        },
+        "ranking": 417,
+        "shortName": "N. Fatić",
+        "slug": "fatic-nerman",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1293
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1787067125,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "PlAsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 2,
+        "period2": 6,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "id": 16855694,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 88948,
+        "name": "ATP Challenger Prague, Czech Republic Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-nerman-fatic",
+      "startTimestamp": 1787061300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1787064905,
+        "period1": 1359,
+        "period2": 1844,
+        "period3": 2026
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1746921600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "براغ، جمهورية التشيك",
+            "ru": "Прага, Чехия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 151286,
+        "isGroup": false,
+        "name": "Prague, Czech Republic",
+        "priority": 0,
+        "slug": "prague-czech-republic",
+        "startTimestamp": 1746403200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "براغ، جمهورية التشيك",
+              "ru": "Прага, Чехия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3878,
+          "name": "Prague, Czech Republic",
+          "slug": "prague-czech-republic",
+          "tennisPoints": 50,
+          "userCount": 186
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "changes": {
+        "changeTimestamp": 1787144177,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vNDbsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 2,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "RO",
+          "alpha3": "ROU",
+          "name": "Romania",
+          "slug": "romania"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سيزار كريتو",
+            "ru": "Цезар Крэтю"
+          },
+          "shortNameTranslation": {
+            "ar": "س. كريتو",
+            "ru": "Ц. Крэтю"
+          }
+        },
+        "gender": "M",
+        "id": 196920,
+        "name": "Cezar Cretu",
+        "nameCode": "CRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4268
+        },
+        "ranking": 266,
+        "shortName": "C. Cretu",
+        "slug": "cretu-cezar",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1039
+      },
+      "homeTeamSeed": "7",
+      "id": 16808679,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 88948,
+        "name": "ATP Challenger Prague, Czech Republic Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-cezar-cretu",
+      "startTimestamp": 1787139300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1787141850,
+        "period1": 2102,
+        "period2": 2291
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1746921600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "براغ، جمهورية التشيك",
+            "ru": "Прага, Чехия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 151286,
+        "isGroup": false,
+        "name": "Prague, Czech Republic",
+        "priority": 0,
+        "slug": "prague-czech-republic",
+        "startTimestamp": 1746403200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "براغ، جمهورية التشيك",
+              "ru": "Прага, Чехия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3878,
+          "name": "Prague, Czech Republic",
+          "slug": "prague-czech-republic",
+          "tennisPoints": 50,
+          "userCount": 186
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "يان كومستات",
+            "ru": "Ян Кумстат"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. كومستات",
+            "ru": "Я. Кумстат"
+          }
+        },
+        "gender": "M",
+        "id": 417205,
+        "name": "Jan Kumstat",
+        "nameCode": "KUM",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 21305
+        },
+        "ranking": 347,
+        "shortName": "J. Kumstat",
+        "slug": "kumstat-jan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1896
+      },
+      "changes": {
+        "changeTimestamp": 1787240319,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "fUqdsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 5,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "id": 16808666,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 88948,
+        "name": "ATP Challenger Prague, Czech Republic Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-jan-kumstat",
+      "startTimestamp": 1787235600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1787237418,
+        "period1": 1258,
+        "period2": 2841
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1746921600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "براغ، جمهورية التشيك",
+            "ru": "Прага, Чехия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 151286,
+        "isGroup": false,
+        "name": "Prague, Czech Republic",
+        "priority": 0,
+        "slug": "prague-czech-republic",
+        "startTimestamp": 1746403200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "براغ، جمهورية التشيك",
+              "ru": "Прага, Чехия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3878,
+          "name": "Prague, Czech Republic",
+          "slug": "prague-czech-republic",
+          "tennisPoints": 50,
+          "userCount": 186
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {},
+      "awayTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم مرفا",
+            "ru": "Максим Мрва"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مرفا",
+            "ru": "М. Мрва"
+          }
+        },
+        "gender": "M",
+        "id": 450846,
+        "name": "Maxim Mrva",
+        "nameCode": "MRV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11772
+        },
+        "ranking": 309,
+        "shortName": "M. Mrva",
+        "slug": "mrva-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1426
+      },
+      "awayTeamSeed": "2",
+      "changes": {
+        "changeTimestamp": 0
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "ohlbsWqFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {},
+      "homeTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أوليغ بريهودكو",
+            "ru": "Приходько, Олег"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. بريهودكو"
+          }
+        },
+        "gender": "M",
+        "id": 152864,
+        "name": "Oleg Prihodko",
+        "nameCode": "PRI",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2269
+        },
+        "ranking": 396,
+        "shortName": "O. Prihodko",
+        "slug": "prihodko-oleg",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 627
+      },
+      "id": 16954437,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 101825,
+        "name": "ATP Challenger Plovdiv 3, Bulgaria Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maxim-mrva-oleg-prihodko",
+      "startTimestamp": 1788247800,
+      "status": {
+        "code": 0,
+        "description": "Not started",
+        "type": "notstarted"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1788652800,
+        "id": 197174,
+        "isGroup": false,
+        "name": "Plovdiv 3, Bulgaria",
+        "priority": 0,
+        "slug": "plovdiv-3-bulgaria",
+        "startTimestamp": 1788134400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 37176,
+          "name": "Plovdiv 3, Bulgaria",
+          "slug": "plovdiv-3-bulgaria",
+          "userCount": 31
+        }
+      }
+    }
+  ],
+  "has_next_page": true,
+  "page": 0,
+  "player_id": 450846,
+  "saved_at": 1788184001.9230263,
+  "saved_at_iso": "2026-08-31T13:46:41+00:00",
+  "source": "API_PRO_PREVIOUS_MATCHES",
+  "status": "OK"
+}

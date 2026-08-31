@@ -1,0 +1,7278 @@
+{
+  "api_status_code": 200,
+  "endpoint": "https://tennisapi1.p.rapidapi.com/api/tennis/player/213076/events/previous/0",
+  "events": [
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 4,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "awayTeamSeed": "6",
+      "changes": {
+        "changeTimestamp": 1778255471,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BlKbsgLPb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فلوران باكس",
+            "ru": "Бакс, Флорен"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. باكس"
+          }
+        },
+        "gender": "M",
+        "id": 226806,
+        "name": "Florent Bax",
+        "nameCode": "BAX",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2922
+        },
+        "ranking": 247,
+        "shortName": "F. Bax",
+        "slug": "bax-florent",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 973
+      },
+      "homeTeamSeed": "1",
+      "id": 16097069,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 88968,
+        "name": "ATP Challenger Brazzaville, Republic of Congo Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "florent-bax-mathys-erhard",
+      "startTimestamp": 1778248800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1778252102,
+        "period1": 2534,
+        "period2": 3311
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1778371200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "برازافيل، جمهورية الكونغو",
+            "ru": "Браззавиль, Республика Конго"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 182963,
+        "isGroup": false,
+        "name": "Brazzaville, Republic of Congo",
+        "priority": 0,
+        "slug": "brazzaville-republic-of-congo",
+        "startTimestamp": 1777852800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "برازافيل، جمهورية الكونغو",
+              "ru": "Браззавиль, Республика Конго"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 24001,
+          "name": "Brazzaville, Republic of Congo",
+          "slug": "atp-challenger-brazzaville-republic-of-congo-men-singles",
+          "userCount": 85
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 3,
+        "period3": 3,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BG",
+          "alpha3": "BGR",
+          "name": "Bulgaria",
+          "slug": "bulgaria"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيفان إيفانوف",
+            "ru": "Иван Иванов"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفانوف",
+            "ru": "И. Иванов"
+          }
+        },
+        "gender": "M",
+        "id": 460276,
+        "name": "Ivan Ivanov",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 18497
+        },
+        "ranking": 542,
+        "shortName": "I. Ivanov",
+        "slug": "ivanov-ivan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2288
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1779791560,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BlKbsBfJd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period1TieBreak": 5,
+        "period2": 6,
+        "period3": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "id": 16233591,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 89790,
+        "name": "ATP Challenger Centurion, South Africa Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "ivan-ivanov-mathys-erhard",
+      "startTimestamp": 1779782400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1779788759,
+        "period1": 3359,
+        "period2": 2536,
+        "period3": 2608
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1780272000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Кошице, Словакия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 185509,
+        "isGroup": false,
+        "name": "Kosice, Slovakia",
+        "priority": 0,
+        "slug": "kosice-slovakia",
+        "startTimestamp": 1779753600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كوشيتسه، سلوفاكيا، فردي رجال",
+              "ru": "Кошице, Словакия, среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3492,
+          "name": "Kosice, Slovakia Men Singles",
+          "slug": "kosice-slovakia-men-singles",
+          "userCount": 43
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 6,
+        "period1TieBreak": 4,
+        "period2": 1,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ستيفان دوستانيك",
+            "ru": "Стефан Достанич"
+          },
+          "shortNameTranslation": {
+            "ar": "س. دوستانيك",
+            "ru": "С. Достанич"
+          }
+        },
+        "gender": "M",
+        "id": 274435,
+        "name": "Stefan Dostanić",
+        "nameCode": "DOS",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5506
+        },
+        "ranking": 279,
+        "shortName": "S. Dostanić",
+        "slug": "dostanic-stefan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 777
+      },
+      "awayTeamSeed": "5",
+      "changes": {
+        "changeTimestamp": 1779874413,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BlKbsKNjc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "id": 16208101,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 89790,
+        "name": "ATP Challenger Centurion, South Africa Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "stefan-dostanic-mathys-erhard",
+      "startTimestamp": 1779868800,
+      "status": {
+        "code": 92,
+        "description": "Retired",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1779872665,
+        "period1": 3349,
+        "period2": 1693
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1780272000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Кошице, Словакия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 185509,
+        "isGroup": false,
+        "name": "Kosice, Slovakia",
+        "priority": 0,
+        "slug": "kosice-slovakia",
+        "startTimestamp": 1779753600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كوشيتسه، سلوفاكيا، فردي رجال",
+              "ru": "Кошице, Словакия, среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3492,
+          "name": "Kosice, Slovakia Men Singles",
+          "slug": "kosice-slovakia-men-singles",
+          "userCount": 43
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 7,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "changes": {
+        "changeTimestamp": 1780065852,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "HxusBlKb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 5,
+        "period2": 5,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "JP",
+          "alpha3": "JPN",
+          "name": "Japan",
+          "slug": "japan"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تارو دانييل",
+            "ru": "Даниэль, Таро"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. دانييل",
+            "bn": "টি. ড্যানিয়েল",
+            "hi": "टी. डैनियल"
+          }
+        },
+        "gender": "M",
+        "id": 48632,
+        "name": "Taro Daniel",
+        "nameCode": "DAN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 70
+        },
+        "ranking": 186,
+        "shortName": "T. Daniel",
+        "slug": "daniel-taro",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3375
+      },
+      "id": 16208100,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 89790,
+        "name": "ATP Challenger Centurion, South Africa Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "mathys-erhard-taro-daniel",
+      "startTimestamp": 1780057800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1780062276,
+        "period1": 3953,
+        "period2": 3522
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1780272000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Кошице, Словакия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 185509,
+        "isGroup": false,
+        "name": "Kosice, Slovakia",
+        "priority": 0,
+        "slug": "kosice-slovakia",
+        "startTimestamp": 1779753600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كوشيتسه، سلوفاكيا، فردي رجال",
+              "ru": "Кошице, Словакия, среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3492,
+          "name": "Kosice, Slovakia Men Singles",
+          "slug": "kosice-slovakia-men-singles",
+          "userCount": 43
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 3,
+        "period2": 6,
+        "period3": 4,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "changes": {
+        "changeTimestamp": 1780159568,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BlKbsREoc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 2,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتن كروميتش",
+            "ru": "Мартин Крумич"
+          },
+          "shortNameTranslation": {
+            "ar": "م. كروميتش",
+            "ru": "М. Крумич"
+          }
+        },
+        "gender": "M",
+        "id": 286492,
+        "name": "Martin Krumich",
+        "nameCode": "KRU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4503
+        },
+        "ranking": 255,
+        "shortName": "M. Krumich",
+        "slug": "krumich-martin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1061
+      },
+      "homeTeamSeed": "6",
+      "id": 16208097,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 89790,
+        "name": "ATP Challenger Centurion, South Africa Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "martin-krumich-mathys-erhard",
+      "startTimestamp": 1780149900,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1780155847,
+        "period1": 2432,
+        "period2": 2799,
+        "period3": 3679
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1780272000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Кошице, Словакия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 185509,
+        "isGroup": false,
+        "name": "Kosice, Slovakia",
+        "priority": 0,
+        "slug": "kosice-slovakia",
+        "startTimestamp": 1779753600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كوشيتسه، سلوفاكيا، فردي رجال",
+              "ru": "Кошице, Словакия, среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3492,
+          "name": "Kosice, Slovakia Men Singles",
+          "slug": "kosice-slovakia-men-singles",
+          "userCount": 43
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "awayTeamSeed": "11",
+      "changes": {
+        "changeTimestamp": 1780831648,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BlKbsHmgc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 1,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "EG",
+          "alpha3": "EGY",
+          "name": "Egypt",
+          "slug": "egypt"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فارس زكريا",
+            "ru": "Фарис Закария"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. زكريا",
+            "ru": "Ф. Закария"
+          }
+        },
+        "gender": "M",
+        "id": 265632,
+        "name": "Faris Zakaria",
+        "nameCode": "ZAK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4558
+        },
+        "ranking": 520,
+        "shortName": "F. Zakaria",
+        "slug": "zakaryia-faris",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 373
+      },
+      "homeTeamSeed": "A",
+      "id": 16286933,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 89792,
+        "name": "ATP Challenger Bratislava, Slovakia Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "faris-zakaria-mathys-erhard",
+      "startTimestamp": 1780827000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1780829784,
+        "period1": 2160,
+        "period2": 1814
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1780876800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Модена, Италия, Отборочный турнир"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 187561,
+        "isGroup": false,
+        "name": "Bratislava, Slovakia, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "bratislava-slovakia-qualifying",
+        "startTimestamp": 1780790400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "براتيسلافا، سلوفاكيا",
+              "ru": "Братислава, Словакия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3567,
+          "name": "Bratislava, Slovakia",
+          "slug": "bratislava-slovakia",
+          "userCount": 265
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 2,
+        "period3": 3,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "awayTeamSeed": "11",
+      "changes": {
+        "changeTimestamp": 1780916164,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period3",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BlKbsREoc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 3,
+        "period2": 6,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتن كروميتش",
+            "ru": "Мартин Крумич"
+          },
+          "shortNameTranslation": {
+            "ar": "م. كروميتش",
+            "ru": "М. Крумич"
+          }
+        },
+        "gender": "M",
+        "id": 286492,
+        "name": "Martin Krumich",
+        "nameCode": "KRU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4503
+        },
+        "ranking": 255,
+        "shortName": "M. Krumich",
+        "slug": "krumich-martin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1061
+      },
+      "homeTeamSeed": "4",
+      "id": 16289732,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 89792,
+        "name": "ATP Challenger Bratislava, Slovakia Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "martin-krumich-mathys-erhard",
+      "startTimestamp": 1780908000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1780913110,
+        "period1": 2570,
+        "period2": 2220,
+        "period3": 3037
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1780876800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Модена, Италия, Отборочный турнир"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 187561,
+        "isGroup": false,
+        "name": "Bratislava, Slovakia, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "bratislava-slovakia-qualifying",
+        "startTimestamp": 1780790400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "براتيسلافا، سلوفاكيا",
+              "ru": "Братислава, Словакия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3567,
+          "name": "Bratislava, Slovakia",
+          "slug": "bratislava-slovakia",
+          "userCount": 265
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 5,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1781530532,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "dHIbsBlKb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 7,
+        "period2": 6,
+        "period2TieBreak": 3,
+        "period3": 0,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "رودولف موليكر",
+            "bn": "রুডলফ মোলেকার",
+            "hi": "रुडोल्फ मोललेकर",
+            "ru": "Моллекер, Рудольф"
+          },
+          "shortNameTranslation": {
+            "ar": "ر. موليكر"
+          }
+        },
+        "gender": "M",
+        "id": 209103,
+        "name": "Rudolf Molleker",
+        "nameCode": "MOL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 246
+        },
+        "ranking": 481,
+        "shortName": "R. Molleker",
+        "slug": "molleker-rudolf",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1501
+      },
+      "id": 16324268,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 89846,
+        "name": "ATP Challenger Poznan, Poland Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "mathys-erhard-rudolf-molleker",
+      "startTimestamp": 1781523300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1781529249,
+        "period1": 2437,
+        "period2": 3123,
+        "period3": 1228
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1781481600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Познань, Польша, квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 188294,
+        "isGroup": false,
+        "name": "Poznan, Poland, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "poznan-poland-qualifying",
+        "startTimestamp": 1781395200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بوزنان، بولندا",
+              "ru": "Познань, Польша"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3445,
+          "name": "Poznan, Poland",
+          "slug": "poznan-poland",
+          "userCount": 183
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 3,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1781556744,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "OcvsBlKb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 6,
+        "period2TieBreak": 5,
+        "period3": 3,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "SK",
+          "alpha3": "SVK",
+          "name": "Slovakia",
+          "slug": "slovakia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نوربرت غومبوس",
+            "bn": "নরবার্ট গম্বোস",
+            "hi": "नॉरबर्ट गोंबोस",
+            "ru": "Гомбос, Норберт"
+          },
+          "shortNameTranslation": {
+            "ar": "ن. غومبوس"
+          }
+        },
+        "gender": "M",
+        "id": 50139,
+        "name": "Norbert Gombos",
+        "nameCode": "GOM",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 389
+        },
+        "ranking": 424,
+        "shortName": "N. Gombos",
+        "slug": "gombos-norbert",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1853
+      },
+      "homeTeamSeed": "5",
+      "id": 16333482,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 89846,
+        "name": "ATP Challenger Poznan, Poland Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "mathys-erhard-norbert-gombos",
+      "startTimestamp": 1781538300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1781553990,
+        "period1": 2231,
+        "period2": 3827,
+        "period3": 2714
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1781481600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Познань, Польша, квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 188294,
+        "isGroup": false,
+        "name": "Poznan, Poland, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "poznan-poland-qualifying",
+        "startTimestamp": 1781395200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بوزنان، بولندا",
+              "ru": "Познань, Польша"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3445,
+          "name": "Poznan, Poland",
+          "slug": "poznan-poland",
+          "userCount": 183
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "changes": {
+        "changeTimestamp": 1781629822,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsBlKb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 3,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "homeTeamSeed": "Q",
+      "id": 16335117,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 89846,
+        "name": "ATP Challenger Poznan, Poland Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "mathys-erhard-frederico-ferreira-silva",
+      "startTimestamp": 1781622300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1781626270,
+        "period1": 3289,
+        "period2": 3499
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1781913600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Познань, Польша"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 187961,
+        "isGroup": false,
+        "name": "Poznan, Poland",
+        "priority": 0,
+        "slug": "poznan-poland",
+        "startTimestamp": 1781481600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بوزنان، بولندا",
+              "ru": "Познань, Польша"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3445,
+          "name": "Poznan, Poland",
+          "slug": "poznan-poland",
+          "userCount": 183
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 3,
+        "period2": 6,
+        "period3": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "changes": {
+        "changeTimestamp": 1782238259,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "aIXsBlKb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 3,
+        "period3": 0,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AU",
+          "alpha3": "AUS",
+          "name": "Australia",
+          "slug": "australia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "توماس فانتكوت",
+            "ru": "Фэнкатт, Томас"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. فانتكوت"
+          }
+        },
+        "gender": "M",
+        "id": 119150,
+        "name": "Thomas Fancutt",
+        "nameCode": "FAN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 752
+        },
+        "ranking": 810,
+        "shortName": "T. Fancutt",
+        "slug": "fancutt-thomas",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 305
+      },
+      "homeTeamSeed": "Q",
+      "id": 16376899,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 96545,
+        "name": "ATP Challenger Plovdiv, Bulgaria Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "mathys-erhard-thomas-fancutt",
+      "startTimestamp": 1782228300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1782234021,
+        "period1": 2514,
+        "period2": 2784,
+        "period3": 1503
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1782518400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Пловдив, Болгария"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 188707,
+        "isGroup": false,
+        "name": "Plovdiv, Bulgaria",
+        "priority": 0,
+        "slug": "plovdiv-bulgaria",
+        "startTimestamp": 1782086400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ru": "ATP Challenger Пловдив, Болгария, одиночный разряд мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 35546,
+          "name": "Plovdiv, Bulgaria",
+          "slug": "atp-challenger-plovdiv-bulgaria-men-singles",
+          "userCount": 37
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 3,
+        "period2": 6,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "ES",
+          "alpha3": "ESP",
+          "name": "Spain",
+          "slug": "spain"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إينيكي مونتس-دي لا تور",
+            "ru": "Инаки Монтес-де ла Торре"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. لا تور",
+            "ru": "И. Торре"
+          }
+        },
+        "gender": "M",
+        "id": 290568,
+        "name": "Inaki Montes-de la Torre",
+        "nameCode": "MON",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4921
+        },
+        "ranking": 275,
+        "shortName": "I. Montes-de la Torre",
+        "slug": "montes-de-la-torre-inaki",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1171
+      },
+      "awayTeamSeed": "5",
+      "changes": {
+        "changeTimestamp": 1782311816,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BlKbstlqc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 4,
+        "period3": 2,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "id": 16345056,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 96545,
+        "name": "ATP Challenger Plovdiv, Bulgaria Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "inaki-montes-de-la-torre-mathys-erhard",
+      "startTimestamp": 1782301800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1782308692,
+        "period1": 2754,
+        "period2": 3515,
+        "period3": 3084
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1782518400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Пловдив, Болгария"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 188707,
+        "isGroup": false,
+        "name": "Plovdiv, Bulgaria",
+        "priority": 0,
+        "slug": "plovdiv-bulgaria",
+        "startTimestamp": 1782086400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ru": "ATP Challenger Пловдив, Болгария, одиночный разряд мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 35546,
+          "name": "Plovdiv, Bulgaria",
+          "slug": "atp-challenger-plovdiv-bulgaria-men-singles",
+          "userCount": 37
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {},
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "awayTeamSeed": "9",
+      "changes": {
+        "changeTimestamp": 1782590468,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BlKbsOBNb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {},
+      "homeTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جورجي كرافشينكو",
+            "ru": "Георгий Кравченко"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. كرافشينكو",
+            "ru": "Г. Кравченко"
+          }
+        },
+        "gender": "M",
+        "id": 221339,
+        "name": "Georgii Kravchenko",
+        "nameCode": "KRA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2874
+        },
+        "ranking": 395,
+        "shortName": "G. Kravchenko",
+        "slug": "kravchenko-georgii",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 405
+      },
+      "homeTeamSeed": "13",
+      "id": 16401426,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 89844,
+        "name": "ATP Challenger Milan, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "georgii-kravchenko-mathys-erhard",
+      "startTimestamp": 1782633600,
+      "status": {
+        "code": 70,
+        "description": "Canceled",
+        "type": "canceled"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1782691200,
+        "id": 189851,
+        "isGroup": false,
+        "name": "Milan, Italy, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "milan-italy-qualifying",
+        "startTimestamp": 1782604800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ميلانو، إيطاليا",
+              "ru": "Милан, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3453,
+          "name": "Milano, Italy",
+          "slug": "milano-italy",
+          "userCount": 211
+        }
+      }
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period1TieBreak": 4,
+        "period2": 6,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "awayTeamSeed": "9",
+      "changes": {
+        "changeTimestamp": 1782650112,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.normaltime",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period3",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BlKbsMArd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 2,
+        "period3": 2,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ياكوبو بيلاردو",
+            "ru": "Джакопо Билардо"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. بيلاردو",
+            "ru": "Д. Билардо"
+          }
+        },
+        "gender": "M",
+        "id": 418787,
+        "name": "Jacopo Bilardo",
+        "nameCode": "BIL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 18155
+        },
+        "ranking": 1136,
+        "shortName": "J. Bilardo",
+        "slug": "bilardo-jacopo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 265
+      },
+      "homeTeamSeed": "A",
+      "id": 16401622,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 89844,
+        "name": "ATP Challenger Milan, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "jacopo-bilardo-mathys-erhard",
+      "startTimestamp": 1782639000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1782647175,
+        "period1": 4190,
+        "period2": 2673,
+        "period3": 2920
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1782691200,
+        "id": 189851,
+        "isGroup": false,
+        "name": "Milan, Italy, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "milan-italy-qualifying",
+        "startTimestamp": 1782604800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ميلانو، إيطاليا",
+              "ru": "Милан, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3453,
+          "name": "Milano, Italy",
+          "slug": "milano-italy",
+          "userCount": 211
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "awayTeamSeed": "9",
+      "changes": {
+        "changeTimestamp": 1782727132,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BlKbsvNFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 5,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "ES",
+          "alpha3": "ESP",
+          "name": "Spain",
+          "slug": "spain"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليخو سانشيز كويلز",
+            "ru": "Алехо Санчес Килиез"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كويلز",
+            "ru": "А. Килиез"
+          }
+        },
+        "gender": "M",
+        "id": 451920,
+        "name": "Alejo Sanchez Quilez",
+        "nameCode": "SAN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 12919
+        },
+        "ranking": 446,
+        "shortName": "A. Sanchez Quilez",
+        "slug": "sanchez-quilez-alejo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 781
+      },
+      "id": 16405287,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 89844,
+        "name": "ATP Challenger Milan, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "alejo-sanchez-quilez-mathys-erhard",
+      "startTimestamp": 1782720000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1782722921,
+        "period1": 2295,
+        "period2": 4171
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1782691200,
+        "id": 189851,
+        "isGroup": false,
+        "name": "Milan, Italy, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "milan-italy-qualifying",
+        "startTimestamp": 1782604800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ميلانو، إيطاليا",
+              "ru": "Милан, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3453,
+          "name": "Milano, Italy",
+          "slug": "milano-italy",
+          "userCount": 211
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 2,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AT",
+          "alpha3": "AUT",
+          "name": "Austria",
+          "slug": "austria"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "يوري روديونوف",
+            "bn": "জুরিজ রোডিওনভ",
+            "hi": "जुरिज़ रोडियोनोव",
+            "ru": "Родионов, Юрий"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. روديونوف"
+          }
+        },
+        "gender": "M",
+        "id": 200159,
+        "name": "Jurij Rodionov",
+        "nameCode": "ROD",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 263
+        },
+        "ranking": 134,
+        "shortName": "J. Rodionov",
+        "slug": "rodionov-jurij",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3731
+      },
+      "awayTeamSeed": "6",
+      "changes": {
+        "changeTimestamp": 1782811904,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period2",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "jdFbsBlKb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "homeTeamSeed": "Q",
+      "id": 16409187,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 89844,
+        "name": "ATP Challenger Milan, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "mathys-erhard-jurij-rodionov",
+      "startTimestamp": 1782806400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1782809439,
+        "period1": 2654,
+        "period2": 2454
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1783209600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Милан, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 189414,
+        "isGroup": false,
+        "name": "Milan, Italy",
+        "priority": 0,
+        "slug": "milan-italy",
+        "startTimestamp": 1782691200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ميلانو، إيطاليا",
+              "ru": "Милан, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3453,
+          "name": "Milano, Italy",
+          "slug": "milano-italy",
+          "userCount": 211
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 6,
+        "period2TieBreak": 2,
+        "point": "2"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1782923727,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period2",
+          "homeScore.period2TieBreak",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BlKbsQXxc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "point": "6"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "ES",
+          "alpha3": "ESP",
+          "name": "Spain",
+          "slug": "spain"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دانيال رينكون",
+            "ru": "Даниэль Ринкон"
+          },
+          "shortNameTranslation": {
+            "ar": "د. رينكون",
+            "ru": "Д. Ринкон"
+          }
+        },
+        "gender": "M",
+        "id": 307391,
+        "name": "Daniel Rincon",
+        "nameCode": "RIN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4776
+        },
+        "ranking": 206,
+        "shortName": "D. Rincón",
+        "slug": "rincon-daniel",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2306
+      },
+      "id": 16383690,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 89844,
+        "name": "ATP Challenger Milan, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "daniel-rincon-mathys-erhard",
+      "startTimestamp": 1782906900,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1782919763,
+        "period1": 3517,
+        "period2": 3949
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1783209600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Милан, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 189414,
+        "isGroup": false,
+        "name": "Milan, Italy",
+        "priority": 0,
+        "slug": "milan-italy",
+        "startTimestamp": 1782691200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ميلانو، إيطاليا",
+              "ru": "Милан, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3453,
+          "name": "Milano, Italy",
+          "slug": "milano-italy",
+          "userCount": 211
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 0,
+        "period2": 2,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IN",
+          "alpha3": "IND",
+          "name": "India",
+          "slug": "india"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نيتين كومار سينها",
+            "ru": "Синха, Ниттин Кумар"
+          },
+          "shortNameTranslation": {
+            "ar": "ن. سينها"
+          }
+        },
+        "gender": "M",
+        "id": 181384,
+        "name": "Nitin Kumar Sinha",
+        "nameCode": "SIN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2453
+        },
+        "ranking": 872,
+        "shortName": "N. K. Sinha",
+        "slug": "sinha-nitin-kumar",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 237
+      },
+      "awayTeamSeed": "12",
+      "changes": {
+        "changeTimestamp": 1783338054,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JCxbsBlKb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "homeTeamSeed": "1",
+      "id": 16451389,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 89859,
+        "name": "ATP Challenger Iasi, Romania Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "mathys-erhard-nitin-kumar-sinha",
+      "startTimestamp": 1783333800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1783335764,
+        "period1": 1489,
+        "period2": 2253
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1783296000,
+        "id": 190607,
+        "isGroup": false,
+        "name": "Iasi, Romania, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "iasi-romania-qualifying",
+        "startTimestamp": 1783209600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ياش، رومانيا",
+              "ru": "Яссы, Румыния"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 15277,
+          "name": "Iasi, Romania ",
+          "slug": "iasi-romania",
+          "userCount": 248
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 5,
+        "period2": 4,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1783447981,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BlKbsADXb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تيتوان دروجيه",
+            "bn": "টিটুয়ান দ্রোগেট",
+            "hi": "तीतुआन द्रोगुएट",
+            "ru": "Дроге, Титуан"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. دروجيه"
+          }
+        },
+        "gender": "M",
+        "id": 243925,
+        "name": "Titouan Droguet",
+        "nameCode": "DRO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3015
+        },
+        "ranking": 111,
+        "shortName": "T. Droguet",
+        "slug": "droguet-titouan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3774
+      },
+      "homeTeamSeed": "4",
+      "id": 16458146,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 89859,
+        "name": "ATP Challenger Iasi, Romania Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "titouan-droguet-mathys-erhard",
+      "startTimestamp": 1783439700,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1783444279,
+        "period1": 3875,
+        "period2": 3665
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1783814400,
+        "id": 190344,
+        "isGroup": false,
+        "name": "Iasi, Romania",
+        "priority": 0,
+        "slug": "iasi-romania",
+        "startTimestamp": 1783296000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ياش، رومانيا",
+              "ru": "Яссы, Румыния"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 15277,
+          "name": "Iasi, Romania ",
+          "slug": "iasi-romania",
+          "userCount": 248
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "changes": {
+        "changeTimestamp": 1784729332,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BlKbscpKd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "period2": 2
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AT",
+          "alpha3": "AUT",
+          "name": "Austria",
+          "slug": "austria"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "يوناس غوندكر",
+            "ru": "Йонас Гундакер"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. غوندكر",
+            "ru": "Й. Гундакер"
+          }
+        },
+        "gender": "M",
+        "id": 463252,
+        "name": "Jonas Gundacker",
+        "nameCode": "GUN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 21941
+        },
+        "shortName": "J. Gundacker",
+        "slug": "gundacker-jonas",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 138
+      },
+      "id": 16589911,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 98471,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "jonas-gundacker-mathys-erhard",
+      "startTimestamp": 1784724027,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 أوليرسباخ للرجال",
+            "ru": "ITF M25 Оллерсбах Мужчины"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 158377,
+        "name": "ITF M25 Ollersbach Men",
+        "priority": 0,
+        "slug": "itf-m25-ollersbach-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 أوليرسباخ الرجال",
+              "ru": "ITF M25 Оллерсбах среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28029,
+          "name": "ITF M25 Ollersbach Men",
+          "slug": "itf-m25-ollersbach-men",
+          "userCount": 7
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "changes": {
+        "changeTimestamp": 1784834895,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BlKbsVgxi",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 3
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AT",
+          "alpha3": "AUT",
+          "name": "Austria",
+          "slug": "austria"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ثيلو بيهرمان",
+            "ru": "Тило Берхман"
+          },
+          "shortNameTranslation": {
+            "ar": "ث. بيهرمان",
+            "ru": "Т. Берхман"
+          }
+        },
+        "gender": "M",
+        "id": 1055345,
+        "name": "Thilo Behrmann",
+        "nameCode": "BEH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 36232
+        },
+        "shortName": "T. Behrmann",
+        "slug": "behrmann-thilo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 222
+      },
+      "id": 16600375,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 98471,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "thilo-behrmann-mathys-erhard",
+      "startTimestamp": 1784829980,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 أوليرسباخ للرجال",
+            "ru": "ITF M25 Оллерсбах Мужчины"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 158377,
+        "name": "ITF M25 Ollersbach Men",
+        "priority": 0,
+        "slug": "itf-m25-ollersbach-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 أوليرسباخ الرجال",
+              "ru": "ITF M25 Оллерсбах среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28029,
+          "name": "ITF M25 Ollersbach Men",
+          "slug": "itf-m25-ollersbach-men",
+          "userCount": 7
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 1,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "changes": {
+        "changeTimestamp": 1784903170,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BlKbsfUqd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 6,
+        "period2TieBreak": 1,
+        "period3": 2,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "يان كومستات",
+            "ru": "Ян Кумстат"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. كومستات",
+            "ru": "Я. Кумстат"
+          }
+        },
+        "gender": "M",
+        "id": 417205,
+        "name": "Jan Kumstat",
+        "nameCode": "KUM",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 21305
+        },
+        "ranking": 347,
+        "shortName": "J. Kumstat",
+        "slug": "kumstat-jan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1896
+      },
+      "id": 16612587,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 98471,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "jan-kumstat-mathys-erhard",
+      "startTimestamp": 1784894872,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 أوليرسباخ للرجال",
+            "ru": "ITF M25 Оллерсбах Мужчины"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 158377,
+        "name": "ITF M25 Ollersbach Men",
+        "priority": 0,
+        "slug": "itf-m25-ollersbach-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 أوليرسباخ الرجال",
+              "ru": "ITF M25 Оллерсбах среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28029,
+          "name": "ITF M25 Ollersbach Men",
+          "slug": "itf-m25-ollersbach-men",
+          "userCount": 7
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "changes": {
+        "changeTimestamp": 1784972939,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "pNjsBlKb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 6,
+        "period1TieBreak": 0,
+        "period2": 1,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "SK",
+          "alpha3": "SVK",
+          "name": "Slovakia",
+          "slug": "slovakia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريه مارتن",
+            "bn": "আন্দ্রেজ মার্টিন",
+            "hi": "आंद्रे मार्टिन",
+            "ru": "Мартин, Андрей"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. مارتن"
+          }
+        },
+        "gender": "M",
+        "id": 24415,
+        "name": "Andrej Martin",
+        "nameCode": "MAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 377
+        },
+        "ranking": 402,
+        "shortName": "A. Martin",
+        "slug": "martin-andrej",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1044
+      },
+      "id": 16619158,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 98471,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "mathys-erhard-andrej-martin",
+      "startTimestamp": 1784966936,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 أوليرسباخ للرجال",
+            "ru": "ITF M25 Оллерсбах Мужчины"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 158377,
+        "name": "ITF M25 Ollersbach Men",
+        "priority": 0,
+        "slug": "itf-m25-ollersbach-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 أوليرسباخ الرجال",
+              "ru": "ITF M25 Оллерсбах среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28029,
+          "name": "ITF M25 Ollersbach Men",
+          "slug": "itf-m25-ollersbach-men",
+          "userCount": 7
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 5,
+        "period3": 3,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "changes": {
+        "changeTimestamp": 1785076369,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "firstToServe"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BlKbsMwFc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 2,
+        "period2": 7,
+        "period3": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "SI",
+          "alpha3": "SVN",
+          "name": "Slovenia",
+          "slug": "slovenia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فيليب جيف بلانينسيك",
+            "ru": "Филип Джефф Планищек"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. بلانينسيك",
+            "ru": "Ф. Планищек"
+          }
+        },
+        "gender": "M",
+        "id": 326087,
+        "name": "Filip Jeff Planinšek",
+        "nameCode": "PLA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5542
+        },
+        "ranking": 515,
+        "shortName": "F. Planinšek",
+        "slug": "planinsek-filip-jeff",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 284
+      },
+      "id": 16626913,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 98471,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "filip-jeff-planinsek-mathys-erhard",
+      "startTimestamp": 1785067744,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 أوليرسباخ للرجال",
+            "ru": "ITF M25 Оллерсбах Мужчины"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 158377,
+        "name": "ITF M25 Ollersbach Men",
+        "priority": 0,
+        "slug": "itf-m25-ollersbach-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 أوليرسباخ الرجال",
+              "ru": "ITF M25 Оллерсбах среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28029,
+          "name": "ITF M25 Ollersbach Men",
+          "slug": "itf-m25-ollersbach-men",
+          "userCount": 7
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 7,
+        "period2": 5,
+        "period3": 1,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PL",
+          "alpha3": "POL",
+          "name": "Poland",
+          "slug": "poland"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أولاف بيتشكوفسكي",
+            "ru": "Олаф Печковский"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. بيتشكوفسكي",
+            "ru": "О. Печковский"
+          }
+        },
+        "gender": "M",
+        "id": 351204,
+        "name": "Olaf Pieczkowski",
+        "nameCode": "PIE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5384
+        },
+        "ranking": 683,
+        "shortName": "O. Pieczkowski",
+        "slug": "pieczkowski-olaf",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 736
+      },
+      "awayTeamSeed": "WC",
+      "changes": {
+        "changeTimestamp": 1785856190,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BlKbsezPc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 5,
+        "period2": 7,
+        "period3": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "id": 16693954,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 90916,
+        "name": "ATP Challenger Grodzisk Mazowiecki, Poland Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "olaf-pieczkowski-mathys-erhard",
+      "startTimestamp": 1785846300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1785853558,
+        "period1": 3362,
+        "period2": 3717,
+        "period3": 2605
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1786233600,
+        "id": 193991,
+        "isGroup": false,
+        "name": "Grodzisk Mazowiecki, Poland",
+        "priority": 0,
+        "slug": "grodzisk-mazowiecki-poland",
+        "startTimestamp": 1785715200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "غروجيزك مازوفيتسكي، بولندا",
+              "ru": "Гродзиск-Мазовецкий, Польша"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18860,
+          "name": "Grodzisk Mazowiecki, Poland",
+          "slug": "grodzisk-mazowiecki-poland",
+          "tennisPoints": 100,
+          "userCount": 207
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "point": "6"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "changes": {
+        "changeTimestamp": 1786027197,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "xIusBlKb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 6,
+        "period2TieBreak": 4,
+        "point": "4"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BA",
+          "alpha3": "BIH",
+          "name": "Bosnia & Herzegovina",
+          "slug": "bosnia-and-herzegovina"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دامير دزومهور",
+            "ru": "Джумур, Дамир"
+          },
+          "shortNameTranslation": {
+            "ar": "د. دزومهور",
+            "bn": "ডি. জুমহুর",
+            "hi": "डी. दज़ुम्हुर"
+          }
+        },
+        "gender": "M",
+        "id": 49172,
+        "name": "Damir Džumhur",
+        "nameCode": "DZU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 50
+        },
+        "ranking": 104,
+        "shortName": "D. Džumhur",
+        "slug": "dzumhur-damir",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 6353
+      },
+      "homeTeamSeed": "1",
+      "id": 16661577,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 90916,
+        "name": "ATP Challenger Grodzisk Mazowiecki, Poland Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "mathys-erhard-damir-dzumhur",
+      "startTimestamp": 1786021200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1786023795,
+        "period1": 2059,
+        "period2": 3383
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1786233600,
+        "id": 193991,
+        "isGroup": false,
+        "name": "Grodzisk Mazowiecki, Poland",
+        "priority": 0,
+        "slug": "grodzisk-mazowiecki-poland",
+        "startTimestamp": 1785715200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "غروجيزك مازوفيتسكي، بولندا",
+              "ru": "Гродзиск-Мазовецкий, Польша"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18860,
+          "name": "Grodzisk Mazowiecki, Poland",
+          "slug": "grodzisk-mazowiecki-poland",
+          "tennisPoints": 100,
+          "userCount": 207
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 3,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "ES",
+          "alpha3": "ESP",
+          "name": "Spain",
+          "slug": "spain"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيفان ماريرو كوربيلو",
+            "ru": "Иван Марреро Курбело"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. كوربيلو"
+          }
+        },
+        "gender": "M",
+        "id": 195372,
+        "name": "Ivan Marrero Curbelo",
+        "nameCode": "MAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2595
+        },
+        "ranking": 354,
+        "shortName": "I. Marrero Curbelo",
+        "slug": "marrero-curbelo-ivan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 596
+      },
+      "changes": {
+        "changeTimestamp": 1786120509,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "xhDbsBlKb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "id": 16661582,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 90916,
+        "name": "ATP Challenger Grodzisk Mazowiecki, Poland Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "mathys-erhard-ivan-marrero-curbelo",
+      "startTimestamp": 1786114800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1786118397,
+        "period1": 3066,
+        "period2": 2086
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1786233600,
+        "id": 193991,
+        "isGroup": false,
+        "name": "Grodzisk Mazowiecki, Poland",
+        "priority": 0,
+        "slug": "grodzisk-mazowiecki-poland",
+        "startTimestamp": 1785715200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "غروجيزك مازوفيتسكي، بولندا",
+              "ru": "Гродзиск-Мазовецкий, Польша"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18860,
+          "name": "Grodzisk Mazowiecki, Poland",
+          "slug": "grodzisk-mazowiecki-poland",
+          "tennisPoints": 100,
+          "userCount": 207
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 3,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AT",
+          "alpha3": "AUT",
+          "name": "Austria",
+          "slug": "austria"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جويل شفايرزلر",
+            "ru": "Жоэль Шваерцлер"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. شفايرزلر",
+            "ru": "Ж. Шваерцлер"
+          }
+        },
+        "gender": "M",
+        "id": 448184,
+        "name": "Joel Schwaerzler",
+        "nameCode": "SCH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 7232
+        },
+        "ranking": 150,
+        "shortName": "J. Schwaerzler",
+        "slug": "schwarzler-joel-josef",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3055
+      },
+      "awayTeamSeed": "3",
+      "changes": {
+        "changeTimestamp": 1786195844,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BlKbsJnEd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 6,
+        "period2TieBreak": 5,
+        "period3": 4,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "id": 16661584,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 90916,
+        "name": "ATP Challenger Grodzisk Mazowiecki, Poland Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "joel-schwaerzler-mathys-erhard",
+      "startTimestamp": 1786187100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1786193015,
+        "period1": 1975,
+        "period2": 3367,
+        "period3": 2786
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1786233600,
+        "id": 193991,
+        "isGroup": false,
+        "name": "Grodzisk Mazowiecki, Poland",
+        "priority": 0,
+        "slug": "grodzisk-mazowiecki-poland",
+        "startTimestamp": 1785715200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "غروجيزك مازوفيتسكي، بولندا",
+              "ru": "Гродзиск-Мазовецкий, Польша"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18860,
+          "name": "Grodzisk Mazowiecki, Poland",
+          "slug": "grodzisk-mazowiecki-poland",
+          "tennisPoints": 100,
+          "userCount": 207
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1788178301,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BlKbsChKc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 5,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "NZ",
+          "alpha3": "NZL",
+          "name": "New Zealand",
+          "slug": "new-zealand"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنتون شاب",
+            "ru": "Антон Шепп"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. شاب",
+            "ru": "А. Шепп"
+          }
+        },
+        "gender": "M",
+        "id": 337877,
+        "name": "Anton Shepp",
+        "nameCode": "SHE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 13362
+        },
+        "ranking": 498,
+        "shortName": "A. Shepp",
+        "slug": "shepp-anton",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 336
+      },
+      "id": 16960459,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 94952,
+        "name": "ATP Challenger Manacor, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "anton-shepp-mathys-erhard",
+      "startTimestamp": 1788173100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1788174605,
+        "period1": 1421,
+        "period2": 3667
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1788220800,
+        "id": 197750,
+        "isGroup": false,
+        "name": "Manacor, Spain, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "manacor-spain-qualifying",
+        "startTimestamp": 1788134400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مايوركا، إسبانيا",
+              "ru": "Майорка, Испания"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 11121,
+          "name": "Mallorca, Spain",
+          "slug": "mallorca-spain",
+          "tennisPoints": 75,
+          "userCount": 146
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {},
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماثيس إرهارد",
+            "ru": "Матис Эрхард"
+          },
+          "shortNameTranslation": {
+            "ar": "م. إرهارد",
+            "ru": "М. Эрхард"
+          }
+        },
+        "gender": "M",
+        "id": 213076,
+        "name": "Mathys Erhard",
+        "nameCode": "ERH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4251
+        },
+        "ranking": 337,
+        "shortName": "M. Erhard",
+        "slug": "erhard-mathys",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 0
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "GTFbsBlKb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {},
+      "homeTeam": {
+        "country": {
+          "alpha2": "GB",
+          "alpha3": "GBR",
+          "name": "United Kingdom",
+          "slug": "united-kingdom"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تشارلز بروم",
+            "ru": "Чарльз Брум"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. بروم",
+            "ru": "Ч. Брум"
+          }
+        },
+        "gender": "M",
+        "id": 202181,
+        "name": "Charles Broom",
+        "nameCode": "BRO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2695
+        },
+        "ranking": 289,
+        "shortName": "C. Broom",
+        "slug": "broom-charles",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1290
+      },
+      "homeTeamSeed": "2",
+      "id": 16966196,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 94952,
+        "name": "ATP Challenger Manacor, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "mathys-erhard-charles-broom",
+      "startTimestamp": 1788341400,
+      "status": {
+        "code": 0,
+        "description": "Not started",
+        "type": "notstarted"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1788220800,
+        "id": 197750,
+        "isGroup": false,
+        "name": "Manacor, Spain, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "manacor-spain-qualifying",
+        "startTimestamp": 1788134400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مايوركا، إسبانيا",
+              "ru": "Майорка, Испания"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 11121,
+          "name": "Mallorca, Spain",
+          "slug": "mallorca-spain",
+          "tennisPoints": 75,
+          "userCount": 146
+        }
+      }
+    }
+  ],
+  "has_next_page": true,
+  "page": 0,
+  "player_id": 213076,
+  "saved_at": 1788183978.178504,
+  "saved_at_iso": "2026-08-31T13:46:18+00:00",
+  "source": "API_PRO_PREVIOUS_MATCHES",
+  "status": "OK"
+}

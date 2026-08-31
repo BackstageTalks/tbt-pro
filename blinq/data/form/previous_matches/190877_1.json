@@ -1,0 +1,7325 @@
+{
+  "api_status_code": 200,
+  "endpoint": "https://tennisapi1.p.rapidapi.com/api/tennis/player/190877/events/previous/1",
+  "events": [
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "changes": {
+        "changeTimestamp": 1771683494,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsbzOc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "period2": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماركو توبو",
+            "ru": "Марко Топо"
+          },
+          "shortNameTranslation": {
+            "ar": "م. توبو",
+            "ru": "М. Топо"
+          }
+        },
+        "gender": "M",
+        "id": 348701,
+        "name": "Marko Topo",
+        "nameCode": "TOP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4771
+        },
+        "ranking": 338,
+        "shortName": "M. Topo",
+        "slug": "topo-marko",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1661
+      },
+      "id": 15589089,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 89546,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "marko-topo-andrea-guerrieri",
+      "startTimestamp": 1771675200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 ترينتو للرجال",
+            "ru": "ITF M25 Тренто среди мужчин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 146298,
+        "name": "ITF M25 Trento Men",
+        "priority": 0,
+        "slug": "itf-m25-trento",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 ترينتو رجال",
+              "ru": "ITF M25 Тренто, мужчины"
+            },
+            "shortNameTranslation": {}
+          },
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25085,
+          "name": "ITF M25 Trento Men",
+          "slug": "itf-m25-trento",
+          "userCount": 10
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 6,
+        "period1TieBreak": 3,
+        "period2": 6,
+        "period2TieBreak": 4
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جاكوبو فاسامي",
+            "ru": "Джакопо Васами"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. فاسامي",
+            "ru": "Д. Васами"
+          }
+        },
+        "gender": "M",
+        "id": 853634,
+        "name": "Jacopo Vasamì",
+        "nameCode": "VAS",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 20727
+        },
+        "ranking": 371,
+        "shortName": "J. Vasamì",
+        "slug": "vasami-jacopo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2438
+      },
+      "changes": {
+        "changeTimestamp": 1771965541,
+        "changes": [
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period1",
+          "homeScore.period2",
+          "homeScore.period1TieBreak",
+          "homeScore.period2TieBreak",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period1",
+          "awayScore.period2",
+          "awayScore.period1TieBreak",
+          "awayScore.period2TieBreak"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsJxQg",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 7,
+        "period2TieBreak": 7
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "id": 15595618,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 89546,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "jacopo-vasami-andrea-guerrieri",
+      "startTimestamp": 1771752600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 ترينتو للرجال",
+            "ru": "ITF M25 Тренто среди мужчин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 146298,
+        "name": "ITF M25 Trento Men",
+        "priority": 0,
+        "slug": "itf-m25-trento",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 ترينتو رجال",
+              "ru": "ITF M25 Тренто, мужчины"
+            },
+            "shortNameTranslation": {}
+          },
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25085,
+          "name": "ITF M25 Trento Men",
+          "slug": "itf-m25-trento",
+          "userCount": 10
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "changes": {
+        "changeTimestamp": 1772635875,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsquRb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Carpet indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 1,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لورينزو روتولي",
+            "ru": "Роттоли, Лоренсо"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. روتولي"
+          }
+        },
+        "gender": "M",
+        "id": 230966,
+        "name": "Lorenzo Rottoli",
+        "nameCode": "ROT",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4881
+        },
+        "ranking": 899,
+        "shortName": "L. Rottoli",
+        "slug": "rottoli-lorenzo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 500
+      },
+      "id": 15652012,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 90355,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "lorenzo-rottoli-andrea-guerrieri",
+      "startTimestamp": 1772630954,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 ترينباخ للرجال",
+            "ru": "ITF M25 Тримбах, мужчины"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 147275,
+        "name": "ITF M25 Trimbach Men",
+        "priority": 0,
+        "slug": "itf-m25-trimbach-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 ترينباخ للرجال",
+              "ru": "Чемпионат ITF M25 Тримбах среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Carpet indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25315,
+          "name": "ITF M25 Trimbach Men",
+          "slug": "itf-m25-trimbach-men",
+          "userCount": 5
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 7,
+        "period1TieBreak": 11,
+        "period2": 4,
+        "period3": 4,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ألكسندر براينين",
+            "ru": "Александр Бранин"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. براينين",
+            "ru": "А. Бранин"
+          }
+        },
+        "gender": "M",
+        "id": 208160,
+        "name": "Aleksandr Braynin",
+        "nameCode": "BRA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4837
+        },
+        "ranking": 780,
+        "shortName": "A. Braynin",
+        "slug": "braynin-aleksandr",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 274
+      },
+      "changes": {
+        "changeTimestamp": 1772723873,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsknIb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Carpet indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period1TieBreak": 9,
+        "period2": 6,
+        "period3": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "id": 15663861,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 90355,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "aleksandr-braynin-andrea-guerrieri",
+      "startTimestamp": 1772711382,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 ترينباخ للرجال",
+            "ru": "ITF M25 Тримбах, мужчины"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 147275,
+        "name": "ITF M25 Trimbach Men",
+        "priority": 0,
+        "slug": "itf-m25-trimbach-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 ترينباخ للرجال",
+              "ru": "Чемпионат ITF M25 Тримбах среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Carpet indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25315,
+          "name": "ITF M25 Trimbach Men",
+          "slug": "itf-m25-trimbach-men",
+          "userCount": 5
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CH",
+          "alpha3": "CHE",
+          "name": "Switzerland",
+          "slug": "switzerland"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دومينيك ستريكر",
+            "ru": "Штрикер, Доминик Штефан"
+          },
+          "shortNameTranslation": {
+            "ar": "د. ستريكر",
+            "bn": "ডি. স্ট্রাইকার",
+            "hi": "डी. स्ट्रिकर"
+          }
+        },
+        "gender": "M",
+        "id": 296369,
+        "name": "Dominic Stricker",
+        "nameCode": "STR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4572
+        },
+        "ranking": 336,
+        "shortName": "D. Stricker",
+        "slug": "stricker-dominic-stephan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3477
+      },
+      "changes": {
+        "changeTimestamp": 1772811217,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsuCtc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Carpet indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "period2": 4,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "id": 15670485,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 90355,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "dominic-stricker-andrea-guerrieri",
+      "startTimestamp": 1772806096,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 ترينباخ للرجال",
+            "ru": "ITF M25 Тримбах, мужчины"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 147275,
+        "name": "ITF M25 Trimbach Men",
+        "priority": 0,
+        "slug": "itf-m25-trimbach-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF M25 ترينباخ للرجال",
+              "ru": "Чемпионат ITF M25 Тримбах среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Carpet indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25315,
+          "name": "ITF M25 Trimbach Men",
+          "slug": "itf-m25-trimbach-men",
+          "userCount": 5
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 1,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ياكوبو بيلاردو",
+            "ru": "Джакопо Билардо"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. بيلاردو",
+            "ru": "Д. Билардо"
+          }
+        },
+        "gender": "M",
+        "id": 418787,
+        "name": "Jacopo Bilardo",
+        "nameCode": "BIL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 18155
+        },
+        "ranking": 1136,
+        "shortName": "J. Bilardo",
+        "slug": "bilardo-jacopo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 265
+      },
+      "awayTeamSeed": "A",
+      "changes": {
+        "changeTimestamp": 1774188684,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsMArd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "homeTeamSeed": "6",
+      "id": 15844320,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 87421,
+        "name": "ATP Challenger Naples, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "jacopo-bilardo-andrea-guerrieri",
+      "startTimestamp": 1774183200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1774186578,
+        "period1": 2280,
+        "period2": 1914
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1774224000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نابولي، إيطاليا، تصفيات",
+            "ru": "Неаполь, Италия, отборочный."
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 178790,
+        "isGroup": false,
+        "name": "Naples, Italy, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "naples-italy-qualifying",
+        "startTimestamp": 1774137600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "نابولي، إيطاليا",
+              "ru": "Неаполь, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 22156,
+          "name": "Napoli, Italy",
+          "slug": "atp-challenger-naples-italy-men-singles",
+          "userCount": 245
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "period2TieBreak": 8,
+        "point": "7"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فيديريكو بونديولي",
+            "ru": "Федерико Бондиоли"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. بونديولي",
+            "ru": "Ф. Бондиоли"
+          }
+        },
+        "gender": "M",
+        "id": 407383,
+        "name": "Federico Bondioli",
+        "nameCode": "BON",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5716
+        },
+        "ranking": 295,
+        "shortName": "F. Bondioli",
+        "slug": "bondioli-federico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1590
+      },
+      "awayTeamSeed": "9",
+      "changes": {
+        "changeTimestamp": 1774269133,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsIXmd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 6,
+        "period2TieBreak": 6,
+        "point": "6"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "homeTeamSeed": "6",
+      "id": 15848995,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 87421,
+        "name": "ATP Challenger Naples, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "federico-bondioli-andrea-guerrieri",
+      "startTimestamp": 1774260900,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1774264196,
+        "period1": 2777,
+        "period2": 4892
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1774224000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نابولي، إيطاليا، تصفيات",
+            "ru": "Неаполь, Италия, отборочный."
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 178790,
+        "isGroup": false,
+        "name": "Naples, Italy, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "naples-italy-qualifying",
+        "startTimestamp": 1774137600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "نابولي، إيطاليا",
+              "ru": "Неаполь, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 22156,
+          "name": "Napoli, Italy",
+          "slug": "atp-challenger-naples-italy-men-singles",
+          "userCount": 245
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "period3": 6,
+        "period3TieBreak": 7,
+        "point": "7"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ستيفانو ترافاليا",
+            "bn": "স্টেফানো ট্রাভাগ্লিয়া",
+            "hi": "स्टेफानो त्रावालिया",
+            "ru": "Траваглиа, Стефано"
+          },
+          "shortNameTranslation": {
+            "ar": "س. ترافاليا"
+          }
+        },
+        "gender": "M",
+        "id": 36300,
+        "name": "Stefano Travaglia",
+        "nameCode": "TRA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 161
+        },
+        "ranking": 140,
+        "shortName": "S. Travaglia",
+        "slug": "travaglia-stefano",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3435
+      },
+      "changes": {
+        "changeTimestamp": 1774375077,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period3",
+          "homeScore.period3TieBreak",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "aBosCrBb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 9,
+        "period2": 2,
+        "period3": 7,
+        "period3TieBreak": 9,
+        "point": "8"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "homeTeamSeed": "LL",
+      "id": 15855389,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 87421,
+        "name": "ATP Challenger Naples, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "andrea-guerrieri-stefano-travaglia",
+      "startTimestamp": 1774362000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1774369077,
+        "period1": 4375,
+        "period2": 2228,
+        "period3": 5990
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1774742400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نابولي، إيطاليا",
+            "ru": "Неаполь, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 178620,
+        "isGroup": false,
+        "name": "Naples, Italy",
+        "priority": 0,
+        "slug": "naples-italy",
+        "startTimestamp": 1774224000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "نابولي، إيطاليا",
+              "ru": "Неаполь, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 22156,
+          "name": "Napoli, Italy",
+          "slug": "atp-challenger-naples-italy-men-singles",
+          "userCount": 245
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 4,
+        "period2": 6,
+        "period3": 3,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "awayTeamSeed": "LL",
+      "changes": {
+        "changeTimestamp": 1774535809,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "iUabsCrBb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 4,
+        "period3": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دانييل ألتماير",
+            "ru": "Альтмайер, Даниэль"
+          },
+          "shortNameTranslation": {
+            "ar": "د. ألتماير",
+            "bn": "ডি. অল্টমায়ার",
+            "hi": "डी. अल्टमायर"
+          }
+        },
+        "gender": "M",
+        "id": 127208,
+        "name": "Daniel Altmaier",
+        "nameCode": "ALT",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2163
+        },
+        "ranking": 65,
+        "shortName": "D. Altmaier",
+        "slug": "altmaier-daniel",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 8348
+      },
+      "homeTeamSeed": "1",
+      "id": 15827215,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 87421,
+        "name": "ATP Challenger Naples, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "andrea-guerrieri-daniel-altmaier",
+      "startTimestamp": 1774526400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1774533006,
+        "period1": 2399,
+        "period2": 3440,
+        "period3": 2779
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1774742400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نابولي، إيطاليا",
+            "ru": "Неаполь, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 178620,
+        "isGroup": false,
+        "name": "Naples, Italy",
+        "priority": 0,
+        "slug": "naples-italy",
+        "startTimestamp": 1774224000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "نابولي، إيطاليا",
+              "ru": "Неаполь, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 22156,
+          "name": "Napoli, Italy",
+          "slug": "atp-challenger-naples-italy-men-singles",
+          "userCount": 245
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 2,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لويس ويسلز",
+            "bn": "লুই ওয়েসেলস",
+            "hi": "लुईस वेसल्स",
+            "ru": "Вессельс, Луис"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. ويسلز"
+          }
+        },
+        "gender": "M",
+        "id": 180446,
+        "name": "Louis Wessels",
+        "nameCode": "WES",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 708
+        },
+        "ranking": 530,
+        "shortName": "L. Wessels",
+        "slug": "wessels-louis",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 583
+      },
+      "changes": {
+        "changeTimestamp": 1774794119,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "WixbsCrBb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "homeTeamSeed": "5",
+      "id": 15900773,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 87455,
+        "name": "ATP Challenger Barletta, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "andrea-guerrieri-louis-wessels",
+      "startTimestamp": 1774787100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1774790934,
+        "period1": 3159,
+        "period2": 3129
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1774828800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بارليتا، إيطاليا، التصفيات",
+            "ru": "Барлетта, Италия, Отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 179391,
+        "isGroup": false,
+        "name": "Barletta, Italy, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "barletta-italy-qualifying",
+        "startTimestamp": 1774742400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بارليتا، إيطاليا",
+              "ru": "Барлетта, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3420,
+          "name": "Barletta, Italy",
+          "slug": "barletta-italy",
+          "userCount": 213
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 4,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بييترو أورلاندو فيلين",
+            "ru": "Пьетро Орландо Феллин"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. فيلين",
+            "ru": "П. Феллин"
+          }
+        },
+        "gender": "M",
+        "id": 262405,
+        "name": "Pietro Orlando Fellin",
+        "nameCode": "FEL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 12671
+        },
+        "ranking": 539,
+        "shortName": "P. O. Fellin",
+        "slug": "fellin-pietro-orlando",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 593
+      },
+      "awayTeamSeed": "9",
+      "changes": {
+        "changeTimestamp": 1774872699,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsfYec",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "homeTeamSeed": "5",
+      "id": 15906946,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 87455,
+        "name": "ATP Challenger Barletta, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "pietro-orlando-fellin-andrea-guerrieri",
+      "startTimestamp": 1774866300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1774869539,
+        "period1": 2724,
+        "period2": 3135
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1774828800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بارليتا، إيطاليا، التصفيات",
+            "ru": "Барлетта, Италия, Отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 179391,
+        "isGroup": false,
+        "name": "Barletta, Italy, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "barletta-italy-qualifying",
+        "startTimestamp": 1774742400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بارليتا، إيطاليا",
+              "ru": "Барлетта, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3420,
+          "name": "Barletta, Italy",
+          "slug": "barletta-italy",
+          "userCount": 213
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 3,
+        "period3": 4,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PL",
+          "alpha3": "POL",
+          "name": "Poland",
+          "slug": "poland"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكس كاسنيكوسكي",
+            "ru": "Макс Касниковский"
+          },
+          "shortNameTranslation": {
+            "ar": "م. كاسنيكوسكي",
+            "ru": "М. Касниковский"
+          }
+        },
+        "gender": "M",
+        "id": 342835,
+        "name": "Maks Kasnikowski",
+        "nameCode": "KAS",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5103
+        },
+        "ranking": 234,
+        "shortName": "M. Kasnikowski",
+        "slug": "kasnikowski-maks",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2976
+      },
+      "awayTeamSeed": "A",
+      "changes": {
+        "changeTimestamp": 1775159894,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsKgMc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 3,
+        "period2": 6,
+        "period3": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "homeTeamSeed": "Q",
+      "id": 15911855,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 87455,
+        "name": "ATP Challenger Barletta, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maks-kasnikowski-andrea-guerrieri",
+      "startTimestamp": 1775150400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1775156718,
+        "period1": 2536,
+        "period2": 3044,
+        "period3": 3124
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1775347200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بارليتا، إيطاليا",
+            "ru": "Барлетта, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 179238,
+        "isGroup": false,
+        "name": "Barletta, Italy",
+        "priority": 0,
+        "slug": "barletta-italy",
+        "startTimestamp": 1774828800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بارليتا، إيطاليا",
+              "ru": "Барлетта, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3420,
+          "name": "Barletta, Italy",
+          "slug": "barletta-italy",
+          "userCount": 213
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 4,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1775228727,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbstTJd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ميشيل ريبكاي",
+            "ru": "Микеле Рибекай"
+          },
+          "shortNameTranslation": {
+            "ar": "م. ريبكاي",
+            "ru": "М. Рибекай"
+          }
+        },
+        "gender": "M",
+        "id": 462168,
+        "name": "Michele Ribecai",
+        "nameCode": "RIB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 12731
+        },
+        "ranking": 260,
+        "shortName": "M. Ribecai",
+        "slug": "ribecai-michele",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 906
+      },
+      "homeTeamSeed": "LL",
+      "id": 15886150,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 87455,
+        "name": "ATP Challenger Barletta, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "michele-ribecai-andrea-guerrieri",
+      "startTimestamp": 1775222400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1775225264,
+        "period1": 2184,
+        "period2": 3398
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1775347200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بارليتا، إيطاليا",
+            "ru": "Барлетта, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 179238,
+        "isGroup": false,
+        "name": "Barletta, Italy",
+        "priority": 0,
+        "slug": "barletta-italy",
+        "startTimestamp": 1774828800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بارليتا، إيطاليا",
+              "ru": "Барлетта, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3420,
+          "name": "Barletta, Italy",
+          "slug": "barletta-italy",
+          "userCount": 213
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "awayTeamSeed": "12",
+      "changes": {
+        "changeTimestamp": 1775390202,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "XPrsCrBb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 5,
+        "period2": 2,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "MD",
+          "alpha3": "MDA",
+          "name": "Moldova",
+          "slug": "moldova"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "رادو ألبوت",
+            "bn": "রাডু অ্যালবট",
+            "hi": "राडु अलबोट",
+            "ru": "Албот, Раду"
+          },
+          "shortNameTranslation": {
+            "ar": "ر. ألبوت"
+          }
+        },
+        "gender": "M",
+        "id": 44547,
+        "name": "Radu Albot",
+        "nameCode": "ALB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 52
+        },
+        "ranking": 512,
+        "shortName": "R. Albot",
+        "slug": "albot-radu",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2049
+      },
+      "id": 15949870,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 88852,
+        "name": "ATP Challenger Monza, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "andrea-guerrieri-radu-albot",
+      "startTimestamp": 1775383800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1775387665,
+        "period1": 3156,
+        "period2": 2509
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1775433600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مونزا، إيطاليا، التصفيات",
+            "ru": "Модена, Италия, отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 180205,
+        "isGroup": false,
+        "name": "Monza, Italy, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "monza-italy-qualifying",
+        "startTimestamp": 1775347200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مونزا، إيطاليا",
+              "ru": "Монца, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3465,
+          "name": "Monza, Italy",
+          "slug": "monza-italy-men-singles",
+          "userCount": 215
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 5,
+        "period2": 6,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "awayTeamSeed": "12",
+      "changes": {
+        "changeTimestamp": 1775476186,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsIXmd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 7,
+        "period2": 4,
+        "period3": 4,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فيديريكو بونديولي",
+            "ru": "Федерико Бондиоли"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. بونديولي",
+            "ru": "Ф. Бондиоли"
+          }
+        },
+        "gender": "M",
+        "id": 407383,
+        "name": "Federico Bondioli",
+        "nameCode": "BON",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5716
+        },
+        "ranking": 295,
+        "shortName": "F. Bondioli",
+        "slug": "bondioli-federico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1590
+      },
+      "homeTeamSeed": "6",
+      "id": 15953751,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 88852,
+        "name": "ATP Challenger Monza, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "federico-bondioli-andrea-guerrieri",
+      "startTimestamp": 1775462400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1775471694,
+        "period1": 4892,
+        "period2": 3723,
+        "period3": 4458
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1775433600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مونزا، إيطاليا، التصفيات",
+            "ru": "Модена, Италия, отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 180205,
+        "isGroup": false,
+        "name": "Monza, Italy, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "monza-italy-qualifying",
+        "startTimestamp": 1775347200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مونزا، إيطاليا",
+              "ru": "Монца, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3465,
+          "name": "Monza, Italy",
+          "slug": "monza-italy-men-singles",
+          "userCount": 215
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1775554622,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsBkRc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 2,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "NL",
+          "alpha3": "NLD",
+          "name": "Netherlands",
+          "slug": "netherlands"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "غاي دين أودن",
+            "ru": "Ги Дэн Оуден"
+          },
+          "shortNameTranslation": {
+            "ar": "غ. أودن",
+            "ru": "Г. Оуден"
+          }
+        },
+        "gender": "M",
+        "id": 355526,
+        "name": "Guy Den Ouden",
+        "nameCode": "DEN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4976
+        },
+        "ranking": 215,
+        "shortName": "G. Den Ouden",
+        "slug": "den-ouden-guy",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1638
+      },
+      "id": 15961844,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 88852,
+        "name": "ATP Challenger Monza, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "guy-den-ouden-andrea-guerrieri",
+      "startTimestamp": 1775548800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1775552240,
+        "period1": 2805,
+        "period2": 2348
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1775952000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مونزا، إيطاليا",
+            "ru": "Монца, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 179712,
+        "isGroup": false,
+        "name": "Monza, Italy",
+        "priority": 0,
+        "slug": "monza-italy",
+        "startTimestamp": 1775433600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مونزا، إيطاليا",
+              "ru": "Монца, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3465,
+          "name": "Monza, Italy",
+          "slug": "monza-italy-men-singles",
+          "userCount": 215
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماتيا بيلوتشي",
+            "bn": "মাতিয়া বেলুচি",
+            "hi": "मैटिया बेलुचि",
+            "ru": "Маттиа Беллуччи"
+          },
+          "shortNameTranslation": {
+            "ar": "م. بيلوتشي",
+            "ru": "М. Беллуччи"
+          }
+        },
+        "gender": "M",
+        "id": 294337,
+        "name": "Mattia Bellucci",
+        "nameCode": "BEL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3143
+        },
+        "ranking": 81,
+        "shortName": "M. Bellucci",
+        "slug": "bellucci-mattia",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 10588
+      },
+      "awayTeamSeed": "3",
+      "changes": {
+        "changeTimestamp": 1775654484,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsMLrc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 4,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "homeTeamSeed": "Q",
+      "id": 15921235,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 88852,
+        "name": "ATP Challenger Monza, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "mattia-bellucci-andrea-guerrieri",
+      "startTimestamp": 1775647800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1775650710,
+        "period1": 2336,
+        "period2": 3580
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1775952000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مونزا، إيطاليا",
+            "ru": "Монца, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 179712,
+        "isGroup": false,
+        "name": "Monza, Italy",
+        "priority": 0,
+        "slug": "monza-italy",
+        "startTimestamp": 1775433600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مونزا، إيطاليا",
+              "ru": "Монца, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3465,
+          "name": "Monza, Italy",
+          "slug": "monza-italy-men-singles",
+          "userCount": 215
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1776592813,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsWbRc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 4,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AT",
+          "alpha3": "AUT",
+          "name": "Austria",
+          "slug": "austria"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سيباستيان سورجر",
+            "ru": "Себастьян Соргер"
+          },
+          "shortNameTranslation": {
+            "ar": "س. سورجر",
+            "ru": "С. Соргер"
+          }
+        },
+        "gender": "M",
+        "id": 355096,
+        "name": "Sebastian Sorger",
+        "nameCode": "SOR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5420
+        },
+        "ranking": 410,
+        "shortName": "S. Sorger",
+        "slug": "sorger-sebastian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 588
+      },
+      "id": 16031385,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 88860,
+        "name": "ATP Challenger Rome, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "sebastian-sorger-andrea-guerrieri",
+      "startTimestamp": 1776585600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1776589536,
+        "period1": 3378,
+        "period2": 3228
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1776643200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "روما، إيطاليا، التصفيات",
+            "ru": "Рим, Италия, Квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 181735,
+        "isGroup": false,
+        "name": "Rome, Italy, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "rome-italy-qualifying",
+        "startTimestamp": 1776556800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "روما، إيطاليا",
+              "ru": "Рим, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3841,
+          "name": "Rome, Italy",
+          "slug": "rome-italy",
+          "userCount": 216
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 3,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1776682119,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.normaltime",
+          "awayScore.normaltime",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsqKkc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 6,
+        "period2TieBreak": 2,
+        "period3": 3,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "ES",
+          "alpha3": "ESP",
+          "name": "Spain",
+          "slug": "spain"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليكس مارتينيز",
+            "ru": "Алекс Мартинес"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. مارتينيز",
+            "ru": "А. Мартинес"
+          }
+        },
+        "gender": "M",
+        "id": 276766,
+        "name": "Alex Martinez",
+        "nameCode": "MAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3113
+        },
+        "ranking": 367,
+        "shortName": "A. Martinez",
+        "slug": "martinez-alex",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 642
+      },
+      "homeTeamSeed": "5",
+      "id": 16035241,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 88860,
+        "name": "ATP Challenger Rome, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "alex-martinez-andrea-guerrieri",
+      "startTimestamp": 1776672000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1776679534,
+        "period1": 2316,
+        "period2": 4534,
+        "period3": 2396
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1776643200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "روما، إيطاليا، التصفيات",
+            "ru": "Рим, Италия, Квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 181735,
+        "isGroup": false,
+        "name": "Rome, Italy, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "rome-italy-qualifying",
+        "startTimestamp": 1776556800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "روما، إيطاليا",
+              "ru": "Рим, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3841,
+          "name": "Rome, Italy",
+          "slug": "rome-italy",
+          "userCount": 216
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1776777548,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsIXmd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 4,
+        "period2": 2,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فيديريكو بونديولي",
+            "ru": "Федерико Бондиоли"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. بونديولي",
+            "ru": "Ф. Бондиоли"
+          }
+        },
+        "gender": "M",
+        "id": 407383,
+        "name": "Federico Bondioli",
+        "nameCode": "BON",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5716
+        },
+        "ranking": 295,
+        "shortName": "F. Bondioli",
+        "slug": "bondioli-federico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1590
+      },
+      "homeTeamSeed": "WC",
+      "id": 16041098,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 88860,
+        "name": "ATP Challenger Rome, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "federico-bondioli-andrea-guerrieri",
+      "startTimestamp": 1776768900,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1776774378,
+        "period1": 4944,
+        "period2": 3121
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1777161600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "روما، إيطاليا",
+            "ru": "Рим, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 181216,
+        "isGroup": false,
+        "name": "Rome, Italy",
+        "priority": 0,
+        "slug": "rome-italy",
+        "startTimestamp": 1776643200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "روما، إيطاليا",
+              "ru": "Рим, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3841,
+          "name": "Rome, Italy",
+          "slug": "rome-italy",
+          "userCount": 216
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 3,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "GB",
+          "alpha3": "GBR",
+          "name": "United Kingdom",
+          "slug": "united-kingdom"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "آرثر فيري",
+            "ru": "Артур Фери"
+          },
+          "shortNameTranslation": {
+            "ar": "آ. فيري",
+            "ru": "А. Фери"
+          }
+        },
+        "gender": "M",
+        "id": 321789,
+        "name": "Arthur Fery",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4454
+        },
+        "ranking": 37,
+        "shortName": "A. Fery",
+        "slug": "fery-arthur",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 7520
+      },
+      "awayTeamSeed": "3",
+      "changes": {
+        "changeTimestamp": 1776952703,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsOKDc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "homeTeamSeed": "Q",
+      "id": 16009985,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 88860,
+        "name": "ATP Challenger Rome, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "arthur-fery-andrea-guerrieri",
+      "startTimestamp": 1776945900,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1776949597,
+        "period1": 3110,
+        "period2": 3079
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1777161600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "روما، إيطاليا",
+            "ru": "Рим, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 181216,
+        "isGroup": false,
+        "name": "Rome, Italy",
+        "priority": 0,
+        "slug": "rome-italy",
+        "startTimestamp": 1776643200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "روما، إيطاليا",
+              "ru": "Рим, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3841,
+          "name": "Rome, Italy",
+          "slug": "rome-italy",
+          "userCount": 216
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1777035402,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsZaRb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 4,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "RO",
+          "alpha3": "ROU",
+          "name": "Romania",
+          "slug": "romania"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فيليب كريستيان جيانو",
+            "ru": "Джиану, Филип Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. جيانو"
+          }
+        },
+        "gender": "M",
+        "id": 230049,
+        "name": "Filip Cristian Jianu",
+        "nameCode": "JIA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2954
+        },
+        "ranking": 284,
+        "shortName": "F. Jianu",
+        "slug": "jianu-filip-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1586
+      },
+      "id": 16009977,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 88860,
+        "name": "ATP Challenger Rome, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "filip-cristian-jianu-andrea-guerrieri",
+      "startTimestamp": 1777030200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1777032135,
+        "period1": 1532,
+        "period2": 3207
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1777161600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "روما، إيطاليا",
+            "ru": "Рим, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 181216,
+        "isGroup": false,
+        "name": "Rome, Italy",
+        "priority": 0,
+        "slug": "rome-italy",
+        "startTimestamp": 1776643200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "روما، إيطاليا",
+              "ru": "Рим, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3841,
+          "name": "Rome, Italy",
+          "slug": "rome-italy",
+          "userCount": 216
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 5,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "ES",
+          "alpha3": "ESP",
+          "name": "Spain",
+          "slug": "spain"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بول مارتن تيفون",
+            "ru": "Мартин Тиффон, Поль"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. تيفون"
+          }
+        },
+        "gender": "M",
+        "id": 217448,
+        "name": "Pol Martin Tiffon",
+        "nameCode": "MAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2849
+        },
+        "ranking": 209,
+        "shortName": "P. Martin Tiffon",
+        "slug": "martin-tiffon-pol",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1438
+      },
+      "awayTeamSeed": "A",
+      "changes": {
+        "changeTimestamp": 1777134121,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsYYLb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "homeTeamSeed": "Q",
+      "id": 16009978,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 88860,
+        "name": "ATP Challenger Rome, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "pol-martin-tiffon-andrea-guerrieri",
+      "startTimestamp": 1777126500,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1777129786,
+        "period1": 2707,
+        "period2": 4279
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1777161600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "روما، إيطاليا",
+            "ru": "Рим, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 181216,
+        "isGroup": false,
+        "name": "Rome, Italy",
+        "priority": 0,
+        "slug": "rome-italy",
+        "startTimestamp": 1776643200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "روما، إيطاليا",
+              "ru": "Рим, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3841,
+          "name": "Rome, Italy",
+          "slug": "rome-italy",
+          "userCount": 216
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 2,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1777217593,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsxcec",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 4,
+        "period2": 6,
+        "period3": 1,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "داليبور سفرتشينا",
+            "ru": "Сврчина, Далибор"
+          },
+          "shortNameTranslation": {
+            "ar": "د. سفرتشينا",
+            "bn": "ডি. শভরিনা",
+            "hi": "डी. श्वर्किना"
+          }
+        },
+        "gender": "M",
+        "id": 260122,
+        "name": "Dalibor Svrčina",
+        "nameCode": "SVR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3921
+        },
+        "ranking": 114,
+        "shortName": "D. Svrčina",
+        "slug": "svrcina-dalibor",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3131
+      },
+      "homeTeamSeed": "1",
+      "id": 16009983,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 88860,
+        "name": "ATP Challenger Rome, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "dalibor-svrcina-andrea-guerrieri",
+      "startTimestamp": 1777208400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1777215233,
+        "period1": 2844,
+        "period2": 3332,
+        "period3": 2296
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1777161600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "روما، إيطاليا",
+            "ru": "Рим, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 181216,
+        "isGroup": false,
+        "name": "Rome, Italy",
+        "priority": 0,
+        "slug": "rome-italy",
+        "startTimestamp": 1776643200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "روما، إيطاليا",
+              "ru": "Рим, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3841,
+          "name": "Rome, Italy",
+          "slug": "rome-italy",
+          "userCount": 216
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "period2TieBreak": 2,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "خايمي فاريا",
+            "ru": "Хайме Фария"
+          },
+          "shortNameTranslation": {
+            "ar": "خ. فاريا",
+            "ru": "Х. Фария"
+          }
+        },
+        "gender": "M",
+        "id": 341818,
+        "name": "Jaime Faria",
+        "nameCode": "FAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5418
+        },
+        "ranking": 79,
+        "shortName": "J. Faria",
+        "slug": "faria-jaime",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9036
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1777393569,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbstLLc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 3,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 4,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "id": 16073551,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 88964,
+        "name": "ATP Challenger Mauthausen, Austria Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "jaime-faria-andrea-guerrieri",
+      "startTimestamp": 1777383900,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1777390634,
+        "period1": 2405,
+        "period2": 3874,
+        "period3": 2744
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1777766400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماوتهاوزن، النمسا",
+            "ru": "Маутхаузен, Австрия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 181995,
+        "isGroup": false,
+        "name": "Mauthausen, Austria",
+        "priority": 0,
+        "slug": "mauthausen-austria",
+        "startTimestamp": 1777248000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ماوتهاوزن، النمسا",
+              "ru": "Маутхаузен, Австрия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 22392,
+          "name": "Mauthausen, Austria",
+          "slug": "atp-challenger-mauthausen-austria-men-singles",
+          "userCount": 163
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "awayTeamSeed": "9",
+      "changes": {
+        "changeTimestamp": 1777804921,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsHTud",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 3,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بنجامين كيتاي",
+            "ru": "Бенджамин Киттай"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. كيتاي",
+            "ru": "Б. Киттай"
+          }
+        },
+        "gender": "M",
+        "id": 424682,
+        "name": "Benjamin Kittay",
+        "nameCode": "KIT",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 36689
+        },
+        "shortName": "B. Kittay",
+        "slug": "kittay-benjamin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 73
+      },
+      "homeTeamSeed": "A",
+      "id": 16114678,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 88954,
+        "name": "ATP Challenger Francavilla, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "benjamin-kittay-andrea-guerrieri",
+      "startTimestamp": 1777798800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1777801850,
+        "period1": 2435,
+        "period2": 3048
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1777852800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تصفيات فرانكافيللا، إيطاليا",
+            "ru": "Francavilla, Italy, Qualifying"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 183289,
+        "isGroup": false,
+        "name": "Francavilla, Italy, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "francavilla-italy-qualifying",
+        "startTimestamp": 1777766400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "فرانكافيللا، إيطاليا",
+              "ru": "Франкавилла, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 10247,
+          "name": "Francavilla, Italy",
+          "slug": "francavilla-italy",
+          "userCount": 125
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "awayTeamSeed": "9",
+      "changes": {
+        "changeTimestamp": 1777892578,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "gmBsCrBb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 3,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فرانكو أجامينوني",
+            "bn": "ফ্রাঙ্কো আগামেনোন",
+            "hi": "फ्रांको अगामेनोन",
+            "ru": "Агаменоне, Франко"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. أجامينوني"
+          }
+        },
+        "gender": "M",
+        "id": 65606,
+        "name": "Franco Agamenone",
+        "nameCode": "AGA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1589
+        },
+        "ranking": 265,
+        "shortName": "F. Agamenone",
+        "slug": "agamenone-franco",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1693
+      },
+      "homeTeamSeed": "5",
+      "id": 16118854,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 88954,
+        "name": "ATP Challenger Francavilla, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "andrea-guerrieri-franco-agamenone",
+      "startTimestamp": 1777885200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1777889257,
+        "period1": 3457,
+        "period2": 3255
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1777852800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تصفيات فرانكافيللا، إيطاليا",
+            "ru": "Francavilla, Italy, Qualifying"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 183289,
+        "isGroup": false,
+        "name": "Francavilla, Italy, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "francavilla-italy-qualifying",
+        "startTimestamp": 1777766400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "فرانكافيللا، إيطاليا",
+              "ru": "Франкавилла, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 10247,
+          "name": "Francavilla, Italy",
+          "slug": "francavilla-italy",
+          "userCount": 125
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "TW",
+          "alpha3": "TWN",
+          "name": "Chinese Taipei",
+          "slug": "chinese-taipei"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تشون-هسين تسينغ",
+            "bn": "চুন সিন সেং",
+            "hi": "चुन हसिन त्सेंग",
+            "ru": "Цен, Чун Син"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. تسينغ"
+          }
+        },
+        "gender": "M",
+        "id": 207034,
+        "name": "Chun-Hsin Tseng",
+        "nameCode": "TSE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 703
+        },
+        "ranking": 269,
+        "shortName": "C. Tseng",
+        "slug": "tseng-chun-hsin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2804
+      },
+      "awayTeamSeed": "2",
+      "changes": {
+        "changeTimestamp": 1778014438,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsJPHb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 2,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "homeTeamSeed": "Q",
+      "id": 16126022,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 88954,
+        "name": "ATP Challenger Francavilla, Italy Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "chun-hsin-tseng-andrea-guerrieri",
+      "startTimestamp": 1778007600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1778011469,
+        "period1": 3231,
+        "period2": 2947
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1778371200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فرانكافيللا، إيطاليا",
+            "ru": "Франкавилла, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 182954,
+        "isGroup": false,
+        "name": "Francavilla, Italy",
+        "priority": 0,
+        "slug": "francavilla-italy",
+        "startTimestamp": 1777852800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "فرانكافيللا، إيطاليا",
+              "ru": "Франкавилла, Италия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 10247,
+          "name": "Francavilla, Italy",
+          "slug": "francavilla-italy",
+          "userCount": 125
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 1,
+        "period2": 3,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جاكومو كريسوستومو",
+            "ru": "Джакомо Крисостомо"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. كريسوستومو",
+            "ru": "Д. Крисостомо"
+          }
+        },
+        "gender": "M",
+        "id": 390223,
+        "name": "Giacomo Crisostomo",
+        "nameCode": "CRI",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 22199
+        },
+        "ranking": 1149,
+        "shortName": "G. Crisostomo",
+        "slug": "crisostomo-giacomo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 158
+      },
+      "changes": {
+        "changeTimestamp": 1778600534,
+        "changes": [
+          "firstToServe"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsyegd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "id": 16165456,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 94280,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "giacomo-crisostomo-andrea-guerrieri",
+      "startTimestamp": 1778595140,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 ريجيو إميليا للرجال",
+            "ru": "ITF M25 Реджио-Эмилия среди мужчин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 152070,
+        "name": "ITF M25 Reggio Emilia Men",
+        "priority": 0,
+        "slug": "itf-m25-reggio-emilia",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كأس ITF M25 ريجيو إميليا رجال",
+              "ru": "ITF M25 Реджо-Эмилия, среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 26550,
+          "name": "ITF M25 Reggio Emilia Men",
+          "slug": "itf-m25-reggio-emilia",
+          "userCount": 14
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 0,
+        "period2": 0,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ميشيل ميكاريللي",
+            "ru": "Микеле Мекарелли"
+          },
+          "shortNameTranslation": {
+            "ar": "م. ميكاريللي",
+            "ru": "М. Мекарелли"
+          }
+        },
+        "gender": "M",
+        "id": 487990,
+        "name": "Michele Mecarelli",
+        "nameCode": "MEC",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 31959
+        },
+        "ranking": 965,
+        "shortName": "M. Mecarelli",
+        "slug": "mecarelli-michele",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 229
+      },
+      "changes": {
+        "changeTimestamp": 1778693839,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrBbsPjVd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 0,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا غويرييري",
+            "ru": "Гуеррьери, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غويرييري"
+          }
+        },
+        "gender": "M",
+        "id": 190877,
+        "name": "Andrea Guerrieri",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2523
+        },
+        "ranking": 189,
+        "shortName": "A. Guerrieri",
+        "slug": "guerrieri-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1641
+      },
+      "id": 16171612,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 94280,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "michele-mecarelli-andrea-guerrieri",
+      "startTimestamp": 1778692173,
+      "status": {
+        "code": 92,
+        "description": "Retired",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF M25 ريجيو إميليا للرجال",
+            "ru": "ITF M25 Реджио-Эмилия среди мужчин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 152070,
+        "name": "ITF M25 Reggio Emilia Men",
+        "priority": 0,
+        "slug": "itf-m25-reggio-emilia",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كأس ITF M25 ريجيو إميليا رجال",
+              "ru": "ITF M25 Реджо-Эмилия, среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 26550,
+          "name": "ITF M25 Reggio Emilia Men",
+          "slug": "itf-m25-reggio-emilia",
+          "userCount": 14
+        }
+      },
+      "winnerCode": 1
+    }
+  ],
+  "has_next_page": true,
+  "page": 1,
+  "player_id": 190877,
+  "saved_at": 1788182988.3608732,
+  "saved_at_iso": "2026-08-31T13:29:48+00:00",
+  "source": "API_PRO_PREVIOUS_MATCHES",
+  "status": "OK"
+}

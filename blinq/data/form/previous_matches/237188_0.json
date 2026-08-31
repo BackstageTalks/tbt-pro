@@ -1,0 +1,7347 @@
+{
+  "api_status_code": 200,
+  "endpoint": "https://tennisapi1.p.rapidapi.com/api/tennis/player/237188/events/previous/0",
+  "events": [
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 1,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "RU",
+          "alpha3": "RUS",
+          "name": "Russia",
+          "slug": "russia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بيتر بار بيريوكوف",
+            "ru": "Петр Бар Бирюков"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. بيريوكوف",
+            "ru": "П. Бирюков"
+          }
+        },
+        "gender": "M",
+        "id": 373829,
+        "name": "Petr Bar Biryukov",
+        "nameCode": "BAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4940
+        },
+        "ranking": 273,
+        "shortName": "P. Bar Biryukov",
+        "slug": "bar-biryukov-petr",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1165
+      },
+      "awayTeamSeed": "LL",
+      "changes": {
+        "changeTimestamp": 1756973161,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "NTUbsEBZc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "id": 14552526,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 76539,
+        "name": "ATP Challenger Shanghai, China Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "petr-bar-biryukov-giulio-zeppieri",
+      "startTimestamp": 1756969200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1756971376,
+        "period1": 1645,
+        "period2": 1719
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1757203200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "شنغهاي، الصين",
+            "ru": "Шанхай, Китай"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 161845,
+        "isGroup": false,
+        "name": "Shanghai, China",
+        "priority": 0,
+        "slug": "shanghai-china",
+        "startTimestamp": 1756684800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "شنغهاي، الصين",
+              "ru": "Шанхай, Китай"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 4136,
+          "name": "Shanghai, China",
+          "slug": "shanghai-china",
+          "tennisPoints": 100,
+          "userCount": 81
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "changes": {
+        "changeTimestamp": 1757077375,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "kTusNTUb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 3,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "PL",
+          "alpha3": "POL",
+          "name": "Poland",
+          "slug": "poland"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فيليب بيليو",
+            "bn": "ফিলিপজ পেলিও",
+            "hi": "फिलिप पेलिवो",
+            "ru": "Пеливо, Филип"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. بيليو"
+          }
+        },
+        "gender": "M",
+        "id": 49660,
+        "name": "Filip Peliwo",
+        "nameCode": "PEL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 350
+        },
+        "ranking": 555,
+        "shortName": "F. Peliwo",
+        "slug": "peliwo-filip",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 798
+      },
+      "homeTeamSeed": "Q",
+      "id": 14552522,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 76539,
+        "name": "ATP Challenger Shanghai, China Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "giulio-zeppieri-filip-peliwo",
+      "startTimestamp": 1757072700,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1757074974,
+        "period1": 1577,
+        "period2": 2372
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1757203200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "شنغهاي، الصين",
+            "ru": "Шанхай, Китай"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 161845,
+        "isGroup": false,
+        "name": "Shanghai, China",
+        "priority": 0,
+        "slug": "shanghai-china",
+        "startTimestamp": 1756684800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "شنغهاي، الصين",
+              "ru": "Шанхай, Китай"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 4136,
+          "name": "Shanghai, China",
+          "slug": "shanghai-china",
+          "tennisPoints": 100,
+          "userCount": 81
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 5,
+        "period2": 3,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "TW",
+          "alpha3": "TWN",
+          "name": "Chinese Taipei",
+          "slug": "chinese-taipei"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "يو هسيو هسو",
+            "ru": "Ю Сю Су"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. هسو",
+            "bn": "ওয়াই. হু",
+            "hi": "वाई. ह्सु"
+          }
+        },
+        "gender": "M",
+        "id": 204329,
+        "name": "Yu Hsiou Hsu",
+        "nameCode": "HSU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2717
+        },
+        "ranking": 245,
+        "shortName": "Y. Hsu",
+        "slug": "hsu-yu-hsiou",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1382
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1757164819,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "ELGbsNTUb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "id": 14552524,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 76539,
+        "name": "ATP Challenger Shanghai, China Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "giulio-zeppieri-yu-hsiou-hsu",
+      "startTimestamp": 1757157900,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1757162140,
+        "period1": 3550,
+        "period2": 2617
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1757203200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "شنغهاي، الصين",
+            "ru": "Шанхай, Китай"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 161845,
+        "isGroup": false,
+        "name": "Shanghai, China",
+        "priority": 0,
+        "slug": "shanghai-china",
+        "startTimestamp": 1756684800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "شنغهاي، الصين",
+              "ru": "Шанхай, Китай"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 4136,
+          "name": "Shanghai, China",
+          "slug": "shanghai-china",
+          "tennisPoints": 100,
+          "userCount": 81
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 2,
+        "period2": 5,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "JP",
+          "alpha3": "JPN",
+          "name": "Japan",
+          "slug": "japan"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ياسوتاكا أوشياما",
+            "bn": "ইয়াসুতাকা উচিয়ামা",
+            "hi": "यासुताका उचीयामा",
+            "ru": "Учияма, Ясутака"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. أوشياما"
+          }
+        },
+        "gender": "M",
+        "id": 46390,
+        "name": "Yasutaka Uchiyama",
+        "nameCode": "UCH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 232
+        },
+        "ranking": 346,
+        "shortName": "Y. Uchiyama",
+        "slug": "uchiyama-yasutaka",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1322
+      },
+      "changes": {
+        "changeTimestamp": 1757241070,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "PCtsNTUb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 7,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "id": 14552531,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 76539,
+        "name": "ATP Challenger Shanghai, China Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "giulio-zeppieri-yasutaka-uchiyama",
+      "startTimestamp": 1757232000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1757238017,
+        "period1": 2943,
+        "period2": 3003
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1757203200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "شنغهاي، الصين",
+            "ru": "Шанхай, Китай"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 161845,
+        "isGroup": false,
+        "name": "Shanghai, China",
+        "priority": 0,
+        "slug": "shanghai-china",
+        "startTimestamp": 1756684800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "شنغهاي، الصين",
+              "ru": "Шанхай, Китай"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 4136,
+          "name": "Shanghai, China",
+          "slug": "shanghai-china",
+          "tennisPoints": 100,
+          "userCount": 81
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "changes": {
+        "changeTimestamp": 1757577646,
+        "changes": [
+          "homeScore.point",
+          "awayScore.point"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "URobsNTUb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 4,
+        "period2": 2
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيفان زو",
+            "ru": "Жу, Эван"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. زو"
+          }
+        },
+        "gender": "M",
+        "id": 162144,
+        "name": "Evan Zhu",
+        "nameCode": "ZHU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2326
+        },
+        "ranking": 600,
+        "shortName": "E. Zhu",
+        "slug": "zhu-evan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 687
+      },
+      "homeTeamSeed": "LL",
+      "id": 14647621,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 81947,
+        "name": "ATP Challenger Guangzhou, China Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "giulio-zeppieri-evan-zhu",
+      "startTimestamp": 1757408400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1757412947,
+        "period1": 4001,
+        "period2": 2242
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1757808000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "غوانغتشو 2، الصين",
+            "ru": "Гуанчжоу 2, Китай"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 162536,
+        "isGroup": false,
+        "name": "Guangzhou 2, China",
+        "priority": 0,
+        "slug": "guangzhou-2-china",
+        "startTimestamp": 1757289600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة ATP تشالنجر غوانغتشو 2، الصين، فردي رجال",
+              "ru": "ATP Challenger Гуанчжоу 2, Китай среди мужчин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 29205,
+          "name": "Guangzhou 2, China",
+          "slug": "atp-challenger-guangzhou-2-china-men-singles",
+          "userCount": 76
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {},
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "changes": {
+        "changeTimestamp": 1757404893,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "PCtsNTUb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {},
+      "homeTeam": {
+        "country": {
+          "alpha2": "JP",
+          "alpha3": "JPN",
+          "name": "Japan",
+          "slug": "japan"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ياسوتاكا أوشياما",
+            "bn": "ইয়াসুতাকা উচিয়ামা",
+            "hi": "यासुताका उचीयामा",
+            "ru": "Учияма, Ясутака"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. أوشياما"
+          }
+        },
+        "gender": "M",
+        "id": 46390,
+        "name": "Yasutaka Uchiyama",
+        "nameCode": "UCH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 232
+        },
+        "ranking": 346,
+        "shortName": "Y. Uchiyama",
+        "slug": "uchiyama-yasutaka",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1322
+      },
+      "id": 14631267,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 81947,
+        "name": "ATP Challenger Guangzhou, China Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "giulio-zeppieri-yasutaka-uchiyama",
+      "startTimestamp": 1757408400,
+      "status": {
+        "code": 70,
+        "description": "Canceled",
+        "type": "canceled"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1757808000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "غوانغتشو 2، الصين",
+            "ru": "Гуанчжоу 2, Китай"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 162536,
+        "isGroup": false,
+        "name": "Guangzhou 2, China",
+        "priority": 0,
+        "slug": "guangzhou-2-china",
+        "startTimestamp": 1757289600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة ATP تشالنجر غوانغتشو 2، الصين، فردي رجال",
+              "ru": "ATP Challenger Гуанчжоу 2, Китай среди мужчин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 29205,
+          "name": "Guangzhou 2, China",
+          "slug": "atp-challenger-guangzhou-2-china-men-singles",
+          "userCount": 76
+        }
+      }
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "period2": 0,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "changes": {
+        "changeTimestamp": 1757569602,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2",
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "NTUbsoTmd",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 1,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نيشيش باسافاريدي",
+            "ru": "Нишеш Басаваредди"
+          },
+          "shortNameTranslation": {
+            "ar": "ن. باسافاريدي",
+            "ru": "Н. Басаваредди"
+          }
+        },
+        "gender": "M",
+        "id": 407164,
+        "name": "Nishesh Basavareddy",
+        "nameCode": "BAS",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 12074
+        },
+        "ranking": 148,
+        "shortName": "N. Basavareddy",
+        "slug": "basavareddy-nishesh",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4300
+      },
+      "homeTeamSeed": "3",
+      "id": 14601352,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 81947,
+        "name": "ATP Challenger Guangzhou, China Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "nishesh-basavareddy-giulio-zeppieri",
+      "startTimestamp": 1757565900,
+      "status": {
+        "code": 92,
+        "description": "Retired",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1757568876,
+        "period1": 2138,
+        "period2": 707
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1757808000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "غوانغتشو 2، الصين",
+            "ru": "Гуанчжоу 2, Китай"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 162536,
+        "isGroup": false,
+        "name": "Guangzhou 2, China",
+        "priority": 0,
+        "slug": "guangzhou-2-china",
+        "startTimestamp": 1757289600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة ATP تشالنجر غوانغتشو 2، الصين، فردي رجال",
+              "ru": "ATP Challenger Гуанчжоу 2, Китай среди мужчин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 29205,
+          "name": "Guangzhou 2, China",
+          "slug": "atp-challenger-guangzhou-2-china-men-singles",
+          "userCount": 76
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 1,
+        "period3": 3,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ليام دراكسل",
+            "bn": "লিয়াম ড্রাক্সল",
+            "hi": "लियाम ड्रेक्सल",
+            "ru": "Драксл, Лиам"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. دراكسل"
+          }
+        },
+        "gender": "M",
+        "id": 223513,
+        "name": "Liam Draxl",
+        "nameCode": "DRA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2907
+        },
+        "ranking": 216,
+        "shortName": "L. Draxl",
+        "slug": "draxl-liam",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2802
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1758003586,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "nvObsNTUb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period1TieBreak": 5,
+        "period2": 6,
+        "period3": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "id": 14689558,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 67330,
+        "name": "ATP Hangzhou, China Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "giulio-zeppieri-liam-draxl",
+      "startTimestamp": 1757995200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1758001521,
+        "period1": 3283,
+        "period2": 2498,
+        "period3": 1998
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1758067200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "هانغتشو، الصين، التصفيات",
+            "ru": "Ханчжоу, Китай, Отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 163704,
+        "isGroup": false,
+        "name": "Hangzhou, China, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "hangzhou-china-qualifying",
+        "startTimestamp": 1757980800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "هانغتشو",
+              "ru": "Ханчжоу"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 23614,
+          "name": "Hangzhou",
+          "slug": "atp-hangzhou-china-men-singles",
+          "tennisPoints": 250,
+          "userCount": 642
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "changes": {
+        "changeTimestamp": 1758087572,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "NTUbsxcec",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 4,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "داليبور سفرتشينا",
+            "ru": "Сврчина, Далибор"
+          },
+          "shortNameTranslation": {
+            "ar": "د. سفرتشينا",
+            "bn": "ডি. শভরিনা",
+            "hi": "डी. श्वर्किना"
+          }
+        },
+        "gender": "M",
+        "id": 260122,
+        "name": "Dalibor Svrčina",
+        "nameCode": "SVR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3921
+        },
+        "ranking": 114,
+        "shortName": "D. Svrčina",
+        "slug": "svrcina-dalibor",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3131
+      },
+      "homeTeamSeed": "2",
+      "id": 14698764,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 67330,
+        "name": "ATP Hangzhou, China Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "dalibor-svrcina-giulio-zeppieri",
+      "startTimestamp": 1758081600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1758083878,
+        "period1": 1702,
+        "period2": 3667
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1758067200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "هانغتشو، الصين، التصفيات",
+            "ru": "Ханчжоу, Китай, Отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 163704,
+        "isGroup": false,
+        "name": "Hangzhou, China, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "hangzhou-china-qualifying",
+        "startTimestamp": 1757980800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "هانغتشو",
+              "ru": "Ханчжоу"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 23614,
+          "name": "Hangzhou",
+          "slug": "atp-hangzhou-china-men-singles",
+          "tennisPoints": 250,
+          "userCount": 642
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 2,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CN",
+          "alpha3": "CHN",
+          "name": "China",
+          "slug": "china"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فاجينغ صن",
+            "bn": "ফাজিং সান",
+            "hi": "फजिंग सुन",
+            "ru": "Сунь, Фацзин"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. صن"
+          }
+        },
+        "gender": "M",
+        "id": 163438,
+        "name": "Fajing Sun",
+        "nameCode": "SUN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2338
+        },
+        "ranking": 324,
+        "shortName": "F. Sun",
+        "slug": "sun-fajing",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1349
+      },
+      "awayTeamSeed": "WC",
+      "changes": {
+        "changeTimestamp": 1758201976,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "NtpbsNTUb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "homeTeamSeed": "Q",
+      "id": 14706852,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 67330,
+        "name": "ATP Hangzhou, China Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "giulio-zeppieri-fajing-sun",
+      "startTimestamp": 1758196200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1758199160,
+        "period1": 2290,
+        "period2": 2797
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1758585600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "هانغتشو، الصين",
+            "ru": "Ханчжоу, Китай"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 163630,
+        "isGroup": false,
+        "name": "Hangzhou, China",
+        "priority": 0,
+        "slug": "hangzhou-china",
+        "startTimestamp": 1758067200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "هانغتشو",
+              "ru": "Ханчжоу"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 23614,
+          "name": "Hangzhou",
+          "slug": "atp-hangzhou-china-men-singles",
+          "tennisPoints": 250,
+          "userCount": 642
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ليرنر تيان",
+            "bn": "লার্নার তিয়েন",
+            "hi": "लर्नर टिएन",
+            "ru": "Лёрнер Тьен"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. تيان",
+            "ru": "Л. Тьен"
+          }
+        },
+        "gender": "M",
+        "id": 412818,
+        "name": "Learner Tien",
+        "nameCode": "TIE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5357
+        },
+        "ranking": 12,
+        "shortName": "L. Tien",
+        "slug": "tien-learner",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 14599
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1758343954,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "NTUbstgpd",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 3,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "homeTeamSeed": "Q",
+      "id": 14687080,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 67330,
+        "name": "ATP Hangzhou, China Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "learner-tien-giulio-zeppieri",
+      "startTimestamp": 1758339000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1758341710,
+        "period1": 2170,
+        "period2": 2219
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1758585600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "هانغتشو، الصين",
+            "ru": "Ханчжоу, Китай"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 163630,
+        "isGroup": false,
+        "name": "Hangzhou, China",
+        "priority": 0,
+        "slug": "hangzhou-china",
+        "startTimestamp": 1758067200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "هانغتشو",
+              "ru": "Ханчжоу"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 23614,
+          "name": "Hangzhou",
+          "slug": "atp-hangzhou-china-men-singles",
+          "tennisPoints": 250,
+          "userCount": 642
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 4,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "changes": {
+        "changeTimestamp": 1759123035,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "NTUbsxcec",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "داليبور سفرتشينا",
+            "ru": "Сврчина, Далибор"
+          },
+          "shortNameTranslation": {
+            "ar": "د. سفرتشينا",
+            "bn": "ডি. শভরিনা",
+            "hi": "डी. श्वर्किना"
+          }
+        },
+        "gender": "M",
+        "id": 260122,
+        "name": "Dalibor Svrčina",
+        "nameCode": "SVR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3921
+        },
+        "ranking": 114,
+        "shortName": "D. Svrčina",
+        "slug": "svrcina-dalibor",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3131
+      },
+      "homeTeamSeed": "3",
+      "id": 14788599,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 67307,
+        "name": "ATP Shanghai, China Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "dalibor-svrcina-giulio-zeppieri",
+      "startTimestamp": 1759118400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1759120790,
+        "period1": 1787,
+        "period2": 2224
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1759190400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "شنغهاي، الصين، التصفيات",
+            "ru": "Шанхай, Китай, отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 164889,
+        "isGroup": false,
+        "name": "Shanghai, China, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "shanghai-china-qualifying",
+        "startTimestamp": 1759104000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "شنغهاي",
+              "bn": "সাংহাই",
+              "hi": "शंघाई",
+              "ru": "Шанхай"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2519,
+          "name": "Shanghai",
+          "primaryColorHex": "#002c61",
+          "secondaryColorHex": "#315384",
+          "slug": "shanghai",
+          "tennisPoints": 1000,
+          "userCount": 4789
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1760183485,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "ubPsNTUb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 4,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فيتالي ساكهو",
+            "bn": "ভিটালি সাচকো",
+            "hi": "वितालिय साचको",
+            "ru": "Виталий Сачко"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. ساكهو",
+            "ru": "В. Сачко"
+          }
+        },
+        "gender": "M",
+        "id": 100069,
+        "name": "Vitaliy Sachko",
+        "nameCode": "SAC",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1900
+        },
+        "ranking": 191,
+        "shortName": "V. Sachko",
+        "slug": "sachko-vitaliy",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2664
+      },
+      "id": 14866324,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 67309,
+        "name": "ATP Stockholm, Sweden Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "giulio-zeppieri-vitaliy-sachko",
+      "startTimestamp": 1760178000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1760181012,
+        "period1": 2070,
+        "period2": 2425
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1760227200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ستوكهولم، السويد، التأهل",
+            "ru": "Квалификация Стокгольм, Швеция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 166206,
+        "isGroup": false,
+        "name": "Stockholm, Sweden, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "stockholm-sweden-qualifying",
+        "startTimestamp": 1760140800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ستوكهولم",
+              "bn": "স্টকহোম",
+              "hi": "स्टॉकहोम",
+              "ru": "Стокгольм"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2382,
+          "name": "Stockholm",
+          "primaryColorHex": "#acc2bf",
+          "secondaryColorHex": "#999c9e",
+          "slug": "stockholm",
+          "tennisPoints": 250,
+          "userCount": 1653
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1760275038,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "xoIbsNTUb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "باتريك زهرج",
+            "ru": "Патрик Захрай"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. زهرج",
+            "ru": "П. Захрай"
+          }
+        },
+        "gender": "M",
+        "id": 208222,
+        "name": "Patrick Zahraj",
+        "nameCode": "ZAH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5499
+        },
+        "ranking": 413,
+        "shortName": "P. Zahraj",
+        "slug": "zahraj-patrick",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1081
+      },
+      "homeTeamSeed": "A",
+      "id": 14870181,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 67309,
+        "name": "ATP Stockholm, Sweden Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "giulio-zeppieri-patrick-zahraj",
+      "startTimestamp": 1760270400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1760272186,
+        "period1": 1582,
+        "period2": 2801
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1760227200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ستوكهولم، السويد، التأهل",
+            "ru": "Квалификация Стокгольм, Швеция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 166206,
+        "isGroup": false,
+        "name": "Stockholm, Sweden, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "stockholm-sweden-qualifying",
+        "startTimestamp": 1760140800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ستوكهولم",
+              "bn": "স্টকহোম",
+              "hi": "स्टॉकहोम",
+              "ru": "Стокгольм"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2382,
+          "name": "Stockholm",
+          "primaryColorHex": "#acc2bf",
+          "secondaryColorHex": "#999c9e",
+          "slug": "stockholm",
+          "tennisPoints": 250,
+          "userCount": 1653
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 2,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1760470421,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "IfVsNTUb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماتيو بيريتيني",
+            "ru": "Маттео Берреттини"
+          },
+          "shortNameTranslation": {
+            "ar": "م. بيريتيني",
+            "bn": "এম. বেরেটিনি",
+            "hi": "एम. बेरेटिनी",
+            "ru": "М. Берреттини"
+          }
+        },
+        "gender": "M",
+        "id": 112783,
+        "name": "Matteo Berrettini",
+        "nameCode": "BER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 56
+        },
+        "ranking": 42,
+        "shortName": "M. Berrettini",
+        "slug": "berrettini-matteo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 45599
+      },
+      "id": 14875948,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 67309,
+        "name": "ATP Stockholm, Sweden Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "giulio-zeppieri-matteo-berrettini",
+      "startTimestamp": 1760464800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1760468399,
+        "period1": 2868,
+        "period2": 1967
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1729296000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ستوكهولم، السويد",
+            "ru": "Стокгольм, Швеция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 165818,
+        "isGroup": false,
+        "name": "Stockholm, Sweden",
+        "priority": 0,
+        "slug": "stockholm-sweden",
+        "startTimestamp": 1760313600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ستوكهولم",
+              "bn": "স্টকহোম",
+              "hi": "स्टॉकहोम",
+              "ru": "Стокгольм"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2382,
+          "name": "Stockholm",
+          "primaryColorHex": "#acc2bf",
+          "secondaryColorHex": "#999c9e",
+          "slug": "stockholm",
+          "tennisPoints": 250,
+          "userCount": 1653
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 3,
+        "period3": 7,
+        "period3TieBreak": 7,
+        "point": "6"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "changes": {
+        "changeTimestamp": 1761051215,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "GUNsNTUb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 3,
+        "period2": 6,
+        "period3": 6,
+        "period3TieBreak": 5,
+        "point": "5"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "RS",
+          "alpha3": "SRB",
+          "name": "Serbia",
+          "slug": "serbia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لاسلو دجيري",
+            "ru": "Дйере, Ласло"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. دجيري",
+            "bn": "এল. জেরে",
+            "hi": "एल. जेर"
+          }
+        },
+        "gender": "M",
+        "id": 97231,
+        "name": "Laslo Djere",
+        "nameCode": "DJE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 37
+        },
+        "ranking": 211,
+        "shortName": "L. Djere",
+        "slug": "djere-laslo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 7110
+      },
+      "homeTeamSeed": "1",
+      "id": 14910643,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 80578,
+        "name": "ATP Challenger Brest, France Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "giulio-zeppieri-laslo-djere",
+      "startTimestamp": 1761043500,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1761047897,
+        "period1": 1864,
+        "period2": 1944,
+        "period3": 3275
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1761436800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بريست، فرنسا",
+            "ru": "Брест, Франция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 166424,
+        "isGroup": false,
+        "name": "Brest, France",
+        "priority": 0,
+        "slug": "brest-france",
+        "startTimestamp": 1760918400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بريست، فرنسا",
+              "ru": "Брест, Франция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 6626,
+          "name": "Brest, France",
+          "slug": "brest-france",
+          "tennisPoints": 100,
+          "userCount": 203
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 2,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "DK",
+          "alpha3": "DNK",
+          "name": "Denmark",
+          "slug": "denmark"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أوغست هولمغرين",
+            "ru": "Огюст Хольмгрен"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. هولمغرين",
+            "ru": "О. Хольмгрен"
+          }
+        },
+        "gender": "M",
+        "id": 207089,
+        "name": "August Holmgren",
+        "nameCode": "HOL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2758
+        },
+        "ranking": 226,
+        "shortName": "A. Holmgren",
+        "slug": "holmgren-august",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4105
+      },
+      "changes": {
+        "changeTimestamp": 1761162055,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period2",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "OQHbsNTUb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "id": 14888378,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 80578,
+        "name": "ATP Challenger Brest, France Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "giulio-zeppieri-august-holmgren",
+      "startTimestamp": 1761157800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1761160104,
+        "period1": 1898,
+        "period2": 1935
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1761436800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بريست، فرنسا",
+            "ru": "Брест, Франция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 166424,
+        "isGroup": false,
+        "name": "Brest, France",
+        "priority": 0,
+        "slug": "brest-france",
+        "startTimestamp": 1760918400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بريست، فرنسا",
+              "ru": "Брест, Франция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 6626,
+          "name": "Brest, France",
+          "slug": "brest-france",
+          "tennisPoints": 100,
+          "userCount": 203
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 5,
+        "period2": 7,
+        "period2TieBreak": 10,
+        "period3": 7,
+        "period3TieBreak": 7,
+        "point": "6"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليوت سبزيري",
+            "bn": "এলিয়ট স্পিজিরি",
+            "hi": "एलिएट स्पिज़िर्री",
+            "ru": "Спиццири, Элиот"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. سبزيري"
+          }
+        },
+        "gender": "M",
+        "id": 288748,
+        "name": "Eliot Spizzirri",
+        "nameCode": "SPI",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3993
+        },
+        "ranking": 117,
+        "shortName": "E. Spizzirri",
+        "slug": "spizzirri-eliot",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3472
+      },
+      "awayTeamSeed": "5",
+      "changes": {
+        "changeTimestamp": 1761318763,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "NTUbsYzpc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 7,
+        "period2": 6,
+        "period2TieBreak": 8,
+        "period3": 6,
+        "period3TieBreak": 4,
+        "point": "4"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "id": 14888381,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 80578,
+        "name": "ATP Challenger Brest, France Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "eliot-spizzirri-giulio-zeppieri",
+      "startTimestamp": 1761309000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1761315740,
+        "period1": 2502,
+        "period2": 3704,
+        "period3": 2976
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1761436800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بريست، فرنسا",
+            "ru": "Брест, Франция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 166424,
+        "isGroup": false,
+        "name": "Brest, France",
+        "priority": 0,
+        "slug": "brest-france",
+        "startTimestamp": 1760918400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بريست، فرنسا",
+              "ru": "Брест, Франция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 6626,
+          "name": "Brest, France",
+          "slug": "brest-france",
+          "tennisPoints": 100,
+          "userCount": 203
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1762189334,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "NTUbsRbZd",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 2,
+        "period2": 2,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FI",
+          "alpha3": "FIN",
+          "name": "Finland",
+          "slug": "finland"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أوسكاري بالدانياس",
+            "ru": "Оскари Пальданиус"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. بالدانياس",
+            "ru": "О. Пальданиус"
+          }
+        },
+        "gender": "M",
+        "id": 497592,
+        "name": "Oskari Paldanius",
+        "nameCode": "PAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 20725
+        },
+        "ranking": 1052,
+        "shortName": "O. Paldanius",
+        "slug": "paldanius-oskari",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 383
+      },
+      "homeTeamSeed": "WC",
+      "id": 14988601,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 80570,
+        "name": "ATP Challenger Helsinki, Finland Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "oskari-paldanius-giulio-zeppieri",
+      "startTimestamp": 1762183800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1762187120,
+        "period1": 2833,
+        "period2": 2017
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1762646400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "هلسنكي، فنلندا",
+            "ru": "Хельсинки, Финляндия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 167311,
+        "isGroup": false,
+        "name": "Helsinki, Finland",
+        "priority": 0,
+        "slug": "helsinki-finland",
+        "startTimestamp": 1762128000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "هلسنكي، فنلندا",
+              "ru": "Хельсинки, Финляндия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3610,
+          "name": "Helsinki, Finland",
+          "slug": "helsinki-finland",
+          "tennisPoints": 125,
+          "userCount": 132
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 4,
+        "period2": 6,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1762353459,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "yfPbsNTUb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 2,
+        "period3": 3,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "LU",
+          "alpha3": "LUX",
+          "name": "Luxembourg",
+          "slug": "luxembourg"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريس روديش",
+            "ru": "Родеш, Крис"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. روديش"
+          }
+        },
+        "gender": "M",
+        "id": 225273,
+        "name": "Chris Rodesch",
+        "nameCode": "ROD",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5161
+        },
+        "ranking": 153,
+        "shortName": "C. Rodesch",
+        "slug": "rodesch-chris",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1642
+      },
+      "id": 14956499,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 80570,
+        "name": "ATP Challenger Helsinki, Finland Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "giulio-zeppieri-chris-rodesch",
+      "startTimestamp": 1762346400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1762351247,
+        "period1": 2001,
+        "period2": 2054,
+        "period3": 2171
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1762646400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "هلسنكي، فنلندا",
+            "ru": "Хельсинки, Финляндия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 167311,
+        "isGroup": false,
+        "name": "Helsinki, Finland",
+        "priority": 0,
+        "slug": "helsinki-finland",
+        "startTimestamp": 1762128000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "هلسنكي، فنلندا",
+              "ru": "Хельсинки, Финляндия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3610,
+          "name": "Helsinki, Finland",
+          "slug": "helsinki-finland",
+          "tennisPoints": 125,
+          "userCount": 132
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 5,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1762527350,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "NTUbsQoLc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ساسا غوييمارد واينبرغ",
+            "ru": "Саша Геймар Вайенбург"
+          },
+          "shortNameTranslation": {
+            "ar": "س. واينبرغ",
+            "ru": "С. Вайенбург"
+          }
+        },
+        "gender": "M",
+        "id": 340741,
+        "name": "Sascha Gueymard Wayenburg",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4975
+        },
+        "ranking": 329,
+        "shortName": "S. Gueymard Wayenburg",
+        "slug": "gueymard-wayenburg-sascha",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1547
+      },
+      "homeTeamSeed": "Q",
+      "id": 14956500,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 80570,
+        "name": "ATP Challenger Helsinki, Finland Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "sascha-gueymard-wayenburg-giulio-zeppieri",
+      "startTimestamp": 1762522200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1762524540,
+        "period1": 2032,
+        "period2": 2766
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1762646400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "هلسنكي، فنلندا",
+            "ru": "Хельсинки, Финляндия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 167311,
+        "isGroup": false,
+        "name": "Helsinki, Finland",
+        "priority": 0,
+        "slug": "helsinki-finland",
+        "startTimestamp": 1762128000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "هلسنكي، فنلندا",
+              "ru": "Хельсинки, Финляндия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3610,
+          "name": "Helsinki, Finland",
+          "slug": "helsinki-finland",
+          "tennisPoints": 125,
+          "userCount": 132
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 3,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دان أديد",
+            "ru": "Аддед, Дэн"
+          },
+          "shortNameTranslation": {
+            "ar": "د. أديد"
+          }
+        },
+        "gender": "M",
+        "id": 191842,
+        "name": "Dan Added",
+        "nameCode": "ADD",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2548
+        },
+        "ranking": 223,
+        "shortName": "D. Added",
+        "slug": "added-dan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1172
+      },
+      "changes": {
+        "changeTimestamp": 1768192329,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "RLBbsNTUb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "grand-slam"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "id": 15345380,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 80012,
+        "name": "Australian Open Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "giulio-zeppieri-dan-added",
+      "startTimestamp": 1768187100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1768189537,
+        "period1": 1909,
+        "period2": 2664
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1768435200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تصفيات بطولة أستراليا المفتوحة للتنس، ملبورن، أستراليا",
+            "ru": "Открытый чемпионат Австралии, Мельбурн, Австралия, Отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 172869,
+        "isGroup": false,
+        "name": "Australian Open, Melbourne, Australia, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "australian-open-melbourne-australia-qualifying",
+        "startTimestamp": 1768176000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة أستراليا المفتوحة، فردي الرجال",
+              "az": "Australian Open, Kişilər",
+              "bn": "অস্ট্রেলিয়ান ওপেন, পুরুষ একক",
+              "de": "Australian Open Herreneinzel",
+              "el": "Αυστραλιανό Όπεν, απλό ανδρών",
+              "es": "Abierto de Australia, masculino",
+              "es-la": "Abierto de Australia, Varonil",
+              "fr": "Open d'Australie simple messieurs",
+              "hi": "ऑस्ट्रेलियन ओपन, पुरुष",
+              "hr": "Australian Open (M)",
+              "hu": "Australian Open, férfi egyes",
+              "id": "Australia Open, Tunggal (Pa)",
+              "it": "Australian Open (M)",
+              "ja": "全豪オープン、男子",
+              "ko": "호주 오픈 남자 단식",
+              "nl": "Australian Open mannenenkelspel",
+              "no": "Australian Open, menn",
+              "pl": "Australian Open, singiel mężczyzn",
+              "pt": "Australian Open masculino",
+              "pt-pt": "Australian Open (M)",
+              "ro": "Australian Open, simplu masculin",
+              "ru": "Australian Open, мужской одиночный разряд",
+              "sr": "Аустралијан опен, појединачно (М)",
+              "sv": "Australian Open, herrsingel",
+              "th": "ออสเตรเลียนโอเพน ชายเดี่ยว",
+              "tr": "Avustralya Açık, Tek Erkekler",
+              "vi": "Úc Mở rộng, đơn nam"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2363,
+          "name": "Australian Open, Men",
+          "primaryColorHex": "#d0d830",
+          "secondaryColorHex": "#2294dc",
+          "slug": "australian-open",
+          "tennisPoints": 2000,
+          "userCount": 34233
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period1TieBreak": 4,
+        "period2": 7,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "changes": {
+        "changeTimestamp": 1768354630,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "aQHbsNTUb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "grand-slam"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 5,
+        "period3": 4,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "براندون هولت",
+            "bn": "ব্র্যান্ডো হল্ট",
+            "hi": "ब्रैंडन होल्ट",
+            "ru": "Холт, Брэндон"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. هولت"
+          }
+        },
+        "gender": "M",
+        "id": 207050,
+        "name": "Brandon Holt",
+        "nameCode": "HOL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 758
+        },
+        "ranking": 669,
+        "shortName": "B. Holt",
+        "slug": "holt-brandon",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1710
+      },
+      "homeTeamSeed": "5",
+      "id": 15352630,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 2",
+        "round": 2,
+        "slug": "qualification-round-2"
+      },
+      "season": {
+        "editor": false,
+        "id": 80012,
+        "name": "Australian Open Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "giulio-zeppieri-brandon-holt",
+      "startTimestamp": 1768345200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1768352025,
+        "period1": 3470,
+        "period2": 2856,
+        "period3": 2552
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1768435200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تصفيات بطولة أستراليا المفتوحة للتنس، ملبورن، أستراليا",
+            "ru": "Открытый чемпионат Австралии, Мельбурн, Австралия, Отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 172869,
+        "isGroup": false,
+        "name": "Australian Open, Melbourne, Australia, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "australian-open-melbourne-australia-qualifying",
+        "startTimestamp": 1768176000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة أستراليا المفتوحة، فردي الرجال",
+              "az": "Australian Open, Kişilər",
+              "bn": "অস্ট্রেলিয়ান ওপেন, পুরুষ একক",
+              "de": "Australian Open Herreneinzel",
+              "el": "Αυστραλιανό Όπεν, απλό ανδρών",
+              "es": "Abierto de Australia, masculino",
+              "es-la": "Abierto de Australia, Varonil",
+              "fr": "Open d'Australie simple messieurs",
+              "hi": "ऑस्ट्रेलियन ओपन, पुरुष",
+              "hr": "Australian Open (M)",
+              "hu": "Australian Open, férfi egyes",
+              "id": "Australia Open, Tunggal (Pa)",
+              "it": "Australian Open (M)",
+              "ja": "全豪オープン、男子",
+              "ko": "호주 오픈 남자 단식",
+              "nl": "Australian Open mannenenkelspel",
+              "no": "Australian Open, menn",
+              "pl": "Australian Open, singiel mężczyzn",
+              "pt": "Australian Open masculino",
+              "pt-pt": "Australian Open (M)",
+              "ro": "Australian Open, simplu masculin",
+              "ru": "Australian Open, мужской одиночный разряд",
+              "sr": "Аустралијан опен, појединачно (М)",
+              "sv": "Australian Open, herrsingel",
+              "th": "ออสเตรเลียนโอเพน ชายเดี่ยว",
+              "tr": "Avustralya Açık, Tek Erkekler",
+              "vi": "Úc Mở rộng, đơn nam"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2363,
+          "name": "Australian Open, Men",
+          "primaryColorHex": "#d0d830",
+          "secondaryColorHex": "#2294dc",
+          "slug": "australian-open",
+          "tennisPoints": 2000,
+          "userCount": 34233
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "JP",
+          "alpha3": "JPN",
+          "name": "Japan",
+          "slug": "japan"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ري ساكاموتو",
+            "ru": "Рей Сакамо́то"
+          },
+          "shortNameTranslation": {
+            "ar": "ر. ساكاموتو",
+            "ru": "Р. Сакамо́то"
+          }
+        },
+        "gender": "M",
+        "id": 413296,
+        "name": "Rei Sakamoto",
+        "nameCode": "SAK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5734
+        },
+        "ranking": 165,
+        "shortName": "R. Sakamoto",
+        "slug": "sakamoto-rei",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3266
+      },
+      "changes": {
+        "changeTimestamp": 1768439891,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "NTUbsWppd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "grand-slam"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 2,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "id": 15365936,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 80012,
+        "name": "Australian Open Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "rei-sakamoto-giulio-zeppieri",
+      "startTimestamp": 1768435200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1768437972,
+        "period1": 2305,
+        "period2": 1882
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1768435200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تصفيات بطولة أستراليا المفتوحة للتنس، ملبورن، أستراليا",
+            "ru": "Открытый чемпионат Австралии, Мельбурн, Австралия, Отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 172869,
+        "isGroup": false,
+        "name": "Australian Open, Melbourne, Australia, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "australian-open-melbourne-australia-qualifying",
+        "startTimestamp": 1768176000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة أستراليا المفتوحة، فردي الرجال",
+              "az": "Australian Open, Kişilər",
+              "bn": "অস্ট্রেলিয়ান ওপেন, পুরুষ একক",
+              "de": "Australian Open Herreneinzel",
+              "el": "Αυστραλιανό Όπεν, απλό ανδρών",
+              "es": "Abierto de Australia, masculino",
+              "es-la": "Abierto de Australia, Varonil",
+              "fr": "Open d'Australie simple messieurs",
+              "hi": "ऑस्ट्रेलियन ओपन, पुरुष",
+              "hr": "Australian Open (M)",
+              "hu": "Australian Open, férfi egyes",
+              "id": "Australia Open, Tunggal (Pa)",
+              "it": "Australian Open (M)",
+              "ja": "全豪オープン、男子",
+              "ko": "호주 오픈 남자 단식",
+              "nl": "Australian Open mannenenkelspel",
+              "no": "Australian Open, menn",
+              "pl": "Australian Open, singiel mężczyzn",
+              "pt": "Australian Open masculino",
+              "pt-pt": "Australian Open (M)",
+              "ro": "Australian Open, simplu masculin",
+              "ru": "Australian Open, мужской одиночный разряд",
+              "sr": "Аустралијан опен, појединачно (М)",
+              "sv": "Australian Open, herrsingel",
+              "th": "ออสเตรเลียนโอเพน ชายเดี่ยว",
+              "tr": "Avustralya Açık, Tek Erkekler",
+              "vi": "Úc Mở rộng, đơn nam"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2363,
+          "name": "Australian Open, Men",
+          "primaryColorHex": "#d0d830",
+          "secondaryColorHex": "#2294dc",
+          "slug": "australian-open",
+          "tennisPoints": 2000,
+          "userCount": 34233
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 8,
+        "period2": 5,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "changes": {
+        "changeTimestamp": 1770667610,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "NqksNTUb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period1TieBreak": 6,
+        "period2": 7,
+        "period3": 1,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BE",
+          "alpha3": "BEL",
+          "name": "Belgium",
+          "slug": "belgium"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دافيد غوفان",
+            "bn": "ডেভিড গফিন",
+            "hi": "डेविड गोफिन",
+            "ru": "Гоффин, Дэвид"
+          },
+          "shortNameTranslation": {
+            "ar": "د. غوفان"
+          }
+        },
+        "gender": "M",
+        "id": 25838,
+        "name": "David Goffin",
+        "nameCode": "GOF",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 21
+        },
+        "ranking": 294,
+        "shortName": "D. Goffin",
+        "slug": "goffin-david",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 8992
+      },
+      "homeTeamSeed": "5",
+      "id": 15505779,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 87347,
+        "name": "ATP Challenger Pau, France Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "giulio-zeppieri-david-goffin",
+      "startTimestamp": 1770658200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1770666100,
+        "period1": 3501,
+        "period2": 3002,
+        "period3": 1472
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1771113600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بو، فرنسا",
+            "ru": "По, Франция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 174473,
+        "isGroup": false,
+        "name": "Pau, France",
+        "priority": 0,
+        "slug": "pau-france",
+        "startTimestamp": 1770595200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بو، فرنسا",
+              "ru": "По, Франция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 11680,
+          "name": "Pau, France",
+          "slug": "pau-france",
+          "userCount": 205
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 3,
+        "period2": 6,
+        "period3": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "هنري سكوير",
+            "ru": "Сквайр, Генри"
+          },
+          "shortNameTranslation": {
+            "ar": "ه. سكوير"
+          }
+        },
+        "gender": "M",
+        "id": 208225,
+        "name": "Henri Squire",
+        "nameCode": "SQU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2766
+        },
+        "ranking": 208,
+        "shortName": "H. Squire",
+        "slug": "squire-henri",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2029
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1770851024,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "AoIbsNTUb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 3,
+        "period3": 3,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "id": 15482175,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 87347,
+        "name": "ATP Challenger Pau, France Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "giulio-zeppieri-henri-squire",
+      "startTimestamp": 1770845100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1770848810,
+        "period1": 1530,
+        "period2": 1870,
+        "period3": 2152
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1771113600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بو، فرنسا",
+            "ru": "По, Франция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 174473,
+        "isGroup": false,
+        "name": "Pau, France",
+        "priority": 0,
+        "slug": "pau-france",
+        "startTimestamp": 1770595200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بو، فرنسا",
+              "ru": "По, Франция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 11680,
+          "name": "Pau, France",
+          "slug": "pau-france",
+          "userCount": 205
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 1,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "changes": {
+        "changeTimestamp": 1771335230,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "IIgsNTUb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "KZ",
+          "alpha3": "KAZ",
+          "name": "Kazakhstan",
+          "slug": "kazakhstan"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ميخائيل كوكوشكين",
+            "bn": "মিখাইল কুকুশকিন",
+            "hi": "मिखाइल कुकुशकिन",
+            "ru": "Михаил Кукушкин"
+          },
+          "shortNameTranslation": {
+            "ar": "م. كوكوشكين"
+          }
+        },
+        "gender": "M",
+        "id": 16683,
+        "name": "Mikhail Kukushkin",
+        "nameCode": "KUK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 39
+        },
+        "ranking": 333,
+        "shortName": "M. Kukushkin",
+        "slug": "kukushkin-mikhail",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "homeTeamSeed": "Q",
+      "id": 15555494,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 87345,
+        "name": "ATP Challenger Lille, France Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "giulio-zeppieri-mikhail-kukushkin",
+      "startTimestamp": 1771330500,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1771333550,
+        "period1": 2318,
+        "period2": 1627
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1771718400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ليل، فرنسا",
+            "ru": "Лилль, Франция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 174969,
+        "isGroup": false,
+        "name": "Lille, France",
+        "priority": 0,
+        "slug": "lille-france",
+        "startTimestamp": 1771200000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ليل، فرنسا",
+              "ru": "Лилль, Франция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 10719,
+          "name": "Lille, France",
+          "slug": "lille-france",
+          "userCount": 242
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 4,
+        "period2": 7,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "awayTeamSeed": "5",
+      "changes": {
+        "changeTimestamp": 1772478544,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "NTUbsYmld",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 5,
+        "period3": 1,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جاستن إنجل",
+            "ru": "Джастин Энгель"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. إنجل",
+            "ru": "Д. Энгель"
+          }
+        },
+        "gender": "M",
+        "id": 403148,
+        "name": "Justin Engel",
+        "nameCode": "ENG",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 12861
+        },
+        "ranking": 297,
+        "shortName": "J. Engel",
+        "slug": "engel-justin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3735
+      },
+      "id": 15638566,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 87363,
+        "name": "ATP Challenger Thionville, France Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "justin-engel-giulio-zeppieri",
+      "startTimestamp": 1772471700,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1772477269,
+        "period1": 2589,
+        "period2": 2459,
+        "period3": 1242
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1772928000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تيونفيل، فرنسا",
+            "ru": "Тионвиль, Франция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 176043,
+        "isGroup": false,
+        "name": "Thionville, France",
+        "priority": 0,
+        "slug": "thionville-france",
+        "startTimestamp": 1772409600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تيونفيل، فرنسا",
+              "ru": "Тионвиль, Франция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25268,
+          "name": "Thionville, France",
+          "slug": "atp-challenger-thionville-france-men-singles",
+          "userCount": 134
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 1,
+        "period2": 0,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "awayTeamSeed": "5",
+      "changes": {
+        "changeTimestamp": 1772651804,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "NTUbsuXie",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 1,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مويز كوامي",
+            "ru": "Моиз Куаме"
+          },
+          "shortNameTranslation": {
+            "ar": "م. كوامي",
+            "ru": "М. Куаме"
+          }
+        },
+        "gender": "M",
+        "id": 522369,
+        "name": "Moise Kouame",
+        "nameCode": "KOU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 20548
+        },
+        "ranking": 214,
+        "shortName": "M. Kouamé",
+        "slug": "kouame-moise",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 12284
+      },
+      "homeTeamSeed": "WC",
+      "id": 15624627,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 87363,
+        "name": "ATP Challenger Thionville, France Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "moise-kouame-giulio-zeppieri",
+      "startTimestamp": 1772649600,
+      "status": {
+        "code": 92,
+        "description": "Retired",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1772651478,
+        "period1": 1439,
+        "period2": 276
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1772928000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تيونفيل، فرنسا",
+            "ru": "Тионвиль, Франция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 176043,
+        "isGroup": false,
+        "name": "Thionville, France",
+        "priority": 0,
+        "slug": "thionville-france",
+        "startTimestamp": 1772409600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تيونفيل، فرنسا",
+              "ru": "Тионвиль, Франция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25268,
+          "name": "Thionville, France",
+          "slug": "atp-challenger-thionville-france-men-singles",
+          "userCount": 134
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 5,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "changes": {
+        "changeTimestamp": 1775913339,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period2",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "NTUbslCZb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p500"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "خوان مانويل سيروندولو",
+            "ru": "Хуан Мануэль Серундоло"
+          },
+          "shortNameTranslation": {
+            "ar": "خ. سيروندولو",
+            "bn": "জে. সেরুন্ডোলো",
+            "hi": "जे. सेरुंडोलो",
+            "ru": "Х. М. Серундоло"
+          }
+        },
+        "gender": "M",
+        "id": 248861,
+        "name": "Juan Manuel Cerundolo",
+        "nameCode": "CER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3898
+        },
+        "ranking": 51,
+        "shortName": "J. Cerundolo",
+        "slug": "cerundolo-juan-manuel",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 10797
+      },
+      "homeTeamSeed": "2",
+      "id": 15989301,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 81113,
+        "name": "ATP Barcelona, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "juan-manuel-cerundolo-giulio-zeppieri",
+      "startTimestamp": 1775908800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1775910490,
+        "period1": 1343,
+        "period2": 2836
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1775952000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "برشلونة، إسبانيا، التصفيات",
+            "ru": "Барселона, Испания, Отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 180923,
+        "isGroup": false,
+        "name": "Barcelona, Spain, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "barcelona-spain-qualifying",
+        "startTimestamp": 1775865600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "برشلونة",
+              "bn": "বার্সেলোনা",
+              "hi": "बार्सिलोना",
+              "ru": "Барселона"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2407,
+          "name": "Barcelona",
+          "primaryColorHex": "#2b86bd",
+          "secondaryColorHex": "#1d5b81",
+          "slug": "barcelona",
+          "tennisPoints": 500,
+          "userCount": 5924
+        }
+      },
+      "winnerCode": 1
+    }
+  ],
+  "has_next_page": true,
+  "page": 0,
+  "player_id": 237188,
+  "saved_at": 1788183478.186728,
+  "saved_at_iso": "2026-08-31T13:37:58+00:00",
+  "source": "API_PRO_PREVIOUS_MATCHES",
+  "status": "OK"
+}

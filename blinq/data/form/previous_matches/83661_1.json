@@ -1,0 +1,7344 @@
+{
+  "api_status_code": 200,
+  "endpoint": "https://tennisapi1.p.rapidapi.com/api/tennis/player/83661/events/previous/1",
+  "events": [
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 7,
+        "period2": 4,
+        "period3": 5,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "awayTeamSeed": "5",
+      "changes": {
+        "changeTimestamp": 1756146893,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period3",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIsRYpc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 5,
+        "period2": 6,
+        "period3": 7,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بيدرو أراوجو",
+            "ru": "Араужу, Педру"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. أراوجو"
+          }
+        },
+        "gender": "M",
+        "id": 289942,
+        "name": "Pedro Araujo",
+        "nameCode": "ARA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3137
+        },
+        "ranking": 1166,
+        "shortName": "P. Araujo",
+        "slug": "araujo-pedro",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 516
+      },
+      "homeTeamSeed": "WC",
+      "id": 14528387,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 76564,
+        "name": "ATP Challenger Porto 2, Portugal Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "pedro-araujo-elias-ymer",
+      "startTimestamp": 1756136100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1756142261,
+        "period1": 2905,
+        "period2": 2586,
+        "period3": 4618
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1756598400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بورتو 2، البرتغال",
+            "ru": "Porto 2, Portugal"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 161291,
+        "isGroup": false,
+        "name": "Porto 2, Portugal",
+        "priority": 0,
+        "slug": "porto-2-portugal",
+        "startTimestamp": 1756080000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة ATP تشالنجر بورتو 2، البرتغال، فردي الرجال",
+              "ru": "Челленджер АТП Порту 2, Португалия, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 23335,
+          "name": "Porto 2, Portugal",
+          "slug": "atp-challenger-porto-2-portugal-men-singles",
+          "userCount": 71
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period1TieBreak": 4,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 1,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "changes": {
+        "changeTimestamp": 1756748158,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JJpslyI",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "period2TieBreak": 2,
+        "period3": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "RS",
+          "alpha3": "SRB",
+          "name": "Serbia",
+          "slug": "serbia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دوسان لايوفيتش",
+            "ru": "Душан Ладжович"
+          },
+          "shortNameTranslation": {
+            "ar": "د. لايوفيتش",
+            "bn": "ডি. লাজোভিচ",
+            "hi": "डी. लाजोविच"
+          }
+        },
+        "gender": "M",
+        "id": 39234,
+        "name": "Dušan Lajović",
+        "nameCode": "LAJ",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 43
+        },
+        "ranking": 146,
+        "shortName": "D. Lajović",
+        "slug": "lajovic-dusan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 7028
+      },
+      "homeTeamSeed": "4",
+      "id": 14581058,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 76529,
+        "name": "ATP Challenger Seville, Spain Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "elias-ymer-dusan-lajovic",
+      "startTimestamp": 1756738800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1756745658,
+        "period1": 3102,
+        "period2": 3211,
+        "period3": 2450
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1757203200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إشبيلية، إسبانيا",
+            "ru": "Севилья, Испания"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 161841,
+        "isGroup": false,
+        "name": "Seville, Spain",
+        "priority": 0,
+        "slug": "seville-spain",
+        "startTimestamp": 1756684800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "إشبيلية، إسبانيا",
+              "ru": "Севилья, Испания"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3442,
+          "name": "Sevilla, Spain",
+          "slug": "sevilla-spain",
+          "tennisPoints": 125,
+          "userCount": 189
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فاكوندو دياز أكوستا",
+            "ru": "Диас Акоста, Факундо"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. أكوستا",
+            "bn": "এফ. দিয়াজ অ্যাকোস্টা",
+            "hi": "एफ. डियाज़ अकॉस्टा"
+          }
+        },
+        "gender": "M",
+        "id": 264372,
+        "name": "Facundo Diaz Acosta",
+        "nameCode": "DIA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3088
+        },
+        "ranking": 87,
+        "shortName": "F. Diaz Acosta",
+        "slug": "diaz-acosta-facundo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4139
+      },
+      "changes": {
+        "changeTimestamp": 1757586660,
+        "changes": [
+          "homeScore.point",
+          "awayScore.point"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIsxMfc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 1
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "id": 14633452,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 76531,
+        "name": "ATP Challenger Szczecin, Poland Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "facundo-diaz-acosta-elias-ymer",
+      "startTimestamp": 1757350800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1757353495,
+        "period1": 2297,
+        "period2": 2150
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1757808000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "شتشيتسين، بولندا",
+            "ru": "Щецин, Польша"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 162540,
+        "isGroup": false,
+        "name": "Szczecin, Poland",
+        "priority": 0,
+        "slug": "szczecin-poland",
+        "startTimestamp": 1757289600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "شتيتين، بولندا",
+              "ru": "Щецин, Польша"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3461,
+          "name": "Szczecin, Poland",
+          "slug": "szczecin-poland",
+          "tennisPoints": 125,
+          "userCount": 230
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AT",
+          "alpha3": "AUT",
+          "name": "Austria",
+          "slug": "austria"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ساندرو كوب",
+            "ru": "Сандро Копп"
+          },
+          "shortNameTranslation": {
+            "ar": "س. كوب",
+            "ru": "С. Копп"
+          }
+        },
+        "gender": "M",
+        "id": 199379,
+        "name": "Sandro Kopp",
+        "nameCode": "KOP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2648
+        },
+        "ranking": 280,
+        "shortName": "S. Kopp",
+        "slug": "kopp-sandro",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1444
+      },
+      "awayTeamSeed": "WC",
+      "changes": {
+        "changeTimestamp": 1757941462,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIsEMEb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 4,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "homeTeamSeed": "A",
+      "id": 14680550,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 76561,
+        "name": "ATP Challenger Bad Waltersdorf, Austria Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "sandro-kopp-elias-ymer",
+      "startTimestamp": 1757935800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1757938577,
+        "period1": 2421,
+        "period2": 2748
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1758412800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "باد والترسدورف، النمسا",
+            "ru": "Бад-Вальтерсдорф, Австрия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 163237,
+        "isGroup": false,
+        "name": "Bad Waltersdorf, Austria",
+        "priority": 0,
+        "slug": "bad-waltersdorf-austria",
+        "startTimestamp": 1757894400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "باد والترسدورف، النمسا",
+              "ru": "Бад-Вальтерсдорф, Австрия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 21104,
+          "name": "Bad Waltersdorf, Austria",
+          "slug": "bad-waltersdorf-austria",
+          "tennisPoints": 125,
+          "userCount": 136
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 5,
+        "period2": 3,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "awayTeamSeed": "A",
+      "changes": {
+        "changeTimestamp": 1758625202,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIsBkRc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "NL",
+          "alpha3": "NLD",
+          "name": "Netherlands",
+          "slug": "netherlands"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "غاي دين أودن",
+            "ru": "Ги Дэн Оуден"
+          },
+          "shortNameTranslation": {
+            "ar": "غ. أودن",
+            "ru": "Г. Оуден"
+          }
+        },
+        "gender": "M",
+        "id": 355526,
+        "name": "Guy Den Ouden",
+        "nameCode": "DEN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4976
+        },
+        "ranking": 215,
+        "shortName": "G. Den Ouden",
+        "slug": "den-ouden-guy",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1638
+      },
+      "id": 14731342,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 76593,
+        "name": "ATP Challenger Lisbon, Portugal Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "guy-den-ouden-elias-ymer",
+      "startTimestamp": 1758618000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1758622222,
+        "period1": 3806,
+        "period2": 2959
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1759017600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لشبونة، البرتغال",
+            "ru": "Лиссабон, Португалия, парный разряд"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 163916,
+        "isGroup": false,
+        "name": "Lisbon, Portugal",
+        "priority": 0,
+        "slug": "lisbon-portugal",
+        "startTimestamp": 1758499200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "لشبونة، البرتغال",
+              "ru": "Лиссабон, Португалия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 10249,
+          "name": "Lisbon, Portugal",
+          "slug": "lisbon-portugal",
+          "tennisPoints": 75,
+          "userCount": 138
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 1,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "DK",
+          "alpha3": "DNK",
+          "name": "Denmark",
+          "slug": "denmark"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلمر مولر",
+            "ru": "Элмер Моллер"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. مولر",
+            "ru": "Э. Моллер"
+          }
+        },
+        "gender": "M",
+        "id": 499834,
+        "name": "Elmer Moller",
+        "nameCode": "MOE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5397
+        },
+        "ranking": 172,
+        "shortName": "E. Møller",
+        "slug": "moeller-elmer",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4517
+      },
+      "awayTeamSeed": "4",
+      "changes": {
+        "changeTimestamp": 1759163641,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIsJWZd",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 2,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "id": 14786405,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 76599,
+        "name": "ATP Challenger Braga, Portugal Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "elmer-moller-elias-ymer",
+      "startTimestamp": 1759162200,
+      "status": {
+        "code": 92,
+        "description": "Retired",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1759162664
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1759622400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "براغا، البرتغال",
+            "ru": "Брага, Португалия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 164587,
+        "isGroup": false,
+        "name": "Braga, Portugal",
+        "priority": 0,
+        "slug": "braga-portugal",
+        "startTimestamp": 1759104000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "براگا، البرتغال",
+              "ru": "Брага, Португалия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 11060,
+          "name": "Braga, Portugal ",
+          "slug": "braga-portugal",
+          "tennisPoints": 75,
+          "userCount": 150
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 6,
+        "period2TieBreak": 4,
+        "point": "4"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ميكائيل يمر",
+            "ru": "Имер, Микаэль"
+          },
+          "shortNameTranslation": {
+            "ar": "م. يمر",
+            "bn": "এম. ইয়ামার",
+            "hi": "एम. यमर"
+          }
+        },
+        "gender": "M",
+        "id": 152048,
+        "name": "Mikael Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 286
+        },
+        "shortName": "M. Ymer",
+        "slug": "ymer-mikael",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2680
+      },
+      "awayTeamSeed": "WC",
+      "changes": {
+        "changeTimestamp": 1760464266,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIsYPkb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "point": "6"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "homeTeamSeed": "WC",
+      "id": 14871769,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 67309,
+        "name": "ATP Stockholm, Sweden Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "mikael-ymer-elias-ymer",
+      "startTimestamp": 1760457900,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1760460875,
+        "period1": 2063,
+        "period2": 3371
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1729296000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ستوكهولم، السويد",
+            "ru": "Стокгольм, Швеция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 165818,
+        "isGroup": false,
+        "name": "Stockholm, Sweden",
+        "priority": 0,
+        "slug": "stockholm-sweden",
+        "startTimestamp": 1760313600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ستوكهولم",
+              "bn": "স্টকহোম",
+              "hi": "स्टॉकहोम",
+              "ru": "Стокгольм"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2382,
+          "name": "Stockholm",
+          "primaryColorHex": "#acc2bf",
+          "secondaryColorHex": "#999c9e",
+          "slug": "stockholm",
+          "tennisPoints": 250,
+          "userCount": 1653
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "awayTeamSeed": "WC",
+      "changes": {
+        "changeTimestamp": 1760646530,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIsYtkc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 2,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "GB",
+          "alpha3": "GBR",
+          "name": "United Kingdom",
+          "slug": "united-kingdom"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جاكوب فيرنلي",
+            "ru": "Фирнли, Джейкоб"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. فيرنلي"
+          }
+        },
+        "gender": "M",
+        "id": 275948,
+        "name": "Jacob Fearnley",
+        "nameCode": "FEA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4502
+        },
+        "ranking": 107,
+        "shortName": "J. Fearnley",
+        "slug": "fearnley-jacob",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 5564
+      },
+      "id": 14851811,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 67309,
+        "name": "ATP Stockholm, Sweden Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "jacob-fearnley-elias-ymer",
+      "startTimestamp": 1760641200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1760644072,
+        "period1": 2110,
+        "period2": 2417
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1729296000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ستوكهولم، السويد",
+            "ru": "Стокгольм, Швеция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 165818,
+        "isGroup": false,
+        "name": "Stockholm, Sweden",
+        "priority": 0,
+        "slug": "stockholm-sweden",
+        "startTimestamp": 1760313600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ستوكهولم",
+              "bn": "স্টকহোম",
+              "hi": "स्टॉकहोम",
+              "ru": "Стокгольм"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2382,
+          "name": "Stockholm",
+          "primaryColorHex": "#acc2bf",
+          "secondaryColorHex": "#999c9e",
+          "slug": "stockholm",
+          "tennisPoints": 250,
+          "userCount": 1653
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "period2TieBreak": 3,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دينيس شابوفالوف",
+            "ru": "Денис Шаповалов"
+          },
+          "shortNameTranslation": {
+            "ar": "د. شابوفالوف",
+            "bn": "ডি. শাপোভালভ",
+            "hi": "डी. शापोवालोव",
+            "ru": "Д. Шаповалов"
+          }
+        },
+        "gender": "M",
+        "id": 117916,
+        "name": "Denis Shapovalov",
+        "nameCode": "SHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 24
+        },
+        "ranking": 48,
+        "shortName": "D. Shapovalov",
+        "slug": "shapovalov-denis",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 15629
+      },
+      "awayTeamSeed": "3",
+      "changes": {
+        "changeTimestamp": 1760738762,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIsqiX",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 4,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 1,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "homeTeamSeed": "WC",
+      "id": 14851816,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 67309,
+        "name": "ATP Stockholm, Sweden Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "denis-shapovalov-elias-ymer",
+      "startTimestamp": 1760728500,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1760736875,
+        "period1": 3114,
+        "period2": 4432,
+        "period3": 1869
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1729296000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ستوكهولم، السويد",
+            "ru": "Стокгольм, Швеция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 165818,
+        "isGroup": false,
+        "name": "Stockholm, Sweden",
+        "priority": 0,
+        "slug": "stockholm-sweden",
+        "startTimestamp": 1760313600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ستوكهولم",
+              "bn": "স্টকহোম",
+              "hi": "स्टॉकहोम",
+              "ru": "Стокгольм"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2382,
+          "name": "Stockholm",
+          "primaryColorHex": "#acc2bf",
+          "secondaryColorHex": "#999c9e",
+          "slug": "stockholm",
+          "tennisPoints": 250,
+          "userCount": 1653
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 5,
+        "period2": 6,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "changes": {
+        "changeTimestamp": 1761628554,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIsJnmb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 7,
+        "period2": 1,
+        "period3": 0,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "JP",
+          "alpha3": "JPN",
+          "name": "Japan",
+          "slug": "japan"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "رينتا توكودا",
+            "bn": "রেন্টা তোকুদা",
+            "hi": "रेंटा टोकुदा",
+            "ru": "Токуда, Рента"
+          },
+          "shortNameTranslation": {
+            "ar": "ر. توكودا"
+          }
+        },
+        "gender": "M",
+        "id": 155684,
+        "name": "Renta Tokuda",
+        "nameCode": "TOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 512
+        },
+        "ranking": 456,
+        "shortName": "R. Tokuda",
+        "slug": "tokuda-renta",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 453
+      },
+      "id": 14947404,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 80573,
+        "name": "ATP Challenger Seoul, Korea Republic Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "renta-tokuda-elias-ymer",
+      "startTimestamp": 1761620100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1761627241,
+        "period1": 2526,
+        "period2": 1878,
+        "period3": 1272
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1762041600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سيول، جمهورية كوريا",
+            "ru": "Сеул, Республика Корея"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 166936,
+        "isGroup": false,
+        "name": "Seoul, Korea Republic",
+        "priority": 0,
+        "slug": "seoul-korea-republic",
+        "startTimestamp": 1761523200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "سيول، كوريا الجنوبية",
+              "ru": "Сеул, Южная Корея"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 4021,
+          "name": "Seoul, South Korea",
+          "slug": "seoul-south-korea",
+          "userCount": 129
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 3,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "JP",
+          "alpha3": "JPN",
+          "name": "Japan",
+          "slug": "japan"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كوكورو إيسومورا",
+            "ru": "Кокоро Исомура"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. إيسومورا",
+            "ru": "К. Исомура"
+          }
+        },
+        "gender": "M",
+        "id": 367815,
+        "name": "Kokoro Isomura",
+        "nameCode": "ISO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5330
+        },
+        "ranking": 571,
+        "shortName": "K. Isomura",
+        "slug": "isomura-kokoro",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 711
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1761794692,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period2",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIspgXc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "id": 14931864,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 80573,
+        "name": "ATP Challenger Seoul, Korea Republic Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "kokoro-isomura-elias-ymer",
+      "startTimestamp": 1761789600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1761792485,
+        "period1": 2479,
+        "period2": 2194
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1762041600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سيول، جمهورية كوريا",
+            "ru": "Сеул, Республика Корея"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 166936,
+        "isGroup": false,
+        "name": "Seoul, Korea Republic",
+        "priority": 0,
+        "slug": "seoul-korea-republic",
+        "startTimestamp": 1761523200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "سيول، كوريا الجنوبية",
+              "ru": "Сеул, Южная Корея"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 4021,
+          "name": "Seoul, South Korea",
+          "slug": "seoul-south-korea",
+          "userCount": 129
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 3,
+        "period3": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "changes": {
+        "changeTimestamp": 1761889984,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIsjdFb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 4,
+        "period2": 6,
+        "period3": 2,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AT",
+          "alpha3": "AUT",
+          "name": "Austria",
+          "slug": "austria"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "يوري روديونوف",
+            "bn": "জুরিজ রোডিওনভ",
+            "hi": "जुरिज़ रोडियोनोव",
+            "ru": "Родионов, Юрий"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. روديونوف"
+          }
+        },
+        "gender": "M",
+        "id": 200159,
+        "name": "Jurij Rodionov",
+        "nameCode": "ROD",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 263
+        },
+        "ranking": 134,
+        "shortName": "J. Rodionov",
+        "slug": "rodionov-jurij",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3731
+      },
+      "homeTeamSeed": "4",
+      "id": 14931862,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 80573,
+        "name": "ATP Challenger Seoul, Korea Republic Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "jurij-rodionov-elias-ymer",
+      "startTimestamp": 1761882600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1761887497,
+        "period1": 2335,
+        "period2": 2078,
+        "period3": 2442
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1762041600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سيول، جمهورية كوريا",
+            "ru": "Сеул, Республика Корея"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 166936,
+        "isGroup": false,
+        "name": "Seoul, Korea Republic",
+        "priority": 0,
+        "slug": "seoul-korea-republic",
+        "startTimestamp": 1761523200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "سيول، كوريا الجنوبية",
+              "ru": "Сеул, Южная Корея"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 4021,
+          "name": "Seoul, South Korea",
+          "slug": "seoul-south-korea",
+          "userCount": 129
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 1,
+        "period2": 6,
+        "period3": 3,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "changes": {
+        "changeTimestamp": 1761982737,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIseyLb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 4,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "JP",
+          "alpha3": "JPN",
+          "name": "Japan",
+          "slug": "japan"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "شو شيمابوكورو",
+            "bn": "শোহ শিমাবুকুরো",
+            "hi": "शो शिमाबुकुरो",
+            "ru": "Шимабукуро, Шо"
+          },
+          "shortNameTranslation": {
+            "ar": "ش. شيمابوكورو"
+          }
+        },
+        "gender": "M",
+        "id": 216154,
+        "name": "Sho Shimabukuro",
+        "nameCode": "SHI",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2840
+        },
+        "ranking": 90,
+        "shortName": "S. Shimabukuro",
+        "slug": "shimabukuro-sho",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2590
+      },
+      "id": 14931867,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 80573,
+        "name": "ATP Challenger Seoul, Korea Republic Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "sho-shimabukuro-elias-ymer",
+      "startTimestamp": 1761974400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1761979792,
+        "period1": 1786,
+        "period2": 2607,
+        "period3": 2893
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1762041600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سيول، جمهورية كوريا",
+            "ru": "Сеул, Республика Корея"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 166936,
+        "isGroup": false,
+        "name": "Seoul, Korea Republic",
+        "priority": 0,
+        "slug": "seoul-korea-republic",
+        "startTimestamp": 1761523200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "سيول، كوريا الجنوبية",
+              "ru": "Сеул, Южная Корея"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 4021,
+          "name": "Seoul, South Korea",
+          "slug": "seoul-south-korea",
+          "userCount": 129
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 1,
+        "period3": 7,
+        "period3TieBreak": 7,
+        "point": "6"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "awayTeamSeed": "6",
+      "changes": {
+        "changeTimestamp": 1762317122,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIsmyGb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 4,
+        "period2": 6,
+        "period3": 6,
+        "period3TieBreak": 2,
+        "point": "2"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "KR",
+          "alpha3": "KOR",
+          "name": "South Korea",
+          "slug": "south-korea"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ويسونغ بارك",
+            "ru": "Уисунг Пак"
+          },
+          "shortNameTranslation": {
+            "ar": "و. بارك",
+            "ru": "У. Пак"
+          }
+        },
+        "gender": "M",
+        "id": 203662,
+        "name": "Uisung Park",
+        "nameCode": "PAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2711
+        },
+        "ranking": 759,
+        "shortName": "U. Park",
+        "slug": "park-uisung",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 376
+      },
+      "homeTeamSeed": "Q",
+      "id": 14999879,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 80576,
+        "name": "ATP Challenger Taipei, Chinese Taipei Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "uisung-park-elias-ymer",
+      "startTimestamp": 1762308000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1762312916,
+        "period1": 2817,
+        "period2": 1606,
+        "period3": 4163
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1762646400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تايبيه، تايبيه الصينية",
+            "ru": "Тайбэй, Тайвань"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 167321,
+        "isGroup": false,
+        "name": "Taipei, Chinese Taipei",
+        "priority": 0,
+        "slug": "taipei-chinese-taipei",
+        "startTimestamp": 1762128000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تايبيه، تايبيه الصينية فردي رجال",
+              "ru": "Тайбэй, Тайвань, среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3181,
+          "name": "Taipei, Chinese Taipei Men Singles",
+          "slug": "taipei-chinese-taipei-men-singles",
+          "userCount": 73
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 5,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 3,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "awayTeamSeed": "6",
+      "changes": {
+        "changeTimestamp": 1762422788,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIsAcT",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period2": 6,
+        "period2TieBreak": 4,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم جانفييه",
+            "bn": "ম্যাক্সিম জানভিয়ার",
+            "hi": "मैक्सिम जेनवियर",
+            "ru": "Жанвье, Максим"
+          },
+          "shortNameTranslation": {
+            "ar": "م. جانفييه"
+          }
+        },
+        "gender": "M",
+        "id": 107625,
+        "name": "Maxime Janvier",
+        "nameCode": "JAN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 317
+        },
+        "ranking": 566,
+        "shortName": "M. Janvier",
+        "slug": "janvier-maxime",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 966
+      },
+      "id": 14956537,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 80576,
+        "name": "ATP Challenger Taipei, Chinese Taipei Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "maxime-janvier-elias-ymer",
+      "startTimestamp": 1762412700,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1762420088,
+        "period1": 2874,
+        "period2": 3672,
+        "period3": 2635
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1762646400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تايبيه، تايبيه الصينية",
+            "ru": "Тайбэй, Тайвань"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 167321,
+        "isGroup": false,
+        "name": "Taipei, Chinese Taipei",
+        "priority": 0,
+        "slug": "taipei-chinese-taipei",
+        "startTimestamp": 1762128000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تايبيه، تايبيه الصينية فردي رجال",
+              "ru": "Тайбэй, Тайвань, среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3181,
+          "name": "Taipei, Chinese Taipei Men Singles",
+          "slug": "taipei-chinese-taipei-men-singles",
+          "userCount": 73
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 2,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 1,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "GB",
+          "alpha3": "GBR",
+          "name": "United Kingdom",
+          "slug": "united-kingdom"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "رايان بينستون",
+            "bn": "রায়ান পেনিস্টন",
+            "hi": "रयान पेनिस्टन",
+            "ru": "Пенистон, Райн"
+          },
+          "shortNameTranslation": {
+            "ar": "ر. بينستون"
+          }
+        },
+        "gender": "M",
+        "id": 91240,
+        "name": "Ryan Peniston",
+        "nameCode": "PEN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1811
+        },
+        "ranking": 454,
+        "shortName": "R. Peniston",
+        "slug": "peniston-ryan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1134
+      },
+      "changes": {
+        "changeTimestamp": 1762846618,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIsPzL",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 6,
+        "period2TieBreak": 4,
+        "period3": 1,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "homeTeamSeed": "7",
+      "id": 15022047,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 80668,
+        "name": "ATP Challenger Kobe, Japan Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "ryan-peniston-elias-ymer",
+      "startTimestamp": 1762838700,
+      "status": {
+        "code": 92,
+        "description": "Retired",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1762845317,
+        "period1": 1892,
+        "period2": 4162,
+        "period3": 1258
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1763251200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كوبي، اليابان",
+            "ru": "Кобе, Япония"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 168197,
+        "isGroup": false,
+        "name": "Kobe, Japan",
+        "priority": 0,
+        "slug": "kobe-japan",
+        "startTimestamp": 1762732800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كوبي، اليابان",
+              "ru": "Кобе, Япония"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 6591,
+          "name": "Kobe, Japan",
+          "slug": "kobe-japan",
+          "tennisPoints": 100,
+          "userCount": 184
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 1,
+        "period2": 1,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "JP",
+          "alpha3": "JPN",
+          "name": "Japan",
+          "slug": "japan"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "رينتا توكودا",
+            "bn": "রেন্টা তোকুদা",
+            "hi": "रेंटा टोकुदा",
+            "ru": "Токуда, Рента"
+          },
+          "shortNameTranslation": {
+            "ar": "ر. توكودا"
+          }
+        },
+        "gender": "M",
+        "id": 155684,
+        "name": "Renta Tokuda",
+        "nameCode": "TOK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 512
+        },
+        "ranking": 456,
+        "shortName": "R. Tokuda",
+        "slug": "tokuda-renta",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 453
+      },
+      "changes": {
+        "changeTimestamp": 1763001799,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIsJnmb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 0,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "homeTeamSeed": "7",
+      "id": 15011889,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 80668,
+        "name": "ATP Challenger Kobe, Japan Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "renta-tokuda-elias-ymer",
+      "startTimestamp": 1762999200,
+      "status": {
+        "code": 92,
+        "description": "Retired",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1763001235,
+        "period1": 1559,
+        "period2": 505
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1763251200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كوبي، اليابان",
+            "ru": "Кобе, Япония"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 168197,
+        "isGroup": false,
+        "name": "Kobe, Japan",
+        "priority": 0,
+        "slug": "kobe-japan",
+        "startTimestamp": 1762732800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كوبي، اليابان",
+              "ru": "Кобе, Япония"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 6591,
+          "name": "Kobe, Japan",
+          "slug": "kobe-japan",
+          "tennisPoints": 100,
+          "userCount": 184
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 5,
+        "period2": 7,
+        "period3": 4,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CH",
+          "alpha3": "CHE",
+          "name": "Switzerland",
+          "slug": "switzerland"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارك-أندريا هويزلر",
+            "ru": "Хуслен, Марк-Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "م. هويزلر",
+            "bn": "এম. হুসলার",
+            "hi": "एम. हूसलर"
+          }
+        },
+        "gender": "M",
+        "id": 145112,
+        "name": "Marc-Andrea Huesler",
+        "nameCode": "HUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 533
+        },
+        "ranking": 246,
+        "shortName": "M. Huesler",
+        "slug": "huesler-marc-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2857
+      },
+      "changes": {
+        "changeTimestamp": 1763111347,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIsmcib",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period2": 5,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "homeTeamSeed": "7",
+      "id": 15011883,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 80668,
+        "name": "ATP Challenger Kobe, Japan Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "marc-andrea-huesler-elias-ymer",
+      "startTimestamp": 1763102400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1763108538,
+        "period1": 2782,
+        "period2": 2850,
+        "period3": 2778
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1763251200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كوبي، اليابان",
+            "ru": "Кобе, Япония"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 168197,
+        "isGroup": false,
+        "name": "Kobe, Japan",
+        "priority": 0,
+        "slug": "kobe-japan",
+        "startTimestamp": 1762732800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كوبي، اليابان",
+              "ru": "Кобе, Япония"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 6591,
+          "name": "Kobe, Japan",
+          "slug": "kobe-japan",
+          "tennisPoints": 100,
+          "userCount": 184
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 4,
+        "period3": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1763196411,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "EbIslyI",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 4,
+        "period2": 6,
+        "period3": 3,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "JP",
+          "alpha3": "JPN",
+          "name": "Japan",
+          "slug": "japan"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كايتشي أوتشيدا",
+            "bn": "কাইচি উচিদা",
+            "hi": "काइची उचिदा",
+            "ru": "Каичи Учида"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. أوتشيدا"
+          }
+        },
+        "gender": "M",
+        "id": 82579,
+        "name": "Kaichi Uchida",
+        "nameCode": "UCH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 417
+        },
+        "ranking": 261,
+        "shortName": "K. Uchida",
+        "slug": "uchida-kaichi",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 982
+      },
+      "id": 15011884,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 80668,
+        "name": "ATP Challenger Kobe, Japan Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "elias-ymer-kaichi-uchida",
+      "startTimestamp": 1763188500,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1763193545,
+        "period1": 1989,
+        "period2": 2358,
+        "period3": 2830
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1763251200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كوبي، اليابان",
+            "ru": "Кобе, Япония"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 168197,
+        "isGroup": false,
+        "name": "Kobe, Japan",
+        "priority": 0,
+        "slug": "kobe-japan",
+        "startTimestamp": 1762732800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كوبي، اليابان",
+              "ru": "Кобе, Япония"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 6591,
+          "name": "Kobe, Japan",
+          "slug": "kobe-japan",
+          "tennisPoints": 100,
+          "userCount": 184
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 1,
+        "period3": 4,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1763273491,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIscWmb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 3,
+        "period2": 6,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "JP",
+          "alpha3": "JPN",
+          "name": "Japan",
+          "slug": "japan"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "يوسوكه واتانكي",
+            "ru": "Ватануки, Есуке"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. واتانكي",
+            "bn": "ওয়াই. ওয়াতানুকি",
+            "hi": "वाई. वातानुकी"
+          }
+        },
+        "gender": "M",
+        "id": 157302,
+        "name": "Yosuke Watanuki",
+        "nameCode": "WAT",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 236
+        },
+        "ranking": 416,
+        "shortName": "Y. Watanuki",
+        "slug": "watanuki-yosuke",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2515
+      },
+      "homeTeamSeed": "4",
+      "id": 15011882,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 80668,
+        "name": "ATP Challenger Kobe, Japan Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "yosuke-watanuki-elias-ymer",
+      "startTimestamp": 1763265600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1763270537,
+        "period1": 2411,
+        "period2": 1983,
+        "period3": 2901
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1763251200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كوبي، اليابان",
+            "ru": "Кобе, Япония"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 168197,
+        "isGroup": false,
+        "name": "Kobe, Japan",
+        "priority": 0,
+        "slug": "kobe-japan",
+        "startTimestamp": 1762732800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كوبي، اليابان",
+              "ru": "Кобе, Япония"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 6591,
+          "name": "Kobe, Japan",
+          "slug": "kobe-japan",
+          "tennisPoints": 100,
+          "userCount": 184
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 0,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "awayTeamSeed": "3",
+      "changes": {
+        "changeTimestamp": 1763435439,
+        "changes": [
+          "time.currentPeriodStart",
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIskCnd",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كايلان بيغون",
+            "ru": "Кайлан Бигун"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. بيغون",
+            "ru": "К. Бигун"
+          }
+        },
+        "gender": "M",
+        "id": 408860,
+        "name": "Kaylan Bigun",
+        "nameCode": "BIG",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 7459
+        },
+        "ranking": 548,
+        "shortName": "K. Bigun",
+        "slug": "bigun-kaylan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 543
+      },
+      "id": 15106613,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 80767,
+        "name": "ATP Challenger Yokohama, Japan Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "kaylan-bigun-elias-ymer",
+      "startTimestamp": 1763434200,
+      "status": {
+        "code": 92,
+        "description": "Retired",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1763434664
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1763856000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "يوكوهاما، اليابان",
+            "ru": "Йокогама, Япония"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 168866,
+        "isGroup": false,
+        "name": "Yokohama, Japan",
+        "priority": 0,
+        "slug": "yokohama-japan",
+        "startTimestamp": 1763337600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "يوكوهاما، اليابان",
+              "ru": "Йокогама, Япония"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 5153,
+          "name": "Yokohama, Japan",
+          "slug": "yokohama-japan",
+          "tennisPoints": 75,
+          "userCount": 99
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 1,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "RO",
+          "alpha3": "ROU",
+          "name": "Romania",
+          "slug": "romania"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دراغوس نيكولاى كازاكو",
+            "ru": "Драгош Николае Казаку"
+          },
+          "shortNameTranslation": {
+            "ar": "د. كازاكو",
+            "ru": "Д. Казаку"
+          }
+        },
+        "gender": "M",
+        "id": 317453,
+        "name": "Dragos Nicolae Cazacu",
+        "nameCode": "CAZ",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11603
+        },
+        "ranking": 714,
+        "shortName": "D. N. Cazacu",
+        "slug": "cazacu-dragos-nicolae",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 236
+      },
+      "changes": {
+        "changeTimestamp": 1764231182,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIsdZBc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "homeTeamSeed": "1",
+      "id": 15126016,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 86523,
+        "name": "ATP Challenger Hamburg, Germany Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "dragos-nicolae-cazacu-elias-ymer",
+      "startTimestamp": 1764226800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1764229650,
+        "period1": 2412,
+        "period2": 1503
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1764460800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إسلام آباد، باكستان",
+            "ru": "Исламабад, Пакистан"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 169500,
+        "isGroup": false,
+        "name": "Islamabad, Pakistan",
+        "priority": 0,
+        "slug": "islamabad-pakistan",
+        "startTimestamp": 1763942400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "(اتپ تشاللينجير) إسلام آباد، باكستان فردي الرجال",
+              "ru": "ATP Challenger Исламабад, Пакистан среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 31064,
+          "name": "Islamabad, Pakistan",
+          "slug": "atp-challenger-islamabad-pakistan-men-singles",
+          "userCount": 38
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 10,
+        "period2": 4,
+        "period3": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "TR",
+          "alpha3": "TUR",
+          "name": "Türkiye",
+          "slug": "turkiye"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ميرت ألكايا",
+            "bn": "মের্ট আলকায়া",
+            "hi": "मर्ट अल्काया",
+            "ru": "Мерт Алкая"
+          },
+          "shortNameTranslation": {
+            "ar": "م. ألكايا",
+            "ru": "М. Алкая"
+          }
+        },
+        "gender": "M",
+        "id": 200150,
+        "name": "Mert Alkaya",
+        "nameCode": "ALK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2661
+        },
+        "ranking": 298,
+        "shortName": "M. Alkaya",
+        "slug": "alkaya-mert",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 818
+      },
+      "awayTeamSeed": "6",
+      "changes": {
+        "changeTimestamp": 1764314032,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIsadFb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period1TieBreak": 8,
+        "period2": 6,
+        "period3": 0,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "homeTeamSeed": "1",
+      "id": 15126025,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 86523,
+        "name": "ATP Challenger Hamburg, Germany Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "mert-alkaya-elias-ymer",
+      "startTimestamp": 1764306000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1764312067,
+        "period1": 3322,
+        "period2": 2260,
+        "period3": 1931
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1764460800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إسلام آباد، باكستان",
+            "ru": "Исламабад, Пакистан"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 169500,
+        "isGroup": false,
+        "name": "Islamabad, Pakistan",
+        "priority": 0,
+        "slug": "islamabad-pakistan",
+        "startTimestamp": 1763942400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "(اتپ تشاللينجير) إسلام آباد، باكستان فردي الرجال",
+              "ru": "ATP Challenger Исламабад, Пакистан среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 31064,
+          "name": "Islamabad, Pakistan",
+          "slug": "atp-challenger-islamabad-pakistan-men-singles",
+          "userCount": 38
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "point": "6"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "RS",
+          "alpha3": "SRB",
+          "name": "Serbia",
+          "slug": "serbia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لاسلو دجيري",
+            "ru": "Дйере, Ласло"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. دجيري",
+            "bn": "এল. জেরে",
+            "hi": "एल. जेर"
+          }
+        },
+        "gender": "M",
+        "id": 97231,
+        "name": "Laslo Djere",
+        "nameCode": "DJE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 37
+        },
+        "ranking": 211,
+        "shortName": "L. Djere",
+        "slug": "djere-laslo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 7110
+      },
+      "awayTeamSeed": "5",
+      "changes": {
+        "changeTimestamp": 1767506482,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIsGUN",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p250"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 6,
+        "period2TieBreak": 3,
+        "point": "3"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "id": 15310684,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 80020,
+        "name": "ATP Hong Kong, Hong Kong Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "laslo-djere-elias-ymer",
+      "startTimestamp": 1767499200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1767501763,
+        "period1": 2037,
+        "period2": 4672
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1767571200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "هونغ كونغ، هونغ كونغ، التصفيات",
+            "ru": "Гонконг, Гонконг, отбор"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 172413,
+        "isGroup": false,
+        "name": "Hong Kong, Hong Kong, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "hong-kong-hong-kong-qualifying",
+        "startTimestamp": 1767484800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "هونغ كونغ فردي الرجال",
+              "ru": "Гонконг, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 21817,
+          "name": "Hong Kong Men Singles",
+          "slug": "atp-hong-kong-hong-kong-men-singles",
+          "tennisPoints": 250,
+          "userCount": 1122
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "point": "6"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "changes": {
+        "changeTimestamp": 1768272770,
+        "changes": [
+          "awayScore.period2TieBreak",
+          "time.currentPeriodStart",
+          "time.period2",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.normaltime",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period2",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "uryslyI",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "grand-slam"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": true,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 4,
+        "period2": 6,
+        "period2TieBreak": 5,
+        "point": "5"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AU",
+          "alpha3": "AUS",
+          "name": "Australia",
+          "slug": "australia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليكس بولت",
+            "bn": "অ্যালেক্স বোল্ট",
+            "hi": "एलेक्स बोल्ट",
+            "ru": "Болт, Алекс"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. بولت"
+          }
+        },
+        "gender": "M",
+        "id": 58369,
+        "name": "Alex Bolt",
+        "nameCode": "BOL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 164
+        },
+        "ranking": 162,
+        "shortName": "A. Bolt",
+        "slug": "bolt-alex",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2180
+      },
+      "id": 15345383,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 80012,
+        "name": "Australian Open Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "elias-ymer-alex-bolt",
+      "startTimestamp": 1768264500,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1768269233,
+        "period1": 4081,
+        "period2": 3524
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1768435200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تصفيات بطولة أستراليا المفتوحة للتنس، ملبورن، أستراليا",
+            "ru": "Открытый чемпионат Австралии, Мельбурн, Австралия, Отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 172869,
+        "isGroup": false,
+        "name": "Australian Open, Melbourne, Australia, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "australian-open-melbourne-australia-qualifying",
+        "startTimestamp": 1768176000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة أستراليا المفتوحة، فردي الرجال",
+              "az": "Australian Open, Kişilər",
+              "bn": "অস্ট্রেলিয়ান ওপেন, পুরুষ একক",
+              "de": "Australian Open Herreneinzel",
+              "el": "Αυστραλιανό Όπεν, απλό ανδρών",
+              "es": "Abierto de Australia, masculino",
+              "es-la": "Abierto de Australia, Varonil",
+              "fr": "Open d'Australie simple messieurs",
+              "hi": "ऑस्ट्रेलियन ओपन, पुरुष",
+              "hr": "Australian Open (M)",
+              "hu": "Australian Open, férfi egyes",
+              "id": "Australia Open, Tunggal (Pa)",
+              "it": "Australian Open (M)",
+              "ja": "全豪オープン、男子",
+              "ko": "호주 오픈 남자 단식",
+              "nl": "Australian Open mannenenkelspel",
+              "no": "Australian Open, menn",
+              "pl": "Australian Open, singiel mężczyzn",
+              "pt": "Australian Open masculino",
+              "pt-pt": "Australian Open (M)",
+              "ro": "Australian Open, simplu masculin",
+              "ru": "Australian Open, мужской одиночный разряд",
+              "sr": "Аустралијан опен, појединачно (М)",
+              "sv": "Australian Open, herrsingel",
+              "th": "ออสเตรเลียนโอเพน ชายเดี่ยว",
+              "tr": "Avustralya Açık, Tek Erkekler",
+              "vi": "Úc Mở rộng, đơn nam"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2363,
+          "name": "Australian Open, Men",
+          "primaryColorHex": "#d0d830",
+          "secondaryColorHex": "#2294dc",
+          "slug": "australian-open",
+          "tennisPoints": 2000,
+          "userCount": 34233
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 4,
+        "period2": 6,
+        "period3": 7,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "changes": {
+        "changeTimestamp": 1768373222,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.normaltime",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period3",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIsJWZd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "grand-slam"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": true,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 4,
+        "period3": 5,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DK",
+          "alpha3": "DNK",
+          "name": "Denmark",
+          "slug": "denmark"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلمر مولر",
+            "ru": "Элмер Моллер"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. مولر",
+            "ru": "Э. Моллер"
+          }
+        },
+        "gender": "M",
+        "id": 499834,
+        "name": "Elmer Moller",
+        "nameCode": "MOE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5397
+        },
+        "ranking": 172,
+        "shortName": "E. Møller",
+        "slug": "moeller-elmer",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4517
+      },
+      "homeTeamSeed": "9",
+      "id": 15361662,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 2",
+        "round": 2,
+        "slug": "qualification-round-2"
+      },
+      "season": {
+        "editor": false,
+        "id": 80012,
+        "name": "Australian Open Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "elmer-moller-elias-ymer",
+      "startTimestamp": 1768363500,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1768369166,
+        "period1": 2843,
+        "period2": 2784,
+        "period3": 3150
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1768435200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تصفيات بطولة أستراليا المفتوحة للتنس، ملبورن، أستراليا",
+            "ru": "Открытый чемпионат Австралии, Мельбурн, Австралия, Отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 172869,
+        "isGroup": false,
+        "name": "Australian Open, Melbourne, Australia, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "australian-open-melbourne-australia-qualifying",
+        "startTimestamp": 1768176000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة أستراليا المفتوحة، فردي الرجال",
+              "az": "Australian Open, Kişilər",
+              "bn": "অস্ট্রেলিয়ান ওপেন, পুরুষ একক",
+              "de": "Australian Open Herreneinzel",
+              "el": "Αυστραλιανό Όπεν, απλό ανδρών",
+              "es": "Abierto de Australia, masculino",
+              "es-la": "Abierto de Australia, Varonil",
+              "fr": "Open d'Australie simple messieurs",
+              "hi": "ऑस्ट्रेलियन ओपन, पुरुष",
+              "hr": "Australian Open (M)",
+              "hu": "Australian Open, férfi egyes",
+              "id": "Australia Open, Tunggal (Pa)",
+              "it": "Australian Open (M)",
+              "ja": "全豪オープン、男子",
+              "ko": "호주 오픈 남자 단식",
+              "nl": "Australian Open mannenenkelspel",
+              "no": "Australian Open, menn",
+              "pl": "Australian Open, singiel mężczyzn",
+              "pt": "Australian Open masculino",
+              "pt-pt": "Australian Open (M)",
+              "ro": "Australian Open, simplu masculin",
+              "ru": "Australian Open, мужской одиночный разряд",
+              "sr": "Аустралијан опен, појединачно (М)",
+              "sv": "Australian Open, herrsingel",
+              "th": "ออสเตรเลียนโอเพน ชายเดี่ยว",
+              "tr": "Avustralya Açık, Tek Erkekler",
+              "vi": "Úc Mở rộng, đơn nam"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2363,
+          "name": "Australian Open, Men",
+          "primaryColorHex": "#d0d830",
+          "secondaryColorHex": "#2294dc",
+          "slug": "australian-open",
+          "tennisPoints": 2000,
+          "userCount": 34233
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period1TieBreak": 4,
+        "period2": 6,
+        "period3": 3,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "HK",
+          "alpha3": "HKG",
+          "name": "Hong Kong",
+          "slug": "hong-kong"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كولمان وونغ",
+            "ru": "Колеман Вонг"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. وونغ",
+            "ru": "К. Вонг"
+          }
+        },
+        "gender": "M",
+        "id": 289106,
+        "name": "Coleman Wong",
+        "nameCode": "WON",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4987
+        },
+        "ranking": 93,
+        "shortName": "C. Wong",
+        "slug": "wong-chak-lam-coleman",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4767
+      },
+      "changes": {
+        "changeTimestamp": 1768452867,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIsgHpc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "grand-slam"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 4,
+        "period3": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "id": 15366379,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 80012,
+        "name": "Australian Open Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "coleman-wong-elias-ymer",
+      "startTimestamp": 1768444200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1768450385,
+        "period1": 3329,
+        "period2": 2377,
+        "period3": 2417
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1768435200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تصفيات بطولة أستراليا المفتوحة للتنس، ملبورن، أستراليا",
+            "ru": "Открытый чемпионат Австралии, Мельбурн, Австралия, Отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 172869,
+        "isGroup": false,
+        "name": "Australian Open, Melbourne, Australia, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "australian-open-melbourne-australia-qualifying",
+        "startTimestamp": 1768176000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة أستراليا المفتوحة، فردي الرجال",
+              "az": "Australian Open, Kişilər",
+              "bn": "অস্ট্রেলিয়ান ওপেন, পুরুষ একক",
+              "de": "Australian Open Herreneinzel",
+              "el": "Αυστραλιανό Όπεν, απλό ανδρών",
+              "es": "Abierto de Australia, masculino",
+              "es-la": "Abierto de Australia, Varonil",
+              "fr": "Open d'Australie simple messieurs",
+              "hi": "ऑस्ट्रेलियन ओपन, पुरुष",
+              "hr": "Australian Open (M)",
+              "hu": "Australian Open, férfi egyes",
+              "id": "Australia Open, Tunggal (Pa)",
+              "it": "Australian Open (M)",
+              "ja": "全豪オープン、男子",
+              "ko": "호주 오픈 남자 단식",
+              "nl": "Australian Open mannenenkelspel",
+              "no": "Australian Open, menn",
+              "pl": "Australian Open, singiel mężczyzn",
+              "pt": "Australian Open masculino",
+              "pt-pt": "Australian Open (M)",
+              "ro": "Australian Open, simplu masculin",
+              "ru": "Australian Open, мужской одиночный разряд",
+              "sr": "Аустралијан опен, појединачно (М)",
+              "sv": "Australian Open, herrsingel",
+              "th": "ออสเตรเลียนโอเพน ชายเดี่ยว",
+              "tr": "Avustralya Açık, Tek Erkekler",
+              "vi": "Úc Mở rộng, đơn nam"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2363,
+          "name": "Australian Open, Men",
+          "primaryColorHex": "#d0d830",
+          "secondaryColorHex": "#2294dc",
+          "slug": "australian-open",
+          "tennisPoints": 2000,
+          "userCount": 34233
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 3,
+        "display": 3,
+        "normaltime": 3,
+        "period1": 3,
+        "period2": 7,
+        "period3": 6,
+        "period4": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "KZ",
+          "alpha3": "KAZ",
+          "name": "Kazakhstan",
+          "slug": "kazakhstan"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ألكسندر شيفشينكو",
+            "bn": "আলেকজান্ডার শেভচেঙ্কো",
+            "hi": "अलेक्ज़ेंडर शेवचेंको",
+            "ru": "Александр Шевченко"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. شيفشينكو",
+            "ru": "А. Шевченко"
+          }
+        },
+        "gender": "M",
+        "id": 264344,
+        "name": "Aleksandr Shevchenko",
+        "nameCode": "SHE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3086
+        },
+        "ranking": 89,
+        "shortName": "A. Shevchenko",
+        "slug": "shevchenko-alexander",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 5291
+      },
+      "changes": {
+        "changeTimestamp": 1768793478,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period4",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.normaltime",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period4",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIsULfc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "grand-slam"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": true,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 5,
+        "period3": 4,
+        "period4": 1,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "homeTeamSeed": "Q",
+      "id": 15373167,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Round of 128",
+        "round": 64,
+        "slug": "round-of-128"
+      },
+      "season": {
+        "editor": false,
+        "id": 80012,
+        "name": "Australian Open Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "alexander-shevchenko-elias-ymer",
+      "startTimestamp": 1768781100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1768790517,
+        "period1": 2903,
+        "period2": 3248,
+        "period3": 3111,
+        "period4": 2948
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1769904000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بطولة أستراليا المفتوحة للتنس، ملبورن، أستراليا",
+            "ru": "Открытый чемпионат Австралии, Мельбурн, Австралия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 172867,
+        "isGroup": false,
+        "name": "Australian Open, Melbourne, Australia",
+        "priority": 0,
+        "slug": "australian-open-melbourne-australia",
+        "startTimestamp": 1768694400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة أستراليا المفتوحة، فردي الرجال",
+              "az": "Australian Open, Kişilər",
+              "bn": "অস্ট্রেলিয়ান ওপেন, পুরুষ একক",
+              "de": "Australian Open Herreneinzel",
+              "el": "Αυστραλιανό Όπεν, απλό ανδρών",
+              "es": "Abierto de Australia, masculino",
+              "es-la": "Abierto de Australia, Varonil",
+              "fr": "Open d'Australie simple messieurs",
+              "hi": "ऑस्ट्रेलियन ओपन, पुरुष",
+              "hr": "Australian Open (M)",
+              "hu": "Australian Open, férfi egyes",
+              "id": "Australia Open, Tunggal (Pa)",
+              "it": "Australian Open (M)",
+              "ja": "全豪オープン、男子",
+              "ko": "호주 오픈 남자 단식",
+              "nl": "Australian Open mannenenkelspel",
+              "no": "Australian Open, menn",
+              "pl": "Australian Open, singiel mężczyzn",
+              "pt": "Australian Open masculino",
+              "pt-pt": "Australian Open (M)",
+              "ro": "Australian Open, simplu masculin",
+              "ru": "Australian Open, мужской одиночный разряд",
+              "sr": "Аустралијан опен, појединачно (М)",
+              "sv": "Australian Open, herrsingel",
+              "th": "ออสเตรเลียนโอเพน ชายเดี่ยว",
+              "tr": "Avustralya Açık, Tek Erkekler",
+              "vi": "Úc Mở rộng, đơn nam"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2363,
+          "name": "Australian Open, Men",
+          "primaryColorHex": "#d0d830",
+          "secondaryColorHex": "#2294dc",
+          "slug": "australian-open",
+          "tennisPoints": 2000,
+          "userCount": 34233
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 4,
+        "period2": 6,
+        "period3": 5,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "awayTeamSeed": "6",
+      "changes": {
+        "changeTimestamp": 1769962688,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lyIsuXie",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p250"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 4,
+        "period3": 7,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مويز كوامي",
+            "ru": "Моиз Куаме"
+          },
+          "shortNameTranslation": {
+            "ar": "م. كوامي",
+            "ru": "М. Куаме"
+          }
+        },
+        "gender": "M",
+        "id": 522369,
+        "name": "Moise Kouame",
+        "nameCode": "KOU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 20548
+        },
+        "ranking": 214,
+        "shortName": "M. Kouamé",
+        "slug": "kouame-moise",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 12284
+      },
+      "homeTeamSeed": "WC",
+      "id": 15459995,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 80145,
+        "name": "ATP Montpellier, France Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "moise-kouame-elias-ymer",
+      "startTimestamp": 1769952600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1769958828,
+        "period1": 2551,
+        "period2": 3276,
+        "period3": 3805
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1769990400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مونبلييه، فرنسا، التصفيات",
+            "ru": "Монпелье, Франция, Отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 174285,
+        "isGroup": false,
+        "name": "Montpellier, France, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "montpellier-france-qualifying",
+        "startTimestamp": 1769904000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مونبلييه",
+              "bn": "মন্টপেলিয়ার",
+              "hi": "मॉन्टपेलियर",
+              "ru": "Монпелье"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2421,
+          "name": "Montpellier",
+          "primaryColorHex": "#85194f",
+          "secondaryColorHex": "#1b84c6",
+          "slug": "montpellier",
+          "tennisPoints": 250,
+          "userCount": 2083
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلياس يمر",
+            "bn": "ইলিয়াস ইয়ামার",
+            "hi": "एलियास यमर",
+            "ru": "Имер, Элиас"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يمر"
+          }
+        },
+        "gender": "M",
+        "id": 83661,
+        "name": "Elias Ymer",
+        "nameCode": "YME",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 134
+        },
+        "ranking": 212,
+        "shortName": "E. Ymer",
+        "slug": "ymer-elias",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3646
+      },
+      "awayTeamSeed": "A",
+      "changes": {
+        "changeTimestamp": 1771066543,
+        "changes": [
+          "time.period1"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "ezkslyI",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p500"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 5,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "GE",
+          "alpha3": "GEO",
+          "name": "Georgia",
+          "slug": "georgia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نيكولوز باسيلاشفيلي",
+            "ru": "Басилашвили, Николай"
+          },
+          "shortNameTranslation": {
+            "ar": "ن. باسيلاشفيلي",
+            "bn": "এন. বাসিলাশভিলি",
+            "hi": "एन. बासिलाशविली"
+          }
+        },
+        "gender": "M",
+        "id": 26204,
+        "name": "Nikoloz Basilashvili",
+        "nameCode": "BAS",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 19
+        },
+        "ranking": 132,
+        "shortName": "N. Basilashvili",
+        "slug": "basilashvili-nikoloz",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 6014
+      },
+      "id": 15542066,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 80240,
+        "name": "ATP Doha, Qatar Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "elias-ymer-nikoloz-basilashvili",
+      "startTimestamp": 1771060500,
+      "status": {
+        "code": 92,
+        "description": "Retired",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1771062260,
+        "period1": 0,
+        "period2": 3821
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1771113600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "الدوحة، قطر، التصفيات",
+            "ru": "Доха, Катар, Отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 175218,
+        "isGroup": false,
+        "name": "Doha, Qatar, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "doha-qatar-qualifying",
+        "startTimestamp": 1771027200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "الدوحة",
+              "bn": "দোহা",
+              "hi": "दोहा",
+              "ru": "Доха"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2420,
+          "name": "Doha",
+          "primaryColorHex": "#0b542a",
+          "secondaryColorHex": "#cbdb2c",
+          "slug": "doha",
+          "tennisPoints": 500,
+          "userCount": 3316
+        }
+      },
+      "winnerCode": 2
+    }
+  ],
+  "has_next_page": true,
+  "page": 1,
+  "player_id": 83661,
+  "saved_at": 1788183318.7606444,
+  "saved_at_iso": "2026-08-31T13:35:18+00:00",
+  "source": "API_PRO_PREVIOUS_MATCHES",
+  "status": "OK"
+}

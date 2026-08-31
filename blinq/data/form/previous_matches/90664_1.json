@@ -1,0 +1,7473 @@
+{
+  "api_status_code": 200,
+  "endpoint": "https://tennisapi1.p.rapidapi.com/api/tennis/player/90664/events/previous/1",
+  "events": [
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "changes": {
+        "changeTimestamp": 1770732176,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "onLsjoEb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 4,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "TW",
+          "alpha3": "TWN",
+          "name": "Chinese Taipei",
+          "slug": "chinese-taipei"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إن-شوو ليانغ",
+            "bn": "এন-শুও লিয়াং",
+            "hi": "एन-शुओ लियांग",
+            "ru": "Лян, Эн Шуо"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. ليانغ"
+          }
+        },
+        "gender": "F",
+        "id": 198209,
+        "name": "En-Shuo Liang",
+        "nameCode": "LIA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 693
+        },
+        "ranking": 289,
+        "shortName": "E. Liang",
+        "slug": "liang-en-shuo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 764
+      },
+      "homeTeamSeed": "LL",
+      "id": 15516379,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 87877,
+        "name": "WTA 125K Oeiras, Portugal Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "en-shuo-liang-anhelina-kalinina",
+      "startTimestamp": 1770727500,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1770729504,
+        "period1": 1457,
+        "period2": 2656
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1771113600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أويراس 1، البرتغال",
+            "ru": "Оэйраш 1, Португалия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 174514,
+        "isGroup": false,
+        "name": "Oeiras 1, Portugal",
+        "priority": 0,
+        "slug": "oeiras-1-portugal",
+        "startTimestamp": 1770595200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أويراس، البرتغال",
+              "ru": "Оэйраш, Португалия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 22269,
+          "name": "Oeiras, Portugal",
+          "slug": "wta-125k-oeiras-portugal-women-singles",
+          "tennisPoints": 125,
+          "userCount": 158
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "HU",
+          "alpha3": "HUN",
+          "name": "Hungary",
+          "slug": "hungary"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دالمه غالفي",
+            "ru": "Галфи, Далма"
+          },
+          "shortNameTranslation": {
+            "ar": "د. غالفي",
+            "bn": "ডি. গালফি",
+            "hi": "डी. गाल्फी"
+          }
+        },
+        "gender": "F",
+        "id": 97995,
+        "name": "Dalma Galfi",
+        "nameCode": "GAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 812
+        },
+        "ranking": 157,
+        "shortName": "D. Galfi",
+        "slug": "galfi-dalma",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3181
+      },
+      "awayTeamSeed": "2",
+      "changes": {
+        "changeTimestamp": 1770825748,
+        "changes": [
+          "awayScore.normaltime",
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "onLsVjO",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 2,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "id": 15485136,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 87877,
+        "name": "WTA 125K Oeiras, Portugal Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "dalma-galfi-anhelina-kalinina",
+      "startTimestamp": 1770821400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1770822890,
+        "period1": 1759,
+        "period2": 2812
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1771113600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أويراس 1، البرتغال",
+            "ru": "Оэйраш 1, Португалия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 174514,
+        "isGroup": false,
+        "name": "Oeiras 1, Portugal",
+        "priority": 0,
+        "slug": "oeiras-1-portugal",
+        "startTimestamp": 1770595200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أويراس، البرتغال",
+              "ru": "Оэйраш, Португалия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 22269,
+          "name": "Oeiras, Portugal",
+          "slug": "wta-125k-oeiras-portugal-women-singles",
+          "tennisPoints": 125,
+          "userCount": 158
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 4,
+        "period2": 6,
+        "period3": 1,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "RU",
+          "alpha3": "RUS",
+          "name": "Russia",
+          "slug": "russia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليفتينا إبراغيموفا",
+            "ru": "Алевтина Ибрагимова"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. إبراغيموفا",
+            "ru": "А. Ибрагимова"
+          }
+        },
+        "gender": "F",
+        "id": 417200,
+        "name": "Alevtina Ibragimova",
+        "nameCode": "IBR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 12457
+        },
+        "ranking": 219,
+        "shortName": "A. Ibragimova",
+        "slug": "ibragimova-alevtina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 924
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1772022096,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period3",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "onLsaUqd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 4,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "id": 15603578,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 87905,
+        "name": "WTA 125 Antalya, Turkiye Singles 2026",
+        "year": "2026"
+      },
+      "slug": "alevtina-ibragimova-anhelina-kalinina",
+      "startTimestamp": 1772012100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1772019591,
+        "period1": 3566,
+        "period2": 3652,
+        "period3": 2498
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1772323200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنطاليا، تركيا",
+            "ru": "Анталья, Турция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 175455,
+        "isGroup": false,
+        "name": "Antalya, Turkiye",
+        "priority": 0,
+        "slug": "antalya-turkiye",
+        "startTimestamp": 1771891200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أنطاليا، تركيا",
+              "ru": "Анталья, Турция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 22158,
+          "name": "Antalya, Turkiye",
+          "slug": "wta-125-antalya-turkiye-singles",
+          "tennisPoints": 125,
+          "userCount": 165
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 2,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كاتارينا زافاتسكا",
+            "bn": "ক্যাটারিনা জাভাস্তস্কা",
+            "hi": "कतेरीना ज़ावात्स्का",
+            "ru": "Завацка, Катарина"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زافاتسكا"
+          }
+        },
+        "gender": "F",
+        "id": 195334,
+        "name": "Katarina Zavatska",
+        "nameCode": "ZAV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 528
+        },
+        "ranking": 246,
+        "shortName": "K. Zavatska",
+        "slug": "zavatska-katarina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1430
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1772108071,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "onLsJgDb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "id": 15565914,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 87905,
+        "name": "WTA 125 Antalya, Turkiye Singles 2026",
+        "year": "2026"
+      },
+      "slug": "katarina-zavatska-anhelina-kalinina",
+      "startTimestamp": 1772102700,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1772105763,
+        "period1": 1610,
+        "period2": 2263
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1772323200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنطاليا، تركيا",
+            "ru": "Анталья, Турция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 175455,
+        "isGroup": false,
+        "name": "Antalya, Turkiye",
+        "priority": 0,
+        "slug": "antalya-turkiye",
+        "startTimestamp": 1771891200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أنطاليا، تركيا",
+              "ru": "Анталья, Турция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 22158,
+          "name": "Antalya, Turkiye",
+          "slug": "wta-125-antalya-turkiye-singles",
+          "tennisPoints": 125,
+          "userCount": 165
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "changes": {
+        "changeTimestamp": 1772183395,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "LuusonL",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 1,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "GE",
+          "alpha3": "GEO",
+          "name": "Georgia",
+          "slug": "georgia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إكاتيرين غورغودزي",
+            "bn": "একাটেরিন গরগোডজে",
+            "hi": "एकातरिने गॉर्गोड्जे",
+            "ru": "Горгодзе, Екатерина"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. غورغودزي"
+          }
+        },
+        "gender": "F",
+        "id": 48486,
+        "name": "Ekaterine Gorgodze",
+        "nameCode": "GOR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 460
+        },
+        "ranking": 161,
+        "shortName": "E. Gorgodze",
+        "slug": "gorgodze-ekaterine",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1566
+      },
+      "id": 15565907,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 87905,
+        "name": "WTA 125 Antalya, Turkiye Singles 2026",
+        "year": "2026"
+      },
+      "slug": "anhelina-kalinina-ekaterine-gorgodze",
+      "startTimestamp": 1772177400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1772181681,
+        "period1": 3523,
+        "period2": 1680
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1772323200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنطاليا، تركيا",
+            "ru": "Анталья, Турция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 175455,
+        "isGroup": false,
+        "name": "Antalya, Turkiye",
+        "priority": 0,
+        "slug": "antalya-turkiye",
+        "startTimestamp": 1771891200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أنطاليا، تركيا",
+              "ru": "Анталья, Турция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 22158,
+          "name": "Antalya, Turkiye",
+          "slug": "wta-125-antalya-turkiye-singles",
+          "tennisPoints": 125,
+          "userCount": 165
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "changes": {
+        "changeTimestamp": 1772279214,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.normaltime",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period2",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "onLsdyfc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 1,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "SI",
+          "alpha3": "SVN",
+          "name": "Slovenia",
+          "slug": "slovenia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فيرونيكا إيرجاك",
+            "ru": "Вероника Эрявец"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. إيرجاك",
+            "ru": "В. Эрявец"
+          }
+        },
+        "gender": "F",
+        "id": 263653,
+        "name": "Veronika Erjavec",
+        "nameCode": "ERJ",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3592
+        },
+        "ranking": 106,
+        "shortName": "V. Erjavec",
+        "slug": "erjavec-veronika",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2121
+      },
+      "homeTeamSeed": "6",
+      "id": 15565920,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 87905,
+        "name": "WTA 125 Antalya, Turkiye Singles 2026",
+        "year": "2026"
+      },
+      "slug": "veronika-erjavec-anhelina-kalinina",
+      "startTimestamp": 1772274000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1772276921,
+        "period1": 2772,
+        "period2": 2283
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1772323200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنطاليا، تركيا",
+            "ru": "Анталья, Турция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 175455,
+        "isGroup": false,
+        "name": "Antalya, Turkiye",
+        "priority": 0,
+        "slug": "antalya-turkiye",
+        "startTimestamp": 1771891200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أنطاليا، تركيا",
+              "ru": "Анталья, Турция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 22158,
+          "name": "Antalya, Turkiye",
+          "slug": "wta-125-antalya-turkiye-singles",
+          "tennisPoints": 125,
+          "userCount": 165
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 5,
+        "period2": 5,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "changes": {
+        "changeTimestamp": 1772365767,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "onLsgrbc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period2": 7,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "JP",
+          "alpha3": "JPN",
+          "name": "Japan",
+          "slug": "japan"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مويكا أوتشيجيما",
+            "bn": "ময়ুকা উচিজিমা",
+            "hi": "मोयुका उचिजिमा",
+            "ru": "Учижима, Моюка"
+          },
+          "shortNameTranslation": {
+            "ar": "م. أوتشيجيما"
+          }
+        },
+        "gender": "F",
+        "id": 253356,
+        "name": "Moyuka Uchijima",
+        "nameCode": "UCH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 861
+        },
+        "ranking": 99,
+        "shortName": "M. Uchijima",
+        "slug": "uchijima-moyuka",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2906
+      },
+      "homeTeamSeed": "3",
+      "id": 15565908,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 87905,
+        "name": "WTA 125 Antalya, Turkiye Singles 2026",
+        "year": "2026"
+      },
+      "slug": "moyuka-uchijima-anhelina-kalinina",
+      "startTimestamp": 1772357700,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1772361952,
+        "period1": 3397,
+        "period2": 3791
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1772323200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنطاليا، تركيا",
+            "ru": "Анталья, Турция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 175455,
+        "isGroup": false,
+        "name": "Antalya, Turkiye",
+        "priority": 0,
+        "slug": "antalya-turkiye",
+        "startTimestamp": 1771891200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أنطاليا، تركيا",
+              "ru": "Анталья, Турция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 22158,
+          "name": "Antalya, Turkiye",
+          "slug": "wta-125-antalya-turkiye-singles",
+          "tennisPoints": 125,
+          "userCount": 165
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 3,
+        "period2": 6,
+        "period3": 3,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "GE",
+          "alpha3": "GEO",
+          "name": "Georgia",
+          "slug": "georgia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إكاتيرين غورغودزي",
+            "bn": "একাটেরিন গরগোডজে",
+            "hi": "एकातरिने गॉर्गोड्जे",
+            "ru": "Горгодзе, Екатерина"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. غورغودزي"
+          }
+        },
+        "gender": "F",
+        "id": 48486,
+        "name": "Ekaterine Gorgodze",
+        "nameCode": "GOR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 460
+        },
+        "ranking": 161,
+        "shortName": "E. Gorgodze",
+        "slug": "gorgodze-ekaterine",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1566
+      },
+      "changes": {
+        "changeTimestamp": 1772619194,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period3",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "LuusonL",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 4,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "id": 15640719,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 87907,
+        "name": "WTA 125K Antalya 2, Turkiye Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "anhelina-kalinina-ekaterine-gorgodze",
+      "startTimestamp": 1772609400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1772615671,
+        "period1": 1871,
+        "period2": 3797,
+        "period3": 3516
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1772928000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنطاليا 2، تركيا",
+            "ru": "Анталия 2, Турция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 176050,
+        "isGroup": false,
+        "name": "Antalya 2, Turkiye",
+        "priority": 0,
+        "slug": "antalya-2-turkiye",
+        "startTimestamp": 1772496000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أنطاليا 2، تركيا",
+              "ru": "Анталья 2, Турция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25615,
+          "name": "Antalya 2, Turkiye",
+          "slug": "wta-125k-antalya-2-turkiye-women-singles",
+          "tennisPoints": 125,
+          "userCount": 124
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "point": "6"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "changes": {
+        "changeTimestamp": 1772703292,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "onLsUbfc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 6,
+        "period2TieBreak": 5,
+        "point": "5"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AM",
+          "alpha3": "ARM",
+          "name": "Armenia",
+          "slug": "armenia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلينا أڤانيشيان",
+            "bn": "এলিনা আভানেশিয়ান",
+            "hi": "एलीना अवनेस्यान",
+            "ru": "Аванесян, Элина"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. أڤانيشيان"
+          }
+        },
+        "gender": "F",
+        "id": 262594,
+        "name": "Elina Avanesyan",
+        "nameCode": "AVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4344
+        },
+        "ranking": 159,
+        "shortName": "E. Avanesyan",
+        "slug": "avanesyan-elina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3374
+      },
+      "id": 15624781,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 87907,
+        "name": "WTA 125K Antalya 2, Turkiye Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "elina-avanesyan-anhelina-kalinina",
+      "startTimestamp": 1772695800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1772698208,
+        "period1": 1894,
+        "period2": 5038
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1772928000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنطاليا 2، تركيا",
+            "ru": "Анталия 2, Турция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 176050,
+        "isGroup": false,
+        "name": "Antalya 2, Turkiye",
+        "priority": 0,
+        "slug": "antalya-2-turkiye",
+        "startTimestamp": 1772496000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أنطاليا 2، تركيا",
+              "ru": "Анталья 2, Турция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25615,
+          "name": "Antalya 2, Turkiye",
+          "slug": "wta-125k-antalya-2-turkiye-women-singles",
+          "tennisPoints": 125,
+          "userCount": 124
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 3,
+        "period2": 5,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "HU",
+          "alpha3": "HUN",
+          "name": "Hungary",
+          "slug": "hungary"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بانا أودفاردي",
+            "ru": "Панна Удварди"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. أودفاردي",
+            "bn": "পি. উদবর্দী",
+            "hi": "पी. उदवर्डी",
+            "ru": "П. Удварди"
+          }
+        },
+        "gender": "F",
+        "id": 218347,
+        "name": "Panna Udvardy",
+        "nameCode": "UDV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3454
+        },
+        "ranking": 68,
+        "shortName": "P. Udvardy",
+        "slug": "udvardy-panna",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3503
+      },
+      "awayTeamSeed": "2",
+      "changes": {
+        "changeTimestamp": 1772793095,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "onLsXqMb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 7,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "id": 15624787,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 87907,
+        "name": "WTA 125K Antalya 2, Turkiye Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "panna-udvardy-anhelina-kalinina",
+      "startTimestamp": 1772784000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1772788545,
+        "period1": 4068,
+        "period2": 4512
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1772928000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنطاليا 2، تركيا",
+            "ru": "Анталия 2, Турция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 176050,
+        "isGroup": false,
+        "name": "Antalya 2, Turkiye",
+        "priority": 0,
+        "slug": "antalya-2-turkiye",
+        "startTimestamp": 1772496000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أنطاليا 2، تركيا",
+              "ru": "Анталья 2, Турция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25615,
+          "name": "Antalya 2, Turkiye",
+          "slug": "wta-125k-antalya-2-turkiye-women-singles",
+          "tennisPoints": 125,
+          "userCount": 124
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "changes": {
+        "changeTimestamp": 1772876455,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "RZqsonL",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 5,
+        "period2": 2,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "PL",
+          "alpha3": "POL",
+          "name": "Poland",
+          "slug": "poland"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كاتارزينا كاوا",
+            "bn": "কাতারজিনা কাওয়া",
+            "hi": "कतार्ज़िना कावा",
+            "ru": "Кава, Катарчина"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. كاوا"
+          }
+        },
+        "gender": "F",
+        "id": 42492,
+        "name": "Katarzyna Kawa",
+        "nameCode": "KAW",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 764
+        },
+        "ranking": 129,
+        "shortName": "K. Kawa",
+        "slug": "kawa-katarzyna",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4442
+      },
+      "id": 15624775,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 87907,
+        "name": "WTA 125K Antalya 2, Turkiye Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "anhelina-kalinina-katarzyna-kawa",
+      "startTimestamp": 1772870400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1772873949,
+        "period1": 3043,
+        "period2": 2474
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1772928000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنطاليا 2، تركيا",
+            "ru": "Анталия 2, Турция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 176050,
+        "isGroup": false,
+        "name": "Antalya 2, Turkiye",
+        "priority": 0,
+        "slug": "antalya-2-turkiye",
+        "startTimestamp": 1772496000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أنطاليا 2، تركيا",
+              "ru": "Анталья 2, Турция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25615,
+          "name": "Antalya 2, Turkiye",
+          "slug": "wta-125k-antalya-2-turkiye-women-singles",
+          "tennisPoints": 125,
+          "userCount": 124
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 3,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "changes": {
+        "changeTimestamp": 1772972731,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "onLsjrac",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 3,
+        "period2": 6,
+        "period3": 2,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أولكساندرا أولينكوفا",
+            "ru": "Олийникова, Олександра"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. أولينكوفا"
+          }
+        },
+        "gender": "F",
+        "id": 250859,
+        "name": "Oleksandra Oliynykova",
+        "nameCode": "OLI",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3559
+        },
+        "ranking": 46,
+        "shortName": "O. Oliynykova",
+        "slug": "oliynykova-oleksandra",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3157
+      },
+      "homeTeamSeed": "1",
+      "id": 15624778,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 87907,
+        "name": "WTA 125K Antalya 2, Turkiye Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "oleksandra-oliynykova-anhelina-kalinina",
+      "startTimestamp": 1772962200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1772969943,
+        "period1": 2566,
+        "period2": 4598,
+        "period3": 2725
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1772928000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنطاليا 2، تركيا",
+            "ru": "Анталия 2, Турция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 176050,
+        "isGroup": false,
+        "name": "Antalya 2, Turkiye",
+        "priority": 0,
+        "slug": "antalya-2-turkiye",
+        "startTimestamp": 1772496000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أنطاليا 2، تركيا",
+              "ru": "Анталья 2, Турция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25615,
+          "name": "Antalya 2, Turkiye",
+          "slug": "wta-125k-antalya-2-turkiye-women-singles",
+          "tennisPoints": 125,
+          "userCount": 124
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 1,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "RU",
+          "alpha3": "RUS",
+          "name": "Russia",
+          "slug": "russia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلينا بريدانكينا",
+            "ru": "Елена Приданкина"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. بريدانكينا",
+            "ru": "Е. Приданкина"
+          }
+        },
+        "gender": "F",
+        "id": 383652,
+        "name": "Elena Pridankina",
+        "nameCode": "PRI",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5212
+        },
+        "ranking": 186,
+        "shortName": "E. Pridankina",
+        "slug": "pridankina-elena",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1395
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1773224291,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "onLscydd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "id": 15693558,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 87909,
+        "name": "WTA 125K Antalya 3, Turkiye Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "elena-pridankina-anhelina-kalinina",
+      "startTimestamp": 1773219000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1773221788,
+        "period1": 2277,
+        "period2": 2463
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1773532800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنطاليا 3، تركيا",
+            "ru": "Кубок Анталья 3, Турция."
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 176501,
+        "isGroup": false,
+        "name": "Antalya 3, Turkiye",
+        "priority": 0,
+        "slug": "antalya-3-turkiye",
+        "startTimestamp": 1773100800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أنطاليا 3، تركيا",
+              "ru": "Анталья 3, Турция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25749,
+          "name": "Antalya 3, Turkiye",
+          "slug": "wta-125k-antalya-3-turkiye-women-singles",
+          "tennisPoints": 125,
+          "userCount": 116
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "changes": {
+        "changeTimestamp": 1773305798,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "LuusonL",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 3,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "GE",
+          "alpha3": "GEO",
+          "name": "Georgia",
+          "slug": "georgia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إكاتيرين غورغودزي",
+            "bn": "একাটেরিন গরগোডজে",
+            "hi": "एकातरिने गॉर्गोड्जे",
+            "ru": "Горгодзе, Екатерина"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. غورغودزي"
+          }
+        },
+        "gender": "F",
+        "id": 48486,
+        "name": "Ekaterine Gorgodze",
+        "nameCode": "GOR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 460
+        },
+        "ranking": 161,
+        "shortName": "E. Gorgodze",
+        "slug": "gorgodze-ekaterine",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1566
+      },
+      "id": 15658305,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 87909,
+        "name": "WTA 125K Antalya 3, Turkiye Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "anhelina-kalinina-ekaterine-gorgodze",
+      "startTimestamp": 1773300600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1773303724,
+        "period1": 2658,
+        "period2": 2018
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1773532800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنطاليا 3، تركيا",
+            "ru": "Кубок Анталья 3, Турция."
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 176501,
+        "isGroup": false,
+        "name": "Antalya 3, Turkiye",
+        "priority": 0,
+        "slug": "antalya-3-turkiye",
+        "startTimestamp": 1773100800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أنطاليا 3، تركيا",
+              "ru": "Анталья 3, Турция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25749,
+          "name": "Antalya 3, Turkiye",
+          "slug": "wta-125k-antalya-3-turkiye-women-singles",
+          "tennisPoints": 125,
+          "userCount": 116
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 5,
+        "period2": 3,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AM",
+          "alpha3": "ARM",
+          "name": "Armenia",
+          "slug": "armenia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليينا تشارايفا",
+            "ru": "Чараева, Алина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. تشارايفا"
+          }
+        },
+        "gender": "F",
+        "id": 255445,
+        "name": "Alina Charaeva",
+        "nameCode": "CHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4619
+        },
+        "ranking": 108,
+        "shortName": "A. Charaeva",
+        "slug": "charaeva-alina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1937
+      },
+      "changes": {
+        "changeTimestamp": 1773396462,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "onLsVicc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "id": 15658311,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 87909,
+        "name": "WTA 125K Antalya 3, Turkiye Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "alina-charaeva-anhelina-kalinina",
+      "startTimestamp": 1773388800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1773393613,
+        "period1": 4319,
+        "period2": 2661
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1773532800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنطاليا 3، تركيا",
+            "ru": "Кубок Анталья 3, Турция."
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 176501,
+        "isGroup": false,
+        "name": "Antalya 3, Turkiye",
+        "priority": 0,
+        "slug": "antalya-3-turkiye",
+        "startTimestamp": 1773100800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أنطاليا 3، تركيا",
+              "ru": "Анталья 3, Турция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25749,
+          "name": "Antalya 3, Turkiye",
+          "slug": "wta-125k-antalya-3-turkiye-women-singles",
+          "tennisPoints": 125,
+          "userCount": 116
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 4,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PL",
+          "alpha3": "POL",
+          "name": "Poland",
+          "slug": "poland"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كاتارزينا كاوا",
+            "bn": "কাতারজিনা কাওয়া",
+            "hi": "कतार्ज़िना कावा",
+            "ru": "Кава, Катарчина"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. كاوا"
+          }
+        },
+        "gender": "F",
+        "id": 42492,
+        "name": "Katarzyna Kawa",
+        "nameCode": "KAW",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 764
+        },
+        "ranking": 129,
+        "shortName": "K. Kawa",
+        "slug": "kawa-katarzyna",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4442
+      },
+      "changes": {
+        "changeTimestamp": 1773480926,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "RZqsonL",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "id": 15658310,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 87909,
+        "name": "WTA 125K Antalya 3, Turkiye Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "anhelina-kalinina-katarzyna-kawa",
+      "startTimestamp": 1773475200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1773478266,
+        "period1": 2384,
+        "period2": 2613
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1773532800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنطاليا 3، تركيا",
+            "ru": "Кубок Анталья 3, Турция."
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 176501,
+        "isGroup": false,
+        "name": "Antalya 3, Turkiye",
+        "priority": 0,
+        "slug": "antalya-3-turkiye",
+        "startTimestamp": 1773100800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أنطاليا 3، تركيا",
+              "ru": "Анталья 3, Турция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25749,
+          "name": "Antalya 3, Turkiye",
+          "slug": "wta-125k-antalya-3-turkiye-women-singles",
+          "tennisPoints": 125,
+          "userCount": 116
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 0,
+        "period2": 3,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SI",
+          "alpha3": "SVN",
+          "name": "Slovenia",
+          "slug": "slovenia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تمارا زيدانسيك",
+            "ru": "Зиданшек, Тамара"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. زيدانسيك",
+            "bn": "টি. জিদানশেক",
+            "hi": "टी. ज़िदांसेक"
+          }
+        },
+        "gender": "F",
+        "id": 110299,
+        "name": "Tamara Zidanšek",
+        "nameCode": "ZID",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 253
+        },
+        "ranking": 146,
+        "shortName": "T. Zidanšek",
+        "slug": "zidansek-tamara",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2908
+      },
+      "changes": {
+        "changeTimestamp": 1773566011,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "onLsZfU",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "id": 15658309,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 87909,
+        "name": "WTA 125K Antalya 3, Turkiye Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "tamara-zidansek-anhelina-kalinina",
+      "startTimestamp": 1773561600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1773563388,
+        "period1": 1426,
+        "period2": 2571
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1773532800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنطاليا 3، تركيا",
+            "ru": "Кубок Анталья 3, Турция."
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 176501,
+        "isGroup": false,
+        "name": "Antalya 3, Turkiye",
+        "priority": 0,
+        "slug": "antalya-3-turkiye",
+        "startTimestamp": 1773100800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أنطاليا 3، تركيا",
+              "ru": "Анталья 3, Турция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25749,
+          "name": "Antalya 3, Turkiye",
+          "slug": "wta-125k-antalya-3-turkiye-women-singles",
+          "tennisPoints": 125,
+          "userCount": 116
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 5,
+        "period2": 6,
+        "period3": 2,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوسيا برونزتي",
+            "ru": "Бронцетти, Лусиа"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. برونزتي",
+            "bn": "এল. ব্রোঞ্জেটি",
+            "hi": "एल. ब्रोंज़ेट्टी"
+          }
+        },
+        "gender": "F",
+        "id": 110055,
+        "name": "Lucia Bronzetti",
+        "nameCode": "BRO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2759
+        },
+        "ranking": 135,
+        "shortName": "L. Bronzetti",
+        "slug": "bronzetti-lucia",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 6972
+      },
+      "changes": {
+        "changeTimestamp": 1774361330,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "onLsfbU",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period2": 0,
+        "period3": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "homeTeamSeed": "7",
+      "id": 15849061,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 91924,
+        "name": "WTA 125K Dubrovnik, Croatia Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "lucia-bronzetti-anhelina-kalinina",
+      "startTimestamp": 1774353300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1774358916,
+        "period1": 3129,
+        "period2": 1947,
+        "period3": 2396
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1774742400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دوبروفنيك، كرواتيا",
+            "ru": "Дубровник, Хорватия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 178643,
+        "isGroup": false,
+        "name": "Dubrovnik, Croatia",
+        "priority": 0,
+        "slug": "dubrovnik-croatia",
+        "startTimestamp": 1774224000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة وتا 125ك دوبروفنيك، كرواتيا فردي السيدات",
+              "ru": "WTA 125K Дубровник, Хорватия, одиночный разряд среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 33638,
+          "name": "Dubrovnik, Croatia",
+          "slug": "wta-125k-dubrovnik-croatia-women-singles",
+          "tennisPoints": 125,
+          "userCount": 94
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 0,
+        "period2": 2,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نوريا برانكاشيو",
+            "bn": "নুরিয়া ব্রাঙ্কাসিও",
+            "hi": "नूरिया ब्रंकाच्चियो",
+            "ru": "Бранкаччио, Нурия"
+          },
+          "shortNameTranslation": {
+            "ar": "ن. برانكاشيو"
+          }
+        },
+        "gender": "F",
+        "id": 207593,
+        "name": "Nuria Brancaccio",
+        "nameCode": "BRA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3394
+        },
+        "ranking": 189,
+        "shortName": "N. Brancaccio",
+        "slug": "brancaccio-nuria",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1615
+      },
+      "changes": {
+        "changeTimestamp": 1774521624,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "onLsTbIb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "homeTeamSeed": "7",
+      "id": 15829652,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 91924,
+        "name": "WTA 125K Dubrovnik, Croatia Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "nuria-brancaccio-anhelina-kalinina",
+      "startTimestamp": 1774517400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1774519130,
+        "period1": 1195,
+        "period2": 2430
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1774742400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دوبروفنيك، كرواتيا",
+            "ru": "Дубровник, Хорватия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 178643,
+        "isGroup": false,
+        "name": "Dubrovnik, Croatia",
+        "priority": 0,
+        "slug": "dubrovnik-croatia",
+        "startTimestamp": 1774224000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة وتا 125ك دوبروفنيك، كرواتيا فردي السيدات",
+              "ru": "WTA 125K Дубровник, Хорватия, одиночный разряд среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 33638,
+          "name": "Dubrovnik, Croatia",
+          "slug": "wta-125k-dubrovnik-croatia-women-singles",
+          "tennisPoints": 125,
+          "userCount": 94
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 4,
+        "period2": 2,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SI",
+          "alpha3": "SVN",
+          "name": "Slovenia",
+          "slug": "slovenia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بولونا هيركوج",
+            "bn": "পোলোনা হারকোগ",
+            "hi": "पोलोना हेरकोग",
+            "ru": "Полона Херцог"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. هيركوج"
+          }
+        },
+        "gender": "F",
+        "id": 19957,
+        "name": "Polona Hercog",
+        "nameCode": "HER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 302
+        },
+        "ranking": 236,
+        "shortName": "P. Hercog",
+        "slug": "hercog-polona",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1412
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1774637700,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "hZhsonL",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "homeTeamSeed": "7",
+      "id": 15829659,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 91924,
+        "name": "WTA 125K Dubrovnik, Croatia Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "anhelina-kalinina-polona-hercog",
+      "startTimestamp": 1774626300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1774635189,
+        "period1": 3691,
+        "period2": 2323
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1774742400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دوبروفنيك، كرواتيا",
+            "ru": "Дубровник, Хорватия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 178643,
+        "isGroup": false,
+        "name": "Dubrovnik, Croatia",
+        "priority": 0,
+        "slug": "dubrovnik-croatia",
+        "startTimestamp": 1774224000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة وتا 125ك دوبروفنيك، كرواتيا فردي السيدات",
+              "ru": "WTA 125K Дубровник, Хорватия, одиночный разряд среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 33638,
+          "name": "Dubrovnik, Croatia",
+          "slug": "wta-125k-dubrovnik-croatia-women-singles",
+          "tennisPoints": 125,
+          "userCount": 94
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 0,
+        "period2": 6,
+        "period3": 3,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SI",
+          "alpha3": "SVN",
+          "name": "Slovenia",
+          "slug": "slovenia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تمارا زيدانسيك",
+            "ru": "Зиданшек, Тамара"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. زيدانسيك",
+            "bn": "টি. জিদানশেক",
+            "hi": "टी. ज़िदांसेक"
+          }
+        },
+        "gender": "F",
+        "id": 110299,
+        "name": "Tamara Zidanšek",
+        "nameCode": "ZID",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 253
+        },
+        "ranking": 146,
+        "shortName": "T. Zidanšek",
+        "slug": "zidansek-tamara",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2908
+      },
+      "changes": {
+        "changeTimestamp": 1774711557,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "onLsZfU",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 4,
+        "period3": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "homeTeamSeed": "7",
+      "id": 15829651,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 91924,
+        "name": "WTA 125K Dubrovnik, Croatia Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "tamara-zidansek-anhelina-kalinina",
+      "startTimestamp": 1774702800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1774707979,
+        "period1": 1652,
+        "period2": 3080,
+        "period3": 3559
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1774742400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دوبروفنيك، كرواتيا",
+            "ru": "Дубровник, Хорватия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 178643,
+        "isGroup": false,
+        "name": "Dubrovnik, Croatia",
+        "priority": 0,
+        "slug": "dubrovnik-croatia",
+        "startTimestamp": 1774224000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة وتا 125ك دوبروفنيك، كرواتيا فردي السيدات",
+              "ru": "WTA 125K Дубровник, Хорватия, одиночный разряд среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 33638,
+          "name": "Dubrovnik, Croatia",
+          "slug": "wta-125k-dubrovnik-croatia-women-singles",
+          "tennisPoints": 125,
+          "userCount": 94
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 4,
+        "period3": 3,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1774798825,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "HyAsonL",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 3,
+        "period2": 6,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "ES",
+          "alpha3": "ESP",
+          "name": "Spain",
+          "slug": "spain"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا لازارو غارسيا",
+            "ru": "Лазаро Гарсия, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غارسيا",
+            "bn": "এ. লাজারো গার্সিয়া",
+            "hi": "ए. लाज़ारो गार्सिया"
+          }
+        },
+        "gender": "F",
+        "id": 63682,
+        "name": "Andrea Lazaro Garcia",
+        "nameCode": "LAZ",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2106
+        },
+        "ranking": 142,
+        "shortName": "A. Lazaro Garcia",
+        "slug": "lazaro-garcia-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1195
+      },
+      "id": 15829657,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 91924,
+        "name": "WTA 125K Dubrovnik, Croatia Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "anhelina-kalinina-andrea-lazaro-garcia",
+      "startTimestamp": 1774789200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1774796140,
+        "period1": 1429,
+        "period2": 3603,
+        "period3": 2653
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1774742400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دوبروفنيك، كرواتيا",
+            "ru": "Дубровник, Хорватия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 178643,
+        "isGroup": false,
+        "name": "Dubrovnik, Croatia",
+        "priority": 0,
+        "slug": "dubrovnik-croatia",
+        "startTimestamp": 1774224000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة وتا 125ك دوبروفنيك، كرواتيا فردي السيدات",
+              "ru": "WTA 125K Дубровник, Хорватия, одиночный разряд среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 33638,
+          "name": "Dubrovnik, Croatia",
+          "slug": "wta-125k-dubrovnik-croatia-women-singles",
+          "tennisPoints": 125,
+          "userCount": 94
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "awayTeamSeed": "6",
+      "changes": {
+        "changeTimestamp": 1775403660,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "fnvsonL",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p500"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 4,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "آنا-لينا فريدسام",
+            "bn": "আনা-লেনা ফ্রিডসাম",
+            "hi": "अन्ना-लेना फ्रिडसाम",
+            "ru": "Фридсам, Анна-Лена"
+          },
+          "shortNameTranslation": {
+            "ar": "آ. فريدسام"
+          }
+        },
+        "gender": "F",
+        "id": 50655,
+        "name": "Anna-Lena Friedsam",
+        "nameCode": "FRI",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1739
+        },
+        "ranking": 253,
+        "shortName": "A. Friedsam",
+        "slug": "friedsam-anna-lena",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1717
+      },
+      "homeTeamSeed": "WC",
+      "id": 15949162,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 85586,
+        "name": "WTA Linz, Austria Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "anhelina-kalinina-anna-lena-friedsam",
+      "startTimestamp": 1775396100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1775400073,
+        "period1": 3448,
+        "period2": 3574
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1775433600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينز، النمسا، التصفيات",
+            "ru": "Линц, Австрия, отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 180198,
+        "isGroup": false,
+        "name": "Linz, Austria, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "linz-austria-qualifying",
+        "startTimestamp": 1775347200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "لينز",
+              "ru": "Линц"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2583,
+          "name": "Linz",
+          "primaryColorHex": "#e094b9",
+          "secondaryColorHex": "#d36b9d",
+          "slug": "linz",
+          "tennisPoints": 500,
+          "userCount": 946
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 2,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "awayTeamSeed": "6",
+      "changes": {
+        "changeTimestamp": 1775477240,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period2",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "cttsonL",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p500"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ألياكساندرا ساسنوفيتش",
+            "ru": "Саснович, Алиаксандра"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. ساسنوفيتش",
+            "bn": "এ. সাসনোভিচ",
+            "hi": "ए. सास्नोविच"
+          }
+        },
+        "gender": "F",
+        "id": 45902,
+        "name": "Aliaksandra Sasnovich",
+        "nameCode": "SAS",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 169
+        },
+        "ranking": 136,
+        "shortName": "A. Sasnovich",
+        "slug": "sasnovich-aliaksandra",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3694
+      },
+      "homeTeamSeed": "4",
+      "id": 15954441,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 85586,
+        "name": "WTA Linz, Austria Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "anhelina-kalinina-aliaksandra-sasnovich",
+      "startTimestamp": 1775472600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1775475234,
+        "period1": 2300,
+        "period2": 1992
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1775433600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينز، النمسا، التصفيات",
+            "ru": "Линц, Австрия, отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 180198,
+        "isGroup": false,
+        "name": "Linz, Austria, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "linz-austria-qualifying",
+        "startTimestamp": 1775347200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "لينز",
+              "ru": "Линц"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2583,
+          "name": "Linz",
+          "primaryColorHex": "#e094b9",
+          "secondaryColorHex": "#d36b9d",
+          "slug": "linz",
+          "tennisPoints": 500,
+          "userCount": 946
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 7,
+        "period2": 1,
+        "period3": 0,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "HU",
+          "alpha3": "HUN",
+          "name": "Hungary",
+          "slug": "hungary"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بانا أودفاردي",
+            "ru": "Панна Удварди"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. أودفاردي",
+            "bn": "পি. উদবর্দী",
+            "hi": "पी. उदवर्डी",
+            "ru": "П. Удварди"
+          }
+        },
+        "gender": "F",
+        "id": 218347,
+        "name": "Panna Udvardy",
+        "nameCode": "UDV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3454
+        },
+        "ranking": 68,
+        "shortName": "P. Udvardy",
+        "slug": "udvardy-panna",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3503
+      },
+      "changes": {
+        "changeTimestamp": 1775661394,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "onLsXqMb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p500"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 5,
+        "period2": 6,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "homeTeamSeed": "LL",
+      "id": 15968355,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 85586,
+        "name": "WTA Linz, Austria Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "panna-udvardy-anhelina-kalinina",
+      "startTimestamp": 1775654400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1775659562,
+        "period1": 2891,
+        "period2": 1657,
+        "period3": 1771
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1775952000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينز، النمسا",
+            "ru": "Линц, Австрия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 180019,
+        "isGroup": false,
+        "name": "Linz, Austria",
+        "priority": 0,
+        "slug": "linz-austria",
+        "startTimestamp": 1775433600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "لينز",
+              "ru": "Линц"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2583,
+          "name": "Linz",
+          "primaryColorHex": "#e094b9",
+          "secondaryColorHex": "#d36b9d",
+          "slug": "linz",
+          "tennisPoints": 500,
+          "userCount": 946
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {},
+      "awayTeam": {
+        "country": {
+          "alpha2": "HR",
+          "alpha3": "HRV",
+          "name": "Croatia",
+          "slug": "croatia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دونا فيكيتش",
+            "ru": "Донна Векич"
+          },
+          "shortNameTranslation": {
+            "ar": "د. فيكيتش",
+            "bn": "ডি. ভেকিচ",
+            "hi": "डी. वेकिक",
+            "ru": "Д Векич"
+          }
+        },
+        "gender": "F",
+        "id": 50641,
+        "name": "Donna Vekić",
+        "nameCode": "VEK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 157
+        },
+        "ranking": 39,
+        "shortName": "D. Vekić",
+        "slug": "vekic-donna",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 12437
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1775732708,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QmvsonL",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p500"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Red clay indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {},
+      "homeTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "homeTeamSeed": "LL",
+      "id": 15938139,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 85586,
+        "name": "WTA Linz, Austria Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "anhelina-kalinina-donna-vekic",
+      "startTimestamp": 1775736000,
+      "status": {
+        "code": 91,
+        "description": "Walkover",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1775732706
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1775952000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينز، النمسا",
+            "ru": "Линц, Австрия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 180019,
+        "isGroup": false,
+        "name": "Linz, Austria",
+        "priority": 0,
+        "slug": "linz-austria",
+        "startTimestamp": 1775433600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "لينز",
+              "ru": "Линц"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2583,
+          "name": "Linz",
+          "primaryColorHex": "#e094b9",
+          "secondaryColorHex": "#d36b9d",
+          "slug": "linz",
+          "tennisPoints": 500,
+          "userCount": 946
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "awayTeamSeed": "16",
+      "changes": {
+        "changeTimestamp": 1776705564,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "onLslCyb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p1000"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 1,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "ES",
+          "alpha3": "ESP",
+          "name": "Spain",
+          "slug": "spain"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارينا باسولس ريبيرا",
+            "ru": "Бассольс Рибера, Марина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. ريبيرا",
+            "bn": "এম. বাসলস রিভেরা",
+            "hi": "एम. बासोल्स रिबेरा"
+          }
+        },
+        "gender": "F",
+        "id": 183861,
+        "name": "Marina Bassols Ribera",
+        "nameCode": "BAS",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3236
+        },
+        "ranking": 133,
+        "shortName": "M. Bassols Ribera",
+        "slug": "bassols-ribera-marina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1697
+      },
+      "id": 16036216,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 85604,
+        "name": "WTA 1000 Madrid, Spain Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "marina-bassols-ribera-anhelina-kalinina",
+      "startTimestamp": 1776701700,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1776703534,
+        "period1": 1856,
+        "period2": 1996
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1776729600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مدريد، إسبانيا، التصفيات",
+            "ru": "Мадрид, Испания, Квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 181790,
+        "isGroup": false,
+        "name": "Madrid, Spain, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "madrid-spain-qualifying",
+        "startTimestamp": 1776643200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مدريد",
+              "bn": "মাদ্রিদ",
+              "hi": "मैड्रिड",
+              "ru": "WTA 1000 Мадрид"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2607,
+          "name": "WTA 1000 Madrid",
+          "primaryColorHex": "#64c9d0",
+          "secondaryColorHex": "#1f7072",
+          "slug": "madrid-open",
+          "tennisPoints": 1000,
+          "userCount": 3124
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 2,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "awayTeamSeed": "16",
+      "changes": {
+        "changeTimestamp": 1776795807,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "injsonL",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p1000"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 6,
+        "period2TieBreak": 5,
+        "period3": 2,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سلوان ستيفنز",
+            "bn": "স্লোয়েন স্টিফেনস",
+            "hi": "स्लोएन स्टीफंस",
+            "ru": "Стивенс, Слоан"
+          },
+          "shortNameTranslation": {
+            "ar": "س. ستيفنز"
+          }
+        },
+        "gender": "F",
+        "id": 23158,
+        "name": "Sloane Stephens",
+        "nameCode": "STE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 105
+        },
+        "ranking": 209,
+        "shortName": "S. Stephens",
+        "slug": "stephens-sloane",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4556
+      },
+      "id": 16042172,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 2",
+        "round": 2,
+        "slug": "qualification-round-2"
+      },
+      "season": {
+        "editor": false,
+        "id": 85604,
+        "name": "WTA 1000 Madrid, Spain Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "anhelina-kalinina-sloane-stephens",
+      "startTimestamp": 1776785400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1776793647,
+        "period1": 2306,
+        "period2": 5114,
+        "period3": 2101
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1776729600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مدريد، إسبانيا، التصفيات",
+            "ru": "Мадрид, Испания, Квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 181790,
+        "isGroup": false,
+        "name": "Madrid, Spain, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "madrid-spain-qualifying",
+        "startTimestamp": 1776643200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مدريد",
+              "bn": "মাদ্রিদ",
+              "hi": "मैड्रिड",
+              "ru": "WTA 1000 Мадрид"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2607,
+          "name": "WTA 1000 Madrid",
+          "primaryColorHex": "#64c9d0",
+          "secondaryColorHex": "#1f7072",
+          "slug": "madrid-open",
+          "tennisPoints": 1000,
+          "userCount": 3124
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 2,
+        "period2": 7,
+        "period3": 2,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "UZ",
+          "alpha3": "UZB",
+          "name": "Uzbekistan",
+          "slug": "uzbekistan"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كاميلا راخيموفا",
+            "bn": "কামিলা রাখিমোভা",
+            "hi": "कामिला राखिमोवा",
+            "ru": "Рахимова, Камилла"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. راخيموفا"
+          }
+        },
+        "gender": "F",
+        "id": 217828,
+        "name": "Kamilla Rakhimova",
+        "nameCode": "RAK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3448
+        },
+        "ranking": 92,
+        "shortName": "K. Rakhimova",
+        "slug": "rakhimova-kamilla",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3950
+      },
+      "changes": {
+        "changeTimestamp": 1776873244,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "onLsDgMb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p1000"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 5,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "homeTeamSeed": "Q",
+      "id": 16048563,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Round of 128",
+        "round": 64,
+        "slug": "round-of-128"
+      },
+      "season": {
+        "editor": false,
+        "id": 85604,
+        "name": "WTA 1000 Madrid, Spain Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "kamilla-rakhimova-anhelina-kalinina",
+      "startTimestamp": 1776862800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1776870023,
+        "period1": 2899,
+        "period2": 3782,
+        "period3": 3193
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1777680000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مدريد، إسبانيا",
+            "ru": "Мадрид, Испания"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 181294,
+        "isGroup": false,
+        "name": "Madrid, Spain",
+        "priority": 0,
+        "slug": "madrid-spain",
+        "startTimestamp": 1776729600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مدريد",
+              "bn": "মাদ্রিদ",
+              "hi": "मैड्रिड",
+              "ru": "WTA 1000 Мадрид"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2607,
+          "name": "WTA 1000 Madrid",
+          "primaryColorHex": "#64c9d0",
+          "secondaryColorHex": "#1f7072",
+          "slug": "madrid-open",
+          "tennisPoints": 1000,
+          "userCount": 3124
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنهيلينا كالينينا",
+            "ru": "Калинина, Ангелина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كالينينا",
+            "bn": "এ. কালিনা",
+            "hi": "ए. कलिनिना"
+          }
+        },
+        "gender": "F",
+        "id": 90664,
+        "name": "Anhelina Kalinina",
+        "nameCode": "KAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 387
+        },
+        "ranking": 51,
+        "shortName": "A. Kalinina",
+        "slug": "kalinina-anhelina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1776954073,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "onLsnjR",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p1000"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 3,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماري بوزكوفا",
+            "ru": "Мари Боузкова"
+          },
+          "shortNameTranslation": {
+            "ar": "م. بوزكوفا",
+            "bn": "এম. বুজকোভা",
+            "hi": "एम. बोज़कोवा",
+            "ru": "М. Боузкова"
+          }
+        },
+        "gender": "F",
+        "id": 105463,
+        "name": "Marie Bouzkova",
+        "nameCode": "BOU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 398
+        },
+        "ranking": 26,
+        "shortName": "M. Bouzkova",
+        "slug": "bouzkova-marie",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 6098
+      },
+      "homeTeamSeed": "23",
+      "id": 16012129,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Round of 64",
+        "round": 32,
+        "slug": "round-of-64"
+      },
+      "season": {
+        "editor": false,
+        "id": 85604,
+        "name": "WTA 1000 Madrid, Spain Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "marie-bouzkova-anhelina-kalinina",
+      "startTimestamp": 1776947100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1776950959,
+        "period1": 3270,
+        "period2": 3063
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1777680000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مدريد، إسبانيا",
+            "ru": "Мадрид, Испания"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 181294,
+        "isGroup": false,
+        "name": "Madrid, Spain",
+        "priority": 0,
+        "slug": "madrid-spain",
+        "startTimestamp": 1776729600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مدريد",
+              "bn": "মাদ্রিদ",
+              "hi": "मैड्रिड",
+              "ru": "WTA 1000 Мадрид"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2607,
+          "name": "WTA 1000 Madrid",
+          "primaryColorHex": "#64c9d0",
+          "secondaryColorHex": "#1f7072",
+          "slug": "madrid-open",
+          "tennisPoints": 1000,
+          "userCount": 3124
+        }
+      },
+      "winnerCode": 2
+    }
+  ],
+  "has_next_page": true,
+  "page": 1,
+  "player_id": 90664,
+  "saved_at": 1788183012.217542,
+  "saved_at_iso": "2026-08-31T13:30:12+00:00",
+  "source": "API_PRO_PREVIOUS_MATCHES",
+  "status": "OK"
+}

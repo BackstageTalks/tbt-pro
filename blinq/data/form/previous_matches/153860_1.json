@@ -1,0 +1,7140 @@
+{
+  "api_status_code": 200,
+  "endpoint": "https://tennisapi1.p.rapidapi.com/api/tennis/player/153860/events/previous/1",
+  "events": [
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 4,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تايلور تاونسند",
+            "bn": "টেলর টাউনসেন্ড",
+            "hi": "टेलर टाउनसेंड",
+            "ru": "Тоунсенд, Тэйлор"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. تاونسند"
+          }
+        },
+        "gender": "F",
+        "id": 51387,
+        "name": "Taylor Townsend",
+        "nameCode": "TOW",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 308
+        },
+        "ranking": 96,
+        "shortName": "T. Townsend",
+        "slug": "townsend-taylor",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4278
+      },
+      "changes": {
+        "changeTimestamp": 1727248618,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "MCvskClb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 2,
+        "period2": 6,
+        "period3": 3,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "id": 12888651,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Round of 128",
+        "round": 64,
+        "slug": "round-of-128"
+      },
+      "season": {
+        "editor": false,
+        "id": 56789,
+        "name": "WTA Beijing, China Women Singles 2024",
+        "year": "2024"
+      },
+      "slug": "martina-trevisan-taylor-townsend",
+      "startTimestamp": 1727240400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1727246047,
+        "period1": 2084,
+        "period2": 2984,
+        "period3": 2518
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1728172800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بكين، الصين",
+            "ru": "Пекин, Китай"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 139134,
+        "isGroup": false,
+        "name": "Beijing, China",
+        "priority": 0,
+        "slug": "beijing-china",
+        "startTimestamp": 1727222400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بكين",
+              "ru": "Пекин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2557,
+          "name": "Beijing",
+          "primaryColorHex": "#bb141a",
+          "secondaryColorHex": "#636363",
+          "slug": "beijing",
+          "tennisPoints": 1000,
+          "userCount": 1938
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 5
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "changes": {
+        "changeTimestamp": 1727867497,
+        "changes": [
+          "homeScore.point",
+          "awayScore.point"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "kClbstTac",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DK",
+          "alpha3": "DNK",
+          "name": "Denmark",
+          "slug": "denmark"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كلارا تاؤسون",
+            "bn": "ক্লারা টাসন",
+            "hi": "क्लारा टॉसोन",
+            "ru": "Клара Таусон"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. تاؤسون",
+            "ru": "К. Таусон"
+          }
+        },
+        "gender": "F",
+        "id": 252168,
+        "name": "Clara Tauson",
+        "nameCode": "TAU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3561
+        },
+        "ranking": 38,
+        "shortName": "C. Tauson",
+        "slug": "tauson-clara",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 11480
+      },
+      "homeTeamSeed": "6",
+      "id": 12918623,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 67275,
+        "name": "WTA 125k Hong Kong, China Women Singles 2024",
+        "year": "2024"
+      },
+      "slug": "clara-tauson-martina-trevisan",
+      "startTimestamp": 1727848800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1727851622,
+        "period1": 2337,
+        "period2": 4408
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1728172800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "هونغ كونغ، الصين",
+            "ru": "Гонконг, Китай"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 139422,
+        "isGroup": false,
+        "name": "Hong Kong, China",
+        "priority": 0,
+        "slug": "hong-kong-china",
+        "startTimestamp": 1727654400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "هونغ كونغ، الصين",
+              "ru": "Гонконг, Китай"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 23713,
+          "name": "Hong Kong, China",
+          "slug": "wta-125k-hong-kong-china-women-singles",
+          "tennisPoints": 125,
+          "userCount": 58
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 2,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "changes": {
+        "changeTimestamp": 1728120355,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2",
+          "time.currentPeriodStart",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period2",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "kClbsTDKb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CO",
+          "alpha3": "COL",
+          "name": "Colombia",
+          "slug": "colombia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كاميلا أوسوريو",
+            "ru": "Осорио Серрано, Мария Камила"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. أوسوريو",
+            "bn": "সি. ওসোরিও",
+            "hi": "सी. ओसोरियो"
+          }
+        },
+        "gender": "F",
+        "id": 213943,
+        "name": "Camila Osorio",
+        "nameCode": "OSO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3418
+        },
+        "ranking": 59,
+        "shortName": "C. Osorio",
+        "slug": "osorio-serrano-maria-camila",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 7888
+      },
+      "homeTeamSeed": "3",
+      "id": 12946642,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 59576,
+        "name": "WTA Wuhan, China Women Singles 2024",
+        "year": "2024"
+      },
+      "slug": "camila-osorio-martina-trevisan",
+      "startTimestamp": 1728114000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1728118258,
+        "period1": 3587,
+        "period2": 2089
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1728172800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ووهان، الصين، التصفيات",
+            "ru": "Ухань, Китай, отбор"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 139780,
+        "isGroup": false,
+        "name": "Wuhan, China, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "wuhan-china-qualifying",
+        "startTimestamp": 1728086400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ووهان",
+              "ru": "Ухань"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2666,
+          "name": "Wuhan",
+          "primaryColorHex": "#006bb4",
+          "secondaryColorHex": "#7bb317",
+          "slug": "wuhan",
+          "tennisPoints": 1000,
+          "userCount": 1282
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 6,
+        "period2TieBreak": 2,
+        "period3": 4,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "awayTeamSeed": "9",
+      "changes": {
+        "changeTimestamp": 1729419501,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3",
+          "time.currentPeriodStart",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period3",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "kClbsauBb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 1,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CN",
+          "alpha3": "CHN",
+          "name": "China",
+          "slug": "china"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "يكسين ما",
+            "ru": "Ма, Есинь"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. ما"
+          }
+        },
+        "gender": "F",
+        "id": 190950,
+        "name": "Yexin Ma",
+        "nameCode": "YEX",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3263
+        },
+        "ranking": 178,
+        "shortName": "Y. Ma",
+        "slug": "ma-yexin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1064
+      },
+      "id": 13005925,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 56781,
+        "name": "WTA Guangzhou, China Women Singles 2024",
+        "year": "2024"
+      },
+      "slug": "yexin-ma-martina-trevisan",
+      "startTimestamp": 1729409700,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1729415755,
+        "period1": 1586,
+        "period2": 3975,
+        "period3": 3739
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1729468800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "غوانغتشو، الصين، التصفيات",
+            "ru": "Гуанчжоу, Китай, отбор"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 140432,
+        "isGroup": false,
+        "name": "Guangzhou, China, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "guangzhou-china-qualifying",
+        "startTimestamp": 1729382400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "غوانغتشو",
+              "ru": "Гуанчжоу"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2579,
+          "name": "Guangzhou",
+          "primaryColorHex": "#de396b",
+          "secondaryColorHex": "#e87195",
+          "slug": "guangzhou",
+          "tennisPoints": 250,
+          "userCount": 494
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "changes": {
+        "changeTimestamp": 1730189962,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BpjbskClb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 2,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CN",
+          "alpha3": "CHN",
+          "name": "China",
+          "slug": "china"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ووشوانغ زينغ",
+            "bn": "উশুয়াং ঝেং",
+            "hi": "वुशुआंग झेंग",
+            "ru": "Чженг, Вушуанг"
+          },
+          "shortNameTranslation": {
+            "ar": "و. زينغ"
+          }
+        },
+        "gender": "F",
+        "id": 148276,
+        "name": "Wushuang Zheng",
+        "nameCode": "ZHE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3087
+        },
+        "ranking": 516,
+        "shortName": "W. Zheng",
+        "slug": "zheng-wushuang",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 514
+      },
+      "homeTeamSeed": "WC",
+      "id": 13036194,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 68213,
+        "name": "WTA Jiujiang, China Women Singles 2024",
+        "year": "2024"
+      },
+      "slug": "martina-trevisan-wushuang-zheng",
+      "startTimestamp": 1730184000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1730187050,
+        "period1": 2408,
+        "period2": 2844
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1730592000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جيوجيانغ، الصين",
+            "ru": "Цзюцзян, Китай"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 140730,
+        "isGroup": false,
+        "name": "Jiujiang, China",
+        "priority": 0,
+        "slug": "jiujiang-china",
+        "startTimestamp": 1730073600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "جيوجيانغ",
+              "ru": "Цзюцзян"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 24003,
+          "name": "Jiujiang",
+          "slug": "wta-jiujiang-china-women-singles",
+          "tennisPoints": 250,
+          "userCount": 366
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "changes": {
+        "changeTimestamp": 1786543912,
+        "changes": [
+          "homeScore.point",
+          "awayScore.point"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "zlkbskClb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 4,
+        "period2": 2
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "HU",
+          "alpha3": "HUN",
+          "name": "Hungary",
+          "slug": "hungary"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "آنا بوندار",
+            "ru": "Бондар, Анна"
+          },
+          "shortNameTranslation": {
+            "ar": "آ. بوندار",
+            "bn": "এ. বোন্ডার",
+            "hi": "ए. बोंडार"
+          }
+        },
+        "gender": "F",
+        "id": 150574,
+        "name": "Anna Bondar",
+        "nameCode": "BON",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 659
+        },
+        "ranking": 73,
+        "shortName": "A. Bondár",
+        "slug": "bondar-anna",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4513
+      },
+      "id": 13022285,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 68213,
+        "name": "WTA Jiujiang, China Women Singles 2024",
+        "year": "2024"
+      },
+      "slug": "martina-trevisan-anna-bondar",
+      "startTimestamp": 1730368500,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1730377737,
+        "period1": 8855,
+        "period2": 2509
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1730592000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جيوجيانغ، الصين",
+            "ru": "Цзюцзян, Китай"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 140730,
+        "isGroup": false,
+        "name": "Jiujiang, China",
+        "priority": 0,
+        "slug": "jiujiang-china",
+        "startTimestamp": 1730073600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "جيوجيانغ",
+              "ru": "Цзюцзян"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 24003,
+          "name": "Jiujiang",
+          "slug": "wta-jiujiang-china-women-singles",
+          "tennisPoints": 250,
+          "userCount": 366
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 3,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SK",
+          "alpha3": "SVK",
+          "name": "Slovakia",
+          "slug": "slovakia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ريبيكا سرامكوفا",
+            "ru": "Шрамкова, Ребекка"
+          },
+          "shortNameTranslation": {
+            "ar": "ر. سرامكوفا",
+            "bn": "আর. শ্রামকোভা",
+            "hi": "आर. स्रामकोवा"
+          }
+        },
+        "gender": "F",
+        "id": 71034,
+        "name": "Rebecca Šramková",
+        "nameCode": "SRA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 550
+        },
+        "ranking": 151,
+        "shortName": "R. Šramková",
+        "slug": "sramkova-rebecca",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3586
+      },
+      "awayTeamSeed": "2",
+      "changes": {
+        "changeTimestamp": 1730454022,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JvDskClb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 3,
+        "period2": 6,
+        "period3": 2,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "id": 13022287,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 68213,
+        "name": "WTA Jiujiang, China Women Singles 2024",
+        "year": "2024"
+      },
+      "slug": "martina-trevisan-rebecca-sramkova",
+      "startTimestamp": 1730446800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1730451863,
+        "period1": 1954,
+        "period2": 2547,
+        "period3": 2099
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1730592000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جيوجيانغ، الصين",
+            "ru": "Цзюцзян, Китай"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 140730,
+        "isGroup": false,
+        "name": "Jiujiang, China",
+        "priority": 0,
+        "slug": "jiujiang-china",
+        "startTimestamp": 1730073600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "جيوجيانغ",
+              "ru": "Цзюцзян"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 24003,
+          "name": "Jiujiang",
+          "slug": "wta-jiujiang-china-women-singles",
+          "tennisPoints": 250,
+          "userCount": 366
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 2,
+        "period2": 7,
+        "period2TieBreak": 8,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "changes": {
+        "changeTimestamp": 1751897678,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "dlyskClb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 6,
+        "period2TieBreak": 6,
+        "period3": 3,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AU",
+          "alpha3": "AUS",
+          "name": "Australia",
+          "slug": "australia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أسترا شارما",
+            "bn": "অস্ট্রা শর্মা",
+            "hi": "ऐस्ट्रा शर्मा",
+            "ru": "Шарма, Астра"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. شارما"
+          }
+        },
+        "gender": "F",
+        "id": 58053,
+        "name": "Astra Sharma",
+        "nameCode": "SHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 492
+        },
+        "ranking": 924,
+        "shortName": "A. Sharma",
+        "slug": "sharma-astra",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1198
+      },
+      "id": 14120462,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 74001,
+        "name": "WTA 125K Bastad, Sweden Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "martina-trevisan-astra-sharma",
+      "startTimestamp": 1751887800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1751894926,
+        "period1": 2187,
+        "period2": 4072,
+        "period3": 2723
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1752278400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "باستاد، السويد",
+            "ru": "Бастад, Швеция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 157038,
+        "isGroup": false,
+        "name": "Bastad, Sweden",
+        "priority": 0,
+        "slug": "bastad-sweden",
+        "startTimestamp": 1751846400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "باستاد، السويد",
+              "ru": "Бастад, Швеция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 13377,
+          "name": "Bastad, Sweden ",
+          "slug": "bastad-sweden",
+          "tennisPoints": 125,
+          "userCount": 200
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PL",
+          "alpha3": "POL",
+          "name": "Poland",
+          "slug": "poland"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كاتارزينا كاوا",
+            "bn": "কাতারজিনা কাওয়া",
+            "hi": "कतार्ज़िना कावा",
+            "ru": "Кава, Катарчина"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. كاوا"
+          }
+        },
+        "gender": "F",
+        "id": 42492,
+        "name": "Katarzyna Kawa",
+        "nameCode": "KAW",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 764
+        },
+        "ranking": 129,
+        "shortName": "K. Kawa",
+        "slug": "kawa-katarzyna",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4442
+      },
+      "changes": {
+        "changeTimestamp": 1752056726,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "RZqskClb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 3,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "id": 14105845,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 74001,
+        "name": "WTA 125K Bastad, Sweden Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "martina-trevisan-katarzyna-kawa",
+      "startTimestamp": 1752051600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1752053911,
+        "period1": 1761,
+        "period2": 2776
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1752278400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "باستاد، السويد",
+            "ru": "Бастад, Швеция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 157038,
+        "isGroup": false,
+        "name": "Bastad, Sweden",
+        "priority": 0,
+        "slug": "bastad-sweden",
+        "startTimestamp": 1751846400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "باستاد، السويد",
+              "ru": "Бастад, Швеция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 13377,
+          "name": "Bastad, Sweden ",
+          "slug": "bastad-sweden",
+          "tennisPoints": 125,
+          "userCount": 200
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 3,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "changes": {
+        "changeTimestamp": 1752612841,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "kClbsTbIb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 3,
+        "period2": 6,
+        "period3": 1,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نوريا برانكاشيو",
+            "bn": "নুরিয়া ব্রাঙ্কাসিও",
+            "hi": "नूरिया ब्रंकाच्चियो",
+            "ru": "Бранкаччио, Нурия"
+          },
+          "shortNameTranslation": {
+            "ar": "ن. برانكاشيو"
+          }
+        },
+        "gender": "F",
+        "id": 207593,
+        "name": "Nuria Brancaccio",
+        "nameCode": "BRA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3394
+        },
+        "ranking": 189,
+        "shortName": "N. Brancaccio",
+        "slug": "brancaccio-nuria",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1615
+      },
+      "id": 14176280,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 77974,
+        "name": "WTA 125K Rome, Italy Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "nuria-brancaccio-martina-trevisan",
+      "startTimestamp": 1752605400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1752610755,
+        "period1": 2438,
+        "period2": 2630,
+        "period3": 2062
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1752969600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "روما، إيطاليا",
+            "ru": "Рим, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 157284,
+        "isGroup": false,
+        "name": "Rome, Italy",
+        "priority": 0,
+        "slug": "rome-italy",
+        "startTimestamp": 1752451200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "WTA 125K روما، إيطاليا فردي سيدات",
+              "ru": "125K Рим, Италия, одиночный разряд среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 27830,
+          "name": "Rome, Italy",
+          "slug": "wta-125k-rome-italy-women-singles",
+          "tennisPoints": 125,
+          "userCount": 97
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "LV",
+          "alpha3": "LVA",
+          "name": "Latvia",
+          "slug": "latvia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "داريا سيمينستاجا",
+            "bn": "দারজা সেমেনিস্ট",
+            "hi": "दरिया सेमेनिस्ताया",
+            "ru": "Семенистая, Дарья"
+          },
+          "shortNameTranslation": {
+            "ar": "د. سيمينستاجا"
+          }
+        },
+        "gender": "F",
+        "id": 314519,
+        "name": "Darja Semenistaja",
+        "nameCode": "SEM",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4643
+        },
+        "ranking": 109,
+        "shortName": "D. Semenistaja",
+        "slug": "semenistaja-darja",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1895
+      },
+      "awayTeamSeed": "2",
+      "changes": {
+        "changeTimestamp": 1752765016,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "kClbsuPAc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 1,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "id": 14137814,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 77974,
+        "name": "WTA 125K Rome, Italy Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "darja-semenistaja-martina-trevisan",
+      "startTimestamp": 1752760800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1752763182,
+        "period1": 2048,
+        "period2": 1810
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1752969600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "روما، إيطاليا",
+            "ru": "Рим, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 157284,
+        "isGroup": false,
+        "name": "Rome, Italy",
+        "priority": 0,
+        "slug": "rome-italy",
+        "startTimestamp": 1752451200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "WTA 125K روما، إيطاليا فردي سيدات",
+              "ru": "125K Рим, Италия, одиночный разряд среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 27830,
+          "name": "Rome, Italy",
+          "slug": "wta-125k-rome-italy-women-singles",
+          "tennisPoints": 125,
+          "userCount": 97
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 4
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "changes": {
+        "changeTimestamp": 1754499411,
+        "changes": [
+          "homeScore.point",
+          "awayScore.point"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "kClbsnDuc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سولانا سييرا",
+            "ru": "Солана Сьерра"
+          },
+          "shortNameTranslation": {
+            "ar": "س. سييرا",
+            "ru": "С. Сьерра"
+          }
+        },
+        "gender": "F",
+        "id": 298913,
+        "name": "Solana Sierra",
+        "nameCode": "SIE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4485
+        },
+        "ranking": 91,
+        "shortName": "S. Sierra",
+        "slug": "sierra-solana",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4522
+      },
+      "homeTeamSeed": "3",
+      "id": 14350932,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 67242,
+        "name": "WTA Cincinnati, USA Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "solana-sierra-martina-trevisan",
+      "startTimestamp": 1754411100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1754414083,
+        "period1": 2243,
+        "period2": 3777
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1754524800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تصفيات سينسيناتي، الولايات المتحدة الأمريكية",
+            "ru": "Юниорские Панамериканские Игры, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 160041,
+        "isGroup": false,
+        "name": "Cincinnati, USA, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "cincinnati-usa-qualifying",
+        "startTimestamp": 1754438400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "سينسيناتي",
+              "bn": "সিনসিনাটি",
+              "hi": "सिनसिनाटी",
+              "ru": "Цинциннати"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2548,
+          "name": "Cincinnati",
+          "primaryColorHex": "#184d8c",
+          "secondaryColorHex": "#4a8ec8",
+          "slug": "cincinnati",
+          "tennisPoints": 1000,
+          "userCount": 3685
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 3,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "changes": {
+        "changeTimestamp": 1755535365,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "kClbsLybd",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "RU",
+          "alpha3": "RUS",
+          "name": "Russia",
+          "slug": "russia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تاتيانا بروزوروفا",
+            "ru": "Татьяна Прозорова"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. بروزوروفا",
+            "bn": "টি. প্রজোরোভা",
+            "hi": "टी. प्रोजोरोवा",
+            "ru": "Т. Прозорова"
+          }
+        },
+        "gender": "F",
+        "id": 378686,
+        "name": "Tatiana Prozorova",
+        "nameCode": "PRO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5207
+        },
+        "ranking": 163,
+        "shortName": "T. Prozorova",
+        "slug": "prozorova-tatiana",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1371
+      },
+      "id": 14466850,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 69937,
+        "name": "US Open Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "tatiana-prozorova-martina-trevisan",
+      "startTimestamp": 1755529200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1755532415,
+        "period1": 2614,
+        "period2": 2898
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1755820800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بطولة أمريكا المفتوحة للتنس، نيويورك، الولايات المتحدة، التصفيات",
+            "ru": "US Open, New York, USA, Qualifying"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 161144,
+        "isGroup": false,
+        "name": "US Open, New York, USA, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "us-open-new-york-usa-qualifying",
+        "startTimestamp": 1755475200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة أمريكا المفتوحة، فردي السيدات",
+              "az": "US Open, Qadınlar",
+              "bn": "ইউএস ওপেন, নারী একক",
+              "de": "US Open Dameneinzel",
+              "el": "Αμερικανικό Όπεν, απλό γυναικών",
+              "es": "US Open, femenino",
+              "es-la": "US Open, Femenil",
+              "fr": "US Open simple dames",
+              "hi": "यूएस ओपन, महिला",
+              "hr": "US Open (Ž)",
+              "hu": "US Open, női egyes",
+              "id": "US Open, Tunggal (Pi)",
+              "it": "US Open (F)",
+              "ja": "全米オープン、女子",
+              "ko": "US 오픈 여자 단식",
+              "nl": "US Open vrouwenenkelspel",
+              "no": "US Open, kvinner",
+              "pl": "US Open, singiel kobiet",
+              "pt": "US Open feminino",
+              "pt-pt": "US Open (F)",
+              "ro": "US Open, simplu feminin",
+              "ru": "Открытый чемпионат США",
+              "sr": "Ју Ес опен, појединачно (Ж)",
+              "sv": "US Open, damsingel",
+              "th": "ยูเอสโอเพน หญิงเดี่ยว",
+              "tr": "Amerika Açık, Tek Kadınlar",
+              "vi": "Mỹ Mở rộng, đơn nữ"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2601,
+          "name": "US Open, Women",
+          "primaryColorHex": "#0073b9",
+          "secondaryColorHex": "#e51937",
+          "slug": "us-open",
+          "tennisPoints": 2000,
+          "userCount": 11024
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 2,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AU",
+          "alpha3": "AUS",
+          "name": "Australia",
+          "slug": "australia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أوليفيا غاديكي",
+            "bn": "অলিভিয়া গাডেকি",
+            "hi": "ओलिविया गाडेकी",
+            "ru": "Оливия Гадецки"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. غاديكي",
+            "ru": "О. Гадецки"
+          }
+        },
+        "gender": "F",
+        "id": 232651,
+        "name": "Olivia Gadecki",
+        "nameCode": "GAD",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3978
+        },
+        "ranking": 260,
+        "shortName": "O. Gadecki",
+        "slug": "gadecki-olivia",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1153
+      },
+      "awayTeamSeed": "8",
+      "changes": {
+        "changeTimestamp": 1756751628,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "kClbsbdTb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "id": 14582714,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 73999,
+        "name": "WTA 125K Guadalajara, Mexico Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "olivia-gadecki-martina-trevisan",
+      "startTimestamp": 1756746000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1756749342,
+        "period1": 2899,
+        "period2": 2249
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1757116800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "غوادالاخارا، المكسيك",
+            "ru": "Гвадалахара, Мексика"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 161929,
+        "isGroup": false,
+        "name": "Guadalajara, Mexico",
+        "priority": 0,
+        "slug": "guadalajara-mexico",
+        "startTimestamp": 1756684800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "غوادالاخارا، المكسيك",
+              "ru": "Гвадалахара, Мексика"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 11637,
+          "name": "Guadalajara, Mexico ",
+          "slug": "guadalajara-mexico",
+          "tennisPoints": 125,
+          "userCount": 151
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 3,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "changes": {
+        "changeTimestamp": 1756930360,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "kClbsmvJb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "RU",
+          "alpha3": "RUS",
+          "name": "Russia",
+          "slug": "russia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماريا كوزيريفا",
+            "ru": "Мария Козырева"
+          },
+          "shortNameTranslation": {
+            "ar": "م. كوزيريفا",
+            "ru": "М. Козырева"
+          }
+        },
+        "gender": "F",
+        "id": 211012,
+        "name": "Maria Kozyreva",
+        "nameCode": "KOZ",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4928
+        },
+        "ranking": 586,
+        "shortName": "M. Kozyreva",
+        "slug": "kozyreva-maria",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 328
+      },
+      "homeTeamSeed": "Q",
+      "id": 14559638,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 73999,
+        "name": "WTA 125K Guadalajara, Mexico Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "maria-kozyreva-martina-trevisan",
+      "startTimestamp": 1756925400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1756927957,
+        "period1": 2066,
+        "period2": 2367
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1757116800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "غوادالاخارا، المكسيك",
+            "ru": "Гвадалахара, Мексика"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 161929,
+        "isGroup": false,
+        "name": "Guadalajara, Mexico",
+        "priority": 0,
+        "slug": "guadalajara-mexico",
+        "startTimestamp": 1756684800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "غوادالاخارا، المكسيك",
+              "ru": "Гвадалахара, Мексика"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 11637,
+          "name": "Guadalajara, Mexico ",
+          "slug": "guadalajara-mexico",
+          "tennisPoints": 125,
+          "userCount": 151
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CA",
+          "alpha3": "CAN",
+          "name": "Canada",
+          "slug": "canada"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ريبيكا مارينو",
+            "bn": "রেবেকা মারিনো",
+            "hi": "रेबेका मैरीनो",
+            "ru": "Ребекка Марино"
+          },
+          "shortNameTranslation": {
+            "ar": "ر. مارينو"
+          }
+        },
+        "gender": "F",
+        "id": 26120,
+        "name": "Rebecca Marino",
+        "nameCode": "MAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 610
+        },
+        "ranking": 422,
+        "shortName": "R. Marino",
+        "slug": "marino-rebecca",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1552
+      },
+      "changes": {
+        "changeTimestamp": 1757577696,
+        "changes": [
+          "homeScore.point",
+          "awayScore.point"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vxkskClb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 3
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "homeTeamSeed": "WC",
+      "id": 14629080,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 67252,
+        "name": "WTA Guadalajara, Mexico Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "martina-trevisan-rebecca-marino",
+      "startTimestamp": 1757459100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1757461406,
+        "period1": 1997,
+        "period2": 2487
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1757808000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "غوادالاخارا، المكسيك",
+            "ru": "Гвадалахара, Мексика"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 162562,
+        "isGroup": false,
+        "name": "Guadalajara, Mexico",
+        "priority": 0,
+        "slug": "guadalajara-mexico",
+        "startTimestamp": 1757289600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "غوادالاخارا",
+              "ru": "Гвадалахара"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 16559,
+          "name": "Guadalajara",
+          "primaryColorHex": "#1f2034",
+          "secondaryColorHex": "#d46151",
+          "slug": "guadalajara",
+          "tennisPoints": 500,
+          "userCount": 965
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 5,
+        "period2": 6,
+        "period3": 7,
+        "period3TieBreak": 7,
+        "point": "6"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AT",
+          "alpha3": "AUT",
+          "name": "Austria",
+          "slug": "austria"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سينجا كراوس",
+            "bn": "সিনজ. ক্রাউস",
+            "hi": "सिंजा क्राउस",
+            "ru": "Краус, Синья"
+          },
+          "shortNameTranslation": {
+            "ar": "س. كراوس"
+          }
+        },
+        "gender": "F",
+        "id": 246159,
+        "name": "Sinja Kraus",
+        "nameCode": "KRA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3547
+        },
+        "ranking": 90,
+        "shortName": "S. Kraus",
+        "slug": "kraus-sinja",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2678
+      },
+      "awayTeamSeed": "5",
+      "changes": {
+        "changeTimestamp": 1758056414,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.normaltime",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period3",
+          "awayScore.period3TieBreak",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "kClbsjyYb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 7,
+        "period2": 3,
+        "period3": 6,
+        "period3TieBreak": 2,
+        "point": "2"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "id": 14685754,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 82429,
+        "name": "WTA 125K Tolentino, Italy Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "sinja-kraus-martina-trevisan",
+      "startTimestamp": 1758045600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1758052118,
+        "period1": 2344,
+        "period2": 3699,
+        "period3": 4291
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1758412800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تولنتينو، إيطاليا",
+            "ru": "Толентино, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 163260,
+        "isGroup": false,
+        "name": "Tolentino, Italy",
+        "priority": 0,
+        "slug": "tolentino-italy",
+        "startTimestamp": 1757894400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة WTA 125K تولينتينو، إيطاليا فردي السيدات",
+              "ru": "WTA 125K Толентино, Италия среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 29389,
+          "name": "Tolentino, Italy",
+          "slug": "wta-125k-tolentino-italy-women-singles",
+          "tennisPoints": 125,
+          "userCount": 60
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "ES",
+          "alpha3": "ESP",
+          "name": "Spain",
+          "slug": "spain"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليونا بولسوفا",
+            "ru": "Болсова Задойнов, Алиона"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. بولسوفا",
+            "bn": "এ. বলসোভা",
+            "hi": "ए. बोल्सोवा"
+          }
+        },
+        "gender": "F",
+        "id": 115507,
+        "name": "Aliona Bolsova",
+        "nameCode": "BOL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 450
+        },
+        "ranking": 385,
+        "shortName": "A. Bolsova",
+        "slug": "bolsova-aliona",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1069
+      },
+      "changes": {
+        "changeTimestamp": 1759238958,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "hkWskClb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 2,
+        "period2": 4,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "homeTeamSeed": "WC",
+      "id": 14786394,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 83486,
+        "name": "2025 WTA 125K Rende, Italy Women Singles",
+        "year": "2025"
+      },
+      "slug": "martina-trevisan-aliona-bolsova",
+      "startTimestamp": 1759231500,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1759235536,
+        "period1": 3366,
+        "period2": 3383
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1759622400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ريندي، إيطاليا",
+            "ru": "Ренде, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 164599,
+        "isGroup": false,
+        "name": "Rende, Italy",
+        "priority": 0,
+        "slug": "rende-italy",
+        "startTimestamp": 1759104000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة WTA 125K ريندي، إيطاليا فردي السيدات",
+              "ru": "WTA 125K Ренде, Италия, одиночный разряд среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 29746,
+          "name": "Rende, Italy",
+          "slug": "wta-125k-rende-italy-women-singles",
+          "tennisPoints": 125,
+          "userCount": 39
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 1,
+        "period3": 3,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "changes": {
+        "changeTimestamp": 1761099467,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "kClbsVDkc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 1,
+        "period2": 6,
+        "period3": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ديليتا شيروبيني",
+            "ru": "Дилета Черубини"
+          },
+          "shortNameTranslation": {
+            "ar": "د. شيروبيني",
+            "ru": "Д. Черубини"
+          }
+        },
+        "gender": "F",
+        "id": 276445,
+        "name": "Diletta Cherubini",
+        "nameCode": "CHE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4963
+        },
+        "ranking": 378,
+        "shortName": "D. Cherubini",
+        "slug": "cherubini-diletta",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 526
+      },
+      "id": 14914830,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 84800,
+        "name": "WTA 125K Cali, Colombia Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "diletta-cherubini-martina-trevisan",
+      "startTimestamp": 1761091200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1761096078,
+        "period1": 1767,
+        "period2": 2667,
+        "period3": 3353
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1761436800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كويريتارو، المكسيك",
+            "ru": "Керетаро, Мексика"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 166611,
+        "isGroup": false,
+        "name": "Queretaro, Mexico",
+        "priority": 0,
+        "slug": "queretaro-mexico",
+        "startTimestamp": 1760918400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "دبليو تي إيه 125 ك كيريتارو، المكسيك نساء فردي",
+              "ru": "WTA 125K Керетаро, Мексика среди женщин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 30248,
+          "name": "Queretaro, Mexico",
+          "slug": "wta-125k-queretaro-mexico-women-singles",
+          "tennisPoints": 125,
+          "userCount": 25
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 2,
+        "period2": 6,
+        "period3": 2,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "awayTeamSeed": "WC",
+      "changes": {
+        "changeTimestamp": 1763487768,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period3",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "kClbsovJb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 4,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "PL",
+          "alpha3": "POL",
+          "name": "Poland",
+          "slug": "poland"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مايا شوالينسكا",
+            "ru": "Майя Хвалинска"
+          },
+          "shortNameTranslation": {
+            "ar": "م. شوالينسكا",
+            "bn": "এম. চোয়ালিস্কা",
+            "hi": "एम. च्वालिंस्का",
+            "ru": "М. Хвалинска"
+          }
+        },
+        "gender": "F",
+        "id": 211014,
+        "name": "Maja Chwalinska",
+        "nameCode": "CHW",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 848
+        },
+        "ranking": 22,
+        "shortName": "M. Chwalinska",
+        "slug": "chwalinska-maja",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 18538
+      },
+      "homeTeamSeed": "8",
+      "id": 15109920,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 75448,
+        "name": "WTA 125K Colina, Chile Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "maja-chwalinska-martina-trevisan",
+      "startTimestamp": 1763478000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1763484919,
+        "period1": 2643,
+        "period2": 3799,
+        "period3": 2838
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1763856000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كولينا، تشيلي",
+            "ru": "Колина, Чили"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 168991,
+        "isGroup": false,
+        "name": "Colina, Chile",
+        "priority": 0,
+        "slug": "colina-chile",
+        "startTimestamp": 1763337600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "سانتياغو، تشيلي",
+              "ru": "Сантьяго, Чили"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 19567,
+          "name": "Santiago, Chile",
+          "slug": "santiago-chile",
+          "tennisPoints": 125,
+          "userCount": 129
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period2": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "NL",
+          "alpha3": "NLD",
+          "name": "Netherlands",
+          "slug": "netherlands"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيفا فيدر",
+            "ru": "Ева Веддер"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. فيدر",
+            "ru": "Е. Веддер"
+          }
+        },
+        "gender": "F",
+        "id": 201729,
+        "name": "Eva Vedder",
+        "nameCode": "VED",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3355
+        },
+        "ranking": 197,
+        "shortName": "E. Vedder",
+        "slug": "vedder-eva",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 924
+      },
+      "changes": {
+        "changeTimestamp": 1764003875,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "kClbsEJFb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 5,
+        "period2": 3,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "id": 15139568,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 75447,
+        "name": "WTA 125 Buenos Aires, Argentina Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "eva-vedder-martina-trevisan",
+      "startTimestamp": 1763996400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1764000194,
+        "period1": 3447,
+        "period2": 3492
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1764460800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بوينس آيرس، الأرجنتين",
+            "ru": "Буэнос-Айрес, Аргентина"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 169527,
+        "isGroup": false,
+        "name": "Buenos Aires, Argentina",
+        "priority": 0,
+        "slug": "buenos-aires-argentina",
+        "startTimestamp": 1763942400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بوينس آيرس، الأرجنتين",
+              "ru": "Буэнос-Айрес, Аргентина"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 17148,
+          "name": "Buenos Aires, Argentina",
+          "slug": "buenos-aires-argentina",
+          "tennisPoints": 125,
+          "userCount": 180
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "هبة شيخ",
+            "ru": "Хиба Шейх"
+          },
+          "shortNameTranslation": {
+            "ar": "ه. شيخ",
+            "ru": "Х. Шейх"
+          }
+        },
+        "gender": "F",
+        "id": 280832,
+        "name": "Hibah Shaikh",
+        "nameCode": "SHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5599
+        },
+        "ranking": 309,
+        "shortName": "H. Shaikh",
+        "slug": "shaikh-hibah",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 238
+      },
+      "changes": {
+        "changeTimestamp": 1769094118,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "kClbsHqmc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "period2": 2,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "id": 15398309,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 88691,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "hibah-shaikh-martina-trevisan",
+      "startTimestamp": 1769085300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "يتف و50 المنستير للسيدات",
+            "ru": "ИТФ W50 Монастир среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 173284,
+        "name": "ITF W50 Monastir Women",
+        "priority": 0,
+        "slug": "itf-w50-monastir-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "يتف و50 المنستير السيدات",
+              "ru": "ITF W50 Монастир среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 32003,
+          "name": "ITF W50 Monastir Women",
+          "slug": "itf-w50-monastir-women",
+          "tennisPoints": 50,
+          "userCount": 9
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 4,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "MX",
+          "alpha3": "MEX",
+          "name": "Mexico",
+          "slug": "mexico"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "آنا صوفيا سانشيز",
+            "ru": "Санчез, Анна София"
+          },
+          "shortNameTranslation": {
+            "ar": "آ. سانشيز"
+          }
+        },
+        "gender": "F",
+        "id": 59662,
+        "name": "Ana Sofia Sanchez",
+        "nameCode": "SAN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 882
+        },
+        "ranking": 413,
+        "shortName": "A. Sanchez",
+        "slug": "sanchez-ana-sofia",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 702
+      },
+      "awayTeamSeed": "10",
+      "changes": {
+        "changeTimestamp": 1771705579,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "mTyskClb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p500"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "homeTeamSeed": "WC",
+      "id": 15591446,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 85651,
+        "name": "WTA Merida, Mexico Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "martina-trevisan-ana-sofia-sanchez",
+      "startTimestamp": 1771698600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1771702594,
+        "period1": 3525,
+        "period2": 2948
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1771804800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ميريدا، المكسيك، التصفيات",
+            "ru": "Мерида, Мексика, Отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 175679,
+        "isGroup": false,
+        "name": "Merida, Mexico, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "merida-mexico-qualifying",
+        "startTimestamp": 1771632000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ميريدا",
+              "ru": "Мерида"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 19976,
+          "name": "Merida",
+          "slug": "merida",
+          "tennisPoints": 500,
+          "userCount": 623
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 5,
+        "period2": 1,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "awayTeamSeed": "WC",
+      "changes": {
+        "changeTimestamp": 1771787954,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "hRhskClb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p500"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CN",
+          "alpha3": "CHN",
+          "name": "China",
+          "slug": "china"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "شواي تشانغ",
+            "bn": "এস হুয়াই ঝাং",
+            "hi": "शुआई झांग",
+            "ru": "Чжан, Шай"
+          },
+          "shortNameTranslation": {
+            "ar": "ش. تشانغ"
+          }
+        },
+        "gender": "F",
+        "id": 19607,
+        "name": "Shuai Zhang",
+        "nameCode": "ZHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 189
+        },
+        "ranking": 54,
+        "shortName": "S. Zhang",
+        "slug": "zhang-shuai",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4274
+      },
+      "homeTeamSeed": "1",
+      "id": 15595838,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 85651,
+        "name": "WTA Merida, Mexico Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "martina-trevisan-shuai-zhang",
+      "startTimestamp": 1771781400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1771786069,
+        "period1": 3343,
+        "period2": 1827
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1771804800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ميريدا، المكسيك، التصفيات",
+            "ru": "Мерида, Мексика, Отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 175679,
+        "isGroup": false,
+        "name": "Merida, Mexico, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "merida-mexico-qualifying",
+        "startTimestamp": 1771632000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ميريدا",
+              "ru": "Мерида"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 19976,
+          "name": "Merida",
+          "slug": "merida",
+          "tennisPoints": 500,
+          "userCount": 623
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "داريا فيدمانوفا",
+            "ru": "Видманова, Дарья"
+          },
+          "shortNameTranslation": {
+            "ar": "د. فيدمانوفا"
+          }
+        },
+        "gender": "F",
+        "id": 298339,
+        "name": "Darja Vidmanova",
+        "nameCode": "VID",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4306
+        },
+        "ranking": 75,
+        "shortName": "D. Vidmanova",
+        "slug": "vidmanova-darja",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1790
+      },
+      "awayTeamSeed": "19",
+      "changes": {
+        "changeTimestamp": 1772407342,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "kClbsOquc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p1000"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 2,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "id": 15639663,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 85596,
+        "name": "WTA Indian Wells, USA Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "darja-vidmanova-martina-trevisan",
+      "startTimestamp": 1772400900,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1772404493,
+        "period1": 3078,
+        "period2": 2832
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1772496000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إنديان ويلز، الولايات المتحدة الأمريكية، التصفيات",
+            "ru": "Индийские Уэллс, США, отборочные."
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 176285,
+        "isGroup": false,
+        "name": "Indian Wells, USA, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "indian-wells-usa-qualifying",
+        "startTimestamp": 1772323200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "إنديان ويلز",
+              "bn": "ইন্ডিয়ান ওয়েলস",
+              "hi": "इंडियन वेल्स",
+              "ru": "Индиан-Уэллс"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2619,
+          "name": "Indian Wells",
+          "primaryColorHex": "#f3bd2a",
+          "secondaryColorHex": "#8f3d6b",
+          "slug": "indian-wells",
+          "tennisPoints": 1000,
+          "userCount": 3433
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 3,
+        "period3": 3,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "changes": {
+        "changeTimestamp": 1773694302,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "OyUskClb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p1000"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 4,
+        "period2": 6,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "MX",
+          "alpha3": "MEX",
+          "name": "Mexico",
+          "slug": "mexico"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "رينا تا زارازوا",
+            "ru": "Заразуа, Рената"
+          },
+          "shortNameTranslation": {
+            "ar": "ر. زارازوا",
+            "bn": "আর. জারাজুয়া",
+            "hi": "आर. जराजुआ"
+          }
+        },
+        "gender": "F",
+        "id": 111189,
+        "name": "Renata Zarazua",
+        "nameCode": "ZAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 710
+        },
+        "ranking": 74,
+        "shortName": "R. Zarazúa",
+        "slug": "zarazua-renata",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4629
+      },
+      "homeTeamSeed": "7",
+      "id": 15736857,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 85598,
+        "name": "WTA Miami, USA Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "martina-trevisan-renata-zarazua",
+      "startTimestamp": 1773683100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1773691184,
+        "period1": 3613,
+        "period2": 3739,
+        "period3": 3077
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1773619200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ميامي، الولايات المتحدة الأمريكية، التصفيات",
+            "ru": "Майами, США, отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 177182,
+        "isGroup": false,
+        "name": "Miami, USA, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "miami-usa-qualifying",
+        "startTimestamp": 1773532800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ميامي",
+              "bn": "মিয়ামি",
+              "hi": "मियामी",
+              "ru": "Майами"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2587,
+          "name": "Miami",
+          "slug": "miami-open",
+          "tennisPoints": 1000,
+          "userCount": 3507
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period2": 7,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "changes": {
+        "changeTimestamp": 1775058346,
+        "changes": [
+          "firstToServe"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "kClbsDZFb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 5,
+        "period2": 5,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "ES",
+          "alpha3": "ESP",
+          "name": "Spain",
+          "slug": "spain"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوسيا كورتيز لوركا",
+            "ru": "Лусия Кортес Ллорка"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. لوركا",
+            "ru": "Л. Ллорка"
+          }
+        },
+        "gender": "F",
+        "id": 202478,
+        "name": "Lucia Cortez Llorca",
+        "nameCode": "COR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3363
+        },
+        "ranking": 468,
+        "shortName": "L. Cortez Llorca",
+        "slug": "cortez-llorca-lucia",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 383
+      },
+      "id": 15918407,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 90572,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "lucia-cortez-llorca-martina-trevisan",
+      "startTimestamp": 1775049406,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W35 سانتا مارغريتا دي بولا سيدات",
+            "ru": "ITF W35 Санта-Маргерита-ди-Пула среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 149092,
+        "name": "ITF W35 Santa Margherita di Pula Women",
+        "priority": 0,
+        "slug": "itf-w35-santa-margherita-di-pula-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W35 سانتا مارغريتا دي بولا السيدات",
+              "ru": "ITF W35 Санта-Маргерита-ди-Пула, женщины"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25831,
+          "name": "ITF W35 Santa Margherita di Pula Women",
+          "slug": "itf-w35-santa-margherita-di-pula-women",
+          "userCount": 10
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "changes": {
+        "changeTimestamp": 1775136505,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "kClbstigd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 2,
+        "period2": 1
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "يليزافيتا كوتليار",
+            "ru": "Елизавета Котляр"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. كوتليار",
+            "ru": "Е. Котляр"
+          }
+        },
+        "gender": "F",
+        "id": 390418,
+        "name": "Yelyzaveta Kotliar",
+        "nameCode": "KOT",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 12400
+        },
+        "ranking": 360,
+        "shortName": "Y. Kotliar",
+        "slug": "kotliar-yelyzaveta",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 574
+      },
+      "id": 15928264,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 90572,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "yelyzaveta-kotliar-martina-trevisan",
+      "startTimestamp": 1775129512,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W35 سانتا مارغريتا دي بولا سيدات",
+            "ru": "ITF W35 Санта-Маргерита-ди-Пула среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 149092,
+        "name": "ITF W35 Santa Margherita di Pula Women",
+        "priority": 0,
+        "slug": "itf-w35-santa-margherita-di-pula-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W35 سانتا مارغريتا دي بولا السيدات",
+              "ru": "ITF W35 Санта-Маргерита-ди-Пула, женщины"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25831,
+          "name": "ITF W35 Santa Margherita di Pula Women",
+          "slug": "itf-w35-santa-margherita-di-pula-women",
+          "userCount": 10
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "point": "6"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BG",
+          "alpha3": "BGR",
+          "name": "Bulgaria",
+          "slug": "bulgaria"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "روسيتسا دينشيفا",
+            "ru": "Росица Денчева"
+          },
+          "shortNameTranslation": {
+            "ar": "ر. دينشيفا",
+            "ru": "Р. Денчева"
+          }
+        },
+        "gender": "F",
+        "id": 412849,
+        "name": "Rositsa Dencheva",
+        "nameCode": "DEN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 12448
+        },
+        "ranking": 280,
+        "shortName": "R. Dencheva",
+        "slug": "dencheva-rositsa",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 522
+      },
+      "changes": {
+        "changeTimestamp": 1775210871,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "awayScore.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "kClbsZgpd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 6,
+        "period2TieBreak": 4,
+        "point": "4"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "id": 15934597,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 90572,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "rositsa-dencheva-martina-trevisan",
+      "startTimestamp": 1775203609,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W35 سانتا مارغريتا دي بولا سيدات",
+            "ru": "ITF W35 Санта-Маргерита-ди-Пула среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 149092,
+        "name": "ITF W35 Santa Margherita di Pula Women",
+        "priority": 0,
+        "slug": "itf-w35-santa-margherita-di-pula-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W35 سانتا مارغريتا دي بولا السيدات",
+              "ru": "ITF W35 Санта-Маргерита-ди-Пула, женщины"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25831,
+          "name": "ITF W35 Santa Margherita di Pula Women",
+          "slug": "itf-w35-santa-margherita-di-pula-women",
+          "userCount": 10
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 2,
+        "period2": 4,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جيسيكا بيرتولدو",
+            "ru": "Джессика Бертольдо"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. بيرتولدو",
+            "ru": "Д. Бертольдо"
+          }
+        },
+        "gender": "F",
+        "id": 225201,
+        "name": "Jessica Bertoldo",
+        "nameCode": "BER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5662
+        },
+        "ranking": 904,
+        "shortName": "J. Bertoldo",
+        "slug": "bertoldo-jessica",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 227
+      },
+      "changes": {
+        "changeTimestamp": 1775565880,
+        "changes": [
+          "firstToServe"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "kClbsbePb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتينا تريفيسان",
+            "bn": "মার্টিনা ট্রেভিসান",
+            "hi": "मार्टिना त्रेविसान",
+            "ru": "Тревисан, Мартина"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تريفيسان"
+          }
+        },
+        "gender": "F",
+        "id": 153860,
+        "name": "Martina Trevisan",
+        "nameCode": "TRE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 508
+        },
+        "ranking": 325,
+        "shortName": "M. Trevisan",
+        "slug": "trevisan-martina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4039
+      },
+      "id": 15960025,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 92183,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "jessica-bertoldo-martina-trevisan",
+      "startTimestamp": 1775559563,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بطولة ITF W35 إيطاليا سانتا مارغريتا دي بولا 2 للسيدات",
+            "ru": "ITF W35 Италия Санта-Маргерита-ди-Пула 2 Женщины"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 149564,
+        "name": "ITF W35 Italy Santa Margherita di Pula 2 Women",
+        "priority": 0,
+        "slug": "itf-w35-italy-santa-margherita-di-pula-2-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كأس ITF تحت 35 سانتا مارغريتا دي بولا 2 السيدات",
+              "ru": "ITF W35 Санта-Маргерита-ди-Пула 2 среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25957,
+          "name": "ITF W35 Santa Margherita di Pula 2 Women",
+          "slug": "itf-w35-italy-santa-margherita-di-pula-2-women",
+          "userCount": 5
+        }
+      },
+      "winnerCode": 1
+    }
+  ],
+  "has_next_page": true,
+  "page": 1,
+  "player_id": 153860,
+  "saved_at": 1788183965.117332,
+  "saved_at_iso": "2026-08-31T13:46:05+00:00",
+  "source": "API_PRO_PREVIOUS_MATCHES",
+  "status": "OK"
+}

@@ -1,0 +1,6824 @@
+{
+  "api_status_code": 200,
+  "endpoint": "https://tennisapi1.p.rapidapi.com/api/tennis/player/67743/events/previous/1",
+  "events": [
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "HR",
+          "alpha3": "HRV",
+          "name": "Croatia",
+          "slug": "croatia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بيتر مارشينكو",
+            "ru": "Петра Марчинко"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. مارشينكو",
+            "bn": "পি. মার্সিঙ্কো",
+            "hi": "पी. मर्चिंको",
+            "ru": "П. Марчинко"
+          }
+        },
+        "gender": "F",
+        "id": 381052,
+        "name": "Petra Marčinko",
+        "nameCode": "MAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4879
+        },
+        "ranking": 77,
+        "shortName": "P. Marčinko",
+        "slug": "marcinko-petra",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3702
+      },
+      "changes": {
+        "changeTimestamp": 1752687201,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCscwcd",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 4,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "id": 14137819,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 77974,
+        "name": "WTA 125K Rome, Italy Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "petra-marcinko-lina-gjorcheska",
+      "startTimestamp": 1752682800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1752684636,
+        "period1": 1572,
+        "period2": 2513
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1752969600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "روما، إيطاليا",
+            "ru": "Рим, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 157284,
+        "isGroup": false,
+        "name": "Rome, Italy",
+        "priority": 0,
+        "slug": "rome-italy",
+        "startTimestamp": 1752451200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "WTA 125K روما، إيطاليا فردي سيدات",
+              "ru": "125K Рим, Италия, одиночный разряд среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 27830,
+          "name": "Rome, Italy",
+          "slug": "wta-125k-rome-italy-women-singles",
+          "tennisPoints": 125,
+          "userCount": 97
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 5,
+        "period2": 6,
+        "period3": 3,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "changes": {
+        "changeTimestamp": 1753894810,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCsXtGd",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period2": 2,
+        "period3": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليا ستوسك",
+            "ru": "Юлия Стусек"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. ستوسك",
+            "ru": "Ю. Стусек"
+          }
+        },
+        "gender": "F",
+        "id": 453447,
+        "name": "Julia Stusek",
+        "nameCode": "STU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 12496
+        },
+        "ranking": 384,
+        "shortName": "J. Stusek",
+        "slug": "stusek-julia",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 712
+      },
+      "id": 14298426,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 79104,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "julia-stusek-lina-gjorcheska",
+      "startTimestamp": 1753878600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بطولة الاتحاد الدولي للتنس W75 هيتشينغن للسيدات",
+            "ru": "ITF W75 Хехинген среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 159040,
+        "name": "ITF W75 Hechingen Women",
+        "priority": 0,
+        "slug": "itf-w75-hechingen-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W75 هيتشينغن للسيدات",
+              "ru": "ITF W75 Хехинген среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28215,
+          "name": "ITF W75 Hechingen Women",
+          "slug": "itfw75-hechingen-women",
+          "userCount": 18
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 2,
+        "period2": 0
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "RO",
+          "alpha3": "ROU",
+          "name": "Romania",
+          "slug": "romania"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ستيفانيا بوجيكا",
+            "ru": "Стефания Бойица"
+          },
+          "shortNameTranslation": {
+            "ar": "س. بوجيكا",
+            "ru": "С. Бойица"
+          }
+        },
+        "gender": "F",
+        "id": 407410,
+        "name": "Stefania Bojica",
+        "nameCode": "BOJ",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5685
+        },
+        "ranking": 848,
+        "shortName": "S. Bojica",
+        "slug": "bojica-stefania",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 353
+      },
+      "changes": {
+        "changeTimestamp": 1754481606,
+        "changes": [
+          "homeScore.point",
+          "awayScore.point"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCskYmd",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 1
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "id": 14351037,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 79646,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "stefania-bojica-lina-gjorcheska",
+      "startTimestamp": 1754469000,
+      "status": {
+        "code": 92,
+        "description": "Retired",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W35 كورسومليجا بانيا 14 السيدات",
+            "ru": "ITF W35, Куршумлия, женщины 14"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 159841,
+        "name": "ITF W35 Kursumlijska Banja 14 Women",
+        "priority": 0,
+        "slug": "itf-w35-kursumlijska-banja-14-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W35 كورسومليجا بانيا 14 للسيدات",
+              "ru": "ITF W35 Куршумлия-Баня 14 среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28439,
+          "name": "ITF W35 Kursumlijska Banja 14 Women",
+          "slug": "itf-w35-kursumlijska-banja-14-women",
+          "userCount": 1
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 4,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فيتوريا باغانتيتي",
+            "ru": "Виттория Паганетти"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. باغانتيتي",
+            "ru": "В. Паганетти"
+          }
+        },
+        "gender": "F",
+        "id": 425551,
+        "name": "Vittoria Paganetti",
+        "nameCode": "PAG",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 15306
+        },
+        "ranking": 506,
+        "shortName": "V. Paganetti",
+        "slug": "paganetti-vittoria",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 440
+      },
+      "changes": {
+        "changeTimestamp": 1754563140,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCsblvd",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "id": 14365851,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 79646,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "vittoria-paganetti-lina-gjorcheska",
+      "startTimestamp": 1754553600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W35 كورسومليجا بانيا 14 السيدات",
+            "ru": "ITF W35, Куршумлия, женщины 14"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 159841,
+        "name": "ITF W35 Kursumlijska Banja 14 Women",
+        "priority": 0,
+        "slug": "itf-w35-kursumlijska-banja-14-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W35 كورسومليجا بانيا 14 للسيدات",
+              "ru": "ITF W35 Куршумлия-Баня 14 среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28439,
+          "name": "ITF W35 Kursumlijska Banja 14 Women",
+          "slug": "itf-w35-kursumlijska-banja-14-women",
+          "userCount": 1
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 1,
+        "period2": 2,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "RU",
+          "alpha3": "RUS",
+          "name": "Russia",
+          "slug": "russia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كسانيا زايتسيفا",
+            "ru": "Ксения Зайцева"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. زايتسيفا",
+            "ru": "К. Зайцева"
+          }
+        },
+        "gender": "F",
+        "id": 386217,
+        "name": "Ksenia Zaytseva",
+        "nameCode": "ZAY",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5638
+        },
+        "ranking": 537,
+        "shortName": "K. Zaytseva",
+        "slug": "zaytseva-ksenia",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 263
+      },
+      "changes": {
+        "changeTimestamp": 1754649754,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCsrzed",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "id": 14377956,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 79646,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "ksenia-zaytseva-lina-gjorcheska",
+      "startTimestamp": 1754640000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W35 كورسومليجا بانيا 14 السيدات",
+            "ru": "ITF W35, Куршумлия, женщины 14"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 159841,
+        "name": "ITF W35 Kursumlijska Banja 14 Women",
+        "priority": 0,
+        "slug": "itf-w35-kursumlijska-banja-14-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W35 كورسومليجا بانيا 14 للسيدات",
+              "ru": "ITF W35 Куршумлия-Баня 14 среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28439,
+          "name": "ITF W35 Kursumlijska Banja 14 Women",
+          "slug": "itf-w35-kursumlijska-banja-14-women",
+          "userCount": 1
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 2,
+        "period2": 6,
+        "period3": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "changes": {
+        "changeTimestamp": 1754740598,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCsgfpc",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 2,
+        "period3": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "RU",
+          "alpha3": "RUS",
+          "name": "Russia",
+          "slug": "russia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "داريا أستاخوفا",
+            "ru": "Дарья Астахова"
+          },
+          "shortNameTranslation": {
+            "ar": "د. أستاخوفا",
+            "ru": "Д. Астахова"
+          }
+        },
+        "gender": "F",
+        "id": 287756,
+        "name": "Darya Astakhova",
+        "nameCode": "AST",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3625
+        },
+        "ranking": 227,
+        "shortName": "D. Astakhova",
+        "slug": "astakhova-darya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 509
+      },
+      "id": 14386230,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 79646,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "darya-astakhova-lina-gjorcheska",
+      "startTimestamp": 1754730000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W35 كورسومليجا بانيا 14 السيدات",
+            "ru": "ITF W35, Куршумлия, женщины 14"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 159841,
+        "name": "ITF W35 Kursumlijska Banja 14 Women",
+        "priority": 0,
+        "slug": "itf-w35-kursumlijska-banja-14-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W35 كورسومليجا بانيا 14 للسيدات",
+              "ru": "ITF W35 Куршумлия-Баня 14 среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28439,
+          "name": "ITF W35 Kursumlijska Banja 14 Women",
+          "slug": "itf-w35-kursumlijska-banja-14-women",
+          "userCount": 1
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 7,
+        "period2": 1,
+        "period3": 0,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "changes": {
+        "changeTimestamp": 1754819810,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCsglmb",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 5,
+        "period2": 6,
+        "period3": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "RO",
+          "alpha3": "ROU",
+          "name": "Romania",
+          "slug": "romania"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مريم بيانكا بلغارو",
+            "bn": "মরিয়ম বিয়ানকাজ বুলগারু",
+            "hi": "मिरियम बियांका बुलगारू",
+            "ru": "Мириам Булгару"
+          },
+          "shortNameTranslation": {
+            "ar": "م. بلغارو",
+            "ru": "М. Булгару"
+          }
+        },
+        "gender": "F",
+        "id": 155556,
+        "name": "Miriam Bulgaru",
+        "nameCode": "BUL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3153
+        },
+        "ranking": 322,
+        "shortName": "M. Bulgaru",
+        "slug": "bulgaru-miriam-bianca",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1177
+      },
+      "id": 14393030,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 79646,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "miriam-bianca-bulgaru-lina-gjorcheska",
+      "startTimestamp": 1754811000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W35 كورسومليجا بانيا 14 السيدات",
+            "ru": "ITF W35, Куршумлия, женщины 14"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 159841,
+        "name": "ITF W35 Kursumlijska Banja 14 Women",
+        "priority": 0,
+        "slug": "itf-w35-kursumlijska-banja-14-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W35 كورسومليجا بانيا 14 للسيدات",
+              "ru": "ITF W35 Куршумлия-Баня 14 среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28439,
+          "name": "ITF W35 Kursumlijska Banja 14 Women",
+          "slug": "itf-w35-kursumlijska-banja-14-women",
+          "userCount": 1
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 3,
+        "period2": 6,
+        "period3": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "changes": {
+        "changeTimestamp": 1755084885,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "OctsTeC",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 1,
+        "period3": 2,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "GR",
+          "alpha3": "GRC",
+          "name": "Greece",
+          "slug": "greece"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ديسبينا باباميكائيل",
+            "bn": "ডেসপিনা পাপামিচাইল",
+            "hi": "देस्पिना पापामिखाइल",
+            "ru": "Папамихаил, Деспина"
+          },
+          "shortNameTranslation": {
+            "ar": "د. باباميكائيل"
+          }
+        },
+        "gender": "F",
+        "id": 45139,
+        "name": "Despina Papamichail",
+        "nameCode": "PAP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1427
+        },
+        "ranking": 188,
+        "shortName": "D. Papamichail",
+        "slug": "papamichail-despina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1355
+      },
+      "id": 14409503,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 80198,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "lina-gjorcheska-despina-papamichail",
+      "startTimestamp": 1755077400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W75 كورسومليجا بانيا 15 سيدات",
+            "ru": "ITF W75 Куршумлия Баня 15, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 160556,
+        "name": "ITF W75 Kursumlijska Banja 15 Women",
+        "priority": 0,
+        "slug": "itf-w75-kursumlijska-banja-15-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W75 كورسومليجا بانيا 15 سيدات",
+              "ru": "ITF W75 Куршумлия 15 среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28623,
+          "name": "ITF W75 Kursumlijska Banja 15 Women",
+          "slug": "itf-w75-kursumlijska-banja-15-women",
+          "userCount": 2
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 6,
+        "period1TieBreak": 6,
+        "period2": 0
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "RU",
+          "alpha3": "RUS",
+          "name": "Russia",
+          "slug": "russia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "داريا أستاخوفا",
+            "ru": "Дарья Астахова"
+          },
+          "shortNameTranslation": {
+            "ar": "د. أستاخوفا",
+            "ru": "Д. Астахова"
+          }
+        },
+        "gender": "F",
+        "id": 287756,
+        "name": "Darya Astakhova",
+        "nameCode": "AST",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3625
+        },
+        "ranking": 227,
+        "shortName": "D. Astakhova",
+        "slug": "astakhova-darya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 509
+      },
+      "changes": {
+        "changeTimestamp": 1755187535,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.point",
+          "awayScore.point"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCsgfpc",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 7,
+        "period1TieBreak": 8,
+        "period2": 2
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "id": 14423334,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 80198,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "darya-astakhova-lina-gjorcheska",
+      "startTimestamp": 1755169200,
+      "status": {
+        "code": 92,
+        "description": "Retired",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W75 كورسومليجا بانيا 15 سيدات",
+            "ru": "ITF W75 Куршумлия Баня 15, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 160556,
+        "name": "ITF W75 Kursumlijska Banja 15 Women",
+        "priority": 0,
+        "slug": "itf-w75-kursumlijska-banja-15-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W75 كورسومليجا بانيا 15 سيدات",
+              "ru": "ITF W75 Куршумлия 15 среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28623,
+          "name": "ITF W75 Kursumlijska Banja 15 Women",
+          "slug": "itf-w75-kursumlijska-banja-15-women",
+          "userCount": 2
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "period2": 1,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أورورا زانتيدسكي",
+            "ru": "Зантедески, Аврора"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. زانتيدسكي"
+          }
+        },
+        "gender": "F",
+        "id": 207653,
+        "name": "Aurora Zantedeschi",
+        "nameCode": "ZAN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4300
+        },
+        "ranking": 296,
+        "shortName": "A. Zantedeschi",
+        "slug": "zantedeschi-aurora",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 587
+      },
+      "changes": {
+        "changeTimestamp": 1755250388,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCsddIb",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "id": 14436039,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 80198,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "aurora-zantedeschi-lina-gjorcheska",
+      "startTimestamp": 1755244800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W75 كورسومليجا بانيا 15 سيدات",
+            "ru": "ITF W75 Куршумлия Баня 15, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 160556,
+        "name": "ITF W75 Kursumlijska Banja 15 Women",
+        "priority": 0,
+        "slug": "itf-w75-kursumlijska-banja-15-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W75 كورسومليجا بانيا 15 سيدات",
+              "ru": "ITF W75 Куршумлия 15 среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28623,
+          "name": "ITF W75 Kursumlijska Banja 15 Women",
+          "slug": "itf-w75-kursumlijska-banja-15-women",
+          "userCount": 2
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "changes": {
+        "changeTimestamp": 1755344489,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCsArQ",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 2,
+        "period2": 2,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CY",
+          "alpha3": "CYP",
+          "name": "Cyprus",
+          "slug": "cyprus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "رالوكيا جورجيانا سيربان",
+            "ru": "Сербан, Ралука Георгиана"
+          },
+          "shortNameTranslation": {
+            "ar": "ر. سيربان",
+            "bn": "আর. শেরবান",
+            "hi": "आर. सेर्बान"
+          }
+        },
+        "gender": "F",
+        "id": 103375,
+        "name": "Raluca Georgiana Serban",
+        "nameCode": "SER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 649
+        },
+        "ranking": 376,
+        "shortName": "R. Serban",
+        "slug": "serban-raluca-georgiana",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 867
+      },
+      "id": 14448918,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 80198,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "raluca-georgiana-serban-lina-gjorcheska",
+      "startTimestamp": 1755331200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W75 كورسومليجا بانيا 15 سيدات",
+            "ru": "ITF W75 Куршумлия Баня 15, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 160556,
+        "name": "ITF W75 Kursumlijska Banja 15 Women",
+        "priority": 0,
+        "slug": "itf-w75-kursumlijska-banja-15-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W75 كورسومليجا بانيا 15 سيدات",
+              "ru": "ITF W75 Куршумлия 15 среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28623,
+          "name": "ITF W75 Kursumlijska Banja 15 Women",
+          "slug": "itf-w75-kursumlijska-banja-15-women",
+          "userCount": 2
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "RS",
+          "alpha3": "SRB",
+          "name": "Serbia",
+          "slug": "serbia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تيودورا كوستوفيتش",
+            "ru": "Теодора Костович"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. كوستوفيتش",
+            "ru": "Т. Костович"
+          }
+        },
+        "gender": "F",
+        "id": 478940,
+        "name": "Teodora Kostović",
+        "nameCode": "KOS",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 18371
+        },
+        "ranking": 171,
+        "shortName": "T. Kostović",
+        "slug": "kostovic-teodora",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1777
+      },
+      "changes": {
+        "changeTimestamp": 1755425435,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCsPDQd",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Clay",
+      "hasGlobalHighlights": true,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 5,
+        "period2": 3,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "id": 14457979,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 80198,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "teodora-kostovic-lina-gjorcheska",
+      "startTimestamp": 1755417600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W75 كورسومليجا بانيا 15 سيدات",
+            "ru": "ITF W75 Куршумлия Баня 15, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 160556,
+        "name": "ITF W75 Kursumlijska Banja 15 Women",
+        "priority": 0,
+        "slug": "itf-w75-kursumlijska-banja-15-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W75 كورسومليجا بانيا 15 سيدات",
+              "ru": "ITF W75 Куршумлия 15 среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28623,
+          "name": "ITF W75 Kursumlijska Banja 15 Women",
+          "slug": "itf-w75-kursumlijska-banja-15-women",
+          "userCount": 2
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "changes": {
+        "changeTimestamp": 1756812712,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCsgZpc",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 2,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "RO",
+          "alpha3": "ROU",
+          "name": "Romania",
+          "slug": "romania"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سيمونا أوجيسكو",
+            "ru": "Симона Оджеску"
+          },
+          "shortNameTranslation": {
+            "ar": "س. أوجيسكو",
+            "ru": "С. Оджеску"
+          }
+        },
+        "gender": "F",
+        "id": 289956,
+        "name": "Simona Ogescu",
+        "nameCode": "OGE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4632
+        },
+        "ranking": 1008,
+        "shortName": "S. Ogescu",
+        "slug": "ogescu-simona",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 161
+      },
+      "id": 14595831,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 81738,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "simona-ogescu-lina-gjorcheska",
+      "startTimestamp": 1756807200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كأس ITF W50 سلوبوزيا للسيدات",
+            "ru": "ITF W50 Слобозия, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 162320,
+        "name": "ITF W50 Slobozia Women",
+        "priority": 0,
+        "slug": "itf-w50-slobozia-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W50 سلوبوزيا للسيدات",
+              "ru": "ITF W50 Слобозия, среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 29140,
+          "name": "ITF W50 Slobozia Women",
+          "slug": "itf-w50-slobozia-women",
+          "userCount": 1
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "changes": {
+        "changeTimestamp": 1756906807,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCsEtdd",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 2,
+        "period2": 0,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "RO",
+          "alpha3": "ROU",
+          "name": "Romania",
+          "slug": "romania"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بيانكا إيلينا باربولييسكو",
+            "ru": "Бьянка Елена Барбулеску"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. باربولييسكو",
+            "ru": "Б. Барбулеску"
+          }
+        },
+        "gender": "F",
+        "id": 383429,
+        "name": "Bianca Elena Barbulescu",
+        "nameCode": "BAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5404
+        },
+        "ranking": 690,
+        "shortName": "B. E. Barbulescu",
+        "slug": "barbulescu-bianca-elena",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 183
+      },
+      "id": 14601185,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 81738,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "bianca-elena-barbulescu-lina-gjorcheska",
+      "startTimestamp": 1756893600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كأس ITF W50 سلوبوزيا للسيدات",
+            "ru": "ITF W50 Слобозия, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 162320,
+        "name": "ITF W50 Slobozia Women",
+        "priority": 0,
+        "slug": "itf-w50-slobozia-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W50 سلوبوزيا للسيدات",
+              "ru": "ITF W50 Слобозия, среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 29140,
+          "name": "ITF W50 Slobozia Women",
+          "slug": "itf-w50-slobozia-women",
+          "userCount": 1
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 1,
+        "period2": 6,
+        "period3": 6
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "changes": {
+        "changeTimestamp": 1756998671,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period1",
+          "homeScore.period2",
+          "homeScore.period3",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period1",
+          "awayScore.period2",
+          "awayScore.period3"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCsbMOc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 1,
+        "period3": 0
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "HR",
+          "alpha3": "HRV",
+          "name": "Croatia",
+          "slug": "croatia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوسيا تشيريتش-باجاريتش",
+            "ru": "Луция Чирич-Багарич"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. باجاريتش",
+            "ru": "Л. Чирич-Багарич"
+          }
+        },
+        "gender": "F",
+        "id": 349351,
+        "name": "Lucija Ćirić-Bagarić",
+        "nameCode": "CIR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5126
+        },
+        "ranking": 364,
+        "shortName": "L. Ćirić-Bagarić",
+        "slug": "ciric-bagaric-lucija",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 864
+      },
+      "id": 14609188,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 81738,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "lucija-ciric-bagaric-lina-gjorcheska",
+      "startTimestamp": 1756977300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كأس ITF W50 سلوبوزيا للسيدات",
+            "ru": "ITF W50 Слобозия, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 162320,
+        "name": "ITF W50 Slobozia Women",
+        "priority": 0,
+        "slug": "itf-w50-slobozia-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W50 سلوبوزيا للسيدات",
+              "ru": "ITF W50 Слобозия, среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 29140,
+          "name": "ITF W50 Slobozia Women",
+          "slug": "itf-w50-slobozia-women",
+          "userCount": 1
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 1,
+        "period2": 4,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "RO",
+          "alpha3": "ROU",
+          "name": "Romania",
+          "slug": "romania"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماريا سارة بوبا",
+            "ru": "Мария Сара Поупа"
+          },
+          "shortNameTranslation": {
+            "ar": "م. بوبا",
+            "ru": "М. Поупа"
+          }
+        },
+        "gender": "F",
+        "id": 332985,
+        "name": "Maria Sara Popa",
+        "nameCode": "POP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4966
+        },
+        "ranking": 399,
+        "shortName": "M. S. Popa",
+        "slug": "popa-maria-sara",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 473
+      },
+      "changes": {
+        "changeTimestamp": 1757077510,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCsKjIc",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "id": 14617624,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 81738,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "maria-sara-popa-lina-gjorcheska",
+      "startTimestamp": 1757070000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كأس ITF W50 سلوبوزيا للسيدات",
+            "ru": "ITF W50 Слобозия, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 162320,
+        "name": "ITF W50 Slobozia Women",
+        "priority": 0,
+        "slug": "itf-w50-slobozia-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W50 سلوبوزيا للسيدات",
+              "ru": "ITF W50 Слобозия, среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 29140,
+          "name": "ITF W50 Slobozia Women",
+          "slug": "itf-w50-slobozia-women",
+          "userCount": 1
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 3,
+        "period2": 6,
+        "period3": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "changes": {
+        "changeTimestamp": 1757173548,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCsdKgd",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 3,
+        "period3": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "RO",
+          "alpha3": "ROU",
+          "name": "Romania",
+          "slug": "romania"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيلينا روكساندرا بيرتيه",
+            "ru": "Елена Руксандра Бертеа"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. بيرتيه",
+            "ru": "Е. Бертеа"
+          }
+        },
+        "gender": "F",
+        "id": 391753,
+        "name": "Elena Ruxandra Bertea",
+        "nameCode": "BER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 18026
+        },
+        "ranking": 256,
+        "shortName": "E. R. Bertea",
+        "slug": "bertea-elena-ruxandra",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 442
+      },
+      "id": 14628552,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 81738,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "elena-ruxandra-bertea-lina-gjorcheska",
+      "startTimestamp": 1757163600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كأس ITF W50 سلوبوزيا للسيدات",
+            "ru": "ITF W50 Слобозия, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 162320,
+        "name": "ITF W50 Slobozia Women",
+        "priority": 0,
+        "slug": "itf-w50-slobozia-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W50 سلوبوزيا للسيدات",
+              "ru": "ITF W50 Слобозия, среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 29140,
+          "name": "ITF W50 Slobozia Women",
+          "slug": "itf-w50-slobozia-women",
+          "userCount": 1
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 4,
+        "period2": 6,
+        "period3": 5,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "RO",
+          "alpha3": "ROU",
+          "name": "Romania",
+          "slug": "romania"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جورجيا أندريا كرايتشون",
+            "ru": "Крачиун, Георгия Андрея"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. كرايتشون"
+          }
+        },
+        "gender": "F",
+        "id": 159732,
+        "name": "Georgia Andreea Craciun",
+        "nameCode": "CRA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3183
+        },
+        "ranking": 856,
+        "shortName": "G. Craciun",
+        "slug": "craciun-georgia",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 362
+      },
+      "changes": {
+        "changeTimestamp": 1757509607,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCsHUnb",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 4,
+        "period3": 7,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "id": 14645760,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 82236,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "georgia-andreea-craciun-lina-gjorcheska",
+      "startTimestamp": 1757498400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W75 بوخارست 2 سيدات",
+            "ru": "ITF W75 Бухарест 2, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 163002,
+        "name": "ITF W75 Bucharest 2 Women",
+        "priority": 0,
+        "slug": "itf-w75-bucharest-5-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة ITF W75 بوخارست 2 للسيدات",
+              "ru": "ITF W75 Бухарест 2 среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 29292,
+          "name": "ITF W75 Bucharest 2 Women",
+          "slug": "itf-w75-bucharest-5-women",
+          "userCount": 3
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 3,
+        "period3": 4,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نويمي باسيليتي",
+            "ru": "Ноэми Басилетти"
+          },
+          "shortNameTranslation": {
+            "ar": "ن. باسيليتي",
+            "ru": "Н. Басилетти"
+          }
+        },
+        "gender": "F",
+        "id": 374193,
+        "name": "Noemi Basiletti",
+        "nameCode": "BAS",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 19273
+        },
+        "ranking": 267,
+        "shortName": "N. Basiletti",
+        "slug": "basiletti-noemi",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1016
+      },
+      "changes": {
+        "changeTimestamp": 1757601894,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "firstToServe"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCsTIZc",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 3,
+        "period2": 6,
+        "period3": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "id": 14660467,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 82236,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "noemi-basiletti-lina-gjorcheska",
+      "startTimestamp": 1757595600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W75 بوخارست 2 سيدات",
+            "ru": "ITF W75 Бухарест 2, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 163002,
+        "name": "ITF W75 Bucharest 2 Women",
+        "priority": 0,
+        "slug": "itf-w75-bucharest-5-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة ITF W75 بوخارست 2 للسيدات",
+              "ru": "ITF W75 Бухарест 2 среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 29292,
+          "name": "ITF W75 Bucharest 2 Women",
+          "slug": "itf-w75-bucharest-5-women",
+          "userCount": 3
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 3,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FI",
+          "alpha3": "FIN",
+          "name": "Finland",
+          "slug": "finland"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لورا هيتارانتا",
+            "ru": "Лаура Хиетаранта"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. هيتارانتا",
+            "ru": "Л. Хиетаранта"
+          }
+        },
+        "gender": "F",
+        "id": 314836,
+        "name": "Laura Hietaranta",
+        "nameCode": "HIE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5123
+        },
+        "ranking": 408,
+        "shortName": "L. Hietaranta",
+        "slug": "hietaranta-laura",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 325
+      },
+      "changes": {
+        "changeTimestamp": 1757671799,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCsLWAc",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "id": 14668599,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 82236,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "laura-hietaranta-lina-gjorcheska",
+      "startTimestamp": 1757664000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W75 بوخارست 2 سيدات",
+            "ru": "ITF W75 Бухарест 2, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 163002,
+        "name": "ITF W75 Bucharest 2 Women",
+        "priority": 0,
+        "slug": "itf-w75-bucharest-5-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة ITF W75 بوخارست 2 للسيدات",
+              "ru": "ITF W75 Бухарест 2 среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 29292,
+          "name": "ITF W75 Bucharest 2 Women",
+          "slug": "itf-w75-bucharest-5-women",
+          "userCount": 3
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "changes": {
+        "changeTimestamp": 1757756016,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "firstToServe"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "OctsTeC",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 2,
+        "period2": 2,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "GR",
+          "alpha3": "GRC",
+          "name": "Greece",
+          "slug": "greece"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ديسبينا باباميكائيل",
+            "bn": "ডেসপিনা পাপামিচাইল",
+            "hi": "देस्पिना पापामिखाइल",
+            "ru": "Папамихаил, Деспина"
+          },
+          "shortNameTranslation": {
+            "ar": "د. باباميكائيل"
+          }
+        },
+        "gender": "F",
+        "id": 45139,
+        "name": "Despina Papamichail",
+        "nameCode": "PAP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1427
+        },
+        "ranking": 188,
+        "shortName": "D. Papamichail",
+        "slug": "papamichail-despina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1355
+      },
+      "id": 14675649,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 82236,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "lina-gjorcheska-despina-papamichail",
+      "startTimestamp": 1757750400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W75 بوخارست 2 سيدات",
+            "ru": "ITF W75 Бухарест 2, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 163002,
+        "name": "ITF W75 Bucharest 2 Women",
+        "priority": 0,
+        "slug": "itf-w75-bucharest-5-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة ITF W75 بوخارست 2 للسيدات",
+              "ru": "ITF W75 Бухарест 2 среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 29292,
+          "name": "ITF W75 Bucharest 2 Women",
+          "slug": "itf-w75-bucharest-5-women",
+          "userCount": 3
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 3,
+        "period3": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AT",
+          "alpha3": "AUT",
+          "name": "Austria",
+          "slug": "austria"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ليلي تاجر",
+            "ru": "Лилли Таггер"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. تاجر",
+            "ru": "Л. Таггер"
+          }
+        },
+        "gender": "F",
+        "id": 418056,
+        "name": "Lilli Tagger",
+        "nameCode": "TAG",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 13323
+        },
+        "ranking": 49,
+        "shortName": "L. Tagger",
+        "slug": "tagger-lilli",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 5342
+      },
+      "changes": {
+        "changeTimestamp": 1757846746,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCsglrd",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 4,
+        "period2": 6,
+        "period3": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "id": 14680322,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 82236,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "lilli-tagger-lina-gjorcheska",
+      "startTimestamp": 1757836800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W75 بوخارست 2 سيدات",
+            "ru": "ITF W75 Бухарест 2, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 163002,
+        "name": "ITF W75 Bucharest 2 Women",
+        "priority": 0,
+        "slug": "itf-w75-bucharest-5-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة ITF W75 بوخارست 2 للسيدات",
+              "ru": "ITF W75 Бухарест 2 среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 29292,
+          "name": "ITF W75 Bucharest 2 Women",
+          "slug": "itf-w75-bucharest-5-women",
+          "userCount": 3
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "point": "6"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "changes": {
+        "changeTimestamp": 1758124642,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "awayScore.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCsAPue",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "period2": 6,
+        "period2TieBreak": 2,
+        "point": "2"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيلي شوب",
+            "ru": "Элли Шоппе"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. شوب",
+            "ru": "Э. Шоппе"
+          }
+        },
+        "gender": "F",
+        "id": 549525,
+        "name": "Ellie Schoppe",
+        "nameCode": "SCH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 20043
+        },
+        "ranking": 768,
+        "shortName": "E. Schoppe",
+        "slug": "schoppe-ellie",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 160
+      },
+      "id": 14692875,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 82816,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "ellie-schoppe-lina-gjorcheska",
+      "startTimestamp": 1758112200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W75 كورسومليجا بانيا 16 سيدات",
+            "ru": "ITF W75 Куршумлийская-Баня 16 Женщины"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 163671,
+        "name": "ITF W75 Kursumlijska Banja 16 Women",
+        "priority": 0,
+        "slug": "itf-w75-kursumlijska-banja-16-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W75 كورسومليجا بانيا 16 سيدات",
+              "ru": "ITF W75 Куршумлийская-Баня 16 среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 29479,
+          "name": "ITF W75 Kursumlijska Banja 16 Women",
+          "slug": "itf-w75-kursumlijska-banja-16-women",
+          "userCount": 2
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "changes": {
+        "changeTimestamp": 1758196004,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCsdQnc",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 0,
+        "period2": 3,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "RU",
+          "alpha3": "RUS",
+          "name": "Russia",
+          "slug": "russia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنستازيا زولوتاريفا",
+            "ru": "Анастасия Золотарева"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. زولوتاريفا",
+            "ru": "А. Золотарева"
+          }
+        },
+        "gender": "F",
+        "id": 284553,
+        "name": "Anastasia Zolotareva",
+        "nameCode": "ZOL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3622
+        },
+        "ranking": 266,
+        "shortName": "A. Zolotareva",
+        "slug": "zolotareva-anastasia",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 611
+      },
+      "id": 14710719,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 82816,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "anastasia-zolotareva-lina-gjorcheska",
+      "startTimestamp": 1758182400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W75 كورسومليجا بانيا 16 سيدات",
+            "ru": "ITF W75 Куршумлийская-Баня 16 Женщины"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 163671,
+        "name": "ITF W75 Kursumlijska Banja 16 Women",
+        "priority": 0,
+        "slug": "itf-w75-kursumlijska-banja-16-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W75 كورسومليجا بانيا 16 سيدات",
+              "ru": "ITF W75 Куршумлийская-Баня 16 среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 29479,
+          "name": "ITF W75 Kursumlijska Banja 16 Women",
+          "slug": "itf-w75-kursumlijska-banja-16-women",
+          "userCount": 2
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 3,
+        "period2": 7,
+        "period3": 6,
+        "period3TieBreak": 5,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "changes": {
+        "changeTimestamp": 1758299177,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "coverage": -1,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCsglrd",
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 5,
+        "period3": 7,
+        "period3TieBreak": 7,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AT",
+          "alpha3": "AUT",
+          "name": "Austria",
+          "slug": "austria"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ليلي تاجر",
+            "ru": "Лилли Таггер"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. تاجر",
+            "ru": "Л. Таггер"
+          }
+        },
+        "gender": "F",
+        "id": 418056,
+        "name": "Lilli Tagger",
+        "nameCode": "TAG",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 13323
+        },
+        "ranking": 49,
+        "shortName": "L. Tagger",
+        "slug": "tagger-lilli",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 5342
+      },
+      "id": 14718260,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 82816,
+        "name": "2025",
+        "year": "2025"
+      },
+      "slug": "lilli-tagger-lina-gjorcheska",
+      "startTimestamp": 1758268800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W75 كورسومليجا بانيا 16 سيدات",
+            "ru": "ITF W75 Куршумлийская-Баня 16 Женщины"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 163671,
+        "name": "ITF W75 Kursumlijska Banja 16 Women",
+        "priority": 0,
+        "slug": "itf-w75-kursumlijska-banja-16-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W75 كورسومليجا بانيا 16 سيدات",
+              "ru": "ITF W75 Куршумлийская-Баня 16 среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 29479,
+          "name": "ITF W75 Kursumlijska Banja 16 Women",
+          "slug": "itf-w75-kursumlijska-banja-16-women",
+          "userCount": 2
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "changes": {
+        "changeTimestamp": 1759312627,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "HoisTeC",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 3,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارولينا بليشكوفا",
+            "ru": "Плишкова, Каролина"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. بليشكوفا",
+            "bn": "কা. প্লিসকোভা,",
+            "hi": "का. प्लिस्कोवा"
+          }
+        },
+        "gender": "F",
+        "id": 20732,
+        "name": "Karolína Plíšková",
+        "nameCode": "PLI",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 107
+        },
+        "ranking": 57,
+        "shortName": "K. Plíšková",
+        "slug": "pliskova-karolina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 7540
+      },
+      "homeTeamSeed": "WC",
+      "id": 14789196,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 83476,
+        "name": "WTA 125K Cosenza, Italy Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "lina-gjorcheska-karolina-pliskova",
+      "startTimestamp": 1759307400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1759310306,
+        "period1": 2115,
+        "period2": 2296
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1759622400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سامسون، تركيا",
+            "ru": "Самсун, Турция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 164589,
+        "isGroup": false,
+        "name": "Samsun, Turkiye",
+        "priority": 0,
+        "slug": "samsun-turkiye",
+        "startTimestamp": 1759104000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة WTA 125K سامسون، تركيا فردي السيدات",
+              "ru": "WTA 125K Самсун, Турция, одиночный разряд среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 29741,
+          "name": "Samsun, Turkiye",
+          "slug": "wta-125k-samsun-turkiye-women-singles",
+          "tennisPoints": 125,
+          "userCount": 36
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6
+      },
+      "awayTeam": {
+        "country": {},
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ياكوبوفيتش د / راديسيتش ن",
+            "ru": "Якупович Д / Радисич Н"
+          },
+          "shortNameTranslation": {}
+        },
+        "gender": "F",
+        "id": 469709,
+        "name": "Jakupovic D / Radisic N",
+        "nameCode": "J/R",
+        "national": false,
+        "slug": "jakupovic-d-radisic-n",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [
+          {
+            "country": {
+              "alpha2": "SI",
+              "alpha3": "SVN",
+              "name": "Slovenia",
+              "slug": "slovenia"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "دليلة جاكوبوفيتش",
+                "ru": "Якупович, Далила"
+              },
+              "shortNameTranslation": {
+                "ar": "د. جاكوبوفيتش",
+                "bn": "ডি. জাকুপোভিচ",
+                "hi": "डी. जाकुपोविच"
+              }
+            },
+            "gender": "F",
+            "id": 52533,
+            "name": "Dalila Jakupovic",
+            "nameCode": "JAK",
+            "national": false,
+            "playerTeamInfo": {
+              "id": 289
+            },
+            "ranking": 343,
+            "shortName": "D. Jakupović",
+            "slug": "jakupovic-dalila",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            },
+            "subTeams": [],
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 1,
+            "userCount": 536
+          },
+          {
+            "country": {
+              "alpha2": "SI",
+              "alpha3": "SVN",
+              "name": "Slovenia",
+              "slug": "slovenia"
+            },
+            "disabled": false,
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "نيكا راديشيش",
+                "ru": "Ника Радиšić"
+              },
+              "shortNameTranslation": {
+                "ar": "ن. راديشيش",
+                "ru": "Н. Радиšić"
+              }
+            },
+            "gender": "F",
+            "id": 268808,
+            "name": "Nika Radišić",
+            "nameCode": "RAD",
+            "national": false,
+            "playerTeamInfo": {
+              "id": 3601
+            },
+            "ranking": 897,
+            "shortName": "N. Radišić",
+            "slug": "radisic-nika",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            },
+            "subTeams": [],
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 1,
+            "userCount": 233
+          }
+        ],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 2,
+        "userCount": 48
+      },
+      "awayTeamSeed": "3",
+      "changes": {
+        "changeTimestamp": 1786543717,
+        "changes": [
+          "homeScore.point",
+          "awayScore.point",
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "jUMdsUfTd",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 4
+      },
+      "homeTeam": {
+        "country": {},
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بويكاجاي ج / جورشيسكا ل",
+            "ru": "Буюкакачай Ч / Гьорческа Л"
+          },
+          "shortNameTranslation": {}
+        },
+        "gender": "F",
+        "id": 482794,
+        "name": "Buyukakcay C / Gjorcheska L",
+        "nameCode": "B/G",
+        "national": false,
+        "slug": "buyukakcay-c-gjorcheska-l",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [
+          {
+            "country": {
+              "alpha2": "TR",
+              "alpha3": "TUR",
+              "name": "Türkiye",
+              "slug": "turkiye"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تشاغلا بيوكأكجاي",
+                "ru": "Буйюкаксай, Калья"
+              },
+              "shortNameTranslation": {
+                "ar": "ت. بيوكأكجاي",
+                "bn": "বুয়ুকাক্কায়,সি",
+                "hi": "च. ब्यूयकाकचाय"
+              }
+            },
+            "gender": "F",
+            "id": 20354,
+            "name": "Cagla Buyukakcay",
+            "nameCode": "BUY",
+            "national": false,
+            "playerTeamInfo": {
+              "id": 753
+            },
+            "ranking": 426,
+            "shortName": "C. Buyukakcay",
+            "slug": "buyukakcay-cagla",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            },
+            "subTeams": [],
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 1,
+            "userCount": 772
+          },
+          {
+            "country": {
+              "alpha2": "MK",
+              "alpha3": "MKD",
+              "name": "North Macedonia",
+              "slug": "north-macedonia"
+            },
+            "disabled": false,
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "لينا جورشيسكا",
+                "ru": "Гьорчешка, Лина"
+              },
+              "shortNameTranslation": {
+                "ar": "ل. جورشيسكا"
+              }
+            },
+            "gender": "F",
+            "id": 67743,
+            "name": "Lina Gjorcheska",
+            "nameCode": "GJO",
+            "national": false,
+            "playerTeamInfo": {
+              "id": 885
+            },
+            "ranking": 257,
+            "shortName": "L. Gjorcheska",
+            "slug": "gjorcheska-lina",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            },
+            "subTeams": [],
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 1,
+            "userCount": 723
+          }
+        ],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 2,
+        "userCount": 1
+      },
+      "id": 14788622,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 83478,
+        "name": "WTA 125K Cosenza, Italy Women Doubles 2025",
+        "year": "2025"
+      },
+      "slug": "buyukakcay-gjorcheska-jakupovic-radisic",
+      "startTimestamp": 1759322100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1759321741,
+        "period1": 2053,
+        "period2": 2761
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1759536000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سامسون، تركيا، زوجي",
+            "ru": "Самсун, Турция, парный разряд"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 164590,
+        "isGroup": false,
+        "name": "Samsun, Turkiye, Doubles",
+        "priority": 0,
+        "slug": "samsun-turkiye-doubles",
+        "startTimestamp": 1759104000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة WTA 125K سامسون، تركيا زوجي السيدات",
+              "ru": "WTA 125K Самсун, Турция, парный разряд среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 29742,
+          "name": "Samsun, Turkiye, Doubles",
+          "slug": "wta-125k-samsun-turkiye-women-doubles",
+          "tennisPoints": 125,
+          "userCount": 5
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 4,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "changes": {
+        "changeTimestamp": 1759403891,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCshOKc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BE",
+          "alpha3": "BEL",
+          "name": "Belgium",
+          "slug": "belgium"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "صوفيا كوستولاس",
+            "ru": "София Костулас"
+          },
+          "shortNameTranslation": {
+            "ar": "ص. كوستولاس",
+            "ru": "С. Костулас"
+          }
+        },
+        "gender": "F",
+        "id": 339457,
+        "name": "Sofia Costoulas",
+        "nameCode": "COS",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4806
+        },
+        "ranking": 155,
+        "shortName": "S. Costoulas",
+        "slug": "costoulas-sofia",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1679
+      },
+      "homeTeamSeed": "8",
+      "id": 14763091,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 83476,
+        "name": "WTA 125K Cosenza, Italy Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "sofia-costoulas-lina-gjorcheska",
+      "startTimestamp": 1759398600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1759401178,
+        "period1": 2153,
+        "period2": 2682
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1759622400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سامسون، تركيا",
+            "ru": "Самсун, Турция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 164589,
+        "isGroup": false,
+        "name": "Samsun, Turkiye",
+        "priority": 0,
+        "slug": "samsun-turkiye",
+        "startTimestamp": 1759104000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة WTA 125K سامسون، تركيا فردي السيدات",
+              "ru": "WTA 125K Самсун, Турция, одиночный разряд среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 29741,
+          "name": "Samsun, Turkiye",
+          "slug": "wta-125k-samsun-turkiye-women-singles",
+          "tennisPoints": 125,
+          "userCount": 36
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 3,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نوريا برانكاشيو",
+            "bn": "নুরিয়া ব্রাঙ্কাসিও",
+            "hi": "नूरिया ब्रंकाच्चियो",
+            "ru": "Бранкаччио, Нурия"
+          },
+          "shortNameTranslation": {
+            "ar": "ن. برانكاشيو"
+          }
+        },
+        "gender": "F",
+        "id": 207593,
+        "name": "Nuria Brancaccio",
+        "nameCode": "BRA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3394
+        },
+        "ranking": 189,
+        "shortName": "N. Brancaccio",
+        "slug": "brancaccio-nuria",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1615
+      },
+      "awayTeamSeed": "4",
+      "changes": {
+        "changeTimestamp": 1760985863,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCsTbIb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "id": 14910983,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 84780,
+        "name": "WTA 125K Caldas da Rainha, Portugal Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "nuria-brancaccio-lina-gjorcheska",
+      "startTimestamp": 1760981400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1760983885,
+        "period1": 2161,
+        "period2": 1915
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1761436800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "روفيريتو، إيطاليا",
+            "ru": "Роверето, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 166576,
+        "isGroup": false,
+        "name": "Rovereto, Italy",
+        "priority": 0,
+        "slug": "rovereto-italy",
+        "startTimestamp": 1760918400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "دبليو تي إيه 125 ك روفيريتو، إيطاليا نساء فردي",
+              "ru": "WTA 125K Роверето, Италия среди женщин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 30243,
+          "name": "Rovereto, Italy",
+          "slug": "wta-125k-rovereto-italy-women-singles",
+          "tennisPoints": 125,
+          "userCount": 37
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 6,
+        "period2TieBreak": 2,
+        "period3": 1,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "MK",
+          "alpha3": "MKD",
+          "name": "North Macedonia",
+          "slug": "north-macedonia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لينا جورشيسكا",
+            "ru": "Гьорчешка, Лина"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جورشيسكا"
+          }
+        },
+        "gender": "F",
+        "id": 67743,
+        "name": "Lina Gjorcheska",
+        "nameCode": "GJO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 885
+        },
+        "ranking": 257,
+        "shortName": "L. Gjorcheska",
+        "slug": "gjorcheska-lina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 723
+      },
+      "changes": {
+        "changeTimestamp": 1761139743,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TeCshkW",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 1,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "ES",
+          "alpha3": "ESP",
+          "name": "Spain",
+          "slug": "spain"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليونا بولسوفا",
+            "ru": "Болсова Задойнов, Алиона"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. بولسوفا",
+            "bn": "এ. বলসোভা",
+            "hi": "ए. बोल्सोवा"
+          }
+        },
+        "gender": "F",
+        "id": 115507,
+        "name": "Aliona Bolsova",
+        "nameCode": "BOL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 450
+        },
+        "ranking": 385,
+        "shortName": "A. Bolsova",
+        "slug": "bolsova-aliona",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1069
+      },
+      "id": 14897437,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 84780,
+        "name": "WTA 125K Caldas da Rainha, Portugal Women Singles 2025",
+        "year": "2025"
+      },
+      "slug": "aliona-bolsova-lina-gjorcheska",
+      "startTimestamp": 1761132000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1761138035,
+        "period1": 2008,
+        "period2": 3708,
+        "period3": 1677
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1761436800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "روفيريتو، إيطاليا",
+            "ru": "Роверето, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 166576,
+        "isGroup": false,
+        "name": "Rovereto, Italy",
+        "priority": 0,
+        "slug": "rovereto-italy",
+        "startTimestamp": 1760918400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "دبليو تي إيه 125 ك روفيريتو، إيطاليا نساء فردي",
+              "ru": "WTA 125K Роверето, Италия среди женщин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 30243,
+          "name": "Rovereto, Italy",
+          "slug": "wta-125k-rovereto-italy-women-singles",
+          "tennisPoints": 125,
+          "userCount": 37
+        }
+      },
+      "winnerCode": 1
+    }
+  ],
+  "has_next_page": true,
+  "page": 1,
+  "player_id": 67743,
+  "saved_at": 1788183829.9800892,
+  "saved_at_iso": "2026-08-31T13:43:49+00:00",
+  "source": "API_PRO_PREVIOUS_MATCHES",
+  "status": "OK"
+}

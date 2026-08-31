@@ -1,0 +1,7475 @@
+{
+  "api_status_code": 200,
+  "endpoint": "https://tennisapi1.p.rapidapi.com/api/tennis/player/207654/events/previous/0",
+  "events": [
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": ""
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "changes": {
+        "changeTimestamp": 1775814826,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "firstToServe"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "edIbstRuc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 2,
+        "period2": 2,
+        "point": ""
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوسي نغوين تان",
+            "ru": "Нгуен Тан, Люси"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. تان"
+          }
+        },
+        "gender": "F",
+        "id": 299618,
+        "name": "Lucie Nguyen Tan",
+        "nameCode": "NGU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4800
+        },
+        "ranking": 430,
+        "shortName": "L. Nguyen Tan",
+        "slug": "nguyen-tan-lucie",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 265
+      },
+      "id": 15983975,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 92174,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "lucie-nguyen-tan-alice-tubello",
+      "startTimestamp": 1775810495,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W50 بوجمبورا للسيدات",
+            "ru": "ITF W50 Бужумбура, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 148621,
+        "name": "ITF W50 Bujumbura Women",
+        "priority": 0,
+        "slug": "itf-w50-bujumbura-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W50 بوجومبورا للسيدات",
+              "ru": "Кубок ITF W50 Бужумбура среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25709,
+          "name": "ITF W50 Bujumbura Women",
+          "slug": "itf-w50-bujumbura-women",
+          "userCount": 10
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 7,
+        "period2": 5,
+        "period3": 2,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "changes": {
+        "changeTimestamp": 1775908509,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "edIbsgfpc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 5,
+        "period2": 7,
+        "period3": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "RU",
+          "alpha3": "RUS",
+          "name": "Russia",
+          "slug": "russia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "داريا أستاخوفا",
+            "ru": "Дарья Астахова"
+          },
+          "shortNameTranslation": {
+            "ar": "د. أستاخوفا",
+            "ru": "Д. Астахова"
+          }
+        },
+        "gender": "F",
+        "id": 287756,
+        "name": "Darya Astakhova",
+        "nameCode": "AST",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3625
+        },
+        "ranking": 227,
+        "shortName": "D. Astakhova",
+        "slug": "astakhova-darya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 509
+      },
+      "id": 15988550,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 92174,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "darya-astakhova-alice-tubello",
+      "startTimestamp": 1775898747,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W50 بوجمبورا للسيدات",
+            "ru": "ITF W50 Бужумбура, среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 148621,
+        "name": "ITF W50 Bujumbura Women",
+        "priority": 0,
+        "slug": "itf-w50-bujumbura-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W50 بوجومبورا للسيدات",
+              "ru": "Кубок ITF W50 Бужумбура среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25709,
+          "name": "ITF W50 Bujumbura Women",
+          "slug": "itf-w50-bujumbura-women",
+          "userCount": 10
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 1,
+        "period2": 0,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {},
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إراكوز ي / بيبيتا إيشيموي أ",
+            "ru": "Иракозе Й / Бебита Ишимве А"
+          },
+          "shortNameTranslation": {
+            "ar": "إراكوز ي / بيبيتا إيشيموي أ",
+            "ru": "И. А"
+          }
+        },
+        "gender": "F",
+        "id": 1215196,
+        "name": "Irakoze Y / Bebita Ishimwe A",
+        "nameCode": "Y/A",
+        "national": false,
+        "shortName": "Irakoze Y / Bebita Ishimwe A",
+        "slug": "irakoze-y-bebita-ishimwe-a",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [
+          {
+            "country": {
+              "alpha2": "BI",
+              "alpha3": "BDI",
+              "name": "Burundi",
+              "slug": "burundi"
+            },
+            "disabled": false,
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "يسرا إيراكوز",
+                "ru": "Юсра Иракозе"
+              },
+              "shortNameTranslation": {
+                "ar": "ي. إيراكوز",
+                "ru": "Ю. Иракозе"
+              }
+            },
+            "gender": "F",
+            "id": 1212241,
+            "name": "Yusra Irakoze",
+            "nameCode": "IRA",
+            "national": false,
+            "playerTeamInfo": {
+              "id": 43674
+            },
+            "shortName": "Y. Irakoze",
+            "slug": "yusra-irakoze",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            },
+            "subTeams": [],
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 1,
+            "userCount": 12
+          },
+          {
+            "country": {
+              "alpha2": "BI",
+              "alpha3": "BDI",
+              "name": "Burundi",
+              "slug": "burundi"
+            },
+            "disabled": false,
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "أنج بيبيتا إيشيموي",
+                "ru": "Анж Бебита Ишимве"
+              },
+              "shortNameTranslation": {
+                "ar": "أ. ب. إيشيموي",
+                "ru": "А. Ишимве"
+              }
+            },
+            "gender": "F",
+            "id": 1212831,
+            "name": "Ange Bebita Ishimwe",
+            "nameCode": "ISH",
+            "national": false,
+            "playerTeamInfo": {
+              "id": 43705
+            },
+            "shortName": "A. B. Ishimwe ",
+            "slug": "ange-bebita-ishimwe",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            },
+            "subTeams": [],
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 1,
+            "userCount": 21
+          }
+        ],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 2,
+        "userCount": 0
+      },
+      "changes": {
+        "changeTimestamp": 1776169133,
+        "changes": [
+          "firstToServe"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "pGcesWdLj",
+      "eventFilters": {
+        "category": [
+          "doubles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {},
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نجوين تان ل / توبيلو أ",
+            "ru": "Нгуен Тан Л / Тубелло А"
+          },
+          "shortNameTranslation": {}
+        },
+        "gender": "F",
+        "id": 506565,
+        "name": "Nguyen Tan L / Tubello A",
+        "nameCode": "N/T",
+        "national": false,
+        "slug": "nguyen-tan-l-tubello-a",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [
+          {
+            "country": {
+              "alpha2": "FR",
+              "alpha3": "FRA",
+              "name": "France",
+              "slug": "france"
+            },
+            "disabled": false,
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "لوسي نغوين تان",
+                "ru": "Нгуен Тан, Люси"
+              },
+              "shortNameTranslation": {
+                "ar": "ل. تان"
+              }
+            },
+            "gender": "F",
+            "id": 299618,
+            "name": "Lucie Nguyen Tan",
+            "nameCode": "NGU",
+            "national": false,
+            "playerTeamInfo": {
+              "id": 4800
+            },
+            "ranking": 430,
+            "shortName": "L. Nguyen Tan",
+            "slug": "nguyen-tan-lucie",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            },
+            "subTeams": [],
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 1,
+            "userCount": 265
+          },
+          {
+            "country": {
+              "alpha2": "FR",
+              "alpha3": "FRA",
+              "name": "France",
+              "slug": "france"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "أليس توبيلو",
+                "ru": "Тубелло, Алис"
+              },
+              "shortNameTranslation": {
+                "ar": "أ. توبيلو"
+              }
+            },
+            "gender": "F",
+            "id": 207654,
+            "name": "Alice Tubello",
+            "nameCode": "TUB",
+            "national": false,
+            "playerTeamInfo": {
+              "id": 3395
+            },
+            "ranking": 222,
+            "shortName": "A. Tubello",
+            "slug": "tubello-alice",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            },
+            "subTeams": [],
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 1,
+            "userCount": 657
+          }
+        ],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 2,
+        "userCount": 2
+      },
+      "id": 16001571,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 92194,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "irakoze-bebita-ishimwe-nguyen-tan-tubello",
+      "startTimestamp": 1776166199,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W50 بوجمبورا 2 زوجي سيدات",
+            "ru": "ITF W50 Бужумбура 2, парный разряд среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 149091,
+        "name": "ITF W50 Bujumbura 2 Women Doubles",
+        "priority": 0,
+        "slug": "itf-w50-bujumbura-2-women-doubles",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W50 بوجمبورا 2 زوجي السيدات",
+              "ru": "ITF W50 Бужумбура 2, женщины, парный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25830,
+          "name": "ITF W50 Bujumbura 2 Women Doubles",
+          "slug": "itf-w50-bujumbura-2-women-doubles",
+          "userCount": 2
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 1,
+        "period2": 6,
+        "period3": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "changes": {
+        "changeTimestamp": 1776254257,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "edIbsipCc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 3,
+        "period3": 1,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ناهيا بيريكويتشيا",
+            "ru": "Нахия Берекоэчеа"
+          },
+          "shortNameTranslation": {
+            "ar": "ن. بيريكويتشيا",
+            "ru": "Н. Берекоэчеа"
+          }
+        },
+        "gender": "F",
+        "id": 318258,
+        "name": "Nahia Berecoechea",
+        "nameCode": "BER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4899
+        },
+        "ranking": 512,
+        "shortName": "N. Berecoechea",
+        "slug": "berecoechea-nahia",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 320
+      },
+      "id": 16008570,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 92193,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "nahia-berecoechea-alice-tubello",
+      "startTimestamp": 1776247998,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W50 بوجمبورا 2 سيدات",
+            "ru": "ITF W50 Бужумбура 2 среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 149090,
+        "name": "ITF W50 Bujumbura 2 Women",
+        "priority": 0,
+        "slug": "itf-w50-bujumbura-2-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W50 بوجمبورا 2 السيدات",
+              "ru": "ITF W50 Бужумбура 2, женщины"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25829,
+          "name": "ITF W50 Bujumbura 2 Women",
+          "slug": "itf-w50-bujumbura-2-women",
+          "userCount": 11
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "changes": {
+        "changeTimestamp": 1776332133,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "TNvsedIb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فاليريا ستراخوفا",
+            "ru": "Страхова, Валерия"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. ستراخوفا"
+          }
+        },
+        "gender": "F",
+        "id": 51943,
+        "name": "Valeriya Strakhova",
+        "nameCode": "STR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 790
+        },
+        "ranking": 551,
+        "shortName": "V. Strakhova",
+        "slug": "strakhova-valeriya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 611
+      },
+      "id": 16014459,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 92193,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "alice-tubello-valeriya-strakhova",
+      "startTimestamp": 1776327101,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W50 بوجمبورا 2 سيدات",
+            "ru": "ITF W50 Бужумбура 2 среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 149090,
+        "name": "ITF W50 Bujumbura 2 Women",
+        "priority": 0,
+        "slug": "itf-w50-bujumbura-2-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W50 بوجمبورا 2 السيدات",
+              "ru": "ITF W50 Бужумбура 2, женщины"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25829,
+          "name": "ITF W50 Bujumbura 2 Women",
+          "slug": "itf-w50-bujumbura-2-women",
+          "userCount": 11
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 5,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {},
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "آدامز ج / هودت م",
+            "ru": "Адамс Ж / Хоедт М"
+          },
+          "shortNameTranslation": {
+            "ar": "آدامز ج / هودت م",
+            "ru": "А. М"
+          }
+        },
+        "gender": "F",
+        "id": 1212907,
+        "name": "Adams J / Hoedt M",
+        "nameCode": "J/M",
+        "national": false,
+        "shortName": "Adams J / Hoedt M",
+        "slug": "adams-j-hoedt-m",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [
+          {
+            "country": {
+              "alpha2": "US",
+              "alpha3": "USA",
+              "name": "USA",
+              "slug": "usa"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "جوليا آدامز",
+                "ru": "Юлия Адамс"
+              },
+              "shortNameTranslation": {
+                "ar": "ج. آدامز",
+                "ru": "Ю. Адамс"
+              }
+            },
+            "gender": "F",
+            "id": 470804,
+            "name": "Julia Adams",
+            "nameCode": "ADA",
+            "national": false,
+            "playerTeamInfo": {
+              "id": 15373
+            },
+            "ranking": 480,
+            "shortName": "J. Adams",
+            "slug": "adams-julia",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            },
+            "subTeams": [],
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 1,
+            "userCount": 214
+          },
+          {
+            "country": {
+              "alpha2": "FR",
+              "alpha3": "FRA",
+              "name": "France",
+              "slug": "france"
+            },
+            "disabled": false,
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "ميريل هودت",
+                "ru": "Худт, Мерел"
+              },
+              "shortNameTranslation": {
+                "ar": "م. هودت"
+              }
+            },
+            "gender": "F",
+            "id": 198838,
+            "name": "Merel Hoedt",
+            "nameCode": "HOE",
+            "national": false,
+            "playerTeamInfo": {
+              "id": 3334
+            },
+            "ranking": 671,
+            "shortName": "M. Hoedt",
+            "slug": "hoedt-merel",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            },
+            "subTeams": [],
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 1,
+            "userCount": 301
+          }
+        ],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 2,
+        "userCount": 7
+      },
+      "changes": {
+        "changeTimestamp": 1776432476,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "pGceshiKj",
+      "eventFilters": {
+        "category": [
+          "doubles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 0,
+        "period2": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {},
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نجوين تان ل / توبيلو أ",
+            "ru": "Нгуен Тан Л / Тубелло А"
+          },
+          "shortNameTranslation": {}
+        },
+        "gender": "F",
+        "id": 506565,
+        "name": "Nguyen Tan L / Tubello A",
+        "nameCode": "N/T",
+        "national": false,
+        "slug": "nguyen-tan-l-tubello-a",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [
+          {
+            "country": {
+              "alpha2": "FR",
+              "alpha3": "FRA",
+              "name": "France",
+              "slug": "france"
+            },
+            "disabled": false,
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "لوسي نغوين تان",
+                "ru": "Нгуен Тан, Люси"
+              },
+              "shortNameTranslation": {
+                "ar": "ل. تان"
+              }
+            },
+            "gender": "F",
+            "id": 299618,
+            "name": "Lucie Nguyen Tan",
+            "nameCode": "NGU",
+            "national": false,
+            "playerTeamInfo": {
+              "id": 4800
+            },
+            "ranking": 430,
+            "shortName": "L. Nguyen Tan",
+            "slug": "nguyen-tan-lucie",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            },
+            "subTeams": [],
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 1,
+            "userCount": 265
+          },
+          {
+            "country": {
+              "alpha2": "FR",
+              "alpha3": "FRA",
+              "name": "France",
+              "slug": "france"
+            },
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "أليس توبيلو",
+                "ru": "Тубелло, Алис"
+              },
+              "shortNameTranslation": {
+                "ar": "أ. توبيلو"
+              }
+            },
+            "gender": "F",
+            "id": 207654,
+            "name": "Alice Tubello",
+            "nameCode": "TUB",
+            "national": false,
+            "playerTeamInfo": {
+              "id": 3395
+            },
+            "ranking": 222,
+            "shortName": "A. Tubello",
+            "slug": "tubello-alice",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            },
+            "subTeams": [],
+            "teamColors": {
+              "primary": "#374df5",
+              "secondary": "#374df5",
+              "text": "#ffffff"
+            },
+            "type": 1,
+            "userCount": 657
+          }
+        ],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 2,
+        "userCount": 2
+      },
+      "id": 16014464,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 92194,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "adams-hoedt-nguyen-tan-tubello",
+      "startTimestamp": 1776350591,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W50 بوجمبورا 2 زوجي سيدات",
+            "ru": "ITF W50 Бужумбура 2, парный разряд среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 149091,
+        "name": "ITF W50 Bujumbura 2 Women Doubles",
+        "priority": 0,
+        "slug": "itf-w50-bujumbura-2-women-doubles",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W50 بوجمبورا 2 زوجي السيدات",
+              "ru": "ITF W50 Бужумбура 2, женщины, парный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25830,
+          "name": "ITF W50 Bujumbura 2 Women Doubles",
+          "slug": "itf-w50-bujumbura-2-women-doubles",
+          "userCount": 2
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "changes": {
+        "changeTimestamp": 1776418926,
+        "changes": [
+          "firstToServe"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "NBEbsedIb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "period2": 1,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ميريل هودت",
+            "ru": "Худт, Мерел"
+          },
+          "shortNameTranslation": {
+            "ar": "م. هودت"
+          }
+        },
+        "gender": "F",
+        "id": 198838,
+        "name": "Merel Hoedt",
+        "nameCode": "HOE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3334
+        },
+        "ranking": 671,
+        "shortName": "M. Hoedt",
+        "slug": "hoedt-merel",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 301
+      },
+      "id": 16020284,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 92193,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "alice-tubello-merel-hoedt",
+      "startTimestamp": 1776413596,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W50 بوجمبورا 2 سيدات",
+            "ru": "ITF W50 Бужумбура 2 среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 149090,
+        "name": "ITF W50 Bujumbura 2 Women",
+        "priority": 0,
+        "slug": "itf-w50-bujumbura-2-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W50 بوجمبورا 2 السيدات",
+              "ru": "ITF W50 Бужумбура 2, женщины"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25829,
+          "name": "ITF W50 Bujumbura 2 Women",
+          "slug": "itf-w50-bujumbura-2-women",
+          "userCount": 11
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 2,
+        "period2": 7,
+        "period3": 5,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BR",
+          "alpha3": "BRA",
+          "name": "Brazil",
+          "slug": "brazil"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لورا بيغوسي",
+            "bn": "লরা পিগোসি",
+            "hi": "लौरा पिगोसी",
+            "ru": "Пигосси, Лаура"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. بيغوسي"
+          }
+        },
+        "gender": "F",
+        "id": 64085,
+        "name": "Laura Pigossi",
+        "nameCode": "PIG",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2111
+        },
+        "ranking": 193,
+        "shortName": "L. Pigossi",
+        "slug": "pigossi-laura",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3670
+      },
+      "changes": {
+        "changeTimestamp": 1776512054,
+        "changes": [
+          "firstToServe"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "KGAsedIb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 5,
+        "period3": 7,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "id": 16026626,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 92193,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "alice-tubello-laura-pigossi",
+      "startTimestamp": 1776500074,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W50 بوجمبورا 2 سيدات",
+            "ru": "ITF W50 Бужумбура 2 среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 149090,
+        "name": "ITF W50 Bujumbura 2 Women",
+        "priority": 0,
+        "slug": "itf-w50-bujumbura-2-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W50 بوجمبورا 2 السيدات",
+              "ru": "ITF W50 Бужумбура 2, женщины"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25829,
+          "name": "ITF W50 Bujumbura 2 Women",
+          "slug": "itf-w50-bujumbura-2-women",
+          "userCount": 11
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "changes": {
+        "changeTimestamp": 1776595460,
+        "changes": [
+          "firstToServe"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "edIbsroJb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 1,
+        "period2": 3,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BI",
+          "alpha3": "BDI",
+          "name": "Burundi",
+          "slug": "burundi"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سادا ناهيمانا",
+            "ru": "Нахимана, Сада"
+          },
+          "shortNameTranslation": {
+            "ar": "س. ناهيمانا"
+          }
+        },
+        "gender": "F",
+        "id": 210717,
+        "name": "Sada Nahimana",
+        "nameCode": "NAH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4262
+        },
+        "ranking": 271,
+        "shortName": "S. Nahimana",
+        "slug": "nahimana-sada",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 826
+      },
+      "id": 16030647,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 92193,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "sada-nahimana-alice-tubello",
+      "startTimestamp": 1776589966,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ITF W50 بوجمبورا 2 سيدات",
+            "ru": "ITF W50 Бужумбура 2 среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 149090,
+        "name": "ITF W50 Bujumbura 2 Women",
+        "priority": 0,
+        "slug": "itf-w50-bujumbura-2-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W50 بوجمبورا 2 السيدات",
+              "ru": "ITF W50 Бужумбура 2, женщины"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25829,
+          "name": "ITF W50 Bujumbura 2 Women",
+          "slug": "itf-w50-bujumbura-2-women",
+          "userCount": 11
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 4,
+        "period2": 3,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "changes": {
+        "changeTimestamp": 1777380765,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "edIbstRuc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لوسي نغوين تان",
+            "ru": "Нгуен Тан, Люси"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. تان"
+          }
+        },
+        "gender": "F",
+        "id": 299618,
+        "name": "Lucie Nguyen Tan",
+        "nameCode": "NGU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4800
+        },
+        "ranking": 430,
+        "shortName": "L. Nguyen Tan",
+        "slug": "nguyen-tan-lucie",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 265
+      },
+      "homeTeamSeed": "Q",
+      "id": 16079884,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 89139,
+        "name": "WTA 125K Saint-Malo, France, Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "lucie-nguyen-tan-alice-tubello",
+      "startTimestamp": 1777374300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1777378145,
+        "period1": 3356,
+        "period2": 2574
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1777939200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سان مالو، فرنسا",
+            "ru": "Сен-Мало, Франция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 182029,
+        "isGroup": false,
+        "name": "Saint-Malo, France",
+        "priority": 0,
+        "slug": "saint-malo-france",
+        "startTimestamp": 1777420800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "سانت مالو، فرنسا",
+              "ru": "Сен-Мало, Франция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 16790,
+          "name": "Saint-Malo, France",
+          "slug": "saint-malo-france",
+          "tennisPoints": 125,
+          "userCount": 221
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 5,
+        "period3": 7,
+        "period3TieBreak": 7,
+        "point": "6"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "changes": {
+        "changeTimestamp": 1777898768,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "edIbszfed",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 0,
+        "period2": 7,
+        "period3": 6,
+        "period3TieBreak": 2,
+        "point": "2"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تيانتسوا راكوتومانغا راجاونا",
+            "ru": "Тианцуа Ракотоманга Раджаона"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. راجاونا",
+            "ru": "Т. Раджаона"
+          }
+        },
+        "gender": "F",
+        "id": 385274,
+        "name": "Tiantsoa Rakotomanga Rajaonah",
+        "nameCode": "RAK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 12395
+        },
+        "ranking": 172,
+        "shortName": "T. Rakotomanga Rajaonah",
+        "slug": "rakotomanga-rajaonah-tiantsoa-sarah",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1810
+      },
+      "homeTeamSeed": "7",
+      "id": 16118696,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 93799,
+        "name": "WTA 125K Istanbul, Turkiye Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "tiantsoa-rakotomanga-rajaonah-alice-tubello",
+      "startTimestamp": 1777889100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1777895097,
+        "period1": 1773,
+        "period2": 3557,
+        "period3": 3614
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1778371200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إسطنبول، تركيا",
+            "ru": "Стамбул, Турция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 183064,
+        "isGroup": false,
+        "name": "Istanbul, Turkiye",
+        "priority": 0,
+        "slug": "istanbul-turkiye",
+        "startTimestamp": 1777852800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "وتا 125ك إسطنبول، تركيا فردي السيدات",
+              "ru": "WTA 125K Стамбул, Турция, среди женщин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 34493,
+          "name": "Istanbul, Turkiye",
+          "slug": "wta-125k-istanbul-turkiye-women-singles",
+          "tennisPoints": 125,
+          "userCount": 66
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 1,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BG",
+          "alpha3": "BGR",
+          "name": "Bulgaria",
+          "slug": "bulgaria"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إليزارا يانييفا",
+            "ru": "Элизара Янева"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. يانييفا",
+            "ru": "Э. Янева"
+          }
+        },
+        "gender": "F",
+        "id": 449211,
+        "name": "Elizara Yaneva",
+        "nameCode": "YAN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 12483
+        },
+        "ranking": 166,
+        "shortName": "E. Yaneva",
+        "slug": "yaneva-elizara",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 905
+      },
+      "changes": {
+        "changeTimestamp": 1778058664,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "edIbslJEd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "id": 16100879,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 93799,
+        "name": "WTA 125K Istanbul, Turkiye Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "elizara-yaneva-alice-tubello",
+      "startTimestamp": 1778054400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1778057321,
+        "period1": 2294,
+        "period2": 1293
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1778371200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إسطنبول، تركيا",
+            "ru": "Стамбул, Турция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 183064,
+        "isGroup": false,
+        "name": "Istanbul, Turkiye",
+        "priority": 0,
+        "slug": "istanbul-turkiye",
+        "startTimestamp": 1777852800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "وتا 125ك إسطنبول، تركيا فردي السيدات",
+              "ru": "WTA 125K Стамбул, Турция, среди женщин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 34493,
+          "name": "Istanbul, Turkiye",
+          "slug": "wta-125k-istanbul-turkiye-women-singles",
+          "tennisPoints": 125,
+          "userCount": 66
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 2,
+        "period3": 4,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "UZ",
+          "alpha3": "UZB",
+          "name": "Uzbekistan",
+          "slug": "uzbekistan"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بولينا كوديرميتوفا",
+            "ru": "Кудерметова, Полина"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. كوديرميتوفا"
+          }
+        },
+        "gender": "F",
+        "id": 293868,
+        "name": "Polina Kudermetova",
+        "nameCode": "KUD",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4448
+        },
+        "ranking": 97,
+        "shortName": "P. Kudermetova",
+        "slug": "kudermetova-polina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3469
+      },
+      "awayTeamSeed": "3",
+      "changes": {
+        "changeTimestamp": 1778234597,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "edIbstCrc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 4,
+        "period2": 6,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "id": 16100881,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 93799,
+        "name": "WTA 125K Istanbul, Turkiye Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "polina-kudermetova-alice-tubello",
+      "startTimestamp": 1778227200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1778231906,
+        "period1": 2295,
+        "period2": 2041,
+        "period3": 2650
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1778371200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إسطنبول، تركيا",
+            "ru": "Стамбул, Турция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 183064,
+        "isGroup": false,
+        "name": "Istanbul, Turkiye",
+        "priority": 0,
+        "slug": "istanbul-turkiye",
+        "startTimestamp": 1777852800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "وتا 125ك إسطنبول، تركيا فردي السيدات",
+              "ru": "WTA 125K Стамбул, Турция, среди женщин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 34493,
+          "name": "Istanbul, Turkiye",
+          "slug": "wta-125k-istanbul-turkiye-women-singles",
+          "tennisPoints": 125,
+          "userCount": 66
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 4,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "UZ",
+          "alpha3": "UZB",
+          "name": "Uzbekistan",
+          "slug": "uzbekistan"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماريا تيموفييفا",
+            "bn": "মারিয়া টিমোফিভা",
+            "hi": "मारिया तिमोफेवा",
+            "ru": "Тимофеева, Мария"
+          },
+          "shortNameTranslation": {
+            "ar": "م. تيموفييفا"
+          }
+        },
+        "gender": "F",
+        "id": 293867,
+        "name": "Maria Timofeeva",
+        "nameCode": "TIM",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3972
+        },
+        "ranking": 86,
+        "shortName": "M. Timofeeva",
+        "slug": "timofeeva-maria",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2590
+      },
+      "awayTeamSeed": "6",
+      "changes": {
+        "changeTimestamp": 1778340027,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "edIbsrCrc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 4,
+        "period2": 6,
+        "period3": 0,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "id": 16100884,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 93799,
+        "name": "WTA 125K Istanbul, Turkiye Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maria-timofeeva-alice-tubello",
+      "startTimestamp": 1778331600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1778338354,
+        "period1": 3271,
+        "period2": 2776,
+        "period3": 1655
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1778371200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إسطنبول، تركيا",
+            "ru": "Стамбул, Турция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 183064,
+        "isGroup": false,
+        "name": "Istanbul, Turkiye",
+        "priority": 0,
+        "slug": "istanbul-turkiye",
+        "startTimestamp": 1777852800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "وتا 125ك إسطنبول، تركيا فردي السيدات",
+              "ru": "WTA 125K Стамбул, Турция, среди женщин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 34493,
+          "name": "Istanbul, Turkiye",
+          "slug": "wta-125k-istanbul-turkiye-women-singles",
+          "tennisPoints": 125,
+          "userCount": 66
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 4,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "changes": {
+        "changeTimestamp": 1778511928,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "edIbsVicc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AM",
+          "alpha3": "ARM",
+          "name": "Armenia",
+          "slug": "armenia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليينا تشارايفا",
+            "ru": "Чараева, Алина"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. تشارايفا"
+          }
+        },
+        "gender": "F",
+        "id": 255445,
+        "name": "Alina Charaeva",
+        "nameCode": "CHA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4619
+        },
+        "ranking": 108,
+        "shortName": "A. Charaeva",
+        "slug": "charaeva-alina",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1937
+      },
+      "homeTeamSeed": "2",
+      "id": 16159260,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 89182,
+        "name": "WTA 125K Paris, France Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "alina-charaeva-alice-tubello",
+      "startTimestamp": 1778506200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1778509210,
+        "period1": 2247,
+        "period2": 2701
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1778457600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Кубок Париж, Франция, квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 184222,
+        "isGroup": false,
+        "name": "Paris, France, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "paris-france-qualifying",
+        "startTimestamp": 1778371200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "باريس، فرنسا",
+              "ru": "Париж, Франция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18568,
+          "name": "Paris, France",
+          "slug": "paris-france",
+          "tennisPoints": 125,
+          "userCount": 241
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 2,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "awayTeamSeed": "WC",
+      "changes": {
+        "changeTimestamp": 1779791437,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period2",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "correctAiInsight": false,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "QmvsedIb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "grand-slam"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "HR",
+          "alpha3": "HRV",
+          "name": "Croatia",
+          "slug": "croatia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دونا فيكيتش",
+            "ru": "Донна Векич"
+          },
+          "shortNameTranslation": {
+            "ar": "د. فيكيتش",
+            "bn": "ডি. ভেকিচ",
+            "hi": "डी. वेकिक",
+            "ru": "Д Векич"
+          }
+        },
+        "gender": "F",
+        "id": 50641,
+        "name": "Donna Vekić",
+        "nameCode": "VEK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 157
+        },
+        "ranking": 39,
+        "shortName": "D. Vekić",
+        "slug": "vekic-donna",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 12437
+      },
+      "id": 16214886,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Round of 128",
+        "round": 64,
+        "slug": "round-of-128"
+      },
+      "season": {
+        "editor": false,
+        "id": 85953,
+        "name": "French Open Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "alice-tubello-donna-vekic",
+      "startTimestamp": 1779786000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1779788985,
+        "period1": 2212,
+        "period2": 2444
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1780704000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "رولان غاروس، باريس، فرنسا",
+            "ru": "Открытый чемпионат Франции, Париж, Франция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 185246,
+        "isGroup": false,
+        "name": "French Open, Paris, France",
+        "priority": 0,
+        "slug": "french-open-paris-france",
+        "startTimestamp": 1779580800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رولان غاروس، فردي السيدات",
+              "az": "Roland Garros, Qadınlar",
+              "bn": "ফ্রেঞ্চ ওপেন, নারী একক",
+              "de": "French Open Dameneinzel",
+              "el": "Ρολάν Γκαρός, απλό γυναικών",
+              "es": "Roland Garros, femenino",
+              "es-la": "Roland Garros, Femenil",
+              "fr": "Roland-Garros simple dames",
+              "hi": "रोलैंड गैरोस, महिला",
+              "hr": "Roland Garros (Ž)",
+              "hu": "Roland Garros, női egyes",
+              "id": "Roland Garros, Tunggal (Pi)",
+              "it": "Roland Garros (F)",
+              "ja": "全仏オープン、女子",
+              "ko": "프랑스 오픈 여자 단식",
+              "nl": "Roland Garros vrouwenenkelspel",
+              "no": "Roland Garros, kvinner",
+              "pl": "French Open, singiel kobiet",
+              "pt": "Roland Garros feminino",
+              "pt-pt": "Roland Garros (F)",
+              "ro": "Roland Garros, simplu feminin",
+              "ru": "Ролан Гаррос, женский одиночный разряд",
+              "sr": "Ролан Гарос, појединачно (Ж)",
+              "sv": "Franska öppna, damsingel",
+              "th": "เฟรนช์โอเพน หญิงเดี่ยว",
+              "tr": "Roland Garros, Tek Kadınlar",
+              "vi": "Pháp Mở rộng, đơn nữ"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2577,
+          "name": "Roland Garros, Women",
+          "primaryColorHex": "#c85a19",
+          "secondaryColorHex": "#01503d",
+          "slug": "roland-garros",
+          "tennisPoints": 2000,
+          "userCount": 13267
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارول مونيه",
+            "bn": "ক্যারোল মননেট",
+            "hi": "कैरोल मोनेट",
+            "ru": "Монне, Кароль"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. مونيه"
+          }
+        },
+        "gender": "F",
+        "id": 221362,
+        "name": "Carole Monnet",
+        "nameCode": "MON",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3461
+        },
+        "ranking": 196,
+        "shortName": "C. Monnet",
+        "slug": "monnet-carole",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1370
+      },
+      "changes": {
+        "changeTimestamp": 1780403101,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "edIbsmCNb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 2,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "id": 16262233,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 95307,
+        "name": "WTA 125K Cali, Colombia Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "carole-monnet-alice-tubello",
+      "startTimestamp": 1780398000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1780400940,
+        "period1": 2580,
+        "period2": 2140
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1780790400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Фоджа, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 186320,
+        "isGroup": false,
+        "name": "Foggia, Italy",
+        "priority": 0,
+        "slug": "foggia-italy",
+        "startTimestamp": 1780272000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ru": "WTA 125K Фоджа, Италия, одиночный разряд среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 35109,
+          "name": "Foggia, Italy",
+          "slug": "wta-125k-foggia-italy-women-singles",
+          "tennisPoints": 125,
+          "userCount": 88
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 1,
+        "period2": 6,
+        "period3": 4,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "changes": {
+        "changeTimestamp": 1781014296,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "edIbsiBJc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 3,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دومينيكا سالكوفا",
+            "ru": "Доминика Салкова"
+          },
+          "shortNameTranslation": {
+            "ar": "د. سالكوفا",
+            "ru": "Д. Салкова"
+          }
+        },
+        "gender": "F",
+        "id": 336308,
+        "name": "Dominika Salkova",
+        "nameCode": "SAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5002
+        },
+        "ranking": 118,
+        "shortName": "D. Salkova",
+        "slug": "salkova-dominika",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1762
+      },
+      "homeTeamSeed": "3",
+      "id": 16291578,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 95698,
+        "name": "WTA 125K Limoges, France Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "dominika-salkova-alice-tubello",
+      "startTimestamp": 1781006400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1781011158,
+        "period1": 1874,
+        "period2": 2562,
+        "period3": 3086
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1781395200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Лига Модена, Италия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 187137,
+        "isGroup": false,
+        "name": "Modena, Italy",
+        "priority": 0,
+        "slug": "modena-italy",
+        "startTimestamp": 1780876800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ru": "WTA 125K Модена, Италия среди женщин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 35253,
+          "name": "Modena, Italy",
+          "slug": "wta-125k-modena-italy-women-singles",
+          "tennisPoints": 125,
+          "userCount": 90
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "RU",
+          "alpha3": "RUS",
+          "name": "Russia",
+          "slug": "russia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إلينا بريدانكينا",
+            "ru": "Елена Приданкина"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. بريدانكينا",
+            "ru": "Е. Приданкина"
+          }
+        },
+        "gender": "F",
+        "id": 383652,
+        "name": "Elena Pridankina",
+        "nameCode": "PRI",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5212
+        },
+        "ranking": 186,
+        "shortName": "E. Pridankina",
+        "slug": "pridankina-elena",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1395
+      },
+      "changes": {
+        "changeTimestamp": 1782218567,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "correctAiInsight": false,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "edIbscydd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "grand-slam"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Grass",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 0,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "id": 16376699,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 85945,
+        "name": "Wimbledon Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "elena-pridankina-alice-tubello",
+      "startTimestamp": 1782214800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1782216702,
+        "period1": 1581,
+        "period2": 1836
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1782345600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Уимблдон, Лондон, Великобритания, Квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 189254,
+        "isGroup": false,
+        "name": "Wimbledon, London, Great Britain, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "wimbledon-london-great-britain-qualifying",
+        "startTimestamp": 1782086400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ويمبلدون، فردي السيدات",
+              "az": "Wimbledon, Qadınlar",
+              "bn": "উইম্বলডন, নারী একক",
+              "de": "Wimbledon Dameneinzel",
+              "el": "Γουίμπλεντον, απλό γυναικών",
+              "es": "Wimbledon, femenino",
+              "es-la": "Wimbledon, Femenil",
+              "fr": "Wimbledon simple dames",
+              "hi": "विम्बलडन, महिला",
+              "hr": "Wimbledon (Ž)",
+              "hu": "Wimbledon, női egyes",
+              "id": "Wimbledon, Tunggal (Pi)",
+              "it": "Wimbledon (F)",
+              "ja": "ウィンブルドン、女子",
+              "ko": "윔블던 여자 단식",
+              "nl": "Wimbledon vrouwenenkelspel",
+              "no": "Wimbledon, kvinner",
+              "pl": "Wimbledon, singiel kobiet",
+              "pt": "Wimbledon feminino",
+              "pt-pt": "Wimbledon (F)",
+              "ro": "Wimbledon, simplu feminin",
+              "ru": "Уимблдон, женский одиночный разряд",
+              "sr": "Вимблдон, појединачно (Ж)",
+              "sv": "Wimbledon, damsingel",
+              "th": "วิมเบิลดัน หญิงเดี่ยว",
+              "tr": "Wimbledon, Tek Kadınlar",
+              "vi": "Wimbledon, đơn nữ"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Grass",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2600,
+          "name": "Wimbledon, Women",
+          "primaryColorHex": "#006632",
+          "secondaryColorHex": "#54008b",
+          "slug": "wimbledon",
+          "tennisPoints": 2000,
+          "userCount": 13630
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 6
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "changes": {
+        "changeTimestamp": 1782914227,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "LxnbsedIb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 1,
+        "period2": 3
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "RO",
+          "alpha3": "ROU",
+          "name": "Romania",
+          "slug": "romania"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا بريساكاريو",
+            "ru": "Андрея Пришакариу"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. بريساكاريو"
+          }
+        },
+        "gender": "F",
+        "id": 158636,
+        "name": "Andreea Prisacariu",
+        "nameCode": "PRI",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3171
+        },
+        "ranking": 503,
+        "shortName": "A. Prisăcariu ",
+        "slug": "prisacariu-andreea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 610
+      },
+      "id": 16416252,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 96473,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "alice-tubello-andreea-prisacariu",
+      "startTimestamp": 1782909484,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "ITF W50 Штутгарт-Вайхинген, женщины"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 188552,
+        "name": "ITF W50 Stuttgart-Vaihingen Women",
+        "priority": 0,
+        "slug": "itf-w50-stuttgart-vaihingen-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ru": "ITF W50 Штутгарт-Вайхинген, среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 35525,
+          "name": "ITF W50 Stuttgart-Vaihingen Women",
+          "slug": "itf-w50-stuttgart-vaihingen-women",
+          "userCount": 7
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 7,
+        "period2TieBreak": 10,
+        "point": "9"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "changes": {
+        "changeTimestamp": 1783001654,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "awayScore.period2",
+          "firstToServe"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "edIbsjWYc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 6,
+        "period1TieBreak": 3,
+        "period2": 6,
+        "period2TieBreak": 8,
+        "point": "8"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CZ",
+          "alpha3": "CZE",
+          "name": "Czechia",
+          "slug": "czechia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جولي ستروبلوفا",
+            "ru": "Джулия Штруплова"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. ستروبلوفا",
+            "ru": "Д. Штруплова"
+          }
+        },
+        "gender": "F",
+        "id": 372309,
+        "name": "Julie Struplova",
+        "nameCode": "STR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5026
+        },
+        "ranking": 218,
+        "shortName": "J. Štruplová",
+        "slug": "struplova-julie",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 420
+      },
+      "id": 16424113,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 96473,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "julie-struplova-alice-tubello",
+      "startTimestamp": 1782992400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "ITF W50 Штутгарт-Вайхинген, женщины"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 188552,
+        "name": "ITF W50 Stuttgart-Vaihingen Women",
+        "priority": 0,
+        "slug": "itf-w50-stuttgart-vaihingen-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ru": "ITF W50 Штутгарт-Вайхинген, среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 35525,
+          "name": "ITF W50 Stuttgart-Vaihingen Women",
+          "slug": "itf-w50-stuttgart-vaihingen-women",
+          "userCount": 7
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period1TieBreak": 9,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "changes": {
+        "changeTimestamp": 1783085330,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "edIbsKGDd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 6,
+        "period1TieBreak": 7,
+        "period2": 2,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تيسا جوانا بروكمان",
+            "ru": "Тесса Иоганна Брокманн"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. بروكمان",
+            "ru": "Т. Брокманн"
+          }
+        },
+        "gender": "F",
+        "id": 446585,
+        "name": "Tessa Johanna Brockmann",
+        "nameCode": "BRO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 13381
+        },
+        "ranking": 337,
+        "shortName": "T. Brockmann",
+        "slug": "brockmann-tessa-johanna",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 482
+      },
+      "id": 16431363,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 96473,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "tessa-johanna-brockmann-alice-tubello",
+      "startTimestamp": 1783079296,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "ITF W50 Штутгарт-Вайхинген, женщины"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 188552,
+        "name": "ITF W50 Stuttgart-Vaihingen Women",
+        "priority": 0,
+        "slug": "itf-w50-stuttgart-vaihingen-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ru": "ITF W50 Штутгарт-Вайхинген, среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 35525,
+          "name": "ITF W50 Stuttgart-Vaihingen Women",
+          "slug": "itf-w50-stuttgart-vaihingen-women",
+          "userCount": 7
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 6,
+        "period2": 7,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "changes": {
+        "changeTimestamp": 1783179301,
+        "changes": [
+          "firstToServe"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "edIbsrKkc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 5,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ليزا بيغاتو",
+            "ru": "Лиза Пигато"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. بيغاتو",
+            "ru": "Л. Пигато"
+          }
+        },
+        "gender": "F",
+        "id": 276767,
+        "name": "Lisa Pigato",
+        "nameCode": "PIG",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3984
+        },
+        "ranking": 130,
+        "shortName": "L. Pigato",
+        "slug": "pigato-lisa",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1387
+      },
+      "id": 16436990,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 96473,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "lisa-pigato-alice-tubello",
+      "startTimestamp": 1783173325,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "ITF W50 Штутгарт-Вайхинген, женщины"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 188552,
+        "name": "ITF W50 Stuttgart-Vaihingen Women",
+        "priority": 0,
+        "slug": "itf-w50-stuttgart-vaihingen-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ru": "ITF W50 Штутгарт-Вайхинген, среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 35525,
+          "name": "ITF W50 Stuttgart-Vaihingen Women",
+          "slug": "itf-w50-stuttgart-vaihingen-women",
+          "userCount": 7
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 3,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 6
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "UA",
+          "alpha3": "UKR",
+          "name": "Ukraine",
+          "slug": "ukraine"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنستازيا سوبوليفا",
+            "ru": "Анастасия Соболева"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. سوبوليفا",
+            "ru": "А. Соболева"
+          }
+        },
+        "gender": "F",
+        "id": 328146,
+        "name": "Anastasiia Sobolieva",
+        "nameCode": "SOB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4853
+        },
+        "ranking": 194,
+        "shortName": "A. Sobolieva",
+        "slug": "soboleva-anastasiya-konstantinovna",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 857
+      },
+      "changes": {
+        "changeTimestamp": 1783269002,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "edIbsWmGc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 6,
+        "period2TieBreak": 5,
+        "period3": 2
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "id": 16444687,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 96473,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "anastasiia-sobolieva-alice-tubello",
+      "startTimestamp": 1783253284,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "ITF W50 Штутгарт-Вайхинген, женщины"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 188552,
+        "name": "ITF W50 Stuttgart-Vaihingen Women",
+        "priority": 0,
+        "slug": "itf-w50-stuttgart-vaihingen-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ru": "ITF W50 Штутгарт-Вайхинген, среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 35525,
+          "name": "ITF W50 Stuttgart-Vaihingen Women",
+          "slug": "itf-w50-stuttgart-vaihingen-women",
+          "userCount": 7
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 5,
+        "period3": 4,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CN",
+          "alpha3": "CHN",
+          "name": "China",
+          "slug": "china"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "يوفي رين",
+            "bn": "ইউফেই রেন",
+            "hi": "युफेई रेन",
+            "ru": "Юфэй Жэнь"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. رين",
+            "ru": "Ю. Жэнь"
+          }
+        },
+        "gender": "F",
+        "id": 455715,
+        "name": "Yufei Ren",
+        "nameCode": "REN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 12498
+        },
+        "ranking": 313,
+        "shortName": "Y. Ren",
+        "slug": "ren-yufei",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 456
+      },
+      "changes": {
+        "changeTimestamp": 1783431431,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "edIbspoHd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 2,
+        "period2": 7,
+        "period3": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "id": 16451479,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 91337,
+        "name": "WTA 125K Contrexeville, France Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "yufei-ren-alice-tubello",
+      "startTimestamp": 1783421400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1783428447,
+        "period1": 2399,
+        "period2": 4054,
+        "period3": 2951
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1783814400,
+        "id": 190353,
+        "isGroup": false,
+        "name": "Contrexeville, France",
+        "priority": 0,
+        "slug": "contrexeville-france",
+        "startTimestamp": 1783296000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كونتريكسفيل، فرنسا",
+              "ru": "Контрексевиль, Франция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18581,
+          "name": "Contrexeville, France",
+          "slug": "contrexeville-france",
+          "tennisPoints": 125,
+          "userCount": 146
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 3,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كارولين فيرنا",
+            "ru": "Вернер, Каролина"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. فيرنا"
+          }
+        },
+        "gender": "F",
+        "id": 47969,
+        "name": "Caroline Werner",
+        "nameCode": "WER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1612
+        },
+        "ranking": 286,
+        "shortName": "C. Werner",
+        "slug": "werner-caroline",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 883
+      },
+      "changes": {
+        "changeTimestamp": 1783513243,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "ujusedIb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "id": 16425252,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 91337,
+        "name": "WTA 125K Contrexeville, France Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "alice-tubello-caroline-werner",
+      "startTimestamp": 1783507200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1783510677,
+        "period1": 2866,
+        "period2": 2540
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1783814400,
+        "id": 190353,
+        "isGroup": false,
+        "name": "Contrexeville, France",
+        "priority": 0,
+        "slug": "contrexeville-france",
+        "startTimestamp": 1783296000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كونتريكسفيل، فرنسا",
+              "ru": "Контрексевиль, Франция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18581,
+          "name": "Contrexeville, France",
+          "slug": "contrexeville-france",
+          "tennisPoints": 125,
+          "userCount": 146
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 3,
+        "period3": 4,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "changes": {
+        "changeTimestamp": 1783706794,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period3",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "hjVsedIb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 3,
+        "period2": 6,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ليوليا جانجيان",
+            "bn": "লিওলিয়া জিনজিন",
+            "hi": "लेओलिया जीनजीन",
+            "ru": "Жанжан, Лоли"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. جانجيان"
+          }
+        },
+        "gender": "F",
+        "id": 112957,
+        "name": "Leolia Jeanjean",
+        "nameCode": "JEA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4592
+        },
+        "ranking": 127,
+        "shortName": "L. Jeanjean",
+        "slug": "jeanjean-leolia",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2827
+      },
+      "id": 16425213,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 91337,
+        "name": "WTA 125K Contrexeville, France Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "alice-tubello-leolia-jeanjean",
+      "startTimestamp": 1783697700,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1783703815,
+        "period1": 2850,
+        "period2": 3078,
+        "period3": 2965
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفات التنس 125",
+              "ru": "WTA 125"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta-125",
+          "id": 871,
+          "name": "WTA 125",
+          "priority": 5,
+          "slug": "wta-125",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1783814400,
+        "id": 190353,
+        "isGroup": false,
+        "name": "Contrexeville, France",
+        "priority": 0,
+        "slug": "contrexeville-france",
+        "startTimestamp": 1783296000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفات التنس 125",
+                "ru": "WTA 125"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta-125",
+            "id": 871,
+            "name": "WTA 125",
+            "priority": 5,
+            "slug": "wta-125",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كونتريكسفيل، فرنسا",
+              "ru": "Контрексевиль, Франция"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18581,
+          "name": "Contrexeville, France",
+          "slug": "contrexeville-france",
+          "tennisPoints": 125,
+          "userCount": 146
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 6,
+        "period1TieBreak": 3,
+        "period2": 2,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "KE",
+          "alpha3": "KEN",
+          "name": "Kenya",
+          "slug": "kenya"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنجيلا أوكوتوي",
+            "ru": "Анжелла Окутой"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. أوكوتوي",
+            "ru": "А. Окутой"
+          }
+        },
+        "gender": "F",
+        "id": 283616,
+        "name": "Angella Okutoyi",
+        "nameCode": "OKU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5818
+        },
+        "ranking": 488,
+        "shortName": "A. Okutoyi",
+        "slug": "okutoyi-angella",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 539
+      },
+      "changes": {
+        "changeTimestamp": 1785846418,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "firstToServe"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "edIbsqxnc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "id": 16712812,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 99562,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "angella-okutoyi-alice-tubello",
+      "startTimestamp": 1785834374,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بطولة الاتحاد الدولي للتنس W35 روهامبتون للسيدات",
+            "ru": "ITF W35 Роухэмптон среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 159050,
+        "name": "ITF W35 Roehampton Women",
+        "priority": 0,
+        "slug": "itf-w35-roehampton-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W35 روهامبتون للسيدات",
+              "ru": "ITF W35 Роухэмптон среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28225,
+          "name": "ITF W35 Roehampton Women",
+          "slug": "itf-w35-roehampton-women",
+          "userCount": 15
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "period2": 5,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "GB",
+          "alpha3": "GBR",
+          "name": "United Kingdom",
+          "slug": "united-kingdom"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إميلي أبلتون",
+            "ru": "Эпплтон, Эмили"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. أبلتون"
+          }
+        },
+        "gender": "F",
+        "id": 168526,
+        "name": "Emily Appleton",
+        "nameCode": "APP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3205
+        },
+        "ranking": 450,
+        "shortName": "E. Appleton",
+        "slug": "appleton-emily",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 663
+      },
+      "changes": {
+        "changeTimestamp": 1786021940,
+        "changes": [
+          "providerLock.status",
+          "providerLock.statusSource"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "BvrbsedIb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 3,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "id": 16736216,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 99562,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "alice-tubello-emily-appleton",
+      "startTimestamp": 1786007312,
+      "status": {
+        "code": 92,
+        "description": "Retired",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للسيدات",
+              "ru": "Женский мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-women",
+          "id": 213,
+          "name": "ITF Women",
+          "priority": 3,
+          "slug": "itf-women",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بطولة الاتحاد الدولي للتنس W35 روهامبتون للسيدات",
+            "ru": "ITF W35 Роухэмптон среди женщин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 159050,
+        "name": "ITF W35 Roehampton Women",
+        "priority": 0,
+        "slug": "itf-w35-roehampton-women",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للسيدات",
+                "ru": "Женский мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-women",
+            "id": 213,
+            "name": "ITF Women",
+            "priority": 3,
+            "slug": "itf-women",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ITF W35 روهامبتون للسيدات",
+              "ru": "ITF W35 Роухэмптон среди женщин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 28225,
+          "name": "ITF W35 Roehampton Women",
+          "slug": "itf-w35-roehampton-women",
+          "userCount": 15
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 4,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AU",
+          "alpha3": "AUS",
+          "name": "Australia",
+          "slug": "australia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بريسيلا هون",
+            "bn": "প্রিস্কিলা হণ",
+            "hi": "प्रिसिला हॉन",
+            "ru": "Хон, Присцилла"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. هون"
+          }
+        },
+        "gender": "F",
+        "id": 87834,
+        "name": "Priscilla Hon",
+        "nameCode": "HON",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 432
+        },
+        "ranking": 156,
+        "shortName": "P. Hon",
+        "slug": "hon-priscilla",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2039
+      },
+      "changes": {
+        "changeTimestamp": 1787693005,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "correctAiInsight": true,
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JgKsedIb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "F"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "grand-slam"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": true,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 4,
+        "period2": 6,
+        "period3": 2,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليس توبيلو",
+            "ru": "Тубелло, Алис"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. توبيلو"
+          }
+        },
+        "gender": "F",
+        "id": 207654,
+        "name": "Alice Tubello",
+        "nameCode": "TUB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3395
+        },
+        "ranking": 222,
+        "shortName": "A. Tubello",
+        "slug": "tubello-alice",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 657
+      },
+      "id": 16902520,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 85958,
+        "name": "US Open Women Singles 2026",
+        "year": "2026"
+      },
+      "slug": "alice-tubello-priscilla-hon",
+      "startTimestamp": 1787684400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1787690715,
+        "period1": 2800,
+        "period2": 3063,
+        "period3": 2241
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة لاعبات التنس",
+              "bn": "ডব্লিউটিএ",
+              "hi": "चैलेंजर",
+              "ru": "WTA"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "wta",
+          "id": 6,
+          "name": "WTA",
+          "priority": 7,
+          "slug": "wta",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1787788800,
+        "id": 196860,
+        "isGroup": false,
+        "name": "US Open, New York, USA, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "us-open-new-york-usa-qualifying",
+        "startTimestamp": 1787443200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة لاعبات التنس",
+                "bn": "ডব্লিউটিএ",
+                "hi": "चैलेंजर",
+                "ru": "WTA"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "wta",
+            "id": 6,
+            "name": "WTA",
+            "priority": 7,
+            "slug": "wta",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة أمريكا المفتوحة، فردي السيدات",
+              "az": "US Open, Qadınlar",
+              "bn": "ইউএস ওপেন, নারী একক",
+              "de": "US Open Dameneinzel",
+              "el": "Αμερικανικό Όπεν, απλό γυναικών",
+              "es": "US Open, femenino",
+              "es-la": "US Open, Femenil",
+              "fr": "US Open simple dames",
+              "hi": "यूएस ओपन, महिला",
+              "hr": "US Open (Ž)",
+              "hu": "US Open, női egyes",
+              "id": "US Open, Tunggal (Pi)",
+              "it": "US Open (F)",
+              "ja": "全米オープン、女子",
+              "ko": "US 오픈 여자 단식",
+              "nl": "US Open vrouwenenkelspel",
+              "no": "US Open, kvinner",
+              "pl": "US Open, singiel kobiet",
+              "pt": "US Open feminino",
+              "pt-pt": "US Open (F)",
+              "ro": "US Open, simplu feminin",
+              "ru": "Открытый чемпионат США",
+              "sr": "Ју Ес опен, појединачно (Ж)",
+              "sv": "US Open, damsingel",
+              "th": "ยูเอสโอเพน หญิงเดี่ยว",
+              "tr": "Amerika Açık, Tek Kadınlar",
+              "vi": "Mỹ Mở rộng, đơn nữ"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2601,
+          "name": "US Open, Women",
+          "primaryColorHex": "#0073b9",
+          "secondaryColorHex": "#e51937",
+          "slug": "us-open",
+          "tennisPoints": 2000,
+          "userCount": 11024
+        }
+      },
+      "winnerCode": 2
+    }
+  ],
+  "has_next_page": true,
+  "page": 0,
+  "player_id": 207654,
+  "saved_at": 1788182938.2415242,
+  "saved_at_iso": "2026-08-31T13:28:58+00:00",
+  "source": "API_PRO_PREVIOUS_MATCHES",
+  "status": "OK"
+}

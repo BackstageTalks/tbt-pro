@@ -1,0 +1,7266 @@
+{
+  "api_status_code": 200,
+  "endpoint": "https://tennisapi1.p.rapidapi.com/api/tennis/player/64570/events/previous/1",
+  "events": [
+    {
+      "awayScore": {
+        "current": 3,
+        "display": 3,
+        "normaltime": 3,
+        "period1": 1,
+        "period2": 6,
+        "period3": 6,
+        "period4": 5,
+        "period5": 7,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جوليو زيبيري",
+            "ru": "Джулио Зеппьери"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. زيبيري",
+            "bn": "জি. জেপিয়ারি",
+            "hi": "जी. जेप्पीएरी",
+            "ru": "Д. Зеппьери"
+          }
+        },
+        "gender": "M",
+        "id": 237188,
+        "name": "Giulio Zeppieri",
+        "nameCode": "ZEP",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2986
+        },
+        "ranking": 238,
+        "shortName": "G. Zeppieri",
+        "slug": "zeppieri-giulio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4294
+      },
+      "changes": {
+        "changeTimestamp": 1750947596,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period5"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAsNTUb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Grass",
+      "hasGlobalHighlights": true,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 2,
+        "period3": 4,
+        "period4": 7,
+        "period5": 5,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "homeTeamSeed": "8",
+      "id": 14051408,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 63966,
+        "name": "Wimbledon Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "giulio-zeppieri-cristian-garin",
+      "startTimestamp": 1750932000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1750944339,
+        "period1": 1319,
+        "period2": 1713,
+        "period3": 2408,
+        "period4": 6465,
+        "period5": 3237
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1750982400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بطولة ويمبلدون، لندن، بريطانيا، التصفيات، الجولة 3",
+            "ru": "Уимблдон, Лондон, Великобритания, отборочный, 3-й раунд"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 156062,
+        "isGroup": false,
+        "name": "Wimbledon, London, GB, Qualifying, 3rd Round",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "wimbledon-london-gb-qualifying-3rd-round",
+        "startTimestamp": 1750896000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ويمبلدون، فردي الرجال",
+              "az": "Wimbledon, Kişilər",
+              "bn": "উইম্বলডন, পুরুষ একক",
+              "de": "Wimbledon Herreneinzel",
+              "el": "Γουίμπλεντον, απλό ανδρών",
+              "es": "Wimbledon, masculino",
+              "es-la": "Wimbledon, Varonil",
+              "fr": "Wimbledon simple messieurs",
+              "hi": "विम्बलडन, पुरुष",
+              "hr": "Wimbledon (M)",
+              "hu": "Wimbledon, férfi egyes",
+              "id": "Wimbledon, Tunggal (Pa)",
+              "it": "Wimbledon (M)",
+              "ja": "ウィンブルドン、男子",
+              "ko": "윔블던 남자 단식",
+              "nl": "Wimbledon mannenenkelspel",
+              "no": "Wimbledon, menn",
+              "pl": "Wimbledon, singiel mężczyzn",
+              "pt": "Wimbledon masculino",
+              "pt-pt": "Wimbledon (M)",
+              "ro": "Wimbledon, simplu masculin",
+              "ru": "Уимблдон, мужской одиночный разряд",
+              "sr": "Вимблдон, појединачно (М)",
+              "sv": "Wimbledon, herrsingel",
+              "th": "วิมเบิลดัน ชายเดี่ยว",
+              "tr": "Wimbledon, Tek Erkekler",
+              "vi": "Wimbledon, đơn nam"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Grass",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2361,
+          "name": "Wimbledon, Men",
+          "primaryColorHex": "#006633",
+          "secondaryColorHex": "#54008b",
+          "slug": "wimbledon",
+          "tennisPoints": 2000,
+          "userCount": 40783
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 8,
+        "period2": 4,
+        "period3": 4,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "LU",
+          "alpha3": "LUX",
+          "name": "Luxembourg",
+          "slug": "luxembourg"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريس روديش",
+            "ru": "Родеш, Крис"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. روديش"
+          }
+        },
+        "gender": "M",
+        "id": 225273,
+        "name": "Chris Rodesch",
+        "nameCode": "ROD",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5161
+        },
+        "ranking": 153,
+        "shortName": "C. Rodesch",
+        "slug": "rodesch-chris",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1642
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1751303742,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAsyfPb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Grass",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 3,
+        "display": 3,
+        "normaltime": 3,
+        "period1": 7,
+        "period1TieBreak": 10,
+        "period2": 6,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "homeTeamSeed": "LL",
+      "id": 14074158,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Round of 128",
+        "round": 64,
+        "slug": "round-of-128"
+      },
+      "season": {
+        "editor": false,
+        "id": 63966,
+        "name": "Wimbledon Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "chris-rodesch-cristian-garin",
+      "startTimestamp": 1751295333,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1751301774,
+        "period1": 3398,
+        "period2": 2670,
+        "period3": 1941
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1752364800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بطولة ويمبلدون، لندن، بريطانيا",
+            "ru": "Уимблдон, Лондон, Великобритания"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 155924,
+        "isGroup": false,
+        "name": "Wimbledon, London, Great Britain",
+        "priority": 0,
+        "slug": "wimbledon-london-great-britain",
+        "startTimestamp": 1751241600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ويمبلدون، فردي الرجال",
+              "az": "Wimbledon, Kişilər",
+              "bn": "উইম্বলডন, পুরুষ একক",
+              "de": "Wimbledon Herreneinzel",
+              "el": "Γουίμπλεντον, απλό ανδρών",
+              "es": "Wimbledon, masculino",
+              "es-la": "Wimbledon, Varonil",
+              "fr": "Wimbledon simple messieurs",
+              "hi": "विम्बलडन, पुरुष",
+              "hr": "Wimbledon (M)",
+              "hu": "Wimbledon, férfi egyes",
+              "id": "Wimbledon, Tunggal (Pa)",
+              "it": "Wimbledon (M)",
+              "ja": "ウィンブルドン、男子",
+              "ko": "윔블던 남자 단식",
+              "nl": "Wimbledon mannenenkelspel",
+              "no": "Wimbledon, menn",
+              "pl": "Wimbledon, singiel mężczyzn",
+              "pt": "Wimbledon masculino",
+              "pt-pt": "Wimbledon (M)",
+              "ro": "Wimbledon, simplu masculin",
+              "ru": "Уимблдон, мужской одиночный разряд",
+              "sr": "Вимблдон, појединачно (М)",
+              "sv": "Wimbledon, herrsingel",
+              "th": "วิมเบิลดัน ชายเดี่ยว",
+              "tr": "Wimbledon, Tek Erkekler",
+              "vi": "Wimbledon, đơn nam"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Grass",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2361,
+          "name": "Wimbledon, Men",
+          "primaryColorHex": "#006633",
+          "secondaryColorHex": "#54008b",
+          "slug": "wimbledon",
+          "tennisPoints": 2000,
+          "userCount": 40783
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 3,
+        "display": 3,
+        "normaltime": 3,
+        "period1": 3,
+        "period2": 6,
+        "period3": 7,
+        "period3TieBreak": 7,
+        "period4": 4,
+        "period5": 6
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "آرثر ريندركنش",
+            "bn": "আর্থার রিন্ডারকনেচ",
+            "hi": "आर्थर रिंडरक्नेक",
+            "ru": "Артур Риндеркнеш"
+          },
+          "shortNameTranslation": {
+            "ar": "آ. ريندركنش",
+            "ru": "А. Риндеркнеш"
+          }
+        },
+        "gender": "M",
+        "id": 63606,
+        "name": "Arthur Rinderknech",
+        "nameCode": "RIN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 626
+        },
+        "ranking": 28,
+        "shortName": "A. Rinderknech",
+        "slug": "rinderknech-arthur",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 10751
+      },
+      "changes": {
+        "changeTimestamp": 1786543704,
+        "changes": [
+          "homeScore.point",
+          "awayScore.point"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "gxAsvQA",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Grass",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 3,
+        "period3": 6,
+        "period3TieBreak": 3,
+        "period4": 6,
+        "period5": 3
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "homeTeamSeed": "LL",
+      "id": 14046352,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Round of 64",
+        "round": 32,
+        "slug": "round-of-64"
+      },
+      "season": {
+        "editor": false,
+        "id": 63966,
+        "name": "Wimbledon Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "cristian-garin-arthur-rinderknech",
+      "startTimestamp": 1751476800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1751547864,
+        "period1": 2246,
+        "period2": 2462,
+        "period3": 3778,
+        "period4": 62082,
+        "period5": 2714
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1752364800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بطولة ويمبلدون، لندن، بريطانيا",
+            "ru": "Уимблдон, Лондон, Великобритания"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 155924,
+        "isGroup": false,
+        "name": "Wimbledon, London, Great Britain",
+        "priority": 0,
+        "slug": "wimbledon-london-great-britain",
+        "startTimestamp": 1751241600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ويمبلدون، فردي الرجال",
+              "az": "Wimbledon, Kişilər",
+              "bn": "উইম্বলডন, পুরুষ একক",
+              "de": "Wimbledon Herreneinzel",
+              "el": "Γουίμπλεντον, απλό ανδρών",
+              "es": "Wimbledon, masculino",
+              "es-la": "Wimbledon, Varonil",
+              "fr": "Wimbledon simple messieurs",
+              "hi": "विम्बलडन, पुरुष",
+              "hr": "Wimbledon (M)",
+              "hu": "Wimbledon, férfi egyes",
+              "id": "Wimbledon, Tunggal (Pa)",
+              "it": "Wimbledon (M)",
+              "ja": "ウィンブルドン、男子",
+              "ko": "윔블던 남자 단식",
+              "nl": "Wimbledon mannenenkelspel",
+              "no": "Wimbledon, menn",
+              "pl": "Wimbledon, singiel mężczyzn",
+              "pt": "Wimbledon masculino",
+              "pt-pt": "Wimbledon (M)",
+              "ro": "Wimbledon, simplu masculin",
+              "ru": "Уимблдон, мужской одиночный разряд",
+              "sr": "Вимблдон, појединачно (М)",
+              "sv": "Wimbledon, herrsingel",
+              "th": "วิมเบิลดัน ชายเดี่ยว",
+              "tr": "Wimbledon, Tek Erkekler",
+              "vi": "Wimbledon, đơn nam"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Grass",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2361,
+          "name": "Wimbledon, Men",
+          "primaryColorHex": "#006633",
+          "secondaryColorHex": "#54008b",
+          "slug": "wimbledon",
+          "tennisPoints": 2000,
+          "userCount": 40783
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 4,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "changes": {
+        "changeTimestamp": 1752670533,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAsxxDb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كاميلو أوجو كارابيلي",
+            "ru": "Уго Карабельи, Камило"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. كارابيلي",
+            "bn": "সি. উগো কারাবেলি",
+            "hi": "सी. उगो काराबेली"
+          }
+        },
+        "gender": "M",
+        "id": 196122,
+        "name": "Camilo Ugo Carabelli",
+        "nameCode": "UGO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 702
+        },
+        "ranking": 76,
+        "shortName": "C. Ugo Carabelli",
+        "slug": "ugo-carabelli-camilo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 6823
+      },
+      "homeTeamSeed": "5",
+      "id": 14169965,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 67378,
+        "name": "ATP Bastad, Sweden Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "camilo-ugo-carabelli-cristian-garin",
+      "startTimestamp": 1752664500,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1752666707,
+        "period1": 3203,
+        "period2": 3782
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1752969600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "باستاد، السويد",
+            "ru": "Бастад, Швеция"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 157347,
+        "isGroup": false,
+        "name": "Bastad, Sweden",
+        "priority": 0,
+        "slug": "bastad-sweden",
+        "startTimestamp": 1752451200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "باستاد",
+              "bn": "বাস্তাড",
+              "hi": "बस्ताद",
+              "ru": "Бастад"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2413,
+          "name": "Bastad",
+          "primaryColorHex": "#034ea2",
+          "secondaryColorHex": "#ffe37e",
+          "slug": "bastad",
+          "tennisPoints": 250,
+          "userCount": 2214
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 3,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "changes": {
+        "changeTimestamp": 1753121031,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period2",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAsADXb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تيتوان دروجيه",
+            "bn": "টিটুয়ান দ্রোগেট",
+            "hi": "तीतुआन द्रोगुएट",
+            "ru": "Дроге, Титуан"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. دروجيه"
+          }
+        },
+        "gender": "M",
+        "id": 243925,
+        "name": "Titouan Droguet",
+        "nameCode": "DRO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3015
+        },
+        "ranking": 111,
+        "shortName": "T. Droguet",
+        "slug": "droguet-titouan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3774
+      },
+      "homeTeamSeed": "Q",
+      "id": 14233966,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 67384,
+        "name": "ATP Umag, Croatia Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "titouan-droguet-cristian-garin",
+      "startTimestamp": 1753116000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1753118908,
+        "period1": 2240,
+        "period2": 2109
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1753488000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أوماغ، كرواتيا",
+            "ru": "Умаг, Хорватия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 158038,
+        "isGroup": false,
+        "name": "Umag, Croatia",
+        "priority": 0,
+        "slug": "umag-croatia",
+        "startTimestamp": 1752969600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اوماج",
+              "bn": "উমং",
+              "hi": "उमाग",
+              "ru": "Умаг"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2426,
+          "name": "Umag",
+          "primaryColorHex": "#f39801",
+          "secondaryColorHex": "#515155",
+          "slug": "umag",
+          "tennisPoints": 250,
+          "userCount": 2082
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 4,
+        "period2": 6,
+        "period3": 6,
+        "period3TieBreak": 5
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "awayTeamSeed": "16",
+      "changes": {
+        "changeTimestamp": 1755075788,
+        "changes": [
+          "homeScore.point",
+          "awayScore.point"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAsWTqd",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 3,
+        "period3": 7,
+        "period3TieBreak": 7
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "ES",
+          "alpha3": "ESP",
+          "name": "Spain",
+          "slug": "spain"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارتين لاندالوسي",
+            "ru": "Мартин Ландалуке"
+          },
+          "shortNameTranslation": {
+            "ar": "م. لاندالوسي",
+            "ru": "М. Ландалуке"
+          }
+        },
+        "gender": "M",
+        "id": 417196,
+        "name": "Martin Landaluce",
+        "nameCode": "LAN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 6802
+        },
+        "ranking": 67,
+        "shortName": "M. Landaluce",
+        "slug": "landaluce-martin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9819
+      },
+      "id": 14350799,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 67299,
+        "name": "ATP Cincinnati, USA Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "martin-landaluce-cristian-garin",
+      "startTimestamp": 1754404200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1754410421,
+        "period1": 2941,
+        "period2": 2782,
+        "period3": 4475
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1754438400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تصفيات سينسيناتي، الولايات المتحدة الأمريكية",
+            "ru": "Цинциннати, США, Квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 160039,
+        "isGroup": false,
+        "name": "Cincinnati, USA, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "cincinnati-usa-qualifying",
+        "startTimestamp": 1754352000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "سينسيناتي",
+              "bn": "সিনসিনাটি",
+              "hi": "सिनसिनाटी",
+              "ru": "Синсиннати"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2373,
+          "name": "Cincinnati",
+          "primaryColorHex": "#184d8c",
+          "secondaryColorHex": "#4a8ec8",
+          "slug": "cincinnati",
+          "tennisPoints": 1000,
+          "userCount": 7877
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 4,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "JP",
+          "alpha3": "JPN",
+          "name": "Japan",
+          "slug": "japan"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "يوسوكه واتانكي",
+            "ru": "Ватануки, Есуке"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. واتانكي",
+            "bn": "ওয়াই. ওয়াতানুকি",
+            "hi": "वाई. वातानुकी"
+          }
+        },
+        "gender": "M",
+        "id": 157302,
+        "name": "Yosuke Watanuki",
+        "nameCode": "WAT",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 236
+        },
+        "ranking": 416,
+        "shortName": "Y. Watanuki",
+        "slug": "watanuki-yosuke",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2515
+      },
+      "changes": {
+        "changeTimestamp": 1755540785,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAscWmb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": true,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "homeTeamSeed": "13",
+      "id": 14466733,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 67287,
+        "name": "US Open Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "yosuke-watanuki-cristian-garin",
+      "startTimestamp": 1755534900,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1755537739,
+        "period1": 2295,
+        "period2": 2987
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1755820800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بطولة أمريكا المفتوحة للتنس، نيويورك، الولايات المتحدة، التصفيات",
+            "ru": "US Open, New York, USA, Qualifying"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 161143,
+        "isGroup": false,
+        "name": "US Open, New York, USA, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "us-open-new-york-usa-qualifying",
+        "startTimestamp": 1755475200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة أمريكا المفتوحة، فردي الرجال",
+              "az": "US Open, Kişilər",
+              "bn": "ইউএস ওপেন, পুরুষ একক",
+              "de": "US Open Herreneinzel",
+              "el": "Αμερικανικό Όπεν, απλό ανδρών",
+              "es": "US Open, masculino",
+              "es-la": "US Open, Varonil",
+              "fr": "US Open simple messieurs",
+              "hi": "यूएस ओपन, पुरुष",
+              "hr": "US Open (M)",
+              "hu": "US Open, férfi egyes",
+              "id": "US Open, Tunggal (Pa)",
+              "it": "US Open (M)",
+              "ja": "全米オープン、男子",
+              "ko": "US 오픈 남자 단식",
+              "nl": "US Open mannenenkelspel",
+              "no": "US Open, menn",
+              "pl": "US Open, singiel mężczyzn",
+              "pt": "US Open masculino",
+              "pt-pt": "US Open (M)",
+              "ro": "US Open, simplu masculin",
+              "ru": "US Open, мужской одиночный разряд",
+              "sr": "Ју Ес опен, појединачно (М)",
+              "sv": "US Open, herrsingel",
+              "th": "ยูเอสโอเพน ชายเดี่ยว",
+              "tr": "Amerika Açık, Tek Erkekler",
+              "vi": "Mỹ Mở rộng, đơn nam"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2449,
+          "name": "US Open, Men",
+          "primaryColorHex": "#00288c",
+          "secondaryColorHex": "#63a1e0",
+          "slug": "us-open",
+          "tennisPoints": 2000,
+          "userCount": 31375
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 7
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماركو ترونغيلتي",
+            "bn": "মার্কো ট্রুঞ্জেলিটি",
+            "hi": "मार्को त्रुंगेलिती",
+            "ru": "Марко Трунджеллити"
+          },
+          "shortNameTranslation": {
+            "ar": "م. ترونغيلتي"
+          }
+        },
+        "gender": "M",
+        "id": 38517,
+        "name": "Marco Trungelliti",
+        "nameCode": "TRU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 142
+        },
+        "ranking": 91,
+        "shortName": "M. Trungelliti",
+        "slug": "trungelliti-marco",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4534
+      },
+      "changes": {
+        "changeTimestamp": 1786543712,
+        "changes": [
+          "homeScore.point",
+          "awayScore.point",
+          "time.period1"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "rvpsvQA",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": true,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 3,
+        "period2": 5
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "homeTeamSeed": "13",
+      "id": 14475167,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 2",
+        "round": 2,
+        "slug": "qualification-round-2"
+      },
+      "season": {
+        "editor": false,
+        "id": 67287,
+        "name": "US Open Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "cristian-garin-marco-trungelliti",
+      "startTimestamp": 1755795900,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1755798396,
+        "period1": 4566,
+        "period2": 3972
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1755820800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بطولة أمريكا المفتوحة للتنس، نيويورك، الولايات المتحدة، التصفيات",
+            "ru": "US Open, New York, USA, Qualifying"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 161143,
+        "isGroup": false,
+        "name": "US Open, New York, USA, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "us-open-new-york-usa-qualifying",
+        "startTimestamp": 1755475200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بطولة أمريكا المفتوحة، فردي الرجال",
+              "az": "US Open, Kişilər",
+              "bn": "ইউএস ওপেন, পুরুষ একক",
+              "de": "US Open Herreneinzel",
+              "el": "Αμερικανικό Όπεν, απλό ανδρών",
+              "es": "US Open, masculino",
+              "es-la": "US Open, Varonil",
+              "fr": "US Open simple messieurs",
+              "hi": "यूएस ओपन, पुरुष",
+              "hr": "US Open (M)",
+              "hu": "US Open, férfi egyes",
+              "id": "US Open, Tunggal (Pa)",
+              "it": "US Open (M)",
+              "ja": "全米オープン、男子",
+              "ko": "US 오픈 남자 단식",
+              "nl": "US Open mannenenkelspel",
+              "no": "US Open, menn",
+              "pl": "US Open, singiel mężczyzn",
+              "pt": "US Open masculino",
+              "pt-pt": "US Open (M)",
+              "ro": "US Open, simplu masculin",
+              "ru": "US Open, мужской одиночный разряд",
+              "sr": "Ју Ес опен, појединачно (М)",
+              "sv": "US Open, herrsingel",
+              "th": "ยูเอสโอเพน ชายเดี่ยว",
+              "tr": "Amerika Açık, Tek Erkekler",
+              "vi": "Mỹ Mở rộng, đơn nam"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2449,
+          "name": "US Open, Men",
+          "primaryColorHex": "#00288c",
+          "secondaryColorHex": "#63a1e0",
+          "slug": "us-open",
+          "tennisPoints": 2000,
+          "userCount": 31375
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 2,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 2,
+        "point": "15",
+        "series": 0
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "LU",
+          "alpha3": "LUX",
+          "name": "Luxembourg",
+          "slug": "luxembourg"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "آرون جيل غارسيا",
+            "ru": "Аарон Гил Гарсия"
+          },
+          "shortNameTranslation": {
+            "ar": "آ. غارسيا",
+            "ru": "А. Гарсия"
+          }
+        },
+        "gender": "M",
+        "id": 414859,
+        "name": "Aaron Gil Garcia",
+        "nameCode": "GIL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 14729
+        },
+        "ranking": 1329,
+        "shortName": "A. Gil Garcia",
+        "slug": "gil-garcia-aaron",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 121
+      },
+      "changes": {
+        "changeTimestamp": 1757803776,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAsjXpd",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "period2TieBreak": 1,
+        "period3": 6,
+        "point": "40",
+        "series": 1
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "id": 14675576,
+      "isEditor": false,
+      "parentEventId": 14636887,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "season": {
+        "editor": false,
+        "id": 70265,
+        "name": "Davis Cup 2025",
+        "year": "2025"
+      },
+      "slug": "aaron-gil-garcia-cristian-garin",
+      "startTimestamp": 1757796600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1757801251,
+        "period1": 356,
+        "period2": 4200,
+        "period3": 2494
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كأس ديفيس",
+              "ru": "Кубок Дэвиса"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "davis-cup",
+          "id": 76,
+          "name": "Davis Cup",
+          "priority": 0,
+          "slug": "davis-cup",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1798675200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كأس ديفيز، المباريات الفردية، المجموعة I-IV",
+            "bn": "ডেভিস কাপ সিঙ্গেল ম্যাচ, গ্রুপ I-IV",
+            "hi": "डेविस कप सिंगल मैच, ग्रुप I-IV",
+            "ru": "Кубок Дэвиса, одиночные матчи, Группа I-V"
+          },
+          "shortNameTranslation": {}
+        },
+        "groupName": "Group III",
+        "id": 47372,
+        "isGroup": true,
+        "isLive": false,
+        "name": "Davis Cup Single Matches, Group I-V",
+        "priority": 0,
+        "slug": "davis-cup-single-matches-group-i-iv",
+        "startTimestamp": 1767225600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "كأس ديفيس",
+                "ru": "Кубок Дэвиса"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "davis-cup",
+            "id": 76,
+            "name": "Davis Cup",
+            "priority": 0,
+            "slug": "davis-cup",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كأس ديفيس",
+              "bn": "ডেভিস কাপ",
+              "hi": "डेविस कप",
+              "ru": "Кубок Дэвиса"
+            },
+            "shortNameTranslation": {}
+          },
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2287,
+          "name": "Davis Cup",
+          "slug": "davis-cup",
+          "userCount": 5129
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {},
+      "awayTeam": {
+        "country": {
+          "alpha2": "LU",
+          "alpha3": "LUX",
+          "name": "Luxembourg",
+          "slug": "luxembourg"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليكس كناف",
+            "ru": "Алекс Кнафф"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كناف",
+            "ru": "А. Кнафф"
+          }
+        },
+        "gender": "M",
+        "id": 201885,
+        "name": "Alex Knaff",
+        "nameCode": "KNA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2692
+        },
+        "ranking": 840,
+        "shortName": "A. Knaff",
+        "slug": "knaff-alex",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 345
+      },
+      "changes": {
+        "changeTimestamp": 1757886975,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAsKMFb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "hasGlobalHighlights": false,
+      "homeScore": {},
+      "homeTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "id": 14675577,
+      "isEditor": false,
+      "parentEventId": 14636887,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "season": {
+        "editor": false,
+        "id": 70265,
+        "name": "Davis Cup 2025",
+        "year": "2025"
+      },
+      "slug": "alex-knaff-cristian-garin",
+      "startTimestamp": 1757887500,
+      "status": {
+        "code": 70,
+        "description": "Canceled",
+        "type": "canceled"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كأس ديفيس",
+              "ru": "Кубок Дэвиса"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "davis-cup",
+          "id": 76,
+          "name": "Davis Cup",
+          "priority": 0,
+          "slug": "davis-cup",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1798675200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كأس ديفيز، المباريات الفردية، المجموعة I-IV",
+            "bn": "ডেভিস কাপ সিঙ্গেল ম্যাচ, গ্রুপ I-IV",
+            "hi": "डेविस कप सिंगल मैच, ग्रुप I-IV",
+            "ru": "Кубок Дэвиса, одиночные матчи, Группа I-V"
+          },
+          "shortNameTranslation": {}
+        },
+        "groupName": "Group III",
+        "id": 47372,
+        "isGroup": true,
+        "isLive": false,
+        "name": "Davis Cup Single Matches, Group I-V",
+        "priority": 0,
+        "slug": "davis-cup-single-matches-group-i-iv",
+        "startTimestamp": 1767225600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "كأس ديفيس",
+                "ru": "Кубок Дэвиса"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "davis-cup",
+            "id": 76,
+            "name": "Davis Cup",
+            "priority": 0,
+            "slug": "davis-cup",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كأس ديفيس",
+              "bn": "ডেভিস কাপ",
+              "hi": "डेविस कप",
+              "ru": "Кубок Дэвиса"
+            },
+            "shortNameTranslation": {}
+          },
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 2287,
+          "name": "Davis Cup",
+          "slug": "davis-cup",
+          "userCount": 5129
+        }
+      }
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نيكولاس كيكير",
+            "bn": "নিকোলাস কিকার",
+            "hi": "निकोलस किकर",
+            "ru": "Кикер, Николас"
+          },
+          "shortNameTranslation": {
+            "ar": "ن. كيكير"
+          }
+        },
+        "gender": "M",
+        "id": 66086,
+        "name": "Nicolas Kicker",
+        "nameCode": "KIC",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 416
+        },
+        "ranking": 366,
+        "shortName": "N. Kicker",
+        "slug": "kicker-nicolas",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2073
+      },
+      "awayTeamSeed": "A",
+      "changes": {
+        "changeTimestamp": 1758656387,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAsLwB",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 4,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "homeTeamSeed": "4",
+      "id": 14732876,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 76595,
+        "name": "ATP Challenger Buenos Aires II, ARG Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "nicolas-kicker-cristian-garin",
+      "startTimestamp": 1758648600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1758652526,
+        "period1": 3300,
+        "period2": 3829
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1759017600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بوينس آيرس 2، الأرجنتين",
+            "ru": "UTR PTT Эссен среди женщин 01, 1-4 Плей-офф"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 163988,
+        "isGroup": false,
+        "name": "Buenos Aires 2, Argentina",
+        "priority": 0,
+        "slug": "buenos-aires-2-argentina",
+        "startTimestamp": 1758499200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بوينس آيرس، الأرجنتين",
+              "ru": "Буэнос-Айрес, Аргентина"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 10592,
+          "name": "Buenos Aires, Argentina",
+          "slug": "buenos-aires-argentina",
+          "tennisPoints": 100,
+          "userCount": 165
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "awayTeamSeed": "2",
+      "changes": {
+        "changeTimestamp": 1759258071,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAsvZnd",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 2,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بنجامين تورريالبا",
+            "ru": "Бенжамин Торреальба"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. تورريالبا",
+            "ru": "Б. Торреальба"
+          }
+        },
+        "gender": "M",
+        "id": 409970,
+        "name": "Benjamin Torrealba",
+        "nameCode": "TOR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 17961
+        },
+        "ranking": 803,
+        "shortName": "B. Torrealba",
+        "slug": "torrealba-benjamin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 488
+      },
+      "homeTeamSeed": "WC",
+      "id": 14786879,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 76604,
+        "name": "ATP Challenger Antofagasta, Chile Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "benjamin-torrealba-cristian-garin",
+      "startTimestamp": 1759251300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1759254498,
+        "period1": 2696,
+        "period2": 3515
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1759622400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنتوفاغاستا، تشيلي",
+            "ru": "Антофагаста, Чили"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 164857,
+        "isGroup": false,
+        "name": "Antofagasta, Chile",
+        "priority": 0,
+        "slug": "antofagasta-chile",
+        "startTimestamp": 1759104000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أنتوفاغاستا، تشيلي",
+              "ru": "Антофагаста, Чили"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 21098,
+          "name": "Antofagasta, Chile",
+          "slug": "antofagasta-chile",
+          "tennisPoints": 100,
+          "userCount": 84
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 2,
+        "period2": 6,
+        "period3": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "awayTeamSeed": "2",
+      "changes": {
+        "changeTimestamp": 1759338804,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAsXpWb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 1,
+        "period3": 1,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "UY",
+          "alpha3": "URY",
+          "name": "Uruguay",
+          "slug": "uruguay"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فرانكو رونكاديللي",
+            "ru": "Ронкаделли, Франко"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. رونكاديللي"
+          }
+        },
+        "gender": "M",
+        "id": 240797,
+        "name": "Franco Roncadelli",
+        "nameCode": "RON",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5093
+        },
+        "ranking": 237,
+        "shortName": "F. Roncadelli",
+        "slug": "roncadelli-franco",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1145
+      },
+      "homeTeamSeed": "Q",
+      "id": 14786199,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 76604,
+        "name": "ATP Challenger Antofagasta, Chile Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "franco-roncadelli-cristian-garin",
+      "startTimestamp": 1759331100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1759336516,
+        "period1": 2655,
+        "period2": 2164,
+        "period3": 2221
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1759622400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنتوفاغاستا، تشيلي",
+            "ru": "Антофагаста, Чили"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 164857,
+        "isGroup": false,
+        "name": "Antofagasta, Chile",
+        "priority": 0,
+        "slug": "antofagasta-chile",
+        "startTimestamp": 1759104000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أنتوفاغاستا، تشيلي",
+              "ru": "Антофагаста, Чили"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 21098,
+          "name": "Antofagasta, Chile",
+          "slug": "antofagasta-chile",
+          "tennisPoints": 100,
+          "userCount": 84
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 13,
+        "period2": 1,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "awayTeamSeed": "2",
+      "changes": {
+        "changeTimestamp": 1759520325,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAsPPAb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period1TieBreak": 11,
+        "period2": 6,
+        "period3": 3,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "LB",
+          "alpha3": "LBN",
+          "name": "Lebanon",
+          "slug": "lebanon"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "هادي حبيب",
+            "ru": "Хади Хабиб"
+          },
+          "shortNameTranslation": {
+            "ar": "ه. حبيب",
+            "ru": "Х. Хабиб"
+          }
+        },
+        "gender": "M",
+        "id": 189540,
+        "name": "Hady Habib",
+        "nameCode": "HAB",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2509
+        },
+        "ranking": 706,
+        "shortName": "H. Habib",
+        "slug": "habib-hady",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2652
+      },
+      "homeTeamSeed": "6",
+      "id": 14786205,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 76604,
+        "name": "ATP Challenger Antofagasta, Chile Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "hady-habib-cristian-garin",
+      "startTimestamp": 1759510800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1759517321,
+        "period1": 3868,
+        "period2": 1971,
+        "period3": 2939
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1759622400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنتوفاغاستا، تشيلي",
+            "ru": "Антофагаста, Чили"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 164857,
+        "isGroup": false,
+        "name": "Antofagasta, Chile",
+        "priority": 0,
+        "slug": "antofagasta-chile",
+        "startTimestamp": 1759104000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أنتوفاغاستا، تشيلي",
+              "ru": "Антофагаста, Чили"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 21098,
+          "name": "Antofagasta, Chile",
+          "slug": "antofagasta-chile",
+          "tennisPoints": 100,
+          "userCount": 84
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "awayTeamSeed": "2",
+      "changes": {
+        "changeTimestamp": 1759606550,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAsZNFc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 5,
+        "period2": 2,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "PY",
+          "alpha3": "PRY",
+          "name": "Paraguay",
+          "slug": "paraguay"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أدولفو دانييل فاليخو",
+            "ru": "Адольфо Даниэль Вальехо"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. فاليخو",
+            "ru": "А. Вальехо"
+          }
+        },
+        "gender": "M",
+        "id": 326949,
+        "name": "Adolfo Daniel Vallejo",
+        "nameCode": "VAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5354
+        },
+        "ranking": 70,
+        "shortName": "A. Vallejo",
+        "slug": "vallejo-daniel",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "id": 14786204,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 76604,
+        "name": "ATP Challenger Antofagasta, Chile Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "adolfo-daniel-vallejo-cristian-garin",
+      "startTimestamp": 1759598100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1759603700,
+        "period1": 4920,
+        "period2": 2790
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1759622400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنتوفاغاستا، تشيلي",
+            "ru": "Антофагаста, Чили"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 164857,
+        "isGroup": false,
+        "name": "Antofagasta, Chile",
+        "priority": 0,
+        "slug": "antofagasta-chile",
+        "startTimestamp": 1759104000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أنتوفاغاستا، تشيلي",
+              "ru": "Антофагаста, Чили"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 21098,
+          "name": "Antofagasta, Chile",
+          "slug": "antofagasta-chile",
+          "tennisPoints": 100,
+          "userCount": 84
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 2,
+        "period2": 6,
+        "period3": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "awayTeamSeed": "2",
+      "changes": {
+        "changeTimestamp": 1759685516,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAsxMfc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 3,
+        "period3": 3,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فاكوندو دياز أكوستا",
+            "ru": "Диас Акоста, Факундо"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. أكوستا",
+            "bn": "এফ. দিয়াজ অ্যাকোস্টা",
+            "hi": "एफ. डियाज़ अकॉस्टा"
+          }
+        },
+        "gender": "M",
+        "id": 264372,
+        "name": "Facundo Diaz Acosta",
+        "nameCode": "DIA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3088
+        },
+        "ranking": 87,
+        "shortName": "F. Diaz Acosta",
+        "slug": "diaz-acosta-facundo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4139
+      },
+      "homeTeamSeed": "A",
+      "id": 14786207,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 76604,
+        "name": "ATP Challenger Antofagasta, Chile Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "facundo-diaz-acosta-cristian-garin",
+      "startTimestamp": 1759676400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1759682298,
+        "period1": 2605,
+        "period2": 2679,
+        "period3": 3157
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1759622400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أنتوفاغاستا، تشيلي",
+            "ru": "Антофагаста, Чили"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 164857,
+        "isGroup": false,
+        "name": "Antofagasta, Chile",
+        "priority": 0,
+        "slug": "antofagasta-chile",
+        "startTimestamp": 1759104000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أنتوفاغاستا، تشيلي",
+              "ru": "Антофагаста, Чили"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 21098,
+          "name": "Antofagasta, Chile",
+          "slug": "antofagasta-chile",
+          "tennisPoints": 100,
+          "userCount": 84
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "awayTeamSeed": "6",
+      "changes": {
+        "changeTimestamp": 1761269588,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAsLOrb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 4,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جينارو ألبرتو أوليفييري",
+            "bn": "জেনারো আলবার্তো অলিভেরি",
+            "hi": "जेनारो अल्बर्टो ओलिवियेरी",
+            "ru": "Оливьери, Дженаро Альберто"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. أوليفييري"
+          }
+        },
+        "gender": "M",
+        "id": 169486,
+        "name": "Genaro Alberto Olivieri",
+        "nameCode": "OLI",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2396
+        },
+        "ranking": 225,
+        "shortName": "G. Olivieri",
+        "slug": "olivieri-genaro-alberto",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1739
+      },
+      "id": 14911127,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 84721,
+        "name": "ATP Challenger Sao Paulo, Brazil Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "genaro-alberto-olivieri-cristian-garin",
+      "startTimestamp": 1761262200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1761265743,
+        "period1": 2996,
+        "period2": 3784
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1761436800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كوستا دو ساويبي، البرازيل",
+            "ru": "Коста-ду-Сауипе, Бразилия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 166422,
+        "isGroup": false,
+        "name": "Costa do Sauipe, Brazil",
+        "priority": 0,
+        "slug": "costa-do-sauipe-brazil",
+        "startTimestamp": 1760918400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "إيه تي بي تشالنجر كوستا دو ساويبي، البرازيل رجال فردي",
+              "ru": "Челленджер ATP Коста-ду-Сауипе, Бразилия среди мужчин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 30217,
+          "name": "Costa do Sauipe, Brazil",
+          "slug": "atp-challenger-costa-do-sauipe-brazil-men-singles",
+          "userCount": 55
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 4,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "awayTeamSeed": "6",
+      "changes": {
+        "changeTimestamp": 1761406697,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.normaltime",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period3",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lArsvQA",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 1,
+        "period2": 6,
+        "period3": 4,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا كولاريني",
+            "bn": "আন্দ্রেয়া কলারিনি",
+            "hi": "एंड्रिया कॉलारिनी",
+            "ru": "Колларини, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كولاريني"
+          }
+        },
+        "gender": "M",
+        "id": 43761,
+        "name": "Andrea Collarini",
+        "nameCode": "COL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 459
+        },
+        "ranking": 375,
+        "shortName": "A. Collarini",
+        "slug": "collarini-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1672
+      },
+      "homeTeamSeed": "Q",
+      "id": 14888247,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 84721,
+        "name": "ATP Challenger Sao Paulo, Brazil Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "cristian-garin-andrea-collarini",
+      "startTimestamp": 1761400800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1761404067,
+        "period1": 1810,
+        "period2": 2888,
+        "period3": 2618
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1761436800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كوستا دو ساويبي، البرازيل",
+            "ru": "Коста-ду-Сауипе, Бразилия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 166422,
+        "isGroup": false,
+        "name": "Costa do Sauipe, Brazil",
+        "priority": 0,
+        "slug": "costa-do-sauipe-brazil",
+        "startTimestamp": 1760918400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "إيه تي بي تشالنجر كوستا دو ساويبي، البرازيل رجال فردي",
+              "ru": "Челленджер ATP Коста-ду-Сауипе, Бразилия среди мужчин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 30217,
+          "name": "Costa do Sauipe, Brazil",
+          "slug": "atp-challenger-costa-do-sauipe-brazil-men-singles",
+          "userCount": 55
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "awayTeamSeed": "6",
+      "changes": {
+        "changeTimestamp": 1761427328,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAsOCic",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 4,
+        "period2": 2,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماريانو نافوني",
+            "bn": "মারিয়ানো নাভোনে",
+            "hi": "मारियानो नवोने",
+            "ru": "Мариано Навоне"
+          },
+          "shortNameTranslation": {
+            "ar": "م. نافوني",
+            "ru": "М. Навоне"
+          }
+        },
+        "gender": "M",
+        "id": 271389,
+        "name": "Mariano Navone",
+        "nameCode": "NAV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4034
+        },
+        "ranking": 44,
+        "shortName": "M. Navone",
+        "slug": "navone-mariano",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9692
+      },
+      "homeTeamSeed": "1",
+      "id": 14888344,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 84721,
+        "name": "ATP Challenger Sao Paulo, Brazil Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "mariano-navone-cristian-garin",
+      "startTimestamp": 1761418800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1761424648,
+        "period1": 5296,
+        "period2": 2651
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1761436800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كوستا دو ساويبي، البرازيل",
+            "ru": "Коста-ду-Сауипе, Бразилия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 166422,
+        "isGroup": false,
+        "name": "Costa do Sauipe, Brazil",
+        "priority": 0,
+        "slug": "costa-do-sauipe-brazil",
+        "startTimestamp": 1760918400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "إيه تي بي تشالنجر كوستا دو ساويبي، البرازيل رجال فردي",
+              "ru": "Челленджер ATP Коста-ду-Сауипе, Бразилия среди мужчин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 30217,
+          "name": "Costa do Sauipe, Brazil",
+          "slug": "atp-challenger-costa-do-sauipe-brazil-men-singles",
+          "userCount": 55
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 0,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PY",
+          "alpha3": "PRY",
+          "name": "Paraguay",
+          "slug": "paraguay"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أدولفو دانييل فاليخو",
+            "ru": "Адольфо Даниэль Вальехо"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. فاليخو",
+            "ru": "А. Вальехо"
+          }
+        },
+        "gender": "M",
+        "id": 326949,
+        "name": "Adolfo Daniel Vallejo",
+        "nameCode": "VAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5354
+        },
+        "ranking": 70,
+        "shortName": "A. Vallejo",
+        "slug": "vallejo-daniel",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "changes": {
+        "changeTimestamp": 1761488276,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAsZNFc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 4,
+        "period2": 0,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "homeTeamSeed": "6",
+      "id": 14888343,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 84721,
+        "name": "ATP Challenger Sao Paulo, Brazil Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "adolfo-daniel-vallejo-cristian-garin",
+      "startTimestamp": 1761483600,
+      "status": {
+        "code": 92,
+        "description": "Retired",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1761487219,
+        "period1": 2941,
+        "period2": 1005
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1761436800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كوستا دو ساويبي، البرازيل",
+            "ru": "Коста-ду-Сауипе, Бразилия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 166422,
+        "isGroup": false,
+        "name": "Costa do Sauipe, Brazil",
+        "priority": 0,
+        "slug": "costa-do-sauipe-brazil",
+        "startTimestamp": 1760918400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "إيه تي بي تشالنجر كوستا دو ساويبي، البرازيل رجال فردي",
+              "ru": "Челленджер ATP Коста-ду-Сауипе, Бразилия среди мужчин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 30217,
+          "name": "Costa do Sauipe, Brazil",
+          "slug": "atp-challenger-costa-do-sauipe-brazil-men-singles",
+          "userCount": 55
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {},
+      "awayTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "awayTeamSeed": "3",
+      "changes": {
+        "changeTimestamp": 1761552049,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAsoPid",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {},
+      "homeTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "لاوتارو ميدون",
+            "ru": "Лаутаро Мидон"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. ميدون",
+            "ru": "Л. Мидон"
+          }
+        },
+        "gender": "M",
+        "id": 397014,
+        "name": "Lautaro Midon",
+        "nameCode": "MID",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5340
+        },
+        "ranking": 193,
+        "shortName": "L. Midon",
+        "slug": "midon-lautaro",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2057
+      },
+      "id": 14950670,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 80591,
+        "name": "ATP Challenger Lima 2, Peru Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "lautaro-midon-cristian-garin",
+      "startTimestamp": 1761579000,
+      "status": {
+        "code": 70,
+        "description": "Canceled",
+        "type": "canceled"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1762041600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ليما 3، بيرو",
+            "ru": "Лима 3, Перу"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 166973,
+        "isGroup": false,
+        "name": "Lima 3, Peru",
+        "priority": 0,
+        "slug": "lima-3-peru",
+        "startTimestamp": 1761523200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ليما 2، بيرو",
+              "ru": "Лима 2, Перу"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 17328,
+          "name": "Lima 2, Peru",
+          "slug": "lima-2-peru",
+          "userCount": 185
+        }
+      }
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "awayTeamSeed": "3",
+      "changes": {
+        "changeTimestamp": 1762273137,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAsAKQb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 2,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "KZ",
+          "alpha3": "KAZ",
+          "name": "Kazakhstan",
+          "slug": "kazakhstan"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تيموفي سكاطوف",
+            "bn": "টিমোফে স্কাটভ",
+            "hi": "तिमोफे स्कातोव",
+            "ru": "Тимофей Скатов"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. سكاطوف",
+            "ru": "Т. Скатов"
+          }
+        },
+        "gender": "M",
+        "id": 229275,
+        "name": "Timofey Skatov",
+        "nameCode": "SKA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2952
+        },
+        "ranking": 149,
+        "shortName": "T. Skatov",
+        "slug": "skatov-timofey",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2518
+      },
+      "id": 14990235,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 85080,
+        "name": "ATP Challenger Lima 2, Peru Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "timofey-skatov-cristian-garin",
+      "startTimestamp": 1762268400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1762270598,
+        "period1": 1450,
+        "period2": 2499
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1762646400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ليما 3، بيرو",
+            "ru": "Лима 3, Перу"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 167356,
+        "isGroup": false,
+        "name": "Lima 3, Peru",
+        "priority": 0,
+        "slug": "lima-3-peru",
+        "startTimestamp": 1762128000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتپ تشالنجر ليما 3، بيرو فردي للرجال",
+              "ru": "ATP Challenger Лима 3, Перу среди мужчин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 30386,
+          "name": "Lima 3, Peru",
+          "slug": "atp-challenger-lima-3-peru-men-singles",
+          "userCount": 67
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "awayTeamSeed": "3",
+      "changes": {
+        "changeTimestamp": 1762463295,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAspFF",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 3,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "RU",
+          "alpha3": "RUS",
+          "name": "Russia",
+          "slug": "russia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيفان غاخوف",
+            "ru": "Гахов, Иван"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. غاخوف",
+            "bn": "আই. গাখভ",
+            "hi": "आई. गखोव"
+          }
+        },
+        "gender": "M",
+        "id": 76515,
+        "name": "Ivan Gakhov",
+        "nameCode": "GAK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 577
+        },
+        "ranking": 478,
+        "shortName": "I. Gakhov",
+        "slug": "gakhov-ivan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1507
+      },
+      "homeTeamSeed": "A",
+      "id": 14957171,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 85080,
+        "name": "ATP Challenger Lima 2, Peru Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "ivan-gakhov-cristian-garin",
+      "startTimestamp": 1762457400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1762460221,
+        "period1": 2259,
+        "period2": 3010
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1762646400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ليما 3، بيرو",
+            "ru": "Лима 3, Перу"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 167356,
+        "isGroup": false,
+        "name": "Lima 3, Peru",
+        "priority": 0,
+        "slug": "lima-3-peru",
+        "startTimestamp": 1762128000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتپ تشالنجر ليما 3، بيرو فردي للرجال",
+              "ru": "ATP Challenger Лима 3, Перу среди мужчин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 30386,
+          "name": "Lima 3, Peru",
+          "slug": "atp-challenger-lima-3-peru-men-singles",
+          "userCount": 67
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 5,
+        "period2": 6,
+        "period3": 4,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "awayTeamSeed": "3",
+      "changes": {
+        "changeTimestamp": 1762576309,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period3",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAspVuc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period2": 2,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "PE",
+          "alpha3": "PER",
+          "name": "Peru",
+          "slug": "peru"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "غونزالو بوينو",
+            "ru": "Гонсало Буэно"
+          },
+          "shortNameTranslation": {
+            "ar": "غ. بوينو",
+            "ru": "Г. Буэно"
+          }
+        },
+        "gender": "M",
+        "id": 299765,
+        "name": "Gonzalo Bueno",
+        "nameCode": "BUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5170
+        },
+        "ranking": 178,
+        "shortName": "G. Bueno",
+        "slug": "bueno-gonzalo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3073
+      },
+      "id": 14957180,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 85080,
+        "name": "ATP Challenger Lima 2, Peru Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "gonzalo-bueno-cristian-garin",
+      "startTimestamp": 1762567500,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1762573454,
+        "period1": 2864,
+        "period2": 2680,
+        "period3": 2839
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1762646400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ليما 3، بيرو",
+            "ru": "Лима 3, Перу"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 167356,
+        "isGroup": false,
+        "name": "Lima 3, Peru",
+        "priority": 0,
+        "slug": "lima-3-peru",
+        "startTimestamp": 1762128000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتپ تشالنجر ليما 3، بيرو فردي للرجال",
+              "ru": "ATP Challenger Лима 3, Перу среди мужчин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 30386,
+          "name": "Lima 3, Peru",
+          "slug": "atp-challenger-lima-3-peru-men-singles",
+          "userCount": 67
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "awayTeamSeed": "5",
+      "changes": {
+        "changeTimestamp": 1762887002,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "lArsvQA",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 5,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أندريا كولاريني",
+            "bn": "আন্দ্রেয়া কলারিনি",
+            "hi": "एंड्रिया कॉलारिनी",
+            "ru": "Колларини, Андреа"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كولاريني"
+          }
+        },
+        "gender": "M",
+        "id": 43761,
+        "name": "Andrea Collarini",
+        "nameCode": "COL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 459
+        },
+        "ranking": 375,
+        "shortName": "A. Collarini",
+        "slug": "collarini-andrea",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1672
+      },
+      "homeTeamSeed": "Q",
+      "id": 15030301,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 80564,
+        "name": "ATP Challenger Montevideo, Uruguay Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "cristian-garin-andrea-collarini",
+      "startTimestamp": 1762878600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1762882360,
+        "period1": 2920,
+        "period2": 4597
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1763251200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مونتيفيديو، الأوروغواي",
+            "ru": "Монтевидео, Уругвай"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 168178,
+        "isGroup": false,
+        "name": "Montevideo, Uruguay",
+        "priority": 0,
+        "slug": "montevideo-uruguay",
+        "startTimestamp": 1762732800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مونتيفيديو، أوروغواي",
+              "ru": "Монтевидео, Уругвай"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3587,
+          "name": "Montevideo, Uruguay",
+          "slug": "montevideo-uruguay",
+          "tennisPoints": 100,
+          "userCount": 175
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "awayTeamSeed": "5",
+      "changes": {
+        "changeTimestamp": 1763077060,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAshqwc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 4,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليكس بارينا",
+            "ru": "Алекс Баррена"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. بارينا",
+            "ru": "А. Баррена"
+          }
+        },
+        "gender": "M",
+        "id": 303307,
+        "name": "Alex Barrena",
+        "nameCode": "BAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4855
+        },
+        "ranking": 259,
+        "shortName": "A. Barrena",
+        "slug": "barrena-alex",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1537
+      },
+      "id": 15011206,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 80564,
+        "name": "ATP Challenger Montevideo, Uruguay Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "alex-barrena-cristian-garin",
+      "startTimestamp": 1763071500,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1763074121,
+        "period1": 2022,
+        "period2": 2893
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1763251200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مونتيفيديو، الأوروغواي",
+            "ru": "Монтевидео, Уругвай"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 168178,
+        "isGroup": false,
+        "name": "Montevideo, Uruguay",
+        "priority": 0,
+        "slug": "montevideo-uruguay",
+        "startTimestamp": 1762732800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مونتيفيديو، أوروغواي",
+              "ru": "Монтевидео, Уругвай"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3587,
+          "name": "Montevideo, Uruguay",
+          "slug": "montevideo-uruguay",
+          "tennisPoints": 100,
+          "userCount": 175
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 2,
+        "period2": 6,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "awayTeamSeed": "5",
+      "changes": {
+        "changeTimestamp": 1763162688,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAsZNFc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 2,
+        "period3": 3,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "PY",
+          "alpha3": "PRY",
+          "name": "Paraguay",
+          "slug": "paraguay"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أدولفو دانييل فاليخو",
+            "ru": "Адольфо Даниэль Вальехо"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. فاليخو",
+            "ru": "А. Вальехо"
+          }
+        },
+        "gender": "M",
+        "id": 326949,
+        "name": "Adolfo Daniel Vallejo",
+        "nameCode": "VAL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5354
+        },
+        "ranking": 70,
+        "shortName": "A. Vallejo",
+        "slug": "vallejo-daniel",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4948
+      },
+      "id": 15011196,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 80564,
+        "name": "ATP Challenger Montevideo, Uruguay Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "adolfo-daniel-vallejo-cristian-garin",
+      "startTimestamp": 1763154000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1763159319,
+        "period1": 1949,
+        "period2": 2859,
+        "period3": 3333
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1763251200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مونتيفيديو، الأوروغواي",
+            "ru": "Монтевидео, Уругвай"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 168178,
+        "isGroup": false,
+        "name": "Montevideo, Uruguay",
+        "priority": 0,
+        "slug": "montevideo-uruguay",
+        "startTimestamp": 1762732800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مونتيفيديو، أوروغواي",
+              "ru": "Монтевидео, Уругвай"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3587,
+          "name": "Montevideo, Uruguay",
+          "slug": "montevideo-uruguay",
+          "tennisPoints": 100,
+          "userCount": 175
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 4,
+        "period3": 1,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "توماس باريوس فيرا",
+            "ru": "Барриос Вера, Марсело Томас"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. فيرا",
+            "bn": "টি. ব্যারিওস ভেরা",
+            "hi": "टी. बारियोस वीरा"
+          }
+        },
+        "gender": "M",
+        "id": 132834,
+        "name": "Tomás Barrios Vera",
+        "nameCode": "BAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 479
+        },
+        "ranking": 147,
+        "shortName": "T. Barrios Vera",
+        "slug": "barrios-vera-tomas",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 5874
+      },
+      "awayTeamSeed": "8",
+      "changes": {
+        "changeTimestamp": 1763254223,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAsJgdb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 4,
+        "period2": 6,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "homeTeamSeed": "5",
+      "id": 15011200,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 80564,
+        "name": "ATP Challenger Montevideo, Uruguay Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "tomas-barrios-vera-cristian-garin",
+      "startTimestamp": 1763245800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1763252113,
+        "period1": 2362,
+        "period2": 3269,
+        "period3": 2049
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1763251200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مونتيفيديو، الأوروغواي",
+            "ru": "Монтевидео, Уругвай"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 168178,
+        "isGroup": false,
+        "name": "Montevideo, Uruguay",
+        "priority": 0,
+        "slug": "montevideo-uruguay",
+        "startTimestamp": 1762732800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مونتيفيديو، أوروغواي",
+              "ru": "Монтевидео, Уругвай"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3587,
+          "name": "Montevideo, Uruguay",
+          "slug": "montevideo-uruguay",
+          "tennisPoints": 100,
+          "userCount": 175
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 2,
+        "period3": 2,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PE",
+          "alpha3": "PER",
+          "name": "Peru",
+          "slug": "peru"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إغناسيو بوسي",
+            "ru": "Игнасио Бусе"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. بوسي",
+            "ru": "И. Бусе"
+          }
+        },
+        "gender": "M",
+        "id": 322082,
+        "name": "Ignacio Buse",
+        "nameCode": "BUS",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5617
+        },
+        "ranking": 36,
+        "shortName": "I. Búse",
+        "slug": "buse-ignacio",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 12028
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1763333833,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAsHQDc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period1TieBreak": 3,
+        "period2": 6,
+        "period3": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "homeTeamSeed": "5",
+      "id": 15011203,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 80564,
+        "name": "ATP Challenger Montevideo, Uruguay Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "ignacio-buse-cristian-garin",
+      "startTimestamp": 1763325000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1763331385,
+        "period1": 3640,
+        "period2": 2117,
+        "period3": 2404
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1763251200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مونتيفيديو، الأوروغواي",
+            "ru": "Монтевидео, Уругвай"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 168178,
+        "isGroup": false,
+        "name": "Montevideo, Uruguay",
+        "priority": 0,
+        "slug": "montevideo-uruguay",
+        "startTimestamp": 1762732800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مونتيفيديو، أوروغواي",
+              "ru": "Монтевидео, Уругвай"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3587,
+          "name": "Montevideo, Uruguay",
+          "slug": "montevideo-uruguay",
+          "tennisPoints": 100,
+          "userCount": 175
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 3,
+        "period2": 6,
+        "period3": 7,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مايكل مموه",
+            "bn": "মাইকেল মোহ",
+            "hi": "माइकल म्मोह",
+            "ru": "Ммох, Михаэль"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مموه"
+          }
+        },
+        "gender": "M",
+        "id": 131442,
+        "name": "Michael Mmoh",
+        "nameCode": "MMO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 122
+        },
+        "ranking": 180,
+        "shortName": "M. Mmoh",
+        "slug": "mmoh-michael",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2377
+      },
+      "changes": {
+        "changeTimestamp": 1767513317,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vQAsRDcb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p250"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 3,
+        "period3": 5,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CL",
+          "alpha3": "CHL",
+          "name": "Chile",
+          "slug": "chile"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريستيان غارين",
+            "ru": "Гарин, Кристиан"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. غارين",
+            "bn": "সি. গ্যারিন",
+            "hi": "सी. गारिन"
+          }
+        },
+        "gender": "M",
+        "id": 64570,
+        "name": "Cristian Garin",
+        "nameCode": "GAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 92
+        },
+        "ranking": 137,
+        "shortName": "C. Garin",
+        "slug": "garin-cristian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 9672
+      },
+      "homeTeamSeed": "1",
+      "id": 15310685,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 80020,
+        "name": "ATP Hong Kong, Hong Kong Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "michael-mmoh-cristian-garin",
+      "startTimestamp": 1767504300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1767510175,
+        "period1": 2560,
+        "period2": 2532,
+        "period3": 3078
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1767571200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "هونغ كونغ، هونغ كونغ، التصفيات",
+            "ru": "Гонконг, Гонконг, отбор"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 172413,
+        "isGroup": false,
+        "name": "Hong Kong, Hong Kong, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "hong-kong-hong-kong-qualifying",
+        "startTimestamp": 1767484800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "هونغ كونغ فردي الرجال",
+              "ru": "Гонконг, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 21817,
+          "name": "Hong Kong Men Singles",
+          "slug": "atp-hong-kong-hong-kong-men-singles",
+          "tennisPoints": 250,
+          "userCount": 1122
+        }
+      },
+      "winnerCode": 2
+    }
+  ],
+  "has_next_page": true,
+  "page": 1,
+  "player_id": 64570,
+  "saved_at": 1788183192.934032,
+  "saved_at_iso": "2026-08-31T13:33:12+00:00",
+  "source": "API_PRO_PREVIOUS_MATCHES",
+  "status": "OK"
+}

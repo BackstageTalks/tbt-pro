@@ -1,0 +1,7386 @@
+{
+  "api_status_code": 200,
+  "endpoint": "https://tennisapi1.p.rapidapi.com/api/tennis/player/66484/events/previous/1",
+  "events": [
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 6,
+        "period2": 3,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "changes": {
+        "changeTimestamp": 1761887094,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsKnFd",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 8,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "CN",
+          "alpha3": "CHN",
+          "name": "China",
+          "slug": "china"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ي زو",
+            "bn": "ইয়ি ঝোউ",
+            "hi": "यी झोउ",
+            "ru": "Ий Чжоу"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. زو",
+            "ru": "И. Чжоу"
+          }
+        },
+        "gender": "M",
+        "id": 450685,
+        "name": "Yi Zhou",
+        "nameCode": "ZHO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 6804
+        },
+        "ranking": 244,
+        "shortName": "Y. Zhou",
+        "slug": "zhou-yi",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1481
+      },
+      "id": 14931872,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 80573,
+        "name": "ATP Challenger Seoul, Korea Republic Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "yi-zhou-frederico-ferreira-silva",
+      "startTimestamp": 1761879600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1761884501,
+        "period1": 4116,
+        "period2": 2559
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1762041600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سيول، جمهورية كوريا",
+            "ru": "Сеул, Республика Корея"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 166936,
+        "isGroup": false,
+        "name": "Seoul, Korea Republic",
+        "priority": 0,
+        "slug": "seoul-korea-republic",
+        "startTimestamp": 1761523200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "سيول، كوريا الجنوبية",
+              "ru": "Сеул, Южная Корея"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 4021,
+          "name": "Seoul, South Korea",
+          "slug": "seoul-south-korea",
+          "userCount": 129
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "period2TieBreak": 3,
+        "period3": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "awayTeamSeed": "8",
+      "changes": {
+        "changeTimestamp": 1762237456,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsrAAc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period1TieBreak": 4,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 3,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "JP",
+          "alpha3": "JPN",
+          "name": "Japan",
+          "slug": "japan"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "يوسوكي كوشوهارا",
+            "ru": "Юсукэ Кусухара"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. كوشوهارا",
+            "ru": "Ю. Кусухара"
+          }
+        },
+        "gender": "M",
+        "id": 313767,
+        "name": "Yusuke Kusuhara",
+        "nameCode": "KUS",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 18695
+        },
+        "ranking": 853,
+        "shortName": "Y. Kusuhara",
+        "slug": "kusuhara-yusuke",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 225
+      },
+      "homeTeamSeed": "WC",
+      "id": 14987779,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 80588,
+        "name": "ATP Challenger Matsuyama, Japan Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "yusuke-kusuhara-frederico-ferreira-silva",
+      "startTimestamp": 1762225200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1762233711,
+        "period1": 4037,
+        "period2": 3815,
+        "period3": 3712
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1762646400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماتسوياما، اليابان",
+            "ru": "Мацусима, Япония"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 167341,
+        "isGroup": false,
+        "name": "Matsuyama, Japan",
+        "priority": 0,
+        "slug": "matsuyama-japan",
+        "startTimestamp": 1762128000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ماتسوياما، اليابان",
+              "ru": "Мацуйяма, Япония"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 14643,
+          "name": "Matsuyama, Japan",
+          "slug": "matsuyama-japan",
+          "tennisPoints": 75,
+          "userCount": 94
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "awayTeamSeed": "8",
+      "changes": {
+        "changeTimestamp": 1762317429,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.normaltime",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period2",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBszbkc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 3,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "GB",
+          "alpha3": "GBR",
+          "name": "United Kingdom",
+          "slug": "united-kingdom"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكس باسينغ",
+            "ru": "Макс Бейсинг"
+          },
+          "shortNameTranslation": {
+            "ar": "م. باسينغ",
+            "ru": "М. Бейсинг"
+          }
+        },
+        "gender": "M",
+        "id": 275074,
+        "name": "Max Basing",
+        "nameCode": "BAS",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4560
+        },
+        "ranking": 248,
+        "shortName": "M. Basing",
+        "slug": "basing-max",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 807
+      },
+      "homeTeamSeed": "Q",
+      "id": 14956994,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 80588,
+        "name": "ATP Challenger Matsuyama, Japan Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "max-basing-frederico-ferreira-silva",
+      "startTimestamp": 1762311600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1762313980,
+        "period1": 1645,
+        "period2": 3436
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1762646400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماتسوياما، اليابان",
+            "ru": "Мацусима, Япония"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 167341,
+        "isGroup": false,
+        "name": "Matsuyama, Japan",
+        "priority": 0,
+        "slug": "matsuyama-japan",
+        "startTimestamp": 1762128000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ماتسوياما، اليابان",
+              "ru": "Мацуйяма, Япония"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 14643,
+          "name": "Matsuyama, Japan",
+          "slug": "matsuyama-japan",
+          "tennisPoints": 75,
+          "userCount": 94
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period1TieBreak": 3,
+        "period2": 6,
+        "period3": 7,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "awayTeamSeed": "8",
+      "changes": {
+        "changeTimestamp": 1762492349,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBshlKb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 4,
+        "period3": 5,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "GB",
+          "alpha3": "GBR",
+          "name": "United Kingdom",
+          "slug": "united-kingdom"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أوليفر كروفورد",
+            "bn": "অলিভার ক্রফোর্ড",
+            "hi": "ओलिवर क्रॉफर्ड",
+            "ru": "Оливер Кроуфорд"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. كروفورد",
+            "ru": "О. Кроуфорд"
+          }
+        },
+        "gender": "M",
+        "id": 213057,
+        "name": "Oliver Crawford",
+        "nameCode": "CRA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2812
+        },
+        "ranking": 227,
+        "shortName": "O. Crawford",
+        "slug": "crawford-oliver",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1740
+      },
+      "homeTeamSeed": "3",
+      "id": 14956987,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 80588,
+        "name": "ATP Challenger Matsuyama, Japan Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "oliver-crawford-frederico-ferreira-silva",
+      "startTimestamp": 1762480800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1762488915,
+        "period1": 4050,
+        "period2": 3336,
+        "period3": 3387
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1762646400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماتسوياما، اليابان",
+            "ru": "Мацусима, Япония"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 167341,
+        "isGroup": false,
+        "name": "Matsuyama, Japan",
+        "priority": 0,
+        "slug": "matsuyama-japan",
+        "startTimestamp": 1762128000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ماتسوياما، اليابان",
+              "ru": "Мацуйяма, Япония"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 14643,
+          "name": "Matsuyama, Japan",
+          "slug": "matsuyama-japan",
+          "tennisPoints": 75,
+          "userCount": 94
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 3,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "awayTeamSeed": "8",
+      "changes": {
+        "changeTimestamp": 1762572745,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period2",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsvLLc",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "هنريكي روشا",
+            "ru": "Энрике Роша"
+          },
+          "shortNameTranslation": {
+            "ar": "ه. روشا",
+            "ru": "Э. Роша"
+          }
+        },
+        "gender": "M",
+        "id": 341820,
+        "name": "Henrique Rocha",
+        "nameCode": "ROC",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5276
+        },
+        "ranking": 126,
+        "shortName": "H. Rocha",
+        "slug": "rocha-henrique",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 5568
+      },
+      "homeTeamSeed": "1",
+      "id": 14956984,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 80588,
+        "name": "ATP Challenger Matsuyama, Japan Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "henrique-rocha-frederico-ferreira-silva",
+      "startTimestamp": 1762567200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1762569985,
+        "period1": 2087,
+        "period2": 2741
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1762646400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماتسوياما، اليابان",
+            "ru": "Мацусима, Япония"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 167341,
+        "isGroup": false,
+        "name": "Matsuyama, Japan",
+        "priority": 0,
+        "slug": "matsuyama-japan",
+        "startTimestamp": 1762128000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ماتسوياما، اليابان",
+              "ru": "Мацуйяма, Япония"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 14643,
+          "name": "Matsuyama, Japan",
+          "slug": "matsuyama-japan",
+          "tennisPoints": 75,
+          "userCount": 94
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "changes": {
+        "changeTimestamp": 1762838371,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBswLid",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 1,
+        "period2": 2,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "RU",
+          "alpha3": "RUS",
+          "name": "Russia",
+          "slug": "russia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيم زوكوف",
+            "ru": "Максим Жуков"
+          },
+          "shortNameTranslation": {
+            "ar": "م. زوكوف",
+            "ru": "М. Жуков"
+          }
+        },
+        "gender": "M",
+        "id": 396821,
+        "name": "Maxim Zhukov",
+        "nameCode": "ZHU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5248
+        },
+        "ranking": 536,
+        "shortName": "M. Zhukov",
+        "slug": "zhukov-maxim",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 421
+      },
+      "homeTeamSeed": "Q",
+      "id": 15027549,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 80668,
+        "name": "ATP Challenger Kobe, Japan Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "maxim-zhukov-frederico-ferreira-silva",
+      "startTimestamp": 1762832700,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1762836450,
+        "period1": 3279,
+        "period2": 1870
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1763251200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كوبي، اليابان",
+            "ru": "Кобе, Япония"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 168197,
+        "isGroup": false,
+        "name": "Kobe, Japan",
+        "priority": 0,
+        "slug": "kobe-japan",
+        "startTimestamp": 1762732800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كوبي، اليابان",
+              "ru": "Кобе, Япония"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 6591,
+          "name": "Kobe, Japan",
+          "slug": "kobe-japan",
+          "tennisPoints": 100,
+          "userCount": 184
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 4,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "changes": {
+        "changeTimestamp": 1762943219,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBscWmb",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "JP",
+          "alpha3": "JPN",
+          "name": "Japan",
+          "slug": "japan"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "يوسوكه واتانكي",
+            "ru": "Ватануки, Есуке"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. واتانكي",
+            "bn": "ওয়াই. ওয়াতানুকি",
+            "hi": "वाई. वातानुकी"
+          }
+        },
+        "gender": "M",
+        "id": 157302,
+        "name": "Yosuke Watanuki",
+        "nameCode": "WAT",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 236
+        },
+        "ranking": 416,
+        "shortName": "Y. Watanuki",
+        "slug": "watanuki-yosuke",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2515
+      },
+      "homeTeamSeed": "4",
+      "id": 15011880,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 80668,
+        "name": "ATP Challenger Kobe, Japan Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "yosuke-watanuki-frederico-ferreira-silva",
+      "startTimestamp": 1762937100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1762940610,
+        "period1": 2842,
+        "period2": 2575
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1763251200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كوبي، اليابان",
+            "ru": "Кобе, Япония"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 168197,
+        "isGroup": false,
+        "name": "Kobe, Japan",
+        "priority": 0,
+        "slug": "kobe-japan",
+        "startTimestamp": 1762732800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "كوبي، اليابان",
+              "ru": "Кобе, Япония"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 6591,
+          "name": "Kobe, Japan",
+          "slug": "kobe-japan",
+          "tennisPoints": 100,
+          "userCount": 184
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 3,
+        "period2": 6,
+        "period3": 7,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "changes": {
+        "changeTimestamp": 1764096400,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.normaltime",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period3",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsIXmd",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 3,
+        "period3": 5,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IT",
+          "alpha3": "ITA",
+          "name": "Italy",
+          "slug": "italy"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فيديريكو بونديولي",
+            "ru": "Федерико Бондиоли"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. بونديولي",
+            "ru": "Ф. Бондиоли"
+          }
+        },
+        "gender": "M",
+        "id": 407383,
+        "name": "Federico Bondioli",
+        "nameCode": "BON",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5716
+        },
+        "ranking": 295,
+        "shortName": "F. Bondioli",
+        "slug": "bondioli-federico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1590
+      },
+      "id": 15135941,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 80773,
+        "name": "ATP Challenger Maia, Portugal Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "federico-bondioli-frederico-ferreira-silva",
+      "startTimestamp": 1764085200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1764092074,
+        "period1": 2684,
+        "period2": 3745,
+        "period3": 4309
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1764460800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مايا، البرتغال",
+            "ru": "Маия, Португалия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 169382,
+        "isGroup": false,
+        "name": "Maia, Portugal",
+        "priority": 0,
+        "slug": "maia-portugal",
+        "startTimestamp": 1763942400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مايا، البرتغال",
+              "ru": "Майя, Португалия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 14406,
+          "name": "Maia, Portugal",
+          "slug": "maia-portugal",
+          "tennisPoints": 100,
+          "userCount": 185
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 2,
+        "period2": 6,
+        "period3": 5,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "changes": {
+        "changeTimestamp": 1764185051,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBshmR",
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 4,
+        "period3": 7,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "GB",
+          "alpha3": "GBR",
+          "name": "United Kingdom",
+          "slug": "united-kingdom"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "يان تشوينسكي",
+            "bn": "জান চোইনস্কি",
+            "hi": "जान चोइनस्की",
+            "ru": "Чоински, Ян"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. تشوينسكي"
+          }
+        },
+        "gender": "M",
+        "id": 105607,
+        "name": "Jan Choinski",
+        "nameCode": "CHO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 402
+        },
+        "ranking": 77,
+        "shortName": "J. Choinski",
+        "slug": "choinski-jan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3173
+      },
+      "homeTeamSeed": "1",
+      "id": 15122415,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 80773,
+        "name": "ATP Challenger Maia, Portugal Men Singles 2025",
+        "year": "2025"
+      },
+      "slug": "jan-choinski-frederico-ferreira-silva",
+      "startTimestamp": 1764175500,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1764181009,
+        "period1": 1774,
+        "period2": 3157,
+        "period3": 3986
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1764460800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مايا، البرتغال",
+            "ru": "Маия, Португалия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 169382,
+        "isGroup": false,
+        "name": "Maia, Portugal",
+        "priority": 0,
+        "slug": "maia-portugal",
+        "startTimestamp": 1763942400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مايا، البرتغال",
+              "ru": "Майя, Португалия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 14406,
+          "name": "Maia, Portugal",
+          "slug": "maia-portugal",
+          "tennisPoints": 100,
+          "userCount": 185
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 3,
+        "period2": 0,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "awayTeamSeed": "5",
+      "changes": {
+        "changeTimestamp": 1768314418,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsILPb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 1,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مارفين مولر",
+            "bn": "মারভিন মোলার",
+            "hi": "मार्विन मोलर",
+            "ru": "Марвин Мёллер"
+          },
+          "shortNameTranslation": {
+            "ar": "م. مولر",
+            "ru": "М. Мёллер"
+          }
+        },
+        "gender": "M",
+        "id": 226833,
+        "name": "Marvin Möller",
+        "nameCode": "MOE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2926
+        },
+        "ranking": 327,
+        "shortName": "M. Möller ",
+        "slug": "moller-marvin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1205
+      },
+      "homeTeamSeed": "Q",
+      "id": 15358742,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 85700,
+        "name": "ATP Challenger Glasgow, Great Britain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "marvin-moller-frederico-ferreira-silva",
+      "startTimestamp": 1768311600,
+      "status": {
+        "code": 92,
+        "description": "Retired",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1768314140,
+        "period1": 2180,
+        "period2": 251
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1768608000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "غلاسكو، بريطانيا العظمى",
+            "ru": "Глазго, Великобритания"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 172601,
+        "isGroup": false,
+        "name": "Glasgow, Great Britain",
+        "priority": 0,
+        "slug": "glasgow-great-britain",
+        "startTimestamp": 1768176000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "غلاسكو، بريطانيا العظمى",
+              "ru": "Глазго, Великобритания"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 6402,
+          "name": "Glasgow, Great Britain",
+          "slug": "glasgow-great-britain-men-singles",
+          "userCount": 109
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {},
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "changes": {
+        "changeTimestamp": 1768835947,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "irgsJEB",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {},
+      "homeTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "غاستاو إلياس",
+            "bn": "গাস্তাও ইলিয়াস",
+            "hi": "गास्ताओ एलियास",
+            "ru": "Элиас, Гаштао"
+          },
+          "shortNameTranslation": {
+            "ar": "غ. إلياس"
+          }
+        },
+        "gender": "M",
+        "id": 15858,
+        "name": "Gastao Elias",
+        "nameCode": "ELI",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 441
+        },
+        "ranking": 1145,
+        "shortName": "G. Elias",
+        "slug": "elias-gastao",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1291
+      },
+      "homeTeamSeed": "WC",
+      "id": 15386787,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 85708,
+        "name": "ATP Challenger Oeiras 1, Portugal Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "frederico-ferreira-silva-gastao-elias",
+      "startTimestamp": 1768906800,
+      "status": {
+        "code": 70,
+        "description": "Canceled",
+        "type": "canceled"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1769299200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أويراس، البرتغال",
+            "ru": "Оэйраш, Португалия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 173047,
+        "isGroup": false,
+        "name": "Oeiras, Portugal",
+        "priority": 0,
+        "slug": "oeiras-portugal",
+        "startTimestamp": 1768780800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أويراس، البرتغال",
+              "ru": "Оэйраш, Португалия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 16697,
+          "name": "Oeiras, Portugal",
+          "slug": "oeiras-portugal",
+          "userCount": 148
+        }
+      }
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "changes": {
+        "changeTimestamp": 1769521665,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.normaltime",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period2",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsxQgd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 3,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BO",
+          "alpha3": "BOL",
+          "name": "Bolivia",
+          "slug": "bolivia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "خوان كارلوس برادو أنجيلو",
+            "ru": "Хуан Карлос Прадо Анджело"
+          },
+          "shortNameTranslation": {
+            "ar": "خ. أنجيلو",
+            "ru": "Х. Анджело"
+          }
+        },
+        "gender": "M",
+        "id": 392072,
+        "name": "Juan Carlos Prado Angelo",
+        "nameCode": "PRA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5237
+        },
+        "ranking": 154,
+        "shortName": "J. Prado Angelo",
+        "slug": "prado-angelo-juan-carlos",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2366
+      },
+      "id": 15424862,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 85710,
+        "name": "ATP Challenger Oeiras 2, Portugal Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "juan-carlos-prado-angelo-frederico-ferreira-silva",
+      "startTimestamp": 1769516700,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1769519155,
+        "period1": 2115,
+        "period2": 2497
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1769904000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أويراس 2، البرتغال",
+            "ru": "Оэйраш 2, Португалия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 173517,
+        "isGroup": false,
+        "name": "Oeiras 2, Portugal",
+        "priority": 0,
+        "slug": "oeiras-2-portugal",
+        "startTimestamp": 1769385600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أويراس 2، البرتغال",
+              "ru": "Оэйраш 2, Португалия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 16699,
+          "name": "Oeiras 2, Portugal",
+          "slug": "oeiras-2-portugal",
+          "userCount": 161
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 7,
+        "period2": 6,
+        "period2TieBreak": 4,
+        "period3": 5,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "LT",
+          "alpha3": "LTU",
+          "name": "Lithuania",
+          "slug": "lithuania"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فيليوس غوباس",
+            "ru": "Вилиус Гаубас"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. غوباس",
+            "ru": "В. Гаубас"
+          }
+        },
+        "gender": "M",
+        "id": 322022,
+        "name": "Vilius Gaubas",
+        "nameCode": "GAU",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5173
+        },
+        "ranking": 123,
+        "shortName": "V. Gaubas",
+        "slug": "gaubas-vilius",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4164
+      },
+      "awayTeamSeed": "2",
+      "changes": {
+        "changeTimestamp": 1769623169,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsxPDc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 5,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 7,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "id": 15403434,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 85710,
+        "name": "ATP Challenger Oeiras 2, Portugal Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "vilius-gaubas-frederico-ferreira-silva",
+      "startTimestamp": 1769611800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1769619784,
+        "period1": 3437,
+        "period2": 4059,
+        "period3": 3328
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1769904000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أويراس 2، البرتغال",
+            "ru": "Оэйраш 2, Португалия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 173517,
+        "isGroup": false,
+        "name": "Oeiras 2, Portugal",
+        "priority": 0,
+        "slug": "oeiras-2-portugal",
+        "startTimestamp": 1769385600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أويراس 2، البرتغال",
+              "ru": "Оэйраш 2, Португалия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 16699,
+          "name": "Oeiras 2, Portugal",
+          "slug": "oeiras-2-portugal",
+          "userCount": 161
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "changes": {
+        "changeTimestamp": 1769784169,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBspFF",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "RU",
+          "alpha3": "RUS",
+          "name": "Russia",
+          "slug": "russia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيفان غاخوف",
+            "ru": "Гахов, Иван"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. غاخوف",
+            "bn": "আই. গাখভ",
+            "hi": "आई. गखोव"
+          }
+        },
+        "gender": "M",
+        "id": 76515,
+        "name": "Ivan Gakhov",
+        "nameCode": "GAK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 577
+        },
+        "ranking": 478,
+        "shortName": "I. Gakhov",
+        "slug": "gakhov-ivan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1507
+      },
+      "id": 15403436,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 85710,
+        "name": "ATP Challenger Oeiras 2, Portugal Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "ivan-gakhov-frederico-ferreira-silva",
+      "startTimestamp": 1769778000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1769780987,
+        "period1": 2417,
+        "period2": 3120
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1769904000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أويراس 2، البرتغال",
+            "ru": "Оэйраш 2, Португалия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 173517,
+        "isGroup": false,
+        "name": "Oeiras 2, Portugal",
+        "priority": 0,
+        "slug": "oeiras-2-portugal",
+        "startTimestamp": 1769385600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أويراس 2، البرتغال",
+              "ru": "Оэйраш 2, Португалия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 16699,
+          "name": "Oeiras 2, Portugal",
+          "slug": "oeiras-2-portugal",
+          "userCount": 161
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 5,
+        "period3": 4,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "changes": {
+        "changeTimestamp": 1769866588,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsIaJb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt indoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 4,
+        "period2": 7,
+        "period3": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "EE",
+          "alpha3": "EST",
+          "name": "Estonia",
+          "slug": "estonia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دانييل غلينكا",
+            "ru": "Глинка, Даниил"
+          },
+          "shortNameTranslation": {
+            "ar": "د. غلينكا"
+          }
+        },
+        "gender": "M",
+        "id": 210033,
+        "name": "Daniil Glinka",
+        "nameCode": "GLI",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4278
+        },
+        "ranking": 160,
+        "shortName": "D. Glinka",
+        "slug": "glinka-daniil",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1727
+      },
+      "id": 15403438,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 85710,
+        "name": "ATP Challenger Oeiras 2, Portugal Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "daniil-glinka-frederico-ferreira-silva",
+      "startTimestamp": 1769857200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1769864433,
+        "period1": 2724,
+        "period2": 3879,
+        "period3": 2089
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1769904000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أويراس 2، البرتغال",
+            "ru": "Оэйраш 2, Португалия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 173517,
+        "isGroup": false,
+        "name": "Oeiras 2, Portugal",
+        "priority": 0,
+        "slug": "oeiras-2-portugal",
+        "startTimestamp": 1769385600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "أويراس 2، البرتغال",
+              "ru": "Оэйраш 2, Португалия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt indoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 16699,
+          "name": "Oeiras 2, Portugal",
+          "slug": "oeiras-2-portugal",
+          "userCount": 161
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "awayTeamSeed": "6",
+      "changes": {
+        "changeTimestamp": 1770722190,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsewbd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IN",
+          "alpha3": "IND",
+          "name": "India",
+          "slug": "india"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كاران سينغ",
+            "ru": "Каран Сингх"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. سينغ",
+            "ru": "К. Сингх"
+          }
+        },
+        "gender": "M",
+        "id": 378554,
+        "name": "Karan Singh",
+        "nameCode": "SIN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5421
+        },
+        "ranking": 607,
+        "shortName": "K. Singh",
+        "slug": "singh-karan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 513
+      },
+      "id": 15504446,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 87339,
+        "name": "ATP Challenger Chennai, India Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "karan-singh-frederico-ferreira-silva",
+      "startTimestamp": 1770717000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1770719473,
+        "period1": 2120,
+        "period2": 2676
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1771113600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تشيناي، الهند",
+            "ru": "Ченнай, Индия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 174480,
+        "isGroup": false,
+        "name": "Chennai, India",
+        "priority": 0,
+        "slug": "chennai-india",
+        "startTimestamp": 1770595200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تشيناي، الهند",
+              "ru": "Ченнай, Индия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 5981,
+          "name": "Chennai, India",
+          "slug": "chennai-india",
+          "userCount": 135
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "awayTeamSeed": "6",
+      "changes": {
+        "changeTimestamp": 1770884057,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsGQHb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 4,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "HR",
+          "alpha3": "HRV",
+          "name": "Croatia",
+          "slug": "croatia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دوي ج أيدوكوفيتش",
+            "ru": "Дуэ Айдукевич"
+          },
+          "shortNameTranslation": {
+            "ar": "د. أيدوكوفيتش",
+            "ru": "Д. Айдукевич"
+          }
+        },
+        "gender": "M",
+        "id": 207081,
+        "name": "Duje Ajduković",
+        "nameCode": "AJD",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2754
+        },
+        "ranking": 304,
+        "shortName": "D. Ajduković",
+        "slug": "ajdukovic-duje",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2457
+      },
+      "id": 15482560,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 87339,
+        "name": "ATP Challenger Chennai, India Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "duje-ajdukovic-frederico-ferreira-silva",
+      "startTimestamp": 1770876900,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1770880798,
+        "period1": 3133,
+        "period2": 3210
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1771113600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تشيناي، الهند",
+            "ru": "Ченнай, Индия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 174480,
+        "isGroup": false,
+        "name": "Chennai, India",
+        "priority": 0,
+        "slug": "chennai-india",
+        "startTimestamp": 1770595200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تشيناي، الهند",
+              "ru": "Ченнай, Индия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 5981,
+          "name": "Chennai, India",
+          "slug": "chennai-india",
+          "userCount": 135
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "awayTeamSeed": "6",
+      "changes": {
+        "changeTimestamp": 1770971961,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsVYBc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "GR",
+          "alpha3": "GRC",
+          "name": "Greece",
+          "slug": "greece"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "يوانس كسيلاس",
+            "ru": "Иоаннис Хилас"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. كسيلاس",
+            "ru": "И. Хилас"
+          }
+        },
+        "gender": "M",
+        "id": 317445,
+        "name": "Ioannis Xilas",
+        "nameCode": "XIL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 13239
+        },
+        "ranking": 391,
+        "shortName": "I. Xilas",
+        "slug": "xilas-ioannis",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 622
+      },
+      "id": 15482550,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 87339,
+        "name": "ATP Challenger Chennai, India Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "ioannis-xilas-frederico-ferreira-silva",
+      "startTimestamp": 1770966000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1770968837,
+        "period1": 2407,
+        "period2": 3047
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1771113600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تشيناي، الهند",
+            "ru": "Ченнай, Индия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 174480,
+        "isGroup": false,
+        "name": "Chennai, India",
+        "priority": 0,
+        "slug": "chennai-india",
+        "startTimestamp": 1770595200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تشيناي، الهند",
+              "ru": "Ченнай, Индия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 5981,
+          "name": "Chennai, India",
+          "slug": "chennai-india",
+          "userCount": 135
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 2,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "RU",
+          "alpha3": "RUS",
+          "name": "Russia",
+          "slug": "russia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا سيمكين",
+            "ru": "Илья Симакн"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. سيمكين",
+            "ru": "И. Симакн"
+          }
+        },
+        "gender": "M",
+        "id": 342909,
+        "name": "Ilia Simakin",
+        "nameCode": "SIM",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5315
+        },
+        "ranking": 267,
+        "shortName": "I. Simakin",
+        "slug": "simakin-ilia",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1528
+      },
+      "awayTeamSeed": "4",
+      "changes": {
+        "changeTimestamp": 1771061368,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsjiMc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "homeTeamSeed": "6",
+      "id": 15482548,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 87339,
+        "name": "ATP Challenger Chennai, India Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "ilia-simakin-frederico-ferreira-silva",
+      "startTimestamp": 1771056300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1771059196,
+        "period1": 2419,
+        "period2": 2113
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1771113600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تشيناي، الهند",
+            "ru": "Ченнай, Индия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 174480,
+        "isGroup": false,
+        "name": "Chennai, India",
+        "priority": 0,
+        "slug": "chennai-india",
+        "startTimestamp": 1770595200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تشيناي، الهند",
+              "ru": "Ченнай, Индия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 5981,
+          "name": "Chennai, India",
+          "slug": "chennai-india",
+          "userCount": 135
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 4,
+        "period2": 7,
+        "period2TieBreak": 12,
+        "period3": 4,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فيديريكو أغوستين غوميز",
+            "ru": "Федерико Агустин Гомес"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. غوميز",
+            "ru": "Ф. Гомес"
+          }
+        },
+        "gender": "M",
+        "id": 146040,
+        "name": "Federico Agustin Gomez",
+        "nameCode": "GOM",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5048
+        },
+        "ranking": 181,
+        "shortName": "F. Gomez",
+        "slug": "gomez-federico-agustin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2609
+      },
+      "awayTeamSeed": "2",
+      "changes": {
+        "changeTimestamp": 1771159196,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsPvib",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "period2TieBreak": 10,
+        "period3": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "homeTeamSeed": "6",
+      "id": 15482552,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 87339,
+        "name": "ATP Challenger Chennai, India Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "federico-agustin-gomez-frederico-ferreira-silva",
+      "startTimestamp": 1771147800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1771156396,
+        "period1": 2749,
+        "period2": 5220,
+        "period3": 2740
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1771113600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تشيناي، الهند",
+            "ru": "Ченнай, Индия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 174480,
+        "isGroup": false,
+        "name": "Chennai, India",
+        "priority": 0,
+        "slug": "chennai-india",
+        "startTimestamp": 1770595200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تشيناي، الهند",
+              "ru": "Ченнай, Индия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 5981,
+          "name": "Chennai, India",
+          "slug": "chennai-india",
+          "userCount": 135
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "JP",
+          "alpha3": "JPN",
+          "name": "Japan",
+          "slug": "japan"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ري ساكاموتو",
+            "ru": "Рей Сакамо́то"
+          },
+          "shortNameTranslation": {
+            "ar": "ر. ساكاموتو",
+            "ru": "Р. Сакамо́то"
+          }
+        },
+        "gender": "M",
+        "id": 413296,
+        "name": "Rei Sakamoto",
+        "nameCode": "SAK",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5734
+        },
+        "ranking": 165,
+        "shortName": "R. Sakamoto",
+        "slug": "sakamoto-rei",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3266
+      },
+      "awayTeamSeed": "2",
+      "changes": {
+        "changeTimestamp": 1771329536,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsWppd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 2,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "id": 15543627,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 87341,
+        "name": "ATP Challenger New Delhi, India Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "rei-sakamoto-frederico-ferreira-silva",
+      "startTimestamp": 1771324800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1771327082,
+        "period1": 1815,
+        "period2": 2394
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1771718400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نيودلهي، الهند",
+            "ru": "Нью-Дели, Индия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 174978,
+        "isGroup": false,
+        "name": "New Delhi, India",
+        "priority": 0,
+        "slug": "new-delhi-india",
+        "startTimestamp": 1771200000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "نيودلهي، الهند",
+              "ru": "Нью-Дели, Индия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 6096,
+          "name": "New Delhi, India",
+          "slug": "new-delhi-india-men-singles",
+          "userCount": 131
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "awayTeamSeed": "5",
+      "changes": {
+        "changeTimestamp": 1771917909,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.normaltime",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period2",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsEBZc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 4,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "RU",
+          "alpha3": "RUS",
+          "name": "Russia",
+          "slug": "russia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بيتر بار بيريوكوف",
+            "ru": "Петр Бар Бирюков"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. بيريوكوف",
+            "ru": "П. Бирюков"
+          }
+        },
+        "gender": "M",
+        "id": 373829,
+        "name": "Petr Bar Biryukov",
+        "nameCode": "BAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4940
+        },
+        "ranking": 273,
+        "shortName": "P. Bar Biryukov",
+        "slug": "bar-biryukov-petr",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1165
+      },
+      "id": 15594232,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 87343,
+        "name": "ATP Challenger Pune, India Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "petr-bar-biryukov-frederico-ferreira-silva",
+      "startTimestamp": 1771911600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1771914626,
+        "period1": 2520,
+        "period2": 3272
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1772323200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بوني، الهند",
+            "ru": "Пуна, Индия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 175441,
+        "isGroup": false,
+        "name": "Pune, India",
+        "priority": 0,
+        "slug": "pune-india",
+        "startTimestamp": 1771804800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بوني، الهند",
+              "ru": "Пуна, Индия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 6326,
+          "name": "Pune, India",
+          "slug": "pune-india",
+          "userCount": 129
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 2,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "awayTeamSeed": "5",
+      "changes": {
+        "changeTimestamp": 1772007751,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsGQHb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "HR",
+          "alpha3": "HRV",
+          "name": "Croatia",
+          "slug": "croatia"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دوي ج أيدوكوفيتش",
+            "ru": "Дуэ Айдукевич"
+          },
+          "shortNameTranslation": {
+            "ar": "د. أيدوكوفيتش",
+            "ru": "Д. Айдукевич"
+          }
+        },
+        "gender": "M",
+        "id": 207081,
+        "name": "Duje Ajduković",
+        "nameCode": "AJD",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2754
+        },
+        "ranking": 304,
+        "shortName": "D. Ajduković",
+        "slug": "ajdukovic-duje",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2457
+      },
+      "id": 15565604,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 87343,
+        "name": "ATP Challenger Pune, India Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "duje-ajdukovic-frederico-ferreira-silva",
+      "startTimestamp": 1772002800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1772005005,
+        "period1": 1760,
+        "period2": 2717
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1772323200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بوني، الهند",
+            "ru": "Пуна, Индия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 175441,
+        "isGroup": false,
+        "name": "Pune, India",
+        "priority": 0,
+        "slug": "pune-india",
+        "startTimestamp": 1771804800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بوني، الهند",
+              "ru": "Пуна, Индия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 6326,
+          "name": "Pune, India",
+          "slug": "pune-india",
+          "userCount": 129
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 0,
+        "period2": 4,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BG",
+          "alpha3": "BGR",
+          "name": "Bulgaria",
+          "slug": "bulgaria"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "يانكي ميلف",
+            "ru": "Янаки Милев"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. ميلف",
+            "ru": "Я. Милев"
+          }
+        },
+        "gender": "M",
+        "id": 331896,
+        "name": "Yanaki Milev",
+        "nameCode": "MIL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5652
+        },
+        "ranking": 729,
+        "shortName": "Y. Milev",
+        "slug": "milev-yanaki",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 528
+      },
+      "changes": {
+        "changeTimestamp": 1773584002,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsWMHc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "homeTeamSeed": "1",
+      "id": 15736394,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 87413,
+        "name": "ATP Challenger Murcia, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "yanaki-milev-frederico-ferreira-silva",
+      "startTimestamp": 1773578400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1773580524,
+        "period1": 1663,
+        "period2": 3417
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1773619200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مورثيا، إسبانيا، التصفيات",
+            "ru": "Мурсия, Испания, отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 177177,
+        "isGroup": false,
+        "name": "Murcia, Spain, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "murcia-spain-qualifying",
+        "startTimestamp": 1773532800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مورثيا، إسبانيا",
+              "ru": "Мурсия, Испания"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 13432,
+          "name": "Murcia, Spain",
+          "slug": "murcia-spain",
+          "userCount": 200
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "period2TieBreak": 6,
+        "period3": 4,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "DE",
+          "alpha3": "DEU",
+          "name": "Germany",
+          "slug": "germany"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "رودولف موليكر",
+            "bn": "রুডলফ মোলেকার",
+            "hi": "रुडोल्फ मोललेकर",
+            "ru": "Моллекер, Рудольф"
+          },
+          "shortNameTranslation": {
+            "ar": "ر. موليكر"
+          }
+        },
+        "gender": "M",
+        "id": 209103,
+        "name": "Rudolf Molleker",
+        "nameCode": "MOL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 246
+        },
+        "ranking": 481,
+        "shortName": "R. Molleker",
+        "slug": "molleker-rudolf",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1501
+      },
+      "awayTeamSeed": "8",
+      "changes": {
+        "changeTimestamp": 1773666708,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period3",
+          "homeScore.normaltime",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsdHIb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period1TieBreak": 4,
+        "period2": 7,
+        "period2TieBreak": 8,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "homeTeamSeed": "1",
+      "id": 15740129,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 87413,
+        "name": "ATP Challenger Murcia, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "rudolf-molleker-frederico-ferreira-silva",
+      "startTimestamp": 1773655200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1773663914,
+        "period1": 3821,
+        "period2": 4332,
+        "period3": 2782
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1773619200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مورثيا، إسبانيا، التصفيات",
+            "ru": "Мурсия, Испания, отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 177177,
+        "isGroup": false,
+        "name": "Murcia, Spain, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "murcia-spain-qualifying",
+        "startTimestamp": 1773532800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مورثيا، إسبانيا",
+              "ru": "Мурсия, Испания"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 13432,
+          "name": "Murcia, Spain",
+          "slug": "murcia-spain",
+          "userCount": 200
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 6,
+        "period2TieBreak": 4,
+        "point": "4"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1773754077,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsXrI",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "point": "6"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AT",
+          "alpha3": "AUT",
+          "name": "Austria",
+          "slug": "austria"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سيباستيان أوفنر",
+            "bn": "সেবাস্টিয়ান অফনার",
+            "hi": "सेबास्टियन ऑफनर",
+            "ru": "Офнер, Себастиан"
+          },
+          "shortNameTranslation": {}
+        },
+        "gender": "M",
+        "id": 83397,
+        "name": "Sebastian Ofner",
+        "nameCode": "OFN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 231
+        },
+        "ranking": 127,
+        "shortName": "S. Ofner",
+        "slug": "ofner-sebastian",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 6419
+      },
+      "homeTeamSeed": "4",
+      "id": 15756734,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 87413,
+        "name": "ATP Challenger Murcia, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "sebastian-ofner-frederico-ferreira-silva",
+      "startTimestamp": 1773747900,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1773750300,
+        "period1": 2011,
+        "period2": 3730
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1774137600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مرسية، إسبانيا",
+            "ru": "Задар, Хорватия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 176938,
+        "isGroup": false,
+        "name": "Murcia, Spain",
+        "priority": 0,
+        "slug": "murcia-spain",
+        "startTimestamp": 1773619200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مورثيا، إسبانيا",
+              "ru": "Мурсия, Испания"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 13432,
+          "name": "Murcia, Spain",
+          "slug": "murcia-spain",
+          "userCount": 200
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 2,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PL",
+          "alpha3": "POL",
+          "name": "Poland",
+          "slug": "poland"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دانيال ميخالسكي",
+            "ru": "Михальски, Даниэл"
+          },
+          "shortNameTranslation": {
+            "ar": "د. ميخالسكي"
+          }
+        },
+        "gender": "M",
+        "id": 257091,
+        "name": "Daniel Michalski",
+        "nameCode": "MIC",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3071
+        },
+        "ranking": 330,
+        "shortName": "D. Michalski",
+        "slug": "michalski-daniel",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1404
+      },
+      "changes": {
+        "changeTimestamp": 1774354522,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsQQcc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "homeTeamSeed": "5",
+      "id": 15844590,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 87465,
+        "name": "2026 ATP Challenger Split, Croatia Men Singles",
+        "year": "2026"
+      },
+      "slug": "daniel-michalski-frederico-ferreira-silva",
+      "startTimestamp": 1774347300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1774351516,
+        "period1": 3685,
+        "period2": 2948
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1774742400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سبليت، كرواتيا",
+            "ru": "Сплит, Хорватия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 178631,
+        "isGroup": false,
+        "name": "Split, Croatia",
+        "priority": 0,
+        "slug": "split-croatia",
+        "startTimestamp": 1774224000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "سبليت، كرواتيا",
+              "ru": "Сплит, Хорватия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 14646,
+          "name": "Split, Croatia",
+          "slug": "split-croatia",
+          "userCount": 136
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 2,
+        "period2": 6,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ساسا غوييمارد واينبرغ",
+            "ru": "Саша Геймар Вайенбург"
+          },
+          "shortNameTranslation": {
+            "ar": "س. واينبرغ",
+            "ru": "С. Вайенбург"
+          }
+        },
+        "gender": "M",
+        "id": 340741,
+        "name": "Sascha Gueymard Wayenburg",
+        "nameCode": "GUE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4975
+        },
+        "ranking": 329,
+        "shortName": "S. Gueymard Wayenburg",
+        "slug": "gueymard-wayenburg-sascha",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1547
+      },
+      "changes": {
+        "changeTimestamp": 1774440537,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.normaltime",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period3",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsQoLc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period2": 3,
+        "period3": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "homeTeamSeed": "5",
+      "id": 15829091,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 87465,
+        "name": "2026 ATP Challenger Split, Croatia Men Singles",
+        "year": "2026"
+      },
+      "slug": "sascha-gueymard-wayenburg-frederico-ferreira-silva",
+      "startTimestamp": 1774431000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1774436976,
+        "period1": 2302,
+        "period2": 2857,
+        "period3": 3548
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1774742400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "سبليت، كرواتيا",
+            "ru": "Сплит, Хорватия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 178631,
+        "isGroup": false,
+        "name": "Split, Croatia",
+        "priority": 0,
+        "slug": "split-croatia",
+        "startTimestamp": 1774224000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "سبليت، كرواتيا",
+              "ru": "Сплит, Хорватия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 14646,
+          "name": "Split, Croatia",
+          "slug": "split-croatia",
+          "userCount": 136
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 2,
+        "period2": 1,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "awayTeamSeed": "6",
+      "changes": {
+        "changeTimestamp": 1775065245,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsQXxc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "ES",
+          "alpha3": "ESP",
+          "name": "Spain",
+          "slug": "spain"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دانيال رينكون",
+            "ru": "Даниэль Ринкон"
+          },
+          "shortNameTranslation": {
+            "ar": "د. رينكون",
+            "ru": "Д. Ринкон"
+          }
+        },
+        "gender": "M",
+        "id": 307391,
+        "name": "Daniel Rincon",
+        "nameCode": "RIN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4776
+        },
+        "ranking": 206,
+        "shortName": "D. Rincón",
+        "slug": "rincon-daniel",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2306
+      },
+      "id": 15901587,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 87467,
+        "name": "ATP Challenger Menorca, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "daniel-rincon-frederico-ferreira-silva",
+      "startTimestamp": 1775057400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1775062687,
+        "period1": 4034,
+        "period2": 2512
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1775347200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مينوركا، إسبانيا",
+            "ru": "Менорка, Испания"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 179240,
+        "isGroup": false,
+        "name": "Menorca, Spain",
+        "priority": 0,
+        "slug": "menorca-spain",
+        "startTimestamp": 1774828800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مينوركا، إسبانيا",
+              "ru": "Менорка, Испания"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 25747,
+          "name": "Menorca, Spain",
+          "slug": "atp-challenger-menorca-spain-men-singles",
+          "userCount": 99
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 4,
+        "period2": 6,
+        "period3": 5,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "فريدريكو فيريرا سيلفا",
+            "ru": "Сильва, Фредерико Феррейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ف. سيلفا",
+            "bn": "এফ. ফেরেরা শিলভা",
+            "hi": "एफ. फेरेइरा सिल्वा"
+          }
+        },
+        "gender": "M",
+        "id": 66484,
+        "name": "Frederico Ferreira Silva",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 496
+        },
+        "ranking": 231,
+        "shortName": "F. Ferreira Silva",
+        "slug": "ferreira-silva-frederico",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1945
+      },
+      "changes": {
+        "changeTimestamp": 1775489040,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "JEBsiMfc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 4,
+        "period3": 7,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "ES",
+          "alpha3": "ESP",
+          "name": "Spain",
+          "slug": "spain"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بابلو لياماس رويز",
+            "bn": "পাবলো লামাস রুইজ",
+            "hi": "पाब्लो लामास रूइज़",
+            "ru": "Льямас Руис, Пабло"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. رويز"
+          }
+        },
+        "gender": "M",
+        "id": 264358,
+        "name": "Pablo Llamas Ruiz",
+        "nameCode": "LLA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3943
+        },
+        "ranking": 130,
+        "shortName": "P. Llamas Ruiz",
+        "slug": "llamas-ruiz-pablo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3431
+      },
+      "homeTeamSeed": "4",
+      "id": 15951606,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 88862,
+        "name": "ATP Challenger Madrid, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "pablo-llamas-ruiz-frederico-ferreira-silva",
+      "startTimestamp": 1775478600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1775484688,
+        "period1": 2623,
+        "period2": 3524,
+        "period3": 4295
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1775952000,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مدريد، إسبانيا",
+            "ru": "Мадрид, Испания"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 179722,
+        "isGroup": false,
+        "name": "Madrid, Spain",
+        "priority": 0,
+        "slug": "madrid-spain",
+        "startTimestamp": 1775433600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مدريد، إسبانيا",
+              "ru": "Мадрид, Испания"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3981,
+          "name": "Madrid, Spain",
+          "slug": "madrid-spain",
+          "userCount": 290
+        }
+      },
+      "winnerCode": 1
+    }
+  ],
+  "has_next_page": true,
+  "page": 1,
+  "player_id": 66484,
+  "saved_at": 1788183443.494321,
+  "saved_at_iso": "2026-08-31T13:37:23+00:00",
+  "source": "API_PRO_PREVIOUS_MATCHES",
+  "status": "OK"
+}

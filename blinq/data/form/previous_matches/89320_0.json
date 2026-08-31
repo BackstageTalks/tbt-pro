@@ -1,0 +1,7316 @@
+{
+  "api_status_code": 200,
+  "endpoint": "https://tennisapi1.p.rapidapi.com/api/tennis/player/89320/events/previous/0",
+  "events": [
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "ES",
+          "alpha3": "ESP",
+          "name": "Spain",
+          "slug": "spain"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بابلو لياماس رويز",
+            "bn": "পাবলো লামাস রুইজ",
+            "hi": "पाब्लो लामास रूइज़",
+            "ru": "Льямас Руис, Пабло"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. رويز"
+          }
+        },
+        "gender": "M",
+        "id": 264358,
+        "name": "Pablo Llamas Ruiz",
+        "nameCode": "LLA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3943
+        },
+        "ranking": 130,
+        "shortName": "P. Llamas Ruiz",
+        "slug": "llamas-ruiz-pablo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3431
+      },
+      "changes": {
+        "changeTimestamp": 1774358053,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsiMfc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "homeTeamSeed": "Q",
+      "id": 15856214,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 88882,
+        "name": "ATP Challenger Montemar, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "pablo-llamas-ruiz-ilya-ivashka",
+      "startTimestamp": 1774351200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1774354345,
+        "period1": 2536,
+        "period2": 3642
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1774742400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مونتيمار، إسبانيا",
+            "ru": "Монтемар, Испания"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 178639,
+        "isGroup": false,
+        "name": "Montemar, Spain",
+        "priority": 0,
+        "slug": "montemar-spain",
+        "startTimestamp": 1774224000,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "ATP تشالنجر مونتيمار، إسبانيا فردي الرجال",
+              "ru": "ATP Challenger Монтемар, Испания, среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 24181,
+          "name": "Montemar, Spain",
+          "slug": "atp-challenger-montemar-spain-men-singles",
+          "userCount": 181
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 5,
+        "period3": 7,
+        "period3TieBreak": 7,
+        "point": "4"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "NO",
+          "alpha3": "NOR",
+          "name": "Norway",
+          "slug": "norway"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "نيكولاي بودكوف كيار",
+            "ru": "Николай Будков Кьер"
+          },
+          "shortNameTranslation": {
+            "ar": "ن. كيار",
+            "ru": "Н. Кьер"
+          }
+        },
+        "gender": "M",
+        "id": 483188,
+        "name": "Nicolai Budkov Kjaer",
+        "nameCode": "BUD",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 13594
+        },
+        "ranking": 155,
+        "shortName": "N. Budkov Kjaer",
+        "slug": "budkov-kjaer-nicolai",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4450
+      },
+      "awayTeamSeed": "5",
+      "changes": {
+        "changeTimestamp": 1774793810,
+        "changes": [
+          "awayScore.period3TieBreak",
+          "awayScore.normaltime",
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsNnTd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "p250"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Red clay",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 1,
+        "period2": 7,
+        "period3": 6,
+        "period3TieBreak": 3,
+        "point": "3"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "homeTeamSeed": "A",
+      "id": 15901151,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 80805,
+        "name": "ATP Marrakech, Morocco Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "nicolai-budkov-kjaer-ilya-ivashka",
+      "startTimestamp": 1774783800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1774789912,
+        "period1": 2455,
+        "period2": 3264,
+        "period3": 3847
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "رابطة محترفي التنس",
+              "bn": "এটিপি",
+              "hi": "डब्ल्यूटीए",
+              "ru": "ATP"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "atp",
+          "id": 3,
+          "name": "ATP",
+          "priority": 8,
+          "slug": "atp",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1774828800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مراكش، المغرب، التصفيات",
+            "ru": "Марракеш, Марокко, Отборочный"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 179394,
+        "isGroup": false,
+        "name": "Marrakech, Morocco, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "marrakech-morocco-qualifying",
+        "startTimestamp": 1774742400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "رابطة محترفي التنس",
+                "bn": "এটিপি",
+                "hi": "डब्ल्यूटीए",
+                "ru": "ATP"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "atp",
+            "id": 3,
+            "name": "ATP",
+            "priority": 8,
+            "slug": "atp",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "مراكش",
+              "bn": "মারাকেচ",
+              "hi": "मारकेश",
+              "ru": "Марракеш"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Red clay",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 6794,
+          "name": "Marrakech",
+          "primaryColorHex": "#8b2e6b",
+          "secondaryColorHex": "#20974b",
+          "slug": "marrakech",
+          "tennisPoints": 250,
+          "userCount": 1558
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period1TieBreak": 1,
+        "period2": 7,
+        "period2TieBreak": 7,
+        "period3": 2,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "AU",
+          "alpha3": "AUS",
+          "name": "Australia",
+          "slug": "australia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دين سوييني",
+            "bn": "ডেন সুইনি",
+            "hi": "डेन स्वीनी",
+            "ru": "Суини, Дэйн"
+          },
+          "shortNameTranslation": {
+            "ar": "د. سوييني"
+          }
+        },
+        "gender": "M",
+        "id": 233126,
+        "name": "Dane Sweeny",
+        "nameCode": "SWE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4444
+        },
+        "ranking": 124,
+        "shortName": "D. Sweeny",
+        "slug": "sweeny-dane",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2195
+      },
+      "awayTeamSeed": "5",
+      "changes": {
+        "changeTimestamp": 1776154385,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsBmTb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "period2TieBreak": 4,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "id": 15991910,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 88850,
+        "name": "ATP Challenger Busan, Korea Republic Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "dane-sweeny-ilya-ivashka",
+      "startTimestamp": 1776138300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1776151455,
+        "period1": 4464,
+        "period2": 4889,
+        "period3": 2881
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1776556800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بوسان، جمهورية كوريا",
+            "ru": "Пусан, Республика Корея"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 180668,
+        "isGroup": false,
+        "name": "Busan, Korea Republic",
+        "priority": 0,
+        "slug": "busan-korea-republic",
+        "startTimestamp": 1776038400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بوسان، كوريا الجنوبية",
+              "ru": "Пусан, Южная Корея"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3481,
+          "name": "Busan, South Korea",
+          "slug": "busan-south-korea",
+          "tennisPoints": 125,
+          "userCount": 240
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 3,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "changes": {
+        "changeTimestamp": 1776318468,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "ofusvLK",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "GB",
+          "alpha3": "GBR",
+          "name": "United Kingdom",
+          "slug": "united-kingdom"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ليام برودي",
+            "bn": "লিয়াম ব্রোডি",
+            "hi": "लियाम ब्रॉडी",
+            "ru": "Лиам Броади"
+          },
+          "shortNameTranslation": {
+            "ar": "ل. برودي"
+          }
+        },
+        "gender": "M",
+        "id": 47764,
+        "name": "Liam Broady",
+        "nameCode": "BRO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 442
+        },
+        "ranking": 201,
+        "shortName": "L. Broady",
+        "slug": "broady-liam",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2119
+      },
+      "id": 15981224,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 88850,
+        "name": "ATP Challenger Busan, Korea Republic Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "ilya-ivashka-liam-broady",
+      "startTimestamp": 1776312300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1776315365,
+        "period1": 2402,
+        "period2": 2912
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1776556800,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بوسان، جمهورية كوريا",
+            "ru": "Пусан, Республика Корея"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 180668,
+        "isGroup": false,
+        "name": "Busan, Korea Republic",
+        "priority": 0,
+        "slug": "busan-korea-republic",
+        "startTimestamp": 1776038400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بوسان، كوريا الجنوبية",
+              "ru": "Пусан, Южная Корея"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3481,
+          "name": "Busan, South Korea",
+          "slug": "busan-south-korea",
+          "tennisPoints": 125,
+          "userCount": 240
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 4,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "awayTeamSeed": "A",
+      "changes": {
+        "changeTimestamp": 1776575730,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsWEpb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "TW",
+          "alpha3": "TWN",
+          "name": "Chinese Taipei",
+          "slug": "chinese-taipei"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تونغ-لين وو",
+            "bn": "তুং-লিন উ",
+            "hi": "तुंग-लिन वू",
+            "ru": "Танг-Лин Ву"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. وو"
+          }
+        },
+        "gender": "M",
+        "id": 163996,
+        "name": "Tung-Lin Wu",
+        "nameCode": "TUN",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 543
+        },
+        "ranking": 370,
+        "shortName": "T. Wu",
+        "slug": "wu-tung-lin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1100
+      },
+      "homeTeamSeed": "3",
+      "id": 16030086,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 88870,
+        "name": "ATP Challenger Gwangju, Korea Republic Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "tung-lin-wu-ilya-ivashka",
+      "startTimestamp": 1776567900,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1776572622,
+        "period1": 1724,
+        "period2": 3080
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1776643200,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "غوانغجو، جمهورية كوريا، التصفيات",
+            "ru": "Гвангжу, Республика Корея, Квалификация"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 181691,
+        "isGroup": false,
+        "name": "Gwangju, Korea Republic, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "gwangju-korea-republic-qualifying",
+        "startTimestamp": 1776556800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "غوانغجو، كوريا الجنوبية",
+              "ru": "Кванджу, Южная Корея"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 6763,
+          "name": "Gwangju, South Korea",
+          "slug": "gwangju-south-korea",
+          "userCount": 140
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 0,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "TW",
+          "alpha3": "TWN",
+          "name": "Chinese Taipei",
+          "slug": "chinese-taipei"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كوان-ي لي",
+            "ru": "Ли, Куан-И"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. لي"
+          }
+        },
+        "gender": "M",
+        "id": 169596,
+        "name": "Kuan-Yi Lee",
+        "nameCode": "LEE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2401
+        },
+        "ranking": 599,
+        "shortName": "K. Lee",
+        "slug": "lee-kuan-yi",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 205
+      },
+      "changes": {
+        "changeTimestamp": 1778587145,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsWQrb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "id": 16154705,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 90849,
+        "name": "ATP Challenger Bengaluru 2, India Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "kuan-yi-lee-ilya-ivashka",
+      "startTimestamp": 1778583300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1778585517,
+        "period1": 1861,
+        "period2": 1571
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1778889600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Bengaluru 2, India"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 183755,
+        "isGroup": false,
+        "name": "Bengaluru 2, India",
+        "priority": 0,
+        "slug": "bengaluru-2-india",
+        "startTimestamp": 1778457600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بنجالورو 2، الهند",
+              "ru": "Бенгалуру 2, Индия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18463,
+          "name": "Bengaluru 2, India",
+          "slug": "bengaluru-2-india",
+          "userCount": 62
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 2,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "JP",
+          "alpha3": "JPN",
+          "name": "Japan",
+          "slug": "japan"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كوكورو إيسومورا",
+            "ru": "Кокоро Исомура"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. إيسومورا",
+            "ru": "К. Исомура"
+          }
+        },
+        "gender": "M",
+        "id": 367815,
+        "name": "Kokoro Isomura",
+        "nameCode": "ISO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5330
+        },
+        "ranking": 571,
+        "shortName": "K. Isomura",
+        "slug": "isomura-kokoro",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 711
+      },
+      "changes": {
+        "changeTimestamp": 1778661475,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKspgXc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "id": 16141145,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 90849,
+        "name": "ATP Challenger Bengaluru 2, India Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "kokoro-isomura-ilya-ivashka",
+      "startTimestamp": 1778656800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1778658891,
+        "period1": 1872,
+        "period2": 2391
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1778889600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Bengaluru 2, India"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 183755,
+        "isGroup": false,
+        "name": "Bengaluru 2, India",
+        "priority": 0,
+        "slug": "bengaluru-2-india",
+        "startTimestamp": 1778457600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بنجالورو 2، الهند",
+              "ru": "Бенгалуру 2, Индия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18463,
+          "name": "Bengaluru 2, India",
+          "slug": "bengaluru-2-india",
+          "userCount": 62
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "changes": {
+        "changeTimestamp": 1778751876,
+        "changes": [
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsAVBb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 3,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IN",
+          "alpha3": "IND",
+          "name": "India",
+          "slug": "india"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مانيش سورشكومار",
+            "ru": "Сурешкумар, Маниш"
+          },
+          "shortNameTranslation": {
+            "ar": "م. سورشكومار"
+          }
+        },
+        "gender": "M",
+        "id": 192275,
+        "name": "Manish Sureshkumar",
+        "nameCode": "SUR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2562
+        },
+        "ranking": 727,
+        "shortName": "M. Sureshkumar",
+        "slug": "sureshkumar-manish",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 267
+      },
+      "id": 16141138,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 90849,
+        "name": "ATP Challenger Bengaluru 2, India Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "manish-sureshkumar-ilya-ivashka",
+      "startTimestamp": 1778747100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1778749339,
+        "period1": 1952,
+        "period2": 2505
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1778889600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Bengaluru 2, India"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 183755,
+        "isGroup": false,
+        "name": "Bengaluru 2, India",
+        "priority": 0,
+        "slug": "bengaluru-2-india",
+        "startTimestamp": 1778457600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بنجالورو 2، الهند",
+              "ru": "Бенгалуру 2, Индия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18463,
+          "name": "Bengaluru 2, India",
+          "slug": "bengaluru-2-india",
+          "userCount": 62
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 4,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "changes": {
+        "changeTimestamp": 1778845224,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsjQRb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "US",
+          "alpha3": "USA",
+          "name": "USA",
+          "slug": "usa"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كيغان سميث",
+            "ru": "Киган Смит"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. سميث",
+            "ru": "К. Смит"
+          }
+        },
+        "gender": "M",
+        "id": 232059,
+        "name": "Keegan Smith",
+        "nameCode": "SMI",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2968
+        },
+        "ranking": 198,
+        "shortName": "K. Smith",
+        "slug": "smith-keegan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1066
+      },
+      "homeTeamSeed": "1",
+      "id": 16141140,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 90849,
+        "name": "ATP Challenger Bengaluru 2, India Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "keegan-smith-ilya-ivashka",
+      "startTimestamp": 1778839200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1778842123,
+        "period1": 2249,
+        "period2": 3077
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1778889600,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Bengaluru 2, India"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 183755,
+        "isGroup": false,
+        "name": "Bengaluru 2, India",
+        "priority": 0,
+        "slug": "bengaluru-2-india",
+        "startTimestamp": 1778457600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بنجالورو 2، الهند",
+              "ru": "Бенгалуру 2, Индия"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18463,
+          "name": "Bengaluru 2, India",
+          "slug": "bengaluru-2-india",
+          "userCount": 62
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "changes": {
+        "changeTimestamp": 1779192069,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsgwBb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 2,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IN",
+          "alpha3": "IND",
+          "name": "India",
+          "slug": "india"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "س د براجوال ديف",
+            "ru": "Дев, С Д Пражвал"
+          },
+          "shortNameTranslation": {
+            "ar": "س. ديف"
+          }
+        },
+        "gender": "M",
+        "id": 191056,
+        "name": "S D Prajwal Dev",
+        "nameCode": "DEV",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2529
+        },
+        "ranking": 623,
+        "shortName": "S D P. Dev",
+        "slug": "dev-s-d-prajwal",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 334
+      },
+      "id": 16191417,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 94662,
+        "name": "ATP Challenger Bengaluru 3, India Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "sprajwal-dev-ilya-ivashka",
+      "startTimestamp": 1779187800,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1779190033,
+        "period1": 1916,
+        "period2": 1967
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1779494400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Бенгалуру 3, Индия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 184782,
+        "isGroup": false,
+        "name": "Bengaluru 3, India",
+        "priority": 0,
+        "slug": "bengaluru-3-india",
+        "startTimestamp": 1779062400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ru": "Челленджер ATP Бангалор 3, Индия, среди мужчин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 34833,
+          "name": "Bengaluru 3, India",
+          "slug": "atp-challenger-bengaluru-3-india-men-singles",
+          "userCount": 37
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "changes": {
+        "changeTimestamp": 1779263551,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.normaltime",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period2",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsAVBb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 1,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "IN",
+          "alpha3": "IND",
+          "name": "India",
+          "slug": "india"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "مانيش سورشكومار",
+            "ru": "Сурешкумар, Маниш"
+          },
+          "shortNameTranslation": {
+            "ar": "م. سورشكومار"
+          }
+        },
+        "gender": "M",
+        "id": 192275,
+        "name": "Manish Sureshkumar",
+        "nameCode": "SUR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2562
+        },
+        "ranking": 727,
+        "shortName": "M. Sureshkumar",
+        "slug": "sureshkumar-manish",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 267
+      },
+      "homeTeamSeed": "WC",
+      "id": 16181405,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 94662,
+        "name": "ATP Challenger Bengaluru 3, India Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "manish-sureshkumar-ilya-ivashka",
+      "startTimestamp": 1779259200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1779261475,
+        "period1": 1552,
+        "period2": 2060
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1779494400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Бенгалуру 3, Индия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 184782,
+        "isGroup": false,
+        "name": "Bengaluru 3, India",
+        "priority": 0,
+        "slug": "bengaluru-3-india",
+        "startTimestamp": 1779062400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ru": "Челленджер ATP Бангалор 3, Индия, среди мужчин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 34833,
+          "name": "Bengaluru 3, India",
+          "slug": "atp-challenger-bengaluru-3-india-men-singles",
+          "userCount": 37
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 2,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "MX",
+          "alpha3": "MEX",
+          "name": "Mexico",
+          "slug": "mexico"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أليكس هيرنانديز",
+            "ru": "Эрнандес Серрано, Хуан Алехандро"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. هيرنانديز"
+          }
+        },
+        "gender": "M",
+        "id": 258977,
+        "name": "Alex Hernandez",
+        "nameCode": "HER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 3076
+        },
+        "ranking": 470,
+        "shortName": "A. Hernandez",
+        "slug": "alex-hernandez",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 823
+      },
+      "changes": {
+        "changeTimestamp": 1779354327,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsCEdc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "A"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "id": 16181403,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 94662,
+        "name": "ATP Challenger Bengaluru 3, India Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "alex-hernandez-ilya-ivashka",
+      "startTimestamp": 1779349500,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1779352066,
+        "period1": 2124,
+        "period2": 2198
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1779494400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Бенгалуру 3, Индия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 184782,
+        "isGroup": false,
+        "name": "Bengaluru 3, India",
+        "priority": 0,
+        "slug": "bengaluru-3-india",
+        "startTimestamp": 1779062400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ru": "Челленджер ATP Бангалор 3, Индия, среди мужчин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 34833,
+          "name": "Bengaluru 3, India",
+          "slug": "atp-challenger-bengaluru-3-india-men-singles",
+          "userCount": 37
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 3,
+        "period2": 6,
+        "period3": 2,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "GB",
+          "alpha3": "GBR",
+          "name": "United Kingdom",
+          "slug": "united-kingdom"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "هاميش ستيوارت",
+            "ru": "Хэмиш Стюарт"
+          },
+          "shortNameTranslation": {
+            "ar": "ه. ستيوارت",
+            "ru": "Х. Стюарт"
+          }
+        },
+        "gender": "M",
+        "id": 245307,
+        "name": "Hamish Stewart",
+        "nameCode": "STE",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5800
+        },
+        "ranking": 345,
+        "shortName": "H. Stewart",
+        "slug": "stewart-hamish",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 718
+      },
+      "awayTeamSeed": "3",
+      "changes": {
+        "changeTimestamp": 1779443237,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKshgYb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 3,
+        "period3": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "id": 16181400,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 94662,
+        "name": "ATP Challenger Bengaluru 3, India Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "hamish-stewart-ilya-ivashka",
+      "startTimestamp": 1779435000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1779440846,
+        "period1": 2351,
+        "period2": 2830,
+        "period3": 2357
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1779494400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Бенгалуру 3, Индия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 184782,
+        "isGroup": false,
+        "name": "Bengaluru 3, India",
+        "priority": 0,
+        "slug": "bengaluru-3-india",
+        "startTimestamp": 1779062400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ru": "Челленджер ATP Бангалор 3, Индия, среди мужчин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 34833,
+          "name": "Bengaluru 3, India",
+          "slug": "atp-challenger-bengaluru-3-india-men-singles",
+          "userCount": 37
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 4,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "RU",
+          "alpha3": "RUS",
+          "name": "Russia",
+          "slug": "russia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بيتر بار بيريوكوف",
+            "ru": "Петр Бар Бирюков"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. بيريوكوف",
+            "ru": "П. Бирюков"
+          }
+        },
+        "gender": "M",
+        "id": 373829,
+        "name": "Petr Bar Biryukov",
+        "nameCode": "BAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4940
+        },
+        "ranking": 273,
+        "shortName": "P. Bar Biryukov",
+        "slug": "bar-biryukov-petr",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1165
+      },
+      "awayTeamSeed": "4",
+      "changes": {
+        "changeTimestamp": 1779536461,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsEBZc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period1TieBreak": 0,
+        "period2": 6,
+        "period3": 4,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "id": 16181404,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 94662,
+        "name": "ATP Challenger Bengaluru 3, India Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "petr-bar-biryukov-ilya-ivashka",
+      "startTimestamp": 1779528600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1779534124,
+        "period1": 2778,
+        "period2": 2200,
+        "period3": 2274
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1779494400,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "Бенгалуру 3, Индия"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 184782,
+        "isGroup": false,
+        "name": "Bengaluru 3, India",
+        "priority": 0,
+        "slug": "bengaluru-3-india",
+        "startTimestamp": 1779062400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ru": "Челленджер ATP Бангалор 3, Индия, среди мужчин, одиночный разряд"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 34833,
+          "name": "Bengaluru 3, India",
+          "slug": "atp-challenger-bengaluru-3-india-men-singles",
+          "userCount": 37
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "changes": {
+        "changeTimestamp": 1781694606,
+        "changes": [
+          "status",
+          "status.code",
+          "status.description",
+          "status.type"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsvMKd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 6,
+        "period1TieBreak": 5,
+        "period2": 4,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "رودريغو فيرنانديز",
+            "ru": "Родриго Фернандес"
+          },
+          "shortNameTranslation": {
+            "ar": "ر. فيرنانديز",
+            "ru": "Р. Фернандес"
+          }
+        },
+        "gender": "M",
+        "id": 464370,
+        "name": "Rodrigo Fernandes",
+        "nameCode": "FER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 12732
+        },
+        "ranking": 1258,
+        "shortName": "R. Fernandes",
+        "slug": "fernandes-rodrigo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 226
+      },
+      "id": 16343409,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 96000,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "rodrigo-fernandes-ilya-ivashka",
+      "startTimestamp": 1781687496,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "ITF M15 Ирвайн, Калифорния среди мужчин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 187863,
+        "name": "ITF M25 Lourinha Men",
+        "priority": 0,
+        "slug": "itf-m25-lourinha-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ru": "ITF M25 Лоуринья среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 35380,
+          "name": "ITF M25 Lourinha Men",
+          "slug": "itf-m25-lourinha-men",
+          "userCount": 2
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 3,
+        "period3": 4,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "changes": {
+        "changeTimestamp": 1781789031,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.current",
+          "homeScore.display",
+          "homeScore.period3",
+          "awayScore.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsYOhd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": true,
+      "finalResultOnly": false,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "period1": 3,
+        "period2": 6,
+        "period3": 6,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "ES",
+          "alpha3": "ESP",
+          "name": "Spain",
+          "slug": "spain"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "بابلو مارتينيز غوميز",
+            "ru": "Пабло Мартинес Гомес"
+          },
+          "shortNameTranslation": {
+            "ar": "ب. غوميز",
+            "ru": "П. Гомес"
+          }
+        },
+        "gender": "M",
+        "id": 394498,
+        "name": "Pablo Martinez Gomez",
+        "nameCode": "MAR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 7267
+        },
+        "ranking": 627,
+        "shortName": "P. Martinez Gomez",
+        "slug": "martinez-gomez-pablo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 236
+      },
+      "id": 16352035,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 96000,
+        "name": "2026",
+        "year": "2026"
+      },
+      "slug": "pablo-martinez-gomez-ilya-ivashka",
+      "startTimestamp": 1781774138,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "اتحاد التنس الدولي للرجال",
+              "ru": "Мужской мировой теннисный тур ITF"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "itf-men",
+          "id": 785,
+          "name": "ITF Men",
+          "priority": 4,
+          "slug": "itf-men",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ru": "ITF M15 Ирвайн, Калифорния среди мужчин"
+          },
+          "shortNameTranslation": {}
+        },
+        "id": 187863,
+        "name": "ITF M25 Lourinha Men",
+        "priority": 0,
+        "slug": "itf-m25-lourinha-men",
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "اتحاد التنس الدولي للرجال",
+                "ru": "Мужской мировой теннисный тур ITF"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "itf-men",
+            "id": 785,
+            "name": "ITF Men",
+            "priority": 4,
+            "slug": "itf-men",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ru": "ITF M25 Лоуринья среди мужчин"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 35380,
+          "name": "ITF M25 Lourinha Men",
+          "slug": "itf-m25-lourinha-men",
+          "userCount": 2
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1783892221,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsAQYj",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 3,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "ES",
+          "alpha3": "ESP",
+          "name": "Spain",
+          "slug": "spain"
+        },
+        "gender": "M",
+        "id": 1247075,
+        "name": "Agustin Siancha Borlenghi",
+        "nameCode": "SIA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 47252
+        },
+        "shortName": "A. Siancha Borlenghi",
+        "slug": "siancha-borlenghi-agustin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 4
+      },
+      "homeTeamSeed": "WC",
+      "id": 16496543,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 89908,
+        "name": "ATP Challenger Pozoblanco, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "agustin-siancha-borlenghi-ilya-ivashka",
+      "startTimestamp": 1783887300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1783889977,
+        "period1": 2350,
+        "period2": 2198
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1783900800,
+        "id": 191601,
+        "isGroup": false,
+        "name": "Pozoblanco, Spain, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "pozoblanco-spain-qualifying",
+        "startTimestamp": 1783814400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بوزوبلانكو، إسبانيا",
+              "ru": "Позобланко, Испания"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3666,
+          "name": "Pozoblanco, Spain",
+          "slug": "pozoblanco-spain",
+          "userCount": 104
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1783972427,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsNxtd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 4,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BG",
+          "alpha3": "BGR",
+          "name": "Bulgaria",
+          "slug": "bulgaria"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إليان رادولوف",
+            "ru": "Илиян Радулов"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. رادولوف",
+            "ru": "И. Радулов"
+          }
+        },
+        "gender": "M",
+        "id": 421138,
+        "name": "Iliyan Radulov",
+        "nameCode": "RAD",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 11701
+        },
+        "ranking": 622,
+        "shortName": "I. Radulov",
+        "slug": "radulov-iliyan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 756
+      },
+      "id": 16504342,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 89908,
+        "name": "ATP Challenger Pozoblanco, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "iliyan-radulov-ilya-ivashka",
+      "startTimestamp": 1783967100,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1783969986,
+        "period1": 2912,
+        "period2": 2407
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1783900800,
+        "id": 191601,
+        "isGroup": false,
+        "name": "Pozoblanco, Spain, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "pozoblanco-spain-qualifying",
+        "startTimestamp": 1783814400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بوزوبلانكو، إسبانيا",
+              "ru": "Позобланко, Испания"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3666,
+          "name": "Pozoblanco, Spain",
+          "slug": "pozoblanco-spain",
+          "userCount": 104
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "period1": 6,
+        "period2": 3,
+        "point": "30"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1784053054,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKswHJc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 0,
+        "display": 0,
+        "period1": 2,
+        "period2": 1,
+        "point": "15"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "TH",
+          "alpha3": "THA",
+          "name": "Thailand",
+          "slug": "thailand"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ماكسيموس جونز",
+            "ru": "Максимус Джонс"
+          },
+          "shortNameTranslation": {
+            "ar": "م. جونز",
+            "ru": "М. Джонс"
+          }
+        },
+        "gender": "M",
+        "id": 336621,
+        "name": "Maximus Jones",
+        "nameCode": "JON",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5232
+        },
+        "ranking": 438,
+        "shortName": "M. Jones",
+        "slug": "jones-maximus",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1015
+      },
+      "homeTeamSeed": "A",
+      "id": 16514687,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 89908,
+        "name": "ATP Challenger Pozoblanco, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "maximus-jones-ilya-ivashka",
+      "startTimestamp": 1784049000,
+      "status": {
+        "code": 92,
+        "description": "Retired",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1784051433,
+        "period1": 1875,
+        "period2": 1588
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1784419200,
+        "id": 191026,
+        "isGroup": false,
+        "name": "Pozoblanco, Spain",
+        "priority": 0,
+        "slug": "pozoblanco-spain",
+        "startTimestamp": 1783900800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بوزوبلانكو، إسبانيا",
+              "ru": "Позобланко, Испания"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3666,
+          "name": "Pozoblanco, Spain",
+          "slug": "pozoblanco-spain",
+          "userCount": 104
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 1,
+        "period2": 0,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "TN",
+          "alpha3": "TUN",
+          "name": "Tunisia",
+          "slug": "tunisia"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "عزيز وقعا",
+            "ru": "Азиз Уакаа"
+          },
+          "shortNameTranslation": {
+            "ar": "ع. وقعا",
+            "ru": "А. Уакаа"
+          }
+        },
+        "gender": "M",
+        "id": 202557,
+        "name": "Aziz Ouakaa",
+        "nameCode": "OUA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2699
+        },
+        "ranking": 500,
+        "shortName": "A. Ouakaa",
+        "slug": "ouakaa-aziz",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 634
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1784223105,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKshbGb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "homeTeamSeed": "Q",
+      "id": 16465951,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 89908,
+        "name": "ATP Challenger Pozoblanco, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "aziz-ouakaa-ilya-ivashka",
+      "startTimestamp": 1784220000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1784221638,
+        "period1": 1565,
+        "period2": 1438
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1784419200,
+        "id": 191026,
+        "isGroup": false,
+        "name": "Pozoblanco, Spain",
+        "priority": 0,
+        "slug": "pozoblanco-spain",
+        "startTimestamp": 1783900800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بوزوبلانكو، إسبانيا",
+              "ru": "Позобланко, Испания"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3666,
+          "name": "Pozoblanco, Spain",
+          "slug": "pozoblanco-spain",
+          "userCount": 104
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period1TieBreak": 4,
+        "period2": 6,
+        "period3": 6,
+        "point": "40"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1784316989,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3",
+          "status.code",
+          "status.description",
+          "status.type",
+          "homeScore.normaltime",
+          "awayScore.current",
+          "awayScore.display",
+          "awayScore.period3",
+          "awayScore.normaltime"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsRLBb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 1,
+        "period3": 3,
+        "point": "30"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "دان أديد",
+            "ru": "Аддед, Дэн"
+          },
+          "shortNameTranslation": {
+            "ar": "د. أديد"
+          }
+        },
+        "gender": "M",
+        "id": 191842,
+        "name": "Dan Added",
+        "nameCode": "ADD",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2548
+        },
+        "ranking": 223,
+        "shortName": "D. Added",
+        "slug": "added-dan",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1172
+      },
+      "homeTeamSeed": "6",
+      "id": 16465941,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 89908,
+        "name": "ATP Challenger Pozoblanco, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "dan-added-ilya-ivashka",
+      "startTimestamp": 1784307600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1784314458,
+        "period1": 4701,
+        "period2": 1753,
+        "period3": 2515
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1784419200,
+        "id": 191026,
+        "isGroup": false,
+        "name": "Pozoblanco, Spain",
+        "priority": 0,
+        "slug": "pozoblanco-spain",
+        "startTimestamp": 1783900800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بوزوبلانكو، إسبانيا",
+              "ru": "Позобланко, Испания"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3666,
+          "name": "Pozoblanco, Spain",
+          "slug": "pozoblanco-spain",
+          "userCount": 104
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 2,
+        "period3": 7,
+        "period3TieBreak": 9,
+        "point": "8"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1784404300,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsoKnd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 6,
+        "period1TieBreak": 5,
+        "period2": 6,
+        "period3": 6,
+        "period3TieBreak": 7,
+        "point": "7"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "PT",
+          "alpha3": "PRT",
+          "name": "Portugal",
+          "slug": "portugal"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "تياغو بيريرا",
+            "ru": "Тьяго Перейра"
+          },
+          "shortNameTranslation": {
+            "ar": "ت. بيريرا",
+            "ru": "Т. Перейра"
+          }
+        },
+        "gender": "M",
+        "id": 409264,
+        "name": "Tiago Pereira",
+        "nameCode": "PER",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5823
+        },
+        "ranking": 349,
+        "shortName": "T. Pereira",
+        "slug": "pereira-tiago",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1277
+      },
+      "id": 16465953,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 2,
+        "name": "Semifinals",
+        "round": 28,
+        "slug": "semifinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 89908,
+        "name": "ATP Challenger Pozoblanco, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "tiago-pereira-ilya-ivashka",
+      "startTimestamp": 1784394000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1784400182,
+        "period1": 3124,
+        "period2": 2512,
+        "period3": 4097
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1784419200,
+        "id": 191026,
+        "isGroup": false,
+        "name": "Pozoblanco, Spain",
+        "priority": 0,
+        "slug": "pozoblanco-spain",
+        "startTimestamp": 1783900800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بوزوبلانكو، إسبانيا",
+              "ru": "Позобланко, Испания"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3666,
+          "name": "Pozoblanco, Spain",
+          "slug": "pozoblanco-spain",
+          "userCount": 104
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 4,
+        "period2": 6,
+        "period3": 6,
+        "period3TieBreak": 5,
+        "point": "5"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1784502319,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsyfPb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 2,
+        "period3": 7,
+        "period3TieBreak": 7,
+        "point": "6"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "LU",
+          "alpha3": "LUX",
+          "name": "Luxembourg",
+          "slug": "luxembourg"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "كريس روديش",
+            "ru": "Родеш, Крис"
+          },
+          "shortNameTranslation": {
+            "ar": "ك. روديش"
+          }
+        },
+        "gender": "M",
+        "id": 225273,
+        "name": "Chris Rodesch",
+        "nameCode": "ROD",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 5161
+        },
+        "ranking": 153,
+        "shortName": "C. Rodesch",
+        "slug": "rodesch-chris",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1642
+      },
+      "homeTeamSeed": "1",
+      "id": 16465944,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 1,
+        "name": "Final",
+        "round": 29,
+        "slug": "final"
+      },
+      "season": {
+        "editor": false,
+        "id": 89908,
+        "name": "ATP Challenger Pozoblanco, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "chris-rodesch-ilya-ivashka",
+      "startTimestamp": 1784494200,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1784498664,
+        "period1": 2614,
+        "period2": 1597,
+        "period3": 3635
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1784419200,
+        "id": 191026,
+        "isGroup": false,
+        "name": "Pozoblanco, Spain",
+        "priority": 0,
+        "slug": "pozoblanco-spain",
+        "startTimestamp": 1783900800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "بوزوبلانكو، إسبانيا",
+              "ru": "Позобланко, Испания"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3666,
+          "name": "Pozoblanco, Spain",
+          "slug": "pozoblanco-spain",
+          "userCount": 104
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 3,
+        "period2": 3,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "changes": {
+        "changeTimestamp": 1784645186,
+        "changes": [
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "CrJsvLK",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AR",
+          "alpha3": "ARG",
+          "name": "Argentina",
+          "slug": "argentina"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "غونزالو فيلانويفا",
+            "ru": "Гонсало Виллануэва"
+          },
+          "shortNameTranslation": {
+            "ar": "غ. فيلانويفا"
+          }
+        },
+        "gender": "M",
+        "id": 85877,
+        "name": "Gonzalo Villanueva",
+        "nameCode": "VIL",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 1789
+        },
+        "ranking": 322,
+        "shortName": "G. Villanueva",
+        "slug": "villanueva-gonzalo",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1298
+      },
+      "homeTeamSeed": "A",
+      "id": 16566828,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 89914,
+        "name": "ATP Challenger Segovia, Spain Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "ilya-ivashka-gonzalo-villanueva",
+      "startTimestamp": 1784640600,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1784642663,
+        "period1": 1689,
+        "period2": 2331
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1785024000,
+        "id": 191862,
+        "isGroup": false,
+        "name": "Segovia, Spain",
+        "priority": 0,
+        "slug": "segovia-spain",
+        "startTimestamp": 1784505600,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "سيغوفيا، إسبانيا",
+              "ru": "Сеговия, Испания"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 3503,
+          "name": "Segovia, Spain",
+          "slug": "segovia-spain",
+          "userCount": 209
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 2,
+        "period2": 1,
+        "point": "15"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "SE",
+          "alpha3": "SWE",
+          "name": "Sweden",
+          "slug": "sweden"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ميلفين كومار",
+            "ru": "Мелвин Кумар"
+          },
+          "shortNameTranslation": {
+            "ar": "م. كومار",
+            "ru": "М. Кумар"
+          }
+        },
+        "gender": "M",
+        "id": 492574,
+        "name": "Melvin Kumar",
+        "nameCode": "KUM",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 22607
+        },
+        "ranking": 1426,
+        "shortName": "M. Kumar",
+        "slug": "kumar-melvin",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 56
+      },
+      "changes": {
+        "changeTimestamp": 1785676865,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKszbXd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "homeTeamSeed": "1",
+      "id": 16693934,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Round 1",
+        "round": 1,
+        "slug": "qualification-round-1"
+      },
+      "season": {
+        "editor": false,
+        "id": 90916,
+        "name": "ATP Challenger Grodzisk Mazowiecki, Poland Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "melvin-kumar-ilya-ivashka",
+      "startTimestamp": 1785672300,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1785674956,
+        "period1": 2275,
+        "period2": 1889
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1785715200,
+        "id": 194450,
+        "isGroup": false,
+        "name": "Grodzisk Mazowiecki, Poland, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "grodzisk-mazowiecki-poland-qualifying",
+        "startTimestamp": 1785628800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "غروجيزك مازوفيتسكي، بولندا",
+              "ru": "Гродзиск-Мазовецкий, Польша"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18860,
+          "name": "Grodzisk Mazowiecki, Poland",
+          "slug": "grodzisk-mazowiecki-poland",
+          "tennisPoints": 100,
+          "userCount": 207
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 4,
+        "period2": 1,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "GB",
+          "alpha3": "GBR",
+          "name": "United Kingdom",
+          "slug": "united-kingdom"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "أوسكار ويتمن",
+            "ru": "Оскар Уэйтман"
+          },
+          "shortNameTranslation": {
+            "ar": "أ. ويتمن",
+            "ru": "О. Уэйтман"
+          }
+        },
+        "gender": "M",
+        "id": 276364,
+        "name": "Oscar Weightman",
+        "nameCode": "WEI",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4765
+        },
+        "ranking": 692,
+        "shortName": "O. Weightman",
+        "slug": "weightman-oscar",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 262
+      },
+      "awayTeamSeed": "11",
+      "changes": {
+        "changeTimestamp": 1785758776,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsoCkc",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 1,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "homeTeamSeed": "1",
+      "id": 16701012,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "name": "Qualification Final",
+        "round": 250,
+        "slug": "qualification-final"
+      },
+      "season": {
+        "editor": false,
+        "id": 90916,
+        "name": "ATP Challenger Grodzisk Mazowiecki, Poland Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "oscar-weightman-ilya-ivashka",
+      "startTimestamp": 1785752400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1785756378,
+        "period1": 3046,
+        "period2": 2335
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1785715200,
+        "id": 194450,
+        "isGroup": false,
+        "name": "Grodzisk Mazowiecki, Poland, Qualifying",
+        "priority": 0,
+        "qualificationOrPreliminary": true,
+        "slug": "grodzisk-mazowiecki-poland-qualifying",
+        "startTimestamp": 1785628800,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "غروجيزك مازوفيتسكي، بولندا",
+              "ru": "Гродзиск-Мазовецкий, Польша"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18860,
+          "name": "Grodzisk Mazowiecki, Poland",
+          "slug": "grodzisk-mazowiecki-poland",
+          "tennisPoints": 100,
+          "userCount": 207
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 6,
+        "period2": 5,
+        "period3": 6,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1785866039,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period3"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsEHzb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 1,
+        "display": 1,
+        "normaltime": 1,
+        "period1": 1,
+        "period2": 7,
+        "period3": 3,
+        "point": "0"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "TR",
+          "alpha3": "TUR",
+          "name": "Türkiye",
+          "slug": "turkiye"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيرجي كيركين",
+            "ru": "Эрги Киркин"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. كيركين",
+            "bn": "ই. কার্কিন",
+            "hi": "ई. किर्किन",
+            "ru": "Э. Киркин"
+          }
+        },
+        "gender": "M",
+        "id": 186629,
+        "name": "Ergi Kirkin",
+        "nameCode": "KIR",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 2471
+        },
+        "ranking": 594,
+        "shortName": "E. Kirkin",
+        "slug": "kirkin-ergi",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 831
+      },
+      "homeTeamSeed": "Q",
+      "id": 16709599,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 90916,
+        "name": "ATP Challenger Grodzisk Mazowiecki, Poland Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "ergi-kirkin-ilya-ivashka",
+      "startTimestamp": 1785858000,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1785862735,
+        "period1": 1581,
+        "period2": 3088,
+        "period3": 3115
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1786233600,
+        "id": 193991,
+        "isGroup": false,
+        "name": "Grodzisk Mazowiecki, Poland",
+        "priority": 0,
+        "slug": "grodzisk-mazowiecki-poland",
+        "startTimestamp": 1785715200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "غروجيزك مازوفيتسكي، بولندا",
+              "ru": "Гродзиск-Мазовецкий, Польша"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18860,
+          "name": "Grodzisk Mazowiecki, Poland",
+          "slug": "grodzisk-mazowiecki-poland",
+          "tennisPoints": 100,
+          "userCount": 207
+        }
+      },
+      "winnerCode": 2
+    },
+    {
+      "awayScore": {},
+      "awayTeam": {
+        "country": {
+          "alpha2": "FR",
+          "alpha3": "FRA",
+          "name": "France",
+          "slug": "france"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "هارولد مايو",
+            "bn": "হ্যারল্ড মায়োট",
+            "hi": "हेरोल्ड मायोट",
+            "ru": "Майот, Гарольд"
+          },
+          "shortNameTranslation": {
+            "ar": "ه. مايو"
+          }
+        },
+        "gender": "M",
+        "id": 248846,
+        "name": "Harold Mayot",
+        "nameCode": "MAY",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 4440
+        },
+        "ranking": 252,
+        "shortName": "H. Mayot",
+        "slug": "mayot-harold",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2202
+      },
+      "awayTeamSeed": "7",
+      "changes": {
+        "changeTimestamp": 1785966061,
+        "changes": [
+          "status.code",
+          "status.description",
+          "status.type",
+          "time.currentPeriodStart"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsWBZb",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {},
+      "homeTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "homeTeamSeed": "Q",
+      "id": 16661587,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 8,
+        "name": "Round of 16",
+        "round": 5,
+        "slug": "round-of-16"
+      },
+      "season": {
+        "editor": false,
+        "id": 90916,
+        "name": "ATP Challenger Grodzisk Mazowiecki, Poland Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "harold-mayot-ilya-ivashka",
+      "startTimestamp": 1786096800,
+      "status": {
+        "code": 91,
+        "description": "Walkover",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1785966057
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1786233600,
+        "id": 193991,
+        "isGroup": false,
+        "name": "Grodzisk Mazowiecki, Poland",
+        "priority": 0,
+        "slug": "grodzisk-mazowiecki-poland",
+        "startTimestamp": 1785715200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "غروجيزك مازوفيتسكي، بولندا",
+              "ru": "Гродзиск-Мазовецкий, Польша"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18860,
+          "name": "Grodzisk Mazowiecki, Poland",
+          "slug": "grodzisk-mazowiecki-poland",
+          "tennisPoints": 100,
+          "userCount": 207
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {
+        "current": 0,
+        "display": 0,
+        "normaltime": 0,
+        "period1": 6,
+        "period1TieBreak": 4,
+        "period2": 4,
+        "point": "0"
+      },
+      "awayTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "awayTeamSeed": "Q",
+      "changes": {
+        "changeTimestamp": 1786113840,
+        "changes": [
+          "time.currentPeriodStart",
+          "time.period2"
+        ]
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsJnEd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "firstToServe": 2,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {
+        "current": 2,
+        "display": 2,
+        "normaltime": 2,
+        "period1": 7,
+        "period1TieBreak": 7,
+        "period2": 6,
+        "point": "40"
+      },
+      "homeTeam": {
+        "country": {
+          "alpha2": "AT",
+          "alpha3": "AUT",
+          "name": "Austria",
+          "slug": "austria"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "جويل شفايرزلر",
+            "ru": "Жоэль Шваерцлер"
+          },
+          "shortNameTranslation": {
+            "ar": "ج. شفايرزلر",
+            "ru": "Ж. Шваерцлер"
+          }
+        },
+        "gender": "M",
+        "id": 448184,
+        "name": "Joel Schwaerzler",
+        "nameCode": "SCH",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 7232
+        },
+        "ranking": 150,
+        "shortName": "J. Schwaerzler",
+        "slug": "schwarzler-joel-josef",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 3055
+      },
+      "homeTeamSeed": "3",
+      "id": 16661580,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 4,
+        "name": "Quarterfinals",
+        "round": 27,
+        "slug": "quarterfinals"
+      },
+      "season": {
+        "editor": false,
+        "id": 90916,
+        "name": "ATP Challenger Grodzisk Mazowiecki, Poland Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "joel-schwaerzler-ilya-ivashka",
+      "startTimestamp": 1786106400,
+      "status": {
+        "code": 100,
+        "description": "Ended",
+        "type": "finished"
+      },
+      "time": {
+        "currentPeriodStartTimestamp": 1786110420,
+        "period1": 3316,
+        "period2": 3395
+      },
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1786233600,
+        "id": 193991,
+        "isGroup": false,
+        "name": "Grodzisk Mazowiecki, Poland",
+        "priority": 0,
+        "slug": "grodzisk-mazowiecki-poland",
+        "startTimestamp": 1785715200,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "غروجيزك مازوفيتسكي، بولندا",
+              "ru": "Гродзиск-Мазовецкий, Польша"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 18860,
+          "name": "Grodzisk Mazowiecki, Poland",
+          "slug": "grodzisk-mazowiecki-poland",
+          "tennisPoints": 100,
+          "userCount": 207
+        }
+      },
+      "winnerCode": 1
+    },
+    {
+      "awayScore": {},
+      "awayTeam": {
+        "country": {
+          "alpha2": "CN",
+          "alpha3": "CHN",
+          "name": "China",
+          "slug": "china"
+        },
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "ي زو",
+            "bn": "ইয়ি ঝোউ",
+            "hi": "यी झोउ",
+            "ru": "Ий Чжоу"
+          },
+          "shortNameTranslation": {
+            "ar": "ي. زو",
+            "ru": "И. Чжоу"
+          }
+        },
+        "gender": "M",
+        "id": 450685,
+        "name": "Yi Zhou",
+        "nameCode": "ZHO",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 6804
+        },
+        "ranking": 244,
+        "shortName": "Y. Zhou",
+        "slug": "zhou-yi",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 1481
+      },
+      "awayTeamSeed": "4",
+      "changes": {
+        "changeTimestamp": 0
+      },
+      "crowdsourcingDataDisplayEnabled": false,
+      "customId": "vLKsKnFd",
+      "eventFilters": {
+        "category": [
+          "singles"
+        ],
+        "gender": [
+          "M"
+        ],
+        "level": [
+          "pro"
+        ],
+        "tournament": [
+          "lower"
+        ]
+      },
+      "feedLocked": false,
+      "finalResultOnly": false,
+      "groundType": "Hardcourt outdoor",
+      "hasGlobalHighlights": false,
+      "homeScore": {},
+      "homeTeam": {
+        "country": {
+          "alpha2": "BY",
+          "alpha3": "BLR",
+          "name": "Belarus",
+          "slug": "belarus"
+        },
+        "disabled": false,
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "إيليا إيفاشكا",
+            "ru": "Ивашка, Илья"
+          },
+          "shortNameTranslation": {
+            "ar": "إ. إيفاشكا",
+            "bn": "আই. ইভাশকা",
+            "hi": "आई. इवाश्का"
+          }
+        },
+        "gender": "M",
+        "id": 89320,
+        "name": "Ilya Ivashka",
+        "nameCode": "IVA",
+        "national": false,
+        "playerTeamInfo": {
+          "id": 98
+        },
+        "ranking": 374,
+        "shortName": "I. Ivashka",
+        "slug": "ivashka-ilya",
+        "sport": {
+          "id": 5,
+          "name": "Tennis",
+          "slug": "tennis"
+        },
+        "subTeams": [],
+        "teamColors": {
+          "primary": "#374df5",
+          "secondary": "#374df5",
+          "text": "#ffffff"
+        },
+        "type": 1,
+        "userCount": 2087
+      },
+      "id": 16951818,
+      "isEditor": false,
+      "periods": {
+        "current": "Match",
+        "period1": "1st set",
+        "period2": "2nd set",
+        "period3": "3rd set",
+        "period4": "4th set",
+        "period5": "5th set",
+        "point": "Game"
+      },
+      "roundInfo": {
+        "cupRoundType": 16,
+        "name": "Round of 32",
+        "round": 6,
+        "slug": "round-of-32"
+      },
+      "season": {
+        "editor": false,
+        "id": 96202,
+        "name": "ATP Challenger Zhangjiagang, China Men Singles 2026",
+        "year": "2026"
+      },
+      "slug": "yi-zhou-ilya-ivashka",
+      "startTimestamp": 1788240000,
+      "status": {
+        "code": 0,
+        "description": "Not started",
+        "type": "notstarted"
+      },
+      "time": {},
+      "tournament": {
+        "category": {
+          "country": {},
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "تحدي (تنس)",
+              "bn": "চ্যালেঞ্জার",
+              "hi": "डेनमार्क",
+              "ru": "Challenger"
+            },
+            "shortNameTranslation": {}
+          },
+          "flag": "challenger",
+          "id": 72,
+          "name": "Challenger",
+          "priority": 6,
+          "slug": "challenger",
+          "sport": {
+            "id": 5,
+            "name": "Tennis",
+            "slug": "tennis"
+          }
+        },
+        "endTimestamp": 1788652800,
+        "id": 197171,
+        "isGroup": false,
+        "name": "Zhangjiagang, China",
+        "priority": 0,
+        "slug": "zhangjiagang-china",
+        "startTimestamp": 1788134400,
+        "uniqueTournament": {
+          "category": {
+            "country": {},
+            "fieldTranslations": {
+              "nameTranslation": {
+                "ar": "تحدي (تنس)",
+                "bn": "চ্যালেঞ্জার",
+                "hi": "डेनमार्क",
+                "ru": "Challenger"
+              },
+              "shortNameTranslation": {}
+            },
+            "flag": "challenger",
+            "id": 72,
+            "name": "Challenger",
+            "priority": 6,
+            "slug": "challenger",
+            "sport": {
+              "id": 5,
+              "name": "Tennis",
+              "slug": "tennis"
+            }
+          },
+          "country": {},
+          "displayInverseHomeAwayTeams": false,
+          "fieldTranslations": {
+            "nameTranslation": {
+              "ar": "جانغجياغانغ، الصين",
+              "ru": "Чжанцзянган, Китай"
+            },
+            "shortNameTranslation": {}
+          },
+          "groundType": "Hardcourt outdoor",
+          "hasEventPlayerStatistics": false,
+          "hasPerformanceGraphFeature": false,
+          "id": 10481,
+          "name": "Zhangjiagang, China",
+          "slug": "zhangjiagang-china",
+          "tennisPoints": 75,
+          "userCount": 129
+        }
+      }
+    }
+  ],
+  "has_next_page": true,
+  "page": 0,
+  "player_id": 89320,
+  "saved_at": 1788183559.2186043,
+  "saved_at_iso": "2026-08-31T13:39:19+00:00",
+  "source": "API_PRO_PREVIOUS_MATCHES",
+  "status": "OK"
+}
