@@ -4,7 +4,7 @@
   "latest_odds_player1": 8.5,
   "latest_odds_player2": 1.05,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-08-31T17:44:00.494579+00:00",
+  "latest_snapshot_time_utc": "2026-09-01T08:00:33.601064+00:00",
   "opening_odds_player1": 8.5,
   "opening_odds_player2": 1.05,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Hamza Berrada",
   "player2": "Robin Eldin",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "16960134",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-31T12:30:00+00:00",
       "target_date": "2026-09-01"
+    },
+    {
+      "event_id": "16960134",
+      "event_key": "2026-09-01_hamza-berrada_vs_robin-eldin",
+      "hours_to_start": -19.51,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 8.5,
+      "odds_player2": 1.05,
+      "player1": "Hamza Berrada",
+      "player2": "Robin Eldin",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-01T08:00:33.601064+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-31T12:30:00+00:00",
+      "target_date": "2026-09-01"
     }
   ],
   "start_time_utc": "2026-08-31T12:30:00+00:00",
-  "updated_at_utc": "2026-08-31T17:44:29.144718+00:00"
+  "updated_at_utc": "2026-09-01T08:00:46.727775+00:00"
 }
