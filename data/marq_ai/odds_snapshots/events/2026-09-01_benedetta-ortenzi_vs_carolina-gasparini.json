@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.72727,
   "latest_odds_player2": 2.0,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-01T15:14:30.213169+00:00",
+  "latest_snapshot_time_utc": "2026-09-01T19:39:33.234649+00:00",
   "opening_odds_player1": 1.72727,
   "opening_odds_player2": 2.0,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Benedetta Ortenzi",
   "player2": "Carolina Gasparini",
-  "snapshot_count": 4,
+  "snapshot_count": 5,
   "snapshots": [
     {
       "event_id": "16960595",
@@ -97,8 +97,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-08-31T14:30:00+00:00",
       "target_date": "2026-09-01"
+    },
+    {
+      "event_id": "16960595",
+      "event_key": "2026-09-01_benedetta-ortenzi_vs_carolina-gasparini",
+      "hours_to_start": -29.16,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.72727,
+      "odds_player2": 2.0,
+      "player1": "Benedetta Ortenzi",
+      "player2": "Carolina Gasparini",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-01T19:39:33.234649+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-08-31T14:30:00+00:00",
+      "target_date": "2026-09-01"
     }
   ],
   "start_time_utc": "2026-08-31T14:30:00+00:00",
-  "updated_at_utc": "2026-09-01T15:15:09.552132+00:00"
+  "updated_at_utc": "2026-09-01T19:39:58.314977+00:00"
 }
