@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.5,
   "latest_odds_player2": 1.5,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-02T19:32:25.429116+00:00",
+  "latest_snapshot_time_utc": "2026-09-03T07:24:35.094078+00:00",
   "opening_odds_player1": 2.5,
   "opening_odds_player2": 1.5,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Anthony Susanto",
   "player2": "Hitesh Chauhan",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "16974002",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-02T13:00:00+00:00",
       "target_date": "2026-09-03"
+    },
+    {
+      "event_id": "16974002",
+      "event_key": "2026-09-03_anthony-susanto_vs_hitesh-chauhan",
+      "hours_to_start": -18.41,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.5,
+      "odds_player2": 1.5,
+      "player1": "Anthony Susanto",
+      "player2": "Hitesh Chauhan",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-03T07:24:35.094078+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-02T13:00:00+00:00",
+      "target_date": "2026-09-03"
     }
   ],
   "start_time_utc": "2026-09-02T13:00:00+00:00",
-  "updated_at_utc": "2026-09-02T19:33:37.816379+00:00"
+  "updated_at_utc": "2026-09-03T07:25:02.400831+00:00"
 }
