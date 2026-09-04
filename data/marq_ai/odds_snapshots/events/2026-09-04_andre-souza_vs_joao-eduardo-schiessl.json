@@ -4,7 +4,7 @@
   "latest_odds_player1": 7.0,
   "latest_odds_player2": 1.08333,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-04T07:26:52.368801+00:00",
+  "latest_snapshot_time_utc": "2026-09-04T14:35:20.182962+00:00",
   "opening_odds_player1": 7.0,
   "opening_odds_player2": 1.08333,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Andre Souza",
   "player2": "Joao Eduardo Schiessl",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "16986225",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-03T13:00:00+00:00",
       "target_date": "2026-09-04"
+    },
+    {
+      "event_id": "16986225",
+      "event_key": "2026-09-04_andre-souza_vs_joao-eduardo-schiessl",
+      "hours_to_start": -25.59,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 7.0,
+      "odds_player2": 1.08333,
+      "player1": "Andre Souza",
+      "player2": "Joao Eduardo Schiessl",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-04T14:35:20.182962+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-03T13:00:00+00:00",
+      "target_date": "2026-09-04"
     }
   ],
   "start_time_utc": "2026-09-03T13:00:00+00:00",
-  "updated_at_utc": "2026-09-04T07:27:11.609695+00:00"
+  "updated_at_utc": "2026-09-04T14:35:41.322955+00:00"
 }
