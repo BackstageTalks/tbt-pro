@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.36364,
   "latest_odds_player2": 3.0,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-04T14:35:20.182962+00:00",
+  "latest_snapshot_time_utc": "2026-09-04T19:11:07.143445+00:00",
   "opening_odds_player1": 1.36364,
   "opening_odds_player2": 3.0,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Geun Jun Kim",
   "player2": "Alex Jones",
-  "snapshot_count": 5,
+  "snapshot_count": 6,
   "snapshots": [
     {
       "event_id": "16983189",
@@ -118,8 +118,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-03T12:30:00+00:00",
       "target_date": "2026-09-04"
+    },
+    {
+      "event_id": "16983189",
+      "event_key": "2026-09-04_alex-jones_vs_geun-jun-kim",
+      "hours_to_start": -30.69,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.36364,
+      "odds_player2": 3.0,
+      "player1": "Geun Jun Kim",
+      "player2": "Alex Jones",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-04T19:11:07.143445+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-03T12:30:00+00:00",
+      "target_date": "2026-09-04"
     }
   ],
   "start_time_utc": "2026-09-03T12:30:00+00:00",
-  "updated_at_utc": "2026-09-04T14:35:34.427247+00:00"
+  "updated_at_utc": "2026-09-04T19:11:22.020834+00:00"
 }
