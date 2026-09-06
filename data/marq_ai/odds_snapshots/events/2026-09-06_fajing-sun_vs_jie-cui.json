@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.2,
   "latest_odds_player2": 1.62,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-05T18:36:46.188770+00:00",
+  "latest_snapshot_time_utc": "2026-09-06T07:20:00.125899+00:00",
   "opening_odds_player1": 2.2,
   "opening_odds_player2": 1.62,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Jie Cui",
   "player2": "Fajing Sun",
-  "snapshot_count": 1,
+  "snapshot_count": 2,
   "snapshots": [
     {
       "event_id": "17013174",
@@ -34,8 +34,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-07T07:00:00+00:00",
       "target_date": "2026-09-06"
+    },
+    {
+      "event_id": "17013174",
+      "event_key": "2026-09-06_fajing-sun_vs_jie-cui",
+      "hours_to_start": 23.67,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.2,
+      "odds_player2": 1.62,
+      "player1": "Jie Cui",
+      "player2": "Fajing Sun",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-06T07:20:00.125899+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-07T07:00:00+00:00",
+      "target_date": "2026-09-06"
     }
   ],
   "start_time_utc": "2026-09-07T07:00:00+00:00",
-  "updated_at_utc": "2026-09-05T18:37:26.866725+00:00"
+  "updated_at_utc": "2026-09-06T07:20:11.942828+00:00"
 }
