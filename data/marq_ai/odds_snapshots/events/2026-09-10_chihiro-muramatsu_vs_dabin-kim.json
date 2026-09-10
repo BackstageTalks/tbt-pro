@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.75,
   "latest_odds_player2": 1.4,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-10T14:40:38.942367+00:00",
+  "latest_snapshot_time_utc": "2026-09-10T19:19:01.200826+00:00",
   "opening_odds_player1": 2.75,
   "opening_odds_player2": 1.4,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Chihiro Muramatsu",
   "player2": "Dabin Kim",
-  "snapshot_count": 7,
+  "snapshot_count": 8,
   "snapshots": [
     {
       "event_id": "17035329",
@@ -160,8 +160,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-09T12:00:00+00:00",
       "target_date": "2026-09-10"
+    },
+    {
+      "event_id": "17035329",
+      "event_key": "2026-09-10_chihiro-muramatsu_vs_dabin-kim",
+      "hours_to_start": -31.32,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.75,
+      "odds_player2": 1.4,
+      "player1": "Chihiro Muramatsu",
+      "player2": "Dabin Kim",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-10T19:19:01.200826+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-09T12:00:00+00:00",
+      "target_date": "2026-09-10"
     }
   ],
   "start_time_utc": "2026-09-09T12:00:00+00:00",
-  "updated_at_utc": "2026-09-10T14:40:41.869427+00:00"
+  "updated_at_utc": "2026-09-10T19:19:03.860892+00:00"
 }
