@@ -4,7 +4,7 @@
   "latest_odds_player1": 5.5,
   "latest_odds_player2": 1.125,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-11T14:39:56.820957+00:00",
+  "latest_snapshot_time_utc": "2026-09-11T19:20:01.054508+00:00",
   "opening_odds_player1": 5.5,
   "opening_odds_player2": 1.125,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Patrycja Niewiadomska",
   "player2": "Eva Shaw",
-  "snapshot_count": 5,
+  "snapshot_count": 6,
   "snapshots": [
     {
       "event_id": "17007705",
@@ -118,8 +118,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-10T18:20:00+00:00",
       "target_date": "2026-09-11"
+    },
+    {
+      "event_id": "17007705",
+      "event_key": "2026-09-11_eva-shaw_vs_patrycja-niewiadomska",
+      "hours_to_start": -25.0,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 5.5,
+      "odds_player2": 1.125,
+      "player1": "Patrycja Niewiadomska",
+      "player2": "Eva Shaw",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-11T19:20:01.054508+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-10T18:20:00+00:00",
+      "target_date": "2026-09-11"
     }
   ],
   "start_time_utc": "2026-09-10T18:20:00+00:00",
-  "updated_at_utc": "2026-09-11T14:40:00.566594+00:00"
+  "updated_at_utc": "2026-09-11T19:20:20.152913+00:00"
 }
