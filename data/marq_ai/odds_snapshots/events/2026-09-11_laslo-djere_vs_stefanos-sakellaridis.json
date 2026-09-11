@@ -1,10 +1,10 @@
 {
   "event_id": "16979753",
   "event_key": "2026-09-11_laslo-djere_vs_stefanos-sakellaridis",
-  "latest_odds_player1": 1.44444,
-  "latest_odds_player2": 2.625,
+  "latest_odds_player1": 1.05,
+  "latest_odds_player2": 11.0,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-10T19:19:01.200826+00:00",
+  "latest_snapshot_time_utc": "2026-09-11T14:39:56.820957+00:00",
   "opening_odds_player1": 1.44444,
   "opening_odds_player2": 2.625,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Laslo Djere",
   "player2": "Stefanos Sakellaridis",
-  "snapshot_count": 1,
+  "snapshot_count": 2,
   "snapshots": [
     {
       "event_id": "16979753",
@@ -34,8 +34,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-11T13:10:00+00:00",
       "target_date": "2026-09-11"
+    },
+    {
+      "event_id": "16979753",
+      "event_key": "2026-09-11_laslo-djere_vs_stefanos-sakellaridis",
+      "hours_to_start": -1.0,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.05,
+      "odds_player2": 11.0,
+      "player1": "Laslo Djere",
+      "player2": "Stefanos Sakellaridis",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-11T14:39:56.820957+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-11T13:40:00+00:00",
+      "target_date": "2026-09-11"
     }
   ],
-  "start_time_utc": "2026-09-11T13:10:00+00:00",
-  "updated_at_utc": "2026-09-10T19:19:36.402768+00:00"
+  "start_time_utc": "2026-09-11T13:40:00+00:00",
+  "updated_at_utc": "2026-09-11T14:40:12.435520+00:00"
 }
