@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.16667,
   "latest_odds_player2": 4.5,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-12T13:47:17.232942+00:00",
+  "latest_snapshot_time_utc": "2026-09-12T18:49:27.955824+00:00",
   "opening_odds_player1": 1.0625,
   "opening_odds_player2": 10.0,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Yan Kodjoed",
   "player2": "Andreas Messis",
-  "snapshot_count": 4,
+  "snapshot_count": 5,
   "snapshots": [
     {
       "event_id": "17007603",
@@ -97,8 +97,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-11T14:00:00+00:00",
       "target_date": "2026-09-12"
+    },
+    {
+      "event_id": "17007603",
+      "event_key": "2026-09-12_andreas-messis_vs_yan-kodjoed",
+      "hours_to_start": -28.82,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.16667,
+      "odds_player2": 4.5,
+      "player1": "Yan Kodjoed",
+      "player2": "Andreas Messis",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-12T18:49:27.955824+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-11T14:00:00+00:00",
+      "target_date": "2026-09-12"
     }
   ],
   "start_time_utc": "2026-09-11T14:00:00+00:00",
-  "updated_at_utc": "2026-09-12T13:47:26.687005+00:00"
+  "updated_at_utc": "2026-09-12T18:49:37.320427+00:00"
 }

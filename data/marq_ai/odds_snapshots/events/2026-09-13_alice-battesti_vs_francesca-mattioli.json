@@ -4,7 +4,7 @@
   "latest_odds_player1": 3.5,
   "latest_odds_player2": 1.28571,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-12T13:47:17.232942+00:00",
+  "latest_snapshot_time_utc": "2026-09-12T18:49:27.955824+00:00",
   "opening_odds_player1": 3.5,
   "opening_odds_player2": 1.28571,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Alice Battesti",
   "player2": "Francesca Mattioli",
-  "snapshot_count": 1,
+  "snapshot_count": 2,
   "snapshots": [
     {
       "event_id": "17077419",
@@ -34,8 +34,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-12T17:10:00+00:00",
       "target_date": "2026-09-13"
+    },
+    {
+      "event_id": "17077419",
+      "event_key": "2026-09-13_alice-battesti_vs_francesca-mattioli",
+      "hours_to_start": 0.18,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 3.5,
+      "odds_player2": 1.28571,
+      "player1": "Alice Battesti",
+      "player2": "Francesca Mattioli",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-12T18:49:27.955824+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-12T19:00:00+00:00",
+      "target_date": "2026-09-13"
     }
   ],
-  "start_time_utc": "2026-09-12T17:10:00+00:00",
-  "updated_at_utc": "2026-09-12T13:48:22.705422+00:00"
+  "start_time_utc": "2026-09-12T19:00:00+00:00",
+  "updated_at_utc": "2026-09-12T18:50:15.360855+00:00"
 }

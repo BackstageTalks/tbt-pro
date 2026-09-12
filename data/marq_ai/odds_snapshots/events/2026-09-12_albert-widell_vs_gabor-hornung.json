@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.28571,
   "latest_odds_player2": 3.5,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-12T13:47:17.232942+00:00",
+  "latest_snapshot_time_utc": "2026-09-12T18:49:27.955824+00:00",
   "opening_odds_player1": 1.28571,
   "opening_odds_player2": 3.5,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Gabor Hornung",
   "player2": "Albert Widell",
-  "snapshot_count": 4,
+  "snapshot_count": 5,
   "snapshots": [
     {
       "event_id": "17007594",
@@ -97,8 +97,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-11T15:35:00+00:00",
       "target_date": "2026-09-12"
+    },
+    {
+      "event_id": "17007594",
+      "event_key": "2026-09-12_albert-widell_vs_gabor-hornung",
+      "hours_to_start": -27.24,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.28571,
+      "odds_player2": 3.5,
+      "player1": "Gabor Hornung",
+      "player2": "Albert Widell",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-12T18:49:27.955824+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-11T15:35:00+00:00",
+      "target_date": "2026-09-12"
     }
   ],
   "start_time_utc": "2026-09-11T15:35:00+00:00",
-  "updated_at_utc": "2026-09-12T13:47:33.561447+00:00"
+  "updated_at_utc": "2026-09-12T18:49:41.388948+00:00"
 }

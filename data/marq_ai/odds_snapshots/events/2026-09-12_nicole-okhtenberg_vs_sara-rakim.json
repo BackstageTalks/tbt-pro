@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.22222,
   "latest_odds_player2": 4.0,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-12T13:47:17.232942+00:00",
+  "latest_snapshot_time_utc": "2026-09-12T18:49:27.955824+00:00",
   "opening_odds_player1": 1.22222,
   "opening_odds_player2": 4.0,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Nicole Okhtenberg",
   "player2": "Sara Rakim",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "17064983",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-11T19:15:00+00:00",
       "target_date": "2026-09-12"
+    },
+    {
+      "event_id": "17064983",
+      "event_key": "2026-09-12_nicole-okhtenberg_vs_sara-rakim",
+      "hours_to_start": -23.57,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.22222,
+      "odds_player2": 4.0,
+      "player1": "Nicole Okhtenberg",
+      "player2": "Sara Rakim",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-12T18:49:27.955824+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-11T19:15:00+00:00",
+      "target_date": "2026-09-12"
     }
   ],
   "start_time_utc": "2026-09-11T19:15:00+00:00",
-  "updated_at_utc": "2026-09-12T13:47:43.747008+00:00"
+  "updated_at_utc": "2026-09-12T18:49:49.255189+00:00"
 }
