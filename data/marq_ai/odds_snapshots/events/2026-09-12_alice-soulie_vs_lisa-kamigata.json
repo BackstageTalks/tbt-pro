@@ -1,10 +1,10 @@
 {
   "event_id": "17007761",
   "event_key": "2026-09-12_alice-soulie_vs_lisa-kamigata",
-  "latest_odds_player1": 1.7,
-  "latest_odds_player2": 2.05,
+  "latest_odds_player1": 1.61538,
+  "latest_odds_player2": 2.2,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-11T19:20:01.054508+00:00",
+  "latest_snapshot_time_utc": "2026-09-12T07:22:31.146563+00:00",
   "opening_odds_player1": 1.61538,
   "opening_odds_player2": 2.2,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Lisa Kamigata",
   "player2": "Alice Soulie",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "17007761",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-11T18:30:00+00:00",
       "target_date": "2026-09-12"
+    },
+    {
+      "event_id": "17007761",
+      "event_key": "2026-09-12_alice-soulie_vs_lisa-kamigata",
+      "hours_to_start": -12.88,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.61538,
+      "odds_player2": 2.2,
+      "player1": "Lisa Kamigata",
+      "player2": "Alice Soulie",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-12T07:22:31.146563+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-11T18:30:00+00:00",
+      "target_date": "2026-09-12"
     }
   ],
   "start_time_utc": "2026-09-11T18:30:00+00:00",
-  "updated_at_utc": "2026-09-11T19:20:47.701411+00:00"
+  "updated_at_utc": "2026-09-12T07:22:36.176273+00:00"
 }

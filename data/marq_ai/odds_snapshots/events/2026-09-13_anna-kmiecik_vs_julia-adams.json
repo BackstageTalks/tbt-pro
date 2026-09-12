@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.53333,
   "latest_odds_player2": 2.375,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-11T19:20:01.054508+00:00",
+  "latest_snapshot_time_utc": "2026-09-12T07:22:31.146563+00:00",
   "opening_odds_player1": 1.53333,
   "opening_odds_player2": 2.375,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Julia Adams",
   "player2": "Anna Kmiecik",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "17073133",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-12T12:30:00+00:00",
       "target_date": "2026-09-13"
+    },
+    {
+      "event_id": "17073133",
+      "event_key": "2026-09-13_anna-kmiecik_vs_julia-adams",
+      "hours_to_start": 5.12,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.53333,
+      "odds_player2": 2.375,
+      "player1": "Julia Adams",
+      "player2": "Anna Kmiecik",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-12T07:22:31.146563+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-12T12:30:00+00:00",
+      "target_date": "2026-09-13"
     }
   ],
   "start_time_utc": "2026-09-12T12:30:00+00:00",
-  "updated_at_utc": "2026-09-11T19:21:05.558827+00:00"
+  "updated_at_utc": "2026-09-12T07:22:56.761806+00:00"
 }
