@@ -4,7 +4,7 @@
   "latest_odds_player1": 3.25,
   "latest_odds_player2": 1.33,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-13T14:44:00.195589+00:00",
+  "latest_snapshot_time_utc": "2026-09-13T19:00:26.190434+00:00",
   "opening_odds_player1": 3.25,
   "opening_odds_player2": 1.33,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Fajing Sun",
   "player2": "Alexis Galarneau",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "17081853",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-15T08:00:00+00:00",
       "target_date": "2026-09-14"
+    },
+    {
+      "event_id": "17081853",
+      "event_key": "2026-09-14_alexis-galarneau_vs_fajing-sun",
+      "hours_to_start": 36.99,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 3.25,
+      "odds_player2": 1.33,
+      "player1": "Fajing Sun",
+      "player2": "Alexis Galarneau",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-13T19:00:26.190434+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-15T08:00:00+00:00",
+      "target_date": "2026-09-14"
     }
   ],
   "start_time_utc": "2026-09-15T08:00:00+00:00",
-  "updated_at_utc": "2026-09-13T14:44:40.100772+00:00"
+  "updated_at_utc": "2026-09-13T19:00:59.612007+00:00"
 }
