@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.2,
   "latest_odds_player2": 4.33333,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-17T08:00:34.348944+00:00",
+  "latest_snapshot_time_utc": "2026-09-17T15:20:54.710256+00:00",
   "opening_odds_player1": 1.2,
   "opening_odds_player2": 4.33333,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Kai-I Wang",
   "player2": "Jintao Lan",
-  "snapshot_count": 4,
+  "snapshot_count": 5,
   "snapshots": [
     {
       "event_id": "17102069",
@@ -97,8 +97,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-16T14:00:00+00:00",
       "target_date": "2026-09-17"
+    },
+    {
+      "event_id": "17102069",
+      "event_key": "2026-09-17_jintao-lan_vs_kai-i-wang",
+      "hours_to_start": -25.35,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.2,
+      "odds_player2": 4.33333,
+      "player1": "Kai-I Wang",
+      "player2": "Jintao Lan",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-17T15:20:54.710256+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-16T14:00:00+00:00",
+      "target_date": "2026-09-17"
     }
   ],
   "start_time_utc": "2026-09-16T14:00:00+00:00",
-  "updated_at_utc": "2026-09-17T08:01:00.892169+00:00"
+  "updated_at_utc": "2026-09-17T15:21:26.764248+00:00"
 }
