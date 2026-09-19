@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.72727,
   "latest_odds_player2": 2.0,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-18T19:15:15.068451+00:00",
+  "latest_snapshot_time_utc": "2026-09-19T07:34:13.402649+00:00",
   "opening_odds_player1": 1.72727,
   "opening_odds_player2": 2.0,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Fiona Crawley",
   "player2": "Julia Avdeeva",
-  "snapshot_count": 4,
+  "snapshot_count": 5,
   "snapshots": [
     {
       "event_id": "17122703",
@@ -97,8 +97,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-18T13:00:00+00:00",
       "target_date": "2026-09-19"
+    },
+    {
+      "event_id": "17122703",
+      "event_key": "2026-09-19_fiona-crawley_vs_julia-avdeeva",
+      "hours_to_start": -18.57,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.72727,
+      "odds_player2": 2.0,
+      "player1": "Fiona Crawley",
+      "player2": "Julia Avdeeva",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-19T07:34:13.402649+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-18T13:00:00+00:00",
+      "target_date": "2026-09-19"
     }
   ],
   "start_time_utc": "2026-09-18T13:00:00+00:00",
-  "updated_at_utc": "2026-09-18T19:15:56.782217+00:00"
+  "updated_at_utc": "2026-09-19T07:34:33.071788+00:00"
 }
