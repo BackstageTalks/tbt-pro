@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.25,
   "latest_odds_player2": 3.75,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-19T14:00:56.324718+00:00",
+  "latest_snapshot_time_utc": "2026-09-19T18:59:10.019219+00:00",
   "opening_odds_player1": 1.25,
   "opening_odds_player2": 3.75,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Veronika Podrez",
   "player2": "Martha Matoula",
-  "snapshot_count": 1,
+  "snapshot_count": 2,
   "snapshots": [
     {
       "event_id": "17130808",
@@ -34,8 +34,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-18T18:30:00+00:00",
       "target_date": "2026-09-19"
+    },
+    {
+      "event_id": "17130808",
+      "event_key": "2026-09-19_martha-matoula_vs_veronika-podrez",
+      "hours_to_start": -24.49,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.25,
+      "odds_player2": 3.75,
+      "player1": "Veronika Podrez",
+      "player2": "Martha Matoula",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-19T18:59:10.019219+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-18T18:30:00+00:00",
+      "target_date": "2026-09-19"
     }
   ],
   "start_time_utc": "2026-09-18T18:30:00+00:00",
-  "updated_at_utc": "2026-09-19T14:01:22.830604+00:00"
+  "updated_at_utc": "2026-09-19T18:59:24.154020+00:00"
 }
