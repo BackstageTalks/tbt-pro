@@ -4,7 +4,7 @@
   "latest_odds_player1": 11.0,
   "latest_odds_player2": 1.02,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-22T07:58:41.506989+00:00",
+  "latest_snapshot_time_utc": "2026-09-22T15:12:41.489838+00:00",
   "opening_odds_player1": 11.0,
   "opening_odds_player2": 1.02,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Eme Shinchi",
   "player2": "Miyu Nakashima",
-  "snapshot_count": 5,
+  "snapshot_count": 6,
   "snapshots": [
     {
       "event_id": "17143453",
@@ -118,8 +118,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-21T13:00:00+00:00",
       "target_date": "2026-09-22"
+    },
+    {
+      "event_id": "17143453",
+      "event_key": "2026-09-22_eme-shinchi_vs_miyu-nakashima",
+      "hours_to_start": -26.21,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 11.0,
+      "odds_player2": 1.02,
+      "player1": "Eme Shinchi",
+      "player2": "Miyu Nakashima",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-22T15:12:41.489838+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-21T13:00:00+00:00",
+      "target_date": "2026-09-22"
     }
   ],
   "start_time_utc": "2026-09-21T13:00:00+00:00",
-  "updated_at_utc": "2026-09-22T07:58:50.551141+00:00"
+  "updated_at_utc": "2026-09-22T15:12:53.033556+00:00"
 }
