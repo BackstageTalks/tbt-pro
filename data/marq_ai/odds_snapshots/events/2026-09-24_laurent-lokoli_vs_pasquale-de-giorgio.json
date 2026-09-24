@@ -4,7 +4,7 @@
   "latest_odds_player1": 11.0,
   "latest_odds_player2": 1.02,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-24T15:32:00.959891+00:00",
+  "latest_snapshot_time_utc": "2026-09-24T20:11:37.234770+00:00",
   "opening_odds_player1": 11.0,
   "opening_odds_player2": 1.02,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Pasquale De Giorgio",
   "player2": "Laurent Lokoli",
-  "snapshot_count": 6,
+  "snapshot_count": 7,
   "snapshots": [
     {
       "event_id": "17160017",
@@ -139,8 +139,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-23T12:30:00+00:00",
       "target_date": "2026-09-24"
+    },
+    {
+      "event_id": "17160017",
+      "event_key": "2026-09-24_laurent-lokoli_vs_pasquale-de-giorgio",
+      "hours_to_start": -31.69,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 11.0,
+      "odds_player2": 1.02,
+      "player1": "Pasquale De Giorgio",
+      "player2": "Laurent Lokoli",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-24T20:11:37.234770+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-23T12:30:00+00:00",
+      "target_date": "2026-09-24"
     }
   ],
   "start_time_utc": "2026-09-23T12:30:00+00:00",
-  "updated_at_utc": "2026-09-24T15:32:19.253926+00:00"
+  "updated_at_utc": "2026-09-24T20:11:48.835327+00:00"
 }

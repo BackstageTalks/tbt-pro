@@ -1,10 +1,10 @@
 {
   "event_id": "17132338",
   "event_key": "2026-09-25_ben-stecker_vs_gordon-gallagher",
-  "latest_odds_player1": 2.1,
-  "latest_odds_player2": 1.66667,
+  "latest_odds_player1": 4.0,
+  "latest_odds_player2": 1.22222,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-24T15:32:00.959891+00:00",
+  "latest_snapshot_time_utc": "2026-09-24T20:11:37.234770+00:00",
   "opening_odds_player1": 2.1,
   "opening_odds_player2": 1.66667,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Gordon Gallagher",
   "player2": "Ben Stecker",
-  "snapshot_count": 1,
+  "snapshot_count": 2,
   "snapshots": [
     {
       "event_id": "17132338",
@@ -34,8 +34,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-24T17:00:00+00:00",
       "target_date": "2026-09-25"
+    },
+    {
+      "event_id": "17132338",
+      "event_key": "2026-09-25_ben-stecker_vs_gordon-gallagher",
+      "hours_to_start": -1.69,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 4.0,
+      "odds_player2": 1.22222,
+      "player1": "Gordon Gallagher",
+      "player2": "Ben Stecker",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-24T20:11:37.234770+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-24T18:30:00+00:00",
+      "target_date": "2026-09-25"
     }
   ],
-  "start_time_utc": "2026-09-24T17:00:00+00:00",
-  "updated_at_utc": "2026-09-24T15:32:49.933112+00:00"
+  "start_time_utc": "2026-09-24T18:30:00+00:00",
+  "updated_at_utc": "2026-09-24T20:12:18.263884+00:00"
 }
