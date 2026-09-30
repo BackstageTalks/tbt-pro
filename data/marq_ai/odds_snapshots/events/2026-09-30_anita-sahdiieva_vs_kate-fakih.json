@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.5,
   "latest_odds_player2": 2.5,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-30T09:03:12.805257+00:00",
+  "latest_snapshot_time_utc": "2026-09-30T16:32:28.035485+00:00",
   "opening_odds_player1": 1.5,
   "opening_odds_player2": 2.5,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Kate Fakih",
   "player2": "Anita Sahdiieva",
-  "snapshot_count": 4,
+  "snapshot_count": 5,
   "snapshots": [
     {
       "event_id": "17211256",
@@ -97,8 +97,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-29T12:00:00+00:00",
       "target_date": "2026-09-30"
+    },
+    {
+      "event_id": "17211256",
+      "event_key": "2026-09-30_anita-sahdiieva_vs_kate-fakih",
+      "hours_to_start": -28.54,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.5,
+      "odds_player2": 2.5,
+      "player1": "Kate Fakih",
+      "player2": "Anita Sahdiieva",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-30T16:32:28.035485+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-29T12:00:00+00:00",
+      "target_date": "2026-09-30"
     }
   ],
   "start_time_utc": "2026-09-29T12:00:00+00:00",
-  "updated_at_utc": "2026-09-30T09:03:20.946643+00:00"
+  "updated_at_utc": "2026-09-30T16:32:39.972420+00:00"
 }

@@ -1,10 +1,10 @@
 {
   "event_id": "17214294",
   "event_key": "2026-10-01_alicia-dudeney_vs_kira-pavlova",
-  "latest_odds_player1": 2.25,
-  "latest_odds_player2": 1.57143,
+  "latest_odds_player1": 21.0,
+  "latest_odds_player2": 1.00667,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-30T09:03:12.805257+00:00",
+  "latest_snapshot_time_utc": "2026-09-30T16:32:28.035485+00:00",
   "opening_odds_player1": 2.25,
   "opening_odds_player2": 1.57143,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Kira Pavlova",
   "player2": "Alicia Dudeney",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "17214294",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-30T12:30:00+00:00",
       "target_date": "2026-10-01"
+    },
+    {
+      "event_id": "17214294",
+      "event_key": "2026-10-01_alicia-dudeney_vs_kira-pavlova",
+      "hours_to_start": -4.04,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 21.0,
+      "odds_player2": 1.00667,
+      "player1": "Kira Pavlova",
+      "player2": "Alicia Dudeney",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-09-30T16:32:28.035485+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-30T12:30:00+00:00",
+      "target_date": "2026-10-01"
     }
   ],
   "start_time_utc": "2026-09-30T12:30:00+00:00",
-  "updated_at_utc": "2026-09-30T09:03:51.568683+00:00"
+  "updated_at_utc": "2026-09-30T16:33:29.909643+00:00"
 }
