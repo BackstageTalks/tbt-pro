@@ -4,7 +4,7 @@
   "latest_odds_player1": 4.5,
   "latest_odds_player2": 1.16667,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-09-30T21:03:54.804979+00:00",
+  "latest_snapshot_time_utc": "2026-10-01T09:27:42.894586+00:00",
   "opening_odds_player1": 4.5,
   "opening_odds_player2": 1.16667,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Yu Shan",
   "player2": "Anna Yang",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "17212246",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-09-30T12:00:00+00:00",
       "target_date": "2026-10-01"
+    },
+    {
+      "event_id": "17212246",
+      "event_key": "2026-10-01_anna-yang_vs_yu-shan",
+      "hours_to_start": -21.46,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 4.5,
+      "odds_player2": 1.16667,
+      "player1": "Yu Shan",
+      "player2": "Anna Yang",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-01T09:27:42.894586+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-09-30T12:00:00+00:00",
+      "target_date": "2026-10-01"
     }
   ],
   "start_time_utc": "2026-09-30T12:00:00+00:00",
-  "updated_at_utc": "2026-09-30T21:04:19.526755+00:00"
+  "updated_at_utc": "2026-10-01T09:27:46.888004+00:00"
 }
