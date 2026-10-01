@@ -4,7 +4,7 @@
   "latest_odds_player1": 9.0,
   "latest_odds_player2": 1.04,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-10-01T09:27:42.894586+00:00",
+  "latest_snapshot_time_utc": "2026-10-01T17:10:59.777264+00:00",
   "opening_odds_player1": 9.0,
   "opening_odds_player2": 1.04,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Oscar Rashed",
   "player2": "Constantinos Djakouris",
-  "snapshot_count": 1,
+  "snapshot_count": 2,
   "snapshots": [
     {
       "event_id": "17187382",
@@ -34,8 +34,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-10-02T01:30:00+00:00",
       "target_date": "2026-10-02"
+    },
+    {
+      "event_id": "17187382",
+      "event_key": "2026-10-02_constantinos-djakouris_vs_oscar-rashed",
+      "hours_to_start": 8.32,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 9.0,
+      "odds_player2": 1.04,
+      "player1": "Oscar Rashed",
+      "player2": "Constantinos Djakouris",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-01T17:10:59.777264+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-10-02T01:30:00+00:00",
+      "target_date": "2026-10-02"
     }
   ],
   "start_time_utc": "2026-10-02T01:30:00+00:00",
-  "updated_at_utc": "2026-10-01T09:28:12.522570+00:00"
+  "updated_at_utc": "2026-10-01T17:11:36.015572+00:00"
 }
