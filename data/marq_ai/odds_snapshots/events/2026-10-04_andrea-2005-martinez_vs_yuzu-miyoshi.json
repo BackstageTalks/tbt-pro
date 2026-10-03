@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.44444,
   "latest_odds_player2": 2.625,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-10-03T14:57:51.930360+00:00",
+  "latest_snapshot_time_utc": "2026-10-03T19:31:11.201405+00:00",
   "opening_odds_player1": 1.44444,
   "opening_odds_player2": 2.625,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Andrea (2005) Martinez",
   "player2": "Yuzu Miyoshi",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "17243016",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-10-03T17:20:00+00:00",
       "target_date": "2026-10-04"
+    },
+    {
+      "event_id": "17243016",
+      "event_key": "2026-10-04_andrea-2005-martinez_vs_yuzu-miyoshi",
+      "hours_to_start": -0.1,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.44444,
+      "odds_player2": 2.625,
+      "player1": "Andrea (2005) Martinez",
+      "player2": "Yuzu Miyoshi",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-03T19:31:11.201405+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-10-03T19:25:00+00:00",
+      "target_date": "2026-10-04"
     }
   ],
-  "start_time_utc": "2026-10-03T17:20:00+00:00",
-  "updated_at_utc": "2026-10-03T14:58:23.836009+00:00"
+  "start_time_utc": "2026-10-03T19:25:00+00:00",
+  "updated_at_utc": "2026-10-03T19:31:46.221890+00:00"
 }
