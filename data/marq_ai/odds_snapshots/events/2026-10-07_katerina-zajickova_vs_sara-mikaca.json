@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.90909,
   "latest_odds_player2": 1.8,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-10-06T16:58:27.880862+00:00",
+  "latest_snapshot_time_utc": "2026-10-07T09:22:47.396980+00:00",
   "opening_odds_player1": 1.90909,
   "opening_odds_player2": 1.8,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Katerina Zajickova",
   "player2": "Sara Mikača",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "17262225",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-10-06T12:07:46+00:00",
       "target_date": "2026-10-07"
+    },
+    {
+      "event_id": "17262225",
+      "event_key": "2026-10-07_katerina-zajickova_vs_sara-mikaca",
+      "hours_to_start": -21.25,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.90909,
+      "odds_player2": 1.8,
+      "player1": "Katerina Zajickova",
+      "player2": "Sara Mikača",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-07T09:22:47.396980+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-10-06T12:07:46+00:00",
+      "target_date": "2026-10-07"
     }
   ],
   "start_time_utc": "2026-10-06T12:07:46+00:00",
-  "updated_at_utc": "2026-10-06T16:58:53.549087+00:00"
+  "updated_at_utc": "2026-10-07T09:22:51.296883+00:00"
 }
