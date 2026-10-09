@@ -4,7 +4,7 @@
   "latest_odds_player1": 15.0,
   "latest_odds_player2": 1.03,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-10-09T09:41:02.435758+00:00",
+  "latest_snapshot_time_utc": "2026-10-09T17:13:38.902509+00:00",
   "opening_odds_player1": 11.0,
   "opening_odds_player2": 1.05,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Juan Manuel Cerundolo",
   "player2": "Carlos Alcaraz",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "17218892",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-10-10T10:00:00+00:00",
       "target_date": "2026-10-10"
+    },
+    {
+      "event_id": "17218892",
+      "event_key": "2026-10-10_carlos-alcaraz_vs_juan-manuel-cerundolo",
+      "hours_to_start": 16.77,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 15.0,
+      "odds_player2": 1.03,
+      "player1": "Juan Manuel Cerundolo",
+      "player2": "Carlos Alcaraz",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-09T17:13:38.902509+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-10-10T10:00:00+00:00",
+      "target_date": "2026-10-10"
     }
   ],
   "start_time_utc": "2026-10-10T10:00:00+00:00",
-  "updated_at_utc": "2026-10-09T09:41:25.246633+00:00"
+  "updated_at_utc": "2026-10-09T17:14:05.237632+00:00"
 }
