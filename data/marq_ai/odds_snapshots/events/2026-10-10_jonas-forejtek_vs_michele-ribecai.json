@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.2,
   "latest_odds_player2": 1.61538,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-10-10T15:58:51.866932+00:00",
+  "latest_snapshot_time_utc": "2026-10-10T20:21:30.553738+00:00",
   "opening_odds_player1": 2.2,
   "opening_odds_player2": 1.61538,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Michele Ribecai",
   "player2": "Jonas Forejtek",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "17219015",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-10-09T13:00:00+00:00",
       "target_date": "2026-10-10"
+    },
+    {
+      "event_id": "17219015",
+      "event_key": "2026-10-10_jonas-forejtek_vs_michele-ribecai",
+      "hours_to_start": -31.36,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.2,
+      "odds_player2": 1.61538,
+      "player1": "Michele Ribecai",
+      "player2": "Jonas Forejtek",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-10T20:21:30.553738+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-10-09T13:00:00+00:00",
+      "target_date": "2026-10-10"
     }
   ],
   "start_time_utc": "2026-10-09T13:00:00+00:00",
-  "updated_at_utc": "2026-10-10T15:59:07.625385+00:00"
+  "updated_at_utc": "2026-10-10T20:21:48.011258+00:00"
 }
