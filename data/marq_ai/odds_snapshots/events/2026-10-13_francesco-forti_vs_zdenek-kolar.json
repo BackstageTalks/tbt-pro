@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.8,
   "latest_odds_player2": 1.90909,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-10-13T09:46:51.220206+00:00",
+  "latest_snapshot_time_utc": "2026-10-13T17:49:38.415365+00:00",
   "opening_odds_player1": 1.8,
   "opening_odds_player2": 1.90909,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Francesco Forti",
   "player2": "Zdenek Kolar",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "17304311",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-10-12T15:10:00+00:00",
       "target_date": "2026-10-13"
+    },
+    {
+      "event_id": "17304311",
+      "event_key": "2026-10-13_francesco-forti_vs_zdenek-kolar",
+      "hours_to_start": -26.66,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.8,
+      "odds_player2": 1.90909,
+      "player1": "Francesco Forti",
+      "player2": "Zdenek Kolar",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-13T17:49:38.415365+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-10-12T15:10:00+00:00",
+      "target_date": "2026-10-13"
     }
   ],
   "start_time_utc": "2026-10-12T15:10:00+00:00",
-  "updated_at_utc": "2026-10-13T09:47:09.938872+00:00"
+  "updated_at_utc": "2026-10-13T17:49:55.381488+00:00"
 }
