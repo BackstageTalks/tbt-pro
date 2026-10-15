@@ -4,7 +4,7 @@
   "latest_odds_player1": 5.5,
   "latest_odds_player2": 1.125,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-10-14T20:22:00.537792+00:00",
+  "latest_snapshot_time_utc": "2026-10-15T07:45:49.263634+00:00",
   "opening_odds_player1": 5.5,
   "opening_odds_player2": 1.125,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Daniel Bien",
   "player2": "Xavier Massotte",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "17297979",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-10-14T12:30:00+00:00",
       "target_date": "2026-10-15"
+    },
+    {
+      "event_id": "17297979",
+      "event_key": "2026-10-15_daniel-bien_vs_xavier-massotte",
+      "hours_to_start": -19.26,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 5.5,
+      "odds_player2": 1.125,
+      "player1": "Daniel Bien",
+      "player2": "Xavier Massotte",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-15T07:45:49.263634+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-10-14T12:30:00+00:00",
+      "target_date": "2026-10-15"
     }
   ],
   "start_time_utc": "2026-10-14T12:30:00+00:00",
-  "updated_at_utc": "2026-10-14T20:22:44.765927+00:00"
+  "updated_at_utc": "2026-10-15T07:46:03.374415+00:00"
 }
