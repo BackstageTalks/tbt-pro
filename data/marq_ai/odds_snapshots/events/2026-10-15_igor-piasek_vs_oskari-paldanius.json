@@ -4,7 +4,7 @@
   "latest_odds_player1": 21.0,
   "latest_odds_player2": 1.002,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-10-15T07:45:49.263634+00:00",
+  "latest_snapshot_time_utc": "2026-10-15T15:21:52.852996+00:00",
   "opening_odds_player1": 21.0,
   "opening_odds_player2": 1.002,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Igor Piasek",
   "player2": "Oskari Paldanius",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "17325204",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-10-14T12:43:19+00:00",
       "target_date": "2026-10-15"
+    },
+    {
+      "event_id": "17325204",
+      "event_key": "2026-10-15_igor-piasek_vs_oskari-paldanius",
+      "hours_to_start": -26.64,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 21.0,
+      "odds_player2": 1.002,
+      "player1": "Igor Piasek",
+      "player2": "Oskari Paldanius",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-15T15:21:52.852996+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-10-14T12:43:19+00:00",
+      "target_date": "2026-10-15"
     }
   ],
   "start_time_utc": "2026-10-14T12:43:19+00:00",
-  "updated_at_utc": "2026-10-15T07:46:05.507826+00:00"
+  "updated_at_utc": "2026-10-15T15:22:35.869265+00:00"
 }
