@@ -1,10 +1,10 @@
 {
   "event_id": "17329653",
   "event_key": "2026-10-16_casper-ruud_vs_rafael-jodar",
-  "latest_odds_player1": 1.67,
-  "latest_odds_player2": 2.2,
+  "latest_odds_player1": 2.75,
+  "latest_odds_player2": 1.44444,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-10-15T15:21:52.852996+00:00",
+  "latest_snapshot_time_utc": "2026-10-16T07:33:30.652192+00:00",
   "opening_odds_player1": 1.67,
   "opening_odds_player2": 2.2,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Rafael Jodar",
   "player2": "Casper Ruud",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "17329653",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-10-16T06:30:00+00:00",
       "target_date": "2026-10-16"
+    },
+    {
+      "event_id": "17329653",
+      "event_key": "2026-10-16_casper-ruud_vs_rafael-jodar",
+      "hours_to_start": -1.06,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.75,
+      "odds_player2": 1.44444,
+      "player1": "Rafael Jodar",
+      "player2": "Casper Ruud",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-16T07:33:30.652192+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-10-16T06:30:00+00:00",
+      "target_date": "2026-10-16"
     }
   ],
   "start_time_utc": "2026-10-16T06:30:00+00:00",
-  "updated_at_utc": "2026-10-15T15:23:17.687367+00:00"
+  "updated_at_utc": "2026-10-16T07:33:48.965176+00:00"
 }
