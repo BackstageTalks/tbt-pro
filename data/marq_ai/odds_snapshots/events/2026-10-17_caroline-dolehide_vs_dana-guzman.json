@@ -4,7 +4,7 @@
   "latest_odds_player1": 3.25,
   "latest_odds_player2": 1.33333,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-10-17T13:58:48.697341+00:00",
+  "latest_snapshot_time_utc": "2026-10-17T18:53:21.209659+00:00",
   "opening_odds_player1": 3.25,
   "opening_odds_player2": 1.33333,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Dana Guzman",
   "player2": "Caroline Dolehide",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "17328082",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-10-16T15:23:34+00:00",
       "target_date": "2026-10-17"
+    },
+    {
+      "event_id": "17328082",
+      "event_key": "2026-10-17_caroline-dolehide_vs_dana-guzman",
+      "hours_to_start": -27.5,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 3.25,
+      "odds_player2": 1.33333,
+      "player1": "Dana Guzman",
+      "player2": "Caroline Dolehide",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-17T18:53:21.209659+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-10-16T15:23:34+00:00",
+      "target_date": "2026-10-17"
     }
   ],
   "start_time_utc": "2026-10-16T15:23:34+00:00",
-  "updated_at_utc": "2026-10-17T13:59:07.437846+00:00"
+  "updated_at_utc": "2026-10-17T18:53:37.100948+00:00"
 }
