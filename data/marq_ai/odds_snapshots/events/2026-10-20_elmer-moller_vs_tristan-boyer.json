@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.91,
   "latest_odds_player2": 1.8,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-10-19T17:12:34.112294+00:00",
+  "latest_snapshot_time_utc": "2026-10-20T07:57:41.195167+00:00",
   "opening_odds_player1": 1.83,
   "opening_odds_player2": 1.83,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Tristan Boyer",
   "player2": "Elmer Moller",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "17352417",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-10-19T14:25:00+00:00",
       "target_date": "2026-10-20"
+    },
+    {
+      "event_id": "17352417",
+      "event_key": "2026-10-20_elmer-moller_vs_tristan-boyer",
+      "hours_to_start": -17.54,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.91,
+      "odds_player2": 1.8,
+      "player1": "Tristan Boyer",
+      "player2": "Elmer Moller",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-20T07:57:41.195167+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-10-19T14:25:00+00:00",
+      "target_date": "2026-10-20"
     }
   ],
   "start_time_utc": "2026-10-19T14:25:00+00:00",
-  "updated_at_utc": "2026-10-19T17:13:24.750226+00:00"
+  "updated_at_utc": "2026-10-20T07:57:53.064157+00:00"
 }
