@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.44444,
   "latest_odds_player2": 2.625,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-10-20T15:24:48.434749+00:00",
+  "latest_snapshot_time_utc": "2026-10-20T20:10:31.356245+00:00",
   "opening_odds_player1": 1.44444,
   "opening_odds_player2": 2.625,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Gabrielle Leslie",
   "player2": "Madelynn Ludwig",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "17346419",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-10-19T18:00:00+00:00",
       "target_date": "2026-10-20"
+    },
+    {
+      "event_id": "17346419",
+      "event_key": "2026-10-20_gabrielle-leslie_vs_madelynn-ludwig",
+      "hours_to_start": -26.18,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.44444,
+      "odds_player2": 2.625,
+      "player1": "Gabrielle Leslie",
+      "player2": "Madelynn Ludwig",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-20T20:10:31.356245+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-10-19T18:00:00+00:00",
+      "target_date": "2026-10-20"
     }
   ],
   "start_time_utc": "2026-10-19T18:00:00+00:00",
-  "updated_at_utc": "2026-10-20T15:25:15.020600+00:00"
+  "updated_at_utc": "2026-10-20T20:11:05.312053+00:00"
 }
