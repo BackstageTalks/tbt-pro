@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.61538,
   "latest_odds_player2": 2.2,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-10-21T08:02:05.636096+00:00",
+  "latest_snapshot_time_utc": "2026-10-21T15:40:26.072490+00:00",
   "opening_odds_player1": 1.61538,
   "opening_odds_player2": 2.2,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Eric Crivei",
   "player2": "Jan Klimas",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "17369000",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-10-20T14:08:00+00:00",
       "target_date": "2026-10-21"
+    },
+    {
+      "event_id": "17369000",
+      "event_key": "2026-10-21_eric-crivei_vs_jan-klimas",
+      "hours_to_start": -25.54,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.61538,
+      "odds_player2": 2.2,
+      "player1": "Eric Crivei",
+      "player2": "Jan Klimas",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-21T15:40:26.072490+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-10-20T14:08:00+00:00",
+      "target_date": "2026-10-21"
     }
   ],
   "start_time_utc": "2026-10-20T14:08:00+00:00",
-  "updated_at_utc": "2026-10-21T08:02:31.953544+00:00"
+  "updated_at_utc": "2026-10-21T15:40:51.590812+00:00"
 }

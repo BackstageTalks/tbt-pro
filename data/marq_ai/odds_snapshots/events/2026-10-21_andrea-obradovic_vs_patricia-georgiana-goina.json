@@ -4,7 +4,7 @@
   "latest_odds_player1": 4.5,
   "latest_odds_player2": 1.16667,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-10-21T08:02:05.636096+00:00",
+  "latest_snapshot_time_utc": "2026-10-21T15:40:26.072490+00:00",
   "opening_odds_player1": 4.5,
   "opening_odds_player2": 1.16667,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Patricia Georgiana Goina",
   "player2": "Andrea Obradovic",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "17362278",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-10-20T12:02:17+00:00",
       "target_date": "2026-10-21"
+    },
+    {
+      "event_id": "17362278",
+      "event_key": "2026-10-21_andrea-obradovic_vs_patricia-georgiana-goina",
+      "hours_to_start": -27.64,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 4.5,
+      "odds_player2": 1.16667,
+      "player1": "Patricia Georgiana Goina",
+      "player2": "Andrea Obradovic",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-21T15:40:26.072490+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-10-20T12:02:17+00:00",
+      "target_date": "2026-10-21"
     }
   ],
   "start_time_utc": "2026-10-20T12:02:17+00:00",
-  "updated_at_utc": "2026-10-21T08:02:08.645607+00:00"
+  "updated_at_utc": "2026-10-21T15:40:28.636599+00:00"
 }
