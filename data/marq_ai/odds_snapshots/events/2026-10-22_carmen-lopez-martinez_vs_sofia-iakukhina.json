@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.4,
   "latest_odds_player2": 2.75,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-10-21T20:24:01.139775+00:00",
+  "latest_snapshot_time_utc": "2026-10-22T08:00:08.409689+00:00",
   "opening_odds_player1": 1.4,
   "opening_odds_player2": 2.75,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Carmen López Martínez",
   "player2": "Sofia Iakukhina",
-  "snapshot_count": 4,
+  "snapshot_count": 5,
   "snapshots": [
     {
       "event_id": "17373907",
@@ -97,8 +97,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-10-21T12:57:34+00:00",
       "target_date": "2026-10-22"
+    },
+    {
+      "event_id": "17373907",
+      "event_key": "2026-10-22_carmen-lopez-martinez_vs_sofia-iakukhina",
+      "hours_to_start": -19.04,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.4,
+      "odds_player2": 2.75,
+      "player1": "Carmen López Martínez",
+      "player2": "Sofia Iakukhina",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-22T08:00:08.409689+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-10-21T12:57:34+00:00",
+      "target_date": "2026-10-22"
     }
   ],
   "start_time_utc": "2026-10-21T12:57:34+00:00",
-  "updated_at_utc": "2026-10-21T20:24:48.178900+00:00"
+  "updated_at_utc": "2026-10-22T08:00:22.236884+00:00"
 }
