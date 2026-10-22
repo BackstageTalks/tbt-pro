@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.05,
   "latest_odds_player2": 8.5,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-10-22T15:42:23.211257+00:00",
+  "latest_snapshot_time_utc": "2026-10-22T20:20:47.397380+00:00",
   "opening_odds_player1": 1.05,
   "opening_odds_player2": 8.5,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Robin Bertrand",
   "player2": "Mario Arce Fernández",
-  "snapshot_count": 6,
+  "snapshot_count": 7,
   "snapshots": [
     {
       "event_id": "17374559",
@@ -139,8 +139,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-10-21T12:15:24+00:00",
       "target_date": "2026-10-22"
+    },
+    {
+      "event_id": "17374559",
+      "event_key": "2026-10-22_mario-arce-fernandez_vs_robin-bertrand",
+      "hours_to_start": -32.09,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.05,
+      "odds_player2": 8.5,
+      "player1": "Robin Bertrand",
+      "player2": "Mario Arce Fernández",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-22T20:20:47.397380+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-10-21T12:15:24+00:00",
+      "target_date": "2026-10-22"
     }
   ],
   "start_time_utc": "2026-10-21T12:15:24+00:00",
-  "updated_at_utc": "2026-10-22T15:42:27.945678+00:00"
+  "updated_at_utc": "2026-10-22T20:20:52.909583+00:00"
 }
