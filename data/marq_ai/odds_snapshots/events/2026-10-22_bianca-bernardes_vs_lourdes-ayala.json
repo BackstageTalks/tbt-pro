@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.04,
   "latest_odds_player2": 9.0,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-10-22T08:00:08.409689+00:00",
+  "latest_snapshot_time_utc": "2026-10-22T15:42:23.211257+00:00",
   "opening_odds_player1": 1.04,
   "opening_odds_player2": 9.0,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Lourdes Ayala",
   "player2": "Bianca Bernardes",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "17374543",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-10-21T14:15:33+00:00",
       "target_date": "2026-10-22"
+    },
+    {
+      "event_id": "17374543",
+      "event_key": "2026-10-22_bianca-bernardes_vs_lourdes-ayala",
+      "hours_to_start": -25.45,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.04,
+      "odds_player2": 9.0,
+      "player1": "Lourdes Ayala",
+      "player2": "Bianca Bernardes",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-22T15:42:23.211257+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-10-21T14:15:33+00:00",
+      "target_date": "2026-10-22"
     }
   ],
   "start_time_utc": "2026-10-21T14:15:33+00:00",
-  "updated_at_utc": "2026-10-22T08:00:38.312288+00:00"
+  "updated_at_utc": "2026-10-22T15:42:48.113959+00:00"
 }

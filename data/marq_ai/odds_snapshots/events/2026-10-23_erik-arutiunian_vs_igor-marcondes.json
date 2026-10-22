@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.25,
   "latest_odds_player2": 1.57143,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-10-22T08:00:08.409689+00:00",
+  "latest_snapshot_time_utc": "2026-10-22T15:42:23.211257+00:00",
   "opening_odds_player1": 2.25,
   "opening_odds_player2": 1.57143,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Erik Arutiunian",
   "player2": "Igor Marcondes",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "17337013",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-10-22T17:10:00+00:00",
       "target_date": "2026-10-23"
+    },
+    {
+      "event_id": "17337013",
+      "event_key": "2026-10-23_erik-arutiunian_vs_igor-marcondes",
+      "hours_to_start": 1.46,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.25,
+      "odds_player2": 1.57143,
+      "player1": "Erik Arutiunian",
+      "player2": "Igor Marcondes",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-22T15:42:23.211257+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-10-22T17:10:00+00:00",
+      "target_date": "2026-10-23"
     }
   ],
   "start_time_utc": "2026-10-22T17:10:00+00:00",
-  "updated_at_utc": "2026-10-22T08:00:53.363507+00:00"
+  "updated_at_utc": "2026-10-22T15:42:59.160209+00:00"
 }
