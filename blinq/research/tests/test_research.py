@@ -52,6 +52,20 @@ class FeatureTests(unittest.TestCase):
         self.assertIsNone(res[-1]['serve20_diff'])
         self.assertIsNotNone(res[-1]['elo_diff'])
 
+    def test_missing_provider_match_number_has_safe_deterministic_id(self):
+        r=match('2025-08-07',1,w='B',l='A')
+        r['match_num']=''
+        r['round']='R64'
+        out,bad=build_features([r,r],'ATP')
+        self.assertEqual(len(out),1)
+        self.assertEqual(bad[0]['reason'],'DUPLICATE_MATCH_ID')
+        self.assertIn('AUTO:R64:A:B',out[0]['match_id'])
+        no_round=dict(r)
+        no_round['round']=''
+        out2,bad2=build_features([no_round],'ATP')
+        self.assertFalse(out2)
+        self.assertEqual(bad2[0]['reason'],'MISSING_MATCH_NUM_AND_ROUND')
+
     def test_retirement_rejected(self):
         r=match('2024-01-01',1)
         r['score']='4-1 RET'
