@@ -16,7 +16,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install existing runtime import dependency\n        run: python -m pip install -r requirements.txt\n      - name: Compile and unit tests (no external API)
+      - name: Install existing runtime import dependency
+        run: python -m pip install -r requirements.txt
+      - name: Compile and unit tests (no external API)
         run: |
           python -m compileall -q blinq/research
           python -m unittest discover -s blinq/research/tests -t . -v
