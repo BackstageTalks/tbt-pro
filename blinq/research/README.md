@@ -29,7 +29,7 @@ Outputs: `research_report.json` (per-year raw/Platt performance and coverage) an
 
 ## Guardrails and limitations
 
-1. Identity: tour and player ID are mandatory. Name-only fuzzy joining is forbidden. This module assumes input IDs are already verified. It does not promote identity matches into CDB.
+1. Identity: tour and player ID are mandatory. Name-only fuzzy joining is forbidden. If the source omits `match_num` but has a nonempty round, the research-only match identity is reconstructed from tournament, round and the sorted pair of verified player IDs; any collision is quarantined. This module assumes input IDs are already verified. It does not promote identity matches into CDB.
 2. Time: Sackmann `tourney_date` is **tournament start, not exact match date**. All results from that start-date batch are held out for **21 days**, with strict '<' maturity before reuse. This is deliberately conservative; a 21-day delay is not a formal guarantee for exceptionally long events. Exact provider-native match timestamps are required for a stronger guarantee.
 3. Data: retirements/walkovers and duplicate match IDs are excluded, invalid service denominators do not become zero; all missing features remain null. Break point metrics exclude zero opportunities, not treat them as failures. Observations from an earlier event are released only after the embargo.
 4. Opponent adjustment: historical server point win rate is adjusted by the *opponent's prior* return rate (an experimental 0.38 reference), not a value calculated after that old match. The hyperparameter must be tuned in training folds; it is not a fixed factual tour average.
