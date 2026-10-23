@@ -111,6 +111,7 @@ def walk_forward(rows: Iterable[dict], *, min_train: int = 100, min_calibration:
             continue
         fold = {"test_year":test_year,"train_before_year":validation_year,
                 "calibration_year":validation_year,"test_total":len(testing),"models":{}}
+        heldout = {}
         for name,keys in candidates:
             fitting = [r for r in training if eligible(r,keys)]
             cal = [r for r in calibration if eligible(r,keys)]
@@ -128,8 +129,16 @@ def walk_forward(rows: Iterable[dict], *, min_train: int = 100, min_calibration:
             preds_platt = [(sigmoid(a*logit(p)+b),y) for p,y in preds_test]
             result["platt"] = metrics(preds_platt)
             result["platt_parameters"] = {"slope":a,"offset":b}
+            heldout[name] = {r["match_id"]: (model.predict(r), sigmoid(a*logit(model.predict(r))+b), int(r["y"])) for r in test}
             fold["models"][name] = result
-        # Complete-case coverage is reported; models have different populations.
+        # Compare all successfully evaluated models on the *same* test matches.
+        common_ids = set.intersection(*(set(x) for x in heldout.values())) if heldout else set()
+        fold["common_cohort"] = {"n":len(common_ids), "models":{}}
+        for name, grouped in heldout.items():
+            points = [grouped[mid] for mid in sorted(common_ids)]
+            fold["common_cohort"]["models"][name] = {
+                "raw": metrics([(raw,y) for raw,_,y in points]),
+                "platt": metrics([(cal,y) for _,cal,y in points])}
         fold["point_complete_case_test_n"] = sum(eligible(r,POINT) for r in testing)
         report["folds"].append(fold)
     report["evaluated_years"] = len(report["folds"])
