@@ -26,6 +26,7 @@ def main() -> None:
     rows, rejected = build_features(source(),args.tour)
     report = walk_forward(rows)
     report["dataset"] = {"tour":args.tour,"input_files":list(map(str,files)),
+                         "reconstructed_match_ids":sum("|AUTO:" in r["match_id"] for r in rows),
                          "accepted":len(rows),"rejected":len(rejected),
                          "match_date_precision":"tournament_start_plus_21_day_embargo",
                          "identity":"tour_and_provider_player_id_required"}
