@@ -1,0 +1,50 @@
+name: BlinQ 721 Research Validation
+on:
+  pull_request:
+    paths:
+      - 'blinq/research/**'
+      - '.github/workflows/blinq-research-validation.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install existing runtime import dependency
+        run: python -m pip install -r requirements.txt
+      - name: Compile and unit tests (no external API)
+        run: |
+          python -m compileall -q blinq/research
+          python -m unittest discover -s blinq/research/tests -t . -v
+      - name: Actual historical CSV smoke (read-only)
+        run: |
+          python -m blinq.research \
+            --tour ATP \
+            --input data/history/tml/2024.csv \
+            --input data/history/tml/2025.csv \
+            --input data/history/tml/2026.csv \
+            --out-dir /tmp/blinq-721
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('/tmp/blinq-721/research_report.json').read_text())
+          d=r['dataset']
+          print('accepted=', d['accepted'],'rejected=',d['rejected'],'folds=',r['evaluated_years'])
+          for fold in r['folds']:
+              print('test_year=',fold['test_year'],'models=',fold['models'])
+          assert d['accepted'] > 1000
+          assert r['evaluated_years'] > 0
+          assert not r['production_enabled']
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: blinq-721-research-smoke
+          path: /tmp/blinq-721/
+          if-no-files-found: ignore
