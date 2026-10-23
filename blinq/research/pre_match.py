@@ -12,7 +12,7 @@ from math import pow
 from typing import Any, Iterable
 
 SURFACES = {"hard", "clay", "grass", "carpet"}
-REQUIRED = ("tourney_date", "tourney_id", "match_num", "winner_id", "loser_id", "winner_name", "loser_name", "surface", "score")
+REQUIRED = ("tourney_date", "tourney_id", "winner_id", "loser_id", "winner_name", "loser_name", "surface", "score")
 STAT_FIELDS = ("svpt", "1stIn", "1stWon", "2ndWon", "bpSaved", "bpFaced")
 RETIREMENT = ("RET", "W/O", "WALKOVER", "DEF", "ABD", "ABANDON", "CANCEL")
 
@@ -130,7 +130,19 @@ def build_features(rows: Iterable[dict], tour: str) -> tuple[list[dict], list[di
         if wid == lid:
             rejected.append({"line": index, "reason": "SAME_PLAYER_ID"})
             continue
-        mid = (tour, str(row["tourney_id"]), str(row["match_num"]))
+        match_num = str(row.get("match_num") or "").strip()
+        if match_num:
+            event_match_id = match_num
+        else:
+            round_name = str(row.get("round") or "").strip().upper()
+            if not round_name:
+                rejected.append({"line": index, "reason": "MISSING_MATCH_NUM_AND_ROUND"})
+                continue
+            # Provider match number is absent: deterministic within-tournament
+            # identity using two verified IDs and round, never player names.
+            # Ambiguous repeated pairs collapse into DUPLICATE_MATCH_ID quarantine.
+            event_match_id = f"AUTO:{round_name}:{min(wid,lid)}:{max(wid,lid)}"
+        mid = (tour, str(row["tourney_id"]), event_match_id)
         if mid in seen:
             rejected.append({"line": index, "reason": "DUPLICATE_MATCH_ID"})
             continue
