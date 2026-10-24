@@ -61,3 +61,18 @@ The report compares candidate families on *identical complete-case matches* by q
 Features that are genuinely unavailable stay missing. Surface Elo falls back to the player's established overall Elo when there are no prior surface results; surface form/serve/return is partially pooled toward that player's own *pre-match* overall observation history with a fixed eight-observation prior. The additional surface Elo deviation is shrunk by n/(n+12). These are research hyperparameters, not published optimal settings.
 
 Production model and CDB remain unchanged. New candidates must still be integrated and tested through `BackstageTalks/tbt` guarded frozen-CDB workflow, with 2024+ supervised fitting and independently checked ATP/WTA segment results.
+
+### Additional point-count sensitivity ablation (exploratory)
+
+Two extra fixed candidates compare weighted averages of recent service/return points with a
+**500 prior-point** shrinkage toward research-only reference rates (.62 serve and .38 return).
+`POINT_POSTERIOR` uses the player's own verified previous denominators, never averages
+a ten-point match as equally reliable as a 100-point match.
+`OPP_POINT_POSTERIOR` additionally uses each opponent's serve/return profile recorded
+**before the previous match**, weighted by that match's observed point denominator.
+
+These are cautious simplified features **inspired by** Gollub (2021), not a reproduction
+of Gollub's Efron-Morris estimator or his hierarchical Markov predictor. Current
+research reference rates, pseudo-count and last-20 window are fixed diagnostic
+choices, not learned optimal coefficients. No claim of real-721 improvement
+may be made from a satellite ATP experiment.
