@@ -78,6 +78,8 @@ class PlayerState:
     def __init__(self):
         self.elo = 1500.0
         self.matches = 0
+        self.surface_elo = {key: 1500.0 for key in SURFACES}
+        self.surface_matches = {key: 0 for key in SURFACES}
         self.history: deque[Observation] = deque(maxlen=120)
 
     def summarize(self, surface: str) -> dict[str, float | int | None]:
@@ -87,7 +89,22 @@ class PlayerState:
             xs = [getattr(x, key) for x in rows]
             xs = [x for x in xs if x is not None]
             return round(sum(xs) / len(xs), 7) if xs else None
+        surface_n = self.surface_matches[surface]
+        # Bayesian-style shrinkage of sparse surface evidence to player's
+        # own overall prior. Hyperparameters fixed before any held-out tests.
+        def shrink(specific: float | None, overall: float | None, n: int, pseudo: int = 8) -> float | None:
+            if overall is None:
+                return None
+            if specific is None:
+                return overall
+            return (n * specific + pseudo * overall) / (n + pseudo)
+        smooth_elo = (self.elo + surface_n/(surface_n+12) *
+                      (self.surface_elo[surface] - self.elo))
         return {"matches": self.matches, "elo": round(self.elo, 6) if self.matches else None,
+                "surface_elo_shrunk": round(smooth_elo, 6) if self.matches else None,
+                "shrunk_surface_form": shrink(mean(same, "won"),mean(recent, "won"),len(same)),
+                "shrunk_surface_serve": shrink(mean(same, "spw"),mean(recent, "spw"),len(same)),
+                "shrunk_surface_return": shrink(mean(same, "rpw"),mean(recent, "rpw"),len(same)),
                 "form20": mean(recent, "won"), "form_surface20": mean(same, "won"),
                 "serve20": mean(recent, "spw"), "return20": mean(recent, "rpw"),
                 "adjusted_serve20": mean(recent, "adj_spw"),
@@ -164,6 +181,13 @@ def build_features(rows: Iterable[dict], tour: str) -> tuple[list[dict], list[di
             k = 24.0
             players[wid].elo += k * (1 - expected)
             players[lid].elo -= k * (1 - expected)
+            sew = players[wid].surface_elo[surf]
+            sel = players[lid].surface_elo[surf]
+            se = 1 / (1 + pow(10, (sel-sew)/400))
+            players[wid].surface_elo[surf] += k*(1-se)
+            players[lid].surface_elo[surf] -= k*(1-se)
+            players[wid].surface_matches[surf] += 1
+            players[lid].surface_matches[surf] += 1
             players[wid].matches += 1
             players[lid].matches += 1
             for pid, won, st, opp_st, old_opp, agekey in (
@@ -213,7 +237,9 @@ def build_features(rows: Iterable[dict], tour: str) -> tuple[list[dict], list[di
                    "rank_diff": (ranking[p2] - ranking[p1]) if all(ranking[p] is not None for p in (p1,p2)) else None,
                    "age30_diff": (age30(p2)-age30(p1)) if age30(p1) is not None and age30(p2) is not None else None,
                    "age_interval_diff": (age_interval(p2)-age_interval(p1)) if age_interval(p1) is not None and age_interval(p2) is not None else None}
-            for name in ("elo", "form20", "form_surface20", "serve20", "return20", "adjusted_serve20",
+            for name in ("elo", "surface_elo_shrunk", "shrunk_surface_form",
+                         "shrunk_surface_serve", "shrunk_surface_return",
+                         "form20", "form_surface20", "serve20", "return20", "adjusted_serve20",
                          "surface_serve20", "surface_return20", "surface_adjusted_serve20",
                          "first_serve_won20", "second_serve_won20", "bp_saved20", "bp_converted20"):
                 out[f"{name}_diff"] = _delta(s1, s2, name)
