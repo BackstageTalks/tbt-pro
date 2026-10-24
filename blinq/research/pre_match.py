@@ -72,6 +72,9 @@ class Observation:
     bp_saved_rate: float | None
     bp_converted_rate: float | None
     age: float | None
+    svpt: int | None = None
+    rvpt: int | None = None
+    adj_rpw: float | None = None
 
 
 class PlayerState:
@@ -100,7 +103,17 @@ class PlayerState:
             return (n * specific + pseudo * overall) / (n + pseudo)
         smooth_elo = (self.elo + surface_n/(surface_n+12) *
                       (self.surface_elo[surface] - self.elo))
+        def point_posterior(rate: str, denominator: str, prior: float, pseudo_points: int = 500) -> float | None:
+            observations = [(getattr(x, rate), getattr(x, denominator)) for x in recent]
+            valid = [(value, pts) for value, pts in observations if value is not None and pts is not None and pts > 0]
+            if not valid:
+                return None
+            return (sum(value*pts for value,pts in valid) + pseudo_points*prior) / (sum(pts for _,pts in valid) + pseudo_points)
         return {"matches": self.matches, "elo": round(self.elo, 6) if self.matches else None,
+                "bayes_serve20": point_posterior("spw", "svpt", .62),
+                "bayes_return20": point_posterior("rpw", "rvpt", .38),
+                "adj_serve_points20": point_posterior("adj_spw", "svpt", .62),
+                "adj_return_points20": point_posterior("adj_rpw", "rvpt", .38),
                 "surface_elo_shrunk": round(smooth_elo, 6) if self.matches else None,
                 "shrunk_surface_form": shrink(mean(same, "won"),mean(recent, "won"),len(same)),
                 "shrunk_surface_serve": shrink(mean(same, "spw"),mean(recent, "spw"),len(same)),
@@ -199,12 +212,15 @@ def build_features(rows: Iterable[dict], tour: str) -> tuple[list[dict], list[di
                 # Opponent return ability was measured before this old match.
                 # 0.38 is a research hyperparameter, not a factual league rate.
                 adj_spw = min(1.0,max(0.0,spw + opp_return - 0.38)) if spw is not None and opp_return is not None else None
+                opp_serve = old_opp["serve20"]
+                adj_rpw = min(1.0,max(0.0,rpw + opp_serve - 0.62)) if rpw is not None and opp_serve is not None else None
                 first_rate = st["first_won"]/st["first_in"] if st and st["first_in"] else None
                 second_n = st["total"]-st["first_in"] if st else 0
                 second_rate = st["second_won"]/second_n if second_n else None
                 bp_saved = st["bp_saved"]/st["bp_faced"] if st and st["bp_faced"] else None
                 bp_converted = (opp_st["bp_faced"]-opp_st["bp_saved"])/opp_st["bp_faced"] if opp_st and opp_st["bp_faced"] else None
-                players[pid].history.append(Observation(date,surf,won,spw,rpw,adj_spw,first_rate,second_rate,bp_saved,bp_converted,_float(row.get(agekey))))
+                players[pid].history.append(Observation(date,surf,won,spw,rpw,adj_spw,first_rate,second_rate,bp_saved,bp_converted,_float(row.get(agekey)),
+                    svpt=st["total"] if st else None, rvpt=opp_st["total"] if opp_st else None, adj_rpw=adj_rpw))
 
     i = 0
     while i < len(matches):
@@ -237,7 +253,9 @@ def build_features(rows: Iterable[dict], tour: str) -> tuple[list[dict], list[di
                    "rank_diff": (ranking[p2] - ranking[p1]) if all(ranking[p] is not None for p in (p1,p2)) else None,
                    "age30_diff": (age30(p2)-age30(p1)) if age30(p1) is not None and age30(p2) is not None else None,
                    "age_interval_diff": (age_interval(p2)-age_interval(p1)) if age_interval(p1) is not None and age_interval(p2) is not None else None}
-            for name in ("elo", "surface_elo_shrunk", "shrunk_surface_form",
+            for name in ("elo", "bayes_serve20", "bayes_return20",
+                         "adj_serve_points20", "adj_return_points20",
+                         "surface_elo_shrunk", "shrunk_surface_form",
                          "shrunk_surface_serve", "shrunk_surface_return",
                          "form20", "form_surface20", "serve20", "return20", "adjusted_serve20",
                          "surface_serve20", "surface_return20", "surface_adjusted_serve20",
