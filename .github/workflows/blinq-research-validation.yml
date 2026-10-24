@@ -7,6 +7,9 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: blinq-721-research-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 jobs:
   offline-research:
     runs-on: ubuntu-latest
