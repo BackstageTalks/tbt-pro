@@ -18,6 +18,20 @@ class SurfaceShrinkageTests(unittest.TestCase):
         self.assertIsNotNone(generated[2]["surface_elo_shrunk_diff"])
         self.assertIsNotNone(generated[3]["shrunk_surface_serve_diff"])
 
+    def test_point_weighted_opponent_posteriors_are_history_only(self):
+        rows=[match("2024-01-01",1,"A","B","Hard"),
+              match("2024-02-05",1,"B","A","Hard"),
+              match("2024-03-10",1,"A","B","Hard")]
+        out,_=build_features(rows,"ATP")
+        # The first completed match has no previous opponent quality context.
+        self.assertIsNone(out[1]["adj_serve_points20_diff"])
+        # By the third tournament, February has matured and opponent's
+        # January pre-match serve/return context can safely be used.
+        self.assertIsNotNone(out[2]["bayes_serve20_diff"])
+        self.assertIsNotNone(out[2]["bayes_return20_diff"])
+        self.assertIsNotNone(out[2]["adj_serve_points20_diff"])
+        self.assertIsNotNone(out[2]["adj_return_points20_diff"])
+
     def test_new_surface_shrinks_to_global_rating(self):
         rows=[match("2024-01-01",1,"A","B","Hard"),
               match("2024-02-05",1,"A","B","Clay")]
