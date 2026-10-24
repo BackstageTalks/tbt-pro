@@ -1,10 +1,10 @@
 {
   "event_id": "17398431",
   "event_key": "2026-10-25_elsa-jacquemot_vs_suzan-lamens",
-  "latest_odds_player1": 2.1,
-  "latest_odds_player2": 1.66667,
+  "latest_odds_player1": 2.75,
+  "latest_odds_player2": 1.4,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-10-24T07:38:04.838004+00:00",
+  "latest_snapshot_time_utc": "2026-10-24T14:08:52.756719+00:00",
   "opening_odds_player1": 2.1,
   "opening_odds_player2": 1.66667,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Suzan Lamens",
   "player2": "Elsa Jacquemot",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "17398431",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-10-24T13:00:00+00:00",
       "target_date": "2026-10-25"
+    },
+    {
+      "event_id": "17398431",
+      "event_key": "2026-10-25_elsa-jacquemot_vs_suzan-lamens",
+      "hours_to_start": -1.05,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.75,
+      "odds_player2": 1.4,
+      "player1": "Suzan Lamens",
+      "player2": "Elsa Jacquemot",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-24T14:08:52.756719+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-10-24T13:05:38+00:00",
+      "target_date": "2026-10-25"
     }
   ],
-  "start_time_utc": "2026-10-24T13:00:00+00:00",
-  "updated_at_utc": "2026-10-24T07:38:32.570992+00:00"
+  "start_time_utc": "2026-10-24T13:05:38+00:00",
+  "updated_at_utc": "2026-10-24T14:09:21.958529+00:00"
 }
