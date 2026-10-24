@@ -41,3 +41,23 @@ Outputs: `research_report.json` (per-year raw/Platt performance and coverage) an
 ## Promotion criteria
 
 Before touching the production probability layer: validate 2016–2026 with ATP and WTA separately, broad levels and surfaces; compare **on identical games** versus archived M0 probabilities, with Brier/log-loss, calibration, coverage, B/A inversion, time leakage audit and reproducible source hashes. No deploy or claim of accuracy lift based only on a synthetic smoke test or green CI.
+
+## 2024+ quarterly pre-match ablation (experimental, not production)
+
+Use the same stored ATP source files, with no provider calls:
+
+```bash
+python -m blinq.research.quarterly --tour ATP \
+  --input data/history/tml/2024.csv \
+  --input data/history/tml/2025.csv \
+  --input data/history/tml/2026.csv \
+  --output /tmp/721-quarterly.json
+```
+
+This fits independent logistic baselines and predeclared surface Elo, shrunk surface form, shrunk serve/return and opponent-adjusted serve candidate families. Each test calendar quarter (2025 Q1–2026 Q3) follows an expanding 2024+ training period and a disjoint 60-day Platt calibration period. An entire tournament-start batch is embargoed for 21 days before it can update the feature history. The 21-day embargo is a conservative approximation and must be replaced by exact timestamps for official 721 evidence.
+
+The report compares candidate families on *identical complete-case matches* by quarter, with accuracy, log-loss, Brier, confidence >=80% accuracy AND coverage and metrics on the baseline's selected >=80% fixtures. Reporting several arms on this development set is exploratory; selection on these test folds requires a **separate unseen holdout**. The source is ATP-only here, and all observations in this satellite test are much narrower than the real CDB: it cannot prove an improvement against the real production champion or model 721.
+
+Features that are genuinely unavailable stay missing. Surface Elo falls back to the player's established overall Elo when there are no prior surface results; surface form/serve/return is partially pooled toward that player's own *pre-match* overall observation history with a fixed eight-observation prior. The additional surface Elo deviation is shrunk by n/(n+12). These are research hyperparameters, not published optimal settings.
+
+Production model and CDB remain unchanged. New candidates must still be integrated and tested through `BackstageTalks/tbt` guarded frozen-CDB workflow, with 2024+ supervised fitting and independently checked ATP/WTA segment results.
