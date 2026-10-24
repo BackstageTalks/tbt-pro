@@ -27,6 +27,11 @@ ARMS = {
     "OPP_ADJUSTED": ("elo_diff", "rank_diff", "age_interval_diff", "surface_elo_shrunk_diff",
                       "shrunk_surface_form_diff", "shrunk_surface_serve_diff",
                       "shrunk_surface_return_diff", "adjusted_serve20_diff"),
+    "POINT_POSTERIOR": ("elo_diff", "rank_diff", "age_interval_diff",
+                       "bayes_serve20_diff", "bayes_return20_diff"),
+    "OPP_POINT_POSTERIOR": ("elo_diff", "rank_diff", "age_interval_diff",
+                           "bayes_serve20_diff", "bayes_return20_diff",
+                           "adj_serve_points20_diff", "adj_return_points20_diff"),
 }
 QUARTERS = ("2025-01-01", "2025-04-01", "2025-07-01", "2025-10-01",
             "2026-01-01", "2026-04-01", "2026-07-01")
