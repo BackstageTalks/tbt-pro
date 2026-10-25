@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.2,
   "latest_odds_player2": 1.61538,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-10-25T14:36:39.205355+00:00",
+  "latest_snapshot_time_utc": "2026-10-25T19:18:48.842080+00:00",
   "opening_odds_player1": 2.2,
   "opening_odds_player2": 1.61538,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Katarina Zavatska",
   "player2": "Manon Leonard",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "17399170",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-10-24T14:41:01+00:00",
       "target_date": "2026-10-25"
+    },
+    {
+      "event_id": "17399170",
+      "event_key": "2026-10-25_katarina-zavatska_vs_manon-leonard",
+      "hours_to_start": -28.63,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.2,
+      "odds_player2": 1.61538,
+      "player1": "Katarina Zavatska",
+      "player2": "Manon Leonard",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-25T19:18:48.842080+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-10-24T14:41:01+00:00",
+      "target_date": "2026-10-25"
     }
   ],
   "start_time_utc": "2026-10-24T14:41:01+00:00",
-  "updated_at_utc": "2026-10-25T14:37:03.030364+00:00"
+  "updated_at_utc": "2026-10-25T19:19:05.489621+00:00"
 }

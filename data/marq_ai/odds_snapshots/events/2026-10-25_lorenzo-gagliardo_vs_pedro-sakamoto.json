@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.375,
   "latest_odds_player2": 1.53333,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-10-24T14:08:52.756719+00:00",
+  "latest_snapshot_time_utc": "2026-10-25T19:18:48.842080+00:00",
   "opening_odds_player1": 2.375,
   "opening_odds_player2": 1.53333,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Lorenzo Gagliardo",
   "player2": "Pedro Sakamoto",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "17399367",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-10-24T16:30:00+00:00",
       "target_date": "2026-10-25"
+    },
+    {
+      "event_id": "17399367",
+      "event_key": "2026-10-25_lorenzo-gagliardo_vs_pedro-sakamoto",
+      "hours_to_start": -26.87,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.375,
+      "odds_player2": 1.53333,
+      "player1": "Lorenzo Gagliardo",
+      "player2": "Pedro Sakamoto",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-25T19:18:48.842080+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-10-24T16:26:28+00:00",
+      "target_date": "2026-10-25"
     }
   ],
-  "start_time_utc": "2026-10-24T16:30:00+00:00",
-  "updated_at_utc": "2026-10-24T14:09:14.137904+00:00"
+  "start_time_utc": "2026-10-24T16:26:28+00:00",
+  "updated_at_utc": "2026-10-25T19:19:09.693902+00:00"
 }
