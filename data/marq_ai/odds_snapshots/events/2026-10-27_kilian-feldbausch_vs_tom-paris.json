@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.44444,
   "latest_odds_player2": 2.625,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-10-27T16:04:10.054336+00:00",
+  "latest_snapshot_time_utc": "2026-10-27T21:01:48.258818+00:00",
   "opening_odds_player1": 1.44444,
   "opening_odds_player2": 2.625,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Kilian Feldbausch",
   "player2": "Tom Paris",
-  "snapshot_count": 4,
+  "snapshot_count": 5,
   "snapshots": [
     {
       "event_id": "17411828",
@@ -97,8 +97,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-10-26T14:05:00+00:00",
       "target_date": "2026-10-27"
+    },
+    {
+      "event_id": "17411828",
+      "event_key": "2026-10-27_kilian-feldbausch_vs_tom-paris",
+      "hours_to_start": -30.95,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.44444,
+      "odds_player2": 2.625,
+      "player1": "Kilian Feldbausch",
+      "player2": "Tom Paris",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-10-27T21:01:48.258818+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-10-26T14:05:00+00:00",
+      "target_date": "2026-10-27"
     }
   ],
   "start_time_utc": "2026-10-26T14:05:00+00:00",
-  "updated_at_utc": "2026-10-27T16:04:25.381673+00:00"
+  "updated_at_utc": "2026-10-27T21:02:04.230887+00:00"
 }
