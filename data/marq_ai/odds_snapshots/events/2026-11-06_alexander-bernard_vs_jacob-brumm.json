@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.66667,
   "latest_odds_player2": 2.1,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-11-06T09:56:39.334269+00:00",
+  "latest_snapshot_time_utc": "2026-11-06T17:42:49.693515+00:00",
   "opening_odds_player1": 1.66667,
   "opening_odds_player2": 2.1,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Alexander Bernard",
   "player2": "Jacob Brumm",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "17494140",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-11-05T15:46:39+00:00",
       "target_date": "2026-11-06"
+    },
+    {
+      "event_id": "17494140",
+      "event_key": "2026-11-06_alexander-bernard_vs_jacob-brumm",
+      "hours_to_start": -25.94,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.66667,
+      "odds_player2": 2.1,
+      "player1": "Alexander Bernard",
+      "player2": "Jacob Brumm",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-11-06T17:42:49.693515+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-11-05T15:46:39+00:00",
+      "target_date": "2026-11-06"
     }
   ],
   "start_time_utc": "2026-11-05T15:46:39+00:00",
-  "updated_at_utc": "2026-11-06T09:56:58.497413+00:00"
+  "updated_at_utc": "2026-11-06T17:43:12.006591+00:00"
 }
