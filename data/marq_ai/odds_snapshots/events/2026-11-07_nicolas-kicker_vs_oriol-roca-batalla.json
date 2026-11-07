@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.53333,
   "latest_odds_player2": 2.375,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-11-06T09:56:39.334269+00:00",
+  "latest_snapshot_time_utc": "2026-11-07T09:18:44.145363+00:00",
   "opening_odds_player1": 1.53333,
   "opening_odds_player2": 2.375,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Oriol Roca Batalla",
   "player2": "Nicolas Kicker",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "17427301",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-11-06T14:00:00+00:00",
       "target_date": "2026-11-07"
+    },
+    {
+      "event_id": "17427301",
+      "event_key": "2026-11-07_nicolas-kicker_vs_oriol-roca-batalla",
+      "hours_to_start": -19.31,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.53333,
+      "odds_player2": 2.375,
+      "player1": "Oriol Roca Batalla",
+      "player2": "Nicolas Kicker",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-11-07T09:18:44.145363+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-11-06T14:00:00+00:00",
+      "target_date": "2026-11-07"
     }
   ],
   "start_time_utc": "2026-11-06T14:00:00+00:00",
-  "updated_at_utc": "2026-11-06T09:57:22.911736+00:00"
+  "updated_at_utc": "2026-11-07T09:19:06.964441+00:00"
 }
