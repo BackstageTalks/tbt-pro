@@ -1,22 +1,22 @@
 # BackstageTalks Project Development Metrics
 
-Generated: `2026-11-02T12:45:37+00:00`
+Generated: `2026-11-09T13:13:19+00:00`
 
 ## Customer-facing summary
 - Maintained source/config/docs files: **124**
 - Maintained source/config/docs lines: **51,915**
 - Estimated maintained code/config lines: **43,877**
-- Data/cache files tracked separately: **14,473**
-- Data/cache lines tracked separately: **12,717,662**
-- All tracked text files together: **14,597 files / 12,769,577 lines**
-- Git commits: **2669**
-- Latest commit: `b39a788d3 2026-11-02 Update MARQ internal odds snapshots`
+- Data/cache files tracked separately: **15,300**
+- Data/cache lines tracked separately: **12,782,422**
+- All tracked text files together: **15,424 files / 12,834,337 lines**
+- Git commits: **2685**
+- Latest commit: `00e4aa217 2026-11-09 Update MARQ internal odds snapshots`
 
 ## By file type
 
 | Extension | Files | Lines | Code/config lines | Size KB |
 |---:|---:|---:|---:|---:|
-| `.json` | 14,458 | 12,675,247 | 12,675,246 | 348909.1 |
+| `.json` | 15,285 | 12,740,007 | 12,740,006 | 351102.0 |
 | `.csv` | 15 | 42,415 | 42,415 | 8556.5 |
 | `.py` | 103 | 48,561 | 40,960 | 2144.2 |
 | `.yml` | 18 | 3,227 | 2,810 | 118.1 |
@@ -29,7 +29,7 @@ Generated: `2026-11-02T12:45:37+00:00`
 | Directory | Files | Lines | Code/config lines |
 |---|---:|---:|---:|
 | `blinq` | 1,328 | 10,757,355 | 10,756,968 |
-| `data` | 13,138 | 1,598,430 | 1,598,430 |
+| `data` | 13,965 | 1,663,190 | 1,663,190 |
 | `thinq` | 42 | 370,335 | 369,466 |
 | `corq` | 37 | 26,519 | 22,228 |
 | `marq` | 7 | 7,045 | 5,878 |
