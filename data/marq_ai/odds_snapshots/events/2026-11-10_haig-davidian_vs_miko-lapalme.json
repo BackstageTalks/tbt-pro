@@ -4,7 +4,7 @@
   "latest_odds_player1": 8.5,
   "latest_odds_player2": 1.05,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-11-09T21:08:44.898487+00:00",
+  "latest_snapshot_time_utc": "2026-11-10T10:29:53.547327+00:00",
   "opening_odds_player1": 8.5,
   "opening_odds_player2": 1.05,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Haig Davidian",
   "player2": "Miko Lapalme",
-  "snapshot_count": 1,
+  "snapshot_count": 2,
   "snapshots": [
     {
       "event_id": "17524431",
@@ -34,8 +34,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-11-09T18:32:41+00:00",
       "target_date": "2026-11-10"
+    },
+    {
+      "event_id": "17524431",
+      "event_key": "2026-11-10_haig-davidian_vs_miko-lapalme",
+      "hours_to_start": -15.95,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 8.5,
+      "odds_player2": 1.05,
+      "player1": "Haig Davidian",
+      "player2": "Miko Lapalme",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-11-10T10:29:53.547327+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-11-09T18:32:41+00:00",
+      "target_date": "2026-11-10"
     }
   ],
   "start_time_utc": "2026-11-09T18:32:41+00:00",
-  "updated_at_utc": "2026-11-09T21:09:20.510187+00:00"
+  "updated_at_utc": "2026-11-10T10:30:15.764811+00:00"
 }
