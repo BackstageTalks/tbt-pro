@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.75,
   "latest_odds_player2": 1.4,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-11-11T18:07:19.804561+00:00",
+  "latest_snapshot_time_utc": "2026-11-12T10:23:07.195982+00:00",
   "opening_odds_player1": 2.75,
   "opening_odds_player2": 1.4,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Francesco Cordova",
   "player2": "Teodor Cariov",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "17507243",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-11-11T15:00:00+00:00",
       "target_date": "2026-11-12"
+    },
+    {
+      "event_id": "17507243",
+      "event_key": "2026-11-12_francesco-cordova_vs_teodor-cariov",
+      "hours_to_start": -19.39,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.75,
+      "odds_player2": 1.4,
+      "player1": "Francesco Cordova",
+      "player2": "Teodor Cariov",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-11-12T10:23:07.195982+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-11-11T15:00:00+00:00",
+      "target_date": "2026-11-12"
     }
   ],
   "start_time_utc": "2026-11-11T15:00:00+00:00",
-  "updated_at_utc": "2026-11-11T18:07:58.764771+00:00"
+  "updated_at_utc": "2026-11-12T10:23:28.618887+00:00"
 }
