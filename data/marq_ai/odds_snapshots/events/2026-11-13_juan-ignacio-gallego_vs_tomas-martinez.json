@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.625,
   "latest_odds_player2": 1.44444,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-11-13T10:04:22.125712+00:00",
+  "latest_snapshot_time_utc": "2026-11-13T18:08:40.158133+00:00",
   "opening_odds_player1": 2.625,
   "opening_odds_player2": 1.44444,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Juan Ignacio Gallego",
   "player2": "Tomas Martinez",
-  "snapshot_count": 1,
+  "snapshot_count": 2,
   "snapshots": [
     {
       "event_id": "17541852",
@@ -34,8 +34,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-11-12T12:39:17+00:00",
       "target_date": "2026-11-13"
+    },
+    {
+      "event_id": "17541852",
+      "event_key": "2026-11-13_juan-ignacio-gallego_vs_tomas-martinez",
+      "hours_to_start": -29.49,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.625,
+      "odds_player2": 1.44444,
+      "player1": "Juan Ignacio Gallego",
+      "player2": "Tomas Martinez",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-11-13T18:08:40.158133+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-11-12T12:39:17+00:00",
+      "target_date": "2026-11-13"
     }
   ],
   "start_time_utc": "2026-11-12T12:39:17+00:00",
-  "updated_at_utc": "2026-11-13T10:04:35.018756+00:00"
+  "updated_at_utc": "2026-11-13T18:08:57.301336+00:00"
 }

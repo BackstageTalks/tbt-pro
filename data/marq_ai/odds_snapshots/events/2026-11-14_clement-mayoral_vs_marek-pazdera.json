@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.90909,
   "latest_odds_player2": 1.8,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-11-13T10:04:22.125712+00:00",
+  "latest_snapshot_time_utc": "2026-11-13T18:08:40.158133+00:00",
   "opening_odds_player1": 1.90909,
   "opening_odds_player2": 1.8,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Marek Pazdera",
   "player2": "Clement Mayoral",
-  "snapshot_count": 1,
+  "snapshot_count": 2,
   "snapshots": [
     {
       "event_id": "17529502",
@@ -34,8 +34,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-11-13T18:00:00+00:00",
       "target_date": "2026-11-14"
+    },
+    {
+      "event_id": "17529502",
+      "event_key": "2026-11-14_clement-mayoral_vs_marek-pazdera",
+      "hours_to_start": 0.02,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.90909,
+      "odds_player2": 1.8,
+      "player1": "Marek Pazdera",
+      "player2": "Clement Mayoral",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-11-13T18:08:40.158133+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-11-13T18:10:00+00:00",
+      "target_date": "2026-11-14"
     }
   ],
-  "start_time_utc": "2026-11-13T18:00:00+00:00",
-  "updated_at_utc": "2026-11-13T10:04:44.811336+00:00"
+  "start_time_utc": "2026-11-13T18:10:00+00:00",
+  "updated_at_utc": "2026-11-13T18:09:18.277601+00:00"
 }
