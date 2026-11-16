@@ -4,7 +4,7 @@
   "latest_odds_player1": 2.625,
   "latest_odds_player2": 1.44444,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-11-16T10:13:16.288056+00:00",
+  "latest_snapshot_time_utc": "2026-11-16T20:42:38.159883+00:00",
   "opening_odds_player1": 2.625,
   "opening_odds_player2": 1.44444,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Matias Soto",
   "player2": "Alex Barrena",
-  "snapshot_count": 1,
+  "snapshot_count": 2,
   "snapshots": [
     {
       "event_id": "17561940",
@@ -34,8 +34,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-11-17T16:30:00+00:00",
       "target_date": "2026-11-18"
+    },
+    {
+      "event_id": "17561940",
+      "event_key": "2026-11-18_alex-barrena_vs_matias-soto",
+      "hours_to_start": 19.79,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 2.625,
+      "odds_player2": 1.44444,
+      "player1": "Matias Soto",
+      "player2": "Alex Barrena",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-11-16T20:42:38.159883+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-11-17T16:30:00+00:00",
+      "target_date": "2026-11-18"
     }
   ],
   "start_time_utc": "2026-11-17T16:30:00+00:00",
-  "updated_at_utc": "2026-11-16T10:14:00.453433+00:00"
+  "updated_at_utc": "2026-11-16T20:44:29.735473+00:00"
 }
