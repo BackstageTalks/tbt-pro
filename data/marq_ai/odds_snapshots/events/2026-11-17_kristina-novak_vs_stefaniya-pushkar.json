@@ -4,7 +4,7 @@
   "latest_odds_player1": 1.125,
   "latest_odds_player2": 5.5,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-11-17T11:14:27.486241+00:00",
+  "latest_snapshot_time_utc": "2026-11-17T23:41:17.596932+00:00",
   "opening_odds_player1": 1.125,
   "opening_odds_player2": 5.5,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Kristina Novak",
   "player2": "Stefaniya Pushkar",
-  "snapshot_count": 3,
+  "snapshot_count": 4,
   "snapshots": [
     {
       "event_id": "17566282",
@@ -76,8 +76,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-11-16T13:23:24+00:00",
       "target_date": "2026-11-17"
+    },
+    {
+      "event_id": "17566282",
+      "event_key": "2026-11-17_kristina-novak_vs_stefaniya-pushkar",
+      "hours_to_start": -34.3,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 1.125,
+      "odds_player2": 5.5,
+      "player1": "Kristina Novak",
+      "player2": "Stefaniya Pushkar",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-11-17T23:41:17.596932+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-11-16T13:23:24+00:00",
+      "target_date": "2026-11-17"
     }
   ],
   "start_time_utc": "2026-11-16T13:23:24+00:00",
-  "updated_at_utc": "2026-11-17T11:14:36.917195+00:00"
+  "updated_at_utc": "2026-11-17T23:41:28.784090+00:00"
 }
