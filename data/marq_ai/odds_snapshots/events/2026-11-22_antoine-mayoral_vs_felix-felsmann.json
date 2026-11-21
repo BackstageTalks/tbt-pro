@@ -4,7 +4,7 @@
   "latest_odds_player1": 3.25,
   "latest_odds_player2": 1.33333,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-11-21T10:16:49.617403+00:00",
+  "latest_snapshot_time_utc": "2026-11-21T17:48:09.236444+00:00",
   "opening_odds_player1": 3.25,
   "opening_odds_player2": 1.33333,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Felix Felsmann",
   "player2": "Antoine Mayoral",
-  "snapshot_count": 1,
+  "snapshot_count": 2,
   "snapshots": [
     {
       "event_id": "17603162",
@@ -34,8 +34,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-11-21T15:10:00+00:00",
       "target_date": "2026-11-22"
+    },
+    {
+      "event_id": "17603162",
+      "event_key": "2026-11-22_antoine-mayoral_vs_felix-felsmann",
+      "hours_to_start": -0.3,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 3.25,
+      "odds_player2": 1.33333,
+      "player1": "Felix Felsmann",
+      "player2": "Antoine Mayoral",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-11-21T17:48:09.236444+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-11-21T17:30:00+00:00",
+      "target_date": "2026-11-22"
     }
   ],
-  "start_time_utc": "2026-11-21T15:10:00+00:00",
-  "updated_at_utc": "2026-11-21T10:17:25.847162+00:00"
+  "start_time_utc": "2026-11-21T17:30:00+00:00",
+  "updated_at_utc": "2026-11-21T17:48:43.591245+00:00"
 }
