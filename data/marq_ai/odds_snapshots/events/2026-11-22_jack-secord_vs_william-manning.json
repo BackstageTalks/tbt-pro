@@ -4,7 +4,7 @@
   "latest_odds_player1": 4.0,
   "latest_odds_player2": 1.22222,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-11-22T10:23:07.756165+00:00",
+  "latest_snapshot_time_utc": "2026-11-22T18:05:02.822584+00:00",
   "opening_odds_player1": 1.05,
   "opening_odds_player2": 8.5,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "William Manning",
   "player2": "Jack Secord",
-  "snapshot_count": 2,
+  "snapshot_count": 3,
   "snapshots": [
     {
       "event_id": "17602988",
@@ -55,8 +55,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-11-21T16:09:58+00:00",
       "target_date": "2026-11-22"
+    },
+    {
+      "event_id": "17602988",
+      "event_key": "2026-11-22_jack-secord_vs_william-manning",
+      "hours_to_start": -25.92,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 4.0,
+      "odds_player2": 1.22222,
+      "player1": "William Manning",
+      "player2": "Jack Secord",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-11-22T18:05:02.822584+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-11-21T16:09:58+00:00",
+      "target_date": "2026-11-22"
     }
   ],
   "start_time_utc": "2026-11-21T16:09:58+00:00",
-  "updated_at_utc": "2026-11-22T10:23:27.620865+00:00"
+  "updated_at_utc": "2026-11-22T18:05:28.345221+00:00"
 }

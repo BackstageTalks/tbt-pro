@@ -1,10 +1,10 @@
 {
   "event_id": "17537267",
   "event_key": "2026-11-23_dylan-dietrich_vs_liam-draxl",
-  "latest_odds_player1": 2.625,
-  "latest_odds_player2": 1.44444,
+  "latest_odds_player1": 67.0,
+  "latest_odds_player2": 1.00133,
   "latest_provider_name": "bulk",
-  "latest_snapshot_time_utc": "2026-11-22T10:23:07.756165+00:00",
+  "latest_snapshot_time_utc": "2026-11-22T18:05:02.822584+00:00",
   "opening_odds_player1": 2.625,
   "opening_odds_player2": 1.44444,
   "opening_provider_name": "bulk",
@@ -12,7 +12,7 @@
   "opening_source": "BULK_ODDS",
   "player1": "Liam Draxl",
   "player2": "Dylan Dietrich",
-  "snapshot_count": 1,
+  "snapshot_count": 2,
   "snapshots": [
     {
       "event_id": "17537267",
@@ -34,8 +34,29 @@
       "source": "TennisAPI_PRO",
       "start_time_utc": "2026-11-22T17:00:00+00:00",
       "target_date": "2026-11-23"
+    },
+    {
+      "event_id": "17537267",
+      "event_key": "2026-11-23_dylan-dietrich_vs_liam-draxl",
+      "hours_to_start": -0.92,
+      "initial_odds_player1": null,
+      "initial_odds_player2": null,
+      "market": "match_winner",
+      "odds_player1": 67.0,
+      "odds_player2": 1.00133,
+      "player1": "Liam Draxl",
+      "player2": "Dylan Dietrich",
+      "provider_id": null,
+      "provider_name": "bulk",
+      "schema": "marq_internal_odds_snapshot_v1",
+      "snapshot_role": "CURRENT",
+      "snapshot_source": "BULK_ODDS",
+      "snapshot_time_utc": "2026-11-22T18:05:02.822584+00:00",
+      "source": "TennisAPI_PRO",
+      "start_time_utc": "2026-11-22T17:10:00+00:00",
+      "target_date": "2026-11-23"
     }
   ],
-  "start_time_utc": "2026-11-22T17:00:00+00:00",
-  "updated_at_utc": "2026-11-22T10:23:36.375540+00:00"
+  "start_time_utc": "2026-11-22T17:10:00+00:00",
+  "updated_at_utc": "2026-11-22T18:05:44.541137+00:00"
 }
